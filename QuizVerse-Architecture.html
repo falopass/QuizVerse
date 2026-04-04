@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizVerse · Arquitectura y Estado del Proyecto</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --bg-soft: #fbf7f1;
+      --panel: rgba(255, 250, 244, 0.82);
+      --panel-strong: rgba(255, 252, 248, 0.92);
+      --ink: #1e1713;
+      --muted: #6a6058;
+      --line: rgba(70, 50, 38, 0.12);
+      --line-strong: rgba(70, 50, 38, 0.22);
+      --accent: #bb4b35;
+      --accent-2: #8c3f2f;
+      --success: #2d8a54;
+      --warning: #c18224;
+      --danger: #bf3e3e;
+      --shadow: 0 18px 60px rgba(67, 45, 27, 0.12);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.72), transparent 34%),
+        linear-gradient(90deg, rgba(70,50,38,0.04) 1px, transparent 1px),
+        linear-gradient(rgba(70,50,38,0.04) 1px, transparent 1px),
+        var(--bg);
+      background-size: auto, 64px 64px, 64px 64px, auto;
+      color: var(--ink);
+      font: 16px/1.7 Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .shell { max-width: var(--max); margin: 0 auto; padding: 0 24px 72px; }
+    .hero {
+      padding: 48px 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(247, 241, 232, 0.78);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 28px;
+    }
+
+    .hero-inner, .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(2.3rem, 5vw, 4.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      max-width: 900px;
+    }
+
+    .brand h1 span { color: var(--accent); }
+    .brand p { margin: 18px 0 0; max-width: 780px; color: var(--muted); font-size: 1.05rem; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .meta-card, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .meta-card { padding: 18px 18px 16px; }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .meta-value {
+      margin-top: 10px;
+      font-size: 1.8rem;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    .nav {
+      position: sticky;
+      top: 182px;
+      z-index: 15;
+      margin-bottom: 28px;
+    }
+
+    .nav-inner {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      padding-bottom: 10px;
+    }
+
+    .nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255, 251, 246, 0.88);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--ink);
+      font-size: 0.83rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav a:hover { border-color: var(--line-strong); background: #fff; }
+
+    section { margin: 0 0 28px; }
+    .section-head { margin-bottom: 16px; }
+    .section-kicker {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+    }
+    .section-head p {
+      margin: 12px 0 0;
+      max-width: 860px;
+      color: var(--muted);
+    }
+
+    .card { padding: 24px; }
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid currentColor;
+    }
+    .done { color: var(--success); background: rgba(45, 138, 84, 0.08); }
+    .progress { color: var(--warning); background: rgba(193, 130, 36, 0.08); }
+    .risk { color: var(--danger); background: rgba(191, 62, 62, 0.08); }
+
+    h3 { margin: 0 0 12px; font-size: 1.2rem; letter-spacing: -0.03em; }
+    p { margin: 0; }
+    ul { margin: 14px 0 0; padding-left: 18px; }
+    li + li { margin-top: 8px; }
+    code {
+      background: rgba(30, 23, 19, 0.06);
+      border: 1px solid rgba(30, 23, 19, 0.08);
+      border-radius: 10px;
+      padding: 2px 7px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+    pre {
+      overflow-x: auto;
+      margin: 14px 0 0;
+      padding: 16px 18px;
+      border-radius: var(--radius-sm);
+      background: #1f1814;
+      color: #f8efe4;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .timeline-item {
+      border-left: 2px solid var(--line-strong);
+      padding-left: 16px;
+    }
+    .timeline-item strong { display: block; margin-bottom: 4px; }
+
+    .footer-note {
+      margin-top: 32px;
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.45);
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    @media (max-width: 980px) {
+      .meta-grid, .grid.four, .grid.three, .grid.two { grid-template-columns: 1fr; }
+      .nav { top: 220px; }
+    }
+
+    @media (max-width: 720px) {
+      .shell, .hero-inner, .nav-inner { padding-left: 16px; padding-right: 16px; }
+      .hero { padding-top: 34px; }
+      .nav { top: 238px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="section-kicker">QuizVerse · Arquitectura viva</div>
+          <h1>Estado real del producto <span>al 4 de abril de 2026</span></h1>
+          <p>
+            Este documento ya no describe una idea abstracta: describe el estado actual de QuizVerse como producto bilingüe,
+            con catálogo real en Supabase, rutas localizadas <code>/en</code> y <code>/es</code>, pipeline editorial de seed,
+            generación AI, covers procedurales + stock, y una base de lanzamiento bastante más madura que la documentación original.
+          </p>
+        </div>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-card"><div class="meta-label">Catálogo real</div><div class="meta-value">116</div></div>
+        <div class="meta-card"><div class="meta-label">Idiomas activos</div><div class="meta-value">EN / ES</div></div>
+        <div class="meta-card"><div class="meta-label">Featured</div><div class="meta-value">13</div></div>
+        <div class="meta-card"><div class="meta-label">Covers stock</div><div class="meta-value">40</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#resumen">Resumen</a>
+      <a href="#estado">Estado</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <a href="#frontend">Frontend</a>
+      <a href="#backend">Backend</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#covers">Covers</a>
+      <a href="#seo">SEO & Telemetría</a>
+      <a href="#faltantes">Faltantes</a>
+      <a href="#lanzamiento">Lanzamiento</a>
+    </div>
+  </nav>
+
+  <main class="shell">
+    <section id="resumen">
+      <div class="section-head">
+        <div class="section-kicker">Resumen ejecutivo</div>
+        <h2>QuizVerse ya es un producto funcional, no una demo</h2>
+        <p>
+          La aplicación fue rediseñada como experiencia editorial bilingüe, conectada a Supabase real, con catálogo sembrado,
+          juego funcional, resultados compartibles, creación manual y con IA, metadata por locale, OG images, monitorización básica
+          y sistema de covers escalable para franquicias y long tail.
+        </p>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <span class="status done">Hecho</span>
+          <ul>
+            <li>Rutas localizadas <code>/en</code> y <code>/es</code> con redirección automática desde raíz.</li>
+            <li>Home, catálogo, detalle, play, result, login, create, leaderboard y profile unificados bajo la misma dirección visual.</li>
+            <li>Catálogo real de <strong>116 quizzes</strong> importados a Supabase: <strong>59 EN</strong> y <strong>57 ES</strong>.</li>
+            <li>Pipeline editorial reproducible con scripts para polish, covers y sync a Supabase.</li>
+            <li>Build de producción pasando con <code>Next.js 16.2.1</code> y <code>TypeScript</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="status progress">En cierre</span>
+          <ul>
+            <li>Curación editorial fina de los quizzes top que irán arriba del fold y en campañas de adquisición.</li>
+            <li>Balance de categorías en DB: el seed aún está cargado hacia <code>culture</code> y <code>personality</code>.</li>
+            <li>Setup de monetización real con Ads, políticas y optimización de rendimiento para páginas de alto tráfico.</li>
+            <li>Deploy final en Vercel + dominio <code>quizverse.org</code> + smoke QA final en móvil y desktop.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="estado">
+      <div class="section-head">
+        <div class="section-kicker">Estado actual</div>
+        <h2>Qué está completo y qué ya no es un bloqueo</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Experiencia pública</h3>
+          <p>La experiencia principal ya está cohesionada visualmente y se siente producto.</p>
+          <ul>
+            <li>Home editorial con lead quiz, support rail y strips curadas.</li>
+            <li>Explore editorial con filtros, lanes, pulse card y grilla secundaria.</li>
+            <li>Detalle con portada protagonista, payoff, quick preview y related quizzes.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Flujo de juego</h3>
+          <p>El núcleo del producto ya es jugable y persiste resultados.</p>
+          <ul>
+            <li>Play flow localizado.</li>
+            <li>Result flow compartible.</li>
+            <li>Sesiones reales con <code>share_token</code>.</li>
+            <li>Reporte básico de quiz implementado.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Base técnica</h3>
+          <p>La app compila, enruta bien y ya no depende solo de mocks visibles.</p>
+          <ul>
+            <li>Supabase SSR + server actions.</li>
+            <li>Metadata por locale y OG images.</li>
+            <li>Analytics y monitoring básicos vía API.</li>
+            <li>Redirección legacy → locale sin loops.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="arquitectura">
+      <div class="section-head">
+        <div class="section-kicker">Arquitectura</div>
+        <h2>Stack y decisiones estructurales</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Stack principal</h3>
+          <ul>
+            <li><strong>Framework:</strong> <code>Next.js 16.2.1</code> + App Router.</li>
+            <li><strong>UI:</strong> <code>React 19</code>, <code>Framer Motion</code>, CSS/Tailwind tokens propios.</li>
+            <li><strong>Backend:</strong> <code>Supabase</code> + <code>@supabase/ssr</code>.</li>
+            <li><strong>Estado:</strong> <code>Zustand</code>.</li>
+            <li><strong>Validación:</strong> <code>Zod</code>.</li>
+            <li><strong>Rate limiting / cache:</strong> <code>Upstash Redis</code>.</li>
+            <li><strong>OG / render visual:</strong> <code>Satori</code> + <code>Resvg</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Decisiones de producto vigentes</h3>
+          <ul>
+            <li>Estrategia pública con locale por ruta: <code>/en</code> y <code>/es</code>.</li>
+            <li>Catálogo real en Supabase; mocks relegados a fallback de desarrollo.</li>
+            <li>Generación AI + seed curado + polish editorial.</li>
+            <li>Covers en capas: procedural por defecto, stock para los más importantes, preparado para arte IA futuro.</li>
+            <li>Producto gratuito pensado para monetización por publicidad y distribución editorial/social.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Mapa general del sistema</h3>
+        <pre>Browser / Bots
+  ├─ Proxy de locale y sesión (proxy.ts)
+  ├─ App Router /[locale]
+  │   ├─ Home editorial
+  │   ├─ Explore / Category / Detail
+  │   ├─ Play / Result
+  │   ├─ Create / AI / Login / Profile / Leaderboard
+  │   └─ Metadata / OG / Stock covers / Procedural covers
+  ├─ Server data layer (src/lib/data/public.ts)
+  ├─ Server actions (src/actions/quiz.actions.ts)
+  ├─ Supabase (quizzes, categories, profiles, sessions, likes, achievements)
+  └─ Seed & asset pipeline (scripts/*.mjs)</pre>
+      </div>
+    </section>
+
+    <section id="frontend">
+      <div class="section-head">
+        <div class="section-kicker">Frontend</div>
+        <h2>Qué se rehizo realmente en la superficie visible</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Rutas principales</h3>
+          <ul>
+            <li><code>/[locale]</code>: home editorial con hero, lead quiz y rails.</li>
+            <li><code>/[locale]/quiz</code>: discovery editorial con filtros y jerarquía real.</li>
+            <li><code>/[locale]/quiz/[slug]</code>: detalle de conversión con portada, valor y preview.</li>
+            <li><code>/[locale]/quiz/[slug]/play</code>: flujo de juego localizado.</li>
+            <li><code>/[locale]/quiz/[slug]/result</code>: resultado compartible y visualmente más fuerte.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Superficies secundarias</h3>
+          <ul>
+            <li>Login integrado visualmente con el resto del producto.</li>
+            <li>Create manual y Create AI modernizados.</li>
+            <li>Leaderboard y profile con diseño y metadata consistentes.</li>
+            <li>Footer, nav, locale switcher y mobile nav ya alineados con la experiencia editorial.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="backend">
+      <div class="section-head">
+        <div class="section-kicker">Backend</div>
+        <h2>Datos reales, acciones y persistencia</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>Consultas públicas</h3>
+          <ul>
+            <li><code>getHomePayload()</code> con totales reales y selección localizada.</li>
+            <li><code>getPublishedQuizzes()</code>, <code>getQuizBySlug()</code> y <code>getRelatedQuizzes()</code> conectados a Supabase.</li>
+            <li>Inferencia de <code>visual_profile</code> en la capa pública.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Escritura</h3>
+          <ul>
+            <li>Creación manual y con IA guardando idioma, slug y estructura real.</li>
+            <li>Persistencia de sesiones/resultados sin duplicar estadísticas por trigger + app.</li>
+            <li>Like/report/share flows ya aterrizados en una base funcional.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Integraciones</h3>
+          <ul>
+            <li><code>/api/quiz/generate</code> con validación y <code>visual_profile</code>.</li>
+            <li><code>/api/analytics</code> y <code>/api/monitor</code> para eventos y errores de cliente.</li>
+            <li>Middleware/proxy refrescando sesión antes de decidir locale.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="catalogo">
+      <div class="section-head">
+        <div class="section-kicker">Catálogo y contenido</div>
+        <h2>Estado actual del seed editorial</h2>
+      </div>
+      <div class="grid four">
+        <div class="card"><h3>Total</h3><p>116 quizzes sembrados e importados a Supabase.</p></div>
+        <div class="card"><h3>Idiomas</h3><p>59 en inglés y 57 en español.</p></div>
+        <div class="card"><h3>Tipos</h3><p>56 trivia y 60 personality.</p></div>
+        <div class="card"><h3>Curación</h3><p>13 featured y 103 strong.</p></div>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Cómo se construye hoy el catálogo</h3>
+          <ul>
+            <li>Generación batch vía OpenRouter/Qwen para seeds masivos.</li>
+            <li>Polish editorial reproducible con <code>npm run seed:polish</code>.</li>
+            <li>Asignación de perfiles visuales, featured y covers.</li>
+            <li>Import final a Supabase con <code>npm run seed:supabase:import</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Qué todavía conviene mejorar</h3>
+          <ul>
+            <li>El balance de categorías en DB aún está cargado a <code>culture</code> y <code>personality</code>.</li>
+            <li>Los quizzes top ya están bastante pulidos; el long tail aún puede seguir mejorándose.</li>
+            <li>Conviene una revisión humana final de los 20–30 quizzes que vivirán arriba del fold o en campañas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="covers">
+      <div class="section-head">
+        <div class="section-kicker">Sistema visual de covers</div>
+        <h2>De fallback procedural a stock curado por franquicia</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Capas actuales</h3>
+          <ul>
+            <li><strong>Procedural:</strong> fallback inmediato para todo quiz nuevo.</li>
+            <li><strong>Stock:</strong> para quizzes destacados y fuertes, proxyeado desde <code>/stock-covers/[slug]</code>.</li>
+            <li><strong>Preparado para IA:</strong> la arquitectura ya soporta mover los top covers a assets generados propios.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Estado hoy</h3>
+          <ul>
+            <li>40 quizzes prioritarios usan stock covers.</li>
+            <li>Matching endurecido para evitar retratos o imágenes irrelevantes.</li>
+            <li>Overrides manuales para casos sensibles como <code>Star Wars</code>, <code>Euphoria</code> y <code>Classroom of the Elite</code>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Proveedor actual</h3>
+        <p>
+          El sistema usa principalmente <strong>Pexels</strong> y deja el manifiesto local de atribución en
+          <code>src/lib/data/stock-cover-manifest.json</code>. Pixabay queda como fallback posible, aunque la curación actual prioriza Pexels.
+        </p>
+      </div>
+    </section>
+
+    <section id="seo">
+      <div class="section-head">
+        <div class="section-kicker">SEO, metadata y telemetría</div>
+        <h2>Base pre-lanzamiento ya integrada</h2>
+      </div>
+      <div class="grid three">
+        <div class="card">
+          <h3>SEO</h3>
+          <ul>
+            <li><code>metadataBase</code> con <code>NEXT_PUBLIC_SITE_URL</code>.</li>
+            <li>Alternates y canonical por locale.</li>
+            <li>OG images para home y detail.</li>
+            <li><code>max-image-preview: large</code> para Discover.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Analytics</h3>
+          <ul>
+            <li><code>page_view</code></li>
+            <li><code>locale_switch</code></li>
+            <li><code>quiz_start</code></li>
+            <li><code>quiz_complete</code></li>
+            <li><code>create_start</code> / <code>create_complete</code></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Monitoring</h3>
+          <ul>
+            <li>API mínima de monitor para client errors.</li>
+            <li>Logs estructurados para eventos y errores.</li>
+            <li>Base suficiente para luego conectar Sentry/PostHog/Amplitude si hace falta.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faltantes">
+      <div class="section-head">
+        <div class="section-kicker">Qué falta antes de decir “listo para mercado”</div>
+        <h2>Los huecos restantes ya no son de base, sino de acabado y operación</h2>
+      </div>
+      <div class="grid two">
+        <div class="card">
+          <span class="status progress">Pendientes importantes</span>
+          <ul>
+            <li>QA visual final en navegador real sobre <code>/en</code>, <code>/es</code>, detail, play y result.</li>
+            <li>Curación de los quizzes top que se usarán para adquisición y homepage final.</li>
+            <li>Monetización: definir stack publicitario, posiciones, CLS y política de cookies/consent si aplica.</li>
+            <li>Expandir catálogo en categorías como <code>trivia</code> y <code>lifestyle</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="status risk">Riesgos a vigilar</span>
+          <ul>
+            <li>No lanzar demasiadas páginas flojas solo por cantidad: el posicionamiento debe seguir siendo editorial.</li>
+            <li>Los covers stock son buenos para arrancar, pero los top quizzes ganarán mucho con arte IA o curación manual más fina.</li>
+            <li>Antes de producción, revisar con calma cualquier clave expuesta en desarrollo y rotarlas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="lanzamiento">
+      <div class="section-head">
+        <div class="section-kicker">Checklist de lanzamiento</div>
+        <h2>Lo que falta para pasar de repositorio sólido a producto en producción</h2>
+      </div>
+      <div class="card">
+        <div class="timeline">
+          <div class="timeline-item"><strong>1. Entorno y deploy</strong>Vercel project, variables de entorno de producción, dominio <code>quizverse.org</code> y DNS vía Cloudflare.</div>
+          <div class="timeline-item"><strong>2. QA final</strong>Revisar Home, Explore, Detail, Play, Result, Login, Create y locale switching en desktop y móvil.</div>
+          <div class="timeline-item"><strong>3. Monetización</strong>Integrar la primera capa de Ads sin romper la experiencia ni el rendimiento.</div>
+          <div class="timeline-item"><strong>4. Adquisición</strong>Empujar los quizzes featured y de tendencia con SEO, Shorts, social loops y páginas de franquicia/hubs.</div>
+        </div>
+      </div>
+      <div class="footer-note">
+        Documento actualizado manualmente para reflejar el estado real del proyecto después del rediseño editorial, la conexión a Supabase,
+        la localización EN/ES, el seed curado y el sistema de covers híbrido. Si el producto sigue avanzando, este archivo debería mantenerse
+        como fotografía ejecutiva de la arquitectura viva, no como documento histórico congelado.
+      </div>
+    </section>
+  </main>
+</body>
+</html>

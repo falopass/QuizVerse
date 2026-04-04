@@ -1,0 +1,47 @@
+{
+  "total": 116,
+  "spanish": 57,
+  "featured": 13,
+  "strong": 103,
+  "needsEdit": 0,
+  "byCategory": {
+    "culture": 55,
+    "personality": 60,
+    "trivia": 1
+  },
+  "overriddenTitles": [
+    "es-que-tan-afilado-esta-tu-lore-de-star-wars-maul",
+    "es-trivia-fan-de-the-boys",
+    "es-trivia-fan-de-stranger-things",
+    "es-trivia-fan-de-euphoria",
+    "es-trivia-fan-de-beef",
+    "es-trivia-fan-de-hacks",
+    "es-trivia-fan-de-star-wars",
+    "es-trivia-fan-de-re-zero",
+    "es-trivia-fan-de-witch-hat-atelier",
+    "es-trivia-fan-de-classroom-of-the-elite",
+    "es-trivia-fan-de-dr-stone",
+    "es-que-vibe-de-mario-galaxy-eres",
+    "es-cual-es-tu-estilo-de-conflicto-tipo-beef",
+    "es-que-tan-profundo-llega-tu-conocimiento-de-beef",
+    "es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite",
+    "es-que-rol-jugarias-dentro-de-classroom-of-the-elite"
+  ],
+  "overriddenDescriptions": [
+    "es-que-tan-afilado-esta-tu-lore-de-star-wars-maul",
+    "es-trivia-fan-de-the-boys",
+    "es-trivia-fan-de-stranger-things",
+    "es-trivia-fan-de-euphoria",
+    "es-trivia-fan-de-beef",
+    "es-trivia-fan-de-hacks",
+    "es-trivia-fan-de-star-wars",
+    "es-trivia-fan-de-re-zero",
+    "es-trivia-fan-de-witch-hat-atelier",
+    "es-trivia-fan-de-classroom-of-the-elite",
+    "es-trivia-fan-de-dr-stone",
+    "es-que-vibe-de-mario-galaxy-eres",
+    "es-cual-es-tu-estilo-de-conflicto-tipo-beef",
+    "es-que-tan-profundo-llega-tu-conocimiento-de-beef",
+    "es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite"
+  ]
+}

@@ -1,0 +1,8 @@
+﻿import { redirect } from 'next/navigation';
+import { localizeHref } from '@/lib/i18n/navigation';
+import { getLocale } from '@/lib/i18n/server';
+
+export default async function TermsRedirect() {
+  const locale = await getLocale();
+  redirect(localizeHref(locale, '/terms'));
+}

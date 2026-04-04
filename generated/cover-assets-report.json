@@ -1,0 +1,55 @@
+{
+  "total": 116,
+  "withCoverUrl": 116,
+  "sample": [
+    {
+      "slug": "es-trivia-de-stranger-things-y-el-upside-down",
+      "cover_image_url": "/covers/es-trivia-de-stranger-things-y-el-upside-down.svg"
+    },
+    {
+      "slug": "en-what-s-your-beef-conflict-style",
+      "cover_image_url": "/covers/en-what-s-your-beef-conflict-style.svg"
+    },
+    {
+      "slug": "en-hacks-comedy-industry-trivia",
+      "cover_image_url": "/covers/en-hacks-comedy-industry-trivia.svg"
+    },
+    {
+      "slug": "en-how-sharp-is-your-star-wars-maul-lore",
+      "cover_image_url": "/covers/en-how-sharp-is-your-star-wars-maul-lore.svg"
+    },
+    {
+      "slug": "es-que-tan-afilado-esta-tu-lore-de-star-wars-maul",
+      "cover_image_url": "/covers/es-que-tan-afilado-esta-tu-lore-de-star-wars-maul.svg"
+    },
+    {
+      "slug": "en-re-zero-deep-fan-trivia",
+      "cover_image_url": "/covers/en-re-zero-deep-fan-trivia.svg"
+    },
+    {
+      "slug": "es-trivia-profunda-de-re-zero",
+      "cover_image_url": "/covers/es-trivia-profunda-de-re-zero.svg"
+    },
+    {
+      "slug": "en-which-the-boys-chaos-archetype-are-you",
+      "cover_image_url": "/covers/en-which-the-boys-chaos-archetype-are-you.svg"
+    },
+    {
+      "slug": "es-que-arquetipo-de-caos-de-the-boys-eres",
+      "cover_image_url": "/covers/es-que-arquetipo-de-caos-de-the-boys-eres.svg"
+    },
+    {
+      "slug": "en-the-boys-fan-trivia-challenge",
+      "cover_image_url": "/covers/en-the-boys-fan-trivia-challenge.svg"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-boys",
+      "cover_image_url": "/covers/es-trivia-fan-de-the-boys.svg"
+    },
+    {
+      "slug": "en-what-stranger-things-energy-do-you-carry",
+      "cover_image_url": "/covers/en-what-stranger-things-energy-do-you-carry.svg"
+    }
+  ],
+  "note": "Cover assets are now served dynamically via /covers/[slug] route."
+}

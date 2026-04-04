@@ -1,0 +1,21 @@
+{
+  "sourcePath": "C:\\code\\Nuevo\\quizverse\\generated\\trending-seed-openrouter.json",
+  "dryRun": false,
+  "totalInFile": 116,
+  "imported": 116,
+  "skipped": 0,
+  "byLanguage": {
+    "es": 57,
+    "en": 59
+  },
+  "byType": {
+    "trivia": 56,
+    "personality": 60
+  },
+  "byCategory": {
+    "culture": 55,
+    "personality": 60,
+    "trivia": 1
+  },
+  "skippedItems": []
+}

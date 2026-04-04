@@ -1,0 +1,112 @@
+﻿import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { getProfileByUsername, getQuizzesByCreatorId, getUnlockedAchievements } from '@/lib/data/public';
+import { formatCompactNumber } from '@/lib/utils/format';
+import { hasLocale } from '@/lib/i18n/dictionaries';
+import { generateProfileMetadata } from '@/lib/seo/metadata';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; username: string }>;
+}): Promise<Metadata> {
+  const { locale, username } = await params;
+  if (!hasLocale(locale)) {
+    return {};
+  }
+
+  const profile = await getProfileByUsername(username);
+  if (!profile) {
+    return {};
+  }
+
+  return generateProfileMetadata({
+    username,
+    displayName: profile.display_name ?? undefined,
+    bio: profile.bio ?? undefined,
+    quizzesCreated: profile.quizzes_created,
+    locale,
+  });
+}
+
+export default async function LocalizedProfilePage({
+  params,
+}: {
+  params: Promise<{ locale: string; username: string }>;
+}) {
+  const { locale, username } = await params;
+  if (!hasLocale(locale)) notFound();
+
+  const profile = await getProfileByUsername(username);
+  if (!profile) notFound();
+
+  const [quizzes, achievements] = await Promise.all([
+    getQuizzesByCreatorId(profile.id),
+    getUnlockedAchievements(profile.id),
+  ]);
+
+  return (
+    <main className="mx-auto min-h-screen max-w-7xl px-4 pb-20 pt-28">
+      <section className="surface-panel p-8 md:p-10">
+        <p className="eyebrow">{locale === 'es' ? 'Perfil' : 'Profile'}</p>
+        <div className="mt-4 grid gap-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
+          <div>
+            <h1 className="text-4xl font-semibold tracking-tight text-text-primary md:text-6xl">
+              {profile.display_name || profile.username}
+            </h1>
+            <p className="mt-3 text-sm uppercase tracking-[0.18em] text-text-muted">@{profile.username}</p>
+            <p className="mt-4 max-w-2xl text-base leading-7 text-text-secondary">
+              {profile.bio ||
+                (locale === 'es'
+                  ? 'Un perfil de QuizVerse en construcción, con quizzes publicados y una huella editorial propia.'
+                  : 'A QuizVerse profile with published quizzes and a visible editorial footprint.')}
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <StatCard value={formatCompactNumber(profile.points)} label={locale === 'es' ? 'Puntos' : 'Points'} />
+            <StatCard value={formatCompactNumber(profile.quizzes_played)} label={locale === 'es' ? 'Jugados' : 'Played'} />
+            <StatCard value={formatCompactNumber(profile.quizzes_created)} label={locale === 'es' ? 'Creados' : 'Created'} />
+          </div>
+        </div>
+      </section>
+
+      {achievements.length > 0 ? (
+        <section className="mt-8 surface-card p-6">
+          <p className="eyebrow">{locale === 'es' ? 'Logros' : 'Achievements'}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {achievements.slice(0, 6).map((achievement) => (
+              <div key={achievement.id} className="rounded-full border border-border-subtle bg-bg-primary px-4 py-2 text-sm text-text-secondary">
+                {achievement.icon} {achievement.name}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="mt-8 flex items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">{locale === 'es' ? 'Quizzes publicados' : 'Published quizzes'}</p>
+          <h2 className="mt-2 font-display text-4xl text-text-primary">
+            {locale === 'es' ? 'Trabajo visible en el catálogo' : 'Visible work in the catalog'}
+          </h2>
+        </div>
+      </section>
+
+      <section className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {quizzes.map((quiz, index) => (
+          <EditorialQuizCard key={quiz.id} quiz={quiz} index={index} locale={locale} />
+        ))}
+      </section>
+    </main>
+  );
+}
+
+function StatCard({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="rounded-[1.5rem] border border-border-subtle bg-bg-primary/80 p-5 text-center">
+      <p className="text-3xl font-semibold text-text-primary">{value}</p>
+      <p className="mt-2 text-sm text-text-muted">{label}</p>
+    </div>
+  );
+}

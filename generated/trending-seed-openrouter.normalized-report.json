@@ -1,0 +1,14 @@
+{
+  "total": 116,
+  "byLanguage": {
+    "es": 57,
+    "en": 59
+  },
+  "byType": {
+    "trivia": 56,
+    "personality": 60
+  },
+  "byCategory": {
+    "culture": 116
+  }
+}
