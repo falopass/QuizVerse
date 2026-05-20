@@ -24,26 +24,77 @@ const editorialTitleOverrides = new Map([
   ['es-que-vibe-de-mario-galaxy-eres', '¿Qué vibra de Mario Galaxy va más contigo?'],
   ['es-cual-es-tu-estilo-de-conflicto-tipo-beef', '¿Cómo enfrentas el conflicto al estilo Beef?'],
   ['es-que-tan-profundo-llega-tu-conocimiento-de-beef', '¿Qué tanto sabes de Beef?'],
-  ['es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite', '¿Qué tanto sabes de Classroom of the Elite?'],
-  ['es-que-rol-jugarias-dentro-de-classroom-of-the-elite', '¿Qué rol jugarías dentro de Classroom of the Elite?'],
+  [
+    'es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite',
+    '¿Qué tanto sabes de Classroom of the Elite?',
+  ],
+  [
+    'es-que-rol-jugarias-dentro-de-classroom-of-the-elite',
+    '¿Qué rol jugarías dentro de Classroom of the Elite?',
+  ],
 ]);
 
 const editorialDescriptionOverrides = new Map([
-  ['es-que-tan-afilado-esta-tu-lore-de-star-wars-maul', 'Pon a prueba cuánto sabes sobre el origen, la caída y el legado de Darth Maul dentro del canon de Star Wars.'],
-  ['es-trivia-fan-de-the-boys', 'Pon a prueba cuánto sabes sobre Los Siete, Vought y el costado más turbio del universo de The Boys.'],
-  ['es-trivia-fan-de-stranger-things', 'Pon a prueba cuánto sabes sobre Hawkins, Once y los momentos más recordados de Stranger Things.'],
-  ['es-trivia-fan-de-euphoria', 'Pon a prueba cuánto recuerdas sobre los personajes, el drama y la identidad visual de Euphoria.'],
-  ['es-trivia-fan-de-beef', 'Pon a prueba tu memoria sobre el choque entre Danny y Amy en una de las series más tensas de los últimos años.'],
-  ['es-trivia-fan-de-hacks', 'Pon a prueba cuánto sabes sobre Deborah Vance, Ava Daniels y el detrás de escena de Hacks.'],
-  ['es-trivia-fan-de-star-wars', 'Pon a prueba cuánto recuerdas de la galaxia de Star Wars con un recorrido accesible por personajes, lugares y momentos clave.'],
-  ['es-trivia-fan-de-re-zero', 'Pon a prueba tus conocimientos sobre Lugunica, Subaru y los misterios que definen Re:ZERO.'],
-  ['es-trivia-fan-de-witch-hat-atelier', 'Pon a prueba cuánto sabes sobre Coco, el taller y la lógica mágica de Witch Hat Atelier.'],
-  ['es-trivia-fan-de-classroom-of-the-elite', 'Pon a prueba cuánto recuerdas sobre la academia, sus reglas y las estrategias que definen Classroom of the Elite.'],
-  ['es-trivia-fan-de-dr-stone', 'Pon a prueba tus conocimientos sobre Senku, el Reino de la Ciencia y la reconstrucción del mundo en Dr. Stone.'],
-  ['es-que-vibe-de-mario-galaxy-eres', 'Recorre planetas, estrellas y pequeños impulsos de aventura para descubrir qué vibra del universo de Mario Galaxy encaja mejor contigo.'],
-  ['es-cual-es-tu-estilo-de-conflicto-tipo-beef', 'Desde un roce mínimo hasta un drama imposible de detener, descubre cómo reaccionas cuando un conflicto se sale de control.'],
-  ['es-que-tan-profundo-llega-tu-conocimiento-de-beef', 'Pon a prueba tu memoria sobre Beef, desde el incidente inicial hasta las decisiones que convierten un enojo menor en una espiral total.'],
-  ['es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite', 'Pon a prueba tu memoria sobre la academia, sus reglas invisibles y los movimientos que marcan Classroom of the Elite.'],
+  [
+    'es-que-tan-afilado-esta-tu-lore-de-star-wars-maul',
+    'Pon a prueba cuánto sabes sobre el origen, la caída y el legado de Darth Maul dentro del canon de Star Wars.',
+  ],
+  [
+    'es-trivia-fan-de-the-boys',
+    'Pon a prueba cuánto sabes sobre Los Siete, Vought y el costado más turbio del universo de The Boys.',
+  ],
+  [
+    'es-trivia-fan-de-stranger-things',
+    'Pon a prueba cuánto sabes sobre Hawkins, Once y los momentos más recordados de Stranger Things.',
+  ],
+  [
+    'es-trivia-fan-de-euphoria',
+    'Pon a prueba cuánto recuerdas sobre los personajes, el drama y la identidad visual de Euphoria.',
+  ],
+  [
+    'es-trivia-fan-de-beef',
+    'Pon a prueba tu memoria sobre el choque entre Danny y Amy en una de las series más tensas de los últimos años.',
+  ],
+  [
+    'es-trivia-fan-de-hacks',
+    'Pon a prueba cuánto sabes sobre Deborah Vance, Ava Daniels y el detrás de escena de Hacks.',
+  ],
+  [
+    'es-trivia-fan-de-star-wars',
+    'Pon a prueba cuánto recuerdas de la galaxia de Star Wars con un recorrido accesible por personajes, lugares y momentos clave.',
+  ],
+  [
+    'es-trivia-fan-de-re-zero',
+    'Pon a prueba tus conocimientos sobre Lugunica, Subaru y los misterios que definen Re:ZERO.',
+  ],
+  [
+    'es-trivia-fan-de-witch-hat-atelier',
+    'Pon a prueba cuánto sabes sobre Coco, el taller y la lógica mágica de Witch Hat Atelier.',
+  ],
+  [
+    'es-trivia-fan-de-classroom-of-the-elite',
+    'Pon a prueba cuánto recuerdas sobre la academia, sus reglas y las estrategias que definen Classroom of the Elite.',
+  ],
+  [
+    'es-trivia-fan-de-dr-stone',
+    'Pon a prueba tus conocimientos sobre Senku, el Reino de la Ciencia y la reconstrucción del mundo en Dr. Stone.',
+  ],
+  [
+    'es-que-vibe-de-mario-galaxy-eres',
+    'Recorre planetas, estrellas y pequeños impulsos de aventura para descubrir qué vibra del universo de Mario Galaxy encaja mejor contigo.',
+  ],
+  [
+    'es-cual-es-tu-estilo-de-conflicto-tipo-beef',
+    'Desde un roce mínimo hasta un drama imposible de detener, descubre cómo reaccionas cuando un conflicto se sale de control.',
+  ],
+  [
+    'es-que-tan-profundo-llega-tu-conocimiento-de-beef',
+    'Pon a prueba tu memoria sobre Beef, desde el incidente inicial hasta las decisiones que convierten un enojo menor en una espiral total.',
+  ],
+  [
+    'es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite',
+    'Pon a prueba tu memoria sobre la academia, sus reglas invisibles y los movimientos que marcan Classroom of the Elite.',
+  ],
 ]);
 
 const featuredSlugs = new Set([
@@ -89,20 +140,61 @@ const strongFranchises = [
 ];
 
 function inferVisualTheme(quiz) {
-  const haystack = `${quiz.title} ${quiz.description ?? ''} ${(quiz.tags ?? []).join(' ')}`.toLowerCase();
+  const haystack =
+    `${quiz.title} ${quiz.description ?? ''} ${(quiz.tags ?? []).join(' ')}`.toLowerCase();
 
   const rules = [
-    ['stranger-things', 'retro-mystery', ['retro suburb night', 'red fog forest', '80s mystery lights']],
-    ['star-wars', 'space-opera', ['desert planet horizon', 'space opera glow', 'sci-fi duel silhouette']],
-    ['the-boys', 'corporate-chaos', ['corporate skyline night', 'hero propaganda mood', 'urban chaos spotlight']],
-    ['euphoria', 'neon-drama', ['neon portrait mood', 'night glitter closeup', 'pink blue nightlife editorial']],
+    [
+      'stranger-things',
+      'retro-mystery',
+      ['retro suburb night', 'red fog forest', '80s mystery lights'],
+    ],
+    [
+      'star-wars',
+      'space-opera',
+      ['desert planet horizon', 'space opera glow', 'sci-fi duel silhouette'],
+    ],
+    [
+      'the-boys',
+      'corporate-chaos',
+      ['corporate skyline night', 'hero propaganda mood', 'urban chaos spotlight'],
+    ],
+    [
+      'euphoria',
+      'neon-drama',
+      ['neon portrait mood', 'night glitter closeup', 'pink blue nightlife editorial'],
+    ],
     ['re-zero', 'dark-fantasy', ['fantasy clock tower', 'blue moon magic', 'dark royal corridor']],
-    ['witch-hat-atelier', 'dark-fantasy', ['ink magic workshop', 'fantasy atelier desk', 'mystic parchment glow']],
-    ['dr-stone', 'science-lab', ['glass lab glow', 'science table minerals', 'clean experiment setup']],
-    ['mario', 'bright-platformer', ['bright cosmic platformer', 'toy-like planets', 'colorful arcade sky']],
-    ['hacks', 'comedy-stage', ['comedy club spotlight', 'velvet theater stage', 'microphone backstage glow']],
-    ['beef', 'corporate-chaos', ['road rage urban tension', 'suburban confrontation mood', 'tense modern drama frame']],
-    ['classroom-of-the-elite', 'academic-strategy', ['elite academy corridor', 'clean tactical classroom', 'dark school strategy mood']],
+    [
+      'witch-hat-atelier',
+      'dark-fantasy',
+      ['ink magic workshop', 'fantasy atelier desk', 'mystic parchment glow'],
+    ],
+    [
+      'dr-stone',
+      'science-lab',
+      ['glass lab glow', 'science table minerals', 'clean experiment setup'],
+    ],
+    [
+      'mario',
+      'bright-platformer',
+      ['bright cosmic platformer', 'toy-like planets', 'colorful arcade sky'],
+    ],
+    [
+      'hacks',
+      'comedy-stage',
+      ['comedy club spotlight', 'velvet theater stage', 'microphone backstage glow'],
+    ],
+    [
+      'beef',
+      'corporate-chaos',
+      ['road rage urban tension', 'suburban confrontation mood', 'tense modern drama frame'],
+    ],
+    [
+      'classroom-of-the-elite',
+      'academic-strategy',
+      ['elite academy corridor', 'clean tactical classroom', 'dark school strategy mood'],
+    ],
   ];
 
   for (const [themeKey, visualFamily, searchTerms] of rules) {
@@ -158,7 +250,9 @@ function normalizeStringsDeep(value) {
   }
 
   if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([key, innerValue]) => [key, normalizeStringsDeep(innerValue)]));
+    return Object.fromEntries(
+      Object.entries(value).map(([key, innerValue]) => [key, normalizeStringsDeep(innerValue)])
+    );
   }
 
   return value;
@@ -191,7 +285,8 @@ function polishEnglishText(text) {
 }
 
 function classifyCategory(quiz) {
-  const haystack = `${quiz.title} ${quiz.description ?? ''} ${(quiz.tags ?? []).join(' ')}`.toLowerCase();
+  const haystack =
+    `${quiz.title} ${quiz.description ?? ''} ${(quiz.tags ?? []).join(' ')}`.toLowerCase();
 
   if (quiz.quiz_type === 'personality') {
     if (/coffee|travel|study|design|desk|sunday|ritual|weekend|playlist/.test(haystack)) {
@@ -204,7 +299,11 @@ function classifyCategory(quiz) {
     return 'trivia';
   }
 
-  if (/dessert|startup|internet|movie|film|book|album|football|streaming|star wars|stranger things|the boys|euphoria|re:zero|re-zero|dr. stone|witch hat atelier|classroom of the elite|mario|hacks|beef/.test(haystack)) {
+  if (
+    /dessert|startup|internet|movie|film|book|album|football|streaming|star wars|stranger things|the boys|euphoria|re:zero|re-zero|dr. stone|witch hat atelier|classroom of the elite|mario|hacks|beef/.test(
+      haystack
+    )
+  ) {
     return 'culture';
   }
 
@@ -223,7 +322,10 @@ function polishQuestion(question, language) {
   const normalized = normalizeStringsDeep(question);
   return {
     ...normalized,
-    question: language === 'es' ? polishSpanishText(normalized.question) : polishEnglishText(normalized.question),
+    question:
+      language === 'es'
+        ? polishSpanishText(normalized.question)
+        : polishEnglishText(normalized.question),
     explanation:
       typeof normalized.explanation === 'string'
         ? language === 'es'
@@ -243,8 +345,12 @@ function polishResult(result, language) {
   const normalized = normalizeStringsDeep(result);
   return {
     ...normalized,
-    title: language === 'es' ? polishSpanishText(normalized.title) : polishEnglishText(normalized.title),
-    description: language === 'es' ? polishSpanishText(normalized.description) : polishEnglishText(normalized.description),
+    title:
+      language === 'es' ? polishSpanishText(normalized.title) : polishEnglishText(normalized.title),
+    description:
+      language === 'es'
+        ? polishSpanishText(normalized.description)
+        : polishEnglishText(normalized.description),
   };
 }
 
@@ -263,9 +369,12 @@ function main() {
       language === 'es'
         ? {
             ...normalizedQuiz,
-            title: editorialTitleOverrides.get(normalizedQuiz.slug) ?? polishSpanishText(normalizedQuiz.title),
+            title:
+              editorialTitleOverrides.get(normalizedQuiz.slug) ??
+              polishSpanishText(normalizedQuiz.title),
             description:
-              editorialDescriptionOverrides.get(normalizedQuiz.slug) ?? polishSpanishText(normalizedQuiz.description),
+              editorialDescriptionOverrides.get(normalizedQuiz.slug) ??
+              polishSpanishText(normalizedQuiz.description),
             source_topic:
               typeof normalizedQuiz.source_topic === 'string'
                 ? polishSpanishText(normalizedQuiz.source_topic)
@@ -291,7 +400,9 @@ function main() {
         ? localizedQuiz.results.map((result) => polishResult(result, language))
         : localizedQuiz.results,
       tags: Array.isArray(localizedQuiz.tags)
-        ? localizedQuiz.tags.map((tag) => (language === 'es' ? polishSpanishText(tag) : polishEnglishText(tag)))
+        ? localizedQuiz.tags.map((tag) =>
+            language === 'es' ? polishSpanishText(tag) : polishEnglishText(tag)
+          )
         : localizedQuiz.tags,
       category_slug: categorySlug,
       editorial_status: editorialStatus,
@@ -305,7 +416,7 @@ function main() {
           : `${visualTheme.visualFamily}, premium editorial look, no copyrighted characters`,
       cover_image_url: `/covers/${localizedQuiz.slug}`,
       is_featured: editorialStatus === 'featured',
-      featured_at: editorialStatus === 'featured' ? localizedQuiz.featured_at ?? timestamp : null,
+      featured_at: editorialStatus === 'featured' ? (localizedQuiz.featured_at ?? timestamp) : null,
     };
   });
 

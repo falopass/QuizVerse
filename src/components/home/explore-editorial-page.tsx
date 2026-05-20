@@ -50,13 +50,21 @@ interface ExploreCatalogPageProps {
   };
 }
 
-export function ExploreEditorialPage({ locale, quizzes, categories, copy }: ExploreCatalogPageProps) {
+export function ExploreEditorialPage({
+  locale,
+  quizzes,
+  categories,
+  copy,
+}: ExploreCatalogPageProps) {
   const [query, setQuery] = React.useState('');
   const [activeMood, setActiveMood] = React.useState<(typeof MOODS.en)[number]['id']>('all');
   const [activeCategory, setActiveCategory] = React.useState('all');
 
   const moods = MOODS[locale];
-  const localizedQuizzes = React.useMemo(() => localizeQuizList(quizzes, locale), [locale, quizzes]);
+  const localizedQuizzes = React.useMemo(
+    () => localizeQuizList(quizzes, locale),
+    [locale, quizzes]
+  );
   const localizedCategories = React.useMemo(
     () => categories.map((category) => localizeCategory(category, locale)).filter(Boolean),
     [categories, locale]
@@ -98,12 +106,15 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
     return next;
   }, [activeCategory, activeMood, localizedQuizzes, query]);
 
-  const featuredLead = filteredQuizzes.find((quiz) => quiz.is_featured) ?? filteredQuizzes[0] ?? null;
+  const featuredLead =
+    filteredQuizzes.find((quiz) => quiz.is_featured) ?? filteredQuizzes[0] ?? null;
   const pulseQuiz =
     filteredQuizzes
       .filter((quiz) => quiz.id !== featuredLead?.id)
       .sort((a, b) => editorialScore(b) - editorialScore(a))[0] ?? null;
-  const secondaryPool = filteredQuizzes.filter((quiz) => quiz.id !== featuredLead?.id && quiz.id !== pulseQuiz?.id);
+  const secondaryPool = filteredQuizzes.filter(
+    (quiz) => quiz.id !== featuredLead?.id && quiz.id !== pulseQuiz?.id
+  );
   const laneQuizzes = secondaryPool.slice(0, 4);
   const gridQuizzes = secondaryPool.slice(4, 16);
 
@@ -121,12 +132,14 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
           moreWaysIn: 'Más caminos de entrada',
           quizzesAfterFilters: 'quizzes tras filtros',
           editorialGrid: 'Entradas curadas',
-          editorDeck: 'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
+          editorDeck:
+            'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
           min: 'min',
           plays: 'partidas',
           open: 'Abrir',
           lanesTitle: 'Los mejores caminos para entrar',
-          pulseDeck: 'La segunda carta fuerte no debería perderse en una grilla plana. Aquí le damos un espacio propio para convertir mejor.',
+          pulseDeck:
+            'La segunda carta fuerte no debería perderse en una grilla plana. Aquí le damos un espacio propio para convertir mejor.',
         }
       : {
           eyebrow: 'Explore',
@@ -140,29 +153,38 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
           moreWaysIn: 'More ways in',
           quizzesAfterFilters: 'quizzes after filters',
           editorialGrid: 'Curated entries',
-          editorDeck: 'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
+          editorDeck:
+            'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
           min: 'min',
           plays: 'plays',
           open: 'Open',
           lanesTitle: 'The best ways in',
-          pulseDeck: 'The second-strongest quiz should not disappear inside a flat grid, so it gets its own selling space here.',
+          pulseDeck:
+            'The second-strongest quiz should not disappear inside a flat grid, so it gets its own selling space here.',
         };
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pb-20 pt-28">
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
       <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="surface-panel p-8 md:p-10">
           <p className="eyebrow">{copy.eyebrow ?? units.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl text-5xl font-semibold tracking-tight text-text-primary md:text-7xl">
+          <h1 className="text-text-primary mt-4 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
             {copy.title}
           </h1>
-          <p className="balanced-copy mt-5 max-w-2xl text-lg text-text-secondary md:text-xl">{copy.subtitle}</p>
+          <p className="balanced-copy text-text-secondary mt-5 max-w-2xl text-lg md:text-xl">
+            {copy.subtitle}
+          </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-3">
-          <MetricCard value={String(filteredQuizzes.length)} label={copy.visibleNow ?? units.visibleNow} />
           <MetricCard
-            value={formatCompactNumber(filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0))}
+            value={String(filteredQuizzes.length)}
+            label={copy.visibleNow ?? units.visibleNow}
+          />
+          <MetricCard
+            value={formatCompactNumber(
+              filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0)
+            )}
             label={copy.playsInView ?? units.playsInView}
           />
           <MetricCard
@@ -176,14 +198,14 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
         <div className="grid gap-5 lg:grid-cols-[1.18fr_0.82fr]">
           <div className="space-y-4">
             <label className="block">
-              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+              <span className="text-text-muted mb-2 block text-[11px] font-semibold tracking-[0.2em] uppercase">
                 {copy.searchLabel ?? units.search}
               </span>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={copy.searchPlaceholder}
-                className="w-full rounded-full border border-border-subtle bg-bg-primary px-5 py-4 text-sm text-text-primary outline-none transition-colors placeholder:text-text-muted focus:border-accent-primary/40"
+                className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
               />
             </label>
             <div className="flex flex-wrap gap-2">
@@ -193,7 +215,7 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
                   type="button"
                   onClick={() => setActiveMood(mood.id)}
                   className={cn(
-                    'rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition-colors',
+                    'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
                     activeMood === mood.id
                       ? 'border-accent-primary bg-accent-primary text-white'
                       : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
@@ -206,11 +228,15 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
           </div>
 
           <div className="space-y-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+            <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
               {copy.categoryLanes ?? units.categoryLanes}
             </p>
             <div className="flex flex-wrap gap-2">
-              <CategoryFilter active={activeCategory === 'all'} label={copy.allCategories} onClick={() => setActiveCategory('all')} />
+              <CategoryFilter
+                active={activeCategory === 'all'}
+                label={copy.allCategories}
+                onClick={() => setActiveCategory('all')}
+              />
               {localizedCategories.map((category) => (
                 <CategoryFilter
                   key={category!.id}
@@ -235,13 +261,22 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
                   <div>
                     <p className="eyebrow mb-3">{units.pulse}</p>
                     <h2 className="text-[2.2rem]">{pulseQuiz.title}</h2>
-                    <p className="mt-4 text-base leading-7 text-text-secondary">{pulseQuiz.description}</p>
-                    <p className="mt-5 text-sm leading-6 text-text-secondary">{units.pulseDeck}</p>
+                    <p className="text-text-secondary mt-4 text-base leading-7">
+                      {pulseQuiz.description}
+                    </p>
+                    <p className="text-text-secondary mt-5 text-sm leading-6">{units.pulseDeck}</p>
                   </div>
-                  <div className="mt-6 flex items-center justify-between border-t border-border-subtle pt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
-                    <span>{pulseQuiz.estimated_minutes} {units.min}</span>
-                    <span>{formatCompactNumber(pulseQuiz.plays_count)} {units.plays}</span>
-                    <Link href={localizeHref(locale, `/quiz/${pulseQuiz.slug}`)} className="text-accent-primary">
+                  <div className="border-border-subtle text-text-muted mt-6 flex items-center justify-between border-t pt-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                    <span>
+                      {pulseQuiz.estimated_minutes} {units.min}
+                    </span>
+                    <span>
+                      {formatCompactNumber(pulseQuiz.plays_count)} {units.plays}
+                    </span>
+                    <Link
+                      href={localizeHref(locale, `/quiz/${pulseQuiz.slug}`)}
+                      className="text-accent-primary"
+                    >
                       {units.open}
                     </Link>
                   </div>
@@ -251,13 +286,13 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
               <div className="surface-card rounded-[2rem] p-6 md:p-7">
                 <p className="eyebrow mb-4">{units.leadPick}</p>
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
-                <p className="mt-4 text-base leading-7 text-text-secondary">{units.editorDeck}</p>
+                <p className="text-text-secondary mt-4 text-base leading-7">{units.editorDeck}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {localizedCategories.slice(0, 4).map((category) => (
                     <Link
                       key={category!.id}
                       href={localizeHref(locale, `/category/${category!.slug}`)}
-                      className="rounded-full border border-border-subtle bg-white/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-text-secondary transition-colors hover:text-text-primary"
+                      className="border-border-subtle text-text-secondary hover:text-text-primary rounded-full border bg-white/50 px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors"
                     >
                       {category!.name}
                     </Link>
@@ -274,13 +309,19 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
                   <p className="eyebrow">{units.categoryLanes}</p>
                   <h2 className="mt-2 text-4xl">{units.lanesTitle}</h2>
                 </div>
-                <p className="text-sm text-text-secondary">
+                <p className="text-text-secondary text-sm">
                   {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
                 </p>
               </div>
               <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                 {laneQuizzes.map((quiz, index) => (
-                  <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} size="compact" />
+                  <EditorialQuizCard
+                    key={quiz.id}
+                    quiz={quiz}
+                    locale={locale}
+                    index={index}
+                    size="compact"
+                  />
                 ))}
               </div>
             </section>
@@ -302,8 +343,8 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
         </>
       ) : (
         <section className="surface-card p-10 text-center">
-          <h2 className="text-3xl font-semibold text-text-primary">{copy.emptyTitle}</h2>
-          <p className="mt-3 text-text-secondary">{copy.emptyBody}</p>
+          <h2 className="text-text-primary text-3xl font-semibold">{copy.emptyTitle}</h2>
+          <p className="text-text-secondary mt-3">{copy.emptyBody}</p>
         </section>
       )}
     </main>
@@ -313,8 +354,10 @@ export function ExploreEditorialPage({ locale, quizzes, categories, copy }: Expl
 function MetricCard({ value, label }: { value: string; label: string }) {
   return (
     <div className="surface-card p-5">
-      <p className="text-3xl font-semibold text-text-primary">{value}</p>
-      <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">{label}</p>
+      <p className="text-text-primary text-3xl font-semibold">{value}</p>
+      <p className="text-text-muted mt-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
+        {label}
+      </p>
     </div>
   );
 }
@@ -333,7 +376,7 @@ function CategoryFilter({
       type="button"
       onClick={onClick}
       className={cn(
-        'rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition-colors',
+        'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
         active
           ? 'border-accent-primary bg-accent-primary text-white'
           : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
@@ -348,5 +391,7 @@ function editorialScore(quiz: Quiz) {
   const featuredBoost = quiz.is_featured ? 220 : 0;
   const stockBoost = quiz.cover_image_url?.startsWith('/stock-covers/') ? 28 : 0;
   const personalityBoost = quiz.quiz_type === 'personality' ? 6 : 0;
-  return featuredBoost + stockBoost + quiz.plays_count * 2 + quiz.likes_count * 4 + personalityBoost;
+  return (
+    featuredBoost + stockBoost + quiz.plays_count * 2 + quiz.likes_count * 4 + personalityBoost
+  );
 }

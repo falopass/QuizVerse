@@ -6,13 +6,7 @@ import Link from 'next/link';
 import { LocaleSwitcher } from './locale-switcher';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
-export function FloatingNav({
-  locale,
-  dictionary,
-}: {
-  locale: Locale;
-  dictionary: Dictionary;
-}) {
+export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -27,33 +21,33 @@ export function FloatingNav({
   return (
     <nav
       className={cn(
-        'fixed top-0 left-0 right-0 z-40',
+        'fixed top-0 right-0 left-0 z-40',
         'flex items-center justify-between',
-        'px-4 py-3 mx-auto max-w-7xl',
+        'mx-auto max-w-7xl px-4 py-3',
         'transition-all duration-300',
         isScrolled
-          ? 'mt-2 rounded-full border border-border-subtle bg-bg-glass shadow-card backdrop-blur-xl'
-          : 'bg-transparent mt-4'
+          ? 'border-border-subtle bg-bg-glass shadow-card mt-2 rounded-full border backdrop-blur-xl'
+          : 'mt-4 bg-transparent'
       )}
     >
-      <Link href="/" className="flex items-center gap-2 group">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border-subtle bg-bg-secondary text-sm font-black uppercase tracking-[0.2em] text-accent-primary">
+      <Link href="/" className="group flex items-center gap-2">
+        <div className="border-border-subtle bg-bg-secondary text-accent-primary flex h-10 w-10 items-center justify-center rounded-full border text-sm font-black tracking-[0.2em] uppercase">
           QV
         </div>
         <div className="hidden sm:block">
-          <span className="font-display text-lg font-semibold text-text-primary transition-colors group-hover:text-accent-primary">
+          <span className="font-display text-text-primary group-hover:text-accent-primary text-lg font-semibold transition-colors">
             QuizVerse
           </span>
-          <p className="text-[11px] uppercase tracking-[0.2em] text-text-muted">
+          <p className="text-text-muted text-[11px] tracking-[0.2em] uppercase">
             {dictionary.nav.statement}
           </p>
         </div>
-        <span className="font-display text-lg font-semibold text-text-primary transition-colors group-hover:text-accent-primary sm:hidden">
+        <span className="font-display text-text-primary group-hover:text-accent-primary text-lg font-semibold transition-colors sm:hidden">
           QuizVerse
         </span>
       </Link>
 
-      <div className="hidden md:flex items-center gap-1">
+      <div className="hidden items-center gap-1 md:flex">
         <NavLink href="/quiz">{dictionary.common.explore}</NavLink>
         <NavLink href="/category/personality">Personality</NavLink>
         <NavLink href="/leaderboard">{dictionary.common.leaderboard}</NavLink>
@@ -63,13 +57,13 @@ export function FloatingNav({
       <div className="flex items-center gap-2">
         <button
           className={cn(
-            'hidden lg:flex items-center gap-2',
-            'rounded-full border border-border-subtle bg-bg-secondary px-3 py-2 text-sm text-text-muted',
+            'hidden items-center gap-2 lg:flex',
+            'border-border-subtle bg-bg-secondary text-text-muted rounded-full border px-3 py-2 text-sm',
             'hover:border-accent-primary/40 hover:text-text-primary',
             'transition-all duration-200'
           )}
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -78,7 +72,7 @@ export function FloatingNav({
             />
           </svg>
           <span>{dictionary.nav.search}</span>
-          <kbd className="hidden lg:inline-flex px-1.5 py-0.5 text-xs bg-bg-tertiary rounded">
+          <kbd className="bg-bg-tertiary hidden rounded px-1.5 py-0.5 text-xs lg:inline-flex">
             ⌘K
           </kbd>
         </button>
@@ -86,13 +80,13 @@ export function FloatingNav({
         <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
         <Link
           href="/login"
-          className="hidden sm:inline-flex px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
+          className="text-text-secondary hover:text-text-primary hidden px-4 py-2 text-sm font-medium transition-colors sm:inline-flex"
         >
           {dictionary.common.login}
         </Link>
         <Link
           href="/login"
-          className="inline-flex rounded-full bg-accent-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+          className="bg-accent-primary hover:bg-accent-hover inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors"
         >
           {dictionary.common.signup}
         </Link>
@@ -116,7 +110,7 @@ function NavLink({ href, children, active }: NavLinkProps) {
     <Link
       href={href}
       className={cn(
-        'px-3 py-2 text-sm font-medium rounded-lg',
+        'rounded-lg px-3 py-2 text-sm font-medium',
         'transition-colors duration-200',
         active
           ? 'text-accent-primary bg-accent-primary/10'

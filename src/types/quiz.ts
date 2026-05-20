@@ -111,7 +111,7 @@ export interface Question {
 export interface Option {
   id: string;
   text: string;
-  is_correct?: boolean;      // Para trivia
+  is_correct?: boolean; // Para trivia
   personality_tags?: string[]; // Para personality
   image_url?: string | null;
 }

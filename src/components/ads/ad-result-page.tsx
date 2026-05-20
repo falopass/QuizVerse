@@ -9,13 +9,11 @@ export interface AdResultPageProps {
 export function AdResultPage({ className }: AdResultPageProps) {
   return (
     <div className={className}>
-      <div className="text-center text-xs text-text-muted mb-3">
-        Advertisement
-      </div>
+      <div className="text-text-muted mb-3 text-center text-xs">Advertisement</div>
       <AdSlot
         slot={process.env.NEXT_PUBLIC_ADSENSE_RECTANGLE_SLOT || '1234567890'}
         format="rectangle"
-        className="w-full max-w-md mx-auto"
+        className="mx-auto w-full max-w-md"
       />
     </div>
   );

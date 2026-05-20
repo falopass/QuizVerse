@@ -27,65 +27,69 @@ export default async function LocaleOpenGraphImage({
         };
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: 48,
-          background:
-            'radial-gradient(circle at top left, rgba(255,255,255,0.82), transparent 35%), linear-gradient(135deg, #f4eadb 0%, #efe5d6 40%, #e1d4c4 100%)',
-          color: '#181410',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 820 }}>
-            <div style={{ fontSize: 16, letterSpacing: '0.32em', textTransform: 'uppercase', color: '#756758' }}>
-              {copy.eyebrow}
-            </div>
-            <div style={{ fontSize: 78, lineHeight: 1.02, fontWeight: 700 }}>{copy.title}</div>
-            <div style={{ fontSize: 28, lineHeight: 1.34, color: '#51463e' }}>{copy.body}</div>
-          </div>
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        padding: 48,
+        background:
+          'radial-gradient(circle at top left, rgba(255,255,255,0.82), transparent 35%), linear-gradient(135deg, #f4eadb 0%, #efe5d6 40%, #e1d4c4 100%)',
+        color: '#181410',
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 820 }}>
           <div
             style={{
-              width: 120,
-              height: 120,
-              borderRadius: 36,
-              background: 'linear-gradient(145deg, #bb5c35, #5c3425)',
-              color: '#fffaf3',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 700,
-              fontSize: 40,
+              fontSize: 16,
+              letterSpacing: '0.32em',
+              textTransform: 'uppercase',
+              color: '#756758',
             }}
           >
-            {uiLocale.toUpperCase()}
+            {copy.eyebrow}
           </div>
+          <div style={{ fontSize: 78, lineHeight: 1.02, fontWeight: 700 }}>{copy.title}</div>
+          <div style={{ fontSize: 28, lineHeight: 1.34, color: '#51463e' }}>{copy.body}</div>
         </div>
-        <div style={{ display: 'flex', gap: 14 }}>
-          {copy.badges.map((label) => (
-            <div
-              key={label}
-              style={{
-                borderRadius: 999,
-                border: '1px solid rgba(24,20,16,0.08)',
-                background: 'rgba(255,255,255,0.72)',
-                padding: '12px 18px',
-                fontSize: 18,
-                color: '#5f5247',
-              }}
-            >
-              {label}
-            </div>
-          ))}
+        <div
+          style={{
+            width: 120,
+            height: 120,
+            borderRadius: 36,
+            background: 'linear-gradient(145deg, #bb5c35, #5c3425)',
+            color: '#fffaf3',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            fontSize: 40,
+          }}
+        >
+          {uiLocale.toUpperCase()}
         </div>
       </div>
-    ),
+      <div style={{ display: 'flex', gap: 14 }}>
+        {copy.badges.map((label) => (
+          <div
+            key={label}
+            style={{
+              borderRadius: 999,
+              border: '1px solid rgba(24,20,16,0.08)',
+              background: 'rgba(255,255,255,0.72)',
+              padding: '12px 18px',
+              fontSize: 18,
+              color: '#5f5247',
+            }}
+          >
+            {label}
+          </div>
+        ))}
+      </div>
+    </div>,
     size
   );
 }
-

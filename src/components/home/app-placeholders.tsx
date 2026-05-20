@@ -11,14 +11,14 @@ export function EditorialLoadingStage({
   body?: string;
 }) {
   return (
-    <div className="min-h-[70vh] px-4 pb-16 pt-28">
+    <div className="min-h-[70vh] px-4 pt-28 pb-16">
       <div className="mx-auto max-w-6xl space-y-8">
         <section className="surface-panel p-8 md:p-10">
           <p className="eyebrow">{eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-text-primary md:text-6xl">
+          <h1 className="text-text-primary mt-3 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-text-secondary">{body}</p>
+          <p className="text-text-secondary mt-4 max-w-2xl text-base leading-7">{body}</p>
         </section>
 
         <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
@@ -65,13 +65,13 @@ export function EditorialEmptyState({
   return (
     <div className="surface-card p-10 text-center">
       <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-text-primary">{title}</h2>
-      <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-text-secondary">{body}</p>
+      <h2 className="text-text-primary mt-3 text-3xl font-semibold tracking-tight">{title}</h2>
+      <p className="text-text-secondary mx-auto mt-4 max-w-2xl text-base leading-7">{body}</p>
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         {primaryHref && primaryLabel ? (
           <Link
             href={primaryHref}
-            className="inline-flex items-center justify-center rounded-full bg-accent-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+            className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
           >
             {primaryLabel}
           </Link>
@@ -79,7 +79,7 @@ export function EditorialEmptyState({
         {secondaryHref && secondaryLabel ? (
           <Link
             href={secondaryHref}
-            className="inline-flex items-center justify-center rounded-full border border-border-subtle bg-bg-primary px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:border-accent-primary/40"
+            className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
           >
             {secondaryLabel}
           </Link>
@@ -101,33 +101,33 @@ export function EditorialErrorState({
   showRetry?: boolean;
 }) {
   return (
-    <div className="min-h-[70vh] px-4 pb-16 pt-28">
+    <div className="min-h-[70vh] px-4 pt-28 pb-16">
       <div className="mx-auto max-w-3xl">
         <div className="surface-panel p-8 text-center md:p-10">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-border-subtle bg-bg-primary text-3xl font-black text-text-primary">
+          <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
             !
           </div>
           <p className="eyebrow mt-6">Error</p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-text-primary">{title}</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-text-secondary">{body}</p>
+          <h1 className="text-text-primary mt-3 text-4xl font-semibold tracking-tight">{title}</h1>
+          <p className="text-text-secondary mx-auto mt-4 max-w-2xl text-base leading-7">{body}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             {showRetry && onRetry ? (
               <button
                 onClick={onRetry}
-                className="inline-flex items-center justify-center rounded-full bg-accent-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+                className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
               >
                 Try again
               </button>
             ) : null}
             <Link
               href="/"
-              className="inline-flex items-center justify-center rounded-full border border-border-subtle bg-bg-primary px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:border-accent-primary/40"
+              className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
             >
               Go home
             </Link>
             <Link
               href="/quiz"
-              className="inline-flex items-center justify-center rounded-full border border-border-subtle bg-bg-primary px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:border-accent-primary/40"
+              className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
             >
               Browse quizzes
             </Link>

@@ -41,7 +41,7 @@ const GAME_MODES: GameModeInfo[] = [
     id: 'survival',
     name: 'Survival',
     icon: '💀',
-    description: 'One mistake and you\'re out! How far can you go?',
+    description: "One mistake and you're out! How far can you go?",
     color: 'from-green-500 to-emerald-500',
     bgGradient: 'from-green-500/10 to-emerald-500/10',
   },
@@ -67,27 +67,26 @@ export function GameModeSelector({ quiz, onSelectMode }: GameModeSelectorProps) 
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="max-w-2xl w-full"
+        className="w-full max-w-2xl"
       >
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-display font-bold text-text-primary mb-2">
+        <div className="mb-8 text-center">
+          <h1 className="font-display text-text-primary mb-2 text-3xl font-bold md:text-4xl">
             Choose Your Mode
           </h1>
-          <p className="text-text-secondary">
-            {quiz.title}
-          </p>
-          <p className="text-sm text-text-muted mt-2">
-            {quiz.questions.length} questions • {quiz.quiz_type === 'trivia' ? 'Test your knowledge' : 'Discover your result'}
+          <p className="text-text-secondary">{quiz.title}</p>
+          <p className="text-text-muted mt-2 text-sm">
+            {quiz.questions.length} questions •{' '}
+            {quiz.quiz_type === 'trivia' ? 'Test your knowledge' : 'Discover your result'}
           </p>
         </div>
 
         {/* Game Modes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {GAME_MODES.map((mode, index) => (
             <motion.button
               key={mode.id}
@@ -97,50 +96,64 @@ export function GameModeSelector({ quiz, onSelectMode }: GameModeSelectorProps) 
               onClick={() => handleModeSelect(mode.id)}
               disabled={selectedMode !== null}
               className={cn(
-                'relative p-6 rounded-2xl text-left',
+                'relative rounded-2xl p-6 text-left',
                 'border-2 transition-all duration-300',
                 'hover:scale-[1.02] active:scale-[0.98]',
                 selectedMode === mode.id
                   ? 'border-accent-primary bg-accent-primary/10'
                   : 'border-border-subtle bg-bg-secondary hover:border-accent-primary/50',
-                'disabled:opacity-50 disabled:cursor-not-allowed',
+                'disabled:cursor-not-allowed disabled:opacity-50',
                 'group'
               )}
             >
               {/* Background gradient */}
-              <div className={cn(
-                'absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity',
-                mode.bgGradient
-              )} />
+              <div
+                className={cn(
+                  'absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity group-hover:opacity-100',
+                  mode.bgGradient
+                )}
+              />
 
               <div className="relative">
                 {/* Icon */}
-                <div className="text-4xl mb-3">{mode.icon}</div>
+                <div className="mb-3 text-4xl">{mode.icon}</div>
 
                 {/* Name */}
-                <h3 className={cn(
-                  'text-xl font-bold mb-1 bg-gradient-to-r bg-clip-text text-transparent',
-                  mode.color
-                )}>
+                <h3
+                  className={cn(
+                    'mb-1 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent',
+                    mode.color
+                  )}
+                >
                   {mode.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-text-secondary">
-                  {mode.description}
-                </p>
+                <p className="text-text-secondary text-sm">{mode.description}</p>
               </div>
 
               {/* Arrow indicator */}
-              <div className={cn(
-                'absolute right-4 top-1/2 -translate-y-1/2',
-                'w-8 h-8 rounded-full flex items-center justify-center',
-                'bg-bg-tertiary group-hover:bg-accent-primary/20',
-                'transition-all duration-200',
-                'opacity-0 group-hover:opacity-100'
-              )}>
-                <svg className="w-4 h-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <div
+                className={cn(
+                  'absolute top-1/2 right-4 -translate-y-1/2',
+                  'flex h-8 w-8 items-center justify-center rounded-full',
+                  'bg-bg-tertiary group-hover:bg-accent-primary/20',
+                  'transition-all duration-200',
+                  'opacity-0 group-hover:opacity-100'
+                )}
+              >
+                <svg
+                  className="text-text-secondary h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </motion.button>
@@ -148,8 +161,9 @@ export function GameModeSelector({ quiz, onSelectMode }: GameModeSelectorProps) 
         </div>
 
         {/* Info text */}
-        <p className="text-center text-xs text-text-muted mt-6">
-          Press <kbd className="px-1.5 py-0.5 bg-bg-tertiary rounded">1-4</kbd> to select with keyboard
+        <p className="text-text-muted mt-6 text-center text-xs">
+          Press <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5">1-4</kbd> to select with
+          keyboard
         </p>
       </motion.div>
     </div>

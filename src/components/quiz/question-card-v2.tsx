@@ -25,23 +25,23 @@ export function QuestionCardV2({
   return (
     <article className="surface-panel mx-auto w-full max-w-4xl overflow-hidden p-6 md:p-8">
       <div className="grid gap-8 lg:grid-cols-[0.28fr_0.72fr]">
-        <aside className="space-y-6 rounded-[1.75rem] border border-border-subtle bg-bg-primary p-5">
+        <aside className="border-border-subtle bg-bg-primary space-y-6 rounded-[1.75rem] border p-5">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-text-muted">
+            <p className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
               Question
             </p>
-            <p className="mt-2 text-4xl font-semibold text-text-primary">{questionNumber}</p>
-            <p className="mt-1 text-sm text-text-secondary">of {totalQuestions}</p>
+            <p className="text-text-primary mt-2 text-4xl font-semibold">{questionNumber}</p>
+            <p className="text-text-secondary mt-1 text-sm">of {totalQuestions}</p>
           </div>
 
           <div className="space-y-3">
-            <div className="h-2 overflow-hidden rounded-full bg-bg-secondary">
+            <div className="bg-bg-secondary h-2 overflow-hidden rounded-full">
               <div
-                className="h-full rounded-full bg-accent-primary transition-all duration-300"
+                className="bg-accent-primary h-full rounded-full transition-all duration-300"
                 style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
               />
             </div>
-            <p className="text-xs uppercase tracking-[0.18em] text-text-muted">
+            <p className="text-text-muted text-xs tracking-[0.18em] uppercase">
               Editorial play mode
             </p>
           </div>
@@ -50,7 +50,7 @@ export function QuestionCardV2({
         <div className="space-y-6">
           <div className="space-y-4">
             <p className="eyebrow">Current prompt</p>
-            <h2 className="text-2xl font-semibold leading-tight text-text-primary md:text-4xl">
+            <h2 className="text-text-primary text-2xl leading-tight font-semibold md:text-4xl">
               {question.question}
             </h2>
           </div>
@@ -61,7 +61,7 @@ export function QuestionCardV2({
               <img
                 src={question.image_url}
                 alt="Question illustration"
-                className="h-auto max-h-80 w-full object-contain bg-bg-secondary"
+                className="bg-bg-secondary h-auto max-h-80 w-full object-contain"
               />
             </div>
           )}
@@ -74,11 +74,11 @@ export function QuestionCardV2({
                 disabled={disabled}
                 className={cn(
                   'group rounded-[1.5rem] border px-5 py-5 text-left transition-all duration-200',
-                  'focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 focus:ring-offset-bg-primary',
+                  'focus:ring-accent-primary focus:ring-offset-bg-primary focus:ring-2 focus:ring-offset-2 focus:outline-none',
                   disabled && 'cursor-not-allowed opacity-50',
                   selectedOptionId === option.id
                     ? 'border-accent-primary bg-accent-primary/10 text-text-primary shadow-card'
-                    : 'border-border-subtle bg-bg-secondary text-text-secondary hover:-translate-y-0.5 hover:border-accent-primary/35 hover:bg-bg-primary'
+                    : 'border-border-subtle bg-bg-secondary text-text-secondary hover:border-accent-primary/35 hover:bg-bg-primary hover:-translate-y-0.5'
                 )}
               >
                 <div className="flex items-start gap-4">
@@ -92,18 +92,18 @@ export function QuestionCardV2({
                   >
                     {String.fromCharCode(65 + index)}
                   </div>
-                  <p className="text-base font-medium leading-7">{option.text}</p>
+                  <p className="text-base leading-7 font-medium">{option.text}</p>
                 </div>
               </button>
             ))}
           </div>
 
           {showExplanation && question.explanation && (
-            <div className="rounded-[1.75rem] border border-border-subtle bg-bg-primary p-5">
-              <h3 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+            <div className="border-border-subtle bg-bg-primary rounded-[1.75rem] border p-5">
+              <h3 className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
                 Explanation
               </h3>
-              <p className="mt-3 text-sm leading-6 text-text-secondary">{question.explanation}</p>
+              <p className="text-text-secondary mt-3 text-sm leading-6">{question.explanation}</p>
             </div>
           )}
         </div>

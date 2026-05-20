@@ -37,7 +37,7 @@ export function EditorialQuizCard({
         transition={{ delay: index * 0.04, duration: 0.45 }}
         whileHover={{ y: -6 }}
         className={cn(
-          'relative overflow-hidden rounded-[2rem] border border-border-subtle/90 bg-[rgba(255,250,244,0.84)] shadow-card transition-all duration-300 ease-out hover:border-[rgba(187,75,53,0.24)] hover:shadow-elevated',
+          'border-border-subtle/90 shadow-card hover:shadow-elevated relative overflow-hidden rounded-[2rem] border bg-[rgba(255,250,244,0.84)] transition-all duration-300 ease-out hover:border-[rgba(187,75,53,0.24)]',
           size === 'hero' && 'min-h-[28rem]',
           size === 'feature' && 'min-h-[24rem]',
           size === 'compact' && 'rounded-[1.75rem]'
@@ -51,14 +51,20 @@ export function EditorialQuizCard({
             quiz={quiz}
             locale={locale}
             ratioClassName={isLarge ? 'aspect-[16/10]' : 'aspect-[16/9]'}
-            priorityLabel={quiz.is_featured ? (locale === 'es' ? 'Selección editorial' : 'Editorial pick') : undefined}
+            priorityLabel={
+              quiz.is_featured
+                ? locale === 'es'
+                  ? 'Selección editorial'
+                  : 'Editorial pick'
+                : undefined
+            }
           />
 
           <div className="mt-5 flex flex-1 flex-col">
             <div className="space-y-3">
               <h3
                 className={cn(
-                  'font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent-hover',
+                  'text-text-primary group-hover:text-accent-hover font-semibold tracking-tight transition-colors',
                   size === 'hero'
                     ? 'text-3xl md:text-[3rem]'
                     : size === 'feature'
@@ -88,31 +94,38 @@ export function EditorialQuizCard({
 
             <div className="mt-auto space-y-4 pt-6">
               <div className="flex flex-wrap gap-2">
-                <span className="rounded-full border border-black/8 bg-white/72 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-text-muted">
+                <span className="text-text-muted rounded-full border border-black/8 bg-white/72 px-3 py-1 text-[10px] font-semibold tracking-[0.22em] uppercase">
                   {getLocalizedTypeLabel(quiz.quiz_type, locale)}
                 </span>
-                <span className="rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-text-secondary">
+                <span className="text-text-secondary rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
                   {getLocalizedDifficultyLabel(quiz.difficulty, locale)}
                 </span>
                 {quiz.tags.slice(0, size === 'compact' ? 2 : 4).map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-text-muted"
+                    className="text-text-muted rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase"
                   >
                     {tag.replace(/_/g, ' ')}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center justify-between gap-4 border-t border-black/8 pt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+              <div className="text-text-muted flex items-center justify-between gap-4 border-t border-black/8 pt-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
                 <span>{quiz.estimated_minutes} min</span>
-                <span>{formatCompactNumber(quiz.plays_count)} {playsLabel}</span>
-                <span>{formatCompactNumber(quiz.likes_count)} {readsLabel}</span>
+                <span>
+                  {formatCompactNumber(quiz.plays_count)} {playsLabel}
+                </span>
+                <span>
+                  {formatCompactNumber(quiz.likes_count)} {readsLabel}
+                </span>
               </div>
 
-              <div className="inline-flex items-center gap-2 text-sm font-semibold text-accent-primary">
+              <div className="text-accent-primary inline-flex items-center gap-2 text-sm font-semibold">
                 <span>{openLabel}</span>
-                <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                >
                   →
                 </span>
               </div>

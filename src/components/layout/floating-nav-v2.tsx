@@ -8,13 +8,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { LocaleSwitcher } from './locale-switcher';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
-export function FloatingNavV2({
-  locale,
-  dictionary,
-}: {
-  locale: Locale;
-  dictionary: Dictionary;
-}) {
+export function FloatingNavV2({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -29,19 +23,19 @@ export function FloatingNavV2({
         className={cn(
           'mx-auto flex w-full max-w-7xl items-center justify-between gap-4 transition-all duration-300',
           isScrolled
-            ? 'rounded-full border border-border-subtle bg-bg-glass px-4 py-3 shadow-card backdrop-blur-xl'
+            ? 'border-border-subtle bg-bg-glass shadow-card rounded-full border px-4 py-3 backdrop-blur-xl'
             : 'rounded-[2rem] bg-transparent px-1 py-2'
         )}
       >
         <Link href={localizeHref(locale, '/')} className="group flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border-subtle bg-bg-secondary text-sm font-black uppercase tracking-[0.22em] text-accent-primary">
+          <div className="border-border-subtle bg-bg-secondary text-accent-primary flex h-11 w-11 items-center justify-center rounded-full border text-sm font-black tracking-[0.22em] uppercase">
             QV
           </div>
           <div className="hidden sm:block">
-            <p className="font-display text-lg font-semibold text-text-primary transition-colors group-hover:text-accent-primary">
+            <p className="font-display text-text-primary group-hover:text-accent-primary text-lg font-semibold transition-colors">
               QuizVerse
             </p>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-text-muted">
+            <p className="text-text-muted text-[11px] tracking-[0.22em] uppercase">
               {dictionary.nav.statement}
             </p>
           </div>
@@ -56,11 +50,13 @@ export function FloatingNavV2({
             {getLocalizedCategoryLabel('trivia', locale)}
           </NavLink>
           <NavLink href={localizeHref(locale, '/create')}>{dictionary.common.create}</NavLink>
-          <NavLink href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</NavLink>
+          <NavLink href={localizeHref(locale, '/leaderboard')}>
+            {dictionary.common.leaderboard}
+          </NavLink>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden items-center gap-2 rounded-full border border-border-subtle bg-bg-secondary px-3 py-2 text-sm text-text-muted xl:flex">
+          <div className="border-border-subtle bg-bg-secondary text-text-muted hidden items-center gap-2 rounded-full border px-3 py-2 text-sm xl:flex">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
@@ -70,7 +66,7 @@ export function FloatingNavV2({
               />
             </svg>
             <span>{dictionary.nav.search}</span>
-            <kbd className="rounded bg-bg-primary px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted">
+            <kbd className="bg-bg-primary text-text-muted rounded px-1.5 py-0.5 text-[10px] font-semibold tracking-[0.12em] uppercase">
               Ctrl K
             </kbd>
           </div>
@@ -78,13 +74,13 @@ export function FloatingNavV2({
           <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
           <Link
             href={localizeHref(locale, '/login')}
-            className="hidden rounded-full px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary sm:inline-flex"
+            className="text-text-secondary hover:text-text-primary hidden rounded-full px-4 py-2 text-sm font-medium transition-colors sm:inline-flex"
           >
             {dictionary.common.login}
           </Link>
           <Link
             href={localizeHref(locale, '/login')}
-            className="inline-flex rounded-full bg-accent-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
+            className="bg-accent-primary hover:bg-accent-hover inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors"
           >
             {dictionary.common.signup}
           </Link>
@@ -98,7 +94,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   return (
     <Link
       href={href}
-      className="rounded-full px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-bg-secondary hover:text-text-primary"
+      className="text-text-secondary hover:bg-bg-secondary hover:text-text-primary rounded-full px-4 py-2 text-sm font-medium transition-colors"
     >
       {children}
     </Link>

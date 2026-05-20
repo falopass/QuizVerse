@@ -19,11 +19,11 @@ export function CategoryPill({ category, isActive = false, onClick }: CategoryPi
         onClick?.();
       }}
       className={cn(
-        'inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium',
-        'transition-all duration-200 whitespace-nowrap',
-        'border cursor-pointer select-none',
+        'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium',
+        'whitespace-nowrap transition-all duration-200',
+        'cursor-pointer border select-none',
         isActive
-          ? 'bg-accent-primary border-accent-primary text-white shadow-glow'
+          ? 'bg-accent-primary border-accent-primary shadow-glow text-white'
           : 'bg-bg-secondary border-border-subtle text-text-secondary hover:border-accent-primary/50 hover:text-text-primary hover:bg-bg-tertiary'
       )}
     >

@@ -44,12 +44,7 @@ export function QuizProgress({
               timeRemaining <= 10 ? 'text-warning' : 'text-text-muted'
             )}
           >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -58,8 +53,7 @@ export function QuizProgress({
               />
             </svg>
             <span>
-              {Math.floor(timeRemaining / 60)}:
-              {(timeRemaining % 60).toString().padStart(2, '0')}
+              {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}
             </span>
           </div>
         )}

@@ -22,10 +22,34 @@ export interface SearchResult {
 // Resultados estáticos (páginas y categorías)
 const STATIC_RESULTS: SearchResult[] = [
   { type: 'page', title: 'Home', href: '/', icon: '🏠', description: 'Inicio de QuizVerse' },
-  { type: 'page', title: 'Explore Quizzes', href: '/quiz', icon: '🔍', description: 'Explorar todos los quizzes' },
-  { type: 'page', title: 'Create Quiz', href: '/create', icon: '✏️', description: 'Crear un quiz manualmente' },
-  { type: 'page', title: 'AI Quiz Generator', href: '/create/ai', icon: '🤖', description: 'Generar quiz con IA' },
-  { type: 'page', title: 'Leaderboard', href: '/leaderboard', icon: '🏆', description: 'Ranking global de jugadores' },
+  {
+    type: 'page',
+    title: 'Explore Quizzes',
+    href: '/quiz',
+    icon: '🔍',
+    description: 'Explorar todos los quizzes',
+  },
+  {
+    type: 'page',
+    title: 'Create Quiz',
+    href: '/create',
+    icon: '✏️',
+    description: 'Crear un quiz manualmente',
+  },
+  {
+    type: 'page',
+    title: 'AI Quiz Generator',
+    href: '/create/ai',
+    icon: '🤖',
+    description: 'Generar quiz con IA',
+  },
+  {
+    type: 'page',
+    title: 'Leaderboard',
+    href: '/leaderboard',
+    icon: '🏆',
+    description: 'Ranking global de jugadores',
+  },
   { type: 'category', title: 'Personality', href: '/category/personality', icon: '🧠' },
   { type: 'category', title: 'Movies & TV', href: '/category/movies-tv', icon: '🎬' },
   { type: 'category', title: 'Music', href: '/category/music', icon: '🎵' },
@@ -102,9 +126,9 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
     <Modal isOpen={isOpen} onClose={onClose} size="lg" showCloseButton={false}>
       <div className="relative">
         {/* Search Input */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="mb-4 flex items-center gap-3">
           <svg
-            className="w-5 h-5 text-text-muted shrink-0"
+            className="text-text-muted h-5 w-5 shrink-0"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -128,7 +152,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
         {/* Results */}
         <div className="max-h-[400px] overflow-y-auto">
           {filteredResults.length === 0 ? (
-            <div className="text-center py-8 text-text-muted">
+            <div className="text-text-muted py-8 text-center">
               <p>No results found for &quot;{search}&quot;</p>
             </div>
           ) : (
@@ -138,7 +162,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
                   key={`${result.type}-${result.href}`}
                   href={result.href}
                   className={cn(
-                    'flex items-start gap-3 px-3 py-2.5 rounded-lg',
+                    'flex items-start gap-3 rounded-lg px-3 py-2.5',
                     'transition-colors duration-150',
                     index === selectedIndex
                       ? 'bg-accent-primary/10 text-text-primary'
@@ -147,13 +171,13 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
                   onMouseEnter={() => setSelectedIndex(index)}
                   onClick={() => onClose()}
                 >
-                  <span className="text-lg shrink-0">{result.icon}</span>
-                  <div className="flex-1 min-w-0">
+                  <span className="shrink-0 text-lg">{result.icon}</span>
+                  <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium truncate">{result.title}</span>
+                      <span className="truncate font-medium">{result.title}</span>
                       <span
                         className={cn(
-                          'text-xs px-1.5 py-0.5 rounded bg-bg-tertiary',
+                          'bg-bg-tertiary rounded px-1.5 py-0.5 text-xs',
                           result.type === 'page' && 'text-text-muted',
                           result.type === 'category' && 'text-accent-primary',
                           result.type === 'quiz' && 'text-accent-secondary'
@@ -163,7 +187,7 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
                       </span>
                     </div>
                     {result.description && (
-                      <p className="text-sm text-text-muted truncate">{result.description}</p>
+                      <p className="text-text-muted truncate text-sm">{result.description}</p>
                     )}
                   </div>
                 </a>
@@ -173,19 +197,19 @@ export function CommandMenu({ isOpen, onClose }: CommandMenuProps) {
         </div>
 
         {/* Footer */}
-        <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-xs text-text-muted">
+        <div className="border-border-subtle text-text-muted mt-4 flex items-center justify-between border-t pt-3 text-xs">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-bg-tertiary rounded text-[10px]">↑↓</kbd>
+              <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5 text-[10px]">↑↓</kbd>
               Navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 bg-bg-tertiary rounded text-[10px]">↵</kbd>
+              <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5 text-[10px]">↵</kbd>
               Select
             </span>
           </div>
           <span className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 bg-bg-tertiary rounded text-[10px]">ESC</kbd>
+            <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5 text-[10px]">ESC</kbd>
             Close
           </span>
         </div>

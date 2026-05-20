@@ -12,16 +12,16 @@ export function StatsBanner() {
   ];
 
   return (
-    <section className="px-4 py-8 border-y border-border-subtle bg-bg-secondary/50">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <section className="border-border-subtle bg-bg-secondary/50 border-y px-4 py-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {stats.map((stat, index) => (
             <div key={stat.label} className="text-center">
-              <div className="text-2xl md:text-4xl font-display font-bold text-text-primary mb-1">
+              <div className="font-display text-text-primary mb-1 text-2xl font-bold md:text-4xl">
                 {formatCompactNumber(stat.value)}
                 {stat.suffix}
               </div>
-              <div className="text-sm text-text-secondary">{stat.label}</div>
+              <div className="text-text-secondary text-sm">{stat.label}</div>
             </div>
           ))}
         </div>

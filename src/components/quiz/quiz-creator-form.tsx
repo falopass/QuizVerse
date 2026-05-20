@@ -12,7 +12,13 @@ import { trackEvent } from '@/lib/telemetry/client';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Category, PersonalityResult, Question } from '@/types/quiz';
 
-export function QuizCreatorForm({ categories, locale = 'en' }: { categories: Category[]; locale?: Locale }) {
+export function QuizCreatorForm({
+  categories,
+  locale = 'en',
+}: {
+  categories: Category[];
+  locale?: Locale;
+}) {
   const router = useRouter();
   const { success, error } = useToast();
   const copy =
@@ -138,15 +144,22 @@ export function QuizCreatorForm({ categories, locale = 'en' }: { categories: Cat
   const [quizType, setQuizType] = useState<'trivia' | 'personality'>('trivia');
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [categoryId, setCategoryId] = useState('');
-  const [questions, setQuestions] = useState<Question[]>([question('trivia'), question('trivia'), question('trivia')]);
+  const [questions, setQuestions] = useState<Question[]>([
+    question('trivia'),
+    question('trivia'),
+    question('trivia'),
+  ]);
   const [results, setResults] = useState<PersonalityResult[]>([result(), result()]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const checks = useMemo(() => ({
-    title: title.trim().length >= 5,
-    questions: questions.length >= 3 && questions.every(validQuestion),
-    results: quizType === 'trivia' || (results.length >= 2 && results.every(validResult)),
-  }), [questions, quizType, results, title]);
+  const checks = useMemo(
+    () => ({
+      title: title.trim().length >= 5,
+      questions: questions.length >= 3 && questions.every(validQuestion),
+      results: quizType === 'trivia' || (results.length >= 2 && results.every(validResult)),
+    }),
+    [questions, quizType, results, title]
+  );
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -196,53 +209,500 @@ export function QuizCreatorForm({ categories, locale = 'en' }: { categories: Cat
       <div className="space-y-6">
         <section className="surface-panel p-6">
           <p className="eyebrow">{copy.eyebrow}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-text-primary">{copy.heading}</h2>
+          <h2 className="text-text-primary mt-3 text-3xl font-semibold tracking-tight">
+            {copy.heading}
+          </h2>
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            <Block label={copy.title}><Input value={title} onChange={(e) => setTitle(e.target.value)} placeholder={copy.titlePlaceholder} maxLength={120} /></Block>
-            <Block label={copy.category}><select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="h-11 w-full rounded-xl border border-border-subtle bg-bg-secondary px-4 text-sm text-text-primary outline-none"><option value="">{copy.categoryPlaceholder}</option>{categories.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select></Block>
-            <Block label={copy.description} className="lg:col-span-2"><textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className="w-full rounded-2xl border border-border-subtle bg-bg-secondary px-4 py-3 text-sm text-text-primary outline-none" placeholder={copy.descriptionPlaceholder} /></Block>
+            <Block label={copy.title}>
+              <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={copy.titlePlaceholder}
+                maxLength={120}
+              />
+            </Block>
+            <Block label={copy.category}>
+              <select
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+              >
+                <option value="">{copy.categoryPlaceholder}</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </Block>
+            <Block label={copy.description} className="lg:col-span-2">
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows={4}
+                className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                placeholder={copy.descriptionPlaceholder}
+              />
+            </Block>
           </div>
         </section>
 
         <section className="surface-panel p-6">
           <div className="grid gap-5 lg:grid-cols-2">
-            <Choice label={copy.format} value={quizType} setValue={(value) => { setQuizType(value as 'trivia' | 'personality'); setQuestions((current) => current.map((item) => normalize(item, value as 'trivia' | 'personality'))); }} options={[['trivia', copy.trivia], ['personality', copy.personality]]} />
-            <Choice label={copy.difficulty} value={difficulty} setValue={(value) => setDifficulty(value as 'easy' | 'medium' | 'hard')} options={[['easy', copy.easy], ['medium', copy.medium], ['hard', copy.hard]]} />
+            <Choice
+              label={copy.format}
+              value={quizType}
+              setValue={(value) => {
+                setQuizType(value as 'trivia' | 'personality');
+                setQuestions((current) =>
+                  current.map((item) => normalize(item, value as 'trivia' | 'personality'))
+                );
+              }}
+              options={[
+                ['trivia', copy.trivia],
+                ['personality', copy.personality],
+              ]}
+            />
+            <Choice
+              label={copy.difficulty}
+              value={difficulty}
+              setValue={(value) => setDifficulty(value as 'easy' | 'medium' | 'hard')}
+              options={[
+                ['easy', copy.easy],
+                ['medium', copy.medium],
+                ['hard', copy.hard],
+              ]}
+            />
           </div>
         </section>
 
         <section className="surface-panel p-6">
-          <div className="mb-4 flex items-center justify-between"><div><p className="eyebrow">{copy.questions}</p><h3 className="mt-2 text-2xl font-semibold text-text-primary">{copy.questionsHeading}</h3></div><Button type="button" variant="secondary" onClick={() => setQuestions((current) => [...current, question(quizType)])}>{copy.addQuestion}</Button></div>
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <p className="eyebrow">{copy.questions}</p>
+              <h3 className="text-text-primary mt-2 text-2xl font-semibold">
+                {copy.questionsHeading}
+              </h3>
+            </div>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setQuestions((current) => [...current, question(quizType)])}
+            >
+              {copy.addQuestion}
+            </Button>
+          </div>
           <div className="space-y-4">
-            {questions.map((item, index) => <article key={item.id} className="rounded-[28px] border border-border-subtle bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"><div className="flex items-center justify-between gap-3"><p className="text-sm font-semibold text-text-primary">{copy.question} {index + 1}</p><div className="flex gap-2"><Mini onClick={() => move(setQuestions, questions, index, -1)} disabled={index === 0}>{copy.up}</Mini><Mini onClick={() => move(setQuestions, questions, index, 1)} disabled={index === questions.length - 1}>{copy.down}</Mini><Mini tone="danger" onClick={() => setQuestions((current) => current.filter((_, i) => i !== index))} disabled={questions.length === 1}>{copy.remove}</Mini></div></div><div className="mt-4"><Input value={item.question} onChange={(e) => patchQuestion(setQuestions, index, { question: e.target.value })} placeholder={copy.questionPrompt} /></div><div className="mt-4 grid gap-3 sm:grid-cols-2">{item.options.map((option, optionIndex) => <div key={option.id} className={cn('rounded-2xl border p-4', option.is_correct ? 'border-emerald-500/35 bg-emerald-500/8' : 'border-border-subtle bg-bg-secondary/60')}><div className="mb-3 flex items-center justify-between"><span className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">{copy.option} {String.fromCharCode(65 + optionIndex)}</span>{quizType === 'trivia' ? <button type="button" onClick={() => setQuestions((current) => current.map((q, qIndex) => qIndex !== index ? q : { ...q, options: q.options.map((o, oIndex) => ({ ...o, is_correct: oIndex === optionIndex })) }))} className={cn('rounded-full px-3 py-1 text-xs font-semibold', option.is_correct ? 'bg-emerald-600 text-white' : 'bg-white text-text-secondary ring-1 ring-border-subtle')}>{option.is_correct ? copy.correct : copy.markCorrect}</button> : null}</div><Input value={option.text} onChange={(e) => setQuestions((current) => current.map((q, qIndex) => qIndex !== index ? q : { ...q, options: q.options.map((o, oIndex) => oIndex === optionIndex ? { ...o, text: e.target.value } : o) }))} placeholder={copy.answerCopy} /></div>)}</div><textarea value={item.explanation || ''} onChange={(e) => patchQuestion(setQuestions, index, { explanation: e.target.value })} rows={3} className="mt-4 w-full rounded-2xl border border-border-subtle bg-bg-secondary px-4 py-3 text-sm text-text-primary outline-none" placeholder={copy.explanation} /></article>)}
+            {questions.map((item, index) => (
+              <article
+                key={item.id}
+                className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-text-primary text-sm font-semibold">
+                    {copy.question} {index + 1}
+                  </p>
+                  <div className="flex gap-2">
+                    <Mini
+                      onClick={() => move(setQuestions, questions, index, -1)}
+                      disabled={index === 0}
+                    >
+                      {copy.up}
+                    </Mini>
+                    <Mini
+                      onClick={() => move(setQuestions, questions, index, 1)}
+                      disabled={index === questions.length - 1}
+                    >
+                      {copy.down}
+                    </Mini>
+                    <Mini
+                      tone="danger"
+                      onClick={() =>
+                        setQuestions((current) => current.filter((_, i) => i !== index))
+                      }
+                      disabled={questions.length === 1}
+                    >
+                      {copy.remove}
+                    </Mini>
+                  </div>
+                </div>
+                <div className="mt-4">
+                  <Input
+                    value={item.question}
+                    onChange={(e) =>
+                      patchQuestion(setQuestions, index, { question: e.target.value })
+                    }
+                    placeholder={copy.questionPrompt}
+                  />
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {item.options.map((option, optionIndex) => (
+                    <div
+                      key={option.id}
+                      className={cn(
+                        'rounded-2xl border p-4',
+                        option.is_correct
+                          ? 'border-emerald-500/35 bg-emerald-500/8'
+                          : 'border-border-subtle bg-bg-secondary/60'
+                      )}
+                    >
+                      <div className="mb-3 flex items-center justify-between">
+                        <span className="text-text-muted text-xs font-semibold tracking-[0.2em] uppercase">
+                          {copy.option} {String.fromCharCode(65 + optionIndex)}
+                        </span>
+                        {quizType === 'trivia' ? (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setQuestions((current) =>
+                                current.map((q, qIndex) =>
+                                  qIndex !== index
+                                    ? q
+                                    : {
+                                        ...q,
+                                        options: q.options.map((o, oIndex) => ({
+                                          ...o,
+                                          is_correct: oIndex === optionIndex,
+                                        })),
+                                      }
+                                )
+                              )
+                            }
+                            className={cn(
+                              'rounded-full px-3 py-1 text-xs font-semibold',
+                              option.is_correct
+                                ? 'bg-emerald-600 text-white'
+                                : 'text-text-secondary ring-border-subtle bg-white ring-1'
+                            )}
+                          >
+                            {option.is_correct ? copy.correct : copy.markCorrect}
+                          </button>
+                        ) : null}
+                      </div>
+                      <Input
+                        value={option.text}
+                        onChange={(e) =>
+                          setQuestions((current) =>
+                            current.map((q, qIndex) =>
+                              qIndex !== index
+                                ? q
+                                : {
+                                    ...q,
+                                    options: q.options.map((o, oIndex) =>
+                                      oIndex === optionIndex ? { ...o, text: e.target.value } : o
+                                    ),
+                                  }
+                            )
+                          )
+                        }
+                        placeholder={copy.answerCopy}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <textarea
+                  value={item.explanation || ''}
+                  onChange={(e) =>
+                    patchQuestion(setQuestions, index, { explanation: e.target.value })
+                  }
+                  rows={3}
+                  className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                  placeholder={copy.explanation}
+                />
+              </article>
+            ))}
           </div>
         </section>
 
-        {quizType === 'personality' ? <section className="surface-panel p-6"><div className="mb-4 flex items-center justify-between"><div><p className="eyebrow">{copy.outcomes}</p><h3 className="mt-2 text-2xl font-semibold text-text-primary">{copy.outcomesHeading}</h3></div><Button type="button" variant="secondary" onClick={() => setResults((current) => [...current, result()])}>{copy.addOutcome}</Button></div><div className="space-y-4">{results.map((item, index) => <article key={item.id} className="rounded-[28px] border border-border-subtle bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"><div className="flex items-center justify-between"><p className="text-sm font-semibold text-text-primary">{copy.outcome} {index + 1}</p><Mini tone="danger" onClick={() => setResults((current) => current.filter((_, i) => i !== index))} disabled={results.length <= 2}>{copy.remove}</Mini></div><div className="mt-4 grid gap-4 lg:grid-cols-2"><Input value={item.title} onChange={(e) => patchResult(setResults, index, { title: e.target.value })} placeholder={copy.outcomeTitle} /><Input type="url" value={item.image_url || ''} onChange={(e) => patchResult(setResults, index, { image_url: e.target.value })} placeholder={copy.imageUrl} /></div><textarea value={item.description} onChange={(e) => patchResult(setResults, index, { description: e.target.value })} rows={3} className="mt-4 w-full rounded-2xl border border-border-subtle bg-bg-secondary px-4 py-3 text-sm text-text-primary outline-none" placeholder={copy.outcomeDescription} /><div className="mt-4 grid gap-4 sm:grid-cols-2"><Input type="number" value={item.min_score ?? 0} onChange={(e) => patchResult(setResults, index, { min_score: Number(e.target.value) || 0 })} placeholder={copy.min} /><Input type="number" value={item.max_score ?? 0} onChange={(e) => patchResult(setResults, index, { max_score: Number(e.target.value) || 0 })} placeholder={copy.max} /></div></article>)}</div></section> : null}
+        {quizType === 'personality' ? (
+          <section className="surface-panel p-6">
+            <div className="mb-4 flex items-center justify-between">
+              <div>
+                <p className="eyebrow">{copy.outcomes}</p>
+                <h3 className="text-text-primary mt-2 text-2xl font-semibold">
+                  {copy.outcomesHeading}
+                </h3>
+              </div>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => setResults((current) => [...current, result()])}
+              >
+                {copy.addOutcome}
+              </Button>
+            </div>
+            <div className="space-y-4">
+              {results.map((item, index) => (
+                <article
+                  key={item.id}
+                  className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-text-primary text-sm font-semibold">
+                      {copy.outcome} {index + 1}
+                    </p>
+                    <Mini
+                      tone="danger"
+                      onClick={() => setResults((current) => current.filter((_, i) => i !== index))}
+                      disabled={results.length <= 2}
+                    >
+                      {copy.remove}
+                    </Mini>
+                  </div>
+                  <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                    <Input
+                      value={item.title}
+                      onChange={(e) => patchResult(setResults, index, { title: e.target.value })}
+                      placeholder={copy.outcomeTitle}
+                    />
+                    <Input
+                      type="url"
+                      value={item.image_url || ''}
+                      onChange={(e) =>
+                        patchResult(setResults, index, { image_url: e.target.value })
+                      }
+                      placeholder={copy.imageUrl}
+                    />
+                  </div>
+                  <textarea
+                    value={item.description}
+                    onChange={(e) =>
+                      patchResult(setResults, index, { description: e.target.value })
+                    }
+                    rows={3}
+                    className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                    placeholder={copy.outcomeDescription}
+                  />
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    <Input
+                      type="number"
+                      value={item.min_score ?? 0}
+                      onChange={(e) =>
+                        patchResult(setResults, index, { min_score: Number(e.target.value) || 0 })
+                      }
+                      placeholder={copy.min}
+                    />
+                    <Input
+                      type="number"
+                      value={item.max_score ?? 0}
+                      onChange={(e) =>
+                        patchResult(setResults, index, { max_score: Number(e.target.value) || 0 })
+                      }
+                      placeholder={copy.max}
+                    />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
-        <div className="flex flex-wrap gap-3"><Button type="submit" size="lg" isLoading={isSubmitting} className="rounded-full px-7">{isSubmitting ? copy.publishing : copy.publish}</Button></div>
+        <div className="flex flex-wrap gap-3">
+          <Button type="submit" size="lg" isLoading={isSubmitting} className="rounded-full px-7">
+            {isSubmitting ? copy.publishing : copy.publish}
+          </Button>
+        </div>
       </div>
 
       <aside className="space-y-6">
-        <section className="surface-panel sticky top-28 overflow-hidden p-0"><div className="border-b border-border-subtle bg-[linear-gradient(135deg,rgba(216,120,52,0.18),transparent_70%)] p-6"><p className="eyebrow">{copy.previewEyebrow}</p><h3 className="mt-3 text-2xl font-semibold tracking-tight text-text-primary">{title || copy.futureCover}</h3><p className="mt-3 text-sm leading-7 text-text-secondary">{description || copy.futureSummary}</p></div><div className="space-y-4 p-6"><div className="flex flex-wrap gap-2"><Tag>{difficulty}</Tag><Tag>{quizType}</Tag><Tag>{questions.length} {copy.questionsCount}</Tag><Tag>{copy.language}: {locale === 'es' ? copy.spanish : copy.english}</Tag></div><Check ready={checks.title} label={copy.headline} detail={title || 'Missing title'} /><Check ready={checks.questions} label={copy.playableQuestions} detail={`${questions.length} ${copy.drafted}`} /><Check ready={checks.results} label={copy.outcomesLabel} detail={quizType === 'trivia' ? copy.notRequired : `${results.length} ${copy.drafted}`} /></div></section>
+        <section className="surface-panel sticky top-28 overflow-hidden p-0">
+          <div className="border-border-subtle border-b bg-[linear-gradient(135deg,rgba(216,120,52,0.18),transparent_70%)] p-6">
+            <p className="eyebrow">{copy.previewEyebrow}</p>
+            <h3 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
+              {title || copy.futureCover}
+            </h3>
+            <p className="text-text-secondary mt-3 text-sm leading-7">
+              {description || copy.futureSummary}
+            </p>
+          </div>
+          <div className="space-y-4 p-6">
+            <div className="flex flex-wrap gap-2">
+              <Tag>{difficulty}</Tag>
+              <Tag>{quizType}</Tag>
+              <Tag>
+                {questions.length} {copy.questionsCount}
+              </Tag>
+              <Tag>
+                {copy.language}: {locale === 'es' ? copy.spanish : copy.english}
+              </Tag>
+            </div>
+            <Check ready={checks.title} label={copy.headline} detail={title || 'Missing title'} />
+            <Check
+              ready={checks.questions}
+              label={copy.playableQuestions}
+              detail={`${questions.length} ${copy.drafted}`}
+            />
+            <Check
+              ready={checks.results}
+              label={copy.outcomesLabel}
+              detail={
+                quizType === 'trivia' ? copy.notRequired : `${results.length} ${copy.drafted}`
+              }
+            />
+          </div>
+        </section>
       </aside>
     </form>
   );
 }
 
-const question = (type: 'trivia' | 'personality'): Question => ({ id: `q-${crypto.randomUUID()}`, question: '', options: Array.from({ length: 4 }, (_, index) => ({ id: `o-${crypto.randomUUID()}`, text: '', is_correct: type === 'trivia' && index === 0 })), explanation: '' });
-const result = (): PersonalityResult => ({ id: `r-${crypto.randomUUID()}`, title: '', description: '', min_score: 0, max_score: 0, image_url: '' });
-const normalize = (item: Question, type: 'trivia' | 'personality'): Question => ({ ...item, options: item.options.map((option, index) => ({ ...option, is_correct: type === 'trivia' ? item.options.some((o) => o.is_correct) ? Boolean(option.is_correct) : index === 0 : false })) });
-const validQuestion = (item: Question) => item.question.trim() && item.options.every((option) => option.text.trim()) && item.options.some((option) => option.is_correct);
+const question = (type: 'trivia' | 'personality'): Question => ({
+  id: `q-${crypto.randomUUID()}`,
+  question: '',
+  options: Array.from({ length: 4 }, (_, index) => ({
+    id: `o-${crypto.randomUUID()}`,
+    text: '',
+    is_correct: type === 'trivia' && index === 0,
+  })),
+  explanation: '',
+});
+const result = (): PersonalityResult => ({
+  id: `r-${crypto.randomUUID()}`,
+  title: '',
+  description: '',
+  min_score: 0,
+  max_score: 0,
+  image_url: '',
+});
+const normalize = (item: Question, type: 'trivia' | 'personality'): Question => ({
+  ...item,
+  options: item.options.map((option, index) => ({
+    ...option,
+    is_correct:
+      type === 'trivia'
+        ? item.options.some((o) => o.is_correct)
+          ? Boolean(option.is_correct)
+          : index === 0
+        : false,
+  })),
+});
+const validQuestion = (item: Question) =>
+  item.question.trim() &&
+  item.options.every((option) => option.text.trim()) &&
+  item.options.some((option) => option.is_correct);
 const validResult = (item: PersonalityResult) => item.title.trim() && item.description.trim();
-const patchQuestion = (setQuestions: React.Dispatch<React.SetStateAction<Question[]>>, index: number, patch: Partial<Question>) => setQuestions((current) => current.map((item, i) => i === index ? { ...item, ...patch } : item));
-const patchResult = (setResults: React.Dispatch<React.SetStateAction<PersonalityResult[]>>, index: number, patch: Partial<PersonalityResult>) => setResults((current) => current.map((item, i) => i === index ? { ...item, ...patch } : item));
-const move = <T,>(setter: React.Dispatch<React.SetStateAction<T[]>>, list: T[], index: number, diff: -1 | 1) => { const target = index + diff; if (target < 0 || target >= list.length) return; setter((current) => { const next = [...current]; [next[index], next[target]] = [next[target], next[index]]; return next; }); };
-function Block({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) { return <div className={className}><label className="mb-2 block text-sm font-medium text-text-primary">{label}</label>{children}</div>; }
-function Choice({ label, value, setValue, options }: { label: string; value: string; setValue: (value: string) => void; options: [string, string][] }) { return <div><p className="mb-3 text-sm font-medium text-text-primary">{label}</p><div className="grid gap-3">{options.map(([id, text]) => <button key={id} type="button" onClick={() => setValue(id)} className={cn('rounded-[24px] border px-4 py-4 text-left transition', value === id ? 'border-accent-primary bg-accent-primary/8' : 'border-border-subtle bg-bg-secondary')}><p className="text-base font-semibold text-text-primary">{text}</p></button>)}</div></div>; }
-function Mini({ children, onClick, disabled, tone = 'neutral' }: { children: React.ReactNode; onClick: () => void; disabled?: boolean; tone?: 'neutral' | 'danger' }) { return <button type="button" disabled={disabled} onClick={onClick} className={cn('rounded-full px-3 py-1.5 text-xs font-semibold disabled:opacity-45', tone === 'danger' ? 'bg-rose-500/10 text-rose-700' : 'bg-bg-secondary text-text-secondary ring-1 ring-border-subtle')}>{children}</button>; }
-function Tag({ children }: { children: React.ReactNode }) { return <span className="rounded-full bg-bg-secondary px-3 py-1 text-xs font-semibold text-text-secondary ring-1 ring-border-subtle">{children}</span>; }
-function Check({ ready, label, detail }: { ready: boolean; label: string; detail: string }) { return <div className={cn('rounded-2xl border px-4 py-3', ready ? 'border-emerald-500/20 bg-emerald-500/8' : 'border-border-subtle bg-white/75')}><p className="text-sm font-medium text-text-primary">{label}</p><p className="mt-1 text-xs text-text-secondary">{detail}</p></div>; }
+const patchQuestion = (
+  setQuestions: React.Dispatch<React.SetStateAction<Question[]>>,
+  index: number,
+  patch: Partial<Question>
+) =>
+  setQuestions((current) => current.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+const patchResult = (
+  setResults: React.Dispatch<React.SetStateAction<PersonalityResult[]>>,
+  index: number,
+  patch: Partial<PersonalityResult>
+) =>
+  setResults((current) => current.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+const move = <T,>(
+  setter: React.Dispatch<React.SetStateAction<T[]>>,
+  list: T[],
+  index: number,
+  diff: -1 | 1
+) => {
+  const target = index + diff;
+  if (target < 0 || target >= list.length) return;
+  setter((current) => {
+    const next = [...current];
+    [next[index], next[target]] = [next[target], next[index]];
+    return next;
+  });
+};
+function Block({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={className}>
+      <label className="text-text-primary mb-2 block text-sm font-medium">{label}</label>
+      {children}
+    </div>
+  );
+}
+function Choice({
+  label,
+  value,
+  setValue,
+  options,
+}: {
+  label: string;
+  value: string;
+  setValue: (value: string) => void;
+  options: [string, string][];
+}) {
+  return (
+    <div>
+      <p className="text-text-primary mb-3 text-sm font-medium">{label}</p>
+      <div className="grid gap-3">
+        {options.map(([id, text]) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setValue(id)}
+            className={cn(
+              'rounded-[24px] border px-4 py-4 text-left transition',
+              value === id
+                ? 'border-accent-primary bg-accent-primary/8'
+                : 'border-border-subtle bg-bg-secondary'
+            )}
+          >
+            <p className="text-text-primary text-base font-semibold">{text}</p>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+function Mini({
+  children,
+  onClick,
+  disabled,
+  tone = 'neutral',
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+  tone?: 'neutral' | 'danger';
+}) {
+  return (
+    <button
+      type="button"
+      disabled={disabled}
+      onClick={onClick}
+      className={cn(
+        'rounded-full px-3 py-1.5 text-xs font-semibold disabled:opacity-45',
+        tone === 'danger'
+          ? 'bg-rose-500/10 text-rose-700'
+          : 'bg-bg-secondary text-text-secondary ring-border-subtle ring-1'
+      )}
+    >
+      {children}
+    </button>
+  );
+}
+function Tag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="bg-bg-secondary text-text-secondary ring-border-subtle rounded-full px-3 py-1 text-xs font-semibold ring-1">
+      {children}
+    </span>
+  );
+}
+function Check({ ready, label, detail }: { ready: boolean; label: string; detail: string }) {
+  return (
+    <div
+      className={cn(
+        'rounded-2xl border px-4 py-3',
+        ready ? 'border-emerald-500/20 bg-emerald-500/8' : 'border-border-subtle bg-white/75'
+      )}
+    >
+      <p className="text-text-primary text-sm font-medium">{label}</p>
+      <p className="text-text-secondary mt-1 text-xs">{detail}</p>
+    </div>
+  );
+}
 
 export default QuizCreatorForm;
-

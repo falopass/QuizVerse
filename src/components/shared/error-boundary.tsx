@@ -40,10 +40,10 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
-          <div className="w-16 h-16 mb-4 rounded-full bg-error/10 flex items-center justify-center">
+        <div className="flex min-h-[400px] flex-col items-center justify-center p-8 text-center">
+          <div className="bg-error/10 mb-4 flex h-16 w-16 items-center justify-center rounded-full">
             <svg
-              className="w-8 h-8 text-error"
+              className="text-error h-8 w-8"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -56,7 +56,7 @@ export class ErrorBoundary extends Component<Props, State> {
               />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-text-primary mb-2">Something went wrong</h2>
+          <h2 className="text-text-primary mb-2 text-xl font-bold">Something went wrong</h2>
           <p className="text-text-secondary mb-6 max-w-md">
             We're sorry, but something went wrong. Please try again.
           </p>

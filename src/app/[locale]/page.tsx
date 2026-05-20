@@ -38,10 +38,18 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const categories = payload.categories
     .map((category) => localizeCategory(category, locale))
     .filter(Boolean);
-  const featured = localizeQuizList(payload.featured, locale).sort((a, b) => editorialScore(b) - editorialScore(a));
-  const trending = localizeQuizList(payload.trending, locale).sort((a, b) => editorialScore(b) - editorialScore(a));
-  const quickPlays = localizeQuizList(payload.quickPlays, locale).sort((a, b) => editorialScore(b) - editorialScore(a));
-  const freshlyPublished = localizeQuizList(payload.freshlyPublished, locale).sort((a, b) => editorialScore(b) - editorialScore(a));
+  const featured = localizeQuizList(payload.featured, locale).sort(
+    (a, b) => editorialScore(b) - editorialScore(a)
+  );
+  const trending = localizeQuizList(payload.trending, locale).sort(
+    (a, b) => editorialScore(b) - editorialScore(a)
+  );
+  const quickPlays = localizeQuizList(payload.quickPlays, locale).sort(
+    (a, b) => editorialScore(b) - editorialScore(a)
+  );
+  const freshlyPublished = localizeQuizList(payload.freshlyPublished, locale).sort(
+    (a, b) => editorialScore(b) - editorialScore(a)
+  );
   const leadQuiz = featured[0] ?? trending[0] ?? quickPlays[0] ?? null;
   const supportRail = uniqueById([
     ...featured.slice(1),
@@ -56,11 +64,11 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     .slice(0, 5);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-14 px-4 pb-20 pt-28">
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-14 px-4 pt-28 pb-20">
       <section className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
         <div className="space-y-8">
           <div className="kicker eyebrow animate-editorial-rise">
-            <span className="h-2 w-2 rounded-full bg-accent-primary" />
+            <span className="bg-accent-primary h-2 w-2 rounded-full" />
             {dictionary.home.eyebrow}
           </div>
 
@@ -69,7 +77,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               {dictionary.home.title}{' '}
               <span className="headline-gradient">{dictionary.home.titleAccent}</span>
             </h1>
-            <p className="balanced-copy text-lg leading-8 text-text-secondary sm:text-xl">
+            <p className="balanced-copy text-text-secondary text-lg leading-8 sm:text-xl">
               {dictionary.home.subtitle}
             </p>
           </div>
@@ -77,13 +85,13 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               href={localizeHref(locale, '/quiz')}
-              className="inline-flex items-center justify-center rounded-full bg-accent-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white transition-colors hover:bg-accent-hover"
+              className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.18em] text-white uppercase transition-colors"
             >
               {dictionary.home.primaryCta}
             </Link>
             <Link
               href={localizeHref(locale, '/create/ai')}
-              className="inline-flex items-center justify-center rounded-full border border-border-subtle bg-bg-secondary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-text-primary transition-colors hover:border-accent-primary/30"
+              className="border-border-subtle bg-bg-secondary text-text-primary hover:border-accent-primary/30 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold tracking-[0.18em] uppercase transition-colors"
             >
               {dictionary.home.secondaryCta}
             </Link>
@@ -101,11 +109,11 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
                   <h2 className="min-w-0 text-[1.9rem] leading-none tracking-tight sm:text-[2rem]">
                     {category!.name}
                   </h2>
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/55 text-lg text-text-primary">
+                  <span className="text-text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/55 text-lg">
                     {category!.icon ?? category!.name.charAt(0)}
                   </span>
                 </div>
-                <p className="text-sm leading-6 text-text-secondary">{category!.description}</p>
+                <p className="text-text-secondary text-sm leading-6">{category!.description}</p>
               </Link>
             ))}
           </div>
@@ -136,11 +144,15 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
 
       <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
         <div className="surface-panel rounded-[2rem] p-6 md:p-7">
-          <p className="eyebrow mb-4">{locale === 'es' ? 'Selección editorial' : 'Editorial picks'}</p>
+          <p className="eyebrow mb-4">
+            {locale === 'es' ? 'Selección editorial' : 'Editorial picks'}
+          </p>
           <h2 className="text-4xl">
-            {locale === 'es' ? 'Entradas más fuertes para empezar a jugar' : 'Sharper entry points into the catalog'}
+            {locale === 'es'
+              ? 'Entradas más fuertes para empezar a jugar'
+              : 'Sharper entry points into the catalog'}
           </h2>
-          <p className="mt-4 text-base leading-7 text-text-secondary">
+          <p className="text-text-secondary mt-4 text-base leading-7">
             {locale === 'es'
               ? 'En lugar de empujar un grid plano, priorizamos picks con más ritmo, personalidad y conversación cultural real.'
               : 'Instead of a flat catalog wall, we push picks with stronger pacing, personality and live cultural momentum.'}
@@ -150,15 +162,17 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <Link
                 key={`${locale}-standout-${quiz.id}`}
                 href={localizeHref(locale, `/quiz/${quiz.slug}`)}
-                className="flex items-center justify-between rounded-[1.4rem] border border-border-subtle bg-white/70 px-4 py-4 transition-colors hover:border-accent-primary/30"
+                className="border-border-subtle hover:border-accent-primary/30 flex items-center justify-between rounded-[1.4rem] border bg-white/70 px-4 py-4 transition-colors"
               >
                 <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+                  <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
                     {quiz.category?.name ?? (locale === 'es' ? 'Quiz' : 'Quiz')}
                   </p>
-                  <p className="mt-2 line-clamp-2 text-base font-semibold leading-6 text-text-primary">{quiz.title}</p>
+                  <p className="text-text-primary mt-2 line-clamp-2 text-base leading-6 font-semibold">
+                    {quiz.title}
+                  </p>
                 </div>
-                <span className="ml-4 text-sm font-semibold text-accent-primary">
+                <span className="text-accent-primary ml-4 text-sm font-semibold">
                   {locale === 'es' ? 'Ver' : 'Open'}
                 </span>
               </Link>
@@ -238,7 +252,7 @@ function HomeQuizSection({
           <p className="eyebrow">{eyebrow}</p>
           <h2 className="text-4xl">{title}</h2>
         </div>
-        <p className="max-w-2xl text-sm leading-6 text-text-secondary">{deck}</p>
+        <p className="text-text-secondary max-w-2xl text-sm leading-6">{deck}</p>
       </div>
       {lead ? (
         <div className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
@@ -264,7 +278,9 @@ function editorialScore(quiz: Awaited<ReturnType<typeof getHomePayload>>['trendi
   const featuredBoost = quiz.is_featured ? 220 : 0;
   const stockBoost = quiz.cover_image_url?.startsWith('/stock-covers/') ? 28 : 0;
   const personalityBoost = quiz.quiz_type === 'personality' ? 6 : 0;
-  return featuredBoost + stockBoost + quiz.plays_count * 2 + quiz.likes_count * 4 + personalityBoost;
+  return (
+    featuredBoost + stockBoost + quiz.plays_count * 2 + quiz.likes_count * 4 + personalityBoost
+  );
 }
 
 function uniqueById<T extends { id: string }>(items: T[]) {

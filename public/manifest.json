@@ -1,0 +1,9 @@
+{
+  "name": "QuizVerse",
+  "short_name": "QuizVerse",
+  "description": "Play personality quizzes, sharp trivia and fast editorial formats with a stronger product experience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020"
+}

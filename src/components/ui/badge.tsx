@@ -36,7 +36,11 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     };
 
     return (
-      <span ref={ref} className={cn(baseStyles, variants[variant], sizes[size], className)} {...props}>
+      <span
+        ref={ref}
+        className={cn(baseStyles, variants[variant], sizes[size], className)}
+        {...props}
+      >
         {leftIcon && <span className="shrink-0">{leftIcon}</span>}
         {children}
         {rightIcon && <span className="shrink-0">{rightIcon}</span>}

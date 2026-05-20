@@ -29,7 +29,8 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
 
   if (count >= config.limit) {
     const oldestEntry = await redis.zrange<number[]>(key, 0, 0, { withScores: true });
-    const reset = Math.ceil((oldestEntry[0] as any)?.score ?? now + config.window) + config.window - now;
+    const reset =
+      Math.ceil((oldestEntry[0] as any)?.score ?? now + config.window) + config.window - now;
 
     return {
       allowed: false,

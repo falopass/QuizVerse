@@ -40,31 +40,38 @@ process.on('unhandledRejection', (error) => {
 const QuizSchema = z.object({
   title: z.string().min(5).max(120),
   description: z.string().min(20).max(MAX_DESCRIPTION),
-  questions: z.array(
-    z.object({
-      id: z.string(),
-      question: z.string().min(10).max(300),
-      options: z.array(
-        z.object({
-          id: z.string(),
-          text: z.string().min(1).max(180),
-          is_correct: z.boolean().optional(),
-          personality_tags: z.array(z.string()).optional(),
-        })
-      ).length(4),
-      explanation: z.string().max(500).nullable().optional(),
-      time_limit_seconds: z.number().min(10).max(120).nullable().optional(),
-    })
-  ).min(QUESTION_COUNT).max(12),
-  results: z.array(
-    z.object({
-      id: z.string(),
-      title: z.string().min(2).max(100),
-      description: z.string().min(20).max(500),
-      personality_tag: z.string().min(1),
-      background_theme: z.string().optional(),
-    })
-  ).optional(),
+  questions: z
+    .array(
+      z.object({
+        id: z.string(),
+        question: z.string().min(10).max(300),
+        options: z
+          .array(
+            z.object({
+              id: z.string(),
+              text: z.string().min(1).max(180),
+              is_correct: z.boolean().optional(),
+              personality_tags: z.array(z.string()).optional(),
+            })
+          )
+          .length(4),
+        explanation: z.string().max(500).nullable().optional(),
+        time_limit_seconds: z.number().min(10).max(120).nullable().optional(),
+      })
+    )
+    .min(QUESTION_COUNT)
+    .max(12),
+  results: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string().min(2).max(100),
+        description: z.string().min(20).max(500),
+        personality_tag: z.string().min(1),
+        background_theme: z.string().optional(),
+      })
+    )
+    .optional(),
   tags: z.array(z.string()).min(2).max(10),
   estimated_minutes: z.number().min(1).max(15),
 });
@@ -79,12 +86,37 @@ const TREND_FRANCHISES = [
   { id: 'hacks', en: 'Hacks', es: 'Hacks', category: 'culture' },
   { id: 'star-wars', en: 'Star Wars', es: 'Star Wars', category: 'culture' },
   { id: 'rezero', en: 'Re:ZERO', es: 'Re:ZERO', category: 'culture' },
-  { id: 'witch-hat-atelier', en: 'Witch Hat Atelier', es: 'Witch Hat Atelier', category: 'culture' },
-  { id: 'classroom-of-the-elite', en: 'Classroom of the Elite', es: 'Classroom of the Elite', category: 'culture' },
+  {
+    id: 'witch-hat-atelier',
+    en: 'Witch Hat Atelier',
+    es: 'Witch Hat Atelier',
+    category: 'culture',
+  },
+  {
+    id: 'classroom-of-the-elite',
+    en: 'Classroom of the Elite',
+    es: 'Classroom of the Elite',
+    category: 'culture',
+  },
   { id: 'dr-stone', en: 'Dr. Stone', es: 'Dr. Stone', category: 'culture' },
-  { id: 'slime', en: 'That Time I Got Reincarnated as a Slime', es: 'That Time I Got Reincarnated as a Slime', category: 'culture' },
-  { id: 'mario-galaxy', en: 'The Super Mario Galaxy Movie', es: 'The Super Mario Galaxy Movie', category: 'culture' },
-  { id: 'project-hail-mary', en: 'Project Hail Mary', es: 'Project Hail Mary', category: 'culture' },
+  {
+    id: 'slime',
+    en: 'That Time I Got Reincarnated as a Slime',
+    es: 'That Time I Got Reincarnated as a Slime',
+    category: 'culture',
+  },
+  {
+    id: 'mario-galaxy',
+    en: 'The Super Mario Galaxy Movie',
+    es: 'The Super Mario Galaxy Movie',
+    category: 'culture',
+  },
+  {
+    id: 'project-hail-mary',
+    en: 'Project Hail Mary',
+    es: 'Project Hail Mary',
+    category: 'culture',
+  },
   { id: 'the-mummy', en: 'The Mummy', es: 'The Mummy', category: 'culture' },
   { id: 'gta-vi', en: 'Grand Theft Auto VI', es: 'Grand Theft Auto VI', category: 'culture' },
   { id: 'resident-evil', en: 'Resident Evil', es: 'Resident Evil', category: 'culture' },
@@ -105,16 +137,91 @@ const TREND_FRANCHISES = [
 ];
 
 const GENERAL_SUBJECTS = [
-  { id: 'cinema-2026', category: 'culture', difficulty: 'medium', titles: { en: '2026 movie culture trivia', es: 'Trivia de cultura de cine 2026' }, quizType: 'trivia' },
-  { id: 'streaming-2026', category: 'culture', difficulty: 'medium', titles: { en: '2026 streaming culture trivia', es: 'Trivia de cultura de streaming 2026' }, quizType: 'trivia' },
-  { id: 'anime-spring-2026', category: 'culture', difficulty: 'medium', titles: { en: 'Spring 2026 anime fan trivia', es: 'Trivia fan del anime primavera 2026' }, quizType: 'trivia' },
-  { id: 'gaming-2026', category: 'culture', difficulty: 'medium', titles: { en: '2026 gaming hype trivia', es: 'Trivia del hype gamer 2026' }, quizType: 'trivia' },
-  { id: 'booktok-vibes', category: 'culture', difficulty: 'easy', titles: { en: 'What BookTok reading vibe are you?', es: 'Que vibe lectora tipo BookTok eres?' }, quizType: 'personality' },
-  { id: 'travel-energy', category: 'lifestyle', difficulty: 'easy', titles: { en: 'What travel energy are you taking into 2026?', es: 'Que energia viajera llevas a 2026?' }, quizType: 'personality' },
-  { id: 'music-era', category: 'culture', difficulty: 'easy', titles: { en: 'Which music era matches your taste?', es: 'Que era musical combina con tu gusto?' }, quizType: 'personality' },
-  { id: 'internet-culture', category: 'culture', difficulty: 'medium', titles: { en: 'Internet culture essentials trivia', es: 'Trivia esencial de cultura de internet' }, quizType: 'trivia' },
-  { id: 'weekend-social', category: 'lifestyle', difficulty: 'easy', titles: { en: 'What weekend social energy are you?', es: 'Que energia social de fin de semana eres?' }, quizType: 'personality' },
-  { id: 'design-taste', category: 'lifestyle', difficulty: 'easy', titles: { en: 'What kind of design taste do you have?', es: 'Que tipo de gusto de diseno tienes?' }, quizType: 'personality' },
+  {
+    id: 'cinema-2026',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: { en: '2026 movie culture trivia', es: 'Trivia de cultura de cine 2026' },
+    quizType: 'trivia',
+  },
+  {
+    id: 'streaming-2026',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: { en: '2026 streaming culture trivia', es: 'Trivia de cultura de streaming 2026' },
+    quizType: 'trivia',
+  },
+  {
+    id: 'anime-spring-2026',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: { en: 'Spring 2026 anime fan trivia', es: 'Trivia fan del anime primavera 2026' },
+    quizType: 'trivia',
+  },
+  {
+    id: 'gaming-2026',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: { en: '2026 gaming hype trivia', es: 'Trivia del hype gamer 2026' },
+    quizType: 'trivia',
+  },
+  {
+    id: 'booktok-vibes',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: { en: 'What BookTok reading vibe are you?', es: 'Que vibe lectora tipo BookTok eres?' },
+    quizType: 'personality',
+  },
+  {
+    id: 'travel-energy',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What travel energy are you taking into 2026?',
+      es: 'Que energia viajera llevas a 2026?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'music-era',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'Which music era matches your taste?',
+      es: 'Que era musical combina con tu gusto?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'internet-culture',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: {
+      en: 'Internet culture essentials trivia',
+      es: 'Trivia esencial de cultura de internet',
+    },
+    quizType: 'trivia',
+  },
+  {
+    id: 'weekend-social',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What weekend social energy are you?',
+      es: 'Que energia social de fin de semana eres?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'design-taste',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What kind of design taste do you have?',
+      es: 'Que tipo de gusto de diseno tienes?',
+    },
+    quizType: 'personality',
+  },
 ];
 
 const FRANCHISE_PATTERNS = [
@@ -177,26 +284,28 @@ const seedDefinitions = [
   })),
 ];
 
-const allTopics = seedDefinitions.flatMap((item) => ([
-  {
-    id: `${item.id}-en`,
-    sourceId: item.id,
-    categorySlug: item.category,
-    quizType: item.quizType,
-    difficulty: item.difficulty,
-    language: 'en',
-    topic: item.titles.en,
-  },
-  {
-    id: `${item.id}-es`,
-    sourceId: item.id,
-    categorySlug: item.category,
-    quizType: item.quizType,
-    difficulty: item.difficulty,
-    language: 'es',
-    topic: item.titles.es,
-  },
-])).slice(0, LIMIT);
+const allTopics = seedDefinitions
+  .flatMap((item) => [
+    {
+      id: `${item.id}-en`,
+      sourceId: item.id,
+      categorySlug: item.category,
+      quizType: item.quizType,
+      difficulty: item.difficulty,
+      language: 'en',
+      topic: item.titles.en,
+    },
+    {
+      id: `${item.id}-es`,
+      sourceId: item.id,
+      categorySlug: item.category,
+      quizType: item.quizType,
+      difficulty: item.difficulty,
+      language: 'es',
+      topic: item.titles.es,
+    },
+  ])
+  .slice(0, LIMIT);
 
 const client = new OpenAI({
   apiKey: API_KEY,
@@ -208,26 +317,32 @@ const client = new OpenAI({
 });
 
 function createPrompt(item) {
-  const languageLine = item.language === 'es'
-    ? 'Write all content in natural Latin American Spanish. Avoid literal translation and avoid Spanglish unless it is part of the fandom itself.'
-    : 'Write all content in natural contemporary English. Avoid corporate tone and avoid generic filler.';
+  const languageLine =
+    item.language === 'es'
+      ? 'Write all content in natural Latin American Spanish. Avoid literal translation and avoid Spanglish unless it is part of the fandom itself.'
+      : 'Write all content in natural contemporary English. Avoid corporate tone and avoid generic filler.';
 
-  const shapeRules = item.quizType === 'trivia'
-    ? [
-        `Return exactly ${QUESTION_COUNT} questions.`,
-        'Each question must have exactly 4 options.',
-        'Each question must have exactly one correct answer.',
-        TURBO_MODE ? 'Keep each explanation to one short sentence.' : 'Include a short explanation for each question.',
-        'Do not include results.',
-      ]
-    : [
-        `Return exactly ${QUESTION_COUNT} questions.`,
-        'Each question must have exactly 4 options.',
-        'Each option must include 1 or 2 personality_tags.',
-        'Return exactly 4 results.',
-        'Each result must map to one personality_tag used by the options.',
-        TURBO_MODE ? 'Keep result descriptions short and punchy.' : 'Result descriptions must feel shareable and specific, not generic.',
-      ];
+  const shapeRules =
+    item.quizType === 'trivia'
+      ? [
+          `Return exactly ${QUESTION_COUNT} questions.`,
+          'Each question must have exactly 4 options.',
+          'Each question must have exactly one correct answer.',
+          TURBO_MODE
+            ? 'Keep each explanation to one short sentence.'
+            : 'Include a short explanation for each question.',
+          'Do not include results.',
+        ]
+      : [
+          `Return exactly ${QUESTION_COUNT} questions.`,
+          'Each question must have exactly 4 options.',
+          'Each option must include 1 or 2 personality_tags.',
+          'Return exactly 4 results.',
+          'Each result must map to one personality_tag used by the options.',
+          TURBO_MODE
+            ? 'Keep result descriptions short and punchy.'
+            : 'Result descriptions must feel shareable and specific, not generic.',
+        ];
 
   return [
     'You are seeding launch-ready quizzes for QuizVerse.',
@@ -236,7 +351,9 @@ function createPrompt(item) {
     `Create a ${item.quizType} quiz about: "${item.topic}"`,
     `Difficulty: ${item.difficulty}.`,
     'The quiz should feel timely, mainstream and highly playable.',
-    TURBO_MODE ? 'Prefer speed and clarity over complexity. Keep copy concise.' : 'Keep the tone polished and editorial.',
+    TURBO_MODE
+      ? 'Prefer speed and clarity over complexity. Keep copy concise.'
+      : 'Keep the tone polished and editorial.',
     'Avoid copyrighted quotes longer than a short fragment, avoid obscure deep cuts, and keep it accessible for engaged fans.',
     ...shapeRules,
     'Use this exact JSON shape:',
@@ -314,7 +431,7 @@ function normalizeQuiz(item, raw) {
         ? { is_correct: Boolean(option.is_correct) }
         : { personality_tags: (option.personality_tags || []).slice(0, 2) }),
     })),
-    explanation: item.quizType === 'trivia' ? (question.explanation?.trim() || null) : null,
+    explanation: item.quizType === 'trivia' ? question.explanation?.trim() || null : null,
     time_limit_seconds: question.time_limit_seconds ?? 30,
   }));
 
@@ -344,7 +461,9 @@ function normalizeQuiz(item, raw) {
       title: result.title.trim(),
       description: result.description.trim(),
       personality_tag: result.personality_tag.trim(),
-      background_theme: THEMES.includes(result.background_theme) ? result.background_theme : THEMES[index % THEMES.length],
+      background_theme: THEMES.includes(result.background_theme)
+        ? result.background_theme
+        : THEMES[index % THEMES.length],
     }));
 
     for (const result of results) {
@@ -367,7 +486,10 @@ function normalizeQuiz(item, raw) {
     questions,
     results,
     tags: Array.from(new Set(parsed.tags.map((tag) => tag.trim().toLowerCase()))).slice(0, 8),
-    estimated_minutes: Math.min(parsed.estimated_minutes, TURBO_MODE ? 3 : parsed.estimated_minutes),
+    estimated_minutes: Math.min(
+      parsed.estimated_minutes,
+      TURBO_MODE ? 3 : parsed.estimated_minutes
+    ),
     plays_count: 0,
     shares_count: 0,
     avg_score: null,
@@ -392,7 +514,10 @@ async function requestQuiz(item) {
       const completion = await client.chat.completions.create({
         model: MODEL,
         messages: [
-          { role: 'system', content: 'You create launch-ready quizzes for a consumer app. Return only JSON.' },
+          {
+            role: 'system',
+            content: 'You create launch-ready quizzes for a consumer app. Return only JSON.',
+          },
           { role: 'user', content: createPrompt(item) },
         ],
         response_format: { type: 'json_object' },
@@ -422,26 +547,28 @@ async function ensureDir() {
 let persistChain = Promise.resolve();
 
 async function persistState(state) {
-  persistChain = persistChain.then(async () => {
-    await ensureDir();
-    await fs.writeFile(OUTPUT_FILE, JSON.stringify(state.successes, null, 2));
-    await fs.writeFile(
-      REPORT_FILE,
-      JSON.stringify(
-        {
-          generated_at: new Date().toISOString(),
-          model: MODEL,
-          requested: allTopics.length,
-          successes: state.successes.length,
-          failures: state.failures,
-        },
-        null,
-        2
-      )
-    );
-  }).catch((error) => {
-    console.error('Persist error:', error instanceof Error ? error.message : error);
-  });
+  persistChain = persistChain
+    .then(async () => {
+      await ensureDir();
+      await fs.writeFile(OUTPUT_FILE, JSON.stringify(state.successes, null, 2));
+      await fs.writeFile(
+        REPORT_FILE,
+        JSON.stringify(
+          {
+            generated_at: new Date().toISOString(),
+            model: MODEL,
+            requested: allTopics.length,
+            successes: state.successes.length,
+            failures: state.failures,
+          },
+          null,
+          2
+        )
+      );
+    })
+    .catch((error) => {
+      console.error('Persist error:', error instanceof Error ? error.message : error);
+    });
 
   await persistChain;
 }
@@ -454,11 +581,20 @@ async function worker(queue, state) {
     try {
       const quiz = await requestQuiz(item);
       state.successes.push(quiz);
-      console.log(`OK  [${state.successes.length}/${allTopics.length}] ${item.language.toUpperCase()} ${item.topic}`);
+      console.log(
+        `OK  [${state.successes.length}/${allTopics.length}] ${item.language.toUpperCase()} ${item.topic}`
+      );
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unknown error';
-      state.failures.push({ id: item.id, topic: item.topic, language: item.language, error: message });
-      console.log(`ERR [${state.successes.length}/${allTopics.length}] ${item.language.toUpperCase()} ${item.topic} -> ${message}`);
+      state.failures.push({
+        id: item.id,
+        topic: item.topic,
+        language: item.language,
+        error: message,
+      });
+      console.log(
+        `ERR [${state.successes.length}/${allTopics.length}] ${item.language.toUpperCase()} ${item.topic} -> ${message}`
+      );
     }
 
     try {
@@ -477,7 +613,9 @@ async function main() {
     existingSuccesses = JSON.parse(await fs.readFile(OUTPUT_FILE, 'utf8'));
   } catch {}
 
-  const completedIds = new Set(existingSuccesses.map((quiz) => String(quiz.id).replace(/^seed-/, '')));
+  const completedIds = new Set(
+    existingSuccesses.map((quiz) => String(quiz.id).replace(/^seed-/, ''))
+  );
   const queue = allTopics.filter((item) => !completedIds.has(item.id));
   const state = { successes: existingSuccesses, failures: [] };
 
@@ -485,7 +623,9 @@ async function main() {
   console.log(`Concurrency: ${CONCURRENCY}`);
   console.log(`Mode: ${TURBO_MODE ? 'turbo' : 'standard'}`);
 
-  const workers = Array.from({ length: Math.min(CONCURRENCY, queue.length) }, () => worker(queue, state));
+  const workers = Array.from({ length: Math.min(CONCURRENCY, queue.length) }, () =>
+    worker(queue, state)
+  );
   await Promise.all(workers);
 
   const byLanguage = state.successes.reduce((acc, quiz) => {
@@ -494,7 +634,13 @@ async function main() {
   }, {});
 
   console.log('Done.');
-  console.log(JSON.stringify({ successes: state.successes.length, failures: state.failures.length, byLanguage }, null, 2));
+  console.log(
+    JSON.stringify(
+      { successes: state.successes.length, failures: state.failures.length, byLanguage },
+      null,
+      2
+    )
+  );
   console.log(`Output: ${OUTPUT_FILE}`);
   console.log(`Report: ${REPORT_FILE}`);
 }

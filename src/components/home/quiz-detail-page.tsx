@@ -9,7 +9,12 @@ import { LAUNCH_QUIZZES } from '@/lib/data/launch-catalog';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
-import { getLocalizedCategoryLabel, getLocalizedDifficultyLabel, getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
+import {
+  getLocalizedCategoryLabel,
+  getLocalizedDifficultyLabel,
+  getLocalizedLanguageLabel,
+  getLocalizedTypeLabel,
+} from '@/lib/i18n/catalog';
 
 interface QuizDetailPageProps {
   params: Promise<{ locale?: string; slug: string }>;
@@ -39,22 +44,28 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
   const stockCover = getStockCoverEntry(quiz.slug);
 
   return (
-    <main className="px-4 pb-20 pt-28">
+    <main className="px-4 pt-28 pb-20">
       <div className="mx-auto max-w-7xl space-y-10">
         <section className="grid gap-7 lg:grid-cols-[1.12fr_0.88fr]">
           <div className="surface-panel overflow-hidden p-5 md:p-6">
             <QuizCoverArt
               quiz={quiz}
               locale={locale}
-              priorityLabel={quiz.is_featured ? (locale === 'es' ? 'Selección principal' : 'Lead selection') : undefined}
+              priorityLabel={
+                quiz.is_featured
+                  ? locale === 'es'
+                    ? 'Selección principal'
+                    : 'Lead selection'
+                  : undefined
+              }
               ratioClassName="aspect-[16/9]"
             />
             <div className="mt-5 grid gap-3 md:grid-cols-[0.88fr_0.12fr]">
-              <div className="rounded-[1.5rem] border border-border-subtle bg-bg-primary/75 px-5 py-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">
+              <div className="border-border-subtle bg-bg-primary/75 rounded-[1.5rem] border px-5 py-5">
+                <p className="text-text-muted text-[11px] font-semibold tracking-[0.22em] uppercase">
                   {locale === 'es' ? 'Promesa editorial' : 'Editorial promise'}
                 </p>
-                <p className="mt-3 text-base leading-7 text-text-secondary">
+                <p className="text-text-secondary mt-3 text-base leading-7">
                   {quiz.quiz_type === 'personality'
                     ? locale === 'es'
                       ? 'Una lectura rápida, compartible y con mejor payoff visual al final.'
@@ -64,16 +75,19 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
                       : 'Clear trivia, short pacing, and enough tension to make you finish it in one go.'}
                 </p>
               </div>
-              <div className="rounded-[1.5rem] border border-border-subtle bg-bg-primary/75 px-5 py-5">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">
+              <div className="border-border-subtle bg-bg-primary/75 rounded-[1.5rem] border px-5 py-5">
+                <p className="text-text-muted text-[11px] font-semibold tracking-[0.22em] uppercase">
                   {locale === 'es' ? 'Ritmo' : 'Pace'}
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-text-primary">{quiz.estimated_minutes}m</p>
+                <p className="text-text-primary mt-3 text-3xl font-semibold">
+                  {quiz.estimated_minutes}m
+                </p>
               </div>
             </div>
             {stockCover ? (
-              <p className="mt-4 text-xs leading-5 text-text-muted">
-                {locale === 'es' ? 'Foto de referencia' : 'Reference photo'}: {stockCover.attribution}
+              <p className="text-text-muted mt-4 text-xs leading-5">
+                {locale === 'es' ? 'Foto de referencia' : 'Reference photo'}:{' '}
+                {stockCover.attribution}
               </p>
             ) : null}
           </div>
@@ -81,49 +95,61 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           <div className="space-y-5 lg:pt-2">
             <div className="surface-panel p-7 md:p-8">
               <p className="eyebrow">{dictionary.detail.eyebrow}</p>
-              <h1 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-text-primary md:text-6xl">
+              <h1 className="text-text-primary mt-4 max-w-2xl text-4xl font-semibold tracking-tight md:text-6xl">
                 {quiz.title}
               </h1>
-              <p className="balanced-copy mt-5 max-w-xl text-lg leading-8 text-text-secondary">
+              <p className="balanced-copy text-text-secondary mt-5 max-w-xl text-lg leading-8">
                 {quiz.description}
               </p>
 
               <div className="mt-7 flex flex-wrap gap-2">
-                <span className="rounded-full border border-border-subtle bg-bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="border-border-subtle bg-bg-primary text-text-muted rounded-full border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
                   {getLocalizedTypeLabel(quiz.quiz_type, locale)}
                 </span>
-                <span className="rounded-full border border-border-subtle bg-bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="border-border-subtle bg-bg-primary text-text-muted rounded-full border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
                   {getLocalizedDifficultyLabel(quiz.difficulty, locale)}
                 </span>
-                <span className="rounded-full border border-border-subtle bg-bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="border-border-subtle bg-bg-primary text-text-muted rounded-full border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
                   {getLocalizedLanguageLabel(quiz.language, locale)}
                 </span>
-                <span className="rounded-full border border-border-subtle bg-bg-primary px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="border-border-subtle bg-bg-primary text-text-muted rounded-full border px-4 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
                   {categoryLabel}
                 </span>
               </div>
 
               <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                <StatCard label={dictionary.detail.duration} value={`${quiz.estimated_minutes} ${locale === 'es' ? 'min' : 'min'}`} />
-                <StatCard label={dictionary.detail.plays} value={quiz.plays_count.toLocaleString(locale)} />
-                <StatCard label={dictionary.detail.likes} value={quiz.likes_count.toLocaleString(locale)} />
-                <StatCard label={locale === 'es' ? 'Preguntas' : 'Questions'} value={String(quiz.questions.length)} />
+                <StatCard
+                  label={dictionary.detail.duration}
+                  value={`${quiz.estimated_minutes} ${locale === 'es' ? 'min' : 'min'}`}
+                />
+                <StatCard
+                  label={dictionary.detail.plays}
+                  value={quiz.plays_count.toLocaleString(locale)}
+                />
+                <StatCard
+                  label={dictionary.detail.likes}
+                  value={quiz.likes_count.toLocaleString(locale)}
+                />
+                <StatCard
+                  label={locale === 'es' ? 'Preguntas' : 'Questions'}
+                  value={String(quiz.questions.length)}
+                />
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   href={localizeHref(locale, `/quiz/${quiz.slug}/play`)}
-                  className="inline-flex items-center justify-center rounded-full bg-accent-primary px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 hover:bg-accent-hover"
+                  className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
                 >
                   {dictionary.detail.primaryCta}
                 </Link>
                 <Link
                   href={localizeHref(locale, '/quiz')}
-                  className="inline-flex items-center justify-center rounded-full border border-border-subtle bg-bg-primary px-6 py-3 text-sm font-semibold text-text-primary transition-colors hover:border-accent-primary/50"
+                  className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/50 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
                 >
                   {dictionary.detail.secondaryCta}
                 </Link>
-                <div className="inline-flex items-center justify-center rounded-full border border-transparent px-2 py-2 text-sm font-semibold text-text-secondary">
+                <div className="text-text-secondary inline-flex items-center justify-center rounded-full border border-transparent px-2 py-2 text-sm font-semibold">
                   <ReportButton quizId={quiz.id} quizSlug={quiz.slug} locale={locale} />
                 </div>
               </div>
@@ -156,12 +182,14 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             <div className="surface-card p-6 md:p-7">
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <p className="kicker">{locale === 'es' ? 'Antes de jugar' : 'Before you start'}</p>
-                  <h2 className="mt-2 font-display text-3xl text-text-primary">
+                  <p className="kicker">
+                    {locale === 'es' ? 'Antes de jugar' : 'Before you start'}
+                  </p>
+                  <h2 className="font-display text-text-primary mt-2 text-3xl">
                     {locale === 'es' ? 'Lo importante en un vistazo' : 'What matters in one glance'}
                   </h2>
                 </div>
-                <span className="rounded-full bg-accent-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary">
+                <span className="bg-accent-primary/10 text-accent-primary rounded-full px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase">
                   {quiz.quiz_type === 'personality'
                     ? locale === 'es'
                       ? 'resultado compartible'
@@ -208,8 +236,10 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
         <section className="grid gap-6 lg:grid-cols-[0.86fr_1.14fr]">
           <div className="surface-card p-6 md:p-7">
             <p className="kicker">{dictionary.detail.questionPreview}</p>
-            <h2 className="mt-3 font-display text-3xl text-text-primary">{dictionary.detail.previewHeadline}</h2>
-            <div className="mt-6 space-y-3 text-sm leading-6 text-text-secondary">
+            <h2 className="font-display text-text-primary mt-3 text-3xl">
+              {dictionary.detail.previewHeadline}
+            </h2>
+            <div className="text-text-secondary mt-6 space-y-3 text-sm leading-6">
               <p>
                 {locale === 'es'
                   ? `${quiz.questions.length} preguntas con ritmo corto, diseñadas para terminarse rápido sin perder claridad.`
@@ -232,25 +262,33 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="kicker">{locale === 'es' ? 'Vista rápida' : 'Quick look'}</p>
-                <h2 className="mt-2 font-display text-3xl text-text-primary">
-                  {locale === 'es' ? 'Tres preguntas para entrar al mood' : 'Three questions to set the mood'}
+                <h2 className="font-display text-text-primary mt-2 text-3xl">
+                  {locale === 'es'
+                    ? 'Tres preguntas para entrar al mood'
+                    : 'Three questions to set the mood'}
                 </h2>
               </div>
-              <span className="rounded-full bg-accent-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent-primary">
+              <span className="bg-accent-primary/10 text-accent-primary rounded-full px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase">
                 {quiz.questions.length} {locale === 'es' ? 'ítems' : 'items'}
               </span>
             </div>
 
             <div className="mt-6 grid gap-4">
               {quiz.questions.slice(0, 3).map((question, index) => (
-                <div key={question.id} className="rounded-[1.5rem] border border-border-subtle bg-bg-primary px-5 py-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+                <div
+                  key={question.id}
+                  className="border-border-subtle bg-bg-primary rounded-[1.5rem] border px-5 py-5"
+                >
+                  <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
                     {locale === 'es' ? 'Pregunta' : 'Question'} {index + 1}
                   </p>
-                  <p className="mt-3 text-lg font-medium text-text-primary">{question.question}</p>
+                  <p className="text-text-primary mt-3 text-lg font-medium">{question.question}</p>
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">
                     {question.options.slice(0, 4).map((option) => (
-                      <div key={option.id} className="rounded-2xl border border-border-subtle bg-bg-secondary px-4 py-3 text-sm text-text-secondary">
+                      <div
+                        key={option.id}
+                        className="border-border-subtle bg-bg-secondary text-text-secondary rounded-2xl border px-4 py-3 text-sm"
+                      >
                         {option.text}
                       </div>
                     ))}
@@ -266,15 +304,26 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             <div className="flex items-end justify-between gap-4">
               <div>
                 <p className="eyebrow">{dictionary.detail.relatedEyebrow}</p>
-                <h2 className="mt-2 font-display text-4xl text-text-primary">{dictionary.detail.relatedHeadline}</h2>
+                <h2 className="font-display text-text-primary mt-2 text-4xl">
+                  {dictionary.detail.relatedHeadline}
+                </h2>
               </div>
-              <Link href={localizeHref(locale, '/quiz')} className="text-sm font-semibold text-text-primary underline decoration-border-strong underline-offset-4">
+              <Link
+                href={localizeHref(locale, '/quiz')}
+                className="text-text-primary decoration-border-strong text-sm font-semibold underline underline-offset-4"
+              >
                 {dictionary.detail.secondaryCta}
               </Link>
             </div>
             <div className="grid gap-5 md:grid-cols-3">
               {related.map((relatedQuiz, index) => (
-                <EditorialQuizCard key={relatedQuiz.id} quiz={relatedQuiz} index={index} locale={locale} size="compact" />
+                <EditorialQuizCard
+                  key={relatedQuiz.id}
+                  quiz={relatedQuiz}
+                  index={index}
+                  locale={locale}
+                  size="compact"
+                />
               ))}
             </div>
           </section>
@@ -286,9 +335,11 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-[1.5rem] border border-border-subtle bg-bg-primary/80 p-5">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">{label}</p>
-      <p className="mt-3 text-2xl font-semibold text-text-primary">{value}</p>
+    <div className="border-border-subtle bg-bg-primary/80 rounded-[1.5rem] border p-5">
+      <p className="text-text-muted text-[11px] font-semibold tracking-[0.22em] uppercase">
+        {label}
+      </p>
+      <p className="text-text-primary mt-3 text-2xl font-semibold">{value}</p>
     </div>
   );
 }
@@ -297,17 +348,19 @@ function InsightCard({ eyebrow, title, body }: { eyebrow: string; title: string;
   return (
     <div className="surface-card p-6">
       <p className="kicker">{eyebrow}</p>
-      <h3 className="mt-3 font-display text-2xl text-text-primary">{title}</h3>
-      <p className="mt-4 text-sm leading-6 text-text-secondary">{body}</p>
+      <h3 className="font-display text-text-primary mt-3 text-2xl">{title}</h3>
+      <p className="text-text-secondary mt-4 text-sm leading-6">{body}</p>
     </div>
   );
 }
 
 function ValueChip({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-[1.4rem] border border-border-subtle bg-bg-primary px-5 py-5">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">{title}</p>
-      <p className="mt-3 text-sm leading-6 text-text-secondary">{body}</p>
+    <div className="border-border-subtle bg-bg-primary rounded-[1.4rem] border px-5 py-5">
+      <p className="text-text-muted text-[11px] font-semibold tracking-[0.22em] uppercase">
+        {title}
+      </p>
+      <p className="text-text-secondary mt-3 text-sm leading-6">{body}</p>
     </div>
   );
 }

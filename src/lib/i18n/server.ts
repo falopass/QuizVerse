@@ -42,4 +42,3 @@ export async function getLocale(): Promise<Locale> {
 export function getLocaleFromParam(locale?: string): Locale {
   return locale && hasLocale(locale) ? locale : defaultLocale;
 }
-

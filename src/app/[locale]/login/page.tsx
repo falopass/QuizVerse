@@ -5,7 +5,8 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 
 export const metadata: Metadata = {
   title: 'Sign In',
-  description: 'Sign in to QuizVerse to save progress, create quizzes, and keep your results close.',
+  description:
+    'Sign in to QuizVerse to save progress, create quizzes, and keep your results close.',
   robots: { index: false, follow: false },
 };
 

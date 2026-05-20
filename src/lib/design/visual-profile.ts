@@ -45,7 +45,11 @@ const VISUAL_PRESETS: Array<{ match: RegExp; preset: VisualPreset }> = [
     preset: {
       themeKey: 'the-boys',
       visualFamily: 'corporate-chaos',
-      searchTerms: ['corporate skyline night', 'hero propaganda poster mood', 'urban chaos spotlight'],
+      searchTerms: [
+        'corporate skyline night',
+        'hero propaganda poster mood',
+        'urban chaos spotlight',
+      ],
       prompt: {
         en: 'corporate skyline, propaganda-like spotlight, urban chaos editorial tone, no copyrighted characters',
         es: 'skyline corporativo, luz tipo propaganda, tono editorial de caos urbano, sin personajes con copyright',
@@ -129,7 +133,11 @@ const VISUAL_PRESETS: Array<{ match: RegExp; preset: VisualPreset }> = [
     preset: {
       themeKey: 'beef',
       visualFamily: 'corporate-chaos',
-      searchTerms: ['road rage urban tension', 'suburban confrontation mood', 'tense modern drama frame'],
+      searchTerms: [
+        'road rage urban tension',
+        'suburban confrontation mood',
+        'tense modern drama frame',
+      ],
       prompt: {
         en: 'modern urban tension, suburban confrontation energy, sharp dramatic editorial look, no copyrighted characters',
         es: 'tensión urbana moderna, energía de confrontación suburbana, look editorial dramático y afilado, sin personajes con copyright',
@@ -141,7 +149,11 @@ const VISUAL_PRESETS: Array<{ match: RegExp; preset: VisualPreset }> = [
     preset: {
       themeKey: 'classroom-of-the-elite',
       visualFamily: 'academic-strategy',
-      searchTerms: ['elite academy corridor', 'clean tactical classroom', 'dark school strategy mood'],
+      searchTerms: [
+        'elite academy corridor',
+        'clean tactical classroom',
+        'dark school strategy mood',
+      ],
       prompt: {
         en: 'elite academy corridor, tactical classroom mood, clean high-stakes editorial anime tone, no copyrighted characters',
         es: 'corredor de academia élite, mood de aula táctica, tono anime editorial de alta tensión, sin personajes con copyright',
@@ -169,7 +181,11 @@ function getDefaultPreset(quiz: QuizVisualInput): VisualPreset {
     return {
       themeKey: 'generic-personality',
       visualFamily: 'personality-pulse',
-      searchTerms: ['abstract light gradient', 'identity aura gradient', 'modern introspective visual'],
+      searchTerms: [
+        'abstract light gradient',
+        'identity aura gradient',
+        'modern introspective visual',
+      ],
       prompt: {
         en: 'editorial personality mood, abstract aura, human-centered premium composition',
         es: 'mood editorial de personalidad, aura abstracta, composición premium centrada en identidad',
@@ -212,7 +228,9 @@ export function inferVisualProfile(quiz: QuizVisualInput): VisualProfile {
   };
 }
 
-export function withVisualProfile<T extends QuizVisualInput>(quiz: T): T & { visual_profile: VisualProfile } {
+export function withVisualProfile<T extends QuizVisualInput>(
+  quiz: T
+): T & { visual_profile: VisualProfile } {
   return {
     ...quiz,
     visual_profile: inferVisualProfile(quiz),

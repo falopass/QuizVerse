@@ -33,9 +33,7 @@ const PersonalityResultSchema = z.object({
   min_score: z.number().optional(),
   max_score: z.number().optional(),
   personality_tag: z.string().optional(),
-  background_theme: z
-    .enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic'])
-    .optional(),
+  background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
 });
 
 const QuizCreateSchema = z.object({

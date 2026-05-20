@@ -22,8 +22,8 @@ export default async function LocalizedQuizResultPage({
 
   const resolvedResult =
     session?.result_id && quiz.results
-      ? quiz.results.find((result) => result.id === session.result_id) ?? null
-      : quiz.results?.[0] ?? null;
+      ? (quiz.results.find((result) => result.id === session.result_id) ?? null)
+      : (quiz.results?.[0] ?? null);
 
   const triviaScore =
     quiz.quiz_type === 'trivia'
@@ -39,7 +39,7 @@ export default async function LocalizedQuizResultPage({
       : undefined;
 
   return (
-    <div className="min-h-screen px-4 pb-20 pt-28">
+    <div className="min-h-screen px-4 pt-28 pb-20">
       <div className="mx-auto max-w-6xl space-y-8">
         <ResultScreenV2
           locale={locale}

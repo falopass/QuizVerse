@@ -6,14 +6,7 @@ import { z } from 'zod';
 
 const reportSchema = z.object({
   quiz_id: z.string().uuid(),
-  reason: z.enum([
-    'inappropriate',
-    'spam',
-    'incorrect_info',
-    'hate_speech',
-    'copyright',
-    'other',
-  ]),
+  reason: z.enum(['inappropriate', 'spam', 'incorrect_info', 'hate_speech', 'copyright', 'other']),
   details: z.string().max(500).optional(),
 });
 
@@ -50,14 +43,16 @@ export async function getQuizReports(quizId: string) {
 
   const { data: reports } = await supabase
     .from('quiz_reports')
-    .select(`
+    .select(
+      `
       *,
       reporter:reporter_id (
         id,
         username,
         display_name
       )
-    `)
+    `
+    )
     .eq('quiz_id', quizId)
     .order('created_at', { ascending: false });
 

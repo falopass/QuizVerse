@@ -91,11 +91,15 @@ function normalizeAchievement(row: AchievementRow): Achievement {
   };
 }
 
-function parseQuestions(input: Database['public']['Tables']['quizzes']['Row']['questions']): Question[] {
+function parseQuestions(
+  input: Database['public']['Tables']['quizzes']['Row']['questions']
+): Question[] {
   return Array.isArray(input) ? (input as unknown as Question[]) : [];
 }
 
-function parseResults(input: Database['public']['Tables']['quizzes']['Row']['results']): PersonalityResult[] | null {
+function parseResults(
+  input: Database['public']['Tables']['quizzes']['Row']['results']
+): PersonalityResult[] | null {
   return Array.isArray(input) ? (input as unknown as PersonalityResult[]) : null;
 }
 
@@ -126,7 +130,7 @@ function normalizeQuiz(
     is_ai_generated: row.is_ai_generated,
     published_at: row.published_at,
     created_at: row.created_at,
-    category: row.category_id ? categories.get(row.category_id) ?? null : null,
+    category: row.category_id ? (categories.get(row.category_id) ?? null) : null,
     creator: creator ?? null,
   };
 
@@ -227,9 +231,7 @@ async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Qui
   }
 
   const quizRow = quiz as QuizRow;
-  const categoryResponse:
-    | { data: CategoryRow | null }
-    | { data: null } = quizRow.category_id
+  const categoryResponse: { data: CategoryRow | null } | { data: null } = quizRow.category_id
     ? ((await supabase.from('categories').select('*').eq('id', quizRow.category_id).single()) as {
         data: CategoryRow | null;
       })
@@ -256,7 +258,9 @@ export const getPublishedQuizzes = cache(async (limit = 40, locale?: Locale): Pr
   try {
     return await fetchPublishedQuizzesFromDb(limit, locale);
   } catch {
-    const launch = locale ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale) : LAUNCH_QUIZZES;
+    const launch = locale
+      ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale)
+      : LAUNCH_QUIZZES;
     return launch.slice(0, limit);
   }
 });
@@ -270,11 +274,18 @@ export const getQuizBySlug = cache(async (slug: string, locale?: Locale): Promis
   }
 });
 
-export async function getExplorePayload(localeOrSearch?: Locale | string, searchOrCategory?: string, maybeCategorySlug?: string) {
+export async function getExplorePayload(
+  localeOrSearch?: Locale | string,
+  searchOrCategory?: string,
+  maybeCategorySlug?: string
+) {
   const locale = localeOrSearch === 'en' || localeOrSearch === 'es' ? localeOrSearch : undefined;
   const search = locale ? searchOrCategory : localeOrSearch;
   const categorySlug = locale ? maybeCategorySlug : searchOrCategory;
-  const [quizzes, categories] = await Promise.all([getPublishedQuizzes(80, locale), getPublicCategories()]);
+  const [quizzes, categories] = await Promise.all([
+    getPublishedQuizzes(80, locale),
+    getPublicCategories(),
+  ]);
   const normalizedSearch = search?.trim().toLowerCase() ?? '';
 
   const filtered = quizzes.filter((quiz) => {
@@ -313,7 +324,9 @@ export async function getHomePayload(locale?: Locale) {
 
   const trending = [...quizzes].sort((a, b) => b.plays_count - a.plays_count).slice(0, 6);
   const featured = quizzes.filter((quiz) => quiz.is_featured).slice(0, 4);
-  const quickPlays = [...quizzes].sort((a, b) => a.estimated_minutes - b.estimated_minutes).slice(0, 4);
+  const quickPlays = [...quizzes]
+    .sort((a, b) => a.estimated_minutes - b.estimated_minutes)
+    .slice(0, 4);
   const freshlyPublished = [...quizzes]
     .sort(
       (a, b) =>
@@ -334,7 +347,10 @@ export async function getHomePayload(locale?: Locale) {
 }
 
 export async function getCategoryPayload(slug: string, locale?: Locale) {
-  const [categories, quizzes] = await Promise.all([getPublicCategories(), getPublishedQuizzes(80, locale)]);
+  const [categories, quizzes] = await Promise.all([
+    getPublicCategories(),
+    getPublishedQuizzes(80, locale),
+  ]);
   const category = categories.find((item) => item.slug === slug) ?? null;
 
   if (!category) {
@@ -355,9 +371,15 @@ export interface HomeCardGroups {
   freshlyPublished: QuizCardViewModel[];
 }
 
-export async function getRelatedQuizzes(slug: string, categorySlug?: string | null, locale?: Locale) {
+export async function getRelatedQuizzes(
+  slug: string,
+  categorySlug?: string | null,
+  locale?: Locale
+) {
   const quizzes = await getPublishedQuizzes(24, locale);
-  return quizzes.filter((quiz) => quiz.slug !== slug && quiz.category?.slug === categorySlug).slice(0, 3);
+  return quizzes
+    .filter((quiz) => quiz.slug !== slug && quiz.category?.slug === categorySlug)
+    .slice(0, 3);
 }
 
 export const getQuizSessionByShareToken = cache(
@@ -477,8 +499,9 @@ export const getUnlockedAchievements = cache(async (userId: string): Promise<Ach
       throw error ?? new Error('Could not fetch achievements');
     }
 
-    return (data as Array<{ achievement: AchievementRow | null }>)
-      .flatMap((item) => (item.achievement ? [normalizeAchievement(item.achievement)] : []));
+    return (data as Array<{ achievement: AchievementRow | null }>).flatMap((item) =>
+      item.achievement ? [normalizeAchievement(item.achievement)] : []
+    );
   } catch {
     return [];
   }

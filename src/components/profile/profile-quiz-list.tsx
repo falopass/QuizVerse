@@ -10,16 +10,20 @@ export interface ProfileQuizListProps {
   emptyMessage?: string;
 }
 
-export function ProfileQuizList({ quizzes, title, emptyMessage = 'No quizzes yet' }: ProfileQuizListProps) {
+export function ProfileQuizList({
+  quizzes,
+  title,
+  emptyMessage = 'No quizzes yet',
+}: ProfileQuizListProps) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-text-primary mb-4">{title}</h2>
+      <h2 className="text-text-primary mb-4 text-xl font-bold">{title}</h2>
       {quizzes.length === 0 ? (
-        <div className="text-center py-12 text-text-muted">
+        <div className="text-text-muted py-12 text-center">
           <p>{emptyMessage}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {quizzes.map((quiz, index) => (
             <QuizCard key={quiz.id} quiz={quiz} index={index} />
           ))}

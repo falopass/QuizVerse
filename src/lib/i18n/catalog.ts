@@ -56,7 +56,10 @@ const DIFFICULTY_COPY = {
   hard: { en: 'Hard', es: 'Alta' },
 } as const;
 
-export function localizeCategory(category: Category | null | undefined, locale: Locale): Category | null {
+export function localizeCategory(
+  category: Category | null | undefined,
+  locale: Locale
+): Category | null {
   if (!category) return null;
 
   const localized = CATEGORY_COPY[category.slug as keyof typeof CATEGORY_COPY];
@@ -82,7 +85,10 @@ export function localizeQuizList(quizzes: Quiz[], locale: Locale): Quiz[] {
   return quizzes.map((quiz) => localizeQuizCategory(quiz, locale));
 }
 
-export function getLocalizedCategoryLabel(slug: keyof typeof CATEGORY_COPY | string, locale: Locale) {
+export function getLocalizedCategoryLabel(
+  slug: keyof typeof CATEGORY_COPY | string,
+  locale: Locale
+) {
   const localized = CATEGORY_COPY[slug as keyof typeof CATEGORY_COPY];
   return localized ? localized[locale].name : slug;
 }

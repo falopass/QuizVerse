@@ -5,11 +5,11 @@
 export function slugify(text: string): string {
   return text
     .toString()
-    .normalize('NFD')                   // Separar caracteres compuestos
-    .replace(/[\u0300-\u036f]/g, '')    // Eliminar diacríticos
+    .normalize('NFD') // Separar caracteres compuestos
+    .replace(/[\u0300-\u036f]/g, '') // Eliminar diacríticos
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '')           // Eliminar caracteres especiales
-    .replace(/[\s_-]+/g, '-')           // Reemplazar espacios y guiones múltiples
-    .replace(/^-+|-+$/g, '');           // Eliminar guiones al inicio/fin
+    .replace(/[^\w\s-]/g, '') // Eliminar caracteres especiales
+    .replace(/[\s_-]+/g, '-') // Reemplazar espacios y guiones múltiples
+    .replace(/^-+|-+$/g, ''); // Eliminar guiones al inicio/fin
 }

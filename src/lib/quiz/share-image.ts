@@ -316,25 +316,25 @@ export async function generateShareImage(options: ShareImageOptions): Promise<Bu
       fonts: [
         {
           name: 'Inter',
-          data: await fetch('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2').then(
-            (res) => res.arrayBuffer()
-          ),
+          data: await fetch(
+            'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2'
+          ).then((res) => res.arrayBuffer()),
           weight: 400,
           style: 'normal',
         },
         {
           name: 'Inter',
-          data: await fetch('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhRz5jV.woff2').then(
-            (res) => res.arrayBuffer()
-          ),
+          data: await fetch(
+            'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhRz5jV.woff2'
+          ).then((res) => res.arrayBuffer()),
           weight: 700,
           style: 'normal',
         },
         {
           name: 'Inter',
-          data: await fetch('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfY9xKlyLj.woff2').then(
-            (res) => res.arrayBuffer()
-          ),
+          data: await fetch(
+            'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfY9xKlyLj.woff2'
+          ).then((res) => res.arrayBuffer()),
           weight: 800,
           style: 'normal',
         },

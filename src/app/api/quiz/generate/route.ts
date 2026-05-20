@@ -85,7 +85,9 @@ export async function POST(request: NextRequest) {
     );
 
     if (invalidTriviaQuestion) {
-      validationWarnings.push('At least one trivia question does not have exactly one correct answer.');
+      validationWarnings.push(
+        'At least one trivia question does not have exactly one correct answer.'
+      );
     }
   }
 

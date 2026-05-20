@@ -13,8 +13,13 @@ function main() {
   const quizzes = JSON.parse(fs.readFileSync(sourcePath, 'utf8'));
   const report = {
     total: quizzes.length,
-    withCoverUrl: quizzes.filter((quiz) => typeof quiz.cover_image_url === 'string' && quiz.cover_image_url.startsWith('/covers/')).length,
-    sample: quizzes.slice(0, 12).map((quiz) => ({ slug: quiz.slug, cover_image_url: quiz.cover_image_url })),
+    withCoverUrl: quizzes.filter(
+      (quiz) =>
+        typeof quiz.cover_image_url === 'string' && quiz.cover_image_url.startsWith('/covers/')
+    ).length,
+    sample: quizzes
+      .slice(0, 12)
+      .map((quiz) => ({ slug: quiz.slug, cover_image_url: quiz.cover_image_url })),
     note: 'Cover assets are now served dynamically via /covers/[slug] route.',
   };
 

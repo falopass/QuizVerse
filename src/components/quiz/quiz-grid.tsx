@@ -10,7 +10,11 @@ export interface QuizGridProps {
   emptyMessage?: string;
 }
 
-export function QuizGrid({ quizzes, columns = 3, emptyMessage = 'No quizzes found' }: QuizGridProps) {
+export function QuizGrid({
+  quizzes,
+  columns = 3,
+  emptyMessage = 'No quizzes found',
+}: QuizGridProps) {
   const columnClasses = useMemo(() => {
     switch (columns) {
       case 2:
@@ -25,7 +29,7 @@ export function QuizGrid({ quizzes, columns = 3, emptyMessage = 'No quizzes foun
   if (quizzes.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-center">
-        <span className="text-6xl mb-4">📚</span>
+        <span className="mb-4 text-6xl">📚</span>
         <p className="text-text-secondary text-lg">{emptyMessage}</p>
       </div>
     );

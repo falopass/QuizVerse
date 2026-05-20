@@ -12,7 +12,13 @@ export interface AdSlotProps {
   disabled?: boolean;
 }
 
-export function AdSlot({ slot, format = 'auto', layout, className, disabled = false }: AdSlotProps) {
+export function AdSlot({
+  slot,
+  format = 'auto',
+  layout,
+  className,
+  disabled = false,
+}: AdSlotProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -45,16 +51,10 @@ export function AdSlot({ slot, format = 'auto', layout, className, disabled = fa
   }
 
   return (
-    <div
-      className={cn(
-        'relative flex justify-center items-center',
-        'my-6 mx-auto',
-        className
-      )}
-    >
+    <div className={cn('relative flex items-center justify-center', 'mx-auto my-6', className)}>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <Skeleton className="w-full h-full" />
+          <Skeleton className="h-full w-full" />
         </div>
       )}
       <ins

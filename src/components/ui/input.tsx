@@ -17,16 +17,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label
-            htmlFor={inputId}
-            className="block text-sm font-medium text-text-secondary mb-1.5"
-          >
+          <label htmlFor={inputId} className="text-text-secondary mb-1.5 block text-sm font-medium">
             {label}
           </label>
         )}
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+            <div className="text-text-muted absolute top-1/2 left-3 -translate-y-1/2">
               {leftIcon}
             </div>
           )}
@@ -35,15 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={type}
             className={cn(
-              `
-              w-full bg-bg-secondary text-text-primary
-              border border-border-subtle rounded-lg
-              px-4 py-2.5
-              placeholder:text-text-muted
-              transition-all duration-200
-              focus:outline-none focus:border-accent-primary focus:ring-1 focus:ring-accent-primary
-              disabled:opacity-50 disabled:cursor-not-allowed
-            `,
+              `bg-bg-secondary text-text-primary border-border-subtle placeholder:text-text-muted focus:border-accent-primary focus:ring-accent-primary w-full rounded-lg border px-4 py-2.5 transition-all duration-200 focus:ring-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50`,
               leftIcon && 'pl-10',
               rightIcon && 'pr-10',
               error && 'border-error focus:border-error focus:ring-error',
@@ -52,13 +41,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted">
+            <div className="text-text-muted absolute top-1/2 right-3 -translate-y-1/2">
               {rightIcon}
             </div>
           )}
         </div>
         {error && (
-          <p className="mt-1.5 text-sm text-error" role="alert">
+          <p className="text-error mt-1.5 text-sm" role="alert">
             {error}
           </p>
         )}

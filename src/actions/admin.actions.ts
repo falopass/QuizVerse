@@ -30,24 +30,23 @@ export async function getAdminDashboardStats() {
   }
 
   // Get stats
-  const [{ count: totalUsers }, { count: totalQuizzes }, { count: pendingQuizzes }, { count: reports }] =
-    await Promise.all([
-      supabase.from('profiles').select('*', { count: 'exact', head: true }),
-      supabase.from('quizzes').select('*', { count: 'exact', head: true }),
-      supabase
-        .from('quizzes')
-        .select('*', { count: 'exact', head: true })
-        .eq('status', 'pending'),
-      supabase
-        .from('quiz_reports')
-        .select('*', { count: 'exact', head: true })
-        .eq('resolved', false),
-    ]);
+  const [
+    { count: totalUsers },
+    { count: totalQuizzes },
+    { count: pendingQuizzes },
+    { count: reports },
+  ] = await Promise.all([
+    supabase.from('profiles').select('*', { count: 'exact', head: true }),
+    supabase.from('quizzes').select('*', { count: 'exact', head: true }),
+    supabase.from('quizzes').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+    supabase.from('quiz_reports').select('*', { count: 'exact', head: true }).eq('resolved', false),
+  ]);
 
   // Recent quizzes
   const { data: recentQuizzes } = await supabase
     .from('quizzes')
-    .select(`
+    .select(
+      `
       *,
       creator:creator_id (
         username,
@@ -56,7 +55,8 @@ export async function getAdminDashboardStats() {
       category:category_id (
         name
       )
-    `)
+    `
+    )
     .order('created_at', { ascending: false })
     .limit(10);
 
@@ -134,10 +134,7 @@ export async function banUser(userId: string) {
   }
 
   // Archive all quizzes by user
-  await (supabase as any)
-    .from('quizzes')
-    .update({ status: 'archived' })
-    .eq('creator_id', userId);
+  await (supabase as any).from('quizzes').update({ status: 'archived' }).eq('creator_id', userId);
 
   // In a real app, you'd also suspend the auth user
   // This requires admin privileges
@@ -152,7 +149,8 @@ export async function getPendingQuizzes() {
 
   const { data: quizzes } = await supabase
     .from('quizzes')
-    .select(`
+    .select(
+      `
       *,
       creator:creator_id (
         username,
@@ -161,7 +159,8 @@ export async function getPendingQuizzes() {
       category:category_id (
         name
       )
-    `)
+    `
+    )
     .eq('status', 'pending')
     .order('created_at', { ascending: false });
 
@@ -173,7 +172,8 @@ export async function getReports() {
 
   const { data: reports } = await supabase
     .from('quiz_reports')
-    .select(`
+    .select(
+      `
       *,
       quiz:quiz_id (
         id,
@@ -184,7 +184,8 @@ export async function getReports() {
         username,
         display_name
       )
-    `)
+    `
+    )
     .eq('resolved', false)
     .order('created_at', { ascending: false });
 

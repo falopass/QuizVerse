@@ -49,7 +49,7 @@ export function SpotlightCard({
     <div
       ref={cardRef}
       className={cn(
-        'relative bg-bg-secondary rounded-xl border border-border-subtle',
+        'bg-bg-secondary border-border-subtle relative rounded-xl border',
         'overflow-hidden',
         'transition-all duration-300',
         'hover:border-accent-primary/40 hover:shadow-lg',

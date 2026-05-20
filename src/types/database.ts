@@ -3,18 +3,18 @@
  * Se pueden auto-generar con: npx supabase gen types typescript --project-id XXXX
  */
 
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type QuizType = 'trivia' | 'personality' | 'poll';
 export type QuizStatus = 'draft' | 'pending' | 'published' | 'rejected' | 'archived';
 export type Difficulty = 'easy' | 'medium' | 'hard';
-export type ReportReason = 'inappropriate' | 'spam' | 'incorrect_info' | 'hate_speech' | 'copyright' | 'other';
+export type ReportReason =
+  | 'inappropriate'
+  | 'spam'
+  | 'incorrect_info'
+  | 'hate_speech'
+  | 'copyright'
+  | 'other';
 
 export interface Database {
   public: {
@@ -356,7 +356,13 @@ export interface Database {
       quiz_type: 'trivia' | 'personality' | 'poll';
       quiz_status: 'draft' | 'pending' | 'published' | 'rejected' | 'archived';
       difficulty: 'easy' | 'medium' | 'hard';
-      report_reason: 'inappropriate' | 'spam' | 'incorrect_info' | 'hate_speech' | 'copyright' | 'other';
+      report_reason:
+        | 'inappropriate'
+        | 'spam'
+        | 'incorrect_info'
+        | 'hate_speech'
+        | 'copyright'
+        | 'other';
     };
   };
 }

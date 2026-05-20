@@ -24,27 +24,27 @@ export function QuestionCard({
   disabled = false,
 }: QuestionCardProps) {
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="mx-auto w-full max-w-2xl">
       {/* Progress indicator */}
-      <div className="text-center mb-6">
-        <span className="text-sm text-text-secondary font-medium">
+      <div className="mb-6 text-center">
+        <span className="text-text-secondary text-sm font-medium">
           Question {questionNumber} of {totalQuestions}
         </span>
       </div>
 
       {/* Question */}
-      <h2 className="text-xl md:text-2xl font-display font-semibold text-text-primary text-center mb-8">
+      <h2 className="font-display text-text-primary mb-8 text-center text-xl font-semibold md:text-2xl">
         {question.question}
       </h2>
 
       {/* Question image (if any) */}
       {question.image_url && (
-        <div className="mb-6 rounded-xl overflow-hidden">
+        <div className="mb-6 overflow-hidden rounded-xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={question.image_url}
             alt="Question illustration"
-            className="w-full h-auto max-h-64 object-contain bg-bg-secondary"
+            className="bg-bg-secondary h-auto max-h-64 w-full object-contain"
           />
         </div>
       )}
@@ -57,11 +57,11 @@ export function QuestionCard({
             onClick={() => !disabled && onSelectOption(option.id)}
             disabled={disabled}
             className={cn(
-              'w-full p-4 rounded-xl text-left',
+              'w-full rounded-xl p-4 text-left',
               'border-2 transition-all duration-200',
               'hover:border-accent-primary/50 hover:bg-bg-tertiary/50',
-              'focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-2 focus:ring-offset-bg-primary',
-              disabled && 'opacity-50 cursor-not-allowed',
+              'focus:ring-accent-primary focus:ring-offset-bg-primary focus:ring-2 focus:ring-offset-2 focus:outline-none',
+              disabled && 'cursor-not-allowed opacity-50',
               selectedOptionId === option.id
                 ? 'border-accent-primary bg-accent-primary/10 text-text-primary'
                 : 'border-border-subtle bg-bg-secondary text-text-secondary'
@@ -71,7 +71,7 @@ export function QuestionCard({
               {/* Option indicator */}
               <div
                 className={cn(
-                  'w-5 h-5 rounded-full border-2 flex items-center justify-center',
+                  'flex h-5 w-5 items-center justify-center rounded-full border-2',
                   'shrink-0 transition-colors',
                   selectedOptionId === option.id
                     ? 'border-accent-primary bg-accent-primary'
@@ -79,7 +79,7 @@ export function QuestionCard({
                 )}
               >
                 {selectedOptionId === option.id && (
-                  <div className="w-2 h-2 rounded-full bg-white" />
+                  <div className="h-2 w-2 rounded-full bg-white" />
                 )}
               </div>
 
@@ -92,11 +92,9 @@ export function QuestionCard({
 
       {/* Explanation (shown after answering) */}
       {showExplanation && question.explanation && (
-        <div className="mt-6 p-4 rounded-xl bg-bg-tertiary border border-border-subtle">
-          <h3 className="text-sm font-semibold text-text-primary mb-2">
-            💡 Explanation
-          </h3>
-          <p className="text-sm text-text-secondary">{question.explanation}</p>
+        <div className="bg-bg-tertiary border-border-subtle mt-6 rounded-xl border p-4">
+          <h3 className="text-text-primary mb-2 text-sm font-semibold">💡 Explanation</h3>
+          <p className="text-text-secondary text-sm">{question.explanation}</p>
         </div>
       )}
     </div>

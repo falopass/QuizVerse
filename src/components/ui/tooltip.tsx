@@ -12,7 +12,13 @@ export interface TooltipProps {
   className?: string;
 }
 
-export function Tooltip({ content, children, position = 'top', delay = 200, className }: TooltipProps) {
+export function Tooltip({
+  content,
+  children,
+  position = 'top',
+  delay = 200,
+  className,
+}: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -69,9 +75,9 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15 }}
             className={cn(
-              'absolute z-50 px-3 py-1.5 text-sm font-medium text-text-primary',
-              'bg-bg-tertiary border border-border-subtle rounded-md shadow-lg',
-              'whitespace-nowrap pointer-events-none',
+              'text-text-primary absolute z-50 px-3 py-1.5 text-sm font-medium',
+              'bg-bg-tertiary border-border-subtle rounded-md border shadow-lg',
+              'pointer-events-none whitespace-nowrap',
               getPositionClasses(),
               className
             )}
@@ -80,11 +86,15 @@ export function Tooltip({ content, children, position = 'top', delay = 200, clas
             {/* Arrow */}
             <div
               className={cn(
-                'absolute w-2 h-2 bg-bg-tertiary border-border-subtle',
-                position === 'top' && '-bottom-1 left-1/2 -translate-x-1/2 rotate-45 border-r border-b',
-                position === 'bottom' && '-top-1 left-1/2 -translate-x-1/2 rotate-45 border-l border-t',
-                position === 'left' && '-right-1 top-1/2 -translate-y-1/2 rotate-45 border-r border-t',
-                position === 'right' && '-left-1 top-1/2 -translate-y-1/2 rotate-45 border-l border-b'
+                'bg-bg-tertiary border-border-subtle absolute h-2 w-2',
+                position === 'top' &&
+                  '-bottom-1 left-1/2 -translate-x-1/2 rotate-45 border-r border-b',
+                position === 'bottom' &&
+                  '-top-1 left-1/2 -translate-x-1/2 rotate-45 border-t border-l',
+                position === 'left' &&
+                  'top-1/2 -right-1 -translate-y-1/2 rotate-45 border-t border-r',
+                position === 'right' &&
+                  'top-1/2 -left-1 -translate-y-1/2 rotate-45 border-b border-l'
               )}
             />
           </motion.div>

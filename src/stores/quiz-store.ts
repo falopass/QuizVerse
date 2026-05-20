@@ -20,7 +20,7 @@ export interface PowerUp {
 export interface QuizGameState {
   // Quiz actual
   quiz: Quiz | null;
-  
+
   // Estado del juego
   gameMode: GameMode;
   currentQuestionIndex: number;
@@ -28,26 +28,26 @@ export interface QuizGameState {
   answers: Answer[];
   isCompleted: boolean;
   isPaused: boolean;
-  
+
   // Tiempo
   timeRemaining: number;
   totalTimeUsed: number;
-  
+
   // Rachas y bonus
   streak: number;
   maxStreak: number;
   bonusPoints: number;
-  
+
   // Power-ups
   powerUps: PowerUp[];
-  
+
   // Feedback
   lastAnswerCorrect: boolean | null;
   showFeedback: boolean;
-  
+
   // Revisión
   showReview: boolean;
-  
+
   // Actions
   startGame: (quiz: Quiz, mode?: GameMode) => void;
   selectOption: (optionId: string) => void;
@@ -61,7 +61,7 @@ export interface QuizGameState {
   showAnswerFeedback: (correct: boolean) => void;
   hideFeedback: () => void;
   toggleReview: () => void;
-  
+
   // Getters
   getCurrentQuestion: () => Question | null;
   getScore: () => { correct: number; total: number; percentage: number };
@@ -119,7 +119,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   // Actions
   startGame: (quiz: Quiz, mode: GameMode = 'normal') => {
     const timeLimit = quiz.questions[0]?.time_limit_seconds || 30;
-    
+
     set({
       quiz,
       gameMode: mode,
@@ -150,16 +150,15 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
     const question = state.quiz.questions[state.currentQuestionIndex];
     const selectedOption = question?.options.find((o) => o.id === state.selectedOptionId);
-    
+
     // Determinar si es correcto
-    const isCorrect = state.quiz.quiz_type === 'trivia'
-      ? (selectedOption?.is_correct ?? false)
-      : false;
-    
+    const isCorrect =
+      state.quiz.quiz_type === 'trivia' ? (selectedOption?.is_correct ?? false) : false;
+
     // Calcular tiempo
     const timeLimit = question?.time_limit_seconds || 30;
     const timeTaken = (timeLimit - state.timeRemaining) * 1000;
-    
+
     // Crear respuesta
     const answer: Answer = {
       question_id: question.id,
@@ -167,14 +166,14 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       is_correct: isCorrect,
       time_ms: timeTaken,
     };
-    
+
     // Actualizar racha
     const newStreak = isCorrect ? state.streak + 1 : 0;
     const maxStreak = Math.max(state.maxStreak, newStreak);
-    
+
     // Calcular bonus por racha (10% por cada pregunta correcta seguida)
     const streakBonus = newStreak > 1 ? Math.floor(newStreak * 0.1 * 100) : 0;
-    
+
     set((prev) => ({
       answers: [...prev.answers, answer],
       streak: newStreak,
@@ -183,7 +182,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       lastAnswerCorrect: isCorrect,
       showFeedback: true,
     }));
-    
+
     // Auto-avanzar después de mostrar feedback
     setTimeout(() => {
       const currentState = get();
@@ -198,16 +197,14 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   nextQuestion: () => {
     const state = get();
     if (!state.quiz) return;
-    
+
     const nextIndex = state.currentQuestionIndex + 1;
     const nextTimeLimit = state.quiz.questions[nextIndex]?.time_limit_seconds || 30;
-    
+
     set({
       currentQuestionIndex: nextIndex,
       selectedOptionId: null,
-      timeRemaining: state.gameMode === 'timed' 
-        ? state.timeRemaining 
-        : nextTimeLimit,
+      timeRemaining: state.gameMode === 'timed' ? state.timeRemaining : nextTimeLimit,
       showFeedback: false,
       lastAnswerCorrect: null,
     });
@@ -216,7 +213,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   skipQuestion: () => {
     const state = get();
     if (!state.quiz) return;
-    
+
     // Marcar como respondida incorrectamente
     const question = state.quiz.questions[state.currentQuestionIndex];
     const answer: Answer = {
@@ -225,13 +222,13 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       is_correct: false,
       time_ms: 0,
     };
-    
+
     set((prev) => ({
       answers: [...prev.answers, answer],
       streak: 0,
       showFeedback: false,
     }));
-    
+
     if (state.currentQuestionIndex === state.quiz.questions.length - 1) {
       set({ isCompleted: true });
     } else {
@@ -242,10 +239,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   usePowerUp: (powerUpId: string) => {
     const state = get();
     if (!state.quiz) return;
-    
-    const powerUp = state.powerUps.find(p => p.id === powerUpId);
+
+    const powerUp = state.powerUps.find((p) => p.id === powerUpId);
     if (!powerUp || powerUp.used || !powerUp.available) return;
-    
+
     switch (powerUpId) {
       case 'fifty-fifty':
         // En el componente se manejará visualmente
@@ -257,12 +254,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
         get().skipQuestion();
         break;
     }
-    
+
     // Marcar como usado
     set((prev) => ({
-      powerUps: prev.powerUps.map(p => 
-        p.id === powerUpId ? { ...p, used: true } : p
-      ),
+      powerUps: prev.powerUps.map((p) => (p.id === powerUpId ? { ...p, used: true } : p)),
     }));
   },
 
@@ -303,11 +298,11 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   getScore: () => {
     const state = get();
     if (!state.quiz) return { correct: 0, total: 0, percentage: 0 };
-    
-    const correct = state.answers.filter(a => a.is_correct).length;
+
+    const correct = state.answers.filter((a) => a.is_correct).length;
     const total = state.quiz.questions.length;
     const percentage = total > 0 ? Math.round((correct / total) * 100) : 0;
-    
+
     return { correct, total, percentage };
   },
 
@@ -316,33 +311,37 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     if (!state.quiz || state.quiz.quiz_type !== 'personality' || !state.quiz.results) {
       return null;
     }
-    
+
     const tagCounts: Record<string, number> = {};
-    
+
     state.answers.forEach((answer) => {
-      const question = state.quiz!.questions.find(q => q.id === answer.question_id);
-      const option = question?.options.find(o => o.id === answer.selected_option_id);
+      const question = state.quiz!.questions.find((q) => q.id === answer.question_id);
+      const option = question?.options.find((o) => o.id === answer.selected_option_id);
       option?.personality_tags?.forEach((tag) => {
         tagCounts[tag] = (tagCounts[tag] || 0) + 1;
       });
     });
-    
+
     const dominantTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0]?.[0];
-    
+
     if (!dominantTag) return state.quiz.results[0] || null;
-    
-    return state.quiz.results.find(r => r.personality_tag === dominantTag) || state.quiz.results[0] || null;
+
+    return (
+      state.quiz.results.find((r) => r.personality_tag === dominantTag) ||
+      state.quiz.results[0] ||
+      null
+    );
   },
 
   getTimeBonus: () => {
     const state = get();
     if (!state.quiz || state.quiz.quiz_type !== 'trivia') return 0;
-    
+
     // Bonus por tiempo restante (hasta 50% extra)
     const totalTime = state.quiz.questions.length * 30;
     const timeRemainingPercent = state.timeRemaining / totalTime;
-    const baseScore = state.answers.filter(a => a.is_correct).length;
-    
+    const baseScore = state.answers.filter((a) => a.is_correct).length;
+
     return Math.floor(baseScore * timeRemainingPercent * 0.5);
   },
 }));

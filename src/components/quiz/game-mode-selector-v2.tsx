@@ -69,11 +69,7 @@ const GAME_MODES: GameModeInfo[] = [
   },
 ];
 
-export function GameModeSelectorV2({
-  quiz,
-  locale = 'en',
-  onSelectMode,
-}: GameModeSelectorV2Props) {
+export function GameModeSelectorV2({ quiz, locale = 'en', onSelectMode }: GameModeSelectorV2Props) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
   const copy =
     locale === 'es'
@@ -107,12 +103,13 @@ export function GameModeSelectorV2({
         className="w-full max-w-3xl"
       >
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-3xl font-display font-bold text-text-primary md:text-4xl">
+          <h1 className="font-display text-text-primary mb-2 text-3xl font-bold md:text-4xl">
             {copy.title}
           </h1>
           <p className="text-text-secondary">{quiz.title}</p>
-          <p className="mt-2 text-sm text-text-muted">
-            {quiz.questions.length} {copy.questions} · {quiz.quiz_type === 'trivia' ? copy.knowledge : copy.result}
+          <p className="text-text-muted mt-2 text-sm">
+            {quiz.questions.length} {copy.questions} ·{' '}
+            {quiz.quiz_type === 'trivia' ? copy.knowledge : copy.result}
           </p>
         </div>
 
@@ -142,33 +139,49 @@ export function GameModeSelectorV2({
               />
 
               <div className="relative min-w-0 pr-10">
-                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border border-border-subtle bg-white/60 text-lg font-semibold text-text-primary">
+                <div className="border-border-subtle text-text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border bg-white/60 text-lg font-semibold">
                   {mode.icon}
                 </div>
 
-                <h3 className={cn('mb-2 text-xl font-bold bg-gradient-to-r bg-clip-text text-transparent', mode.color)}>
+                <h3
+                  className={cn(
+                    'mb-2 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent',
+                    mode.color
+                  )}
+                >
                   {mode.name[locale]}
                 </h3>
 
-                <p className="text-sm leading-7 text-text-secondary">{mode.description[locale]}</p>
+                <p className="text-text-secondary text-sm leading-7">{mode.description[locale]}</p>
               </div>
 
               <div
                 className={cn(
-                  'absolute right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-bg-tertiary transition-all duration-200 group-hover:bg-accent-primary/20',
+                  'bg-bg-tertiary group-hover:bg-accent-primary/20 absolute top-1/2 right-4 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-200',
                   'opacity-0 group-hover:opacity-100'
                 )}
               >
-                <svg className="h-4 w-4 text-text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="text-text-secondary h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </motion.button>
           ))}
         </div>
 
-        <p className="mt-6 text-center text-xs text-text-muted">
-          {copy.keyboardPrefix} <kbd className="rounded bg-bg-tertiary px-1.5 py-0.5">1-4</kbd> {copy.keyboardSuffix}
+        <p className="text-text-muted mt-6 text-center text-xs">
+          {copy.keyboardPrefix} <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5">1-4</kbd>{' '}
+          {copy.keyboardSuffix}
         </p>
       </motion.div>
     </div>

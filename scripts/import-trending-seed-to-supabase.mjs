@@ -115,9 +115,12 @@ function validateQuiz(quiz) {
   if (!quiz.slug || typeof quiz.slug !== 'string') issues.push('missing slug');
   if (!quiz.title || typeof quiz.title !== 'string') issues.push('missing title');
   if (!['en', 'es'].includes(quiz.language)) issues.push(`invalid language ${quiz.language}`);
-  if (!['trivia', 'personality', 'poll'].includes(quiz.quiz_type)) issues.push(`invalid type ${quiz.quiz_type}`);
-  if (!Array.isArray(quiz.questions) || quiz.questions.length < 3) issues.push('not enough questions');
-  if (!quiz.category_slug || typeof quiz.category_slug !== 'string') issues.push('missing category_slug');
+  if (!['trivia', 'personality', 'poll'].includes(quiz.quiz_type))
+    issues.push(`invalid type ${quiz.quiz_type}`);
+  if (!Array.isArray(quiz.questions) || quiz.questions.length < 3)
+    issues.push('not enough questions');
+  if (!quiz.category_slug || typeof quiz.category_slug !== 'string')
+    issues.push('missing category_slug');
 
   if (quiz.quiz_type === 'trivia') {
     const triviaIssues = quiz.questions.some((question) => {
@@ -279,9 +282,7 @@ async function main() {
 
     for (let index = 0; index < rows.length; index += batchSize) {
       const batch = rows.slice(index, index + batchSize);
-      const { error } = await supabase
-        .from('quizzes')
-        .upsert(batch, { onConflict: 'slug' });
+      const { error } = await supabase.from('quizzes').upsert(batch, { onConflict: 'slug' });
 
       if (error) throw error;
       processed += batch.length;

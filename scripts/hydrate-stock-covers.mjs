@@ -53,11 +53,20 @@ const STOCK_READY_THEMES = new Set([
 
 const CURATED_QUERY_OVERRIDES = {
   'en-how-sharp-is-your-star-wars-maul-lore': ['desert dunes sunset', 'desert planet horizon'],
-  'es-que-tan-afilado-esta-tu-lore-de-star-wars-maul': ['desert dunes sunset', 'desert planet horizon'],
+  'es-que-tan-afilado-esta-tu-lore-de-star-wars-maul': [
+    'desert dunes sunset',
+    'desert planet horizon',
+  ],
   'en-which-euphoria-aura-fits-you-best': ['blue and pink neon light', 'neon club interior'],
   'es-que-aura-de-euphoria-encaja-contigo': ['blue and pink neon light', 'neon club interior'],
-  'en-which-classroom-of-the-elite-strategy-is-yours': ['empty classroom interior', 'school corridor night'],
-  'es-que-estrategia-de-classroom-of-the-elite-es-la-tuya': ['empty classroom interior', 'school corridor night'],
+  'en-which-classroom-of-the-elite-strategy-is-yours': [
+    'empty classroom interior',
+    'school corridor night',
+  ],
+  'es-que-estrategia-de-classroom-of-the-elite-es-la-tuya': [
+    'empty classroom interior',
+    'school corridor night',
+  ],
 };
 
 const CURATED_REJECT_OVERRIDES = {
@@ -243,7 +252,11 @@ function buildQueries(quiz) {
 
 function getAllRejectTerms(quiz) {
   const config = getThemeConfig(quiz);
-  return [...GLOBAL_REJECT_TERMS, ...(config?.rejects ?? []), ...(CURATED_REJECT_OVERRIDES[quiz.slug] ?? [])].map(normalizeText);
+  return [
+    ...GLOBAL_REJECT_TERMS,
+    ...(config?.rejects ?? []),
+    ...(CURATED_REJECT_OVERRIDES[quiz.slug] ?? []),
+  ].map(normalizeText);
 }
 
 function getPositiveTerms(quiz) {
@@ -253,7 +266,9 @@ function getPositiveTerms(quiz) {
 
 function isHardRejected(quiz, candidate) {
   const text = normalizeText(
-    [candidate.alt, candidate.tags, candidate.source_url, candidate.photographer].filter(Boolean).join(' ')
+    [candidate.alt, candidate.tags, candidate.source_url, candidate.photographer]
+      .filter(Boolean)
+      .join(' ')
   );
 
   return getAllRejectTerms(quiz).some((term) => text.includes(term));
@@ -265,7 +280,9 @@ function scoreCandidate(quiz, candidate, query) {
   }
 
   const text = normalizeText(
-    [candidate.alt, candidate.tags, candidate.source_url, candidate.photographer, query].filter(Boolean).join(' ')
+    [candidate.alt, candidate.tags, candidate.source_url, candidate.photographer, query]
+      .filter(Boolean)
+      .join(' ')
   );
   const positives = getPositiveTerms(quiz);
   let score = 0;
@@ -317,7 +334,8 @@ async function searchPexels(query) {
   const data = await response.json();
   return (data.photos ?? []).map((photo) => ({
     provider: 'pexels',
-    image_url: photo.src?.large2x || photo.src?.landscape || photo.src?.large || photo.src?.original,
+    image_url:
+      photo.src?.large2x || photo.src?.landscape || photo.src?.large || photo.src?.original,
     source_url: photo.url,
     photographer: photo.photographer,
     photographer_url: photo.photographer_url,
@@ -369,14 +387,20 @@ async function resolveCover(quiz) {
     try {
       candidates.push(...(await searchPexels(query)));
     } catch (error) {
-      console.error('pexels-search-failed', { query, error: error instanceof Error ? error.message : error });
+      console.error('pexels-search-failed', {
+        query,
+        error: error instanceof Error ? error.message : error,
+      });
     }
 
     if (candidates.length < 3) {
       try {
         candidates.push(...(await searchPixabay(query)));
       } catch (error) {
-        console.error('pixabay-search-failed', { query, error: error instanceof Error ? error.message : error });
+        console.error('pixabay-search-failed', {
+          query,
+          error: error instanceof Error ? error.message : error,
+        });
       }
     }
 

@@ -13,7 +13,10 @@ interface SiteShellProps {
   dictionary: Dictionary;
 }
 
-const FULLSCREEN_PATTERNS = [/^\/(?:en|es)\/quiz\/[^/]+\/play$/, /^\/(?:en|es)\/quiz\/[^/]+\/result$/];
+const FULLSCREEN_PATTERNS = [
+  /^\/(?:en|es)\/quiz\/[^/]+\/play$/,
+  /^\/(?:en|es)\/quiz\/[^/]+\/result$/,
+];
 
 export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
   const pathname = usePathname();

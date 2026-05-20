@@ -19,17 +19,17 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
   const href = locale ? localizeHref(locale, `/quiz/${quiz.slug}`) : `/quiz/${quiz.slug}`;
 
   return (
-    <Link href={href} className="block group">
+    <Link href={href} className="group block">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
         whileHover={{ y: -4, scale: 1.02 }}
         className={cn(
-          'relative overflow-hidden rounded-2xl border border-border-subtle bg-bg-secondary',
+          'border-border-subtle bg-bg-secondary relative overflow-hidden rounded-2xl border',
           'transition-all duration-300 ease-out',
           'hover:border-accent-primary/50 hover:shadow-glow',
-          isFeatured && 'ring-2 ring-accent-primary/30'
+          isFeatured && 'ring-accent-primary/30 ring-2'
         )}
       >
         {/* Cover Image */}
@@ -38,30 +38,30 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
             <img
               src={quiz.cover_image_url}
               alt={quiz.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               loading="lazy"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20 flex items-center justify-center">
+            <div className="from-accent-primary/20 to-accent-secondary/20 flex h-full w-full items-center justify-center bg-gradient-to-br">
               <span className="text-6xl">🧠</span>
             </div>
           )}
           {/* Overlay gradient on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-bg-secondary via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="from-bg-secondary absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
 
         {/* Content */}
         <div className="p-4 md:p-5">
           {/* Type badge */}
-          <div className="flex items-center gap-2 mb-3">
+          <div className="mb-3 flex items-center gap-2">
             <span
               className={cn(
-                'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
+                'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
                 quiz.quiz_type === 'personality'
                   ? 'bg-accent-primary/20 text-accent-primary'
                   : quiz.quiz_type === 'trivia'
-                  ? 'bg-accent-secondary/20 text-accent-secondary'
-                  : 'bg-bg-tertiary text-text-secondary'
+                    ? 'bg-accent-secondary/20 text-accent-secondary'
+                    : 'bg-bg-tertiary text-text-secondary'
               )}
             >
               {quiz.quiz_type === 'personality' && '🧠 '}
@@ -72,12 +72,12 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
             {quiz.difficulty && (
               <span
                 className={cn(
-                  'inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium',
+                  'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
                   quiz.difficulty === 'easy'
                     ? 'bg-success/20 text-success'
                     : quiz.difficulty === 'medium'
-                    ? 'bg-warning/20 text-warning'
-                    : 'bg-error/20 text-error'
+                      ? 'bg-warning/20 text-warning'
+                      : 'bg-error/20 text-error'
                 )}
               >
                 {quiz.difficulty === 'easy' && '🟢 '}
@@ -89,21 +89,19 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
           </div>
 
           {/* Title */}
-          <h3 className="text-lg md:text-xl font-semibold text-text-primary mb-2 line-clamp-2 group-hover:text-accent-primary transition-colors">
+          <h3 className="text-text-primary group-hover:text-accent-primary mb-2 line-clamp-2 text-lg font-semibold transition-colors md:text-xl">
             {quiz.title}
           </h3>
 
           {/* Description */}
           {quiz.description && (
-            <p className="text-sm text-text-secondary mb-4 line-clamp-2">
-              {quiz.description}
-            </p>
+            <p className="text-text-secondary mb-4 line-clamp-2 text-sm">{quiz.description}</p>
           )}
 
           {/* Stats */}
-          <div className="flex items-center gap-4 text-xs text-text-muted">
+          <div className="text-text-muted flex items-center gap-4 text-xs">
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -123,7 +121,7 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
               plays
             </span>
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -135,7 +133,7 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
             </span>
             {quiz.avg_score && (
               <span className="flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -151,7 +149,7 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
 
         {/* Spotlight effect (mouse follow) - CSS only implementation */}
         <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             background:
               'radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(124, 58, 237, 0.1), transparent 40%)',

@@ -50,4 +50,3 @@ export async function reportClientError(input: {
     // Best-effort monitoring only.
   }
 }
-

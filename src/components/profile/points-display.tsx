@@ -45,9 +45,9 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
     <div className={cn('inline-flex items-center gap-2', className)}>
       <motion.div
         className={cn(
-          'w-10 h-10 rounded-full flex items-center justify-center font-bold',
-          'bg-gradient-to-br from-accent-warm/20 to-accent-warm/10',
-          'border-2 border-accent-warm/50',
+          'flex h-10 w-10 items-center justify-center rounded-full font-bold',
+          'from-accent-warm/20 to-accent-warm/10 bg-gradient-to-br',
+          'border-accent-warm/50 border-2',
           isAnimating && 'animate-pulse'
         )}
         animate={isAnimating ? { scale: [1, 1.1, 1] } : {}}
@@ -57,10 +57,7 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
       </motion.div>
       <div>
         <motion.div
-          className={cn(
-            'text-2xl font-bold text-accent-warm',
-            isAnimating && 'animate-pulse'
-          )}
+          className={cn('text-accent-warm text-2xl font-bold', isAnimating && 'animate-pulse')}
         >
           {displayed.toLocaleString()}
         </motion.div>
@@ -68,7 +65,7 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-sm text-success"
+            className="text-success text-sm"
           >
             +{earned} earned!
           </motion.div>

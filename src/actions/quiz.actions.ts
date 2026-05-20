@@ -15,7 +15,10 @@ interface ProfileStats {
 type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
 type QuizUpdate = Database['public']['Tables']['quizzes']['Update'];
 type QuizOwnershipRow = Pick<Database['public']['Tables']['quizzes']['Row'], 'creator_id'>;
-type QuizScoringRow = Pick<Database['public']['Tables']['quizzes']['Row'], 'questions' | 'results' | 'quiz_type'>;
+type QuizScoringRow = Pick<
+  Database['public']['Tables']['quizzes']['Row'],
+  'questions' | 'results' | 'quiz_type'
+>;
 type GameSessionInsert = Database['public']['Tables']['game_sessions']['Insert'];
 type GameSessionRow = Database['public']['Tables']['game_sessions']['Row'];
 type AchievementInsert = Database['public']['Tables']['user_achievements']['Insert'];
@@ -37,14 +40,16 @@ interface VoidRpcResult {
 
 interface QuizzesWriteTable {
   insert: (values: QuizInsert) => { select: () => { single: () => Promise<SingleResult<Quiz>> } };
-  update: (values: QuizUpdate) => { eq: (column: string, value: string) => Promise<{ error: RpcError | null }> };
+  update: (values: QuizUpdate) => {
+    eq: (column: string, value: string) => Promise<{ error: RpcError | null }>;
+  };
   delete: () => { eq: (column: string, value: string) => Promise<{ error: RpcError | null }> };
 }
 
 interface GameSessionsWriteTable {
-  insert: (
-    values: GameSessionInsert
-  ) => { select: () => { single: () => Promise<SingleResult<GameSessionRow>> } };
+  insert: (values: GameSessionInsert) => {
+    select: () => { single: () => Promise<SingleResult<GameSessionRow>> };
+  };
 }
 
 interface UserAchievementsWriteTable {
@@ -104,9 +109,7 @@ const createQuizSchema = z.object({
         min_score: z.number().optional(),
         max_score: z.number().optional(),
         personality_tag: z.string().optional(),
-        background_theme: z
-          .enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic'])
-          .optional(),
+        background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
       })
     )
     .optional(),
@@ -160,10 +163,7 @@ export async function createQuiz(input: unknown) {
     status: profileData.is_admin ? 'published' : 'pending',
   };
 
-  const { data: quiz, error } = await quizzesWrite
-    .insert(quizInsert)
-    .select()
-    .single();
+  const { data: quiz, error } = await quizzesWrite.insert(quizInsert).select().single();
 
   if (error) {
     return { error: error.message };
@@ -186,11 +186,7 @@ export async function updateQuiz(id: string, input: Partial<Quiz>) {
   }
 
   // Check ownership
-  const { data: quiz } = await supabase
-    .from('quizzes')
-    .select('creator_id')
-    .eq('id', id)
-    .single();
+  const { data: quiz } = await supabase.from('quizzes').select('creator_id').eq('id', id).single();
 
   if (!quiz || (quiz as QuizOwnershipRow).creator_id !== user.id) {
     return { error: 'Not authorized' };
@@ -220,11 +216,7 @@ export async function deleteQuiz(id: string) {
   }
 
   // Check ownership
-  const { data: quiz } = await supabase
-    .from('quizzes')
-    .select('creator_id')
-    .eq('id', id)
-    .single();
+  const { data: quiz } = await supabase.from('quizzes').select('creator_id').eq('id', id).single();
 
   if (!quiz || (quiz as QuizOwnershipRow).creator_id !== user.id) {
     return { error: 'Not authorized' };
@@ -335,13 +327,11 @@ export async function submitQuizResult(
     result_id: resultId,
     result_title: resultTitle,
     time_taken_seconds: timeTakenSeconds,
-    answers: answers as unknown as Database['public']['Tables']['game_sessions']['Insert']['answers'],
+    answers:
+      answers as unknown as Database['public']['Tables']['game_sessions']['Insert']['answers'],
   };
 
-  const { data: session, error } = await gameSessionsWrite
-    .insert(sessionInsert)
-    .select()
-    .single();
+  const { data: session, error } = await gameSessionsWrite.insert(sessionInsert).select().single();
 
   if (error) {
     return { error: error.message };
@@ -385,7 +375,9 @@ async function checkAchievements(
 
   const supabase = await createClient();
   const unlocked: Array<{ id: string; name: string }> = [];
-  const userAchievementsWrite = supabase.from('user_achievements') as unknown as UserAchievementsWriteTable;
+  const userAchievementsWrite = supabase.from(
+    'user_achievements'
+  ) as unknown as UserAchievementsWriteTable;
   const profilesWrite = supabase.from('profiles') as unknown as ProfilesWriteTable;
 
   // Get user stats
@@ -473,7 +465,11 @@ async function generateUniqueSlug(
   for (let index = 0; index < 100; index += 1) {
     const suffix = index === 0 ? '' : `-${index + 1}`;
     const candidate = `${baseSlug}${suffix}`.slice(0, 80).replace(/-+$/g, '');
-    const { data } = await supabase.from('quizzes').select('id').eq('slug', candidate).maybeSingle();
+    const { data } = await supabase
+      .from('quizzes')
+      .select('id')
+      .eq('slug', candidate)
+      .maybeSingle();
 
     if (!data) {
       return candidate;

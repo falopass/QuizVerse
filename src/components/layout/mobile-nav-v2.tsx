@@ -11,22 +11,48 @@ export function MobileNavV2({ dictionary, locale }: { dictionary: Dictionary; lo
   const normalizedPathname = stripLocaleFromPathname(pathname || '/');
 
   const items = [
-    { href: localizeHref(locale, '/'), match: '/', label: locale === 'es' ? 'Inicio' : 'Home', icon: <HomeIcon /> },
-    { href: localizeHref(locale, '/quiz'), match: '/quiz', label: dictionary.common.explore, icon: <ExploreIcon /> },
-    { href: localizeHref(locale, '/create'), match: '/create', label: dictionary.common.create, icon: <CreateIcon /> },
-    { href: localizeHref(locale, '/leaderboard'), match: '/leaderboard', label: dictionary.common.leaderboard, icon: <RanksIcon /> },
-    { href: localizeHref(locale, '/login'), match: '/login', label: dictionary.common.login, icon: <ProfileIcon /> },
+    {
+      href: localizeHref(locale, '/'),
+      match: '/',
+      label: locale === 'es' ? 'Inicio' : 'Home',
+      icon: <HomeIcon />,
+    },
+    {
+      href: localizeHref(locale, '/quiz'),
+      match: '/quiz',
+      label: dictionary.common.explore,
+      icon: <ExploreIcon />,
+    },
+    {
+      href: localizeHref(locale, '/create'),
+      match: '/create',
+      label: dictionary.common.create,
+      icon: <CreateIcon />,
+    },
+    {
+      href: localizeHref(locale, '/leaderboard'),
+      match: '/leaderboard',
+      label: dictionary.common.leaderboard,
+      icon: <RanksIcon />,
+    },
+    {
+      href: localizeHref(locale, '/login'),
+      match: '/login',
+      label: dictionary.common.login,
+      icon: <ProfileIcon />,
+    },
   ];
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 md:hidden">
-      <div className="mx-3 mb-3 rounded-[1.75rem] border border-border-subtle bg-bg-glass px-2 py-2 shadow-card backdrop-blur-xl">
+      <div className="border-border-subtle bg-bg-glass shadow-card mx-3 mb-3 rounded-[1.75rem] border px-2 py-2 backdrop-blur-xl">
         <div className="flex items-center justify-around">
           {items.map((item) => {
             const active =
               item.match === '/'
                 ? normalizedPathname === '/'
-                : normalizedPathname === item.match || normalizedPathname.startsWith(`${item.match}/`);
+                : normalizedPathname === item.match ||
+                  normalizedPathname.startsWith(`${item.match}/`);
 
             return (
               <Link
@@ -59,7 +85,11 @@ function HomeIcon() {
 function ExploreIcon() {
   return (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      />
     </svg>
   );
 }
@@ -75,11 +105,7 @@ function CreateIcon() {
 function RanksIcon() {
   return (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6 20V10m6 10V4m6 16v-7"
-      />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 20V10m6 10V4m6 16v-7" />
     </svg>
   );
 }
@@ -87,7 +113,11 @@ function RanksIcon() {
 function ProfileIcon() {
   return (
     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM5 21a7 7 0 0114 0" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM5 21a7 7 0 0114 0"
+      />
     </svg>
   );
 }

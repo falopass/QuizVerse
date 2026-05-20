@@ -73,7 +73,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
       </head>
-      <body className="editorial-shell h-full bg-bg-primary text-text-primary antialiased">
+      <body className="editorial-shell bg-bg-primary text-text-primary h-full antialiased">
         <SupabaseProvider>
           <ThemeProvider>
             <ToastProvider>

@@ -65,21 +65,18 @@ export function ResultScreen({
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 relative overflow-hidden">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12">
       {/* Background gradient */}
-      <div className={cn(
-        'absolute inset-0 bg-gradient-to-br opacity-20',
-        bgGradient
-      )} />
+      <div className={cn('absolute inset-0 bg-gradient-to-br opacity-20', bgGradient)} />
 
       {/* Content */}
-      <div className="relative z-10 max-w-lg w-full text-center">
+      <div className="relative z-10 w-full max-w-lg text-center">
         {/* Icon/Emoji según resultado */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ type: 'spring', damping: 15 }}
-          className="text-6xl mb-6"
+          className="mb-6 text-6xl"
         >
           {result ? '🎉' : '🏆'}
         </motion.div>
@@ -89,7 +86,7 @@ export function ResultScreen({
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl md:text-4xl font-display font-bold text-text-primary mb-2"
+          className="font-display text-text-primary mb-2 text-3xl font-bold md:text-4xl"
         >
           {result ? result.title : getScoreMessage()}
         </motion.h1>
@@ -100,7 +97,7 @@ export function ResultScreen({
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-lg text-text-secondary mb-8"
+            className="text-text-secondary mb-8 text-lg"
           >
             {result.description}
           </motion.p>
@@ -112,17 +109,22 @@ export function ResultScreen({
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mb-8 p-6 rounded-2xl bg-bg-secondary/50 backdrop-blur border border-border-subtle"
+            className="bg-bg-secondary/50 border-border-subtle mb-8 rounded-2xl border p-6 backdrop-blur"
           >
-            <div className="text-sm text-text-secondary mb-2">Your Score</div>
-            <div className="text-5xl font-display font-bold text-text-primary mb-2">
+            <div className="text-text-secondary mb-2 text-sm">Your Score</div>
+            <div className="font-display text-text-primary mb-2 text-5xl font-bold">
               {triviaScore.correct} / {triviaScore.total}
             </div>
-            <div className={cn(
-              'text-lg font-semibold mb-4',
-              triviaScore.percentage >= 80 ? 'text-success' :
-              triviaScore.percentage >= 60 ? 'text-warning' : 'text-error'
-            )}>
+            <div
+              className={cn(
+                'mb-4 text-lg font-semibold',
+                triviaScore.percentage >= 80
+                  ? 'text-success'
+                  : triviaScore.percentage >= 60
+                    ? 'text-warning'
+                    : 'text-error'
+              )}
+            >
               {triviaScore.percentage}%
             </div>
 
@@ -135,7 +137,7 @@ export function ResultScreen({
                 </div>
               )}
               {bonusPoints > 0 && (
-                <div className="flex items-center gap-1.5 text-accent-warm">
+                <div className="text-accent-warm flex items-center gap-1.5">
                   <span>⭐</span>
                   <span>+{bonusPoints} bonus</span>
                 </div>
@@ -149,23 +151,29 @@ export function ResultScreen({
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-center justify-center gap-6 mb-8 text-sm text-text-muted"
+          className="text-text-muted mb-8 flex items-center justify-center gap-6 text-sm"
         >
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
-            <span>
-              {answers.length} questions
-            </span>
+            <span>{answers.length} questions</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
             </svg>
-            <span>
-              {quiz.title.length > 20 ? quiz.title.slice(0, 20) + '...' : quiz.title}
-            </span>
+            <span>{quiz.title.length > 20 ? quiz.title.slice(0, 20) + '...' : quiz.title}</span>
           </div>
         </motion.div>
 
@@ -183,8 +191,13 @@ export function ResultScreen({
             className="w-full"
             onClick={() => setShowShare(true)}
             leftIcon={
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                />
               </svg>
             }
           >
@@ -216,7 +229,7 @@ export function ResultScreen({
             variant="ghost"
             size="lg"
             className="w-full"
-            onClick={() => window.location.href = '/quiz'}
+            onClick={() => (window.location.href = '/quiz')}
           >
             Explore More Quizzes
           </Button>
@@ -229,7 +242,7 @@ export function ResultScreen({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
               onClick={() => setShowShare(false)}
             >
               <motion.div
@@ -237,16 +250,21 @@ export function ResultScreen({
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-bg-secondary rounded-2xl p-6 max-w-sm w-full border border-border-subtle"
+                className="bg-bg-secondary border-border-subtle w-full max-w-sm rounded-2xl border p-6"
               >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-text-primary">Share Result</h3>
+                <div className="mb-4 flex items-center justify-between">
+                  <h3 className="text-text-primary text-lg font-semibold">Share Result</h3>
                   <button
                     onClick={() => setShowShare(false)}
-                    className="p-2 text-text-muted hover:text-text-primary"
+                    className="text-text-muted hover:text-text-primary p-2"
                   >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -267,26 +285,28 @@ export function ResultScreen({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="mt-8 p-6 rounded-2xl bg-bg-secondary/50 border border-border-subtle text-left"
+              className="bg-bg-secondary/50 border-border-subtle mt-8 rounded-2xl border p-6 text-left"
             >
-              <h3 className="text-lg font-semibold text-text-primary mb-4">Answer Review</h3>
-              <div className="space-y-3 max-h-64 overflow-y-auto">
+              <h3 className="text-text-primary mb-4 text-lg font-semibold">Answer Review</h3>
+              <div className="max-h-64 space-y-3 overflow-y-auto">
                 {answers.map((answer, index) => {
-                  const question = quiz.questions.find(q => q.id === answer.question_id);
-                  const selectedOption = question?.options.find(o => o.id === answer.selected_option_id);
-                  
+                  const question = quiz.questions.find((q) => q.id === answer.question_id);
+                  const selectedOption = question?.options.find(
+                    (o) => o.id === answer.selected_option_id
+                  );
+
                   return (
                     <div
                       key={answer.question_id}
                       className={cn(
-                        'p-3 rounded-lg text-sm',
-                        answer.is_correct ? 'bg-success/10 border border-success/30' : 'bg-error/10 border border-error/30'
+                        'rounded-lg p-3 text-sm',
+                        answer.is_correct
+                          ? 'bg-success/10 border-success/30 border'
+                          : 'bg-error/10 border-error/30 border'
                       )}
                     >
                       <div className="flex items-start gap-2">
-                        <span className="text-lg">
-                          {answer.is_correct ? '✅' : '❌'}
-                        </span>
+                        <span className="text-lg">{answer.is_correct ? '✅' : '❌'}</span>
                         <div>
                           <p className="text-text-primary font-medium">
                             Q{index + 1}: {question?.question}
@@ -294,9 +314,9 @@ export function ResultScreen({
                           <p className="text-text-secondary mt-1">
                             Your answer: {selectedOption?.text || 'Skipped'}
                           </p>
-                          {!answer.is_correct && question?.options.find(o => o.is_correct) && (
+                          {!answer.is_correct && question?.options.find((o) => o.is_correct) && (
                             <p className="text-success mt-1">
-                              Correct: {question.options.find(o => o.is_correct)?.text}
+                              Correct: {question.options.find((o) => o.is_correct)?.text}
                             </p>
                           )}
                           {question?.explanation && (

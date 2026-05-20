@@ -128,7 +128,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Start exploring',
       secondaryCta: 'Create with AI',
       featuredTitle: 'High-conviction discovery',
-      featuredBody: 'Trending, fast plays, strong personalities and evergreen culture in one place.',
+      featuredBody:
+        'Trending, fast plays, strong personalities and evergreen culture in one place.',
       quickTitle: 'Built for momentum',
       quickBody: 'Browse quickly, land on a quiz fast and get a result worth sharing.',
       sections: {
@@ -193,7 +194,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       summary: 'Session summary',
     },
     footer: {
-      tagline: 'QuizVerse turns quizzes into a sharper editorial product, not generic content sludge.',
+      tagline:
+        'QuizVerse turns quizzes into a sharper editorial product, not generic content sludge.',
     },
   },
   es: {
@@ -224,9 +226,11 @@ const dictionaries: Record<Locale, Dictionary> = {
       primaryCta: 'Empezar a explorar',
       secondaryCta: 'Crear con AI',
       featuredTitle: 'Descubrimiento con intención',
-      featuredBody: 'Tendencias, partidas rápidas, personalidades marcadas y cultura evergreen en un solo lugar.',
+      featuredBody:
+        'Tendencias, partidas rápidas, personalidades marcadas y cultura evergreen en un solo lugar.',
       quickTitle: 'Diseñado para el ritmo',
-      quickBody: 'Navega rápido, encuentra un quiz enseguida y consigue un resultado que sí vale la pena compartir.',
+      quickBody:
+        'Navega rápido, encuentra un quiz enseguida y consigue un resultado que sí vale la pena compartir.',
       sections: {
         momentum: 'Impulso',
         moods: 'Explorar por mood',
@@ -289,7 +293,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       summary: 'Resumen de la sesión',
     },
     footer: {
-      tagline: 'QuizVerse convierte los quizzes en un producto editorial con criterio, no en contenido genérico.',
+      tagline:
+        'QuizVerse convierte los quizzes en un producto editorial con criterio, no en contenido genérico.',
     },
   },
 };

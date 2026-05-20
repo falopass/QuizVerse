@@ -49,7 +49,7 @@ export function OptionButton({
       onClick={() => !disabled && onSelect(option.id)}
       disabled={disabled}
       className={cn(
-        'w-full p-4 md:p-5 rounded-xl border-2 text-left transition-all duration-300',
+        'w-full rounded-xl border-2 p-4 text-left transition-all duration-300 md:p-5',
         'flex items-center gap-4',
         getButtonStyles(),
         disabled && !showResult && 'cursor-not-allowed',
@@ -59,30 +59,50 @@ export function OptionButton({
       {/* Option indicator */}
       <div
         className={cn(
-          'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-all',
+          'flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold transition-all',
           isSelected || (showResult && isCorrect)
             ? 'bg-accent-primary text-white'
             : showResult && isSelected && !isCorrect
-            ? 'bg-error text-white'
-            : 'bg-bg-tertiary text-text-secondary'
+              ? 'bg-error text-white'
+              : 'bg-bg-tertiary text-text-secondary'
         )}
       >
         {String.fromCharCode(65 + index)}
       </div>
 
       {/* Option text */}
-      <span className="flex-1 text-base md:text-lg text-text-primary">{option.text}</span>
+      <span className="text-text-primary flex-1 text-base md:text-lg">{option.text}</span>
 
       {/* Result indicator */}
       {showResult && (
         <div className="flex-shrink-0">
           {isCorrect ? (
-            <svg className="w-6 h-6 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="text-success h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           ) : isSelected ? (
-            <svg className="w-6 h-6 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="text-error h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           ) : null}
         </div>

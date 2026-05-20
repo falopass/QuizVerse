@@ -10,10 +10,10 @@ export function MobileNav({ dictionary }: { dictionary: Dictionary }) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden">
-      <div className="absolute inset-0 bg-bg-glass backdrop-blur-xl border-t border-border-subtle" />
+    <nav className="fixed right-0 bottom-0 left-0 z-40 md:hidden">
+      <div className="bg-bg-glass border-border-subtle absolute inset-0 border-t backdrop-blur-xl" />
 
-      <div className="relative flex items-center justify-around py-2 safe-area-bottom">
+      <div className="safe-area-bottom relative flex items-center justify-around py-2">
         <MobileNavItem href="/" label="Home" icon={<HomeIcon />} active={pathname === '/'} />
         <MobileNavItem
           href="/quiz"
@@ -27,7 +27,12 @@ export function MobileNav({ dictionary }: { dictionary: Dictionary }) {
           icon={<CreateIcon />}
           active={pathname === '/create' || pathname === '/create/ai'}
         />
-        <MobileNavItem href="/leaderboard" label="Ranks" icon={<RanksIcon />} active={pathname === '/leaderboard'} />
+        <MobileNavItem
+          href="/leaderboard"
+          label="Ranks"
+          icon={<RanksIcon />}
+          active={pathname === '/leaderboard'}
+        />
         <MobileNavItem
           href="/login"
           label="Profile"
@@ -60,13 +65,7 @@ function MobileNavItem({ href, label, icon, active }: MobileNavItemProps) {
         active ? 'text-accent-primary' : 'text-text-muted hover:text-text-secondary'
       )}
     >
-      <div
-        className={cn(
-          'w-6 h-6',
-          'transition-transform duration-200',
-          active && 'scale-110'
-        )}
-      >
+      <div className={cn('h-6 w-6', 'transition-transform duration-200', active && 'scale-110')}>
         {icon}
       </div>
       <span className="text-[10px] font-medium">{label}</span>

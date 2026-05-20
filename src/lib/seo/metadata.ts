@@ -33,7 +33,9 @@ function localizedPath(locale: Locale, path: string) {
 
 function buildAlternates(locale: Locale, canonicalUrl: string, alternateUrl?: string) {
   const canonicalPath = canonicalUrl.replace(siteUrl, '');
-  const alternatePath = alternateUrl?.replace(siteUrl, '') ?? canonicalPath.replace(`/${locale}`, locale === 'es' ? '/en' : '/es');
+  const alternatePath =
+    alternateUrl?.replace(siteUrl, '') ??
+    canonicalPath.replace(`/${locale}`, locale === 'es' ? '/en' : '/es');
 
   return {
     canonical: canonicalUrl,

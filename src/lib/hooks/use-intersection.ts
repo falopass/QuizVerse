@@ -45,15 +45,12 @@ export function useIntersection<T extends HTMLElement>({
     };
   }, [threshold, rootMargin, triggerOnce]);
 
-  const ref = useCallback(
-    (node: T | null) => {
-      if (elementRef.current) {
-        // Clean up old observer
-      }
-      elementRef.current = node;
-    },
-    []
-  );
+  const ref = useCallback((node: T | null) => {
+    if (elementRef.current) {
+      // Clean up old observer
+    }
+    elementRef.current = node;
+  }, []);
 
   return { ref, elementRef, isIntersecting };
 }

@@ -52,15 +52,15 @@ export function LivePlayers({ quizId, className }: LivePlayersProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       className={cn(
-        'inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium',
-        'bg-bg-tertiary border border-border-subtle',
+        'inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium',
+        'bg-bg-tertiary border-border-subtle border',
         className
       )}
     >
       {/* Pulsing dot */}
       <span className="relative flex h-2 w-2">
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
+        <span className="bg-success absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+        <span className="bg-success relative inline-flex h-2 w-2 rounded-full" />
       </span>
       <span className="text-text-secondary">
         {count} {count === 1 ? 'person' : 'people'} playing now

@@ -8,14 +8,7 @@ export type GameSession = Database['public']['Tables']['game_sessions']['Row'];
 export type Achievement = Database['public']['Tables']['achievements']['Row'];
 
 // Re-export quiz types
-export type {
-  Question,
-  Option,
-  PersonalityResult,
-  Answer,
-  QuizState,
-  QuizAction,
-} from './quiz';
+export type { Question, Option, PersonalityResult, Answer, QuizState, QuizAction } from './quiz';
 
 // Auth types
 export type User = import('@supabase/supabase-js').User;

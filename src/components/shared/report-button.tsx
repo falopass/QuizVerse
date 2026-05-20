@@ -24,7 +24,8 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
       ? {
           trigger: 'Reportar quiz',
           title: 'Reportar quiz',
-          description: 'Ayúdanos a mantener QuizVerse útil y seguro. Cuéntanos qué problema viste en este quiz.',
+          description:
+            'Ayúdanos a mantener QuizVerse útil y seguro. Cuéntanos qué problema viste en este quiz.',
           placeholder: 'Cuéntanos un poco más…',
           cancel: 'Cancelar',
           submit: 'Enviar reporte',
@@ -43,7 +44,8 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
       : {
           trigger: 'Report quiz',
           title: 'Report quiz',
-          description: 'Help us keep QuizVerse useful and safe. Tell us what felt wrong about this quiz.',
+          description:
+            'Help us keep QuizVerse useful and safe. Tell us what felt wrong about this quiz.',
           placeholder: 'Tell us a bit more…',
           cancel: 'Cancel',
           submit: 'Submit report',
@@ -108,20 +110,32 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className={['text-sm text-text-muted transition-colors hover:text-accent-primary', className].filter(Boolean).join(' ')}
+        className={[
+          'text-text-muted hover:text-accent-primary text-sm transition-colors',
+          className,
+        ]
+          .filter(Boolean)
+          .join(' ')}
       >
         {copy.trigger}
       </button>
 
-      <Modal isOpen={isOpen} onClose={() => { setIsOpen(false); reset(); }} title={copy.title}>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+          reset();
+        }}
+        title={copy.title}
+      >
         <div className="space-y-4">
-          <p className="text-sm leading-6 text-text-secondary">{copy.description}</p>
+          <p className="text-text-secondary text-sm leading-6">{copy.description}</p>
 
           <div className="space-y-2">
             {reasons.map((reason) => (
               <label
                 key={reason.value}
-                className="flex cursor-pointer items-center gap-3 rounded-2xl border border-border-subtle p-3 transition-colors hover:bg-bg-tertiary"
+                className="border-border-subtle hover:bg-bg-tertiary flex cursor-pointer items-center gap-3 rounded-2xl border p-3 transition-colors"
               >
                 <input
                   type="radio"
@@ -129,7 +143,7 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
                   value={reason.value}
                   checked={selectedReason === reason.value}
                   onChange={(event) => setSelectedReason(event.target.value)}
-                  className="h-4 w-4 text-accent-primary"
+                  className="text-accent-primary h-4 w-4"
                 />
                 <span className="text-text-primary">{reason.label}</span>
               </label>
@@ -141,16 +155,27 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
               value={details}
               onChange={(event) => setDetails(event.target.value)}
               placeholder={copy.placeholder}
-              className="w-full resize-none rounded-2xl border border-border-subtle bg-bg-tertiary p-3 text-text-primary placeholder:text-text-muted"
+              className="border-border-subtle bg-bg-tertiary text-text-primary placeholder:text-text-muted w-full resize-none rounded-2xl border p-3"
               rows={4}
             />
           )}
 
-          {status === 'success' ? <p className="text-sm font-medium text-success">{copy.success}</p> : null}
-          {status === 'error' ? <p className="text-sm font-medium text-error">{copy.error}</p> : null}
+          {status === 'success' ? (
+            <p className="text-success text-sm font-medium">{copy.success}</p>
+          ) : null}
+          {status === 'error' ? (
+            <p className="text-error text-sm font-medium">{copy.error}</p>
+          ) : null}
 
           <div className="flex gap-3 pt-4">
-            <Button variant="secondary" onClick={() => { setIsOpen(false); reset(); }} className="flex-1">
+            <Button
+              variant="secondary"
+              onClick={() => {
+                setIsOpen(false);
+                reset();
+              }}
+              className="flex-1"
+            >
               {copy.cancel}
             </Button>
             <Button

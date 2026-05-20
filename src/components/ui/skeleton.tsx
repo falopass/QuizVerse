@@ -54,7 +54,12 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     }
 
     return (
-      <div ref={ref} className={cn(baseStyles, variants[variant], className)} style={style} {...props} />
+      <div
+        ref={ref}
+        className={cn(baseStyles, variants[variant], className)}
+        style={style}
+        {...props}
+      />
     );
   }
 );

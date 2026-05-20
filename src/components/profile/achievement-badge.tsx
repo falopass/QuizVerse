@@ -28,8 +28,8 @@ export function AchievementBadge({ achievement, size = 'md', unlocked }: Achieve
     >
       <div
         className={cn(
-          'rounded-full flex items-center justify-center font-bold',
-          'bg-gradient-to-br from-accent-primary/20 to-accent-secondary/20',
+          'flex items-center justify-center rounded-full font-bold',
+          'from-accent-primary/20 to-accent-secondary/20 bg-gradient-to-br',
           'border-2',
           unlocked ? 'border-accent-primary shadow-glow' : 'border-border-subtle',
           sizeClasses[size]
@@ -38,11 +38,11 @@ export function AchievementBadge({ achievement, size = 'md', unlocked }: Achieve
         {achievement.icon}
       </div>
       <div className="text-center">
-        <div className="text-xs font-medium text-text-primary">{achievement.name}</div>
-        <div className="text-xs text-text-muted">{achievement.points_reward} pts</div>
+        <div className="text-text-primary text-xs font-medium">{achievement.name}</div>
+        <div className="text-text-muted text-xs">{achievement.points_reward} pts</div>
       </div>
       {unlocked && (
-        <div className="absolute -top-1 -right-1 w-4 h-4 bg-success rounded-full border-2 border-bg-secondary" />
+        <div className="bg-success border-bg-secondary absolute -top-1 -right-1 h-4 w-4 rounded-full border-2" />
       )}
     </motion.div>
   );

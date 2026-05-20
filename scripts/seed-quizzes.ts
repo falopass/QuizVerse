@@ -212,7 +212,9 @@ async function generateQuizzes() {
   console.log(`📋 Topics a procesar: ${PERSONALITY_TOPICS.length + TRIVIA_TOPICS.length}`);
   console.log(`🔀 Concurrencia: ${CONCURRENCY_LIMIT} requests simultáneos`);
   console.log(`🤖 Modelo: ${OPENROUTER_MODEL}`);
-  console.log(`⏱️  Tiempo estimado: ~${Math.ceil((PERSONALITY_TOPICS.length + TRIVIA_TOPICS.length) * 4 / CONCURRENCY_LIMIT / 60)} minutos\n`);
+  console.log(
+    `⏱️  Tiempo estimado: ~${Math.ceil(((PERSONALITY_TOPICS.length + TRIVIA_TOPICS.length) * 4) / CONCURRENCY_LIMIT / 60)} minutos\n`
+  );
 
   // Generar personality quizzes en paralelo
   console.log('📝 Generando personality quizzes...\n');
@@ -255,7 +257,9 @@ async function generateQuizzes() {
           };
 
           allQuizzes.push(quiz);
-          console.log(`   ✅ Exitoso - ${quiz.questions.length} preguntas, ${quiz.results?.length || 0} resultados`);
+          console.log(
+            `   ✅ Exitoso - ${quiz.questions.length} preguntas, ${quiz.results?.length || 0} resultados`
+          );
         }
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : 'Unknown error';
@@ -350,8 +354,12 @@ async function generateQuizzes() {
   console.log('\n✨ ¡Generación completada!');
   console.log(`\nPara usar los quizzes:`);
   console.log('1. Importa el archivo en src/lib/data/mock.ts');
-  console.log('2. Agrega: export const QUIZZES_GENERATED = require("./quizzes-generated.json").default;');
-  console.log('3. Combina con: export const QUIZZES_MOCK = [...QUIZZES_GENERATED, ...QUIZZES_MOCK_ORIGINAL];');
+  console.log(
+    '2. Agrega: export const QUIZZES_GENERATED = require("./quizzes-generated.json").default;'
+  );
+  console.log(
+    '3. Combina con: export const QUIZZES_MOCK = [...QUIZZES_GENERATED, ...QUIZZES_MOCK_ORIGINAL];'
+  );
 }
 
 // ============================================
@@ -434,7 +442,7 @@ async function generatePersonalityQuiz(client: OpenAI, topic: string) {
     model: OPENROUTER_MODEL,
     messages: [
       { role: 'system', content: PERSONALITY_SYSTEM_PROMPT },
-      { role: 'user', content: `Create a personality quiz about: ${topic}` }
+      { role: 'user', content: `Create a personality quiz about: ${topic}` },
     ],
     response_format: { type: 'json_object' },
     temperature: 0.7,
@@ -451,7 +459,7 @@ async function generateTriviaQuiz(client: OpenAI, topic: string) {
     model: OPENROUTER_MODEL,
     messages: [
       { role: 'system', content: TRIVIA_SYSTEM_PROMPT },
-      { role: 'user', content: `Create a trivia quiz about: ${topic}` }
+      { role: 'user', content: `Create a trivia quiz about: ${topic}` },
     ],
     response_format: { type: 'json_object' },
     temperature: 0.7,

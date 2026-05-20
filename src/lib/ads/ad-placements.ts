@@ -50,7 +50,11 @@ export const AD_PLACEMENT_RULES = {
   },
 };
 
-export function shouldShowAdBetweenItems(index: number, frequency: number, minItems: number = 0): boolean {
+export function shouldShowAdBetweenItems(
+  index: number,
+  frequency: number,
+  minItems: number = 0
+): boolean {
   return index >= minItems && index % frequency === 0;
 }
 

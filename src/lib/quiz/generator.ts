@@ -216,13 +216,21 @@ export function transformAIQuizToDB(
       })),
       explanation: q.explanation || null,
     })),
-    results: aiData.results?.map((r) => ({
-      id: r.id,
-      title: r.title,
-      description: r.description,
-      personality_tag: r.personality_tag || null,
-      background_theme: r.background_theme as 'fire' | 'ice' | 'stars' | 'ocean' | 'forest' | 'mystic' | undefined,
-    })) || null,
+    results:
+      aiData.results?.map((r) => ({
+        id: r.id,
+        title: r.title,
+        description: r.description,
+        personality_tag: r.personality_tag || null,
+        background_theme: r.background_theme as
+          | 'fire'
+          | 'ice'
+          | 'stars'
+          | 'ocean'
+          | 'forest'
+          | 'mystic'
+          | undefined,
+      })) || null,
     tags: aiData.tags,
     estimated_minutes: aiData.estimated_minutes,
     is_ai_generated: true,

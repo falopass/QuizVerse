@@ -7,7 +7,10 @@ import { z } from 'zod';
 const updateProfileSchema = z.object({
   display_name: z.string().min(2).max(50).optional(),
   bio: z.string().max(280).optional(),
-  username: z.string().regex(/^[a-z0-9_]{3,24}$/).optional(),
+  username: z
+    .string()
+    .regex(/^[a-z0-9_]{3,24}$/)
+    .optional(),
 });
 
 export async function updateProfile(input: unknown) {
@@ -40,10 +43,7 @@ export async function updateProfile(input: unknown) {
     }
   }
 
-  const { error } = await (supabase as any)
-    .from('profiles')
-    .update(parsed.data)
-    .eq('id', user.id);
+  const { error } = await (supabase as any).from('profiles').update(parsed.data).eq('id', user.id);
 
   if (error) {
     return { error: error.message };
@@ -90,10 +90,12 @@ export async function getProfileStats(userId: string) {
   // Get achievements
   const { data: achievements } = await supabase
     .from('user_achievements')
-    .select(`
+    .select(
+      `
       *,
       achievement:achievements (*)
-    `)
+    `
+    )
     .eq('user_id', userId);
 
   // Get game sessions count

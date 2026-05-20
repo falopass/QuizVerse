@@ -7,9 +7,7 @@ import type { Database } from '@/types/database';
 
 interface ProfileUpdater {
   from: (table: 'profiles') => {
-    update: (
-      data: Database['public']['Tables']['profiles']['Update']
-    ) => {
+    update: (data: Database['public']['Tables']['profiles']['Update']) => {
       eq: (column: 'id', value: string) => Promise<unknown>;
     };
   };
@@ -37,10 +35,7 @@ export async function POST(request: Request) {
 
   if (user) {
     const profileUpdater = supabase as unknown as ProfileUpdater;
-    await profileUpdater
-      .from('profiles')
-      .update({ preferred_language: locale })
-      .eq('id', user.id);
+    await profileUpdater.from('profiles').update({ preferred_language: locale }).eq('id', user.id);
   }
 
   return NextResponse.json({ success: true, locale });

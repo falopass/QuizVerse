@@ -40,10 +40,7 @@ export function ProgressBar({
   return (
     <div className={cn('w-full', className)}>
       <div
-        className={cn(
-          'w-full bg-bg-tertiary rounded-full overflow-hidden',
-          sizes[size]
-        )}
+        className={cn('bg-bg-tertiary w-full overflow-hidden rounded-full', sizes[size])}
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin={0}
@@ -59,7 +56,7 @@ export function ProgressBar({
         />
       </div>
       {showLabel && (
-        <div className="flex justify-between mt-1.5 text-xs text-text-secondary">
+        <div className="text-text-secondary mt-1.5 flex justify-between text-xs">
           <span>{value}</span>
           <span>{max}</span>
         </div>

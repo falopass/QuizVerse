@@ -112,6 +112,7 @@ supabase/
 ## Database Schema (Supabase)
 
 Tables:
+
 - `quizzes` — id, slug, title, description, locale, category, quiz_type, questions[], correct_answers[], featured, cover_type, cover_url, payoff, created_at
 - `categories` — id, slug, label (en/es), icon
 - `profiles` — user profiles (Supabase Auth linked)
@@ -156,19 +157,19 @@ git push origin main    # Auto-deploy (Vercel detects repo)
 
 ### Required env vars in Vercel
 
-| Variable | Purpose |
-|:---|:---|
-| `NEXT_PUBLIC_SITE_URL` | Production URL (https://quizverse.org) |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server-side privileged operations |
-| `GROQ_API_KEY` | Runtime AI quiz generation |
-| `OPENROUTER_API_KEY` | Optional — batch seed generation |
-| `UPSTASH_REDIS_REST_URL` | Rate limiting / caching |
-| `UPSTASH_REDIS_REST_TOKEN` | Upstash auth token |
-| `PEXELS_API_KEY` | Stock cover images |
-| `PIXABAY_API_KEY` | Optional — additional stock covers |
-| `NEXT_PUBLIC_ADSENSE_ID` | Optional — ad monetization |
+| Variable                                       | Purpose                                |
+| :--------------------------------------------- | :------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`                         | Production URL (https://quizverse.org) |
+| `NEXT_PUBLIC_SUPABASE_URL`                     | Supabase project URL                   |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key               |
+| `SUPABASE_SERVICE_ROLE_KEY`                    | Server-side privileged operations      |
+| `GROQ_API_KEY`                                 | Runtime AI quiz generation             |
+| `OPENROUTER_API_KEY`                           | Optional — batch seed generation       |
+| `UPSTASH_REDIS_REST_URL`                       | Rate limiting / caching                |
+| `UPSTASH_REDIS_REST_TOKEN`                     | Upstash auth token                     |
+| `PEXELS_API_KEY`                               | Stock cover images                     |
+| `PIXABAY_API_KEY`                              | Optional — additional stock covers     |
+| `NEXT_PUBLIC_ADSENSE_ID`                       | Optional — ad monetization             |
 
 ### Production checklist
 

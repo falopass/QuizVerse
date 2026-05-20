@@ -24,10 +24,9 @@ export function localizeHref(locale: Locale, href: string): string {
     return `/${locale}`;
   }
 
-  return (href.startsWith(`/${locale}/`) || href === `/${locale}` ? href : `/${locale}${href}`).replace(
-    /\/{2,}/g,
-    '/'
-  );
+  return (
+    href.startsWith(`/${locale}/`) || href === `/${locale}` ? href : `/${locale}${href}`
+  ).replace(/\/{2,}/g, '/');
 }
 
 export function stripLocaleFromPathname(pathname: string): string {

@@ -17,9 +17,7 @@ export function AdBetweenQuestions({ questionIndex, totalQuestions }: AdBetweenQ
 
   return (
     <div className="my-8">
-      <div className="text-center text-xs text-text-muted mb-3">
-        Advertisement
-      </div>
+      <div className="text-text-muted mb-3 text-center text-xs">Advertisement</div>
       <AdSlot
         slot={process.env.NEXT_PUBLIC_ADSENSE_IN_ARTICLE_SLOT || '1234567890'}
         format="fluid"

@@ -33,7 +33,7 @@ const TRENDING_QUIZZES = [
   },
   {
     slug: 'brain-language-style',
-    title: 'What Is Your Brain\'s Language Style?',
+    title: "What Is Your Brain's Language Style?",
     category: 'Personality',
     categoryIcon: '🧠',
     plays: 76000,
@@ -60,25 +60,25 @@ const TRENDING_QUIZZES = [
 export function TrendingCarousel() {
   return (
     <section className="px-4 py-12">
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-text-primary">
+            <h2 className="font-display text-text-primary text-2xl font-bold md:text-3xl">
               Trending Now
             </h2>
             <p className="text-text-secondary mt-1">Most played quizzes this week</p>
           </div>
           <a
             href="/quiz"
-            className="text-sm font-medium text-accent-primary hover:text-accent-hover transition-colors"
+            className="text-accent-primary hover:text-accent-hover text-sm font-medium transition-colors"
           >
             View all →
           </a>
         </div>
 
         {/* Carousel */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TRENDING_QUIZZES.map((quiz, index) => (
             <QuizCard key={quiz.slug} quiz={quiz} priority={index < 3} />
           ))}
@@ -93,22 +93,22 @@ export function TrendingCarousel() {
 // ============================================
 
 interface QuizCardProps {
-  quiz: typeof TRENDING_QUIZZES[0];
+  quiz: (typeof TRENDING_QUIZZES)[0];
   priority?: boolean;
 }
 
 function QuizCard({ quiz, priority }: QuizCardProps) {
   return (
-    <a href={`/quiz/${quiz.slug}`} className="block group">
+    <a href={`/quiz/${quiz.slug}`} className="group block">
       <SpotlightCard className="h-full">
         {/* Cover Image Placeholder */}
-        <div className="aspect-video bg-gradient-to-br from-bg-tertiary to-bg-secondary relative overflow-hidden">
+        <div className="from-bg-tertiary to-bg-secondary relative aspect-video overflow-hidden bg-gradient-to-br">
           {quiz.coverImage ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={quiz.coverImage}
               alt={quiz.title}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               loading={priority ? 'eager' : 'lazy'}
             />
           ) : (
@@ -127,12 +127,12 @@ function QuizCard({ quiz, priority }: QuizCardProps) {
 
         {/* Content */}
         <div className="p-4">
-          <h3 className="font-display font-semibold text-text-primary line-clamp-2 group-hover:text-accent-primary transition-colors">
+          <h3 className="font-display text-text-primary group-hover:text-accent-primary line-clamp-2 font-semibold transition-colors">
             {quiz.title}
           </h3>
-          <div className="flex items-center gap-3 mt-3 text-sm text-text-muted">
+          <div className="text-text-muted mt-3 flex items-center gap-3 text-sm">
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -149,7 +149,7 @@ function QuizCard({ quiz, priority }: QuizCardProps) {
               {formatCompactNumber(quiz.plays)} plays
             </span>
             <span className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

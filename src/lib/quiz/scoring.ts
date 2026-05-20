@@ -12,7 +12,7 @@ import type { Question, Quiz, PersonalityResult, GameSession } from '@/types/qui
 const SCORING_CONFIG = {
   BASE_POINTS_CORRECT: 10,
   PERFECT_SCORE_BONUS: 25,
-    SPEED_BONUS_MULTIPLIER: 0.5,
+  SPEED_BONUS_MULTIPLIER: 0.5,
   STREAK_BONUS: {
     3: 2,
     5: 5,
@@ -39,7 +39,12 @@ export interface TriviaScoreResult {
  */
 export function calculateTriviaScore(
   questions: Question[],
-  answers: { question_id: string; selected_option_id: string; is_correct: boolean; time_ms: number }[]
+  answers: {
+    question_id: string;
+    selected_option_id: string;
+    is_correct: boolean;
+    time_ms: number;
+  }[]
 ): TriviaScoreResult {
   let score = 0;
   let correctCount = 0;
@@ -75,7 +80,9 @@ export function calculateTriviaScore(
 
     if (answer.is_correct && timeTaken < timeLimit) {
       const timeRatio = 1 - timeTaken / timeLimit;
-      const bonus = Math.round(SCORING_CONFIG.BASE_POINTS_CORRECT * SCORING_CONFIG.SPEED_BONUS_MULTIPLIER * timeRatio);
+      const bonus = Math.round(
+        SCORING_CONFIG.BASE_POINTS_CORRECT * SCORING_CONFIG.SPEED_BONUS_MULTIPLIER * timeRatio
+      );
       speedBonus += bonus;
       score += bonus;
     }
@@ -134,8 +141,7 @@ export function calculatePersonalityScore(
   });
 
   // Encontrar el tag dominante
-  const dominantTag = Object.entries(tagCounts)
-    .sort((a, b) => b[1] - a[1])[0]?.[0] || null;
+  const dominantTag = Object.entries(tagCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || null;
 
   // Encontrar el resultado correspondiente
   const result = dominantTag

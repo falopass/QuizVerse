@@ -12,7 +12,13 @@ export interface CountdownProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export function Countdown({ seconds, onComplete, paused = false, className, size = 'md' }: CountdownProps) {
+export function Countdown({
+  seconds,
+  onComplete,
+  paused = false,
+  className,
+  size = 'md',
+}: CountdownProps) {
   const [remaining, setRemaining] = useState(seconds);
   const [isRunning, setIsRunning] = useState(!paused);
 
@@ -60,7 +66,7 @@ export function Countdown({ seconds, onComplete, paused = false, className, size
     <div className={cn('relative inline-flex items-center gap-2', className)}>
       {/* Circular progress (optional, for lg size) */}
       {size === 'lg' && (
-        <svg className="w-16 h-16 -ml-2" viewBox="0 0 100 100">
+        <svg className="-ml-2 h-16 w-16" viewBox="0 0 100 100">
           <circle
             className="text-bg-tertiary"
             strokeWidth="8"
