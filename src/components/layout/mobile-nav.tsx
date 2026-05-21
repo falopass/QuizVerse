@@ -1,97 +1,90 @@
 'use client';
 
-import * as React from 'react';
-import { cn } from '@/lib/utils/cn';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { Dictionary } from '@/lib/i18n/dictionaries';
+import { cn } from '@/lib/utils/cn';
+import { localizeHref, stripLocaleFromPathname } from '@/lib/i18n/navigation';
+import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
-export function MobileNav({ dictionary }: { dictionary: Dictionary }) {
+export function MobileNav({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
   const pathname = usePathname();
+  const normalizedPathname = stripLocaleFromPathname(pathname || '/');
+
+  const items = [
+    {
+      href: localizeHref(locale, '/'),
+      match: '/',
+      label: locale === 'es' ? 'Inicio' : 'Home',
+      icon: <HomeIcon />,
+    },
+    {
+      href: localizeHref(locale, '/quiz'),
+      match: '/quiz',
+      label: dictionary.common.explore,
+      icon: <ExploreIcon />,
+    },
+    {
+      href: localizeHref(locale, '/create'),
+      match: '/create',
+      label: dictionary.common.create,
+      icon: <CreateIcon />,
+    },
+    {
+      href: localizeHref(locale, '/leaderboard'),
+      match: '/leaderboard',
+      label: dictionary.common.leaderboard,
+      icon: <RanksIcon />,
+    },
+    {
+      href: localizeHref(locale, '/login'),
+      match: '/login',
+      label: dictionary.common.login,
+      icon: <ProfileIcon />,
+    },
+  ];
 
   return (
-    <nav className="fixed right-0 bottom-0 left-0 z-40 md:hidden">
-      <div className="bg-bg-glass border-border-subtle absolute inset-0 border-t backdrop-blur-xl" />
+    <nav className="fixed inset-x-0 bottom-0 z-40 md:hidden">
+      <div className="border-border-subtle bg-bg-glass shadow-card mx-3 mb-3 rounded-[1.75rem] border px-2 py-2 backdrop-blur-xl">
+        <div className="flex items-center justify-around">
+          {items.map((item) => {
+            const active =
+              item.match === '/'
+                ? normalizedPathname === '/'
+                : normalizedPathname === item.match ||
+                  normalizedPathname.startsWith(`${item.match}/`);
 
-      <div className="safe-area-bottom relative flex items-center justify-around py-2">
-        <MobileNavItem href="/" label="Home" icon={<HomeIcon />} active={pathname === '/'} />
-        <MobileNavItem
-          href="/quiz"
-          label={dictionary.common.explore}
-          icon={<ExploreIcon />}
-          active={pathname === '/quiz'}
-        />
-        <MobileNavItem
-          href="/create"
-          label={dictionary.common.create}
-          icon={<CreateIcon />}
-          active={pathname === '/create' || pathname === '/create/ai'}
-        />
-        <MobileNavItem
-          href="/leaderboard"
-          label="Ranks"
-          icon={<RanksIcon />}
-          active={pathname === '/leaderboard'}
-        />
-        <MobileNavItem
-          href="/login"
-          label="Profile"
-          icon={<ProfileIcon />}
-          active={pathname === '/login' || (pathname?.startsWith('/profile') ?? false)}
-        />
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex min-w-0 flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-colors',
+                  active ? 'text-accent-primary' : 'text-text-muted'
+                )}
+              >
+                <div className={cn('h-5 w-5', active && 'scale-110')}>{item.icon}</div>
+                <span className="truncate">{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
 }
 
-// ============================================
-// MOBILE NAV ITEM
-// ============================================
-
-interface MobileNavItemProps {
-  href: string;
-  label: string;
-  icon: React.ReactNode;
-  active?: boolean;
-}
-
-function MobileNavItem({ href, label, icon, active }: MobileNavItemProps) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        'flex flex-col items-center gap-1 px-3 py-1',
-        'transition-colors duration-200',
-        active ? 'text-accent-primary' : 'text-text-muted hover:text-text-secondary'
-      )}
-    >
-      <div className={cn('h-6 w-6', 'transition-transform duration-200', active && 'scale-110')}>
-        {icon}
-      </div>
-      <span className="text-[10px] font-medium">{label}</span>
-    </Link>
-  );
-}
-
-// ============================================
-// ICONS
-// ============================================
-
 function HomeIcon() {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-      />
+    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-8 9 8M5 10v10h14V10" />
     </svg>
   );
 }
 
 function ExploreIcon() {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -103,31 +96,27 @@ function ExploreIcon() {
 
 function CreateIcon() {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m7-7H5" />
     </svg>
   );
 }
 
 function RanksIcon() {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-      />
+    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 20V10m6 10V4m6 16v-7" />
     </svg>
   );
 }
 
 function ProfileIcon() {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM5 21a7 7 0 0114 0"
       />
     </svg>
   );

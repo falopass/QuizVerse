@@ -6,11 +6,12 @@ import { submitQuizResult } from '@/actions/quiz.actions';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
 import type { PersonalityResult, Quiz } from '@/types/quiz';
-import { GameModeSelectorV2 } from './game-mode-selector-v2';
+import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
-import { QuestionCardV2 } from './question-card-v2';
+import { QuestionCard } from './question-card';
 import { QuizProgress } from './quiz-progress';
-import { ResultScreenV2 } from './result-screen-v2';
+import { QuizDynamicBackground } from './quiz-dynamic-background';
+import { ResultScreen } from './result-screen';
 import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
@@ -21,14 +22,22 @@ interface QuizPlayerProps {
   locale?: Locale;
 }
 
-const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
-  if (typeof window === 'undefined') return;
+let _audioContext: AudioContext | null = null;
+function getAudioContext(): AudioContext | null {
+  if (typeof window === 'undefined') return null;
+  if (_audioContext && _audioContext.state !== 'closed') return _audioContext;
   const AudioContextClass =
     window.AudioContext ||
     (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-  if (!AudioContextClass) return;
+  if (!AudioContextClass) return null;
+  _audioContext = new AudioContextClass();
+  return _audioContext;
+}
 
-  const audioContext = new AudioContextClass();
+const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
+  const audioContext = getAudioContext();
+  if (!audioContext) return;
+
   const oscillator = audioContext.createOscillator();
   const gainNode = audioContext.createGain();
   oscillator.connect(gainNode);
@@ -248,7 +257,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
   };
 
   if (showModeSelector) {
-    return <GameModeSelectorV2 quiz={quiz} locale={uiLocale} onSelectMode={handleStartGame} />;
+    return <GameModeSelector quiz={quiz} locale={uiLocale} onSelectMode={handleStartGame} />;
   }
 
   if (isPaused) {
@@ -296,7 +305,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
 
   if (isCompleted) {
     return (
-      <ResultScreenV2
+      <ResultScreen
         locale={uiLocale}
         quiz={quiz}
         result={submission?.result ?? getPersonalityResult()}
@@ -327,7 +336,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(181,94,44,0.1),transparent_38%),linear-gradient(180deg,rgba(246,239,229,0.86),rgba(235,228,216,0.94))]" />
+      <QuizDynamicBackground visualFamily={quiz.visual_profile?.visual_family} />
       <div className="absolute inset-0 [background-image:linear-gradient(rgba(24,20,16,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(24,20,16,0.05)_1px,transparent_1px)] [background-size:48px_48px] opacity-35" />
 
       <div className="relative z-10 flex min-h-screen flex-col">
@@ -427,7 +436,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                 className="w-full max-w-5xl"
               >
-                <QuestionCardV2
+                <QuestionCard
                   question={currentQuestion}
                   questionNumber={currentQuestionIndex + 1}
                   totalQuestions={totalQuestions}

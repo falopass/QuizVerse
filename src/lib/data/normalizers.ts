@@ -100,7 +100,8 @@ export function parseResults(
 export function normalizeQuiz(
   row: QuizRow,
   categories: Map<string, Category>,
-  creator?: Profile | null
+  creator?: Profile | null,
+  enrichVisual = true
 ): Quiz {
   const normalizedQuiz: Quiz = {
     id: row.id,
@@ -127,6 +128,8 @@ export function normalizeQuiz(
     category: row.category_id ? (categories.get(row.category_id) ?? null) : null,
     creator: creator ?? null,
   };
+
+  if (!enrichVisual) return normalizedQuiz;
 
   return {
     ...normalizedQuiz,

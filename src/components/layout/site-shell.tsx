@@ -2,9 +2,9 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { FloatingNavV2 } from './floating-nav-v2';
-import { FooterV2 } from './footer-v2';
-import { MobileNavV2 } from './mobile-nav-v2';
+import { FloatingNav } from './floating-nav';
+import { Footer } from './footer';
+import { MobileNav } from './mobile-nav';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
 interface SiteShellProps {
@@ -24,10 +24,12 @@ export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
 
   return (
     <>
-      {!isFullscreen && <FloatingNavV2 locale={locale} dictionary={dictionary} />}
-      <div className={isFullscreen ? '' : 'pb-24 md:pb-0'}>{children}</div>
-      {!isFullscreen && <FooterV2 dictionary={dictionary} locale={locale} />}
-      {!isFullscreen && <MobileNavV2 dictionary={dictionary} locale={locale} />}
+      {!isFullscreen && <FloatingNav locale={locale} dictionary={dictionary} />}
+      <main id="main-content" className={isFullscreen ? '' : 'pb-24 md:pb-0'}>
+        {children}
+      </main>
+      {!isFullscreen && <Footer dictionary={dictionary} locale={locale} />}
+      {!isFullscreen && <MobileNav dictionary={dictionary} locale={locale} />}
     </>
   );
 }

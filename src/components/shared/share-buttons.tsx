@@ -4,15 +4,19 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 
+import type { Locale } from '@/lib/i18n/dictionaries';
+
 interface ShareButtonsProps {
   title: string;
   url: string;
   text: string;
+  locale?: Locale;
 }
 
-export function ShareButtons({ title, url, text }: ShareButtonsProps) {
+export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsProps) {
   const [copied, setCopied] = React.useState(false);
   const [supportsWebShare, setSupportsWebShare] = React.useState(false);
+  const isEs = locale === 'es';
 
   React.useEffect(() => {
     setSupportsWebShare('share' in navigator);
@@ -64,7 +68,7 @@ export function ShareButtons({ title, url, text }: ShareButtonsProps) {
             </svg>
           }
         >
-          Share
+          {isEs ? 'Compartir' : 'Share'}
         </Button>
       )}
 
@@ -152,7 +156,7 @@ export function ShareButtons({ title, url, text }: ShareButtonsProps) {
           )
         }
       >
-        {copied ? 'Copied!' : 'Copy Link'}
+        {copied ? (isEs ? '¡Copiado!' : 'Copied!') : isEs ? 'Copiar enlace' : 'Copy Link'}
       </Button>
     </div>
   );

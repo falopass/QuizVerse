@@ -1,10 +1,28 @@
-import { createClient } from '@supabase/supabase-js';
 import { Redis } from '@upstash/redis';
 
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+let _redis: Redis | null | undefined;
+
+function getRedis(): Redis | null {
+  if (_redis !== undefined) return _redis;
+
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!url || !token) {
+    console.warn('[rate-limit] Redis not configured — rate limiting disabled');
+    _redis = null;
+    return null;
+  }
+
+  try {
+    _redis = new Redis({ url, token });
+    return _redis;
+  } catch (error) {
+    console.error('[rate-limit] Failed to initialize Redis client:', error);
+    _redis = null;
+    return null;
+  }
+}
 
 export interface RateLimitConfig {
   key: string;
@@ -17,37 +35,44 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
   remaining: number;
   reset: number;
 }> {
+  const redis = getRedis();
+  if (!redis) {
+    return { allowed: true, remaining: config.limit, reset: config.window };
+  }
+
   const now = Math.floor(Date.now() / 1000);
   const windowStart = now - config.window;
   const key = `ratelimit:${config.key}`;
 
-  // Remove old entries
-  await redis.zremrangebyscore(key, 0, windowStart);
+  try {
+    await redis.zremrangebyscore(key, 0, windowStart);
 
-  // Count requests in current window
-  const count = await redis.zcard(key);
+    const count = await redis.zcard(key);
 
-  if (count >= config.limit) {
-    const oldestEntry = await redis.zrange<number[]>(key, 0, 0, { withScores: true });
-    const reset =
-      Math.ceil((oldestEntry[0] as any)?.score ?? now + config.window) + config.window - now;
+    if (count >= config.limit) {
+      const oldestEntry = await redis.zrange<number[]>(key, 0, 0, { withScores: true });
+      const oldestScore = oldestEntry?.[0] as unknown as number | undefined;
+      const reset = Math.ceil((oldestScore ?? now + config.window)) - now + config.window;
+
+      return {
+        allowed: false,
+        remaining: 0,
+        reset,
+      };
+    }
+
+    await redis.zadd(key, { score: now, member: `${now}-${Math.random()}` });
+    await redis.expire(key, config.window);
 
     return {
-      allowed: false,
-      remaining: 0,
-      reset,
-    };
+      allowed: true,
+      remaining: config.limit - count - 1,
+      reset: config.window,
+      };
+  } catch (error) {
+    console.error('[rate-limit] Redis error, failing closed:', error);
+    return { allowed: false, remaining: 0, reset: config.window };
   }
-
-  // Add current request
-  await redis.zadd(key, { score: now, member: `${now}-${Math.random()}` });
-  await redis.expire(key, config.window);
-
-  return {
-    allowed: true,
-    remaining: config.limit - count - 1,
-    reset: config.window,
-  };
 }
 
 export function createRateLimiter(baseKey: string, limit: number, window: number) {
@@ -61,9 +86,8 @@ export function createRateLimiter(baseKey: string, limit: number, window: number
   };
 }
 
-// Predefined limiters
-export const apiLimiter = createRateLimiter('api', 100, 60); // 100 requests per minute
-export const quizLimiter = createRateLimiter('quiz', 10, 60); // 10 quizzes per minute
-export const authLimiter = createRateLimiter('auth', 5, 60); // 5 auth attempts per minute
+export const apiLimiter = createRateLimiter('api', 100, 60);
+export const quizLimiter = createRateLimiter('quiz', 10, 60);
+export const authLimiter = createRateLimiter('auth', 5, 60);
 
 export default checkRateLimit;

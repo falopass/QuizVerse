@@ -3,14 +3,13 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import { quizLimiter, apiLimiter } from '@/lib/utils/rate-limit';
+import { checkAchievements } from '@/lib/quiz/achievements';
+import { QuizCreateSchema } from '@/lib/quiz/validator';
 import type { Database } from '@/types/database';
 import type { Quiz } from '@/types/quiz';
 
-interface ProfileStats {
-  points: number;
-  quizzes_played: number;
-  quizzes_created: number;
-}
+type RpcError = { message: string };
 
 type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
 type QuizUpdate = Database['public']['Tables']['quizzes']['Update'];
@@ -21,8 +20,6 @@ type QuizScoringRow = Pick<
 >;
 type GameSessionInsert = Database['public']['Tables']['game_sessions']['Insert'];
 type GameSessionRow = Database['public']['Tables']['game_sessions']['Row'];
-type AchievementInsert = Database['public']['Tables']['user_achievements']['Insert'];
-type RpcError = { message: string };
 
 interface SingleResult<T> {
   data: T | null;
@@ -52,16 +49,6 @@ interface GameSessionsWriteTable {
   };
 }
 
-interface UserAchievementsWriteTable {
-  insert: (values: AchievementInsert) => Promise<{ error: RpcError | null }>;
-}
-
-interface ProfilesWriteTable {
-  update: (values: Database['public']['Tables']['profiles']['Update']) => {
-    eq: (column: string, value: string) => Promise<{ error: RpcError | null }>;
-  };
-}
-
 interface QuizRpcClient {
   rpc: (
     fn: 'increment_plays',
@@ -77,29 +64,33 @@ interface QuizRpcClient {
 // SCHEMAS
 // ============================================
 
-const createQuizSchema = z.object({
-  title: z.string().min(5).max(120),
+const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true });
+
+const updateQuizSchema = z.object({
+  title: z.string().min(5).max(120).optional(),
   description: z.string().max(300).optional(),
-  quiz_type: z.enum(['trivia', 'personality', 'poll']),
-  difficulty: z.enum(['easy', 'medium', 'hard']),
-  language: z.string().default('en'),
-  category_id: z.string().uuid().optional(),
-  questions: z.array(
-    z.object({
-      id: z.string(),
-      question: z.string(),
-      options: z.array(
-        z.object({
-          id: z.string(),
-          text: z.string(),
-          is_correct: z.boolean().optional(),
-          personality_tags: z.array(z.string()).optional(),
-        })
-      ),
-      explanation: z.string().optional(),
-      time_limit_seconds: z.number().optional(),
-    })
-  ),
+  quiz_type: z.enum(['trivia', 'personality', 'poll']).optional(),
+  difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+  language: z.string().optional(),
+  category_id: z.string().uuid().optional().nullable(),
+  questions: z
+    .array(
+      z.object({
+        id: z.string(),
+        question: z.string(),
+        options: z.array(
+          z.object({
+            id: z.string(),
+            text: z.string(),
+            is_correct: z.boolean().optional(),
+            personality_tags: z.array(z.string()).optional(),
+          })
+        ),
+        explanation: z.string().optional(),
+        time_limit_seconds: z.number().optional(),
+      })
+    )
+    .optional(),
   results: z
     .array(
       z.object({
@@ -113,8 +104,9 @@ const createQuizSchema = z.object({
       })
     )
     .optional(),
-  tags: z.array(z.string()).default([]),
-  estimated_minutes: z.number().default(3),
+  tags: z.array(z.string()).optional(),
+  estimated_minutes: z.number().optional(),
+  status: z.enum(['draft', 'published', 'pending']).optional(),
 });
 
 // ============================================
@@ -124,18 +116,20 @@ const createQuizSchema = z.object({
 export async function createQuiz(input: unknown) {
   const supabase = await createClient();
 
-  // Validate input
-  const parsed = createQuizSchema.safeParse(input);
-  if (!parsed.success) {
-    return { error: parsed.error.message };
-  }
-
-  // Get current user
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
     return { error: 'Unauthorized' };
+  }
+
+  const { allowed } = await quizLimiter.check(user.id);
+  if (!allowed) return { error: 'Too many quiz creations. Please wait.' };
+
+  // Validate input
+  const parsed = createQuizSchema.safeParse(input);
+  if (!parsed.success) {
+    return { error: parsed.error.message };
   }
 
   // Get user profile
@@ -192,8 +186,14 @@ export async function updateQuiz(id: string, input: Partial<Quiz>) {
     return { error: 'Not authorized' };
   }
 
+  // Validate updatable fields
+  const parsed = updateQuizSchema.safeParse(input);
+  if (!parsed.success) {
+    return { error: parsed.error.message };
+  }
+
   const quizzesWrite = supabase.from('quizzes') as unknown as QuizzesWriteTable;
-  const { error } = await quizzesWrite.update(input as QuizUpdate).eq('id', id);
+  const { error } = await quizzesWrite.update(parsed.data).eq('id', id);
 
   if (error) {
     return { error: error.message };
@@ -250,6 +250,10 @@ export async function submitQuizResult(
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const identifier = user?.id ?? 'anonymous';
+  const { allowed } = await quizLimiter.check(identifier);
+  if (!allowed) return { error: 'Too many submissions. Please wait.' };
 
   // Get quiz data
   const { data: quiz } = await supabase
@@ -353,7 +357,7 @@ export async function submitQuizResult(
   // Profile counters are updated by database triggers to keep stats consistent.
 
   // Check for achievements
-  const achievementsUnlocked = await checkAchievements(user?.id || null);
+  const achievementsUnlocked = await checkAchievements(user?.id ?? null);
 
   return {
     success: true,
@@ -366,76 +370,6 @@ export async function submitQuizResult(
     points_earned: pointsEarned,
     achievements_unlocked: achievementsUnlocked,
   };
-}
-
-async function checkAchievements(
-  userId: string | null
-): Promise<Array<{ id: string; name: string }>> {
-  if (!userId) return [];
-
-  const supabase = await createClient();
-  const unlocked: Array<{ id: string; name: string }> = [];
-  const userAchievementsWrite = supabase.from(
-    'user_achievements'
-  ) as unknown as UserAchievementsWriteTable;
-  const profilesWrite = supabase.from('profiles') as unknown as ProfilesWriteTable;
-
-  // Get user stats
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('quizzes_played, quizzes_created, points')
-    .eq('id', userId)
-    .single();
-
-  if (!profile) return [];
-
-  const profileData = profile as ProfileStats;
-
-  // Check achievements
-  const checks = [
-    { id: 'first_quiz', condition: profileData.quizzes_played >= 1 },
-    { id: 'quiz_addict_10', condition: profileData.quizzes_played >= 10 },
-    { id: 'creator', condition: profileData.quizzes_created >= 1 },
-  ];
-
-  for (const check of checks) {
-    if (check.condition) {
-      // Check if already unlocked
-      const { data: existing } = await supabase
-        .from('user_achievements')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('achievement_id', check.id)
-        .single();
-
-      if (!existing) {
-        // Get achievement details
-        const { data: achievement } = await supabase
-          .from('achievements')
-          .select('name')
-          .eq('id', check.id)
-          .single();
-
-        if (achievement) {
-          const achievementInsert: AchievementInsert = {
-            user_id: userId,
-            achievement_id: check.id,
-          };
-
-          await userAchievementsWrite.insert(achievementInsert);
-
-          const updatedPoints = profileData.points + 50;
-          await profilesWrite.update({ points: updatedPoints }).eq('id', userId);
-
-          profileData.points = updatedPoints;
-
-          unlocked.push({ id: check.id, name: (achievement as { name: string }).name });
-        }
-      }
-    }
-  }
-
-  return unlocked;
 }
 
 function slugifyTitle(title: string, language?: string): string {
@@ -489,6 +423,9 @@ export async function likeQuiz(quizId: string) {
   if (!user) {
     return { error: 'Unauthorized' };
   }
+
+  const { allowed } = await apiLimiter.check(user.id);
+  if (!allowed) return { error: 'Too many actions. Please wait.' };
 
   const rpcClient = supabase as unknown as Pick<QuizRpcClient, 'rpcLike'>;
 

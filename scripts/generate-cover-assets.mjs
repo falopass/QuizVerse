@@ -2,7 +2,7 @@
 import path from 'node:path';
 
 const rootDir = process.cwd();
-const sourcePath = path.join(rootDir, 'generated', 'trending-seed-openrouter.json');
+const sourcePath = path.join(rootDir, 'generated', 'trending-seed.json');
 const reportPath = path.join(rootDir, 'generated', 'cover-assets-report.json');
 
 function main() {

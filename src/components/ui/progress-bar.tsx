@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { cn } from '@/lib/utils/cn';
 
@@ -11,6 +9,7 @@ export interface ProgressBarProps {
   variant?: 'default' | 'gradient' | 'success' | 'error';
   animated?: boolean;
   className?: string;
+  timerGradient?: 'safe' | 'medium' | 'low';
 }
 
 export function ProgressBar({
@@ -21,6 +20,7 @@ export function ProgressBar({
   variant = 'default',
   animated = true,
   className,
+  timerGradient,
 }: ProgressBarProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
@@ -28,6 +28,12 @@ export function ProgressBar({
     sm: 'h-1.5',
     md: 'h-2.5',
     lg: 'h-4',
+  };
+
+  const timerGradients = {
+    safe: 'bg-gradient-to-r from-success to-accent-primary',
+    medium: 'bg-gradient-to-r from-accent-primary to-warning',
+    low: 'bg-gradient-to-r from-warning to-error',
   };
 
   const variants = {
@@ -49,7 +55,7 @@ export function ProgressBar({
         <div
           className={cn(
             'h-full rounded-full transition-all duration-500 ease-out',
-            variants[variant],
+            timerGradient ? timerGradients[timerGradient] : variants[variant],
             animated && 'animate-pulse'
           )}
           style={{ width: `${percentage}%` }}

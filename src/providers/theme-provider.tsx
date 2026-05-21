@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -8,6 +8,7 @@ interface ThemeContext {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
+  reduceMotion: boolean;
 }
 
 const Context = createContext<ThemeContext | undefined>(undefined);
@@ -15,39 +16,46 @@ const Context = createContext<ThemeContext | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('dark');
   const [mounted, setMounted] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setReduceMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  useEffect(() => {
     const saved = localStorage.getItem('theme') as Theme | null;
     if (saved) {
       setThemeState(saved);
     } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
       setThemeState('dark');
     }
+    setMounted(true);
   }, []);
 
   useEffect(() => {
-    if (mounted) {
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(theme);
-      localStorage.setItem('theme', theme);
-    }
+    if (!mounted) return;
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(theme);
+    localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
-  };
+  }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  }, []);
 
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return null;
-  }
-
-  return <Context.Provider value={{ theme, toggleTheme, setTheme }}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={{ theme, toggleTheme, setTheme, reduceMotion }}>
+      {children}
+    </Context.Provider>
+  );
 }
 
 export function useTheme() {

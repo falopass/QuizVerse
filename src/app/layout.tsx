@@ -1,10 +1,26 @@
 ﻿import type { Metadata } from 'next';
+import { Outfit, Inter } from 'next/font/google';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SupabaseProvider } from '@/providers/supabase-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
 import { ToastViewport } from '@/components/ui/toast';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
+import { CookieConsentBanner } from '@/components/shared/cookie-consent';
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org';
 
@@ -61,15 +77,15 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: '/quizverse-favicon.png',
+    apple: '/quizverse-favicon.png',
   },
   manifest: '/manifest.json',
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" className={`h-full ${outfit.variable} ${inter.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
       </head>
@@ -80,6 +96,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <AppTelemetry />
               {children}
               <ToastViewport />
+              <CookieConsentBanner />
+              <Analytics />
+              <SpeedInsights />
             </ToastProvider>
           </ThemeProvider>
         </SupabaseProvider>

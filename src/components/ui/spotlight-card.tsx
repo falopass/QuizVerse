@@ -23,6 +23,16 @@ export function SpotlightCard({
   const cardRef = React.useRef<HTMLDivElement>(null);
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = React.useState(0);
+  const rafRef = React.useRef<number | null>(null);
+  const prefersReducedMotion = React.useSyncExternalStore(
+    (onStoreChange) => {
+      const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+      media.addEventListener('change', onStoreChange);
+      return () => media.removeEventListener('change', onStoreChange);
+    },
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => false
+  );
 
   const intensities = {
     low: 0.1,
@@ -30,16 +40,24 @@ export function SpotlightCard({
     high: 0.25,
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = React.useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
+    if (rafRef.current) return;
 
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    rafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current) {
+        rafRef.current = null;
+        return;
+      }
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-    setPosition({ x, y });
-    setOpacity(1);
-  };
+      setPosition({ x, y });
+      setOpacity(1);
+      rafRef.current = null;
+    });
+  }, []);
 
   const handleMouseLeave = () => {
     setOpacity(0);
@@ -55,39 +73,43 @@ export function SpotlightCard({
         'hover:border-accent-primary/40 hover:shadow-lg',
         className
       )}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseMove={prefersReducedMotion ? undefined : handleMouseMove}
+      onMouseLeave={prefersReducedMotion ? undefined : handleMouseLeave}
     >
       {/* Spotlight effect */}
-      <div
-        className="pointer-events-none absolute inset-0 transition-opacity duration-300"
-        style={{
-          opacity,
-          background: `radial-gradient(
-            600px circle at ${position.x}px ${position.y}px,
-            ${spotlightColor},
-            transparent 40%
-          )`,
-        }}
-      />
+      {!prefersReducedMotion && (
+        <div
+          className="pointer-events-none absolute inset-0 transition-opacity duration-300"
+          style={{
+            opacity,
+            background: `radial-gradient(
+              600px circle at ${position.x}px ${position.y}px,
+              ${spotlightColor},
+              transparent 40%
+            )`,
+          }}
+        />
+      )}
 
       {/* Border glow effect */}
-      <div
-        className="absolute inset-0 transition-opacity duration-300"
-        style={{
-          opacity,
-          background: `radial-gradient(
-            400px circle at ${position.x}px ${position.y}px,
-            rgba(124, 58, 237, 0.4),
-            transparent 40%
-          )`,
-          mask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
-          WebkitMask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
-          maskComposite: 'exclude',
-          WebkitMaskComposite: 'xor',
-          padding: '1px',
-        }}
-      />
+      {!prefersReducedMotion && (
+        <div
+          className="absolute inset-0 transition-opacity duration-300"
+          style={{
+            opacity,
+            background: `radial-gradient(
+              400px circle at ${position.x}px ${position.y}px,
+              rgba(124, 58, 237, 0.4),
+              transparent 40%
+            )`,
+            mask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
+            WebkitMask: `linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)`,
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'xor',
+            padding: '1px',
+          }}
+        />
+      )}
 
       {/* Content */}
       <div className="relative z-10">{children}</div>

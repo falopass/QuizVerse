@@ -13,16 +13,22 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "seed:generate": "node scripts/generate-trending-seed.mjs",
     "seed:polish": "node scripts/polish-trending-seed.mjs",
     "seed:covers": "node scripts/generate-cover-assets.mjs",
     "seed:stock-covers": "node scripts/hydrate-stock-covers.mjs",
-    "seed:supabase:import": "node scripts/import-trending-seed-to-supabase.mjs"
+    "seed:supabase:import": "node scripts/import-trending-seed-to-supabase.mjs",
+    "db:migrate": "node scripts/apply-migrations.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.101.0",
+    "@types/canvas-confetti": "^1.9.0",
     "@upstash/redis": "^1.37.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^17.3.1",

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { ResultScreenV2 } from '@/components/quiz/result-screen-v2';
+import { ResultScreen } from '@/components/quiz/result-screen';
 import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 
@@ -41,7 +41,7 @@ export default async function LocalizedQuizResultPage({
   return (
     <div className="min-h-screen px-4 pt-28 pb-20">
       <div className="mx-auto max-w-6xl space-y-8">
-        <ResultScreenV2
+        <ResultScreen
           locale={locale}
           quiz={quiz}
           result={resolvedResult}

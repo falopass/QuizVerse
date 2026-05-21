@@ -1,6 +1,6 @@
 /**
- * Generador de Quizzes con AI (Groq API)
- * Usa Llama 3.3 70B para generar quizzes rápidos y baratos
+ * Generador de Quizzes con AI (DeepSeek API)
+ * Usa deepseek-chat para generar quizzes rápidos y baratos
  */
 
 import type { QuizType, Difficulty } from '@/types/database';
@@ -9,9 +9,9 @@ import type { QuizType, Difficulty } from '@/types/database';
 // CONFIGURACIÓN
 // ============================================
 
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
 
-const MODEL = 'llama-3.3-70b-versatile';
+const MODEL = 'deepseek-chat';
 
 // ============================================
 // PROMPT TEMPLATES
@@ -129,7 +129,7 @@ export async function generateQuizWithAI(
   apiKey: string
 ): Promise<GenerateQuizResult> {
   try {
-    const response = await fetch(GROQ_API_URL, {
+    const response = await fetch(DEEPSEEK_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export async function generateQuizWithAI(
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error?.message || `Groq API error: ${response.status}`);
+      throw new Error(errorData.error?.message || `DeepSeek API error: ${response.status}`);
     }
 
     const data = await response.json();
@@ -256,10 +256,10 @@ export function generateSlug(title: string): string {
 }
 
 /**
- * Calcula el costo estimado de generación (Groq pricing)
- * ~$0.002 por quiz generado
+ * Calcula el costo estimado de generación (DeepSeek pricing)
+ * ~$0.0008 por quiz generado
  */
 export function estimateGenerationCost(tokenCount: number): number {
-  const COST_PER_MILLION_TOKENS = 0.64; // Llama 3.3 70B pricing
+  const COST_PER_MILLION_TOKENS = 0.28; // deepseek-chat output pricing
   return (tokenCount / 1_000_000) * COST_PER_MILLION_TOKENS;
 }

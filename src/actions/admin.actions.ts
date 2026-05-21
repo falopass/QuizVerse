@@ -2,32 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
-
-interface Profile {
-  is_admin: boolean;
-}
+import { requireAdmin } from '@/lib/auth/require-admin';
 
 export async function getAdminDashboardStats() {
+  const adminCheck = await requireAdmin();
+  if ('error' in adminCheck) return { error: adminCheck.error };
+
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
-
-  // Check if user is admin
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('is_admin')
-    .eq('id', user.id)
-    .single();
-
-  if (!profile || !(profile as Profile).is_admin) {
-    return { error: 'Not authorized' };
-  }
 
   // Get stats
   const [
@@ -72,15 +53,10 @@ export async function getAdminDashboardStats() {
 }
 
 export async function approveQuiz(quizId: string) {
+  const adminCheck = await requireAdmin();
+  if ('error' in adminCheck) return { error: adminCheck.error };
+
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
 
   const { error } = await (supabase as any)
     .from('quizzes')
@@ -97,16 +73,11 @@ export async function approveQuiz(quizId: string) {
   return { success: true };
 }
 
-export async function rejectQuiz(quizId: string, reason: string) {
+export async function rejectQuiz(quizId: string, _reason: string) {
+  const adminCheck = await requireAdmin();
+  if ('error' in adminCheck) return { error: adminCheck.error };
+
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
 
   const { error } = await (supabase as any)
     .from('quizzes')
@@ -123,15 +94,10 @@ export async function rejectQuiz(quizId: string, reason: string) {
 }
 
 export async function banUser(userId: string) {
+  const adminCheck = await requireAdmin();
+  if ('error' in adminCheck) return { error: adminCheck.error };
+
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
 
   // Archive all quizzes by user
   await (supabase as any).from('quizzes').update({ status: 'archived' }).eq('creator_id', userId);
@@ -192,14 +158,17 @@ export async function getReports() {
   return reports || [];
 }
 
-export async function resolveReport(reportId: string, resolvedBy: string) {
+export async function resolveReport(reportId: string) {
+  const adminCheck = await requireAdmin();
+  if ('error' in adminCheck) return { error: adminCheck.error };
+
   const supabase = await createClient();
 
   const { error } = await (supabase as any)
     .from('quiz_reports')
     .update({
       resolved: true,
-      resolved_by: resolvedBy,
+      resolved_by: adminCheck.userId,
       resolved_at: new Date().toISOString(),
     })
     .eq('id', reportId);

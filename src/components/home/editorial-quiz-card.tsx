@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -17,6 +17,33 @@ interface EditorialQuizCardProps {
   size?: 'hero' | 'feature' | 'default' | 'compact';
 }
 
+const SIZE_STYLES = {
+  hero: {
+    minH: 'min-h-[26rem]',
+    title: 'text-2xl md:text-3xl lg:text-4xl',
+    desc: 'line-clamp-3 text-[0.95rem] leading-7',
+    tags: 4,
+  },
+  feature: {
+    minH: 'min-h-[22rem]',
+    title: 'text-xl md:text-2xl lg:text-3xl',
+    desc: 'line-clamp-3 text-[0.92rem] leading-7',
+    tags: 3,
+  },
+  default: {
+    minH: '',
+    title: 'text-lg md:text-xl',
+    desc: 'line-clamp-2 text-sm leading-6',
+    tags: 3,
+  },
+  compact: {
+    minH: '',
+    title: 'text-base md:text-lg',
+    desc: 'line-clamp-2 text-xs leading-5',
+    tags: 2,
+  },
+} as const;
+
 export function EditorialQuizCard({
   quiz,
   locale,
@@ -24,33 +51,30 @@ export function EditorialQuizCard({
   size = 'default',
 }: EditorialQuizCardProps) {
   const href = localizeHref(locale, `/quiz/${quiz.slug}`);
-  const readsLabel = locale === 'es' ? 'me gusta' : 'likes';
+  const likesLabel = locale === 'es' ? 'me gusta' : 'likes';
   const playsLabel = locale === 'es' ? 'partidas' : 'plays';
   const openLabel = locale === 'es' ? 'Abrir quiz' : 'Open quiz';
-  const isLarge = size === 'hero' || size === 'feature';
+  const styles = SIZE_STYLES[size];
 
   return (
-    <Link href={href} className="group block">
+    <Link href={href} className="group block min-w-0">
       <motion.article
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.04, duration: 0.45 }}
         whileHover={{ y: -6 }}
         className={cn(
-          'border-border-subtle/90 shadow-card hover:shadow-elevated relative overflow-hidden rounded-[2rem] border bg-[rgba(255,250,244,0.84)] transition-all duration-300 ease-out hover:border-[rgba(187,75,53,0.24)]',
-          size === 'hero' && 'min-h-[28rem]',
-          size === 'feature' && 'min-h-[24rem]',
-          size === 'compact' && 'rounded-[1.75rem]'
+          'border-border-subtle bg-bg-secondary hover:shadow-elevated relative overflow-hidden rounded-2xl border shadow-sm transition-all duration-300 ease-out hover:border-accent-primary/30 hover:shadow-lg',
+          styles.minH,
+          size === 'compact' && 'rounded-xl'
         )}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.8),transparent_38%)]" />
-        <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(187,75,53,0.42),transparent)]" />
-
-        <div className="relative flex h-full flex-col p-5 md:p-6">
+        <div className="relative flex h-full flex-col p-4 md:p-5">
           <QuizCoverArt
             quiz={quiz}
             locale={locale}
-            ratioClassName={isLarge ? 'aspect-[16/10]' : 'aspect-[16/9]'}
+            ratioClassName={size === 'hero' || size === 'feature' ? 'aspect-[16/10]' : 'aspect-[16/9]'}
+            compact={size === 'compact'}
             priorityLabel={
               quiz.is_featured
                 ? locale === 'es'
@@ -60,72 +84,54 @@ export function EditorialQuizCard({
             }
           />
 
-          <div className="mt-5 flex flex-1 flex-col">
-            <div className="space-y-3">
+          <div className="mt-4 flex flex-1 flex-col min-w-0">
+            <div className="space-y-2 min-w-0">
               <h3
                 className={cn(
-                  'text-text-primary group-hover:text-accent-hover font-semibold tracking-tight transition-colors',
-                  size === 'hero'
-                    ? 'text-3xl md:text-[3rem]'
-                    : size === 'feature'
-                      ? 'text-[2.25rem]'
-                      : size === 'compact'
-                        ? 'text-xl'
-                        : 'text-[1.8rem]'
+                  'text-text-primary group-hover:text-accent-primary font-semibold tracking-tight transition-colors line-clamp-2 break-words',
+                  styles.title
                 )}
               >
                 {quiz.title}
               </h3>
-              {quiz.description ? (
-                <p
-                  className={cn(
-                    'text-text-secondary',
-                    size === 'compact'
-                      ? 'line-clamp-3 text-sm leading-6'
-                      : isLarge
-                        ? 'line-clamp-3 text-[1rem] leading-7'
-                        : 'line-clamp-3 text-[0.98rem] leading-7'
-                  )}
-                >
+              {quiz.description && (
+                <p className={cn('text-text-secondary', styles.desc)}>
                   {quiz.description}
                 </p>
-              ) : null}
+              )}
             </div>
 
-            <div className="mt-auto space-y-4 pt-6">
-              <div className="flex flex-wrap gap-2">
-                <span className="text-text-muted rounded-full border border-black/8 bg-white/72 px-3 py-1 text-[10px] font-semibold tracking-[0.22em] uppercase">
+            <div className="mt-auto space-y-4 pt-5">
+              <div className="flex flex-wrap gap-1.5">
+                <span className="bg-accent-primary/10 text-accent-primary inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
                   {getLocalizedTypeLabel(quiz.quiz_type, locale)}
                 </span>
-                <span className="text-text-secondary rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase">
+                <span className="bg-bg-tertiary text-text-secondary inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold tracking-[0.15em] uppercase">
                   {getLocalizedDifficultyLabel(quiz.difficulty, locale)}
                 </span>
-                {quiz.tags.slice(0, size === 'compact' ? 2 : 4).map((tag) => (
+                {quiz.tags.slice(0, styles.tags).map((tag) => (
                   <span
                     key={tag}
-                    className="text-text-muted rounded-full border border-black/8 bg-white/55 px-3 py-1 text-[10px] font-semibold tracking-[0.18em] uppercase"
+                    className="bg-bg-tertiary text-text-muted inline-flex rounded-full px-2.5 py-1 text-[10px] font-medium uppercase"
                   >
                     {tag.replace(/_/g, ' ')}
                   </span>
                 ))}
               </div>
 
-              <div className="text-text-muted flex items-center justify-between gap-4 border-t border-black/8 pt-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
+              <div className="text-text-muted border-border-subtle flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t pt-3 text-[11px] font-semibold tracking-[0.15em] uppercase">
                 <span>{quiz.estimated_minutes} min</span>
-                <span>
+                <span className="whitespace-nowrap">
                   {formatCompactNumber(quiz.plays_count)} {playsLabel}
                 </span>
-                <span>
-                  {formatCompactNumber(quiz.likes_count)} {readsLabel}
+                <span className="whitespace-nowrap">
+                  {formatCompactNumber(quiz.likes_count)} {likesLabel}
                 </span>
               </div>
 
               <div className="text-accent-primary inline-flex items-center gap-2 text-sm font-semibold">
                 <span>{openLabel}</span>
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-200 group-hover:translate-x-1"
-                >
+                <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">
                   →
                 </span>
               </div>

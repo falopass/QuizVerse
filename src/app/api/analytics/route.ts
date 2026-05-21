@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { apiLimiter } from '@/lib/utils/rate-limit';
 
 const VALID_NAMES = new Set([
   'page_view',
@@ -10,7 +11,14 @@ const VALID_NAMES = new Set([
   'client_error',
 ]);
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const { headers } = request;
+  const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const { allowed } = await apiLimiter.check(`analytics:${ip}`);
+  if (!allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+  }
+
   try {
     const payload = (await request.json()) as {
       name?: string;

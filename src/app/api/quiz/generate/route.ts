@@ -27,9 +27,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!process.env.GROQ_API_KEY) {
+  const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
+  if (!deepseekApiKey) {
     return NextResponse.json(
-      { error: 'Missing GROQ_API_KEY server configuration' },
+      { error: 'Missing DEEPSEEK_API_KEY server configuration' },
       { status: 500 }
     );
   }
@@ -61,7 +62,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const result = await generateQuizWithAI(parsed.data, process.env.GROQ_API_KEY);
+  const result = await generateQuizWithAI(parsed.data, deepseekApiKey);
 
   if (!result.success || !result.data) {
     return NextResponse.json(

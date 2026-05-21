@@ -2,10 +2,10 @@
 import path from 'node:path';
 
 const rootDir = process.cwd();
-const inputPath = path.join(rootDir, 'generated', 'trending-seed-openrouter.normalized.json');
+const inputPath = path.join(rootDir, 'generated', 'trending-seed.json');
 const outputPaths = [
-  path.join(rootDir, 'generated', 'trending-seed-openrouter.normalized.json'),
-  path.join(rootDir, 'generated', 'trending-seed-openrouter.json'),
+  path.join(rootDir, 'generated', 'trending-seed.normalized.json'),
+  path.join(rootDir, 'generated', 'trending-seed.json'),
 ];
 const reportPath = path.join(rootDir, 'generated', 'trending-seed-polish-report.json');
 

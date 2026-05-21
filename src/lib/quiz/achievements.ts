@@ -1,9 +1,23 @@
 import { createClient } from '@/lib/supabase/server';
+import type { Database } from '@/types/database';
 
 interface ProfileStats {
   points: number;
   quizzes_played: number;
   quizzes_created: number;
+}
+
+type AchievementInsert = Database['public']['Tables']['user_achievements']['Insert'];
+type ProfileUpdate = Database['public']['Tables']['profiles']['Update'];
+
+interface UserAchievementsWriteTable {
+  insert: (values: AchievementInsert, options?: { onConflict?: string }) => Promise<{ error: { message: string } | null }>;
+}
+
+interface ProfilesWriteTable {
+  update: (values: ProfileUpdate) => {
+    eq: (column: string, value: string) => Promise<{ error: { message: string } | null }>;
+  };
 }
 
 export async function checkAchievements(
@@ -31,40 +45,48 @@ export async function checkAchievements(
   ];
 
   for (const check of checks) {
-    if (check.condition) {
-      const { data: existing } = await supabase
-        .from('user_achievements')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('achievement_id', check.id)
-        .single();
+    if (!check.condition) continue;
 
-      if (!existing) {
-        const { data: achievement } = await supabase
-          .from('achievements')
-          .select('name')
-          .eq('id', check.id)
-          .single();
+    const { data: existing } = await supabase
+      .from('user_achievements')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('achievement_id', check.id)
+      .maybeSingle();
 
-        if (achievement) {
-          await supabase.from('user_achievements').insert({
-            user_id: userId,
-            achievement_id: check.id,
-          } as never);
+    if (existing) continue;
 
-          const updatedPoints = profileData.points + 50;
-          await supabase
-            .from('profiles')
-            .update({ points: updatedPoints } as never)
-            .eq('id', userId);
+    const { data: achievement } = await supabase
+      .from('achievements')
+      .select('name')
+      .eq('id', check.id)
+      .single();
 
-          profileData.points = updatedPoints;
+    if (!achievement) continue;
 
-          const name = (achievement as { name: string }).name;
-          unlocked.push({ id: check.id, name });
-        }
-      }
-    }
+    const userAchievementsWrite = supabase.from(
+      'user_achievements'
+    ) as unknown as UserAchievementsWriteTable;
+
+    const { error: insertError } = await userAchievementsWrite.insert(
+      {
+        user_id: userId,
+        achievement_id: check.id,
+        unlocked_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id, achievement_id' }
+    );
+
+    if (insertError) continue;
+
+    const updatedPoints = profileData.points + 50;
+    const profilesWrite = supabase.from('profiles') as unknown as ProfilesWriteTable;
+    await profilesWrite.update({ points: updatedPoints }).eq('id', userId);
+
+    profileData.points = updatedPoints;
+
+    const name = (achievement as { name: string }).name;
+    unlocked.push({ id: check.id, name });
   }
 
   return unlocked;

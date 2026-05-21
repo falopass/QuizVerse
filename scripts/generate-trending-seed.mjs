@@ -5,22 +5,22 @@ import OpenAI from 'openai';
 import { z } from 'zod';
 import dotenv from 'dotenv';
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env.local', override: true });
 
-const MODEL = process.env.OPENROUTER_MODEL || 'qwen/qwen3.6-plus:free';
+const MODEL = process.env.SEED_MODEL || 'deepseek-chat';
 const OUTPUT_DIR = path.join(process.cwd(), 'generated');
-const OUTPUT_FILE = path.join(OUTPUT_DIR, 'trending-seed-openrouter.json');
+const OUTPUT_FILE = path.join(OUTPUT_DIR, 'trending-seed.json');
 const REPORT_FILE = path.join(OUTPUT_DIR, 'trending-seed-report.json');
 const CONCURRENCY = Number(process.env.SEED_CONCURRENCY || 3);
-const LIMIT = Number(process.env.SEED_LIMIT || 400);
-const API_KEY = process.env.OPENROUTER_API_KEY;
+const LIMIT = Number(process.env.SEED_LIMIT || 600);
+const API_KEY = process.env.DEEPSEEK_API_KEY;
 const ERROR_LOG_FILE = path.join(OUTPUT_DIR, 'trending-seed-errors.log');
 const TURBO_MODE = process.env.SEED_MODE === 'turbo';
 const QUESTION_COUNT = TURBO_MODE ? 6 : 8;
 const MAX_DESCRIPTION = TURBO_MODE ? 180 : 300;
 
 if (!API_KEY) {
-  throw new Error('Missing OPENROUTER_API_KEY in environment.');
+  throw new Error('Missing DEEPSEEK_API_KEY in environment.');
 }
 
 async function appendFatalError(prefix, error) {
@@ -134,6 +134,31 @@ const TREND_FRANCHISES = [
   { id: 'zelda', en: 'The Legend of Zelda', es: 'The Legend of Zelda', category: 'culture' },
   { id: 'taylor-swift', en: 'Taylor Swift', es: 'Taylor Swift', category: 'culture' },
   { id: 'kpop', en: 'K-pop', es: 'K-pop', category: 'culture' },
+  { id: 'wicked', en: 'Wicked', es: 'Wicked', category: 'culture' },
+  { id: 'severance', en: 'Severance', es: 'Severance', category: 'culture' },
+  { id: 'the-last-of-us', en: 'The Last of Us', es: 'The Last of Us', category: 'culture' },
+  { id: 'white-lotus', en: 'The White Lotus', es: 'The White Lotus', category: 'culture' },
+  { id: 'the-bear', en: 'The Bear', es: 'The Bear', category: 'culture' },
+  { id: 'squid-game', en: 'Squid Game', es: 'El Juego del Calamar', category: 'culture' },
+  { id: 'wednesday', en: 'Wednesday', es: 'Merlina', category: 'culture' },
+  { id: 'bridgerton', en: 'Bridgerton', es: 'Bridgerton', category: 'culture' },
+  { id: 'solo-leveling', en: 'Solo Leveling', es: 'Solo Leveling', category: 'culture' },
+  { id: 'frieren', en: 'Frieren', es: 'Frieren', category: 'culture' },
+  { id: 'chainsaw-man', en: 'Chainsaw Man', es: 'Chainsaw Man', category: 'culture' },
+  { id: 'spy-family', en: 'Spy x Family', es: 'Spy x Family', category: 'culture' },
+  { id: 'dune', en: 'Dune', es: 'Dune', category: 'culture' },
+  { id: 'avatar', en: 'Avatar', es: 'Avatar', category: 'culture' },
+  { id: 'barbie', en: 'Barbie', es: 'Barbie', category: 'culture' },
+  { id: 'oppenheimer', en: 'Oppenheimer', es: 'Oppenheimer', category: 'culture' },
+  { id: 'spiderverse', en: 'Spider-Verse', es: 'Spider-Verse', category: 'culture' },
+  { id: 'nintendo-switch-2', en: 'Nintendo Switch 2', es: 'Nintendo Switch 2', category: 'culture' },
+  { id: 'baldur-gate-3', en: 'Baldur\'s Gate 3', es: 'Baldur\'s Gate 3', category: 'culture' },
+  { id: 'elden-ring', en: 'Elden Ring', es: 'Elden Ring', category: 'culture' },
+  { id: 'minecraft', en: 'Minecraft', es: 'Minecraft', category: 'culture' },
+  { id: 'chappell-roan', en: 'Chappell Roan', es: 'Chappell Roan', category: 'culture' },
+  { id: 'sabrina-carpenter', en: 'Sabrina Carpenter', es: 'Sabrina Carpenter', category: 'culture' },
+  { id: 'beyonce', en: 'Beyonce', es: 'Beyonce', category: 'culture' },
+  { id: 'bad-bunny', en: 'Bad Bunny', es: 'Bad Bunny', category: 'culture' },
 ];
 
 const GENERAL_SUBJECTS = [
@@ -222,6 +247,296 @@ const GENERAL_SUBJECTS = [
     },
     quizType: 'personality',
   },
+  {
+    id: 'work-personality-ai-era',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What work style fits the AI era?',
+      es: 'Que estilo laboral encaja en la era de la IA?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'morning-person-vibe',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What kind of morning person are you really?',
+      es: 'Que tipo de persona madrugadora eres realmente?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'friendship-archetype',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'Which friend archetype are you in your group?',
+      es: 'Que arquetipo de amigo eres en tu grupo?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'dating-app-energy',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What dating app energy are you bringing?',
+      es: 'Que energia de app de citas estas trayendo?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'coffee-order-personality',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What does your coffee order say about you?',
+      es: 'Que dice tu orden de cafe sobre ti?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'social-media-alter-ego',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'What social media alter ego do you have?',
+      es: 'Que alter ego de redes sociales tienes?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'weekend-plans-vibe',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What weekend plan actually fits your vibe?',
+      es: 'Que plan de fin de semana encaja de verdad con tu vibra?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'creative-process-style',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What creative process style is yours?',
+      es: 'Cual es tu estilo de proceso creativo?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'conflict-resolution-type',
+    category: 'lifestyle',
+    difficulty: 'medium',
+    titles: {
+      en: 'What conflict resolution type are you?',
+      es: 'Que tipo de resolucion de conflictos eres?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'tech-relationship',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What is your relationship with technology?',
+      es: 'Cual es tu relacion con la tecnologia?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'fitness-personality',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What fitness personality fits your energy?',
+      es: 'Que personalidad fitness encaja con tu energia?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'music-festival-archetype',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'What music festival archetype are you?',
+      es: 'Que arquetipo de festival de musica eres?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'reading-personality',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'What is your true reading personality?',
+      es: 'Cual es tu verdadera personalidad lectora?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'home-decor-vibe',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What home decor vibe matches your soul?',
+      es: 'Que vibe de decoracion combina con tu alma?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'pet-owner-personality',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What pet owner personality are you?',
+      es: 'Que personalidad de dueno de mascota eres?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'vacation-style',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What vacation style actually recharges you?',
+      es: 'Que estilo de vacaciones realmente te recarga?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'gift-giving-style',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What gift giving style do you have?',
+      es: 'Que estilo de dar regalos tienes?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'ai-use-style',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: {
+      en: 'How do you actually use AI in your daily life?',
+      es: 'Como usas realmente la IA en tu vida diaria?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'nostalgia-era',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'Which nostalgia era actually defines you?',
+      es: 'Que era de nostalgia realmente te define?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'productivity-philosophy',
+    category: 'lifestyle',
+    difficulty: 'medium',
+    titles: {
+      en: 'What productivity philosophy is actually yours?',
+      es: 'Cual es realmente tu filosofia de productividad?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'fashion-era-personality',
+    category: 'culture',
+    difficulty: 'easy',
+    titles: {
+      en: 'Which fashion era matches your personality?',
+      es: 'Que era de la moda combina con tu personalidad?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'party-personality-type',
+    category: 'lifestyle',
+    difficulty: 'easy',
+    titles: {
+      en: 'What party personality type are you?',
+      es: 'Que tipo de personalidad de fiesta eres?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'climate-anxiety-coping',
+    category: 'lifestyle',
+    difficulty: 'medium',
+    titles: {
+      en: 'How do you cope with climate anxiety?',
+      es: 'Como enfrentas la ansiedad climatica?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'leadership-instinct',
+    category: 'lifestyle',
+    difficulty: 'medium',
+    titles: {
+      en: 'What leadership instinct do you carry?',
+      es: 'Que instinto de liderazgo llevas contigo?',
+    },
+    quizType: 'personality',
+  },
+  {
+    id: 'trivia-2026-pop-culture',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: {
+      en: '2026 pop culture timeline trivia',
+      es: 'Trivia de la linea de tiempo de la cultura pop 2026',
+    },
+    quizType: 'trivia',
+  },
+  {
+    id: 'trivia-viral-moments',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: {
+      en: 'Viral internet moments trivia 2024-2026',
+      es: 'Trivia de momentos virales de internet 2024-2026',
+    },
+    quizType: 'trivia',
+  },
+  {
+    id: 'trivia-anime-legendary',
+    category: 'culture',
+    difficulty: 'medium',
+    titles: {
+      en: 'Legendary anime moments trivia',
+      es: 'Trivia de momentos legendarios del anime',
+    },
+    quizType: 'trivia',
+  },
+  {
+    id: 'trivia-food-around-world',
+    category: 'lifestyle',
+    difficulty: 'medium',
+    titles: {
+      en: 'Food around the world trivia',
+      es: 'Trivia de comida alrededor del mundo',
+    },
+    quizType: 'trivia',
+  },
+  {
+    id: 'trivia-space-exploration',
+    category: 'culture',
+    difficulty: 'hard',
+    titles: {
+      en: 'Space exploration trivia 2020-2026',
+      es: 'Trivia de exploracion espacial 2020-2026',
+    },
+    quizType: 'trivia',
+  },
 ];
 
 const FRANCHISE_PATTERNS = [
@@ -309,11 +624,7 @@ const allTopics = seedDefinitions
 
 const client = new OpenAI({
   apiKey: API_KEY,
-  baseURL: 'https://openrouter.ai/api/v1',
-  defaultHeaders: {
-    'HTTP-Referer': 'https://quizverse.org',
-    'X-Title': 'QuizVerse Seed Generator',
-  },
+  baseURL: 'https://api.deepseek.com/v1',
 });
 
 function createPrompt(item) {

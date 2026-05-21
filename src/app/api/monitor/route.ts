@@ -1,6 +1,14 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { apiLimiter } from '@/lib/utils/rate-limit';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  const { headers } = request;
+  const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const { allowed } = await apiLimiter.check(`monitor:${ip}`);
+  if (!allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+  }
+
   try {
     const payload = (await request.json()) as {
       message?: string;

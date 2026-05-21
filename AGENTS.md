@@ -11,7 +11,7 @@
 - **Validation**: Zod 4.x
 - **DB/Auth**: Supabase (PostgreSQL + Auth + Storage)
 - **Caching/Rate Limit**: Upstash Redis
-- **AI Generation**: Groq (runtime) + OpenRouter/Qwen (offline seed pipeline)
+- **AI Generation**: DeepSeek (runtime + offline seed pipeline)
 - **OG Images**: Satori + @resvg/resvg-js
 - **Covers**: Procedural fallback + Stock (Pexels/Pixabay) + Generated/Curated types
 - **Deploy**: Vercel
@@ -135,10 +135,10 @@ Non-localized root paths redirect to `/en` by default via `proxy.ts`.
 
 ## Catalog Stats (current)
 
-- ~116 quizzes seeded in Supabase
-- 59 en English, 57 en Spanish
-- 56 trivia, 60 personality
-- 13 featured, 103 editorial quality
+- ~493 quizzes seeded in Supabase
+- 259 en English, 259 en Spanish
+- 188 trivia, 189 personality
+- 13 featured, 338 editorial quality
 - 40 with stock covers
 
 ## Seed Pipeline
@@ -163,8 +163,7 @@ git push origin main    # Auto-deploy (Vercel detects repo)
 | `NEXT_PUBLIC_SUPABASE_URL`                     | Supabase project URL                   |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key               |
 | `SUPABASE_SERVICE_ROLE_KEY`                    | Server-side privileged operations      |
-| `GROQ_API_KEY`                                 | Runtime AI quiz generation             |
-| `OPENROUTER_API_KEY`                           | Optional — batch seed generation       |
+| `DEEPSEEK_API_KEY`                              | Runtime + batch AI quiz generation    |
 | `UPSTASH_REDIS_REST_URL`                       | Rate limiting / caching                |
 | `UPSTASH_REDIS_REST_TOKEN`                     | Upstash auth token                     |
 | `PEXELS_API_KEY`                               | Stock cover images                     |

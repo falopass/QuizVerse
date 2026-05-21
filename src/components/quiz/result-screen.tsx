@@ -1,13 +1,19 @@
-'use client';
+﻿'use client';
 
 import * as React from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import { cn } from '@/lib/utils/cn';
-import type { Quiz, PersonalityResult, Answer } from '@/types/quiz';
-import { Button } from '@/components/ui/button';
 import { ShareButtons } from '@/components/shared/share-buttons';
+import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
+import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
+import { localizeHref } from '@/lib/i18n/navigation';
+import type { Answer, PersonalityResult, Quiz } from '@/types/quiz';
+import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface ResultScreenProps {
+  locale?: Locale;
   quiz: Quiz;
   result: PersonalityResult | null;
   triviaScore?: { correct: number; total: number; percentage: number };
@@ -21,6 +27,7 @@ interface ResultScreenProps {
 }
 
 export function ResultScreen({
+  locale,
   quiz,
   result,
   triviaScore,
@@ -32,308 +39,296 @@ export function ResultScreen({
   onReview,
   showReview = false,
 }: ResultScreenProps) {
+  const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [showShare, setShowShare] = React.useState(false);
+  const copy =
+    uiLocale === 'es'
+      ? {
+          eyebrow: 'Resultado',
+          fallbackBody:
+            'Completaste toda la partida. Ahora el resultado está presentado como algo que vale la pena compartir, repetir y guardar.',
+          questions: 'Preguntas',
+          bestStreak: 'Mejor racha',
+          bonus: 'Bonus',
+          scoreline: 'Marcador',
+          correct: 'correctas',
+          sessionSnapshot: 'Resumen de sesión',
+          review: 'Revisión',
+          answerTrail: 'Rastro de respuestas',
+          hideReview: 'Ocultar revisión',
+          showReview: 'Ver revisión',
+          question: 'Pregunta',
+          yourAnswer: 'Tu respuesta',
+          skipped: 'Omitida',
+          close: 'Cerrar',
+          shareTitle: 'Compartir resultado',
+          shareText: 'Mira mi resultado en QuizVerse.',
+        }
+      : {
+          eyebrow: 'Result',
+          fallbackBody:
+            'You finished the full run. Now the result is framed as something worth sharing, replaying and keeping.',
+          questions: 'Questions',
+          bestStreak: 'Best streak',
+          bonus: 'Bonus',
+          scoreline: 'Scoreline',
+          correct: 'correct',
+          sessionSnapshot: 'Session snapshot',
+          review: 'Review',
+          answerTrail: 'Answer trail',
+          hideReview: 'Hide review',
+          showReview: 'Show review',
+          question: 'Question',
+          yourAnswer: 'Your answer',
+          skipped: 'Skipped',
+          close: 'Close',
+          shareTitle: 'Share result',
+          shareText: 'Check out my result on QuizVerse.',
+        };
+  const scoreMessage = getScoreMessage(triviaScore?.percentage, uiLocale);
 
-  // Obtener tema de fondo según resultado
-  const getBackgroundTheme = () => {
-    const theme = result?.background_theme || 'mystic';
+  React.useEffect(() => {
+    if (!triviaScore || triviaScore.percentage < 60) return;
+    const duration = 3000;
+    const end = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
 
-    const themes: Record<string, string> = {
-      fire: 'from-red-500 to-orange-500',
-      ice: 'from-cyan-500 to-blue-500',
-      stars: 'from-purple-500 to-pink-500',
-      ocean: 'from-blue-600 to-cyan-500',
-      forest: 'from-green-500 to-emerald-500',
-      mystic: 'from-violet-500 to-purple-500',
-    };
+    const interval = setInterval(() => {
+      const timeLeft = end - Date.now();
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+      const particleCount = 50 * (timeLeft / duration);
+      void confetti({
+        ...defaults,
+        particleCount,
+        origin: { x: Math.random(), y: Math.random() * 0.4 },
+      });
+    }, 250);
 
-    return themes[theme] || themes.mystic;
-  };
-
-  const bgGradient = getBackgroundTheme();
-
-  // Obtener mensaje según puntuación
-  const getScoreMessage = () => {
-    if (!triviaScore) return 'Quiz Complete!';
-    const { percentage } = triviaScore;
-    if (percentage >= 90) return 'Outstanding! 🌟';
-    if (percentage >= 80) return 'Excellent! 🎉';
-    if (percentage >= 70) return 'Great Job! 👍';
-    if (percentage >= 60) return 'Good Effort! 💪';
-    if (percentage >= 50) return 'Not Bad! 😊';
-    return 'Keep Practicing! 📚';
-  };
+    return () => clearInterval(interval);
+  }, [triviaScore?.percentage]);
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12">
-      {/* Background gradient */}
-      <div className={cn('absolute inset-0 bg-gradient-to-br opacity-20', bgGradient)} />
+    <div className="relative min-h-screen overflow-hidden px-4 py-12">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(181,94,44,0.12),transparent_42%),linear-gradient(180deg,rgba(246,239,229,0.8),rgba(236,228,216,0.92))]" />
+      <div className="absolute inset-0 [background-image:linear-gradient(rgba(24,20,16,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(24,20,16,0.05)_1px,transparent_1px)] [background-size:48px_48px] opacity-40" />
 
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-lg text-center">
-        {/* Icon/Emoji según resultado */}
-        <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: 'spring', damping: 15 }}
-          className="mb-6 text-6xl"
-        >
-          {result ? '🎉' : '🏆'}
-        </motion.div>
-
-        {/* Título del resultado */}
-        <motion.h1
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="font-display text-text-primary mb-2 text-3xl font-bold md:text-4xl"
-        >
-          {result ? result.title : getScoreMessage()}
-        </motion.h1>
-
-        {/* Descripción del resultado */}
-        {result && (
-          <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-text-secondary mb-8 text-lg"
-          >
-            {result.description}
-          </motion.p>
-        )}
-
-        {/* Score para trivia */}
-        {triviaScore && (
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="bg-bg-secondary/50 border-border-subtle mb-8 rounded-2xl border p-6 backdrop-blur"
-          >
-            <div className="text-text-secondary mb-2 text-sm">Your Score</div>
-            <div className="font-display text-text-primary mb-2 text-5xl font-bold">
-              {triviaScore.correct} / {triviaScore.total}
-            </div>
-            <div
-              className={cn(
-                'mb-4 text-lg font-semibold',
-                triviaScore.percentage >= 80
-                  ? 'text-success'
-                  : triviaScore.percentage >= 60
-                    ? 'text-warning'
-                    : 'text-error'
-              )}
+      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
+        <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+          <section className="surface-panel p-8 md:p-10">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <motion.h1
+              initial={{ y: 16, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className="text-text-primary mt-5 text-4xl font-semibold tracking-tight md:text-6xl"
             >
-              {triviaScore.percentage}%
-            </div>
+              {result?.title || scoreMessage}
+            </motion.h1>
+            <p className="text-text-secondary mt-5 max-w-2xl text-lg leading-8">
+              {result?.description || copy.fallbackBody}
+            </p>
 
-            {/* Stats adicionales */}
-            <div className="flex items-center justify-center gap-6 text-sm">
-              {streak > 0 && (
-                <div className="flex items-center gap-1.5 text-orange-400">
-                  <span>🔥</span>
-                  <span>Best streak: {streak}</span>
-                </div>
-              )}
-              {bonusPoints > 0 && (
-                <div className="text-accent-warm flex items-center gap-1.5">
-                  <span>⭐</span>
-                  <span>+{bonusPoints} bonus</span>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Stats resumen */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-text-muted mb-8 flex items-center justify-center gap-6 text-sm"
-        >
-          <div className="flex items-center gap-2">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <ResultMetric
+                label={copy.questions}
+                value={String(triviaScore?.total ?? answers.length)}
               />
-            </svg>
-            <span>{answers.length} questions</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              />
-            </svg>
-            <span>{quiz.title.length > 20 ? quiz.title.slice(0, 20) + '...' : quiz.title}</span>
-          </div>
-        </motion.div>
+              <ResultMetric label={copy.bestStreak} value={String(streak)} />
+              <ResultMetric label={copy.bonus} value={`+${bonusPoints}`} />
+            </div>
 
-        {/* Botones de acción */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="space-y-4"
-        >
-          {/* Share button - grande y llamativo */}
-          <Button
-            variant="primary"
-            size="xl"
-            className="w-full"
-            onClick={() => setShowShare(true)}
-            leftIcon={
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-                />
-              </svg>
-            }
-          >
-            Share My Result
-          </Button>
+            {triviaScore && (
+              <div className="border-border-subtle bg-bg-primary mt-8 rounded-[2rem] border p-6">
+                <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
+                  {copy.scoreline}
+                </p>
+                <div className="mt-4 flex flex-wrap items-end gap-4">
+                  <p className="text-text-primary text-6xl font-semibold">
+                    {triviaScore.percentage}%
+                  </p>
+                  <p className="text-text-muted pb-2 text-sm tracking-[0.18em] uppercase">
+                    {triviaScore.correct}/{triviaScore.total} {copy.correct}
+                  </p>
+                </div>
+              </div>
+            )}
 
-          {/* Botones secundarios */}
-          <div className="grid grid-cols-2 gap-4">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full"
-              onClick={onPlayAgain || (() => window.location.reload())}
-            >
-              Play Again
-            </Button>
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full"
-              onClick={onReview || (() => {})}
-            >
-              Review Answers
-            </Button>
-          </div>
-
-          {/* Explore more */}
-          <Button
-            variant="ghost"
-            size="lg"
-            className="w-full"
-            onClick={() => (window.location.href = '/quiz')}
-          >
-            Explore More Quizzes
-          </Button>
-        </motion.div>
-
-        {/* Share modal */}
-        <AnimatePresence>
-          {showShare && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-              onClick={() => setShowShare(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                className="bg-bg-secondary border-border-subtle w-full max-w-sm rounded-2xl border p-6"
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => setShowShare(true)}
+                className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
               >
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-text-primary text-lg font-semibold">Share Result</h3>
-                  <button
-                    onClick={() => setShowShare(false)}
-                    className="text-text-muted hover:text-text-primary p-2"
-                  >
-                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
+                {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
+              </button>
+              <button
+                type="button"
+                onClick={onPlayAgain || (() => window.location.reload())}
+                className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
+              >
+                {uiLocale === 'es' ? 'Jugar de nuevo' : 'Play again'}
+              </button>
+              <Link
+                href={localizeHref(uiLocale, '/quiz')}
+                className="text-text-secondary hover:text-text-primary inline-flex items-center justify-center rounded-full border border-transparent px-6 py-3 text-sm font-semibold transition-colors"
+              >
+                {uiLocale === 'es' ? 'Explorar más' : 'Explore more'}
+              </Link>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className="surface-card p-4">
+              <QuizCoverArt quiz={quiz} locale={uiLocale} compact ratioClassName="aspect-[16/9]" />
+            </div>
+
+            <div className="surface-card p-6">
+              <p className="kicker">{copy.sessionSnapshot}</p>
+              <h2 className="font-display text-text-primary mt-3 text-3xl">{quiz.title}</h2>
+              <p className="text-text-secondary mt-3 text-sm leading-6">
+                {getLocalizedTypeLabel(quiz.quiz_type, uiLocale)} · {quiz.estimated_minutes} min ·{' '}
+                {getLocalizedLanguageLabel(quiz.language, uiLocale)}
+              </p>
+            </div>
+
+            <div className="surface-card p-6">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="kicker">{copy.review}</p>
+                  <h3 className="font-display text-text-primary mt-2 text-2xl">
+                    {copy.answerTrail}
+                  </h3>
                 </div>
-                <ShareButtons
-                  title={`I got ${result?.title || `${triviaScore?.percentage}%`} on "${quiz.title}"`}
-                  url={shareUrl || (typeof window !== 'undefined' ? window.location.href : '')}
-                  text={`Check out my result on QuizVerse! 🎯`}
-                />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <button
+                  type="button"
+                  onClick={onReview || (() => {})}
+                  className="border-border-subtle text-text-primary rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.16em] uppercase"
+                >
+                  {showReview ? copy.hideReview : copy.showReview}
+                </button>
+              </div>
 
-        {/* Review Panel */}
-        <AnimatePresence>
-          {showReview && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              className="bg-bg-secondary/50 border-border-subtle mt-8 rounded-2xl border p-6 text-left"
-            >
-              <h3 className="text-text-primary mb-4 text-lg font-semibold">Answer Review</h3>
-              <div className="max-h-64 space-y-3 overflow-y-auto">
-                {answers.map((answer, index) => {
-                  const question = quiz.questions.find((q) => q.id === answer.question_id);
-                  const selectedOption = question?.options.find(
-                    (o) => o.id === answer.selected_option_id
-                  );
+              <AnimatePresence initial={false}>
+                {showReview && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 16 }}
+                    className="mt-5 space-y-3"
+                  >
+                    {answers.map((answer, index) => {
+                      const question = quiz.questions.find(
+                        (item) => item.id === answer.question_id
+                      );
+                      const selectedOption = question?.options.find(
+                        (option) => option.id === answer.selected_option_id
+                      );
+                      const correctOption = question?.options.find((option) => option.is_correct);
 
-                  return (
-                    <div
-                      key={answer.question_id}
-                      className={cn(
-                        'rounded-lg p-3 text-sm',
-                        answer.is_correct
-                          ? 'bg-success/10 border-success/30 border'
-                          : 'bg-error/10 border-error/30 border'
-                      )}
-                    >
-                      <div className="flex items-start gap-2">
-                        <span className="text-lg">{answer.is_correct ? '✅' : '❌'}</span>
-                        <div>
-                          <p className="text-text-primary font-medium">
-                            Q{index + 1}: {question?.question}
-                          </p>
-                          <p className="text-text-secondary mt-1">
-                            Your answer: {selectedOption?.text || 'Skipped'}
-                          </p>
-                          {!answer.is_correct && question?.options.find((o) => o.is_correct) && (
-                            <p className="text-success mt-1">
-                              Correct: {question.options.find((o) => o.is_correct)?.text}
-                            </p>
+                      return (
+                        <div
+                          key={answer.question_id}
+                          className={cn(
+                            'rounded-[1.5rem] border p-4',
+                            answer.is_correct
+                              ? 'border-success/30 bg-success/10'
+                              : 'border-border-subtle bg-bg-primary'
                           )}
-                          {question?.explanation && (
-                            <p className="text-text-muted mt-2 text-xs">
-                              💡 {question.explanation}
+                        >
+                          <p className="text-text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
+                            {copy.question} {index + 1}
+                          </p>
+                          <p className="text-text-primary mt-2 text-sm font-medium">
+                            {question?.question}
+                          </p>
+                          <p className="text-text-secondary mt-3 text-sm">
+                            {copy.yourAnswer}: {selectedOption?.text || copy.skipped}
+                          </p>
+                          {!answer.is_correct && correctOption && (
+                            <p className="text-success mt-2 text-sm">
+                              {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {correctOption.text}
                             </p>
                           )}
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </section>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {showShare && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+            onClick={() => setShowShare(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              onClick={(event) => event.stopPropagation()}
+              className="surface-card w-full max-w-md p-6"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-display text-text-primary text-2xl">{copy.shareTitle}</h3>
+                <button
+                  type="button"
+                  onClick={() => setShowShare(false)}
+                  className="text-text-muted text-sm"
+                >
+                  {copy.close}
+                </button>
+              </div>
+              <ShareButtons
+                locale={uiLocale}
+                title={
+                  uiLocale === 'es'
+                    ? `Obtuve ${result?.title || `${triviaScore?.percentage}%`} en "${quiz.title}"`
+                    : `I got ${result?.title || `${triviaScore?.percentage}%`} on "${quiz.title}"`
+                }
+                url={shareUrl || (typeof window !== 'undefined' ? window.location.href : '')}
+                text={copy.shareText}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
+}
+
+function ResultMetric({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="border-border-subtle bg-bg-primary rounded-[1.5rem] border p-5">
+      <p className="text-text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
+        {label}
+      </p>
+      <p className="text-text-primary mt-2 text-3xl font-semibold">{value}</p>
+    </div>
+  );
+}
+
+function getScoreMessage(percentage: number | undefined, locale?: Locale) {
+  if (locale === 'es') {
+    if (typeof percentage !== 'number') return 'Quiz completado';
+    if (percentage >= 90) return 'Final impecable';
+    if (percentage >= 75) return 'Resultado fuerte';
+    if (percentage >= 60) return 'Buena partida';
+    return 'Inténtalo otra vez';
+  }
+
+  if (typeof percentage !== 'number') return 'Quiz complete';
+  if (percentage >= 90) return 'Outstanding finish';
+  if (percentage >= 75) return 'Strong result';
+  if (percentage >= 60) return 'Solid run';
+  return 'Run it back';
 }

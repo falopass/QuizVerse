@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { createClient } from '@supabase/supabase-js';
 
 const rootDir = process.cwd();
-dotenv.config({ path: path.join(rootDir, '.env.local') });
+dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -16,7 +16,7 @@ if (!supabaseUrl || !serviceRoleKey) {
 
 const sourcePath = process.env.SEED_SOURCE_PATH
   ? path.resolve(rootDir, process.env.SEED_SOURCE_PATH)
-  : path.join(rootDir, 'generated', 'trending-seed-openrouter.json');
+  : path.join(rootDir, 'generated', 'trending-seed.json');
 const isDryRun = process.env.SEED_DRY_RUN === '1';
 
 const supabase = createClient(supabaseUrl, serviceRoleKey, {

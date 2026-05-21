@@ -1,13 +1,14 @@
 {
-  "total": 116,
-  "spanish": 57,
-  "featured": 13,
-  "strong": 103,
+  "total": 340,
+  "spanish": 170,
+  "featured": 2,
+  "strong": 338,
   "needsEdit": 0,
   "byCategory": {
-    "culture": 55,
-    "personality": 60,
-    "trivia": 1
+    "personality": 171,
+    "culture": 46,
+    "trivia": 122,
+    "lifestyle": 1
   },
   "overriddenTitles": [
     "es-que-tan-afilado-esta-tu-lore-de-star-wars-maul",

@@ -23,6 +23,12 @@ export default async function LocaleLayout({
 
   return (
     <SiteShell locale={locale} dictionary={dictionary}>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-full focus:bg-accent-primary focus:px-6 focus:py-3 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:outline-none"
+      >
+        {locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+      </a>
       {children}
     </SiteShell>
   );

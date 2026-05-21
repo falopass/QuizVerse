@@ -7,6 +7,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { generateQuizMetadata } from '@/lib/seo/metadata';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { HomeHeroClient } from '@/components/home/home-hero-client';
 
 interface LocalePageProps {
   params: Promise<{ locale: string }>;
@@ -67,7 +68,8 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-14 px-4 pt-28 pb-20">
       <section className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
         <div className="space-y-8">
-          <div className="kicker eyebrow animate-editorial-rise">
+          <HomeHeroClient>
+            <div className="kicker eyebrow animate-editorial-rise">
             <span className="bg-accent-primary h-2 w-2 rounded-full" />
             {dictionary.home.eyebrow}
           </div>
@@ -96,6 +98,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               {dictionary.home.secondaryCta}
             </Link>
           </div>
+          </HomeHeroClient>
 
           <div className="grid gap-4 md:grid-cols-3">
             {categories.slice(0, 3).map((category) => (
@@ -162,7 +165,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <Link
                 key={`${locale}-standout-${quiz.id}`}
                 href={localizeHref(locale, `/quiz/${quiz.slug}`)}
-                className="border-border-subtle hover:border-accent-primary/30 flex items-center justify-between rounded-[1.4rem] border bg-white/70 px-4 py-4 transition-colors"
+                className="border-border-subtle bg-bg-secondary hover:border-accent-primary/30 flex items-center justify-between rounded-[1.4rem] border px-4 py-4 transition-colors"
               >
                 <div className="min-w-0">
                   <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">

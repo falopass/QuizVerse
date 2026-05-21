@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import { apiLimiter } from '@/lib/utils/rate-limit';
 
 const reportSchema = z.object({
   quiz_id: z.string().uuid(),
@@ -16,6 +17,10 @@ export async function reportQuiz(input: unknown) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const identifier = user?.id ?? 'anonymous';
+  const { allowed } = await apiLimiter.check(identifier);
+  if (!allowed) return { error: 'Too many reports. Please wait.' };
 
   const parsed = reportSchema.safeParse(input);
   if (!parsed.success) {

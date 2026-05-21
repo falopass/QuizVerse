@@ -1,21 +1,19 @@
 {
-  "sourcePath": "C:\\code\\Nuevo\\quizverse\\generated\\trending-seed-openrouter.json",
+  "sourcePath": "C:\\code\\Nuevo\\quizverse\\generated\\trending-seed.json",
   "dryRun": false,
-  "totalInFile": 116,
-  "imported": 116,
+  "totalInFile": 377,
+  "imported": 377,
   "skipped": 0,
   "byLanguage": {
-    "es": 57,
-    "en": 59
+    "en": 189,
+    "es": 188
   },
   "byType": {
-    "trivia": 56,
-    "personality": 60
+    "personality": 189,
+    "trivia": 188
   },
   "byCategory": {
-    "culture": 55,
-    "personality": 60,
-    "trivia": 1
+    "culture": 377
   },
   "skippedItems": []
 }

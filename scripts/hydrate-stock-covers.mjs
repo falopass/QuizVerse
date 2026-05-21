@@ -3,10 +3,10 @@ import path from 'node:path';
 import dotenv from 'dotenv';
 
 const rootDir = process.cwd();
-dotenv.config({ path: path.join(rootDir, '.env.local') });
+dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
 
-const seedPath = path.join(rootDir, 'generated', 'trending-seed-openrouter.json');
-const normalizedPath = path.join(rootDir, 'generated', 'trending-seed-openrouter.normalized.json');
+const seedPath = path.join(rootDir, 'generated', 'trending-seed.json');
+const normalizedPath = path.join(rootDir, 'generated', 'trending-seed.normalized.json');
 const manifestPath = path.join(rootDir, 'src', 'lib', 'data', 'stock-cover-manifest.json');
 const reportPath = path.join(rootDir, 'generated', 'stock-cover-hydration-report.json');
 const limit = Number(process.env.STOCK_COVER_LIMIT || 24);

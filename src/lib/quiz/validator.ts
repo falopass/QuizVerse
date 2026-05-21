@@ -36,13 +36,13 @@ const PersonalityResultSchema = z.object({
   background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
 });
 
-const QuizCreateSchema = z.object({
+export const QuizCreateSchema = z.object({
   title: z.string().min(5).max(120),
   description: z.string().max(300).optional().nullable(),
   cover_image_url: z.string().url().optional().nullable(),
   quiz_type: z.enum(['trivia', 'personality', 'poll']),
   difficulty: z.enum(['easy', 'medium', 'hard']),
-  language: z.string().length(2),
+  language: z.string().min(2).max(10).default('en'),
   category_id: z.string().uuid().optional().nullable(),
   questions: z.array(QuestionSchema).min(1).max(20),
   results: z.array(PersonalityResultSchema).optional().nullable(),

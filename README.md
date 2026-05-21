@@ -39,13 +39,13 @@ QuizVerse is no longer a prototype-only repository. The current state of the pro
 
 ### Snapshot
 
-- `116` real quizzes currently seeded and synced to Supabase
-- `59` quizzes in English
-- `57` quizzes in Spanish
-- `56` trivia quizzes
-- `60` personality quizzes
+- `493` real quizzes currently seeded and synced to Supabase
+- `259` quizzes in English
+- `259` quizzes in Spanish
+- `188` trivia quizzes
+- `189` personality quizzes
 - `13` featured quizzes
-- `103` strong editorial quizzes
+- `338` strong editorial quizzes
 - `40` prioritized quizzes currently using stock cover routing
 
 ## What Is Already Built
@@ -105,14 +105,14 @@ QuizVerse is no longer a prototype-only repository. The current state of the pro
 
 ### AI / content generation
 
-- Groq-backed generation route for runtime AI quiz creation
-- OpenRouter/Qwen-based seed generation pipeline used offline for catalog expansion
+- DeepSeek-backed generation route for runtime AI quiz creation
+- DeepSeek-based seed generation pipeline used offline for catalog expansion
 
 ## Architecture Snapshot
 
 ```text
 Browser / Bots
-  ├─ proxy.ts
+  ├─ middleware.ts
   │   ├─ refreshes Supabase auth session
   │   └─ redirects non-localized paths to /en or /es
   ├─ App Router /[locale]
@@ -225,7 +225,7 @@ At minimum, local development expects:
 - Supabase URL
 - Supabase publishable key
 - Supabase service role key for import scripts
-- Groq API key for runtime AI generation
+- DeepSeek API key for runtime AI generation
 
 ### 4. Run the app
 
@@ -249,8 +249,7 @@ The project uses more than one external system. See `.env.example` for the full 
 
 ### AI / content generation
 
-- `GROQ_API_KEY`
-- `OPENROUTER_API_KEY` (optional, for batch seed generation workflows)
+- `DEEPSEEK_API_KEY`
 
 ### Rate limiting / infrastructure
 
@@ -280,6 +279,7 @@ npm run lint
 ### Editorial pipeline
 
 ```bash
+npm run seed:generate
 npm run seed:polish
 npm run seed:covers
 npm run seed:stock-covers
@@ -288,6 +288,7 @@ npm run seed:supabase:import
 
 ### What they do
 
+- `seed:generate`: generates trending seed quizzes with DeepSeek
 - `seed:polish`: normalizes and curates the generated seed
 - `seed:covers`: generates procedural cover assets / supporting cover outputs
 - `seed:stock-covers`: hydrates strong quizzes with curated stock cover candidates
@@ -327,9 +328,9 @@ scripts/
   generate-cover-assets.mjs
 
 generated/
-  trending-seed-openrouter.json
-  trending-seed-openrouter.normalized.json
-  trending-seed-polish-report.json
+  trending-seed.json
+  trending-seed.normalized.json
+  trending-seed-report.json
   stock-cover-hydration-report.json
   supabase-import-report.json
 
