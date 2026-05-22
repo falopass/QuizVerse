@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import type { Quiz } from '@/types/quiz';
 import { QuizCard } from '@/components/quiz/quiz-card';
 

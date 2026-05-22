@@ -1,5 +1,7 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './database';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type _DatabaseCheck = Database;
 
 export type Profile = Database['public']['Tables']['profiles']['Row'];
 export type Quiz = Database['public']['Tables']['quizzes']['Row'];
@@ -16,7 +18,7 @@ export type Session = import('@supabase/supabase-js').Session;
 export type Provider = import('@supabase/supabase-js').Provider;
 
 // Helper type to get return type of Supabase queries
-export type SupabaseQueryResult<T extends (...args: any[]) => any> =
+export type SupabaseQueryResult<T extends (...args: never[]) => unknown> =
   Awaited<ReturnType<T>> extends { data: infer U } ? U : never;
 
 // API Response types

@@ -309,6 +309,7 @@ export async function generateShareImage(options: ShareImageOptions): Promise<Bu
           },
         ],
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
     {
       width: 1200,

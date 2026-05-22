@@ -1,7 +1,6 @@
 'use client';
 
 import type { Profile } from '@/types/quiz';
-import { cn } from '@/lib/utils/cn';
 
 export interface ProfileHeaderProps {
   profile: Profile & {

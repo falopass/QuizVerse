@@ -3,7 +3,7 @@
  * Soporta trivia, personality y poll quizzes
  */
 
-import type { Question, Quiz, PersonalityResult, GameSession } from '@/types/quiz';
+import type { Question, PersonalityResult } from '@/types/quiz';
 
 // ============================================
 // CONFIGURACIÓN DE PUNTAJES
@@ -52,7 +52,7 @@ export function calculateTriviaScore(
   let streakBonus = 0;
   let speedBonus = 0;
 
-  answers.forEach((answer, index) => {
+  answers.forEach((answer, _index) => {
     if (answer.is_correct) {
       correctCount++;
       score += SCORING_CONFIG.BASE_POINTS_CORRECT;
@@ -227,7 +227,7 @@ export function calculatePoints(
   isPerfectScore: boolean
 ): PointsResult {
   const breakdown: string[] = [];
-  let basePoints = 10; // Completar quiz
+  const basePoints = 10; // Completar quiz
   let bonusPoints = 0;
 
   breakdown.push('+10 por completar');

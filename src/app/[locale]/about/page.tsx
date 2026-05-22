@@ -1,4 +1,4 @@
-import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -28,7 +28,6 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
-  const dictionary = await getDictionary(lang);
 
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">

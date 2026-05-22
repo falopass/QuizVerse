@@ -1,4 +1,4 @@
-import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({

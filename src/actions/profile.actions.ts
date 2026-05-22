@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import type { Database } from '@/types/database';
 
 const updateProfileSchema = z.object({
   display_name: z.string().min(2).max(50).optional(),
@@ -43,7 +44,10 @@ export async function updateProfile(input: unknown) {
     }
   }
 
-  const { error } = await (supabase as any).from('profiles').update(parsed.data).eq('id', user.id);
+  const updateData = parsed.data satisfies Partial<Database['public']['Tables']['profiles']['Update']>;
+
+  // @ts-expect-error Supabase Update type is strict; partial updates are valid at runtime
+  const { error } = await supabase.from('profiles').update(updateData).eq('id', user.id);
 
   if (error) {
     return { error: error.message };

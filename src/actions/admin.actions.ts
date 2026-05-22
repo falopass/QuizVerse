@@ -3,6 +3,10 @@
 import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { requireAdmin } from '@/lib/auth/require-admin';
+import type { Database } from '@/types/database';
+
+type QuizUpdate = Database['public']['Tables']['quizzes']['Update'];
+type QuizReportUpdate = Database['public']['Tables']['quiz_reports']['Update'];
 
 export async function getAdminDashboardStats() {
   const adminCheck = await requireAdmin();
@@ -10,7 +14,6 @@ export async function getAdminDashboardStats() {
 
   const supabase = await createClient();
 
-  // Get stats
   const [
     { count: totalUsers },
     { count: totalQuizzes },
@@ -23,7 +26,6 @@ export async function getAdminDashboardStats() {
     supabase.from('quiz_reports').select('*', { count: 'exact', head: true }).eq('resolved', false),
   ]);
 
-  // Recent quizzes
   const { data: recentQuizzes } = await supabase
     .from('quizzes')
     .select(
@@ -58,10 +60,13 @@ export async function approveQuiz(quizId: string) {
 
   const supabase = await createClient();
 
-  const { error } = await (supabase as any)
-    .from('quizzes')
-    .update({ status: 'published', published_at: new Date().toISOString() })
-    .eq('id', quizId);
+  const updateData = {
+    status: 'published' as const,
+    published_at: new Date().toISOString(),
+  } satisfies Partial<QuizUpdate>;
+
+  // @ts-expect-error Supabase Update type is strict; partial updates are valid at runtime
+  const { error } = await supabase.from('quizzes').update(updateData).eq('id', quizId);
 
   if (error) {
     return { error: error.message };
@@ -73,16 +78,16 @@ export async function approveQuiz(quizId: string) {
   return { success: true };
 }
 
-export async function rejectQuiz(quizId: string, _reason: string) {
+export async function rejectQuiz(quizId: string) {
   const adminCheck = await requireAdmin();
   if ('error' in adminCheck) return { error: adminCheck.error };
 
   const supabase = await createClient();
 
-  const { error } = await (supabase as any)
-    .from('quizzes')
-    .update({ status: 'rejected' })
-    .eq('id', quizId);
+  const updateData = { status: 'rejected' as const } satisfies Partial<QuizUpdate>;
+
+  // @ts-expect-error Supabase Update type is strict; partial updates are valid at runtime
+  const { error } = await supabase.from('quizzes').update(updateData).eq('id', quizId);
 
   if (error) {
     return { error: error.message };
@@ -99,11 +104,10 @@ export async function banUser(userId: string) {
 
   const supabase = await createClient();
 
-  // Archive all quizzes by user
-  await (supabase as any).from('quizzes').update({ status: 'archived' }).eq('creator_id', userId);
+  const updateData = { status: 'archived' as const } satisfies Partial<QuizUpdate>;
 
-  // In a real app, you'd also suspend the auth user
-  // This requires admin privileges
+  // @ts-expect-error Supabase Update type is strict; partial updates are valid at runtime
+  await supabase.from('quizzes').update(updateData).eq('creator_id', userId);
 
   revalidatePath('/admin');
 
@@ -164,14 +168,14 @@ export async function resolveReport(reportId: string) {
 
   const supabase = await createClient();
 
-  const { error } = await (supabase as any)
-    .from('quiz_reports')
-    .update({
-      resolved: true,
-      resolved_by: adminCheck.userId,
-      resolved_at: new Date().toISOString(),
-    })
-    .eq('id', reportId);
+  const updateData = {
+    resolved: true,
+    resolved_by: adminCheck.userId,
+    resolved_at: new Date().toISOString(),
+  } satisfies Partial<QuizReportUpdate>;
+
+  // @ts-expect-error Supabase Update type is strict; partial updates are valid at runtime
+  const { error } = await supabase.from('quiz_reports').update(updateData).eq('id', reportId);
 
   if (error) {
     return { error: error.message };

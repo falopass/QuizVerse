@@ -14,6 +14,7 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
   const [displayed, setDisplayed] = useState(points);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (earned > 0) {
       setIsAnimating(true);
@@ -25,7 +26,6 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
       const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        // Easing function (ease-out-cubic)
         const eased = 1 - Math.pow(1 - progress, 3);
 
         setDisplayed(Math.floor(start + (end - start) * eased));
@@ -40,6 +40,7 @@ export function PointsDisplay({ points, earned = 0, className }: PointsDisplayPr
       requestAnimationFrame(animate);
     }
   }, [points, earned]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   return (
     <div className={cn('inline-flex items-center gap-2', className)}>

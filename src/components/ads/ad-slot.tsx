@@ -25,21 +25,28 @@ export function AdSlot({
   useEffect(() => {
     if (disabled) return;
 
-    try {
-      // Push ad configuration to Google
-      const win = window as typeof window & {
-        adsbygoogle: unknown[];
-      };
-      (win.adsbygoogle = win.adsbygoogle || []).push({});
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Ad failed to load:', error);
-      setHasError(true);
-    }
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      if (!cancelled) setIsLoading(false);
+    }, 3000);
 
-    // Cleanup timer
-    const timer = setTimeout(() => setIsLoading(false), 3000);
-    return () => clearTimeout(timer);
+    const loadAd = async () => {
+      try {
+        const win = window as typeof window & { adsbygoogle: unknown[] };
+        (win.adsbygoogle = win.adsbygoogle || []).push({});
+        if (!cancelled) setIsLoading(false);
+      } catch (error) {
+        console.error('Ad failed to load:', error);
+        if (!cancelled) setHasError(true);
+      }
+    };
+
+    loadAd();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [slot, disabled]);
 
   if (disabled || !process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID) {
@@ -47,7 +54,7 @@ export function AdSlot({
   }
 
   if (hasError) {
-    return null; // Fail silently - don't show broken ad
+    return null;
   }
 
   return (

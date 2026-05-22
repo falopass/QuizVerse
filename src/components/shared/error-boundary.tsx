@@ -58,7 +58,7 @@ export class ErrorBoundary extends Component<Props, State> {
           </div>
           <h2 className="text-text-primary mb-2 text-xl font-bold">Something went wrong</h2>
           <p className="text-text-secondary mb-6 max-w-md">
-            We're sorry, but something went wrong. Please try again.
+            We&apos;re sorry, but something went wrong. Please try again.
           </p>
           <Button onClick={this.handleRetry}>Try Again</Button>
         </div>

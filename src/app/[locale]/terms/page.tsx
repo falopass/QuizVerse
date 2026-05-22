@@ -1,4 +1,4 @@
-import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -103,7 +103,7 @@ export default async function TermsPage({
     ],
   };
 
-  const t = (key: any) => (typeof key === 'object' ? key[lang] ?? key.en : key);
+  const t = (key: Record<string, string>) => (key[lang] ?? key.en);
 
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">

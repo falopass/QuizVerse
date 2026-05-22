@@ -3,7 +3,7 @@
  * Maneja scoring, timer y state machine
  */
 
-import type { Question, Option, Quiz, QuizState, Answer, PersonalityResult } from '@/types/quiz';
+import type { Question, Quiz, QuizState, Answer, PersonalityResult } from '@/types/quiz';
 
 // ============================================
 // SCORING
@@ -33,7 +33,6 @@ export function calculateQuestionScore(
     };
   }
 
-  // Personality quiz
   return {
     is_correct: false,
     score: 0,
@@ -125,7 +124,11 @@ export function createInitialQuizState(quiz: Quiz): QuizState {
 /**
  *Reducer para el estado del quiz
  */
-export function quizReducer(state: QuizState, action: any): QuizState {
+export function quizReducer(
+  state: QuizState,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  action: any
+): QuizState {
   switch (action.type) {
     case 'START_QUIZ':
       return {

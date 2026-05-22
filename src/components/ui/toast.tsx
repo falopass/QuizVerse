@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';

@@ -1,5 +1,7 @@
 'use client';
 
+/* eslint-disable react-hooks/set-state-in-effect */
+
 import { useEffect, useState, useCallback } from 'react';
 
 interface UseCountdownProps {
@@ -13,6 +15,7 @@ export function useCountdown({ initialSeconds, onComplete, autoStart = true }: U
   const [isRunning, setIsRunning] = useState(autoStart);
   const [isPaused, setIsPaused] = useState(false);
 
+   
   useEffect(() => {
     if (!isRunning || isPaused) return;
 

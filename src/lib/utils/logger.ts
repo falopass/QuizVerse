@@ -26,12 +26,12 @@ const logger = {
   },
   warn(message: string, data?: unknown) {
     const entry = createLogEntry('warn', message, data);
-    // eslint-disable-next-line no-console
+     
     console.warn(`[LOG:${entry.level}] ${entry.message}`, entry.data ?? '');
   },
   error(message: string, error?: unknown) {
     const entry = createLogEntry('error', message, error);
-    // eslint-disable-next-line no-console
+     
     console.error(`[LOG:${entry.level}] ${entry.message}`, entry.data ?? '');
   },
 };

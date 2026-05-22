@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
@@ -61,11 +61,13 @@ const copy = {
 
 export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [locale, setLocale] = useState<'en' | 'es'>('en');
+  const initialized = useRef(false);
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
-    setMounted(true);
+    if (initialized.current) return;
+    initialized.current = true;
     setLocale(getLocale());
     const stored = getStoredConsent();
     if (!stored) {
@@ -73,6 +75,7 @@ export function CookieConsentBanner() {
       return () => clearTimeout(timer);
     }
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const acceptAll = useCallback(() => {
     storeConsent('all');
@@ -87,8 +90,6 @@ export function CookieConsentBanner() {
       new CustomEvent('cookie-consent-changed', { detail: { level: 'essential' } })
     );
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <AnimatePresence>

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
 import { apiLimiter } from '@/lib/utils/rate-limit';
+import type { Database } from '@/types/database';
 
 const reportSchema = z.object({
   quiz_id: z.string().uuid(),
@@ -27,12 +28,15 @@ export async function reportQuiz(input: unknown) {
     return { error: parsed.error.message };
   }
 
-  const { error } = await (supabase as any).from('quiz_reports').insert({
+  const insertData = {
     quiz_id: parsed.data.quiz_id,
     reporter_id: user?.id || null,
     reason: parsed.data.reason,
     details: parsed.data.details,
-  });
+  } satisfies Database['public']['Tables']['quiz_reports']['Insert'];
+
+  // @ts-expect-error Supabase Insert type is strict; the runtime value is valid
+  const { error } = await supabase.from('quiz_reports').insert(insertData);
 
   if (error) {
     return { error: error.message };

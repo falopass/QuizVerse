@@ -1,4 +1,4 @@
-import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -79,7 +79,7 @@ export default async function PrivacyPage({
     },
   };
 
-  const t = (key: any) => (typeof key === 'object' ? key[lang] ?? key.en : key);
+  const t = (key: Record<string, string>) => (key[lang] ?? key.en);
 
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -96,8 +96,8 @@ export default async function PrivacyPage({
             string,
             { heading: { en: string; es: string }; body: { en: string; es: string } }
           ][]
-        ).map(([, section]) => (
-          <section key={Math.random()}>
+        ).map(([, section], index) => (
+          <section key={`privacy-section-${index}`}>
             <h2 className="text-text-primary font-display text-xl font-semibold">
               {t(section.heading)}
             </h2>
