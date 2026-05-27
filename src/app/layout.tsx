@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next';
-import { Outfit, Inter } from 'next/font/google';
+import { Playfair_Display, Inter } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -10,7 +10,7 @@ import { ToastViewport } from '@/components/ui/toast';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
 import { CookieConsentBanner } from '@/components/shared/cookie-consent';
 
-const outfit = Outfit({
+const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-display',
   display: 'swap',
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`h-full ${outfit.variable} ${inter.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" className={`h-full ${playfair.variable} ${inter.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
       </head>
