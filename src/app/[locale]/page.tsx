@@ -120,7 +120,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </div>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[0.62fr_0.38fr] lg:grid-rows-[auto_auto]">
+        <div className="grid items-start gap-4 lg:grid-cols-[0.62fr_0.38fr] lg:grid-rows-[auto_auto]">
           {leadQuiz ? (
             <div className="lg:row-span-2">
               <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
@@ -143,7 +143,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.4fr_0.6fr]">
+      <section className="grid items-start gap-6 xl:grid-cols-[0.4fr_0.6fr]">
         <div className="surface-panel p-6 md:p-7">
           <span className="eyebrow">
             {locale === 'es' ? 'Selección editorial' : 'Editorial picks'}
@@ -181,7 +181,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid items-start gap-5 md:grid-cols-3">
           {supportRail.map((quiz, index) => (
             <EditorialQuizCard
               key={`${locale}-support-${quiz.id}`}
@@ -256,9 +256,9 @@ function HomeQuizSection({
         <p className="text-text-secondary max-w-2xl text-sm leading-relaxed">{deck}</p>
       </div>
       {lead ? (
-        <div className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
+        <div className="grid items-start gap-6 xl:grid-cols-[1.02fr_0.98fr]">
           <EditorialQuizCard quiz={lead} locale={locale} size="feature" />
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-2">
+          <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-2">
             {rest.slice(0, 4).map((quiz, index) => (
               <EditorialQuizCard
                 key={`${locale}-${title}-${quiz.id}`}

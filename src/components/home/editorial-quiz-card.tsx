@@ -65,11 +65,12 @@ export function EditorialQuizCard({
         whileHover={{ y: -6 }}
         className={cn(
           'border-border-subtle bg-bg-secondary hover:shadow-md relative overflow-hidden rounded-2xl border transition-all duration-200 hover:border-border-hover',
-          styles.minH,
+          size === 'hero' && styles.minH,
+          size === 'feature' && styles.minH,
           size === 'compact' && 'rounded-xl'
         )}
       >
-        <div className="relative flex h-full flex-col p-4 md:p-5">
+        <div className="relative flex flex-col p-4 md:p-5">
           <div className="relative overflow-hidden rounded-xl">
             <QuizImage
               src={quiz.cover_image_url}
@@ -84,7 +85,7 @@ export function EditorialQuizCard({
             )}
           </div>
 
-          <div className="mt-4 flex flex-1 flex-col min-w-0">
+          <div className="mt-4 flex flex-col min-w-0">
             <div className="min-w-0 space-y-2">
               <h3
                 className={cn(
