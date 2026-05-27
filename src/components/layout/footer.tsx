@@ -39,16 +39,16 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         };
 
   return (
-    <footer className="border-border-subtle bg-bg-secondary/70 mt-auto border-t">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 md:grid-cols-[1.25fr_0.85fr_0.85fr_0.85fr]">
+    <footer className="border-t border-border-subtle bg-bg-primary mt-auto">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-10 md:grid-cols-[1.25fr_0.85fr_0.85fr_0.85fr]">
         <div className="space-y-4">
-          <Link href={localizeHref(locale, '/')} className="flex items-center gap-3">
-            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-11 w-11 items-center justify-center rounded-full border text-sm font-black tracking-[0.22em] uppercase">
+          <Link href={localizeHref(locale, '/')} className="flex items-center gap-2.5">
+            <div className="bg-text-primary text-bg-primary flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold tracking-wider">
               QV
             </div>
             <span className="font-display text-text-primary text-lg font-semibold">QuizVerse</span>
           </Link>
-          <p className="text-text-muted max-w-sm text-sm leading-6">{dictionary.footer.tagline}</p>
+          <p className="text-text-muted max-w-sm text-sm leading-relaxed">{dictionary.footer.tagline}</p>
         </div>
 
         <FooterColumn
@@ -85,13 +85,13 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         />
       </div>
 
-      <div className="border-border-subtle text-text-muted mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t px-4 py-5 text-sm sm:flex-row">
+      <div className="border-t border-border-subtle text-text-muted mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-4 py-5 text-sm sm:flex-row">
         <p>{copy.rights}</p>
         <div className="flex items-center gap-4">
-          <a href="https://twitter.com/quizverse" target="_blank" rel="noopener noreferrer">
+          <a href="https://twitter.com/quizverse" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">
             Twitter
           </a>
-          <a href="https://github.com/quizverse" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/quizverse" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">
             GitHub
           </a>
         </div>
@@ -109,9 +109,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <p className="text-text-primary mb-3 text-[11px] font-semibold tracking-[0.22em] uppercase">
-        {title}
-      </p>
+      <span className="eyebrow mb-3 block">{title}</span>
       <ul className="text-text-secondary space-y-2 text-sm">
         {links.map((link) => (
           <li key={link.href}>
