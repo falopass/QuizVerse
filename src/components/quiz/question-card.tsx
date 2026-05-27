@@ -23,34 +23,30 @@ export function QuestionCard({
   disabled = false,
 }: QuestionCardProps) {
   return (
-    <article className="surface-panel mx-auto w-full max-w-4xl overflow-hidden p-6 md:p-8">
+    <article className="surface-panel mx-auto w-full max-w-4xl overflow-hidden p-5 md:p-8">
       <div className="grid gap-8 lg:grid-cols-[0.28fr_0.72fr]">
-        <aside className="border-border-subtle bg-bg-primary space-y-6 rounded-[1.75rem] border p-5">
+        <aside className="bg-bg-tertiary space-y-5 rounded-2xl p-5">
           <div>
-            <p className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
-              Question
-            </p>
-            <p className="text-text-primary mt-2 text-4xl font-semibold">{questionNumber}</p>
+            <span className="eyebrow">Question</span>
+            <p className="font-display text-text-primary mt-2 text-4xl font-bold">{questionNumber}</p>
             <p className="text-text-secondary mt-1 text-sm">of {totalQuestions}</p>
           </div>
 
-          <div className="space-y-3">
-            <div className="bg-bg-secondary h-2 overflow-hidden rounded-full">
+          <div className="space-y-2">
+            <div className="bg-bg-secondary h-1 overflow-hidden rounded-full">
               <div
                 className="bg-accent-primary h-full rounded-full transition-all duration-300"
                 style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
               />
             </div>
-            <p className="text-text-muted text-xs tracking-[0.18em] uppercase">
-              Editorial play mode
-            </p>
+            <span className="eyebrow">Editorial play mode</span>
           </div>
         </aside>
 
         <div className="space-y-6">
-          <div className="space-y-4">
-            <p className="eyebrow">Current prompt</p>
-            <h2 className="text-text-primary text-2xl leading-tight font-semibold md:text-4xl">
+          <div className="space-y-3">
+            <span className="eyebrow">Current prompt</span>
+            <h2 className="text-text-primary text-xl leading-snug font-semibold md:text-3xl">
               {question.question}
             </h2>
           </div>
@@ -66,44 +62,42 @@ export function QuestionCard({
             </div>
           )}
 
-          <div className="grid gap-3">
+          <div className="grid gap-2.5">
             {question.options.map((option, index) => (
               <button
                 key={option.id}
                 onClick={() => !disabled && onSelectOption(option.id)}
                 disabled={disabled}
                 className={cn(
-                  'group rounded-[1.5rem] border px-5 py-5 text-left transition-all duration-200',
-                  'focus:ring-accent-primary focus:ring-offset-bg-primary focus:ring-2 focus:ring-offset-2 focus:outline-none',
+                  'group rounded-xl border px-4 py-4 text-left transition-all duration-200',
+                  'focus-visible:ring-accent-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                   disabled && 'cursor-not-allowed opacity-50',
                   selectedOptionId === option.id
-                    ? 'border-accent-primary bg-accent-primary/10 text-text-primary shadow-card'
-                    : 'border-border-subtle bg-bg-secondary text-text-secondary hover:border-accent-primary/35 hover:bg-bg-primary hover:-translate-y-0.5'
+                    ? 'border-accent-primary bg-bg-primary text-text-primary'
+                    : 'border-border-subtle bg-bg-tertiary text-text-secondary hover:border-border-hover hover:bg-bg-secondary'
                 )}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3">
                   <div
                     className={cn(
-                      'mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors',
+                      'mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors',
                       selectedOptionId === option.id
                         ? 'border-accent-primary bg-accent-primary text-white'
-                        : 'border-border-subtle bg-bg-primary text-text-muted group-hover:text-text-primary'
+                        : 'border-border-subtle bg-bg-secondary text-text-muted group-hover:text-text-primary'
                     )}
                   >
                     {String.fromCharCode(65 + index)}
                   </div>
-                  <p className="text-base leading-7 font-medium">{option.text}</p>
+                  <p className="text-base font-medium leading-relaxed">{option.text}</p>
                 </div>
               </button>
             ))}
           </div>
 
           {showExplanation && question.explanation && (
-            <div className="border-border-subtle bg-bg-primary rounded-[1.75rem] border p-5">
-              <h3 className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
-                Explanation
-              </h3>
-              <p className="text-text-secondary mt-3 text-sm leading-6">{question.explanation}</p>
+            <div className="bg-bg-tertiary rounded-2xl p-5">
+              <span className="eyebrow">Explanation</span>
+              <p className="text-text-secondary mt-3 text-sm leading-relaxed">{question.explanation}</p>
             </div>
           )}
         </div>
