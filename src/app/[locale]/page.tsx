@@ -65,39 +65,39 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     .slice(0, 5);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-14 px-4 pt-28 pb-20">
-      <section className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
-        <div className="space-y-8">
+    <main className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col gap-12 px-4 pt-24 pb-20 md:gap-16">
+      <section className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-start lg:gap-12">
+        <div className="space-y-6 md:space-y-8">
           <HomeHeroClient>
-            <div className="kicker eyebrow animate-editorial-rise">
-            <span className="bg-accent-primary h-2 w-2 rounded-full" />
-            {dictionary.home.eyebrow}
-          </div>
+            <div className="flex items-center gap-2">
+              <span className="bg-accent-primary h-1.5 w-1.5 rounded-full" />
+              <span className="eyebrow">{dictionary.home.eyebrow}</span>
+            </div>
 
-          <div className="space-y-5">
-            <h1 className="max-w-4xl text-5xl sm:text-6xl lg:text-8xl">
-              {dictionary.home.title}{' '}
-              <span className="headline-gradient">{dictionary.home.titleAccent}</span>
-            </h1>
-            <p className="balanced-copy text-text-secondary text-lg leading-8 sm:text-xl">
-              {dictionary.home.subtitle}
-            </p>
-          </div>
+            <div className="space-y-4 md:space-y-5">
+              <h1 className="font-display max-w-4xl text-[2rem] leading-[1.05] font-bold sm:text-5xl md:text-6xl lg:text-7xl">
+                {dictionary.home.title}{' '}
+                <span className="text-accent-primary">{dictionary.home.titleAccent}</span>
+              </h1>
+              <p className="text-text-secondary max-w-[55ch] text-base leading-relaxed text-balance sm:text-lg">
+                {dictionary.home.subtitle}
+              </p>
+            </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Link
-              href={localizeHref(locale, '/quiz')}
-              className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.18em] text-white uppercase transition-colors"
-            >
-              {dictionary.home.primaryCta}
-            </Link>
-            <Link
-              href={localizeHref(locale, '/create/ai')}
-              className="border-border-subtle bg-bg-secondary text-text-primary hover:border-accent-primary/30 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold tracking-[0.18em] uppercase transition-colors"
-            >
-              {dictionary.home.secondaryCta}
-            </Link>
-          </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Link
+                href={localizeHref(locale, '/quiz')}
+                className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+              >
+                {dictionary.home.primaryCta}
+              </Link>
+              <Link
+                href={localizeHref(locale, '/create/ai')}
+                className="border-border-subtle text-text-primary hover:border-accent-primary/30 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
+              >
+                {dictionary.home.secondaryCta}
+              </Link>
+            </div>
           </HomeHeroClient>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -105,18 +105,16 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <Link
                 key={category!.id}
                 href={localizeHref(locale, `/category/${category!.slug}`)}
-                className="surface-card rounded-[2rem] p-5 transition-transform hover:-translate-y-1"
+                className="surface-card p-5 transition-all hover:-translate-y-1 hover:border-border-hover"
               >
-                <p className="eyebrow mb-4">{dictionary.home.sections.categories}</p>
-                <div className="mb-3 flex items-start justify-between gap-3">
-                  <h2 className="min-w-0 text-[1.9rem] leading-none tracking-tight sm:text-[2rem]">
-                    {category!.name}
-                  </h2>
-                  <span className="text-text-primary flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/55 text-lg">
-                    {category!.icon ?? category!.name.charAt(0)}
-                  </span>
+                <div className="mb-4 flex items-center gap-2">
+                  <span className="bg-accent-secondary h-4 w-4 rounded-sm" />
+                  <span className="eyebrow">{dictionary.home.sections.categories}</span>
                 </div>
-                <p className="text-text-secondary text-sm leading-6">{category!.description}</p>
+                <h2 className="min-w-0 text-xl leading-tight font-semibold tracking-tight sm:text-2xl">
+                  {category!.name}
+                </h2>
+                <p className="text-text-secondary mt-3 text-sm leading-relaxed">{category!.description}</p>
               </Link>
             ))}
           </div>
@@ -128,34 +126,34 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
             </div>
           ) : null}
-          <aside className="surface-card rounded-[2rem] p-6">
-            <p className="eyebrow mb-3">{dictionary.home.sections.momentum}</p>
-            <h2 className="mb-2 text-3xl">
+          <aside className="surface-card p-6">
+            <span className="eyebrow">{dictionary.home.sections.momentum}</span>
+            <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
               {payload.totalPlays.toLocaleString(locale)} {locale === 'es' ? 'partidas' : 'plays'}
             </h2>
-            <p className="text-text-secondary">{dictionary.home.featuredBody}</p>
+            <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.featuredBody}</p>
           </aside>
-          <aside className="surface-panel rounded-[2rem] p-6">
-            <p className="eyebrow mb-3">{dictionary.home.sections.discovery}</p>
-            <h2 className="mb-2 text-3xl">
+          <aside className="surface-card p-6">
+            <span className="eyebrow">{dictionary.home.sections.discovery}</span>
+            <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
               {payload.totalQuizzes} {locale === 'es' ? 'quizzes en vivo' : 'live quizzes'}
             </h2>
-            <p className="text-text-secondary">{dictionary.home.quickBody}</p>
+            <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.quickBody}</p>
           </aside>
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[0.72fr_1.28fr]">
-        <div className="surface-panel rounded-[2rem] p-6 md:p-7">
-          <p className="eyebrow mb-4">
+      <section className="grid gap-6 xl:grid-cols-[0.4fr_0.6fr]">
+        <div className="surface-panel p-6 md:p-7">
+          <span className="eyebrow">
             {locale === 'es' ? 'Selección editorial' : 'Editorial picks'}
-          </p>
-          <h2 className="text-4xl">
+          </span>
+          <h2 className="font-display mt-4 text-2xl font-bold md:text-3xl">
             {locale === 'es'
               ? 'Entradas más fuertes para empezar a jugar'
               : 'Sharper entry points into the catalog'}
           </h2>
-          <p className="text-text-secondary mt-4 text-base leading-7">
+          <p className="text-text-secondary mt-4 text-base leading-relaxed">
             {locale === 'es'
               ? 'En lugar de empujar un grid plano, priorizamos picks con más ritmo, personalidad y conversación cultural real.'
               : 'Instead of a flat catalog wall, we push picks with stronger pacing, personality and live cultural momentum.'}
@@ -165,17 +163,17 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <Link
                 key={`${locale}-standout-${quiz.id}`}
                 href={localizeHref(locale, `/quiz/${quiz.slug}`)}
-                className="border-border-subtle bg-bg-secondary hover:border-accent-primary/30 flex items-center justify-between rounded-[1.4rem] border px-4 py-4 transition-colors"
+                className="border-border-subtle bg-bg-secondary hover:border-border-hover flex items-center justify-between rounded-2xl border px-4 py-4 transition-colors"
               >
                 <div className="min-w-0">
-                  <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
+                  <span className="text-text-muted text-[11px] font-semibold tracking-[0.15em] uppercase">
                     {quiz.category?.name ?? (locale === 'es' ? 'Quiz' : 'Quiz')}
-                  </p>
-                  <p className="text-text-primary mt-2 line-clamp-2 text-base leading-6 font-semibold">
+                  </span>
+                  <p className="text-text-primary mt-1 line-clamp-2 text-base font-semibold leading-snug">
                     {quiz.title}
                   </p>
                 </div>
-                <span className="text-accent-primary ml-4 text-sm font-semibold">
+                <span className="text-accent-primary ml-4 shrink-0 text-sm font-semibold">
                   {locale === 'es' ? 'Ver' : 'Open'}
                 </span>
               </Link>
@@ -252,10 +250,10 @@ function HomeQuizSection({
     <section className="space-y-6">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-2">
-          <p className="eyebrow">{eyebrow}</p>
-          <h2 className="text-4xl">{title}</h2>
+          <span className="eyebrow">{eyebrow}</span>
+          <h2 className="font-display text-2xl font-bold md:text-3xl">{title}</h2>
         </div>
-        <p className="text-text-secondary max-w-2xl text-sm leading-6">{deck}</p>
+        <p className="text-text-secondary max-w-2xl text-sm leading-relaxed">{deck}</p>
       </div>
       {lead ? (
         <div className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
