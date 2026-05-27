@@ -45,7 +45,7 @@ export function MobileNav({ dictionary, locale }: { dictionary: Dictionary; loca
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 md:hidden">
-      <div className="border-border-subtle bg-bg-glass shadow-card mx-3 mb-3 rounded-[1.75rem] border px-2 py-2 backdrop-blur-xl">
+      <div className="border-t border-border-subtle bg-bg-secondary px-2 py-2">
         <div className="flex items-center justify-around">
           {items.map((item) => {
             const active =
@@ -59,11 +59,11 @@ export function MobileNav({ dictionary, locale }: { dictionary: Dictionary; loca
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex min-w-0 flex-col items-center gap-1 rounded-2xl px-3 py-2 text-[10px] font-medium transition-colors',
+                  'flex min-w-0 flex-col items-center gap-1 rounded-lg px-3 py-2 text-[10px] font-medium transition-colors',
                   active ? 'text-accent-primary' : 'text-text-muted'
                 )}
               >
-                <div className={cn('h-5 w-5', active && 'scale-110')}>{item.icon}</div>
+                <div className={cn('h-5 w-5', active && 'text-accent-primary')}>{item.icon}</div>
                 <span className="truncate">{item.label}</span>
               </Link>
             );
