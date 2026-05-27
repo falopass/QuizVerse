@@ -205,7 +205,7 @@ export function QuizCreatorForm({
   };
 
   return (
-    <form onSubmit={submit} className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+    <form onSubmit={submit} className="grid items-start gap-6 lg:grid-cols-[1.3fr_0.7fr]">
       <div className="space-y-6">
         <section className="surface-panel p-6">
           <p className="eyebrow">{copy.eyebrow}</p>

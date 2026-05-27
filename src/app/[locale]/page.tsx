@@ -120,26 +120,26 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </div>
         </div>
 
-        <div className="grid items-start gap-4 lg:grid-cols-[0.62fr_0.38fr] lg:grid-rows-[auto_auto]">
+        <div className="flex flex-col gap-4">
           {leadQuiz ? (
-            <div className="lg:row-span-2">
-              <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
-            </div>
+            <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
           ) : null}
-          <aside className="surface-card p-6">
-            <span className="eyebrow">{dictionary.home.sections.momentum}</span>
-            <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
-              {payload.totalPlays.toLocaleString(locale)} {locale === 'es' ? 'partidas' : 'plays'}
-            </h2>
-            <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.featuredBody}</p>
-          </aside>
-          <aside className="surface-card p-6">
-            <span className="eyebrow">{dictionary.home.sections.discovery}</span>
-            <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
-              {payload.totalQuizzes} {locale === 'es' ? 'quizzes en vivo' : 'live quizzes'}
-            </h2>
-            <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.quickBody}</p>
-          </aside>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <aside className="surface-card p-6">
+              <span className="eyebrow">{dictionary.home.sections.momentum}</span>
+              <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
+                {payload.totalPlays.toLocaleString(locale)} {locale === 'es' ? 'partidas' : 'plays'}
+              </h2>
+              <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.featuredBody}</p>
+            </aside>
+            <aside className="surface-card p-6">
+              <span className="eyebrow">{dictionary.home.sections.discovery}</span>
+              <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
+                {payload.totalQuizzes} {locale === 'es' ? 'quizzes en vivo' : 'live quizzes'}
+              </h2>
+              <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.quickBody}</p>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -258,7 +258,7 @@ function HomeQuizSection({
       {lead ? (
         <div className="grid items-start gap-6 xl:grid-cols-[1.02fr_0.98fr]">
           <EditorialQuizCard quiz={lead} locale={locale} size="feature" />
-          <div className="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-2">
+          <div className="grid items-start gap-6 self-start md:grid-cols-2 xl:grid-cols-2">
             {rest.slice(0, 4).map((quiz, index) => (
               <EditorialQuizCard
                 key={`${locale}-${title}-${quiz.id}`}

@@ -69,7 +69,7 @@ export default async function LocalizedProfilePage({
                   : 'A QuizVerse profile with published quizzes and a visible editorial footprint.')}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid items-start gap-4 sm:grid-cols-3">
             <StatCard
               value={formatCompactNumber(profile.points)}
               label={locale === 'es' ? 'Puntos' : 'Points'}

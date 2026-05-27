@@ -46,7 +46,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
   return (
     <main className="px-4 pt-28 pb-20">
       <div className="mx-auto max-w-7xl space-y-10">
-        <section className="grid gap-7 lg:grid-cols-[1.12fr_0.88fr]">
+        <section className="grid items-start gap-7 lg:grid-cols-[1.12fr_0.88fr]">
           <div className="surface-panel overflow-hidden p-5 md:p-6">
             <QuizCoverArt
               quiz={quiz}
@@ -233,7 +233,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           </div>
         </section>
 
-        <section className="grid gap-6 lg:grid-cols-[0.86fr_1.14fr]">
+        <section className="grid items-start gap-6 lg:grid-cols-[0.86fr_1.14fr]">
           <div className="surface-card p-6 md:p-7">
             <p className="kicker">{dictionary.detail.questionPreview}</p>
             <h2 className="font-display text-text-primary mt-3 text-3xl">
@@ -315,7 +315,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
                 {dictionary.detail.secondaryCta}
               </Link>
             </div>
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid items-start gap-5 md:grid-cols-3">
               {related.map((relatedQuiz, index) => (
                 <EditorialQuizCard
                   key={relatedQuiz.id}

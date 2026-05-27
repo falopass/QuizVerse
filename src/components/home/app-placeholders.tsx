@@ -21,7 +21,7 @@ export function EditorialLoadingStage({
           <p className="text-text-secondary mt-4 max-w-2xl text-base leading-7">{body}</p>
         </section>
 
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid items-start gap-6 lg:grid-cols-[1.05fr_0.95fr]">
           <section className="surface-card p-6">
             <Skeleton className="h-8 w-32 rounded-full" />
             <Skeleton className="mt-5 h-14 w-4/5 rounded-2xl" />
@@ -34,7 +34,7 @@ export function EditorialLoadingStage({
             </div>
           </section>
 
-          <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-1">
+          <section className="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-1">
             <CardSkeleton />
             <CardSkeleton />
             <CardSkeleton />

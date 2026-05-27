@@ -165,7 +165,7 @@ export function ExploreEditorialPage({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
-      <section className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+      <section className="grid items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="surface-panel p-8 md:p-10">
           <p className="eyebrow">{copy.eyebrow ?? units.eyebrow}</p>
           <h1 className="text-text-primary mt-4 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
@@ -252,10 +252,10 @@ export function ExploreEditorialPage({
 
       {featuredLead ? (
         <>
-          <section className="grid gap-6 xl:grid-cols-[1.02fr_0.98fr]">
+          <section className="grid items-start gap-6 xl:grid-cols-[1.02fr_0.98fr]">
             <EditorialQuizCard quiz={featuredLead} locale={locale} size="hero" />
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid items-start gap-6 self-start md:grid-cols-2">
               {pulseQuiz ? (
                 <div className="surface-panel flex flex-col justify-between rounded-[2rem] p-6 md:p-7">
                   <div>
@@ -313,7 +313,7 @@ export function ExploreEditorialPage({
                   {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
                 </p>
               </div>
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-4">
                 {laneQuizzes.map((quiz, index) => (
                   <EditorialQuizCard
                     key={quiz.id}
@@ -333,7 +333,7 @@ export function ExploreEditorialPage({
                 <p className="eyebrow">{units.editorialGrid}</p>
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
               </div>
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {gridQuizzes.map((quiz, index) => (
                   <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
                 ))}

@@ -74,7 +74,7 @@ export default async function LocalizedCategoryPage({
               </div>
             </div>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid items-start gap-4 sm:grid-cols-2">
             <MetricCard
               label={locale === 'es' ? 'Quizzes visibles' : 'Visible quizzes'}
               value={String(quizzes.length)}
@@ -108,9 +108,9 @@ export default async function LocalizedCategoryPage({
       </section>
 
       {leadQuiz ? (
-        <section className="mt-8 grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <section className="mt-8 grid items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
+          <div className="grid items-start gap-5 self-start md:grid-cols-2 xl:grid-cols-1">
             {support.slice(0, 3).map((quiz, index) => (
               <EditorialQuizCard
                 key={quiz.id}

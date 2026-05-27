@@ -65,7 +65,7 @@ export default async function LocalizedLeaderboardPage({
                 : 'Points, plays, and consistency. This is where QuizVerse starts looking like a habit.'}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid items-start gap-4 sm:grid-cols-2">
             <MetricCard
               label={locale === 'es' ? 'Jugadores visibles' : 'Visible players'}
               value={String(leaderboard.length)}

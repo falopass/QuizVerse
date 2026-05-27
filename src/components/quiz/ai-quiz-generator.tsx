@@ -288,7 +288,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
 
   if (!draft) {
     return (
-      <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+      <div className="grid items-start gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="space-y-6">
           <section className="surface-panel p-6">
             <p className="eyebrow">{copy.promptEngine}</p>
@@ -380,7 +380,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
+    <div className="grid items-start gap-6 lg:grid-cols-[1.25fr_0.75fr]">
       <div className="space-y-6">
         <section className="surface-panel p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">

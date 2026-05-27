@@ -69,7 +69,7 @@ export async function LoginPageView({
               {dictionary.auth.subtitle}
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid items-start gap-4 sm:grid-cols-3">
             <EditorialNote title={copy.note1Title} body={copy.note1Body} />
             <EditorialNote title={copy.note2Title} body={copy.note2Body} />
             <EditorialNote title={copy.note3Title} body={copy.note3Body} />
