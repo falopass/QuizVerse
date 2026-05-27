@@ -19,25 +19,22 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
   }, []);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 px-4 pt-4">
+    <nav className="fixed inset-x-0 top-0 z-40 px-4 pt-3">
       <div
         className={cn(
-          'mx-auto flex w-full max-w-7xl items-center justify-between gap-4 transition-all duration-300',
+          'mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 transition-all duration-200',
           isScrolled
-            ? 'border-border-subtle bg-bg-glass shadow-card rounded-full border px-4 py-3 backdrop-blur-xl'
-            : 'rounded-[2rem] bg-transparent px-1 py-2'
+            ? 'border-b border-border-subtle bg-bg-primary/95 px-4 py-3'
+            : 'bg-transparent px-2 py-2'
         )}
       >
-        <Link href={localizeHref(locale, '/')} className="group flex items-center gap-3">
-          <div className="border-border-subtle bg-bg-secondary text-accent-primary flex h-11 w-11 items-center justify-center rounded-full border text-sm font-black tracking-[0.22em] uppercase">
+        <Link href={localizeHref(locale, '/')} className="group flex items-center gap-2.5">
+          <div className="bg-text-primary text-bg-primary flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold tracking-wider">
             QV
           </div>
           <div className="hidden sm:block">
             <p className="font-display text-text-primary group-hover:text-accent-primary text-lg font-semibold transition-colors">
               QuizVerse
-            </p>
-            <p className="text-text-muted text-[11px] tracking-[0.22em] uppercase">
-              {dictionary.nav.statement}
             </p>
           </div>
         </Link>
@@ -82,7 +79,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           </Link>
           <Link
             href={localizeHref(locale, '/login')}
-            className="bg-accent-primary hover:bg-accent-hover inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors"
+            className="bg-accent-primary hover:bg-accent-hover inline-flex rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-colors"
           >
             {dictionary.common.signup}
           </Link>
@@ -96,7 +93,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
   return (
     <Link
       href={href}
-      className="text-text-secondary hover:bg-bg-secondary hover:text-text-primary rounded-full px-4 py-2 text-sm font-medium transition-colors"
+      className="text-text-secondary hover:text-text-primary hover:bg-bg-tertiary rounded-lg px-3 py-1.5 text-sm font-medium transition-colors"
     >
       {children}
     </Link>
