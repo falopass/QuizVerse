@@ -111,22 +111,20 @@ export function ResultScreen({
   }, [triviaScore?.percentage]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden px-4 py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(181,94,44,0.12),transparent_42%),linear-gradient(180deg,rgba(246,239,229,0.8),rgba(236,228,216,0.92))]" />
-      <div className="absolute inset-0 [background-image:linear-gradient(rgba(24,20,16,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(24,20,16,0.05)_1px,transparent_1px)] [background-size:48px_48px] opacity-40" />
+    <div className="relative min-h-screen px-4 py-12">
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
         <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-          <section className="surface-panel p-8 md:p-10">
-            <p className="eyebrow">{copy.eyebrow}</p>
+          <section className="surface-panel p-6 md:p-10">
+            <span className="eyebrow">{copy.eyebrow}</span>
             <motion.h1
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="text-text-primary mt-5 text-4xl font-semibold tracking-tight md:text-6xl"
+              className="font-display text-text-primary mt-5 text-3xl font-bold tracking-tight md:text-5xl"
             >
               {result?.title || scoreMessage}
             </motion.h1>
-            <p className="text-text-secondary mt-5 max-w-2xl text-lg leading-8">
+            <p className="text-text-secondary mt-5 max-w-2xl text-lg leading-relaxed">
               {result?.description || copy.fallbackBody}
             </p>
 
@@ -140,15 +138,13 @@ export function ResultScreen({
             </div>
 
             {triviaScore && (
-              <div className="border-border-subtle bg-bg-primary mt-8 rounded-[2rem] border p-6">
-                <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
-                  {copy.scoreline}
-                </p>
+              <div className="bg-bg-tertiary mt-8 rounded-2xl p-6">
+                <span className="eyebrow">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
-                  <p className="text-text-primary text-6xl font-semibold">
+                  <p className="font-display text-accent-primary text-5xl font-bold md:text-7xl">
                     {triviaScore.percentage}%
                   </p>
-                  <p className="text-text-muted pb-2 text-sm tracking-[0.18em] uppercase">
+                  <p className="text-text-muted pb-2 text-sm tracking-wider uppercase">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>
                 </div>
@@ -166,13 +162,13 @@ export function ResultScreen({
               <button
                 type="button"
                 onClick={onPlayAgain || (() => window.location.reload())}
-                className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
+                className="border-border-subtle text-text-primary hover:border-border-hover inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
               >
                 {uiLocale === 'es' ? 'Jugar de nuevo' : 'Play again'}
               </button>
               <Link
                 href={localizeHref(uiLocale, '/quiz')}
-                className="text-text-secondary hover:text-text-primary inline-flex items-center justify-center rounded-full border border-transparent px-6 py-3 text-sm font-semibold transition-colors"
+                className="text-text-secondary hover:text-text-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors"
               >
                 {uiLocale === 'es' ? 'Explorar más' : 'Explore more'}
               </Link>
@@ -185,9 +181,9 @@ export function ResultScreen({
             </div>
 
             <div className="surface-card p-6">
-              <p className="kicker">{copy.sessionSnapshot}</p>
-              <h2 className="font-display text-text-primary mt-3 text-3xl">{quiz.title}</h2>
-              <p className="text-text-secondary mt-3 text-sm leading-6">
+              <span className="eyebrow">{copy.sessionSnapshot}</span>
+              <h2 className="font-display text-text-primary mt-3 text-2xl font-bold md:text-3xl">{quiz.title}</h2>
+              <p className="text-text-secondary mt-3 text-sm leading-relaxed">
                 {getLocalizedTypeLabel(quiz.quiz_type, uiLocale)} · {quiz.estimated_minutes} min ·{' '}
                 {getLocalizedLanguageLabel(quiz.language, uiLocale)}
               </p>
@@ -196,15 +192,15 @@ export function ResultScreen({
             <div className="surface-card p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="kicker">{copy.review}</p>
-                  <h3 className="font-display text-text-primary mt-2 text-2xl">
+                  <span className="eyebrow">{copy.review}</span>
+                  <h3 className="font-display text-text-primary mt-2 text-xl font-bold md:text-2xl">
                     {copy.answerTrail}
                   </h3>
                 </div>
                 <button
                   type="button"
                   onClick={onReview || (() => {})}
-                  className="border-border-subtle text-text-primary rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.16em] uppercase"
+                  className="border-border-subtle text-text-primary hover:border-border-hover rounded-full border px-4 py-2 text-xs font-semibold tracking-wider uppercase transition-colors"
                 >
                   {showReview ? copy.hideReview : copy.showReview}
                 </button>
@@ -231,23 +227,23 @@ export function ResultScreen({
                         <div
                           key={answer.question_id}
                           className={cn(
-                            'rounded-[1.5rem] border p-4',
+                            'rounded-xl border p-4',
                             answer.is_correct
-                              ? 'border-success/30 bg-success/10'
-                              : 'border-border-subtle bg-bg-primary'
+                              ? 'border-success/20 bg-success/5'
+                              : 'border-border-subtle bg-bg-tertiary'
                           )}
                         >
-                          <p className="text-text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
+                          <span className="eyebrow">
                             {copy.question} {index + 1}
-                          </p>
-                          <p className="text-text-primary mt-2 text-sm font-medium">
+                          </span>
+                          <p className="text-text-primary mt-2 text-sm font-medium leading-relaxed">
                             {question?.question}
                           </p>
                           <p className="text-text-secondary mt-3 text-sm">
                             {copy.yourAnswer}: {selectedOption?.text || copy.skipped}
                           </p>
                           {!answer.is_correct && correctOption && (
-                            <p className="text-success mt-2 text-sm">
+                            <p className="text-success mt-2 text-sm font-medium">
                               {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {correctOption.text}
                             </p>
                           )}
@@ -276,7 +272,7 @@ export function ResultScreen({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               onClick={(event) => event.stopPropagation()}
-              className="surface-card w-full max-w-md p-6"
+              className="surface-card w-full max-w-md p-6 shadow-lg"
             >
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display text-text-primary text-2xl">{copy.shareTitle}</h3>
@@ -308,11 +304,9 @@ export function ResultScreen({
 
 function ResultMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-border-subtle bg-bg-primary rounded-[1.5rem] border p-5">
-      <p className="text-text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
-        {label}
-      </p>
-      <p className="text-text-primary mt-2 text-3xl font-semibold">{value}</p>
+    <div className="bg-bg-tertiary rounded-2xl p-5">
+      <span className="eyebrow">{label}</span>
+      <p className="font-display text-text-primary mt-2 text-3xl font-bold">{value}</p>
     </div>
   );
 }
