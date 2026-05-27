@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
+import { QuizImage } from '@/components/shared/quiz-image';
 import type { Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -28,52 +29,45 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
         whileHover={{ y: -4, scale: 1.02 }}
         className={cn(
           'border-border-subtle bg-bg-secondary relative overflow-hidden rounded-2xl border',
-          'transition-all duration-300 ease-out',
-          'hover:border-accent-primary/50 hover:shadow-md',
-          isFeatured && 'ring-accent-primary/30 ring-2'
+          'transition-all duration-200',
+          'hover:border-border-hover hover:shadow-md',
+          isFeatured && 'ring-accent-primary/20 ring-2'
         )}
       >
-        <div className="relative aspect-video overflow-hidden">
-          {quiz.cover_image_url ? (
-            <img
-              src={quiz.cover_image_url}
-              alt={quiz.title}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              loading="lazy"
-            />
-          ) : (
-            <div className="from-accent-primary/20 to-accent-secondary/20 flex h-full w-full items-center justify-center bg-gradient-to-br">
-              <span className="text-5xl opacity-40">{quiz.quiz_type === 'personality' ? '🎭' : quiz.quiz_type === 'trivia' ? '🧠' : '📊'}</span>
-            </div>
-          )}
-          <div className="from-bg-secondary/60 absolute inset-0 bg-gradient-to-t via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="relative aspect-video overflow-hidden rounded-t-2xl">
+          <QuizImage
+            src={quiz.cover_image_url}
+            alt={quiz.title}
+            quizType={quiz.quiz_type}
+            className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+          />
         </div>
 
         <div className="p-4 md:p-5 min-w-0">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span
               className={cn(
-                'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
+                'inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase',
                 quiz.quiz_type === 'personality'
-                  ? 'bg-accent-primary/15 text-accent-primary'
+                  ? 'bg-accent-primary/10 text-accent-primary'
                   : quiz.quiz_type === 'trivia'
-                    ? 'bg-accent-secondary/15 text-accent-secondary'
+                    ? 'bg-accent-secondary/10 text-accent-secondary'
                     : 'bg-bg-tertiary text-text-secondary'
               )}
             >
-              {quiz.quiz_type === 'personality' && '🧠 '}
-              {quiz.quiz_type === 'trivia' && '📝 '}
+              {quiz.quiz_type === 'personality' && '🎭 '}
+              {quiz.quiz_type === 'trivia' && '🧠 '}
               {quiz.quiz_type.charAt(0).toUpperCase() + quiz.quiz_type.slice(1)}
             </span>
             {quiz.difficulty && (
               <span
                 className={cn(
-                  'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium',
+                  'inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wider uppercase',
                   quiz.difficulty === 'easy'
-                    ? 'bg-success/15 text-success'
+                    ? 'bg-success/10 text-success'
                     : quiz.difficulty === 'medium'
-                      ? 'bg-warning/15 text-warning'
-                      : 'bg-error/15 text-error'
+                      ? 'bg-warning/10 text-warning'
+                      : 'bg-error/10 text-error'
                 )}
               >
                 {quiz.difficulty.charAt(0).toUpperCase() + quiz.difficulty.slice(1)}
@@ -81,12 +75,12 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
             )}
           </div>
 
-          <h3 className="text-text-primary group-hover:text-accent-primary mb-2 line-clamp-2 break-words text-base font-semibold transition-colors md:text-lg">
+          <h3 className="text-text-primary group-hover:text-accent-primary mb-2 line-clamp-2 text-base font-semibold leading-snug transition-colors md:text-lg">
             {quiz.title}
           </h3>
 
           {quiz.description && (
-            <p className="text-text-secondary mb-4 line-clamp-2 text-sm">{quiz.description}</p>
+            <p className="text-text-secondary mb-4 line-clamp-2 text-sm leading-relaxed">{quiz.description}</p>
           )}
 
           <div className="text-text-muted flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
@@ -100,13 +94,7 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
           </div>
         </div>
 
-        <div
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          style={{
-            background:
-              'radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(124, 58, 237, 0.08), transparent 40%)',
-          }}
-        />
+        
       </motion.div>
     </Link>
   );
