@@ -1,437 +1,220 @@
-﻿# QuizVerse
+<div align="center">
 
-> Editorial quizzes with personality. A bilingual quiz platform built with Next.js 16, React 19 and Supabase.
+# 🎯 QuizVerse
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.2.1-111111?style=flat-square)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2.4-149ECA?style=flat-square)](https://react.dev/)
-[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=flat-square)](https://supabase.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square)](https://www.typescriptlang.org/)
-[![Status](https://img.shields.io/badge/Status-Prelaunch%20Build%20Ready-c96a2b?style=flat-square)](#current-status)
+**Editorial quizzes with personality**
 
-QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop culture, personality formats, sharable results and a stronger product feel than generic quiz sites. The project now runs on a real Supabase catalog, supports manual + AI quiz creation, localized public routes, shareable result pages, OG images, analytics hooks, monitoring hooks, and a scalable cover system with procedural + curated stock layers.
+A bilingual quiz platform built with Next.js 16, React 19, and Supabase.
 
-## Table of Contents
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.1-111111?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19.2.4-149ECA?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
+[![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Status](https://img.shields.io/badge/Status-Prelaunch_Build_Ready-c96a2b?style=for-the-badge)](#current-status)
 
-- [Current Status](#current-status)
-- [What Is Already Built](#what-is-already-built)
-- [Tech Stack](#tech-stack)
-- [Architecture Snapshot](#architecture-snapshot)
-- [Product Highlights](#product-highlights)
-- [Catalog and Seed Pipeline](#catalog-and-seed-pipeline)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Scripts](#scripts)
-- [Project Structure](#project-structure)
-- [Deployment](#deployment)
-- [Roadmap Before Public Launch](#roadmap-before-public-launch)
-- [First Git Push](#first-git-push)
+</div>
 
-## Current Status
+---
 
-QuizVerse is no longer a prototype-only repository. The current state of the product is:
+## 📖 Overview
 
-- Production build passes with `Next.js 16.2.1`
-- TypeScript passes
-- Public routes are localized under `/en` and `/es`
-- The runtime catalog is seeded in Supabase with real quizzes
-- Core flows are live: home, explore, detail, play, result, login, create, AI create, profile and leaderboard
-- Seed + polish + cover hydration + Supabase import pipelines are in place
+QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop culture, personality formats, shareable results, and a stronger product feel than generic quiz sites. Runs on a real Supabase catalog with manual + AI quiz creation, localized public routes, shareable result pages, OG images, analytics hooks, monitoring hooks, and a scalable cover system with procedural + curated stock layers.
 
-### Snapshot
+---
 
-- `493` real quizzes currently seeded and synced to Supabase
-- `259` quizzes in English
-- `259` quizzes in Spanish
-- `188` trivia quizzes
-- `189` personality quizzes
-- `13` featured quizzes
-- `338` strong editorial quizzes
-- `40` prioritized quizzes currently using stock cover routing
+## 📊 Current Snapshot
 
-## What Is Already Built
+- ✅ Production build passes with **Next.js 16.2.1**
+- ✅ TypeScript passes clean
+- ✅ Public routes localized under `/en` and `/es`
+- ✅ Runtime catalog seeded in Supabase with real quizzes
+- ✅ Core flows live: home, explore, detail, play, result, login, create, AI create, profile, leaderboard
+- ✅ Seed, polish, cover hydration, and Supabase import pipelines in place
+
+### Content stats
+
+| Metric | Count |
+|--------|-------|
+| Real quizzes seeded and synced to Supabase | **493** |
+| English quizzes | 259 |
+| Spanish quizzes | 259 |
+| Trivia quizzes | 188 |
+| Personality quizzes | 189 |
+| Featured quizzes | 13 |
+| Strong editorial quizzes | 338 |
+| Prioritized quizzes with stock cover routing | 40 |
+
+---
+
+## 🎨 What Is Already Built
 
 ### Product surface
 
 - Editorial bilingual home page
 - Editorial explore page with filters and visual hierarchy
-- Quiz detail pages with cover-led hero, payoff and related quizzes
+- Quiz detail pages with cover-led hero, payoff, and related quizzes
 - Play flow with localized game modes and result persistence
 - Result pages with sharing-oriented composition
 - Localized login flow
+- User profile pages
+- Leaderboard
 - Manual quiz creation flow
-- AI quiz generation flow
-- Leaderboard and profile pages
-
-### Backend and content layer
-
-- Supabase SSR integration for server components and actions
-- Public data layer connected to real DB queries
-- AI generation endpoint with validation and locale-aware quiz payloads
-- Game session persistence and share tokens
-- Like/report/session/profile/language flows wired into real persistence
-- Seed importer for publishing large curated quiz batches into Supabase
-
-### SEO / growth / instrumentation base
-
-- Locale-aware metadata and canonical URLs
-- Open Graph images for home and quiz detail
-- Google-friendly `max-image-preview: large`
-- Analytics endpoint for page view / quiz lifecycle / locale switch events
-- Monitoring endpoint for client-side runtime reporting
-
-## Tech Stack
-
-### Frontend
-
-- `Next.js 16.2.1`
-- `React 19.2.4`
-- `Framer Motion`
-- `Zustand`
-- custom editorial UI system + Tailwind/CSS tokens
-
-### Backend / infrastructure
-
-- `Supabase`
-- `@supabase/ssr`
-- `@supabase/supabase-js`
-- `Upstash Redis`
-- `Zod`
-
-### Rendering / media
-
-- `Satori`
-- `@resvg/resvg-js`
-- stock cover hydration via `Pexels` and optional `Pixabay`
-
-### AI / content generation
-
-- DeepSeek-backed generation route for runtime AI quiz creation
-- DeepSeek-based seed generation pipeline used offline for catalog expansion
-
-## Architecture Snapshot
-
-```text
-Browser / Bots
-  ├─ middleware.ts
-  │   ├─ refreshes Supabase auth session
-  │   └─ redirects non-localized paths to /en or /es
-  ├─ App Router /[locale]
-  │   ├─ Home
-  │   ├─ Explore / Category / Detail
-  │   ├─ Play / Result
-  │   ├─ Create / AI Create / Login
-  │   ├─ Profile / Leaderboard
-  │   └─ Metadata / OG image routes
-  ├─ Public data layer (src/lib/data/public.ts)
-  ├─ Server actions (src/actions/quiz.actions.ts)
-  ├─ Supabase
-  │   ├─ quizzes
-  │   ├─ categories
-  │   ├─ profiles
-  │   ├─ game_sessions
-  │   ├─ likes
-  │   └─ achievements
-  └─ Editorial pipeline (scripts/*.mjs)
-      ├─ seed generation
-      ├─ seed polish
-      ├─ cover hydration
-      └─ Supabase import
-```
-
-## Product Highlights
-
-### 1. Locale-first public experience
-
-The public product is structured around localized routes:
-
-- `/en`
-- `/es`
-- `/en/quiz`
-- `/es/quiz`
-- `/en/quiz/[slug]`
-- `/es/quiz/[slug]`
-- `/[locale]/quiz/[slug]/play`
-- `/[locale]/quiz/[slug]/result`
-
-Legacy non-localized routes redirect into the locale system.
-
-### 2. Editorial catalog instead of flat quiz grids
-
-The product does not rely on generic card walls anymore. Home and explore now prioritize:
-
-- lead quiz
-- support rail
-- featured strips
-- quick-entry lanes
-- stronger visual hierarchy for the best topics
-
-### 3. Scalable visual system for infinite quiz generation
-
-QuizVerse now uses a layered cover system:
-
-- `procedural` fallback for every quiz
-- `stock` covers for curated / strong editorial picks
-- `generated` / `curated` ready in the type system for future AI or manual art direction
-
-This keeps the long tail visually consistent while allowing premium treatment for high-priority pages.
-
-## Catalog and Seed Pipeline
-
-The catalog pipeline is one of the most important parts of the repo now.
-
-### Current workflow
-
-1. Generate quizzes in batches
-2. Polish copy, slugs, featured flags, editorial metadata and visual profile
-3. Hydrate strong quizzes with stock covers where the match is good enough
-4. Import everything into Supabase
-
-### Relevant files
-
-- `generated/trending-seed-openrouter.json`
-- `generated/trending-seed-openrouter.normalized.json`
-- `generated/trending-seed-polish-report.json`
-- `generated/stock-cover-hydration-report.json`
-- `src/lib/data/stock-cover-manifest.json`
-
-### Content notes
-
-The seed is already usable, but before a true public launch it is still worth doing one more human pass on the 20-30 quizzes that will live above the fold or be used in acquisition campaigns.
-
-## Getting Started
-
-### 1. Install dependencies
-
-```bash
-npm install
-```
-
-### 2. Create your environment file
-
-```bash
-cp .env.example .env.local
-```
-
-On Windows PowerShell:
-
-```powershell
-Copy-Item .env.example .env.local
-```
-
-### 3. Fill the required environment variables
-
-At minimum, local development expects:
-
-- Supabase URL
-- Supabase publishable key
-- Supabase service role key for import scripts
-- DeepSeek API key for runtime AI generation
-
-### 4. Run the app
-
-```bash
-npm run dev
-```
-
-Then open [http://localhost:3000](http://localhost:3000).
-
-## Environment Variables
-
-The project uses more than one external system. See `.env.example` for the full template.
-
-### Core runtime
-
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` (compat fallback)
-- `SUPABASE_SERVICE_ROLE_KEY`
-
-### AI / content generation
-
-- `DEEPSEEK_API_KEY`
-
-### Rate limiting / infrastructure
-
-- `UPSTASH_REDIS_REST_URL`
-- `UPSTASH_REDIS_REST_TOKEN`
-
-### Visual enrichment
-
-- `PEXELS_API_KEY`
-- `PIXABAY_API_KEY`
-
-### Monetization / future launch
-
-- `NEXT_PUBLIC_ADSENSE_ID`
-
-## Scripts
-
-### App lifecycle
-
-```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
-```
-
-### Editorial pipeline
-
-```bash
-npm run seed:generate
-npm run seed:polish
-npm run seed:covers
-npm run seed:stock-covers
-npm run seed:supabase:import
-```
-
-### What they do
-
-- `seed:generate`: generates trending seed quizzes with DeepSeek
-- `seed:polish`: normalizes and curates the generated seed
-- `seed:covers`: generates procedural cover assets / supporting cover outputs
-- `seed:stock-covers`: hydrates strong quizzes with curated stock cover candidates
-- `seed:supabase:import`: imports the current seed into Supabase
-
-## Project Structure
-
-```text
-src/
-  app/
-    [locale]/...
-    api/
-    covers/
-    stock-covers/
-  actions/
-  components/
-    home/
-    layout/
-    quiz/
-    shared/
-  lib/
-    data/
-    design/
-    i18n/
-    quiz/
-    seo/
-    supabase/
-    telemetry/
-  providers/
-  stores/
-  types/
-
-scripts/
-  polish-trending-seed.mjs
-  hydrate-stock-covers.mjs
-  import-trending-seed-to-supabase.mjs
-  generate-cover-assets.mjs
-
-generated/
-  trending-seed.json
-  trending-seed.normalized.json
-  trending-seed-report.json
-  stock-cover-hydration-report.json
-  supabase-import-report.json
-
-supabase/
-  migrations/
-  seed/
-```
-
-## Deployment
-
-### Recommended stack
-
-- Frontend + app runtime: `Vercel`
-- Database/auth/storage: `Supabase`
-- DNS / domain / proxy: `Cloudflare`
-- Canonical domain: `https://quizverse.org`
-
-### Production checklist
-
-- set `NEXT_PUBLIC_SITE_URL=https://quizverse.org`
-- configure Supabase production project
-- configure runtime env vars in Vercel
-- verify locale routing on `/en` and `/es`
-- verify Open Graph images
-- verify share URLs and result pages
-- run final mobile + desktop smoke pass
-- integrate ad stack carefully to avoid layout shift
-
-## Roadmap Before Public Launch
-
-These are the remaining high-value items, ordered by launch impact.
-
-### Product / content
-
-- final QA pass on the top quizzes used in home and acquisition
-- better category balance in the live catalog
-- more curated covers or AI-native covers for the most valuable pages
-- expand “topic hub” surfaces for SEO and distribution
-
-### Growth / monetization
-
-- ad placement strategy without hurting UX
-- traffic acquisition loops for SEO + Google Discover + Shorts + social sharing
-- better internal linking between franchise/topic clusters
-
-### Technical hardening
-
-- final browser-level QA across the critical funnel
-- production monitoring integration if desired (Sentry/PostHog/etc.)
-- privacy/cookie/legal review before ads go live
-
-## First Git Push
-
-If this is the first push of the repository to GitHub, this is the standard sequence.
-
-### 1. Initialize git if needed
-
-```bash
-git init
-```
-
-### 2. Add the remote
-
-```bash
-git remote add origin https://github.com/falopass/QuizVerse.git
-```
-
-If `origin` already exists:
-
-```bash
-git remote set-url origin https://github.com/falopass/QuizVerse.git
-```
-
-### 3. Create the main branch
-
-```bash
-git branch -M main
-```
-
-### 4. Review your local environment files
-
-Before pushing, make sure you do **not** commit secrets:
-
-- keep `.env.local` untracked
-- rotate any keys that were exposed during development
-- only commit `.env.example`
-
-### 5. Commit and push
-
-```bash
-git add .
-git commit -m "Initial public-ready QuizVerse repository"
-git push -u origin main
-```
-
-## Notes for Contributors
-
-- This repo is using a newer Next.js version; always check the local docs in `node_modules/next/dist/docs/` before making assumptions.
-- The architecture HTML file (`QuizVerse-Architecture.html`) is intended to stay as a living executive snapshot, not stale historical documentation.
-- The current product direction is editorial, bilingual, discovery-oriented and ad-supported.
+- AI-powered quiz creation flow
+
+### Infrastructure
+
+- Supabase catalog with 493 real quizzes
+- Seed + polish + cover hydration pipelines
+- Supabase import pipelines
+- OG image generation
+- Analytics + monitoring hooks
+- Procedural + curated stock cover layers
 
 ---
 
-Built for a launch-ready editorial quiz product, not a generic template grid.
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | Next.js 16.2.1 (App Router) |
+| **UI** | React 19.2.4 |
+| **Language** | TypeScript 5.x |
+| **Database & Auth** | Supabase |
+| **AI** | LLM-powered quiz generation pipeline |
+| **Deploy** | Vercel |
+| **Analytics** | Analytics hooks (provider-agnostic) |
+| **Monitoring** | Monitoring hooks (provider-agnostic) |
+
+---
+
+## 🏗️ Architecture Snapshot
+
+```
+QuizVerse/
+├── app/
+│   ├── [locale]/                # /en and /es localized routes
+│   │   ├── page.tsx             # Home
+│   │   ├── explore/             # Discovery + filters
+│   │   ├── quiz/[slug]/         # Detail
+│   │   ├── play/[slug]/         # Play flow
+│   │   ├── result/[id]/         # Shareable results
+│   │   ├── create/              # Manual creation
+│   │   ├── ai-create/           # AI-powered creation
+│   │   ├── profile/             # User profile
+│   │   ├── leaderboard/         # Rankings
+│   │   └── login/               # Auth
+│   └── api/
+│       ├── og/                  # OG image generation
+│       └── quiz/                # Quiz CRUD
+├── components/                  # UI components
+├── lib/
+│   ├── supabase/                # Supabase client + queries
+│   ├── ai/                      # AI quiz generation
+│   ├── seed/                    # Seeding pipelines
+│   ├── polish/                  # Content polishing
+│   └── covers/                  # Cover hydration
+├── scripts/                     # Seed, polish, import scripts
+└── content/                     # Editorial quiz drafts
+```
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+# Clone
+git clone https://github.com/falopass/QuizVerse.git
+cd QuizVerse
+
+# Install
+npm install
+
+# Configure environment
+cp .env.example .env.local
+# Fill in: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
+#         SUPABASE_SERVICE_ROLE_KEY, and any LLM provider keys
+
+# Run dev server
+npm run dev
+
+# Type check
+npx tsc --noEmit
+
+# Build
+npm run build
+```
+
+---
+
+## 🚀 Deployment
+
+Deployed to **Vercel**. Supabase provides the backend (database, auth, storage). LLM provider is configurable through environment variables.
+
+---
+
+## 🗺️ Roadmap Before Public Launch
+
+- Polishing remaining covers and hero art
+- SEO metadata pass on all quiz detail pages
+- Performance audit and Core Web Vitals optimization
+- Public marketing pages (about, terms, privacy)
+- Content moderation flow for user-generated quizzes
+- Public launch announcement
+
+---
+
+## 📊 About This Project
+
+QuizVerse is part of an indie SaaS portfolio focused on shipping real, editorial-quality products. Solo-built and maintained.
+
+**Built by:** Diego Bravo Opazo — [Portfolio](https://github.com/falopass)
+
+---
+
+<details>
+<summary><b>🇪🇸 Descripción en español</b></summary>
+
+<br>
+
+## Sobre QuizVerse
+
+QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado en cultura pop, formatos de personalidad, resultados compartibles y una sensación de producto más fuerte que los sitios genéricos de quizzes. Corre sobre un catálogo real en Supabase con creación manual y con IA, rutas localizadas, páginas de resultados compartibles, imágenes OG, hooks de analítica y monitoreo, y un sistema escalable de portadas con capas procedurales y curadas.
+
+## Estado actual
+
+- ✅ Build de producción funcionando con Next.js 16.2.1
+- ✅ TypeScript sin errores
+- ✅ Rutas públicas localizadas bajo `/en` y `/es`
+- ✅ Catálogo de runtime seedeado en Supabase con quizzes reales
+- ✅ Flujos core en vivo: home, explore, detalle, play, resultado, login, create, AI create, profile, leaderboard
+
+## Estadísticas de contenido
+
+- **493 quizzes reales** seedeados y sincronizados con Supabase
+- 259 quizzes en inglés
+- 259 quizzes en español
+- 188 quizzes de trivia
+- 189 quizzes de personalidad
+- 13 quizzes destacados
+- 338 quizzes editoriales de alta calidad
+
+## Stack
+
+- Next.js 16.2.1 (App Router)
+- React 19.2.4
+- TypeScript 5.x
+- Supabase (backend + auth)
+- Pipelines de IA para generación de quizzes
+- Vercel (deploy)
+
+**Construido por:** Diego Bravo Opazo — [Portfolio](https://github.com/falopass)
+
+</details>
+
+---
+
+<div align="center">
+
+**⭐ If this project interests you, please star the repo!**
+
+</div>
