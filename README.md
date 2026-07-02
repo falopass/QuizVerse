@@ -33,16 +33,16 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 ### Content stats
 
-| Metric | Count |
-|--------|-------|
-| Real quizzes seeded and synced to Supabase | **493** |
-| English quizzes | 259 |
-| Spanish quizzes | 259 |
-| Trivia quizzes | 188 |
-| Personality quizzes | 189 |
-| Featured quizzes | 13 |
-| Strong editorial quizzes | 338 |
-| Prioritized quizzes with stock cover routing | 40 |
+| Metric                                       | Count   |
+| -------------------------------------------- | ------- |
+| Real quizzes seeded and synced to Supabase   | **493** |
+| English quizzes                              | 259     |
+| Spanish quizzes                              | 259     |
+| Trivia quizzes                               | 188     |
+| Personality quizzes                          | 189     |
+| Featured quizzes                             | 13      |
+| Strong editorial quizzes                     | 338     |
+| Prioritized quizzes with stock cover routing | 40      |
 
 ---
 
@@ -74,16 +74,16 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| **Framework** | Next.js 16.2.1 (App Router) |
-| **UI** | React 19.2.4 |
-| **Language** | TypeScript 5.x |
-| **Database & Auth** | Supabase |
-| **AI** | LLM-powered quiz generation pipeline |
-| **Deploy** | Vercel |
-| **Analytics** | Analytics hooks (provider-agnostic) |
-| **Monitoring** | Monitoring hooks (provider-agnostic) |
+| Layer               | Technology                           |
+| ------------------- | ------------------------------------ |
+| **Framework**       | Next.js 16.2.1 (App Router)          |
+| **UI**              | React 19.2.4                         |
+| **Language**        | TypeScript 5.x                       |
+| **Database & Auth** | Supabase                             |
+| **AI**              | LLM-powered quiz generation pipeline |
+| **Deploy**          | Vercel                               |
+| **Analytics**       | Analytics hooks (provider-agnostic)  |
+| **Monitoring**      | Monitoring hooks (provider-agnostic) |
 
 ---
 
