@@ -39,7 +39,7 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         };
 
   return (
-    <footer className="border-t border-border-subtle bg-bg-primary mt-auto">
+    <footer className="border-border-subtle bg-bg-primary mt-auto border-t">
       <div className="mx-auto grid max-w-[1200px] gap-10 px-4 py-10 md:grid-cols-[1.25fr_0.85fr_0.85fr_0.85fr]">
         <div className="space-y-4">
           <Link href={localizeHref(locale, '/')} className="flex items-center gap-2.5">
@@ -48,7 +48,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
             </div>
             <span className="font-display text-text-primary text-lg font-semibold">QuizVerse</span>
           </Link>
-          <p className="text-text-muted max-w-sm text-sm leading-relaxed">{dictionary.footer.tagline}</p>
+          <p className="text-text-muted max-w-sm text-sm leading-relaxed">
+            {dictionary.footer.tagline}
+          </p>
         </div>
 
         <FooterColumn
@@ -85,13 +87,23 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         />
       </div>
 
-      <div className="border-t border-border-subtle text-text-muted mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-4 py-5 text-sm sm:flex-row">
+      <div className="border-border-subtle text-text-muted mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t px-4 py-5 text-sm sm:flex-row">
         <p>{copy.rights}</p>
         <div className="flex items-center gap-4">
-          <a href="https://twitter.com/quizverse" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">
+          <a
+            href="https://twitter.com/quizverse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-text-primary transition-colors"
+          >
             Twitter
           </a>
-          <a href="https://github.com/quizverse" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">
+          <a
+            href="https://github.com/quizverse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-text-primary transition-colors"
+          >
             GitHub
           </a>
         </div>

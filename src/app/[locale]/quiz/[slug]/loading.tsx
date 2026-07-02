@@ -1,6 +1,6 @@
 export default function QuizDetailLoading() {
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 animate-pulse">
+    <div className="mx-auto max-w-4xl animate-pulse px-4 py-12 sm:px-6 lg:px-8">
       <div className="bg-bg-tertiary h-8 w-48 rounded-lg" />
       <div className="bg-bg-tertiary mt-4 h-6 w-96 rounded-lg" />
       <div className="bg-bg-tertiary mt-2 h-6 w-72 rounded-lg" />

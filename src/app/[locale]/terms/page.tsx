@@ -18,11 +18,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function TermsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
 
@@ -103,7 +99,7 @@ export default async function TermsPage({
     ],
   };
 
-  const t = (key: Record<string, string>) => (key[lang] ?? key.en);
+  const t = (key: Record<string, string>) => key[lang] ?? key.en;
 
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -123,7 +119,7 @@ export default async function TermsPage({
         ))}
       </div>
 
-      <div className="mt-12 border-t border-border-subtle pt-8">
+      <div className="border-border-subtle mt-12 border-t pt-8">
         <p className="text-text-muted text-sm">
           {lang === 'es'
             ? 'Para preguntas sobre estos términos, contáctanos en '

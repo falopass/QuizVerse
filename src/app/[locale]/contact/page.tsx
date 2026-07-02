@@ -18,11 +18,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ContactPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
 
@@ -50,9 +46,9 @@ export default async function ContactPage({
               . Respondemos en un plazo de 1-2 días hábiles.
             </p>
             <p>
-              Para reportar contenido inapropiado, usa el botón de reporte dentro de cada quiz.
-              Para solicitudes de eliminación de contenido o temas legales, incluye todos los
-              detalles relevantes en tu correo.
+              Para reportar contenido inapropiado, usa el botón de reporte dentro de cada quiz. Para
+              solicitudes de eliminación de contenido o temas legales, incluye todos los detalles
+              relevantes en tu correo.
             </p>
           </>
         ) : (

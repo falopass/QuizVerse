@@ -45,7 +45,7 @@ export function MobileNav({ dictionary, locale }: { dictionary: Dictionary; loca
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 md:hidden">
-      <div className="border-t border-border-subtle bg-bg-secondary px-2 py-2">
+      <div className="border-border-subtle bg-bg-secondary border-t px-2 py-2">
         <div className="flex items-center justify-around">
           {items.map((item) => {
             const active =

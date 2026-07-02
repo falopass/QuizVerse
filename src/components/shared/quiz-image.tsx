@@ -22,10 +22,7 @@ export function QuizImage({ src, alt, className, quizType = 'default' }: QuizIma
   if (!src || error) {
     return (
       <div
-        className={cn(
-          'bg-bg-tertiary flex items-center justify-center',
-          className
-        )}
+        className={cn('bg-bg-tertiary flex items-center justify-center', className)}
         aria-label={alt}
       >
         <span className="text-4xl opacity-50" role="img" aria-hidden="true">

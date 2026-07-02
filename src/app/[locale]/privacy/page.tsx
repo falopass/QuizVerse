@@ -18,11 +18,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PrivacyPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
 
@@ -79,7 +75,7 @@ export default async function PrivacyPage({
     },
   };
 
-  const t = (key: Record<string, string>) => (key[lang] ?? key.en);
+  const t = (key: Record<string, string>) => key[lang] ?? key.en;
 
   return (
     <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
@@ -94,7 +90,7 @@ export default async function PrivacyPage({
         {(
           Object.entries(content.sections).filter(([key]) => key !== 'intro') as [
             string,
-            { heading: { en: string; es: string }; body: { en: string; es: string } }
+            { heading: { en: string; es: string }; body: { en: string; es: string } },
           ][]
         ).map(([, section], index) => (
           <section key={`privacy-section-${index}`}>
@@ -106,7 +102,7 @@ export default async function PrivacyPage({
         ))}
       </div>
 
-      <div className="mt-12 border-t border-border-subtle pt-8">
+      <div className="border-border-subtle mt-12 border-t pt-8">
         <p className="text-text-muted text-sm">
           {lang === 'es'
             ? 'Si tienes preguntas sobre esta política, contáctanos en '

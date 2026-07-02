@@ -25,7 +25,10 @@ export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
   return (
     <>
       {!isFullscreen && <FloatingNav locale={locale} dictionary={dictionary} />}
-      <main id="main-content" className={isFullscreen ? '' : 'pb-[calc(64px+env(safe-area-inset-bottom))] md:pb-0'}>
+      <main
+        id="main-content"
+        className={isFullscreen ? '' : 'pb-[calc(64px+env(safe-area-inset-bottom))] md:pb-0'}
+      >
         {children}
       </main>
       {!isFullscreen && <Footer dictionary={dictionary} locale={locale} />}

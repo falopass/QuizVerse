@@ -127,7 +127,7 @@ export function CookieConsentBanner() {
               </button>
               <button
                 onClick={acceptAll}
-                className="bg-accent-primary hover:bg-accent-hover rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-primary/25 transition-all hover:shadow-xl"
+                className="bg-accent-primary hover:bg-accent-hover shadow-accent-primary/25 rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl"
               >
                 {copy.acceptAllButton[locale]}
               </button>

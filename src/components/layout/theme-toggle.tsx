@@ -11,10 +11,16 @@ export function ThemeToggle() {
       type="button"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="border-border-subtle bg-bg-secondary text-text-secondary hover:text-text-primary hover:border-accent-primary/40 rounded-full border p-2 transition-colors focus:ring-accent-primary focus:ring-2 focus:ring-offset-2 focus:outline-none"
+      className="border-border-subtle bg-bg-secondary text-text-secondary hover:text-text-primary hover:border-accent-primary/40 focus:ring-accent-primary rounded-full border p-2 transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
     >
       {theme === 'dark' ? (
-        <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          aria-hidden="true"
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -23,7 +29,13 @@ export function ThemeToggle() {
           />
         </svg>
       ) : (
-        <svg aria-hidden="true" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          aria-hidden="true"
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"

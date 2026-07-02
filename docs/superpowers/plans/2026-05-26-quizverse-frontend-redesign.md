@@ -15,6 +15,7 @@
 ### Task 1: Update global CSS variables and utilities
 
 **Files:**
+
 - Modify: `src/app/globals.css`
 
 **Context:** The current CSS has gradients, glassmorphism, and too many variables. We need a clean, solid-color system.
@@ -85,6 +86,7 @@ Keep the `.dark` block as-is for backward compatibility but do not expand it.
 - [ ] **Step 3: Remove gradient and glassmorphism utilities**
 
 Delete these CSS rules entirely:
+
 - `.gradient-text` (lines 415-420)
 - `.glow` (lines 423-425)
 - `.glass` (lines 408-412)
@@ -220,6 +222,7 @@ git commit -m "feat: redesign CSS foundation with editorial curated palette"
 ### Task 2: Add Playfair Display font and update layout
 
 **Files:**
+
 - Modify: `src/app/layout.tsx`
 
 - [ ] **Step 1: Replace font imports**
@@ -249,6 +252,7 @@ const inter = Inter({
 - [ ] **Step 2: Update html className**
 
 On line 88, change:
+
 ```typescript
 className={`h-full ${playfair.variable} ${inter.variable}`}
 ```
@@ -267,6 +271,7 @@ git commit -m "feat: add Playfair Display font for editorial headings"
 ### Task 3: Fix SiteShell mobile padding
 
 **Files:**
+
 - Modify: `src/components/layout/site-shell.tsx`
 
 - [ ] **Step 1: Update mobile padding calculation**
@@ -295,6 +300,7 @@ git commit -m "fix: mobile nav safe area padding"
 ### Task 4: Redesign FloatingNav
 
 **Files:**
+
 - Modify: `src/components/layout/floating-nav.tsx`
 
 - [ ] **Step 1: Update nav container styles**
@@ -430,6 +436,7 @@ git commit -m "feat: redesign floating nav with editorial curated style"
 ### Task 5: Redesign MobileNav
 
 **Files:**
+
 - Modify: `src/components/layout/mobile-nav.tsx`
 
 - [ ] **Step 1: Update mobile nav container**
@@ -496,6 +503,7 @@ git commit -m "feat: redesign mobile nav with solid background and cleaner style
 ### Task 6: Simplify HeroSection
 
 **Files:**
+
 - Modify: `src/components/home/hero-section.tsx`
 
 - [ ] **Step 1: Remove particles and simplify**
@@ -551,6 +559,7 @@ git commit -m "feat: simplify hero section, remove particles"
 ### Task 7: Update Home Page layout and typography
 
 **Files:**
+
 - Modify: `src/app/[locale]/page.tsx`
 
 - [ ] **Step 1: Update main container and hero layout**
@@ -879,6 +888,7 @@ git commit -m "feat: redesign home page layout and typography"
 ### Task 8: Create QuizImage component with fallback
 
 **Files:**
+
 - Create: `src/components/shared/quiz-image.tsx`
 
 - [ ] **Step 1: Create the component**
@@ -945,6 +955,7 @@ git commit -m "feat: add QuizImage component with emoji fallback"
 ### Task 9: Redesign EditorialQuizCard
 
 **Files:**
+
 - Modify: `src/components/home/editorial-quiz-card.tsx`
 
 - [ ] **Step 1: Add QuizImage import and update image rendering**
@@ -1140,6 +1151,7 @@ git commit -m "feat: redesign editorial quiz card with image fallback and cleane
 ### Task 10: Redesign QuizCard
 
 **Files:**
+
 - Modify: `src/components/quiz/quiz-card.tsx`
 
 - [ ] **Step 1: Add QuizImage import and update image**
@@ -1298,6 +1310,7 @@ git commit -m "feat: redesign quiz card with image fallback and cleaner style"
 ### Task 11: Redesign QuestionCard
 
 **Files:**
+
 - Modify: `src/components/quiz/question-card.tsx`
 
 - [ ] **Step 1: Update container and sidebar**
@@ -1492,6 +1505,7 @@ git commit -m "feat: redesign question card with solid colors and cleaner option
 ### Task 12: Redesign ResultScreen
 
 **Files:**
+
 - Modify: `src/components/quiz/result-screen.tsx`
 
 - [ ] **Step 1: Remove gradient backgrounds**
@@ -1767,13 +1781,13 @@ With:
 Replace lines 279-280:
 
 ```typescript
-className="surface-card w-full max-w-md p-6"
+className = 'surface-card w-full max-w-md p-6';
 ```
 
 With:
 
 ```typescript
-className="surface-card w-full max-w-md p-6 shadow-lg"
+className = 'surface-card w-full max-w-md p-6 shadow-lg';
 ```
 
 - [ ] **Step 9: Commit**
@@ -1790,11 +1804,13 @@ git commit -m "feat: redesign result screen with solid colors and editorial typo
 ### Task 13: Update Footer
 
 **Files:**
+
 - Modify: `src/components/layout/footer.tsx`
 
 - [ ] **Step 1: Read current footer and simplify**
 
 Read the file first, then simplify to minimal editorial style:
+
 - Background: `bg-primary`
 - Border-top: `border-subtle`
 - Links: `text-secondary`, hover `text-primary`
@@ -1814,6 +1830,7 @@ git commit -m "feat: simplify footer with editorial curated style"
 ### Task 14: Type check and final review
 
 **Files:**
+
 - All modified files
 
 - [ ] **Step 1: Run TypeScript check**

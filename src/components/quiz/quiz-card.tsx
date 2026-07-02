@@ -43,7 +43,7 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
           />
         </div>
 
-        <div className="p-4 md:p-5 min-w-0">
+        <div className="min-w-0 p-4 md:p-5">
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <span
               className={cn(
@@ -75,26 +75,24 @@ export function QuizCard({ quiz, variant = 'default', index = 0, locale }: QuizC
             )}
           </div>
 
-          <h3 className="text-text-primary group-hover:text-accent-primary mb-2 line-clamp-2 text-base font-semibold leading-snug transition-colors md:text-lg">
+          <h3 className="text-text-primary group-hover:text-accent-primary mb-2 line-clamp-2 text-base leading-snug font-semibold transition-colors md:text-lg">
             {quiz.title}
           </h3>
 
           {quiz.description && (
-            <p className="text-text-secondary mb-4 line-clamp-2 text-sm leading-relaxed">{quiz.description}</p>
+            <p className="text-text-secondary mb-4 line-clamp-2 text-sm leading-relaxed">
+              {quiz.description}
+            </p>
           )}
 
           <div className="text-text-muted flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-            <span className="whitespace-nowrap">
-              {formatCompactNumber(quiz.plays_count)} plays
-            </span>
+            <span className="whitespace-nowrap">{formatCompactNumber(quiz.plays_count)} plays</span>
             <span className="whitespace-nowrap">{quiz.estimated_minutes} min</span>
             {quiz.avg_score != null && (
               <span className="whitespace-nowrap">{Math.round(quiz.avg_score)}%</span>
             )}
           </div>
         </div>
-
-        
       </motion.div>
     </Link>
   );

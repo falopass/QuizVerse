@@ -85,7 +85,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`h-full ${playfair.variable} ${inter.variable}`} suppressHydrationWarning data-scroll-behavior="smooth">
+    <html
+      lang="en"
+      className={`h-full ${playfair.variable} ${inter.variable}`}
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+    >
       <head>
         <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
       </head>

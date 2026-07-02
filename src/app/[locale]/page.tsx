@@ -105,7 +105,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
               <Link
                 key={category!.id}
                 href={localizeHref(locale, `/category/${category!.slug}`)}
-                className="surface-card p-5 transition-all hover:-translate-y-1 hover:border-border-hover"
+                className="surface-card hover:border-border-hover p-5 transition-all hover:-translate-y-1"
               >
                 <div className="mb-4 flex items-center gap-2">
                   <span className="bg-accent-secondary h-4 w-4 rounded-sm" />
@@ -114,30 +114,34 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
                 <h2 className="min-w-0 text-xl leading-tight font-semibold tracking-tight sm:text-2xl">
                   {category!.name}
                 </h2>
-                <p className="text-text-secondary mt-3 text-sm leading-relaxed">{category!.description}</p>
+                <p className="text-text-secondary mt-3 text-sm leading-relaxed">
+                  {category!.description}
+                </p>
               </Link>
             ))}
           </div>
         </div>
 
         <div className="flex flex-col gap-4">
-          {leadQuiz ? (
-            <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" />
-          ) : null}
+          {leadQuiz ? <EditorialQuizCard quiz={leadQuiz} locale={locale} size="hero" /> : null}
           <div className="grid gap-4 sm:grid-cols-2">
             <aside className="surface-card p-6">
               <span className="eyebrow">{dictionary.home.sections.momentum}</span>
               <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
                 {payload.totalPlays.toLocaleString(locale)} {locale === 'es' ? 'partidas' : 'plays'}
               </h2>
-              <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.featuredBody}</p>
+              <p className="text-text-secondary mt-2 text-sm leading-relaxed">
+                {dictionary.home.featuredBody}
+              </p>
             </aside>
             <aside className="surface-card p-6">
               <span className="eyebrow">{dictionary.home.sections.discovery}</span>
               <h2 className="font-display mt-3 text-3xl font-bold md:text-4xl">
                 {payload.totalQuizzes} {locale === 'es' ? 'quizzes en vivo' : 'live quizzes'}
               </h2>
-              <p className="text-text-secondary mt-2 text-sm leading-relaxed">{dictionary.home.quickBody}</p>
+              <p className="text-text-secondary mt-2 text-sm leading-relaxed">
+                {dictionary.home.quickBody}
+              </p>
             </aside>
           </div>
         </div>
@@ -169,7 +173,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
                   <span className="text-text-muted text-[11px] font-semibold tracking-[0.15em] uppercase">
                     {quiz.category?.name ?? (locale === 'es' ? 'Quiz' : 'Quiz')}
                   </span>
-                  <p className="text-text-primary mt-1 line-clamp-2 text-base font-semibold leading-snug">
+                  <p className="text-text-primary mt-1 line-clamp-2 text-base leading-snug font-semibold">
                     {quiz.title}
                   </p>
                 </div>

@@ -24,7 +24,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
         className={cn(
           'mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 transition-all duration-200',
           isScrolled
-            ? 'border-b border-border-subtle bg-bg-primary/95 px-4 py-3'
+            ? 'border-border-subtle bg-bg-primary/95 border-b px-4 py-3'
             : 'bg-transparent px-2 py-2'
         )}
       >

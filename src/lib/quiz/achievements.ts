@@ -11,7 +11,10 @@ type AchievementInsert = Database['public']['Tables']['user_achievements']['Inse
 type ProfileUpdate = Database['public']['Tables']['profiles']['Update'];
 
 interface UserAchievementsWriteTable {
-  insert: (values: AchievementInsert, options?: { onConflict?: string }) => Promise<{ error: { message: string } | null }>;
+  insert: (
+    values: AchievementInsert,
+    options?: { onConflict?: string }
+  ) => Promise<{ error: { message: string } | null }>;
 }
 
 interface ProfilesWriteTable {

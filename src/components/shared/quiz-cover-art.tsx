@@ -27,15 +27,15 @@ export function QuizCoverArt({
     return (
       <div
         className={cn(
-          'relative overflow-hidden rounded-xl border border-border-subtle',
+          'border-border-subtle relative overflow-hidden rounded-xl border',
           ratioClassName,
           className
         )}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={quiz.cover_image_url} alt={quiz.title} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/70 via-bg-primary/10 to-transparent" />
-        <div className="absolute top-4 left-4 rounded-full border border-white/15 bg-bg-primary/60 px-3 py-1 text-[10px] font-semibold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+        <div className="from-bg-primary/70 via-bg-primary/10 absolute inset-0 bg-gradient-to-t to-transparent" />
+        <div className="bg-bg-primary/60 absolute top-4 left-4 rounded-full border border-white/15 px-3 py-1 text-[10px] font-semibold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
           {priorityLabel ?? getCoverEyebrow(locale, quiz.quiz_type)}
         </div>
         <div className="absolute right-4 bottom-4 left-4 flex items-end justify-between gap-4">
@@ -43,11 +43,11 @@ export function QuizCoverArt({
             <p className="text-[11px] font-semibold tracking-[0.24em] text-white/70 uppercase">
               {quiz.category?.name ?? getCoverOpenLabel(locale)}
             </p>
-            <p className="mt-1 line-clamp-2 break-words text-lg leading-tight font-semibold text-white md:text-xl">
+            <p className="mt-1 line-clamp-2 text-lg leading-tight font-semibold break-words text-white md:text-xl">
               {quiz.title}
             </p>
           </div>
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-bg-primary/50 text-xl font-semibold text-white backdrop-blur-sm">
+          <div className="bg-bg-primary/50 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/15 text-xl font-semibold text-white backdrop-blur-sm">
             {letter}
           </div>
         </div>
@@ -58,14 +58,14 @@ export function QuizCoverArt({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-xl border border-border-subtle bg-gradient-to-br shadow-inner',
+        'border-border-subtle relative overflow-hidden rounded-xl border bg-gradient-to-br shadow-inner',
         theme.shell,
         ratioClassName,
         className
       )}
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_40%)]" />
-      <div className="absolute top-6 -right-8 h-24 w-24 rounded-full bg-accent-primary/8 blur-2xl" />
+      <div className="bg-accent-primary/8 absolute top-6 -right-8 h-24 w-24 rounded-full blur-2xl" />
       <div
         className={cn(
           'absolute right-5 bottom-5 h-16 w-16 rounded-2xl bg-gradient-to-br opacity-60',
@@ -74,15 +74,15 @@ export function QuizCoverArt({
       />
       <div className="relative flex h-full flex-col justify-between p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
-          <div className="space-y-2 min-w-0">
+          <div className="min-w-0 space-y-2">
             <span className="bg-accent-primary/10 text-accent-primary inline-flex rounded-full px-3 py-1 text-[10px] font-semibold tracking-[0.22em] uppercase">
               {priorityLabel ?? getCoverEyebrow(locale, quiz.quiz_type)}
             </span>
-            <p className="text-text-muted max-w-[16rem] text-[11px] font-semibold tracking-[0.24em] uppercase truncate">
+            <p className="text-text-muted max-w-[16rem] truncate text-[11px] font-semibold tracking-[0.24em] uppercase">
               {quiz.category?.name ?? getCoverOpenLabel(locale)}
             </p>
           </div>
-          <div className="bg-accent-primary/10 text-accent-primary flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-accent-primary/20 text-xl font-semibold">
+          <div className="bg-accent-primary/10 text-accent-primary border-accent-primary/20 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border text-xl font-semibold">
             {letter}
           </div>
         </div>
@@ -90,7 +90,7 @@ export function QuizCoverArt({
         <div className={cn('min-w-0 space-y-3', compact && 'space-y-2')}>
           <h3
             className={cn(
-              'text-text-primary max-w-[17rem] font-semibold tracking-tight line-clamp-2 break-words',
+              'text-text-primary line-clamp-2 max-w-[17rem] font-semibold tracking-tight break-words',
               compact ? 'text-xl' : 'text-2xl md:text-[1.75rem]'
             )}
           >

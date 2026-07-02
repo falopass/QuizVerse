@@ -163,7 +163,7 @@ git push origin main    # Auto-deploy (Vercel detects repo)
 | `NEXT_PUBLIC_SUPABASE_URL`                     | Supabase project URL                   |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key               |
 | `SUPABASE_SERVICE_ROLE_KEY`                    | Server-side privileged operations      |
-| `DEEPSEEK_API_KEY`                              | Runtime + batch AI quiz generation    |
+| `DEEPSEEK_API_KEY`                             | Runtime + batch AI quiz generation     |
 | `UPSTASH_REDIS_REST_URL`                       | Rate limiting / caching                |
 | `UPSTASH_REDIS_REST_TOKEN`                     | Upstash auth token                     |
 | `PEXELS_API_KEY`                               | Stock cover images                     |

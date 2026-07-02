@@ -21,11 +21,7 @@ const supabase = createClient(supabaseUrl, serviceRoleKey, {
 const migrationsDir = path.join(rootDir, 'supabase', 'migrations');
 const appliedFile = path.join(rootDir, 'supabase', '.applied-migrations.json');
 
-interface AppliedRecord {
-  applied: string[];
-}
-
-function readApplied(): AppliedRecord {
+function readApplied() {
   try {
     return JSON.parse(fs.readFileSync(appliedFile, 'utf8'));
   } catch {
@@ -33,7 +29,7 @@ function readApplied(): AppliedRecord {
   }
 }
 
-function writeApplied(record: AppliedRecord) {
+function writeApplied(record) {
   fs.writeFileSync(appliedFile, JSON.stringify(record, null, 2), 'utf8');
 }
 

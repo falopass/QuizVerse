@@ -29,34 +29,34 @@ Redesign the QuizVerse frontend to fix visual errors (broken images, misalignmen
 
 ### 3.1 Color Palette
 
-| Token | Hex | Usage |
-|---|---|---|
-| `bg-primary` | `#faf8f5` | Page background (warm cream) |
-| `bg-secondary` | `#ffffff` | Cards, panels |
-| `bg-tertiary` | `#f0ebe4` | Subtle backgrounds, tags, hover states |
-| `text-primary` | `#1a1a1a` | Headings, primary text |
-| `text-secondary` | `#5a5448` | Body text, descriptions |
-| `text-muted` | `#8a8279` | Metadata, captions, eyebrows |
-| `accent-primary` | `#c4704a` | CTAs, links, active states (terracotta) |
-| `accent-hover` | `#a85d3a` | Hover state for accent |
-| `accent-secondary` | `#2b4c7e` | Cobalt blocks, category indicators |
-| `accent-tertiary` | `#d4a843` | Mustard highlights, featured badges |
-| `border-subtle` | `rgba(26, 26, 26, 0.08)` | Card borders, dividers |
-| `border-hover` | `rgba(196, 112, 74, 0.3)` | Hover borders |
+| Token              | Hex                       | Usage                                   |
+| ------------------ | ------------------------- | --------------------------------------- |
+| `bg-primary`       | `#faf8f5`                 | Page background (warm cream)            |
+| `bg-secondary`     | `#ffffff`                 | Cards, panels                           |
+| `bg-tertiary`      | `#f0ebe4`                 | Subtle backgrounds, tags, hover states  |
+| `text-primary`     | `#1a1a1a`                 | Headings, primary text                  |
+| `text-secondary`   | `#5a5448`                 | Body text, descriptions                 |
+| `text-muted`       | `#8a8279`                 | Metadata, captions, eyebrows            |
+| `accent-primary`   | `#c4704a`                 | CTAs, links, active states (terracotta) |
+| `accent-hover`     | `#a85d3a`                 | Hover state for accent                  |
+| `accent-secondary` | `#2b4c7e`                 | Cobalt blocks, category indicators      |
+| `accent-tertiary`  | `#d4a843`                 | Mustard highlights, featured badges     |
+| `border-subtle`    | `rgba(26, 26, 26, 0.08)`  | Card borders, dividers                  |
+| `border-hover`     | `rgba(196, 112, 74, 0.3)` | Hover borders                           |
 
 **Dark theme (optional future):** Not in scope for this redesign. Keep existing dark theme CSS but do not prioritize it.
 
 ### 3.2 Typography
 
-| Role | Font | Weight | Size (mobile → desktop) | Line Height |
-|---|---|---|---|---|
-| H1 (Hero) | Playfair Display | 700 | 32px → 48px → 64px | 1.05 |
-| H2 (Section) | Playfair Display | 700 | 28px → 36px → 40px | 1.1 |
-| H3 (Card title) | Inter | 600 | 16px → 18px → 20px | 1.25 |
-| Body | Inter | 400 | 15px → 16px | 1.6 |
-| Eyebrow | Inter | 700 | 10px → 11px | 1.2 |
-| Caption/Stats | Inter | 500 | 10px → 11px | 1.2 |
-| Button | Inter | 600 | 13px → 14px | 1 |
+| Role            | Font             | Weight | Size (mobile → desktop) | Line Height |
+| --------------- | ---------------- | ------ | ----------------------- | ----------- |
+| H1 (Hero)       | Playfair Display | 700    | 32px → 48px → 64px      | 1.05        |
+| H2 (Section)    | Playfair Display | 700    | 28px → 36px → 40px      | 1.1         |
+| H3 (Card title) | Inter            | 600    | 16px → 18px → 20px      | 1.25        |
+| Body            | Inter            | 400    | 15px → 16px             | 1.6         |
+| Eyebrow         | Inter            | 700    | 10px → 11px             | 1.2         |
+| Caption/Stats   | Inter            | 500    | 10px → 11px             | 1.2         |
+| Button          | Inter            | 600    | 13px → 14px             | 1           |
 
 **Tracking:** Eyebrows and stats use `letter-spacing: 0.15em` uppercase.
 
@@ -64,24 +64,24 @@ Redesign the QuizVerse frontend to fix visual errors (broken images, misalignmen
 
 Base unit: 8px
 
-| Token | Value | Usage |
-|---|---|---|
-| `space-1` | 4px | Tight gaps (icon + text) |
-| `space-2` | 8px | Inline spacing |
-| `space-3` | 16px | Card padding (mobile) |
-| `space-4` | 24px | Card padding (desktop), section gaps |
-| `space-5` | 32px | Section margins |
-| `space-6` | 48px | Large section margins |
-| `space-7` | 64px | Hero spacing |
+| Token     | Value | Usage                                |
+| --------- | ----- | ------------------------------------ |
+| `space-1` | 4px   | Tight gaps (icon + text)             |
+| `space-2` | 8px   | Inline spacing                       |
+| `space-3` | 16px  | Card padding (mobile)                |
+| `space-4` | 24px  | Card padding (desktop), section gaps |
+| `space-5` | 32px  | Section margins                      |
+| `space-6` | 48px  | Large section margins                |
+| `space-7` | 64px  | Hero spacing                         |
 
 ### 3.4 Border Radius
 
-| Token | Value | Usage |
-|---|---|---|
-| `radius-sm` | 8px | Buttons, tags, small elements |
-| `radius-md` | 16px | Cards |
-| `radius-lg` | 24px | Panels, hero containers |
-| `radius-full` | 9999px | Pills, avatars |
+| Token         | Value  | Usage                         |
+| ------------- | ------ | ----------------------------- |
+| `radius-sm`   | 8px    | Buttons, tags, small elements |
+| `radius-md`   | 16px   | Cards                         |
+| `radius-lg`   | 24px   | Panels, hero containers       |
+| `radius-full` | 9999px | Pills, avatars                |
 
 ---
 
@@ -115,6 +115,7 @@ Base unit: 8px
 ### 4.4 Editorial Quiz Card
 
 **Hero size (lead card):**
+
 - Aspect ratio: 16/10 for image.
 - Image fallback: `bg-tertiary` background with centered emoji (48px) or quiz type icon.
 - Title: Playfair Display, 24px → 32px, `text-primary`.
@@ -124,6 +125,7 @@ Base unit: 8px
 - Hover: `translateY(-4px)`, `shadow-md`, border `border-hover`.
 
 **Compact size:**
+
 - Aspect ratio: 16/9 for image.
 - Title: Inter, 16px → 18px, weight 600.
 - No description (saves space, prevents overflow).
@@ -131,6 +133,7 @@ Base unit: 8px
 - Stats: Simplified (time + plays only).
 
 **Feature size (medium):**
+
 - Aspect ratio: 16/10.
 - Title: Inter, 20px → 24px.
 - Description: 14px, max 2 lines.
@@ -187,6 +190,7 @@ Base unit: 8px
 ### 5.1 Home Page Grid
 
 **Mobile (390px - 767px):**
+
 - Single column.
 - Hero: full width, padding 16px.
 - Lead card: full width.
@@ -196,6 +200,7 @@ Base unit: 8px
 - Quiz sections: stacked. Lead card full width, rest 2-column grid.
 
 **Tablet (768px - 1023px):**
+
 - Hero: single column still, but max-width 720px centered.
 - Category cards: 3-column grid.
 - Stats panels: 2-column grid.
@@ -203,6 +208,7 @@ Base unit: 8px
 - Quiz sections: lead card full width, rest 3-column grid.
 
 **Desktop (1024px+):**
+
 - Hero: 2-column grid (55% text, 45% lead card).
 - Category cards: 3-column grid.
 - Stats panels: 2-column grid, aligned with lead card.
@@ -232,6 +238,7 @@ Base unit: 8px
 
 **Problem:** Images return 404 or broken URLs.
 **Solution:**
+
 - All `<img>` tags must have `onError` handler that replaces the image with a fallback div.
 - Fallback: `bg-tertiary` background, centered emoji based on quiz type:
   - Personality: `🎭`
@@ -245,6 +252,7 @@ Base unit: 8px
 
 **Problem:** Too many CSS variables, some unused, some conflicting.
 **Solution:**
+
 - Reduce to the palette defined in section 3.1.
 - Remove: `gradient-hero`, `gradient-card-hover`, `gradient-result-*`, `shadow-glow`, `surface-*` (replace with direct values).
 - Keep only functional variables: colors, spacing, radius, shadows.
@@ -253,6 +261,7 @@ Base unit: 8px
 
 **Problem:** Mixed use of `space-y`, `gap`, margins causing inconsistent spacing.
 **Solution:**
+
 - Use CSS Grid `gap` for all layouts. No `space-y` on grid containers.
 - Cards must have consistent internal padding (16px mobile, 24px desktop).
 - Text containers must have `min-w-0` to prevent overflow.
@@ -262,6 +271,7 @@ Base unit: 8px
 
 **Problem:** All text looks similar, no clear hierarchy.
 **Solution:**
+
 - Strictly enforce the type scale in section 3.2.
 - Only Playfair Display for H1, H2. Inter for everything else.
 - No font-size overrides in components outside the scale.
@@ -270,6 +280,7 @@ Base unit: 8px
 
 **Problem:** Content hidden behind mobile nav.
 **Solution:**
+
 - `SiteShell` must add `padding-bottom: calc(64px + env(safe-area-inset-bottom))` to `<main>` on mobile.
 - Mobile nav height: 64px fixed.
 
@@ -297,22 +308,22 @@ Base unit: 8px
 
 ## 9. Files to Modify
 
-| File | Changes |
-|---|---|
-| `src/app/globals.css` | Complete rewrite of CSS variables, remove gradients/glassmorphism, add new utilities |
-| `src/app/layout.tsx` | Update font imports (add Playfair Display), update metadata colors |
-| `src/components/home/hero-section.tsx` | Remove particles, simplify animation, adjust spacing |
-| `src/app/[locale]/page.tsx` | Update layout grids, spacing, typography classes |
-| `src/components/home/editorial-quiz-card.tsx` | Update card styles, image fallback, typography |
-| `src/components/quiz/quiz-card.tsx` | Update styles, image fallback |
-| `src/components/layout/floating-nav.tsx` | Simplify scroll behavior, update colors |
-| `src/components/layout/mobile-nav.tsx` | Fix safe area, update colors |
-| `src/components/layout/site-shell.tsx` | Fix mobile padding |
-| `src/components/quiz/question-card.tsx` | Update colors, spacing, option styles |
-| `src/components/quiz/result-screen.tsx` | Update colors, remove gradient backgrounds |
-| `src/components/shared/quiz-cover-art.tsx` | Add image error handling |
-| `src/components/home/explore-editorial-page.tsx` | Update grid, search bar, filters |
-| `src/components/layout/footer.tsx` | Update colors, simplify |
+| File                                             | Changes                                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `src/app/globals.css`                            | Complete rewrite of CSS variables, remove gradients/glassmorphism, add new utilities |
+| `src/app/layout.tsx`                             | Update font imports (add Playfair Display), update metadata colors                   |
+| `src/components/home/hero-section.tsx`           | Remove particles, simplify animation, adjust spacing                                 |
+| `src/app/[locale]/page.tsx`                      | Update layout grids, spacing, typography classes                                     |
+| `src/components/home/editorial-quiz-card.tsx`    | Update card styles, image fallback, typography                                       |
+| `src/components/quiz/quiz-card.tsx`              | Update styles, image fallback                                                        |
+| `src/components/layout/floating-nav.tsx`         | Simplify scroll behavior, update colors                                              |
+| `src/components/layout/mobile-nav.tsx`           | Fix safe area, update colors                                                         |
+| `src/components/layout/site-shell.tsx`           | Fix mobile padding                                                                   |
+| `src/components/quiz/question-card.tsx`          | Update colors, spacing, option styles                                                |
+| `src/components/quiz/result-screen.tsx`          | Update colors, remove gradient backgrounds                                           |
+| `src/components/shared/quiz-cover-art.tsx`       | Add image error handling                                                             |
+| `src/components/home/explore-editorial-page.tsx` | Update grid, search bar, filters                                                     |
+| `src/components/layout/footer.tsx`               | Update colors, simplify                                                              |
 
 ---
 

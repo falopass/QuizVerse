@@ -28,7 +28,9 @@ export function QuestionCard({
         <aside className="bg-bg-tertiary space-y-5 rounded-2xl p-5">
           <div>
             <span className="eyebrow">Question</span>
-            <p className="font-display text-text-primary mt-2 text-4xl font-bold">{questionNumber}</p>
+            <p className="font-display text-text-primary mt-2 text-4xl font-bold">
+              {questionNumber}
+            </p>
             <p className="text-text-secondary mt-1 text-sm">of {totalQuestions}</p>
           </div>
 
@@ -88,7 +90,7 @@ export function QuestionCard({
                   >
                     {String.fromCharCode(65 + index)}
                   </div>
-                  <p className="text-base font-medium leading-relaxed">{option.text}</p>
+                  <p className="text-base leading-relaxed font-medium">{option.text}</p>
                 </div>
               </button>
             ))}
@@ -97,7 +99,9 @@ export function QuestionCard({
           {showExplanation && question.explanation && (
             <div className="bg-bg-tertiary rounded-2xl p-5">
               <span className="eyebrow">Explanation</span>
-              <p className="text-text-secondary mt-3 text-sm leading-relaxed">{question.explanation}</p>
+              <p className="text-text-secondary mt-3 text-sm leading-relaxed">
+                {question.explanation}
+              </p>
             </div>
           )}
         </div>

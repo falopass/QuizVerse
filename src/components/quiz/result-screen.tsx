@@ -112,7 +112,6 @@ export function ResultScreen({
 
   return (
     <div className="relative min-h-screen px-4 py-12">
-
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
         <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <section className="surface-panel p-6 md:p-10">
@@ -182,7 +181,9 @@ export function ResultScreen({
 
             <div className="surface-card p-6">
               <span className="eyebrow">{copy.sessionSnapshot}</span>
-              <h2 className="font-display text-text-primary mt-3 text-2xl font-bold md:text-3xl">{quiz.title}</h2>
+              <h2 className="font-display text-text-primary mt-3 text-2xl font-bold md:text-3xl">
+                {quiz.title}
+              </h2>
               <p className="text-text-secondary mt-3 text-sm leading-relaxed">
                 {getLocalizedTypeLabel(quiz.quiz_type, uiLocale)} · {quiz.estimated_minutes} min ·{' '}
                 {getLocalizedLanguageLabel(quiz.language, uiLocale)}
@@ -236,7 +237,7 @@ export function ResultScreen({
                           <span className="eyebrow">
                             {copy.question} {index + 1}
                           </span>
-                          <p className="text-text-primary mt-2 text-sm font-medium leading-relaxed">
+                          <p className="text-text-primary mt-2 text-sm leading-relaxed font-medium">
                             {question?.question}
                           </p>
                           <p className="text-text-secondary mt-3 text-sm">

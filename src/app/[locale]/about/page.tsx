@@ -21,11 +21,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function AboutPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
 
@@ -39,8 +35,8 @@ export default async function AboutPage({
         {lang === 'es' ? (
           <>
             <p>
-              QuizVerse nace de una idea simple: los quizzes merecen el mismo criterio editorial
-              que cualquier otro producto de entretenimiento. No somos una plantilla genérica ni un
+              QuizVerse nace de una idea simple: los quizzes merecen el mismo criterio editorial que
+              cualquier otro producto de entretenimiento. No somos una plantilla genérica ni un
               generador de contenido sin alma.
             </p>
             <p>
@@ -51,8 +47,8 @@ export default async function AboutPage({
             </p>
             <p>
               Nuestro motor soporta formatos de trivia, personalidad y encuestas, con scoring
-              inteligente, streaks, power-ups y resultados compartibles. Todo corre sobre
-              Next.js, Supabase y DeepSeek, con un stack moderno pensado para escalar.
+              inteligente, streaks, power-ups y resultados compartibles. Todo corre sobre Next.js,
+              Supabase y DeepSeek, con un stack moderno pensado para escalar.
             </p>
             <p>
               QuizVerse es un producto editorial bilingüe, orientado al descubrimiento y diseñado
@@ -62,15 +58,15 @@ export default async function AboutPage({
         ) : (
           <>
             <p>
-              QuizVerse was born from a simple idea: quizzes deserve the same editorial standards
-              as any other entertainment product. We are not a generic template or a soulless
-              content generator.
+              QuizVerse was born from a simple idea: quizzes deserve the same editorial standards as
+              any other entertainment product. We are not a generic template or a soulless content
+              generator.
             </p>
             <p>
-              We built a bilingual platform that prioritizes catalog quality, polished gameplay,
-              and a design system with its own identity. Every quiz goes through an editorial
-              pipeline that includes AI generation, human curation, copy polish, cover assignment,
-              and structure validation.
+              We built a bilingual platform that prioritizes catalog quality, polished gameplay, and
+              a design system with its own identity. Every quiz goes through an editorial pipeline
+              that includes AI generation, human curation, copy polish, cover assignment, and
+              structure validation.
             </p>
             <p>
               Our engine supports trivia, personality, and poll formats with intelligent scoring,
@@ -85,7 +81,7 @@ export default async function AboutPage({
         )}
       </div>
 
-      <div className="mt-12 border-t border-border-subtle pt-8">
+      <div className="border-border-subtle mt-12 border-t pt-8">
         <h2 className="font-display text-2xl font-semibold">
           {lang === 'es' ? 'El equipo' : 'The team'}
         </h2>

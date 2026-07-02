@@ -64,7 +64,7 @@ export function EditorialQuizCard({
         transition={{ delay: index * 0.04, duration: 0.45 }}
         whileHover={{ y: -6 }}
         className={cn(
-          'border-border-subtle bg-bg-secondary hover:shadow-md relative overflow-hidden rounded-2xl border transition-all duration-200 hover:border-border-hover',
+          'border-border-subtle bg-bg-secondary hover:border-border-hover relative overflow-hidden rounded-2xl border transition-all duration-200 hover:shadow-md',
           size === 'hero' && styles.minH,
           size === 'feature' && styles.minH,
           size === 'compact' && 'rounded-xl'
@@ -76,20 +76,24 @@ export function EditorialQuizCard({
               src={quiz.cover_image_url}
               alt={quiz.title}
               quizType={quiz.quiz_type}
-              className={size === 'hero' || size === 'feature' ? 'aspect-[16/10] w-full' : 'aspect-[16/9] w-full'}
+              className={
+                size === 'hero' || size === 'feature'
+                  ? 'aspect-[16/10] w-full'
+                  : 'aspect-[16/9] w-full'
+              }
             />
             {quiz.is_featured && (
-              <span className="absolute top-3 left-3 bg-accent-tertiary/90 text-text-primary rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase">
+              <span className="bg-accent-tertiary/90 text-text-primary absolute top-3 left-3 rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase">
                 {locale === 'es' ? 'Selección editorial' : 'Editorial pick'}
               </span>
             )}
           </div>
 
-          <div className="mt-4 flex flex-col min-w-0">
+          <div className="mt-4 flex min-w-0 flex-col">
             <div className="min-w-0 space-y-2">
               <h3
                 className={cn(
-                  'text-text-primary group-hover:text-accent-primary font-semibold leading-snug transition-colors line-clamp-2',
+                  'text-text-primary group-hover:text-accent-primary line-clamp-2 leading-snug font-semibold transition-colors',
                   size === 'hero' ? 'font-display' : '',
                   styles.title
                 )}
@@ -133,7 +137,10 @@ export function EditorialQuizCard({
 
               <div className="text-accent-primary inline-flex items-center gap-2 text-sm font-semibold">
                 <span>{openLabel}</span>
-                <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                >
                   →
                 </span>
               </div>

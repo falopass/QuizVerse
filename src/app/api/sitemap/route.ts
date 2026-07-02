@@ -5,7 +5,9 @@ import type { SitemapEntry } from '@/lib/seo/sitemap';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org';
 
-async function fetchPublishedQuizzes(): Promise<Array<{ slug: string; published_at: string | null; language: string }>> {
+async function fetchPublishedQuizzes(): Promise<
+  Array<{ slug: string; published_at: string | null; language: string }>
+> {
   try {
     const supabase = await createClient();
     const { data } = await supabase
