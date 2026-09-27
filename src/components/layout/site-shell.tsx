@@ -19,6 +19,7 @@ const FULLSCREEN_PATTERNS = [
 
 export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
   const pathname = usePathname();
+  React.useEffect(() => { document.documentElement.lang = locale; }, [locale]);
   const isFullscreen = FULLSCREEN_PATTERNS.some((pattern) => pattern.test(pathname));
 
   return (

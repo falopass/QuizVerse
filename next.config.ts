@@ -38,7 +38,7 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    return [];
+    return [{ source: '/sitemap.xml', destination: '/api/sitemap' }];
   },
 };
 

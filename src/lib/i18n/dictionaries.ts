@@ -226,7 +226,7 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     footer: {
       tagline:
-        'QuizVerse turns quizzes into a sharper editorial product, not generic content sludge.',
+        'Pick a game. Play your pop culture. Share the result.',
     },
     arcade: {
       pickGame: 'Pick a game', heroTitle: 'Play your pop culture.',
@@ -338,12 +338,12 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     footer: {
       tagline:
-        'QuizVerse convierte los quizzes en un producto editorial con criterio, no en contenido genérico.',
+        'Elige un juego. Juega tu cultura pop. Comparte el resultado.',
     },
     arcade: {
       pickGame: 'Elige un juego', heroTitle: 'Juega tu cultura pop.',
       heroBody: 'Encuentra tu personaje. Demuestra que eres fan. Hazlo en tres minutos.',
-      featured: 'Destacado', playFeatured: 'Jugar quiz destacado',
+      featured: 'Destacado', playFeatured: 'Jugar el destacado',
       stripStart: 'Personalidad ✦ Trivia ✦ Fandom', stripMiddle: 'Juegos para cada ánimo', stripEnd: 'Desliza para elegir ↓',
       chooseGame: 'Elige tu juego', chooseBody: 'Elige uno. Juega. Descubre tu resultado.',
       play: 'Jugar', quickPlay: 'Partida rápida', backGames: '← Volver a juegos',

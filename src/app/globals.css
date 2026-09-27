@@ -498,3 +498,44 @@ body:has(.arcade-play-page) .cookie-consent-banner, body:has(.arcade-play-screen
   .cookie-consent-actions button { flex: 1 1 130px; }
 }
 @media (prefers-reduced-motion: reduce) { .arcade-mode-card, .arcade-option { transition: none; transform: none !important; } }
+
+/* Block 3: touch targets, compact mobile play, and unobstructed consent. */
+.arcade-logo, .arcade-nav-link, .arcade-footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
+.arcade-nav select { min-width: 48px; min-height: 44px; }
+.arcade-menu-button { display: none; min-height: 44px; border: 1px solid var(--border-subtle); border-radius: 999px; padding: 0 12px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.arcade-mobile-menu { display: none; }
+.arcade-category-hero h1 { max-width: 100%; overflow-wrap: anywhere; font-size: clamp(34px, 8vw, 88px); line-height: 1; }
+.arcade-card-art .arcade-cover-title { max-height: 90%; font-size: clamp(20px, 2.4vw, 34px); }
+.arcade-result-secondary { border: 2px solid #101019; background: transparent; color: #101019; }
+.arcade-result-secondary:hover { background: #101019; color: var(--accent-primary); }
+.cookie-consent-banner .text-text-muted { color: #aaa9bd; }
+.cookie-consent-actions .arcade-button { min-height: 44px; }
+@media (max-width: 1023px) {
+  .arcade-nav-link { display: none; }
+  .arcade-menu-button { display: inline-flex; align-items: center; }
+  .arcade-mobile-menu { display: flex; flex-direction: column; border-top: 1px solid var(--border-subtle); padding: 8px 14px 16px; background: var(--bg-secondary); }
+  .arcade-mobile-menu a { display: flex; align-items: center; min-height: 44px; padding-inline: 12px; font-weight: 700; text-transform: uppercase; }
+}
+@media (max-width: 699px) {
+  .arcade-header-inner { gap: 8px; }
+  .arcade-nav { margin-left: auto; gap: 0; }
+  .arcade-nav .arcade-pill { display: none; }
+  .arcade-nav select { min-height: 44px; padding: 8px 10px; font-size: 11px; }
+  .arcade-category-hero h1 { font-size: clamp(34px, 9vw, 56px); }
+  .cookie-consent-banner { position: relative; inset: auto; width: calc(100% - 28px); margin: 16px auto; padding: 10px 12px; }
+  .cookie-consent-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cookie-consent-actions button { min-height: 44px; padding: 8px; }
+}
+@media (max-width: 360px) {
+  .arcade-logo { font-size: 20px; }
+  .arcade-power-ups { padding-block: 4px; }
+  .arcade-power-ups .arcade-play-wrap { flex-wrap: nowrap; overflow-x: auto; gap: 8px; }
+  .arcade-power-ups .arcade-play-wrap > div { flex-wrap: nowrap; }
+  .arcade-power-ups button { flex: none; min-height: 36px; }
+  .arcade-play-top > div:first-child { padding-block: 8px; }
+  .arcade-play-body { padding-block: 16px; }
+  .arcade-play-body > div:first-child { margin-bottom: 12px; }
+  .arcade-play-title { font-size: 25px; }
+  .arcade-question { padding: 16px; }
+  .arcade-question h2 { margin-block: 12px 16px; font-size: 24px; }
+}

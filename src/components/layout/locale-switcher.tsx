@@ -42,8 +42,18 @@ export function LocaleSwitcher({ value, label }: LocaleSwitcherProps) {
               source: 'locale_switcher',
             });
           } finally {
-            router.push(replacePathLocale(pathname || '/', nextLocale));
+            let href = replacePathLocale(pathname || '/', nextLocale);
+            const quizSlug = pathname?.match(/^\/(en|es)\/quiz\/([^/]+)(?:\/.*)?$/)?.[2];
+            if (quizSlug) {
+              try {
+                const response = await fetch(`/api/quiz/locale?${new URLSearchParams({ slug: quizSlug, from: value, to: nextLocale })}`);
+                if (response.ok) href = (await response.json()).href;
+                else href = `/${nextLocale}`;
+              } catch { href = `/${nextLocale}`; }
+            }
+            router.push(href);
             router.refresh();
+            setIsSaving(false);
           }
         }}
         className={cn(

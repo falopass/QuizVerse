@@ -161,7 +161,7 @@ export async function getExplorePayload(
   const search = locale ? searchOrCategory : localeOrSearch;
   const categorySlug = locale ? maybeCategorySlug : searchOrCategory;
   const [quizzes, categories] = await Promise.all([
-    getPublishedQuizzes(80, locale),
+    getPublishedQuizzes(500, locale),
     getPublicCategories(),
   ]);
   const normalizedSearch = search?.trim().toLowerCase() ?? '';
@@ -177,7 +177,8 @@ export async function getExplorePayload(
     return matchesCategory && matchesSearch;
   });
 
-  return { quizzes: filtered, categories };
+  const populated = new Set(quizzes.map((quiz) => quiz.category?.slug));
+  return { quizzes: filtered, categories: categories.filter((item) => populated.has(item.slug)) };
 }
 
 export async function getHomePayload(locale?: Locale) {
@@ -227,31 +228,35 @@ export async function getHomePayload(locale?: Locale) {
 export const getCategoryPayload = cache(async (slug: string, locale?: Locale) => {
   const categories = await getPublicCategories();
   const category = categories.find((item) => item.slug === slug) ?? null;
-
-  if (!category) {
+  const isType = slug === 'personality' || slug === 'trivia';
+  if (!category && !isType) {
     return null;
   }
-
   let quizzes: Quiz[];
   try {
     const supabase = await createClient();
     const rows: QuizRow[] = [];
     for (let offset = 0; ; offset += 500) {
-      let query = supabase.from('quizzes').select('*').eq('status', 'published').eq('category_id', category.id);
+      let query = supabase.from('quizzes').select('*').eq('status', 'published');
+      query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
       if (locale) query = query.eq('language', locale);
       const { data, error } = await query.order('plays_count', { ascending: false }).range(offset, offset + 499);
       if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
       rows.push(...(data as QuizRow[]));
       if (data.length < 500) break;
     }
-    const categoryMap = new Map([[category.id, category]]);
+    const categoryMap = new Map(categories.map((item) => [item.id, item]));
     quizzes = rows.map((row) => normalizeQuiz(row, categoryMap));
   } catch {
-    quizzes = LAUNCH_QUIZZES.filter((quiz) => quiz.category?.slug === slug && (!locale || quiz.language === locale));
+    quizzes = LAUNCH_QUIZZES.filter((quiz) => (isType ? quiz.quiz_type === slug : quiz.category?.slug === slug) && (!locale || quiz.language === locale));
   }
+  const populated = new Set((await getPublishedQuizzes(500, locale)).map((quiz) => quiz.category?.slug));
   return {
-    category,
-    categories,
+    category: category ?? {
+      id: slug, slug, name: slug, description: null, icon: null, color: null,
+      gradient_from: null, gradient_to: null, quiz_count: quizzes.length, sort_order: 0,
+    },
+    categories: categories.filter((item) => populated.has(item.slug)),
     quizzes,
   };
 });

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
 
@@ -41,12 +42,6 @@ export function hasAnalyticsConsent(): boolean {
   return getConsentLevel() === 'all';
 }
 
-function getLocale(): 'en' | 'es' {
-  if (typeof window === 'undefined') return 'en';
-  const lang = document.documentElement.lang;
-  return lang === 'es' ? 'es' : 'en';
-}
-
 const copy = {
   title: { en: 'This site uses cookies.', es: 'Este sitio usa cookies.' },
   body: {
@@ -61,21 +56,18 @@ const copy = {
 
 export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
-  const [locale, setLocale] = useState<'en' | 'es'>('en');
+  const locale = usePathname()?.startsWith('/es') ? 'es' : 'en';
   const initialized = useRef(false);
 
-  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
-    setLocale(getLocale());
     const stored = getStoredConsent();
     if (!stored) {
       const timer = setTimeout(() => setVisible(true), 800);
       return () => clearTimeout(timer);
     }
   }, []);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   const acceptAll = useCallback(() => {
     storeConsent('all');

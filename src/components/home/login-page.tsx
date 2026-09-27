@@ -51,7 +51,7 @@ export async function LoginPageView({
           terms: 'Terms',
         };
   const safeRedirect =
-    redirectTo && redirectTo.startsWith('/') ? redirectTo : localizeHref(locale, '/');
+    redirectTo && redirectTo.startsWith('/') && !redirectTo.startsWith('//') ? redirectTo : localizeHref(locale, '/');
   const callbackUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/callback?next=${encodeURIComponent(safeRedirect)}`;
   const googleAuthUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(callbackUrl)}`;
   const githubAuthUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(callbackUrl)}`;
@@ -129,7 +129,7 @@ export async function LoginPageView({
             <div className="bg-border-subtle h-px flex-1" />
           </div>
           <Link
-            href={safeRedirect}
+            href={safeRedirect.includes('/create') ? localizeHref(locale, '/') : safeRedirect}
             className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex w-full items-center justify-center rounded-full border px-4 py-4 text-sm font-semibold transition-colors"
           >
             {dictionary.auth.guest}

@@ -9,12 +9,13 @@ function pathnameHasLocale(pathname: string) {
 // Rutas que viven en la raíz (no llevan prefijo de idioma). Sin esta lista, el
 // proxy las redirige a /<locale>/... y las portadas procedurales y el manifest
 // del PWA terminan en 404.
-const NON_LOCALE_PREFIXES = ['/_next', '/api', '/covers', '/stock-covers', '/icons', '/images'];
+const NON_LOCALE_PREFIXES = ['/_next', '/api', '/covers', '/stock-covers', '/icons', '/images', '/ronda-diseno'];
 
 const NON_LOCALE_EXACT = [
   '/favicon.ico',
   '/robots.txt',
   '/sitemap.xml',
+  '/callback',
   '/manifest.json',
   '/sw.js',
   '/opengraph-image',
@@ -36,6 +37,7 @@ export async function proxy(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
     'placeholder-key';
 
+  request.headers.set('x-quizverse-locale', pathname.startsWith('/es') ? 'es' : 'en');
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient<Database>(url, anonKey, {

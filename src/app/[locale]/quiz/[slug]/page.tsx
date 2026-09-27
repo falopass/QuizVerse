@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { QuizDetailPage, generateQuizDetailStaticParams } from '@/components/home/quiz-detail-page';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getQuizBySlug } from '@/lib/data/public';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { generateQuizMetadata } from '@/lib/seo/metadata';
 
 export async function generateStaticParams() {
@@ -22,19 +23,20 @@ export async function generateMetadata({
 
   const quiz = await getQuizBySlug(slug, locale);
   if (!quiz) {
-    return {};
+    notFound();
   }
+  const otherLocale = locale === 'es' ? 'en' : 'es';
+  const equivalentSlug = getEquivalentQuizSlug(slug, otherLocale);
+  const counterpart = equivalentSlug ? await getQuizBySlug(equivalentSlug, otherLocale) : null;
 
   return generateQuizMetadata({
     title: quiz.title,
     description:
       quiz.description ??
       (locale === 'es' ? 'Juega este quiz en QuizVerse.' : 'Play this quiz on QuizVerse.'),
-    image:
-      quiz.cover_image_url ||
-      `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz/${quiz.slug}/opengraph-image`,
+    image: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz/${quiz.slug}/opengraph-image`,
     url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz/${quiz.slug}`,
-    alternateUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale === 'es' ? 'en' : 'es'}/quiz/${quiz.slug}`,
+    alternateUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${otherLocale}${counterpart ? `/quiz/${counterpart.slug}` : ''}`,
     locale,
   });
 }

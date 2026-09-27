@@ -104,7 +104,6 @@ export function ResultScreen({
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
         <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <section className="arcade-result-main">
-            <span className="arcade-play-label">{copy.eyebrow}</span>
             <motion.h1
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -147,7 +146,7 @@ export function ResultScreen({
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
-              <Link href={localizeHref(uiLocale, '/quiz')} className="arcade-button">
+              <Link href={localizeHref(uiLocale, '/quiz')} className="arcade-button arcade-result-secondary">
                 {uiLocale === 'es' ? 'Jugar otro' : 'Play another'}
               </Link>
               {onPlayAgain && <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
   const { locale, slug } = await params;
   if (!hasLocale(locale)) return {};
   const payload = await getCategoryPayload(slug, locale);
-  if (!payload) return {};
+  if (!payload || payload.quizzes.length === 0) notFound();
   const category = localizeCategory(payload.category, locale)!;
   return generateCategoryMetadata({
     name: category.name, slug,
@@ -28,6 +28,7 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
   if (!hasLocale(locale)) notFound();
   const payload = await getCategoryPayload(slug, locale);
   if (!payload) notFound();
+  if (payload.quizzes.length === 0) notFound();
   const dictionary = await getDictionary(locale);
   const category = localizeCategory(payload.category, locale)!;
   const quizzes = localizeQuizList(payload.quizzes, locale);

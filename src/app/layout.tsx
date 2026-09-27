@@ -1,8 +1,7 @@
 ﻿import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { Archivo_Black, Space_Grotesk } from 'next/font/google';
 import './globals.css';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SupabaseProvider } from '@/providers/supabase-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
@@ -84,10 +83,11 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const locale = (await headers()).get('x-quizverse-locale') === 'es' ? 'es' : 'en';
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`h-full ${archivo.variable} ${space.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
@@ -103,8 +103,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               {children}
               <ToastViewport />
               <CookieConsentBanner />
-              <Analytics />
-              <SpeedInsights />
             </ToastProvider>
           </ThemeProvider>
         </SupabaseProvider>
