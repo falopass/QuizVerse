@@ -3,12 +3,14 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils/cn';
 import { ProgressBar } from '@/components/ui/progress-bar';
+import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface QuizProgressProps {
   currentQuestion: number;
   totalQuestions: number;
   timeRemaining?: number;
   timeLimit?: number;
+  locale: Locale;
 }
 
 function getTimerGradient(remaining: number, limit: number): 'safe' | 'medium' | 'low' {
@@ -23,6 +25,7 @@ export function QuizProgress({
   totalQuestions,
   timeRemaining,
   timeLimit,
+  locale,
 }: QuizProgressProps) {
   return (
     <div className="w-full">
@@ -38,9 +41,9 @@ export function QuizProgress({
       </div>
 
       {/* Info row */}
-      <div className="flex items-center justify-between text-sm">
-        <span className="text-text-secondary font-medium">
-          Question {currentQuestion} / {totalQuestions}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+        <span className="text-text-primary font-bold">
+          {locale === 'es' ? 'PREGUNTA' : 'QUESTION'} {currentQuestion} / {totalQuestions}
         </span>
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">
@@ -55,7 +58,7 @@ export function QuizProgress({
             <div
               className={cn(
                 'flex items-center gap-1.5 font-mono',
-                timeRemaining <= 10 ? 'text-warning' : 'text-text-muted'
+                timeRemaining <= 10 ? 'text-warning' : 'text-text-primary'
               )}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

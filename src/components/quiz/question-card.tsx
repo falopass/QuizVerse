@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils/cn';
+import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Question } from '@/types/quiz';
 
 interface QuestionCardProps {
@@ -10,102 +11,50 @@ interface QuestionCardProps {
   selectedOptionId: string | null;
   onSelectOption: (optionId: string) => void;
   showExplanation?: boolean;
+  showFeedback?: boolean;
   disabled?: boolean;
+  locale: Locale;
+  hiddenOptionIds?: string[];
 }
 
-export function QuestionCard({
-  question,
-  questionNumber,
-  totalQuestions,
-  selectedOptionId,
-  onSelectOption,
-  showExplanation = false,
-  disabled = false,
-}: QuestionCardProps) {
+export function QuestionCard({ question, questionNumber, totalQuestions, selectedOptionId, onSelectOption, showExplanation = false, showFeedback = false, disabled = false, locale, hiddenOptionIds = [] }: QuestionCardProps) {
+  const es = locale === 'es';
   return (
-    <article className="surface-panel mx-auto w-full max-w-4xl overflow-hidden p-5 md:p-8">
-      <div className="grid gap-8 lg:grid-cols-[0.28fr_0.72fr]">
-        <aside className="bg-bg-tertiary space-y-5 rounded-2xl p-5">
-          <div>
-            <span className="eyebrow">Question</span>
-            <p className="font-display text-text-primary mt-2 text-4xl font-bold">
-              {questionNumber}
-            </p>
-            <p className="text-text-secondary mt-1 text-sm">of {totalQuestions}</p>
-          </div>
-
-          <div className="space-y-2">
-            <div className="bg-bg-secondary h-1 overflow-hidden rounded-full">
-              <div
-                className="bg-accent-primary h-full rounded-full transition-all duration-300"
-                style={{ width: `${(questionNumber / totalQuestions) * 100}%` }}
-              />
-            </div>
-            <span className="eyebrow">Editorial play mode</span>
-          </div>
-        </aside>
-
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <span className="eyebrow">Current prompt</span>
-            <h2 className="text-text-primary text-xl leading-snug font-semibold md:text-3xl">
-              {question.question}
-            </h2>
-          </div>
-
-          {question.image_url && (
-            <div className="overflow-hidden rounded-[1.75rem]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={question.image_url}
-                alt="Question illustration"
-                className="bg-bg-secondary h-auto max-h-80 w-full object-contain"
-              />
-            </div>
-          )}
-
-          <div className="grid gap-2.5">
-            {question.options.map((option, index) => (
-              <button
-                key={option.id}
-                onClick={() => !disabled && onSelectOption(option.id)}
-                disabled={disabled}
-                className={cn(
-                  'group rounded-xl border px-4 py-4 text-left transition-all duration-200',
-                  'focus-visible:ring-accent-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-                  disabled && 'cursor-not-allowed opacity-50',
-                  selectedOptionId === option.id
-                    ? 'border-accent-primary bg-bg-primary text-text-primary'
-                    : 'border-border-subtle bg-bg-tertiary text-text-secondary hover:border-border-hover hover:bg-bg-secondary'
-                )}
-              >
-                <div className="flex items-start gap-3">
-                  <div
-                    className={cn(
-                      'mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold transition-colors',
-                      selectedOptionId === option.id
-                        ? 'border-accent-primary bg-accent-primary text-white'
-                        : 'border-border-subtle bg-bg-secondary text-text-muted group-hover:text-text-primary'
-                    )}
-                  >
-                    {String.fromCharCode(65 + index)}
-                  </div>
-                  <p className="text-base leading-relaxed font-medium">{option.text}</p>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {showExplanation && question.explanation && (
-            <div className="bg-bg-tertiary rounded-2xl p-5">
-              <span className="eyebrow">Explanation</span>
-              <p className="text-text-secondary mt-3 text-sm leading-relaxed">
-                {question.explanation}
-              </p>
-            </div>
-          )}
-        </div>
+    <article className="arcade-question">
+      <div className="arcade-question-head">
+        <span>{es ? 'PREGUNTA' : 'QUESTION'} {String(questionNumber).padStart(2, '0')} / {String(totalQuestions).padStart(2, '0')}</span>
+        <span>{es ? 'ELIGE UNA RESPUESTA' : 'CHOOSE AN ANSWER'}</span>
       </div>
+      <h2>{question.question}</h2>
+      {question.image_url && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={question.image_url} alt={es ? 'Ilustración de la pregunta' : 'Question illustration'} className="arcade-question-image" />
+      )}
+      <div className="arcade-options">
+        {question.options.map((option, index) => {
+          const selected = selectedOptionId === option.id;
+          const correct = showFeedback && option.is_correct;
+          const incorrect = showFeedback && selected && !option.is_correct && question.options.some((item) => item.is_correct);
+          return (
+            <button
+              key={option.id}
+              type="button"
+              onClick={() => onSelectOption(option.id)}
+              disabled={disabled || hiddenOptionIds.includes(option.id)}
+              aria-pressed={selected}
+              className={cn('arcade-option', selected && 'arcade-option-selected', correct && 'arcade-option-correct', incorrect && 'arcade-option-incorrect', hiddenOptionIds.includes(option.id) && 'arcade-option-hidden')}
+            >
+              <span className="arcade-option-letter">{String.fromCharCode(65 + index)}</span>
+              <span>{option.text}</span>
+              {correct && <span className="arcade-option-state">{es ? 'CORRECTA' : 'CORRECT'}</span>}
+              {incorrect && <span className="arcade-option-state">{es ? 'INCORRECTA' : 'INCORRECT'}</span>}
+            </button>
+          );
+        })}
+      </div>
+      {showExplanation && showFeedback && question.explanation && (
+        <div className="arcade-explanation"><strong>{es ? 'EXPLICACIÓN' : 'EXPLANATION'}</strong><p>{question.explanation}</p></div>
+      )}
     </article>
   );
 }

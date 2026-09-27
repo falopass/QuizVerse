@@ -14,14 +14,14 @@ interface LocalePageProps { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(locale)) return {};
-  return generateQuizMetadata({
+  return { ...generateQuizMetadata({
     title: locale === 'es' ? 'QuizVerse en Español' : 'QuizVerse',
     description: locale === 'es'
       ? 'Quizzes de cultura pop, trivia y personalidad para jugar y compartir.'
       : 'Pop culture quizzes, trivia and personality games to play and share.',
     url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}`,
     locale,
-  });
+  }), title: { absolute: locale === 'es' ? 'QuizVerse en Español' : 'QuizVerse' } };
 }
 
 export default async function LocalizedHomePage({ params }: LocalePageProps) {

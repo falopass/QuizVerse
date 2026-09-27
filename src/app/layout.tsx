@@ -28,12 +28,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org';
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'QuizVerse | Editorial quizzes with personality',
+    default: 'QuizVerse | Pop culture games',
     template: '%s | QuizVerse',
   },
   description:
-    'Play personality quizzes, sharp trivia and fast editorial formats with a stronger product experience.',
-  keywords: ['quizzes', 'personality tests', 'trivia', 'editorial entertainment'],
+    'Play pop culture quizzes, trivia and personality games in English and Spanish.',
+  keywords: ['quizzes', 'personality tests', 'trivia', 'pop culture games'],
   authors: [{ name: 'QuizVerse' }],
   creator: 'QuizVerse',
   alternates: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'QuizVerse',
-    title: 'QuizVerse | Editorial quizzes with personality',
+    title: 'QuizVerse | Pop culture games',
     description: 'Play bold quizzes, create your own, and share results worth showing.',
     images: [
       {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'QuizVerse | Editorial quizzes with personality',
+    title: 'QuizVerse | Pop culture games',
     description: 'Play bold quizzes, create your own, and share results worth showing.',
     images: ['/opengraph-image'],
     creator: '@quizverse',
@@ -95,7 +95,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <link rel="preconnect" href="https://supabase.co" crossOrigin="anonymous" />
       </head>
-      <body className="editorial-shell bg-bg-primary text-text-primary h-full antialiased">
+      <body className="bg-bg-primary text-text-primary h-full antialiased">
         <SupabaseProvider>
           <ThemeProvider>
             <ToastProvider>

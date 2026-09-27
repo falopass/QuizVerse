@@ -78,7 +78,7 @@ export function calculateTriviaScore(
     const timeLimit = question?.time_limit_seconds || 30;
     const timeTaken = answer.time_ms / 1000;
 
-    if (answer.is_correct && timeTaken < timeLimit) {
+    if (answer.is_correct && answer.time_ms > 0 && timeTaken < timeLimit) {
       const timeRatio = 1 - timeTaken / timeLimit;
       const bonus = Math.round(
         SCORING_CONFIG.BASE_POINTS_CORRECT * SCORING_CONFIG.SPEED_BONUS_MULTIPLIER * timeRatio

@@ -63,6 +63,13 @@ describe('calculateTriviaScore', () => {
     const result = calculateTriviaScore(baseQuestions, answers);
     expect(result.speedBonus).toBeGreaterThan(0);
   });
+
+  it('no otorga bonus de velocidad sin reloj', () => {
+    const result = calculateTriviaScore(baseQuestions, [
+      { question_id: 'q1', selected_option_id: 'o1', is_correct: true, time_ms: 0 },
+    ]);
+    expect(result.speedBonus).toBe(0);
+  });
 });
 
 describe('calculatePersonalityScore', () => {

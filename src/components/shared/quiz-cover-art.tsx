@@ -1,11 +1,10 @@
 import { cn } from '@/lib/utils/cn';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
-import { getArcadeCopy } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Quiz } from '@/types/quiz';
 
 interface QuizCoverArtProps {
-  quiz: Pick<Quiz, 'title' | 'quiz_type' | 'category' | 'cover_image_url'>;
+  quiz: Pick<Quiz, 'slug' | 'title' | 'quiz_type' | 'category' | 'cover_image_url'>;
   locale: Locale;
   className?: string;
   ratioClassName?: string;
@@ -15,11 +14,7 @@ interface QuizCoverArtProps {
 
 export function QuizCoverArt({ quiz, locale, className, ratioClassName, compact = false, priorityLabel }: QuizCoverArtProps) {
   const photo = quiz.cover_image_url?.startsWith('/stock-covers/');
-  const namedFandom = quiz.title.match(/\b(?:The Boys|Stranger Things|Star Wars|Euphoria|Mario|Re:Zero|Dr\. Stone)\b/i)?.[0];
-  const copy = getArcadeCopy(locale);
-  const artTitle = namedFandom && namedFandom.toLowerCase() !== quiz.title.trim().toLowerCase()
-    ? namedFandom
-    : quiz.quiz_type === 'personality' ? copy.coverRole : copy.coverTrivia;
+  const artTitle = quiz.title.trim();
   return (
     <div
       className={cn('arcade-cover', quiz.quiz_type === 'trivia' && 'arcade-cover-trivia', ratioClassName, className)}
@@ -28,10 +23,10 @@ export function QuizCoverArt({ quiz, locale, className, ratioClassName, compact 
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {photo && <img src={quiz.cover_image_url!} alt="" className="arcade-cover-photo" />}
-      <span className="arcade-cover-stamp">{priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}</span>
-      {!photo && <strong className={cn('arcade-cover-title', compact && 'arcade-cover-title-small')}>{artTitle}</strong>}
+      {priorityLabel !== '' && <span className="arcade-cover-stamp">{priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}</span>}
+      <strong className={cn('arcade-cover-title', (compact || artTitle.length > 22) && 'arcade-cover-title-small')}>{artTitle}</strong>
+      <span className="arcade-cover-edition" aria-hidden="true">{quiz.slug.replaceAll('-', ' ')}</span>
       {!photo && <span className="arcade-cover-star" aria-hidden="true">✦</span>}
-      <span className="arcade-cover-bar">{quiz.category?.name ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}</span>
     </div>
   );
 }

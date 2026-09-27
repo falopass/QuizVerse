@@ -18,8 +18,6 @@ interface GameModeInfo {
   name: Record<'en' | 'es', string>;
   icon: string;
   description: Record<'en' | 'es', string>;
-  color: string;
-  bgGradient: string;
 }
 
 const GAME_MODES: GameModeInfo[] = [
@@ -31,19 +29,15 @@ const GAME_MODES: GameModeInfo[] = [
       en: 'Answer at your own pace. No pressure.',
       es: 'Responde a tu ritmo. Sin presión.',
     },
-    color: 'from-violet-500 to-purple-500',
-    bgGradient: 'from-violet-500/10 to-purple-500/10',
   },
   {
     id: 'timed',
-    name: { en: 'Time Attack', es: 'Contra reloj' },
+    name: { en: 'Time Attack', es: 'Contrarreloj' },
     icon: 'R',
     description: {
       en: 'Answer as many questions as possible before time runs out.',
       es: 'Responde la mayor cantidad posible antes de que se acabe el tiempo.',
     },
-    color: 'from-red-500 to-orange-500',
-    bgGradient: 'from-red-500/10 to-orange-500/10',
   },
   {
     id: 'survival',
@@ -53,8 +47,6 @@ const GAME_MODES: GameModeInfo[] = [
       en: "One mistake and you're out. How far can you go?",
       es: 'Un error y quedas fuera. ¿Hasta dónde llegas?',
     },
-    color: 'from-green-500 to-emerald-500',
-    bgGradient: 'from-green-500/10 to-emerald-500/10',
   },
   {
     id: 'practice',
@@ -64,13 +56,12 @@ const GAME_MODES: GameModeInfo[] = [
       en: 'Learn at your own pace with instant explanations.',
       es: 'Aprende a tu ritmo con explicaciones instantáneas.',
     },
-    color: 'from-blue-500 to-cyan-500',
-    bgGradient: 'from-blue-500/10 to-cyan-500/10',
   },
 ];
 
 export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameModeSelectorProps) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
+  const modes = React.useMemo(() => GAME_MODES.filter((mode) => quiz.quiz_type === 'trivia' || mode.id !== 'survival'), [quiz.quiz_type]);
   const copy =
     locale === 'es'
       ? {
@@ -92,29 +83,40 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
 
   const handleModeSelect = (mode: GameMode) => {
     setSelectedMode(mode);
-    setTimeout(() => onSelectMode(mode), 300);
+    onSelectMode(mode);
   };
 
+  React.useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const index = Number(event.key) - 1;
+      if (event.altKey || event.ctrlKey || event.metaKey || !Number.isInteger(index) || index < 0 || index >= modes.length || selectedMode) return;
+      setSelectedMode(modes[index].id);
+      onSelectMode(modes[index].id);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [modes, onSelectMode, selectedMode]);
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+    <div className="arcade-play-page arcade-wrap">
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="w-full max-w-3xl"
+        className="w-full"
       >
-        <div className="mb-8 text-center">
-          <h1 className="font-display text-text-primary mb-2 text-3xl font-bold md:text-4xl">
+        <div className="arcade-mode-intro">
+          <h1>
             {copy.title}
           </h1>
-          <p className="text-text-secondary">{quiz.title}</p>
-          <p className="text-text-muted mt-2 text-sm">
+          <p className="arcade-mode-quiz">{quiz.title}</p>
+          <p className="arcade-mode-count">
             {quiz.questions.length} {copy.questions} ·{' '}
             {quiz.quiz_type === 'trivia' ? copy.knowledge : copy.result}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {GAME_MODES.map((mode, index) => (
+        <div className="arcade-mode-grid">
+          {modes.map((mode, index) => (
             <motion.button
               key={mode.id}
               initial={{ y: 20, opacity: 0 }}
@@ -122,67 +124,17 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
               transition={{ delay: index * 0.1 }}
               onClick={() => handleModeSelect(mode.id)}
               disabled={selectedMode !== null}
-              className={cn(
-                'group relative rounded-2xl border-2 p-6 text-left transition-all duration-300',
-                'hover:scale-[1.02] active:scale-[0.98]',
-                selectedMode === mode.id
-                  ? 'border-accent-primary bg-accent-primary/10'
-                  : 'border-border-subtle bg-bg-secondary hover:border-accent-primary/50',
-                'disabled:cursor-not-allowed disabled:opacity-50'
-              )}
+              className={cn('arcade-mode-card', selectedMode === mode.id && 'arcade-mode-card-selected')}
             >
-              <div
-                className={cn(
-                  'absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity group-hover:opacity-100',
-                  mode.bgGradient
-                )}
-              />
-
-              <div className="relative min-w-0 pr-10">
-                <div className="border-border-subtle text-text-primary mb-3 flex h-12 w-12 items-center justify-center rounded-2xl border bg-white/60 text-lg font-semibold">
-                  {mode.icon}
-                </div>
-
-                <h3
-                  className={cn(
-                    'mb-2 bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent',
-                    mode.color
-                  )}
-                >
-                  {mode.name[locale]}
-                </h3>
-
-                <p className="text-text-secondary text-sm leading-7">{mode.description[locale]}</p>
-              </div>
-
-              <div
-                className={cn(
-                  'bg-bg-tertiary group-hover:bg-accent-primary/20 absolute top-1/2 right-4 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full transition-all duration-200',
-                  'opacity-0 group-hover:opacity-100'
-                )}
-              >
-                <svg
-                  className="text-text-secondary h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
+              <span className="arcade-mode-number">0{index + 1} / {mode.icon}</span>
+              <span className="arcade-mode-name">{mode.name[locale]}</span>
+              <span className="arcade-mode-description">{mode.description[locale]}</span>
+              <span className="arcade-mode-arrow" aria-hidden="true">↗</span>
             </motion.button>
           ))}
         </div>
 
-        <p className="text-text-muted mt-6 text-center text-xs">
-          {copy.keyboardPrefix} <kbd className="bg-bg-tertiary rounded px-1.5 py-0.5">1-4</kbd>{' '}
-          {copy.keyboardSuffix}
-        </p>
+        <p className="arcade-mode-hint">{copy.keyboardPrefix} 1-{modes.length} {copy.keyboardSuffix}</p>
       </motion.div>
     </div>
   );

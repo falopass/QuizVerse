@@ -22,8 +22,6 @@ interface ResultScreenProps {
   bonusPoints?: number;
   shareUrl?: string;
   onPlayAgain?: () => void;
-  onReview?: () => void;
-  showReview?: boolean;
 }
 
 export function ResultScreen({
@@ -36,8 +34,6 @@ export function ResultScreen({
   bonusPoints = 0,
   shareUrl,
   onPlayAgain,
-  onReview,
-  showReview = false,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [showShare, setShowShare] = React.useState(false);
@@ -45,18 +41,14 @@ export function ResultScreen({
     uiLocale === 'es'
       ? {
           eyebrow: 'Resultado',
-          fallbackBody:
-            'Completaste toda la partida. Ahora el resultado está presentado como algo que vale la pena compartir, repetir y guardar.',
+          fallbackBody: 'Partida terminada. Revisa tus respuestas y vuelve a jugar cuando quieras.',
           questions: 'Preguntas',
           bestStreak: 'Mejor racha',
-          bonus: 'Bonus',
+          bonus: 'Puntos',
           scoreline: 'Marcador',
           correct: 'correctas',
           sessionSnapshot: 'Resumen de sesión',
-          review: 'Revisión',
-          answerTrail: 'Rastro de respuestas',
-          hideReview: 'Ocultar revisión',
-          showReview: 'Ver revisión',
+          answerTrail: 'Tus respuestas',
           question: 'Pregunta',
           yourAnswer: 'Tu respuesta',
           skipped: 'Omitida',
@@ -66,18 +58,14 @@ export function ResultScreen({
         }
       : {
           eyebrow: 'Result',
-          fallbackBody:
-            'You finished the full run. Now the result is framed as something worth sharing, replaying and keeping.',
+          fallbackBody: 'Game complete. Review your answers and jump back in whenever you like.',
           questions: 'Questions',
           bestStreak: 'Best streak',
-          bonus: 'Bonus',
+          bonus: 'Points',
           scoreline: 'Scoreline',
           correct: 'correct',
           sessionSnapshot: 'Session snapshot',
-          review: 'Review',
-          answerTrail: 'Answer trail',
-          hideReview: 'Hide review',
-          showReview: 'Show review',
+          answerTrail: 'Your answers',
           question: 'Question',
           yourAnswer: 'Your answer',
           skipped: 'Skipped',
@@ -85,10 +73,11 @@ export function ResultScreen({
           shareTitle: 'Share result',
           shareText: 'Check out my result on QuizVerse.',
         };
-  const scoreMessage = getScoreMessage(triviaScore?.percentage, uiLocale);
+  const scorePercentage = triviaScore?.percentage;
+  const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
 
   React.useEffect(() => {
-    if (!triviaScore || triviaScore.percentage < 60) return;
+    if (scorePercentage === undefined || scorePercentage < 60 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const duration = 3000;
     const end = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
@@ -108,26 +97,26 @@ export function ResultScreen({
     }, 250);
 
     return () => clearInterval(interval);
-  }, [triviaScore?.percentage]);
+  }, [scorePercentage]);
 
   return (
-    <div className="relative min-h-screen px-4 py-12">
+    <div className="arcade-result arcade-wrap">
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
         <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-          <section className="surface-panel p-6 md:p-10">
-            <span className="eyebrow">{copy.eyebrow}</span>
+          <section className="arcade-result-main">
+            <span className="arcade-play-label">{copy.eyebrow}</span>
             <motion.h1
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="font-display text-text-primary mt-5 text-3xl font-bold tracking-tight md:text-5xl"
+              className="arcade-result-verdict"
             >
               {result?.title || scoreMessage}
             </motion.h1>
-            <p className="text-text-secondary mt-5 max-w-2xl text-lg leading-relaxed">
+            <p className="arcade-result-body">
               {result?.description || copy.fallbackBody}
             </p>
 
-            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div className="arcade-result-metrics">
               <ResultMetric
                 label={copy.questions}
                 value={String(triviaScore?.total ?? answers.length)}
@@ -137,50 +126,49 @@ export function ResultScreen({
             </div>
 
             {triviaScore && (
-              <div className="bg-bg-tertiary mt-8 rounded-2xl p-6">
-                <span className="eyebrow">{copy.scoreline}</span>
+              <div className="arcade-result-score">
+                <span className="arcade-play-label">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
-                  <p className="font-display text-accent-primary text-5xl font-bold md:text-7xl">
+                  <p className="arcade-result-number">
                     {triviaScore.percentage}%
                   </p>
-                  <p className="text-text-muted pb-2 text-sm tracking-wider uppercase">
+                  <p className="text-text-primary pb-2 text-sm font-bold tracking-wider uppercase">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>
                 </div>
               </div>
             )}
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="arcade-result-actions">
               <button
                 type="button"
                 onClick={() => setShowShare(true)}
-                className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+                className="arcade-button arcade-button-pink"
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
-              <button
-                type="button"
-                onClick={onPlayAgain || (() => window.location.reload())}
-                className="border-border-subtle text-text-primary hover:border-border-hover inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
-              >
-                {uiLocale === 'es' ? 'Jugar de nuevo' : 'Play again'}
-              </button>
+              <Link href={localizeHref(uiLocale, '/quiz')} className="arcade-button">
+                {uiLocale === 'es' ? 'Jugar otro' : 'Play another'}
+              </Link>
+              {onPlayAgain && <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">
+                {uiLocale === 'es' ? 'Repetir partida' : 'Replay this quiz'}
+              </button>}
               <Link
-                href={localizeHref(uiLocale, '/quiz')}
-                className="text-text-secondary hover:text-text-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors"
+                href={localizeHref(uiLocale, '/leaderboard')}
+                className="arcade-result-ranking"
               >
-                {uiLocale === 'es' ? 'Explorar más' : 'Explore more'}
+                {uiLocale === 'es' ? 'Ver ranking ↗' : 'View ranking ↗'}
               </Link>
             </div>
           </section>
 
           <section className="space-y-6">
-            <div className="surface-card p-4">
+            <div className="arcade-result-cover">
               <QuizCoverArt quiz={quiz} locale={uiLocale} compact ratioClassName="aspect-[16/9]" />
             </div>
 
-            <div className="surface-card p-6">
-              <span className="eyebrow">{copy.sessionSnapshot}</span>
+            <div className="arcade-result-summary">
+              <span className="arcade-play-label">{copy.sessionSnapshot}</span>
               <h2 className="font-display text-text-primary mt-3 text-2xl font-bold md:text-3xl">
                 {quiz.title}
               </h2>
@@ -190,25 +178,17 @@ export function ResultScreen({
               </p>
             </div>
 
-            <div className="surface-card p-6">
+            <div className="arcade-result-review">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <span className="eyebrow">{copy.review}</span>
                   <h3 className="font-display text-text-primary mt-2 text-xl font-bold md:text-2xl">
                     {copy.answerTrail}
                   </h3>
                 </div>
-                <button
-                  type="button"
-                  onClick={onReview || (() => {})}
-                  className="border-border-subtle text-text-primary hover:border-border-hover rounded-full border px-4 py-2 text-xs font-semibold tracking-wider uppercase transition-colors"
-                >
-                  {showReview ? copy.hideReview : copy.showReview}
-                </button>
               </div>
 
               <AnimatePresence initial={false}>
-                {showReview && (
+                {(
                   <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -227,14 +207,9 @@ export function ResultScreen({
                       return (
                         <div
                           key={answer.question_id}
-                          className={cn(
-                            'rounded-xl border p-4',
-                            answer.is_correct
-                              ? 'border-success/20 bg-success/5'
-                              : 'border-border-subtle bg-bg-tertiary'
-                          )}
+                          className={cn('arcade-review-item', quiz.quiz_type === 'trivia' && (answer.is_correct ? 'arcade-review-correct' : 'arcade-review-incorrect'))}
                         >
-                          <span className="eyebrow">
+                          <span className="arcade-play-label">
                             {copy.question} {index + 1}
                           </span>
                           <p className="text-text-primary mt-2 text-sm leading-relaxed font-medium">
@@ -243,7 +218,7 @@ export function ResultScreen({
                           <p className="text-text-secondary mt-3 text-sm">
                             {copy.yourAnswer}: {selectedOption?.text || copy.skipped}
                           </p>
-                          {!answer.is_correct && correctOption && (
+                          {quiz.quiz_type === 'trivia' && !answer.is_correct && correctOption && (
                             <p className="text-success mt-2 text-sm font-medium">
                               {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {correctOption.text}
                             </p>
@@ -273,14 +248,14 @@ export function ResultScreen({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               onClick={(event) => event.stopPropagation()}
-              className="surface-card w-full max-w-md p-6 shadow-lg"
+              className="arcade-share-panel w-full max-w-md p-6 shadow-lg"
             >
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display text-text-primary text-2xl">{copy.shareTitle}</h3>
                 <button
                   type="button"
                   onClick={() => setShowShare(false)}
-                  className="text-text-muted text-sm"
+                  className="text-text-primary text-sm font-bold"
                 >
                   {copy.close}
                 </button>
@@ -289,8 +264,8 @@ export function ResultScreen({
                 locale={uiLocale}
                 title={
                   uiLocale === 'es'
-                    ? `Obtuve ${result?.title || `${triviaScore?.percentage}%`} en "${quiz.title}"`
-                    : `I got ${result?.title || `${triviaScore?.percentage}%`} on "${quiz.title}"`
+                    ? `Obtuve ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en "${quiz.title}"`
+                    : `I got ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'a result')} on "${quiz.title}"`
                 }
                 url={shareUrl || (typeof window !== 'undefined' ? window.location.href : '')}
                 text={copy.shareText}
@@ -305,9 +280,9 @@ export function ResultScreen({
 
 function ResultMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-bg-tertiary rounded-2xl p-5">
-      <span className="eyebrow">{label}</span>
-      <p className="font-display text-text-primary mt-2 text-3xl font-bold">{value}</p>
+    <div className="arcade-result-metric">
+      <span>{label}</span>
+      <p>{value}</p>
     </div>
   );
 }

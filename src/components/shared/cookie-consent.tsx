@@ -50,8 +50,8 @@ function getLocale(): 'en' | 'es' {
 const copy = {
   title: { en: 'This site uses cookies.', es: 'Este sitio usa cookies.' },
   body: {
-    en: 'We use essential cookies for platform functionality and analytics cookies to improve the experience. You can choose which cookies to accept.',
-    es: 'Usamos cookies esenciales para el funcionamiento de la plataforma y cookies analíticas para mejorar la experiencia. Podés elegir qué cookies aceptar.',
+    en: 'Essential cookies run the site. You can also allow analytics to help us improve it.',
+    es: 'Las cookies esenciales hacen funcionar el sitio. También puedes permitir las analíticas para ayudarnos a mejorarlo.',
   },
   essentialLabel: { en: 'Essential', es: 'Esenciales' },
   analyticsLabel: { en: 'Analytics', es: 'Analíticas' },
@@ -99,35 +99,25 @@ export function CookieConsentBanner() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="bg-bg-secondary border-border-subtle fixed right-0 bottom-0 left-0 z-[100] border-t p-4 shadow-2xl sm:p-6"
+          className="cookie-consent-banner"
         >
-          <div className="mx-auto flex max-w-4xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="cookie-consent-inner">
             <div className="text-text-secondary max-w-xl text-sm leading-relaxed">
               <p>
                 <span className="text-text-primary font-semibold">{copy.title[locale]} </span>
                 {copy.body[locale]}
               </p>
-              <div className="mt-2 flex gap-4 text-xs">
-                <span className="text-text-muted flex items-center gap-1">
-                  <span className="bg-success/20 text-success inline-block h-2 w-2 rounded-full" />
-                  {copy.essentialLabel[locale]}
-                </span>
-                <span className="text-text-muted flex items-center gap-1">
-                  <span className="bg-accent-primary/20 text-accent-primary inline-block h-2 w-2 rounded-full" />
-                  {copy.analyticsLabel[locale]}
-                </span>
-              </div>
             </div>
-            <div className="flex shrink-0 gap-3">
+            <div className="cookie-consent-actions">
               <button
                 onClick={acceptEssential}
-                className="text-text-secondary hover:text-text-primary hover:bg-bg-tertiary rounded-lg px-4 py-2.5 text-sm font-medium transition-colors"
+                className="cookie-consent-secondary"
               >
                 {copy.essentialButton[locale]}
               </button>
               <button
                 onClick={acceptAll}
-                className="bg-accent-primary hover:bg-accent-hover shadow-accent-primary/25 rounded-lg px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:shadow-xl"
+                className="arcade-button"
               >
                 {copy.acceptAllButton[locale]}
               </button>

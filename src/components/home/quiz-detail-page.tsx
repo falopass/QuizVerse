@@ -35,7 +35,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
     <div className="arcade-wrap arcade-page arcade-detail-page">
       <section className="arcade-detail">
         <div>
-          <QuizCoverArt quiz={quiz} locale={locale} className="arcade-detail-art" priorityLabel={getLocalizedTypeLabel(quiz.quiz_type, locale)} />
+          <QuizCoverArt quiz={quiz} locale={locale} className="arcade-detail-art" priorityLabel="" />
           {stockCover && quiz.cover_image_url?.startsWith('/stock-covers/') && <p className="arcade-attribution">{stockCover.attribution}</p>}
         </div>
         <div className="arcade-detail-copy">

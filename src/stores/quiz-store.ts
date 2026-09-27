@@ -45,9 +45,6 @@ export interface QuizGameState {
   lastAnswerCorrect: boolean | null;
   showFeedback: boolean;
 
-  // Revisión
-  showReview: boolean;
-
   // Actions
   startGame: (quiz: Quiz, mode?: GameMode) => void;
   selectOption: (optionId: string) => void;
@@ -60,7 +57,6 @@ export interface QuizGameState {
   setGameMode: (mode: GameMode) => void;
   showAnswerFeedback: (correct: boolean) => void;
   hideFeedback: () => void;
-  toggleReview: () => void;
 
   // Getters
   getCurrentQuestion: () => Question | null;
@@ -114,12 +110,9 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   powerUps: [...DEFAULT_POWER_UPS],
   lastAnswerCorrect: null,
   showFeedback: false,
-  showReview: false,
 
   // Actions
   startGame: (quiz: Quiz, mode: GameMode = 'normal') => {
-    const timeLimit = quiz.questions[0]?.time_limit_seconds || 30;
-
     set({
       quiz,
       gameMode: mode,
@@ -128,7 +121,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       answers: [],
       isCompleted: false,
       isPaused: false,
-      timeRemaining: mode === 'timed' ? timeLimit * quiz.questions.length : timeLimit,
+      timeRemaining: mode === 'timed' ? quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0) : 0,
       totalTimeUsed: 0,
       streak: 0,
       maxStreak: 0,
@@ -136,7 +129,6 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       powerUps: [...DEFAULT_POWER_UPS],
       lastAnswerCorrect: null,
       showFeedback: false,
-      showReview: false,
     });
   },
 
@@ -156,8 +148,9 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       state.quiz.quiz_type === 'trivia' ? (selectedOption?.is_correct ?? false) : false;
 
     // Calcular tiempo
-    const timeLimit = question?.time_limit_seconds || 30;
-    const timeTaken = (timeLimit - state.timeRemaining) * 1000;
+    const timeTaken = state.gameMode === 'timed'
+      ? Math.max(0, state.totalTimeUsed * 1000 - state.answers.reduce((total, answer) => total + answer.time_ms, 0))
+      : 0;
 
     // Crear respuesta
     const answer: Answer = {
@@ -186,7 +179,8 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     // Auto-avanzar después de mostrar feedback
     setTimeout(() => {
       const currentState = get();
-      if (currentState.currentQuestionIndex === currentState.quiz!.questions.length - 1) {
+      if (!currentState.quiz || currentState.quiz.id !== state.quiz?.id || currentState.currentQuestionIndex !== state.currentQuestionIndex || !currentState.showFeedback) return;
+      if ((currentState.gameMode === 'survival' && !isCorrect) || currentState.currentQuestionIndex === currentState.quiz.questions.length - 1) {
         set({ isCompleted: true });
       } else {
         get().nextQuestion();
@@ -199,12 +193,9 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     if (!state.quiz) return;
 
     const nextIndex = state.currentQuestionIndex + 1;
-    const nextTimeLimit = state.quiz.questions[nextIndex]?.time_limit_seconds || 30;
-
     set({
       currentQuestionIndex: nextIndex,
       selectedOptionId: null,
-      timeRemaining: state.gameMode === 'timed' ? state.timeRemaining : nextTimeLimit,
       showFeedback: false,
       lastAnswerCorrect: null,
     });
@@ -229,7 +220,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       showFeedback: false,
     }));
 
-    if (state.currentQuestionIndex === state.quiz.questions.length - 1) {
+    if (state.gameMode === 'survival' || state.currentQuestionIndex === state.quiz.questions.length - 1) {
       set({ isCompleted: true });
     } else {
       get().nextQuestion();
@@ -248,7 +239,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
         // En el componente se manejará visualmente
         break;
       case 'extra-time':
-        set({ timeRemaining: state.timeRemaining + 10 });
+        if (state.gameMode === 'timed') set({ timeRemaining: state.timeRemaining + 10 });
         break;
       case 'skip':
         get().skipQuestion();
@@ -282,10 +273,6 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
   hideFeedback: () => {
     set({ showFeedback: false, lastAnswerCorrect: null });
-  },
-
-  toggleReview: () => {
-    set((prev) => ({ showReview: !prev.showReview }));
   },
 
   // Getters
@@ -335,10 +322,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
   getTimeBonus: () => {
     const state = get();
-    if (!state.quiz || state.quiz.quiz_type !== 'trivia') return 0;
+    if (!state.quiz || state.quiz.quiz_type !== 'trivia' || state.gameMode !== 'timed') return 0;
 
     // Bonus por tiempo restante (hasta 50% extra)
-    const totalTime = state.quiz.questions.length * 30;
+    const totalTime = state.quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0);
     const timeRemainingPercent = state.timeRemaining / totalTime;
     const baseScore = state.answers.filter((a) => a.is_correct).length;
 

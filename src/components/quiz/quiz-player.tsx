@@ -10,7 +10,6 @@ import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
 import { QuizProgress } from './quiz-progress';
-import { QuizDynamicBackground } from './quiz-dynamic-background';
 import { ResultScreen } from './result-screen';
 import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -23,6 +22,7 @@ interface QuizPlayerProps {
 }
 
 let _audioContext: AudioContext | null = null;
+const NO_HIDDEN_OPTIONS: string[] = [];
 function getAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null;
   if (_audioContext && _audioContext.state !== 'closed') return _audioContext;
@@ -87,6 +87,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
           next: 'Next',
         };
   const [showModeSelector, setShowModeSelector] = React.useState(true);
+  const [hiddenOptions, setHiddenOptions] = React.useState<{ questionIndex: number; ids: string[] }>({ questionIndex: -1, ids: [] });
   const [submission, setSubmission] = React.useState<{
     result: PersonalityResult | null;
     pointsEarned: number;
@@ -109,7 +110,6 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     powerUps,
     showFeedback,
     lastAnswerCorrect,
-    showReview,
     startGame,
     selectOption,
     submitAnswer,
@@ -117,12 +117,11 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     usePowerUp: activatePowerUp,
     togglePause,
     resetGame,
-    setGameMode,
-    toggleReview,
     getCurrentQuestion,
     getScore,
     getPersonalityResult,
   } = useQuizStore();
+  const hiddenOptionIds = hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
 
   React.useEffect(() => {
     startGame(quiz, 'normal');
@@ -145,28 +144,23 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
   }, [gameMode, quiz.id, quiz.quiz_type, quiz.slug, showModeSelector, uiLocale]);
 
   React.useEffect(() => {
-    if (isCompleted || isPaused || gameMode === 'practice') return;
+    if (showModeSelector || isCompleted || isPaused || showFeedback || gameMode !== 'timed') return;
     const timer = setInterval(() => {
       useQuizStore.setState((state) => {
         if (state.timeRemaining <= 1) {
-          if (state.selectedOptionId) submitAnswer();
-          else skipQuestion();
-          return {
-            timeRemaining:
-              state.quiz?.questions[state.currentQuestionIndex]?.time_limit_seconds || 30,
-          };
+          return { timeRemaining: 0, isCompleted: true };
         }
-        return { timeRemaining: state.timeRemaining - 1 };
+        return { timeRemaining: state.timeRemaining - 1, totalTimeUsed: state.totalTimeUsed + 1 };
       });
     }, 1000);
     return () => clearInterval(timer);
-  }, [currentQuestionIndex, gameMode, isCompleted, isPaused, skipQuestion, submitAnswer]);
+  }, [gameMode, isCompleted, isPaused, showFeedback, showModeSelector]);
 
   React.useEffect(() => {
-    if (!showFeedback || lastAnswerCorrect === null) return;
+    if (!showFeedback || lastAnswerCorrect === null || quiz.quiz_type !== 'trivia') return;
     playSound(lastAnswerCorrect ? 'correct' : 'incorrect');
     if (navigator.vibrate) navigator.vibrate(lastAnswerCorrect ? 50 : 100);
-  }, [lastAnswerCorrect, showFeedback]);
+  }, [lastAnswerCorrect, showFeedback, quiz.quiz_type]);
 
   React.useEffect(() => {
     if (!isCompleted || hasSubmittedRef.current || isSubmittingResult) return;
@@ -211,13 +205,13 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (isCompleted || isPaused) return;
+      if (showModeSelector || isCompleted || isPaused || showFeedback) return;
       const currentQuestion = getCurrentQuestion();
       if (!currentQuestion) return;
 
       if (event.key >= '1' && event.key <= '4') {
         const index = Number(event.key) - 1;
-        if (index < currentQuestion.options.length) {
+        if (index < currentQuestion.options.length && !hiddenOptionIds.includes(currentQuestion.options[index].id)) {
           selectOption(currentQuestion.options[index].id);
           playSound('click');
         }
@@ -236,8 +230,10 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [
     getCurrentQuestion,
+    hiddenOptionIds,
     isCompleted,
     isPaused,
+    showModeSelector,
     selectOption,
     selectedOptionId,
     showFeedback,
@@ -250,9 +246,9 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
   const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
   const handleStartGame = (mode: GameMode) => {
-    setGameMode(mode);
     startGame(quiz, mode);
     setShowModeSelector(false);
+    setHiddenOptions({ questionIndex: -1, ids: [] });
     playSound('click');
   };
 
@@ -262,17 +258,17 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
 
   if (isPaused) {
     return (
-      <div className="min-h-screen px-4 py-10">
+      <div className="arcade-play-page arcade-wrap">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center justify-center">
           <motion.div
             initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="surface-panel w-full max-w-xl p-10 text-center"
+            className="arcade-pause w-full max-w-xl p-10 text-center"
           >
             <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
               II
             </div>
-            <p className="eyebrow">{copy.pause}</p>
+            <p className="arcade-play-label">{copy.pause}</p>
             <h1 className="text-text-primary mt-3 text-4xl font-semibold tracking-tight">
               {copy.pauseTitle}
             </h1>
@@ -283,7 +279,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                   togglePause();
                   playSound('click');
                 }}
-                className="bg-accent-primary hover:bg-accent-hover rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+                className="arcade-button"
               >
                 {copy.resume}
               </button>
@@ -292,7 +288,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                   setShowModeSelector(true);
                   togglePause();
                 }}
-                className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
+                className="arcade-pause-secondary"
               >
                 {copy.changeMode}
               </button>
@@ -309,7 +305,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
         locale={uiLocale}
         quiz={quiz}
         result={submission?.result ?? getPersonalityResult()}
-        triviaScore={getScore()}
+        triviaScore={quiz.quiz_type === 'trivia' ? getScore() : undefined}
         answers={answers}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
@@ -324,8 +320,6 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
           hasSubmittedRef.current = false;
           setShowModeSelector(true);
         }}
-        onReview={() => toggleReview()}
-        showReview={showReview}
       />
     );
   }
@@ -335,25 +329,23 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <QuizDynamicBackground visualFamily={quiz.visual_profile?.visual_family} />
-      <div className="absolute inset-0 [background-image:linear-gradient(rgba(24,20,16,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(24,20,16,0.05)_1px,transparent_1px)] [background-size:48px_48px] opacity-35" />
-
-      <div className="relative z-10 flex min-h-screen flex-col">
+    <div className="arcade-play-screen">
+      <div className="flex min-h-screen flex-col">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="border-border-subtle bg-bg-glass sticky top-0 z-10 border-b backdrop-blur-xl"
+          className="arcade-play-top"
         >
           <div className="px-4 py-4">
             <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
-              <StreakIndicator streak={streak} />
+              <StreakIndicator streak={streak} locale={uiLocale} />
               <div className="max-w-xl flex-1">
                 <QuizProgress
                   currentQuestion={currentQuestionIndex + 1}
                   totalQuestions={totalQuestions}
-                  timeRemaining={timeRemaining}
-                  timeLimit={currentQuestion.time_limit_seconds || 30}
+                  locale={uiLocale}
+                  timeRemaining={gameMode === 'timed' ? timeRemaining : undefined}
+                  timeLimit={gameMode === 'timed' ? quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0) : undefined}
                 />
               </div>
               <button
@@ -380,46 +372,30 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
               </button>
             </div>
           </div>
-          <PowerUpBar
-            powerUps={powerUps}
+          {!showFeedback && <PowerUpBar
+            locale={uiLocale}
+            powerUps={powerUps.filter((powerUp) => (gameMode === 'timed' || powerUp.id !== 'extra-time') && (quiz.quiz_type === 'trivia' || powerUp.id !== 'fifty-fifty'))}
             onUsePowerUp={(id) => {
+              if (id === 'fifty-fifty') {
+                const hidden = currentQuestion.options.filter((option) => !option.is_correct).slice(0, 2).map((option) => option.id);
+                setHiddenOptions({ questionIndex: currentQuestionIndex, ids: hidden });
+                if (selectedOptionId && hidden.includes(selectedOptionId)) useQuizStore.setState({ selectedOptionId: null });
+              }
               activatePowerUp(id);
               playSound('powerup');
             }}
-          />
+          />}
         </motion.div>
 
-        <AnimatePresence>
-          {showFeedback && lastAnswerCorrect !== null && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className={cn(
-                'pointer-events-none fixed inset-0 z-50 flex items-center justify-center',
-                lastAnswerCorrect ? 'bg-success/10' : 'bg-error/10'
-              )}
-            >
-              <motion.div
-                initial={{ scale: 0.5 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.5 }}
-                className="border-border-subtle text-text-primary rounded-full border bg-white/85 px-8 py-6 text-3xl font-semibold shadow-xl"
-              >
-                {lastAnswerCorrect ? copy.correct : copy.miss}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="flex-1 px-4 py-8 md:py-10">
+        <div className="arcade-play-body flex-1 px-4 py-8 md:py-10">
+          {showFeedback && lastAnswerCorrect !== null && quiz.quiz_type === 'trivia' && <p className="arcade-answer-feedback" role="status">{lastAnswerCorrect ? copy.correct : copy.miss}</p>}
           <div className="mx-auto mb-6 flex max-w-5xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow">{copy.nowPlaying}</p>
-              <h1 className="text-text-primary mt-3 max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
+              <p className="arcade-play-label">{copy.nowPlaying}</p>
+              <h1 className="arcade-play-title">
                 {quiz.title}
               </h1>
-              <p className="text-text-muted mt-3 text-sm tracking-[0.18em] uppercase">
+              <p className="arcade-play-meta">
                 {getLocalizedTypeLabel(quiz.quiz_type, uiLocale)} · {quiz.estimated_minutes} min ·{' '}
                 {getLocalizedLanguageLabel(quiz.language, uiLocale)}
               </p>
@@ -447,13 +423,16 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                   }}
                   showExplanation={gameMode === 'practice'}
                   disabled={showFeedback}
+                  showFeedback={showFeedback}
+                  locale={uiLocale}
+                  hiddenOptionIds={hiddenOptionIds}
                 />
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
 
-        <div className="border-border-subtle bg-bg-glass sticky bottom-0 border-t px-4 py-4 backdrop-blur-xl">
+        <div className="arcade-play-actions">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
             <button
               onClick={() => {
@@ -461,7 +440,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                 playSound('click');
               }}
               disabled={showFeedback}
-              className="text-text-muted hover:text-text-secondary text-sm font-medium transition-colors disabled:opacity-50"
+              className="arcade-play-skip"
             >
               {copy.skip}
             </button>
@@ -469,10 +448,10 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
               onClick={() => submitAnswer()}
               disabled={!selectedOptionId || showFeedback}
               className={cn(
-                'inline-flex items-center gap-2 rounded-full px-8 py-3 font-semibold transition-all duration-200',
+                'arcade-play-submit',
                 selectedOptionId && !showFeedback
-                  ? 'bg-accent-primary hover:bg-accent-hover text-white hover:scale-105'
-                  : 'bg-bg-tertiary text-text-muted cursor-not-allowed'
+                  ? 'arcade-play-submit-ready'
+                  : 'cursor-not-allowed opacity-50'
               )}
             >
               {showFeedback ? '...' : isLastQuestion ? copy.finish : copy.next}

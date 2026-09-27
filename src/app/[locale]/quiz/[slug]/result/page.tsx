@@ -39,8 +39,6 @@ export default async function LocalizedQuizResultPage({
       : undefined;
 
   return (
-    <div className="min-h-screen px-4 pt-28 pb-20">
-      <div className="mx-auto max-w-6xl space-y-8">
         <ResultScreen
           locale={locale}
           quiz={quiz}
@@ -49,7 +47,5 @@ export default async function LocalizedQuizResultPage({
           answers={session?.answers ?? []}
           shareUrl={s ? `/${locale}/quiz/${quiz.slug}/result?s=${s}` : undefined}
         />
-      </div>
-    </div>
   );
 }
