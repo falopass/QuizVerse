@@ -1,0 +1,14 @@
+# QuizVerse — TLS + reverse proxy (Caddy, red del host)
+# Etapa actual (staging): nombres sslip.io que resuelven a 51.79.71.83.
+# Al mover el dominio real: reemplazar por quizverse.org / www / api.quizverse.org
+# (el DNS de quizverse.org vive en Cloudflare).
+
+app.51-79-71-83.sslip.io {
+	encode gzip zstd
+	reverse_proxy 127.0.0.1:3300
+}
+
+api.51-79-71-83.sslip.io {
+	encode gzip zstd
+	reverse_proxy 127.0.0.1:8000
+}

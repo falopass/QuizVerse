@@ -1,19 +1,20 @@
 {
-  "sourcePath": "C:\\code\\Nuevo\\quizverse\\generated\\trending-seed.json",
+  "sourcePath": "D:\\Códigos\\Paginas\\QuizVerse\\generated\\trending-seed.json",
   "dryRun": false,
-  "totalInFile": 377,
-  "imported": 377,
+  "totalInFile": 518,
+  "imported": 518,
   "skipped": 0,
   "byLanguage": {
-    "en": 189,
-    "es": 188
+    "en": 259,
+    "es": 259
   },
   "byType": {
-    "personality": 189,
-    "trivia": 188
+    "personality": 278,
+    "trivia": 240
   },
   "byCategory": {
-    "culture": 377
+    "culture": 474,
+    "lifestyle": 44
   },
   "skippedItems": []
 }
