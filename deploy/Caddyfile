@@ -5,6 +5,13 @@
 
 app.51-79-71-83.sslip.io {
 	encode gzip zstd
+
+	# Ronda de diseño (maquetas estáticas) — se retira al implementar
+	handle_path /ronda-diseno/* {
+		root * /srv/ronda-diseno
+		file_server
+	}
+
 	reverse_proxy 127.0.0.1:3300
 }
 

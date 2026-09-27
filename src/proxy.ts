@@ -6,6 +6,22 @@ function pathnameHasLocale(pathname: string) {
   return /^\/(en|es)(\/|$)/.test(pathname);
 }
 
+// Rutas que viven en la raíz (no llevan prefijo de idioma). Sin esta lista, el
+// proxy las redirige a /<locale>/... y las portadas procedurales y el manifest
+// del PWA terminan en 404.
+const NON_LOCALE_PREFIXES = ['/_next', '/api', '/covers', '/stock-covers', '/icons', '/images'];
+
+const NON_LOCALE_EXACT = [
+  '/favicon.ico',
+  '/robots.txt',
+  '/sitemap.xml',
+  '/manifest.json',
+  '/sw.js',
+  '/opengraph-image',
+  '/icon.png',
+  '/apple-icon.png',
+];
+
 function getLocaleFromRequest(request: NextRequest) {
   const accept = request.headers.get('accept-language') || '';
   if (accept.includes('es')) return 'es';
@@ -41,11 +57,8 @@ export async function proxy(request: NextRequest) {
 
   if (
     pathnameHasLocale(pathname) ||
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/api') ||
-    pathname === '/favicon.ico' ||
-    pathname === '/robots.txt' ||
-    pathname === '/sitemap.xml'
+    NON_LOCALE_PREFIXES.some((prefix) => pathname.startsWith(prefix)) ||
+    NON_LOCALE_EXACT.includes(pathname)
   ) {
     return response;
   }

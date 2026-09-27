@@ -1,0 +1,19 @@
+# QuizVerse — ronda de concepto visual
+
+Los nueve HTML son maquetas autocontenidas para abrir directamente en el navegador. Usan títulos y descripciones de `refs/contenido-muestra.json`; las portadas se componen solo con CSS y texto. Los enlaces **Play** de las tarjetas llevan al detalle representativo de *The Boys* para comparar el patrón; el quiz no está implementado en estas maquetas.
+
+| Dirección | Idea de arte | Paleta (hex) y función | Tipografía y razón | Contenedor | Tarjeta | Grilla |
+|---|---|---|---|---:|---:|---|
+| **001 · Revista cultural** | Una revista de cultura que convierte cada quiz en una pequeña portada editorial. | Papel `#f6f3eb`, tinta `#20211d`, naranja `#ae3f25` para acción, azul `#315b79` y verde `#65734a` para secciones. | **Fraunces** en titulares y portadas aporta carácter editorial; **DM Sans** mantiene clara la navegación y la lectura. | 1320 px | 333 px escritorio / 286 px móvil | 3 por fila escritorio / 1 móvil |
+| **002 · Arcade pop** | Un selector de juegos nocturno, ruidoso y directo, donde cada quiz parece un cartel listo para activar. | Fondo `#101019`, panel `#1b1a29`, lima `#d9ff43` para selección, rosa `#ff4d97` para jugar, violeta `#8458ff` y cian `#55e8e1` en arte y estados. | **Archivo Black** hace que títulos y glifos funcionen como afiches; **Space Grotesk** sostiene el texto corto y energético. | 1320 px | 349 px escritorio / 320 px móvil | 3 por fila escritorio / 1 móvil |
+| **003 · Estudio limpio** | Un índice preciso de quizzes en el que la pregunta y el botón tienen prioridad sobre la decoración. | Superficie `#f6f7f9`, blanco `#ffffff`, tinta `#17191e`, gris `#626976`, azul único `#3458db` para interacción. | **DM Sans** ofrece jerarquía compacta y legible; **IBM Plex Mono** distingue códigos y metadatos sin convertirlos en adorno. | 1256 px | 270 px escritorio / 155 px móvil | 4 por fila escritorio / 1 móvil |
+
+## Comparación para elegir
+
+| Dirección | Qué gana | Qué pierde | Implementación en Next.js + Tailwind |
+|---|---|---|---|
+| Revista cultural | Voz propia, lectura cómoda y portadas tipográficas sin depender de imágenes. El hero ocupa su espacio con una cubierta y copy real. | Tiene menos quizzes visibles en el primer pantallazo; requiere cuidar los saltos de línea de títulos largos en EN/ES. | Tokens de papel, tinta y color por categoría; fuentes Fraunces/DM Sans; variantes `FeaturedCover` y `QuizCard` editoriales. Complejidad media. |
+| Arcade pop | CTA inmediato y alta recordación; el patrón y el titular grande dan presencia incluso sin foto. | La saturación puede fatigar en sesiones largas y exige controlar cada combinación de color para mantener contraste. | Tokens oscuros y acentos, dos variantes de portada CSS, tipografía Archivo Black/Space Grotesk y estados de botón. Complejidad media. |
+| Estudio limpio | Escaneo rápido y alta densidad sin tarjetas gigantes; el contenido se adapta con facilidad a otras categorías. | Tiene menos espectáculo y puede sentirse sobrio para una audiencia que espera cultura pop exuberante. | Un acento azul, pocos tokens nuevos, componentes compactos `QuizCard`/`FeaturedQuiz`, fuentes DM Sans/IBM Plex Mono. Complejidad baja. |
+
+En las tres direcciones, el texto de los títulos vive sobre superficies de contraste alto; las portadas usan palabras, patrones y formas CSS, no dependen de un emoji ni de una URL de imagen. El bloque español muestra signos y tildes. Cada `home-mobile.html` fija una composición de 390 px para verla incluso en un monitor grande. La maqueta de detalle presenta un CTA de inicio visible; al implementar, debe enlazarse al flujo vivo del producto.

@@ -23,6 +23,7 @@ services:
     network_mode: host
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - /home/ubuntu/quizverse/design-preview:/srv/ronda-diseno:ro
       - caddy_data:/data
       - caddy_config:/config
     restart: unless-stopped
