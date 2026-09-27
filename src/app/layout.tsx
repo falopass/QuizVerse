@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from 'next';
-import { Playfair_Display, Inter } from 'next/font/google';
+import { Archivo_Black, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -10,15 +10,16 @@ import { ToastViewport } from '@/components/ui/toast';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
 import { CookieConsentBanner } from '@/components/shared/cookie-consent';
 
-const playfair = Playfair_Display({
+const archivo = Archivo_Black({
   subsets: ['latin'],
-  variable: '--font-display',
+  weight: '400',
+  variable: '--font-archivo',
   display: 'swap',
 });
 
-const inter = Inter({
+const space = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-body',
+  variable: '--font-space',
   display: 'swap',
 });
 
@@ -87,7 +88,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html
       lang="en"
-      className={`h-full ${playfair.variable} ${inter.variable}`}
+      className={`h-full ${archivo.variable} ${space.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

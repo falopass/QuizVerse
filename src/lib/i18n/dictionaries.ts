@@ -97,6 +97,37 @@ export interface Dictionary {
   footer: {
     tagline: string;
   };
+  arcade: {
+    pickGame: string;
+    heroTitle: string;
+    heroBody: string;
+    featured: string;
+    playFeatured: string;
+    stripStart: string;
+    stripMiddle: string;
+    stripEnd: string;
+    chooseGame: string;
+    chooseBody: string;
+    play: string;
+    quickPlay: string;
+    backGames: string;
+    gameType: string;
+    time: string;
+    language: string;
+    category: string;
+    visibleGames: string;
+    allCategories: string;
+    related: string;
+    about: string;
+    privacy: string;
+    terms: string;
+    contact: string;
+    mainNavigation: string;
+    footerNavigation: string;
+    startPlaying: string;
+    coverRole: string;
+    coverTrivia: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {
@@ -197,6 +228,19 @@ const dictionaries: Record<Locale, Dictionary> = {
       tagline:
         'QuizVerse turns quizzes into a sharper editorial product, not generic content sludge.',
     },
+    arcade: {
+      pickGame: 'Pick a game', heroTitle: 'Play your pop culture.',
+      heroBody: 'Find your character. Prove you are a superfan. Do it in three minutes.',
+      featured: 'Featured', playFeatured: 'Play featured quiz',
+      stripStart: 'Personality ✦ Trivia ✦ Fandom', stripMiddle: 'New games every mood', stripEnd: 'Scroll to choose ↓',
+      chooseGame: 'Choose your game', chooseBody: 'Pick one. Press play. Get your result.',
+      play: 'Play', quickPlay: 'Quick play', backGames: '← Back to games',
+      gameType: 'Game type', time: 'Time', language: 'Language',
+      category: 'Category', visibleGames: 'Games shown', allCategories: 'All categories',
+      related: 'More games', about: 'About', privacy: 'Privacy', terms: 'Terms', contact: 'Contact',
+      mainNavigation: 'Main navigation', footerNavigation: 'Footer links', startPlaying: 'Start playing',
+      coverRole: 'Your role', coverTrivia: 'Fan test',
+    },
   },
   es: {
     localeLabel: 'Español',
@@ -296,6 +340,19 @@ const dictionaries: Record<Locale, Dictionary> = {
       tagline:
         'QuizVerse convierte los quizzes en un producto editorial con criterio, no en contenido genérico.',
     },
+    arcade: {
+      pickGame: 'Elige un juego', heroTitle: 'Juega tu cultura pop.',
+      heroBody: 'Encuentra tu personaje. Demuestra que eres fan. Hazlo en tres minutos.',
+      featured: 'Destacado', playFeatured: 'Jugar quiz destacado',
+      stripStart: 'Personalidad ✦ Trivia ✦ Fandom', stripMiddle: 'Juegos para cada ánimo', stripEnd: 'Desliza para elegir ↓',
+      chooseGame: 'Elige tu juego', chooseBody: 'Elige uno. Juega. Descubre tu resultado.',
+      play: 'Jugar', quickPlay: 'Partida rápida', backGames: '← Volver a juegos',
+      gameType: 'Tipo de juego', time: 'Tiempo', language: 'Idioma',
+      category: 'Categoría', visibleGames: 'Juegos mostrados', allCategories: 'Todas las categorías',
+      related: 'Más juegos', about: 'Acerca de', privacy: 'Privacidad', terms: 'Términos', contact: 'Contacto',
+      mainNavigation: 'Navegación principal', footerNavigation: 'Enlaces del pie', startPlaying: 'Empezar a jugar',
+      coverRole: 'Tu rol', coverTrivia: 'Test fan',
+    },
   },
 };
 
@@ -305,4 +362,8 @@ export function hasLocale(value: string): value is Locale {
 
 export async function getDictionary(locale: string): Promise<Dictionary> {
   return dictionaries[hasLocale(locale) ? locale : defaultLocale];
+}
+
+export function getArcadeCopy(locale: Locale): Dictionary['arcade'] {
+  return dictionaries[locale].arcade;
 }

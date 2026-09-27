@@ -224,23 +224,37 @@ export async function getHomePayload(locale?: Locale) {
   };
 }
 
-export async function getCategoryPayload(slug: string, locale?: Locale) {
-  const [categories, quizzes] = await Promise.all([
-    getPublicCategories(),
-    getPublishedQuizzes(80, locale),
-  ]);
+export const getCategoryPayload = cache(async (slug: string, locale?: Locale) => {
+  const categories = await getPublicCategories();
   const category = categories.find((item) => item.slug === slug) ?? null;
 
   if (!category) {
     return null;
   }
 
+  let quizzes: Quiz[];
+  try {
+    const supabase = await createClient();
+    const rows: QuizRow[] = [];
+    for (let offset = 0; ; offset += 500) {
+      let query = supabase.from('quizzes').select('*').eq('status', 'published').eq('category_id', category.id);
+      if (locale) query = query.eq('language', locale);
+      const { data, error } = await query.order('plays_count', { ascending: false }).range(offset, offset + 499);
+      if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
+      rows.push(...(data as QuizRow[]));
+      if (data.length < 500) break;
+    }
+    const categoryMap = new Map([[category.id, category]]);
+    quizzes = rows.map((row) => normalizeQuiz(row, categoryMap));
+  } catch {
+    quizzes = LAUNCH_QUIZZES.filter((quiz) => quiz.category?.slug === slug && (!locale || quiz.language === locale));
+  }
   return {
     category,
     categories,
-    quizzes: quizzes.filter((quiz) => quiz.category?.slug === slug),
+    quizzes,
   };
-}
+});
 
 export interface HomeCardGroups {
   trending: QuizCardViewModel[];

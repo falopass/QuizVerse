@@ -10,29 +10,22 @@ interface QuizImageProps {
   quizType?: 'personality' | 'trivia' | string;
 }
 
-const TYPE_EMOJI: Record<string, string> = {
-  personality: '🎭',
-  trivia: '🧠',
-  default: '📊',
-};
-
 export function QuizImage({ src, alt, className, quizType = 'default' }: QuizImageProps) {
   const [error, setError] = React.useState(false);
 
   if (!src || error) {
     return (
       <div
-        className={cn('bg-bg-tertiary flex items-center justify-center', className)}
+        className={cn('arcade-cover flex items-center justify-center', quizType === 'trivia' && 'arcade-cover-trivia', className)}
         aria-label={alt}
       >
-        <span className="text-4xl opacity-50" role="img" aria-hidden="true">
-          {TYPE_EMOJI[quizType] ?? TYPE_EMOJI.default}
-        </span>
+        <span className="arcade-cover-title arcade-cover-title-small" aria-hidden="true">{alt.split(/\s+/).slice(0, 2).join(' ')}</span>
       </div>
     );
   }
 
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={src}
       alt={alt}
