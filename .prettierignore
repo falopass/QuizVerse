@@ -19,3 +19,13 @@ coverage/
 
 # Vercel
 .vercel/
+
+# TODO(quiz/backend): quitar estas exclusiones en cuanto las ramas en vuelo aterricen.
+# Carril SEO: este carril no reformatea sus archivos.
+src/app/**/opengraph-image.tsx
+src/lib/seo/og-font.ts
+# Refactor de scoring/reveal en curso en el árbol compartido (sin commitear).
+src/components/quiz/question-card.tsx
+src/components/quiz/quiz-player.tsx
+src/components/quiz/result-screen.tsx
+src/stores/quiz-store.ts

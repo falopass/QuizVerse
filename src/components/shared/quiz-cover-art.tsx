@@ -30,22 +30,45 @@ function titleBucket(title: string, compact: boolean) {
   return 'long';
 }
 
-export function QuizCoverArt({ quiz, locale, className, ratioClassName, compact = false, priorityLabel, decorative = false }: QuizCoverArtProps) {
+export function QuizCoverArt({
+  quiz,
+  locale,
+  className,
+  ratioClassName,
+  compact = false,
+  priorityLabel,
+  decorative = false,
+}: QuizCoverArtProps) {
   const photo = quiz.cover_image_url?.startsWith('/stock-covers/');
   const artTitle = quiz.title.trim();
   const bucket = titleBucket(artTitle, compact);
   return (
     <div
-      className={cn('arcade-cover', quiz.quiz_type === 'trivia' && 'arcade-cover-trivia', ratioClassName, className)}
+      className={cn(
+        'arcade-cover',
+        quiz.quiz_type === 'trivia' && 'arcade-cover-trivia',
+        ratioClassName,
+        className
+      )}
       role={decorative ? undefined : 'img'}
       aria-label={decorative ? undefined : quiz.title}
       aria-hidden={decorative || undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {photo && <img src={quiz.cover_image_url!} alt="" className="arcade-cover-photo" />}
-      {priorityLabel !== '' && <span className="arcade-cover-stamp">{priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}</span>}
-      <strong className={cn('arcade-cover-title', `arcade-cover-title-${bucket}`)}>{artTitle}</strong>
-      {!photo && bucket === 'short' && <span className="arcade-cover-star" aria-hidden="true">✦</span>}
+      {priorityLabel !== '' && (
+        <span className="arcade-cover-stamp">
+          {priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}
+        </span>
+      )}
+      <strong className={cn('arcade-cover-title', `arcade-cover-title-${bucket}`)}>
+        {artTitle}
+      </strong>
+      {!photo && bucket === 'short' && (
+        <span className="arcade-cover-star" aria-hidden="true">
+          ✦
+        </span>
+      )}
     </div>
   );
 }

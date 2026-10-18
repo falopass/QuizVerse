@@ -138,13 +138,13 @@ Non-localized root paths redirect to `/en` by default via `proxy.ts`.
 Todo el SEO vive en `src/lib/seo/`. Hay **una sola fuente de verdad** por dato; si
 tocas metadata, tocas esto y nada más.
 
-| Archivo | Responsabilidad |
-| :--- | :--- |
-| `site.ts` | `SITE_URL`, marca, OG estáticas, handles y tokens de verificación (env) |
-| `metadata.ts` | `buildMetadata()` — title, description (recortada a ~158), canonical, hreflang + `x-default`, OG, Twitter, robots |
-| `structured-data.ts` | Nodos JSON-LD: `Organization`, `WebSite`, `BreadcrumbList`, `Quiz`, `ItemList`, `WebPage` |
-| `sitemap.ts` | Serializador XML (escapa y valida `lastmod`) |
-| `og-font.ts` | Fuente para las OG dinámicas de Satori |
+| Archivo              | Responsabilidad                                                                                                   |
+| :------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| `site.ts`            | `SITE_URL`, marca, OG estáticas, handles y tokens de verificación (env)                                           |
+| `metadata.ts`        | `buildMetadata()` — title, description (recortada a ~158), canonical, hreflang + `x-default`, OG, Twitter, robots |
+| `structured-data.ts` | Nodos JSON-LD: `Organization`, `WebSite`, `BreadcrumbList`, `Quiz`, `ItemList`, `WebPage`                         |
+| `sitemap.ts`         | Serializador XML (escapa y valida `lastmod`)                                                                      |
+| `og-font.ts`         | Fuente para las OG dinámicas de Satori                                                                            |
 
 Reglas:
 
@@ -176,13 +176,12 @@ regenerarla, o las peticiones devuelven 403.
 
 ### Verificación de propiedad
 
-| Motor | Cómo |
-| :--- | :--- |
-| Google | Meta tag (`GOOGLE_SITE_VERIFICATION` en `deploy/.env`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
-| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION` |
+| Motor         | Cómo                                                                                                                                     |
+| :------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| Google        | Meta tag (`GOOGLE_SITE_VERIFICATION` en `deploy/.env`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
+| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION`                                                                                    |
 
 Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
-
 
 ## Catalog Stats (current)
 

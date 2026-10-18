@@ -10,7 +10,11 @@ export default async function NotFoundPage() {
         <EditorialEmptyState
           eyebrow="404"
           title={es ? 'Esta página se salió de órbita.' : 'That page drifted out of orbit.'}
-          body={es ? 'El quiz, la categoría o el perfil que buscas no está en el catálogo público.' : 'The quiz, category, or profile you tried to open is not in the public catalog.'}
+          body={
+            es
+              ? 'El quiz, la categoría o el perfil que buscas no está en el catálogo público.'
+              : 'The quiz, category, or profile you tried to open is not in the public catalog.'
+          }
           primaryHref={`/${locale}/quiz`}
           primaryLabel={es ? 'Explorar quizzes' : 'Browse quizzes'}
           secondaryHref={`/${locale}`}

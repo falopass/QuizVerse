@@ -101,16 +101,10 @@ export function CookieConsentBanner() {
               </p>
             </div>
             <div className="cookie-consent-actions">
-              <button
-                onClick={acceptEssential}
-                className="cookie-consent-secondary"
-              >
+              <button onClick={acceptEssential} className="cookie-consent-secondary">
                 {copy.essentialButton[locale]}
               </button>
-              <button
-                onClick={acceptAll}
-                className="arcade-button"
-              >
+              <button onClick={acceptAll} className="arcade-button">
                 {copy.acceptAllButton[locale]}
               </button>
             </div>

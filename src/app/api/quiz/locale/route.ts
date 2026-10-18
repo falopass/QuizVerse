@@ -3,7 +3,11 @@ import { z } from 'zod';
 import { getQuizBySlug } from '@/lib/data/public';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
-const querySchema = z.object({ slug: z.string().min(1).max(200), from: z.enum(['en', 'es']), to: z.enum(['en', 'es']) });
+const querySchema = z.object({
+  slug: z.string().min(1).max(200),
+  from: z.enum(['en', 'es']),
+  to: z.enum(['en', 'es']),
+});
 
 export async function GET(request: Request) {
   const parsed = querySchema.safeParse(Object.fromEntries(new URL(request.url).searchParams));
