@@ -1,0 +1,13 @@
+# Lo que no debe subirse a Vercel: artefactos de build, dependencias y
+# cualquier archivo con secretos o tokens de la máquina.
+node_modules
+.next
+.vercel
+.git
+generated
+coverage
+*.log
+.env.local
+.env*.local
+tsconfig.tsbuildinfo
+next-env.d.ts
