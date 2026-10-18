@@ -1,4 +1,5 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
+import { LoginForm } from '@/components/auth/login-form';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale, getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -88,6 +89,8 @@ export async function LoginPageView({
           </div>
 
           <div className="space-y-4">
+            <LoginForm locale={locale} redirectTo={safeRedirect} />
+
             <a
               href={googleAuthUrl}
               className="flex items-center justify-center gap-3 rounded-full border border-black/10 bg-white px-4 py-4 text-sm font-semibold text-neutral-900 transition-transform hover:-translate-y-0.5"
