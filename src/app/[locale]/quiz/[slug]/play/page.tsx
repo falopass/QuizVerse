@@ -6,6 +6,9 @@ import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
+import { ChallengeBanner } from '@/components/quiz/challenge-banner';
+import { challengeCopy } from '@/lib/quiz/challenge';
+import { getChallengeForQuiz } from '@/lib/data/challenge';
 
 /**
  * The play view is the same quiz the detail page already ranks for, with no
@@ -37,16 +40,31 @@ export async function generateMetadata({
 
 export default async function LocalizedQuizPlayPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ challenge?: string }>;
 }) {
-  const { locale, slug } = await params;
+  const [{ locale, slug }, { challenge: challengeToken }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
   if (!hasLocale(locale)) notFound();
 
   const quiz = await getQuizBySlug(slug, locale);
   if (!quiz) notFound();
 
+  // Un enlace de reto muestra el marcador del retador antes de empezar. Si el
+  // token no es de este quiz, se ignora: mejor sin reto que con uno falso.
+  const challenge = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
+  const copy = challenge ? challengeCopy(challenge, locale) : null;
+
   // The answer key never leaves the server: the play screen asks the reveal
   // endpoint for one verdict at a time.
-  return <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} />;
+  return (
+    <>
+      {copy ? <ChallengeBanner eyebrow={copy.eyebrow} title={copy.title} body={copy.body} /> : null}
+      <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} />
+    </>
+  );
 }
