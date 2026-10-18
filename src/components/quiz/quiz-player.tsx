@@ -398,7 +398,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
         answers={answers}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
-        challenge={challenge}
+        // La comparativa solo se declara con la sesión ya persistida: un reveal
+        // fallido deja el marcador local sin verificar y podría dibujar un
+        // veredicto distinto al que quedó en el servidor (y en la tarjeta OG).
+        challenge={submission ? challenge : null}
         shareUrl={
           submission?.shareToken && typeof window !== 'undefined'
             ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}${challenge ? `&challenge=${challenge.token}` : ''}`
