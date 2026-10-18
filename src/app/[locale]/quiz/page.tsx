@@ -41,10 +41,15 @@ export default async function LocalizedQuizExplorerPage({
   const dictionary = await getDictionary(locale);
   const payload = await getExplorePayload(locale);
 
+  // This catalogue is a client component, so every object crosses into the RSC
+  // payload. Questions and results are the heavy part of a quiz (they were
+  // ~1.7 MB of HTML for 259 cards) and the grid never reads them.
+  const quizzes = payload.quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
+
   return (
     <ExploreEditorialPage
       locale={locale}
-      quizzes={payload.quizzes}
+      quizzes={quizzes}
       categories={payload.categories}
       copy={{
         title: dictionary.explore.title,
