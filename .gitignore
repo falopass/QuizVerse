@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 .superpowers/
+
+# local design inspection (tasteskill screenshots and measurements)
+.taste-skill/

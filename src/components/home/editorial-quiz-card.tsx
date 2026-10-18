@@ -17,7 +17,7 @@ export function EditorialQuizCard({ quiz, locale }: EditorialQuizCardProps) {
   const copy = getArcadeCopy(locale);
   return (
     <Link href={localizeHref(locale, `/quiz/${quiz.slug}`)} className="arcade-card">
-      <QuizCoverArt quiz={quiz} locale={locale} compact className="arcade-card-art" />
+      <QuizCoverArt quiz={quiz} locale={locale} compact decorative className="arcade-card-art" />
       <div className="arcade-card-info">
         <span className="arcade-tag">{getLocalizedTypeLabel(quiz.quiz_type, locale)} / {quiz.category?.name ?? 'QuizVerse'}</span>
         <h3>{quiz.title}</h3>

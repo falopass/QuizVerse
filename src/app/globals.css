@@ -374,11 +374,9 @@ select {
 .arcade-strip span:last-child { text-align: right; }
 .arcade-section-head { align-items: baseline; }
 .arcade-section-head p { max-width: 340px; color: var(--text-primary); font-size: 16px; font-weight: 600; line-height: 1.35; }
-.arcade-cover-title { max-width: 84%; max-height: 68%; overflow: hidden; font-size: clamp(36px, 4.8vw, 78px); line-height: .95; letter-spacing: -.04em; text-wrap: balance; transform: none; text-shadow: 3px 4px 0 #32104e, 0 2px 16px #12071c; }
+.arcade-cover-title { max-width: 84%; max-height: 76%; overflow: hidden; font-size: clamp(36px, 4.8vw, 78px); line-height: .95; letter-spacing: -.04em; text-wrap: balance; transform: none; text-shadow: 3px 4px 0 #32104e, 0 2px 16px #12071c; }
 .arcade-cover-title-small { font-size: clamp(30px, 3.8vw, 58px); }
-.arcade-cover-edition { position: absolute; right: 16px; bottom: 12px; left: 16px; overflow: hidden; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .09em; text-align: center; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; text-shadow: 0 1px 5px #101019; }
 .arcade-card-art .arcade-cover-title { max-height: 85%; font-size: clamp(26px, 3vw, 42px); }
-.arcade-card-art .arcade-cover-edition { bottom: 5px; font-size: 9px; }
 .arcade-detail-art .arcade-cover-title { font-size: clamp(38px, 5vw, 72px); }
 .arcade-cover:has(.arcade-cover-photo)::after { background: linear-gradient(0deg, rgba(10,8,22,.78), rgba(10,8,22,.32)); }
 .arcade-detail-copy h1 { margin-top: 18px; }
@@ -539,3 +537,95 @@ body:has(.arcade-play-page) .cookie-consent-banner, body:has(.arcade-play-screen
   .arcade-question { padding: 16px; }
   .arcade-question h2 { margin-block: 12px 16px; font-size: 24px; }
 }
+
+/* Block 4: hero measure, poster type by title length, and the arcade entrance. */
+
+/* The hero headline is set to its own column, not to the viewport: at 1440px the
+   copy panel is ~577px wide, and a 6.5vw headline needs three lines there. */
+.arcade-hero-copy h1 { max-width: 100%; font-size: clamp(42px, 5vw, 72px); line-height: .92; letter-spacing: -.05em; text-wrap: balance; overflow-wrap: anywhere; }
+.arcade-hero-copy p { max-width: 38ch; font-size: 18px; }
+/* Between the phone layout and the two-column desktop, the half-width panel is
+   narrower than the headline: the hero stacks and the copy takes the full width. */
+@media (max-width: 1099px) and (min-width: 700px) {
+  .arcade-hero { grid-template-columns: 1fr; }
+  .arcade-hero-copy { min-height: 0; padding: 34px 36px 38px; }
+  .arcade-hero-copy h1 { font-size: clamp(52px, 7.6vw, 72px); }
+  .arcade-hero-art, .arcade-hero-empty { min-height: 380px; height: 380px; }
+}
+@media (max-width: 699px) {
+  .arcade-hero-copy h1 { font-size: clamp(34px, 10vw, 46px); line-height: .95; }
+  .arcade-hero-copy p { font-size: 15px; }
+}
+
+/* Poster covers: one type size per title-length bucket, so a 64-character Spanish
+   title and a 12-character one both fit the same box without being clipped. */
+.arcade-cover-title-short { font-size: clamp(36px, 4.8vw, 78px); }
+.arcade-cover-title-medium { font-size: clamp(28px, 3.6vw, 58px); }
+.arcade-cover-title-long { font-size: clamp(20px, 2.6vw, 40px); }
+/* Card art follows its own width, not the viewport: the same card is 429px on the
+   home grid, 250px in the explore lanes and 362px on a phone, and a viewport-based
+   size clipped the long titles in the densest of the three. */
+.arcade-card-art { container-type: inline-size; }
+.arcade-card-art .arcade-cover-title-short { font-size: clamp(16px, 8.6cqw, 44px); }
+.arcade-card-art .arcade-cover-title-medium { font-size: clamp(14px, 7cqw, 32px); }
+.arcade-card-art .arcade-cover-title-long { font-size: clamp(13px, 5.6cqw, 26px); }
+.arcade-hero-art .arcade-cover-title-short { font-size: clamp(44px, 6.4vw, 96px); }
+.arcade-hero-art .arcade-cover-title-medium { font-size: clamp(30px, 4.4vw, 64px); }
+.arcade-hero-art .arcade-cover-title-long { font-size: clamp(24px, 3.4vw, 48px); }
+.arcade-detail-art .arcade-cover-title-short { font-size: clamp(38px, 5vw, 72px); }
+.arcade-detail-art .arcade-cover-title-medium { font-size: clamp(30px, 4vw, 56px); }
+.arcade-detail-art .arcade-cover-title-long { font-size: clamp(24px, 3vw, 42px); }
+@media (max-width: 699px) {
+  /* Sized against the cover, not against a fixed px: at 320px a 54px title breaks
+     "RE:ZERO" across two lines and the box clips the fourth one. Card art sizes
+     itself with container units, above. */
+  .arcade-hero-art .arcade-cover-title-short { font-size: clamp(36px, 12vw, 54px); }
+  .arcade-hero-art .arcade-cover-title-medium { font-size: clamp(22px, 8.4vw, 34px); }
+  .arcade-hero-art .arcade-cover-title-long { font-size: clamp(17px, 6.2vw, 25px); }
+  .arcade-detail-art .arcade-cover-title-short { font-size: clamp(28px, 11.6vw, 46px); }
+  .arcade-detail-art .arcade-cover-title-medium { font-size: clamp(22px, 8.4vw, 32px); }
+  .arcade-detail-art .arcade-cover-title-long { font-size: clamp(18px, 6.4vw, 24px); }
+  /* No room for the star beside a title on a 320px cover: the lime panel above
+     already carries the mark. */
+  .arcade-cover-star { display: none; }
+}
+
+/* Consent banner as a corner panel on desktop: a full-width bar sat on top of a
+   whole row of cards until it was dismissed. */
+@media (min-width: 700px) {
+  .cookie-consent-banner { right: 20px; bottom: 20px; left: auto; width: min(430px, calc(100% - 40px)); padding: 16px 18px; }
+  .cookie-consent-inner { display: block; width: 100%; }
+  .cookie-consent-inner > div:first-child { max-width: none; }
+  .cookie-consent-actions { margin-top: 12px; }
+}
+
+/* The entrance: the hero builds in, the grid reveals on scroll, and the featured
+   cover drifts. Transform and opacity only, all of it off under reduced motion. */
+@keyframes arcade-rise { from { opacity: 0; transform: translate3d(0,18px,0); } to { opacity: 1; transform: none; } }
+@keyframes arcade-pop { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: none; } }
+@keyframes arcade-drift { from { transform: translate3d(-1.4%,1%,0) scale(1.01); } to { transform: translate3d(1.4%,-1%,0) scale(1.05); } }
+.arcade-hero-copy > * { animation: arcade-rise .55s cubic-bezier(.2,.7,.25,1) both; }
+.arcade-hero-copy > :nth-child(2) { animation-delay: .07s; }
+.arcade-hero-copy > :nth-child(3) { animation-delay: .14s; }
+.arcade-hero-copy > :nth-child(4) { animation-delay: .21s; }
+.arcade-hero-link { animation: arcade-pop .6s .1s cubic-bezier(.2,.7,.25,1) both; }
+.arcade-hero-art .arcade-cover-title { animation: arcade-drift 16s ease-in-out infinite alternate; }
+.arcade-strip, .arcade-section-head { animation: arcade-rise .5s .18s cubic-bezier(.2,.7,.25,1) both; }
+@supports (animation-timeline: view()) {
+  /* Transform only: a card that starts at opacity 0 below the fold is invisible to
+     anything that does not scroll it into view, which for a catalogue page is the
+     whole grid in a full-page capture. */
+  .arcade-card { animation: arcade-lift .7s linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+}
+@keyframes arcade-lift { from { translate: 0 22px; } to { translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .arcade-hero-copy > *, .arcade-hero-link, .arcade-hero-art .arcade-cover-title, .arcade-strip, .arcade-section-head, .arcade-card, .arcade-detail > div, .arcade-detail-art { animation: none !important; }
+}
+
+/* The detail page joins the same entrance, and its headline fits two lines: at
+   66px the copy needs ~640px, so the text column gets the wider share. */
+.arcade-detail { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
+.arcade-detail-copy h1 { font-size: clamp(44px, 4.6vw, 66px); letter-spacing: -.085em; }
+.arcade-detail > div { animation: arcade-rise .55s cubic-bezier(.2,.7,.25,1) both; }
+.arcade-detail > div:nth-child(2) { animation-delay: .08s; }
+.arcade-detail-art { animation: arcade-pop .6s cubic-bezier(.2,.7,.25,1) both; }
