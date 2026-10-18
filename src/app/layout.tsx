@@ -80,17 +80,11 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+  // `robots` is deliberately NOT set here. Every page declares its own value via
+  // buildMetadata(); leaving it out lets Next's default `noindex` apply to the
+  // not-found page. With a layout-level `index, follow`, 404s came back as
+  // soft 404s (HTTP 200 + "index, follow") because the auth/loading boundary has
+  // already streamed the status by the time notFound() is thrown.
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
