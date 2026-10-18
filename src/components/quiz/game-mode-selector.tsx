@@ -61,7 +61,10 @@ const GAME_MODES: GameModeInfo[] = [
 
 export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameModeSelectorProps) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
-  const modes = React.useMemo(() => GAME_MODES.filter((mode) => quiz.quiz_type === 'trivia' || mode.id !== 'survival'), [quiz.quiz_type]);
+  const modes = React.useMemo(
+    () => GAME_MODES.filter((mode) => quiz.quiz_type === 'trivia' || mode.id !== 'survival'),
+    [quiz.quiz_type]
+  );
   const copy =
     locale === 'es'
       ? {
@@ -89,7 +92,16 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       const index = Number(event.key) - 1;
-      if (event.altKey || event.ctrlKey || event.metaKey || !Number.isInteger(index) || index < 0 || index >= modes.length || selectedMode) return;
+      if (
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        !Number.isInteger(index) ||
+        index < 0 ||
+        index >= modes.length ||
+        selectedMode
+      )
+        return;
       setSelectedMode(modes[index].id);
       onSelectMode(modes[index].id);
     };
@@ -99,15 +111,9 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
 
   return (
     <div className="arcade-play-page arcade-wrap">
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="w-full"
-      >
+      <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="w-full">
         <div className="arcade-mode-intro">
-          <h1>
-            {copy.title}
-          </h1>
+          <h1>{copy.title}</h1>
           <p className="arcade-mode-quiz">{quiz.title}</p>
           <p className="arcade-mode-count">
             {quiz.questions.length} {copy.questions} ·{' '}
@@ -124,17 +130,26 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
               transition={{ delay: index * 0.1 }}
               onClick={() => handleModeSelect(mode.id)}
               disabled={selectedMode !== null}
-              className={cn('arcade-mode-card', selectedMode === mode.id && 'arcade-mode-card-selected')}
+              className={cn(
+                'arcade-mode-card',
+                selectedMode === mode.id && 'arcade-mode-card-selected'
+              )}
             >
-              <span className="arcade-mode-number">0{index + 1} / {mode.icon}</span>
+              <span className="arcade-mode-number">
+                0{index + 1} / {mode.icon}
+              </span>
               <span className="arcade-mode-name">{mode.name[locale]}</span>
               <span className="arcade-mode-description">{mode.description[locale]}</span>
-              <span className="arcade-mode-arrow" aria-hidden="true">↗</span>
+              <span className="arcade-mode-arrow" aria-hidden="true">
+                ↗
+              </span>
             </motion.button>
           ))}
         </div>
 
-        <p className="arcade-mode-hint">{copy.keyboardPrefix} 1-{modes.length} {copy.keyboardSuffix}</p>
+        <p className="arcade-mode-hint">
+          {copy.keyboardPrefix} 1-{modes.length} {copy.keyboardSuffix}
+        </p>
       </motion.div>
     </div>
   );

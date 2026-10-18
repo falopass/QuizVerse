@@ -7,7 +7,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
     <footer className="arcade-footer">
       <div className="arcade-wrap arcade-footer-inner">
         <div>
-          <Link href={localizeHref(locale, '/')} className="arcade-logo">QUIZ<span>VERSE</span></Link>
+          <Link href={localizeHref(locale, '/')} className="arcade-logo">
+            QUIZ<span>VERSE</span>
+          </Link>
           <p>{dictionary.footer.tagline}</p>
         </div>
         <nav aria-label={dictionary.arcade.footerNavigation}>

@@ -6,8 +6,21 @@ const quiz = {
   id: 'arcade-test',
   quiz_type: 'trivia',
   questions: [
-    { id: 'q1', question: 'First?', time_limit_seconds: 30, options: [{ id: 'wrong', text: 'No', is_correct: false }, { id: 'right', text: 'Yes', is_correct: true }] },
-    { id: 'q2', question: 'Second?', time_limit_seconds: 20, options: [{ id: 'right2', text: 'Yes', is_correct: true }] },
+    {
+      id: 'q1',
+      question: 'First?',
+      time_limit_seconds: 30,
+      options: [
+        { id: 'wrong', text: 'No', is_correct: false },
+        { id: 'right', text: 'Yes', is_correct: true },
+      ],
+    },
+    {
+      id: 'q2',
+      question: 'Second?',
+      time_limit_seconds: 20,
+      options: [{ id: 'right2', text: 'Yes', is_correct: true }],
+    },
   ],
 } as Quiz;
 

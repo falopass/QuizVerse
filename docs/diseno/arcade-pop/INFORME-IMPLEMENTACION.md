@@ -12,12 +12,12 @@
 
 ## Validación real
 
-| Comando | Resultado | Últimas líneas relevantes |
-| --- | --- | --- |
-| `npm run typecheck` | Salida 0 | `> tsc --noEmit` (sin errores) |
-| `npm run lint` | Salida 0 | `✖ 27 problems (0 errors, 27 warnings)`; advertencias en scripts, analytics, result y sitemap fuera del bloque. |
-| `npm test` | Salida 0 | `Test Files 5 passed (5)` · `Tests 66 passed (66)` |
-| `npm run build` | Salida 0 | `✓ Generating static pages using 7 workers (134/134)` · `ƒ (Dynamic) server-rendered on demand` |
+| Comando             | Resultado | Últimas líneas relevantes                                                                                       |
+| ------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| `npm run typecheck` | Salida 0  | `> tsc --noEmit` (sin errores)                                                                                  |
+| `npm run lint`      | Salida 0  | `✖ 27 problems (0 errors, 27 warnings)`; advertencias en scripts, analytics, result y sitemap fuera del bloque. |
+| `npm test`          | Salida 0  | `Test Files 5 passed (5)` · `Tests 66 passed (66)`                                                              |
+| `npm run build`     | Salida 0  | `✓ Generating static pages using 7 workers (134/134)` · `ƒ (Dynamic) server-rendered on demand`                 |
 
 ## Listo y pendiente
 

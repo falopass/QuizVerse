@@ -16,10 +16,16 @@ export function QuizImage({ src, alt, className, quizType = 'default' }: QuizIma
   if (!src || error) {
     return (
       <div
-        className={cn('arcade-cover flex items-center justify-center', quizType === 'trivia' && 'arcade-cover-trivia', className)}
+        className={cn(
+          'arcade-cover flex items-center justify-center',
+          quizType === 'trivia' && 'arcade-cover-trivia',
+          className
+        )}
         aria-label={alt}
       >
-        <span className="arcade-cover-title arcade-cover-title-small" aria-hidden="true">{alt.split(/\s+/).slice(0, 2).join(' ')}</span>
+        <span className="arcade-cover-title arcade-cover-title-small" aria-hidden="true">
+          {alt.split(/\s+/).slice(0, 2).join(' ')}
+        </span>
       </div>
     );
   }

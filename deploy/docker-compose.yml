@@ -20,7 +20,7 @@ services:
       YANDEX_SITE_VERIFICATION: ${YANDEX_SITE_VERIFICATION:-}
       TWITTER_HANDLE: ${TWITTER_HANDLE:-}
     ports:
-      - "127.0.0.1:3300:3000"
+      - '127.0.0.1:3300:3000'
     restart: unless-stopped
 
   caddy:

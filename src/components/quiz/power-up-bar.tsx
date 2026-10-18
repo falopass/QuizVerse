@@ -23,7 +23,13 @@ export function PowerUpBar({ powerUps, onUsePowerUp, locale }: PowerUpBarProps) 
         <span>{locale === 'es' ? 'AYUDAS' : 'POWER-UPS'}</span>
         <div>
           {available.map((powerUp) => (
-            <button key={powerUp.id} type="button" onClick={() => onUsePowerUp(powerUp.id)} title={labels[powerUp.id]?.[locale]} aria-label={`${powerUp.name}: ${labels[powerUp.id]?.[locale]}`}>
+            <button
+              key={powerUp.id}
+              type="button"
+              onClick={() => onUsePowerUp(powerUp.id)}
+              title={labels[powerUp.id]?.[locale]}
+              aria-label={`${powerUp.name}: ${labels[powerUp.id]?.[locale]}`}
+            >
               {powerUp.name}
             </button>
           ))}

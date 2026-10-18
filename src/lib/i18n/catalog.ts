@@ -45,11 +45,20 @@ const CATEGORY_COPY = {
 } as const;
 
 const CATEGORY_ES_NAMES: Record<string, string> = {
-  'movies & tv': 'Cine y televisión', music: 'Música', gaming: 'Videojuegos',
-  science: 'Ciencia', history: 'Historia', sports: 'Deportes', geography: 'Geografía',
-  'anime & manga': 'Anime y manga', 'food & drink': 'Comida y bebida',
-  literature: 'Literatura', technology: 'Tecnología', 'pop culture': 'Cultura pop',
-  animals: 'Animales', relationships: 'Relaciones',
+  'movies & tv': 'Cine y televisión',
+  music: 'Música',
+  gaming: 'Videojuegos',
+  science: 'Ciencia',
+  history: 'Historia',
+  sports: 'Deportes',
+  geography: 'Geografía',
+  'anime & manga': 'Anime y manga',
+  'food & drink': 'Comida y bebida',
+  literature: 'Literatura',
+  technology: 'Tecnología',
+  'pop culture': 'Cultura pop',
+  animals: 'Animales',
+  relationships: 'Relaciones',
 };
 
 const TYPE_COPY = {
@@ -72,7 +81,9 @@ export function localizeCategory(
 
   const localized = CATEGORY_COPY[category.slug as keyof typeof CATEGORY_COPY];
   if (!localized) {
-    return locale === 'es' ? { ...category, name: CATEGORY_ES_NAMES[category.name.toLowerCase()] ?? category.name } : category;
+    return locale === 'es'
+      ? { ...category, name: CATEGORY_ES_NAMES[category.name.toLowerCase()] ?? category.name }
+      : category;
   }
 
   return {
@@ -98,7 +109,11 @@ export function getLocalizedCategoryLabel(
   locale: Locale
 ) {
   const localized = CATEGORY_COPY[slug as keyof typeof CATEGORY_COPY];
-  return localized ? localized[locale].name : locale === 'es' ? CATEGORY_ES_NAMES[slug.toLowerCase()] ?? slug : slug;
+  return localized
+    ? localized[locale].name
+    : locale === 'es'
+      ? (CATEGORY_ES_NAMES[slug.toLowerCase()] ?? slug)
+      : slug;
 }
 
 export function getLocalizedTypeLabel(type: Quiz['quiz_type'], locale: Locale) {
