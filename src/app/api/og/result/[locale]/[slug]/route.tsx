@@ -254,9 +254,7 @@ function resultCard(
 }
 
 function mark(score: ChallengeScore, personality: boolean): string {
-  return personality
-    ? (score.resultTitle ?? '—')
-    : `${score.score}/${score.maxScore}`;
+  return personality ? (score.resultTitle ?? '—') : `${score.score}/${score.maxScore}`;
 }
 
 function versusCard(

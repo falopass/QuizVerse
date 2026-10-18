@@ -87,9 +87,7 @@ export default async function LocalizedQuizResultPage({
   // inventar un resultado.
   const sessionIsForQuiz = session?.quiz_id === quiz.id;
   const challenge =
-    sessionIsForQuiz && challengeToken
-      ? await getChallengeForQuiz(challengeToken, quiz.id)
-      : null;
+    sessionIsForQuiz && challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
 
   const resolvedResult =
     session?.result_id && quiz.results
