@@ -66,13 +66,9 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       // Public sitemap URL → the route handler that can query Supabase.
+      // (The Google verification file is answered directly in proxy.ts, before
+      // the locale redirect, so it needs no rewrite.)
       { source: '/sitemap.xml', destination: '/api/sitemap' },
-      // Google Search Console HTML-file verification, no rebuild required:
-      // https://quizverse.org/google<token>.html returns the expected payload.
-      {
-        source: '/:file(google[a-zA-Z0-9]{6,}\\.html)',
-        destination: '/api/google-verification?file=:file',
-      },
     ];
   },
 };

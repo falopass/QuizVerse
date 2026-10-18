@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
+import { googleVerificationResponse } from '@/lib/seo/google-verification';
 
 function pathnameHasLocale(pathname: string) {
   return /^\/(en|es)(\/|$)/.test(pathname);
@@ -9,7 +10,15 @@ function pathnameHasLocale(pathname: string) {
 // Rutas que viven en la raíz (no llevan prefijo de idioma). Sin esta lista, el
 // proxy las redirige a /<locale>/... y las portadas procedurales y el manifest
 // del PWA terminan en 404.
-const NON_LOCALE_PREFIXES = ['/_next', '/api', '/covers', '/stock-covers', '/icons', '/images', '/ronda-diseno'];
+const NON_LOCALE_PREFIXES = [
+  '/_next',
+  '/api',
+  '/covers',
+  '/stock-covers',
+  '/icons',
+  '/images',
+  '/ronda-diseno',
+];
 
 const NON_LOCALE_EXACT = [
   '/favicon.ico',
@@ -30,6 +39,12 @@ function getLocaleFromRequest(request: NextRequest) {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Search Console verification lives at the root and must answer before any
+  // locale redirect or auth round-trip.
+  const verification = googleVerificationResponse(pathname);
+  if (verification) return verification;
+
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
   const anonKey =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ||
@@ -74,7 +89,8 @@ export const config = {
   // Static files and search-engine control files live at the root and must never
   // be redirected into a locale prefix: an IndexNow key file (/{key}.txt) or the
   // Google verification file (google<token>.html) returning a 307 fails the check.
+  // `.html` is intentionally NOT excluded: the verification handler above answers it.
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json|html|webmanifest)$).*)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json|webmanifest)$).*)',
   ],
 };

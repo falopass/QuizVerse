@@ -29,16 +29,22 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
   const payload = await getCategoryPayload(slug, locale);
   if (!payload || payload.quizzes.length === 0) notFound();
   const category = localizeCategory(payload.category, locale)!;
+  const count = payload.quizzes.length;
+  const tagline = category.description?.trim();
+
+  // The stored taglines are short ("Sharp rounds with clean pacing."), so the
+  // catalogue size and the offer are appended to fill the SERP snippet.
+  const description =
+    locale === 'es'
+      ? `${tagline ? `${tagline} ` : ''}${count} quizzes de ${category.name} gratis en QuizVerse, con resultado al instante y sin registro.`
+      : `${tagline ? `${tagline} ` : ''}${count} free ${category.name} quizzes on QuizVerse, with instant results and no signup.`;
+
   return generateCategoryMetadata({
     name: category.name,
     slug,
-    description:
-      category.description ||
-      (locale === 'es'
-        ? `Explora ${payload.quizzes.length} quizzes de ${category.name} en QuizVerse. Gratis y sin registro.`
-        : `Explore ${payload.quizzes.length} ${category.name} quizzes on QuizVerse. Free to play, no signup needed.`),
+    description,
     locale,
-    quizCount: payload.quizzes.length,
+    quizCount: count,
   });
 }
 
