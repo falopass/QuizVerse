@@ -68,6 +68,7 @@ export async function RegisterPageView({
               submit: copy.signUp,
             }}
             redirectTo={safeRedirect}
+            locale={locale}
           />
 
           <p className="text-text-secondary mt-6 text-center text-sm">

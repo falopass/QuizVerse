@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { signUpAction } from '@/actions/auth.actions';
+import { authMessage } from '@/lib/auth/messages';
+import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface RegisterFormProps {
   labels: {
@@ -12,9 +14,10 @@ interface RegisterFormProps {
     submit: string;
   };
   redirectTo: string;
+  locale?: Locale;
 }
 
-export function RegisterForm({ labels, redirectTo }: RegisterFormProps) {
+export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterFormProps) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,18 +30,12 @@ export function RegisterForm({ labels, redirectTo }: RegisterFormProps) {
     setError('');
     setLoading(true);
 
-    const supabase = createClient();
-    const { error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { display_name: name },
-        emailRedirectTo: `${window.location.origin}/callback?next=${encodeURIComponent(redirectTo)}`,
-      },
-    });
+    // La validación, el rate limit y el saneado del username viven en el
+    // servidor; aquí solo se envía lo que el jugador escribió.
+    const result = await signUpAction({ email, password, name });
 
-    if (signUpError) {
-      setError(signUpError.message);
+    if (!result.ok) {
+      setError(authMessage(result.code, locale));
       setLoading(false);
       return;
     }
