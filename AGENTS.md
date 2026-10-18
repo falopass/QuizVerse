@@ -8,7 +8,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 
 - MAX_BUILD=1 · MAX_FULL_TEST_SUITE=1 · MAX_DEV_SERVER=1 · MAX_BROWSER=1 · MAX_HEAVY_TASKS=1 · TEST_RUNNER_MAX_WORKERS=2
 - One build, one dev server, one browser and one full suite **at a time**. Never parallelize heavy tasks locally.
-- Subagents **only edit files and explore**. They do NOT run dev servers, builds, typecheck or full suites. The main agent runs heavy tasks, one at a time.
+- Subagents **only edit files and explore**. They do NOT run dev servers, builds, typecheck or full suites. At most 2 subagents write at once, on disjoint files; shared files (`package.json`, lockfile, configs) are edited by the main agent. The main agent runs heavy tasks, one at a time.
 
 ## Workflow rules
 
@@ -16,7 +16,9 @@ This project is developed on a single personal machine, and also worked on by Cl
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (production lives there; its deploy belongs to the owner).
-- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest), `npm run build` — and use the Vercel PR preview for visual checks.
+- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Vercel PR preview for visual checks.
+- If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Never run `gh pr merge`.
+- Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 
 ## Stack
 
@@ -30,7 +32,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - **AI Generation**: DeepSeek (runtime + offline seed pipeline)
 - **OG Images**: Satori + @resvg/resvg-js
 - **Covers**: Procedural fallback + Stock (Pexels/Pixabay) + Generated/Curated types
-- **Deploy**: Vercel
+- **Deploy**: owner's VPS (production) + Vercel (PR previews)
 - **Domain**: quizverse.org
 
 ## Commands
@@ -256,64 +258,10 @@ Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
   categoría de tema: se queda sin filas a propósito
 - Regenerar la taxonomía: `npm run seed:categorize`; auditar: `npm run seed:audit`
 
-## Seed Pipeline
+## Deployment
 
-1. Generate batches with OpenRouter/Qwen → `trending-seed-openrouter.json`
-2. Polish: normalize, fix slugs, editorial metadata → `.normalized.json`
-3. Cover hydration: procedural + stock covers (Pexels/Pixabay)
-4. Import to Supabase → `scripts/import-trending-seed-to-supabase.mjs`
+- Production runs on the owner's VPS (`deploy/`: Docker + Caddy). Do not touch it or deploy it; that belongs to the owner.
+- Vercel builds a preview per PR for visual review.
+- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). The app also reads `SUPABASE_SERVICE_ROLE_KEY` (server and import scripts only), `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` (rate limiting), `PEXELS_API_KEY`/`PIXABAY_API_KEY` (stock covers) and the optional `NEXT_PUBLIC_ADSENSE_*_SLOT`. Never commit real values.
 
-## Deployment (Vercel)
-
-```bash
-npx vercel              # Deploy from CLI
-git push origin main    # Auto-deploy (Vercel detects repo)
-```
-
-### Required env vars in Vercel
-
-| Variable                                       | Purpose                                |
-| :--------------------------------------------- | :------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`                         | Production URL (https://quizverse.org) |
-| `NEXT_PUBLIC_SUPABASE_URL`                     | Supabase project URL                   |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key               |
-| `SUPABASE_SERVICE_ROLE_KEY`                    | Server-side privileged operations      |
-| `DEEPSEEK_API_KEY`                             | Runtime + batch AI quiz generation     |
-| `UPSTASH_REDIS_REST_URL`                       | Rate limiting / caching                |
-| `UPSTASH_REDIS_REST_TOKEN`                     | Upstash auth token                     |
-| `PEXELS_API_KEY`                               | Stock cover images                     |
-| `PIXABAY_API_KEY`                              | Optional — additional stock covers     |
-| `NEXT_PUBLIC_ADSENSE_ID`                       | Optional — ad monetization             |
-
-### Production checklist
-
-- [ ] `NEXT_PUBLIC_SITE_URL=https://quizverse.org`
-- [ ] Supabase production project configured
-- [ ] All env vars in Vercel
-- [ ] Locale routing verified (`/en`, `/es`)
-- [ ] OG images working
-- [ ] Share URLs and result pages functional
-- [ ] Mobile + desktop smoke pass
-- [ ] Ad integration (if enabled) without layout shift
-- [ ] Privacy/cookie/legal review before ads
-
-## Architecture
-
-```
-Browser / Bots
-  ├─ proxy.ts
-  │   ├─ refreshes Supabase auth session
-  │   └─ redirects non-localized paths to /en or /es
-  ├─ App Router /[locale]
-  │   ├─ Home / Explore / Detail / Play / Result
-  │   ├─ Create / AI Create / Login
-  │   ├─ Profile / Leaderboard
-  │   └─ Metadata / OG image routes
-  ├─ Public data layer (src/lib/data/public.ts)
-  ├─ Server actions (src/actions/quiz.actions.ts)
-  ├─ Supabase (quizzes, categories, profiles, game_sessions, likes, achievements)
-  └─ Editorial pipeline (scripts/*.mjs)
-```
-
-Product direction: editorial, bilingual, discovery-oriented, ad-supported.
-NOT a generic quiz template grid.
+Product direction: editorial, bilingual, discovery-oriented, ad-supported. NOT a generic quiz template grid.
