@@ -82,8 +82,14 @@ export default async function LocalizedQuizResultPage({
   if (!quiz) notFound();
 
   // El enlace compartido por el retado lleva el token del retador: la página
-  // pinta la comparativa y la tarjeta OG sale como versus.
-  const challenge = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
+  // pinta la comparativa y la tarjeta OG sale como versus. Sin una sesión del
+  // retado para ESTE quiz no hay marcador propio: comparar contra 0 sería
+  // inventar un resultado.
+  const sessionIsForQuiz = session?.quiz_id === quiz.id;
+  const challenge =
+    sessionIsForQuiz && challengeToken
+      ? await getChallengeForQuiz(challengeToken, quiz.id)
+      : null;
 
   const resolvedResult =
     session?.result_id && quiz.results
@@ -118,7 +124,9 @@ export default async function LocalizedQuizResultPage({
           : undefined
       }
       challenge={challenge}
-      challengeHref={s ? `/${locale}/quiz/${quiz.slug}/play?challenge=${s}` : undefined}
+      challengeHref={
+        sessionIsForQuiz ? `/${locale}/quiz/${quiz.slug}/play?challenge=${s}` : undefined
+      }
     />
   );
 }

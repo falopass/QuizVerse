@@ -110,16 +110,17 @@ export function ResultScreen({
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
 
-  // Comparativa del reto: mi marca contra la del retador. Con resultado de
-  // personalidad (sin marcador) se comparan títulos, no puntos.
+  // Comparativa del reto: mi marca contra la del retador. En personality el
+  // score persistido son preguntas respondidas (n/N), no aciertos: el veredicto
+  // compara títulos de resultado, no puntos.
+  const personality = quiz.quiz_type === 'personality';
   const myScore: ChallengeScore = triviaScore
     ? { score: triviaScore.correct, maxScore: triviaScore.total, resultTitle: result?.title }
     : { score: 0, maxScore: 0, resultTitle: result?.title };
-  const scoreless = challenge !== null && challenge.maxScore === 0 && myScore.maxScore === 0;
   const outcome = challenge ? challengeOutcome(myScore, challenge) : null;
   const challengeVerdict = challenge
-    ? scoreless
-      ? myScore.resultTitle && myScore.resultTitle === challenge.resultTitle
+    ? personality
+      ? myScore.resultTitle === challenge.resultTitle
         ? copy.challengeSame
         : copy.challengeDiff
       : outcome === 'win'
@@ -183,11 +184,15 @@ export function ResultScreen({
                 <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
                   <span className="text-text-secondary">
                     {copy.challenger}:{' '}
-                    <strong className="text-text-primary">{challengeMark(challenge)}</strong>
+                    <strong className="text-text-primary">
+                      {challengeMark(challenge, personality)}
+                    </strong>
                   </span>
                   <span className="text-text-secondary">
                     {copy.challenged}:{' '}
-                    <strong className="text-text-primary">{challengeMark(myScore)}</strong>
+                    <strong className="text-text-primary">
+                      {challengeMark(myScore, personality)}
+                    </strong>
                   </span>
                 </div>
               </div>
@@ -399,8 +404,10 @@ function ResultMetric({ label, value }: { label: string; value: string }) {
 }
 
 /** Lo que se muestra como marca: aciertos en trivia, título en personality. */
-function challengeMark(score: ChallengeScore): string {
-  return score.maxScore > 0 ? `${score.score}/${score.maxScore}` : (score.resultTitle ?? '—');
+function challengeMark(score: ChallengeScore, personality: boolean): string {
+  return personality
+    ? (score.resultTitle ?? '—')
+    : `${score.score}/${score.maxScore}`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {

@@ -253,8 +253,10 @@ function resultCard(
   );
 }
 
-function mark(score: ChallengeScore): string {
-  return score.maxScore > 0 ? `${score.score}/${score.maxScore}` : (score.resultTitle ?? '—');
+function mark(score: ChallengeScore, personality: boolean): string {
+  return personality
+    ? (score.resultTitle ?? '—')
+    : `${score.score}/${score.maxScore}`;
 }
 
 function versusCard(
@@ -271,9 +273,19 @@ function versusCard(
     maxScore: session.max_score,
     resultTitle: session.result_title,
   };
+  // En personality el score son preguntas respondidas: el reto se decide por
+  // título de resultado, no por puntos.
+  const personality = quiz.quiz_type === 'personality';
   const outcome = challengeOutcome(mine, challenger);
-  const verdict =
-    outcome === 'win'
+  const verdict = personality
+    ? mine.resultTitle === challenger.resultTitle
+      ? es
+        ? 'MISMO RESULTADO'
+        : 'SAME RESULT'
+      : es
+        ? 'RESULTADOS DISTINTOS'
+        : 'DIFFERENT RESULTS'
+    : outcome === 'win'
       ? es
         ? 'RETO SUPERADO'
         : 'CHALLENGE BEATEN'
@@ -371,8 +383,8 @@ function versusCard(
             {verdict}
           </div>
           <div style={{ display: 'flex', gap: 18, marginTop: 24 }}>
-            {side(es ? 'RETADOR' : 'CHALLENGER', mark(challenger), false)}
-            {side(es ? 'RETADO' : 'CHALLENGED', mark(mine), true)}
+            {side(es ? 'RETADOR' : 'CHALLENGER', mark(challenger, personality), false)}
+            {side(es ? 'RETADO' : 'CHALLENGED', mark(mine, personality), true)}
           </div>
           <div
             style={{
@@ -416,7 +428,9 @@ export async function GET(
     return baseCover('QuizVerse', options);
   }
 
-  const session = token ? await getQuizSessionByShareToken(token) : null;
+  const found = token ? await getQuizSessionByShareToken(token) : null;
+  // Una sesión de otro quiz no cuenta: ni para el versus ni para la tarjeta.
+  const session = found?.quiz_id === quiz.id ? found : null;
   const challenger = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
 
   if (session && challenger) {

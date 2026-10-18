@@ -109,6 +109,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     result: PersonalityResult | null;
     pointsEarned: number;
     shareToken: string | null;
+    score: number;
+    maxScore: number;
   } | null>(null);
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
@@ -238,6 +240,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             pointsEarned: result.points_earned ?? 0,
             shareToken:
               (result.session as { share_token?: string | null } | undefined)?.share_token ?? null,
+            score: result.score ?? 0,
+            maxScore: result.max_score ?? quiz.questions.length,
           });
           void trackEvent({
             name: 'quiz_complete',
@@ -259,7 +263,16 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     };
 
     void persistSession();
-  }, [answers, isCompleted, isSubmittingResult, quiz.id, quiz.quiz_type, quiz.slug, uiLocale]);
+  }, [
+    answers,
+    isCompleted,
+    isSubmittingResult,
+    quiz.id,
+    quiz.questions.length,
+    quiz.quiz_type,
+    quiz.slug,
+    uiLocale,
+  ]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -366,7 +379,22 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
         locale={uiLocale}
         quiz={quiz}
         result={submission?.result ?? getPersonalityResult()}
-        triviaScore={quiz.quiz_type === 'trivia' ? getScore() : undefined}
+        // El marcador del servidor manda cuando existe: un reveal fallido puede
+        // haber dejado un acierto como mala en el store local.
+        triviaScore={
+          quiz.quiz_type === 'trivia'
+            ? submission
+              ? {
+                  correct: submission.score,
+                  total: submission.maxScore,
+                  percentage:
+                    submission.maxScore > 0
+                      ? Math.round((submission.score / submission.maxScore) * 100)
+                      : 0,
+                }
+              : getScore()
+            : undefined
+        }
         answers={answers}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}

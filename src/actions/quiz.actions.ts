@@ -181,6 +181,8 @@ export interface SubmittedAnswer {
 export interface SubmitGameResult {
   session: { id: string; share_token: string | null };
   result: { id: string; title: string; description: string } | null;
+  score: number;
+  max_score: number;
   points_earned: number;
   achievements_unlocked: Array<{ id: string; name: string }>;
 }
@@ -242,6 +244,8 @@ export async function submitQuizResult(
     result: partner
       ? { id: partner.id, title: partner.title, description: partner.description }
       : null,
+    score: scored.score,
+    max_score: scored.maxScore,
     points_earned: pointsFor(scored.perfect),
     achievements_unlocked: await checkAchievements(user?.id ?? null, {
       perfectScore: scored.perfect,
