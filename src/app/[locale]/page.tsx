@@ -82,7 +82,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           <Link
             href={localizeHref(locale, `/quiz/${lead.slug}`)}
             className="arcade-hero-link"
-            aria-label={lead.title}
+            aria-label={`${dictionary.arcade.featured} / 001 · ${lead.title}`}
           >
             <QuizCoverArt
               quiz={lead}

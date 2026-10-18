@@ -6,6 +6,7 @@ import { submitQuizResult } from '@/actions/quiz.actions';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
 import type { PersonalityResult, Quiz } from '@/types/quiz';
+import type { ChallengeInfo } from '@/lib/quiz/challenge';
 import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
@@ -20,6 +21,8 @@ import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/revea
 interface QuizPlayerProps {
   quiz: Quiz;
   locale?: Locale;
+  /** Reto activo: el marcador del retador que hay que superar. */
+  challenge?: ChallengeInfo | null;
 }
 
 let _audioContext: AudioContext | null = null;
@@ -53,7 +56,7 @@ const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
   oscillator.stop(audioContext.currentTime + 0.2);
 };
 
-export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
+export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const copy =
     uiLocale === 'es'
@@ -367,9 +370,10 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
         answers={answers}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
+        challenge={challenge}
         shareUrl={
           submission?.shareToken && typeof window !== 'undefined'
-            ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}`
+            ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}${challenge ? `&challenge=${challenge.token}` : ''}`
             : undefined
         }
         onPlayAgain={() => {
