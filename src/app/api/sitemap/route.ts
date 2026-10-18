@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { generateSitemapXml, type SitemapEntry } from '@/lib/seo/sitemap';
+import { generateSitemapXml, type SitemapAlternate, type SitemapEntry } from '@/lib/seo/sitemap';
 import { SITE_URL } from '@/lib/seo/site';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
 /**
@@ -12,6 +13,10 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
  * quiz type that has at least one quiz in that language, and the editorial
  * pages. Login-gated tools (/create) and personalized views (/play, /result)
  * are intentionally absent.
+ *
+ * Bilingual pairs are declared inline with `xhtml:link`, but only when the
+ * translated page really exists: a hreflang pointing at a 404 is worse than no
+ * hreflang at all.
  */
 
 interface QuizRow {
@@ -57,6 +62,17 @@ function newest(dates: Array<string | null | undefined>): string | undefined {
   return bestIso;
 }
 
+/** Alternates de una página que existe en ambos idiomas con la misma ruta. */
+function sharedPathAlternates(path: string): SitemapAlternate[] {
+  const en = `/en${path}`;
+  const es = `/es${path}`;
+  return [
+    { hreflang: 'en', href: en },
+    { hreflang: 'es', href: es },
+    { hreflang: 'x-default', href: en },
+  ];
+}
+
 const EDITORIAL_PAGES: Array<{
   path: string;
   priority: number;
@@ -78,6 +94,7 @@ export async function GET() {
   const quizzes = await fetchPublishedQuizzes();
 
   const perLocale = new Map<Locale, QuizRow[]>(locales.map((locale) => [locale, []]));
+  const slugsByLocale = new Map<Locale, Set<string>>(locales.map((locale) => [locale, new Set()]));
   const categoryHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
   const typeHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
 
@@ -85,6 +102,7 @@ export async function GET() {
     const locale = (quiz.language === 'es' ? 'es' : 'en') as Locale;
     if (!quiz.slug) continue;
     perLocale.get(locale)?.push(quiz);
+    slugsByLocale.get(locale)?.add(quiz.slug);
 
     const date = quiz.published_at;
 
@@ -104,6 +122,26 @@ export async function GET() {
     }
   }
 
+  /**
+   * Alternates de un quiz: sólo si el mapa de traducciones conoce la pareja y
+   * esa pareja está publicada. Se comparan slugs reales, no la intención.
+   */
+  function quizAlternates(locale: Locale, slug: string): SitemapAlternate[] | undefined {
+    const other: Locale = locale === 'es' ? 'en' : 'es';
+    const counterpart = getEquivalentQuizSlug(slug, other);
+    if (!counterpart) return undefined;
+    if (!slugsByLocale.get(other)?.has(counterpart)) return undefined;
+
+    const self = `/${locale}/quiz/${encodeURIComponent(slug)}`;
+    const translated = `/${other}/quiz/${encodeURIComponent(counterpart)}`;
+
+    return [
+      { hreflang: locale, href: self },
+      { hreflang: other, href: translated },
+      { hreflang: 'x-default', href: locale === 'en' ? self : translated },
+    ];
+  }
+
   const entries: SitemapEntry[] = [];
 
   for (const locale of locales) {
@@ -116,6 +154,7 @@ export async function GET() {
         lastModified: page.path === '' ? localeNewest : undefined,
         changeFrequency: page.changeFrequency,
         priority: page.priority,
+        alternates: sharedPathAlternates(page.path),
       });
     }
 
@@ -127,6 +166,7 @@ export async function GET() {
         lastModified: newest(hub.dates),
         changeFrequency: 'daily',
         priority: 0.8,
+        alternates: sharedPathAlternates(`/category/${hub.slug}`),
       });
     }
 
@@ -137,6 +177,7 @@ export async function GET() {
         lastModified: newest(hub.dates),
         changeFrequency: 'weekly',
         priority: 0.7,
+        alternates: sharedPathAlternates(`/category/${hub.slug}`),
       });
     }
 
@@ -146,6 +187,7 @@ export async function GET() {
         lastModified: quiz.published_at ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.7,
+        alternates: quizAlternates(locale, quiz.slug),
       });
     }
   }

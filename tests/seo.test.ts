@@ -178,3 +178,40 @@ describe('structured data', () => {
     expect(isoDuration(0)).toBe('PT1M');
   });
 });
+
+describe('generateSitemapXml — alternates bilingües', () => {
+  it('emite xhtml:link con el namespace declarado', () => {
+    const xml = generateSitemapXml(
+      [
+        {
+          url: '/en/quiz/space-trivia',
+          alternates: [
+            { hreflang: 'en', href: '/en/quiz/space-trivia' },
+            { hreflang: 'es', href: '/es/quiz/trivia-espacial' },
+            { hreflang: 'x-default', href: '/en/quiz/space-trivia' },
+          ],
+        },
+      ],
+      SITE_URL
+    );
+
+    expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
+    expect(xml).toContain(
+      '<xhtml:link rel="alternate" hreflang="es" href="https://quizverse.org/es/quiz/trivia-espacial"/>'
+    );
+    expect(xml).toContain('hreflang="x-default"');
+  });
+
+  it('no emite alternates cuando la entrada no los declara', () => {
+    const xml = generateSitemapXml([{ url: '/en/about' }], SITE_URL);
+    expect(xml).not.toContain('xhtml:link');
+  });
+
+  it('escapa las URLs de los alternates', () => {
+    const xml = generateSitemapXml(
+      [{ url: '/en/quiz/a', alternates: [{ hreflang: 'es', href: '/es/quiz/b&c' }] }],
+      SITE_URL
+    );
+    expect(xml).toContain('href="https://quizverse.org/es/quiz/b&amp;c"');
+  });
+});
