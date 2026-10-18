@@ -1,4 +1,4 @@
-﻿export const locales = ['en', 'es'] as const;
+export const locales = ['en', 'es'] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -127,6 +127,10 @@ export interface Dictionary {
     startPlaying: string;
     coverRole: string;
     coverTrivia: string;
+    invite: string;
+    inviteBody: string;
+    copyInvite: string;
+    copied: string;
   };
 }
 
@@ -257,6 +261,10 @@ const dictionaries: Record<Locale, Dictionary> = {
       startPlaying: 'Start playing',
       coverRole: 'Your role',
       coverTrivia: 'Fan test',
+      invite: 'Challenge a friend',
+      inviteBody: 'Send the link and see if they beat your score.',
+      copyInvite: 'Copy link',
+      copied: 'Copied!',
     },
   },
   es: {
@@ -386,6 +394,10 @@ const dictionaries: Record<Locale, Dictionary> = {
       startPlaying: 'Empezar a jugar',
       coverRole: 'Tu rol',
       coverTrivia: 'Test fan',
+      invite: 'Retar a un amigo',
+      inviteBody: 'Manda el enlace y mira si supera tu puntuación.',
+      copyInvite: 'Copiar enlace',
+      copied: '¡Copiado!',
     },
   },
 };

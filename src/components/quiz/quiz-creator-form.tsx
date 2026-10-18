@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -185,7 +185,7 @@ export function QuizCreatorForm({
         language: locale,
         estimated_minutes: Math.max(1, questions.length),
       });
-      if (response.error || !response.quiz) return error(response.error || copy.genericError);
+      if (!response.success) return error(response.error);
       await trackEvent({
         name: 'create_complete',
         locale,

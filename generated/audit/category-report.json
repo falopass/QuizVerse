@@ -1,0 +1,338 @@
+{
+  "generatedAt": "2026-10-18T04:50:34.538Z",
+  "input": ".\\generated\\audit\\quizzes-export.json",
+  "total": 518,
+  "byCategory": {
+    "movies-tv": 174,
+    "anime-manga": 119,
+    "gaming": 94,
+    "music": 51,
+    "lifestyle": 21,
+    "culture": 20,
+    "literature": 12,
+    "pop-culture": 9,
+    "technology": 5,
+    "relationships": 5,
+    "food-drink": 3,
+    "science": 3,
+    "animals": 2
+  },
+  "samples": {
+    "movies-tv": [
+      {
+        "title": "¿Qué energía de Marvel combina mejor contigo?",
+        "language": "es",
+        "why": "films, series and streaming"
+      },
+      {
+        "title": "The Bear Fan Trivia Challenge",
+        "language": "en",
+        "why": "films, series and streaming"
+      },
+      {
+        "title": "Star Wars Fan Trivia Challenge",
+        "language": "en",
+        "why": "films, series and streaming"
+      },
+      {
+        "title": "Marvel Fan Trivia Challenge",
+        "language": "en",
+        "why": "films, series and streaming"
+      },
+      {
+        "title": "Trivia fan de The Boys",
+        "language": "es",
+        "why": "films, series and streaming"
+      }
+    ],
+    "culture": [
+      {
+        "title": "Trivia fan de Avatar",
+        "language": "es",
+        "why": "generic culture fallback"
+      },
+      {
+        "title": "¿Qué tipo de solucionador de conflictos eres?",
+        "language": "es",
+        "why": "generic culture fallback"
+      },
+      {
+        "title": "What leadership instinct do you carry?",
+        "language": "en",
+        "why": "generic culture fallback"
+      },
+      {
+        "title": "¿Qué energía viajera llevas a 2026?",
+        "language": "es",
+        "why": "generic culture fallback"
+      },
+      {
+        "title": "¿Qué rol jugarías dentro de El Juego del Calamar?",
+        "language": "es",
+        "why": "generic culture fallback"
+      }
+    ],
+    "anime-manga": [
+      {
+        "title": "Which Attack on Titan energy matches you best?",
+        "language": "en",
+        "why": "anime & manga franchises"
+      },
+      {
+        "title": "Trivia fan de Jujutsu Kaisen",
+        "language": "es",
+        "why": "anime & manga franchises"
+      },
+      {
+        "title": "¿Qué tan profundo llega tu conocimiento de Jujutsu Kaisen?",
+        "language": "es",
+        "why": "anime & manga franchises"
+      },
+      {
+        "title": "Which Solo Leveling energy matches you best?",
+        "language": "en",
+        "why": "anime & manga franchises"
+      },
+      {
+        "title": "¿Qué energía de Witch Hat Atelier combina mejor contigo?",
+        "language": "es",
+        "why": "anime & manga franchises"
+      }
+    ],
+    "lifestyle": [
+      {
+        "title": "What kind of morning person are you really?",
+        "language": "en",
+        "why": "routines, style and everyday life"
+      },
+      {
+        "title": "¿Qué plan de fin de semana encaja de verdad con tu vibra?",
+        "language": "es",
+        "why": "routines, style and everyday life"
+      },
+      {
+        "title": "What Weekend Social Energy Are You?",
+        "language": "en",
+        "why": "routines, style and everyday life"
+      },
+      {
+        "title": "What travel energy are you taking into 2026?",
+        "language": "en",
+        "why": "routines, style and everyday life"
+      },
+      {
+        "title": "¿Qué personalidad fitness encaja con tu energía?",
+        "language": "es",
+        "why": "routines, style and everyday life"
+      }
+    ],
+    "food-drink": [
+      {
+        "title": "Trivia de comida alrededor del mundo",
+        "language": "es",
+        "why": "food, drink and cooking"
+      },
+      {
+        "title": "Food Around the World Trivia",
+        "language": "en",
+        "why": "food, drink and cooking"
+      },
+      {
+        "title": "What Does Your Coffee Order Say About You?",
+        "language": "en",
+        "why": "food, drink and cooking"
+      }
+    ],
+    "literature": [
+      {
+        "title": "How deep does your Project Hail Mary knowledge go?",
+        "language": "en",
+        "why": "books, reading and authors"
+      },
+      {
+        "title": "What role would you play inside Project Hail Mary?",
+        "language": "en",
+        "why": "books, reading and authors"
+      },
+      {
+        "title": "¿Qué rol jugarías en Project Hail Mary?",
+        "language": "es",
+        "why": "books, reading and authors"
+      },
+      {
+        "title": "What Is Your True Reading Personality?",
+        "language": "en",
+        "why": "books, reading and authors"
+      },
+      {
+        "title": "¿Qué energía de Project Hail Mary combina mejor contigo?",
+        "language": "es",
+        "why": "books, reading and authors"
+      }
+    ],
+    "gaming": [
+      {
+        "title": "¿Qué rol jugarías en The Super Mario Galaxy Movie?",
+        "language": "es",
+        "why": "video games and gaming culture"
+      },
+      {
+        "title": "How deep does your Minecraft knowledge go?",
+        "language": "en",
+        "why": "video games and gaming culture"
+      },
+      {
+        "title": "¿Qué energía de Starfield combina mejor contigo?",
+        "language": "es",
+        "why": "video games and gaming culture"
+      },
+      {
+        "title": "¿Qué tan profundo llega tu conocimiento de Baldur's Gate 3?",
+        "language": "es",
+        "why": "video games and gaming culture"
+      },
+      {
+        "title": "Trivia fan de Grand Theft Auto VI",
+        "language": "es",
+        "why": "video games and gaming culture"
+      }
+    ],
+    "pop-culture": [
+      {
+        "title": "What Social Media Alter Ego Do You Have?",
+        "language": "en",
+        "why": "internet, celebrity and fandom culture"
+      },
+      {
+        "title": "¿Qué era de la nostalgia realmente te define?",
+        "language": "es",
+        "why": "internet, celebrity and fandom culture"
+      },
+      {
+        "title": "Which nostalgia era actually defines you?",
+        "language": "en",
+        "why": "internet, celebrity and fandom culture"
+      },
+      {
+        "title": "Trivia esencial de cultura de internet",
+        "language": "es",
+        "why": "internet, celebrity and fandom culture"
+      },
+      {
+        "title": "¿Qué tan profundo llega tu conocimiento de Avatar?",
+        "language": "es",
+        "why": "internet, celebrity and fandom culture"
+      }
+    ],
+    "music": [
+      {
+        "title": "K-pop Fan Trivia Challenge",
+        "language": "en",
+        "why": "artists, albums and music culture"
+      },
+      {
+        "title": "Which Sabrina Carpenter energy matches you best?",
+        "language": "en",
+        "why": "artists, albums and music culture"
+      },
+      {
+        "title": "How deep does your Taylor Swift knowledge go?",
+        "language": "en",
+        "why": "artists, albums and music culture"
+      },
+      {
+        "title": "¿Qué rol jugarías dentro de Sabrina Carpenter?",
+        "language": "es",
+        "why": "artists, albums and music culture"
+      },
+      {
+        "title": "How deep does your K-pop knowledge go?",
+        "language": "en",
+        "why": "artists, albums and music culture"
+      }
+    ],
+    "technology": [
+      {
+        "title": "What Work Style Fits the AI Era?",
+        "language": "en",
+        "why": "technology and the internet industry"
+      },
+      {
+        "title": "¿Cómo usas realmente la IA en tu vida diaria?",
+        "language": "es",
+        "why": "technology and the internet industry"
+      },
+      {
+        "title": "¿Cuál es tu relación con la tecnología?",
+        "language": "es",
+        "why": "technology and the internet industry"
+      },
+      {
+        "title": "How do you actually use AI in your daily life?",
+        "language": "en",
+        "why": "technology and the internet industry"
+      },
+      {
+        "title": "¿Qué estilo laboral encaja en la era de la IA?",
+        "language": "es",
+        "why": "technology and the internet industry"
+      }
+    ],
+    "relationships": [
+      {
+        "title": "Which Friend Archetype Are You in Your Group?",
+        "language": "en",
+        "why": "dating, friendship and love"
+      },
+      {
+        "title": "¿Qué arquetipo de amigo eres en tu grupo?",
+        "language": "es",
+        "why": "dating, friendship and love"
+      },
+      {
+        "title": "¿Qué energía de app de citas estás trayendo?",
+        "language": "es",
+        "why": "dating, friendship and love"
+      },
+      {
+        "title": "What is your relationship with technology?",
+        "language": "en",
+        "why": "dating, friendship and love"
+      },
+      {
+        "title": "What dating app energy are you bringing?",
+        "language": "en",
+        "why": "dating, friendship and love"
+      }
+    ],
+    "science": [
+      {
+        "title": "How Do You Cope with Climate Anxiety?",
+        "language": "en",
+        "why": "science, space and nature facts"
+      },
+      {
+        "title": "Trivia de exploración espacial 2020-2026",
+        "language": "es",
+        "why": "science, space and nature facts"
+      },
+      {
+        "title": "Space Exploration Trivia 2020–2026",
+        "language": "en",
+        "why": "science, space and nature facts"
+      }
+    ],
+    "animals": [
+      {
+        "title": "What Pet Owner Personality Are You?",
+        "language": "en",
+        "why": "animals and pets"
+      },
+      {
+        "title": "¿Qué personalidad de dueño de mascota eres?",
+        "language": "es",
+        "why": "animals and pets"
+      }
+    ]
+  }
+}

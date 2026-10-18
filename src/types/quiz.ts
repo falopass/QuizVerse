@@ -135,6 +135,20 @@ export interface PersonalityResult {
 // GAME SESSION
 // ============================================
 
+/**
+ * One row of the "review your answers" list, computed on the server.
+ *
+ * The review travels as data instead of the quiz answer key, so a result screen
+ * can show the right answer without shipping `is_correct` to the browser.
+ */
+export interface QuizReviewItem {
+  questionId: string;
+  question: string;
+  selectedOptionText: string | null;
+  correctOptionText: string | null;
+  isCorrect: boolean;
+}
+
 export interface GameSession {
   id: string;
   quiz_id: string;

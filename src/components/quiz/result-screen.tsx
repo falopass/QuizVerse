@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { ShareButtons } from '@/components/shared/share-buttons';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
-import type { Answer, PersonalityResult, Quiz } from '@/types/quiz';
+import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface ResultScreenProps {
@@ -18,6 +18,12 @@ interface ResultScreenProps {
   result: PersonalityResult | null;
   triviaScore?: { correct: number; total: number; percentage: number };
   answers: Answer[];
+  /**
+   * Review computed on the server from the stored session. Preferred over
+   * `answers` because the quiz handed to this screen no longer carries the
+   * answer key.
+   */
+  review?: QuizReviewItem[];
   streak?: number;
   bonusPoints?: number;
   shareUrl?: string;
@@ -30,6 +36,7 @@ export function ResultScreen({
   result,
   triviaScore,
   answers,
+  review,
   streak = 0,
   bonusPoints = 0,
   shareUrl,
@@ -77,7 +84,12 @@ export function ResultScreen({
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
 
   React.useEffect(() => {
-    if (scorePercentage === undefined || scorePercentage < 60 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (
+      scorePercentage === undefined ||
+      scorePercentage < 60 ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return;
     const duration = 3000;
     const end = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
@@ -111,9 +123,7 @@ export function ResultScreen({
             >
               {result?.title || scoreMessage}
             </motion.h1>
-            <p className="arcade-result-body">
-              {result?.description || copy.fallbackBody}
-            </p>
+            <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
 
             <div className="arcade-result-metrics">
               <ResultMetric
@@ -128,9 +138,7 @@ export function ResultScreen({
               <div className="arcade-result-score">
                 <span className="arcade-play-label">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
-                  <p className="arcade-result-number">
-                    {triviaScore.percentage}%
-                  </p>
+                  <p className="arcade-result-number">{triviaScore.percentage}%</p>
                   <p className="text-text-primary pb-2 text-sm font-bold tracking-wider uppercase">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>
@@ -146,16 +154,18 @@ export function ResultScreen({
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
-              <Link href={localizeHref(uiLocale, '/quiz')} className="arcade-button arcade-result-secondary">
+              <Link
+                href={localizeHref(uiLocale, '/quiz')}
+                className="arcade-button arcade-result-secondary"
+              >
                 {uiLocale === 'es' ? 'Jugar otro' : 'Play another'}
               </Link>
-              {onPlayAgain && <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">
-                {uiLocale === 'es' ? 'Repetir partida' : 'Replay this quiz'}
-              </button>}
-              <Link
-                href={localizeHref(uiLocale, '/leaderboard')}
-                className="arcade-result-ranking"
-              >
+              {onPlayAgain && (
+                <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">
+                  {uiLocale === 'es' ? 'Repetir partida' : 'Replay this quiz'}
+                </button>
+              )}
+              <Link href={localizeHref(uiLocale, '/leaderboard')} className="arcade-result-ranking">
                 {uiLocale === 'es' ? 'Ver ranking ↗' : 'View ranking ↗'}
               </Link>
             </div>
@@ -187,46 +197,61 @@ export function ResultScreen({
               </div>
 
               <AnimatePresence initial={false}>
-                {(
+                {
                   <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 16 }}
                     className="mt-5 space-y-3"
                   >
-                    {answers.map((answer, index) => {
-                      const question = quiz.questions.find(
-                        (item) => item.id === answer.question_id
-                      );
-                      const selectedOption = question?.options.find(
-                        (option) => option.id === answer.selected_option_id
-                      );
-                      const correctOption = question?.options.find((option) => option.is_correct);
+                    {(
+                      review ??
+                      answers.map((answer) => {
+                        const question = quiz.questions.find(
+                          (item) => item.id === answer.question_id
+                        );
+                        return {
+                          questionId: answer.question_id,
+                          question: question?.question ?? '',
+                          selectedOptionText:
+                            question?.options.find(
+                              (option) => option.id === answer.selected_option_id
+                            )?.text ?? null,
+                          correctOptionText: null,
+                          isCorrect: answer.is_correct,
+                        } satisfies QuizReviewItem;
+                      })
+                    ).map((item, index) => {
+                      const isTrivia = quiz.quiz_type === 'trivia';
 
                       return (
                         <div
-                          key={answer.question_id}
-                          className={cn('arcade-review-item', quiz.quiz_type === 'trivia' && (answer.is_correct ? 'arcade-review-correct' : 'arcade-review-incorrect'))}
+                          key={item.questionId}
+                          className={cn(
+                            'arcade-review-item',
+                            isTrivia &&
+                              (item.isCorrect ? 'arcade-review-correct' : 'arcade-review-incorrect')
+                          )}
                         >
                           <span className="arcade-play-label">
                             {copy.question} {index + 1}
                           </span>
                           <p className="text-text-primary mt-2 text-sm leading-relaxed font-medium">
-                            {question?.question}
+                            {item.question}
                           </p>
                           <p className="text-text-secondary mt-3 text-sm">
-                            {copy.yourAnswer}: {selectedOption?.text || copy.skipped}
+                            {copy.yourAnswer}: {item.selectedOptionText || copy.skipped}
                           </p>
-                          {quiz.quiz_type === 'trivia' && !answer.is_correct && correctOption && (
+                          {isTrivia && !item.isCorrect && item.correctOptionText && (
                             <p className="text-success mt-2 text-sm font-medium">
-                              {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {correctOption.text}
+                              {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {item.correctOptionText}
                             </p>
                           )}
                         </div>
                       );
                     })}
                   </motion.div>
-                )}
+                }
               </AnimatePresence>
             </div>
           </section>

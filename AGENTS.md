@@ -108,6 +108,50 @@ supabase/
 - **El directorio `generated/`** es artefacto de pipeline — no editar manualmente los JSON del seed
 - **Supabase service role key** solo en scripts de import, NUNCA en código client
 - **AI generation** route valida con Zod — no saltar validación en Groq endpoint
+- **NO enviar la clave de respuestas al navegador** — `questions[].options[].is_correct`
+  sólo existe en el servidor. Ver "Juego y puntuación" abajo.
+
+## Juego y puntuación (server-authoritative)
+
+El navegador nunca decide una puntuación. Manda **qué eligió**; el servidor
+decide cuánto vale.
+
+| Módulo | Responsabilidad |
+| :--- | :--- |
+| `src/lib/quiz/answer-key.ts` | Clave de respuestas: `evaluateAnswer`, `eliminateWrongOptions`, `toClientQuiz` (quita `is_correct`), `buildReview` |
+| `src/lib/quiz/submission.ts` | Zod del envío + `scoreSubmission` (trivia por aciertos, personality por tag dominante) + `pointsFor` |
+| `src/lib/quiz/quiz-repository.ts` | Única puerta a la clave: carga el quiz publicado por id |
+| `src/app/api/quiz/reveal/route.ts` | `POST` por pregunta: veredicto o pista 50/50. Rate limit por IP |
+| `src/actions/quiz.actions.ts` | Orquestación fina: auth → Zod → dominio → persistir → revalidate |
+| `src/lib/actions/types.ts` | Contrato `ActionResult` (`{ success: true } | { success: false, code, error }`) |
+| `src/lib/quiz/quiz-slug.ts` | Slugs ASCII con prefijo de idioma y colisión resuelta por sufijo |
+
+Reglas:
+
+- `toClientQuiz()` es obligatorio en cualquier pantalla que envíe un quiz a un
+  componente cliente (`/play`, `/result`). Si añades otra, pásala por ahí.
+- El feedback inmediato se pide a `/api/quiz/reveal`. Si falla, el jugador sigue
+  sin feedback; la partida no se bloquea y el servidor vuelve a puntuar al
+  enviar.
+- `answers[].is_correct` que llega del cliente se ignora: se recalcula en
+  `scoreSubmission` y se guarda ya corregido.
+- Los puntos los otorga el trigger `award_quiz_points` (10 + 25 por partida
+  perfecta). `pointsFor()` sólo replica ese número para la UI: si cambias uno,
+  cambia el otro.
+
+## Contenido y seeds
+
+Pipeline reproducible en `scripts/seed/` (ver `scripts/seed/README.md`):
+
+- `seed:categorize` clasifica el catálogo por tema con una tabla de reglas
+  ordenada y emite SQL idempotente.
+- `seed:editorial` valida `editorial-seed.json` (una sola respuesta correcta por
+  pregunta, categorías existentes) y emite el `INSERT ... ON CONFLICT DO NOTHING`.
+- `seed:audit` es la puerta de calidad: falla si hay preguntas sin respuesta,
+  opciones vacías o slugs duplicados.
+
+Categorías vacías no son un estado válido: si una categoría se queda sin quizzes,
+la página 404 y el sitemap la omite.
 
 ## Database Schema (Supabase)
 
@@ -183,13 +227,18 @@ regenerarla, o las peticiones devuelven 403.
 
 Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 
-## Catalog Stats (current)
+## Catalog Stats (current, 2026-10-18)
 
-- ~493 quizzes seeded in Supabase
-- 259 en English, 259 en Spanish
-- 188 trivia, 189 personality
-- 13 featured, 338 editorial quality
-- 40 with stock covers
+- 524 quizzes published (4192 questions)
+- 262 en English, 262 en Spanish
+- 246 trivia, 278 personality
+- 16 categorías pobladas: movies-tv 174, anime-manga 119, gaming 94, music 51,
+  lifestyle 21, culture 20, literature 12, pop-culture 9, technology 5,
+  relationships 5, food-drink 3, science 3, animals 2, sports 2, geography 2,
+  history 2
+- `personality` es un hub de *tipo* de quiz (`/category/personality`), no una
+  categoría de tema: se queda sin filas a propósito
+- Regenerar la taxonomía: `npm run seed:categorize`; auditar: `npm run seed:audit`
 
 ## Seed Pipeline
 

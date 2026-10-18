@@ -4,6 +4,7 @@ import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { ReportButton } from '@/components/shared/report-button';
+import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getPublishedQuizzes, getQuizBySlug, getRelatedQuizzes } from '@/lib/data/public';
 import { getStockCoverEntry } from '@/lib/data/stock-cover-manifest';
@@ -17,7 +18,7 @@ import {
   localizeQuizCategory,
 } from '@/lib/i18n/catalog';
 import { clampDescription } from '@/lib/seo/metadata';
-import { quizOgImage } from '@/lib/seo/site';
+import { SITE_URL, quizOgImage } from '@/lib/seo/site';
 import {
   breadcrumbNode,
   buildGraph,
@@ -143,6 +144,17 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           <div className="arcade-report">
             <ReportButton quizId={quiz.id} quizSlug={quiz.slug} locale={locale} />
           </div>
+          <InviteBar
+            url={`${SITE_URL}${canonicalPath}`}
+            quizTitle={quiz.title}
+            locale={locale}
+            labels={{
+              invite: dictionary.arcade.invite,
+              inviteBody: dictionary.arcade.inviteBody,
+              copyInvite: dictionary.arcade.copyInvite,
+              copied: dictionary.arcade.copied,
+            }}
+          />
         </div>
       </section>
 

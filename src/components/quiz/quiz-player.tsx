@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -15,6 +15,7 @@ import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
+import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
 
 interface QuizPlayerProps {
   quiz: Quiz;
@@ -87,7 +88,20 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
           next: 'Next',
         };
   const [showModeSelector, setShowModeSelector] = React.useState(true);
-  const [hiddenOptions, setHiddenOptions] = React.useState<{ questionIndex: number; ids: string[] }>({ questionIndex: -1, ids: [] });
+  const [hiddenOptions, setHiddenOptions] = React.useState<{
+    questionIndex: number;
+    ids: string[];
+  }>({ questionIndex: -1, ids: [] });
+  /**
+   * What the server said about the answer given for a specific question. The
+   * quiz payload does not carry the answer key, so the card can only paint the
+   * right answer from this verdict.
+   */
+  const [verdict, setVerdict] = React.useState<{
+    questionIndex: number;
+    correctOptionId: string | null;
+  } | null>(null);
+  const [isCheckingAnswer, setIsCheckingAnswer] = React.useState(false);
   const [submission, setSubmission] = React.useState<{
     result: PersonalityResult | null;
     pointsEarned: number;
@@ -121,7 +135,42 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     getScore,
     getPersonalityResult,
   } = useQuizStore();
-  const hiddenOptionIds = hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
+  const hiddenOptionIds =
+    hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
+
+  /**
+   * Asks the server whether the selected option is right, then records the
+   * answer. If the reveal fails the answer is still recorded (without feedback)
+   * because submission re-grades everything server-side.
+   */
+  const submitCurrentAnswer = React.useCallback(async () => {
+    if (isCheckingAnswer || showFeedback) return;
+    const question = getCurrentQuestion();
+    if (!question || !selectedOptionId) return;
+
+    const answeredIndex = currentQuestionIndex;
+    setIsCheckingAnswer(true);
+    const revealed = await requestAnswerVerdict({
+      quizId: quiz.id,
+      questionId: question.id,
+      selectedOptionId,
+    });
+    setIsCheckingAnswer(false);
+
+    setVerdict({
+      questionIndex: answeredIndex,
+      correctOptionId: revealed?.correctOptionId ?? null,
+    });
+    submitAnswer(revealed ? { isCorrect: revealed.isCorrect } : undefined);
+  }, [
+    currentQuestionIndex,
+    getCurrentQuestion,
+    isCheckingAnswer,
+    quiz.id,
+    selectedOptionId,
+    showFeedback,
+    submitAnswer,
+  ]);
 
   React.useEffect(() => {
     startGame(quiz, 'normal');
@@ -173,7 +222,13 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
           0,
           Math.round(answers.reduce((total, answer) => total + answer.time_ms, 0) / 1000)
         );
-        const result = await submitQuizResult(quiz.id, answers, totalTimeSeconds);
+        // Only the choices travel: the server re-grades every answer.
+        const payload = answers.map(({ question_id, selected_option_id, time_ms }) => ({
+          question_id,
+          selected_option_id,
+          time_ms,
+        }));
+        const result = await submitQuizResult(quiz.id, payload, totalTimeSeconds);
         if (result.success) {
           setSubmission({
             result: (result.result as PersonalityResult | null) ?? null,
@@ -211,14 +266,17 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
 
       if (event.key >= '1' && event.key <= '4') {
         const index = Number(event.key) - 1;
-        if (index < currentQuestion.options.length && !hiddenOptionIds.includes(currentQuestion.options[index].id)) {
+        if (
+          index < currentQuestion.options.length &&
+          !hiddenOptionIds.includes(currentQuestion.options[index].id)
+        ) {
           selectOption(currentQuestion.options[index].id);
           playSound('click');
         }
       }
 
       if (event.key === 'Enter' && selectedOptionId && !showFeedback) {
-        submitAnswer();
+        void submitCurrentAnswer();
       }
 
       if (event.key === 'Escape') {
@@ -237,7 +295,7 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     selectOption,
     selectedOptionId,
     showFeedback,
-    submitAnswer,
+    submitCurrentAnswer,
     togglePause,
   ]);
 
@@ -345,7 +403,14 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                   totalQuestions={totalQuestions}
                   locale={uiLocale}
                   timeRemaining={gameMode === 'timed' ? timeRemaining : undefined}
-                  timeLimit={gameMode === 'timed' ? quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0) : undefined}
+                  timeLimit={
+                    gameMode === 'timed'
+                      ? quiz.questions.reduce(
+                          (total, question) => total + (question.time_limit_seconds || 30),
+                          0
+                        )
+                      : undefined
+                  }
                 />
               </div>
               <button
@@ -372,29 +437,49 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
               </button>
             </div>
           </div>
-          {!showFeedback && <PowerUpBar
-            locale={uiLocale}
-            powerUps={powerUps.filter((powerUp) => (gameMode === 'timed' || powerUp.id !== 'extra-time') && (quiz.quiz_type === 'trivia' || powerUp.id !== 'fifty-fifty'))}
-            onUsePowerUp={(id) => {
-              if (id === 'fifty-fifty') {
-                const hidden = currentQuestion.options.filter((option) => !option.is_correct).slice(0, 2).map((option) => option.id);
-                setHiddenOptions({ questionIndex: currentQuestionIndex, ids: hidden });
-                if (selectedOptionId && hidden.includes(selectedOptionId)) useQuizStore.setState({ selectedOptionId: null });
-              }
-              activatePowerUp(id);
-              playSound('powerup');
-            }}
-          />}
+          {!showFeedback && (
+            <PowerUpBar
+              locale={uiLocale}
+              powerUps={powerUps.filter(
+                (powerUp) =>
+                  (gameMode === 'timed' || powerUp.id !== 'extra-time') &&
+                  (quiz.quiz_type === 'trivia' || powerUp.id !== 'fifty-fifty')
+              )}
+              onUsePowerUp={(id) => {
+                if (id === 'fifty-fifty') {
+                  void (async () => {
+                    const eliminated = await requestEliminatedOptions({
+                      quizId: quiz.id,
+                      questionId: currentQuestion.id,
+                    });
+                    // Without an answer from the server the power-up is not spent.
+                    if (!eliminated) return;
+                    setHiddenOptions({ questionIndex: currentQuestionIndex, ids: eliminated });
+                    if (selectedOptionId && eliminated.includes(selectedOptionId)) {
+                      useQuizStore.setState({ selectedOptionId: null });
+                    }
+                    activatePowerUp(id);
+                    playSound('powerup');
+                  })();
+                  return;
+                }
+                activatePowerUp(id);
+                playSound('powerup');
+              }}
+            />
+          )}
         </motion.div>
 
         <div className="arcade-play-body flex-1 px-4 py-8 md:py-10">
-          {showFeedback && lastAnswerCorrect !== null && quiz.quiz_type === 'trivia' && <p className="arcade-answer-feedback" role="status">{lastAnswerCorrect ? copy.correct : copy.miss}</p>}
+          {showFeedback && lastAnswerCorrect !== null && quiz.quiz_type === 'trivia' && (
+            <p className="arcade-answer-feedback" role="status">
+              {lastAnswerCorrect ? copy.correct : copy.miss}
+            </p>
+          )}
           <div className="mx-auto mb-6 flex max-w-5xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="arcade-play-label">{copy.nowPlaying}</p>
-              <h1 className="arcade-play-title">
-                {quiz.title}
-              </h1>
+              <h1 className="arcade-play-title">{quiz.title}</h1>
               <p className="arcade-play-meta">
                 {getLocalizedTypeLabel(quiz.quiz_type, uiLocale)} · {quiz.estimated_minutes} min ·{' '}
                 {getLocalizedLanguageLabel(quiz.language, uiLocale)}
@@ -422,8 +507,11 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
                     playSound('click');
                   }}
                   showExplanation={gameMode === 'practice'}
-                  disabled={showFeedback}
+                  disabled={showFeedback || isCheckingAnswer}
                   showFeedback={showFeedback}
+                  correctOptionId={
+                    verdict?.questionIndex === currentQuestionIndex ? verdict.correctOptionId : null
+                  }
                   locale={uiLocale}
                   hiddenOptionIds={hiddenOptionIds}
                 />
@@ -445,16 +533,19 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
               {copy.skip}
             </button>
             <button
-              onClick={() => submitAnswer()}
-              disabled={!selectedOptionId || showFeedback}
+              onClick={() => {
+                playSound('click');
+                void submitCurrentAnswer();
+              }}
+              disabled={!selectedOptionId || showFeedback || isCheckingAnswer}
               className={cn(
                 'arcade-play-submit',
-                selectedOptionId && !showFeedback
+                selectedOptionId && !showFeedback && !isCheckingAnswer
                   ? 'arcade-play-submit-ready'
                   : 'cursor-not-allowed opacity-50'
               )}
             >
-              {showFeedback ? '...' : isLastQuestion ? copy.finish : copy.next}
+              {showFeedback || isCheckingAnswer ? '...' : isLastQuestion ? copy.finish : copy.next}
             </button>
           </div>
         </div>

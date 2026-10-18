@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getQuizBySlug } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
@@ -45,5 +46,7 @@ export default async function LocalizedQuizPlayPage({
   const quiz = await getQuizBySlug(slug, locale);
   if (!quiz) notFound();
 
-  return <QuizPlayer quiz={quiz} locale={locale} />;
+  // The answer key never leaves the server: the play screen asks the reveal
+  // endpoint for one verdict at a time.
+  return <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} />;
 }

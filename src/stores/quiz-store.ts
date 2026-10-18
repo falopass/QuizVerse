@@ -48,7 +48,12 @@ export interface QuizGameState {
   // Actions
   startGame: (quiz: Quiz, mode?: GameMode) => void;
   selectOption: (optionId: string) => void;
-  submitAnswer: () => void;
+  /**
+   * Records the current answer. `verdict` comes from the server (`/api/quiz/reveal`);
+   * without it the answer is stored but no feedback is shown, because the browser
+   * does not hold the answer key.
+   */
+  submitAnswer: (verdict?: { isCorrect: boolean }) => void;
   nextQuestion: () => void;
   skipQuestion: () => void;
   usePowerUp: (powerUpId: string) => void;
@@ -121,7 +126,13 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       answers: [],
       isCompleted: false,
       isPaused: false,
-      timeRemaining: mode === 'timed' ? quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0) : 0,
+      timeRemaining:
+        mode === 'timed'
+          ? quiz.questions.reduce(
+              (total, question) => total + (question.time_limit_seconds || 30),
+              0
+            )
+          : 0,
       totalTimeUsed: 0,
       streak: 0,
       maxStreak: 0,
@@ -136,21 +147,26 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     set({ selectedOptionId: optionId });
   },
 
-  submitAnswer: () => {
+  submitAnswer: (verdict) => {
     const state = get();
     if (!state.quiz || !state.selectedOptionId) return;
 
     const question = state.quiz.questions[state.currentQuestionIndex];
-    const selectedOption = question?.options.find((o) => o.id === state.selectedOptionId);
+    if (!question) return;
 
-    // Determinar si es correcto
-    const isCorrect =
-      state.quiz.quiz_type === 'trivia' ? (selectedOption?.is_correct ?? false) : false;
+    // The browser never holds the answer key: correctness comes from the server.
+    const hasVerdict = verdict !== undefined;
+    const isCorrect = verdict?.isCorrect ?? false;
 
     // Calcular tiempo
-    const timeTaken = state.gameMode === 'timed'
-      ? Math.max(0, state.totalTimeUsed * 1000 - state.answers.reduce((total, answer) => total + answer.time_ms, 0))
-      : 0;
+    const timeTaken =
+      state.gameMode === 'timed'
+        ? Math.max(
+            0,
+            state.totalTimeUsed * 1000 -
+              state.answers.reduce((total, answer) => total + answer.time_ms, 0)
+          )
+        : 0;
 
     // Crear respuesta
     const answer: Answer = {
@@ -172,20 +188,35 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       streak: newStreak,
       maxStreak,
       bonusPoints: prev.bonusPoints + streakBonus,
-      lastAnswerCorrect: isCorrect,
-      showFeedback: true,
+      lastAnswerCorrect: hasVerdict ? isCorrect : null,
+      showFeedback: hasVerdict,
     }));
 
-    // Auto-avanzar después de mostrar feedback
-    setTimeout(() => {
-      const currentState = get();
-      if (!currentState.quiz || currentState.quiz.id !== state.quiz?.id || currentState.currentQuestionIndex !== state.currentQuestionIndex || !currentState.showFeedback) return;
-      if ((currentState.gameMode === 'survival' && !isCorrect) || currentState.currentQuestionIndex === currentState.quiz.questions.length - 1) {
-        set({ isCompleted: true });
-      } else {
-        get().nextQuestion();
-      }
-    }, 1500);
+    const questionIndexAtSubmit = state.currentQuestionIndex;
+
+    // Auto-avanzar: con feedback se deja leer el resultado, sin feedback no se
+    // retiene al jugador porque no hay nada que leer.
+    setTimeout(
+      () => {
+        const currentState = get();
+        if (
+          !currentState.quiz ||
+          currentState.quiz.id !== state.quiz?.id ||
+          currentState.currentQuestionIndex !== questionIndexAtSubmit
+        )
+          return;
+        if (hasVerdict && !currentState.showFeedback) return;
+        if (
+          (currentState.gameMode === 'survival' && hasVerdict && !isCorrect) ||
+          currentState.currentQuestionIndex === currentState.quiz.questions.length - 1
+        ) {
+          set({ isCompleted: true });
+        } else {
+          get().nextQuestion();
+        }
+      },
+      hasVerdict ? 1500 : 350
+    );
   },
 
   nextQuestion: () => {
@@ -220,7 +251,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       showFeedback: false,
     }));
 
-    if (state.gameMode === 'survival' || state.currentQuestionIndex === state.quiz.questions.length - 1) {
+    if (
+      state.gameMode === 'survival' ||
+      state.currentQuestionIndex === state.quiz.questions.length - 1
+    ) {
       set({ isCompleted: true });
     } else {
       get().nextQuestion();
@@ -325,7 +359,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     if (!state.quiz || state.quiz.quiz_type !== 'trivia' || state.gameMode !== 'timed') return 0;
 
     // Bonus por tiempo restante (hasta 50% extra)
-    const totalTime = state.quiz.questions.reduce((total, question) => total + (question.time_limit_seconds || 30), 0);
+    const totalTime = state.quiz.questions.reduce(
+      (total, question) => total + (question.time_limit_seconds || 30),
+      0
+    );
     const timeRemainingPercent = state.timeRemaining / totalTime;
     const baseScore = state.answers.filter((a) => a.is_correct).length;
 

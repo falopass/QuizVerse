@@ -20,7 +20,10 @@
     "seed:supabase:import": "node scripts/import-trending-seed-to-supabase.mjs",
     "db:migrate": "node scripts/apply-migrations.mjs",
     "seo:assets": "node scripts/generate-brand-assets.mjs",
-    "seo:indexnow": "node scripts/submit-indexnow.mjs"
+    "seo:indexnow": "node scripts/submit-indexnow.mjs",
+    "seed:categorize": "node scripts/seed/categorize-quizzes.mjs",
+    "seed:editorial": "node scripts/seed/emit-editorial-seed.mjs",
+    "seed:audit": "node scripts/seed/audit-content.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",

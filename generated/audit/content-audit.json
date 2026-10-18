@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-10-18T04:52:48.302Z",
+  "input": ".\\generated\\audit\\quizzes-audit-export.json",
+  "totals": {
+    "quizzes": 524,
+    "questions": 4192,
+    "byLanguage": {
+      "en": 262,
+      "es": 262
+    },
+    "byType": {
+      "trivia": 246,
+      "personality": 278
+    },
+    "byCategory": {
+      "gaming": 94,
+      "movies-tv": 174,
+      "music": 51,
+      "anime-manga": 119,
+      "food-drink": 3,
+      "literature": 12,
+      "technology": 5,
+      "science": 3,
+      "pop-culture": 9,
+      "sports": 2,
+      "culture": 20,
+      "relationships": 5,
+      "lifestyle": 21,
+      "animals": 2,
+      "geography": 2,
+      "history": 2
+    }
+  },
+  "emptyCategories": [],
+  "blocking": [],
+  "warnings": [
+    "en-sports-trivia: no cover image (procedural cover will be used)",
+    "en-world-geography-trivia: no cover image (procedural cover will be used)",
+    "en-world-history-trivia: no cover image (procedural cover will be used)",
+    "es-trivia-deportes: no cover image (procedural cover will be used)",
+    "es-trivia-geografia-mundial: no cover image (procedural cover will be used)",
+    "es-trivia-historia-universal: no cover image (procedural cover will be used)"
+  ]
+}

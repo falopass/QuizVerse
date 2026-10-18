@@ -1,70 +1,30 @@
 'use server';
 
+/**
+ * Quiz mutations.
+ *
+ * Thin orchestration only: authenticate, validate, delegate to a domain module,
+ * persist, revalidate. Every decision (scoring, slugs, validation rules) lives
+ * in `src/lib/quiz/*`, where it can be tested without a database.
+ */
+
 import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
-import { quizLimiter, apiLimiter } from '@/lib/utils/rate-limit';
+import { createClient } from '@/lib/supabase/server';
+import { toJson } from '@/lib/supabase/json';
+import { apiLimiter, quizLimiter } from '@/lib/utils/rate-limit';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { QuizCreateSchema } from '@/lib/quiz/validator';
+import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
+import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
+import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
+import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
 import type { Database } from '@/types/database';
-import type { Quiz } from '@/types/quiz';
 
-type RpcError = { message: string };
-
-type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
-type QuizUpdate = Database['public']['Tables']['quizzes']['Update'];
-type QuizOwnershipRow = Pick<Database['public']['Tables']['quizzes']['Row'], 'creator_id'>;
-type QuizScoringRow = Pick<
-  Database['public']['Tables']['quizzes']['Row'],
-  'questions' | 'results' | 'quiz_type'
->;
-type GameSessionInsert = Database['public']['Tables']['game_sessions']['Insert'];
-type GameSessionRow = Database['public']['Tables']['game_sessions']['Row'];
-
-interface SingleResult<T> {
-  data: T | null;
-  error: RpcError | null;
-}
-
-interface LikeRpcResult {
-  data: boolean | null;
-  error: RpcError | null;
-}
-
-interface VoidRpcResult {
-  error: RpcError | null;
-}
-
-interface QuizzesWriteTable {
-  insert: (values: QuizInsert) => { select: () => { single: () => Promise<SingleResult<Quiz>> } };
-  update: (values: QuizUpdate) => {
-    eq: (column: string, value: string) => Promise<{ error: RpcError | null }>;
-  };
-  delete: () => { eq: (column: string, value: string) => Promise<{ error: RpcError | null }> };
-}
-
-interface GameSessionsWriteTable {
-  insert: (values: GameSessionInsert) => {
-    select: () => { single: () => Promise<SingleResult<GameSessionRow>> };
-  };
-}
-
-interface QuizRpcClient {
-  rpc: (
-    fn: 'increment_plays',
-    args: Database['public']['Functions']['increment_plays']['Args']
-  ) => Promise<VoidRpcResult>;
-  rpcLike: (
-    fn: 'toggle_like',
-    args: Database['public']['Functions']['toggle_like']['Args']
-  ) => Promise<LikeRpcResult>;
-}
-
-// ============================================
-// SCHEMAS
-// ============================================
-
-const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true });
+const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
+  /** Set by the AI assistant so the catalogue can flag generated drafts. */
+  is_ai_generated: z.boolean().optional().default(false),
+});
 
 const updateQuizSchema = z.object({
   title: z.string().min(5).max(120).optional(),
@@ -73,372 +33,243 @@ const updateQuizSchema = z.object({
   difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
   language: z.string().optional(),
   category_id: z.string().uuid().optional().nullable(),
-  questions: z
-    .array(
-      z.object({
-        id: z.string(),
-        question: z.string(),
-        options: z.array(
-          z.object({
-            id: z.string(),
-            text: z.string(),
-            is_correct: z.boolean().optional(),
-            personality_tags: z.array(z.string()).optional(),
-          })
-        ),
-        explanation: z.string().optional(),
-        time_limit_seconds: z.number().optional(),
-      })
-    )
-    .optional(),
-  results: z
-    .array(
-      z.object({
-        id: z.string(),
-        title: z.string(),
-        description: z.string(),
-        min_score: z.number().optional(),
-        max_score: z.number().optional(),
-        personality_tag: z.string().optional(),
-        background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
-      })
-    )
-    .optional(),
   tags: z.array(z.string()).optional(),
   estimated_minutes: z.number().optional(),
   status: z.enum(['draft', 'published', 'pending']).optional(),
 });
 
-// ============================================
-// QUIZ ACTIONS
-// ============================================
+type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
 
-export async function createQuiz(input: unknown) {
+/** Reads the authenticated user, or `null`. */
+async function currentUser() {
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
+  return { supabase, user };
+}
+
+/** True when the authenticated user owns the quiz. */
+async function ownsQuiz(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  quizId: string,
+  userId: string
+): Promise<boolean> {
+  const { data } = await supabase
+    .from('quizzes')
+    .select('creator_id')
+    .eq('id', quizId)
+    .maybeSingle();
+  return Boolean(data && data.creator_id === userId);
+}
+
+// ============================================
+// CREATE
+// ============================================
+
+export async function createQuiz(
+  input: unknown
+): Promise<ActionResult<{ quiz: { id: string; slug: string } }>> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'You need an account to create a quiz.');
 
   const { allowed } = await quizLimiter.check(user.id);
-  if (!allowed) return { error: 'Too many quiz creations. Please wait.' };
+  if (!allowed) return actionFailure('rate_limited', 'Too many quiz creations. Please wait.');
 
-  // Validate input
   const parsed = createQuizSchema.safeParse(input);
-  if (!parsed.success) {
-    return { error: parsed.error.message };
-  }
+  if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
-  // Get user profile
   const { data: profile } = await supabase
     .from('profiles')
-    .select('id, is_admin')
+    .select('is_admin')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
-  if (!profile) {
-    return { error: 'Profile not found' };
-  }
+  const slug = await generateUniqueSlug(parsed.data.title, {
+    language: parsed.data.language,
+    exists: async (candidate) => {
+      const { data } = await supabase
+        .from('quizzes')
+        .select('id')
+        .eq('slug', candidate)
+        .maybeSingle();
+      return Boolean(data);
+    },
+  });
 
-  const profileData = profile as { id: string; is_admin: boolean };
-  const quizzesWrite = supabase.from('quizzes') as unknown as QuizzesWriteTable;
-
-  // Generate a locale-aware slug and avoid collisions before insert.
-  const slug = await generateUniqueSlug(supabase, parsed.data.title, parsed.data.language);
-
-  // Create quiz
-  const quizInsert: QuizInsert = {
-    ...parsed.data,
-    creator_id: user.id,
+  const insert: QuizInsert = {
+    title: parsed.data.title,
+    description: parsed.data.description ?? null,
     slug,
-    status: profileData.is_admin ? 'published' : 'pending',
+    creator_id: user.id,
+    category_id: parsed.data.category_id ?? null,
+    quiz_type: parsed.data.quiz_type,
+    difficulty: parsed.data.difficulty,
+    language: parsed.data.language,
+    questions: toJson(parsed.data.questions),
+    results: parsed.data.results ? toJson(parsed.data.results) : null,
+    tags: parsed.data.tags ?? [],
+    estimated_minutes: parsed.data.estimated_minutes ?? 3,
+    question_count: parsed.data.questions.length,
+    // Community submissions wait for review; admins publish straight away.
+    status: profile?.is_admin ? 'published' : 'pending',
+    is_ai_generated: parsed.data.is_ai_generated,
   };
 
-  const { data: quiz, error } = await quizzesWrite.insert(quizInsert).select().single();
+  const { data: quiz, error } = await supabase
+    .from('quizzes')
+    .insert(insert)
+    .select('id, slug')
+    .single();
 
-  if (error) {
-    return { error: error.message };
-  }
+  if (error || !quiz)
+    return actionFailure('unexpected', error?.message ?? 'Could not save the quiz.');
 
   revalidatePath('/quiz');
   revalidatePath('/');
 
-  return { success: true, quiz };
+  return { success: true, quiz: { id: quiz.id, slug: quiz.slug } };
 }
 
-export async function updateQuiz(id: string, input: Partial<Quiz>) {
-  const supabase = await createClient();
+// ============================================
+// UPDATE / DELETE
+// ============================================
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return { error: 'Unauthorized' };
+export async function updateQuiz(id: string, input: unknown): Promise<ActionResult> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'You need an account to edit a quiz.');
+  if (!(await ownsQuiz(supabase, id, user.id))) {
+    return actionFailure('forbidden', 'That quiz is not yours.');
   }
 
-  // Check ownership
-  const { data: quiz } = await supabase.from('quizzes').select('creator_id').eq('id', id).single();
-
-  if (!quiz || (quiz as QuizOwnershipRow).creator_id !== user.id) {
-    return { error: 'Not authorized' };
-  }
-
-  // Validate updatable fields
   const parsed = updateQuizSchema.safeParse(input);
-  if (!parsed.success) {
-    return { error: parsed.error.message };
-  }
+  if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
-  const quizzesWrite = supabase.from('quizzes') as unknown as QuizzesWriteTable;
-  const { error } = await quizzesWrite.update(parsed.data).eq('id', id);
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  revalidatePath(`/quiz/${id}`);
-  revalidatePath('/quiz');
-
-  return { success: true };
-}
-
-export async function deleteQuiz(id: string) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
-
-  // Check ownership
-  const { data: quiz } = await supabase.from('quizzes').select('creator_id').eq('id', id).single();
-
-  if (!quiz || (quiz as QuizOwnershipRow).creator_id !== user.id) {
-    return { error: 'Not authorized' };
-  }
-
-  const quizzesWrite = supabase.from('quizzes') as unknown as QuizzesWriteTable;
-  const { error } = await quizzesWrite.delete().eq('id', id);
-
-  if (error) {
-    return { error: error.message };
-  }
+  const { error } = await supabase.from('quizzes').update(parsed.data).eq('id', id);
+  if (error) return actionFailure('unexpected', error.message);
 
   revalidatePath('/quiz');
   revalidatePath('/');
-
   return { success: true };
 }
 
+export async function deleteQuiz(id: string): Promise<ActionResult> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'You need an account to delete a quiz.');
+  if (!(await ownsQuiz(supabase, id, user.id))) {
+    return actionFailure('forbidden', 'That quiz is not yours.');
+  }
+
+  const { error } = await supabase.from('quizzes').delete().eq('id', id);
+  if (error) return actionFailure('unexpected', error.message);
+
+  revalidatePath('/quiz');
+  revalidatePath('/');
+  return { success: true };
+}
+
+// ============================================
+// PLAY
+// ============================================
+
+export interface SubmittedAnswer {
+  question_id: string;
+  selected_option_id: string;
+  time_ms?: number;
+}
+
+export interface SubmitGameResult {
+  session: { id: string; share_token: string | null };
+  result: { id: string; title: string; description: string } | null;
+  points_earned: number;
+  achievements_unlocked: Array<{ id: string; name: string }>;
+}
+
+/**
+ * Persists a finished game.
+ *
+ * The payload carries choices only. The score, the personality result and the
+ * stored `answers` are all recomputed here from the quiz in the database, so a
+ * crafted request cannot buy points.
+ */
 export async function submitQuizResult(
   quizId: string,
-  answers: Array<{
-    question_id: string;
-    selected_option_id: string;
-    is_correct: boolean;
-    time_ms: number;
-  }>,
-  timeTakenSeconds: number
-) {
-  const supabase = await createClient();
+  answers: SubmittedAnswer[],
+  timeTakenSeconds = 0
+): Promise<ActionResult<SubmitGameResult>> {
+  const { supabase, user } = await currentUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { allowed } = await quizLimiter.check(user?.id ?? 'anonymous');
+  if (!allowed) return actionFailure('rate_limited', 'Too many submissions. Please wait.');
 
-  const identifier = user?.id ?? 'anonymous';
-  const { allowed } = await quizLimiter.check(identifier);
-  if (!allowed) return { error: 'Too many submissions. Please wait.' };
+  const parsed = QuizSubmissionSchema.safeParse({ quizId, answers, timeTakenSeconds });
+  if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
-  // Get quiz data
-  const { data: quiz } = await supabase
-    .from('quizzes')
-    .select('questions, results, quiz_type')
-    .eq('id', quizId)
+  const quiz = await loadAnswerKeyByQuizId(parsed.data.quizId);
+  if (!quiz) return actionFailure('not_found', 'Quiz not found.');
+
+  const scored = scoreSubmission(quiz, parsed.data.answers);
+
+  const { data: session, error } = await supabase
+    .from('game_sessions')
+    .insert({
+      quiz_id: quiz.id,
+      player_id: user?.id ?? null,
+      score: scored.score,
+      max_score: scored.maxScore,
+      result_id: scored.resultId,
+      result_title: scored.resultTitle,
+      time_taken_seconds: parsed.data.timeTakenSeconds,
+      answers: toJson(scored.graded),
+    })
+    .select('id, share_token')
     .single();
 
-  if (!quiz) {
-    return { error: 'Quiz not found' };
+  if (error || !session) {
+    return actionFailure('unexpected', error?.message ?? 'Could not save the result.');
   }
 
-  const scoringQuiz = quiz as QuizScoringRow;
-  const gameSessionsWrite = supabase.from('game_sessions') as unknown as GameSessionsWriteTable;
-  const rpcClient = supabase as unknown as Pick<QuizRpcClient, 'rpc'>;
+  // Best effort: a failed counter must never fail a finished game.
+  await supabase.rpc('increment_plays', { quiz_uuid: quiz.id });
 
-  // Calculate score
-  const questions = scoringQuiz.questions as Array<{
-    id: string;
-    options: Array<{ id: string; is_correct?: boolean; personality_tags?: string[] }>;
-  }>;
-
-  let score = 0;
-  let maxScore = 0;
-
-  for (const question of questions) {
-    const userAnswer = answers.find((a) => a.question_id === question.id);
-
-    maxScore++;
-    if (userAnswer?.is_correct) {
-      score++;
-    }
-  }
-
-  // Determine result for personality quizzes
-  let resultId = null;
-  let resultTitle = null;
-
-  if (scoringQuiz.quiz_type === 'personality' && scoringQuiz.results) {
-    // Simple scoring for personality results
-    const personalityScores: Record<string, number> = {};
-
-    for (const answer of answers) {
-      const question = questions.find((q) => q.id === answer.question_id);
-      const selectedOption = question?.options.find((o) => o.id === answer.selected_option_id);
-      const tags = selectedOption?.personality_tags || [];
-
-      for (const tag of tags) {
-        personalityScores[tag] = (personalityScores[tag] || 0) + 1;
-      }
-    }
-
-    // Find result with highest matching tag
-    const results = scoringQuiz.results as Array<{
-      id: string;
-      title: string;
-      personality_tag?: string;
-    }>;
-
-    const winningTag = Object.entries(personalityScores).sort((a, b) => b[1] - a[1])[0]?.[0];
-    const matchingResult = results.find((r) => r.personality_tag === winningTag);
-
-    if (matchingResult) {
-      resultId = matchingResult.id;
-      resultTitle = matchingResult.title;
-    }
-  }
-
-  // Create game session
-  const sessionInsert: GameSessionInsert = {
-    quiz_id: quizId,
-    player_id: user?.id || null,
-    score,
-    max_score: maxScore,
-    result_id: resultId,
-    result_title: resultTitle,
-    time_taken_seconds: timeTakenSeconds,
-    answers:
-      answers as unknown as Database['public']['Tables']['game_sessions']['Insert']['answers'],
-  };
-
-  const { data: session, error } = await gameSessionsWrite.insert(sessionInsert).select().single();
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  // Increment plays count
-  const { error: incrementError } = await rpcClient.rpc('increment_plays', { quiz_uuid: quizId });
-
-  if (incrementError) {
-    return { error: incrementError.message };
-  }
-
-  // Award points to user
-  let pointsEarned = 10; // Base points for completing
-  if (score === maxScore) {
-    pointsEarned += 25; // Perfect score bonus
-  }
-
-  // Profile counters are updated by database triggers to keep stats consistent.
-
-  // Check for achievements
-  const achievementsUnlocked = await checkAchievements(user?.id ?? null);
+  const partner = scored.resultId
+    ? (quiz.results ?? []).find((item) => item.id === scored.resultId)
+    : undefined;
 
   return {
     success: true,
-    session: session as GameSessionRow,
-    result: resultId
-      ? (scoringQuiz.results as Array<{ id: string; title: string; description: string }>).find(
-          (r) => r.id === resultId
-        )
+    session: { id: session.id, share_token: session.share_token },
+    result: partner
+      ? { id: partner.id, title: partner.title, description: partner.description }
       : null,
-    points_earned: pointsEarned,
-    achievements_unlocked: achievementsUnlocked,
+    points_earned: pointsFor(scored.perfect),
+    achievements_unlocked: await checkAchievements(user?.id ?? null, {
+      perfectScore: scored.perfect,
+    }),
   };
 }
 
-function slugifyTitle(title: string, language?: string): string {
-  const normalizedTitle = title
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/&/g, ' and ')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-    .replace(/-{2,}/g, '-')
-    .slice(0, 72);
+// ============================================
+// LIKES
+// ============================================
 
-  const safeBase = normalizedTitle || 'quiz';
-  const prefix = language === 'es' || language === 'en' ? `${language}-` : '';
+export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: boolean }>> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'Sign in to like a quiz.');
 
-  return `${prefix}${safeBase}`.slice(0, 80).replace(/^-|-$/g, '');
-}
-
-async function generateUniqueSlug(
-  supabase: Awaited<ReturnType<typeof createClient>>,
-  title: string,
-  language?: string
-): Promise<string> {
-  const baseSlug = slugifyTitle(title, language);
-
-  for (let index = 0; index < 100; index += 1) {
-    const suffix = index === 0 ? '' : `-${index + 1}`;
-    const candidate = `${baseSlug}${suffix}`.slice(0, 80).replace(/-+$/g, '');
-    const { data } = await supabase
-      .from('quizzes')
-      .select('id')
-      .eq('slug', candidate)
-      .maybeSingle();
-
-    if (!data) {
-      return candidate;
-    }
-  }
-
-  return `${baseSlug}-${Date.now()}`.slice(0, 80).replace(/-+$/g, '');
-}
-
-export async function likeQuiz(quizId: string) {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: 'Unauthorized' };
-  }
+  const parsed = z.string().uuid().safeParse(quizId);
+  if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
 
   const { allowed } = await apiLimiter.check(user.id);
-  if (!allowed) return { error: 'Too many actions. Please wait.' };
+  if (!allowed) return actionFailure('rate_limited', 'Too many actions. Please wait.');
 
-  const rpcClient = supabase as unknown as Pick<QuizRpcClient, 'rpcLike'>;
-
-  const { data, error } = await rpcClient.rpcLike('toggle_like', {
-    p_quiz_id: quizId,
+  const { data, error } = await supabase.rpc('toggle_like', {
+    p_quiz_id: parsed.data,
     p_user_id: user.id,
   });
 
-  if (error) {
-    return { error: error.message };
-  }
+  if (error) return actionFailure('unexpected', error.message);
 
-  revalidatePath(`/quiz/${quizId}`);
-
-  return { success: true, liked: data };
+  revalidatePath(`/quiz/${parsed.data}`);
+  return { success: true, liked: Boolean(data) };
 }

@@ -1,0 +1,611 @@
+{
+  "$comment": "Editorial seed: fills the categories the imported catalogue left empty. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-world-history-trivia",
+      "title": "World History Trivia: 8 Dates That Changed Everything",
+      "description": "Eight questions on the dates and places that decided the modern world, from the fall of Constantinople to the Moon landing.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "trivia", "dates", "world history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did the Second World War end?",
+          "options": [
+            { "id": "a", "text": "1918", "is_correct": false },
+            { "id": "b", "text": "1939", "is_correct": false },
+            { "id": "c", "text": "1945", "is_correct": true },
+            { "id": "d", "text": "1950", "is_correct": false }
+          ],
+          "explanation": "The war in Europe ended in May 1945 and Japan surrendered in September of the same year."
+        },
+        {
+          "id": "q2",
+          "question": "Which wall fell in 1989, becoming a symbol of the end of the Cold War?",
+          "options": [
+            { "id": "a", "text": "The Great Wall of China", "is_correct": false },
+            { "id": "b", "text": "The Berlin Wall", "is_correct": true },
+            { "id": "c", "text": "Hadrian's Wall", "is_correct": false },
+            { "id": "d", "text": "The Western Wall", "is_correct": false }
+          ],
+          "explanation": "The Berlin Wall came down on 9 November 1989 after 28 years dividing the city."
+        },
+        {
+          "id": "q3",
+          "question": "Who was the first president of the United States?",
+          "options": [
+            { "id": "a", "text": "Thomas Jefferson", "is_correct": false },
+            { "id": "b", "text": "John Adams", "is_correct": false },
+            { "id": "c", "text": "George Washington", "is_correct": true },
+            { "id": "d", "text": "Benjamin Franklin", "is_correct": false }
+          ],
+          "explanation": "George Washington took office in 1789 and served two terms."
+        },
+        {
+          "id": "q4",
+          "question": "In which year did humans first walk on the Moon?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1969", "is_correct": true },
+            { "id": "c", "text": "1972", "is_correct": false },
+            { "id": "d", "text": "1981", "is_correct": false }
+          ],
+          "explanation": "Apollo 11 landed on 20 July 1969; Neil Armstrong was the first person on the surface."
+        },
+        {
+          "id": "q5",
+          "question": "Which ancient civilisation built the pyramids of Giza?",
+          "options": [
+            { "id": "a", "text": "Ancient Greece", "is_correct": false },
+            { "id": "b", "text": "Ancient Egypt", "is_correct": true },
+            { "id": "c", "text": "The Roman Empire", "is_correct": false },
+            { "id": "d", "text": "Mesopotamia", "is_correct": false }
+          ],
+          "explanation": "The Great Pyramid was built for pharaoh Khufu around 2560 BC."
+        },
+        {
+          "id": "q6",
+          "question": "In which year did the French Revolution begin?",
+          "options": [
+            { "id": "a", "text": "1688", "is_correct": false },
+            { "id": "b", "text": "1776", "is_correct": false },
+            { "id": "c", "text": "1789", "is_correct": true },
+            { "id": "d", "text": "1815", "is_correct": false }
+          ],
+          "explanation": "The storming of the Bastille on 14 July 1789 is the conventional starting point."
+        },
+        {
+          "id": "q7",
+          "question": "Which empire had its capital at Constantinople and fell in 1453?",
+          "options": [
+            { "id": "a", "text": "The Ottoman Empire", "is_correct": false },
+            { "id": "b", "text": "The Byzantine Empire", "is_correct": true },
+            { "id": "c", "text": "The Holy Roman Empire", "is_correct": false },
+            { "id": "d", "text": "The Persian Empire", "is_correct": false }
+          ],
+          "explanation": "The Ottoman army took the city in 1453, ending the Eastern Roman Empire."
+        },
+        {
+          "id": "q8",
+          "question": "Which Roman city was buried by the eruption of Mount Vesuvius in 79 AD?",
+          "options": [
+            { "id": "a", "text": "Ostia", "is_correct": false },
+            { "id": "b", "text": "Carthage", "is_correct": false },
+            { "id": "c", "text": "Pompeii", "is_correct": true },
+            { "id": "d", "text": "Ravenna", "is_correct": false }
+          ],
+          "explanation": "Pompeii and nearby Herculaneum were buried in ash and preserved for centuries."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-universal",
+      "title": "Trivia de historia universal: 8 fechas que cambiaron todo",
+      "description": "Ocho preguntas sobre las fechas y los lugares que decidieron el mundo moderno, desde la caída de Constantinopla hasta la llegada a la Luna.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["historia", "trivia", "fechas", "historia universal"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año terminó la Segunda Guerra Mundial?",
+          "options": [
+            { "id": "a", "text": "1918", "is_correct": false },
+            { "id": "b", "text": "1939", "is_correct": false },
+            { "id": "c", "text": "1945", "is_correct": true },
+            { "id": "d", "text": "1950", "is_correct": false }
+          ],
+          "explanation": "La guerra en Europa terminó en mayo de 1945 y Japón se rindió en septiembre de ese mismo año."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué muro cayó en 1989 y se volvió símbolo del fin de la Guerra Fría?",
+          "options": [
+            { "id": "a", "text": "La Gran Muralla China", "is_correct": false },
+            { "id": "b", "text": "El Muro de Berlín", "is_correct": true },
+            { "id": "c", "text": "El Muro de Adriano", "is_correct": false },
+            { "id": "d", "text": "El Muro de los Lamentos", "is_correct": false }
+          ],
+          "explanation": "El Muro de Berlín cayó el 9 de noviembre de 1989 tras 28 años dividiendo la ciudad."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién fue el primer presidente de Estados Unidos?",
+          "options": [
+            { "id": "a", "text": "Thomas Jefferson", "is_correct": false },
+            { "id": "b", "text": "John Adams", "is_correct": false },
+            { "id": "c", "text": "George Washington", "is_correct": true },
+            { "id": "d", "text": "Benjamin Franklin", "is_correct": false }
+          ],
+          "explanation": "George Washington asumió en 1789 y gobernó dos mandatos."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año llegó el ser humano a la Luna por primera vez?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1969", "is_correct": true },
+            { "id": "c", "text": "1972", "is_correct": false },
+            { "id": "d", "text": "1981", "is_correct": false }
+          ],
+          "explanation": "El Apolo 11 aterrizó el 20 de julio de 1969; Neil Armstrong fue la primera persona en la superficie."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué civilización antigua construyó las pirámides de Giza?",
+          "options": [
+            { "id": "a", "text": "La antigua Grecia", "is_correct": false },
+            { "id": "b", "text": "El antiguo Egipto", "is_correct": true },
+            { "id": "c", "text": "El Imperio romano", "is_correct": false },
+            { "id": "d", "text": "Mesopotamia", "is_correct": false }
+          ],
+          "explanation": "La Gran Pirámide se construyó para el faraón Keops hacia el 2560 a. C."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año comenzó la Revolución Francesa?",
+          "options": [
+            { "id": "a", "text": "1688", "is_correct": false },
+            { "id": "b", "text": "1776", "is_correct": false },
+            { "id": "c", "text": "1789", "is_correct": true },
+            { "id": "d", "text": "1815", "is_correct": false }
+          ],
+          "explanation": "La toma de la Bastilla el 14 de julio de 1789 es el punto de partida convencional."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué imperio tenía su capital en Constantinopla y cayó en 1453?",
+          "options": [
+            { "id": "a", "text": "El Imperio otomano", "is_correct": false },
+            { "id": "b", "text": "El Imperio bizantino", "is_correct": true },
+            { "id": "c", "text": "El Sacro Imperio Romano", "is_correct": false },
+            { "id": "d", "text": "El Imperio persa", "is_correct": false }
+          ],
+          "explanation": "El ejército otomano tomó la ciudad en 1453, poniendo fin al Imperio romano de Oriente."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué ciudad romana quedó sepultada por la erupción del Vesubio en el año 79 d. C.?",
+          "options": [
+            { "id": "a", "text": "Ostia", "is_correct": false },
+            { "id": "b", "text": "Cartago", "is_correct": false },
+            { "id": "c", "text": "Pompeya", "is_correct": true },
+            { "id": "d", "text": "Rávena", "is_correct": false }
+          ],
+          "explanation": "Pompeya y la cercana Herculano quedaron cubiertas de ceniza y se conservaron durante siglos."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-geography-trivia",
+      "title": "World Geography Trivia: Capitals, Oceans and Extremes",
+      "description": "Eight geography questions on capitals, oceans, deserts and the extremes of the planet. No trick questions, just the map.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["geography", "trivia", "capitals", "world"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the capital of Australia?",
+          "options": [
+            { "id": "a", "text": "Sydney", "is_correct": false },
+            { "id": "b", "text": "Melbourne", "is_correct": false },
+            { "id": "c", "text": "Canberra", "is_correct": true },
+            { "id": "d", "text": "Perth", "is_correct": false }
+          ],
+          "explanation": "Canberra was purpose-built as the capital in 1913, between Sydney and Melbourne."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the largest ocean on Earth?",
+          "options": [
+            { "id": "a", "text": "Atlantic Ocean", "is_correct": false },
+            { "id": "b", "text": "Indian Ocean", "is_correct": false },
+            { "id": "c", "text": "Pacific Ocean", "is_correct": true },
+            { "id": "d", "text": "Arctic Ocean", "is_correct": false }
+          ],
+          "explanation": "The Pacific covers about a third of the planet's surface."
+        },
+        {
+          "id": "q3",
+          "question": "Which country is the largest by land area?",
+          "options": [
+            { "id": "a", "text": "Canada", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": false },
+            { "id": "c", "text": "Russia", "is_correct": true },
+            { "id": "d", "text": "United States", "is_correct": false }
+          ],
+          "explanation": "Russia spans eleven time zones and two continents."
+        },
+        {
+          "id": "q4",
+          "question": "On which continent is Egypt located?",
+          "options": [
+            { "id": "a", "text": "Asia", "is_correct": false },
+            { "id": "b", "text": "Africa", "is_correct": true },
+            { "id": "c", "text": "Europe", "is_correct": false },
+            { "id": "d", "text": "Oceania", "is_correct": false }
+          ],
+          "explanation": "Egypt's Sinai Peninsula reaches into Asia, but the country is African."
+        },
+        {
+          "id": "q5",
+          "question": "What is the capital of Canada?",
+          "options": [
+            { "id": "a", "text": "Toronto", "is_correct": false },
+            { "id": "b", "text": "Vancouver", "is_correct": false },
+            { "id": "c", "text": "Montreal", "is_correct": false },
+            { "id": "d", "text": "Ottawa", "is_correct": true }
+          ],
+          "explanation": "Ottawa is in Ontario, on the border with Quebec."
+        },
+        {
+          "id": "q6",
+          "question": "Which is the largest hot desert in the world?",
+          "options": [
+            { "id": "a", "text": "Gobi Desert", "is_correct": false },
+            { "id": "b", "text": "Sahara Desert", "is_correct": true },
+            { "id": "c", "text": "Atacama Desert", "is_correct": false },
+            { "id": "d", "text": "Sonoran Desert", "is_correct": false }
+          ],
+          "explanation": "The Sahara is roughly the size of the United States."
+        },
+        {
+          "id": "q7",
+          "question": "What is the highest mountain above sea level?",
+          "options": [
+            { "id": "a", "text": "K2", "is_correct": false },
+            { "id": "b", "text": "Mount Kilimanjaro", "is_correct": false },
+            { "id": "c", "text": "Mount Everest", "is_correct": true },
+            { "id": "d", "text": "Denali", "is_correct": false }
+          ],
+          "explanation": "Everest rises 8,849 metres above sea level, on the Nepal-China border."
+        },
+        {
+          "id": "q8",
+          "question": "Which country is shaped like a boot?",
+          "options": [
+            { "id": "a", "text": "Spain", "is_correct": false },
+            { "id": "b", "text": "Greece", "is_correct": false },
+            { "id": "c", "text": "Italy", "is_correct": true },
+            { "id": "d", "text": "Portugal", "is_correct": false }
+          ],
+          "explanation": "Italy's peninsula and the heel of Puglia give the country its boot silhouette."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-geografia-mundial",
+      "title": "Trivia de geografía mundial: capitales, océanos y extremos",
+      "description": "Ocho preguntas de geografía sobre capitales, océanos, desiertos y los extremos del planeta. Sin trampas: solo el mapa.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "geography",
+      "tags": ["geografía", "trivia", "capitales", "mundo"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la capital de Australia?",
+          "options": [
+            { "id": "a", "text": "Sídney", "is_correct": false },
+            { "id": "b", "text": "Melbourne", "is_correct": false },
+            { "id": "c", "text": "Canberra", "is_correct": true },
+            { "id": "d", "text": "Perth", "is_correct": false }
+          ],
+          "explanation": "Canberra se construyó como capital en 1913, entre Sídney y Melbourne."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el océano más grande del planeta?",
+          "options": [
+            { "id": "a", "text": "Océano Atlántico", "is_correct": false },
+            { "id": "b", "text": "Océano Índico", "is_correct": false },
+            { "id": "c", "text": "Océano Pacífico", "is_correct": true },
+            { "id": "d", "text": "Océano Ártico", "is_correct": false }
+          ],
+          "explanation": "El Pacífico cubre aproximadamente un tercio de la superficie del planeta."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el país más grande por superficie terrestre?",
+          "options": [
+            { "id": "a", "text": "Canadá", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": false },
+            { "id": "c", "text": "Rusia", "is_correct": true },
+            { "id": "d", "text": "Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "Rusia ocupa once husos horarios y dos continentes."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué continente está Egipto?",
+          "options": [
+            { "id": "a", "text": "Asia", "is_correct": false },
+            { "id": "b", "text": "África", "is_correct": true },
+            { "id": "c", "text": "Europa", "is_correct": false },
+            { "id": "d", "text": "Oceanía", "is_correct": false }
+          ],
+          "explanation": "La península del Sinaí llega a Asia, pero el país es africano."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la capital de Canadá?",
+          "options": [
+            { "id": "a", "text": "Toronto", "is_correct": false },
+            { "id": "b", "text": "Vancouver", "is_correct": false },
+            { "id": "c", "text": "Montreal", "is_correct": false },
+            { "id": "d", "text": "Ottawa", "is_correct": true }
+          ],
+          "explanation": "Ottawa está en Ontario, en la frontera con Quebec."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es el desierto cálido más grande del mundo?",
+          "options": [
+            { "id": "a", "text": "Desierto de Gobi", "is_correct": false },
+            { "id": "b", "text": "Desierto del Sahara", "is_correct": true },
+            { "id": "c", "text": "Desierto de Atacama", "is_correct": false },
+            { "id": "d", "text": "Desierto de Sonora", "is_correct": false }
+          ],
+          "explanation": "El Sahara tiene una extensión parecida a la de Estados Unidos."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la montaña más alta sobre el nivel del mar?",
+          "options": [
+            { "id": "a", "text": "K2", "is_correct": false },
+            { "id": "b", "text": "Kilimanjaro", "is_correct": false },
+            { "id": "c", "text": "Everest", "is_correct": true },
+            { "id": "d", "text": "Denali", "is_correct": false }
+          ],
+          "explanation": "El Everest alcanza 8.849 metros sobre el nivel del mar, entre Nepal y China."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué país tiene forma de bota?",
+          "options": [
+            { "id": "a", "text": "España", "is_correct": false },
+            { "id": "b", "text": "Grecia", "is_correct": false },
+            { "id": "c", "text": "Italia", "is_correct": true },
+            { "id": "d", "text": "Portugal", "is_correct": false }
+          ],
+          "explanation": "La península italiana y el tacón de Apulia dibujan la silueta de una bota."
+        }
+      ]
+    },
+    {
+      "slug": "en-sports-trivia",
+      "title": "Sports Trivia: Rules, Records and World Cups",
+      "description": "Eight sports questions on the rules most fans should know: line-ups, scoring, Olympic cycles and a certain World Cup final.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "sports",
+      "tags": ["sports", "trivia", "football", "basketball", "tennis"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many players from one team are on the pitch in football (soccer)?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "10", "is_correct": false },
+            { "id": "c", "text": "11", "is_correct": true },
+            { "id": "d", "text": "12", "is_correct": false }
+          ],
+          "explanation": "Eleven per side, including the goalkeeper."
+        },
+        {
+          "id": "q2",
+          "question": "How often are the Summer Olympic Games normally held?",
+          "options": [
+            { "id": "a", "text": "Every two years", "is_correct": false },
+            { "id": "b", "text": "Every three years", "is_correct": false },
+            { "id": "c", "text": "Every four years", "is_correct": true },
+            { "id": "d", "text": "Every five years", "is_correct": false }
+          ],
+          "explanation": "The four-year cycle is called an Olympiad."
+        },
+        {
+          "id": "q3",
+          "question": "How many points is a basket scored from beyond the arc worth in basketball?",
+          "options": [
+            { "id": "a", "text": "1", "is_correct": false },
+            { "id": "b", "text": "2", "is_correct": false },
+            { "id": "c", "text": "3", "is_correct": true },
+            { "id": "d", "text": "4", "is_correct": false }
+          ],
+          "explanation": "Two points inside the arc, three beyond it, one from the free-throw line."
+        },
+        {
+          "id": "q4",
+          "question": "Which country won the 2022 FIFA World Cup?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Brazil", "is_correct": false },
+            { "id": "c", "text": "Argentina", "is_correct": true },
+            { "id": "d", "text": "Germany", "is_correct": false }
+          ],
+          "explanation": "Argentina beat France on penalties after a 3-3 final in Qatar."
+        },
+        {
+          "id": "q5",
+          "question": "In which sport is the Tour de France contested?",
+          "options": [
+            { "id": "a", "text": "Running", "is_correct": false },
+            { "id": "b", "text": "Cycling", "is_correct": true },
+            { "id": "c", "text": "Motor racing", "is_correct": false },
+            { "id": "d", "text": "Rowing", "is_correct": false }
+          ],
+          "explanation": "It is a three-week road cycling race held mostly in France."
+        },
+        {
+          "id": "q6",
+          "question": "How many players from one team are on the court in volleyball?",
+          "options": [
+            { "id": "a", "text": "5", "is_correct": false },
+            { "id": "b", "text": "6", "is_correct": true },
+            { "id": "c", "text": "7", "is_correct": false },
+            { "id": "d", "text": "8", "is_correct": false }
+          ],
+          "explanation": "Six per side on an indoor court, with rotations after each serve change."
+        },
+        {
+          "id": "q7",
+          "question": "How many players from one team are on the court in basketball?",
+          "options": [
+            { "id": "a", "text": "4", "is_correct": false },
+            { "id": "b", "text": "5", "is_correct": true },
+            { "id": "c", "text": "6", "is_correct": false },
+            { "id": "d", "text": "7", "is_correct": false }
+          ],
+          "explanation": "Five per team, on a court with a basket at each end."
+        },
+        {
+          "id": "q8",
+          "question": "In tennis, what is a score of zero called?",
+          "options": [
+            { "id": "a", "text": "Nil", "is_correct": false },
+            { "id": "b", "text": "Love", "is_correct": true },
+            { "id": "c", "text": "Duck", "is_correct": false },
+            { "id": "d", "text": "Blank", "is_correct": false }
+          ],
+          "explanation": "Love comes from the French 'l'oeuf', an egg, drawn as a zero."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-deportes",
+      "title": "Trivia de deportes: reglas, récords y mundiales",
+      "description": "Ocho preguntas de deportes sobre las reglas que todo fan debería saber: alineaciones, puntuación, ciclo olímpico y una final de Mundial.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "sports",
+      "tags": ["deportes", "trivia", "fútbol", "baloncesto", "tenis"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos jugadores de un equipo están en la cancha en el fútbol?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "10", "is_correct": false },
+            { "id": "c", "text": "11", "is_correct": true },
+            { "id": "d", "text": "12", "is_correct": false }
+          ],
+          "explanation": "Once por lado, incluido el arquero."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cada cuánto se celebran normalmente los Juegos Olímpicos de verano?",
+          "options": [
+            { "id": "a", "text": "Cada dos años", "is_correct": false },
+            { "id": "b", "text": "Cada tres años", "is_correct": false },
+            { "id": "c", "text": "Cada cuatro años", "is_correct": true },
+            { "id": "d", "text": "Cada cinco años", "is_correct": false }
+          ],
+          "explanation": "Ese ciclo de cuatro años se llama olimpiada."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos puntos vale un canasto anotado detrás de la línea de tres en baloncesto?",
+          "options": [
+            { "id": "a", "text": "1", "is_correct": false },
+            { "id": "b", "text": "2", "is_correct": false },
+            { "id": "c", "text": "3", "is_correct": true },
+            { "id": "d", "text": "4", "is_correct": false }
+          ],
+          "explanation": "Dos puntos dentro del arco, tres fuera y uno desde la línea de tiros libres."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué país ganó el Mundial de Fútbol de 2022?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Brasil", "is_correct": false },
+            { "id": "c", "text": "Argentina", "is_correct": true },
+            { "id": "d", "text": "Alemania", "is_correct": false }
+          ],
+          "explanation": "Argentina venció a Francia por penales tras un 3-3 en Qatar."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué deporte se corre el Tour de Francia?",
+          "options": [
+            { "id": "a", "text": "Atletismo", "is_correct": false },
+            { "id": "b", "text": "Ciclismo", "is_correct": true },
+            { "id": "c", "text": "Automovilismo", "is_correct": false },
+            { "id": "d", "text": "Remo", "is_correct": false }
+          ],
+          "explanation": "Es una carrera de ciclismo en ruta de tres semanas, casi toda en Francia."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántos jugadores de un equipo están en la cancha en el voleibol?",
+          "options": [
+            { "id": "a", "text": "5", "is_correct": false },
+            { "id": "b", "text": "6", "is_correct": true },
+            { "id": "c", "text": "7", "is_correct": false },
+            { "id": "d", "text": "8", "is_correct": false }
+          ],
+          "explanation": "Seis por lado en cancha cubierta, con rotaciones al recuperar el saque."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos jugadores de un equipo están en la cancha en el baloncesto?",
+          "options": [
+            { "id": "a", "text": "4", "is_correct": false },
+            { "id": "b", "text": "5", "is_correct": true },
+            { "id": "c", "text": "6", "is_correct": false },
+            { "id": "d", "text": "7", "is_correct": false }
+          ],
+          "explanation": "Cinco por equipo, en una cancha con un aro en cada extremo."
+        },
+        {
+          "id": "q8",
+          "question": "En el tenis, ¿cómo se llama un marcador de cero?",
+          "options": [
+            { "id": "a", "text": "Nada", "is_correct": false },
+            { "id": "b", "text": "Love", "is_correct": true },
+            { "id": "c", "text": "Pato", "is_correct": false },
+            { "id": "d", "text": "Blanco", "is_correct": false }
+          ],
+          "explanation": "Viene del francés 'l'oeuf', el huevo, que se dibuja como un cero."
+        }
+      ]
+    }
+  ]
+}

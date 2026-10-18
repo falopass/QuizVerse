@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -267,7 +267,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         estimated_minutes: Math.max(1, draft.questions.length),
         is_ai_generated: true,
       });
-      if (response.error || !response.quiz) throw new Error(response.error || copy.saveError);
+      if (!response.success) throw new Error(response.error);
       await trackEvent({
         name: 'create_complete',
         locale,

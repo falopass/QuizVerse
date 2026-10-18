@@ -65,6 +65,8 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [];
       };
       categories: {
         Row: {
@@ -106,6 +108,8 @@ export interface Database {
           sort_order?: number;
           created_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [];
       };
       quizzes: {
         Row: {
@@ -192,6 +196,23 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quizzes_category_id_fkey';
+            columns: ['category_id'];
+            isOneToOne: false;
+            referencedRelation: 'categories';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quizzes_creator_id_fkey';
+            columns: ['creator_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       game_sessions: {
         Row: {
@@ -237,6 +258,23 @@ export interface Database {
           was_shared?: boolean;
           completed_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'game_sessions_player_id_fkey';
+            columns: ['player_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'game_sessions_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       quiz_likes: {
         Row: {
@@ -254,6 +292,23 @@ export interface Database {
           user_id?: string;
           created_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_likes_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_likes_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       achievements: {
         Row: {
@@ -283,6 +338,8 @@ export interface Database {
           condition_type?: string;
           condition_value?: number;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [];
       };
       user_achievements: {
         Row: {
@@ -300,6 +357,23 @@ export interface Database {
           achievement_id?: string;
           unlocked_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'user_achievements_achievement_id_fkey';
+            columns: ['achievement_id'];
+            isOneToOne: false;
+            referencedRelation: 'achievements';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_achievements_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       quiz_reports: {
         Row: {
@@ -335,10 +409,35 @@ export interface Database {
           resolved_at?: string | null;
           created_at?: string;
         };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_reports_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_reports_reporter_id_fkey';
+            columns: ['reporter_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_reports_resolved_by_fkey';
+            columns: ['resolved_by'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
       };
     };
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Views: {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    CompositeTypes: {};
     Functions: {
       increment_plays: {
         Args: { quiz_uuid: string };
