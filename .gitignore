@@ -44,3 +44,6 @@ next-env.d.ts
 
 # local design inspection (tasteskill screenshots and measurements)
 .taste-skill/
+
+# source tarballs used for VPS deploys
+*.tar.gz
