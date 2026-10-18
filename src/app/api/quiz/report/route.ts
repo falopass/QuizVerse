@@ -19,14 +19,7 @@ import { createRateLimiter } from '@/lib/utils/rate-limit';
 const ReportSchema = z.object({
   quiz_id: z.string().uuid(),
   quiz_slug: z.string().max(120).optional(),
-  reason: z.enum([
-    'inappropriate',
-    'spam',
-    'incorrect_info',
-    'hate_speech',
-    'copyright',
-    'other',
-  ]),
+  reason: z.enum(['inappropriate', 'spam', 'incorrect_info', 'hate_speech', 'copyright', 'other']),
   details: z.string().max(1000).optional(),
 });
 
