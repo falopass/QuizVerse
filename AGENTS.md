@@ -133,6 +133,57 @@ Tables:
 
 Non-localized root paths redirect to `/en` by default via `proxy.ts`.
 
+## SEO
+
+Todo el SEO vive en `src/lib/seo/`. Hay **una sola fuente de verdad** por dato; si
+tocas metadata, tocas esto y nada más.
+
+| Archivo | Responsabilidad |
+| :--- | :--- |
+| `site.ts` | `SITE_URL`, marca, OG estáticas, handles y tokens de verificación (env) |
+| `metadata.ts` | `buildMetadata()` — title, description (recortada a ~158), canonical, hreflang + `x-default`, OG, Twitter, robots |
+| `structured-data.ts` | Nodos JSON-LD: `Organization`, `WebSite`, `BreadcrumbList`, `Quiz`, `ItemList`, `WebPage` |
+| `sitemap.ts` | Serializador XML (escapa y valida `lastmod`) |
+| `og-font.ts` | Fuente para las OG dinámicas de Satori |
+
+Reglas:
+
+- **Nunca** pongas `canonical` en `src/app/layout.tsx`: lo heredarían las páginas
+  sin metadata propia y todas canonicalizarían a la home. Cada página llama a
+  `buildMetadata()` con su `path`.
+- `alternatePath` **solo** cuando la traducción existe de verdad. Un `hreflang`
+  que apunta a la home de otro idioma es peor que no emitir `hreflang`.
+- `noindex` en `/play`, `/result`, login, registro, `/create`, `/create/ai` y
+  perfiles. Se dejan **rastreables** (no `Disallow`) para que Google lea el
+  `noindex`.
+- **JSON-LD**: un bloque por página vía `<JsonLd />`; el layout raíz emite
+  `Organization` + `WebSite`, y cada página añade lo suyo.
+- `htmlLimitedBots` en `next.config.ts` fuerza que los crawlers reciban
+  `<title>`, canonical y OG en el `<head>` (Next los streamea al body si no).
+- Rutas raíz (`/robots.txt`, `/sitemap.xml`, `/favicon.ico`, `/<key>.txt`,
+  `/google<token>.html`) están excluidas del redirect de idioma en `proxy.ts`.
+  Si añades un archivo suelto en la raíz, exclúyelo también.
+
+### Comandos
+
+```bash
+npm run seo:assets     # regenera favicons, iconos PWA y OG 1200×630 desde SVG
+npm run seo:indexnow   # envía el sitemap a IndexNow (Bing, Yandex, Seznam, Naver)
+```
+
+`public/<key>.txt` es la clave de IndexNow: no la borres ni la cambies sin
+regenerarla, o las peticiones devuelven 403.
+
+### Verificación de propiedad
+
+| Motor | Cómo |
+| :--- | :--- |
+| Google | Meta tag (`GOOGLE_SITE_VERIFICATION` en `deploy/.env`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
+| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION` |
+
+Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
+
+
 ## Catalog Stats (current)
 
 - ~493 quizzes seeded in Supabase

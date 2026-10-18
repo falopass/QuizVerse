@@ -1,61 +1,170 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { generateSitemapXml } from '@/lib/seo/sitemap';
-import type { SitemapEntry } from '@/lib/seo/sitemap';
+import { generateSitemapXml, type SitemapEntry } from '@/lib/seo/sitemap';
+import { SITE_URL } from '@/lib/seo/site';
+import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org';
+/**
+ * Served at /sitemap.xml through a rewrite in next.config.ts.
+ *
+ * The sitemap only lists URLs that are indexable, self-canonical and actually
+ * render content: every published quiz in its own language, every category and
+ * quiz type that has at least one quiz in that language, and the editorial
+ * pages. Login-gated tools (/create) and personalized views (/play, /result)
+ * are intentionally absent.
+ */
 
-async function fetchPublishedQuizzes(): Promise<
-  Array<{ slug: string; published_at: string | null; language: string }>
-> {
+interface QuizRow {
+  slug: string;
+  language: string | null;
+  published_at: string | null;
+  quiz_type: string | null;
+  category_id: string | null;
+  category: { slug: string | null } | null;
+}
+
+async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
   try {
     const supabase = await createClient();
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('quizzes')
-      .select('slug, published_at, language')
+      .select('slug, language, published_at, quiz_type, category_id, category:categories(slug)')
       .eq('status', 'published')
       .order('published_at', { ascending: false })
-      .limit(5000);
+      .limit(50000);
 
-    return (data as Array<{ slug: string; published_at: string | null; language: string }>) ?? [];
+    if (error || !data) return [];
+    return data as unknown as QuizRow[];
   } catch {
     return [];
   }
 }
 
+function newest(dates: Array<string | null | undefined>): string | undefined {
+  let best: number | undefined;
+  let bestIso: string | undefined;
+
+  for (const value of dates) {
+    if (!value) continue;
+    const time = new Date(value).getTime();
+    if (Number.isNaN(time)) continue;
+    if (best === undefined || time > best) {
+      best = time;
+      bestIso = value;
+    }
+  }
+
+  return bestIso;
+}
+
+const EDITORIAL_PAGES: Array<{
+  path: string;
+  priority: number;
+  changeFrequency: SitemapEntry['changeFrequency'];
+}> = [
+  { path: '', priority: 1.0, changeFrequency: 'daily' },
+  { path: '/quiz', priority: 0.9, changeFrequency: 'daily' },
+  { path: '/leaderboard', priority: 0.4, changeFrequency: 'daily' },
+  { path: '/about', priority: 0.4, changeFrequency: 'monthly' },
+  { path: '/contact', priority: 0.3, changeFrequency: 'monthly' },
+  { path: '/privacy', priority: 0.2, changeFrequency: 'yearly' },
+  { path: '/terms', priority: 0.2, changeFrequency: 'yearly' },
+];
+
+/** Quiz types that are exposed as their own hub page. */
+const TYPE_HUBS = ['trivia', 'personality'];
+
 export async function GET() {
   const quizzes = await fetchPublishedQuizzes();
 
-  const staticPages: SitemapEntry[] = [
-    { url: '/en', changeFrequency: 'daily', priority: 1.0 },
-    { url: '/es', changeFrequency: 'daily', priority: 1.0 },
-    { url: '/en/quiz', changeFrequency: 'daily', priority: 0.9 },
-    { url: '/es/quiz', changeFrequency: 'daily', priority: 0.9 },
-    { url: '/en/leaderboard', changeFrequency: 'hourly', priority: 0.8 },
-    { url: '/es/leaderboard', changeFrequency: 'hourly', priority: 0.8 },
-    { url: '/en/create', changeFrequency: 'weekly', priority: 0.7 },
-    { url: '/es/create', changeFrequency: 'weekly', priority: 0.7 },
-    { url: '/en/about', changeFrequency: 'monthly', priority: 0.5 },
-    { url: '/es/about', changeFrequency: 'monthly', priority: 0.5 },
-    { url: '/en/terms', changeFrequency: 'monthly', priority: 0.3 },
-    { url: '/es/terms', changeFrequency: 'monthly', priority: 0.3 },
-    { url: '/en/privacy', changeFrequency: 'monthly', priority: 0.3 },
-    { url: '/es/privacy', changeFrequency: 'monthly', priority: 0.3 },
-  ];
+  const perLocale = new Map<Locale, QuizRow[]>(locales.map((locale) => [locale, []]));
+  const categoryHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
+  const typeHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
 
-  const quizEntries: SitemapEntry[] = quizzes.map((quiz) => ({
-    url: `/${quiz.language}/quiz/${quiz.slug}`,
-    lastModified: quiz.published_at ?? undefined,
-    changeFrequency: 'weekly',
-    priority: 0.6,
-  }));
+  for (const quiz of quizzes) {
+    const locale = (quiz.language === 'es' ? 'es' : 'en') as Locale;
+    if (!quiz.slug) continue;
+    perLocale.get(locale)?.push(quiz);
 
-  const xml = generateSitemapXml([...staticPages, ...quizEntries], siteUrl);
+    const date = quiz.published_at;
+
+    if (quiz.quiz_type && TYPE_HUBS.includes(quiz.quiz_type)) {
+      const key = `${locale}:type:${quiz.quiz_type}`;
+      const hub = typeHubs.get(key) ?? { locale, slug: quiz.quiz_type, dates: [] };
+      hub.dates.push(date ?? '');
+      typeHubs.set(key, hub);
+    }
+
+    const categorySlug = quiz.category?.slug;
+    if (categorySlug) {
+      const key = `${locale}:cat:${categorySlug}`;
+      const hub = categoryHubs.get(key) ?? { locale, slug: categorySlug, dates: [] };
+      hub.dates.push(date ?? '');
+      categoryHubs.set(key, hub);
+    }
+  }
+
+  const entries: SitemapEntry[] = [];
+
+  for (const locale of locales) {
+    const localeQuizzes = perLocale.get(locale) ?? [];
+    const localeNewest = newest(localeQuizzes.map((quiz) => quiz.published_at));
+
+    for (const page of EDITORIAL_PAGES) {
+      entries.push({
+        url: `/${locale}${page.path}`,
+        lastModified: page.path === '' ? localeNewest : undefined,
+        changeFrequency: page.changeFrequency,
+        priority: page.priority,
+      });
+    }
+
+    // Quiz type hubs (trivia / personality) — the strongest landing pages.
+    for (const hub of typeHubs.values()) {
+      if (hub.locale !== locale) continue;
+      entries.push({
+        url: `/${locale}/category/${hub.slug}`,
+        lastModified: newest(hub.dates),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      });
+    }
+
+    for (const hub of categoryHubs.values()) {
+      if (hub.locale !== locale) continue;
+      entries.push({
+        url: `/${locale}/category/${hub.slug}`,
+        lastModified: newest(hub.dates),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+
+    for (const quiz of localeQuizzes) {
+      entries.push({
+        url: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}`,
+        lastModified: quiz.published_at ?? undefined,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+  }
+
+  // De-duplicate: a hub can be reached both as a type and as a category.
+  const seen = new Set<string>();
+  const unique = entries.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
+
+  const xml = generateSitemapXml(unique, SITE_URL);
 
   return new NextResponse(xml, {
     headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, max-age=3600, s-maxage=14400',
+      'Content-Type': 'application/xml; charset=utf-8',
+      'Cache-Control': 'public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400',
+      'X-Robots-Tag': 'noindex',
     },
   });
 }

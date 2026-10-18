@@ -1,5 +1,6 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -8,17 +9,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
-  const title = lang === 'es' ? 'Acerca de QuizVerse' : 'About QuizVerse';
   const description =
     lang === 'es'
-      ? 'QuizVerse es una plataforma editorial de quizzes bilingüe con personalidad, trivia afilada y resultados que vale la pena compartir.'
-      : 'QuizVerse is a bilingual editorial quiz platform with personality, sharp trivia, and results worth sharing.';
+      ? 'QuizVerse es una plataforma editorial bilingüe de quizzes con tests de personalidad, trivia afilada y resultados que vale la pena compartir.'
+      : 'QuizVerse is a bilingual editorial quiz platform with personality tests, sharp trivia and results worth sharing.';
 
-  return {
-    title,
+  return buildMetadata({
+    title: lang === 'es' ? 'Acerca de QuizVerse' : 'About QuizVerse',
     description,
-    alternates: { canonical: `/${lang}/about` },
-  };
+    path: `/${lang}/about`,
+    alternatePath: `/${lang === 'es' ? 'en' : 'es'}/about`,
+    locale: lang,
+  });
 }
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {

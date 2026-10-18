@@ -4,7 +4,8 @@ import { QuizDetailPage, generateQuizDetailStaticParams } from '@/components/hom
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getQuizBySlug } from '@/lib/data/public';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
-import { generateQuizMetadata } from '@/lib/seo/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
+import { quizOgImage } from '@/lib/seo/site';
 
 export async function generateStaticParams() {
   const slugs = await generateQuizDetailStaticParams();
@@ -25,18 +26,26 @@ export async function generateMetadata({
   if (!quiz) {
     notFound();
   }
+
   const otherLocale = locale === 'es' ? 'en' : 'es';
   const equivalentSlug = getEquivalentQuizSlug(slug, otherLocale);
   const counterpart = equivalentSlug ? await getQuizBySlug(equivalentSlug, otherLocale) : null;
 
-  return generateQuizMetadata({
+  const fallbackDescription =
+    locale === 'es'
+      ? `${quiz.questions.length} preguntas de ${quiz.title} en QuizVerse. Gratis, sin registro y con resultado al instante.`
+      : `${quiz.questions.length} questions in ${quiz.title} on QuizVerse. Free, no signup, instant result.`;
+
+  return buildMetadata({
     title: quiz.title,
-    description:
-      quiz.description ??
-      (locale === 'es' ? 'Juega este quiz en QuizVerse.' : 'Play this quiz on QuizVerse.'),
-    image: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz/${quiz.slug}/opengraph-image`,
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz/${quiz.slug}`,
-    alternateUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${otherLocale}${counterpart ? `/quiz/${counterpart.slug}` : ''}`,
+    description: quiz.description ?? fallbackDescription,
+    path: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}`,
+    // Only emit a translated hreflang when the translated quiz actually exists.
+    alternatePath: counterpart
+      ? `/${otherLocale}/quiz/${encodeURIComponent(counterpart.slug)}`
+      : null,
+    image: quizOgImage(locale, quiz.slug),
+    imageAlt: quiz.title,
     locale,
   });
 }

@@ -1,9 +1,9 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExploreEditorialPage } from '@/components/home/explore-editorial-page';
 import { getExplorePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
-import { generateQuizMetadata } from '@/lib/seo/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -15,14 +15,17 @@ export async function generateMetadata({
     return {};
   }
 
-  return generateQuizMetadata({
-    title: locale === 'es' ? 'Explorar quizzes' : 'Explore quizzes',
+  return buildMetadata({
+    title:
+      locale === 'es'
+        ? 'Explora todos los quizzes — trivia, personalidad y fandom'
+        : 'Explore all quizzes — trivia, personality and fandom',
     description:
       locale === 'es'
-        ? 'Descubre el catálogo completo de QuizVerse por tema, vibra, ritmo e idioma.'
-        : 'Discover the full QuizVerse catalog by topic, vibe, pace and language.',
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/quiz`,
-    alternateUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale === 'es' ? 'en' : 'es'}/quiz`,
+        ? 'Explora el catálogo completo de QuizVerse por tema, mood y ritmo. Trivia, tests de personalidad y retos de fandom gratis.'
+        : 'Browse the full QuizVerse catalog by topic, mood and pace. Free trivia rounds, personality tests and fandom challenges.',
+    path: `/${locale}/quiz`,
+    alternatePath: `/${locale === 'es' ? 'en' : 'es'}/quiz`,
     locale,
   });
 }

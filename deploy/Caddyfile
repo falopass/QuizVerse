@@ -34,3 +34,8 @@ api.51-79-71-83.sslip.io {
 	encode gzip zstd
 	reverse_proxy 127.0.0.1:8000
 }
+
+# --- Previews de desarrollo: cualquier puerto publicado con el comando `serve` ---
+# Los snippets viven en el host en ~/dev/caddy/ y se montan como /etc/caddy/snippets.
+import /etc/caddy/snippets/*.caddy
+

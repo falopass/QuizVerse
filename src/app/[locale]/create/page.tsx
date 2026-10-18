@@ -1,8 +1,30 @@
+import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { QuizCreatorForm } from '@/components/quiz/quiz-creator-form';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { buildMetadata } from '@/lib/seo/metadata';
+
+/** Login-gated tool, not a landing page: anonymous visitors get redirected. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lang = hasLocale(locale) ? locale : 'en';
+  const es = lang === 'es';
+  return buildMetadata({
+    title: es ? 'Crear un quiz' : 'Create a quiz',
+    description: es
+      ? 'Crea tu propio quiz en QuizVerse: preguntas, resultados y portada en minutos.'
+      : 'Build your own QuizVerse quiz: questions, results and cover in minutes.',
+    path: `/${lang}/create`,
+    locale: lang,
+    noindex: true,
+  });
+}
 
 export default async function LocalizedCreatePage({
   params,

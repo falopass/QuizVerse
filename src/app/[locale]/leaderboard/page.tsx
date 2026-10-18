@@ -1,4 +1,4 @@
-﻿import Link from 'next/link';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
@@ -6,7 +6,7 @@ import { getLeaderboard } from '@/lib/data/public';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
-import { generateQuizMetadata } from '@/lib/seo/metadata';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -18,14 +18,14 @@ export async function generateMetadata({
     return {};
   }
 
-  return generateQuizMetadata({
-    title: locale === 'es' ? 'Ranking QuizVerse' : 'QuizVerse leaderboard',
+  return buildMetadata({
+    title: locale === 'es' ? 'Ranking de jugadores' : 'Player leaderboard',
     description:
       locale === 'es'
-        ? 'Mira quién está liderando el tablero de QuizVerse.'
-        : 'See who is leading the QuizVerse board.',
-    url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale}/leaderboard`,
-    alternateUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'}/${locale === 'es' ? 'en' : 'es'}/leaderboard`,
+        ? 'Mira quién lidera el ranking de QuizVerse: puntos, quizzes jugados y los jugadores más activos de la comunidad.'
+        : 'See who leads the QuizVerse board: points, quizzes played and the most active players in the community.',
+    path: `/${locale}/leaderboard`,
+    alternatePath: `/${locale === 'es' ? 'en' : 'es'}/leaderboard`,
     locale,
   });
 }

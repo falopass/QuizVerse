@@ -22,7 +22,6 @@ const NON_LOCALE_EXACT = [
   '/icon.png',
   '/apple-icon.png',
 ];
-
 function getLocaleFromRequest(request: NextRequest) {
   const accept = request.headers.get('accept-language') || '';
   if (accept.includes('es')) return 'es';
@@ -72,5 +71,10 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+  // Static files and search-engine control files live at the root and must never
+  // be redirected into a locale prefix: an IndexNow key file (/{key}.txt) or the
+  // Google verification file (google<token>.html) returning a 307 fails the check.
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json|html|webmanifest)$).*)',
+  ],
 };

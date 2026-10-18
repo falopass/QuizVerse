@@ -1,5 +1,6 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -8,14 +9,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
-  return {
+  return buildMetadata({
     title: lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy',
     description:
       lang === 'es'
-        ? 'Cómo QuizVerse recopila, usa y protege tus datos personales.'
-        : 'How QuizVerse collects, uses, and protects your personal data.',
-    alternates: { canonical: `/${lang}/privacy` },
-  };
+        ? 'Cómo QuizVerse recopila, usa y protege tus datos personales, y qué cookies y servicios usa el sitio.'
+        : 'How QuizVerse collects, uses and protects your personal data, and which cookies and services the site relies on.',
+    path: `/${lang}/privacy`,
+    alternatePath: `/${lang === 'es' ? 'en' : 'es'}/privacy`,
+    locale: lang,
+  });
 }
 
 export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {

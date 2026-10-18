@@ -1,5 +1,6 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -8,14 +9,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
-  return {
+  return buildMetadata({
     title: lang === 'es' ? 'Contacto' : 'Contact',
     description:
       lang === 'es'
-        ? 'Contacta al equipo de QuizVerse para colaboraciones, prensa o feedback.'
-        : 'Reach the QuizVerse team for partnerships, press, or feedback.',
-    alternates: { canonical: `/${lang}/contact` },
-  };
+        ? 'Contacta al equipo de QuizVerse para colaboraciones, prensa, sugerencias de quizzes o feedback.'
+        : 'Reach the QuizVerse team for partnerships, press, quiz suggestions or feedback.',
+    path: `/${lang}/contact`,
+    alternatePath: `/${lang === 'es' ? 'en' : 'es'}/contact`,
+    locale: lang,
+  });
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {

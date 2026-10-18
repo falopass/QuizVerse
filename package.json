@@ -18,7 +18,9 @@
     "seed:covers": "node scripts/generate-cover-assets.mjs",
     "seed:stock-covers": "node scripts/hydrate-stock-covers.mjs",
     "seed:supabase:import": "node scripts/import-trending-seed-to-supabase.mjs",
-    "db:migrate": "node scripts/apply-migrations.mjs"
+    "db:migrate": "node scripts/apply-migrations.mjs",
+    "seo:assets": "node scripts/generate-brand-assets.mjs",
+    "seo:indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",

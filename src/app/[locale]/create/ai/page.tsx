@@ -1,8 +1,30 @@
+import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { AIQuizGenerator } from '@/components/quiz/ai-quiz-generator';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { buildMetadata } from '@/lib/seo/metadata';
+
+/** Login-gated tool, not a landing page: anonymous visitors get redirected. */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lang = hasLocale(locale) ? locale : 'en';
+  const es = lang === 'es';
+  return buildMetadata({
+    title: es ? 'Crear un quiz con AI' : 'Create a quiz with AI',
+    description: es
+      ? 'Genera un borrador de quiz con AI y edítalo hasta publicarlo en QuizVerse.'
+      : 'Generate a quiz draft with AI, then edit it and publish it on QuizVerse.',
+    path: `/${lang}/create/ai`,
+    locale: lang,
+    noindex: true,
+  });
+}
 
 export default async function LocalizedCreateAIPage({
   params,

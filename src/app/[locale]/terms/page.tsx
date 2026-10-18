@@ -1,5 +1,6 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
+import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -8,14 +9,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
-  return {
+  return buildMetadata({
     title: lang === 'es' ? 'Términos de Servicio' : 'Terms of Service',
     description:
       lang === 'es'
-        ? 'Términos y condiciones de uso de la plataforma QuizVerse.'
-        : 'Terms and conditions for using the QuizVerse platform.',
-    alternates: { canonical: `/${lang}/terms` },
-  };
+        ? 'Términos y condiciones de uso de la plataforma QuizVerse: cuentas, contenido enviado y uso aceptable.'
+        : 'Terms and conditions for using QuizVerse: accounts, user-submitted content and acceptable use.',
+    path: `/${lang}/terms`,
+    alternatePath: `/${lang === 'es' ? 'en' : 'es'}/terms`,
+    locale: lang,
+  });
 }
 
 export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {

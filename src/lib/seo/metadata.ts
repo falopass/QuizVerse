@@ -1,49 +1,185 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import {
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_ES,
+  DEFAULT_OG_IMAGE_HEIGHT,
+  DEFAULT_OG_IMAGE_WIDTH,
+  SITE_NAME,
+  SITE_URL,
+  TWITTER_HANDLE,
+  absoluteUrl,
+} from './site';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org';
+const OG_LOCALE: Record<Locale, string> = { en: 'en_US', es: 'es_ES' };
 
-interface GenerateQuizMetadataOptions {
+/** Google truncates around 155–160 characters. Keep descriptions honest and short. */
+const DESCRIPTION_MAX = 158;
+
+/**
+ * Collapses whitespace/markdown noise and clamps a description to a length that
+ * is not truncated in the SERP. Cuts on a word boundary so it never ends mid-word.
+ */
+export function clampDescription(input: string | null | undefined, max = DESCRIPTION_MAX): string {
+  const text = (input ?? '')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/[*_`>#]+/g, '')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (text.length <= max) return text;
+
+  const slice = text.slice(0, max - 1);
+  const cut = slice.lastIndexOf(' ');
+  const body = cut > max * 0.6 ? slice.slice(0, cut) : slice;
+  return `${body.replace(/[,;:.\s]+$/, '')}…`;
+}
+
+export function localizedPath(locale: Locale, path: string): string {
+  const normalized = path === '/' ? '' : path.startsWith('/') ? path : `/${path}`;
+  return `/${locale}${normalized}`;
+}
+
+function otherLocale(locale: Locale): Locale {
+  return locale === 'es' ? 'en' : 'es';
+}
+
+export interface BuildMetadataOptions {
+  /** Page title without the `| QuizVerse` suffix. */
+  title: string;
+  /** Skip the site suffix (for the home page, where the title is already complete). */
+  absoluteTitle?: boolean;
+  description?: string | null;
+  /** Locale-prefixed path, e.g. `/en/quiz/my-quiz`. */
+  path: string;
+  locale: Locale;
+  /**
+   * Locale-prefixed path of the translated counterpart, only when that page
+   * actually exists. Never pass a fallback such as the locale home page:
+   * a wrong hreflang is worse than none.
+   */
+  alternatePath?: string | null;
+  /** Absolute image URL. Defaults to the static 1200×630 brand card. */
+  image?: string | null;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  type?: 'website' | 'article';
+  /** Drop the page from the index (auth, share tokens, user-generated profiles). */
+  noindex?: boolean;
+  /** Keep following links when the page itself is not indexable. */
+  follow?: boolean;
+  keywords?: string[];
+  publishedTime?: string | null;
+  modifiedTime?: string | null;
+}
+
+/**
+ * Builds one complete, self-consistent metadata object: title, description,
+ * canonical, hreflang (+ x-default), Open Graph and Twitter all derive from the
+ * same canonical URL, so they can never point at different pages.
+ */
+export function buildMetadata({
+  title,
+  absoluteTitle = false,
+  description,
+  path,
+  locale,
+  alternatePath,
+  image,
+  imageAlt,
+  imageWidth = DEFAULT_OG_IMAGE_WIDTH,
+  imageHeight = DEFAULT_OG_IMAGE_HEIGHT,
+  type = 'website',
+  noindex = false,
+  follow = true,
+  keywords,
+  publishedTime,
+  modifiedTime,
+}: BuildMetadataOptions): Metadata {
+  const canonical = absoluteUrl(path);
+  const resolvedDescription =
+    clampDescription(description) ||
+    (locale === 'es'
+      ? 'Quizzes de cultura pop, trivia y personalidad para jugar y compartir en QuizVerse.'
+      : 'Pop culture quizzes, trivia and personality games to play and share on QuizVerse.');
+
+  const languages: Record<string, string> = { [locale]: canonical };
+  let xDefault = canonical;
+
+  if (alternatePath) {
+    const alternate = absoluteUrl(alternatePath);
+    languages[otherLocale(locale)] = alternate;
+    xDefault = locale === 'en' ? canonical : alternate;
+  }
+  languages['x-default'] = xDefault;
+
+  const ogImage = image ?? (locale === 'es' ? DEFAULT_OG_IMAGE_ES : DEFAULT_OG_IMAGE);
+  const withSuffix = !absoluteTitle;
+
+  return {
+    title: withSuffix ? title : { absolute: title },
+    description: resolvedDescription,
+    ...(keywords && keywords.length > 0 ? { keywords } : {}),
+    alternates: { canonical, languages },
+    openGraph: {
+      type,
+      url: canonical,
+      siteName: SITE_NAME,
+      locale: OG_LOCALE[locale],
+      alternateLocale: [OG_LOCALE[otherLocale(locale)]],
+      title,
+      description: resolvedDescription,
+      ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
+      images: [
+        {
+          url: ogImage,
+          width: imageWidth,
+          height: imageHeight,
+          alt: imageAlt ?? title,
+          type: ogImage.endsWith('.png') ? 'image/png' : undefined,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: resolvedDescription,
+      images: [ogImage],
+      ...(TWITTER_HANDLE ? { site: TWITTER_HANDLE, creator: TWITTER_HANDLE } : {}),
+    },
+    robots: noindex
+      ? { index: false, follow, googleBot: { index: false, follow } }
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+          },
+        },
+  };
+}
+
+export interface GenerateQuizMetadataOptions {
   title: string;
   description: string;
   image?: string;
+  /** Absolute canonical URL. */
   url?: string;
   locale?: Locale;
+  /** Absolute URL of the translated counterpart, only when it exists. */
   alternateUrl?: string;
 }
 
-interface GenerateCategoryMetadataOptions {
-  name: string;
-  slug: string;
-  description: string;
-  locale?: Locale;
-}
-
-interface GenerateProfileMetadataOptions {
-  username: string;
-  displayName?: string;
-  bio?: string;
-  quizzesCreated?: number;
-  locale?: Locale;
-}
-
-function localizedPath(locale: Locale, path: string) {
-  return `${siteUrl}/${locale}${path}`.replace(/([^:]\/)\/+/, '$1');
-}
-
-function buildAlternates(locale: Locale, canonicalUrl: string, alternateUrl?: string) {
-  const canonicalPath = canonicalUrl.replace(siteUrl, '');
-  const alternatePath =
-    alternateUrl?.replace(siteUrl, '') ??
-    canonicalPath.replace(`/${locale}`, locale === 'es' ? '/en' : '/es');
-
-  return {
-    canonical: canonicalUrl,
-    languages: {
-      [locale]: canonicalUrl,
-      [locale === 'es' ? 'en' : 'es']: alternateUrl ?? `${siteUrl}${alternatePath}`,
-    },
-  } satisfies Metadata['alternates'];
+function toPath(url: string): string {
+  if (!url.startsWith('http')) return url;
+  return url.startsWith(SITE_URL) ? url.slice(SITE_URL.length) || '/' : url;
 }
 
 export function generateQuizMetadata({
@@ -54,52 +190,26 @@ export function generateQuizMetadata({
   locale = 'en',
   alternateUrl,
 }: GenerateQuizMetadataOptions): Metadata {
-  const siteName = 'QuizVerse';
-  const canonicalUrl = url ?? localizedPath(locale, '');
-  const socialImage = image ?? `${canonicalUrl.replace(/\/$/, '')}/opengraph-image`;
+  const path = url ? toPath(url) : localizedPath(locale, '/');
+  const counterpart = alternateUrl && alternateUrl !== url ? toPath(alternateUrl) : null;
 
-  return {
-    title: {
-      default: title,
-      template: `%s | ${siteName}`,
-    },
+  return buildMetadata({
+    title,
     description,
-    alternates: buildAlternates(locale, canonicalUrl, alternateUrl),
-    openGraph: {
-      type: 'website',
-      locale: locale === 'es' ? 'es_ES' : 'en_US',
-      url: canonicalUrl,
-      siteName,
-      title,
-      description,
-      images: [
-        {
-          url: socialImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: [socialImage],
-      creator: '@quizverse',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  };
+    path,
+    locale,
+    alternatePath: counterpart,
+    image,
+    imageAlt: title,
+  });
+}
+
+export interface GenerateCategoryMetadataOptions {
+  name: string;
+  slug: string;
+  description?: string | null;
+  locale?: Locale;
+  quizCount?: number;
 }
 
 export function generateCategoryMetadata({
@@ -107,18 +217,32 @@ export function generateCategoryMetadata({
   slug,
   description,
   locale = 'en',
+  quizCount,
 }: GenerateCategoryMetadataOptions): Metadata {
-  const title = locale === 'es' ? `Quizzes de ${name}` : `${name} quizzes`;
-  const url = localizedPath(locale, `/category/${slug}`);
-  const alternateUrl = localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`);
+  const title = quizCount
+    ? locale === 'es'
+      ? `${name}: ${quizCount} quizzes online`
+      : `${name}: ${quizCount} quizzes to play`
+    : locale === 'es'
+      ? `Quizzes de ${name}`
+      : `${name} quizzes`;
 
-  return generateQuizMetadata({
+  return buildMetadata({
     title,
     description,
+    path: localizedPath(locale, `/category/${slug}`),
+    // Type hubs (personality/trivia) and categories both exist in EN and ES.
+    alternatePath: localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`),
     locale,
-    url,
-    alternateUrl,
   });
+}
+
+export interface GenerateProfileMetadataOptions {
+  username: string;
+  displayName?: string;
+  bio?: string;
+  quizzesCreated?: number;
+  locale?: Locale;
 }
 
 export function generateProfileMetadata({
@@ -135,15 +259,14 @@ export function generateProfileMetadata({
     (locale === 'es'
       ? `${name} ha creado ${quizzesCreated || 0} quizzes en QuizVerse.`
       : `${name} has created ${quizzesCreated || 0} quizzes on QuizVerse.`);
-  const url = localizedPath(locale, `/profile/${username}`);
-  const alternateUrl = localizedPath(locale === 'es' ? 'en' : 'es', `/profile/${username}`);
 
-  return generateQuizMetadata({
+  return buildMetadata({
     title,
     description,
+    path: localizedPath(locale, `/profile/${username}`),
     locale,
-    url,
-    alternateUrl,
+    // Profiles are user-generated and frequently empty: keep them out of the index.
+    noindex: true,
   });
 }
 

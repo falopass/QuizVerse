@@ -2,13 +2,26 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { Breadcrumbs } from '@/components/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/json-ld';
 import { getCategoryPayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { generateCategoryMetadata } from '@/lib/seo/metadata';
+import {
+  breadcrumbNode,
+  buildGraph,
+  categoryPath,
+  itemListNode,
+  quizPath,
+  webPageNode,
+} from '@/lib/seo/structured-data';
 
 type CategoryProps = { params: Promise<{ locale: string; slug: string }> };
+
+/** How many quizzes the ItemList advertises. Keeps the JSON-LD payload small. */
+const ITEM_LIST_LIMIT = 24;
 
 export async function generateMetadata({ params }: CategoryProps): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -17,9 +30,15 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
   if (!payload || payload.quizzes.length === 0) notFound();
   const category = localizeCategory(payload.category, locale)!;
   return generateCategoryMetadata({
-    name: category.name, slug,
-    description: category.description || (locale === 'es' ? `Explora quizzes de ${category.name} en QuizVerse.` : `Explore ${category.name} quizzes on QuizVerse.`),
+    name: category.name,
+    slug,
+    description:
+      category.description ||
+      (locale === 'es'
+        ? `Explora ${payload.quizzes.length} quizzes de ${category.name} en QuizVerse. Gratis y sin registro.`
+        : `Explore ${payload.quizzes.length} ${category.name} quizzes on QuizVerse. Free to play, no signup needed.`),
     locale,
+    quizCount: payload.quizzes.length,
   });
 }
 
@@ -32,25 +51,67 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
   const dictionary = await getDictionary(locale);
   const category = localizeCategory(payload.category, locale)!;
   const quizzes = localizeQuizList(payload.quizzes, locale);
+  const path = categoryPath(locale, slug);
 
   return (
     <div className="arcade-wrap arcade-page arcade-category">
+      <JsonLd
+        data={buildGraph([
+          webPageNode(path, locale, category.name),
+          breadcrumbNode([
+            { name: locale === 'es' ? 'Inicio' : 'Home', path: `/${locale}` },
+            { name: dictionary.common.explore, path: `/${locale}/quiz` },
+            { name: category.name, path },
+          ]),
+          itemListNode(
+            quizzes
+              .slice(0, ITEM_LIST_LIMIT)
+              .map((quiz) => ({ name: quiz.title, path: quizPath(locale, quiz.slug) })),
+            locale
+          ),
+        ])}
+      />
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { name: locale === 'es' ? 'Inicio' : 'Home', href: `/${locale}` },
+          { name: dictionary.common.explore, href: `/${locale}/quiz` },
+          { name: category.name },
+        ]}
+      />
       <section className="arcade-category-hero">
-        <span className="arcade-live">{dictionary.arcade.category} / {category.name}</span>
+        <span className="arcade-live">
+          {dictionary.arcade.category} / {category.name}
+        </span>
         <h1>{category.name}</h1>
         <p>{category.description}</p>
-        <strong>{quizzes.length} {dictionary.arcade.visibleGames}</strong>
+        <strong>
+          {quizzes.length} {dictionary.arcade.visibleGames}
+        </strong>
       </section>
       <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
         <Link href={localizeHref(locale, '/quiz')}>{dictionary.arcade.allCategories}</Link>
         {payload.categories.map((item) => {
           const localized = localizeCategory(item, locale)!;
-          return <Link key={item.id} href={localizeHref(locale, `/category/${item.slug}`)} aria-current={item.slug === slug ? 'page' : undefined}>{localized.name}</Link>;
+          return (
+            <Link
+              key={item.id}
+              href={localizeHref(locale, `/category/${item.slug}`)}
+              aria-current={item.slug === slug ? 'page' : undefined}
+            >
+              {localized.name}
+            </Link>
+          );
         })}
       </nav>
-      <div className="arcade-section-head"><h2>{dictionary.arcade.chooseGame}</h2><p>{dictionary.arcade.chooseBody}</p></div>
+      <div className="arcade-section-head">
+        <h2>{dictionary.arcade.chooseGame}</h2>
+        <p>{dictionary.arcade.chooseBody}</p>
+      </div>
       <div className="arcade-grid">
-        {quizzes.map((quiz) => <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />)}
+        {quizzes.map((quiz) => (
+          <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />
+        ))}
       </div>
     </div>
   );
