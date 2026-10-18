@@ -2,6 +2,21 @@
 
 > AI agents and developers: Read this BEFORE making changes to this codebase.
 
+## Resource limits (RAM) — MANDATORY
+
+This project is developed on a single personal machine, and also worked on by Cloud sessions. Respect these limits in local sessions:
+- MAX_BUILD=1 · MAX_FULL_TEST_SUITE=1 · MAX_DEV_SERVER=1 · MAX_BROWSER=1 · MAX_HEAVY_TASKS=1 · TEST_RUNNER_MAX_WORKERS=2
+- One build, one dev server, one browser and one full suite **at a time**. Never parallelize heavy tasks locally.
+- Subagents **only edit files and explore**. They do NOT run dev servers, builds, typecheck or full suites. The main agent runs heavy tasks, one at a time.
+
+## Workflow rules
+
+- **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; the owner merges.
+- Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
+- Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
+- Do not touch `deploy/` or the VPS infrastructure (production lives there; its deploy belongs to the owner).
+- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest), `npm run build` — and use the Vercel PR preview for visual checks.
+
 ## Stack
 
 - **Framework**: Next.js 16.2.1 (App Router + Server Components + Server Actions)
