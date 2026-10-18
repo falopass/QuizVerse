@@ -262,6 +262,6 @@ Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 
 - Production runs on the owner's VPS (`deploy/`: Docker + Caddy). Do not touch it or deploy it; that belongs to the owner.
 - Vercel builds a preview per PR for visual review.
-- Environment variables: names in `.env.example` and `deploy/env.example`; optional `NEXT_PUBLIC_ADSENSE_ID` (ads) is not listed there. Never commit real values.
+- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). The app also reads `SUPABASE_SERVICE_ROLE_KEY` (server and import scripts only), `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` (rate limiting), `PEXELS_API_KEY`/`PIXABAY_API_KEY` (stock covers) and the optional `NEXT_PUBLIC_ADSENSE_*_SLOT`. Never commit real values.
 
 Product direction: editorial, bilingual, discovery-oriented, ad-supported. NOT a generic quiz template grid.
