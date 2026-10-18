@@ -11,6 +11,19 @@ import type { NextConfig } from 'next';
 const CRAWLER_USER_AGENTS =
   /Googlebot|Google-InspectionTool|GoogleOther|AdsBot-Google|Mediapartners-Google|APIs-Google|FeedFetcher-Google|Storebot-Google|Google-?[\w-]+|Chrome-Lighthouse|Bingbot|BingPreview|Slurp|DuckDuckBot|applebot|facebookexternalhit|facebookcatalog|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterest|redditbot|yandex|baiduspider|sogou|SeznamBot|Yeti|ia_archiver|AhrefsBot|SemrushBot|MJ12bot|bot[\/\s]/i;
 
+/**
+ * Ningún despliegue que no sea producción debe entrar en el índice.
+ *
+ * Vercel publica cada rama y cada PR en una URL propia. Sin esta cabecera,
+ * Google acaba indexando `quizverse-git-rama-equipo.vercel.app` y compite
+ * contra `quizverse.org` por las mismas consultas: contenido duplicado servido
+ * por el propio producto. Los previews del VPS ya lo hacen en Caddy; esto cubre
+ * el otro camino.
+ */
+const IS_PREVIEW_DEPLOY = process.env.VERCEL_ENV
+  ? process.env.VERCEL_ENV !== 'production'
+  : process.env.NODE_ENV === 'development';
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
@@ -56,6 +69,15 @@ const nextConfig: NextConfig = {
         source: '/favicon.ico',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=604800' }],
       },
+      // Va al final a propósito: si otra regla toca la misma cabecera, esta gana.
+      ...(!IS_PREVIEW_DEPLOY
+        ? []
+        : [
+            {
+              source: '/(.*)',
+              headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+            },
+          ]),
     ];
   },
 

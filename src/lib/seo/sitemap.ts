@@ -1,8 +1,23 @@
+export interface SitemapAlternate {
+  /** Código hreflang: `en`, `es` o `x-default`. */
+  hreflang: string;
+  /** Ruta absoluta del idioma alterno, sin dominio. */
+  href: string;
+}
+
 export interface SitemapEntry {
   url: string;
   lastModified?: string;
   changeFrequency?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
   priority?: number;
+  /**
+   * Versiones del mismo contenido en otros idiomas.
+   *
+   * Declararlas en el sitemap ahorra un salto: Google descubre la pareja
+   * en↔es sin rastrear primero la página para leer su `<link rel="alternate">`.
+   * Solo se emiten cuando el equivalente existe de verdad.
+   */
+  alternates?: SitemapAlternate[];
 }
 
 function escapeXml(value: string): string {
@@ -41,13 +56,20 @@ export function generateSitemapXml(entries: SitemapEntry[], baseUrl: string): st
       if (typeof entry.priority === 'number') {
         parts.push(`<priority>${entry.priority.toFixed(1)}</priority>`);
       }
+      for (const alternate of entry.alternates ?? []) {
+        parts.push(
+          `<xhtml:link rel="alternate" hreflang="${escapeXml(alternate.hreflang)}" href="${escapeXml(
+            `${base}${alternate.href}`
+          )}"/>`
+        );
+      }
 
       return `  <url>${parts.join('')}</url>`;
     })
     .join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls}
 </urlset>
 `;

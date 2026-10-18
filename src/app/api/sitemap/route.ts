@@ -1,7 +1,14 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { generateSitemapXml, type SitemapEntry } from '@/lib/seo/sitemap';
+import {
+  hubAlternates,
+  quizAlternates,
+  sharedPathAlternates,
+  type SlugIndex,
+} from '@/lib/seo/sitemap-alternates';
 import { SITE_URL } from '@/lib/seo/site';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
 /**
@@ -12,6 +19,12 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
  * quiz type that has at least one quiz in that language, and the editorial
  * pages. Login-gated tools (/create) and personalized views (/play, /result)
  * are intentionally absent.
+ *
+ * Bilingual pairs are declared with `xhtml:link`, but only when the translated
+ * page really exists. A category with quizzes in one language only has no page
+ * in the other: `/{locale}/category/...` calls `notFound()`, so advertising it
+ * as a hreflang alternate would send Google to a 404 announced by us.
+ * `src/lib/seo/sitemap-alternates.ts` owns that decision and is unit tested.
  */
 
 interface QuizRow {
@@ -78,6 +91,9 @@ export async function GET() {
   const quizzes = await fetchPublishedQuizzes();
 
   const perLocale = new Map<Locale, QuizRow[]>(locales.map((locale) => [locale, []]));
+  const slugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
+  /** Slugs con página `/{locale}/category/{slug}`, ya sea hub de tipo o categoría. */
+  const hubSlugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
   const categoryHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
   const typeHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
 
@@ -85,6 +101,7 @@ export async function GET() {
     const locale = (quiz.language === 'es' ? 'es' : 'en') as Locale;
     if (!quiz.slug) continue;
     perLocale.get(locale)?.push(quiz);
+    slugsByLocale.get(locale)?.add(quiz.slug);
 
     const date = quiz.published_at;
 
@@ -93,6 +110,7 @@ export async function GET() {
       const hub = typeHubs.get(key) ?? { locale, slug: quiz.quiz_type, dates: [] };
       hub.dates.push(date ?? '');
       typeHubs.set(key, hub);
+      hubSlugsByLocale.get(locale)?.add(quiz.quiz_type);
     }
 
     const categorySlug = quiz.category?.slug;
@@ -101,6 +119,7 @@ export async function GET() {
       const hub = categoryHubs.get(key) ?? { locale, slug: categorySlug, dates: [] };
       hub.dates.push(date ?? '');
       categoryHubs.set(key, hub);
+      hubSlugsByLocale.get(locale)?.add(categorySlug);
     }
   }
 
@@ -116,6 +135,7 @@ export async function GET() {
         lastModified: page.path === '' ? localeNewest : undefined,
         changeFrequency: page.changeFrequency,
         priority: page.priority,
+        alternates: sharedPathAlternates(page.path),
       });
     }
 
@@ -127,6 +147,7 @@ export async function GET() {
         lastModified: newest(hub.dates),
         changeFrequency: 'daily',
         priority: 0.8,
+        alternates: hubAlternates(locale, hub.slug, hubSlugsByLocale),
       });
     }
 
@@ -137,15 +158,23 @@ export async function GET() {
         lastModified: newest(hub.dates),
         changeFrequency: 'weekly',
         priority: 0.7,
+        alternates: hubAlternates(locale, hub.slug, hubSlugsByLocale),
       });
     }
 
     for (const quiz of localeQuizzes) {
+      const other: Locale = locale === 'es' ? 'en' : 'es';
       entries.push({
         url: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}`,
         lastModified: quiz.published_at ?? undefined,
         changeFrequency: 'weekly',
         priority: 0.7,
+        alternates: quizAlternates(
+          locale,
+          quiz.slug,
+          getEquivalentQuizSlug(quiz.slug, other),
+          slugsByLocale
+        ),
       });
     }
   }
