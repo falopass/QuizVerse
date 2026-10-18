@@ -4,7 +4,7 @@ import { getQuizBySlug } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { quizOgImage } from '@/lib/seo/site';
+import { quizOgImage, resultOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { ChallengeBanner } from '@/components/quiz/challenge-banner';
 import { challengeCopy } from '@/lib/quiz/challenge';
@@ -17,21 +17,30 @@ import { getChallengeForQuiz } from '@/lib/data/challenge';
  */
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ challenge?: string }>;
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const [{ locale, slug }, { challenge: challengeToken }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
   if (!hasLocale(locale)) return {};
 
   const quiz = await getQuizBySlug(slug, locale);
   if (!quiz) return {};
 
   const es = locale === 'es';
+  const challenge = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
   return buildMetadata({
     title: es ? `Jugando ${quiz.title}` : `Playing ${quiz.title}`,
-    description: quiz.description,
+    description: challenge ? challengeCopy(challenge, locale).body : quiz.description,
     path: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}/play`,
-    image: quizOgImage(locale, quiz.slug),
+    // Con reto activo la tarjeta es la marca del retador, no la portada del quiz.
+    image: challenge
+      ? resultOgImage(locale, quiz.slug, challengeToken)
+      : quizOgImage(locale, quiz.slug),
     imageAlt: quiz.title,
     locale,
     noindex: true,
@@ -64,7 +73,7 @@ export default async function LocalizedQuizPlayPage({
   return (
     <>
       {copy ? <ChallengeBanner eyebrow={copy.eyebrow} title={copy.title} body={copy.body} /> : null}
-      <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} />
+      <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} challenge={challenge} />
     </>
   );
 }

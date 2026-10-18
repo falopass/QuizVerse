@@ -6,6 +6,7 @@ import { submitQuizResult } from '@/actions/quiz.actions';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
 import type { PersonalityResult, Quiz } from '@/types/quiz';
+import type { ChallengeInfo } from '@/lib/quiz/challenge';
 import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
@@ -20,6 +21,8 @@ import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/revea
 interface QuizPlayerProps {
   quiz: Quiz;
   locale?: Locale;
+  /** Reto activo: el marcador del retador que hay que superar. */
+  challenge?: ChallengeInfo | null;
 }
 
 let _audioContext: AudioContext | null = null;
@@ -53,7 +56,7 @@ const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
   oscillator.stop(audioContext.currentTime + 0.2);
 };
 
-export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
+export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const copy =
     uiLocale === 'es'
@@ -106,6 +109,8 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     result: PersonalityResult | null;
     pointsEarned: number;
     shareToken: string | null;
+    score: number;
+    maxScore: number;
   } | null>(null);
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
@@ -235,6 +240,8 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
             pointsEarned: result.points_earned ?? 0,
             shareToken:
               (result.session as { share_token?: string | null } | undefined)?.share_token ?? null,
+            score: result.score ?? 0,
+            maxScore: result.max_score ?? quiz.questions.length,
           });
           void trackEvent({
             name: 'quiz_complete',
@@ -256,7 +263,16 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
     };
 
     void persistSession();
-  }, [answers, isCompleted, isSubmittingResult, quiz.id, quiz.quiz_type, quiz.slug, uiLocale]);
+  }, [
+    answers,
+    isCompleted,
+    isSubmittingResult,
+    quiz.id,
+    quiz.questions.length,
+    quiz.quiz_type,
+    quiz.slug,
+    uiLocale,
+  ]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -363,13 +379,32 @@ export function QuizPlayer({ quiz, locale }: QuizPlayerProps) {
         locale={uiLocale}
         quiz={quiz}
         result={submission?.result ?? getPersonalityResult()}
-        triviaScore={quiz.quiz_type === 'trivia' ? getScore() : undefined}
+        // El marcador del servidor manda cuando existe: un reveal fallido puede
+        // haber dejado un acierto como mala en el store local.
+        triviaScore={
+          quiz.quiz_type === 'trivia'
+            ? submission
+              ? {
+                  correct: submission.score,
+                  total: submission.maxScore,
+                  percentage:
+                    submission.maxScore > 0
+                      ? Math.round((submission.score / submission.maxScore) * 100)
+                      : 0,
+                }
+              : getScore()
+            : undefined
+        }
         answers={answers}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
+        // La comparativa solo se declara con la sesión ya persistida: un reveal
+        // fallido deja el marcador local sin verificar y podría dibujar un
+        // veredicto distinto al que quedó en el servidor (y en la tarjeta OG).
+        challenge={submission ? challenge : null}
         shareUrl={
           submission?.shareToken && typeof window !== 'undefined'
-            ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}`
+            ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}${challenge ? `&challenge=${challenge.token}` : ''}`
             : undefined
         }
         onPlayAgain={() => {

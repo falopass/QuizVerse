@@ -5,6 +5,7 @@
 ## Resource limits (RAM) — MANDATORY
 
 This project is developed on a single personal machine, and also worked on by Cloud sessions. Respect these limits in local sessions:
+
 - MAX_BUILD=1 · MAX_FULL_TEST_SUITE=1 · MAX_DEV_SERVER=1 · MAX_BROWSER=1 · MAX_HEAVY_TASKS=1 · TEST_RUNNER_MAX_WORKERS=2
 - One build, one dev server, one browser and one full suite **at a time**. Never parallelize heavy tasks locally.
 - Subagents **only edit files and explore**. They do NOT run dev servers, builds, typecheck or full suites. The main agent runs heavy tasks, one at a time.

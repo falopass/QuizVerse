@@ -292,7 +292,7 @@ export function ExploreEditorialPage({
                     <Link
                       key={category!.id}
                       href={localizeHref(locale, `/category/${category!.slug}`)}
-                      className="border-border-subtle text-text-secondary hover:text-text-primary rounded-full border bg-white/50 px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors"
+                      className="border-border-subtle text-text-secondary hover:text-text-primary bg-bg-primary rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors"
                     >
                       {category!.name}
                     </Link>

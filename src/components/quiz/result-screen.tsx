@@ -9,6 +9,7 @@ import { ShareButtons } from '@/components/shared/share-buttons';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { challengeOutcome, type ChallengeScore } from '@/lib/quiz/challenge';
 import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -28,6 +29,10 @@ interface ResultScreenProps {
   bonusPoints?: number;
   shareUrl?: string;
   onPlayAgain?: () => void;
+  /** Marcador del retador: pinta la comparativa retador vs retado. */
+  challenge?: ChallengeScore | null;
+  /** Enlace para aceptar el reto desde un resultado compartido (`/play?challenge=`). */
+  challengeHref?: string;
 }
 
 export function ResultScreen({
@@ -41,6 +46,8 @@ export function ResultScreen({
   bonusPoints = 0,
   shareUrl,
   onPlayAgain,
+  challenge = null,
+  challengeHref,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [showShare, setShowShare] = React.useState(false);
@@ -62,6 +69,16 @@ export function ResultScreen({
           close: 'Cerrar',
           shareTitle: 'Compartir resultado',
           shareText: 'Mira mi resultado en QuizVerse.',
+          challengeEyebrow: 'Comparativa del reto',
+          challenger: 'Retador',
+          challenged: 'Retado',
+          challengeWin: 'Reto superado',
+          challengeTie: 'Empate',
+          challengeLose: 'El reto sigue en pie',
+          challengeSame: 'Mismo resultado',
+          challengeDiff: 'Resultados distintos',
+          rematch: 'Revancha',
+          acceptChallenge: 'Aceptar el reto',
         }
       : {
           eyebrow: 'Result',
@@ -79,9 +96,39 @@ export function ResultScreen({
           close: 'Close',
           shareTitle: 'Share result',
           shareText: 'Check out my result on QuizVerse.',
+          challengeEyebrow: 'Challenge showdown',
+          challenger: 'Challenger',
+          challenged: 'Challenged',
+          challengeWin: 'Challenge beaten',
+          challengeTie: 'Tied',
+          challengeLose: 'The challenge stands',
+          challengeSame: 'Same result',
+          challengeDiff: 'Different results',
+          rematch: 'Rematch',
+          acceptChallenge: 'Take the challenge',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
+
+  // Comparativa del reto: mi marca contra la del retador. En personality el
+  // score persistido son preguntas respondidas (n/N), no aciertos: el veredicto
+  // compara títulos de resultado, no puntos.
+  const personality = quiz.quiz_type === 'personality';
+  const myScore: ChallengeScore = triviaScore
+    ? { score: triviaScore.correct, maxScore: triviaScore.total, resultTitle: result?.title }
+    : { score: 0, maxScore: 0, resultTitle: result?.title };
+  const outcome = challenge ? challengeOutcome(myScore, challenge) : null;
+  const challengeVerdict = challenge
+    ? personality
+      ? myScore.resultTitle === challenge.resultTitle
+        ? copy.challengeSame
+        : copy.challengeDiff
+      : outcome === 'win'
+        ? copy.challengeWin
+        : outcome === 'tie'
+          ? copy.challengeTie
+          : copy.challengeLose
+    : null;
 
   React.useEffect(() => {
     if (
@@ -125,6 +172,32 @@ export function ResultScreen({
             </motion.h1>
             <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
 
+            {challenge && (
+              <div
+                className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
+                role="status"
+              >
+                <p className="arcade-play-label">{copy.challengeEyebrow}</p>
+                <p className="text-accent-primary mt-2 text-2xl font-black tracking-tight uppercase md:text-3xl">
+                  {challengeVerdict}
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+                  <span className="text-text-secondary">
+                    {copy.challenger}:{' '}
+                    <strong className="text-text-primary">
+                      {challengeMark(challenge, personality)}
+                    </strong>
+                  </span>
+                  <span className="text-text-secondary">
+                    {copy.challenged}:{' '}
+                    <strong className="text-text-primary">
+                      {challengeMark(myScore, personality)}
+                    </strong>
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div className="arcade-result-metrics">
               <ResultMetric
                 label={copy.questions}
@@ -147,10 +220,18 @@ export function ResultScreen({
             )}
 
             <div className="arcade-result-actions">
+              {challengeHref && (
+                <Link href={challengeHref} className="arcade-button arcade-button-pink">
+                  {copy.acceptChallenge}
+                </Link>
+              )}
               <button
                 type="button"
                 onClick={() => setShowShare(true)}
-                className="arcade-button arcade-button-pink"
+                className={cn(
+                  'arcade-button',
+                  challengeHref ? 'arcade-result-secondary' : 'arcade-button-pink'
+                )}
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
@@ -162,7 +243,11 @@ export function ResultScreen({
               </Link>
               {onPlayAgain && (
                 <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">
-                  {uiLocale === 'es' ? 'Repetir partida' : 'Replay this quiz'}
+                  {challenge
+                    ? copy.rematch
+                    : uiLocale === 'es'
+                      ? 'Repetir partida'
+                      : 'Replay this quiz'}
                 </button>
               )}
               <Link href={localizeHref(uiLocale, '/leaderboard')} className="arcade-result-ranking">
@@ -266,6 +351,9 @@ export function ResultScreen({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
             onClick={() => setShowShare(false)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') setShowShare(false);
+            }}
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
@@ -273,6 +361,9 @@ export function ResultScreen({
               exit={{ scale: 0.96, opacity: 0 }}
               onClick={(event) => event.stopPropagation()}
               className="arcade-share-panel w-full max-w-md p-6 shadow-lg"
+              role="dialog"
+              aria-modal="true"
+              aria-label={copy.shareTitle}
             >
               <div className="mb-4 flex items-center justify-between">
                 <h3 className="font-display text-text-primary text-2xl">{copy.shareTitle}</h3>
@@ -280,6 +371,7 @@ export function ResultScreen({
                   type="button"
                   onClick={() => setShowShare(false)}
                   className="text-text-primary text-sm font-bold"
+                  autoFocus
                 >
                   {copy.close}
                 </button>
@@ -309,6 +401,13 @@ function ResultMetric({ label, value }: { label: string; value: string }) {
       <p>{value}</p>
     </div>
   );
+}
+
+/** Lo que se muestra como marca: aciertos en trivia, título en personality. */
+function challengeMark(score: ChallengeScore, personality: boolean): string {
+  return personality
+    ? (score.resultTitle ?? '—')
+    : `${score.score}/${score.maxScore}`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {

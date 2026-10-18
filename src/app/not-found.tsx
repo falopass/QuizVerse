@@ -5,7 +5,7 @@ export default async function NotFoundPage() {
   const locale = (await headers()).get('x-quizverse-locale') === 'es' ? 'es' : 'en';
   const es = locale === 'es';
   return (
-    <div className="min-h-[70vh] px-4 pt-28 pb-16">
+    <main id="main-content" className="min-h-[70vh] px-4 pt-28 pb-16">
       <div className="mx-auto max-w-4xl">
         <EditorialEmptyState
           eyebrow="404"
@@ -21,6 +21,6 @@ export default async function NotFoundPage() {
           secondaryLabel={es ? 'Ir al inicio' : 'Go home'}
         />
       </div>
-    </div>
+    </main>
   );
 }

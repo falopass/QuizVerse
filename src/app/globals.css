@@ -589,7 +589,8 @@ select {
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
-.arcade-card h3 {
+.arcade-card h3,
+.arcade-card h2 {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;

@@ -8,7 +8,9 @@ import {
 } from '@/lib/data/public';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
-import { generateProfileMetadata } from '@/lib/seo/metadata';
+import { localizedPath, generateProfileMetadata } from '@/lib/seo/metadata';
+import { absoluteUrl } from '@/lib/seo/site';
+import { ShareButtons } from '@/components/shared/share-buttons';
 
 export async function generateMetadata({
   params,
@@ -68,6 +70,18 @@ export default async function LocalizedProfilePage({
                   ? 'Un perfil de QuizVerse en construcción, con quizzes publicados y una huella editorial propia.'
                   : 'A QuizVerse profile with published quizzes and a visible editorial footprint.')}
             </p>
+            <div className="mt-6 max-w-md">
+              <ShareButtons
+                locale={locale}
+                title={`${profile.display_name || profile.username} · QuizVerse`}
+                url={absoluteUrl(localizedPath(locale, `/profile/${profile.username}`))}
+                text={
+                  locale === 'es'
+                    ? 'Mira este perfil en QuizVerse.'
+                    : 'Check out this profile on QuizVerse.'
+                }
+              />
+            </div>
           </div>
           <div className="grid items-start gap-4 sm:grid-cols-3">
             <StatCard

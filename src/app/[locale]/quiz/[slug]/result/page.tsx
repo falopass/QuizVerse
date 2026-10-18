@@ -2,16 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ResultScreen } from '@/components/quiz/result-screen';
 import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
+import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { SITE_URL } from '@/lib/seo/site';
+import { resultOgImage } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { buildReview, toClientQuiz } from '@/lib/quiz/answer-key';
-
-/** Absolute URL of the per-result share card. */
-function resultOgImage(locale: string, slug: string, token?: string): string {
-  const base = `${SITE_URL}/api/og/result/${locale}/${encodeURIComponent(slug)}`;
-  return token ? `${base}?s=${encodeURIComponent(token)}` : base;
-}
 
 /**
  * Result URLs carry a per-player share token and render one person's outcome,
@@ -24,9 +19,9 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ s?: string }>;
+  searchParams: Promise<{ s?: string; challenge?: string }>;
 }): Promise<Metadata> {
-  const [{ locale, slug }, { s }] = await Promise.all([params, searchParams]);
+  const [{ locale, slug }, { s, challenge }] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) return {};
 
   const quiz = await getQuizBySlug(slug, locale);
@@ -60,7 +55,7 @@ export async function generateMetadata({
     title,
     description,
     path: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}/result`,
-    image: resultOgImage(locale, quiz.slug, s),
+    image: resultOgImage(locale, quiz.slug, s, challenge),
     imageAlt: outcome ?? quiz.title,
     locale,
     noindex: true,
@@ -71,9 +66,12 @@ export default async function LocalizedQuizResultPage({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ s?: string }>;
+  searchParams: Promise<{ s?: string; challenge?: string }>;
 }) {
-  const [{ locale, slug }, { s }] = await Promise.all([params, searchParams]);
+  const [{ locale, slug }, { s, challenge: challengeToken }] = await Promise.all([
+    params,
+    searchParams,
+  ]);
   if (!hasLocale(locale)) notFound();
 
   const [quiz, session] = await Promise.all([
@@ -82,6 +80,14 @@ export default async function LocalizedQuizResultPage({
   ]);
 
   if (!quiz) notFound();
+
+  // El enlace compartido por el retado lleva el token del retador: la página
+  // pinta la comparativa y la tarjeta OG sale como versus. Sin una sesión del
+  // retado para ESTE quiz no hay marcador propio: comparar contra 0 sería
+  // inventar un resultado.
+  const sessionIsForQuiz = session?.quiz_id === quiz.id;
+  const challenge =
+    sessionIsForQuiz && challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
 
   const resolvedResult =
     session?.result_id && quiz.results
@@ -110,7 +116,15 @@ export default async function LocalizedQuizResultPage({
       answers={session?.answers ?? []}
       // The review is computed here so the answer key never leaves the server.
       review={buildReview(quiz, session?.answers ?? [])}
-      shareUrl={s ? `/${locale}/quiz/${quiz.slug}/result?s=${s}` : undefined}
+      shareUrl={
+        s
+          ? `/${locale}/quiz/${quiz.slug}/result?s=${s}${challenge ? `&challenge=${challenge.token}` : ''}`
+          : undefined
+      }
+      challenge={challenge}
+      challengeHref={
+        sessionIsForQuiz ? `/${locale}/quiz/${quiz.slug}/play?challenge=${s}` : undefined
+      }
     />
   );
 }

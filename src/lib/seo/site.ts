@@ -66,6 +66,26 @@ export function quizOgImage(locale: string, slug: string): string {
   return `${SITE_URL}/${locale}/quiz/${encodeURIComponent(slug)}/opengraph-image`;
 }
 
+/**
+ * Per-result dynamic OG card (app/api/og/result/[locale]/[slug]).
+ *
+ * `shareToken` renders the player's outcome; `challengeToken` adds the
+ * challenger's mark so the card becomes a versus (retador vs retado).
+ */
+export function resultOgImage(
+  locale: string,
+  slug: string,
+  shareToken?: string | null,
+  challengeToken?: string | null
+): string {
+  const base = `${SITE_URL}/api/og/result/${locale}/${encodeURIComponent(slug)}`;
+  const params = new URLSearchParams();
+  if (shareToken) params.set('s', shareToken);
+  if (challengeToken) params.set('c', challengeToken);
+  const query = params.toString();
+  return query ? `${base}?${query}` : base;
+}
+
 /** Absolute URL for a locale-prefixed path. `path` must start with `/`. */
 export function absoluteUrl(path: string): string {
   if (/^https?:\/\//.test(path)) return path;
