@@ -1,0 +1,1039 @@
+{
+  "$comment": "Editorial seed 2026ax: five es/en trivia pairs on food and drink (Italian, Mexican, Japanese and Spanish cuisine, world desserts). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-italian-food-trivia",
+      "title": "Italian Food Trivia: Pasta, Pizza and the Classics",
+      "description": "Eight questions on the dishes and protected products of Italy: pizza Margherita, pasta shapes, risotto, tiramisu and the DOP label.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "italy", "italian cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "According to tradition, pizza Margherita's toppings echo the Italian flag. Which three are they?",
+          "options": [
+            { "id": "a", "text": "Tomato, mozzarella and basil", "is_correct": true },
+            { "id": "b", "text": "Pepperoni, mushrooms and onion", "is_correct": false },
+            { "id": "c", "text": "Ham, pineapple and olives", "is_correct": false },
+            { "id": "d", "text": "Anchovies, capers and oregano", "is_correct": false }
+          ],
+          "explanation": "Tomato red, mozzarella white and basil green mirror the flag; tradition links the pizza to Queen Margherita of Savoy in 1889."
+        },
+        {
+          "id": "q2",
+          "question": "Which pasta shape takes its name from the Italian for 'little ears'?",
+          "options": [
+            { "id": "a", "text": "Farfalle", "is_correct": false },
+            { "id": "b", "text": "Orecchiette", "is_correct": true },
+            { "id": "c", "text": "Fusilli", "is_correct": false },
+            { "id": "d", "text": "Rigatoni", "is_correct": false }
+          ],
+          "explanation": "Orecchiette means 'little ears' in Italian; it is a signature pasta of the Puglia region."
+        },
+        {
+          "id": "q3",
+          "question": "Risotto alla milanese, coloured with saffron, is a classic dish of which city?",
+          "options": [
+            { "id": "a", "text": "Venice", "is_correct": false },
+            { "id": "b", "text": "Naples", "is_correct": false },
+            { "id": "c", "text": "Milan", "is_correct": true },
+            { "id": "d", "text": "Florence", "is_correct": false }
+          ],
+          "explanation": "Risotto alla milanese is named after Milan, in Lombardy; saffron gives the dish its golden colour."
+        },
+        {
+          "id": "q4",
+          "question": "Which creamy cheese is essential in a classic tiramisu?",
+          "options": [
+            { "id": "a", "text": "Mascarpone", "is_correct": true },
+            { "id": "b", "text": "Ricotta", "is_correct": false },
+            { "id": "c", "text": "Gorgonzola", "is_correct": false },
+            { "id": "d", "text": "Provolone", "is_correct": false }
+          ],
+          "explanation": "Tiramisu layers savoiardi biscuits soaked in coffee with a mascarpone cream."
+        },
+        {
+          "id": "q5",
+          "question": "Authentic carbonara is made with which cured meat?",
+          "options": [
+            { "id": "a", "text": "Smoked bacon", "is_correct": false },
+            { "id": "b", "text": "Guanciale", "is_correct": true },
+            { "id": "c", "text": "Salami", "is_correct": false },
+            { "id": "d", "text": "Cooked ham", "is_correct": false }
+          ],
+          "explanation": "Guanciale, cured pork jowl, is the traditional meat of carbonara in Rome, with egg and pecorino cheese."
+        },
+        {
+          "id": "q6",
+          "question": "Classic pesto alla genovese is made by crushing basil with which nuts?",
+          "options": [
+            { "id": "a", "text": "Walnuts", "is_correct": false },
+            { "id": "b", "text": "Almonds", "is_correct": false },
+            { "id": "c", "text": "Pine nuts", "is_correct": true },
+            { "id": "d", "text": "Hazelnuts", "is_correct": false }
+          ],
+          "explanation": "Pesto alla genovese combines basil, pine nuts, garlic, olive oil and aged cheese."
+        },
+        {
+          "id": "q7",
+          "question": "The protected production zone of Parmigiano-Reggiano cheese is centred on which region?",
+          "options": [
+            { "id": "a", "text": "Emilia-Romagna", "is_correct": true },
+            { "id": "b", "text": "Sicily", "is_correct": false },
+            { "id": "c", "text": "Piedmont", "is_correct": false },
+            { "id": "d", "text": "Sardinia", "is_correct": false }
+          ],
+          "explanation": "Its protected zone covers Parma, Reggio Emilia, Modena and parts of Bologna and Mantua provinces."
+        },
+        {
+          "id": "q8",
+          "question": "What does the 'DOP' label on an Italian food certify?",
+          "options": [
+            { "id": "a", "text": "That it is organic", "is_correct": false },
+            {
+              "id": "b",
+              "text": "That it is made in a defined area using recognised methods",
+              "is_correct": true
+            },
+            { "id": "c", "text": "That it contains no additives", "is_correct": false },
+            { "id": "d", "text": "That it is exported only within the EU", "is_correct": false }
+          ],
+          "explanation": "DOP stands for Denominazione di Origine Protetta, the protected designation of origin."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-italiana",
+      "title": "Trivia de comida italiana: pasta, pizza y clásicos",
+      "description": "Ocho preguntas sobre platos y productos protegidos de Italia: pizza margarita, formas de pasta, risotto, tiramisú y el sello DOP.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "italia", "cocina italiana"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Según la tradición, los ingredientes de la pizza margarita evocan la bandera italiana. ¿Cuáles son?",
+          "options": [
+            { "id": "a", "text": "Tomate, mozzarella y albahaca", "is_correct": true },
+            { "id": "b", "text": "Pepperoni, champiñones y cebolla", "is_correct": false },
+            { "id": "c", "text": "Jamón, piña y aceitunas", "is_correct": false },
+            { "id": "d", "text": "Anchoas, alcaparras y orégano", "is_correct": false }
+          ],
+          "explanation": "El rojo del tomate, el blanco de la mozzarella y el verde de la albahaca imitan la bandera; la tradición la vincula a la reina Margarita de Saboya en 1889."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué forma de pasta toma su nombre del italiano por 'orejitas'?",
+          "options": [
+            { "id": "a", "text": "Farfalle", "is_correct": false },
+            { "id": "b", "text": "Orecchiette", "is_correct": true },
+            { "id": "c", "text": "Fusilli", "is_correct": false },
+            { "id": "d", "text": "Rigatoni", "is_correct": false }
+          ],
+          "explanation": "Orecchiette significa 'orejitas' en italiano; es una pasta emblemática de la región de Puglia."
+        },
+        {
+          "id": "q3",
+          "question": "El risotto alla milanese, coloreado con azafrán, es un clásico de qué ciudad?",
+          "options": [
+            { "id": "a", "text": "Venecia", "is_correct": false },
+            { "id": "b", "text": "Nápoles", "is_correct": false },
+            { "id": "c", "text": "Milán", "is_correct": true },
+            { "id": "d", "text": "Florencia", "is_correct": false }
+          ],
+          "explanation": "El risotto alla milanese lleva el nombre de Milán, en Lombardía; el azafrán le da su color dorado."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué queso cremoso es imprescindible en un tiramisú clásico?",
+          "options": [
+            { "id": "a", "text": "Mascarpone", "is_correct": true },
+            { "id": "b", "text": "Ricotta", "is_correct": false },
+            { "id": "c", "text": "Gorgonzola", "is_correct": false },
+            { "id": "d", "text": "Provolone", "is_correct": false }
+          ],
+          "explanation": "El tiramisú alterna bizcochos savoiardi mojados en café con una crema de mascarpone."
+        },
+        {
+          "id": "q5",
+          "question": "¿Con qué carne curada se prepara la carbonara auténtica?",
+          "options": [
+            { "id": "a", "text": "Tocino ahumado", "is_correct": false },
+            { "id": "b", "text": "Guanciale", "is_correct": true },
+            { "id": "c", "text": "Salami", "is_correct": false },
+            { "id": "d", "text": "Jamón cocido", "is_correct": false }
+          ],
+          "explanation": "El guanciale, papada de cerdo curada, es la carne tradicional de la carbonara romana, con huevo y pecorino."
+        },
+        {
+          "id": "q6",
+          "question": "¿Con qué frutos secos se machaca la albahaca en el pesto alla genovese clásico?",
+          "options": [
+            { "id": "a", "text": "Nueces", "is_correct": false },
+            { "id": "b", "text": "Almendras", "is_correct": false },
+            { "id": "c", "text": "Piñones", "is_correct": true },
+            { "id": "d", "text": "Avellanas", "is_correct": false }
+          ],
+          "explanation": "El pesto alla genovese combina albahaca, piñones, ajo, aceite de oliva y queso curado."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué región se centra la zona protegida de producción del queso Parmigiano-Reggiano?",
+          "options": [
+            { "id": "a", "text": "Emilia-Romaña", "is_correct": true },
+            { "id": "b", "text": "Sicilia", "is_correct": false },
+            { "id": "c", "text": "Piamonte", "is_correct": false },
+            { "id": "d", "text": "Cerdeña", "is_correct": false }
+          ],
+          "explanation": "Su zona protegida cubre Parma, Reggio Emilia, Módena y partes de las provincias de Bolonia y Mantua."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué certifica el sello «DOP» en un alimento italiano?",
+          "options": [
+            { "id": "a", "text": "Que es ecológico", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que se produce en una zona definida con métodos reconocidos",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que no lleva aditivos", "is_correct": false },
+            { "id": "d", "text": "Que solo se exporta dentro de la UE", "is_correct": false }
+          ],
+          "explanation": "DOP significa Denominazione di Origine Protetta, la denominación de origen protegida."
+        }
+      ]
+    },
+    {
+      "slug": "en-mexican-food-trivia",
+      "title": "Mexican Food Trivia: Corn, Chiles and Tequila",
+      "description": "Eight questions on the foundations of Mexican cuisine: nixtamalised corn, mole, tacos, chiles and tequila's protected origin.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "mexico", "mexican cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Nixtamalisation, the process behind tortillas, is cooking corn in what?",
+          "options": [
+            { "id": "a", "text": "Vinegar", "is_correct": false },
+            { "id": "b", "text": "An alkaline solution with slaked lime", "is_correct": true },
+            { "id": "c", "text": "Sea water", "is_correct": false },
+            { "id": "d", "text": "Milk", "is_correct": false }
+          ],
+          "explanation": "Nixtamalisation soaks corn in calcium hydroxide, which frees nutrients and lets the dough hold together."
+        },
+        {
+          "id": "q2",
+          "question": "Mole poblano takes its name from which Mexican state?",
+          "options": [
+            { "id": "a", "text": "Oaxaca", "is_correct": false },
+            { "id": "b", "text": "Jalisco", "is_correct": false },
+            { "id": "c", "text": "Puebla", "is_correct": true },
+            { "id": "d", "text": "Yucatán", "is_correct": false }
+          ],
+          "explanation": "Mole poblano is the emblematic sauce of Puebla, built on chiles, spices and a touch of chocolate."
+        },
+        {
+          "id": "q3",
+          "question": "Tacos al pastor are cooked on a vertical spit, a technique brought by immigrants from which country?",
+          "options": [
+            { "id": "a", "text": "Lebanon", "is_correct": true },
+            { "id": "b", "text": "Spain", "is_correct": false },
+            { "id": "c", "text": "France", "is_correct": false },
+            { "id": "d", "text": "China", "is_correct": false }
+          ],
+          "explanation": "Lebanese immigrants brought spit-roasting to Mexico; pork replaced lamb and the taco al pastor was born."
+        },
+        {
+          "id": "q4",
+          "question": "Which chile is a ripe jalapeño that has been dried and smoked?",
+          "options": [
+            { "id": "a", "text": "Poblano", "is_correct": false },
+            { "id": "b", "text": "Ancho", "is_correct": false },
+            { "id": "c", "text": "Guajillo", "is_correct": false },
+            { "id": "d", "text": "Chipotle", "is_correct": true }
+          ],
+          "explanation": "A chipotle is a smoke-dried ripe jalapeño; the ancho is instead the dried form of the poblano."
+        },
+        {
+          "id": "q5",
+          "question": "In which year was tequila's Denominación de Origen established in Mexico?",
+          "options": [
+            { "id": "a", "text": "1958", "is_correct": false },
+            { "id": "b", "text": "1974", "is_correct": true },
+            { "id": "c", "text": "1988", "is_correct": false },
+            { "id": "d", "text": "2004", "is_correct": false }
+          ],
+          "explanation": "Mexico published the tequila denomination of origin in 1974, the first granted to a Mexican product."
+        },
+        {
+          "id": "q6",
+          "question": "Tequila may be produced primarily in which Mexican state?",
+          "options": [
+            { "id": "a", "text": "Chihuahua", "is_correct": false },
+            { "id": "b", "text": "Veracruz", "is_correct": false },
+            { "id": "c", "text": "Chiapas", "is_correct": false },
+            { "id": "d", "text": "Jalisco", "is_correct": true }
+          ],
+          "explanation": "The denomination of origin covers all of Jalisco and specific municipalities in four other states."
+        },
+        {
+          "id": "q7",
+          "question": "Tequila is distilled from which plant?",
+          "options": [
+            { "id": "a", "text": "Sugar cane", "is_correct": false },
+            { "id": "b", "text": "Blue agave", "is_correct": true },
+            { "id": "c", "text": "Corn", "is_correct": false },
+            { "id": "d", "text": "Nopal cactus", "is_correct": false }
+          ],
+          "explanation": "Tequila is made from Agave tequilana Weber, blue variety; the cooked hearts are fermented and distilled."
+        },
+        {
+          "id": "q8",
+          "question": "Pozole, the festive Mexican soup, is built around which ingredient?",
+          "options": [
+            { "id": "a", "text": "Hominy corn", "is_correct": true },
+            { "id": "b", "text": "Rice", "is_correct": false },
+            { "id": "c", "text": "Lentils", "is_correct": false },
+            { "id": "d", "text": "Black beans", "is_correct": false }
+          ],
+          "explanation": "Pozole is made with large nixtamalised corn kernels that bloom in the broth, served with meat and garnishes."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-mexicana",
+      "title": "Trivia de comida mexicana: maíz, chiles y tequila",
+      "description": "Ocho preguntas sobre las bases de la cocina mexicana: maíz nixtamalizado, mole, tacos, chiles y la denominación del tequila.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "méxico", "cocina mexicana"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "La nixtamalización, el proceso detrás de las tortillas, consiste en cocer el maíz en qué?",
+          "options": [
+            { "id": "a", "text": "Vinagre", "is_correct": false },
+            { "id": "b", "text": "Una solución alcalina con cal", "is_correct": true },
+            { "id": "c", "text": "Agua de mar", "is_correct": false },
+            { "id": "d", "text": "Leche", "is_correct": false }
+          ],
+          "explanation": "La nixtamalización remoja el maíz en hidróxido de calcio, lo que libera nutrientes y permite formar la masa."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué estado mexicano toma el nombre el mole poblano?",
+          "options": [
+            { "id": "a", "text": "Oaxaca", "is_correct": false },
+            { "id": "b", "text": "Jalisco", "is_correct": false },
+            { "id": "c", "text": "Puebla", "is_correct": true },
+            { "id": "d", "text": "Yucatán", "is_correct": false }
+          ],
+          "explanation": "El mole poblano es la salsa emblemática de Puebla, hecha con chiles, especias y un toque de chocolate."
+        },
+        {
+          "id": "q3",
+          "question": "Los tacos al pastor se cocinan en un asador vertical, técnica traída por inmigrantes de qué país?",
+          "options": [
+            { "id": "a", "text": "El Líbano", "is_correct": true },
+            { "id": "b", "text": "España", "is_correct": false },
+            { "id": "c", "text": "Francia", "is_correct": false },
+            { "id": "d", "text": "China", "is_correct": false }
+          ],
+          "explanation": "Los inmigrantes libaneses llevaron el asado en trompo a México; el cerdo sustituyó al cordero y nació el taco al pastor."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué chile es un jalapeño maduro que ha sido secado y ahumado?",
+          "options": [
+            { "id": "a", "text": "Poblano", "is_correct": false },
+            { "id": "b", "text": "Ancho", "is_correct": false },
+            { "id": "c", "text": "Guajillo", "is_correct": false },
+            { "id": "d", "text": "Chipotle", "is_correct": true }
+          ],
+          "explanation": "El chipotle es un jalapeño maduro secado al humo; el ancho es en cambio la forma seca del chile poblano."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué año se estableció en México la Denominación de Origen del tequila?",
+          "options": [
+            { "id": "a", "text": "1958", "is_correct": false },
+            { "id": "b", "text": "1974", "is_correct": true },
+            { "id": "c", "text": "1988", "is_correct": false },
+            { "id": "d", "text": "2004", "is_correct": false }
+          ],
+          "explanation": "México publicó la denominación de origen del tequila en 1974, la primera otorgada a un producto mexicano."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué estado mexicano puede producirse principalmente el tequila?",
+          "options": [
+            { "id": "a", "text": "Chihuahua", "is_correct": false },
+            { "id": "b", "text": "Veracruz", "is_correct": false },
+            { "id": "c", "text": "Chiapas", "is_correct": false },
+            { "id": "d", "text": "Jalisco", "is_correct": true }
+          ],
+          "explanation": "La denominación de origen cubre todo Jalisco y municipios específicos de otros cuatro estados."
+        },
+        {
+          "id": "q7",
+          "question": "¿De qué planta se destila el tequila?",
+          "options": [
+            { "id": "a", "text": "La caña de azúcar", "is_correct": false },
+            { "id": "b", "text": "El agave azul", "is_correct": true },
+            { "id": "c", "text": "El maíz", "is_correct": false },
+            { "id": "d", "text": "El nopal", "is_correct": false }
+          ],
+          "explanation": "El tequila se hace con Agave tequilana Weber, variedad azul; sus piñas cocidas se fermentan y destilan."
+        },
+        {
+          "id": "q8",
+          "question": "¿Alrededor de qué ingrediente se construye el pozole, la sopa festiva mexicana?",
+          "options": [
+            { "id": "a", "text": "El maíz nixtamalizado", "is_correct": true },
+            { "id": "b", "text": "El arroz", "is_correct": false },
+            { "id": "c", "text": "Las lentejas", "is_correct": false },
+            { "id": "d", "text": "Los frijoles negros", "is_correct": false }
+          ],
+          "explanation": "El pozole se hace con granos grandes de maíz cacahuazintle que florecen en el caldo, con carne y guarniciones."
+        }
+      ]
+    },
+    {
+      "slug": "en-japanese-food-trivia",
+      "title": "Japanese Food Trivia: Sushi, Ramen and Beyond",
+      "description": "Eight questions on the staples of Japanese cuisine: sushi, ramen, tempura, sake and the UNESCO-listed washoku tradition.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "japan", "japanese cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The word 'sushi' actually refers to which part of the dish?",
+          "options": [
+            { "id": "a", "text": "The raw fish", "is_correct": false },
+            { "id": "b", "text": "The vinegared rice", "is_correct": true },
+            { "id": "c", "text": "The seaweed wrap", "is_correct": false },
+            { "id": "d", "text": "The soy sauce", "is_correct": false }
+          ],
+          "explanation": "Sushi means vinegared rice; it can be served with many toppings, not only raw fish."
+        },
+        {
+          "id": "q2",
+          "question": "Nigiri sushi was created in the early 19th century as street food in which city?",
+          "options": [
+            { "id": "a", "text": "Kyoto", "is_correct": false },
+            { "id": "b", "text": "Osaka", "is_correct": false },
+            { "id": "c", "text": "Edo, today's Tokyo", "is_correct": true },
+            { "id": "d", "text": "Nagasaki", "is_correct": false }
+          ],
+          "explanation": "Hanaya Yohei is credited with serving the first nigiri around the 1820s in Edo, the city that became Tokyo."
+        },
+        {
+          "id": "q3",
+          "question": "Which broth of pork bones simmered for hours names a style of ramen?",
+          "options": [
+            { "id": "a", "text": "Tonkotsu", "is_correct": true },
+            { "id": "b", "text": "Miso", "is_correct": false },
+            { "id": "c", "text": "Shoyu", "is_correct": false },
+            { "id": "d", "text": "Shio", "is_correct": false }
+          ],
+          "explanation": "Tonkotsu ramen uses a creamy pork-bone broth; miso, shoyu and shio describe seasoning bases instead."
+        },
+        {
+          "id": "q4",
+          "question": "Tempura frying reached Japan in the 16th century through traders and missionaries from which country?",
+          "options": [
+            { "id": "a", "text": "China", "is_correct": false },
+            { "id": "b", "text": "Portugal", "is_correct": true },
+            { "id": "c", "text": "Spain", "is_correct": false },
+            { "id": "d", "text": "The Netherlands", "is_correct": false }
+          ],
+          "explanation": "Portuguese traders and missionaries brought battered frying to Nagasaki in the 1500s."
+        },
+        {
+          "id": "q5",
+          "question": "Sake is brewed by fermenting which grain?",
+          "options": [
+            { "id": "a", "text": "Barley", "is_correct": false },
+            { "id": "b", "text": "Rice", "is_correct": true },
+            { "id": "c", "text": "Wheat", "is_correct": false },
+            { "id": "d", "text": "Buckwheat", "is_correct": false }
+          ],
+          "explanation": "Sake is brewed from polished rice in a process closer to beer-making than to wine-making."
+        },
+        {
+          "id": "q6",
+          "question": "In which year did UNESCO inscribe washoku, traditional Japanese cuisine, as intangible cultural heritage?",
+          "options": [
+            { "id": "a", "text": "2008", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": false },
+            { "id": "c", "text": "2013", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "Washoku joined the UNESCO Intangible Cultural Heritage list in December 2013."
+        },
+        {
+          "id": "q7",
+          "question": "Which 'fifth taste' did the chemist Kikunae Ikeda identify in 1908?",
+          "options": [
+            { "id": "a", "text": "Umami", "is_correct": true },
+            { "id": "b", "text": "Kokumi", "is_correct": false },
+            { "id": "c", "text": "Sourness", "is_correct": false },
+            { "id": "d", "text": "Astringency", "is_correct": false }
+          ],
+          "explanation": "Ikeda isolated glutamate from kombu dashi and named its savoury taste 'umami'."
+        },
+        {
+          "id": "q8",
+          "question": "Miso is a paste made mainly by fermenting what?",
+          "options": [
+            { "id": "a", "text": "Rice noodles", "is_correct": false },
+            { "id": "b", "text": "Soybeans", "is_correct": true },
+            { "id": "c", "text": "Seaweed", "is_correct": false },
+            { "id": "d", "text": "Sesame seeds", "is_correct": false }
+          ],
+          "explanation": "Miso ferments soybeans with koji mould and salt; the main types are white, red and blended."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-japonesa",
+      "title": "Trivia de comida japonesa: sushi, ramen y más",
+      "description": "Ocho preguntas sobre los pilares de la cocina japonesa: sushi, ramen, tempura, sake y la tradición washoku de la UNESCO.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "japón", "cocina japonesa"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "La palabra «sushi» en realidad se refiere a qué parte del plato?",
+          "options": [
+            { "id": "a", "text": "Al pescado crudo", "is_correct": false },
+            { "id": "b", "text": "Al arroz avinagrado", "is_correct": true },
+            { "id": "c", "text": "Al alga que lo envuelve", "is_correct": false },
+            { "id": "d", "text": "A la salsa de soya", "is_correct": false }
+          ],
+          "explanation": "Sushi significa arroz avinagrado; puede servirse con muchos acompañamientos, no solo pescado crudo."
+        },
+        {
+          "id": "q2",
+          "question": "El nigiri sushi nació a comienzos del siglo XIX como comida callejera en qué ciudad?",
+          "options": [
+            { "id": "a", "text": "Kioto", "is_correct": false },
+            { "id": "b", "text": "Osaka", "is_correct": false },
+            { "id": "c", "text": "Edo, la actual Tokio", "is_correct": true },
+            { "id": "d", "text": "Nagasaki", "is_correct": false }
+          ],
+          "explanation": "Se atribuye a Hanaya Yohei el primer nigiri, servido hacia la década de 1820 en Edo, la ciudad que se convirtió en Tokio."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué caldo de huesos de cerdo cocido por horas da nombre a un estilo de ramen?",
+          "options": [
+            { "id": "a", "text": "Tonkotsu", "is_correct": true },
+            { "id": "b", "text": "Miso", "is_correct": false },
+            { "id": "c", "text": "Shoyu", "is_correct": false },
+            { "id": "d", "text": "Shio", "is_correct": false }
+          ],
+          "explanation": "El ramen tonkotsu usa un caldo cremoso de huesos de cerdo; miso, shoyu y shio describen bases de sazón."
+        },
+        {
+          "id": "q4",
+          "question": "La técnica de la tempura llegó a Japón en el siglo XVI por comerciantes y misioneros de qué país?",
+          "options": [
+            { "id": "a", "text": "China", "is_correct": false },
+            { "id": "b", "text": "Portugal", "is_correct": true },
+            { "id": "c", "text": "España", "is_correct": false },
+            { "id": "d", "text": "Países Bajos", "is_correct": false }
+          ],
+          "explanation": "Los portugueses llevaron la fritura enharinada a Nagasaki en el siglo XVI."
+        },
+        {
+          "id": "q5",
+          "question": "¿Con qué grano fermentado se elabora el sake?",
+          "options": [
+            { "id": "a", "text": "Cebada", "is_correct": false },
+            { "id": "b", "text": "Arroz", "is_correct": true },
+            { "id": "c", "text": "Trigo", "is_correct": false },
+            { "id": "d", "text": "Trigo sarraceno", "is_correct": false }
+          ],
+          "explanation": "El sake se fermenta a partir de arroz pulido, en un proceso más parecido al de la cerveza que al del vino."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año inscribió la UNESCO el washoku, la cocina tradicional japonesa, como patrimonio inmaterial?",
+          "options": [
+            { "id": "a", "text": "2008", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": false },
+            { "id": "c", "text": "2013", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "El washoku entró en la lista de Patrimonio Cultural Inmaterial de la UNESCO en diciembre de 2013."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué 'quinto sabor' identificó el químico Kikunae Ikeda en 1908?",
+          "options": [
+            { "id": "a", "text": "El umami", "is_correct": true },
+            { "id": "b", "text": "El kokumi", "is_correct": false },
+            { "id": "c", "text": "La acidez", "is_correct": false },
+            { "id": "d", "text": "La astringencia", "is_correct": false }
+          ],
+          "explanation": "Ikeda aisló el glutamato del caldo de alga kombu y llamó umami a su sabor sabroso."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué se fermenta principalmente para obtener la pasta de miso?",
+          "options": [
+            { "id": "a", "text": "Fideos de arroz", "is_correct": false },
+            { "id": "b", "text": "Soya", "is_correct": true },
+            { "id": "c", "text": "Algas", "is_correct": false },
+            { "id": "d", "text": "Semillas de sésamo", "is_correct": false }
+          ],
+          "explanation": "El miso fermenta soya con el hongo koji y sal; sus tipos principales son blanco, rojo y mezclado."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-desserts-trivia",
+      "title": "World Desserts Trivia: Cakes, Pastries and Classics",
+      "description": "Eight questions on the world's great desserts, from tiramisu and crème brûlée to baklava, pavlova and gelato.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "desserts", "sweets"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What does the name 'tiramisu' mean in Italian?",
+          "options": [
+            { "id": "a", "text": "Coffee dream", "is_correct": false },
+            { "id": "b", "text": "Sweet layers", "is_correct": false },
+            { "id": "c", "text": "Pick me up", "is_correct": true },
+            { "id": "d", "text": "Little cake", "is_correct": false }
+          ],
+          "explanation": "Tiramisù literally means 'pick me up' or 'cheer me up', a nod to its coffee and cocoa."
+        },
+        {
+          "id": "q2",
+          "question": "How is a crème brûlée finished just before serving?",
+          "options": [
+            {
+              "id": "a",
+              "text": "By caramelising sugar on top into a brittle crust",
+              "is_correct": true
+            },
+            { "id": "b", "text": "By glazing it with warm honey", "is_correct": false },
+            { "id": "c", "text": "By covering it with meringue", "is_correct": false },
+            { "id": "d", "text": "By dusting it with flour", "is_correct": false }
+          ],
+          "explanation": "A thin layer of sugar is burned with a torch or iron to form the glassy crust diners crack with a spoon."
+        },
+        {
+          "id": "q3",
+          "question": "Baklava is built from many thin layers of which dough?",
+          "options": [
+            { "id": "a", "text": "Puff pastry", "is_correct": false },
+            { "id": "b", "text": "Choux pastry", "is_correct": false },
+            { "id": "c", "text": "Filo pastry", "is_correct": true },
+            { "id": "d", "text": "Shortcrust pastry", "is_correct": false }
+          ],
+          "explanation": "Baklava stacks paper-thin filo sheets with chopped nuts, then soaks them in syrup or honey."
+        },
+        {
+          "id": "q4",
+          "question": "The pavlova meringue dessert was named in honour of whom?",
+          "options": [
+            { "id": "a", "text": "A Russian ballerina", "is_correct": true },
+            { "id": "b", "text": "A New Zealand queen", "is_correct": false },
+            { "id": "c", "text": "A French pastry chef", "is_correct": false },
+            { "id": "d", "text": "An Australian opera singer", "is_correct": false }
+          ],
+          "explanation": "The dessert honours ballerina Anna Pavlova's 1920s tours of Australia and New Zealand, which both claim its creation."
+        },
+        {
+          "id": "q5",
+          "question": "How does Italian gelato differ from standard ice cream?",
+          "options": [
+            { "id": "a", "text": "It is made without milk", "is_correct": false },
+            {
+              "id": "b",
+              "text": "It is churned with less air and less fat, so it is denser",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It always contains eggs", "is_correct": false },
+            { "id": "d", "text": "It is frozen with liquid nitrogen", "is_correct": false }
+          ],
+          "explanation": "Gelato uses more milk than cream and is churned slowly, leaving less fat and air for a denser texture."
+        },
+        {
+          "id": "q6",
+          "question": "The Sachertorte, a chocolate cake layered with apricot jam, was created in which city?",
+          "options": [
+            { "id": "a", "text": "Paris", "is_correct": false },
+            { "id": "b", "text": "Vienna", "is_correct": true },
+            { "id": "c", "text": "Zurich", "is_correct": false },
+            { "id": "d", "text": "Brussels", "is_correct": false }
+          ],
+          "explanation": "Franz Sacher created the cake in Vienna in 1832; the Hotel Sacher still guards the recipe."
+        },
+        {
+          "id": "q7",
+          "question": "Brigadeiros, fudgy chocolate balls rolled in sprinkles, are a classic sweet of which country?",
+          "options": [
+            { "id": "a", "text": "Portugal", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": false },
+            { "id": "c", "text": "Brazil", "is_correct": true },
+            { "id": "d", "text": "Mexico", "is_correct": false }
+          ],
+          "explanation": "Brigadeiros are made with condensed milk and cocoa, and are a fixture of Brazilian birthday parties."
+        },
+        {
+          "id": "q8",
+          "question": "A tres leches cake is soaked in which three dairy products?",
+          "options": [
+            { "id": "a", "text": "Evaporated milk, condensed milk and cream", "is_correct": true },
+            { "id": "b", "text": "Cow's, goat's and sheep's milk", "is_correct": false },
+            { "id": "c", "text": "Skimmed, whole and raw milk", "is_correct": false },
+            { "id": "d", "text": "Coconut, almond and soy milk", "is_correct": false }
+          ],
+          "explanation": "The sponge is drenched in evaporated milk, condensed milk and cream until soft but still holding its shape."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-postres-del-mundo",
+      "title": "Trivia de postres del mundo: dulces clásicos",
+      "description": "Ocho preguntas sobre los postres clásicos del mundo, del tiramisú y la crème brûlée al baklava, la pavlova y el gelato.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "postres", "dulces"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué significa el nombre «tiramisú» en italiano?",
+          "options": [
+            { "id": "a", "text": "«Sueño de café»", "is_correct": false },
+            { "id": "b", "text": "«Capas dulces»", "is_correct": false },
+            { "id": "c", "text": "«Anímame»", "is_correct": true },
+            { "id": "d", "text": "«Pastelito»", "is_correct": false }
+          ],
+          "explanation": "Tiramisù significa literalmente 'anímame' o 'levántame', un guiño a su café y su cacao."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se termina una crème brûlée justo antes de servirla?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Caramelizando el azúcar de la superficie hasta formar una costra",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Bañándola con miel tibia", "is_correct": false },
+            { "id": "c", "text": "Cubriéndola con merengue", "is_correct": false },
+            { "id": "d", "text": "Espolvoreándola con harina", "is_correct": false }
+          ],
+          "explanation": "Una capa fina de azúcar se quema con soplete o hierro hasta formar la costra vítrea que se rompe con la cuchara."
+        },
+        {
+          "id": "q3",
+          "question": "¿De qué masa son las finas capas con que se arma el baklava?",
+          "options": [
+            { "id": "a", "text": "Hojaldre", "is_correct": false },
+            { "id": "b", "text": "Masa choux", "is_correct": false },
+            { "id": "c", "text": "Masa filo", "is_correct": true },
+            { "id": "d", "text": "Masa quebrada", "is_correct": false }
+          ],
+          "explanation": "El baklava apila láminas finísimas de masa filo con frutos secos picados y luego se baña en almíbar o miel."
+        },
+        {
+          "id": "q4",
+          "question": "¿En honor a quién se bautizó la pavlova, el postre de merengue?",
+          "options": [
+            { "id": "a", "text": "Una bailarina rusa", "is_correct": true },
+            { "id": "b", "text": "Una reina neozelandesa", "is_correct": false },
+            { "id": "c", "text": "Un repostero francés", "is_correct": false },
+            { "id": "d", "text": "Una cantante de ópera australiana", "is_correct": false }
+          ],
+          "explanation": "El postre honra a la bailarina Anna Pávlova tras sus giras por Australia y Nueva Zelanda en los años 20; ambos países reclaman su creación."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué se diferencia el gelato italiano del helado común?",
+          "options": [
+            { "id": "a", "text": "Se hace sin leche", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Se bate con menos aire y menos grasa, por eso es más denso",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Siempre lleva huevo", "is_correct": false },
+            { "id": "d", "text": "Se congela con nitrógeno líquido", "is_correct": false }
+          ],
+          "explanation": "El gelato usa más leche que crema y se bate despacio, con menos grasa y menos aire: una textura más densa."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué ciudad se creó la Sachertorte, el pastel de chocolate con mermelada de albaricoque?",
+          "options": [
+            { "id": "a", "text": "París", "is_correct": false },
+            { "id": "b", "text": "Viena", "is_correct": true },
+            { "id": "c", "text": "Zúrich", "is_correct": false },
+            { "id": "d", "text": "Bruselas", "is_correct": false }
+          ],
+          "explanation": "Franz Sacher creó el pastel en Viena en 1832; el Hotel Sacher todavía guarda la receta."
+        },
+        {
+          "id": "q7",
+          "question": "¿De qué país son los brigadeiros, las bolitas de chocolate cubiertas de grageas?",
+          "options": [
+            { "id": "a", "text": "Portugal", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": false },
+            { "id": "c", "text": "Brasil", "is_correct": true },
+            { "id": "d", "text": "México", "is_correct": false }
+          ],
+          "explanation": "Los brigadeiros se hacen con leche condensada y cacao, y no faltan en los cumpleaños brasileños."
+        },
+        {
+          "id": "q8",
+          "question": "¿Con qué tres lácteos se empapa el pastel tres leches?",
+          "options": [
+            { "id": "a", "text": "Leche evaporada, leche condensada y crema", "is_correct": true },
+            { "id": "b", "text": "Leche de vaca, de cabra y de oveja", "is_correct": false },
+            { "id": "c", "text": "Leche descremada, entera y cruda", "is_correct": false },
+            { "id": "d", "text": "Leche de coco, de almendras y de soya", "is_correct": false }
+          ],
+          "explanation": "La esponja se empapa en leche evaporada, leche condensada y crema hasta quedar suave sin deshacerse."
+        }
+      ]
+    },
+    {
+      "slug": "en-spanish-food-trivia",
+      "title": "Spanish Food Trivia: Paella, Tapas and More",
+      "description": "Eight questions on the dishes of Spain: paella and its socarrat, tapas, jamón ibérico, tortilla and churros.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "spain", "spanish cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In a good paella, what is the crispy layer of toasted rice at the bottom called?",
+          "options": [
+            { "id": "a", "text": "The socarrat", "is_correct": true },
+            { "id": "b", "text": "The alioli", "is_correct": false },
+            { "id": "c", "text": "The sofrito", "is_correct": false },
+            { "id": "d", "text": "The pimentón", "is_correct": false }
+          ],
+          "explanation": "Valencians prize the socarrat, the golden crust that forms when the broth finishes cooking."
+        },
+        {
+          "id": "q2",
+          "question": "The word 'tapa' literally means what in Spanish?",
+          "options": [
+            { "id": "a", "text": "Small plate", "is_correct": false },
+            { "id": "b", "text": "Lid or cover", "is_correct": true },
+            { "id": "c", "text": "Bite", "is_correct": false },
+            { "id": "d", "text": "Toast", "is_correct": false }
+          ],
+          "explanation": "Tapa comes from tapar, 'to cover': tradition says slices of ham or bread once covered drinks."
+        },
+        {
+          "id": "q3",
+          "question": "Jamón ibérico de bellota comes from pigs that fed mainly on what?",
+          "options": [
+            { "id": "a", "text": "Corn", "is_correct": false },
+            { "id": "b", "text": "Olives", "is_correct": false },
+            { "id": "c", "text": "Acorns", "is_correct": true },
+            { "id": "d", "text": "Chestnuts", "is_correct": false }
+          ],
+          "explanation": "During the montanera season the pigs roam oak pastures and eat acorns, which give the ham its flavour."
+        },
+        {
+          "id": "q4",
+          "question": "Spanish tortilla de patatas is made mainly with eggs and which other ingredient?",
+          "options": [
+            { "id": "a", "text": "Potatoes", "is_correct": true },
+            { "id": "b", "text": "Rice", "is_correct": false },
+            { "id": "c", "text": "Chickpeas", "is_correct": false },
+            { "id": "d", "text": "Bread", "is_correct": false }
+          ],
+          "explanation": "The tortilla española combines eggs with potatoes cooked slowly in olive oil; onion stays optional and debated."
+        },
+        {
+          "id": "q5",
+          "question": "In Spain, churros for breakfast are traditionally dipped in what?",
+          "options": [
+            { "id": "a", "text": "Café con leche", "is_correct": false },
+            { "id": "b", "text": "Thick hot chocolate", "is_correct": true },
+            { "id": "c", "text": "Warm milk", "is_correct": false },
+            { "id": "d", "text": "Honey", "is_correct": false }
+          ],
+          "explanation": "Churros con chocolate pair the fried dough with a cup of hot chocolate thick enough to coat it."
+        },
+        {
+          "id": "q6",
+          "question": "Which southern region produces most of Spain's olive oil?",
+          "options": [
+            { "id": "a", "text": "Galicia", "is_correct": false },
+            { "id": "b", "text": "Catalonia", "is_correct": false },
+            { "id": "c", "text": "Andalusia", "is_correct": true },
+            { "id": "d", "text": "The Basque Country", "is_correct": false }
+          ],
+          "explanation": "Andalusia grows most of Spain's olive oil; the province of Jaén alone has tens of millions of olive trees."
+        },
+        {
+          "id": "q7",
+          "question": "Which small green peppers are fried and salted, and famously 'some are hot, some are not'?",
+          "options": [
+            { "id": "a", "text": "Padrón peppers", "is_correct": true },
+            { "id": "b", "text": "Jalapeños", "is_correct": false },
+            { "id": "c", "text": "Piquillo peppers", "is_correct": false },
+            { "id": "d", "text": "Habaneros", "is_correct": false }
+          ],
+          "explanation": "Pimientos de Padrón, from Galicia, are mostly mild, but the occasional one bites back."
+        },
+        {
+          "id": "q8",
+          "question": "Manchego cheese is made from the milk of which animal?",
+          "options": [
+            { "id": "a", "text": "Cow", "is_correct": false },
+            { "id": "b", "text": "Goat", "is_correct": false },
+            { "id": "c", "text": "Sheep", "is_correct": true },
+            { "id": "d", "text": "Buffalo", "is_correct": false }
+          ],
+          "explanation": "Manchego carries a protected designation of origin and is made only with milk from Manchega sheep."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-espanola",
+      "title": "Trivia de comida española: paella, tapas y más",
+      "description": "Ocho preguntas sobre la cocina de España: la paella y su socarrat, las tapas, el jamón ibérico, la tortilla y los churros.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "españa", "cocina española"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En una buena paella, ¿cómo se llama la capa tostada y crujiente de arroz del fondo?",
+          "options": [
+            { "id": "a", "text": "El socarrat", "is_correct": true },
+            { "id": "b", "text": "El alioli", "is_correct": false },
+            { "id": "c", "text": "El sofrito", "is_correct": false },
+            { "id": "d", "text": "El pimentón", "is_correct": false }
+          ],
+          "explanation": "Los valencianos aprecian el socarrat, la costra dorada que se forma cuando el caldo termina de cocerse."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué significa literalmente la palabra «tapa»?",
+          "options": [
+            { "id": "a", "text": "Un plato pequeño", "is_correct": false },
+            { "id": "b", "text": "Una cubierta", "is_correct": true },
+            { "id": "c", "text": "Un bocado", "is_correct": false },
+            { "id": "d", "text": "Un brindis", "is_correct": false }
+          ],
+          "explanation": "Tapa viene de tapar: la tradición dice que lonchas de jamón o pan cubrían antes las copas."
+        },
+        {
+          "id": "q3",
+          "question": "¿De qué se alimentan principalmente los cerdos del jamón ibérico de bellota?",
+          "options": [
+            { "id": "a", "text": "Maíz", "is_correct": false },
+            { "id": "b", "text": "Aceitunas", "is_correct": false },
+            { "id": "c", "text": "Bellotas", "is_correct": true },
+            { "id": "d", "text": "Castañas", "is_correct": false }
+          ],
+          "explanation": "En la montanera los cerdos pastan en la dehesa y comen bellotas, que dan al jamón su sabor."
+        },
+        {
+          "id": "q4",
+          "question": "¿Con qué otro ingrediente se hace principalmente la tortilla de patatas?",
+          "options": [
+            { "id": "a", "text": "Papas", "is_correct": true },
+            { "id": "b", "text": "Arroz", "is_correct": false },
+            { "id": "c", "text": "Garbanzos", "is_correct": false },
+            { "id": "d", "text": "Pan", "is_correct": false }
+          ],
+          "explanation": "La tortilla española combina huevos con papas cocidas a fuego lento en aceite de oliva; la cebolla es opcional y debatida."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué se mojan tradicionalmente los churros del desayuno en España?",
+          "options": [
+            { "id": "a", "text": "Café con leche", "is_correct": false },
+            { "id": "b", "text": "Chocolate caliente espeso", "is_correct": true },
+            { "id": "c", "text": "Leche tibia", "is_correct": false },
+            { "id": "d", "text": "Miel", "is_correct": false }
+          ],
+          "explanation": "Los churros con chocolate combinan la masa frita con una taza de chocolate tan espeso que la cubre."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué región del sur produce la mayor parte del aceite de oliva de España?",
+          "options": [
+            { "id": "a", "text": "Galicia", "is_correct": false },
+            { "id": "b", "text": "Cataluña", "is_correct": false },
+            { "id": "c", "text": "Andalucía", "is_correct": true },
+            { "id": "d", "text": "El País Vasco", "is_correct": false }
+          ],
+          "explanation": "Andalucía produce la mayor parte del aceite español; solo la provincia de Jaén tiene decenas de millones de olivos."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué pimientos verdes pequeños se fríen con sal y se dice que 'unos pican y otros no'?",
+          "options": [
+            { "id": "a", "text": "Los pimientos de Padrón", "is_correct": true },
+            { "id": "b", "text": "Los jalapeños", "is_correct": false },
+            { "id": "c", "text": "Los pimientos del piquillo", "is_correct": false },
+            { "id": "d", "text": "Los habaneros", "is_correct": false }
+          ],
+          "explanation": "Los pimientos de Padrón, de Galicia, casi no pican, salvo alguno que sorprende."
+        },
+        {
+          "id": "q8",
+          "question": "¿De la leche de qué animal se hace el queso manchego?",
+          "options": [
+            { "id": "a", "text": "Vaca", "is_correct": false },
+            { "id": "b", "text": "Cabra", "is_correct": false },
+            { "id": "c", "text": "Oveja", "is_correct": true },
+            { "id": "d", "text": "Búfala", "is_correct": false }
+          ],
+          "explanation": "El manchego tiene denominación de origen protegida y solo se hace con leche de oveja manchega."
+        }
+      ]
+    }
+  ]
+}
