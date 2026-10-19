@@ -43,3 +43,37 @@ export async function getCategoryCounts(locale: Locale): Promise<Map<string, num
     return new Map();
   }
 }
+
+// Same lightweight scan grouped by quiz_type instead of category. Never
+// throws: on failure the categories hub renders the type cards with no count.
+export async function getTypeCounts(
+  locale: Locale
+): Promise<Map<'trivia' | 'personality', number>> {
+  const counts = new Map<'trivia' | 'personality', number>();
+
+  try {
+    const supabase = await createClient();
+
+    for (let from = 0; ; from += PAGE_SIZE) {
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select('quiz_type')
+        .eq('status', 'published')
+        .eq('language', locale)
+        .order('id')
+        .range(from, from + PAGE_SIZE - 1);
+
+      if (error || !data) return new Map();
+
+      for (const row of data as { quiz_type: string | null }[]) {
+        if (row.quiz_type === 'trivia' || row.quiz_type === 'personality') {
+          counts.set(row.quiz_type, (counts.get(row.quiz_type) ?? 0) + 1);
+        }
+      }
+
+      if (data.length < PAGE_SIZE) return counts;
+    }
+  } catch {
+    return new Map();
+  }
+}

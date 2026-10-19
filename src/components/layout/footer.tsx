@@ -27,7 +27,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
           </Link>
         </nav>
         <nav aria-label={dictionary.explore.allCategories}>
-          <p>{dictionary.explore.allCategories}</p>
+          <Link href={localizeHref(locale, '/categories')}>
+            {dictionary.explore.allCategories}
+          </Link>
           <ul className="m-0 list-none p-0">
             {Object.keys(CATEGORY_SLUG_NAMES).map((slug) => (
               <li key={slug}>

@@ -26,8 +26,9 @@ describe('Footer · categorías', () => {
 
     const nav = categoryNav('Todas las categorías');
     const links = within(nav).getAllByRole('link');
-    expect(links).toHaveLength(8);
-    links.forEach((link, index) => {
+    expect(links).toHaveLength(9);
+    expect(links[0]).toHaveAttribute('href', '/es/categories');
+    links.slice(1).forEach((link, index) => {
       expect(link).toHaveAttribute('href', `/es/category/${SLUGS[index]}`);
     });
   });
