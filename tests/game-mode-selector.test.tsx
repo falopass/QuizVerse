@@ -51,11 +51,13 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   };
 }
 
-function renderSelector(props: {
-  locale?: 'en' | 'es';
-  quizType?: Quiz['quiz_type'];
-  onSelectMode?: (mode: GameMode) => void;
-} = {}) {
+function renderSelector(
+  props: {
+    locale?: 'en' | 'es';
+    quizType?: Quiz['quiz_type'];
+    onSelectMode?: (mode: GameMode) => void;
+  } = {}
+) {
   const onSelectMode = props.onSelectMode ?? vi.fn();
   render(
     <GameModeSelector
