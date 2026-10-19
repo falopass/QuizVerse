@@ -66,6 +66,7 @@ const EDITORIAL_PAGES: Array<{
   { path: '/quiz', priority: 0.9, changeFrequency: 'daily' },
   { path: '/leaderboard', priority: 0.4, changeFrequency: 'daily' },
   { path: '/about', priority: 0.4, changeFrequency: 'monthly' },
+  { path: '/faq', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.3, changeFrequency: 'monthly' },
   { path: '/privacy', priority: 0.2, changeFrequency: 'yearly' },
   { path: '/terms', priority: 0.2, changeFrequency: 'yearly' },

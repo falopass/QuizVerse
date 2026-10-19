@@ -22,6 +22,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
           <Link href={localizeHref(locale, '/privacy')}>{dictionary.arcade.privacy}</Link>
           <Link href={localizeHref(locale, '/terms')}>{dictionary.arcade.terms}</Link>
           <Link href={localizeHref(locale, '/contact')}>{dictionary.arcade.contact}</Link>
+          <Link href={localizeHref(locale, '/faq')}>
+            {locale === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
+          </Link>
         </nav>
         <nav aria-label={dictionary.explore.allCategories}>
           <p>{dictionary.explore.allCategories}</p>
