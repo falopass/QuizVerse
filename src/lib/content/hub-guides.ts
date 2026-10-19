@@ -290,54 +290,54 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
   },
   literature: {
     es: {
-      title: 'Literatura: del Quijote a la Tierra Media',
+      title: 'Literatura: entre libros y lectores',
       intro: [
-        'La biblioteca junta clásicos y fandoms: Cervantes y García Márquez conviven con Tolkien, que tiene una ronda para los anillos, las razas y las reliquias de la Tierra Media y otra para el viaje de Bilbo a la Montaña Solitaria. Alrededor giran la literatura universal con sus autores y sus primeras líneas célebres, las novelas que van del Quijote a Jane Eyre y una trivia de libros que saltaron de la página al cine.',
-        'El recorrido sigue por la ciencia ficción que imaginó el futuro antes que la tecnología, la poesía entre sonetos y haikus, un siglo de premios Nobel de Literatura y los dioses, héroes y monstruos de la mitología griega; el Boom latinoamericano y Macondo también tienen su ronda. Todo se juega gratis, como invitado y con veredicto inmediato tras cada pregunta, y en modo Práctica la explicación llega junto al resultado cuando la pregunta la incluye.',
+        'Es el rincón de los libros: el espacio donde se mide lo que quedó de las lecturas —obras, autores, géneros y los mundos que solo existen en papel— y donde los tests leen al lector del otro lado de la página. Project Hail Mary ya tiene presencia en el catálogo con dos tests: qué rol jugarías dentro de la novela y qué energía suya combina mejor contigo. La literatura del sitio se recorre así: por lo que leíste y por lo que eres leyendo.',
+        'En los tests no hay errores posibles: cada respuesta empuja hacia un perfil y el patrón completo se vuelve el resultado, escrito para compararse. Todo se juega gratis, como invitado y en pocos minutos, con el enlace del resultado listo para mandarse como reto al que presume de haber leído más.',
       ],
       howTo: [
-        'Elige un autor, una obra o una época y responde la ronda.',
-        'Activa Práctica si quieres leer la explicación tras cada respuesta.',
-        'Termina, comparte tu puntaje y reta al lector del grupo.',
+        'Entra por la lectura que te interese de la lista.',
+        'Responde con tu primera opción; en los tests no hay errores.',
+        'Comparte el perfil y reta al lector del grupo.',
       ],
-      closing: 'El que lee más no siempre gana; aquí se demuestra.',
+      closing: 'El que presume de biblioteca aquí la pone a prueba.',
     },
     en: {
-      title: 'Literature: from Don Quixote to Middle-earth',
+      title: 'Literature: between books and readers',
       intro: [
-        "The shelf mixes classics and fandoms: Cervantes and García Márquez share space with Tolkien, who gets one round for the rings, races and relics of Middle-earth and another for Bilbo's journey to the Lonely Mountain. Around them sit world literature with its authors and famous first lines, the novels running from Don Quixote to Jane Eyre and a trivia on books that leapt from page to screen.",
-        'The tour continues through the science fiction that imagined the future before technology did, poetry between sonnets and haiku, a century of Nobel laureates in Literature, and the gods, heroes and monsters of Greek mythology; the Latin American Boom and Macondo get their own round too. Everything plays free, as a guest and with an instant verdict after each question, and in Practice mode the explanation arrives with the result whenever the question carries one.',
+        'This is the corner for books: the place that measures what stayed from your reading — works, authors, genres and the worlds that only exist on paper — and where tests read the reader on the other side of the page. Project Hail Mary already sits in the catalogue: how deep your knowledge of the novel goes, which role you would play inside it and which of its energies matches you best, next to a test that uncovers your true reading personality.',
+        'The trivia side rewards memory with one correct answer and an instant verdict; the tests have no possible mistakes and hand back a profile written to be compared. Everything plays free, as a guest and in a few minutes, with the result link ready to send as a challenge to whoever brags about reading more.',
       ],
       howTo: [
-        'Pick an author, a work or an era and play the round.',
-        'Switch on Practice if you want the explanation after each answer.',
-        'Finish, share your score and challenge the reader of the group.',
+        'Enter through the reading that calls you from the list.',
+        'Play at your pace; the tests read patterns, not mistakes.',
+        'Share the profile or the score with the reader of the group.',
       ],
-      closing: 'Reading more does not guarantee the win; here it gets proven.',
+      closing: 'Whoever boasts about their library puts it to the test here.',
     },
   },
   'pop-culture': {
     es: {
-      title: 'Cultura pop: premios, K-pop y leyendas urbanas',
+      title: 'Cultura pop: la memoria compartida',
       intro: [
-        'Aquí se junta lo que domina la conversación: la década de los 2000 con sus móviles de tapa, el K-pop de BTS, BLACKPINK y TWICE, los K-dramas clásicos de Winter Sonata a Goblin y la cultura coreana entre hangul, hanbok y kimchi. La alfombra roja también tiene sitio, con rondas de festivales de cine de Cannes a San Sebastián y de las noches de los Grammy, los Emmy y los Globos de Oro.',
-        'El lado latino es puro archivo compartido: El Chavo del 8, El Chapulín Colorado y la TV de los 90 con sus cortinas inolvidables, más una ronda de monstruos y leyendas urbanas y otra de la historia de internet de ARPANET al iPhone. Si prefieres medirte a ti mismo en vez de tu memoria, hay tests que te ubican como rol dentro de un grupo de K-pop o como el género de K-drama que sería tu vida.',
+        'La sección mide lo que quedó de la conversación colectiva: memes, épocas, referencias y todo lo que un grupo asume que todo el mundo vio. Lo publicado va de la nostalgia —qué era te define de verdad— a la trivia esencial de cultura de internet, pasando por qué tan profundo llega tu conocimiento de Avatar.',
+        'Es territorio de actualidad y archivo a la vez: hay trivia de respuesta única con veredicto inmediato y tests que devuelven un perfil pensado para el «¿a ti cuál te salió?». Jugar no pide cuenta ni pago, así que la ronda funciona igual para probarse a uno mismo que para dirimir quién del chat estaba más metido en un tema. Y como cada fenómeno tiene su nicho, la sección va sumando rondas al ritmo de la conversación.',
       ],
       howTo: [
-        'Elige una era, un premio o un fenómeno y entra a su ronda.',
+        'Elige una época o un fenómeno y entra a su ronda.',
         'Responde la trivia o deja que el test lea tu perfil de fan.',
         'Manda tu resultado al chat donde el tema nunca muere.',
       ],
       closing: 'El que sabe un poco de todo aquí encuentra su ronda.',
     },
     en: {
-      title: 'Pop culture: award shows, K-pop and urban legends',
+      title: 'Pop culture: the shared memory',
       intro: [
-        'Everything dominating the group chat lives here: the 2000s with their flip phones, the K-pop of BTS, BLACKPINK and TWICE, classic K-dramas from Winter Sonata to Goblin, and Korean culture across hangul, hanbok and kimchi. The red carpet gets its rounds too, with film festivals from Cannes to Venice and the nights of the Grammys, the Emmys and the Golden Globes.',
-        'The Latin side is shared archive: El Chavo del 8, El Chapulín Colorado and 90s Latin TV with its unforgettable openings, plus a round on monsters and urban legends and one on internet history from ARPANET to the iPhone. If you would rather measure yourself than your memory, there are tests that place you as a role inside a K-pop group or as the K-drama genre your life would be.',
+        'The section measures what stayed from the collective conversation: memes, eras, references and everything a group assumes everybody saw. The published side runs from the nostalgia test — which era actually defines you — to reading which social media alter ego you carry, with internet culture as the beat the whole section is built on.',
+        'It is present-tense territory and archive at once: single-answer trivia with an instant verdict sits next to tests that return a profile built for the "which one did you get?" exchange. Playing needs no account and no payment, so a round works just as well for testing yourself as for settling who in the chat was deepest into a topic. The section keeps adding rounds at the pace of that conversation.',
       ],
       howTo: [
-        'Pick an era, an award or a phenomenon and enter its round.',
+        'Pick an era or a phenomenon and enter its round.',
         'Answer the trivia or let the test read your fan profile.',
         'Send your result to the chat where the topic never dies.',
       ],
@@ -348,11 +348,11 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     es: {
       title: 'Relaciones: tests sobre cómo te vinculas',
       intro: [
-        'Es la sección más personal del sitio: casi todo son tests donde ninguna opción es correcta o incorrecta. Tu lenguaje del amor, tu estilo de comunicación, tu estilo de apego, tu rol en la mesa familiar, el tipo de pareja que eres en realidad, la clase de amigo que te toca ser y qué tan buen compañero de piso resultas: cada test lee el patrón completo de tus respuestas y devuelve un perfil.',
-        'La excepción es una trivia de convivencia sobre el arte de llevarse bien, que sí exige respuestas correctas. El resto funciona mejor con honestidad que con estrategia: responder lo primero que se te ocurre da un resultado más parecido a ti, y ese resultado está escrito para compararse —preguntar «¿a ti cuál te salió?» es exactamente para lo que está hecho.',
+        'La sección más personal del sitio: tests que leen cómo te vinculas —con amigos, con parejas, con la gente que comparte tu mesa— donde ninguna opción es correcta ni incorrecta. Entre lo publicado están qué arquetipo de amigo eres en tu grupo y qué energía de app de citas estás trayendo.',
+        'El test lee el patrón completo de tus respuestas y devuelve un perfil escrito para compararse: responder lo primero que se te ocurre da un resultado más parecido a ti que cualquier estrategia. Se completa como invitado, en minutos y gratis, y el enlace del resultado está hecho justamente para mandarlo a quien quieres que se mida después. Y como la forma de vincularse cambia según el vínculo, la sección va sumando tests para cada lado de la vida afectiva.',
       ],
       howTo: [
-        'Elige el vínculo que quieres mirar: pareja, familia, amigos o casa.',
+        'Elige el vínculo que quieres mirar: amigos, citas o costumbres.',
         'Responde con tu primera opción; aquí no hay errores posibles.',
         'Compara tu perfil con el de la otra persona: ahí empieza la charla.',
       ],
@@ -361,11 +361,11 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     en: {
       title: 'Relationships: tests on how you bond',
       intro: [
-        'This is the most personal section on the site: almost everything here is a test where no option is right or wrong. Your love language, your communication style, your attachment style, your seat at the family table, the kind of partner you really are, the sort of friend you turn out to be and how good a roommate you make: each test reads the full pattern of your answers and hands back a profile.',
-        'The exception is a getting-along trivia round that does demand correct answers. Everything else works better with honesty than with strategy: answering with your first instinct gives a result that looks more like you, and that result is written to be compared — asking which one the other person got is exactly what it was built for.',
+        'The most personal section on the site: tests that read how you bond — with friends, with partners, with the people at your table — where no option is right or wrong. Among the published ones are which friend archetype you are in your group, what dating-app energy you are bringing and what your relationship with technology looks like.',
+        'Each test reads the full pattern of your answers and returns a profile written to be compared: answering with your first instinct gives a result closer to you than any strategy. It plays as a guest, in minutes and for free, and the result link exists precisely to send to whoever you want measured next. New tests keep joining the section, one for each kind of bond worth measuring.',
       ],
       howTo: [
-        'Pick the bond you want to look at: partner, family, friends or home.',
+        'Pick the bond you want to look at: friends, dating or habits.',
         'Answer with your first option; there are no possible mistakes here.',
         "Compare your profile with the other person's: that is where the talk starts.",
       ],
@@ -374,28 +374,28 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
   },
   'food-drink': {
     es: {
-      title: 'Comida y bebida: del grano de café al plato callejero',
+      title: 'Comida y bebida: el territorio del paladar',
       intro: [
-        'El menú recorre el mundo por platos y orígenes: la pasta y la pizza de Italia, el maíz, los chiles y el tequila de México, el sushi y el ramen de Japón, la paella y las tapas de España y la comida latinoamericana con sus países de origen. Hay rondas de café —granos, métodos y cultura cafetera—, de vino con sus uvas y regiones, de postres del mundo del tiramisú al baklava, de especias, de comida callejera y hasta de nutrición y sus mitos.',
-        'Si tu pregunta no es qué sabes sino qué eres, los tests responden: qué postre eres, qué café eres y qué especie eres según tu paladar. Toda la trivia se contesta por escrito y trae veredicto al instante, así que la ronda funciona igual en la sobremesa que en la fila del almuerzo; solo procura no jugar con hambre.',
+        'La sección del paladar: el espacio donde se junta todo lo que se come y se bebe —cocinas, bebidas, orígenes y costumbres de la mesa— medido en preguntas de una sola respuesta correcta. La trivia de comida alrededor del mundo ya está publicada y recorre platos e ingredientes de varios países.',
+        'Toda la trivia se contesta por escrito y trae veredicto al instante, así que la ronda funciona igual en la sobremesa que en la fila del almuerzo; solo procura no jugar con hambre. Es gratis, no pide registro y el resultado se comparte con un enlace que muestra tu puntaje antes de que el otro empiece. Como toda sección del sitio, ésta va sumando rondas por tema: la página es la puerta de entrada a lo que el paladar vaya agregando.',
       ],
       howTo: [
-        'Elige una cocina, una bebida o un origen y responde la ronda.',
-        'O toma un test de sabor y descubre qué dice tu paladar.',
-        'Compara resultados en la próxima sobremesa.',
+        'Entra a la ronda de comida alrededor del mundo.',
+        'Responde plato por plato; el veredicto llega al instante.',
+        'Compara el puntaje en la próxima sobremesa.',
       ],
       closing: 'Aquí el gusto se mide en aciertos, no en opiniones.',
     },
     en: {
-      title: 'Food & drink: from the coffee bean to street food',
+      title: 'Food & drink: the territory of the palate',
       intro: [
-        "The menu tours the world by dish and origin: Italy's pasta and pizza, Mexico's corn, chiles and tequila, Japan's sushi and ramen, Spain's paella and tapas, and Latin American food with its home countries. There are rounds on coffee — beans, methods and café culture — on wine with its grapes and regions, on world desserts from tiramisu to baklava, on spices, on street food and even on nutrition and its myths.",
-        'If your question is not what you know but what you are, the tests answer: which dessert you are, which coffee you are and which spice matches your palate. All the trivia is answered in writing with an instant verdict, so a round works as well at the table as in the lunch line; just try not to play hungry.',
+        'The palate section: the place where everything eaten and drunk comes together — cuisines, beverages, origins and table customs — measured in single-answer questions and in tests that read your flavour. Already published: the food-around-the-world trivia and the test revealing what your coffee order says about you.',
+        'All the trivia is answered in writing with an instant verdict, so a round works as well at the table as in the lunch line; just try not to play hungry. It is free, needs no signup and the result is shared through a link that shows your score before the other person begins. Like every section on the site, this one keeps adding themed rounds: the page is the front door to whatever the palate brings next.',
       ],
       howTo: [
-        'Pick a cuisine, a drink or an origin and play the round.',
-        'Or take a flavour test and find out what your palate says.',
-        'Compare results at the next meal.',
+        'Enter the food-around-the-world round or the coffee test.',
+        'Answer dish by dish; the verdict lands instantly.',
+        'Compare the score at the next meal.',
       ],
       closing: 'Here taste is measured in right answers, not opinions.',
     },
@@ -404,81 +404,81 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     es: {
       title: 'Ciencia: del laboratorio a la órbita',
       intro: [
-        'La sección va del cuerpo al cosmos: la tabla periódica con sus elementos y símbolos, el ADN y el código de la vida, la biología celular, los ecosistemas y el cuerpo humano por sistemas —cerebro, corazón, huesos, digestión e inmunidad. Arriba están el sistema solar, los agujeros negros, los telescopios de Hubble a Webb, las misiones a Marte, el programa Artemis y hasta el eclipse solar total de agosto de 2026.',
-        'También hay ciencia de todos los días —la física de por qué caen y vuelan las cosas, la química de la cocina y la limpieza—, grandes inventos de la rueda a la electricidad, volcanes y terremotos, el fondo del mar y un siglo de premios Nobel. Tres tests cierran el menú: qué planeta eres, qué elemento eres y qué científico serías.',
+        'La sección del laboratorio: el espacio dedicado a medir cuánto sabes del cuerpo, la materia, el cosmos y los inventos que lo cambiaron todo. La ronda de exploración espacial 2020-2026 ya está en el catálogo, con las misiones y los hitos que la década dejó en órbita. Es terreno de dato duro, así que cada respuesta se juega a una sola correcta.',
+        'La ciencia aquí se juega como en el resto del sitio: trivia de una sola respuesta correcta, veredicto inmediato tras cada pregunta y explicación en modo Práctica cuando la pregunta la incluye. Gratis, como invitado y con resultado compartible: ideal para el amigo que asegura saber de ciencia y nunca lo ha puesto a prueba. La sección va sumando rondas por tema, igual que el resto del catálogo.',
       ],
       howTo: [
-        'Elige un territorio: espacio, cuerpo, elementos o inventos.',
+        'Entra a la ronda del tema que domines —o quieras aprender.',
         'En Práctica, cada explicación convierte el error en un dato nuevo.',
-        'Termina con un test y descubre qué planeta o elemento eres.',
+        'Comparte el puntaje y cierra la apuesta científica pendiente.',
       ],
       closing: 'La curiosidad no necesita laboratorio: necesita una ronda.',
     },
     en: {
       title: 'Science: from the lab to orbit',
       intro: [
-        'The section runs from the body to the cosmos: the periodic table with its elements and symbols, DNA and the code of life, cell biology, ecosystems and the human body by systems — brain, heart, bones, digestion and immunity. Up above sit the solar system, black holes, telescopes from Hubble to Webb, Mars missions, the Artemis program and even the total solar eclipse of August 2026.',
-        'There is everyday science too — the physics of why things fall and fly, the chemistry of kitchens and cleaning — great inventions from the wheel to electricity, volcanoes and earthquakes, the deep sea and a century of Nobel Prizes. Three tests round off the menu: which planet you are, which element you are and which scientist you would be.',
+        'The lab section: the place dedicated to measuring how much you know about the body, matter, the cosmos and the inventions that changed everything. The space-exploration 2020–2026 round is already in the catalogue, with the missions and milestones the decade left in orbit, alongside a test on how you cope with climate anxiety. It is hard-fact ground, so every question plays to a single correct answer.',
+        'Science plays here like everywhere else on the site: single-answer trivia with an immediate verdict — and an explanation in Practice mode when the question carries one — free and without signup. Ideal for the friend who insists they know science and never put it to the test. The section keeps adding themed rounds, like the rest of the catalogue.',
       ],
       howTo: [
-        'Pick a territory: space, the body, elements or inventions.',
+        'Enter the round on the topic you master — or want to learn.',
         'In Practice mode, every explanation turns a miss into a new fact.',
-        'Finish with a test and discover which planet or element you are.',
+        'Share the score and close the pending science bet.',
       ],
       closing: 'Curiosity needs no lab coat: it needs a round.',
     },
   },
   animals: {
     es: {
-      title: 'Animales: récords, especies y superpoderes',
+      title: 'Animales: el mundo salvaje y el de casa',
       intro: [
-        'El reino animal viene por grupos: grandes felinos, aves con sus rapaces y sus migraciones, insectos y arácnidos, reptiles y anfibios, mamíferos africanos, vida marina de arrecifes y abismos, y dinosaurios con lo que el registro fósil realmente dice. Las mascotas tienen su sitio con las razas de perros y de gatos, y los extremos también: superdepredadores, animales venenosos, récords naturales y especies al borde de la extinción.',
-        'Las preguntas van de la clasificación al dato que nadie espera: quién corre más rápido, quién migra más lejos, qué come qué y dónde vive cada especie. Para quien prefiera leerse a sí mismo hay tres tests: qué ave eres, qué depredador serías y qué superpoder animal te tocaría. Todo se juega gratis, sin registro y con el veredicto de cada pregunta al instante.',
+        'La esquina del reino animal: la sección dedicada a las especies, su comportamiento, sus récords y la relación que llevamos con ellas —del lado salvaje al sofá de casa. Su primer habitante es un test que lee qué clase de dueño de mascota eres, disponible en español e inglés, y funciona como la puerta de entrada a una sección que crece por tema igual que el resto del catálogo.',
+        'En los tests no hay respuestas incorrectas: cada opción empuja hacia un perfil y el patrón completo de tus respuestas se vuelve el resultado, escrito para compararse en el grupo. Se juega gratis, como invitado y en pocos minutos; el enlace del resultado muestra tu perfil antes de que la otra persona empiece, así que medirse con otros dueños sale solo.',
       ],
       howTo: [
-        'Elige un grupo animal o un récord y completa la ronda.',
-        'Alterna la trivia con un test: qué ave o depredador eres.',
-        'Comparte el resultado y suma a la familia al reto.',
+        'Entra al test de qué clase de dueño de mascota eres.',
+        'Responde con tu primera opción; no hay errores posibles.',
+        'Comparte tu perfil y compara con los dueños del grupo.',
       ],
       closing: 'La cadena alimentaria también tiene tabla de posiciones.',
     },
     en: {
-      title: 'Animals: records, species and superpowers',
+      title: 'Animals: the wild world and the one at home',
       intro: [
-        'The animal kingdom arrives in groups: big cats, birds with their raptors and migrations, insects and arachnids, reptiles and amphibians, African mammals, marine life from reefs to the deep, and dinosaurs as the fossil record really tells it. Pets get their spot with dog and cat breeds, and so do the extremes: apex predators, venomous animals, natural records and species on the brink.',
-        'Questions run from classification to the fact nobody expects: who runs fastest, who migrates farthest, what eats what and where each species lives. For those who would rather read themselves there are three tests: which bird you are, which predator you would be and which animal superpower would be yours. Everything is free, needs no signup and shows each verdict instantly.',
+        'The animal kingdom corner: the section dedicated to species, their behaviour, their records and the relationship we keep with them — from the wild side to the sofa at home. Its first resident is a test that reads what kind of pet owner you are, available in English and Spanish, and it works as the front door to a section that grows by theme like the rest of the catalogue.',
+        'In the tests there are no wrong answers: every option pushes toward a profile and the full pattern of your answers becomes the result, written to be compared in the group. It plays free, as a guest and in a few minutes; the result link shows your profile before the other person starts, so measuring yourself against other owners takes no effort.',
       ],
       howTo: [
-        'Pick an animal group or a record and finish the round.',
-        'Alternate trivia with a test: which bird or predator you are.',
-        'Share the result and add the family to the challenge.',
+        'Start with the what-kind-of-pet-owner test.',
+        'Answer with your first option; mistakes are impossible.',
+        'Share your profile and compare with the owners in the group.',
       ],
       closing: 'The food chain has a leaderboard too.',
     },
   },
   geography: {
     es: {
-      title: 'Geografía: capitales, banderas y extremos del planeta',
+      title: 'Geografía: capitales, océanos y extremos',
       intro: [
-        'El mapa se recorre por récords y reconocimiento: capitales del mundo y las ciudades que hacen tropezar a todos, banderas de cada continente, monumentos famosos, maravillas naturales y los lugares extremos del planeta. América Latina tiene capítulo propio con sus ríos y sus cumbres, y tres países traen ronda dedicada: Chile, Argentina y Colombia, entre geografía, regiones e iconos.',
-        'Es trivia de memoria pura —una sola respuesta correcta— y de las que más se discuten en grupo, porque todo el mundo cree ubicar bien un país hasta que llega la octava pregunta. También hay un test para quien prefiere ser el lugar en vez de nombrarlo: qué lugar extremo de la Tierra eres. Cada partida corre como invitado y muestra el veredicto en el acto.',
+        'La sección del mapa: el territorio de países, capitales, océanos y los extremos del planeta, medido en preguntas de una sola respuesta correcta. Su ronda publicada es la trivia de geografía mundial —capitales, océanos y extremos—, una vuelta rápida por lo que el mapa debería dejar en la cabeza de quien lo recorre.',
+        'Es trivia de memoria pura, de las que más se discuten en grupo: todo el mundo cree ubicar bien un país hasta que la octava pregunta dice otra cosa. El veredicto llega tras cada respuesta, jugar es gratis y no pide registro, y el resultado se comparte como prueba antes de que el otro intente superarlo. La sección va sumando rondas por tema igual que el resto del catálogo: el mapa castiga la confianza, y eso es lo que entretiene.',
       ],
       howTo: [
-        'Elige un tema: capitales, banderas, extremos o un país.',
-        'Responde y guarda el 50/50 o el salto para la que no sabes.',
+        'Entra a la ronda de geografía mundial.',
+        'Responde país por país; el veredicto llega al instante.',
         'Reta al viajero del grupo a superar tu puntaje.',
       ],
       closing: 'Viajar está bien; ubicar cada país sin mapa está mejor.',
     },
     en: {
-      title: "Geography: capitals, flags and the planet's extremes",
+      title: 'Geography: capitals, oceans and extremes',
       intro: [
-        'The map gets toured through records and recognition: world capitals and the cities that trip everyone up, flags from every continent, famous landmarks, natural wonders and the extreme places of the planet. Latin America gets its own chapter with its rivers and peaks, and three countries bring dedicated rounds: Chile, Argentina and Colombia, across geography, regions and icons.',
-        'This is pure memory trivia — one correct answer — and among the most argued in any group, since everyone thinks they can place a country until question eight. There is also a test for those who would rather be the place than name it: which extreme spot on Earth you are. Every round runs as a guest and shows its verdict on the spot.',
+        "The map section: the territory of countries, capitals, oceans and the planet's extremes, measured in single-answer questions. Its published round is the world-geography trivia — capitals, oceans and extremes — a quick pass over what the map should leave in the head of whoever travels it.",
+        'This is pure memory trivia, the kind most argued in a group: everyone believes they can place a country until question eight says otherwise. The verdict lands after each answer, playing is free with no signup, and the result is shared as proof before the other person tries to beat it. The section keeps adding themed rounds like the rest of the catalogue: the map punishes confidence, which is exactly what makes it fun.',
       ],
       howTo: [
-        'Pick a theme: capitals, flags, extremes or a country.',
-        'Answer and keep the 50/50 or the skip for the one you cannot place.',
+        'Enter the world-geography round.',
+        'Answer country by country; the verdict lands instantly.',
         'Challenge the traveller of the group to beat your score.',
       ],
       closing: 'Travelling is fine; placing every country without a map is better.',
@@ -486,28 +486,28 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
   },
   history: {
     es: {
-      title: 'Historia: de Mesopotamia a la Segunda Guerra Mundial',
+      title: 'Historia: las fechas que ordenan el mundo',
       intro: [
-        'El recorrido empieza en la cuna de la civilización —Mesopotamia, el antiguo Egipto con sus faraones y el Nilo, la Grecia de las polis y los filósofos, la Roma de emperadores y legiones— y sigue por las siete maravillas, los imperios que redibujaron el mapa, la Edad Media entre castillos y cruzadas y las civilizaciones precolombinas: mayas, aztecas e incas.',
-        'La parte moderna trae las batallas que decidieron la Segunda Guerra Mundial, las independencias de América Latina que liberaron un continente, los grandes exploradores que cartografiaron el mundo y la aviación de Kitty Hawk al jet. México y Perú tienen ronda propia de historia y cultura, y una trivia de historia universal junta las fechas que cambiaron todo. Como siempre: gratis, sin registro y con corrección al instante.',
+        'La sección del pasado: el territorio de civilizaciones, batallas, imperios y fechas que ordenaron el mundo, medido en preguntas de una sola respuesta correcta. Su ronda publicada es la trivia de historia universal —ocho fechas que cambiaron todo—, un repaso directo por los giros que cualquier conversación histórica termina tocando. Fechas, nombres y lugares: la materia de la que está hecho el debate de sobremesa.',
+        'Es la trivia clásica en su forma más pura: memoria, una correcta por pregunta y corrección al instante. Jugar no pide registro ni pago y el resultado se manda como enlace que muestra el puntaje antes de que el otro juegue, así que el debate de fechas queda cerrado con evidencia. Cada ronda nueva que se suma hace más completo el repaso del pasado.',
       ],
       howTo: [
-        'Elige una civilización o un siglo y responde la ronda completa.',
-        'En Contrarreloj, la misma historia se corre contra el reloj.',
+        'Entra a la ronda de historia universal.',
+        'Responde las ocho fechas con veredicto inmediato.',
         'Comparte tu puntaje: el debate de fechas queda cerrado.',
       ],
       closing: 'La historia no se repite, pero las preguntas sí conviene repetirlas.',
     },
     en: {
-      title: 'History: from Mesopotamia to World War II',
+      title: 'History: the dates that ordered the world',
       intro: [
-        'The tour starts at the cradle of civilization — Mesopotamia, ancient Egypt with its pharaohs and the Nile, the Greece of city-states and philosophers, the Rome of emperors and legions — and continues through the seven wonders, the empires that redrew the map, the Middle Ages of castles and crusades and the pre-Columbian civilizations: Maya, Aztec and Inca.',
-        'The modern stretch brings the battles that decided World War II, the Latin American independences that freed a continent, the great explorers who mapped the world and aviation from Kitty Hawk to the jet age. Mexico and Peru get their own history-and-culture rounds, and a world history trivia gathers the dates that changed everything. As always: free, no signup and an instant verdict per question.',
+        'The past section: the territory of civilizations, battles, empires and the dates that ordered the world, measured in single-answer questions. Its published round is the world-history trivia — eight dates that changed everything — a straight run through the turns every historical conversation ends up touching. Dates, names and places: the raw material of every table argument about the past.',
+        'This is classic trivia in its purest form: memory, one correct answer per question and an instant verdict. Playing needs no signup or payment and the result travels as a link showing the score before the other person plays, so the argument over dates closes with evidence. Like every section on the site, this one keeps adding themed rounds.',
       ],
       howTo: [
-        'Pick a civilization or a century and play the whole round.',
-        'In Time Attack, the same history races against the clock.',
-        'Share your score: the argument over dates ends there.',
+        'Enter the world-history round.',
+        'Answer the eight dates with an immediate verdict.',
+        'Share your score: the date debate ends there.',
       ],
       closing: 'History may not repeat itself, but these questions are worth retaking.',
     },
