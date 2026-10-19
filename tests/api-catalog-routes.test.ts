@@ -71,9 +71,7 @@ describe('GET /api/quizzes', () => {
   });
 
   it('passes filters through to the data layer', async () => {
-    const res = await quizzesGET(
-      new Request(`${QUIZZES_URL}?locale=es&category=gaming&q=zelda`)
-    );
+    const res = await quizzesGET(new Request(`${QUIZZES_URL}?locale=es&category=gaming&q=zelda`));
 
     expect(res.status).toBe(200);
     expect(mocks.listPublishedQuizzes).toHaveBeenCalledWith({
