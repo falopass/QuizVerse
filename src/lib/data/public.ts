@@ -24,6 +24,7 @@ import type {
   QuizSessionResult,
 } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
   const supabase = await createClient();
@@ -36,28 +37,55 @@ async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
 
 async function fetchPublishedQuizzesFromDb(limit = 40, locale?: Locale): Promise<Quiz[]> {
   const supabase = await createClient();
-  let quizQuery = supabase.from('quizzes').select('*').eq('status', 'published');
+  const target = Math.min(Math.max(Math.trunc(limit), 0), QUIZ_MAX_ROWS);
 
-  if (locale) {
-    quizQuery = quizQuery.eq('language', locale);
-  }
+  const publishedQuery = () => {
+    let quizQuery = supabase.from('quizzes').select('*').eq('status', 'published');
+    if (locale) {
+      quizQuery = quizQuery.eq('language', locale);
+    }
+    return quizQuery;
+  };
 
-  const [{ data: quizzes, error: quizError }, { data: categories, error: categoryError }] =
-    await Promise.all([
-      quizQuery.order('plays_count', { ascending: false }).limit(limit),
-      supabase.from('categories').select('*').order('sort_order'),
-    ]);
-
-  if (quizError || !quizzes) {
-    throw quizError ?? new Error('Could not fetch quizzes');
-  }
+  const [quizRows, { data: categories, error: categoryError }] = await Promise.all([
+    (async (): Promise<QuizRow[]> => {
+      if (target <= QUIZ_PAGE_SIZE) {
+        if (target === 0) return [];
+        const { data, error } = await publishedQuery()
+          .order('plays_count', { ascending: false })
+          .order('id', { ascending: true })
+          .limit(target);
+        if (error || !data) {
+          throw error ?? new Error('Could not fetch quizzes');
+        }
+        return data as QuizRow[];
+      }
+      // plays_count puede cambiar entre páginas y mover una fila al otro lado
+      // del offset; por eso el scan ordena por id (inmutable) y reordena abajo.
+      const rows: QuizRow[] = [];
+      for (const { from, to } of pageRanges(QUIZ_PAGE_SIZE, QUIZ_MAX_ROWS)) {
+        const { data, error } = await publishedQuery()
+          .order('id', { ascending: true })
+          .range(from, to);
+        if (error || !data) {
+          throw error ?? new Error('Could not fetch quizzes');
+        }
+        rows.push(...(data as QuizRow[]));
+        if (isLastPage(data.length, to - from + 1)) {
+          break;
+        }
+      }
+      rows.sort((a, b) => b.plays_count - a.plays_count || (a.id < b.id ? -1 : 1));
+      return rows.slice(0, target);
+    })(),
+    supabase.from('categories').select('*').order('sort_order'),
+  ]);
 
   if (categoryError || !categories) {
     throw categoryError ?? new Error('Could not fetch categories');
   }
 
   const categoryRows = categories as CategoryRow[];
-  const quizRows = quizzes as QuizRow[];
   const categoryMap = new Map(categoryRows.map((item) => [item.id, normalizeCategory(item)]));
 
   return quizRows.map((quiz) => normalizeQuiz(quiz, categoryMap));
@@ -161,7 +189,7 @@ export async function getExplorePayload(
   const search = locale ? searchOrCategory : localeOrSearch;
   const categorySlug = locale ? maybeCategorySlug : searchOrCategory;
   const [quizzes, categories] = await Promise.all([
-    getPublishedQuizzes(500, locale),
+    getPublishedQuizzes(QUIZ_MAX_ROWS, locale),
     getPublicCategories(),
   ]);
   const normalizedSearch = search?.trim().toLowerCase() ?? '';
@@ -257,7 +285,7 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
     );
   }
   const populated = new Set(
-    (await getPublishedQuizzes(500, locale)).map((quiz) => quiz.category?.slug)
+    (await getPublishedQuizzes(QUIZ_MAX_ROWS, locale)).map((quiz) => quiz.category?.slug)
   );
   return {
     category: category ?? {
