@@ -122,7 +122,7 @@ function buildSql(quizzes) {
         `  ${escapeSqlLiteral(quiz.language)},`,
         `  (select id from public.categories where slug = ${escapeSqlLiteral(quiz.category)}),`,
         `  ${escapeSqlLiteral(JSON.stringify(quiz.questions))}::jsonb,`,
-        '  null,',
+        `  ${quiz.results ? `${escapeSqlLiteral(JSON.stringify(quiz.results))}::jsonb` : 'null'},`,
         `  ${tags},`,
         `  ${Number(quiz.estimated_minutes) || 3},`,
         "  'published',",
