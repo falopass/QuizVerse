@@ -148,6 +148,16 @@ describe('neutral-spanish overrides', () => {
     expect(stdout).toContain('commit;');
   });
 
+  it('cada UPDATE solo aplica si la fila viva sigue igual al seed (`is not distinct from`)', () => {
+    const { status, stdout } = runEmitter([]);
+    expect(status).toBe(0);
+    const statements = stdout.split('update public.quizzes').slice(1);
+    expect(statements).toHaveLength(Object.keys(overrides).length);
+    for (const statement of statements) {
+      expect(statement).toContain('is not distinct from');
+    }
+  });
+
   it('el emisor falla con exit 1 si un slug no existe en los seeds', () => {
     const dir = mkdtempSync(join(tmpdir(), 'neutral-spanish-'));
     const fixture = join(dir, 'overrides.json');
@@ -158,5 +168,18 @@ describe('neutral-spanish overrides', () => {
     const { status, stderr } = runEmitter(['--input', fixture]);
     expect(status).toBe(1);
     expect(stderr).toContain('es-slug-inexistente');
+  });
+
+  it('el emisor falla con exit 1 ante un slug duplicado en el JSON', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'neutral-spanish-'));
+    const fixture = join(dir, 'overrides.json');
+    writeFileSync(
+      fixture,
+      '{"es-trivia-fan-de-hacks":{"description":"Primera."},"es-trivia-fan-de-hacks":{"description":"Segunda."}}'
+    );
+    const { status, stderr } = runEmitter(['--input', fixture]);
+    expect(status).toBe(1);
+    expect(stderr).toContain('duplicate slugs');
+    expect(stderr).toContain('es-trivia-fan-de-hacks');
   });
 });
