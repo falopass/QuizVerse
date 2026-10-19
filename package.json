@@ -23,6 +23,7 @@
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "seed:categorize": "node scripts/seed/categorize-quizzes.mjs",
     "seed:editorial": "node scripts/seed/emit-editorial-seed.mjs",
+    "seed:editorial:2026b": "node scripts/seed/emit-editorial-seed.mjs --input scripts/seed/editorial-seed-2026b.json --out supabase/seed/editorial-seed-2026b.sql --write",
     "seed:audit": "node scripts/seed/audit-content.mjs"
   },
   "dependencies": {

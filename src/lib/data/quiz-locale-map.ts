@@ -1,4 +1,6 @@
-// Published seed pairs. Regenerate from generated/trending-seed.normalized.json when the seed changes.
+// Published seed pairs (trending seed + editorial batches).
+// Regenerate the trending entries from generated/trending-seed.normalized.json when that seed changes;
+// editorial pairs are added by hand alongside each editorial-seed batch.
 const EN_TO_ES: Record<string, string> = {
   'en-80s-movies-trivia': 'es-trivia-peliculas-de-los-80',
   'en-attack-on-titan-fan-trivia-challenge': 'es-trivia-fan-de-attack-on-titan',
@@ -12,6 +14,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-classic-cars-trivia': 'es-trivia-autos-clasicos',
   'en-classical-music-trivia': 'es-trivia-musica-clasica',
   'en-classroom-of-the-elite-fan-trivia-challenge': 'es-trivia-fan-de-classroom-of-the-elite',
+  'en-computing-history-trivia': 'es-trivia-historia-computacion',
   'en-demon-slayer-fan-trivia-challenge': 'es-trivia-fan-de-demon-slayer',
   'en-dinosaurs-trivia': 'es-trivia-dinosaurios',
   'en-dr-stone-fan-trivia-challenge': 'es-trivia-fan-de-dr-stone',
@@ -19,7 +22,9 @@ const EN_TO_ES: Record<string, string> = {
   'en-electric-cars-trivia': 'es-trivia-autos-electricos',
   'en-euphoria-fan-trivia-challenge': 'es-trivia-fan-de-euphoria',
   'en-famous-painters-trivia': 'es-trivia-pintores-famosos',
+  'en-food-origins-trivia': 'es-trivia-origenes-gastronomia',
   'en-frieren-fan-trivia-challenge': 'es-trivia-fan-de-frieren',
+  'en-getting-along-trivia': 'es-trivia-arte-de-convivir',
   'en-grand-theft-auto-vi-fan-trivia-challenge': 'es-trivia-fan-de-grand-theft-auto-vi',
   'en-great-explorers-trivia': 'es-trivia-grandes-exploradores',
   'en-hacks-fan-trivia-challenge': 'es-trivia-fan-de-hacks',
@@ -129,6 +134,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-project-hail-mary-fan-trivia-challenge': 'es-trivia-fan-de-project-hail-mary',
   'en-re-zero-fan-trivia-challenge': 'es-trivia-fan-de-re-zero',
   'en-resident-evil-fan-trivia-challenge': 'es-trivia-fan-de-resident-evil',
+  'en-science-basics-trivia': 'es-trivia-ciencia-basica',
   'en-sea-animals-trivia': 'es-trivia-animales-marinos',
   'en-selena-quintanilla-trivia': 'es-trivia-selena-quintanilla',
   'en-severance-fan-trivia-challenge': 'es-trivia-fan-de-severance',
@@ -288,6 +294,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-witch-hat-atelier-energy-matches-you-best':
     'es-que-energia-de-witch-hat-atelier-combina-mejor-contigo',
   'en-wicked-fan-trivia-challenge': 'es-trivia-fan-de-wicked',
+  'en-wildlife-records-trivia': 'es-trivia-records-animales',
   'en-witch-hat-atelier-fan-trivia-challenge': 'es-trivia-fan-de-witch-hat-atelier',
   'en-your-intelligence-type': 'es-cual-es-tu-tipo-de-inteligencia',
   'en-your-mental-age': 'es-cual-es-tu-edad-mental',
