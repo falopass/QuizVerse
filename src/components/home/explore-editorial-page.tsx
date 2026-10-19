@@ -331,7 +331,7 @@ export function ExploreEditorialPage({
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
                 <p className="text-text-secondary mt-4 text-base leading-7">{units.editorDeck}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {localizedCategories.slice(0, 4).map((category) => (
+                  {localizedCategories.map((category) => (
                     <Link
                       key={category!.id}
                       href={localizeHref(locale, `/category/${category!.slug}`)}
