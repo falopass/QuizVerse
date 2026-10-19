@@ -1,0 +1,1651 @@
+{
+  "$comment": "Editorial seed 2026ar (CONT-54): five es/en pairs on Korean culture for pop-culture — K-pop group trivia, K-drama classics trivia, Korean culture trivia (all with per-question explanations) plus two personality quizzes (role in a K-pop group, your life as a K-drama genre). Only stable, checkable facts: debut years, fandom names, historical terms — no tours, comebacks, awards or 2025-2026 events. Covers are procedural (no cover_image_url emitted). Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-k-pop-groups-trivia",
+      "title": "K-Pop Groups Trivia: BTS, BLACKPINK, TWICE and the Legends",
+      "description": "Eight questions on the groups that built K-pop: debut years, fandom names and the terms every fan knows, from EXO to Girls' Generation.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["k-pop", "trivia", "pop culture", "music", "korea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did BTS make their official debut?",
+          "options": [
+            { "id": "a", "text": "2007", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": false },
+            { "id": "c", "text": "2013", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "BTS debuted on 13 June 2013 under Big Hit Entertainment with the single album 2 Cool 4 Skool."
+        },
+        {
+          "id": "q2",
+          "question": "What is the official name of BLACKPINK's fandom?",
+          "options": [
+            { "id": "a", "text": "ONCE", "is_correct": false },
+            { "id": "b", "text": "BLINK", "is_correct": true },
+            { "id": "c", "text": "ARMY", "is_correct": false },
+            { "id": "d", "text": "MIDZY", "is_correct": false }
+          ],
+          "explanation": "BLINK combines the beginning and end of BLACKPINK; ONCE belongs to TWICE and ARMY to BTS."
+        },
+        {
+          "id": "q3",
+          "question": "TWICE was formed in 2015 through which JYP survival show?",
+          "options": [
+            { "id": "a", "text": "Sixteen", "is_correct": true },
+            { "id": "b", "text": "Produce 101", "is_correct": false },
+            { "id": "c", "text": "K-pop Star", "is_correct": false },
+            { "id": "d", "text": "I-Land", "is_correct": false }
+          ],
+          "explanation": "Sixteen aired in 2015 and chose the nine members of TWICE, who debuted that October with Like Ooh-Ahh."
+        },
+        {
+          "id": "q4",
+          "question": "Which company debuted EXO in 2012?",
+          "options": [
+            { "id": "a", "text": "YG Entertainment", "is_correct": false },
+            { "id": "b", "text": "JYP Entertainment", "is_correct": false },
+            { "id": "c", "text": "Big Hit Entertainment", "is_correct": false },
+            { "id": "d", "text": "SM Entertainment", "is_correct": true }
+          ],
+          "explanation": "SM launched EXO in April 2012 as two sub-units, EXO-K and EXO-M, promoting in Korean and Mandarin."
+        },
+        {
+          "id": "q5",
+          "question": "In which year did Girls' Generation debut?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": true },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2011", "is_correct": false }
+          ],
+          "explanation": "Girls' Generation (SNSD) debuted on 5 August 2007 under SM Entertainment and became the defining girl group of their era."
+        },
+        {
+          "id": "q6",
+          "question": "In K-pop slang, what does 'maknae' mean?",
+          "options": [
+            { "id": "a", "text": "The group leader", "is_correct": false },
+            { "id": "b", "text": "The main dancer", "is_correct": false },
+            { "id": "c", "text": "The youngest member", "is_correct": true },
+            { "id": "d", "text": "The oldest member", "is_correct": false }
+          ],
+          "explanation": "Maknae (막내) is the youngest member of a group, often known for playful charm — a fixed role in K-pop."
+        },
+        {
+          "id": "q7",
+          "question": "Which 2012 hit became the first YouTube video ever to reach one billion views?",
+          "options": [
+            { "id": "a", "text": "Fantastic Baby — BIGBANG", "is_correct": false },
+            { "id": "b", "text": "Gee — Girls' Generation", "is_correct": false },
+            { "id": "c", "text": "Sorry, Sorry — Super Junior", "is_correct": false },
+            { "id": "d", "text": "Gangnam Style — Psy", "is_correct": true }
+          ],
+          "explanation": "Gangnam Style passed one billion views in December 2012, a milestone YouTube had never seen before."
+        },
+        {
+          "id": "q8",
+          "question": "What is the official name of BTS's fandom?",
+          "options": [
+            { "id": "a", "text": "EXO-L", "is_correct": false },
+            { "id": "b", "text": "SONE", "is_correct": false },
+            { "id": "c", "text": "ARMY", "is_correct": true },
+            { "id": "d", "text": "VIP", "is_correct": false }
+          ],
+          "explanation": "ARMY stands for Adorable Representative M.C. for Youth; EXO-L is EXO's fandom and VIP is BIGBANG's."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-grupos-de-k-pop",
+      "title": "Trivia de grupos de K-pop: BTS, BLACKPINK, TWICE y las leyendas",
+      "description": "Ocho preguntas sobre los grupos que construyeron el K-pop: años de debut, nombres de fandom y los términos que todo fan conoce.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["k-pop", "trivia", "cultura pop", "música", "corea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año debutó oficialmente BTS?",
+          "options": [
+            { "id": "a", "text": "2007", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": false },
+            { "id": "c", "text": "2013", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "BTS debutó el 13 de junio de 2013 bajo Big Hit Entertainment con el sencillo 2 Cool 4 Skool."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama oficialmente el fandom de BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "ONCE", "is_correct": false },
+            { "id": "b", "text": "BLINK", "is_correct": true },
+            { "id": "c", "text": "ARMY", "is_correct": false },
+            { "id": "d", "text": "MIDZY", "is_correct": false }
+          ],
+          "explanation": "BLINK une el inicio y el final de BLACKPINK; ONCE es el fandom de TWICE y ARMY el de BTS."
+        },
+        {
+          "id": "q3",
+          "question": "TWICE se formó en 2015 gracias a qué programa de supervivencia de JYP?",
+          "options": [
+            { "id": "a", "text": "Sixteen", "is_correct": true },
+            { "id": "b", "text": "Produce 101", "is_correct": false },
+            { "id": "c", "text": "K-pop Star", "is_correct": false },
+            { "id": "d", "text": "I-Land", "is_correct": false }
+          ],
+          "explanation": "Sixteen se emitió en 2015 y eligió a las nueve integrantes de TWICE, que debutaron ese octubre con Like Ooh-Ahh."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué compañía lanzó a EXO en 2012?",
+          "options": [
+            { "id": "a", "text": "YG Entertainment", "is_correct": false },
+            { "id": "b", "text": "JYP Entertainment", "is_correct": false },
+            { "id": "c", "text": "Big Hit Entertainment", "is_correct": false },
+            { "id": "d", "text": "SM Entertainment", "is_correct": true }
+          ],
+          "explanation": "SM estrenó a EXO en abril de 2012 con dos subunidades, EXO-K y EXO-M, para Corea y el mercado en mandarín."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué año debutó Girls' Generation?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": true },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2011", "is_correct": false }
+          ],
+          "explanation": "Girls' Generation (SNSD) debutó el 5 de agosto de 2007 bajo SM Entertainment y marcó a toda una generación."
+        },
+        {
+          "id": "q6",
+          "question": "En la jerga del K-pop, ¿qué significa 'maknae'?",
+          "options": [
+            { "id": "a", "text": "El líder del grupo", "is_correct": false },
+            { "id": "b", "text": "El bailarín principal", "is_correct": false },
+            { "id": "c", "text": "El miembro más joven", "is_correct": true },
+            { "id": "d", "text": "El miembro más veterano", "is_correct": false }
+          ],
+          "explanation": "Maknae (막내) es el integrante menor del grupo, un rol fijo en el K-pop que suele darle encanto al conjunto."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué éxito de 2012 fue el primer video de YouTube en llegar a mil millones de vistas?",
+          "options": [
+            { "id": "a", "text": "Fantastic Baby — BIGBANG", "is_correct": false },
+            { "id": "b", "text": "Gee — Girls' Generation", "is_correct": false },
+            { "id": "c", "text": "Sorry, Sorry — Super Junior", "is_correct": false },
+            { "id": "d", "text": "Gangnam Style — Psy", "is_correct": true }
+          ],
+          "explanation": "Gangnam Style superó los mil millones de vistas en diciembre de 2012, un hito inédito en YouTube."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama oficialmente el fandom de BTS?",
+          "options": [
+            { "id": "a", "text": "EXO-L", "is_correct": false },
+            { "id": "b", "text": "SONE", "is_correct": false },
+            { "id": "c", "text": "ARMY", "is_correct": true },
+            { "id": "d", "text": "VIP", "is_correct": false }
+          ],
+          "explanation": "ARMY significa Adorable Representative M.C. for Youth; EXO-L es el fandom de EXO y VIP el de BIGBANG."
+        }
+      ]
+    },
+    {
+      "slug": "en-k-drama-classics-trivia",
+      "title": "K-Drama Classics Trivia: From Winter Sonata to Goblin",
+      "description": "Eight questions on the K-dramas that defined a genre: the classics, the terms and the stories behind the Korean Wave on screen.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["k-drama", "trivia", "pop culture", "tv", "korea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which 2002 drama starring Bae Yong-joon and Choi Ji-woo is credited with igniting the Korean Wave in Japan?",
+          "options": [
+            { "id": "a", "text": "Full House", "is_correct": false },
+            { "id": "b", "text": "Winter Sonata", "is_correct": true },
+            { "id": "c", "text": "Coffee Prince", "is_correct": false },
+            { "id": "d", "text": "Boys Over Flowers", "is_correct": false }
+          ],
+          "explanation": "Winter Sonata became such a phenomenon in Japan that Bae Yong-joon is still known there as 'Yonsama'."
+        },
+        {
+          "id": "q2",
+          "question": "In 'Jewel in the Palace' (Dae Jang Geum, 2003), the heroine rises to become what in the Joseon royal court?",
+          "options": [
+            { "id": "a", "text": "The queen", "is_correct": false },
+            { "id": "b", "text": "Head of the royal guard", "is_correct": false },
+            { "id": "c", "text": "The king's first female royal physician", "is_correct": true },
+            { "id": "d", "text": "A court painter", "is_correct": false }
+          ],
+          "explanation": "Jang-geum starts in the royal kitchen and ends as the first woman to serve as physician to a Joseon king."
+        },
+        {
+          "id": "q3",
+          "question": "What does the term 'Hallyu' refer to?",
+          "options": [
+            { "id": "a", "text": "A Korean honorific for elders", "is_correct": false },
+            { "id": "b", "text": "The global spread of Korean pop culture", "is_correct": true },
+            { "id": "c", "text": "A traditional Korean drum", "is_correct": false },
+            { "id": "d", "text": "The Korean broadcasting awards", "is_correct": false }
+          ],
+          "explanation": "Hallyu (한류) means 'Korean Wave': the international boom of Korean dramas, music and film since the late 1990s."
+        },
+        {
+          "id": "q4",
+          "question": "'My Love from the Star' follows Do Min-joon, an alien who landed on Earth during which era?",
+          "options": [
+            { "id": "a", "text": "The Silla kingdom", "is_correct": false },
+            { "id": "b", "text": "The Goryeo dynasty", "is_correct": false },
+            { "id": "c", "text": "The Joseon dynasty", "is_correct": true },
+            { "id": "d", "text": "The Japanese occupation", "is_correct": false }
+          ],
+          "explanation": "Do Min-joon arrived in 1609, during the Joseon era, and has lived on Earth for 400 years waiting to return home."
+        },
+        {
+          "id": "q5",
+          "question": "'Boys Over Flowers' (2009) is adapted from what?",
+          "options": [
+            { "id": "a", "text": "A Korean webtoon", "is_correct": false },
+            { "id": "b", "text": "A bestselling novel", "is_correct": false },
+            { "id": "c", "text": "An original screenplay", "is_correct": false },
+            { "id": "d", "text": "A Japanese manga", "is_correct": true }
+          ],
+          "explanation": "The drama adapts Yoko Kamio's manga Hana Yori Dango, already filmed in Taiwan as Meteor Garden."
+        },
+        {
+          "id": "q6",
+          "question": "In Korean TV, what is a 'sageuk'?",
+          "options": [
+            { "id": "a", "text": "A romantic comedy", "is_correct": false },
+            { "id": "b", "text": "A historical period drama", "is_correct": true },
+            { "id": "c", "text": "A crime thriller", "is_correct": false },
+            { "id": "d", "text": "A variety show", "is_correct": false }
+          ],
+          "explanation": "Sageuk (사극) covers dramas set in historical periods, from palace intrigue to folk tales of old Korea."
+        },
+        {
+          "id": "q7",
+          "question": "In 'Goblin' (2016), the immortal goblin can only die when who pulls the sword from his chest?",
+          "options": [
+            { "id": "a", "text": "His bride", "is_correct": true },
+            { "id": "b", "text": "A grim reaper", "is_correct": false },
+            { "id": "c", "text": "His first love", "is_correct": false },
+            { "id": "d", "text": "The king who betrayed him", "is_correct": false }
+          ],
+          "explanation": "The dokkaebi Kim Shin was cursed with immortality; only the prophesied goblin's bride can remove the sword."
+        },
+        {
+          "id": "q8",
+          "question": "'Descendants of the Sun' (2016) tells the romance between a special forces captain and a what?",
+          "options": [
+            { "id": "a", "text": "A war correspondent", "is_correct": false },
+            { "id": "b", "text": "A detective", "is_correct": false },
+            { "id": "c", "text": "A chef", "is_correct": false },
+            { "id": "d", "text": "A doctor", "is_correct": true }
+          ],
+          "explanation": "A soldier and a surgeon fall in love while deployed in the fictional country of Uruk."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-k-dramas-clasicos",
+      "title": "Trivia de K-dramas clásicos: de Winter Sonata a Goblin",
+      "description": "Ocho preguntas sobre los K-dramas que definieron un género: los clásicos, los términos y las historias tras la ola coreana.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["k-drama", "trivia", "cultura pop", "televisión", "corea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué drama de 2002 con Bae Yong-joon y Choi Ji-woo encendió la ola coreana en Japón?",
+          "options": [
+            { "id": "a", "text": "Full House", "is_correct": false },
+            { "id": "b", "text": "Winter Sonata", "is_correct": true },
+            { "id": "c", "text": "Coffee Prince", "is_correct": false },
+            { "id": "d", "text": "Boys Over Flowers", "is_correct": false }
+          ],
+          "explanation": "Winter Sonata fue tal fenómeno en Japón que a Bae Yong-joon aún lo conocen allí como 'Yonsama'."
+        },
+        {
+          "id": "q2",
+          "question": "En 'Una joya en el palacio' (Dae Jang Geum, 2003), la heroína llega a ser qué en la corte de Joseon?",
+          "options": [
+            { "id": "a", "text": "La reina", "is_correct": false },
+            { "id": "b", "text": "La jefa de la guardia real", "is_correct": false },
+            { "id": "c", "text": "La primera médica real del rey", "is_correct": true },
+            { "id": "d", "text": "Una pintora de la corte", "is_correct": false }
+          ],
+          "explanation": "Jang-geum empieza en la cocina real y termina como la primera mujer médico de un rey de Joseon."
+        },
+        {
+          "id": "q3",
+          "question": "¿A qué se refiere el término 'Hallyu'?",
+          "options": [
+            { "id": "a", "text": "Un tratamiento coreano para los mayores", "is_correct": false },
+            {
+              "id": "b",
+              "text": "La expansión global de la cultura pop coreana",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un tambor tradicional coreano", "is_correct": false },
+            { "id": "d", "text": "Los premios de la televisión coreana", "is_correct": false }
+          ],
+          "explanation": "Hallyu (한류) significa 'ola coreana': el auge internacional de dramas, música y cine de Corea desde finales de los 90."
+        },
+        {
+          "id": "q4",
+          "question": "'Mi amor de las estrellas' sigue a Do Min-joon, un alienígena que llegó a la Tierra durante qué época?",
+          "options": [
+            { "id": "a", "text": "El reino de Silla", "is_correct": false },
+            { "id": "b", "text": "La dinastía Goryeo", "is_correct": false },
+            { "id": "c", "text": "La dinastía Joseon", "is_correct": true },
+            { "id": "d", "text": "La ocupación japonesa", "is_correct": false }
+          ],
+          "explanation": "Do Min-joon llegó en 1609, en plena era Joseon, y lleva 400 años en la Tierra esperando volver a casa."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué se basa 'Boys Over Flowers' (2009)?",
+          "options": [
+            { "id": "a", "text": "Un webtoon coreano", "is_correct": false },
+            { "id": "b", "text": "Una novela superventas", "is_correct": false },
+            { "id": "c", "text": "Un guion original", "is_correct": false },
+            { "id": "d", "text": "Un manga japonés", "is_correct": true }
+          ],
+          "explanation": "El drama adapta el manga Hana Yori Dango de Yoko Kamio, ya llevado a la tele en Taiwán como Meteor Garden."
+        },
+        {
+          "id": "q6",
+          "question": "En la televisión coreana, ¿qué es un 'sageuk'?",
+          "options": [
+            { "id": "a", "text": "Una comedia romántica", "is_correct": false },
+            { "id": "b", "text": "Un drama histórico de época", "is_correct": true },
+            { "id": "c", "text": "Un thriller policial", "is_correct": false },
+            { "id": "d", "text": "Un programa de variedades", "is_correct": false }
+          ],
+          "explanation": "Sageuk (사극) abarca los dramas ambientados en épocas históricas, de intrigas de palacio a relatos populares."
+        },
+        {
+          "id": "q7",
+          "question": "En 'Goblin' (2016), el duende inmortal solo puede morir cuando quién saque la espada de su pecho?",
+          "options": [
+            { "id": "a", "text": "Su novia destinada", "is_correct": true },
+            { "id": "b", "text": "Un segador", "is_correct": false },
+            { "id": "c", "text": "Su primer amor", "is_correct": false },
+            { "id": "d", "text": "El rey que lo traicionó", "is_correct": false }
+          ],
+          "explanation": "El dokkaebi Kim Shin fue condenado a la inmortalidad; solo la novia del duende puede retirar la espada."
+        },
+        {
+          "id": "q8",
+          "question": "'Descendientes del sol' (2016) cuenta el romance entre un capitán de fuerzas especiales y quién?",
+          "options": [
+            { "id": "a", "text": "Una corresponsal de guerra", "is_correct": false },
+            { "id": "b", "text": "Una detective", "is_correct": false },
+            { "id": "c", "text": "Una chef", "is_correct": false },
+            { "id": "d", "text": "Una médica", "is_correct": true }
+          ],
+          "explanation": "Un soldado y una cirujana se enamoran durante su misión en el país ficticio de Uruk."
+        }
+      ]
+    },
+    {
+      "slug": "en-korean-culture-trivia",
+      "title": "Korean Culture Trivia: Hangul, Hanbok, Kimchi and Festivals",
+      "description": "Eight questions on everyday Korean culture: the alphabet invented by a king, the food that ferments and the festivals that fill the year.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["korean culture", "trivia", "hangul", "kimchi", "korea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Hangul, the Korean alphabet, was created in 1443 under which ruler?",
+          "options": [
+            { "id": "a", "text": "King Taejo", "is_correct": false },
+            { "id": "b", "text": "King Sejong the Great", "is_correct": true },
+            { "id": "c", "text": "King Jeongjo", "is_correct": false },
+            { "id": "d", "text": "Emperor Gojong", "is_correct": false }
+          ],
+          "explanation": "Sejong commissioned Hangul and promulgated it in 1446 as Hunminjeongeum, 'the correct sounds for instructing the people'."
+        },
+        {
+          "id": "q2",
+          "question": "What is the 'hanbok'?",
+          "options": [
+            { "id": "a", "text": "A ceremonial drum", "is_correct": false },
+            { "id": "b", "text": "A traditional rice wine", "is_correct": false },
+            { "id": "c", "text": "Korea's traditional garment", "is_correct": true },
+            { "id": "d", "text": "A type of temple roof", "is_correct": false }
+          ],
+          "explanation": "The hanbok is the traditional Korean dress, with its jeogori jacket and chima skirt or baji trousers."
+        },
+        {
+          "id": "q3",
+          "question": "The most common kimchi is made by fermenting which vegetable with chili and salt?",
+          "options": [
+            { "id": "a", "text": "Napa cabbage", "is_correct": true },
+            { "id": "b", "text": "Spinach", "is_correct": false },
+            { "id": "c", "text": "Soybean sprouts", "is_correct": false },
+            { "id": "d", "text": "Seaweed", "is_correct": false }
+          ],
+          "explanation": "Baechu kimchi uses napa cabbage; radish (kkakdugi) and cucumber versions exist, but cabbage is the icon."
+        },
+        {
+          "id": "q4",
+          "question": "Chuseok, one of Korea's biggest holidays, celebrates what?",
+          "options": [
+            { "id": "a", "text": "The first full moon of the year", "is_correct": false },
+            { "id": "b", "text": "Buddha's birthday", "is_correct": false },
+            { "id": "c", "text": "The autumn harvest", "is_correct": true },
+            { "id": "d", "text": "The winter solstice", "is_correct": false }
+          ],
+          "explanation": "Chuseok falls on the 15th day of the 8th lunar month: families gather, honor ancestors and share songpyeon rice cakes."
+        },
+        {
+          "id": "q5",
+          "question": "What do Koreans traditionally eat on Seollal, the Lunar New Year, to mark gaining a year?",
+          "options": [
+            { "id": "a", "text": "Kimchi jjigae", "is_correct": false },
+            { "id": "b", "text": "Tteokguk", "is_correct": true },
+            { "id": "c", "text": "Samgyetang", "is_correct": false },
+            { "id": "d", "text": "Bibimbap", "is_correct": false }
+          ],
+          "explanation": "Tteokguk is a clear broth with sliced rice cakes; a bowl on New Year's Day symbolizes turning a year older."
+        },
+        {
+          "id": "q6",
+          "question": "What is 'kimjang', the tradition UNESCO added to its heritage list in 2013?",
+          "options": [
+            { "id": "a", "text": "A royal banquet for the harvest", "is_correct": false },
+            { "id": "b", "text": "A village wrestling festival", "is_correct": false },
+            { "id": "c", "text": "A market for winter spices", "is_correct": false },
+            { "id": "d", "text": "The communal making of kimchi for winter", "is_correct": true }
+          ],
+          "explanation": "Every autumn, families and neighbors prepare huge batches of kimchi together to last through winter."
+        },
+        {
+          "id": "q7",
+          "question": "Which Korean martial art became a full Olympic medal sport at Sydney 2000?",
+          "options": [
+            { "id": "a", "text": "Taekwondo", "is_correct": true },
+            { "id": "b", "text": "Judo", "is_correct": false },
+            { "id": "c", "text": "Karate", "is_correct": false },
+            { "id": "d", "text": "Ssireum", "is_correct": false }
+          ],
+          "explanation": "Taekwondo debuted as an official medal sport in Sydney 2000; ssireum is Korea's traditional wrestling, not Olympic."
+        },
+        {
+          "id": "q8",
+          "question": "What is a 'noraebang'?",
+          "options": [
+            { "id": "a", "text": "A public bathhouse", "is_correct": false },
+            { "id": "b", "text": "A private karaoke singing room", "is_correct": true },
+            { "id": "c", "text": "A PC gaming room", "is_correct": false },
+            { "id": "d", "text": "A traditional tea house", "is_correct": false }
+          ],
+          "explanation": "Noraebang literally means 'song room': private karaoke rooms found on nearly every Korean street corner."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cultura-coreana",
+      "title": "Trivia de cultura coreana: hangul, hanbok, kimchi y fiestas",
+      "description": "Ocho preguntas sobre la cultura coreana de cada día: el alfabeto inventado por un rey, la comida fermentada y sus grandes fiestas.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["cultura coreana", "trivia", "hangul", "kimchi", "corea"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El hangul, el alfabeto coreano, fue creado en 1443 bajo qué monarca?",
+          "options": [
+            { "id": "a", "text": "El rey Taejo", "is_correct": false },
+            { "id": "b", "text": "El rey Sejong el Grande", "is_correct": true },
+            { "id": "c", "text": "El rey Jeongjo", "is_correct": false },
+            { "id": "d", "text": "El emperador Gojong", "is_correct": false }
+          ],
+          "explanation": "Sejong encargó el hangul y lo promulgó en 1446 como Hunminjeongeum, 'los sonidos correctos para instruir al pueblo'."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es el 'hanbok'?",
+          "options": [
+            { "id": "a", "text": "Un tambor ceremonial", "is_correct": false },
+            { "id": "b", "text": "Un vino tradicional de arroz", "is_correct": false },
+            { "id": "c", "text": "El traje tradicional de Corea", "is_correct": true },
+            { "id": "d", "text": "Un tipo de tejado de templo", "is_correct": false }
+          ],
+          "explanation": "El hanbok es el traje tradicional coreano, con su chaqueta jeogori y la falda chima o el pantalón baji."
+        },
+        {
+          "id": "q3",
+          "question": "El kimchi más común se prepara fermentando qué verdura con chile y sal?",
+          "options": [
+            { "id": "a", "text": "Col china", "is_correct": true },
+            { "id": "b", "text": "Espinaca", "is_correct": false },
+            { "id": "c", "text": "Brotes de soja", "is_correct": false },
+            { "id": "d", "text": "Algas", "is_correct": false }
+          ],
+          "explanation": "El baechu kimchi usa col china; existen versiones con rábano (kkakdugi) o pepino, pero la col es el ícono."
+        },
+        {
+          "id": "q4",
+          "question": "Chuseok, una de las fiestas mayores de Corea, celebra qué?",
+          "options": [
+            { "id": "a", "text": "La primera luna llena del año", "is_correct": false },
+            { "id": "b", "text": "El nacimiento de Buda", "is_correct": false },
+            { "id": "c", "text": "La cosecha de otoño", "is_correct": true },
+            { "id": "d", "text": "El solsticio de invierno", "is_correct": false }
+          ],
+          "explanation": "Chuseok cae el día 15 del octavo mes lunar: las familias se reúnen, honran a sus ancestros y comparten songpyeon."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué se come tradicionalmente en Seollal, el Año Nuevo lunar, para marcar un año más?",
+          "options": [
+            { "id": "a", "text": "Kimchi jjigae", "is_correct": false },
+            { "id": "b", "text": "Tteokguk", "is_correct": true },
+            { "id": "c", "text": "Samgyetang", "is_correct": false },
+            { "id": "d", "text": "Bibimbap", "is_correct": false }
+          ],
+          "explanation": "El tteokguk es un caldo claro con rebanadas de pastel de arroz; un plato en Año Nuevo simboliza cumplir un año más."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué es el 'kimjang', la tradición que la UNESCO declaró patrimonio en 2013?",
+          "options": [
+            { "id": "a", "text": "Un banquete real por la cosecha", "is_correct": false },
+            { "id": "b", "text": "Un festival de lucha entre aldeas", "is_correct": false },
+            { "id": "c", "text": "Un mercado de especias de invierno", "is_correct": false },
+            {
+              "id": "d",
+              "text": "La elaboración comunitaria de kimchi para el invierno",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Cada otoño, familias y vecinos preparan juntos enormes tandas de kimchi para pasar el invierno."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué arte marcial coreano debutó como deporte oficial de medallas en Sídney 2000?",
+          "options": [
+            { "id": "a", "text": "Taekwondo", "is_correct": true },
+            { "id": "b", "text": "Judo", "is_correct": false },
+            { "id": "c", "text": "Karate", "is_correct": false },
+            { "id": "d", "text": "Ssireum", "is_correct": false }
+          ],
+          "explanation": "El taekwondo se estrenó como deporte oficial en Sídney 2000; el ssireum es la lucha tradicional coreana, no olímpica."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es un 'noraebang'?",
+          "options": [
+            { "id": "a", "text": "Un baño público", "is_correct": false },
+            { "id": "b", "text": "Una sala privada de karaoke", "is_correct": true },
+            { "id": "c", "text": "Una sala de videojuegos", "is_correct": false },
+            { "id": "d", "text": "Una casa de té tradicional", "is_correct": false }
+          ],
+          "explanation": "Noraebang significa literalmente 'cuarto de canciones': salas privadas de karaoke en casi cada esquina de Corea."
+        }
+      ]
+    },
+    {
+      "slug": "en-what-k-pop-role-fits-you",
+      "title": "Which K-Pop Role Would You Have in a Group?",
+      "description": "Leader, main vocal, main dancer or maknae? Eight questions reveal the role you'd actually play if you debuted in a K-pop group.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["personality quiz", "k-pop", "pop culture", "korea"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Leader",
+          "description": "You hold the center: calm under pressure, first to take responsibility, last to take credit. The group works because you keep it working.",
+          "personality_tag": "leader",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "The Main Vocal",
+          "description": "You feel everything and it shows in your voice. Yours is the high note that turns a performance into a memory.",
+          "personality_tag": "vocal",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "The Main Dancer",
+          "description": "Discipline disguised as instinct. You live in the practice room, and on stage your body says what words can't.",
+          "personality_tag": "dancer",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "The Maknae",
+          "description": "The youngest energy the whole group protects and secretly envies. You bring the laughter, the chaos and the heart.",
+          "personality_tag": "maknae",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Rehearsal runs late and the routine still isn't clean. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Stay until everyone nails it, keeping spirits up.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "Drill your own part alone until it's perfect.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "c",
+              "text": "Record yourself singing the tricky part until it sounds right.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "d",
+              "text": "Crack a joke and order food for the team.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Your friends come to you when they need:",
+          "options": [
+            { "id": "a", "text": "Someone to make the hard call.", "personality_tags": ["leader"] },
+            {
+              "id": "b",
+              "text": "Someone who listens and really feels it with them.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "A push to get up and actually do the thing.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "A distraction and a reason to laugh.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "In the group photo you're:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Slightly behind, checking everyone fits in frame.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "The one whose expression makes the shot.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Mid-pose, body line exactly right.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "Doing something silly at the edge.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Pick a stage moment:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The quiet second before the song starts.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "The high note that gives the crowd chills.",
+              "personality_tags": ["vocal"]
+            },
+            { "id": "c", "text": "The dance break.", "personality_tags": ["dancer"] },
+            {
+              "id": "d",
+              "text": "The fan-service bit that melts the front row.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your practice playlist is mostly:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Whatever the group needs to run next.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "Ballads and vocal warm-ups.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Anything with a beat you can choreograph to.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "The latest viral tracks everyone is covering.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "A mic fails mid-song at your first live show. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cover the gap and calm everyone down after.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "Sing louder so nobody notices.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Fold it into the choreography.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "Make the audience laugh until it's fixed.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your trainee journal would be full of:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Schedules, checklists and notes to self.",
+              "personality_tags": ["leader"]
+            },
+            { "id": "b", "text": "Lyrics and melodies.", "personality_tags": ["vocal"] },
+            {
+              "id": "c",
+              "text": "Practice videos to review frame by frame.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "Doodles, inside jokes and snack reviews.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "The fans would love you most for:",
+          "options": [
+            {
+              "id": "a",
+              "text": "How you hold the group together.",
+              "personality_tags": ["leader"]
+            },
+            {
+              "id": "b",
+              "text": "The voice they recognize in one note.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "The fancams that go viral.",
+              "personality_tags": ["dancer"]
+            },
+            {
+              "id": "d",
+              "text": "The chaos you bring to variety shows.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-rol-tendrias-en-un-grupo-de-k-pop",
+      "title": "¿Qué rol tendrías en un grupo de K-pop?",
+      "description": "¿Líder, vocalista principal, bailarín estrella o maknae? Ocho preguntas revelan el rol que tendrías si debutaras en un grupo de K-pop.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["test de personalidad", "k-pop", "cultura pop", "corea"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El líder",
+          "description": "Eres el centro que sostiene todo: sereno bajo presión, el primero en asumir responsabilidad y el último en pedir crédito. El grupo funciona porque tú lo haces funcionar.",
+          "personality_tag": "lider",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "El vocalista principal",
+          "description": "Lo sientes todo y se nota en tu voz. Tuya es la nota alta que convierte una presentación en un recuerdo.",
+          "personality_tag": "vocal",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "El bailarín principal",
+          "description": "Disciplina disfrazada de instinto. Vives en la sala de ensayo y en el escenario tu cuerpo dice lo que las palabras no pueden.",
+          "personality_tag": "bailarin",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "El maknae",
+          "description": "La energía del menor que todo el grupo protege y en secreto envidia. Tú traes la risa, el caos y el corazón.",
+          "personality_tag": "maknae",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El ensayo se alarga y la coreografía aún no sale. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Te quedas hasta que a todos les salga, con el ánimo arriba.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "Repites tu parte a solas hasta que quede perfecta.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "c",
+              "text": "Te grabas cantando la parte difícil hasta que suene bien.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "d",
+              "text": "Sueltas un chiste y pides comida para el equipo.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tus amigos te buscan cuando necesitan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A alguien que tome la decisión difícil.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "A alguien que escuche y sienta de verdad con ellos.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Un empujón para levantarse y hacerlo de una vez.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "Una distracción y un motivo para reír.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "En la foto grupal eres quien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Se pone un poco atrás, verificando que todos salgan.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "Pone la expresión que salva la foto.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Pone la pose con la línea del cuerpo exacta.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "Hace algo gracioso en una esquina.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Elige un momento del escenario:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El segundo de silencio antes de que empiece la canción.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "La nota alta que pone la piel de gallina.",
+              "personality_tags": ["vocal"]
+            },
+            { "id": "c", "text": "El dance break.", "personality_tags": ["bailarin"] },
+            {
+              "id": "d",
+              "text": "El guiño al público que derrite la primera fila.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu playlist de ensayo tiene sobre todo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo que el grupo necesite ensayar después.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "Baladas y calentamientos vocales.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Cualquier cosa con ritmo para coreografiar.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "Los últimos temas virales que todos versionan.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Un micrófono falla a mitad de canción en tu primer concierto. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cubres el hueco y calmas a todos después.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "Cantas más fuerte para que nadie lo note.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Lo conviertes en parte de la coreografía.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "Haces reír al público mientras lo arreglan.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Tu diario de aprendiz estaría lleno de:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Horarios, listas y notas para ti mismo.",
+              "personality_tags": ["lider"]
+            },
+            { "id": "b", "text": "Letras y melodías.", "personality_tags": ["vocal"] },
+            {
+              "id": "c",
+              "text": "Videos de práctica para revisar fotograma a fotograma.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "Garabatos, chistes internos y reseñas de snacks.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Los fans te querrían sobre todo por:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La forma en que mantienes unido al grupo.",
+              "personality_tags": ["lider"]
+            },
+            {
+              "id": "b",
+              "text": "La voz que reconocen en una sola nota.",
+              "personality_tags": ["vocal"]
+            },
+            {
+              "id": "c",
+              "text": "Los fancams que se vuelven virales.",
+              "personality_tags": ["bailarin"]
+            },
+            {
+              "id": "d",
+              "text": "El caos que traes a los programas de variedades.",
+              "personality_tags": ["maknae"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-k-drama-genre-is-your-life",
+      "title": "Which K-Drama Genre Is Your Life?",
+      "description": "Is your life a slow-burn romance, a palace intrigue, a revenge thriller or a healing slice of life? Eight questions, one genre.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["personality quiz", "k-drama", "pop culture", "korea"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Slow-Burn Romance",
+          "description": "Your life runs on meaningful looks and almost-confessions. Every rainy day is a scene waiting for an umbrella.",
+          "personality_tag": "romance",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Sageuk Intrigue",
+          "description": "Palace politics, old debts and quiet honor: you play the long game and never reveal your hand early.",
+          "personality_tag": "sageuk",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Revenge Thriller",
+          "description": "Every week of your life ends on a cliffhanger. You keep receipts, connect dots and always know more than you say.",
+          "personality_tag": "thriller",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Healing Slice of Life",
+          "description": "Warm kitchens, found family and small towns where everyone knows your name. Your plot armor is kindness.",
+          "personality_tag": "healing",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your group chat is mostly full of:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Detailed analysis of who texted back and when.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Long-term plans and carefully built alliances.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Wild theories about what's really going on.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Memes, food photos and dinner plans.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Choose a setting for your Friday night:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A rooftop dinner at golden hour.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "A museum exhibit about an old dynasty.",
+              "personality_tags": ["sageuk"]
+            },
+            { "id": "c", "text": "An escape room.", "personality_tags": ["thriller"] },
+            {
+              "id": "d",
+              "text": "A slow dinner at a friend's countryside place.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "When someone wrongs you:",
+          "options": [
+            {
+              "id": "a",
+              "text": "You replay every interaction for days.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "You wait for the right moment, patient as a strategist.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "You file it away — everything comes back around.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "You shrug it off over a good meal.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your ideal plot twist:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The leads finally confess in the rain.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "The humble advisor turns out to have royal blood.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "The villain was the narrator all along.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "No twist — everyone ends up happy at the table.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your life's recurring soundtrack would be:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A ballad that swells at exactly the right moment.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Strings and traditional instruments.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "A tense pulse that never lets up.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Warm acoustic guitar.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "In your family you're the one who:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cries at weddings and remembers every anniversary.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Knows the whole family history by heart.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Finds everything out first.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Keeps everyone fed.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your dream plot device:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A fated first meeting that repeats years later.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "A hidden identity that changes everything.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "An episode-16 cliffhanger solved in the finale.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Neighbors slowly becoming family.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Pick a K-drama archetype to live as:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The lead with two perfect suitors.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "The royal heir in disguise.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "The wronged hero planning the comeback.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "The big-city doctor who moves to a small village.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-genero-de-k-drama-es-tu-vida",
+      "title": "¿Qué género de K-drama es tu vida?",
+      "description": "¿Es tu vida un romance lento, una intriga de palacio, un thriller de venganza o una historia sanadora? Ocho preguntas, un género.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["test de personalidad", "k-drama", "cultura pop", "corea"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Romance de cocción lenta",
+          "description": "Tu vida funciona a base de miradas que significan algo y confesiones que casi salen. Cada día de lluvia es una escena esperando un paraguas.",
+          "personality_tag": "romance",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Intriga de palacio",
+          "description": "Política de corte, deudas antiguas y honor silencioso: juegas a largo plazo y nunca muestras tu mano antes de tiempo.",
+          "personality_tag": "sageuk",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Thriller de venganza",
+          "description": "Cada semana de tu vida termina en un suspenso. Guardas los recibos, unes los puntos y siempre sabes más de lo que dices.",
+          "personality_tag": "thriller",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Historia sanadora",
+          "description": "Cocinas cálidas, familia encontrada y pueblos pequeños donde todos saben tu nombre. Tu escudo es la amabilidad.",
+          "personality_tag": "healing",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu chat de grupo está lleno sobre todo de:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Análisis detallados de quién contestó y cuándo.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Planes a largo plazo y alianzas bien construidas.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Teorías descabelladas sobre lo que pasa de verdad.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Memes, fotos de comida y planes de cena.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Elige un plan para tu viernes por la noche:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una cena en una azotea a la hora dorada.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Una exposición de museo sobre una dinastía antigua.",
+              "personality_tags": ["sageuk"]
+            },
+            { "id": "c", "text": "Un escape room.", "personality_tags": ["thriller"] },
+            {
+              "id": "d",
+              "text": "Una cena tranquila en la casa de campo de un amigo.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Cuando alguien te hace algo malo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Repasas cada interacción durante días.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Esperas el momento justo, paciente como un estratega.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Lo archivas: todo vuelve tarde o temprano.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Lo olvidas frente a una buena comida.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu giro de guion ideal:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Los protagonistas por fin se confiesan bajo la lluvia.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "El humilde consejero resulta tener sangre real.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "El villano era el narrador todo el tiempo.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Sin giro: todos terminan felices en la mesa.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "La banda sonora de tu vida sería:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una balada que crece justo en el momento exacto.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Cuerdas e instrumentos tradicionales.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Un pulso tenso que nunca cede.",
+              "personality_tags": ["thriller"]
+            },
+            { "id": "d", "text": "Guitarra acústica cálida.", "personality_tags": ["healing"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "En tu familia eres quien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Llora en las bodas y recuerda cada aniversario.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Se sabe de memoria toda la historia familiar.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Se entera de todo primero.",
+              "personality_tags": ["thriller"]
+            },
+            { "id": "d", "text": "Mantiene a todos bien comidos.", "personality_tags": ["healing"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Tu recurso de guion soñado:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un primer encuentro marcado por el destino que se repite años después.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "Una identidad oculta que lo cambia todo.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "Un suspenso de episodio 16 que se resuelve en el final.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "Vecinos que poco a poco se vuelven familia.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Elige un arquetipo de K-drama para vivir:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El protagonista con dos pretendientes perfectos.",
+              "personality_tags": ["romance"]
+            },
+            {
+              "id": "b",
+              "text": "El heredero de la corona disfrazado.",
+              "personality_tags": ["sageuk"]
+            },
+            {
+              "id": "c",
+              "text": "El héroe agraviado que planea su regreso.",
+              "personality_tags": ["thriller"]
+            },
+            {
+              "id": "d",
+              "text": "El médico de ciudad que se muda a un pueblo pequeño.",
+              "personality_tags": ["healing"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    }
+  ]
+}
