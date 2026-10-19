@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial batch 2026h (CONT-13): trivia pairs for high-search fandoms the catalogue does not cover — Friends, The Office (US), Dragon Ball, Roblox and Fortnite. Every answer is a stable, checkable fact; no seasons in progress, skins or live events. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-friends-trivia",
+      "title": "Friends Fan Trivia Challenge",
+      "description": "Central Perk, Smelly Cat and ten seasons of New York chaos: the sitcom that defined the 90s. How much do you really remember?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["friends", "tv-shows", "sitcom", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did Friends premiere on NBC?",
+          "options": [
+            { "id": "a", "text": "1991", "is_correct": false },
+            { "id": "b", "text": "1994", "is_correct": true },
+            { "id": "c", "text": "1997", "is_correct": false },
+            { "id": "d", "text": "2000", "is_correct": false }
+          ],
+          "explanation": "Friends debuted on 22 September 1994 and ran until 2004."
+        },
+        {
+          "id": "q2",
+          "question": "Where do the six friends usually meet for coffee?",
+          "options": [
+            { "id": "a", "text": "The Grind", "is_correct": false },
+            { "id": "b", "text": "MacLaren's Pub", "is_correct": false },
+            { "id": "c", "text": "Central Perk", "is_correct": true },
+            { "id": "d", "text": "Coffee Bean Corner", "is_correct": false }
+          ],
+          "explanation": "Central Perk, with its orange couch, is the gang's second living room."
+        },
+        {
+          "id": "q3",
+          "question": "What is Ross Geller's profession?",
+          "options": [
+            { "id": "a", "text": "Archaeologist", "is_correct": false },
+            { "id": "b", "text": "Paleontologist", "is_correct": true },
+            { "id": "c", "text": "Chemist", "is_correct": false },
+            { "id": "d", "text": "Museum security guard", "is_correct": false }
+          ],
+          "explanation": "Ross is a paleontologist — he loves dinosaurs and later teaches at NYU."
+        },
+        {
+          "id": "q4",
+          "question": "Which band performs the theme song 'I'll Be There for You'?",
+          "options": [
+            { "id": "a", "text": "R.E.M.", "is_correct": false },
+            { "id": "b", "text": "The Proclaimers", "is_correct": false },
+            { "id": "c", "text": "Spin Doctors", "is_correct": false },
+            { "id": "d", "text": "The Rembrandts", "is_correct": true }
+          ],
+          "explanation": "The Rembrandts recorded the theme; they released it as a single after fans kept requesting it."
+        },
+        {
+          "id": "q5",
+          "question": "What is the title of Phoebe's signature song at Central Perk?",
+          "options": [
+            { "id": "a", "text": "Smelly Cat", "is_correct": true },
+            { "id": "b", "text": "Sticky Shoes", "is_correct": false },
+            { "id": "c", "text": "Two of Them Kissed Last Night", "is_correct": false },
+            { "id": "d", "text": "The Cow in the Meadow", "is_correct": false }
+          ],
+          "explanation": "Smelly Cat is her hit; the other three are real but far less famous Phoebe songs."
+        },
+        {
+          "id": "q6",
+          "question": "What is the name of Joey's soap-opera character on 'Days of Our Lives'?",
+          "options": [
+            { "id": "a", "text": "Dr. Mark Sloan", "is_correct": false },
+            { "id": "b", "text": "Dr. Drake Ramoray", "is_correct": true },
+            { "id": "c", "text": "Dr. Drake Richards", "is_correct": false },
+            { "id": "d", "text": "Dr. Ross Geller", "is_correct": false }
+          ],
+          "explanation": "Joey plays neurosurgeon Dr. Drake Ramoray — until the writers kill the character off."
+        },
+        {
+          "id": "q7",
+          "question": "According to the running gag, what does Chandler do for a living?",
+          "options": [
+            { "id": "a", "text": "He's an accountant", "is_correct": false },
+            { "id": "b", "text": "He's a 'transponster'", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Statistical analysis and data reconfiguration",
+              "is_correct": true
+            },
+            { "id": "d", "text": "He's a corporate lawyer", "is_correct": false }
+          ],
+          "explanation": "Nobody can name it — Monica's guess 'transponster' costs them the apartment. His real title is statistical analysis and data reconfiguration."
+        },
+        {
+          "id": "q8",
+          "question": "How many seasons did Friends run?",
+          "options": [
+            { "id": "a", "text": "8", "is_correct": false },
+            { "id": "b", "text": "11", "is_correct": false },
+            { "id": "c", "text": "12", "is_correct": false },
+            { "id": "d", "text": "10", "is_correct": true }
+          ],
+          "explanation": "Ten seasons and 236 episodes, from 1994 to 2004."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-friends",
+      "title": "Trivia fan de Friends",
+      "description": "Central Perk, Smelly Cat y diez temporadas en Nueva York: la sitcom que marcó los años 90. ¿Cuánto recuerdas de verdad?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["friends", "series", "comedia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se estrenó Friends?",
+          "options": [
+            { "id": "a", "text": "1994", "is_correct": true },
+            { "id": "b", "text": "1990", "is_correct": false },
+            { "id": "c", "text": "1996", "is_correct": false },
+            { "id": "d", "text": "1998", "is_correct": false }
+          ],
+          "explanation": "Se estrenó el 22 de septiembre de 1994 en NBC y terminó en 2004."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama la cafetería donde el grupo pasa las tardes?",
+          "options": [
+            { "id": "a", "text": "Café Nervosa", "is_correct": false },
+            { "id": "b", "text": "Central Perk", "is_correct": true },
+            { "id": "c", "text": "The Coffee Spot", "is_correct": false },
+            { "id": "d", "text": "Java the Hut", "is_correct": false }
+          ],
+          "explanation": "Central Perk y su sofá naranja son prácticamente la segunda casa del grupo."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué ciudad viven los seis amigos?",
+          "options": [
+            { "id": "a", "text": "Boston", "is_correct": false },
+            { "id": "b", "text": "Los Ángeles", "is_correct": false },
+            { "id": "c", "text": "Chicago", "is_correct": false },
+            { "id": "d", "text": "Nueva York", "is_correct": true }
+          ],
+          "explanation": "Viven en Manhattan: el apartamento morado de Mónica está en el Village."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es la profesión de Ross?",
+          "options": [
+            { "id": "a", "text": "Arqueólogo", "is_correct": false },
+            { "id": "b", "text": "Chef", "is_correct": false },
+            { "id": "c", "text": "Paleontólogo", "is_correct": true },
+            { "id": "d", "text": "Actor", "is_correct": false }
+          ],
+          "explanation": "Ross es paleontólogo; su pasión por los dinosaurios es un chiste recurrente."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el mono que Ross tiene como mascota?",
+          "options": [
+            { "id": "a", "text": "Marcel", "is_correct": true },
+            { "id": "b", "text": "Maurice", "is_correct": false },
+            { "id": "c", "text": "Marcelo", "is_correct": false },
+            { "id": "d", "text": "Mateo", "is_correct": false }
+          ],
+          "explanation": "Marcel, el mono capuchino, vive con Ross durante la primera temporada."
+        },
+        {
+          "id": "q6",
+          "question": "¿A quién deja Rachel plantado en el altar en el primer episodio?",
+          "options": [
+            { "id": "a", "text": "A Ross", "is_correct": false },
+            { "id": "b", "text": "A Barry", "is_correct": true },
+            { "id": "c", "text": "A Paolo", "is_correct": false },
+            { "id": "d", "text": "A Joshua", "is_correct": false }
+          ],
+          "explanation": "Rachel entra a Central Perk con el vestido de novia tras abandonar a Barry en la boda."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la frase con la que Joey intenta ligar?",
+          "options": [
+            { "id": "a", "text": "'We were on a break!'", "is_correct": false },
+            { "id": "b", "text": "'Pivot!'", "is_correct": false },
+            { "id": "c", "text": "'Oh. My. God.'", "is_correct": false },
+            { "id": "d", "text": "'How you doin'?'", "is_correct": true }
+          ],
+          "explanation": "'How you doin'?' es el clásico de Joey; 'We were on a break!' y 'Pivot!' son de Ross, y 'Oh. My. God.' es de Janice."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama la hermana gemela de Phoebe?",
+          "options": [
+            { "id": "a", "text": "Jill", "is_correct": false },
+            { "id": "b", "text": "Amy", "is_correct": false },
+            { "id": "c", "text": "Ursula", "is_correct": true },
+            { "id": "d", "text": "Mindy", "is_correct": false }
+          ],
+          "explanation": "Ursula, interpretada también por Lisa Kudrow, viene de Mad About You; Jill y Amy son las hermanas de Rachel."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-office-trivia",
+      "title": "The Office Fan Trivia Challenge",
+      "description": "Dunder Mifflin's Scranton branch gave us nine seasons of cringe and heart. Test how well you know Michael Scott and company.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["the office", "tv-shows", "comedy", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which Pennsylvania city is the Dunder Mifflin branch located?",
+          "options": [
+            { "id": "a", "text": "Utica", "is_correct": false },
+            { "id": "b", "text": "Scranton", "is_correct": true },
+            { "id": "c", "text": "Stamford", "is_correct": false },
+            { "id": "d", "text": "Buffalo", "is_correct": false }
+          ],
+          "explanation": "Scranton, 'the Electric City' — Utica, Stamford and Buffalo are other branches seen in the series."
+        },
+        {
+          "id": "q2",
+          "question": "Who plays regional manager Michael Scott?",
+          "options": [
+            { "id": "a", "text": "John Krasinski", "is_correct": false },
+            { "id": "b", "text": "Rainn Wilson", "is_correct": false },
+            { "id": "c", "text": "Steve Carell", "is_correct": true },
+            { "id": "d", "text": "Ed Helms", "is_correct": false }
+          ],
+          "explanation": "Steve Carell played Michael from the pilot until his farewell in season 7."
+        },
+        {
+          "id": "q3",
+          "question": "In which year did the U.S. version of The Office premiere?",
+          "options": [
+            { "id": "a", "text": "2001", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": false },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2005", "is_correct": true }
+          ],
+          "explanation": "NBC premiered it in March 2005; 2001 is the year of the U.K. original."
+        },
+        {
+          "id": "q4",
+          "question": "In the first episode, what does Jim put Dwight's stapler inside?",
+          "options": [
+            { "id": "a", "text": "A Jell-O mold", "is_correct": true },
+            { "id": "b", "text": "The office fridge", "is_correct": false },
+            { "id": "c", "text": "A drawer full of coins", "is_correct": false },
+            { "id": "d", "text": "Pam's filing cabinet", "is_correct": false }
+          ],
+          "explanation": "The stapler-in-Jell-O prank in the pilot set the tone for Jim and Dwight's whole rivalry."
+        },
+        {
+          "id": "q5",
+          "question": "What crop is Schrute Farms famous for?",
+          "options": [
+            { "id": "a", "text": "Corn", "is_correct": false },
+            { "id": "b", "text": "Beets", "is_correct": true },
+            { "id": "c", "text": "Pumpkins", "is_correct": false },
+            { "id": "d", "text": "Soybeans", "is_correct": false }
+          ],
+          "explanation": "Dwight's family farm grows beets — hence 'Bears. Beets. Battlestar Galactica.'"
+        },
+        {
+          "id": "q6",
+          "question": "What does Michael call the award show he hosts for his employees?",
+          "options": [
+            { "id": "a", "text": "The Mifflins", "is_correct": false },
+            { "id": "b", "text": "The Scranton Emmys", "is_correct": false },
+            { "id": "c", "text": "The Dundies", "is_correct": true },
+            { "id": "d", "text": "The Paperies", "is_correct": false }
+          ],
+          "explanation": "The Dundies take place at the local Chili's, where Pam famously gets banned."
+        },
+        {
+          "id": "q7",
+          "question": "What is the title of the amateur spy film Michael spent years making?",
+          "options": [
+            { "id": "a", "text": "Goldenface", "is_correct": false },
+            { "id": "b", "text": "Threat Level Midnight", "is_correct": true },
+            { "id": "c", "text": "The Scranton Strangler", "is_correct": false },
+            { "id": "d", "text": "Agent Paper", "is_correct": false }
+          ],
+          "explanation": "Threat Level Midnight stars Michael as agent Michael Scarn; Goldenface is the villain, not the title."
+        },
+        {
+          "id": "q8",
+          "question": "What is Pam's job at Dunder Mifflin when the series begins?",
+          "options": [
+            { "id": "a", "text": "Saleswoman", "is_correct": false },
+            { "id": "b", "text": "Accountant", "is_correct": false },
+            { "id": "c", "text": "HR representative", "is_correct": false },
+            { "id": "d", "text": "Receptionist", "is_correct": true }
+          ],
+          "explanation": "Pam Beesly answers the phones at reception; she later moves into sales and office administration."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-the-office",
+      "title": "Trivia fan de The Office",
+      "description": "La sucursal de Scranton de Dunder Mifflin nos regaló nueve temporadas de humor incómodo. ¿Qué tan bien conoces a Michael Scott y su equipo?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["the office", "series", "comedia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo se llama la empresa de papel donde trabajan Michael, Jim, Pam y Dwight?",
+          "options": [
+            { "id": "a", "text": "Sabre", "is_correct": false },
+            { "id": "b", "text": "Prince Family Paper", "is_correct": false },
+            { "id": "c", "text": "Dunder Mifflin", "is_correct": true },
+            { "id": "d", "text": "Michael Scott Paper Company", "is_correct": false }
+          ],
+          "explanation": "Dunder Mifflin es la compañía; Sabre la compra más adelante y las otras dos son una competidora y la empresa que funda Michael."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué ciudad de Pensilvania está la sucursal?",
+          "options": [
+            { "id": "a", "text": "Scranton", "is_correct": true },
+            { "id": "b", "text": "Utica", "is_correct": false },
+            { "id": "c", "text": "Nashua", "is_correct": false },
+            { "id": "d", "text": "Stamford", "is_correct": false }
+          ],
+          "explanation": "Scranton, la 'Electric City'; Utica, Nashua y Stamford son otras sucursales que aparecen en la serie."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién interpreta a Michael Scott?",
+          "options": [
+            { "id": "a", "text": "John Krasinski", "is_correct": false },
+            { "id": "b", "text": "Steve Carell", "is_correct": true },
+            { "id": "c", "text": "Ed Helms", "is_correct": false },
+            { "id": "d", "text": "B.J. Novak", "is_correct": false }
+          ],
+          "explanation": "Steve Carell interpretó a Michael hasta su despedida en la séptima temporada."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué cultiva Dwight en la granja familiar, Schrute Farms?",
+          "options": [
+            { "id": "a", "text": "Maíz", "is_correct": false },
+            { "id": "b", "text": "Zapallos", "is_correct": false },
+            { "id": "c", "text": "Remolacha", "is_correct": true },
+            { "id": "d", "text": "Papas", "is_correct": false }
+          ],
+          "explanation": "Remolacha (beets): de ahí sale 'Bears. Beets. Battlestar Galactica.'"
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la frase que Michael repite siempre que puede?",
+          "options": [
+            { "id": "a", "text": "'That's what she said'", "is_correct": true },
+            { "id": "b", "text": "'Bears. Beets. Battlestar Galactica.'", "is_correct": false },
+            { "id": "c", "text": "'Did I stutter?'", "is_correct": false },
+            { "id": "d", "text": "'Assistant to the regional manager'", "is_correct": false }
+          ],
+          "explanation": "'That's what she said' es el clásico de Michael; la segunda es Jim imitando a Dwight, la tercera es de Stanley y la última es el cargo que Dwight reclama."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama la película casera de espionaje que Michael rodó durante años?",
+          "options": [
+            { "id": "a", "text": "Goldenface", "is_correct": false },
+            { "id": "b", "text": "Scranton Vice", "is_correct": false },
+            { "id": "c", "text": "Threat Level Midnight", "is_correct": true },
+            { "id": "d", "text": "La amenaza de Scranton", "is_correct": false }
+          ],
+          "explanation": "Threat Level Midnight, protagonizada por Michael como el agente Michael Scarn; Goldenface es el villano."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué puesto tiene Pam cuando empieza la serie?",
+          "options": [
+            { "id": "a", "text": "Contable", "is_correct": false },
+            { "id": "b", "text": "Recepcionista", "is_correct": true },
+            { "id": "c", "text": "Vendedora", "is_correct": false },
+            { "id": "d", "text": "Directora de oficina", "is_correct": false }
+          ],
+          "explanation": "Pam Beesly empieza en recepción; después pasa a ventas y a administración de la oficina."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántas temporadas tiene The Office (EE. UU.)?",
+          "options": [
+            { "id": "a", "text": "7", "is_correct": false },
+            { "id": "b", "text": "8", "is_correct": false },
+            { "id": "c", "text": "10", "is_correct": false },
+            { "id": "d", "text": "9", "is_correct": true }
+          ],
+          "explanation": "Nueve temporadas, de 2005 a 2013."
+        }
+      ]
+    },
+    {
+      "slug": "en-dragon-ball-trivia",
+      "title": "Dragon Ball Fan Trivia Challenge",
+      "description": "From Goku's first Kamehameha to the battles on Namek: the Akira Toriyama classic that defined anime for generations.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["dragon ball", "anime", "goku", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who created Dragon Ball?",
+          "options": [
+            { "id": "a", "text": "Eiichiro Oda", "is_correct": false },
+            { "id": "b", "text": "Masashi Kishimoto", "is_correct": false },
+            { "id": "c", "text": "Akira Toriyama", "is_correct": true },
+            { "id": "d", "text": "Tite Kubo", "is_correct": false }
+          ],
+          "explanation": "Akira Toriyama created the manga in 1984; Oda, Kishimoto and Kubo created One Piece, Naruto and Bleach."
+        },
+        {
+          "id": "q2",
+          "question": "How many Dragon Balls must be gathered to summon the wish-granting dragon?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Seven", "is_correct": true },
+            { "id": "c", "text": "Nine", "is_correct": false },
+            { "id": "d", "text": "Twelve", "is_correct": false }
+          ],
+          "explanation": "Seven balls summon Shenron, who grants a wish before the balls scatter again."
+        },
+        {
+          "id": "q3",
+          "question": "What is Goku's Saiyan birth name?",
+          "options": [
+            { "id": "a", "text": "Raditz", "is_correct": false },
+            { "id": "b", "text": "Kakarot", "is_correct": true },
+            { "id": "c", "text": "Bardock", "is_correct": false },
+            { "id": "d", "text": "Vegeta", "is_correct": false }
+          ],
+          "explanation": "Kakarot — Raditz is his brother, Bardock his father and Vegeta his prince."
+        },
+        {
+          "id": "q4",
+          "question": "What is Goku's signature energy wave?",
+          "options": [
+            { "id": "a", "text": "Galick Gun", "is_correct": false },
+            { "id": "b", "text": "Special Beam Cannon", "is_correct": false },
+            { "id": "c", "text": "Final Flash", "is_correct": false },
+            { "id": "d", "text": "Kamehameha", "is_correct": true }
+          ],
+          "explanation": "The Kamehameha; Galick Gun and Final Flash are Vegeta's and the Special Beam Cannon is Piccolo's."
+        },
+        {
+          "id": "q5",
+          "question": "Who is the prince of the Saiyans?",
+          "options": [
+            { "id": "a", "text": "Vegeta", "is_correct": true },
+            { "id": "b", "text": "Nappa", "is_correct": false },
+            { "id": "c", "text": "Raditz", "is_correct": false },
+            { "id": "d", "text": "Broly", "is_correct": false }
+          ],
+          "explanation": "Vegeta, prince of all Saiyans — Nappa and Raditz are fellow survivors, not royalty."
+        },
+        {
+          "id": "q6",
+          "question": "On which planet does Goku first transform into a Super Saiyan?",
+          "options": [
+            { "id": "a", "text": "Earth", "is_correct": false },
+            { "id": "b", "text": "Namek", "is_correct": true },
+            { "id": "c", "text": "Yardrat", "is_correct": false },
+            { "id": "d", "text": "Planet Vegeta", "is_correct": false }
+          ],
+          "explanation": "On Namek, fighting Frieza — Planet Vegeta was already destroyed and he reached Yardrat afterwards."
+        },
+        {
+          "id": "q7",
+          "question": "Who is the Namekian that starts as Goku's enemy and later trains Gohan?",
+          "options": [
+            { "id": "a", "text": "Nail", "is_correct": false },
+            { "id": "b", "text": "Kami", "is_correct": false },
+            { "id": "c", "text": "Piccolo", "is_correct": true },
+            { "id": "d", "text": "Dende", "is_correct": false }
+          ],
+          "explanation": "Piccolo — Nail and Dende are other Namekians and Kami is Earth's guardian."
+        },
+        {
+          "id": "q8",
+          "question": "In which magazine did the Dragon Ball manga debut in 1984?",
+          "options": [
+            { "id": "a", "text": "Weekly Shōnen Jump", "is_correct": true },
+            { "id": "b", "text": "Weekly Shōnen Magazine", "is_correct": false },
+            { "id": "c", "text": "CoroCoro Comic", "is_correct": false },
+            { "id": "d", "text": "Ultra Jump", "is_correct": false }
+          ],
+          "explanation": "Shueisha's Weekly Shōnen Jump — the same magazine that later ran One Piece and Naruto."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-dragon-ball",
+      "title": "Trivia fan de Dragon Ball",
+      "description": "Del primer Kamehameha de Goku a las batallas en Namek: el clásico de Akira Toriyama que definió el anime para generaciones.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["dragon ball", "anime", "goku", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién creó Dragon Ball?",
+          "options": [
+            { "id": "a", "text": "Akira Toriyama", "is_correct": true },
+            { "id": "b", "text": "Eiichiro Oda", "is_correct": false },
+            { "id": "c", "text": "Hayao Miyazaki", "is_correct": false },
+            { "id": "d", "text": "Masashi Kishimoto", "is_correct": false }
+          ],
+          "explanation": "Akira Toriyama publicó el manga en 1984; Oda es el autor de One Piece y Miyazaki dirige cine de animación."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántas esferas del dragón hay que reunir para invocar al dragón que concede deseos?",
+          "options": [
+            { "id": "a", "text": "3", "is_correct": false },
+            { "id": "b", "text": "5", "is_correct": false },
+            { "id": "c", "text": "7", "is_correct": true },
+            { "id": "d", "text": "9", "is_correct": false }
+          ],
+          "explanation": "Siete: al juntarlas aparece Shenron, concede el deseo y las esferas se dispersan de nuevo."
+        },
+        {
+          "id": "q3",
+          "question": "¿De quién aprende Goku el Kamehameha?",
+          "options": [
+            { "id": "a", "text": "De Kaio-sama", "is_correct": false },
+            { "id": "b", "text": "Del Maestro Roshi", "is_correct": true },
+            { "id": "c", "text": "De Kami", "is_correct": false },
+            { "id": "d", "text": "De Karin", "is_correct": false }
+          ],
+          "explanation": "Lo copia del Maestro Roshi, su inventor, tras verlo usarlo una sola vez."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el hijo mayor de Goku?",
+          "options": [
+            { "id": "a", "text": "Goten", "is_correct": false },
+            { "id": "b", "text": "Gohan", "is_correct": true },
+            { "id": "c", "text": "Trunks", "is_correct": false },
+            { "id": "d", "text": "Krilin", "is_correct": false }
+          ],
+          "explanation": "Gohan, llamado así por el abuelo que crió a Goku; Goten es el hermano menor."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué villano destruye el planeta Vegeta?",
+          "options": [
+            { "id": "a", "text": "Cell", "is_correct": false },
+            { "id": "b", "text": "Majin Buu", "is_correct": false },
+            { "id": "c", "text": "Piccolo", "is_correct": false },
+            { "id": "d", "text": "Freezer", "is_correct": true }
+          ],
+          "explanation": "Freezer destruyó el planeta natal de los saiyajin por miedo a la leyenda del Super Saiyajin."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué aparato inventa Bulma para localizar las esferas del dragón?",
+          "options": [
+            { "id": "a", "text": "El radar del dragón", "is_correct": true },
+            { "id": "b", "text": "La máquina del tiempo", "is_correct": false },
+            { "id": "c", "text": "Las cápsulas Hoi-Poi", "is_correct": false },
+            { "id": "d", "text": "El rastreador de ki", "is_correct": false }
+          ],
+          "explanation": "Bulma construye el radar del dragón con el que ella y Goku empiezan la búsqueda."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama el mejor amigo calvo de Goku?",
+          "options": [
+            { "id": "a", "text": "Yamcha", "is_correct": false },
+            { "id": "b", "text": "Ten Shin Han", "is_correct": false },
+            { "id": "c", "text": "Krilin", "is_correct": true },
+            { "id": "d", "text": "Oolong", "is_correct": false }
+          ],
+          "explanation": "Krilin entrenó con Goku bajo el Maestro Roshi y se convirtió en su mejor amigo."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué revista se publicó por primera vez el manga de Dragon Ball?",
+          "options": [
+            { "id": "a", "text": "Nakayoshi", "is_correct": false },
+            { "id": "b", "text": "Weekly Shōnen Jump", "is_correct": true },
+            { "id": "c", "text": "CoroCoro Comic", "is_correct": false },
+            { "id": "d", "text": "Weekly Shōnen Sunday", "is_correct": false }
+          ],
+          "explanation": "En la Weekly Shōnen Jump de Shueisha, en 1984."
+        }
+      ]
+    },
+    {
+      "slug": "en-roblox-trivia",
+      "title": "Roblox Fan Trivia Challenge",
+      "description": "Millions of player-made experiences, Robux and the legendary 'oof'. How deep does your Roblox knowledge go?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["roblox", "gaming", "sandbox", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year was Roblox released to the public?",
+          "options": [
+            { "id": "a", "text": "2004", "is_correct": false },
+            { "id": "b", "text": "2006", "is_correct": true },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2013", "is_correct": false }
+          ],
+          "explanation": "Roblox launched publicly in 2006; the company behind it was founded in 2004 as DynaBlocks."
+        },
+        {
+          "id": "q2",
+          "question": "What is Roblox's virtual currency called?",
+          "options": [
+            { "id": "a", "text": "Tix", "is_correct": false },
+            { "id": "b", "text": "BloxCoins", "is_correct": false },
+            { "id": "c", "text": "Robux", "is_correct": true },
+            { "id": "d", "text": "Builders Cash", "is_correct": false }
+          ],
+          "explanation": "Robux; Tix (Tickets) was a second currency that was removed in 2016."
+        },
+        {
+          "id": "q3",
+          "question": "Which tool do creators use to build Roblox experiences?",
+          "options": [
+            { "id": "a", "text": "Roblox Studio", "is_correct": true },
+            { "id": "b", "text": "BloxBuilder", "is_correct": false },
+            { "id": "c", "text": "Roblox Forge", "is_correct": false },
+            { "id": "d", "text": "Studio Blox", "is_correct": false }
+          ],
+          "explanation": "Roblox Studio is the free editor every experience on the platform is built with."
+        },
+        {
+          "id": "q4",
+          "question": "Which language are Roblox game scripts written in?",
+          "options": [
+            { "id": "a", "text": "Python", "is_correct": false },
+            { "id": "b", "text": "Lua", "is_correct": true },
+            { "id": "c", "text": "JavaScript", "is_correct": false },
+            { "id": "d", "text": "C++", "is_correct": false }
+          ],
+          "explanation": "Roblox scripting uses Lua — the platform's own dialect is called Luau."
+        },
+        {
+          "id": "q5",
+          "question": "Who created Roblox?",
+          "options": [
+            { "id": "a", "text": "Markus Persson", "is_correct": false },
+            { "id": "b", "text": "David Baszucki and Erik Cassel", "is_correct": true },
+            { "id": "c", "text": "Tim Sweeney", "is_correct": false },
+            { "id": "d", "text": "Gabe Newell", "is_correct": false }
+          ],
+          "explanation": "David Baszucki and Erik Cassel founded the company; in-game, Baszucki is known as builderman."
+        },
+        {
+          "id": "q6",
+          "question": "Which Roblox experience is about adopting and raising pets?",
+          "options": [
+            { "id": "a", "text": "Brookhaven RP", "is_correct": false },
+            { "id": "b", "text": "Adopt Me!", "is_correct": true },
+            { "id": "c", "text": "Tower of Hell", "is_correct": false },
+            { "id": "d", "text": "Natural Disaster Survival", "is_correct": false }
+          ],
+          "explanation": "Adopt Me! is one of the most visited experiences on the whole platform."
+        },
+        {
+          "id": "q7",
+          "question": "What do players do in Jailbreak?",
+          "options": [
+            { "id": "a", "text": "Deliver pizzas", "is_correct": false },
+            { "id": "b", "text": "Survive zombie waves", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Escape prison and rob banks — or stop them as police",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Build and defend a castle", "is_correct": false }
+          ],
+          "explanation": "Jailbreak pits criminals against police; delivering pizzas is Work at a Pizza Place."
+        },
+        {
+          "id": "q8",
+          "question": "What classic Roblox sound became a meme before being removed in 2022?",
+          "options": [
+            { "id": "a", "text": "'Yeet'", "is_correct": false },
+            { "id": "b", "text": "'Boop'", "is_correct": false },
+            { "id": "c", "text": "'Oof'", "is_correct": true },
+            { "id": "d", "text": "'Meep'", "is_correct": false }
+          ],
+          "explanation": "The 'oof' death sound was replaced in 2022 after a licensing dispute — and lives on as a meme."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-roblox",
+      "title": "Trivia fan de Roblox",
+      "description": "Millones de experiencias creadas por jugadores, Robux y el legendario 'oof'. ¿Qué tan profundo llega tu conocimiento de Roblox?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["roblox", "videojuegos", "sandbox", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se lanzó Roblox al público?",
+          "options": [
+            { "id": "a", "text": "2006", "is_correct": true },
+            { "id": "b", "text": "2003", "is_correct": false },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2012", "is_correct": false }
+          ],
+          "explanation": "Salió al público en 2006; la empresa se fundó en 2004 con el nombre DynaBlocks."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama la moneda virtual de Roblox?",
+          "options": [
+            { "id": "a", "text": "Tix", "is_correct": false },
+            { "id": "b", "text": "Minecoins", "is_correct": false },
+            { "id": "c", "text": "BloxCoins", "is_correct": false },
+            { "id": "d", "text": "Robux", "is_correct": true }
+          ],
+          "explanation": "Robux; los Tix (Tickets) eran la segunda moneda y se retiraron en 2016."
+        },
+        {
+          "id": "q3",
+          "question": "¿Con qué herramienta se crean las experiencias de Roblox?",
+          "options": [
+            { "id": "a", "text": "BloxMaker", "is_correct": false },
+            { "id": "b", "text": "Roblox Studio", "is_correct": true },
+            { "id": "c", "text": "Roblox Player", "is_correct": false },
+            { "id": "d", "text": "Creator Hub", "is_correct": false }
+          ],
+          "explanation": "Roblox Studio es el editor gratuito con el que se construye todo en la plataforma."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué lenguaje se escriben los scripts de Roblox?",
+          "options": [
+            { "id": "a", "text": "Python", "is_correct": false },
+            { "id": "b", "text": "Java", "is_correct": false },
+            { "id": "c", "text": "Scratch", "is_correct": false },
+            { "id": "d", "text": "Lua", "is_correct": true }
+          ],
+          "explanation": "Lua — la plataforma usa su propia variante, llamada Luau."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué experiencia famosa trata de adoptar y criar mascotas?",
+          "options": [
+            { "id": "a", "text": "Adopt Me!", "is_correct": true },
+            { "id": "b", "text": "Brookhaven RP", "is_correct": false },
+            { "id": "c", "text": "Murder Mystery 2", "is_correct": false },
+            { "id": "d", "text": "BedWars", "is_correct": false }
+          ],
+          "explanation": "Adopt Me! es de las experiencias más visitadas de toda la plataforma."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llamaba la moneda antigua que Roblox eliminó en 2016?",
+          "options": [
+            { "id": "a", "text": "Robux", "is_correct": false },
+            { "id": "b", "text": "Tickets (Tix)", "is_correct": true },
+            { "id": "c", "text": "Bloxbucks", "is_correct": false },
+            { "id": "d", "text": "Créditos de Builder", "is_correct": false }
+          ],
+          "explanation": "Los Tix se eliminaron en 2016 y dejaron a Robux como única moneda."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué sonido clásico de Roblox se volvió meme y se retiró en 2022?",
+          "options": [
+            { "id": "a", "text": "'Boom'", "is_correct": false },
+            { "id": "b", "text": "'Ding'", "is_correct": false },
+            { "id": "c", "text": "'Meep'", "is_correct": false },
+            { "id": "d", "text": "'Oof'", "is_correct": true }
+          ],
+          "explanation": "El 'oof' al morir se reemplazó en 2022 por un tema de licencias."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué año salió Roblox a bolsa en Nueva York?",
+          "options": [
+            { "id": "a", "text": "2021", "is_correct": true },
+            { "id": "b", "text": "2019", "is_correct": false },
+            { "id": "c", "text": "2017", "is_correct": false },
+            { "id": "d", "text": "2023", "is_correct": false }
+          ],
+          "explanation": "Roblox Corporation empezó a cotizar en la bolsa de Nueva York en marzo de 2021."
+        }
+      ]
+    },
+    {
+      "slug": "en-fortnite-trivia",
+      "title": "Fortnite Fan Trivia Challenge",
+      "description": "Battle Bus, Victory Royale and the storm: test what you know about the Epic Games phenomenon.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["fortnite", "gaming", "battle royale", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which company makes Fortnite?",
+          "options": [
+            { "id": "a", "text": "Activision", "is_correct": false },
+            { "id": "b", "text": "Epic Games", "is_correct": true },
+            { "id": "c", "text": "Ubisoft", "is_correct": false },
+            { "id": "d", "text": "Electronic Arts", "is_correct": false }
+          ],
+          "explanation": "Epic Games — the same studio behind the Unreal Engine."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Fortnite Battle Royale launch?",
+          "options": [
+            { "id": "a", "text": "2015", "is_correct": false },
+            { "id": "b", "text": "2019", "is_correct": false },
+            { "id": "c", "text": "2017", "is_correct": true },
+            { "id": "d", "text": "2020", "is_correct": false }
+          ],
+          "explanation": "Battle Royale launched as a free mode in September 2017, a few months after Save the World."
+        },
+        {
+          "id": "q3",
+          "question": "How many players fight in a standard Battle Royale match?",
+          "options": [
+            { "id": "a", "text": "50", "is_correct": false },
+            { "id": "b", "text": "150", "is_correct": false },
+            { "id": "c", "text": "60", "is_correct": false },
+            { "id": "d", "text": "100", "is_correct": true }
+          ],
+          "explanation": "One hundred players drop from the Battle Bus and the last one standing wins."
+        },
+        {
+          "id": "q4",
+          "question": "What carries the players over the island at the start of a match?",
+          "options": [
+            { "id": "a", "text": "The Battle Bus", "is_correct": true },
+            { "id": "b", "text": "The Loot Helicopter", "is_correct": false },
+            { "id": "c", "text": "The Drop Ship", "is_correct": false },
+            { "id": "d", "text": "The Sky Train", "is_correct": false }
+          ],
+          "explanation": "The Battle Bus — you can even thank the driver before jumping."
+        },
+        {
+          "id": "q5",
+          "question": "Which of these is NOT a building material in Fortnite?",
+          "options": [
+            { "id": "a", "text": "Wood", "is_correct": false },
+            { "id": "b", "text": "Glass", "is_correct": true },
+            { "id": "c", "text": "Brick", "is_correct": false },
+            { "id": "d", "text": "Metal", "is_correct": false }
+          ],
+          "explanation": "You harvest wood, brick and metal with the pickaxe — glass isn't one of the three."
+        },
+        {
+          "id": "q6",
+          "question": "What is Fortnite's in-game currency called?",
+          "options": [
+            { "id": "a", "text": "FortCoins", "is_correct": false },
+            { "id": "b", "text": "Robux", "is_correct": false },
+            { "id": "c", "text": "V-Bucks", "is_correct": true },
+            { "id": "d", "text": "Crown Coins", "is_correct": false }
+          ],
+          "explanation": "V-Bucks buy skins, emotes and the Battle Pass; Robux is Roblox's currency."
+        },
+        {
+          "id": "q7",
+          "question": "What is the name of the shrinking zone that pushes players together?",
+          "options": [
+            { "id": "a", "text": "The Circle", "is_correct": false },
+            { "id": "b", "text": "The Wall", "is_correct": false },
+            { "id": "c", "text": "The Surge", "is_correct": false },
+            { "id": "d", "text": "The Storm", "is_correct": true }
+          ],
+          "explanation": "The Storm shrinks the safe zone and drains the health of anyone caught outside."
+        },
+        {
+          "id": "q8",
+          "question": "Which wandering creature is stuffed with extra loot and materials?",
+          "options": [
+            { "id": "a", "text": "The Loot Goat", "is_correct": false },
+            { "id": "b", "text": "The Supply Llama", "is_correct": true },
+            { "id": "c", "text": "The Treasure Horse", "is_correct": false },
+            { "id": "d", "text": "The Loot Alpaca", "is_correct": false }
+          ],
+          "explanation": "Supply Llamas roam the map full of materials, ammo and healing items."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-fortnite",
+      "title": "Trivia fan de Fortnite",
+      "description": "El autobús de batalla, la Victoria Magistral y la tormenta: pon a prueba lo que sabes del fenómeno de Epic Games.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["fortnite", "videojuegos", "battle royale", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué estudio desarrolla Fortnite?",
+          "options": [
+            { "id": "a", "text": "Epic Games", "is_correct": true },
+            { "id": "b", "text": "Riot Games", "is_correct": false },
+            { "id": "c", "text": "Blizzard", "is_correct": false },
+            { "id": "d", "text": "Valve", "is_correct": false }
+          ],
+          "explanation": "Epic Games, el mismo estudio detrás del motor Unreal."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se lanzó el modo Battle Royale?",
+          "options": [
+            { "id": "a", "text": "2016", "is_correct": false },
+            { "id": "b", "text": "2017", "is_correct": true },
+            { "id": "c", "text": "2018", "is_correct": false },
+            { "id": "d", "text": "2019", "is_correct": false }
+          ],
+          "explanation": "En septiembre de 2017, pocos meses después del modo original Salvar el Mundo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos jugadores caen en una partida estándar de Battle Royale?",
+          "options": [
+            { "id": "a", "text": "60", "is_correct": false },
+            { "id": "b", "text": "80", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": true },
+            { "id": "d", "text": "150", "is_correct": false }
+          ],
+          "explanation": "Cien jugadores saltan del autobús y gana el último que queda en pie."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el vehículo volador desde el que saltan los jugadores al inicio?",
+          "options": [
+            { "id": "a", "text": "El helicóptero de botín", "is_correct": false },
+            { "id": "b", "text": "El dirigible del tesoro", "is_correct": false },
+            { "id": "c", "text": "El autobús de batalla", "is_correct": true },
+            { "id": "d", "text": "El tren de suministros", "is_correct": false }
+          ],
+          "explanation": "El Battle Bus: hasta puedes agradecer al conductor antes de saltar."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué mensaje aparece en pantalla al ganar una partida?",
+          "options": [
+            { "id": "a", "text": "'¡Winner winner chicken dinner!'", "is_correct": false },
+            { "id": "b", "text": "'¡Eres el campeón!'", "is_correct": false },
+            { "id": "c", "text": "'Partida terminada'", "is_correct": false },
+            { "id": "d", "text": "'¡Victoria Magistral!'", "is_correct": true }
+          ],
+          "explanation": "La 'Victoria Magistral' es el Victory Royale; 'winner winner chicken dinner' es el de PUBG."
+        },
+        {
+          "id": "q6",
+          "question": "¿Con qué moneda se compran skins y pases dentro del juego?",
+          "options": [
+            { "id": "a", "text": "Con pavos (V-Bucks)", "is_correct": true },
+            { "id": "b", "text": "Con gemas", "is_correct": false },
+            { "id": "c", "text": "Con Robux", "is_correct": false },
+            { "id": "d", "text": "Con monedas de oro", "is_correct": false }
+          ],
+          "explanation": "Los pavos (V-Bucks) compran skins, gestos y el pase de batalla; los Robux son de Roblox."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama el modo cooperativo original de Fortnite, de hordas y defensa?",
+          "options": [
+            { "id": "a", "text": "Cero construcción", "is_correct": false },
+            { "id": "b", "text": "Batalla campal", "is_correct": false },
+            { "id": "c", "text": "Salvar el Mundo", "is_correct": true },
+            { "id": "d", "text": "Modo creativo", "is_correct": false }
+          ],
+          "explanation": "Salvar el Mundo es el modo PvE original; el Battle Royale llegó después y se hizo más famoso."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué herramienta usan los jugadores para recolectar materiales de construcción?",
+          "options": [
+            { "id": "a", "text": "La pala", "is_correct": false },
+            { "id": "b", "text": "El hacha", "is_correct": false },
+            { "id": "c", "text": "El martillo", "is_correct": false },
+            { "id": "d", "text": "El pico", "is_correct": true }
+          ],
+          "explanation": "El pico (pickaxe): también es el primer objeto cosmético que se personaliza."
+        }
+      ]
+    }
+  ]
+}
