@@ -1,20 +1,36 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 
 // No crítico: si Redis cae, degradamos abierto en vez de tumbar analytics.
 const analyticsLimiter = createRateLimiter('api', 100, 60, 'open');
 
-const VALID_NAMES = new Set([
-  'page_view',
-  'locale_switch',
-  'quiz_start',
-  'quiz_complete',
-  'create_start',
-  'create_complete',
-  'client_error',
-]);
+const metadataSchema = z
+  .record(z.string(), z.union([z.string().max(120), z.number(), z.boolean()]))
+  .refine((m) => Object.keys(m).length <= 10, { message: 'too_many_keys' });
 
-export async function POST(request: NextRequest) {
+const analyticsSchema = z.object({
+  name: z.enum([
+    'page_view',
+    'locale_switch',
+    'quiz_start',
+    'quiz_complete',
+    'create_start',
+    'create_complete',
+    'client_error',
+  ]),
+  locale: z.enum(['en', 'es']).optional(),
+  path: z.string().max(300).optional(),
+  quizId: z.string().max(120).optional(),
+  quizSlug: z.string().max(120).optional(),
+  quizType: z.string().max(120).optional(),
+  source: z.string().max(120).optional(),
+  value: z.number().finite().optional(),
+  message: z.string().max(500).optional(),
+  metadata: metadataSchema.optional(),
+});
+
+export async function POST(request: Request) {
   const { headers } = request;
   const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const { allowed } = await analyticsLimiter.check(`analytics:${ip}`);
@@ -22,22 +38,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
   }
 
+  let raw: unknown;
   try {
-    const payload = (await request.json()) as {
-      name?: string;
-      locale?: string;
-      path?: string;
-      quizId?: string;
-      quizSlug?: string;
-      quizType?: string;
-      source?: string;
-      value?: number;
-      metadata?: Record<string, unknown>;
-    };
+    raw = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
+  }
 
-    if (!payload.name || !VALID_NAMES.has(payload.name)) {
-      return NextResponse.json({ error: 'Invalid analytics event' }, { status: 400 });
+  try {
+    const parsed = analyticsSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'invalid_payload' }, { status: 400 });
     }
+    const payload = parsed.data;
 
     console.info(
       JSON.stringify({

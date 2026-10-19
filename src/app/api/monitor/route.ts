@@ -1,10 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 
 // No crítico: si Redis cae, degradamos abierto en vez de tumbar el monitor.
 const monitorLimiter = createRateLimiter('api', 100, 60, 'open');
 
-export async function POST(request: NextRequest) {
+const metadataSchema = z
+  .record(z.string(), z.union([z.string().max(120), z.number(), z.boolean()]))
+  .refine((m) => Object.keys(m).length <= 10, { message: 'too_many_keys' });
+
+const monitorSchema = z.object({
+  message: z.string().min(1).max(500),
+  path: z.string().max(300).optional(),
+  source: z.string().max(60).optional(),
+  metadata: metadataSchema.optional(),
+});
+
+export async function POST(request: Request) {
   const { headers } = request;
   const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const { allowed } = await monitorLimiter.check(`monitor:${ip}`);
@@ -12,17 +24,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
   }
 
+  let raw: unknown;
   try {
-    const payload = (await request.json()) as {
-      message?: string;
-      path?: string;
-      source?: string;
-      metadata?: Record<string, unknown>;
-    };
+    raw = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
+  }
 
-    if (!payload.message) {
-      return NextResponse.json({ error: 'Missing error message' }, { status: 400 });
+  try {
+    const parsed = monitorSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'invalid_payload' }, { status: 400 });
     }
+    const payload = parsed.data;
 
     console.error(
       JSON.stringify({
