@@ -19,9 +19,3 @@ coverage/
 
 # Vercel
 .vercel/
-
-# Aún fallan `prettier --check` en main; reformatearlos va en su propio PR.
-src/app/**/opengraph-image.tsx
-src/lib/seo/og-font.ts
-# feat/share-tracking deja este archivo prettier-limpio; retirar al mergear.
-src/components/quiz/result-screen.tsx
