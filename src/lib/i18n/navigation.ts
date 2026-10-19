@@ -1,9 +1,5 @@
 import type { Locale } from './dictionaries';
-import { defaultLocale, hasLocale } from './dictionaries';
-
-export function normalizeLocale(locale?: string): Locale {
-  return locale && hasLocale(locale) ? locale : defaultLocale;
-}
+import { hasLocale } from './dictionaries';
 
 export function localizeHref(locale: Locale, href: string): string {
   if (!href.startsWith('/')) {
