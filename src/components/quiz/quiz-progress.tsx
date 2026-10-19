@@ -29,8 +29,8 @@ export function QuizProgress({
 }: QuizProgressProps) {
   return (
     <div className="w-full">
-      {/* Progress bar */}
-      <div className="mb-2">
+      {/* Progress bar (decorativa: el contador de abajo es quien anuncia) */}
+      <div className="mb-2" aria-hidden="true">
         <ProgressBar
           value={currentQuestion}
           max={totalQuestions}
@@ -42,8 +42,14 @@ export function QuizProgress({
 
       {/* Info row */}
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-        <span className="text-text-primary font-bold">
-          {locale === 'es' ? 'PREGUNTA' : 'QUESTION'} {currentQuestion} / {totalQuestions}
+        <span
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          className="text-text-primary font-bold"
+        >
+          {locale === 'es' ? 'PREGUNTA' : 'QUESTION'} {currentQuestion}{' '}
+          {locale === 'es' ? 'DE' : 'OF'} {totalQuestions}
         </span>
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">
