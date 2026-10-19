@@ -46,10 +46,26 @@
           "id": "q1",
           "question": "Your friend had a rough week. You:",
           "options": [
-            { "id": "a", "text": "Write them a message listing everything they do well.", "personality_tags": ["words"] },
-            { "id": "b", "text": "Plan an afternoon together, just the two of us.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "Show up and handle the thing they've been putting off.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "Arrive with a long hug, no questions asked.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "Write them a message listing everything they do well.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Plan an afternoon together, just the two of us.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "Show up and handle the thing they've been putting off.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Arrive with a long hug, no questions asked.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -58,9 +74,21 @@
           "id": "q2",
           "question": "What stays with you longer?",
           "options": [
-            { "id": "a", "text": "A compliment that landed exactly right.", "personality_tags": ["words"] },
-            { "id": "b", "text": "A whole day with someone, doing nothing important.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "The time someone helped you move without being asked.", "personality_tags": ["acts"] },
+            {
+              "id": "a",
+              "text": "A compliment that landed exactly right.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A whole day with someone, doing nothing important.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "The time someone helped you move without being asked.",
+              "personality_tags": ["acts"]
+            },
             { "id": "d", "text": "A hug at the airport.", "personality_tags": ["touch"] }
           ],
           "explanation": null,
@@ -70,10 +98,26 @@
           "id": "q3",
           "question": "In a relationship, you feel most loved when your partner:",
           "options": [
-            { "id": "a", "text": "Tells you, in detail, why they chose you.", "personality_tags": ["words"] },
-            { "id": "b", "text": "Cancels everything just to be with you.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "Notices what you need and quietly does it.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "Reaches for your hand without thinking.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "Tells you, in detail, why they chose you.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Cancels everything just to be with you.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "Notices what you need and quietly does it.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Reaches for your hand without thinking.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -82,10 +126,26 @@
           "id": "q4",
           "question": "Your ideal birthday looks like:",
           "options": [
-            { "id": "a", "text": "Messages and toasts that say who you are to people.", "personality_tags": ["words"] },
-            { "id": "b", "text": "A slow day with my favorite person, phones off.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "Someone else handles it all: cooking, cleaning, plans.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "Dancing, couch cuddles, real closeness.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "Messages and toasts that say who you are to people.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A slow day with my favorite person, phones off.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "Someone else handles it all: cooking, cleaning, plans.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Dancing, couch cuddles, real closeness.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -94,10 +154,26 @@
           "id": "q5",
           "question": "You show affection mostly by:",
           "options": [
-            { "id": "a", "text": "Saying it — compliments, check-ins, 'I was thinking about you'.", "personality_tags": ["words"] },
-            { "id": "b", "text": "Giving my full attention when we're together.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "Doing things: errands, fixes, meals.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "Touch — hugs, a hand on the back, sitting close.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "Saying it — compliments, check-ins, 'I was thinking about you'.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Giving my full attention when we're together.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "Doing things: errands, fixes, meals.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Touch — hugs, a hand on the back, sitting close.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -106,8 +182,16 @@
           "id": "q6",
           "question": "Which apology works best on you?",
           "options": [
-            { "id": "a", "text": "A real apology, out loud, with the right words.", "personality_tags": ["words"] },
-            { "id": "b", "text": "An invitation to talk it over properly, no rush.", "personality_tags": ["quality"] },
+            {
+              "id": "a",
+              "text": "A real apology, out loud, with the right words.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "An invitation to talk it over properly, no rush.",
+              "personality_tags": ["quality"]
+            },
             { "id": "c", "text": "Actions: 'I already fixed it'.", "personality_tags": ["acts"] },
             { "id": "d", "text": "A hug that ends the argument.", "personality_tags": ["touch"] }
           ],
@@ -118,10 +202,26 @@
           "id": "q7",
           "question": "Long-distance is hardest because you miss:",
           "options": [
-            { "id": "a", "text": "Hearing their voice say nice things.", "personality_tags": ["words"] },
-            { "id": "b", "text": "The long, unhurried hours together.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "How they took care of all the small stuff.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "The simple act of reaching over and touching them.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "Hearing their voice say nice things.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "The long, unhurried hours together.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "How they took care of all the small stuff.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "The simple act of reaching over and touching them.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -130,10 +230,26 @@
           "id": "q8",
           "question": "Someone you love is celebrating. Your gift is:",
           "options": [
-            { "id": "a", "text": "A card where I finally wrote what they mean to me.", "personality_tags": ["words"] },
-            { "id": "b", "text": "A whole day together doing their favorite thing.", "personality_tags": ["quality"] },
-            { "id": "c", "text": "Taking one task off their plate for a month.", "personality_tags": ["acts"] },
-            { "id": "d", "text": "A massage, a dance class — something hands-on.", "personality_tags": ["touch"] }
+            {
+              "id": "a",
+              "text": "A card where I finally wrote what they mean to me.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A whole day together doing their favorite thing.",
+              "personality_tags": ["quality"]
+            },
+            {
+              "id": "c",
+              "text": "Taking one task off their plate for a month.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "A massage, a dance class — something hands-on.",
+              "personality_tags": ["touch"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -185,10 +301,26 @@
           "id": "q1",
           "question": "Tu amigo tuvo una semana terrible. Tú:",
           "options": [
-            { "id": "a", "text": "Le escribes un mensaje con todo lo que hace bien.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Planeas una tarde juntos, solo ustedes dos.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Apareces y te encargas de eso que venía postergando.", "personality_tags": ["actos"] },
-            { "id": "d", "text": "Llegas con un abrazo largo, sin preguntar nada.", "personality_tags": ["contacto"] }
+            {
+              "id": "a",
+              "text": "Le escribes un mensaje con todo lo que hace bien.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Planeas una tarde juntos, solo ustedes dos.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Apareces y te encargas de eso que venía postergando.",
+              "personality_tags": ["actos"]
+            },
+            {
+              "id": "d",
+              "text": "Llegas con un abrazo largo, sin preguntar nada.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -197,9 +329,21 @@
           "id": "q2",
           "question": "¿Qué se queda contigo más tiempo?",
           "options": [
-            { "id": "a", "text": "Un cumplido que cayó justo donde tenía que caer.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Un día entero con alguien, sin hacer nada importante.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "La vez que alguien te ayudó a mudarte sin que lo pidieras.", "personality_tags": ["actos"] },
+            {
+              "id": "a",
+              "text": "Un cumplido que cayó justo donde tenía que caer.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Un día entero con alguien, sin hacer nada importante.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "La vez que alguien te ayudó a mudarte sin que lo pidieras.",
+              "personality_tags": ["actos"]
+            },
             { "id": "d", "text": "Un abrazo en el aeropuerto.", "personality_tags": ["contacto"] }
           ],
           "explanation": null,
@@ -209,9 +353,21 @@
           "id": "q3",
           "question": "En una relación te sientes más querido cuando tu pareja:",
           "options": [
-            { "id": "a", "text": "Te dice, con detalles, por qué te eligió.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Cancela todo para estar simplemente contigo.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Nota lo que necesitas y lo hace sin hacer ruido.", "personality_tags": ["actos"] },
+            {
+              "id": "a",
+              "text": "Te dice, con detalles, por qué te eligió.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Cancela todo para estar simplemente contigo.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Nota lo que necesitas y lo hace sin hacer ruido.",
+              "personality_tags": ["actos"]
+            },
             { "id": "d", "text": "Busca tu mano sin pensarlo.", "personality_tags": ["contacto"] }
           ],
           "explanation": null,
@@ -221,10 +377,26 @@
           "id": "q4",
           "question": "Tu cumpleaños ideal se ve así:",
           "options": [
-            { "id": "a", "text": "Mensajes y brindis que dicen quién eres para la gente.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Un día lento con mi persona favorita, teléfono apagado.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Alguien más se encarga de todo: cocina, limpieza, planes.", "personality_tags": ["actos"] },
-            { "id": "d", "text": "Baile, sofá abrazados, cercanía de verdad.", "personality_tags": ["contacto"] }
+            {
+              "id": "a",
+              "text": "Mensajes y brindis que dicen quién eres para la gente.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Un día lento con mi persona favorita, teléfono apagado.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Alguien más se encarga de todo: cocina, limpieza, planes.",
+              "personality_tags": ["actos"]
+            },
+            {
+              "id": "d",
+              "text": "Baile, sofá abrazados, cercanía de verdad.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -233,10 +405,26 @@
           "id": "q5",
           "question": "Demuestras cariño sobre todo:",
           "options": [
-            { "id": "a", "text": "Diciéndolo: cumplidos, mensajes, «pensé en ti».", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Con atención completa cuando estamos juntos.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Haciendo cosas: mandados, arreglos, comida.", "personality_tags": ["actos"] },
-            { "id": "d", "text": "Con contacto: abrazos, una mano en la espalda, sentarme cerca.", "personality_tags": ["contacto"] }
+            {
+              "id": "a",
+              "text": "Diciéndolo: cumplidos, mensajes, «pensé en ti».",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Con atención completa cuando estamos juntos.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Haciendo cosas: mandados, arreglos, comida.",
+              "personality_tags": ["actos"]
+            },
+            {
+              "id": "d",
+              "text": "Con contacto: abrazos, una mano en la espalda, sentarme cerca.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -245,10 +433,22 @@
           "id": "q6",
           "question": "¿Qué disculpa funciona mejor contigo?",
           "options": [
-            { "id": "a", "text": "Una disculpa de verdad, en voz alta y bien dicha.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Una invitación a hablarlo con calma, sin prisa.", "personality_tags": ["tiempo"] },
+            {
+              "id": "a",
+              "text": "Una disculpa de verdad, en voz alta y bien dicha.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Una invitación a hablarlo con calma, sin prisa.",
+              "personality_tags": ["tiempo"]
+            },
             { "id": "c", "text": "Hechos: «ya lo arreglé».", "personality_tags": ["actos"] },
-            { "id": "d", "text": "Un abrazo que termina la discusión.", "personality_tags": ["contacto"] }
+            {
+              "id": "d",
+              "text": "Un abrazo que termina la discusión.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -257,10 +457,26 @@
           "id": "q7",
           "question": "La distancia pesa más porque extrañas:",
           "options": [
-            { "id": "a", "text": "Escuchar su voz decir cosas bonitas.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Las horas largas y sin apuro juntos.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Cómo se ocupaba de todos los pequeños detalles.", "personality_tags": ["actos"] },
-            { "id": "d", "text": "El simple gesto de estirar el brazo y tocarlo.", "personality_tags": ["contacto"] }
+            {
+              "id": "a",
+              "text": "Escuchar su voz decir cosas bonitas.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Las horas largas y sin apuro juntos.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Cómo se ocupaba de todos los pequeños detalles.",
+              "personality_tags": ["actos"]
+            },
+            {
+              "id": "d",
+              "text": "El simple gesto de estirar el brazo y tocarlo.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -269,10 +485,26 @@
           "id": "q8",
           "question": "Alguien que quieres celebra algo. Tu regalo es:",
           "options": [
-            { "id": "a", "text": "Una tarjeta donde por fin escribí lo que significa para mí.", "personality_tags": ["palabras"] },
-            { "id": "b", "text": "Un día entero juntos haciendo su plan favorito.", "personality_tags": ["tiempo"] },
-            { "id": "c", "text": "Quitarle una tarea del plato durante un mes entero.", "personality_tags": ["actos"] },
-            { "id": "d", "text": "Un masaje, una clase de baile: algo con contacto.", "personality_tags": ["contacto"] }
+            {
+              "id": "a",
+              "text": "Una tarjeta donde por fin escribí lo que significa para mí.",
+              "personality_tags": ["palabras"]
+            },
+            {
+              "id": "b",
+              "text": "Un día entero juntos haciendo su plan favorito.",
+              "personality_tags": ["tiempo"]
+            },
+            {
+              "id": "c",
+              "text": "Quitarle una tarea del plato durante un mes entero.",
+              "personality_tags": ["actos"]
+            },
+            {
+              "id": "d",
+              "text": "Un masaje, una clase de baile: algo con contacto.",
+              "personality_tags": ["contacto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -324,10 +556,26 @@
           "id": "q1",
           "question": "The waiter brings the wrong order. You:",
           "options": [
-            { "id": "a", "text": "'This isn't what I ordered' — friendly but exact.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Flag it softly: 'Sorry, I think there was a mix-up'.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Check the menu first, then explain the discrepancy.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Turn it into a story: 'Plot twist: the pasta has arrived'.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "'This isn't what I ordered' — friendly but exact.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Flag it softly: 'Sorry, I think there was a mix-up'.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Check the menu first, then explain the discrepancy.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Turn it into a story: 'Plot twist: the pasta has arrived'.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -336,10 +584,26 @@
           "id": "q2",
           "question": "In a work meeting you usually:",
           "options": [
-            { "id": "a", "text": "Say the conclusion first, details later.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Make sure every voice is heard before deciding.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Ask the question nobody thought to ask.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Keep the energy up — meetings shouldn't feel like funerals.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "Say the conclusion first, details later.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Make sure every voice is heard before deciding.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Ask the question nobody thought to ask.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Keep the energy up — meetings shouldn't feel like funerals.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -348,10 +612,26 @@
           "id": "q3",
           "question": "Your texts are mostly:",
           "options": [
-            { "id": "a", "text": "Short. 'On my way'. 'No'. 'Yes'.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Careful, with emojis placed to soften everything.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Precise, with context and a link to prove it.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Voice notes. Long ones. With sound effects.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "Short. 'On my way'. 'No'. 'Yes'.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Careful, with emojis placed to soften everything.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Precise, with context and a link to prove it.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Voice notes. Long ones. With sound effects.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -360,10 +640,26 @@
           "id": "q4",
           "question": "A friend asks your honest opinion on a bad haircut. You:",
           "options": [
-            { "id": "a", "text": "Say it straight: 'Grow it out, it'll be fine'.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Find the kindest true thing first.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Analyze: 'The shape is fine; the length is the issue'.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "React honestly with your face before your words.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "Say it straight: 'Grow it out, it'll be fine'.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Find the kindest true thing first.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Analyze: 'The shape is fine; the length is the issue'.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "React honestly with your face before your words.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -373,9 +669,21 @@
           "question": "In an argument, your natural move is:",
           "options": [
             { "id": "a", "text": "Name the problem directly.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Find the version where both sides feel heard.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Go quiet and think it through before answering.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Feel it all in real time — no poker face.", "personality_tags": ["expressive"] }
+            {
+              "id": "b",
+              "text": "Find the version where both sides feel heard.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Go quiet and think it through before answering.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Feel it all in real time — no poker face.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -384,9 +692,21 @@
           "id": "q6",
           "question": "Telling a story, you:",
           "options": [
-            { "id": "a", "text": "Get to the point before they check their phone.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Adjust it to whoever is listening.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Include the timeline and the exact quotes.", "personality_tags": ["analytical"] },
+            {
+              "id": "a",
+              "text": "Get to the point before they check their phone.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Adjust it to whoever is listening.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Include the timeline and the exact quotes.",
+              "personality_tags": ["analytical"]
+            },
             { "id": "d", "text": "Do the voices. All of them.", "personality_tags": ["expressive"] }
           ],
           "explanation": null,
@@ -396,10 +716,26 @@
           "id": "q7",
           "question": "The group can't pick a restaurant. You:",
           "options": [
-            { "id": "a", "text": "'We're going to the taco place. Done'.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Run a quick poll so everyone wins a little.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Compare ratings, distance and prices, then propose.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Pitch your option like a movie trailer until it wins.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "'We're going to the taco place. Done'.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Run a quick poll so everyone wins a little.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Compare ratings, distance and prices, then propose.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Pitch your option like a movie trailer until it wins.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -408,10 +744,26 @@
           "id": "q8",
           "question": "Nervous before speaking in public, you:",
           "options": [
-            { "id": "a", "text": "Open with exactly what you came to say.", "personality_tags": ["direct"] },
-            { "id": "b", "text": "Read the room and start wherever it is.", "personality_tags": ["diplomatic"] },
-            { "id": "c", "text": "Lean on the structure you prepared.", "personality_tags": ["analytical"] },
-            { "id": "d", "text": "Turn the nerves into energy and gesture anyway.", "personality_tags": ["expressive"] }
+            {
+              "id": "a",
+              "text": "Open with exactly what you came to say.",
+              "personality_tags": ["direct"]
+            },
+            {
+              "id": "b",
+              "text": "Read the room and start wherever it is.",
+              "personality_tags": ["diplomatic"]
+            },
+            {
+              "id": "c",
+              "text": "Lean on the structure you prepared.",
+              "personality_tags": ["analytical"]
+            },
+            {
+              "id": "d",
+              "text": "Turn the nerves into energy and gesture anyway.",
+              "personality_tags": ["expressive"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -463,10 +815,26 @@
           "id": "q1",
           "question": "El mesero trae un plato que no pediste. Tú:",
           "options": [
-            { "id": "a", "text": "«Esto no es lo que pedí»: amable pero exacto.", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Lo avisas suave: «perdón, creo que hubo una confusión».", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Revisas el menú primero y luego explicas la diferencia.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Lo conviertes en historia: «giro de trama, llegó la pasta».", "personality_tags": ["expresivo"] }
+            {
+              "id": "a",
+              "text": "«Esto no es lo que pedí»: amable pero exacto.",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "Lo avisas suave: «perdón, creo que hubo una confusión».",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Revisas el menú primero y luego explicas la diferencia.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Lo conviertes en historia: «giro de trama, llegó la pasta».",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -475,10 +843,26 @@
           "id": "q2",
           "question": "En una reunión de trabajo sueles:",
           "options": [
-            { "id": "a", "text": "Decir la conclusión primero y los detalles después.", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Cuidar que todas las voces se escuchen antes de decidir.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Hacer la pregunta que nadie pensó.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Subir la energía: las reuniones no deben ser funerales.", "personality_tags": ["expresivo"] }
+            {
+              "id": "a",
+              "text": "Decir la conclusión primero y los detalles después.",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "Cuidar que todas las voces se escuchen antes de decidir.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Hacer la pregunta que nadie pensó.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Subir la energía: las reuniones no deben ser funerales.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -488,9 +872,21 @@
           "question": "Tus mensajes son sobre todo:",
           "options": [
             { "id": "a", "text": "Cortos. «Voy». «No». «Sí».", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Cuidadosos, con emojis puestos para suavizarlo todo.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Precisos, con contexto y un enlace que lo pruebe.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Audios. Largos. Con efectos de sonido.", "personality_tags": ["expresivo"] }
+            {
+              "id": "b",
+              "text": "Cuidadosos, con emojis puestos para suavizarlo todo.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Precisos, con contexto y un enlace que lo pruebe.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Audios. Largos. Con efectos de sonido.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -499,10 +895,26 @@
           "id": "q4",
           "question": "Un amigo pide tu opinión honesta sobre un mal corte. Tú:",
           "options": [
-            { "id": "a", "text": "Lo dices claro: «déjalo crecer, se arregla».", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Buscas primero la verdad más amable.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Analizas: «la forma está bien, el largo es el tema».", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Reaccionas con la cara antes que con las palabras.", "personality_tags": ["expresivo"] }
+            {
+              "id": "a",
+              "text": "Lo dices claro: «déjalo crecer, se arregla».",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "Buscas primero la verdad más amable.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Analizas: «la forma está bien, el largo es el tema».",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Reaccionas con la cara antes que con las palabras.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -511,10 +923,26 @@
           "id": "q5",
           "question": "En una discusión, tu movida natural es:",
           "options": [
-            { "id": "a", "text": "Nombrar el problema directamente.", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Buscar la versión donde los dos se sientan escuchados.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Callar y pensarlo bien antes de responder.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Sentirlo todo en vivo: nada de cara de póker.", "personality_tags": ["expresivo"] }
+            {
+              "id": "a",
+              "text": "Nombrar el problema directamente.",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "Buscar la versión donde los dos se sientan escuchados.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Callar y pensarlo bien antes de responder.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Sentirlo todo en vivo: nada de cara de póker.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -523,9 +951,21 @@
           "id": "q6",
           "question": "Al contar una historia, tú:",
           "options": [
-            { "id": "a", "text": "Llegas al punto antes de que miren el teléfono.", "personality_tags": ["directo"] },
-            { "id": "b", "text": "La ajustas según quién esté escuchando.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Incluyes la cronología y las frases exactas.", "personality_tags": ["analitico"] },
+            {
+              "id": "a",
+              "text": "Llegas al punto antes de que miren el teléfono.",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "La ajustas según quién esté escuchando.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Incluyes la cronología y las frases exactas.",
+              "personality_tags": ["analitico"]
+            },
             { "id": "d", "text": "Haces las voces. Todas.", "personality_tags": ["expresivo"] }
           ],
           "explanation": null,
@@ -536,9 +976,21 @@
           "question": "El grupo no elige restaurante. Tú:",
           "options": [
             { "id": "a", "text": "«Vamos al de tacos. Listo».", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Armas una mini encuesta para que todos ganen algo.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Comparas reseñas, distancia y precios, y propones.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Vendes tu opción como tráiler de película hasta que gana.", "personality_tags": ["expresivo"] }
+            {
+              "id": "b",
+              "text": "Armas una mini encuesta para que todos ganen algo.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Comparas reseñas, distancia y precios, y propones.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Vendes tu opción como tráiler de película hasta que gana.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -547,10 +999,26 @@
           "id": "q8",
           "question": "Nervioso antes de hablar en público, tú:",
           "options": [
-            { "id": "a", "text": "Abres con justo lo que viniste a decir.", "personality_tags": ["directo"] },
-            { "id": "b", "text": "Lees la sala y empiezas desde donde está.", "personality_tags": ["diplomatico"] },
-            { "id": "c", "text": "Te apoyas en la estructura que preparaste.", "personality_tags": ["analitico"] },
-            { "id": "d", "text": "Conviertes los nervios en energía y gesticulas igual.", "personality_tags": ["expresivo"] }
+            {
+              "id": "a",
+              "text": "Abres con justo lo que viniste a decir.",
+              "personality_tags": ["directo"]
+            },
+            {
+              "id": "b",
+              "text": "Lees la sala y empiezas desde donde está.",
+              "personality_tags": ["diplomatico"]
+            },
+            {
+              "id": "c",
+              "text": "Te apoyas en la estructura que preparaste.",
+              "personality_tags": ["analitico"]
+            },
+            {
+              "id": "d",
+              "text": "Conviertes los nervios en energía y gesticulas igual.",
+              "personality_tags": ["expresivo"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -602,10 +1070,26 @@
           "id": "q1",
           "question": "A text to your partner goes unanswered for hours. You:",
           "options": [
-            { "id": "a", "text": "Assume they're busy; I'll hear from them soon.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Check the chat three times and start drafting.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Honestly? A bit relieved to get the afternoon back.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Depends on the week — sometimes I spiral, sometimes I shrug.", "personality_tags": ["mixed"] }
+            {
+              "id": "a",
+              "text": "Assume they're busy; I'll hear from them soon.",
+              "personality_tags": ["secure"]
+            },
+            {
+              "id": "b",
+              "text": "Check the chat three times and start drafting.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Honestly? A bit relieved to get the afternoon back.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Depends on the week — sometimes I spiral, sometimes I shrug.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -614,10 +1098,26 @@
           "id": "q2",
           "question": "Getting close to someone new feels like:",
           "options": [
-            { "id": "a", "text": "Exciting, mostly. I open up at a normal pace.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Wonderful and terrifying — what if they leave?", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Nice, as long as I keep my own space.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Different every time; I never know which me shows up.", "personality_tags": ["mixed"] }
+            {
+              "id": "a",
+              "text": "Exciting, mostly. I open up at a normal pace.",
+              "personality_tags": ["secure"]
+            },
+            {
+              "id": "b",
+              "text": "Wonderful and terrifying — what if they leave?",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Nice, as long as I keep my own space.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Different every time; I never know which me shows up.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -626,10 +1126,26 @@
           "id": "q3",
           "question": "Your ideal amount of time together in a relationship:",
           "options": [
-            { "id": "a", "text": "A lot, but with room for my own life.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "As much as possible — togetherness is the point.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Quality over quantity, and plenty of me-time.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "It swings: glued one week, off the grid the next.", "personality_tags": ["mixed"] }
+            {
+              "id": "a",
+              "text": "A lot, but with room for my own life.",
+              "personality_tags": ["secure"]
+            },
+            {
+              "id": "b",
+              "text": "As much as possible — togetherness is the point.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Quality over quantity, and plenty of me-time.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "It swings: glued one week, off the grid the next.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -638,10 +1154,26 @@
           "id": "q4",
           "question": "When a relationship gets serious, you tend to:",
           "options": [
-            { "id": "a", "text": "Settle in — this is where it gets good.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Get closer and need more signs it's mutual.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Feel the urge to slow it down or step back.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Oscillate between 'more' and 'too much'.", "personality_tags": ["mixed"] }
+            {
+              "id": "a",
+              "text": "Settle in — this is where it gets good.",
+              "personality_tags": ["secure"]
+            },
+            {
+              "id": "b",
+              "text": "Get closer and need more signs it's mutual.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Feel the urge to slow it down or step back.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Oscillate between 'more' and 'too much'.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -651,9 +1183,21 @@
           "question": "After a fight with someone you love, you:",
           "options": [
             { "id": "a", "text": "Cool off, then go talk it out.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Can't rest until it's fixed — right now.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Need real space before you can even discuss it.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Alternate between chasing the fix and hiding from it.", "personality_tags": ["mixed"] }
+            {
+              "id": "b",
+              "text": "Can't rest until it's fixed — right now.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Need real space before you can even discuss it.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Alternate between chasing the fix and hiding from it.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -663,9 +1207,21 @@
           "question": "Compliments and 'I love you's, for you, are:",
           "options": [
             { "id": "a", "text": "Lovely to give and to receive.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Essential — I need to hear them to believe them.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "A little awkward; I show it more than I say it.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Great when I'm open to them, too much when I'm not.", "personality_tags": ["mixed"] }
+            {
+              "id": "b",
+              "text": "Essential — I need to hear them to believe them.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "A little awkward; I show it more than I say it.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Great when I'm open to them, too much when I'm not.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -674,10 +1230,26 @@
           "id": "q7",
           "question": "Your friends would say you're the one who:",
           "options": [
-            { "id": "a", "text": "Is steady — same person in love and out of it.", "personality_tags": ["secure"] },
-            { "id": "b", "text": "Falls hard and fast, every time.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Keeps a part of themselves for themselves.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Is different with every partner — a bit of a mystery.", "personality_tags": ["mixed"] }
+            {
+              "id": "a",
+              "text": "Is steady — same person in love and out of it.",
+              "personality_tags": ["secure"]
+            },
+            {
+              "id": "b",
+              "text": "Falls hard and fast, every time.",
+              "personality_tags": ["anxious"]
+            },
+            {
+              "id": "c",
+              "text": "Keeps a part of themselves for themselves.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Is different with every partner — a bit of a mystery.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -686,10 +1258,22 @@
           "id": "q8",
           "question": "Depending on someone else feels:",
           "options": [
-            { "id": "a", "text": "Natural — that's what people are for.", "personality_tags": ["secure"] },
+            {
+              "id": "a",
+              "text": "Natural — that's what people are for.",
+              "personality_tags": ["secure"]
+            },
             { "id": "b", "text": "Scary but irresistible.", "personality_tags": ["anxious"] },
-            { "id": "c", "text": "Like a risk I'd rather not take.", "personality_tags": ["avoidant"] },
-            { "id": "d", "text": "Fine in some areas, impossible in others.", "personality_tags": ["mixed"] }
+            {
+              "id": "c",
+              "text": "Like a risk I'd rather not take.",
+              "personality_tags": ["avoidant"]
+            },
+            {
+              "id": "d",
+              "text": "Fine in some areas, impossible in others.",
+              "personality_tags": ["mixed"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -741,10 +1325,26 @@
           "id": "q1",
           "question": "Un mensaje a tu pareja queda sin respuesta por horas. Tú:",
           "options": [
-            { "id": "a", "text": "Asumo que está ocupada; ya escribirá.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "Reviso el chat tres veces y empiezo a redactar.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "¿Sinceramente? Algo me alivia recuperar la tarde.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Depende de la semana: a veces me angustio, a veces no me inmuto.", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Asumo que está ocupada; ya escribirá.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "Reviso el chat tres veces y empiezo a redactar.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "¿Sinceramente? Algo me alivia recuperar la tarde.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Depende de la semana: a veces me angustio, a veces no me inmuto.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -753,10 +1353,26 @@
           "id": "q2",
           "question": "Acercarte a alguien nuevo se siente como:",
           "options": [
-            { "id": "a", "text": "Emocionante, casi siempre. Me abro a un ritmo normal.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "Hermoso y aterrador: ¿y si se va?", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Agradable, mientras conserve mi propio espacio.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Distinto cada vez; nunca sé qué versión de mí aparece.", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Emocionante, casi siempre. Me abro a un ritmo normal.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "Hermoso y aterrador: ¿y si se va?",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Agradable, mientras conserve mi propio espacio.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Distinto cada vez; nunca sé qué versión de mí aparece.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -765,10 +1381,26 @@
           "id": "q3",
           "question": "Tu cantidad ideal de tiempo juntos en una relación:",
           "options": [
-            { "id": "a", "text": "Bastante, pero con espacio para mi propia vida.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "La mayor posible: de eso se trata estar juntos.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Calidad sobre cantidad, y mucho tiempo para mí.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Oscila: pegados una semana, incomunicado la siguiente.", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Bastante, pero con espacio para mi propia vida.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "La mayor posible: de eso se trata estar juntos.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Calidad sobre cantidad, y mucho tiempo para mí.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Oscila: pegados una semana, incomunicado la siguiente.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -777,10 +1409,26 @@
           "id": "q4",
           "question": "Cuando una relación se pone seria, sueles:",
           "options": [
-            { "id": "a", "text": "Acomodarte: ahí es donde se pone bueno.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "Acercarte más y necesitar más señales de que es mutuo.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Sentir ganas de bajar el ritmo o tomar distancia.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Oscilar entre «más» y «es mucho».", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Acomodarte: ahí es donde se pone bueno.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "Acercarte más y necesitar más señales de que es mutuo.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Sentir ganas de bajar el ritmo o tomar distancia.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Oscilar entre «más» y «es mucho».",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -789,10 +1437,26 @@
           "id": "q5",
           "question": "Después de pelear con alguien que quieres, tú:",
           "options": [
-            { "id": "a", "text": "Me enfrío un rato y luego lo hablamos.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "No descanso hasta arreglarlo: ahora mismo.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Necesito espacio real antes de poder hablarlo.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Alterno entre perseguir la solución y esconderme de ella.", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Me enfrío un rato y luego lo hablamos.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "No descanso hasta arreglarlo: ahora mismo.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Necesito espacio real antes de poder hablarlo.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Alterno entre perseguir la solución y esconderme de ella.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -802,9 +1466,21 @@
           "question": "Los cumplidos y los «te quiero», para ti, son:",
           "options": [
             { "id": "a", "text": "Lindos de dar y de recibir.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "Esenciales: necesito oírlos para creerlos.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Algo incómodos; lo demuestro más de lo que lo digo.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Geniales cuando estoy abierto, demasiado cuando no.", "personality_tags": ["mixto"] }
+            {
+              "id": "b",
+              "text": "Esenciales: necesito oírlos para creerlos.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Algo incómodos; lo demuestro más de lo que lo digo.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Geniales cuando estoy abierto, demasiado cuando no.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -813,10 +1489,26 @@
           "id": "q7",
           "question": "Tus amigos dirían que eres quien:",
           "options": [
-            { "id": "a", "text": "Es estable: la misma persona enamorado o no.", "personality_tags": ["seguro"] },
-            { "id": "b", "text": "Se enamora fuerte y rápido, siempre.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Guarda una parte de sí para sí.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Es distinto con cada pareja: un poco misterio.", "personality_tags": ["mixto"] }
+            {
+              "id": "a",
+              "text": "Es estable: la misma persona enamorado o no.",
+              "personality_tags": ["seguro"]
+            },
+            {
+              "id": "b",
+              "text": "Se enamora fuerte y rápido, siempre.",
+              "personality_tags": ["ansioso"]
+            },
+            {
+              "id": "c",
+              "text": "Guarda una parte de sí para sí.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Es distinto con cada pareja: un poco misterio.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -825,10 +1517,22 @@
           "id": "q8",
           "question": "Depender de otra persona se siente:",
           "options": [
-            { "id": "a", "text": "Natural: para eso está la gente.", "personality_tags": ["seguro"] },
+            {
+              "id": "a",
+              "text": "Natural: para eso está la gente.",
+              "personality_tags": ["seguro"]
+            },
             { "id": "b", "text": "Aterrador pero irresistible.", "personality_tags": ["ansioso"] },
-            { "id": "c", "text": "Como un riesgo que prefiero no correr.", "personality_tags": ["evitativo"] },
-            { "id": "d", "text": "Bien en unas áreas, imposible en otras.", "personality_tags": ["mixto"] }
+            {
+              "id": "c",
+              "text": "Como un riesgo que prefiero no correr.",
+              "personality_tags": ["evitativo"]
+            },
+            {
+              "id": "d",
+              "text": "Bien en unas áreas, imposible en otras.",
+              "personality_tags": ["mixto"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -880,10 +1584,26 @@
           "id": "q1",
           "question": "Dinner turns into a debate about politics. You:",
           "options": [
-            { "id": "a", "text": "Translate both sides until they hear each other.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "Serve more food — a full plate calms anyone.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Eat quietly and text my group chat from under the table.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Drop the joke that resets the whole table.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Translate both sides until they hear each other.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "Serve more food — a full plate calms anyone.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Eat quietly and text my group chat from under the table.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Drop the joke that resets the whole table.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -892,10 +1612,26 @@
           "id": "q2",
           "question": "Someone in the family is sick. Your role is:",
           "options": [
-            { "id": "a", "text": "Keeping everyone informed without the drama.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "Soup, the medicine schedule and sitting with them.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Sending help from wherever I live now.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Keeping their spirits up — laughter is medicine too.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Keeping everyone informed without the drama.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "Soup, the medicine schedule and sitting with them.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Sending help from wherever I live now.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Keeping their spirits up — laughter is medicine too.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -904,10 +1640,26 @@
           "id": "q3",
           "question": "On family vacations growing up, you were:",
           "options": [
-            { "id": "a", "text": "The negotiator of whose turn it was to pick.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "The one packing snacks 'just in case'.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Off doing my own thing half the time.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "The soundtrack: games, jokes, car karaoke.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "The negotiator of whose turn it was to pick.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "The one packing snacks 'just in case'.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Off doing my own thing half the time.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "The soundtrack: games, jokes, car karaoke.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -916,10 +1668,26 @@
           "id": "q4",
           "question": "The family group chat exists, for you, to:",
           "options": [
-            { "id": "a", "text": "Calm things down when caps lock appears.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "Check on everyone: birthdays, appointments, 'did you eat'.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Read it on mute and answer three days later.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Send the memes that keep it alive.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Calm things down when caps lock appears.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "Check on everyone: birthdays, appointments, 'did you eat'.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Read it on mute and answer three days later.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Send the memes that keep it alive.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -928,10 +1696,26 @@
           "id": "q5",
           "question": "Two relatives haven't spoken in months. You:",
           "options": [
-            { "id": "a", "text": "Talk to each one until the bridge exists again.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "Make sure both are okay while it blows over.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Stay out of it — not my war.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Get them in the same room and make it awkward-funny until it breaks.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Talk to each one until the bridge exists again.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "Make sure both are okay while it blows over.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Stay out of it — not my war.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Get them in the same room and make it awkward-funny until it breaks.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -940,10 +1724,26 @@
           "id": "q6",
           "question": "At family gatherings, your seat is:",
           "options": [
-            { "id": "a", "text": "Wherever the tension needs absorbing.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "Closest to the kitchen — that's command central.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "Near the door, mentally and physically.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Wherever the kids' table energy is.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Wherever the tension needs absorbing.",
+              "personality_tags": ["mediator"]
+            },
+            {
+              "id": "b",
+              "text": "Closest to the kitchen — that's command central.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "Near the door, mentally and physically.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Wherever the kids' table energy is.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -953,9 +1753,21 @@
           "question": "Beyond keeping secrets, people come to you when they need:",
           "options": [
             { "id": "a", "text": "Someone fair to weigh in.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "To be taken care of, no questions.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "An outside perspective, no strings.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "To laugh about it before they cry about it.", "personality_tags": ["humor"] }
+            {
+              "id": "b",
+              "text": "To be taken care of, no questions.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "An outside perspective, no strings.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "To laugh about it before they cry about it.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -965,9 +1777,21 @@
           "question": "Your family would describe you as:",
           "options": [
             { "id": "a", "text": "The glue.", "personality_tags": ["mediator"] },
-            { "id": "b", "text": "The one who always shows up.", "personality_tags": ["caregiver"] },
-            { "id": "c", "text": "The one who left and made it anyway.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "The one who makes every gathering worth it.", "personality_tags": ["humor"] }
+            {
+              "id": "b",
+              "text": "The one who always shows up.",
+              "personality_tags": ["caregiver"]
+            },
+            {
+              "id": "c",
+              "text": "The one who left and made it anyway.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "The one who makes every gathering worth it.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1019,10 +1843,26 @@
           "id": "q1",
           "question": "La cena se convierte en debate de política. Tú:",
           "options": [
-            { "id": "a", "text": "Traduzco las dos posturas hasta que se escuchen.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "Sirvo más comida: un plato lleno calma a cualquiera.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Como en silencio y escribo a mi grupo desde abajo de la mesa.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Suelto el chiste que reinicia la mesa entera.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Traduzco las dos posturas hasta que se escuchen.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "Sirvo más comida: un plato lleno calma a cualquiera.",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Como en silencio y escribo a mi grupo desde abajo de la mesa.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Suelto el chiste que reinicia la mesa entera.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1031,10 +1871,26 @@
           "id": "q2",
           "question": "Alguien de la familia está enfermo. Tu rol es:",
           "options": [
-            { "id": "a", "text": "Mantener a todos informados sin el drama.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "Sopa, horario de medicinas y compañía.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Mandar ayuda desde donde vivo ahora.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Subirle el ánimo: reír también es medicina.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Mantener a todos informados sin el drama.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "Sopa, horario de medicinas y compañía.",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Mandar ayuda desde donde vivo ahora.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Subirle el ánimo: reír también es medicina.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1043,10 +1899,26 @@
           "id": "q3",
           "question": "En las vacaciones familiares de chico, tú eras:",
           "options": [
-            { "id": "a", "text": "El que negociaba a quién le tocaba elegir.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "El que empacaba snacks «por si acaso».", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "El que se iba a lo suyo la mitad del tiempo.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "La banda sonora: juegos, chistes, karaoke en el auto.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "El que negociaba a quién le tocaba elegir.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "El que empacaba snacks «por si acaso».",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "El que se iba a lo suyo la mitad del tiempo.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "La banda sonora: juegos, chistes, karaoke en el auto.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1055,10 +1927,26 @@
           "id": "q4",
           "question": "El grupo de la familia existe, para ti, para:",
           "options": [
-            { "id": "a", "text": "Calmar las aguas cuando aparecen las mayúsculas.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "Pasar lista: cumpleaños, citas, «¿ya comiste?».", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Leerlo en silencio y responder tres días después.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Mandar los memes que lo mantienen vivo.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Calmar las aguas cuando aparecen las mayúsculas.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "Pasar lista: cumpleaños, citas, «¿ya comiste?».",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Leerlo en silencio y responder tres días después.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Mandar los memes que lo mantienen vivo.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1067,10 +1955,26 @@
           "id": "q5",
           "question": "Dos parientes llevan meses sin hablarse. Tú:",
           "options": [
-            { "id": "a", "text": "Hablo con cada uno hasta que el puente exista otra vez.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "Me aseguro de que los dos estén bien mientras pasa.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Me mantengo al margen: no es mi guerra.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Los junto en la misma sala y lo hago incómodo-gracioso hasta que se rompe el hielo.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Hablo con cada uno hasta que el puente exista otra vez.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "Me aseguro de que los dos estén bien mientras pasa.",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Me mantengo al margen: no es mi guerra.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Los junto en la misma sala y lo hago incómodo-gracioso hasta que se rompe el hielo.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1079,10 +1983,26 @@
           "id": "q6",
           "question": "En las reuniones familiares, tu asiento es:",
           "options": [
-            { "id": "a", "text": "Donde haga falta absorber tensión.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "El más cercano a la cocina: ahí está el centro de mando.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Cerca de la puerta, mental y físicamente.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Donde esté la energía de la mesa de los niños.", "personality_tags": ["humor"] }
+            {
+              "id": "a",
+              "text": "Donde haga falta absorber tensión.",
+              "personality_tags": ["mediador"]
+            },
+            {
+              "id": "b",
+              "text": "El más cercano a la cocina: ahí está el centro de mando.",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Cerca de la puerta, mental y físicamente.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Donde esté la energía de la mesa de los niños.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1092,9 +2012,21 @@
           "question": "Más allá de guardar secretos, la gente acude a ti cuando necesita:",
           "options": [
             { "id": "a", "text": "Alguien justo que opine.", "personality_tags": ["mediador"] },
-            { "id": "b", "text": "Que la cuiden sin hacer preguntas.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "Una mirada de afuera, sin ataduras.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Reírse del tema antes de llorar por él.", "personality_tags": ["humor"] }
+            {
+              "id": "b",
+              "text": "Que la cuiden sin hacer preguntas.",
+              "personality_tags": ["cuidador"]
+            },
+            {
+              "id": "c",
+              "text": "Una mirada de afuera, sin ataduras.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Reírse del tema antes de llorar por él.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1105,8 +2037,16 @@
           "options": [
             { "id": "a", "text": "El pegamento.", "personality_tags": ["mediador"] },
             { "id": "b", "text": "El que siempre aparece.", "personality_tags": ["cuidador"] },
-            { "id": "c", "text": "El que se fue y salió adelante igual.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "El que hace que valga la pena cada reunión.", "personality_tags": ["humor"] }
+            {
+              "id": "c",
+              "text": "El que se fue y salió adelante igual.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "El que hace que valga la pena cada reunión.",
+              "personality_tags": ["humor"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1158,10 +2098,26 @@
           "id": "q1",
           "question": "Friday night with your partner. Best plan?",
           "options": [
-            { "id": "a", "text": "Tackle the home project we keep postponing — together.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Candlelit dinner, phones in a drawer.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "Parallel play: they do their thing, I do mine, same couch.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Drive somewhere we've never been and figure it out there.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "Tackle the home project we keep postponing — together.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Candlelit dinner, phones in a drawer.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "Parallel play: they do their thing, I do mine, same couch.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Drive somewhere we've never been and figure it out there.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1170,10 +2126,26 @@
           "id": "q2",
           "question": "Your partner gets a job offer in another city. You:",
           "options": [
-            { "id": "a", "text": "Sit down with spreadsheets and decide as a unit.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Celebrate first — love adapts, we'll make it epic.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "Support it fully, and keep my own plans running too.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "Already checking what that city has to explore.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "Sit down with spreadsheets and decide as a unit.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Celebrate first — love adapts, we'll make it epic.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "Support it fully, and keep my own plans running too.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "Already checking what that city has to explore.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1182,10 +2154,26 @@
           "id": "q3",
           "question": "The ideal anniversary is:",
           "options": [
-            { "id": "a", "text": "A review of the year: what we built, what's next.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Recreating our first date down to the song.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "A toast — then each keeps the hobbies we love.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "A last-minute trip to somewhere new.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "A review of the year: what we built, what's next.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Recreating our first date down to the song.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "A toast — then each keeps the hobbies we love.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "A last-minute trip to somewhere new.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1194,10 +2182,26 @@
           "id": "q4",
           "question": "Fights in your relationship usually end when:",
           "options": [
-            { "id": "a", "text": "We find the system that prevents the next one.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Someone reaches for the other mid-sentence.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "We've both had space to think and come back calm.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "We end up laughing at how it started.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "We find the system that prevents the next one.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Someone reaches for the other mid-sentence.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "We've both had space to think and come back calm.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "We end up laughing at how it started.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1206,10 +2210,26 @@
           "id": "q5",
           "question": "Your partner's hobby that isn't yours:",
           "options": [
-            { "id": "a", "text": "I learn the basics so I can actually help.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "I show up to watch like it's the finals.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "Theirs is theirs — that's the healthy part.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "I suggest we both try something neither has done.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "I learn the basics so I can actually help.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "I show up to watch like it's the finals.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "Theirs is theirs — that's the healthy part.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "I suggest we both try something neither has done.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1218,10 +2238,26 @@
           "id": "q6",
           "question": "Love, at month three, feels like:",
           "options": [
-            { "id": "a", "text": "We already run like a relay team.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Butterflies and long letters.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "Great — and I still have my own orbit.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "A trip that keeps adding stops.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "We already run like a relay team.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Butterflies and long letters.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "Great — and I still have my own orbit.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "A trip that keeps adding stops.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1232,7 +2268,11 @@
           "options": [
             { "id": "a", "text": "'What's the plan?'", "personality_tags": ["teammate"] },
             { "id": "b", "text": "'Look what I found for you'.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "'Do your thing, I'm good'.", "personality_tags": ["independent"] },
+            {
+              "id": "c",
+              "text": "'Do your thing, I'm good'.",
+              "personality_tags": ["independent"]
+            },
             { "id": "d", "text": "'What if we just… go?'", "personality_tags": ["adventurous"] }
           ],
           "explanation": null,
@@ -1242,10 +2282,26 @@
           "id": "q8",
           "question": "Ten years in, the relationship looks like:",
           "options": [
-            { "id": "a", "text": "A machine we built and keep tuning together.", "personality_tags": ["teammate"] },
-            { "id": "b", "text": "Still love notes, still slow dances.", "personality_tags": ["romantic"] },
-            { "id": "c", "text": "Two full lives that choose each other daily.", "personality_tags": ["independent"] },
-            { "id": "d", "text": "A passport full of stamps and inside jokes.", "personality_tags": ["adventurous"] }
+            {
+              "id": "a",
+              "text": "A machine we built and keep tuning together.",
+              "personality_tags": ["teammate"]
+            },
+            {
+              "id": "b",
+              "text": "Still love notes, still slow dances.",
+              "personality_tags": ["romantic"]
+            },
+            {
+              "id": "c",
+              "text": "Two full lives that choose each other daily.",
+              "personality_tags": ["independent"]
+            },
+            {
+              "id": "d",
+              "text": "A passport full of stamps and inside jokes.",
+              "personality_tags": ["adventurous"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1297,10 +2353,26 @@
           "id": "q1",
           "question": "Viernes por la noche con tu pareja. ¿Mejor plan?",
           "options": [
-            { "id": "a", "text": "Atacar el proyecto de la casa que venimos postergando, juntos.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Cena a la luz de las velas, teléfonos en un cajón.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Juego en paralelo: cada uno a lo suyo, mismo sofá.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Manejar a un lugar desconocido y resolver sobre la marcha.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Atacar el proyecto de la casa que venimos postergando, juntos.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Cena a la luz de las velas, teléfonos en un cajón.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Juego en paralelo: cada uno a lo suyo, mismo sofá.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Manejar a un lugar desconocido y resolver sobre la marcha.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1309,10 +2381,26 @@
           "id": "q2",
           "question": "Tu pareja recibe una oferta de trabajo en otra ciudad. Tú:",
           "options": [
-            { "id": "a", "text": "Me siento con los números y lo decidimos en conjunto.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Primero lo celebramos: el amor se adapta y lo hacemos épico.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Lo apoyo a fondo, y mis propios planes siguen corriendo.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Ya estoy mirando qué hay para explorar en esa ciudad.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Me siento con los números y lo decidimos en conjunto.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Primero lo celebramos: el amor se adapta y lo hacemos épico.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Lo apoyo a fondo, y mis propios planes siguen corriendo.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Ya estoy mirando qué hay para explorar en esa ciudad.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1321,10 +2409,26 @@
           "id": "q3",
           "question": "El aniversario ideal es:",
           "options": [
-            { "id": "a", "text": "Repasar el año: qué construimos, qué sigue.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Recrear la primera cita hasta la canción.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Un brindis, y cada uno conserva sus pasatiempos.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Un viaje de último minuto a un lugar nuevo.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Repasar el año: qué construimos, qué sigue.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Recrear la primera cita hasta la canción.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Un brindis, y cada uno conserva sus pasatiempos.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Un viaje de último minuto a un lugar nuevo.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1333,10 +2437,26 @@
           "id": "q4",
           "question": "Las peleas en tu relación suelen terminar cuando:",
           "options": [
-            { "id": "a", "text": "Encontramos el sistema que evita la siguiente.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Alguien toma la mano del otro a media frase.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Ambos tuvimos espacio para pensar y volver en calma.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Terminamos riéndonos de cómo empezó.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Encontramos el sistema que evita la siguiente.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Alguien toma la mano del otro a media frase.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Ambos tuvimos espacio para pensar y volver en calma.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Terminamos riéndonos de cómo empezó.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1345,10 +2465,26 @@
           "id": "q5",
           "question": "El hobby de tu pareja que no es el tuyo:",
           "options": [
-            { "id": "a", "text": "Aprendo lo básico para poder ayudar de verdad.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Voy a verlo como si fuera la final.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Lo suyo es suyo: esa es la parte sana.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Propongo que probemos algo que ninguno hizo.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Aprendo lo básico para poder ayudar de verdad.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Voy a verlo como si fuera la final.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Lo suyo es suyo: esa es la parte sana.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Propongo que probemos algo que ninguno hizo.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1357,10 +2493,22 @@
           "id": "q6",
           "question": "El amor, al tercer mes, se siente como:",
           "options": [
-            { "id": "a", "text": "Ya funcionamos como equipo de relevos.", "personality_tags": ["equipo"] },
+            {
+              "id": "a",
+              "text": "Ya funcionamos como equipo de relevos.",
+              "personality_tags": ["equipo"]
+            },
             { "id": "b", "text": "Mariposas y cartas largas.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Genial, y sigo teniendo mi propia órbita.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Un viaje que sigue sumando paradas.", "personality_tags": ["aventurero"] }
+            {
+              "id": "c",
+              "text": "Genial, y sigo teniendo mi propia órbita.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Un viaje que sigue sumando paradas.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1370,8 +2518,16 @@
           "question": "La frase que más escucha tu pareja:",
           "options": [
             { "id": "a", "text": "«¿Cuál es el plan?».", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "«Mira lo que encontré para ti».", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "«Haz lo tuyo, yo estoy bien».", "personality_tags": ["independiente"] },
+            {
+              "id": "b",
+              "text": "«Mira lo que encontré para ti».",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "«Haz lo tuyo, yo estoy bien».",
+              "personality_tags": ["independiente"]
+            },
             { "id": "d", "text": "«¿Y si simplemente vamos?».", "personality_tags": ["aventurero"] }
           ],
           "explanation": null,
@@ -1381,10 +2537,26 @@
           "id": "q8",
           "question": "A diez años, la relación se ve como:",
           "options": [
-            { "id": "a", "text": "Una máquina que construimos y seguimos afinando.", "personality_tags": ["equipo"] },
-            { "id": "b", "text": "Notas de amor y bailes lentos, como siempre.", "personality_tags": ["romantico"] },
-            { "id": "c", "text": "Dos vidas completas que se eligen a diario.", "personality_tags": ["independiente"] },
-            { "id": "d", "text": "Un pasaporte lleno de sellos y bromas internas.", "personality_tags": ["aventurero"] }
+            {
+              "id": "a",
+              "text": "Una máquina que construimos y seguimos afinando.",
+              "personality_tags": ["equipo"]
+            },
+            {
+              "id": "b",
+              "text": "Notas de amor y bailes lentos, como siempre.",
+              "personality_tags": ["romantico"]
+            },
+            {
+              "id": "c",
+              "text": "Dos vidas completas que se eligen a diario.",
+              "personality_tags": ["independiente"]
+            },
+            {
+              "id": "d",
+              "text": "Un pasaporte lleno de sellos y bromas internas.",
+              "personality_tags": ["aventurero"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30

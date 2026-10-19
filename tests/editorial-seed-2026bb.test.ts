@@ -121,14 +121,11 @@ describe('editorial-seed-2026bb', () => {
         (quiz.results ?? []).map((result) => result.personality_tag as string)
       );
       for (const question of quiz.questions) {
-        const used = new Set(
-          question.options.flatMap((option) => option.personality_tags ?? [])
-        );
+        const used = new Set(question.options.flatMap((option) => option.personality_tags ?? []));
         for (const tag of resultTags) {
-          expect(
-            used.has(tag),
-            `${quiz.slug} ${question.id}: falta opción para "${tag}"`
-          ).toBe(true);
+          expect(used.has(tag), `${quiz.slug} ${question.id}: falta opción para "${tag}"`).toBe(
+            true
+          );
         }
         for (const tag of used) {
           expect(
