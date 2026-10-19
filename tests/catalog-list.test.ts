@@ -138,9 +138,11 @@ describe('listPublishedQuizzes — search', () => {
 
     await listPublishedQuizzes({ ...BASE, q: '100%_off' });
 
+    // Doble escape: dentro del `or` PostgREST consume `\x`→`x`, así que el
+    // `\` de escapeLike viaja como `\\` para llegar literal a SQL.
     const ors = recorded.get('quizzes')?.[0].ors ?? [];
     expect(ors).toEqual([
-      'title.ilike."%100\\%\\_off%",description.ilike."%100\\%\\_off%",tags.cs."{100\\%\\_off}"',
+      'title.ilike."%100\\\\%\\\\_off%",description.ilike."%100\\\\%\\\\_off%",tags.cs."{\\"100%_off\\"}"',
     ]);
   });
 });

@@ -1,8 +1,8 @@
 /**
  * FIX-26: `listPublishedQuizzes` busca `q` en título, descripción y tags — la
  * misma semántica que el explorador — con un `or` de PostgREST. Los valores
- * van entrecomillados para que comas y `{}` del término no partan la
- * expresión, y `escapeLike` sigue protegiendo los comodines de `like`.
+ * van entrecomillados y en doble escape (capa PostgREST + capa SQL) para que
+ * comodines de `like`, comas, comillas y llaves del término lleguen literales.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -59,6 +59,42 @@ function quizFilters() {
   return recorded.get('quizzes')?.[0];
 }
 
+/**
+ * Réplica mínima del lexer de valores del `or` de PostgREST
+ * (`pLogicSingleVal`/`pQuotedValue`): las comas fuera de comillas separan
+ * condiciones; dentro, `\x` decodifica a `x` (`\\`→`\`, `\"`→`"`).
+ */
+function decodeOrConditions(expression: string): string[] {
+  const conditions: string[] = [];
+  let current = '';
+  let quoted = false;
+  for (let i = 0; i < expression.length; i += 1) {
+    const ch = expression[i];
+    if (quoted) {
+      if (ch === '\\') {
+        current += expression[(i += 1)];
+      } else if (ch === '"') {
+        quoted = false;
+      } else {
+        current += ch;
+      }
+    } else if (ch === '"') {
+      quoted = true;
+    } else if (ch === ',') {
+      conditions.push(current);
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  conditions.push(current);
+  return conditions;
+}
+
+function decodedOrs() {
+  return (quizFilters()?.ors ?? []).flatMap(decodeOrConditions);
+}
+
 describe('listPublishedQuizzes búsqueda multicampo', () => {
   it.each([undefined, '', '   '])('q=%j no añade filtro alguno', async (q) => {
     await listPublishedQuizzes({ ...BASE, q });
@@ -67,34 +103,69 @@ describe('listPublishedQuizzes búsqueda multicampo', () => {
     expect(quizFilters()?.ilikes).toEqual([]);
   });
 
-  it('q normal añade un or sobre title, description y tags', async () => {
+  it('q normal busca en title, description y tags (tag como elemento único)', async () => {
     await listPublishedQuizzes({ ...BASE, q: 'star wars' });
 
-    expect(quizFilters()?.ors).toEqual([
-      'title.ilike."%star wars%",description.ilike."%star wars%",tags.cs."{star wars}"',
-    ]);
+    expect(quizFilters()?.ors).toHaveLength(1);
     expect(quizFilters()?.ilikes).toEqual([]);
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%star wars%',
+      'description.ilike.%star wars%',
+      'tags.cs.{"star wars"}',
+    ]);
   });
 
   it('ignora el margen del término antes de filtrar', async () => {
     await listPublishedQuizzes({ ...BASE, q: '  marvel  ' });
 
-    expect(quizFilters()?.ors).toEqual([
-      'title.ilike."%marvel%",description.ilike."%marvel%",tags.cs."{marvel}"',
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%marvel%',
+      'description.ilike.%marvel%',
+      'tags.cs.{"marvel"}',
     ]);
   });
 
-  it('escapa los comodines de like y la coma no parte la expresión', async () => {
-    await listPublishedQuizzes({ ...BASE, q: 'a%,b_c' });
+  it('los comodines de like llegan escapados a SQL pese al quoting', async () => {
+    await listPublishedQuizzes({ ...BASE, q: '100%_off' });
 
-    expect(quizFilters()?.ors).toEqual([
-      'title.ilike."%a\\%,b\\_c%",description.ilike."%a\\%,b\\_c%",tags.cs."{a\\%,b\\_c}"',
+    // Sin la doble capa, el `\` de escapeLike se lo come el lexer de
+    // PostgREST y el comodín queda vivo.
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%100\\%\\_off%',
+      'description.ilike.%100\\%\\_off%',
+      'tags.cs.{"100%_off"}',
     ]);
   });
 
-  it('un término que se reduce a caracteres no escapables no filtra', async () => {
-    await listPublishedQuizzes({ ...BASE, q: '"{' });
+  it('una coma del término no parte el or ni el literal de array', async () => {
+    await listPublishedQuizzes({ ...BASE, q: 'a,b' });
 
-    expect(quizFilters()?.ors).toEqual([]);
+    // Una sola condición por campo y el elemento de tags sigue siendo uno:
+    // `{"a,b"}` exige el tag literal `a,b`, no tags `a` y `b` por separado.
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%a,b%',
+      'description.ilike.%a,b%',
+      'tags.cs.{"a,b"}',
+    ]);
+  });
+
+  it('comillas y llaves del término se codifican, no se descartan', async () => {
+    await listPublishedQuizzes({ ...BASE, q: 'a"b{c}' });
+
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%a"b{c}%',
+      'description.ilike.%a"b{c}%',
+      'tags.cs.{"a\\"b{c}"}',
+    ]);
+  });
+
+  it('una barra del término viaja literal a las dos capas', async () => {
+    await listPublishedQuizzes({ ...BASE, q: 'a\\b' });
+
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%a\\\\b%',
+      'description.ilike.%a\\\\b%',
+      'tags.cs.{"a\\\\b"}',
+    ]);
   });
 });
