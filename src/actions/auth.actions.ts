@@ -11,7 +11,10 @@
 import { createHash } from 'node:crypto';
 import { createClient } from '@/lib/supabase/server';
 import { authLimiter } from '@/lib/utils/rate-limit';
+import { SITE_URL } from '@/lib/seo/site';
 import {
+  PasswordResetRequestSchema,
+  PasswordUpdateSchema,
   SignInSchema,
   SignUpSchema,
   mapAuthError,
@@ -85,4 +88,98 @@ export async function signOutAction(): Promise<AuthResult> {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return { ok: true, userId: null };
+}
+
+/**
+ * Envía el correo de recuperación. El enlace vuelve por `/callback`, que
+ * canjea el código y aterriza en `/{locale}/reset-password`. Responde igual
+ * exista o no la cuenta: el resultado no puede filtrar si el email está
+ * registrado (Supabase tampoco lo distingue).
+ */
+export async function forgotPasswordAction(input: unknown): Promise<AuthResult> {
+  const parsed = PasswordResetRequestSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, code: 'invalid_input', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  const { email, locale } = parsed.data;
+  const { allowed } = await authLimiter.check(`forgot:${identifierFor(email)}`);
+  if (!allowed) return { ok: false, code: 'rate_limited' };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${SITE_URL}/callback?next=${encodeURIComponent(`/${locale}/reset-password`)}`,
+  });
+
+  if (error) return { ok: false, code: mapAuthError(error) };
+  return { ok: true, userId: null };
+}
+
+/**
+ * Nueva contraseña tras el enlace de recuperación. Lo que autoriza el cambio
+ * es la sesión que creó `/callback` al canjear el código del correo; sin esa
+ * sesión la acción no toca la cuenta.
+ */
+export async function resetPasswordAction(input: unknown): Promise<AuthResult> {
+  const parsed = PasswordUpdateSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, code: 'invalid_input', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, code: 'unauthorized' };
+
+  const { allowed } = await authLimiter.check(`pwreset:${user.id}`);
+  if (!allowed) return { ok: false, code: 'rate_limited' };
+
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+  if (error) return { ok: false, code: mapAuthError(error) };
+  return { ok: true, userId: user.id };
+}
+
+/**
+ * Cambio de contraseña con sesión normal (/settings). Si la cuenta ya tiene
+ * identidad por email se revalida la clave vigente antes de reemplazarla: una
+ * sesión abierta en un equipo ajeno no basta para tomar la cuenta. Quien entró
+ * solo por OAuth no tiene clave que revalidar y define la primera aquí.
+ */
+export async function changePasswordAction(input: unknown): Promise<AuthResult> {
+  const parsed = PasswordUpdateSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, code: 'invalid_input', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user || !user.email) return { ok: false, code: 'unauthorized' };
+
+  const { allowed } = await authLimiter.check(`pwchange:${user.id}`);
+  if (!allowed) return { ok: false, code: 'rate_limited' };
+
+  const hasEmailIdentity =
+    user.identities?.some((identity) => identity.provider === 'email') ?? false;
+  if (hasEmailIdentity) {
+    const { currentPassword } = parsed.data;
+    if (!currentPassword) {
+      return {
+        ok: false,
+        code: 'invalid_input',
+        fieldErrors: { currentPassword: ['required'] },
+      };
+    }
+    const { error: reauthError } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: currentPassword,
+    });
+    if (reauthError) return { ok: false, code: 'invalid_credentials' };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+  if (error) return { ok: false, code: mapAuthError(error) };
+  return { ok: true, userId: user.id };
 }

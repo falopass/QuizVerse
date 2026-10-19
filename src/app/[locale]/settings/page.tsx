@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import { UpdatePasswordForm } from '@/components/auth/update-password-form';
 import { SettingsForm } from '@/components/profile/settings-form';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -60,6 +61,9 @@ export default async function LocalizedSettingsPage({
   // Fila inexistente o error de lectura: el formulario vacío sería insalvable
   // (update de 0 filas no falla en el action) y `required` bloquearía el envío.
   const profileFailed = profileError !== null || !profile;
+  // Cuentas solo-OAuth (Google/GitHub) no tienen clave vigente que revalidar.
+  const hasEmailIdentity =
+    user.identities?.some((identity) => identity.provider === 'email') ?? false;
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
@@ -103,6 +107,24 @@ export default async function LocalizedSettingsPage({
             initialBio={profile.bio ?? ''}
           />
         )}
+      </div>
+
+      <div className="surface-card mt-8 p-6 md:p-8">
+        <h2 className="text-text-primary text-2xl font-semibold tracking-tight">
+          {es ? 'Contraseña' : 'Password'}
+        </h2>
+        <p className="text-text-secondary mt-2 text-sm leading-6">
+          {hasEmailIdentity
+            ? es
+              ? 'Cambia la contraseña con la que entras por email.'
+              : 'Change the password you use to sign in with email.'
+            : es
+              ? 'Define una contraseña para también poder entrar con tu email.'
+              : 'Set a password so you can also sign in with your email.'}
+        </p>
+        <div className="mt-6">
+          <UpdatePasswordForm locale={locale} mode="settings" requireCurrent={hasEmailIdentity} />
+        </div>
       </div>
     </main>
   );

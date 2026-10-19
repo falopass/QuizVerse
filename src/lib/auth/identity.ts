@@ -81,6 +81,24 @@ export const SignInSchema = z.object({
   password: z.string().min(1).max(72),
 });
 
+/**
+ * Pedido de recuperación. `locale` fija el idioma de la página de destino del
+ * enlace (`/{locale}/reset-password`); el cliente no elige la ruta de retorno.
+ */
+export const PasswordResetRequestSchema = z.object({
+  email: EmailSchema,
+  locale: z.enum(['en', 'es']).default('en'),
+});
+
+/**
+ * Nueva contraseña. `currentPassword` solo lo piden los flujos con sesión que
+ * revalidan la clave vigente (cambio en /settings); la recuperación no la tiene.
+ */
+export const PasswordUpdateSchema = z.object({
+  password: PasswordSchema,
+  currentPassword: z.string().min(1).max(72).optional(),
+});
+
 export type SignUpInput = z.infer<typeof SignUpSchema>;
 export type SignInInput = z.infer<typeof SignInSchema>;
 
@@ -91,6 +109,7 @@ export const AUTH_ERROR_CODES = [
   'invalid_credentials',
   'email_not_confirmed',
   'weak_password',
+  'unauthorized',
   'unexpected',
 ] as const;
 

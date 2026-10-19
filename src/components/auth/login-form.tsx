@@ -1,14 +1,28 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signInAction } from '@/actions/auth.actions';
 import { authMessage } from '@/lib/auth/messages';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { localizeHref } from '@/lib/i18n/navigation';
 
 const COPY = {
-  es: { email: 'Email', password: 'Contraseña', submit: 'Entrar', submitting: 'Entrando…' },
-  en: { email: 'Email', password: 'Password', submit: 'Sign in', submitting: 'Signing in…' },
+  es: {
+    email: 'Email',
+    password: 'Contraseña',
+    submit: 'Entrar',
+    submitting: 'Entrando…',
+    forgot: '¿Olvidaste tu contraseña?',
+  },
+  en: {
+    email: 'Email',
+    password: 'Password',
+    submit: 'Sign in',
+    submitting: 'Signing in…',
+    forgot: 'Forgot your password?',
+  },
 } as const;
 
 /**
@@ -73,6 +87,15 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
           className="border-border-subtle bg-bg-primary text-text-primary focus:border-accent-primary w-full rounded-full border px-4 py-3 text-sm outline-none"
         />
       </label>
+
+      <p className="text-right">
+        <Link
+          href={`${localizeHref(locale, '/forgot-password')}${email ? `?email=${encodeURIComponent(email)}` : ''}`}
+          className="text-text-secondary hover:text-accent-primary text-xs font-semibold transition-colors"
+        >
+          {copy.forgot}
+        </Link>
+      </p>
 
       {error ? (
         <p role="alert" className="text-sm font-semibold text-red-400">
