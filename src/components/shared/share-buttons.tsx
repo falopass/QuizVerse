@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
+import { copyText } from '@/lib/utils/clipboard';
 import { incrementShares } from '@/actions/quiz.actions';
 
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -18,6 +19,7 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareButtonsProps) {
   const [copied, setCopied] = React.useState(false);
+  const [copyFailed, setCopyFailed] = React.useState(false);
   const [supportsWebShare, setSupportsWebShare] = React.useState(false);
   const isEs = locale === 'es';
 
@@ -31,13 +33,14 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
   };
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
+    if (await copyText(url)) {
       setCopied(true);
+      setCopyFailed(false);
       trackShare();
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
+    } else {
+      setCopied(false);
+      setCopyFailed(true);
     }
   };
 
@@ -171,6 +174,20 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
       >
         {copied ? (isEs ? '¡Copiado!' : 'Copied!') : isEs ? 'Copiar enlace' : 'Copy Link'}
       </Button>
+
+      {copyFailed && (
+        <div role="status" aria-live="polite" className="space-y-1">
+          <p className="text-sm text-[var(--text-secondary)]">
+            {isEs ? 'No pudimos copiar: selecciona el enlace' : "Couldn't copy: select the link"}
+          </p>
+          <input
+            readOnly
+            value={url}
+            onFocus={(event) => event.currentTarget.select()}
+            className="w-full rounded-lg border border-[#474558] bg-transparent px-3 py-2 text-sm text-[var(--text-primary)]"
+          />
+        </div>
+      )}
     </div>
   );
 }
