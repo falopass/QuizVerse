@@ -97,7 +97,9 @@ export function ExploreEditorialPage({
         next = next.filter((quiz) => quiz.quiz_type === 'trivia');
         break;
       case 'popular':
-        next = [...next].sort((a, b) => editorialScore(b) - editorialScore(a));
+        next = [...next].sort(
+          (a, b) => b.plays_count - a.plays_count || b.likes_count - a.likes_count
+        );
         break;
       default:
         next = [...next].sort((a, b) => editorialScore(b) - editorialScore(a));
@@ -202,17 +204,23 @@ export function ExploreEditorialPage({
                 {copy.searchLabel ?? units.search}
               </span>
               <input
+                type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={copy.searchPlaceholder}
                 className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
               />
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label={copy.eyebrow ?? units.eyebrow}
+            >
               {moods.map((mood) => (
                 <button
                   key={mood.id}
                   type="button"
+                  aria-pressed={activeMood === mood.id}
                   onClick={() => setActiveMood(mood.id)}
                   className={cn(
                     'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
@@ -231,7 +239,11 @@ export function ExploreEditorialPage({
             <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
               {copy.categoryLanes ?? units.categoryLanes}
             </p>
-            <div className="flex flex-wrap gap-2">
+            <div
+              className="flex flex-wrap gap-2"
+              role="group"
+              aria-label={copy.categoryLanes ?? units.categoryLanes}
+            >
               <CategoryFilter
                 active={activeCategory === 'all'}
                 label={copy.allCategories}
@@ -309,7 +321,7 @@ export function ExploreEditorialPage({
                   <p className="eyebrow">{units.categoryLanes}</p>
                   <h2 className="mt-2 text-4xl">{units.lanesTitle}</h2>
                 </div>
-                <p className="text-text-secondary text-sm">
+                <p role="status" className="text-text-secondary text-sm">
                   {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
                 </p>
               </div>
@@ -374,6 +386,7 @@ function CategoryFilter({
   return (
     <button
       type="button"
+      aria-pressed={active}
       onClick={onClick}
       className={cn(
         'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
