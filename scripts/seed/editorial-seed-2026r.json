@@ -1,0 +1,1019 @@
+{
+  "$comment": "Editorial batch 2026r (CONT-27): trivia pairs for massive multiplayer games with zero catalogue coverage — League of Legends, Valorant, Counter-Strike, Overwatch and Among Us. Every answer is a stable, checkable fact; no 2026 events, recent player counts or living people. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-league-of-legends-trivia",
+      "title": "League of Legends Trivia Challenge",
+      "description": "Summoner's Rift, Baron Nashor and Worlds finals in packed stadiums: the MOBA that defined modern esports. How well do you know it?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["league of legends", "moba", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which studio created League of Legends?",
+          "options": [
+            { "id": "a", "text": "Valve", "is_correct": false },
+            { "id": "b", "text": "Blizzard Entertainment", "is_correct": false },
+            { "id": "c", "text": "Riot Games", "is_correct": true },
+            { "id": "d", "text": "Epic Games", "is_correct": false }
+          ],
+          "explanation": "Riot Games developed it and still publishes it; it was the studio's debut title."
+        },
+        {
+          "id": "q2",
+          "question": "In which year was League of Legends officially released?",
+          "options": [
+            { "id": "a", "text": "2007", "is_correct": false },
+            { "id": "b", "text": "2009", "is_correct": true },
+            { "id": "c", "text": "2011", "is_correct": false },
+            { "id": "d", "text": "2013", "is_correct": false }
+          ],
+          "explanation": "It launched on 27 October 2009, after an open beta earlier that year."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of the game's main 5v5 map?",
+          "options": [
+            { "id": "a", "text": "Howling Abyss", "is_correct": false },
+            { "id": "b", "text": "Twisted Treeline", "is_correct": false },
+            { "id": "c", "text": "Summoner's Rift", "is_correct": true },
+            { "id": "d", "text": "Crystal Scar", "is_correct": false }
+          ],
+          "explanation": "Summoner's Rift hosts the classic 5v5; the Howling Abyss is the one-lane ARAM map."
+        },
+        {
+          "id": "q4",
+          "question": "How do you win a match on Summoner's Rift?",
+          "options": [
+            { "id": "a", "text": "Reaching 100 team kills first", "is_correct": false },
+            { "id": "b", "text": "Capturing all three altars", "is_correct": false },
+            { "id": "c", "text": "Surviving for 30 minutes", "is_correct": false },
+            { "id": "d", "text": "Destroying the enemy Nexus", "is_correct": true }
+          ],
+          "explanation": "The Nexus sits inside each base, guarded by turrets; destroying it ends the game."
+        },
+        {
+          "id": "q5",
+          "question": "Which neutral monster grants the 'Hand of Baron' buff when slain?",
+          "options": [
+            { "id": "a", "text": "Rift Herald", "is_correct": false },
+            { "id": "b", "text": "Elder Dragon", "is_correct": false },
+            { "id": "c", "text": "Baron Nashor", "is_correct": true },
+            { "id": "d", "text": "The Scuttle Crab", "is_correct": false }
+          ],
+          "explanation": "Slaying Baron Nashor buffs the whole team and empowers nearby minions for a siege."
+        },
+        {
+          "id": "q6",
+          "question": "Which champion is known as the Nine-Tailed Fox?",
+          "options": [
+            { "id": "a", "text": "Akali", "is_correct": false },
+            { "id": "b", "text": "Ahri", "is_correct": true },
+            { "id": "c", "text": "Evelynn", "is_correct": false },
+            { "id": "d", "text": "Katarina", "is_correct": false }
+          ],
+          "explanation": "Ahri, the mid-lane mage from Ionia, is the kitsune-inspired Nine-Tailed Fox."
+        },
+        {
+          "id": "q7",
+          "question": "What is the highest rank on League's ranked ladder?",
+          "options": [
+            { "id": "a", "text": "Diamond", "is_correct": false },
+            { "id": "b", "text": "Master", "is_correct": false },
+            { "id": "c", "text": "Grandmaster", "is_correct": false },
+            { "id": "d", "text": "Challenger", "is_correct": true }
+          ],
+          "explanation": "Above Master and Grandmaster sits Challenger, reserved for the top players of each region."
+        },
+        {
+          "id": "q8",
+          "question": "Which team won the first League of Legends World Championship in 2011?",
+          "options": [
+            { "id": "a", "text": "SK Telecom T1", "is_correct": false },
+            { "id": "b", "text": "Fnatic", "is_correct": true },
+            { "id": "c", "text": "Cloud9", "is_correct": false },
+            { "id": "d", "text": "G2 Esports", "is_correct": false }
+          ],
+          "explanation": "Fnatic took the Season 1 title at DreamHack in Sweden; SKT didn't lift the trophy until 2013."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-league-of-legends",
+      "title": "Trivia de League of Legends",
+      "description": "La Grieta del Invocador, el Barón Nashor y Mundiales que llenan estadios: el MOBA que definió los esports modernos. ¿Cuánto sabes de verdad?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["league of legends", "moba", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué estudio creó League of Legends?",
+          "options": [
+            { "id": "a", "text": "Valve", "is_correct": false },
+            { "id": "b", "text": "Riot Games", "is_correct": true },
+            { "id": "c", "text": "Blizzard Entertainment", "is_correct": false },
+            { "id": "d", "text": "Epic Games", "is_correct": false }
+          ],
+          "explanation": "Riot Games lo desarrolla y lo publica desde el día uno; fue el primer juego del estudio."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se lanzó oficialmente League of Legends?",
+          "options": [
+            { "id": "a", "text": "2009", "is_correct": true },
+            { "id": "b", "text": "2007", "is_correct": false },
+            { "id": "c", "text": "2011", "is_correct": false },
+            { "id": "d", "text": "2013", "is_correct": false }
+          ],
+          "explanation": "Salió el 27 de octubre de 2009, tras una beta abierta ese mismo año."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el mapa principal del modo 5 contra 5?",
+          "options": [
+            { "id": "a", "text": "El Abismo de los Lamentos", "is_correct": false },
+            { "id": "b", "text": "El Bosque Retorcido", "is_correct": false },
+            { "id": "c", "text": "El Crystal Scar", "is_correct": false },
+            { "id": "d", "text": "La Grieta del Invocador", "is_correct": true }
+          ],
+          "explanation": "La Grieta del Invocador es el clásico 5 contra 5; el Abismo de los Lamentos es el mapa de ARAM."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué hay que hacer para ganar una partida en la Grieta?",
+          "options": [
+            { "id": "a", "text": "Destruir el Nexo enemigo", "is_correct": true },
+            { "id": "b", "text": "Llegar a 100 asesinatos en equipo", "is_correct": false },
+            { "id": "c", "text": "Capturar los tres altares", "is_correct": false },
+            { "id": "d", "text": "Sobrevivir 30 minutos", "is_correct": false }
+          ],
+          "explanation": "El Nexo está dentro de cada base, protegido por torretas; destruirlo termina la partida."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué monstruo neutral otorga la mejora 'Mano del Barón' al derrotarlo?",
+          "options": [
+            { "id": "a", "text": "El Heraldo de la Grieta", "is_correct": false },
+            { "id": "b", "text": "El Dragón ancestral", "is_correct": false },
+            { "id": "c", "text": "El Barón Nashor", "is_correct": true },
+            { "id": "d", "text": "El Cangrejo Escurridizo", "is_correct": false }
+          ],
+          "explanation": "Matar al Barón Nashor potencia a todo el equipo y a sus súbditos cercanos para asediar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué campeona es conocida como el Zorro de Nueve Colas?",
+          "options": [
+            { "id": "a", "text": "Akali", "is_correct": false },
+            { "id": "b", "text": "Evelynn", "is_correct": false },
+            { "id": "c", "text": "Ahri", "is_correct": true },
+            { "id": "d", "text": "Katarina", "is_correct": false }
+          ],
+          "explanation": "Ahri, la maga de Jonia de la calle central, es la kitsune del juego."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el rango más alto de la escalera clasificatoria?",
+          "options": [
+            { "id": "a", "text": "Diamante", "is_correct": false },
+            { "id": "b", "text": "Maestro", "is_correct": false },
+            { "id": "c", "text": "Retador", "is_correct": true },
+            { "id": "d", "text": "Gran Maestro", "is_correct": false }
+          ],
+          "explanation": "Por encima de Maestro y Gran Maestro está Retador, reservado a los mejores de cada región."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué equipo ganó el primer Mundial de League of Legends, en 2011?",
+          "options": [
+            { "id": "a", "text": "SK Telecom T1", "is_correct": false },
+            { "id": "b", "text": "Cloud9", "is_correct": false },
+            { "id": "c", "text": "G2 Esports", "is_correct": false },
+            { "id": "d", "text": "Fnatic", "is_correct": true }
+          ],
+          "explanation": "Fnatic se llevó el título de la primera temporada en DreamHack, Suecia; SKT no ganó hasta 2013."
+        }
+      ]
+    },
+    {
+      "slug": "en-valorant-trivia",
+      "title": "Valorant Trivia Challenge",
+      "description": "Agents, the Spike and pixel-perfect angles: Riot's tactical shooter mixes precise gunplay with hero abilities. Prove your rank.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["valorant", "fps", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which studio developed Valorant?",
+          "options": [
+            { "id": "a", "text": "Activision", "is_correct": false },
+            { "id": "b", "text": "Riot Games", "is_correct": true },
+            { "id": "c", "text": "Ubisoft", "is_correct": false },
+            { "id": "d", "text": "Bungie", "is_correct": false }
+          ],
+          "explanation": "It was Riot Games' first first-person shooter, a big departure from League of Legends."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Valorant officially launch?",
+          "options": [
+            { "id": "a", "text": "2018", "is_correct": false },
+            { "id": "b", "text": "2020", "is_correct": true },
+            { "id": "c", "text": "2022", "is_correct": false },
+            { "id": "d", "text": "2024", "is_correct": false }
+          ],
+          "explanation": "It left closed beta and launched worldwide on 2 June 2020."
+        },
+        {
+          "id": "q3",
+          "question": "What do attackers plant to win a round?",
+          "options": [
+            { "id": "a", "text": "The Bomb", "is_correct": false },
+            { "id": "b", "text": "The Core", "is_correct": false },
+            { "id": "c", "text": "The Spike", "is_correct": true },
+            { "id": "d", "text": "The Charge", "is_correct": false }
+          ],
+          "explanation": "Attackers plant the Spike on a site; defenders must defuse it before it detonates."
+        },
+        {
+          "id": "q4",
+          "question": "Which agent can heal allies and resurrect a fallen teammate?",
+          "options": [
+            { "id": "a", "text": "Jett", "is_correct": false },
+            { "id": "b", "text": "Reyna", "is_correct": false },
+            { "id": "c", "text": "Sova", "is_correct": false },
+            { "id": "d", "text": "Sage", "is_correct": true }
+          ],
+          "explanation": "Sage, the Chinese Sentinel, heals allies and her ultimate revives one."
+        },
+        {
+          "id": "q5",
+          "question": "Which map is famous for having three bomb sites?",
+          "options": [
+            { "id": "a", "text": "Bind", "is_correct": false },
+            { "id": "b", "text": "Haven", "is_correct": true },
+            { "id": "c", "text": "Ascent", "is_correct": false },
+            { "id": "d", "text": "Split", "is_correct": false }
+          ],
+          "explanation": "Haven is the only standard map with sites A, B and C, which stretches defences thin."
+        },
+        {
+          "id": "q6",
+          "question": "What is the highest rank in Valorant's competitive mode?",
+          "options": [
+            { "id": "a", "text": "Diamond", "is_correct": false },
+            { "id": "b", "text": "Immortal", "is_correct": false },
+            { "id": "c", "text": "Radiant", "is_correct": true },
+            { "id": "d", "text": "Ascendant", "is_correct": false }
+          ],
+          "explanation": "The ladder ends at Radiant, above Immortal; only the top players of each region hold it."
+        },
+        {
+          "id": "q7",
+          "question": "What role do self-sufficient entry agents like Jett and Reyna play?",
+          "options": [
+            { "id": "a", "text": "Initiator", "is_correct": false },
+            { "id": "b", "text": "Controller", "is_correct": false },
+            { "id": "c", "text": "Sentinel", "is_correct": false },
+            { "id": "d", "text": "Duelist", "is_correct": true }
+          ],
+          "explanation": "Duelists carry kits built for taking the first fight — dashes, flashes and self-healing."
+        },
+        {
+          "id": "q8",
+          "question": "In a standard competitive match, how many rounds does a team need to win?",
+          "options": [
+            { "id": "a", "text": "10", "is_correct": false },
+            { "id": "b", "text": "12", "is_correct": false },
+            { "id": "c", "text": "13", "is_correct": true },
+            { "id": "d", "text": "16", "is_correct": false }
+          ],
+          "explanation": "First to 13 wins; at 12–12 the match goes to overtime."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-valorant",
+      "title": "Trivia de Valorant",
+      "description": "Agentes, la Spike y ángulos milimétricos: el shooter táctico de Riot mezcla puntería precisa con habilidades. Demuestra tu rango.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["valorant", "fps", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué estudio desarrolló Valorant?",
+          "options": [
+            { "id": "a", "text": "Activision", "is_correct": false },
+            { "id": "b", "text": "Ubisoft", "is_correct": false },
+            { "id": "c", "text": "Riot Games", "is_correct": true },
+            { "id": "d", "text": "Bungie", "is_correct": false }
+          ],
+          "explanation": "Es el primer shooter en primera persona de Riot Games, la casa de League of Legends."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se lanzó oficialmente Valorant?",
+          "options": [
+            { "id": "a", "text": "2018", "is_correct": false },
+            { "id": "b", "text": "2019", "is_correct": false },
+            { "id": "c", "text": "2020", "is_correct": true },
+            { "id": "d", "text": "2022", "is_correct": false }
+          ],
+          "explanation": "Salió de la beta cerrada el 2 de junio de 2020."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué plantan los atacantes para ganar una ronda?",
+          "options": [
+            { "id": "a", "text": "La bomba", "is_correct": false },
+            { "id": "b", "text": "La Spike", "is_correct": true },
+            { "id": "c", "text": "El núcleo", "is_correct": false },
+            { "id": "d", "text": "La carga", "is_correct": false }
+          ],
+          "explanation": "Los atacantes plantan la Spike en un punto; los defensores deben desactivarla antes de que estalle."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué agente puede curar a sus aliados y revivir a un compañero caído?",
+          "options": [
+            { "id": "a", "text": "Jett", "is_correct": false },
+            { "id": "b", "text": "Reyna", "is_correct": false },
+            { "id": "c", "text": "Sage", "is_correct": true },
+            { "id": "d", "text": "Sova", "is_correct": false }
+          ],
+          "explanation": "Sage, la Centinela china, cura aliados y su definitiva revive a uno."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué mapa destaca por tener tres puntos de bomba?",
+          "options": [
+            { "id": "a", "text": "Haven", "is_correct": true },
+            { "id": "b", "text": "Bind", "is_correct": false },
+            { "id": "c", "text": "Ascent", "is_correct": false },
+            { "id": "d", "text": "Split", "is_correct": false }
+          ],
+          "explanation": "Haven es el único mapa estándar con puntos A, B y C, lo que estira mucho la defensa."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es el rango más alto del modo competitivo?",
+          "options": [
+            { "id": "a", "text": "Diamante", "is_correct": false },
+            { "id": "b", "text": "Inmortal", "is_correct": false },
+            { "id": "c", "text": "Ascendente", "is_correct": false },
+            { "id": "d", "text": "Radiante", "is_correct": true }
+          ],
+          "explanation": "La escalera termina en Radiante, por encima de Inmortal; solo lo tienen los mejores de cada región."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué rol cumplen agentes autosuficientes como Jett y Reyna, que abren los combates?",
+          "options": [
+            { "id": "a", "text": "Iniciador", "is_correct": false },
+            { "id": "b", "text": "Duelista", "is_correct": true },
+            { "id": "c", "text": "Controlador", "is_correct": false },
+            { "id": "d", "text": "Centinela", "is_correct": false }
+          ],
+          "explanation": "Los duelistas llevan kits pensados para tomar la primera pelea: dashes, destellos y autocuración."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántas rondas hacen falta para ganar una partida competitiva estándar?",
+          "options": [
+            { "id": "a", "text": "10", "is_correct": false },
+            { "id": "b", "text": "12", "is_correct": false },
+            { "id": "c", "text": "16", "is_correct": false },
+            { "id": "d", "text": "13", "is_correct": true }
+          ],
+          "explanation": "Gana el primero en llegar a 13; con 12-12 la partida se va a la prórroga."
+        }
+      ]
+    },
+    {
+      "slug": "en-counter-strike-trivia",
+      "title": "Counter-Strike Trivia Challenge",
+      "description": "From a Half-Life mod to the most-watched tactical shooter on the planet: Dust2, the AWP and two decades of clutches. Locked in?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["counter-strike", "fps", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Counter-Strike began life as a community mod for which game?",
+          "options": [
+            { "id": "a", "text": "Quake III Arena", "is_correct": false },
+            { "id": "b", "text": "Half-Life", "is_correct": true },
+            { "id": "c", "text": "Unreal Tournament", "is_correct": false },
+            { "id": "d", "text": "Doom II", "is_correct": false }
+          ],
+          "explanation": "It shipped as a Half-Life mod in 1999 before Valve hired its creators and turned it into a franchise."
+        },
+        {
+          "id": "q2",
+          "question": "Which version, released in 2012, defined the modern competitive era?",
+          "options": [
+            { "id": "a", "text": "Condition Zero", "is_correct": false },
+            { "id": "b", "text": "Counter-Strike: Source", "is_correct": false },
+            { "id": "c", "text": "Global Offensive", "is_correct": true },
+            { "id": "d", "text": "Counter-Strike 1.6", "is_correct": false }
+          ],
+          "explanation": "CS:GO launched in August 2012 and reigned until Counter-Strike 2 replaced it."
+        },
+        {
+          "id": "q3",
+          "question": "Which engine does Counter-Strike 2 run on?",
+          "options": [
+            { "id": "a", "text": "GoldSrc", "is_correct": false },
+            { "id": "b", "text": "Source", "is_correct": false },
+            { "id": "c", "text": "Source 2", "is_correct": true },
+            { "id": "d", "text": "Unreal Engine 5", "is_correct": false }
+          ],
+          "explanation": "CS2 moved the series to Source 2 when it launched in 2023, with smoke that fills space volumetrically."
+        },
+        {
+          "id": "q4",
+          "question": "What is the most iconic map in the series, set in a Middle Eastern desert?",
+          "options": [
+            { "id": "a", "text": "Aztec", "is_correct": false },
+            { "id": "b", "text": "Train", "is_correct": false },
+            { "id": "c", "text": "Cobblestone", "is_correct": false },
+            { "id": "d", "text": "Dust II", "is_correct": true }
+          ],
+          "explanation": "Dust II has been the game's calling card since 2001 — and the home of 'rush B'."
+        },
+        {
+          "id": "q5",
+          "question": "In bomb defusal, what are the Terrorists trying to do?",
+          "options": [
+            { "id": "a", "text": "Rescue the hostages", "is_correct": false },
+            { "id": "b", "text": "Plant the C4 at a bomb site", "is_correct": true },
+            { "id": "c", "text": "Capture the enemy flag", "is_correct": false },
+            { "id": "d", "text": "Escort the bomb carrier to the exit", "is_correct": false }
+          ],
+          "explanation": "Terrorists plant the bomb at site A or B; Counter-Terrorists must defuse it in time."
+        },
+        {
+          "id": "q6",
+          "question": "How many bomb sites does a classic defusal map have?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Two", "is_correct": true },
+            { "id": "c", "text": "Three", "is_correct": false },
+            { "id": "d", "text": "Four", "is_correct": false }
+          ],
+          "explanation": "Two — A and B — which is why mid control decides so many rounds."
+        },
+        {
+          "id": "q7",
+          "question": "Which sniper rifle is famous for killing with a single shot to the body?",
+          "options": [
+            { "id": "a", "text": "The Scout (SSG 08)", "is_correct": false },
+            { "id": "b", "text": "The AWP", "is_correct": true },
+            { "id": "c", "text": "The G3SG1", "is_correct": false },
+            { "id": "d", "text": "The AUG", "is_correct": false }
+          ],
+          "explanation": "The AWP costs a fortune and earns it: one hit to the torso ends the round for its target."
+        },
+        {
+          "id": "q8",
+          "question": "Which team won the first CS:GO Major, DreamHack Winter 2013?",
+          "options": [
+            { "id": "a", "text": "Ninjas in Pyjamas", "is_correct": false },
+            { "id": "b", "text": "Virtus.pro", "is_correct": false },
+            { "id": "c", "text": "Astralis", "is_correct": false },
+            { "id": "d", "text": "Fnatic", "is_correct": true }
+          ],
+          "explanation": "Fnatic beat Ninjas in Pyjamas in Jönköping; Astralis's Major dynasty came years later."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-counter-strike",
+      "title": "Trivia de Counter-Strike",
+      "description": "De mod de Half-Life al shooter táctico más visto del planeta: Dust2, la AWP y dos décadas de clutches. ¿Estás listo?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["counter-strike", "fps", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Para qué juego nació Counter-Strike como mod de la comunidad?",
+          "options": [
+            { "id": "a", "text": "Quake III Arena", "is_correct": false },
+            { "id": "b", "text": "Doom II", "is_correct": false },
+            { "id": "c", "text": "Half-Life", "is_correct": true },
+            { "id": "d", "text": "Unreal Tournament", "is_correct": false }
+          ],
+          "explanation": "Salió como mod de Half-Life en 1999, antes de que Valve fichara a sus creadores y lo convirtiera en franquicia."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué entrega, lanzada en 2012, marcó la era competitiva moderna?",
+          "options": [
+            { "id": "a", "text": "Condition Zero", "is_correct": false },
+            { "id": "b", "text": "Counter-Strike: Source", "is_correct": false },
+            { "id": "c", "text": "Counter-Strike 1.6", "is_correct": false },
+            { "id": "d", "text": "Global Offensive", "is_correct": true }
+          ],
+          "explanation": "CS:GO se lanzó en agosto de 2012 y reinó hasta que Counter-Strike 2 lo sustituyó."
+        },
+        {
+          "id": "q3",
+          "question": "¿Con qué motor corre Counter-Strike 2?",
+          "options": [
+            { "id": "a", "text": "GoldSrc", "is_correct": false },
+            { "id": "b", "text": "Source 2", "is_correct": true },
+            { "id": "c", "text": "Source", "is_correct": false },
+            { "id": "d", "text": "Unreal Engine 5", "is_correct": false }
+          ],
+          "explanation": "CS2 llevó la saga a Source 2 cuando se lanzó en 2023, con humo que rellena el espacio de forma volumétrica."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el mapa más icónico de la saga, ambientado en un desierto de Oriente Medio?",
+          "options": [
+            { "id": "a", "text": "Aztec", "is_correct": false },
+            { "id": "b", "text": "Dust II", "is_correct": true },
+            { "id": "c", "text": "Train", "is_correct": false },
+            { "id": "d", "text": "Cobblestone", "is_correct": false }
+          ],
+          "explanation": "Dust II es la carta de presentación del juego desde 2001 y la casa del 'rush B'."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué intentan hacer los terroristas en el modo de desactivación de bombas?",
+          "options": [
+            { "id": "a", "text": "Rescatar a los rehenes", "is_correct": false },
+            { "id": "b", "text": "Capturar la bandera enemiga", "is_correct": false },
+            { "id": "c", "text": "Colocar la C4 en un punto de bomba", "is_correct": true },
+            {
+              "id": "d",
+              "text": "Escoltar al portador de la bomba hasta la salida",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los terroristas plantan la bomba en el punto A o B; los antiterroristas deben desactivarla a tiempo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántos puntos de bomba tiene un mapa clásico de desactivación?",
+          "options": [
+            { "id": "a", "text": "Uno", "is_correct": false },
+            { "id": "b", "text": "Dos", "is_correct": true },
+            { "id": "c", "text": "Tres", "is_correct": false },
+            { "id": "d", "text": "Cuatro", "is_correct": false }
+          ],
+          "explanation": "Dos — A y B —; por eso el control del medio decide tantas rondas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué rifle de francotirador es famoso por matar de un solo disparo al cuerpo?",
+          "options": [
+            { "id": "a", "text": "El Scout (SSG 08)", "is_correct": false },
+            { "id": "b", "text": "La G3SG1", "is_correct": false },
+            { "id": "c", "text": "La AUG", "is_correct": false },
+            { "id": "d", "text": "La AWP", "is_correct": true }
+          ],
+          "explanation": "La AWP cuesta una fortuna y la vale: un impacto al torso acaba con el objetivo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué equipo ganó el primer Major de CS:GO, la DreamHack Winter 2013?",
+          "options": [
+            { "id": "a", "text": "Ninjas in Pyjamas", "is_correct": false },
+            { "id": "b", "text": "Fnatic", "is_correct": true },
+            { "id": "c", "text": "Virtus.pro", "is_correct": false },
+            { "id": "d", "text": "Astralis", "is_correct": false }
+          ],
+          "explanation": "Fnatic venció a Ninjas in Pyjamas en Jönköping; la dinastía de Astralis llegó años después."
+        }
+      ]
+    },
+    {
+      "slug": "en-overwatch-trivia",
+      "title": "Overwatch Trivia Challenge",
+      "description": "Heroes never die — and neither does this cast. Tanks, supports and payloads from Blizzard's hero shooter. Can you name them all?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["overwatch", "hero-shooter", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which company created Overwatch?",
+          "options": [
+            { "id": "a", "text": "Riot Games", "is_correct": false },
+            { "id": "b", "text": "Blizzard Entertainment", "is_correct": true },
+            { "id": "c", "text": "Electronic Arts", "is_correct": false },
+            { "id": "d", "text": "Valve", "is_correct": false }
+          ],
+          "explanation": "Blizzard released it in 2016; it grew out of the cancelled MMO Project Titan."
+        },
+        {
+          "id": "q2",
+          "question": "In which year was the original Overwatch released?",
+          "options": [
+            { "id": "a", "text": "2014", "is_correct": false },
+            { "id": "b", "text": "2016", "is_correct": true },
+            { "id": "c", "text": "2018", "is_correct": false },
+            { "id": "d", "text": "2020", "is_correct": false }
+          ],
+          "explanation": "It launched on 24 May 2016 and won Game of the Year at The Game Awards that December."
+        },
+        {
+          "id": "q3",
+          "question": "What are the three hero roles in Overwatch?",
+          "options": [
+            { "id": "a", "text": "Warrior, Mage and Healer", "is_correct": false },
+            { "id": "b", "text": "Tank, Damage and Support", "is_correct": true },
+            { "id": "c", "text": "Vanguard, Striker and Medic", "is_correct": false },
+            { "id": "d", "text": "Tank, Sniper and Support", "is_correct": false }
+          ],
+          "explanation": "Every hero fits one of the three: Tank, Damage or Support."
+        },
+        {
+          "id": "q4",
+          "question": "Which time-travelling hero is the face of the franchise?",
+          "options": [
+            { "id": "a", "text": "Soldier: 76", "is_correct": false },
+            { "id": "b", "text": "Widowmaker", "is_correct": false },
+            { "id": "c", "text": "Tracer", "is_correct": true },
+            { "id": "d", "text": "Mei", "is_correct": false }
+          ],
+          "explanation": "Tracer — 'Cheers, love! The cavalry's here!' — fronted the game's cover and key art."
+        },
+        {
+          "id": "q5",
+          "question": "In Escort maps, what do attackers push to the finish line?",
+          "options": [
+            { "id": "a", "text": "The objective beacon", "is_correct": false },
+            { "id": "b", "text": "The hover tank", "is_correct": false },
+            { "id": "c", "text": "The supply crate", "is_correct": false },
+            { "id": "d", "text": "The payload", "is_correct": true }
+          ],
+          "explanation": "Attackers escort the payload through checkpoints while the defence stalls it."
+        },
+        {
+          "id": "q6",
+          "question": "Which hero fights inside a pink mech?",
+          "options": [
+            { "id": "a", "text": "Reinhardt", "is_correct": false },
+            { "id": "b", "text": "D.Va", "is_correct": true },
+            { "id": "c", "text": "Orisa", "is_correct": false },
+            { "id": "d", "text": "Wrecking Ball", "is_correct": false }
+          ],
+          "explanation": "D.Va, a former pro gamer, pilots the mech; Wrecking Ball is a hamster in a rolling ball."
+        },
+        {
+          "id": "q7",
+          "question": "How many players per team did Overwatch 2 switch to?",
+          "options": [
+            { "id": "a", "text": "Four", "is_correct": false },
+            { "id": "b", "text": "Five", "is_correct": true },
+            { "id": "c", "text": "Six", "is_correct": false },
+            { "id": "d", "text": "Seven", "is_correct": false }
+          ],
+          "explanation": "Overwatch 2 moved from 6v6 to 5v5 when it launched in 2022, dropping one tank per team."
+        },
+        {
+          "id": "q8",
+          "question": "Which team won the inaugural Overwatch League season in 2018?",
+          "options": [
+            { "id": "a", "text": "New York Excelsior", "is_correct": false },
+            { "id": "b", "text": "San Francisco Shock", "is_correct": false },
+            { "id": "c", "text": "Seoul Dynasty", "is_correct": false },
+            { "id": "d", "text": "London Spitfire", "is_correct": true }
+          ],
+          "explanation": "London Spitfire took the first Grand Finals; the Shock won the next two titles."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-overwatch",
+      "title": "Trivia de Overwatch",
+      "description": "Los héroes nunca mueren, y este elenco tampoco. Tanques, apoyos y cargas útiles del hero shooter de Blizzard. ¿Cuántos reconoces?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["overwatch", "hero-shooter", "esports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué compañía creó Overwatch?",
+          "options": [
+            { "id": "a", "text": "Riot Games", "is_correct": false },
+            { "id": "b", "text": "Electronic Arts", "is_correct": false },
+            { "id": "c", "text": "Blizzard Entertainment", "is_correct": true },
+            { "id": "d", "text": "Valve", "is_correct": false }
+          ],
+          "explanation": "Blizzard lo lanzó en 2016; nació del cancelado MMO Proyecto Titán."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se lanzó el Overwatch original?",
+          "options": [
+            { "id": "a", "text": "2014", "is_correct": false },
+            { "id": "b", "text": "2015", "is_correct": false },
+            { "id": "c", "text": "2016", "is_correct": true },
+            { "id": "d", "text": "2018", "is_correct": false }
+          ],
+          "explanation": "Salió el 24 de mayo de 2016 y ganó el premio a Juego del Año en The Game Awards ese diciembre."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuáles son los tres roles de héroe del juego?",
+          "options": [
+            { "id": "a", "text": "Guerrero, mago y sanador", "is_correct": false },
+            { "id": "b", "text": "Tanque, daño y apoyo", "is_correct": true },
+            { "id": "c", "text": "Vanguardia, tirador y médico", "is_correct": false },
+            { "id": "d", "text": "Tanque, francotirador y apoyo", "is_correct": false }
+          ],
+          "explanation": "Cada héroe encaja en uno de los tres: tanque, daño o apoyo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué heroína que viaja en el tiempo es la cara de la saga?",
+          "options": [
+            { "id": "a", "text": "Tracer", "is_correct": true },
+            { "id": "b", "text": "Widowmaker", "is_correct": false },
+            { "id": "c", "text": "Mei", "is_correct": false },
+            { "id": "d", "text": "D.Va", "is_correct": false }
+          ],
+          "explanation": "Tracer, con su 'Cheers, love! The cavalry's here!', fue la cara de la portada del juego."
+        },
+        {
+          "id": "q5",
+          "question": "En los mapas de escolta, ¿qué empujan los atacantes hasta la meta?",
+          "options": [
+            { "id": "a", "text": "El faro de objetivo", "is_correct": false },
+            { "id": "b", "text": "La carga útil", "is_correct": true },
+            { "id": "c", "text": "El tanque flotante", "is_correct": false },
+            { "id": "d", "text": "El convoy de suministros", "is_correct": false }
+          ],
+          "explanation": "Los atacantes escoltan la carga útil por los puntos de control mientras la defensa la frena."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué heroína pelea dentro de un meca rosa?",
+          "options": [
+            { "id": "a", "text": "Reinhardt", "is_correct": false },
+            { "id": "b", "text": "Orisa", "is_correct": false },
+            { "id": "c", "text": "D.Va", "is_correct": true },
+            { "id": "d", "text": "Wrecking Ball", "is_correct": false }
+          ],
+          "explanation": "D.Va, exjugadora profesional, pilota el meca; Wrecking Ball es un hámster en una bola rodante."
+        },
+        {
+          "id": "q7",
+          "question": "¿A cuántos jugadores por equipo pasó Overwatch 2?",
+          "options": [
+            { "id": "a", "text": "Cuatro", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Siete", "is_correct": false }
+          ],
+          "explanation": "Overwatch 2 pasó del 6 contra 6 al 5 contra 5 cuando se lanzó en 2022, quitando un tanque por equipo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué equipo ganó la primera temporada de la Overwatch League, en 2018?",
+          "options": [
+            { "id": "a", "text": "New York Excelsior", "is_correct": false },
+            { "id": "b", "text": "London Spitfire", "is_correct": true },
+            { "id": "c", "text": "San Francisco Shock", "is_correct": false },
+            { "id": "d", "text": "Seoul Dynasty", "is_correct": false }
+          ],
+          "explanation": "London Spitfire ganó la primera Gran Final; los Shock se llevaron los dos títulos siguientes."
+        }
+      ]
+    },
+    {
+      "slug": "en-among-us-trivia",
+      "title": "Among Us Trivia Challenge",
+      "description": "Tasks, vents and emergency meetings: the little space game that took over the internet. Don't act sus — you might be the Impostor.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["among us", "multiplayer", "party-game", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which studio made Among Us?",
+          "options": [
+            { "id": "a", "text": "Devolver Digital", "is_correct": false },
+            { "id": "b", "text": "InnerSloth", "is_correct": true },
+            { "id": "c", "text": "Mojang", "is_correct": false },
+            { "id": "d", "text": "Supercell", "is_correct": false }
+          ],
+          "explanation": "InnerSloth, a small indie team, released it in 2018 — two years before it exploded."
+        },
+        {
+          "id": "q2",
+          "question": "In which year was Among Us first released?",
+          "options": [
+            { "id": "a", "text": "2016", "is_correct": false },
+            { "id": "b", "text": "2018", "is_correct": true },
+            { "id": "c", "text": "2020", "is_correct": false },
+            { "id": "d", "text": "2022", "is_correct": false }
+          ],
+          "explanation": "It came out in June 2018 to little attention; the boom came later."
+        },
+        {
+          "id": "q3",
+          "question": "In which year did it become a global phenomenon, driven by streamers?",
+          "options": [
+            { "id": "a", "text": "2018", "is_correct": false },
+            { "id": "b", "text": "2019", "is_correct": false },
+            { "id": "c", "text": "2020", "is_correct": true },
+            { "id": "d", "text": "2022", "is_correct": false }
+          ],
+          "explanation": "Twitch and YouTube turned it into the pandemic's favourite party game in mid-2020."
+        },
+        {
+          "id": "q4",
+          "question": "What was the game's original map?",
+          "options": [
+            { "id": "a", "text": "Mira HQ", "is_correct": false },
+            { "id": "b", "text": "The Skeld", "is_correct": true },
+            { "id": "c", "text": "Polus", "is_correct": false },
+            { "id": "d", "text": "The Airship", "is_correct": false }
+          ],
+          "explanation": "The Skeld, the spaceship, came first; the other maps were added later."
+        },
+        {
+          "id": "q5",
+          "question": "What do Impostors use to move quickly between rooms?",
+          "options": [
+            { "id": "a", "text": "Teleporters", "is_correct": false },
+            { "id": "b", "text": "Elevators", "is_correct": false },
+            { "id": "c", "text": "Vents", "is_correct": true },
+            { "id": "d", "text": "Escape pods", "is_correct": false }
+          ],
+          "explanation": "Impostors — and the Engineer role — can travel the vent network; a classic tell."
+        },
+        {
+          "id": "q6",
+          "question": "Besides ejecting every Impostor, how can Crewmates win?",
+          "options": [
+            { "id": "a", "text": "Surviving for 10 minutes", "is_correct": false },
+            { "id": "b", "text": "Finishing all their tasks", "is_correct": true },
+            { "id": "c", "text": "Finding every vent", "is_correct": false },
+            { "id": "d", "text": "Repairing the ship's engines", "is_correct": false }
+          ],
+          "explanation": "Fill the taskbar and the crew wins even with Impostors still aboard."
+        },
+        {
+          "id": "q7",
+          "question": "Which huge map, added in 2021, is set on a flying ship?",
+          "options": [
+            { "id": "a", "text": "The Fungle", "is_correct": false },
+            { "id": "b", "text": "Mira HQ", "is_correct": false },
+            { "id": "c", "text": "The Dropship", "is_correct": false },
+            { "id": "d", "text": "The Airship", "is_correct": true }
+          ],
+          "explanation": "The Airship, based on the Henry Stickmin series, was the biggest map in the game when it arrived."
+        },
+        {
+          "id": "q8",
+          "question": "Which of these is NOT a real Among Us map?",
+          "options": [
+            { "id": "a", "text": "The Skeld", "is_correct": false },
+            { "id": "b", "text": "Polus", "is_correct": false },
+            { "id": "c", "text": "The Citadel", "is_correct": true },
+            { "id": "d", "text": "The Fungle", "is_correct": false }
+          ],
+          "explanation": "The Citadel is invented; the real maps are The Skeld, Mira HQ, Polus, The Airship and The Fungle."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-among-us",
+      "title": "Trivia de Among Us",
+      "description": "Tareas, conductos y reuniones de emergencia: el juego espacial que conquistó internet. Mantén la calma… el impostor podrías ser tú.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["among us", "multijugador", "party-game", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué estudio creó Among Us?",
+          "options": [
+            { "id": "a", "text": "Devolver Digital", "is_correct": false },
+            { "id": "b", "text": "Mojang", "is_correct": false },
+            { "id": "c", "text": "InnerSloth", "is_correct": true },
+            { "id": "d", "text": "Supercell", "is_correct": false }
+          ],
+          "explanation": "InnerSloth, un pequeño equipo independiente, lo lanzó en 2018, dos años antes de que explotara."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se lanzó Among Us por primera vez?",
+          "options": [
+            { "id": "a", "text": "2016", "is_correct": false },
+            { "id": "b", "text": "2020", "is_correct": false },
+            { "id": "c", "text": "2018", "is_correct": true },
+            { "id": "d", "text": "2022", "is_correct": false }
+          ],
+          "explanation": "Salió en junio de 2018 casi sin ruido; el boom llegó después."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué año se volvió un fenómeno global gracias a los streamers?",
+          "options": [
+            { "id": "a", "text": "2018", "is_correct": false },
+            { "id": "b", "text": "2019", "is_correct": false },
+            { "id": "c", "text": "2021", "is_correct": false },
+            { "id": "d", "text": "2020", "is_correct": true }
+          ],
+          "explanation": "Twitch y YouTube lo convirtieron en el juego de fiesta favorito de la pandemia a mediados de 2020."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál fue el mapa original del juego?",
+          "options": [
+            { "id": "a", "text": "Mira HQ", "is_correct": false },
+            { "id": "b", "text": "Polus", "is_correct": false },
+            { "id": "c", "text": "The Skeld", "is_correct": true },
+            { "id": "d", "text": "The Airship", "is_correct": false }
+          ],
+          "explanation": "The Skeld, la nave espacial, llegó primero; los demás mapas se añadieron después."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué usan los impostores para moverse rápido entre habitaciones?",
+          "options": [
+            { "id": "a", "text": "Los teletransportadores", "is_correct": false },
+            { "id": "b", "text": "Los conductos de ventilación", "is_correct": true },
+            { "id": "c", "text": "Los ascensores", "is_correct": false },
+            { "id": "d", "text": "Las cápsulas de escape", "is_correct": false }
+          ],
+          "explanation": "Los impostores — y el rol de Ingeniero — pueden usar la red de conductos: una señal clásica."
+        },
+        {
+          "id": "q6",
+          "question": "Además de expulsar a todos los impostores, ¿cómo pueden ganar los tripulantes?",
+          "options": [
+            { "id": "a", "text": "Sobreviviendo 10 minutos", "is_correct": false },
+            { "id": "b", "text": "Encontrando todos los conductos", "is_correct": false },
+            { "id": "c", "text": "Completando todas sus tareas", "is_correct": true },
+            { "id": "d", "text": "Reparando los motores de la nave", "is_correct": false }
+          ],
+          "explanation": "Llenar la barra de tareas da la victoria aunque queden impostores a bordo."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué gran mapa, añadido en 2021, ocurre a bordo de una aeronave?",
+          "options": [
+            { "id": "a", "text": "The Fungle", "is_correct": false },
+            { "id": "b", "text": "The Airship", "is_correct": true },
+            { "id": "c", "text": "Mira HQ", "is_correct": false },
+            { "id": "d", "text": "The Dropship", "is_correct": false }
+          ],
+          "explanation": "The Airship, basada en la serie Henry Stickmin, era el mapa más grande del juego cuando llegó."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál de estos NO es un mapa real de Among Us?",
+          "options": [
+            { "id": "a", "text": "The Skeld", "is_correct": false },
+            { "id": "b", "text": "The Citadel", "is_correct": true },
+            { "id": "c", "text": "Polus", "is_correct": false },
+            { "id": "d", "text": "The Fungle", "is_correct": false }
+          ],
+          "explanation": "The Citadel es inventado; los mapas reales son The Skeld, Mira HQ, Polus, The Airship y The Fungle."
+        }
+      ]
+    }
+  ]
+}
