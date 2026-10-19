@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
 import { hasLocale } from '@/lib/i18n/dictionaries';
-import { getExplorePayload } from '@/lib/data/public';
+import { getPublishedQuizCount } from '@/lib/data/public';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -33,7 +33,7 @@ export default async function ExploreOpenGraphImage({
 }) {
   const { locale } = await params;
   const uiLocale = hasLocale(locale) ? locale : 'en';
-  const count = (await getExplorePayload(uiLocale)).quizzes.length;
+  const count = await getPublishedQuizCount(uiLocale);
   if (count === 0) {
     return new ImageResponse(brandCard(), await arcadeOgOptions());
   }

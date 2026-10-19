@@ -152,6 +152,16 @@ export const getQuizBySlug = cache(async (slug: string, locale?: Locale): Promis
   }
 });
 
+export const getPublishedQuizCount = cache(async (locale?: Locale): Promise<number> => {
+  try {
+    return (await fetchPublishedQuizTotalsFromDb(locale)).totalQuizzes;
+  } catch {
+    return locale
+      ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale).length
+      : LAUNCH_QUIZZES.length;
+  }
+});
+
 export async function getExplorePayload(
   localeOrSearch?: Locale | string,
   searchOrCategory?: string,
