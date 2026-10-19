@@ -9,6 +9,7 @@
  *   node scripts/seed/emit-editorial-seed.mjs              # print SQL to stdout
  *   node scripts/seed/emit-editorial-seed.mjs --write       # write the .sql file
  *   node scripts/seed/emit-editorial-seed.mjs --write --out supabase/seed/editorial-seed.sql
+ *   node scripts/seed/emit-editorial-seed.mjs --input <file> [--json]
  *
  * The script validates before emitting: unique slugs, exactly one correct option
  * per trivia question, 2–10 options per question, and a category that exists in
@@ -141,20 +142,32 @@ function buildSql(quizzes) {
 
 function main() {
   const write = process.argv.includes('--write');
+  const asJson = process.argv.includes('--json');
   const outIndex = process.argv.indexOf('--out');
   const outArg = outIndex === -1 ? null : process.argv[outIndex + 1];
   if (outIndex !== -1 && (!outArg || outArg.startsWith('--'))) {
     console.error('--out needs a path, e.g. --out supabase/seed/editorial-seed.sql');
     process.exit(1);
   }
+  const inputIndex = process.argv.indexOf('--input');
+  const inputArg = inputIndex === -1 ? null : process.argv[inputIndex + 1];
+  if (inputIndex !== -1 && (!inputArg || inputArg.startsWith('--'))) {
+    console.error('--input needs a path, e.g. --input scripts/seed/editorial-seed.json');
+    process.exit(1);
+  }
   const outputPath = outArg ? resolve(ROOT, outArg) : OUTPUT_PATH;
-  const seed = JSON.parse(readFileSync(SEED_PATH, 'utf8'));
+  const inputPath = inputArg ? resolve(inputArg) : SEED_PATH;
+  const seed = JSON.parse(readFileSync(inputPath, 'utf8'));
   const quizzes = seed.quizzes ?? [];
 
   const errors = validate(quizzes);
   if (errors.length > 0) {
-    console.error(`Seed validation failed (${errors.length}):`);
-    for (const error of errors) console.error(`  - ${error}`);
+    if (asJson) {
+      console.error(JSON.stringify({ errors }));
+    } else {
+      console.error(`Seed validation failed (${errors.length}):`);
+      for (const error of errors) console.error(`  - ${error}`);
+    }
     process.exit(1);
   }
 
