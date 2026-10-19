@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial batch 2026x (CONT-33): five es/en trivia pairs on specific music artists with real search demand — BTS, BLACKPINK, Peso Pluma, Rosalía and J Balvin. J Balvin replaces the requested Karol G pair because en-karol-g-trivia / es-trivia-karol-g already exist in editorial-seed-2026ah (merged); reusing the slugs would be a no-op. Only stable, checkable facts: debut years, members, released discography, completed tours and awards already handed out. No announced or ongoing tours, future releases, current charts, scandals or private life. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-bts-trivia",
+      "title": "BTS Trivia: Debut, Albums and Records",
+      "description": "From 2 Cool 4 Skool to Dynamite: eight questions on the debut, the seven members and the records that made BTS the biggest group on the planet.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["bts", "k-pop", "music", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did BTS officially debut?",
+          "options": [
+            { "id": "a", "text": "2010", "is_correct": false },
+            { "id": "b", "text": "2013", "is_correct": true },
+            { "id": "c", "text": "2016", "is_correct": false },
+            { "id": "d", "text": "2019", "is_correct": false }
+          ],
+          "explanation": "BTS debuted on 13 June 2013 under Big Hit Entertainment with the single album 2 Cool 4 Skool."
+        },
+        {
+          "id": "q2",
+          "question": "How many members does BTS have?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": false },
+            { "id": "c", "text": "Nine", "is_correct": false },
+            { "id": "d", "text": "Seven", "is_correct": true }
+          ],
+          "explanation": "Seven: RM, Jin, Suga, J-Hope, Jimin, V and Jungkook."
+        },
+        {
+          "id": "q3",
+          "question": "Who is the leader of BTS?",
+          "options": [
+            { "id": "a", "text": "Jin", "is_correct": false },
+            { "id": "b", "text": "RM", "is_correct": true },
+            { "id": "c", "text": "Suga", "is_correct": false },
+            { "id": "d", "text": "Jungkook", "is_correct": false }
+          ],
+          "explanation": "RM (Kim Namjoon) is the leader and lead rapper — and the member who usually handled the English interviews."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of BTS's fandom?",
+          "options": [
+            { "id": "a", "text": "BLINK", "is_correct": false },
+            { "id": "b", "text": "ONCE", "is_correct": false },
+            { "id": "c", "text": "ARMY", "is_correct": true },
+            { "id": "d", "text": "MOA", "is_correct": false }
+          ],
+          "explanation": "ARMY stands for Adorable Representative M.C. for Youth; BLINK belongs to BLACKPINK and ONCE to TWICE."
+        },
+        {
+          "id": "q5",
+          "question": "Which 2020 single was BTS's first song recorded entirely in English?",
+          "options": [
+            { "id": "a", "text": "Butter", "is_correct": false },
+            { "id": "b", "text": "Permission to Dance", "is_correct": false },
+            { "id": "c", "text": "Boy With Luv", "is_correct": false },
+            { "id": "d", "text": "Dynamite", "is_correct": true }
+          ],
+          "explanation": "Dynamite (August 2020) was their first all-English single and their first Billboard Hot 100 number one."
+        },
+        {
+          "id": "q6",
+          "question": "Which 2021 single did BTS record with Coldplay?",
+          "options": [
+            { "id": "a", "text": "My Universe", "is_correct": true },
+            { "id": "b", "text": "Higher Power", "is_correct": false },
+            { "id": "c", "text": "Fix You", "is_correct": false },
+            { "id": "d", "text": "A Sky Full of Stars", "is_correct": false }
+          ],
+          "explanation": "My Universe came out in September 2021 as part of Coldplay's Music of the Spheres."
+        },
+        {
+          "id": "q7",
+          "question": "Which album made BTS the first K-pop act to top the Billboard 200?",
+          "options": [
+            { "id": "a", "text": "Wings", "is_correct": false },
+            { "id": "b", "text": "Map of the Soul: 7", "is_correct": false },
+            { "id": "c", "text": "Love Yourself: Tear", "is_correct": true },
+            { "id": "d", "text": "Be", "is_correct": false }
+          ],
+          "explanation": "Love Yourself: Tear debuted at number one in May 2018 — a first for a Korean act on the album chart."
+        },
+        {
+          "id": "q8",
+          "question": "Which label formed BTS?",
+          "options": [
+            { "id": "a", "text": "SM Entertainment", "is_correct": false },
+            { "id": "b", "text": "YG Entertainment", "is_correct": false },
+            { "id": "c", "text": "JYP Entertainment", "is_correct": false },
+            { "id": "d", "text": "Big Hit Entertainment", "is_correct": true }
+          ],
+          "explanation": "Big Hit (today part of HYBE) put the group together; the other three are the classic 'big three' K-pop agencies."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-bts",
+      "title": "Trivia de BTS: debut, discos y récords",
+      "description": "De 2 Cool 4 Skool a Dynamite: ocho preguntas sobre el debut, los siete integrantes y los récords que hicieron de BTS el grupo más grande del planeta.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["bts", "k-pop", "musica", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año debutó oficialmente BTS?",
+          "options": [
+            { "id": "a", "text": "2011", "is_correct": false },
+            { "id": "b", "text": "2013", "is_correct": true },
+            { "id": "c", "text": "2015", "is_correct": false },
+            { "id": "d", "text": "2018", "is_correct": false }
+          ],
+          "explanation": "BTS debutó el 13 de junio de 2013 bajo Big Hit Entertainment con el sencillo 2 Cool 4 Skool."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos integrantes tiene BTS?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Siete", "is_correct": true },
+            { "id": "c", "text": "Ocho", "is_correct": false },
+            { "id": "d", "text": "Nueve", "is_correct": false }
+          ],
+          "explanation": "Siete: RM, Jin, Suga, J-Hope, Jimin, V y Jungkook."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el fandom de BTS?",
+          "options": [
+            { "id": "a", "text": "BLINK", "is_correct": false },
+            { "id": "b", "text": "STAY", "is_correct": false },
+            { "id": "c", "text": "ARMY", "is_correct": true },
+            { "id": "d", "text": "ONCE", "is_correct": false }
+          ],
+          "explanation": "ARMY significa Adorable Representative M.C. for Youth; BLINK es el fandom de BLACKPINK y ONCE el de TWICE."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién es el líder de BTS?",
+          "options": [
+            { "id": "a", "text": "J-Hope", "is_correct": false },
+            { "id": "b", "text": "Jimin", "is_correct": false },
+            { "id": "c", "text": "V", "is_correct": false },
+            { "id": "d", "text": "RM", "is_correct": true }
+          ],
+          "explanation": "RM (Kim Namjoon) es el líder y rapero principal, además del integrante que solía llevar las entrevistas en inglés."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál fue la primera canción de BTS grabada íntegramente en inglés?",
+          "options": [
+            { "id": "a", "text": "Dynamite", "is_correct": true },
+            { "id": "b", "text": "Butter", "is_correct": false },
+            { "id": "c", "text": "Life Goes On", "is_correct": false },
+            { "id": "d", "text": "Fake Love", "is_correct": false }
+          ],
+          "explanation": "Dynamite (agosto de 2020) fue su primer sencillo en inglés y su primer número uno en el Billboard Hot 100."
+        },
+        {
+          "id": "q6",
+          "question": "¿Con qué banda británica grabaron «My Universe» en 2021?",
+          "options": [
+            { "id": "a", "text": "Maroon 5", "is_correct": false },
+            { "id": "b", "text": "Imagine Dragons", "is_correct": false },
+            { "id": "c", "text": "Coldplay", "is_correct": true },
+            { "id": "d", "text": "One Direction", "is_correct": false }
+          ],
+          "explanation": "My Universe salió en septiembre de 2021 como parte de Music of the Spheres, el disco de Coldplay."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué álbum convirtió a BTS en el primer acto de K-pop en encabezar el Billboard 200?",
+          "options": [
+            { "id": "a", "text": "Wings", "is_correct": false },
+            { "id": "b", "text": "Be", "is_correct": false },
+            { "id": "c", "text": "Map of the Soul: 7", "is_correct": false },
+            { "id": "d", "text": "Love Yourself: Tear", "is_correct": true }
+          ],
+          "explanation": "Love Yourself: Tear debutó en el número uno en mayo de 2018, algo inédito para un grupo coreano en esa lista."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué artista estadounidense canta con BTS en «Boy With Luv»?",
+          "options": [
+            { "id": "a", "text": "Halsey", "is_correct": true },
+            { "id": "b", "text": "Ariana Grande", "is_correct": false },
+            { "id": "c", "text": "Billie Eilish", "is_correct": false },
+            { "id": "d", "text": "Dua Lipa", "is_correct": false }
+          ],
+          "explanation": "Halsey participa en Boy With Luv (2019), el sencillo principal de Map of the Soul: Persona."
+        }
+      ]
+    },
+    {
+      "slug": "en-blackpink-trivia",
+      "title": "BLACKPINK Trivia: Members, Hits and Tours",
+      "description": "Jisoo, Jennie, Rosé and Lisa: eight questions on the debut, the hits and the records of the K-pop quartet that took over the world.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["blackpink", "k-pop", "music", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did BLACKPINK debut?",
+          "options": [
+            { "id": "a", "text": "2014", "is_correct": false },
+            { "id": "b", "text": "2016", "is_correct": true },
+            { "id": "c", "text": "2018", "is_correct": false },
+            { "id": "d", "text": "2020", "is_correct": false }
+          ],
+          "explanation": "They debuted on 8 August 2016 with the single album Square One and the songs Whistle and Boombayah."
+        },
+        {
+          "id": "q2",
+          "question": "Which agency formed BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "JYP Entertainment", "is_correct": false },
+            { "id": "b", "text": "SM Entertainment", "is_correct": false },
+            { "id": "c", "text": "YG Entertainment", "is_correct": true },
+            { "id": "d", "text": "HYBE", "is_correct": false }
+          ],
+          "explanation": "YG Entertainment — the house of BIGBANG and 2NE1 — trained the four members for years before their debut."
+        },
+        {
+          "id": "q3",
+          "question": "How many members does BLACKPINK have?",
+          "options": [
+            { "id": "a", "text": "Four", "is_correct": true },
+            { "id": "b", "text": "Five", "is_correct": false },
+            { "id": "c", "text": "Six", "is_correct": false },
+            { "id": "d", "text": "Seven", "is_correct": false }
+          ],
+          "explanation": "Four: Jisoo, Jennie, Rosé and Lisa — no more, no less."
+        },
+        {
+          "id": "q4",
+          "question": "Which member was born in Thailand?",
+          "options": [
+            { "id": "a", "text": "Jisoo", "is_correct": false },
+            { "id": "b", "text": "Rosé", "is_correct": false },
+            { "id": "c", "text": "Jennie", "is_correct": false },
+            { "id": "d", "text": "Lisa", "is_correct": true }
+          ],
+          "explanation": "Lalisa Manobal — Lisa — was born in Buriram and raised in Bangkok, Thailand."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of BLACKPINK's fandom?",
+          "options": [
+            { "id": "a", "text": "ARMY", "is_correct": false },
+            { "id": "b", "text": "MIDZY", "is_correct": false },
+            { "id": "c", "text": "BLINK", "is_correct": true },
+            { "id": "d", "text": "ONCE", "is_correct": false }
+          ],
+          "explanation": "BLINK blends the beginning and the end of BLACKPINK; ONCE is TWICE's fandom."
+        },
+        {
+          "id": "q6",
+          "question": "Which pop star joins BLACKPINK on the 2020 single Ice Cream?",
+          "options": [
+            { "id": "a", "text": "Ariana Grande", "is_correct": false },
+            { "id": "b", "text": "Selena Gomez", "is_correct": true },
+            { "id": "c", "text": "Billie Eilish", "is_correct": false },
+            { "id": "d", "text": "Doja Cat", "is_correct": false }
+          ],
+          "explanation": "Ice Cream, with Selena Gomez, was the second single from The Album in August 2020."
+        },
+        {
+          "id": "q7",
+          "question": "In 2023 BLACKPINK became the first K-pop act to headline which festival?",
+          "options": [
+            { "id": "a", "text": "Glastonbury", "is_correct": false },
+            { "id": "b", "text": "Lollapalooza", "is_correct": false },
+            { "id": "c", "text": "Primavera Sound", "is_correct": false },
+            { "id": "d", "text": "Coachella", "is_correct": true }
+          ],
+          "explanation": "They headlined Coachella in April 2023, four years after becoming the first K-pop girl group to play the festival."
+        },
+        {
+          "id": "q8",
+          "question": "What was BLACKPINK's first full-length studio album?",
+          "options": [
+            { "id": "a", "text": "Square One", "is_correct": false },
+            { "id": "b", "text": "The Album", "is_correct": true },
+            { "id": "c", "text": "Kill This Love", "is_correct": false },
+            { "id": "d", "text": "Born Pink", "is_correct": false }
+          ],
+          "explanation": "Square One was the 2016 debut single album and Kill This Love an EP; The Album (2020) was the first LP, followed by Born Pink (2022)."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-blackpink",
+      "title": "Trivia de BLACKPINK: integrantes, hits y giras",
+      "description": "Jisoo, Jennie, Rosé y Lisa: ocho preguntas sobre el debut, los éxitos y los récords del cuarteto de K-pop que conquistó el mundo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["blackpink", "k-pop", "musica", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año debutó BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "2014", "is_correct": false },
+            { "id": "b", "text": "2015", "is_correct": false },
+            { "id": "c", "text": "2016", "is_correct": true },
+            { "id": "d", "text": "2019", "is_correct": false }
+          ],
+          "explanation": "Debutaron el 8 de agosto de 2016 con el sencillo Square One y los temas Whistle y Boombayah."
+        },
+        {
+          "id": "q2",
+          "question": "¿Con qué agencia debutó BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "YG Entertainment", "is_correct": true },
+            { "id": "b", "text": "JYP Entertainment", "is_correct": false },
+            { "id": "c", "text": "SM Entertainment", "is_correct": false },
+            { "id": "d", "text": "HYBE", "is_correct": false }
+          ],
+          "explanation": "YG Entertainment, la casa de BIGBANG y 2NE1, entrenó a las cuatro integrantes durante años antes del debut."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántas integrantes tiene BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": true },
+            { "id": "c", "text": "Seis", "is_correct": false },
+            { "id": "d", "text": "Siete", "is_correct": false }
+          ],
+          "explanation": "Cuatro: Jisoo, Jennie, Rosé y Lisa."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué integrante nació en Tailandia?",
+          "options": [
+            { "id": "a", "text": "Rosé", "is_correct": false },
+            { "id": "b", "text": "Jisoo", "is_correct": false },
+            { "id": "c", "text": "Jennie", "is_correct": false },
+            { "id": "d", "text": "Lisa", "is_correct": true }
+          ],
+          "explanation": "Lalisa Manobal, Lisa, nació en Buriram y creció en Bangkok, Tailandia."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el fandom de BLACKPINK?",
+          "options": [
+            { "id": "a", "text": "ARMY", "is_correct": false },
+            { "id": "b", "text": "BLINK", "is_correct": true },
+            { "id": "c", "text": "ONCE", "is_correct": false },
+            { "id": "d", "text": "MIDZY", "is_correct": false }
+          ],
+          "explanation": "BLINK une el inicio y el final de BLACKPINK; ONCE es el fandom de TWICE."
+        },
+        {
+          "id": "q6",
+          "question": "¿Con qué artista grabaron «Sour Candy» para el disco Chromatica?",
+          "options": [
+            { "id": "a", "text": "Selena Gomez", "is_correct": false },
+            { "id": "b", "text": "Dua Lipa", "is_correct": false },
+            { "id": "c", "text": "Lady Gaga", "is_correct": true },
+            { "id": "d", "text": "Katy Perry", "is_correct": false }
+          ],
+          "explanation": "Sour Candy es un tema del disco Chromatica de Lady Gaga (2020) con las cuatro como invitadas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llamó su gira mundial de 2022 y 2023?",
+          "options": [
+            { "id": "a", "text": "In Your Area", "is_correct": false },
+            { "id": "b", "text": "The Show", "is_correct": false },
+            { "id": "c", "text": "Square Up Tour", "is_correct": false },
+            { "id": "d", "text": "Born Pink", "is_correct": true }
+          ],
+          "explanation": "La Born Pink World Tour recorrió Asia, América y Europa y cerró entre las giras más taquilleras de un grupo femenino."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál fue su primer álbum de estudio completo?",
+          "options": [
+            { "id": "a", "text": "The Album", "is_correct": true },
+            { "id": "b", "text": "Square One", "is_correct": false },
+            { "id": "c", "text": "Kill This Love", "is_correct": false },
+            { "id": "d", "text": "Born Pink", "is_correct": false }
+          ],
+          "explanation": "Square One fue el sencillo de debut y Kill This Love un EP; The Album (2020) fue el primer LP, seguido por Born Pink (2022)."
+        }
+      ]
+    },
+    {
+      "slug": "en-j-balvin-trivia",
+      "title": "J Balvin Trivia: Hits, Albums and Records",
+      "description": "From Medellín to headlining Lollapalooza: eight questions on the Colombian reggaetonero who took Latin urbano global.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["j-balvin", "reggaeton", "latin-pop", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is J Balvin's real name?",
+          "options": [
+            { "id": "a", "text": "José Álvaro Osorio Balvín", "is_correct": true },
+            { "id": "b", "text": "Juan Carlos Balvín Osorio", "is_correct": false },
+            { "id": "c", "text": "Álvaro José Londoño", "is_correct": false },
+            { "id": "d", "text": "José Miguel Balvin Arias", "is_correct": false }
+          ],
+          "explanation": "He was born José Álvaro Osorio Balvín in Medellín in 1985 — 'J Balvin' is the stage name built from it."
+        },
+        {
+          "id": "q2",
+          "question": "Which Colombian city is J Balvin from?",
+          "options": [
+            { "id": "a", "text": "Bogotá", "is_correct": false },
+            { "id": "b", "text": "Cali", "is_correct": false },
+            { "id": "c", "text": "Medellín", "is_correct": true },
+            { "id": "d", "text": "Barranquilla", "is_correct": false }
+          ],
+          "explanation": "Medellín — he calls himself the city's 'global ambassador' and named an album after its José María Córdova airport code, Jose."
+        },
+        {
+          "id": "q3",
+          "question": "Which 2017 single with Willy William became his global anthem?",
+          "options": [
+            { "id": "a", "text": "Ginza", "is_correct": false },
+            { "id": "b", "text": "Safari", "is_correct": false },
+            { "id": "c", "text": "X (Equis)", "is_correct": false },
+            { "id": "d", "text": "Mi Gente", "is_correct": true }
+          ],
+          "explanation": "Mi Gente topped charts worldwide and earned a remix with Beyoncé."
+        },
+        {
+          "id": "q4",
+          "question": "In 2019 J Balvin became the first Latin artist to headline which US festival?",
+          "options": [
+            { "id": "a", "text": "Coachella", "is_correct": false },
+            { "id": "b", "text": "Lollapalooza", "is_correct": true },
+            { "id": "c", "text": "Bonnaroo", "is_correct": false },
+            { "id": "d", "text": "Governors Ball", "is_correct": false }
+          ],
+          "explanation": "He headlined Lollapalooza Chicago in 2019, a first for a Latin act at a major US festival."
+        },
+        {
+          "id": "q5",
+          "question": "Which Cardi B number-one single features J Balvin and Bad Bunny?",
+          "options": [
+            { "id": "a", "text": "Bodak Yellow", "is_correct": false },
+            { "id": "b", "text": "WAP", "is_correct": false },
+            { "id": "c", "text": "I Like It", "is_correct": true },
+            { "id": "d", "text": "Up", "is_correct": false }
+          ],
+          "explanation": "I Like It (2018) topped the Billboard Hot 100 with J Balvin and Bad Bunny as guests."
+        },
+        {
+          "id": "q6",
+          "question": "What is the title of J Balvin's joint album with Bad Bunny?",
+          "options": [
+            { "id": "a", "text": "Oasis", "is_correct": true },
+            { "id": "b", "text": "La Familia", "is_correct": false },
+            { "id": "c", "text": "Los Dioses", "is_correct": false },
+            { "id": "d", "text": "Colores", "is_correct": false }
+          ],
+          "explanation": "Oasis (2019) is the collaborative album; La Familia and Colores are J Balvin solo records."
+        },
+        {
+          "id": "q7",
+          "question": "Who duets with J Balvin on the 2018 hit «X (Equis)»?",
+          "options": [
+            { "id": "a", "text": "Daddy Yankee", "is_correct": false },
+            { "id": "b", "text": "Nicky Jam", "is_correct": true },
+            { "id": "c", "text": "Ozuna", "is_correct": false },
+            { "id": "d", "text": "Maluma", "is_correct": false }
+          ],
+          "explanation": "X pairs J Balvin with Nicky Jam — a nod to their 90s dancehall influence."
+        },
+        {
+          "id": "q8",
+          "question": "Which album won J Balvin the 2018 Latin Grammy for Best Urban Music Album?",
+          "options": [
+            { "id": "a", "text": "Energía", "is_correct": false },
+            { "id": "b", "text": "Colores", "is_correct": false },
+            { "id": "c", "text": "Jose", "is_correct": false },
+            { "id": "d", "text": "Vibras", "is_correct": true }
+          ],
+          "explanation": "Vibras took the award in 2018; Energía had already won the same category in 2016."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-j-balvin",
+      "title": "Trivia de J Balvin: hits, discos y récords",
+      "description": "De Medellín a encabezar Lollapalooza: ocho preguntas sobre el reguetonero colombiano que volvió global el urbano latino.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["j-balvin", "regueton", "pop-latino", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el nombre real de J Balvin?",
+          "options": [
+            { "id": "a", "text": "Juan Carlos Balvín Osorio", "is_correct": false },
+            { "id": "b", "text": "José Álvaro Osorio Balvín", "is_correct": true },
+            { "id": "c", "text": "Álvaro José Londoño", "is_correct": false },
+            { "id": "d", "text": "José Miguel Balvin Arias", "is_correct": false }
+          ],
+          "explanation": "Nació como José Álvaro Osorio Balvín en Medellín en 1985; «J Balvin» es el nombre artístico que armó con él."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué ciudad colombiana es J Balvin?",
+          "options": [
+            { "id": "a", "text": "Medellín", "is_correct": true },
+            { "id": "b", "text": "Bogotá", "is_correct": false },
+            { "id": "c", "text": "Cali", "is_correct": false },
+            { "id": "d", "text": "Barranquilla", "is_correct": false }
+          ],
+          "explanation": "De Medellín: se define como su embajador global y nombró un álbum como el código del aeropuerto José María Córdova, Jose."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué éxito de 2017 con Willy William se volvió su himno global?",
+          "options": [
+            { "id": "a", "text": "Ginza", "is_correct": false },
+            { "id": "b", "text": "Mi Gente", "is_correct": true },
+            { "id": "c", "text": "Safari", "is_correct": false },
+            { "id": "d", "text": "Ay Vamos", "is_correct": false }
+          ],
+          "explanation": "Mi Gente encabezó listas en todo el mundo y tuvo un remix con Beyoncé."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué festival estadounidense encabezó en 2019 como primer artista latino?",
+          "options": [
+            { "id": "a", "text": "Coachella", "is_correct": false },
+            { "id": "b", "text": "Bonnaroo", "is_correct": false },
+            { "id": "c", "text": "Lollapalooza", "is_correct": true },
+            { "id": "d", "text": "Governors Ball", "is_correct": false }
+          ],
+          "explanation": "Encabezó Lollapalooza Chicago en 2019, algo inédito para un artista latino en un gran festival de Estados Unidos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué número uno de Cardi B lo tiene como invitado junto a Bad Bunny?",
+          "options": [
+            { "id": "a", "text": "I Like It", "is_correct": true },
+            { "id": "b", "text": "Bodak Yellow", "is_correct": false },
+            { "id": "c", "text": "WAP", "is_correct": false },
+            { "id": "d", "text": "Up", "is_correct": false }
+          ],
+          "explanation": "I Like It (2018) encabezó el Billboard Hot 100 con J Balvin y Bad Bunny como invitados."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama su álbum conjunto con Bad Bunny?",
+          "options": [
+            { "id": "a", "text": "La Familia", "is_correct": false },
+            { "id": "b", "text": "Colores", "is_correct": false },
+            { "id": "c", "text": "Oasis", "is_correct": true },
+            { "id": "d", "text": "Los Dioses", "is_correct": false }
+          ],
+          "explanation": "Oasis (2019) es el álbum en colaboración; La Familia y Colores son discos en solitario de J Balvin."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién canta con él en «X (Equis)»?",
+          "options": [
+            { "id": "a", "text": "Daddy Yankee", "is_correct": false },
+            { "id": "b", "text": "Ozuna", "is_correct": false },
+            { "id": "c", "text": "Maluma", "is_correct": false },
+            { "id": "d", "text": "Nicky Jam", "is_correct": true }
+          ],
+          "explanation": "X une a J Balvin con Nicky Jam, un guiño al dancehall de los noventa que ambos escucharon."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué álbum ganó el Latin Grammy a Mejor Álbum de Música Urbana en 2018?",
+          "options": [
+            { "id": "a", "text": "Vibras", "is_correct": true },
+            { "id": "b", "text": "Energía", "is_correct": false },
+            { "id": "c", "text": "Colores", "is_correct": false },
+            { "id": "d", "text": "Jose", "is_correct": false }
+          ],
+          "explanation": "Vibras se llevó el premio en 2018; Energía ya había ganado la misma categoría en 2016."
+        }
+      ]
+    },
+    {
+      "slug": "en-peso-pluma-trivia",
+      "title": "Peso Pluma Trivia: Corridos and Charts",
+      "description": "From Zapopan to the top of the global charts: eight questions on the corridos tumbados star who put regional Mexican music back on the map.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["peso-pluma", "corridos-tumbados", "mexican-music", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is Peso Pluma's real name?",
+          "options": [
+            { "id": "a", "text": "Hassan Emilio Kabande Laija", "is_correct": true },
+            { "id": "b", "text": "Emilio Hassan Laija Pluma", "is_correct": false },
+            { "id": "c", "text": "Hassan Alejandro Kabande Soto", "is_correct": false },
+            { "id": "d", "text": "José Emilio Pluma García", "is_correct": false }
+          ],
+          "explanation": "Hassan Emilio Kabande Laija — his middle name points to his Lebanese roots on his father's side."
+        },
+        {
+          "id": "q2",
+          "question": "In which Mexican state was Peso Pluma born?",
+          "options": [
+            { "id": "a", "text": "Sinaloa", "is_correct": false },
+            { "id": "b", "text": "Nuevo León", "is_correct": false },
+            { "id": "c", "text": "Jalisco", "is_correct": true },
+            { "id": "d", "text": "Baja California", "is_correct": false }
+          ],
+          "explanation": "He was born in 1999 in Zapopan, part of the Guadalajara metro area in Jalisco."
+        },
+        {
+          "id": "q3",
+          "question": "What style is Peso Pluma best known for?",
+          "options": [
+            { "id": "a", "text": "Rancheras", "is_correct": false },
+            { "id": "b", "text": "Corridos tumbados", "is_correct": true },
+            { "id": "c", "text": "Banda sinaloense", "is_correct": false },
+            { "id": "d", "text": "Norteño", "is_correct": false }
+          ],
+          "explanation": "Corridos tumbados blend classic corridos with trap and urbano cadences — the sound he took global."
+        },
+        {
+          "id": "q4",
+          "question": "Who duets with Peso Pluma on «Ella Baila Sola»?",
+          "options": [
+            { "id": "a", "text": "Grupo Firme", "is_correct": false },
+            { "id": "b", "text": "Natanael Cano", "is_correct": false },
+            { "id": "c", "text": "Junior H", "is_correct": false },
+            { "id": "d", "text": "Eslabón Armado", "is_correct": true }
+          ],
+          "explanation": "Ella Baila Sola, with Eslabón Armado, was the first regional Mexican song to top the Billboard Global 200."
+        },
+        {
+          "id": "q5",
+          "question": "What does his stage name refer to?",
+          "options": [
+            { "id": "a", "text": "A boxing weight class", "is_correct": true },
+            { "id": "b", "text": "A type of guitar", "is_correct": false },
+            { "id": "c", "text": "A tequila brand", "is_correct": false },
+            { "id": "d", "text": "His grandfather's nickname", "is_correct": false }
+          ],
+          "explanation": "Peso pluma is featherweight, the boxing division — he has said the idea came up while talking with friends."
+        },
+        {
+          "id": "q6",
+          "question": "Which album won him the 2024 Grammy for Best Música Mexicana Album?",
+          "options": [
+            { "id": "a", "text": "Ah y Qué?", "is_correct": false },
+            { "id": "b", "text": "Génesis", "is_correct": true },
+            { "id": "c", "text": "Efectos Secundarios", "is_correct": false },
+            { "id": "d", "text": "Éxodo", "is_correct": false }
+          ],
+          "explanation": "Génesis (2023) took the Grammy at the February 2024 ceremony; Éxodo arrived months later."
+        },
+        {
+          "id": "q7",
+          "question": "Who joins him on the hit «La Bebé»?",
+          "options": [
+            { "id": "a", "text": "Rauw Alejandro", "is_correct": false },
+            { "id": "b", "text": "Feid", "is_correct": false },
+            { "id": "c", "text": "Yng Lvcas", "is_correct": true },
+            { "id": "d", "text": "Mora", "is_correct": false }
+          ],
+          "explanation": "La Bebé is his 2023 duet with fellow Mexican artist Yng Lvcas."
+        },
+        {
+          "id": "q8",
+          "question": "Which instrument does Peso Pluma play on stage?",
+          "options": [
+            { "id": "a", "text": "Trumpet", "is_correct": false },
+            { "id": "b", "text": "Accordion", "is_correct": false },
+            { "id": "c", "text": "Drums", "is_correct": false },
+            { "id": "d", "text": "Guitar", "is_correct": true }
+          ],
+          "explanation": "He taught himself guitar as a teenager and usually performs with a requinto-style guitar."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-peso-pluma",
+      "title": "Trivia de Peso Pluma: corridos y listas",
+      "description": "De Zapopan a lo más alto de las listas globales: ocho preguntas sobre la estrella de los corridos tumbados que volvió a poner la música regional mexicana en el mapa.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["peso-pluma", "corridos-tumbados", "musica-mexicana", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el nombre real de Peso Pluma?",
+          "options": [
+            { "id": "a", "text": "Emilio Hassan Laija Pluma", "is_correct": false },
+            { "id": "b", "text": "Hassan Emilio Kabande Laija", "is_correct": true },
+            { "id": "c", "text": "Hassan Alejandro Kabande Soto", "is_correct": false },
+            { "id": "d", "text": "José Emilio Pluma García", "is_correct": false }
+          ],
+          "explanation": "Hassan Emilio Kabande Laija; su segundo apellido delata las raíces libanesas por parte de su padre."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué estado de México nació Peso Pluma?",
+          "options": [
+            { "id": "a", "text": "Jalisco", "is_correct": true },
+            { "id": "b", "text": "Sinaloa", "is_correct": false },
+            { "id": "c", "text": "Nuevo León", "is_correct": false },
+            { "id": "d", "text": "Baja California", "is_correct": false }
+          ],
+          "explanation": "Nació en 1999 en Zapopan, en la zona metropolitana de Guadalajara, Jalisco."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué estilo popularizó Peso Pluma?",
+          "options": [
+            { "id": "a", "text": "Las rancheras", "is_correct": false },
+            { "id": "b", "text": "La banda sinaloense", "is_correct": false },
+            { "id": "c", "text": "Los corridos tumbados", "is_correct": true },
+            { "id": "d", "text": "El norteño", "is_correct": false }
+          ],
+          "explanation": "Los corridos tumbados mezclan el corrido clásico con cadencias de trap y urbano: el sonido que llevó al mundo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Con qué grupo grabó «Ella Baila Sola»?",
+          "options": [
+            { "id": "a", "text": "Eslabón Armado", "is_correct": true },
+            { "id": "b", "text": "Grupo Firme", "is_correct": false },
+            { "id": "c", "text": "Los Tucanes de Tijuana", "is_correct": false },
+            { "id": "d", "text": "Calibre 50", "is_correct": false }
+          ],
+          "explanation": "Ella Baila Sola, junto a Eslabón Armado, fue la primera canción regional mexicana en encabezar el Billboard Global 200."
+        },
+        {
+          "id": "q5",
+          "question": "¿A qué refiere su nombre artístico?",
+          "options": [
+            { "id": "a", "text": "A un tipo de guitarra", "is_correct": false },
+            { "id": "b", "text": "A una división de peso del boxeo", "is_correct": true },
+            { "id": "c", "text": "A una marca de tequila", "is_correct": false },
+            { "id": "d", "text": "Al apodo de su abuelo", "is_correct": false }
+          ],
+          "explanation": "Peso pluma es la categoría de peso del boxeo; ha contado que la idea surgió en una plática con amigos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué álbum ganó el Grammy a Mejor Álbum de Música Mexicana en 2024?",
+          "options": [
+            { "id": "a", "text": "Ah y Qué?", "is_correct": false },
+            { "id": "b", "text": "Efectos Secundarios", "is_correct": false },
+            { "id": "c", "text": "Éxodo", "is_correct": false },
+            { "id": "d", "text": "Génesis", "is_correct": true }
+          ],
+          "explanation": "Génesis (2023) se llevó el Grammy en la ceremonia de febrero de 2024; Éxodo llegó meses después."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con quién canta «La Bebé»?",
+          "options": [
+            { "id": "a", "text": "Yng Lvcas", "is_correct": true },
+            { "id": "b", "text": "Rauw Alejandro", "is_correct": false },
+            { "id": "c", "text": "Feid", "is_correct": false },
+            { "id": "d", "text": "Mora", "is_correct": false }
+          ],
+          "explanation": "La Bebé es su dueto de 2023 con el mexicano Yng Lvcas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué instrumento toca Peso Pluma sobre el escenario?",
+          "options": [
+            { "id": "a", "text": "La trompeta", "is_correct": false },
+            { "id": "b", "text": "La guitarra", "is_correct": true },
+            { "id": "c", "text": "El acordeón", "is_correct": false },
+            { "id": "d", "text": "La batería", "is_correct": false }
+          ],
+          "explanation": "Aprendió guitarra de adolescente y suele tocar una guitarra tipo requinto en vivo."
+        }
+      ]
+    },
+    {
+      "slug": "en-rosalia-trivia",
+      "title": "Rosalía Trivia: Albums and Sound",
+      "description": "Flamenco, reggaetón and avant-pop: eight questions on the albums and collaborations that made Rosalía Spain's most adventurous star.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["rosalia", "spanish-pop", "flamenco", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which region of Spain is Rosalía from?",
+          "options": [
+            { "id": "a", "text": "Andalusia", "is_correct": false },
+            { "id": "b", "text": "Galicia", "is_correct": false },
+            { "id": "c", "text": "Catalonia", "is_correct": true },
+            { "id": "d", "text": "Madrid", "is_correct": false }
+          ],
+          "explanation": "She was born in Sant Cugat del Vallès and grew up in Sant Esteve Sesrovires, near Barcelona."
+        },
+        {
+          "id": "q2",
+          "question": "What was Rosalía's debut album?",
+          "options": [
+            { "id": "a", "text": "El Mal Querer", "is_correct": false },
+            { "id": "b", "text": "Los Ángeles", "is_correct": true },
+            { "id": "c", "text": "Motomami", "is_correct": false },
+            { "id": "d", "text": "Lux", "is_correct": false }
+          ],
+          "explanation": "Los Ángeles (2017), recorded with Raül Refree, was a set of flamenco standards — El Mal Querer came a year later."
+        },
+        {
+          "id": "q3",
+          "question": "El Mal Querer is loosely based on which medieval text?",
+          "options": [
+            { "id": "a", "text": "La Celestina", "is_correct": false },
+            { "id": "b", "text": "El Cantar de Mio Cid", "is_correct": false },
+            { "id": "c", "text": "Libro de Buen Amor", "is_correct": false },
+            { "id": "d", "text": "Flamenca", "is_correct": true }
+          ],
+          "explanation": "Each track works as a 'chapter' of Flamenca, a 13th-century Occitan romance about an imprisoned woman."
+        },
+        {
+          "id": "q4",
+          "question": "Who duets with Rosalía on «Con Altura»?",
+          "options": [
+            { "id": "a", "text": "J Balvin", "is_correct": true },
+            { "id": "b", "text": "Bad Bunny", "is_correct": false },
+            { "id": "c", "text": "Ozuna", "is_correct": false },
+            { "id": "d", "text": "Maluma", "is_correct": false }
+          ],
+          "explanation": "Con Altura (2019) pairs Rosalía with J Balvin and producer El Guincho."
+        },
+        {
+          "id": "q5",
+          "question": "In which year did she release Motomami?",
+          "options": [
+            { "id": "a", "text": "2019", "is_correct": false },
+            { "id": "b", "text": "2020", "is_correct": false },
+            { "id": "c", "text": "2022", "is_correct": true },
+            { "id": "d", "text": "2024", "is_correct": false }
+          ],
+          "explanation": "Motomami came out in March 2022 and opened with Saoko."
+        },
+        {
+          "id": "q6",
+          "question": "How many times has Rosalía won the Latin Grammy for Album of the Year?",
+          "options": [
+            { "id": "a", "text": "None", "is_correct": false },
+            { "id": "b", "text": "Once", "is_correct": false },
+            { "id": "c", "text": "Twice", "is_correct": true },
+            { "id": "d", "text": "Three times", "is_correct": false }
+          ],
+          "explanation": "El Mal Querer won in 2019 and Motomami in 2022 — she became the first woman to take the prize twice."
+        },
+        {
+          "id": "q7",
+          "question": "Which artist joins her on «La Noche de Anoche»?",
+          "options": [
+            { "id": "a", "text": "The Weeknd", "is_correct": false },
+            { "id": "b", "text": "Bad Bunny", "is_correct": true },
+            { "id": "c", "text": "Rauw Alejandro", "is_correct": false },
+            { "id": "d", "text": "J Balvin", "is_correct": false }
+          ],
+          "explanation": "La Noche de Anoche (2021) is her duet with Bad Bunny; The Weeknd sings on La Fama instead."
+        },
+        {
+          "id": "q8",
+          "question": "Which traditional Spanish genre does she fuse with urban pop?",
+          "options": [
+            { "id": "a", "text": "Flamenco", "is_correct": true },
+            { "id": "b", "text": "Tango", "is_correct": false },
+            { "id": "c", "text": "Zarzuela", "is_correct": false },
+            { "id": "d", "text": "Copla", "is_correct": false }
+          ],
+          "explanation": "She studied flamenco for years in Barcelona — El Mal Querer even began as her conservatory thesis."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-rosalia",
+      "title": "Trivia de Rosalía: discos y sonido",
+      "description": "Flamenco, reguetón y avant-pop: ocho preguntas sobre los discos y las colaboraciones que convirtieron a Rosalía en la estrella más aventurera de España.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["rosalia", "pop-espanol", "flamenco", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué comunidad de España es Rosalía?",
+          "options": [
+            { "id": "a", "text": "Andalucía", "is_correct": false },
+            { "id": "b", "text": "Cataluña", "is_correct": true },
+            { "id": "c", "text": "Galicia", "is_correct": false },
+            { "id": "d", "text": "Madrid", "is_correct": false }
+          ],
+          "explanation": "Nació en Sant Cugat del Vallès y creció en Sant Esteve Sesrovires, cerca de Barcelona."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál fue su álbum debut?",
+          "options": [
+            { "id": "a", "text": "Los Ángeles", "is_correct": true },
+            { "id": "b", "text": "El Mal Querer", "is_correct": false },
+            { "id": "c", "text": "Motomami", "is_correct": false },
+            { "id": "d", "text": "Lux", "is_correct": false }
+          ],
+          "explanation": "Los Ángeles (2017), grabado con Raül Refree, fue un disco de estándares flamencos; El Mal Querer llegó un año después."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué texto medieval se inspira El Mal Querer?",
+          "options": [
+            { "id": "a", "text": "La Celestina", "is_correct": false },
+            { "id": "b", "text": "Flamenca", "is_correct": true },
+            { "id": "c", "text": "El Cantar de Mio Cid", "is_correct": false },
+            { "id": "d", "text": "Libro de Buen Amor", "is_correct": false }
+          ],
+          "explanation": "Cada tema funciona como un capítulo de Flamenca, un romance occitano del siglo XIII sobre una mujer encerrada."
+        },
+        {
+          "id": "q4",
+          "question": "¿Con quién canta «La Fama»?",
+          "options": [
+            { "id": "a", "text": "Travis Scott", "is_correct": false },
+            { "id": "b", "text": "Bad Bunny", "is_correct": false },
+            { "id": "c", "text": "The Weeknd", "is_correct": true },
+            { "id": "d", "text": "J Balvin", "is_correct": false }
+          ],
+          "explanation": "La Fama (2021) es su dueto con The Weeknd; con Travis Scott grabó TKN."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuántas veces ha ganado el Latin Grammy a Álbum del Año?",
+          "options": [
+            { "id": "a", "text": "Ninguna", "is_correct": false },
+            { "id": "b", "text": "Una", "is_correct": false },
+            { "id": "c", "text": "Tres", "is_correct": false },
+            { "id": "d", "text": "Dos", "is_correct": true }
+          ],
+          "explanation": "El Mal Querer ganó en 2019 y Motomami en 2022: fue la primera mujer en llevarse ese premio dos veces."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año lanzó Motomami?",
+          "options": [
+            { "id": "a", "text": "2020", "is_correct": false },
+            { "id": "b", "text": "2021", "is_correct": false },
+            { "id": "c", "text": "2022", "is_correct": true },
+            { "id": "d", "text": "2023", "is_correct": false }
+          ],
+          "explanation": "Motomami salió en marzo de 2022 y abre con Saoko."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué género tradicional español mezcla con el pop urbano?",
+          "options": [
+            { "id": "a", "text": "El tango", "is_correct": false },
+            { "id": "b", "text": "La zarzuela", "is_correct": false },
+            { "id": "c", "text": "La copla", "is_correct": false },
+            { "id": "d", "text": "El flamenco", "is_correct": true }
+          ],
+          "explanation": "Estudió flamenco durante años en Barcelona; El Mal Querer nació como su tesis del conservatorio."
+        },
+        {
+          "id": "q8",
+          "question": "¿Con qué artista une fuerzas en «La Noche de Anoche»?",
+          "options": [
+            { "id": "a", "text": "Bad Bunny", "is_correct": true },
+            { "id": "b", "text": "The Weeknd", "is_correct": false },
+            { "id": "c", "text": "Rauw Alejandro", "is_correct": false },
+            { "id": "d", "text": "J Balvin", "is_correct": false }
+          ],
+          "explanation": "La Noche de Anoche (2021) es su dueto con Bad Bunny; con The Weeknd grabó La Fama."
+        }
+      ]
+    }
+  ]
+}
