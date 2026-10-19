@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { PaginationSchema, jsonError, jsonOk, parseQuery } from '@/lib/api/query';
 import { getLeaderboard } from '@/lib/data/public';
+import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
 import { createClient } from '@/lib/supabase/server';
 
 export const revalidate = 60;
@@ -8,24 +9,28 @@ export const revalidate = 60;
 const LeaderboardQuerySchema = PaginationSchema.extend({
   /** `friends` incluye al jugador y a quienes sigue. Requiere sesión. */
   scope: z.enum(['global', 'friends']).default('global'),
+  /** `week` solo aplica al scope global: partidas de los últimos 7 días. */
+  window: z.enum(['all', 'week']).default('all'),
 });
 
 /**
- * GET /api/leaderboard?scope=global|friends&limit=
+ * GET /api/leaderboard?scope=global|friends&window=all|week&limit=
  *
  * Ranking por puntos. `friends` se limita a la red de `user_follows` del
  * jugador autenticado (más él mismo) y devuelve 401 si no hay sesión.
+ * `window=week` devuelve el ranking de actividad de los últimos 7 días.
  */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const parsed = parseQuery(LeaderboardQuerySchema, searchParams);
   if (!parsed.ok) return jsonError(400, 'invalid_query', parsed.fieldErrors);
 
-  const { limit, scope } = parsed.data;
+  const { limit, scope, window: windowParam } = parsed.data;
 
   if (scope === 'global') {
     try {
-      const entries = await getLeaderboard(limit);
+      const entries =
+        windowParam === 'week' ? await getWeeklyLeaderboard(limit) : await getLeaderboard(limit);
       return jsonOk({ scope, entries, total: entries.length, limit });
     } catch {
       return jsonError(503, 'leaderboard_unavailable');
