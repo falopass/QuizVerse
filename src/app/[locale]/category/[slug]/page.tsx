@@ -9,6 +9,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { generateCategoryMetadata } from '@/lib/seo/metadata';
+import { categoryOgImage } from '@/lib/seo/site';
 import {
   breadcrumbNode,
   buildGraph,
@@ -43,6 +44,7 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
     name: category.name,
     slug,
     description,
+    image: categoryOgImage(locale, slug),
     locale,
     quizCount: count,
   });
