@@ -96,13 +96,20 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     const plain = await call(ogUrl());
     const plainBytes = new Uint8Array(await plain.arrayBuffer());
     expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
+  });
 
-    // And the score itself must be drawn: a different score must change
-    // the pixels, so a card that drops the session would fail here too.
+  it('draws the session score into the result card', async () => {
+    // A different score must change the pixels: if resultCard dropped the
+    // session or stopped drawing the score, both renders would be identical.
+    mocks.getQuizSessionByShareToken.mockResolvedValue(session);
+    const seven = await call(ogUrl('?s=share-token-1'));
+    const sevenBytes = new Uint8Array(await seven.arrayBuffer());
+
     mocks.getQuizSessionByShareToken.mockResolvedValue({ ...session, score: 3 });
-    const otherScore = await call(ogUrl('?s=share-token-1'));
-    const otherScoreBytes = new Uint8Array(await otherScore.arrayBuffer());
-    expect(Buffer.from(otherScoreBytes).equals(Buffer.from(bytes))).toBe(false);
+    const three = await call(ogUrl('?s=share-token-1'));
+    const threeBytes = new Uint8Array(await three.arrayBuffer());
+
+    expect(Buffer.from(threeBytes).equals(Buffer.from(sevenBytes))).toBe(false);
   });
 
   it('returns the base cover (never a 500) when the slug does not exist', async () => {
