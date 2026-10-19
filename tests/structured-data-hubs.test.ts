@@ -24,10 +24,7 @@ describe('itemListNode', () => {
     expect(node).toMatchObject({ '@type': 'ItemList', numberOfItems: 2 });
     const elements = node?.itemListElement as Array<Record<string, unknown>>;
     expect(elements.map((element) => element.position)).toEqual([1, 2]);
-    expect(elements.map((element) => element.name)).toEqual([
-      'Space Trivia',
-      'Noche de cine',
-    ]);
+    expect(elements.map((element) => element.name)).toEqual(['Space Trivia', 'Noche de cine']);
   });
 
   it('emits absolute https URLs for every list element', () => {
