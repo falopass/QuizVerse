@@ -56,6 +56,14 @@ describe('emit-title-overrides-3', () => {
     expect(stdout).toMatch(/^commit;/m);
   });
 
+  it('cada UPDATE solo toca filas cuyo título vivo sigue siendo el del molde', () => {
+    const { status, stdout } = runScript({ quizzes: loadBatch() });
+    expect(status).toBe(0);
+    expect(stdout.match(/^  AND title = '/gm)).toHaveLength(110);
+    expect(stdout).toMatch(/AND title = 'Which The Boys energy matches you best\?'/);
+    expect(stdout).toMatch(/AND title = '¿Qué energía de Dune combina mejor contigo\?'/);
+  });
+
   it('escapa comillas simples en los títulos', () => {
     const { status, stdout } = runScript({ quizzes: loadBatch() });
     expect(status).toBe(0);
