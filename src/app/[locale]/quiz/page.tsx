@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ExploreEditorialPage } from '@/components/home/explore-editorial-page';
 import { JsonLd } from '@/components/seo/json-ld';
 import { getExplorePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { buildGraph, itemListNode, quizPath, webPageNode } from '@/lib/seo/structured-data';
 import { explorerVisibleQuizzes } from '@/lib/quiz/editorial-order';
@@ -88,6 +90,14 @@ export default async function LocalizedQuizExplorerPage({
           quizzesAfterFilters: locale === 'es' ? 'quizzes tras filtros' : 'quizzes after filters',
         }}
       />
+      <p className="mx-auto max-w-5xl px-4 pb-10 sm:px-6 lg:px-8">
+        <Link
+          href={localizeHref(locale, '/indice')}
+          className="text-accent-primary underline underline-offset-4"
+        >
+          {locale === 'es' ? 'Ver el índice completo' : 'See the full index'}
+        </Link>
+      </p>
     </>
   );
 }
