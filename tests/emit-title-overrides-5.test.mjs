@@ -45,8 +45,17 @@ describe('emit-title-overrides-5', () => {
     expect((stdout.match(/^UPDATE public\.quizzes$/gm) ?? []).length).toBe(110);
     expect((stdout.match(/updated_at = now\(\)/g) ?? []).length).toBe(110);
     expect((stdout.match(/^WHERE slug = '/gm) ?? []).length).toBe(110);
+    expect((stdout.match(/^  AND title = '/gm) ?? []).length).toBe(110);
     expect(stdout).toMatch(/^begin;/m);
     expect(stdout).toMatch(/^commit;/m);
+  });
+
+  it('predica el título vigente para no pisar ediciones en vivo', () => {
+    const { status, stdout } = runScript({ quizzes: loadBatch() });
+    expect(status).toBe(0);
+    expect(stdout).toMatch(
+      /WHERE slug = 'en-how-deep-does-your-attack-on-titan-knowledge-go'\n  AND title = 'How deep does your Attack on Titan knowledge go\?';/
+    );
   });
 
   it('escapa comillas simples en los títulos', () => {
