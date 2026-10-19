@@ -28,7 +28,7 @@ const COPY = {
       'The latest quizzes published on QuizVerse: fresh trivia and personality tests from the last 7 days and everything released before.',
     heading: 'Fresh off the press.',
     intro:
-      'Every quiz that lands on QuizVerse, newest first. Whatever dropped in the last week is up top; the rest of the catalog follows.',
+      'The 30 newest quizzes on QuizVerse, freshest first. Whatever dropped in the last week is up top; the ones before it follow.',
     fresh: 'Last 7 days',
     older: 'Earlier',
     empty: 'Nothing published yet — check back soon.',
@@ -40,7 +40,7 @@ const COPY = {
       'Los últimos quizzes publicados en QuizVerse: trivia y tests de personalidad recién salidos en los últimos 7 días y todo lo anterior.',
     heading: 'Recién salido del horno.',
     intro:
-      'Cada quiz que llega a QuizVerse, del más nuevo al más antiguo. Arriba lo publicado en la última semana; abajo, el resto del catálogo.',
+      'Los 30 quizzes más recientes de QuizVerse, del más nuevo al más antiguo. Arriba lo publicado en la última semana; abajo, lo anterior.',
     fresh: 'Últimos 7 días',
     older: 'Anteriores',
     empty: 'Todavía no hay nada publicado — vuelve pronto.',

@@ -29,20 +29,32 @@ const WHATS_NEW_COLUMNS =
 
 async function fetchWhatsNewFromDb(limit: number, locale?: Locale): Promise<WhatsNewQuiz[]> {
   const supabase = await createClient();
-  let query = supabase.from('quizzes').select(WHATS_NEW_COLUMNS).eq('status', 'published');
-  // /{locale}/quiz/{slug} 404 para slugs de otro idioma: la lista se filtra.
-  if (locale) query = query.eq('language', locale);
+  const baseQuery = () => {
+    let query = supabase.from('quizzes').select(WHATS_NEW_COLUMNS).eq('status', 'published');
+    // /{locale}/quiz/{slug} 404 para slugs de otro idioma: la lista se filtra.
+    if (locale) query = query.eq('language', locale);
+    return query;
+  };
 
-  const { data, error } = await query
-    .order('published_at', { ascending: false, nullsFirst: false })
-    .order('created_at', { ascending: false })
-    .limit(limit);
+  // Un LIMIT sobre `published_at DESC` entierra a los quizzes publicados sin
+  // fecha (`createQuiz` los inserta con published_at NULL): se piden las dos
+  // ramas por separado y se fusionan por fecha efectiva abajo.
+  const [dated, undated] = await Promise.all([
+    baseQuery()
+      .not('published_at', 'is', null)
+      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(limit),
+    baseQuery().is('published_at', null).order('created_at', { ascending: false }).limit(limit),
+  ]);
 
-  if (error || !data) {
-    throw error ?? new Error('Could not fetch recent quizzes');
+  if (dated.error || undated.error || !dated.data || !undated.data) {
+    throw dated.error ?? undated.error ?? new Error('Could not fetch recent quizzes');
   }
 
-  return data as unknown as WhatsNewQuiz[];
+  return ([...dated.data, ...undated.data] as unknown as WhatsNewQuiz[])
+    .sort((a, b) => recencyTime(b) - recencyTime(a))
+    .slice(0, limit);
 }
 
 function recencyTime(item: { published_at: string | null; created_at: string }): number {

@@ -14,11 +14,13 @@ const db = vi.hoisted(() => ({
   selectCols: [] as string[],
   filters: [] as string[],
   result: { data: [] as unknown[], error: null as { message: string } | null },
+  undated: { data: [] as unknown[], error: null as { message: string } | null },
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     from: () => {
+      let onlyUndated = false;
       const query = {
         select: (cols: string) => {
           db.selectCols.push(cols);
@@ -28,8 +30,13 @@ vi.mock('@/lib/supabase/server', () => ({
           db.filters.push(`${col}=${val}`);
           return query;
         },
+        is: (col: string, val: unknown) => {
+          if (col === 'published_at' && val === null) onlyUndated = true;
+          return query;
+        },
+        not: () => query,
         order: () => query,
-        limit: async () => db.result,
+        limit: async () => (onlyUndated ? db.undated : db.result),
       };
       return query;
     },
@@ -53,6 +60,7 @@ beforeEach(() => {
   db.selectCols.length = 0;
   db.filters.length = 0;
   db.result = { data: [], error: null };
+  db.undated = { data: [], error: null };
 });
 
 describe('partitionByRecency', () => {
@@ -112,6 +120,53 @@ describe('getWhatsNew', () => {
     expect(cols).toContain('created_at');
     expect(db.filters).toContain('status=published');
     expect(db.filters).toContain('language=en');
+  });
+
+  it('fusiona la rama sin published_at para que los quizzes sin fecha no desaparezcan', async () => {
+    // Regresión: un LIMIT sobre published_at DESC enterraba a los quizzes
+    // publicados con fecha nula (createQuiz los inserta así).
+    const dated = (slug: string, published_at: string, created_at: string) => ({
+      slug,
+      title: slug,
+      description: null,
+      language: 'en',
+      quiz_type: 'trivia',
+      estimated_minutes: 3,
+      published_at,
+      created_at,
+      category: null,
+    });
+    db.result = {
+      data: Array.from({ length: 30 }, (_, i) =>
+        dated(
+          `dated-${i}`,
+          `2026-10-${String(19 - (i % 18)).padStart(2, '0')}T00:00:00Z`,
+          '2026-10-01T00:00:00Z'
+        )
+      ),
+      error: null,
+    };
+    db.undated = {
+      data: [
+        {
+          slug: 'undated-new',
+          title: 'Undated New',
+          description: null,
+          language: 'en',
+          quiz_type: 'trivia',
+          estimated_minutes: 3,
+          published_at: null,
+          created_at: '2026-10-19T12:00:00Z',
+          category: null,
+        },
+      ],
+      error: null,
+    };
+
+    const quizzes = await getWhatsNew(30, 'en');
+
+    expect(quizzes[0]?.slug).toBe('undated-new');
+    expect(quizzes).toHaveLength(30);
   });
 
   it('cae al catálogo local del idioma si Supabase falla', async () => {
