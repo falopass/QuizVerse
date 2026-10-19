@@ -164,3 +164,15 @@ export function webPageNode(path: string, locale: Locale, name: string): JsonLdN
     isPartOf: { '@id': `${SITE_URL}/#website` },
   };
 }
+
+export function faqNode(items: Array<{ question: string; answer: string }>): JsonLdNode | null {
+  if (items.length === 0) return null;
+  return {
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  };
+}
