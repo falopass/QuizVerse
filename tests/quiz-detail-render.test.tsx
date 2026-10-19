@@ -159,9 +159,7 @@ describe('QuizDetailPage · render SEO', () => {
   it('pinta el h1 con el título, el breadcrumb visible y el enlace a la categoría', async () => {
     await renderDetail('es', makeQuiz());
 
-    expect(
-      screen.getByRole('heading', { level: 1, name: 'Movies Trivia' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Movies Trivia' })).toBeInTheDocument();
 
     // Breadcrumb visible: Inicio → Explorar → Trivia (hub de tipo) → título.
     const breadcrumbNav = screen.getByRole('navigation', {
@@ -196,13 +194,12 @@ describe('QuizDetailPage · render SEO', () => {
   it('en inglés los textos de la sección cambian de idioma', async () => {
     await renderDetail('en', makeQuiz({ language: 'en' }));
 
-    expect(
-      screen.getByRole('heading', { name: 'Inside the quiz' })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Inside the quiz' })).toBeInTheDocument();
     expect(screen.getByText('Category')).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: /See all Cine y televisión quizzes/ })
-    ).toHaveAttribute('href', '/en/category/movies-tv');
+    expect(screen.getByRole('link', { name: /See all Cine y televisión quizzes/ })).toHaveAttribute(
+      'href',
+      '/en/category/movies-tv'
+    );
   });
 
   it('si el slug no existe llama a notFound()', async () => {
