@@ -51,3 +51,4 @@ next-env.d.ts
 # generated seed exports (reproducible via scripts/seed/README.md)
 generated/audit/*-export.json
 generated/audit/*.sql
+generated/indexnow-state.json
