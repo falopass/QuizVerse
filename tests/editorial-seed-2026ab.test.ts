@@ -125,7 +125,9 @@ describe('editorial-seed-2026ab', () => {
 
   it('ningún slug choca con otro lote editorial', () => {
     const otherBatches = readdirSync(SEED_DIR)
-      .filter((name) => /^editorial-seed.*\.json$/.test(name) && name !== 'editorial-seed-2026ab.json')
+      .filter(
+        (name) => /^editorial-seed.*\.json$/.test(name) && name !== 'editorial-seed-2026ab.json'
+      )
       .map((name) => join(SEED_DIR, name));
     const taken = new Set(otherBatches.flatMap(loadSlugs));
     for (const quiz of quizzes) {
