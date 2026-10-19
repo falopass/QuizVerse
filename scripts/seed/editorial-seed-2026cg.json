@@ -205,7 +205,7 @@
     },
     {
       "slug": "en-cat-trivia",
-      "title": "Cat Trivia: Whiskers, Purring and Feline Senses",
+      "title": "Cat Trivia: Whiskers, Senses and Feline Origins",
       "description": "Eight questions on domestic cats: why they cannot taste sweetness, what whiskers really do and where cats first lived alongside humans.",
       "quiz_type": "trivia",
       "difficulty": "medium",
@@ -223,7 +223,7 @@
             { "id": "c", "text": "Only eat fish", "is_correct": false },
             { "id": "d", "text": "Do not need protein", "is_correct": false }
           ],
-          "explanation": "Cats cannot synthesize key nutrients such as taurine, so meat is a biological need, not a preference."
+          "explanation": "Cats cannot synthesize several key nutrients found only in animal tissue, so meat is a biological need, not a preference."
         },
         {
           "id": "q2",
@@ -293,9 +293,9 @@
         },
         {
           "id": "q8",
-          "question": "Which essential nutrient must cats get from food because their bodies cannot make enough of it?",
+          "question": "Which essential amino acid must cats get from food because their bodies cannot make enough of it?",
           "options": [
-            { "id": "a", "text": "Vitamin D", "is_correct": false },
+            { "id": "a", "text": "Vitamin C", "is_correct": false },
             { "id": "b", "text": "Calcium", "is_correct": false },
             { "id": "c", "text": "Fiber", "is_correct": false },
             { "id": "d", "text": "Taurine", "is_correct": true }
@@ -306,7 +306,7 @@
     },
     {
       "slug": "es-trivia-gatos",
-      "title": "Trivia de gatos: bigotes, ronroneo y sentidos felinos",
+      "title": "Trivia de gatos: bigotes, sentidos y origen felino",
       "description": "Ocho preguntas sobre el gato doméstico: por qué no percibe lo dulce, para qué sirven de verdad los bigotes y dónde empezó a vivir con humanos.",
       "quiz_type": "trivia",
       "difficulty": "medium",
@@ -324,7 +324,7 @@
             { "id": "c", "text": "Comen únicamente pescado", "is_correct": false },
             { "id": "d", "text": "No necesitan proteínas", "is_correct": false }
           ],
-          "explanation": "El gato no sintetiza nutrientes clave como la taurina; la carne es una necesidad biológica, no un capricho."
+          "explanation": "El gato no sintetiza varios nutrientes clave que solo aporta el tejido animal; la carne es una necesidad biológica, no un capricho."
         },
         {
           "id": "q2",
@@ -394,9 +394,9 @@
         },
         {
           "id": "q8",
-          "question": "¿Qué nutriente esencial debe obtener el gato de la comida porque su cuerpo no fabrica suficiente?",
+          "question": "¿Qué aminoácido esencial debe obtener el gato de la comida porque su cuerpo no fabrica suficiente?",
           "options": [
-            { "id": "a", "text": "Vitamina D", "is_correct": false },
+            { "id": "a", "text": "Vitamina C", "is_correct": false },
             { "id": "b", "text": "Calcio", "is_correct": false },
             { "id": "c", "text": "Fibra", "is_correct": false },
             { "id": "d", "text": "Taurina", "is_correct": true }
