@@ -1,0 +1,2841 @@
+{
+  "$comment": "Editorial seed 2026an: five es/en pairs on geography — flag meanings, rivers/lakes/mountains records, islands and oceans — plus two lifestyle personality quizzes (which country fits you, which world city are you). Every trivia question carries an explanation; all answers are stable, checkable facts. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-flag-meanings-trivia",
+      "title": "World Flag Meanings Trivia: What the Symbols Really Say",
+      "description": "Eight questions on the hidden meanings of world flags: a war-mode banner, a sacred text, crossed keys and even a rifle — decode them all.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": [
+        "geography",
+        "trivia",
+        "flags",
+        "symbols"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which country's flag signals a state of war when it is flown upside down?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Denmark",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Philippines",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Brazil",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "South Korea",
+              "is_correct": false
+            }
+          ],
+          "explanation": "In the Philippine flag the red stripe on top means the nation is at war; in peacetime the blue stripe flies on top."
+        },
+        {
+          "id": "q2",
+          "question": "Which national flag features an AK-47 assault rifle?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Zimbabwe",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Angola",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mozambique",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Botswana",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Mozambique's flag bears an AK-47 with a bayonet, a symbol of defense and vigilance inherited from the independence struggle."
+        },
+        {
+          "id": "q3",
+          "question": "The flag of which country is considered the oldest national flag still in use?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Denmark",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Norway",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Austria",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Greece",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Denmark's white cross on red, the Dannebrog, is traced by legend to a battle in 1219 and has flown ever since."
+        },
+        {
+          "id": "q4",
+          "question": "Which Mediterranean country's flag displays a copper-orange map of its own territory?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Malta",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Cyprus",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Iceland",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Japan",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cyprus's flag shows the island's silhouette in copper — a nod to the mineral that gave Cyprus its name — above two olive branches."
+        },
+        {
+          "id": "q5",
+          "question": "The red-and-blue circle at the center of South Korea's flag, the taegeuk, represents what?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The union of the two Koreas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The rising sun",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The four classical elements",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The balance of opposing forces, yin and yang",
+              "is_correct": true
+            }
+          ],
+          "explanation": "The taegeuk symbolizes the harmony of yin and yang; the black trigrams in the corners stand for heaven, earth, water and fire."
+        },
+        {
+          "id": "q6",
+          "question": "On Brazil's flag, what do the 27 white stars across the blue globe represent?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The states and the Federal District",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "The ships of the first Portuguese fleet",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The signers of independence",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The provinces of the Amazon basin",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Each star stands for one of Brazil's 26 states plus the Federal District, arranged as the sky over Rio de Janeiro on 15 November 1889."
+        },
+        {
+          "id": "q7",
+          "question": "Why does Saudi Arabia's flag — which bears the shahada, the Islamic declaration of faith — never fly at half-mast?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Saudi law bans all public mourning",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The sacred text cannot be lowered or touch the ground",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Its staff already sits at half height",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Half-mast is reserved for royal deaths",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Because it carries the shahada, the flag is never lowered to half-mast and is never allowed to touch the ground."
+        },
+        {
+          "id": "q8",
+          "question": "Which two objects appear crossed under the papal tiara on the flag of Vatican City?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Two swords",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "A key and a sword",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Two keys",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Two olive branches",
+              "is_correct": false
+            }
+          ],
+          "explanation": "They are the keys of Saint Peter — one gold, one silver — symbolizing the Pope's authority in heaven and on earth."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-significado-de-las-banderas",
+      "title": "Trivia de banderas: qué significan sus símbolos",
+      "description": "Ocho preguntas sobre el significado oculto de las banderas del mundo: una que anuncia guerra, un texto sagrado, llaves cruzadas y hasta un fusil.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": [
+        "geografía",
+        "trivia",
+        "banderas",
+        "símbolos"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿La bandera de qué país anuncia un estado de guerra cuando se iza al revés?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dinamarca",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Filipinas",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Brasil",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Corea del Sur",
+              "is_correct": false
+            }
+          ],
+          "explanation": "En la bandera filipina la franja roja arriba significa que la nación está en guerra; en tiempos de paz la azul va arriba."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué bandera nacional lleva un fusil de asalto AK-47?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Zimbabue",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Angola",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mozambique",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Botsuana",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La bandera de Mozambique lleva un AK-47 con bayoneta, símbolo de defensa y vigilancia heredado de la lucha independentista."
+        },
+        {
+          "id": "q3",
+          "question": "¿De qué país es la bandera considerada la más antigua del mundo aún en uso?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dinamarca",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Noruega",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Austria",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Grecia",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La cruz blanca sobre fondo rojo de Dinamarca, el Dannebrog, se remonta por leyenda a una batalla de 1219 y ondea desde entonces."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué país mediterráneo muestra en su bandera un mapa de color cobre de su propio territorio?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Malta",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Chipre",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Islandia",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Japón",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La bandera de Chipre muestra la silueta de la isla en cobre — guiño al mineral que le dio nombre — sobre dos ramas de olivo."
+        },
+        {
+          "id": "q5",
+          "question": "El círculo rojo y azul del centro de la bandera de Corea del Sur, el taegeuk, representa...",
+          "options": [
+            {
+              "id": "a",
+              "text": "la unión de las dos Coreas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "el sol naciente",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "los cuatro elementos clásicos",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "el equilibrio de fuerzas opuestas, el yin y el yang",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El taegeuk simboliza la armonía del yin y el yang; los trigramas negros de las esquinas representan cielo, tierra, agua y fuego."
+        },
+        {
+          "id": "q6",
+          "question": "En la bandera de Brasil, ¿qué representan las 27 estrellas blancas del globo azul?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Los estados y el Distrito Federal",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Los barcos de la primera flota portuguesa",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Los firmantes de la independencia",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Las provincias de la cuenca amazónica",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cada estrella representa uno de los 26 estados de Brasil más el Distrito Federal, ordenadas como el cielo de Río de Janeiro el 15 de noviembre de 1889."
+        },
+        {
+          "id": "q7",
+          "question": "¿Por qué la bandera de Arabia Saudita, que lleva la shahada o profesión de fe, nunca se iza a media asta?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La ley saudita prohíbe el luto público",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El texto sagrado no puede descenderse ni tocar el suelo",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Su mástil ya está a media altura",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "La media asta se reserva para muertes reales",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Como lleva la shahada, la bandera nunca se baja a media asta y tampoco puede tocar el suelo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué dos objetos aparecen cruzados bajo la tiara papal en la bandera del Vaticano?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dos espadas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Una llave y una espada",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Dos llaves",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Dos ramas de olivo",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Son las llaves de San Pedro — una de oro y una de plata — que simbolizan la autoridad del Papa en el cielo y en la tierra."
+        }
+      ]
+    },
+    {
+      "slug": "en-rivers-lakes-mountains-trivia",
+      "title": "Rivers, Lakes and Mountains Trivia: The Planet's Records",
+      "description": "From the Nile to K2, eight questions on the world's longest rivers, biggest lakes and highest summits — the records of physical geography.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": [
+        "geography",
+        "trivia",
+        "rivers",
+        "mountains"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which river is traditionally considered the longest in the world, at about 6,650 km?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Amazon",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Yangtze",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Nile",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "The Mississippi",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The Nile keeps the classic title; some modern measurements give the Amazon a few more kilometres, but the Nile remains the traditional answer."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the largest lake in the world by surface area?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lake Superior",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Lake Baikal",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Caspian Sea",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Lake Victoria",
+              "is_correct": false
+            }
+          ],
+          "explanation": "At about 371,000 km², the Caspian counts as a lake because it is fully enclosed — despite its oceanic origin and salty water."
+        },
+        {
+          "id": "q3",
+          "question": "Which river flows through or borders the most countries — ten in total?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Rhine",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Danube",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "The Congo",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Mekong",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The Danube touches ten countries between Germany's Black Forest and the Black Sea, more than any other river on Earth."
+        },
+        {
+          "id": "q4",
+          "question": "Which is the largest freshwater lake in the world by surface area?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lake Baikal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Lake Victoria",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Lake Huron",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Lake Superior",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Lake Superior covers about 82,100 km²; Baikal is deeper and holds more water, but Superior wins on area."
+        },
+        {
+          "id": "q5",
+          "question": "Which is the second-highest mountain on Earth?",
+          "options": [
+            {
+              "id": "a",
+              "text": "K2",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Kangchenjunga",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mont Blanc",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Lhotse",
+              "is_correct": false
+            }
+          ],
+          "explanation": "K2, in the Karakoram range on the China-Pakistan border, rises to 8,611 m — second only to Everest and far harder to climb."
+        },
+        {
+          "id": "q6",
+          "question": "Which is Africa's highest mountain — and the tallest free-standing mountain in the world?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mount Kenya",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Mount Stanley",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Atlas Mountains",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Kilimanjaro",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Kilimanjaro rises 5,895 m in Tanzania, standing alone above the savanna rather than forming part of a range."
+        },
+        {
+          "id": "q7",
+          "question": "Which is the deepest river in the world, with measured depths beyond 220 metres?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Amazon",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Congo",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "The Yangtze",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Danube",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The Congo's canyon-like lower course plunges past 220 m in places — the deepest river channel ever measured."
+        },
+        {
+          "id": "q8",
+          "question": "Which shoreline marks the lowest point on Earth's land surface, about 430 m below sea level?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Dead Sea",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "The Danakil Depression",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Death Valley",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Caspian shore",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The Dead Sea shore, shared by Israel, Jordan and the West Bank, sits around 430 m below sea level — and keeps dropping as the lake shrinks."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-rios-lagos-y-montanas",
+      "title": "Trivia de ríos, lagos y montañas: los récords del planeta",
+      "description": "Del Nilo al K2: ocho preguntas sobre los ríos más largos, los lagos más grandes y las cumbres más altas del planeta Tierra.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": [
+        "geografía",
+        "trivia",
+        "ríos",
+        "montañas"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué río se considera tradicionalmente el más largo del mundo, con unos 6 650 km?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El Amazonas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El Yangtsé",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El Nilo",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "El Misisipi",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El Nilo conserva el título clásico; algunas mediciones modernas dan al Amazonas unos kilómetros más, pero el Nilo sigue siendo la respuesta tradicional."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el lago más grande del mundo por superficie?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El lago Superior",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El lago Baikal",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El mar Caspio",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "El lago Victoria",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Con unos 371 000 km², el Caspio cuenta como lago por estar completamente encerrado, pese a su origen oceánico y su agua salada."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué río atraviesa o bordea más países, diez en total?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El Rin",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El Danubio",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "El Congo",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El Mekong",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El Danubio toca diez países entre la Selva Negra alemana y el mar Negro, más que ningún otro río del planeta."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el lago de agua dulce más grande del mundo por superficie?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El lago Baikal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El lago Victoria",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El lago Hurón",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El lago Superior",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El lago Superior cubre unos 82 100 km²; el Baikal es más profundo y guarda más agua, pero el Superior gana en superficie."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la segunda montaña más alta del planeta?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El K2",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "El Kangchenjunga",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El Mont Blanc",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El Lhotse",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El K2, en la cordillera del Karakórum entre China y Pakistán, alcanza los 8 611 m: solo por detrás del Everest y mucho más difícil de escalar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la montaña más alta de África y la más alta del mundo que se alza aislada?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El monte Kenia",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El monte Stanley",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "La cordillera del Atlas",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El Kilimanjaro",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El Kilimanjaro se eleva 5 895 m en Tanzania, erguido en solitario sobre la sabana en lugar de formar parte de una cordillera."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el río más profundo del mundo, con zonas medidas a más de 220 metros?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El Amazonas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El Congo",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "El Yangtsé",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El Danubio",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El curso bajo del Congo se hunde más de 220 m como un cañón: es el cauce fluvial más profundo jamás medido."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué orilla marca el punto más bajo de la superficie terrestre, a unos 430 m bajo el nivel del mar?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La del mar Muerto",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "La depresión de Danakil",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El valle de la Muerte",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "La del mar Caspio",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La orilla del mar Muerto, compartida por Israel, Jordania y Cisjordania, está a unos 430 m bajo el nivel del mar y sigue descendiendo a medida que el lago mengua."
+        }
+      ]
+    },
+    {
+      "slug": "en-islands-and-oceans-trivia",
+      "title": "Islands and Oceans Trivia: From Borneo to the Arctic",
+      "description": "Archipelagos, seas without coasts and islands split between countries: eight questions on the islands and oceans that shape the planet.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": [
+        "geography",
+        "trivia",
+        "islands",
+        "oceans"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which country is the world's largest archipelagic state, spread across about 17,000 islands?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Philippines",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Japan",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Indonesia",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Papua New Guinea",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Indonesia's roughly 17,500 islands stretch 5,000 km along the equator — the largest archipelagic state on Earth."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the only sea on Earth with no land boundary, surrounded entirely by ocean currents?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Caribbean Sea",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Mediterranean Sea",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Coral Sea",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Sargasso Sea",
+              "is_correct": true
+            }
+          ],
+          "explanation": "The Sargasso, in the North Atlantic, is bounded only by rotating currents and famous for its floating golden seaweed."
+        },
+        {
+          "id": "q3",
+          "question": "Which is the smallest and shallowest of the world's oceans?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Arctic Ocean",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "The Indian Ocean",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Atlantic Ocean",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Southern Ocean",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The Arctic covers about 14 million km² — barely a tenth of the Pacific — with an average depth of around one kilometre."
+        },
+        {
+          "id": "q4",
+          "question": "Which island nation sits directly on the Mid-Atlantic Ridge, straddling the boundary between two tectonic plates?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ireland",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Iceland",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "New Zealand",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Malta",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Iceland is where the Mid-Atlantic Ridge rises above sea level — at Thingvellir you can walk between the Eurasian and North American plates."
+        },
+        {
+          "id": "q5",
+          "question": "Which island is divided among three countries: Indonesia, Malaysia and Brunei?",
+          "options": [
+            {
+              "id": "a",
+              "text": "New Guinea",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Timor",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Hispaniola",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Borneo",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Borneo, the world's third-largest island, is the only one shared by three sovereign states."
+        },
+        {
+          "id": "q6",
+          "question": "Which is the largest island in the Caribbean?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hispaniola",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Cuba",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Jamaica",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Puerto Rico",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cuba's main island covers over 100,000 km² — close to half of all the land in the Caribbean islands combined."
+        },
+        {
+          "id": "q7",
+          "question": "Which is the largest of Japan's four main islands, home to Tokyo and Mount Fuji?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hokkaido",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Kyushu",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Honshu",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Shikoku",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Honshu holds more than half of Japan's land and over 100 million people, including Tokyo, Osaka and Kyoto."
+        },
+        {
+          "id": "q8",
+          "question": "Which channel separates the island of Madagascar from mainland Africa?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The English Channel",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Bab-el-Mandeb",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Palk Strait",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Mozambique Channel",
+              "is_correct": true
+            }
+          ],
+          "explanation": "The Mozambique Channel runs about 1,600 km between Mozambique and Madagascar — the world's fourth-largest island."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-islas-y-oceanos",
+      "title": "Trivia de islas y océanos: archipiélagos y mares con nombre propio",
+      "description": "Archipiélagos, mares sin costas e islas repartidas entre países: ocho preguntas sobre las islas y los océanos del planeta.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": [
+        "geografía",
+        "trivia",
+        "islas",
+        "océanos"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué país es el mayor Estado archipelágico del mundo, repartido en unas 17 000 islas?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Filipinas",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Japón",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Indonesia",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Papúa Nueva Guinea",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Las casi 17 500 islas de Indonesia se extienden 5 000 km a lo largo del ecuador: es el Estado archipelágico más grande del planeta."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el único mar del mundo sin costas, delimitado solo por corrientes oceánicas?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El mar Caribe",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El mar Mediterráneo",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El mar de Coral",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El mar de los Sargazos",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El mar de los Sargazos, en el Atlántico norte, está delimitado únicamente por corrientes giratorias y es famoso por su alga dorada flotante."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el océano más pequeño y menos profundo del planeta?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El océano Ártico",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "El océano Índico",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El océano Atlántico",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El océano Antártico",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El Ártico cubre unos 14 millones de km² — apenas una décima parte del Pacífico — con una profundidad media cercana al kilómetro."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué país insular se asienta sobre la dorsal mesoatlántica, a caballo entre dos placas tectónicas?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Irlanda",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Islandia",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Nueva Zelanda",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Malta",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Islandia es donde la dorsal mesoatlántica asoma sobre el nivel del mar: en Thingvellir se puede caminar entre las placas euroasiática y norteamericana."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué isla se reparte entre tres países: Indonesia, Malasia y Brunéi?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Nueva Guinea",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Timor",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "La Española",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Borneo",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Borneo, la tercera isla más grande del mundo, es la única compartida por tres Estados soberanos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la isla más grande del Caribe?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La Española",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Cuba",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Jamaica",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Puerto Rico",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La isla principal de Cuba supera los 100 000 km²: cerca de la mitad de toda la tierra insular del Caribe."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la mayor de las cuatro islas principales de Japón, hogar de Tokio y del monte Fuji?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hokkaido",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Kyushu",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Honshu",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Shikoku",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Honshu concentra más de la mitad del territorio japonés y más de 100 millones de personas, incluidas Tokio, Osaka y Kioto."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué canal separa la isla de Madagascar del continente africano?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El canal de la Mancha",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El estrecho de Bab el-Mandeb",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El estrecho de Palk",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "El canal de Mozambique",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El canal de Mozambique recorre unos 1 600 km entre Mozambique y Madagascar, la cuarta isla más grande del mundo."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-country-fits-you",
+      "title": "Which Country Fits Your Personality? Take the Quiz",
+      "description": "Japan, Italy, New Zealand, Mexico or Iceland: answer seven questions and find out which country in the world fits your personality.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": [
+        "personality test",
+        "countries",
+        "travel",
+        "geography"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Pick your ideal Saturday plan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A tea ceremony and a stroll through a zen garden",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A long lunch with friends that never seems to end",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "A hiking trail between volcanoes and fjords",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "A street market, live music and tacos",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "A soak in a hot lagoon under the northern lights",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Which word best defines the way you live?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Order",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Passion",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Adventure",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Party",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Calm",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your dream home would be...",
+          "options": [
+            {
+              "id": "a",
+              "text": "Minimalist, with everything in its place",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A villa with a terrace and a small vineyard",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "A cabin facing the mountains",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "A courtyard full of color, plants and people",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "A wooden house by a cold sea",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Pick a landscape:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cherry blossoms and ancient temples",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Golden hills lined with cypress trees",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Fjords, glaciers and wild peaks",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Pyramids hidden in the jungle",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Lava fields, geysers and waterfalls",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "How do you handle last-minute plans?",
+          "options": [
+            {
+              "id": "a",
+              "text": "I prefer everything booked in advance",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "I improvise, as long as good food is involved",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "The more spontaneous, the better",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "I always have energy for a new plan",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "I like quiet plans that just happen",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Pick a drink:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Matcha tea",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "An espresso at the counter",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Drip coffee on the way to the mountains",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Fresh hibiscus water",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Hot chocolate while it snows",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "What would make you feel at home in a new country?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Clear rules and total punctuality",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A table where nobody is in a hurry",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Nature ten minutes from everything",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "People who treat you like family",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Silence and enormous skies",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Japan",
+          "personality_tag": "japan",
+          "background_theme": "mystic",
+          "description": "Precision and tradition give you peace: you enjoy rituals, details and an order that leaves room to breathe. In Japan you'd fit like a train that arrives on time."
+        },
+        {
+          "id": "r2",
+          "title": "Italy",
+          "personality_tag": "italy",
+          "background_theme": "forest",
+          "description": "For you, life happens around the table: good food, family and conversations that stretch into the night. The dolce vita isn't a plan — it's your natural state."
+        },
+        {
+          "id": "r3",
+          "title": "New Zealand",
+          "personality_tag": "new-zealand",
+          "background_theme": "ocean",
+          "description": "You need horizon and motion: fjords, volcanoes and roads whose ends you can't guess. Home is wherever the next trail begins."
+        },
+        {
+          "id": "r4",
+          "title": "Mexico",
+          "personality_tag": "mexico",
+          "background_theme": "fire",
+          "description": "Color, music and people are your fuel: where there's a market, a party and a shared table, you belong. You celebrate even the Tuesdays."
+        },
+        {
+          "id": "r5",
+          "title": "Iceland",
+          "personality_tag": "iceland",
+          "background_theme": "ice",
+          "description": "Your happiness asks for silence, vast landscapes and nights of auroras. You don't fear the cold: it's the price of having the world almost to yourself."
+        }
+      ]
+    },
+    {
+      "slug": "es-que-pais-encaja-contigo",
+      "title": "¿Qué país encaja contigo? El test de tu nacionalidad soñada",
+      "description": "Japón, Italia, Nueva Zelanda, México o Islandia: siete preguntas para descubrir en qué país del mundo encaja tu forma de ser.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": [
+        "test de personalidad",
+        "países",
+        "viajes",
+        "geografía"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Elige tu plan ideal para un sábado:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una ceremonia del té y un paseo por un jardín zen",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Una comida larga con amigos y sobremesa eterna",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Una ruta de senderismo entre volcanes y fiordos",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Mercado callejero, música en vivo y tacos",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Un baño en una laguna termal bajo las auroras",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué palabra define mejor tu forma de vivir?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Orden",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Pasión",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Aventura",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Fiesta",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Calma",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu casa ideal sería...",
+          "options": [
+            {
+              "id": "a",
+              "text": "Minimalista, con cada cosa en su lugar",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Una villa con terraza y un pequeño viñedo",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Una cabaña frente a la montaña",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Un patio lleno de color, plantas y gente",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Una casa de madera junto a un mar frío",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Elige un paisaje:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cerezos en flor y templos antiguos",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Colinas doradas con cipreses",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Fiordos, glaciares y montañas vírgenes",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Pirámides escondidas entre la selva",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Campos de lava, géiseres y cascadas",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo llevas los planes de último minuto?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Prefiero todo reservado con antelación",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Improviso, siempre que haya buena comida de por medio",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Cuanto más improvisado, mejor",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Siempre tengo energía para un plan nuevo",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Me gustan los planes tranquilos que surgen solos",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Elige una bebida:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Té matcha",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Un espresso en la barra",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Café de filtro camino a la montaña",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Agua fresca de jamaica",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Chocolate caliente mientras nieva",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué te haría sentir en casa en un país nuevo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Normas claras y total puntualidad",
+              "personality_tags": [
+                "japan"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Una mesa donde nadie tiene prisa",
+              "personality_tags": [
+                "italy"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Tener naturaleza a diez minutos de todo",
+              "personality_tags": [
+                "new-zealand"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Gente que te trata como de la familia",
+              "personality_tags": [
+                "mexico"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Silencio y cielos enormes",
+              "personality_tags": [
+                "iceland"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Japón",
+          "personality_tag": "japan",
+          "background_theme": "mystic",
+          "description": "La precisión y la tradición te dan paz: disfrutas los rituales, los detalles y el orden que deja espacio para respirar. En Japón encajarías como un tren que llega a la hora."
+        },
+        {
+          "id": "r2",
+          "title": "Italia",
+          "personality_tag": "italy",
+          "background_theme": "forest",
+          "description": "Para ti la vida se vive alrededor de la mesa: buena comida, familia y conversaciones que se estiran hasta la noche. La dolce vita no es un plan, es tu estado natural."
+        },
+        {
+          "id": "r3",
+          "title": "Nueva Zelanda",
+          "personality_tag": "new-zealand",
+          "background_theme": "ocean",
+          "description": "Necesitas horizonte y movimiento: fiordos, volcanes y carreteras que no sabes dónde terminan. Tu casa es donde empieza la próxima ruta."
+        },
+        {
+          "id": "r4",
+          "title": "México",
+          "personality_tag": "mexico",
+          "background_theme": "fire",
+          "description": "El color, la música y la gente son tu energía: donde hay mercado, fiesta y una mesa compartida, ahí encajas. Celebras hasta los martes."
+        },
+        {
+          "id": "r5",
+          "title": "Islandia",
+          "personality_tag": "iceland",
+          "background_theme": "ice",
+          "description": "Tu felicidad pide silencio, paisajes enormes y noches de auroras. No le temes al frío: es el precio de tener el mundo casi para ti."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-city-are-you",
+      "title": "Which World City Are You? Take the Personality Test",
+      "description": "Tokyo, Paris, New York, Barcelona or Cape Town: answer seven questions and discover which world city shares your personality.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": [
+        "personality test",
+        "cities",
+        "travel"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "It's 8 p.m. on a random Tuesday. What are you doing?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Neon lights, ramen and then karaoke",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A glass of wine on a terrace above the rooftops",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "One rooftop bar, then straight to the next plan",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Tapas with friends and a walk down to the beach",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "A sunset barbecue with the mountain behind you",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Pick your way of getting around the city:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A punctual metro that reaches every last corner",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "On foot through cobbled streets full of history",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "A yellow cab at full speed",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "By bike along the seaside promenade",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "By car along a coastal road",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Which cityscape grabs you?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Skyscrapers with temples hidden between them",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Boulevards and domes heavy with history",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "A steel jungle that grows straight up",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Medieval streets that end at the sea",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "A flat-topped mountain above the ocean",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your ideal pace of life is...",
+          "options": [
+            {
+              "id": "a",
+              "text": "Intense but perfectly organized",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Slow, elegant and with time for coffee",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Fast: the city never sleeps and neither do you",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Mediterranean: work to live, not the other way around",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Outdoors and without too many schedules",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Pick the perfect Sunday:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A tech district in the morning and a park in the afternoon",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A museum, a croissant and a walk by the river",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Brunch followed by a musical",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Vermouth with friends until the evening shows up",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "An early climb up the mountain and a finish on the beach",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "What does your wardrobe say about you?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Minimalist, but with pieces nobody else has",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Effortlessly chic in neutral tones",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Practical for a day that never stops",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Casual, comfortable and colorful",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Adventure gear that also works in the city",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Which sentence do you identify with most?",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Everything has its place'",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "'Beauty lives in the details'",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "'If you dream it, dream it big'",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "'Life is meant to be shared'",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "'Nature first'",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Tokyo",
+          "personality_tag": "tokyo",
+          "background_theme": "mystic",
+          "description": "Order and the future sharing the same block: you're precise, curious and always one step ahead without making noise. Tokyo fits you like a tailored suit."
+        },
+        {
+          "id": "r2",
+          "title": "Paris",
+          "personality_tag": "paris",
+          "background_theme": "stars",
+          "description": "Unhurried elegance and a coffee that lasts hours: you turn the everyday into art and won't sign up for a plan without beauty. The City of Light already knows you."
+        },
+        {
+          "id": "r3",
+          "title": "New York",
+          "personality_tag": "new-york",
+          "background_theme": "fire",
+          "description": "Ambition and energy without pause: plans fall short for you, and big ideas scare other people, not you. New York is your natural scale."
+        },
+        {
+          "id": "r4",
+          "title": "Barcelona",
+          "personality_tag": "barcelona",
+          "background_theme": "ocean",
+          "description": "Sea, tapas and a schedule that always finds room for friends: you balance work and pleasure like an art form. The Mediterranean is waiting."
+        },
+        {
+          "id": "r5",
+          "title": "Cape Town",
+          "personality_tag": "cape-town",
+          "background_theme": "forest",
+          "description": "Mountain in the morning and ocean in the afternoon: your happiness fits between an outdoor trail and an endless sunset. Cape Town is you as a city."
+        }
+      ]
+    },
+    {
+      "slug": "es-que-ciudad-del-mundo-eres",
+      "title": "¿Qué ciudad del mundo eres? Descúbrelo en este test",
+      "description": "Tokio, París, Nueva York, Barcelona o Ciudad del Cabo: siete preguntas para descubrir qué ciudad del mundo comparte tu personalidad.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": [
+        "test de personalidad",
+        "ciudades",
+        "viajes"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Son las ocho de la noche de un martes cualquiera. ¿Qué haces?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Luces de neón, ramen y luego un karaoke",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Una copa de vino en una terraza con vistas a los tejados",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "De un rooftop al siguiente plan sin bajar el ritmo",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Tapas con amigos y paseo hasta la playa",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Una parrillada al atardecer con la montaña de fondo",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Elige tu forma de moverte por la ciudad:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un metro puntual que llega hasta el último rincón",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "A pie por calles empedradas llenas de historia",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Taxi amarillo y a toda prisa",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "En bici junto al paseo marítimo",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "En coche por una carretera costera",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué paisaje urbano te atrapa?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rascacielos con templos escondidos entre ellos",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Bulevares y cúpulas cargadas de historia",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Una jungla de acero que crece hacia arriba",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Calles medievales que terminan en el mar",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Una montaña de cima plana sobre el océano",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu ritmo de vida ideal es...",
+          "options": [
+            {
+              "id": "a",
+              "text": "Intenso pero perfectamente ordenado",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Lento, elegante y con tiempo para el café",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Acelerado: la ciudad nunca duerme y tú tampoco",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Mediterráneo: trabajar para vivir, no al revés",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Al aire libre y sin demasiados horarios",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Elige un domingo perfecto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un barrio de tecnología por la mañana y un parque por la tarde",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Museo, croissant y un paseo junto al río",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Brunch y luego un musical",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Vermut con amigos hasta que salga la tarde",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Subir la montaña temprano y terminar en la playa",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué dice tu armario de ti?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Minimalista, pero con piezas que nadie más tiene",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "Elegante sin esfuerzo, en tonos neutros",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "Práctico para un día que no para",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "Informal, cómodo y con color",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "Ropa de aventura que también va a la ciudad",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué frase te identificas más?",
+          "options": [
+            {
+              "id": "a",
+              "text": "«Todo tiene su lugar»",
+              "personality_tags": [
+                "tokyo"
+              ]
+            },
+            {
+              "id": "b",
+              "text": "«La belleza está en los detalles»",
+              "personality_tags": [
+                "paris"
+              ]
+            },
+            {
+              "id": "c",
+              "text": "«Si lo sueñas, hazlo grande»",
+              "personality_tags": [
+                "new-york"
+              ]
+            },
+            {
+              "id": "d",
+              "text": "«La vida es para compartirla»",
+              "personality_tags": [
+                "barcelona"
+              ]
+            },
+            {
+              "id": "e",
+              "text": "«Primero la naturaleza»",
+              "personality_tags": [
+                "cape-town"
+              ]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Tokio",
+          "personality_tag": "tokyo",
+          "background_theme": "mystic",
+          "description": "Orden y futuro conviviendo en el mismo barrio: eres preciso, curioso y siempre vas un paso por delante sin hacer ruido. Tokio te queda como un traje a medida."
+        },
+        {
+          "id": "r2",
+          "title": "París",
+          "personality_tag": "paris",
+          "background_theme": "stars",
+          "description": "Elegancia sin prisa y un café que dura horas: conviertes lo cotidiano en estética y no firmas un plan que no tenga belleza. La Ciudad de la Luz ya te conoce."
+        },
+        {
+          "id": "r3",
+          "title": "Nueva York",
+          "personality_tag": "new-york",
+          "background_theme": "fire",
+          "description": "Ambición y energía sin pausa: los planes se te quedan cortos y las ideas grandes te dan miedo a los demás, no a ti. Nueva York es tu escala natural."
+        },
+        {
+          "id": "r4",
+          "title": "Barcelona",
+          "personality_tag": "barcelona",
+          "background_theme": "ocean",
+          "description": "Mar, tapas y una agenda que siempre encuentra hueco para los amigos: vives el equilibrio entre trabajar y disfrutar como un arte. El Mediterráneo te espera."
+        },
+        {
+          "id": "r5",
+          "title": "Ciudad del Cabo",
+          "personality_tag": "cape-town",
+          "background_theme": "forest",
+          "description": "Montaña por la mañana y océano por la tarde: tu felicidad cabe entre una ruta al aire libre y un atardecer infinito. Ciudad del Cabo es tu versión hecha ciudad."
+        }
+      ]
+    }
+  ]
+}
