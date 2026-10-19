@@ -1,0 +1,821 @@
+{
+  "$comment": "Editorial seed 2026bh: four es/en trivia pairs on chess, poker and classic board games, all in the gaming category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-chess-champions-trivia",
+      "title": "Chess Champions Trivia: From Steinitz to Carlsen",
+      "description": "Eight questions on the world chess champions: Steinitz, Lasker, Capablanca, Fischer, Kasparov and Carlsen.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["chess", "trivia", "world champions", "fischer", "kasparov"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who became the first official World Chess Champion in 1886?",
+          "options": [
+            { "id": "a", "text": "Wilhelm Steinitz", "is_correct": true },
+            { "id": "b", "text": "Emanuel Lasker", "is_correct": false },
+            { "id": "c", "text": "José Raúl Capablanca", "is_correct": false },
+            { "id": "d", "text": "Alexander Alekhine", "is_correct": false }
+          ],
+          "explanation": "Steinitz defeated Johannes Zukertort in the match recognised as the first world championship."
+        },
+        {
+          "id": "q2",
+          "question": "Which champion held the world title for 27 years, the longest reign in chess history?",
+          "options": [
+            { "id": "a", "text": "Garry Kasparov", "is_correct": false },
+            { "id": "b", "text": "Emanuel Lasker", "is_correct": true },
+            { "id": "c", "text": "Anatoly Karpov", "is_correct": false },
+            { "id": "d", "text": "Magnus Carlsen", "is_correct": false }
+          ],
+          "explanation": "Lasker was champion from 1894 to 1921, a record that still stands."
+        },
+        {
+          "id": "q3",
+          "question": "Which Cuban, nicknamed the 'human chess machine', was world champion from 1921 to 1927?",
+          "options": [
+            { "id": "a", "text": "José Raúl Capablanca", "is_correct": true },
+            { "id": "b", "text": "Alexander Alekhine", "is_correct": false },
+            { "id": "c", "text": "Max Euwe", "is_correct": false },
+            { "id": "d", "text": "Mikhail Botvinnik", "is_correct": false }
+          ],
+          "explanation": "Capablanca lost the crown to Alekhine in Buenos Aires in 1927."
+        },
+        {
+          "id": "q4",
+          "question": "Which champion died in 1946 while still holding the world title, the only one to do so?",
+          "options": [
+            { "id": "a", "text": "José Raúl Capablanca", "is_correct": false },
+            { "id": "b", "text": "Mikhail Tal", "is_correct": false },
+            { "id": "c", "text": "Alexander Alekhine", "is_correct": true },
+            { "id": "d", "text": "Max Euwe", "is_correct": false }
+          ],
+          "explanation": "Alekhine's death left the crown vacant until the 1948 championship tournament."
+        },
+        {
+          "id": "q5",
+          "question": "Which Soviet champion regained the world title twice after losing it?",
+          "options": [
+            { "id": "a", "text": "Boris Spassky", "is_correct": false },
+            { "id": "b", "text": "Mikhail Botvinnik", "is_correct": true },
+            { "id": "c", "text": "Tigran Petrosian", "is_correct": false },
+            { "id": "d", "text": "Vasily Smyslov", "is_correct": false }
+          ],
+          "explanation": "Botvinnik won the rematches against Smyslov in 1958 and Tal in 1961."
+        },
+        {
+          "id": "q6",
+          "question": "Which American defeated Boris Spassky in Reykjavik in 1972, in the so-called Match of the Century?",
+          "options": [
+            { "id": "a", "text": "Bobby Fischer", "is_correct": true },
+            { "id": "b", "text": "Anatoly Karpov", "is_correct": false },
+            { "id": "c", "text": "Garry Kasparov", "is_correct": false },
+            { "id": "d", "text": "Paul Morphy", "is_correct": false }
+          ],
+          "explanation": "Fischer's victory ended 24 years of Soviet domination of the world title."
+        },
+        {
+          "id": "q7",
+          "question": "Who became the youngest undisputed World Chess Champion in 1985, at 22 years old?",
+          "options": [
+            { "id": "a", "text": "Anatoly Karpov", "is_correct": false },
+            { "id": "b", "text": "Vladimir Kramnik", "is_correct": false },
+            { "id": "c", "text": "Garry Kasparov", "is_correct": true },
+            { "id": "d", "text": "Viswanathan Anand", "is_correct": false }
+          ],
+          "explanation": "Kasparov beat Karpov in their second match and kept the title for 15 years."
+        },
+        {
+          "id": "q8",
+          "question": "Which Norwegian won the world title in 2013 by defeating Viswanathan Anand?",
+          "options": [
+            { "id": "a", "text": "Fabiano Caruana", "is_correct": false },
+            { "id": "b", "text": "Magnus Carlsen", "is_correct": true },
+            { "id": "c", "text": "Ding Liren", "is_correct": false },
+            { "id": "d", "text": "Ian Nepomniachtchi", "is_correct": false }
+          ],
+          "explanation": "Carlsen won the match in Chennai and defended the crown in 2014, 2016, 2018 and 2021."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-campeones-de-ajedrez",
+      "title": "Trivia de campeones de ajedrez: de Steinitz a Carlsen",
+      "description": "Ocho preguntas sobre los campeones mundiales de ajedrez: Steinitz, Lasker, Capablanca, Fischer, Kaspárov y Carlsen.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["ajedrez", "trivia", "campeones mundiales", "fischer", "kaspárov"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién se convirtió en el primer campeón mundial oficial de ajedrez en 1886?",
+          "options": [
+            { "id": "a", "text": "Wilhelm Steinitz", "is_correct": true },
+            { "id": "b", "text": "Emanuel Lasker", "is_correct": false },
+            { "id": "c", "text": "José Raúl Capablanca", "is_correct": false },
+            { "id": "d", "text": "Alexander Alekhine", "is_correct": false }
+          ],
+          "explanation": "Steinitz derrotó a Johannes Zukertort en el match reconocido como el primer campeonato mundial."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué campeón mantuvo el título mundial durante 27 años, el reinado más largo de la historia del ajedrez?",
+          "options": [
+            { "id": "a", "text": "Garri Kaspárov", "is_correct": false },
+            { "id": "b", "text": "Emanuel Lasker", "is_correct": true },
+            { "id": "c", "text": "Anatoli Kárpov", "is_correct": false },
+            { "id": "d", "text": "Magnus Carlsen", "is_correct": false }
+          ],
+          "explanation": "Lasker fue campeón de 1894 a 1921, un récord que sigue vigente."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué cubano, apodado la 'máquina humana del ajedrez', fue campeón mundial de 1921 a 1927?",
+          "options": [
+            { "id": "a", "text": "José Raúl Capablanca", "is_correct": true },
+            { "id": "b", "text": "Alexander Alekhine", "is_correct": false },
+            { "id": "c", "text": "Max Euwe", "is_correct": false },
+            { "id": "d", "text": "Mijaíl Botvínnik", "is_correct": false }
+          ],
+          "explanation": "Capablanca perdió la corona ante Alekhine en Buenos Aires en 1927."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué campeón murió en 1946 siendo todavía el poseedor del título mundial, el único caso en la historia?",
+          "options": [
+            { "id": "a", "text": "José Raúl Capablanca", "is_correct": false },
+            { "id": "b", "text": "Mijaíl Tal", "is_correct": false },
+            { "id": "c", "text": "Alexander Alekhine", "is_correct": true },
+            { "id": "d", "text": "Max Euwe", "is_correct": false }
+          ],
+          "explanation": "La muerte de Alekhine dejó la corona vacante hasta el torneo de campeonato de 1948."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué campeón soviético recuperó dos veces el título mundial después de perderlo?",
+          "options": [
+            { "id": "a", "text": "Borís Spaski", "is_correct": false },
+            { "id": "b", "text": "Mijaíl Botvínnik", "is_correct": true },
+            { "id": "c", "text": "Tigran Petrosian", "is_correct": false },
+            { "id": "d", "text": "Vasili Smyslov", "is_correct": false }
+          ],
+          "explanation": "Botvínnik ganó las revanchas contra Smyslov en 1958 y contra Tal en 1961."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué estadounidense derrotó a Borís Spaski en Reikiavik en 1972, en el llamado Match del Siglo?",
+          "options": [
+            { "id": "a", "text": "Bobby Fischer", "is_correct": true },
+            { "id": "b", "text": "Anatoli Kárpov", "is_correct": false },
+            { "id": "c", "text": "Garri Kaspárov", "is_correct": false },
+            { "id": "d", "text": "Paul Morphy", "is_correct": false }
+          ],
+          "explanation": "La victoria de Fischer puso fin a 24 años de dominio soviético del título mundial."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién se convirtió en el campeón mundial indiscutido más joven en 1985, con 22 años?",
+          "options": [
+            { "id": "a", "text": "Anatoli Kárpov", "is_correct": false },
+            { "id": "b", "text": "Vladímir Krámnik", "is_correct": false },
+            { "id": "c", "text": "Garri Kaspárov", "is_correct": true },
+            { "id": "d", "text": "Viswanathan Anand", "is_correct": false }
+          ],
+          "explanation": "Kaspárov venció a Kárpov en su segundo match y mantuvo el título durante 15 años."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué noruego ganó el título mundial en 2013 al derrotar a Viswanathan Anand?",
+          "options": [
+            { "id": "a", "text": "Fabiano Caruana", "is_correct": false },
+            { "id": "b", "text": "Magnus Carlsen", "is_correct": true },
+            { "id": "c", "text": "Ding Liren", "is_correct": false },
+            { "id": "d", "text": "Ian Nepomniachtchi", "is_correct": false }
+          ],
+          "explanation": "Carlsen ganó el match en Chennai y defendió la corona en 2014, 2016, 2018 y 2021."
+        }
+      ]
+    },
+    {
+      "slug": "en-chess-openings-trivia",
+      "title": "Chess Openings Trivia: From the Italian Game to the Sicilian",
+      "description": "Eight questions on the most famous chess openings: the Italian Game, the Sicilian, the French and the Queen's Gambit.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["chess", "openings", "trivia", "sicilian", "strategy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "After 1.e4 e5 2.Nf3 Nc6, which move defines the Italian Game?",
+          "options": [
+            { "id": "a", "text": "3.Bb5", "is_correct": false },
+            { "id": "b", "text": "3.Bc4", "is_correct": true },
+            { "id": "c", "text": "3.d4", "is_correct": false },
+            { "id": "d", "text": "3.Nc3", "is_correct": false }
+          ],
+          "explanation": "With 3.Bc4 White targets the f7 pawn; 3.Bb5 is the Ruy López."
+        },
+        {
+          "id": "q2",
+          "question": "The Ruy López, one of the oldest openings still in use, is also known as what?",
+          "options": [
+            { "id": "a", "text": "The English Opening", "is_correct": false },
+            { "id": "b", "text": "The Spanish Opening", "is_correct": true },
+            { "id": "c", "text": "The Italian Game", "is_correct": false },
+            { "id": "d", "text": "The French Defense", "is_correct": false }
+          ],
+          "explanation": "It is named after Ruy López de Segura, a 16th-century Spanish priest."
+        },
+        {
+          "id": "q3",
+          "question": "Which defense does Black declare with 1.e4 c5?",
+          "options": [
+            { "id": "a", "text": "The French Defense", "is_correct": false },
+            { "id": "b", "text": "The Caro-Kann", "is_correct": false },
+            { "id": "c", "text": "The Sicilian Defense", "is_correct": true },
+            { "id": "d", "text": "The Scandinavian Defense", "is_correct": false }
+          ],
+          "explanation": "The Caro-Kann plays 1...c6, while the Sicilian chooses 1...c5."
+        },
+        {
+          "id": "q4",
+          "question": "Which defense answers 1.e4 with 1...e6, usually followed by 2.d4 d5?",
+          "options": [
+            { "id": "a", "text": "The French Defense", "is_correct": true },
+            { "id": "b", "text": "The Pirc Defense", "is_correct": false },
+            { "id": "c", "text": "The Dutch Defense", "is_correct": false },
+            { "id": "d", "text": "The Sicilian Defense", "is_correct": false }
+          ],
+          "explanation": "The French Defense fights for the centre with d5 on the second move."
+        },
+        {
+          "id": "q5",
+          "question": "In the Queen's Gambit (1.d4 d5 2.c4), which pawn does White offer?",
+          "options": [
+            { "id": "a", "text": "The b-pawn", "is_correct": false },
+            { "id": "b", "text": "The c-pawn", "is_correct": true },
+            { "id": "c", "text": "The d-pawn", "is_correct": false },
+            { "id": "d", "text": "The e-pawn", "is_correct": false }
+          ],
+          "explanation": "White gives up the c-pawn to pull Black's central pawn off the d-file."
+        },
+        {
+          "id": "q6",
+          "question": "Which romantic-era opening begins 1.e4 e5 2.f4, offering a pawn for rapid development?",
+          "options": [
+            { "id": "a", "text": "The Queen's Gambit", "is_correct": false },
+            { "id": "b", "text": "The Vienna Game", "is_correct": false },
+            { "id": "c", "text": "The King's Gambit", "is_correct": true },
+            { "id": "d", "text": "The Scotch Game", "is_correct": false }
+          ],
+          "explanation": "The King's Gambit was the favourite attacking weapon of the 19th century."
+        },
+        {
+          "id": "q7",
+          "question": "With which first move does White open the English Opening?",
+          "options": [
+            { "id": "a", "text": "1.e4", "is_correct": false },
+            { "id": "b", "text": "1.d4", "is_correct": false },
+            { "id": "c", "text": "1.Nf3", "is_correct": false },
+            { "id": "d", "text": "1.c4", "is_correct": true }
+          ],
+          "explanation": "The English Opening starts with the c-pawn and often leads to flank structures."
+        },
+        {
+          "id": "q8",
+          "question": "Which checkmate, the fastest possible in chess, punishes White after 1.f3 e5 2.g4 Qh4#?",
+          "options": [
+            { "id": "a", "text": "Scholar's mate", "is_correct": false },
+            { "id": "b", "text": "Fool's mate", "is_correct": true },
+            { "id": "c", "text": "Back-rank mate", "is_correct": false },
+            { "id": "d", "text": "Smothered mate", "is_correct": false }
+          ],
+          "explanation": "Fool's mate ends the game in just two moves, the fastest checkmate there is."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-aperturas-ajedrez",
+      "title": "Trivia de aperturas de ajedrez: de la italiana a la siciliana",
+      "description": "Ocho preguntas sobre las aperturas de ajedrez más famosas: la italiana, la siciliana, la francesa y el gambito de dama.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["ajedrez", "aperturas", "trivia", "siciliana", "estrategia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Después de 1.e4 e5 2.Cf3 Cc6, ¿qué jugada define la partida italiana?",
+          "options": [
+            { "id": "a", "text": "3.Ab5", "is_correct": false },
+            { "id": "b", "text": "3.Ac4", "is_correct": true },
+            { "id": "c", "text": "3.d4", "is_correct": false },
+            { "id": "d", "text": "3.Cc3", "is_correct": false }
+          ],
+          "explanation": "Con 3.Ac4 las blancas apuntan al peón f7; 3.Ab5 es la española o Ruy López."
+        },
+        {
+          "id": "q2",
+          "question": "La Ruy López, una de las aperturas más antiguas que se siguen jugando, también es conocida como...",
+          "options": [
+            { "id": "a", "text": "La apertura inglesa", "is_correct": false },
+            { "id": "b", "text": "La apertura española", "is_correct": true },
+            { "id": "c", "text": "La partida italiana", "is_correct": false },
+            { "id": "d", "text": "La defensa francesa", "is_correct": false }
+          ],
+          "explanation": "Debe su nombre a Ruy López de Segura, un sacerdote español del siglo XVI."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué defensa declaran las negras con 1.e4 c5?",
+          "options": [
+            { "id": "a", "text": "La defensa francesa", "is_correct": false },
+            { "id": "b", "text": "La Caro-Kann", "is_correct": false },
+            { "id": "c", "text": "La defensa siciliana", "is_correct": true },
+            { "id": "d", "text": "La defensa escandinava", "is_correct": false }
+          ],
+          "explanation": "La Caro-Kann juega 1...c6, mientras que la siciliana elige 1...c5."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué defensa responde a 1.e4 con 1...e6, normalmente seguida de 2.d4 d5?",
+          "options": [
+            { "id": "a", "text": "La defensa francesa", "is_correct": true },
+            { "id": "b", "text": "La defensa Pirc", "is_correct": false },
+            { "id": "c", "text": "La defensa holandesa", "is_correct": false },
+            { "id": "d", "text": "La defensa siciliana", "is_correct": false }
+          ],
+          "explanation": "La defensa francesa disputa el centro con d5 en la segunda jugada."
+        },
+        {
+          "id": "q5",
+          "question": "En el gambito de dama (1.d4 d5 2.c4), ¿qué peón ofrecen las blancas?",
+          "options": [
+            { "id": "a", "text": "El peón b", "is_correct": false },
+            { "id": "b", "text": "El peón c", "is_correct": true },
+            { "id": "c", "text": "El peón d", "is_correct": false },
+            { "id": "d", "text": "El peón e", "is_correct": false }
+          ],
+          "explanation": "Las blancas ceden el peón c para desviar el peón central negro de la columna d."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué apertura de la época romántica empieza con 1.e4 e5 2.f4, ofreciendo un peón por un desarrollo rápido?",
+          "options": [
+            { "id": "a", "text": "El gambito de dama", "is_correct": false },
+            { "id": "b", "text": "La partida vienesa", "is_correct": false },
+            { "id": "c", "text": "El gambito de rey", "is_correct": true },
+            { "id": "d", "text": "La partida escocesa", "is_correct": false }
+          ],
+          "explanation": "El gambito de rey fue el arma de ataque favorita del siglo XIX."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué jugada inicial abren las blancas la apertura inglesa?",
+          "options": [
+            { "id": "a", "text": "1.e4", "is_correct": false },
+            { "id": "b", "text": "1.d4", "is_correct": false },
+            { "id": "c", "text": "1.Cf3", "is_correct": false },
+            { "id": "d", "text": "1.c4", "is_correct": true }
+          ],
+          "explanation": "La apertura inglesa empieza con el peón c y suele derivar en estructuras de flanco."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué mate, el más rápido posible en el ajedrez, castiga a las blancas tras 1.f3 e5 2.g4 Dh4 mate?",
+          "options": [
+            { "id": "a", "text": "El mate del pastor", "is_correct": false },
+            { "id": "b", "text": "El mate del tonto", "is_correct": true },
+            { "id": "c", "text": "El mate del pasillo", "is_correct": false },
+            { "id": "d", "text": "El mate ahogado", "is_correct": false }
+          ],
+          "explanation": "El mate del tonto termina la partida en solo dos jugadas, el jaque mate más rápido que existe."
+        }
+      ]
+    },
+    {
+      "slug": "en-poker-trivia",
+      "title": "Poker Trivia: Hands, Rules and the World Series",
+      "description": "Eight questions on poker hand rankings, Texas Hold'em rules and the history of the World Series of Poker.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["poker", "trivia", "card games", "texas holdem", "wsop"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the strongest possible hand in Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "A straight flush", "is_correct": false },
+            { "id": "b", "text": "Four of a kind", "is_correct": false },
+            { "id": "c", "text": "A royal flush", "is_correct": true },
+            { "id": "d", "text": "A full house", "is_correct": false }
+          ],
+          "explanation": "A royal flush is a straight flush up to the ace and cannot be beaten."
+        },
+        {
+          "id": "q2",
+          "question": "In the standard poker hand rankings, which of these hands beats a flush?",
+          "options": [
+            { "id": "a", "text": "A straight", "is_correct": false },
+            { "id": "b", "text": "A full house", "is_correct": true },
+            { "id": "c", "text": "Three of a kind", "is_correct": false },
+            { "id": "d", "text": "Two pair", "is_correct": false }
+          ],
+          "explanation": "The full house, three of a kind plus a pair, ranks just above the flush."
+        },
+        {
+          "id": "q3",
+          "question": "How many face-down cards does each player receive in Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "Two", "is_correct": true },
+            { "id": "b", "text": "Three", "is_correct": false },
+            { "id": "c", "text": "Four", "is_correct": false },
+            { "id": "d", "text": "Five", "is_correct": false }
+          ],
+          "explanation": "Each player gets two hole cards; it is Omaha that deals four."
+        },
+        {
+          "id": "q4",
+          "question": "How many community cards are dealt face up on the table in Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Four", "is_correct": false },
+            { "id": "c", "text": "Five", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "Three on the flop, one on the turn and one on the river."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of the first three community cards, which are dealt at once?",
+          "options": [
+            { "id": "a", "text": "The turn", "is_correct": false },
+            { "id": "b", "text": "The flop", "is_correct": true },
+            { "id": "c", "text": "The river", "is_correct": false },
+            { "id": "d", "text": "The street", "is_correct": false }
+          ],
+          "explanation": "The flop is followed by the turn (the fourth card) and the river (the fifth)."
+        },
+        {
+          "id": "q6",
+          "question": "In which city has the World Series of Poker been held since its creation in 1970?",
+          "options": [
+            { "id": "a", "text": "Atlantic City", "is_correct": false },
+            { "id": "b", "text": "Monte Carlo", "is_correct": false },
+            { "id": "c", "text": "Reno", "is_correct": false },
+            { "id": "d", "text": "Las Vegas", "is_correct": true }
+          ],
+          "explanation": "The WSOP was born at Binion's Horseshoe casino in Las Vegas."
+        },
+        {
+          "id": "q7",
+          "question": "Which amateur player won the 2003 WSOP Main Event after qualifying online, sparking the poker boom?",
+          "options": [
+            { "id": "a", "text": "Chris Moneymaker", "is_correct": true },
+            { "id": "b", "text": "Phil Hellmuth", "is_correct": false },
+            { "id": "c", "text": "Doyle Brunson", "is_correct": false },
+            { "id": "d", "text": "Johnny Chan", "is_correct": false }
+          ],
+          "explanation": "The 'Moneymaker effect' convinced millions of players that anyone could win the Main Event."
+        },
+        {
+          "id": "q8",
+          "question": "In poker, what is the 'kicker'?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The card that breaks ties between identical hands",
+              "is_correct": true
+            },
+            { "id": "b", "text": "The first community card dealt", "is_correct": false },
+            { "id": "c", "text": "The card discarded before the flop", "is_correct": false },
+            { "id": "d", "text": "The player who opens the betting", "is_correct": false }
+          ],
+          "explanation": "When two players hold the same pair, the higher kicker decides the pot."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-poker",
+      "title": "Trivia de póker: manos, reglas y torneos",
+      "description": "Ocho preguntas sobre las manos de póker, las reglas del Texas Hold'em y la historia de las Series Mundiales de Póker.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["póker", "trivia", "juegos de cartas", "texas holdem", "wsop"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la mano más fuerte posible en el Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "Una escalera de color", "is_correct": false },
+            { "id": "b", "text": "Un póker", "is_correct": false },
+            { "id": "c", "text": "Una escalera real", "is_correct": true },
+            { "id": "d", "text": "Un full", "is_correct": false }
+          ],
+          "explanation": "La escalera real es una escalera de color hasta el as y no puede ser vencida."
+        },
+        {
+          "id": "q2",
+          "question": "En la clasificación estándar de manos de póker, ¿cuál de estas manos le gana a un color?",
+          "options": [
+            { "id": "a", "text": "Una escalera", "is_correct": false },
+            { "id": "b", "text": "Un full", "is_correct": true },
+            { "id": "c", "text": "Un trío", "is_correct": false },
+            { "id": "d", "text": "Una doble pareja", "is_correct": false }
+          ],
+          "explanation": "El full, un trío más una pareja, está justo por encima del color."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántas cartas boca abajo recibe cada jugador en el Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "Dos", "is_correct": true },
+            { "id": "b", "text": "Tres", "is_correct": false },
+            { "id": "c", "text": "Cuatro", "is_correct": false },
+            { "id": "d", "text": "Cinco", "is_correct": false }
+          ],
+          "explanation": "Cada jugador recibe dos cartas propias; en el Omaha se reparten cuatro."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuántas cartas comunitarias se ponen boca arriba sobre la mesa en el Texas Hold'em?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "Tres en el flop, una en el turn y una en el river."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llaman las tres primeras cartas comunitarias, que se reparten a la vez?",
+          "options": [
+            { "id": "a", "text": "El turn", "is_correct": false },
+            { "id": "b", "text": "El flop", "is_correct": true },
+            { "id": "c", "text": "El river", "is_correct": false },
+            { "id": "d", "text": "La calle", "is_correct": false }
+          ],
+          "explanation": "Al flop le siguen el turn (la cuarta carta) y el river (la quinta)."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué ciudad se juegan las Series Mundiales de Póker desde su creación en 1970?",
+          "options": [
+            { "id": "a", "text": "Atlantic City", "is_correct": false },
+            { "id": "b", "text": "Montecarlo", "is_correct": false },
+            { "id": "c", "text": "Reno", "is_correct": false },
+            { "id": "d", "text": "Las Vegas", "is_correct": true }
+          ],
+          "explanation": "Las WSOP nacieron en el casino Binion's Horseshoe de Las Vegas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué jugador amateur ganó el Main Event de las WSOP de 2003 tras clasificarse en línea y desatar el boom del póker?",
+          "options": [
+            { "id": "a", "text": "Chris Moneymaker", "is_correct": true },
+            { "id": "b", "text": "Phil Hellmuth", "is_correct": false },
+            { "id": "c", "text": "Doyle Brunson", "is_correct": false },
+            { "id": "d", "text": "Johnny Chan", "is_correct": false }
+          ],
+          "explanation": "El 'efecto Moneymaker' convenció a millones de jugadores de que cualquiera podía ganar el Main Event."
+        },
+        {
+          "id": "q8",
+          "question": "En el póker, ¿qué es el 'kicker'?",
+          "options": [
+            { "id": "a", "text": "La carta que desempata entre manos iguales", "is_correct": true },
+            {
+              "id": "b",
+              "text": "La primera carta comunitaria que se reparte",
+              "is_correct": false
+            },
+            { "id": "c", "text": "La carta que se descarta antes del flop", "is_correct": false },
+            { "id": "d", "text": "El jugador que abre las apuestas", "is_correct": false }
+          ],
+          "explanation": "Cuando dos jugadores tienen la misma pareja, el kicker más alto decide el bote."
+        }
+      ]
+    },
+    {
+      "slug": "en-board-games-trivia",
+      "title": "Board Games Trivia: Classics, Creators and Curiosities",
+      "description": "Eight questions on the great classics of the board: Catan, Monopoly, Risk, Cluedo and the designers behind them.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["board games", "trivia", "classics", "catan", "monopoly"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who designed The Settlers of Catan, the 1995 game that launched the modern board game boom?",
+          "options": [
+            { "id": "a", "text": "Reiner Knizia", "is_correct": false },
+            { "id": "b", "text": "Klaus Teuber", "is_correct": true },
+            { "id": "c", "text": "Uwe Rosenberg", "is_correct": false },
+            { "id": "d", "text": "Alan R. Moon", "is_correct": false }
+          ],
+          "explanation": "Klaus Teuber published Die Siedler von Catan in Germany in 1995."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Parker Brothers first publish Monopoly?",
+          "options": [
+            { "id": "a", "text": "1925", "is_correct": false },
+            { "id": "b", "text": "1935", "is_correct": true },
+            { "id": "c", "text": "1945", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": false }
+          ],
+          "explanation": "Parker Brothers bought the game from Charles Darrow and published it in 1935."
+        },
+        {
+          "id": "q3",
+          "question": "Who patented The Landlord's Game in 1904, the forerunner of Monopoly?",
+          "options": [
+            { "id": "a", "text": "Charles Darrow", "is_correct": false },
+            { "id": "b", "text": "Milton Bradley", "is_correct": false },
+            { "id": "c", "text": "Lizzie Magie", "is_correct": true },
+            { "id": "d", "text": "Eleanor Abbott", "is_correct": false }
+          ],
+          "explanation": "Elizabeth 'Lizzie' Magie designed it to show the dangers of land monopolies."
+        },
+        {
+          "id": "q4",
+          "question": "In which ancient civilization was senet, one of the oldest known board games, played?",
+          "options": [
+            { "id": "a", "text": "Ancient Rome", "is_correct": false },
+            { "id": "b", "text": "Ancient Egypt", "is_correct": true },
+            { "id": "c", "text": "Ancient China", "is_correct": false },
+            { "id": "d", "text": "Ancient Greece", "is_correct": false }
+          ],
+          "explanation": "Senet boards more than 5,000 years old have been found in Egyptian tombs."
+        },
+        {
+          "id": "q5",
+          "question": "Which French filmmaker created Risk (La Conquête du Monde) in 1957?",
+          "options": [
+            { "id": "a", "text": "Albert Lamorisse", "is_correct": true },
+            { "id": "b", "text": "François Truffaut", "is_correct": false },
+            { "id": "c", "text": "René Clair", "is_correct": false },
+            { "id": "d", "text": "Jean Renoir", "is_correct": false }
+          ],
+          "explanation": "Lamorisse, director of The Red Balloon, invented the world-conquest game."
+        },
+        {
+          "id": "q6",
+          "question": "Who designed Ticket to Ride, the train-route game published in 2004?",
+          "options": [
+            { "id": "a", "text": "Klaus Teuber", "is_correct": false },
+            { "id": "b", "text": "Reiner Knizia", "is_correct": false },
+            { "id": "c", "text": "Alan R. Moon", "is_correct": true },
+            { "id": "d", "text": "Antoine Bauza", "is_correct": false }
+          ],
+          "explanation": "Alan R. Moon's Ticket to Ride won the 2004 Spiel des Jahres."
+        },
+        {
+          "id": "q7",
+          "question": "Colonel Mustard and Professor Plum are suspects in which classic murder-mystery board game?",
+          "options": [
+            { "id": "a", "text": "Scotland Yard", "is_correct": false },
+            { "id": "b", "text": "Clue (Cluedo)", "is_correct": true },
+            { "id": "c", "text": "Stratego", "is_correct": false },
+            { "id": "d", "text": "Mastermind", "is_correct": false }
+          ],
+          "explanation": "Anthony E. Pratt created Cluedo in the 1940s; it was published in the US as Clue."
+        },
+        {
+          "id": "q8",
+          "question": "How many pieces does each player start with in a game of backgammon?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "15", "is_correct": true },
+            { "id": "c", "text": "16", "is_correct": false },
+            { "id": "d", "text": "24", "is_correct": false }
+          ],
+          "explanation": "Each player moves 15 checkers around the 24 points of the board."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-juegos-de-mesa",
+      "title": "Trivia de juegos de mesa: clásicos, creadores y curiosidades",
+      "description": "Ocho preguntas sobre los grandes clásicos del tablero: Catan, Monopoly, Risk, Cluedo y los diseñadores detrás de ellos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["juegos de mesa", "trivia", "clásicos", "catan", "monopoly"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién diseñó Los colonos de Catán, el juego de 1995 que lanzó el auge moderno de los juegos de mesa?",
+          "options": [
+            { "id": "a", "text": "Reiner Knizia", "is_correct": false },
+            { "id": "b", "text": "Klaus Teuber", "is_correct": true },
+            { "id": "c", "text": "Uwe Rosenberg", "is_correct": false },
+            { "id": "d", "text": "Alan R. Moon", "is_correct": false }
+          ],
+          "explanation": "Klaus Teuber publicó Die Siedler von Catan en Alemania en 1995."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año publicó Parker Brothers el Monopoly por primera vez?",
+          "options": [
+            { "id": "a", "text": "1925", "is_correct": false },
+            { "id": "b", "text": "1935", "is_correct": true },
+            { "id": "c", "text": "1945", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": false }
+          ],
+          "explanation": "Parker Brothers le compró el juego a Charles Darrow y lo publicó en 1935."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién patentó The Landlord's Game en 1904, el antecesor del Monopoly?",
+          "options": [
+            { "id": "a", "text": "Charles Darrow", "is_correct": false },
+            { "id": "b", "text": "Milton Bradley", "is_correct": false },
+            { "id": "c", "text": "Lizzie Magie", "is_correct": true },
+            { "id": "d", "text": "Eleanor Abbott", "is_correct": false }
+          ],
+          "explanation": "Elizabeth 'Lizzie' Magie lo diseñó para mostrar los peligros de los monopolios de la tierra."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué civilización antigua se jugaba al senet, uno de los juegos de mesa más antiguos que se conocen?",
+          "options": [
+            { "id": "a", "text": "La Roma antigua", "is_correct": false },
+            { "id": "b", "text": "El antiguo Egipto", "is_correct": true },
+            { "id": "c", "text": "La China antigua", "is_correct": false },
+            { "id": "d", "text": "La Grecia antigua", "is_correct": false }
+          ],
+          "explanation": "Se han encontrado tableros de senet de más de 5.000 años en tumbas egipcias."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué cineasta francés creó el Risk (La Conquête du Monde) en 1957?",
+          "options": [
+            { "id": "a", "text": "Albert Lamorisse", "is_correct": true },
+            { "id": "b", "text": "François Truffaut", "is_correct": false },
+            { "id": "c", "text": "René Clair", "is_correct": false },
+            { "id": "d", "text": "Jean Renoir", "is_correct": false }
+          ],
+          "explanation": "Lamorisse, director de El globo rojo, inventó el juego de la conquista del mundo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién diseñó Ticket to Ride (Aventureros al tren), el juego de rutas ferroviarias publicado en 2004?",
+          "options": [
+            { "id": "a", "text": "Klaus Teuber", "is_correct": false },
+            { "id": "b", "text": "Reiner Knizia", "is_correct": false },
+            { "id": "c", "text": "Alan R. Moon", "is_correct": true },
+            { "id": "d", "text": "Antoine Bauza", "is_correct": false }
+          ],
+          "explanation": "El Ticket to Ride de Alan R. Moon ganó el Spiel des Jahres de 2004."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué clásico juego de mesa de misterio aparecen como sospechosos el coronel Mustard y el profesor Plum?",
+          "options": [
+            { "id": "a", "text": "Scotland Yard", "is_correct": false },
+            { "id": "b", "text": "Clue (Cluedo)", "is_correct": true },
+            { "id": "c", "text": "Stratego", "is_correct": false },
+            { "id": "d", "text": "Mastermind", "is_correct": false }
+          ],
+          "explanation": "Anthony E. Pratt creó el Cluedo en los años cuarenta; en Estados Unidos se publicó como Clue."
+        },
+        {
+          "id": "q8",
+          "question": "¿Con cuántas fichas empieza cada jugador una partida de backgammon?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "15", "is_correct": true },
+            { "id": "c", "text": "16", "is_correct": false },
+            { "id": "d", "text": "24", "is_correct": false }
+          ],
+          "explanation": "Cada jugador mueve 15 fichas por las 24 puntas del tablero."
+        }
+      ]
+    }
+  ]
+}
