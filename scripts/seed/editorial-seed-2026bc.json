@@ -837,7 +837,11 @@
           "options": [
             { "id": "a", "text": "That comets are made of rock", "is_correct": false },
             { "id": "b", "text": "That the Moon has no gravity", "is_correct": false },
-            { "id": "c", "text": "That celestial positions influence personality and human events", "is_correct": true },
+            {
+              "id": "c",
+              "text": "That celestial positions influence personality and human events",
+              "is_correct": true
+            },
             { "id": "d", "text": "That the Sun orbits the Earth", "is_correct": false }
           ],
           "explanation": "Astrology holds that the positions of the stars at birth shape personality and destiny."
@@ -902,7 +906,11 @@
           "question": "Do today's astrological sign dates still match the constellations of the same name?",
           "options": [
             { "id": "a", "text": "Yes, exactly", "is_correct": false },
-            { "id": "b", "text": "No, precession shifted them by roughly one sign", "is_correct": true },
+            {
+              "id": "b",
+              "text": "No, precession shifted them by roughly one sign",
+              "is_correct": true
+            },
             { "id": "c", "text": "Yes, but only at the equinoxes", "is_correct": false },
             { "id": "d", "text": "No, the names never matched", "is_correct": false }
           ],
@@ -938,7 +946,11 @@
           "options": [
             { "id": "a", "text": "Que los cometas están hechos de roca", "is_correct": false },
             { "id": "b", "text": "Que la Luna no tiene gravedad", "is_correct": false },
-            { "id": "c", "text": "Que la posición de los astros influye en la personalidad y los hechos humanos", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Que la posición de los astros influye en la personalidad y los hechos humanos",
+              "is_correct": true
+            },
             { "id": "d", "text": "Que el Sol gira alrededor de la Tierra", "is_correct": false }
           ],
           "explanation": "La astrología sostiene que la posición de los astros al nacer marca la personalidad y el destino."
@@ -1003,7 +1015,11 @@
           "question": "¿Coinciden hoy las fechas de los signos con las constelaciones del mismo nombre?",
           "options": [
             { "id": "a", "text": "Sí, exactamente", "is_correct": false },
-            { "id": "b", "text": "No, la precesión las desplazó cerca de un signo", "is_correct": true },
+            {
+              "id": "b",
+              "text": "No, la precesión las desplazó cerca de un signo",
+              "is_correct": true
+            },
             { "id": "c", "text": "Sí, pero solo en los equinoccios", "is_correct": false },
             { "id": "d", "text": "No, los nombres nunca coincidieron", "is_correct": false }
           ],

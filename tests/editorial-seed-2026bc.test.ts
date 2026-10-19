@@ -32,7 +32,11 @@ interface SeedQuiz {
 // The five astrology topics as (en slug, es slug, category) pairs.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-zodiac-signs-trivia', 'es-trivia-signos-del-zodiaco', 'lifestyle'],
-  ['en-zodiac-elements-and-rulers-trivia', 'es-trivia-elementos-y-regentes-del-zodiaco', 'lifestyle'],
+  [
+    'en-zodiac-elements-and-rulers-trivia',
+    'es-trivia-elementos-y-regentes-del-zodiaco',
+    'lifestyle',
+  ],
   ['en-zodiac-mythology-trivia', 'es-trivia-mitologia-del-zodiaco', 'lifestyle'],
   ['en-chinese-zodiac-trivia', 'es-trivia-zodiaco-chino', 'lifestyle'],
   ['en-astrology-vs-astronomy-trivia', 'es-trivia-astrologia-vs-astronomia', 'lifestyle'],
