@@ -64,6 +64,7 @@ const EDITORIAL_PAGES: Array<{
 }> = [
   { path: '', priority: 1.0, changeFrequency: 'daily' },
   { path: '/quiz', priority: 0.9, changeFrequency: 'daily' },
+  { path: '/novedades', priority: 0.6, changeFrequency: 'daily' },
   { path: '/leaderboard', priority: 0.4, changeFrequency: 'daily' },
   { path: '/about', priority: 0.4, changeFrequency: 'monthly' },
   { path: '/faq', priority: 0.4, changeFrequency: 'monthly' },
