@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { formatCompactNumber, formatNumber, formatRelativeDate } from '@/lib/utils/format';
 
 describe('formatNumber', () => {
@@ -31,7 +31,17 @@ describe('formatCompactNumber', () => {
 });
 
 describe('formatRelativeDate', () => {
-  const secondsAgo = (s: number) => new Date(Date.now() - s * 1000);
+  // Freeze the clock so boundary assertions can't race a real second tick.
+  const NOW = new Date('2026-10-19T12:00:00.000Z');
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(NOW);
+  });
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  const secondsAgo = (s: number) => new Date(NOW.getTime() - s * 1000);
 
   it('en: just now for < 60s', () => {
     expect(formatRelativeDate(secondsAgo(0), 'en')).toBe('just now');
@@ -63,7 +73,7 @@ describe('formatRelativeDate', () => {
   });
 
   it('en: future date falls back to absolute date', () => {
-    const future = new Date(Date.now() + 3600_000);
+    const future = new Date(NOW.getTime() + 3600_000);
     expect(formatRelativeDate(future, 'en')).toBe(
       future.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     );
@@ -83,7 +93,7 @@ describe('formatRelativeDate', () => {
   });
 
   it('es: future date falls back to absolute date', () => {
-    const future = new Date(Date.now() + 3600_000);
+    const future = new Date(NOW.getTime() + 3600_000);
     expect(formatRelativeDate(future, 'es')).toBe(
       future.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' })
     );
