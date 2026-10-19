@@ -109,12 +109,9 @@ describe('parseQuestions', () => {
     expect(parseQuestions(questions)).toEqual(questions);
   });
 
-  it.each([null, {}, 'not-json', 42, undefined])(
-    'returns [] for non-array input: %s',
-    (input) => {
-      expect(parseQuestions(input as QuizRow['questions'])).toEqual([]);
-    }
-  );
+  it.each([null, {}, 'not-json', 42, undefined])('returns [] for non-array input: %s', (input) => {
+    expect(parseQuestions(input as QuizRow['questions'])).toEqual([]);
+  });
 });
 
 describe('parseResults', () => {
@@ -157,9 +154,7 @@ describe('normalizeCategory', () => {
 });
 
 describe('normalizeQuiz', () => {
-  const categories = new Map<string, Category>([
-    ['cat-1', normalizeCategory(categoryRow())],
-  ]);
+  const categories = new Map<string, Category>([['cat-1', normalizeCategory(categoryRow())]]);
 
   it('resolves category via category_id and maps scalar fields', () => {
     const quiz = normalizeQuiz(quizRow(), categories, creator, false);
