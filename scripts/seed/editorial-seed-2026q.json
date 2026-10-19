@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial batch 2026q (CONT-26): trivia pairs for iconic TV series with constant search demand and zero catalogue coverage — Breaking Bad, Money Heist / La Casa de Papel, The Sopranos, Peaky Blinders and The Big Bang Theory. Every answer is a stable, checkable fact from finished runs. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-breaking-bad-trivia",
+      "title": "Breaking Bad Trivia Challenge",
+      "description": "Five seasons in Albuquerque turned a chemistry teacher into Heisenberg. From the RV in the desert to Los Pollos Hermanos — how much do you remember?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["breaking bad", "tv-shows", "drama", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is Walter White's job when the series begins?",
+          "options": [
+            { "id": "a", "text": "High school chemistry teacher", "is_correct": true },
+            { "id": "b", "text": "Pharmacist", "is_correct": false },
+            { "id": "c", "text": "DEA agent", "is_correct": false },
+            { "id": "d", "text": "Car wash owner", "is_correct": false }
+          ],
+          "explanation": "Walt teaches chemistry at an Albuquerque high school and works a second job at a car wash."
+        },
+        {
+          "id": "q2",
+          "question": "What alias does Walter White adopt in the drug world?",
+          "options": [
+            { "id": "a", "text": "Scarface", "is_correct": false },
+            { "id": "b", "text": "Heisenberg", "is_correct": true },
+            { "id": "c", "text": "El Camino", "is_correct": false },
+            { "id": "d", "text": "Cap'n Cook", "is_correct": false }
+          ],
+          "explanation": "He takes the name from physicist Werner Heisenberg; Cap'n Cook is Jesse's early street name."
+        },
+        {
+          "id": "q3",
+          "question": "In which city does Breaking Bad take place?",
+          "options": [
+            { "id": "a", "text": "Phoenix", "is_correct": false },
+            { "id": "b", "text": "Las Vegas", "is_correct": false },
+            { "id": "c", "text": "Albuquerque", "is_correct": true },
+            { "id": "d", "text": "El Paso", "is_correct": false }
+          ],
+          "explanation": "The whole story plays out in Albuquerque, New Mexico."
+        },
+        {
+          "id": "q4",
+          "question": "Who plays Walter White?",
+          "options": [
+            { "id": "a", "text": "Bryan Cranston", "is_correct": true },
+            { "id": "b", "text": "Aaron Paul", "is_correct": false },
+            { "id": "c", "text": "Bob Odenkirk", "is_correct": false },
+            { "id": "d", "text": "Giancarlo Esposito", "is_correct": false }
+          ],
+          "explanation": "Bryan Cranston won four Emmys for the role; Aaron Paul plays Jesse Pinkman."
+        },
+        {
+          "id": "q5",
+          "question": "What fast-food chain fronts Gus Fring's operation?",
+          "options": [
+            { "id": "a", "text": "Los Pollos Hermanos", "is_correct": true },
+            { "id": "b", "text": "El Pollo Loco", "is_correct": false },
+            { "id": "c", "text": "Pollos Gustavo", "is_correct": false },
+            { "id": "d", "text": "La Casa del Pollo", "is_correct": false }
+          ],
+          "explanation": "Los Pollos Hermanos is Gus's cover — its farm and restaurant hide his distribution network."
+        },
+        {
+          "id": "q6",
+          "question": "What color is Walt and Jesse's signature product?",
+          "options": [
+            { "id": "a", "text": "Blue", "is_correct": true },
+            { "id": "b", "text": "Green", "is_correct": false },
+            { "id": "c", "text": "Pink", "is_correct": false },
+            { "id": "d", "text": "White", "is_correct": false }
+          ],
+          "explanation": "The purity gives it a blue tint that makes it famous as 'blue sky'."
+        },
+        {
+          "id": "q7",
+          "question": "What does Hank Schrader, Walt's brother-in-law, do for a living?",
+          "options": [
+            { "id": "a", "text": "FBI profiler", "is_correct": false },
+            { "id": "b", "text": "DEA agent", "is_correct": true },
+            { "id": "c", "text": "District attorney", "is_correct": false },
+            { "id": "d", "text": "Private investigator", "is_correct": false }
+          ],
+          "explanation": "Hank is a DEA agent hunting Heisenberg without knowing he is his own brother-in-law."
+        },
+        {
+          "id": "q8",
+          "question": "What vehicle do Walt and Jesse use as a mobile lab in the first seasons?",
+          "options": [
+            { "id": "a", "text": "A school bus", "is_correct": false },
+            { "id": "b", "text": "A food truck", "is_correct": false },
+            { "id": "c", "text": "An ambulance", "is_correct": false },
+            { "id": "d", "text": "An RV", "is_correct": true }
+          ],
+          "explanation": "A beat-up recreational vehicle nicknamed 'the Krystal Ship' — until it is destroyed."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-breaking-bad",
+      "title": "Trivia de Breaking Bad",
+      "description": "De profesor de química a capo: cinco temporadas en Albuquerque que cambiaron la televisión. ¿Cuánto recuerdas de Heisenberg y su imperio?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["breaking bad", "series", "drama", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la profesión de Walter White al inicio de la serie?",
+          "options": [
+            { "id": "a", "text": "Profesor de química", "is_correct": true },
+            { "id": "b", "text": "Farmacéutico", "is_correct": false },
+            { "id": "c", "text": "Agente de la DEA", "is_correct": false },
+            { "id": "d", "text": "Mecánico", "is_correct": false }
+          ],
+          "explanation": "Walt enseña química en una escuela secundaria de Albuquerque y tiene un segundo empleo en un lavado de autos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué alias usa Walter en el mundo del narcotráfico?",
+          "options": [
+            { "id": "a", "text": "Scarface", "is_correct": false },
+            { "id": "b", "text": "El Camino", "is_correct": false },
+            { "id": "c", "text": "Heisenberg", "is_correct": true },
+            { "id": "d", "text": "Gus", "is_correct": false }
+          ],
+          "explanation": "Toma el nombre del físico Werner Heisenberg; El Camino es el título de la película epílogo."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué ciudad ocurre la historia?",
+          "options": [
+            { "id": "a", "text": "Phoenix", "is_correct": false },
+            { "id": "b", "text": "Albuquerque", "is_correct": true },
+            { "id": "c", "text": "Tucson", "is_correct": false },
+            { "id": "d", "text": "Santa Fe", "is_correct": false }
+          ],
+          "explanation": "Toda la serie se desarrolla en Albuquerque, Nuevo México."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién interpreta a Walter White?",
+          "options": [
+            { "id": "a", "text": "Aaron Paul", "is_correct": false },
+            { "id": "b", "text": "Bryan Cranston", "is_correct": true },
+            { "id": "c", "text": "Bob Odenkirk", "is_correct": false },
+            { "id": "d", "text": "Giancarlo Esposito", "is_correct": false }
+          ],
+          "explanation": "Bryan Cranston ganó cuatro premios Emmy por el papel; Aaron Paul interpreta a Jesse Pinkman."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama la cadena de comida rápida que usa Gus Fring como fachada?",
+          "options": [
+            { "id": "a", "text": "Los Pollos Hermanos", "is_correct": true },
+            { "id": "b", "text": "El Pollo Real", "is_correct": false },
+            { "id": "c", "text": "Pollos Gustavo", "is_correct": false },
+            { "id": "d", "text": "La Casa del Pollo", "is_correct": false }
+          ],
+          "explanation": "Los Pollos Hermanos es la tapadera de Gus y el centro de su red de distribución."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué color es el producto característico de Walt y Jesse?",
+          "options": [
+            { "id": "a", "text": "Verde", "is_correct": false },
+            { "id": "b", "text": "Rosa", "is_correct": false },
+            { "id": "c", "text": "Blanco", "is_correct": false },
+            { "id": "d", "text": "Azul", "is_correct": true }
+          ],
+          "explanation": "Su pureza le da un tinte azul que lo hace famoso como 'blue sky'."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué hace Hank Schrader, el cuñado de Walt?",
+          "options": [
+            { "id": "a", "text": "Es detective de policía", "is_correct": false },
+            { "id": "b", "text": "Es agente de la DEA", "is_correct": true },
+            { "id": "c", "text": "Es fiscal de distrito", "is_correct": false },
+            { "id": "d", "text": "Es investigador privado", "is_correct": false }
+          ],
+          "explanation": "Hank es agente de la DEA y persigue a Heisenberg sin saber que es su propio cuñado."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué vehículo cocinan Walt y Jesse al principio?",
+          "options": [
+            { "id": "a", "text": "Una casa rodante", "is_correct": true },
+            { "id": "b", "text": "Un autobús escolar", "is_correct": false },
+            { "id": "c", "text": "Un camión de comida", "is_correct": false },
+            { "id": "d", "text": "Una ambulancia", "is_correct": false }
+          ],
+          "explanation": "Una casa rodante vieja apodada 'la Krystal Ship', que termina destruida."
+        }
+      ]
+    },
+    {
+      "slug": "en-money-heist-trivia",
+      "title": "Money Heist Trivia Challenge",
+      "description": "La Casa de Papel turned a Spanish heist into a global phenomenon. The Professor, red jumpsuits and Dalí masks — test your memory of the gang.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["money heist", "la casa de papel", "tv-shows", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the original Spanish title of Money Heist?",
+          "options": [
+            { "id": "a", "text": "La Casa de Papel", "is_correct": true },
+            { "id": "b", "text": "El Robo del Siglo", "is_correct": false },
+            { "id": "c", "text": "La Fábrica de Dinero", "is_correct": false },
+            { "id": "d", "text": "Casa de Moneda", "is_correct": false }
+          ],
+          "explanation": "It premiered in Spain as La Casa de Papel in 2017 before Netflix made it a worldwide hit."
+        },
+        {
+          "id": "q2",
+          "question": "The robbers hide their identities behind aliases named after…",
+          "options": [
+            { "id": "a", "text": "Animals", "is_correct": false },
+            { "id": "b", "text": "Planets", "is_correct": false },
+            { "id": "c", "text": "Cities", "is_correct": true },
+            { "id": "d", "text": "Painters", "is_correct": false }
+          ],
+          "explanation": "Tokyo, Berlin, Denver, Moscow, Rio, Nairobi, Helsinki, Oslo — city names, so nobody knows each other."
+        },
+        {
+          "id": "q3",
+          "question": "Which member of the gang narrates the series?",
+          "options": [
+            { "id": "a", "text": "Tokyo", "is_correct": true },
+            { "id": "b", "text": "Nairobi", "is_correct": false },
+            { "id": "c", "text": "Lisbon", "is_correct": false },
+            { "id": "d", "text": "Denver", "is_correct": false }
+          ],
+          "explanation": "Tokyo, played by Úrsula Corberó, is the voice telling the story."
+        },
+        {
+          "id": "q4",
+          "question": "What is the target of the gang's first heist?",
+          "options": [
+            { "id": "a", "text": "The Bank of Spain", "is_correct": false },
+            { "id": "b", "text": "The Royal Mint of Spain", "is_correct": true },
+            { "id": "c", "text": "The Prado Museum", "is_correct": false },
+            { "id": "d", "text": "The Royal Palace", "is_correct": false }
+          ],
+          "explanation": "The first job seizes the Fábrica Nacional de Moneda y Timbre to print their own money; the Bank of Spain is the second heist."
+        },
+        {
+          "id": "q5",
+          "question": "Whose face appears on the gang's masks?",
+          "options": [
+            { "id": "a", "text": "Pablo Picasso", "is_correct": false },
+            { "id": "b", "text": "Salvador Dalí", "is_correct": true },
+            { "id": "c", "text": "Francisco Goya", "is_correct": false },
+            { "id": "d", "text": "Diego Velázquez", "is_correct": false }
+          ],
+          "explanation": "Dalí masks plus red jumpsuits became the show's signature image."
+        },
+        {
+          "id": "q6",
+          "question": "Which song becomes the gang's anthem?",
+          "options": [
+            { "id": "a", "text": "Volare", "is_correct": false },
+            { "id": "b", "text": "La Bamba", "is_correct": false },
+            { "id": "c", "text": "Bella Ciao", "is_correct": true },
+            { "id": "d", "text": "Viva la Vida", "is_correct": false }
+          ],
+          "explanation": "The Italian protest song Bella Ciao is sung by the Professor and Berlin."
+        },
+        {
+          "id": "q7",
+          "question": "Who plays the Professor?",
+          "options": [
+            { "id": "a", "text": "Pedro Alonso", "is_correct": false },
+            { "id": "b", "text": "Álvaro Morte", "is_correct": true },
+            { "id": "c", "text": "Miguel Herrán", "is_correct": false },
+            { "id": "d", "text": "Jaime Lorente", "is_correct": false }
+          ],
+          "explanation": "Álvaro Morte plays Sergio Marquina, the Professor; Pedro Alonso is Berlin."
+        },
+        {
+          "id": "q8",
+          "question": "Which police inspector ends up joining the gang under a city alias?",
+          "options": [
+            { "id": "a", "text": "Alicia Sierra", "is_correct": false },
+            { "id": "b", "text": "Raquel Murillo", "is_correct": true },
+            { "id": "c", "text": "Alison Parker", "is_correct": false },
+            { "id": "d", "text": "Mónica Gaztambide", "is_correct": false }
+          ],
+          "explanation": "Inspector Raquel Murillo leaves the force and joins as 'Lisbon'; Alicia Sierra is a later antagonist inspector."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-la-casa-de-papel",
+      "title": "Trivia de La Casa de Papel",
+      "description": "El Profesor, los monos rojos y las máscaras de Dalí: el atraco español que conquistó el mundo. ¿Cuánto recuerdas de la serie?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["la casa de papel", "money heist", "series", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo se tituló la serie en inglés?",
+          "options": [
+            { "id": "a", "text": "Money Heist", "is_correct": true },
+            { "id": "b", "text": "Paper House", "is_correct": false },
+            { "id": "c", "text": "The Great Robbery", "is_correct": false },
+            { "id": "d", "text": "House of Cash", "is_correct": false }
+          ],
+          "explanation": "Netflix la estrenó internacionalmente como Money Heist."
+        },
+        {
+          "id": "q2",
+          "question": "Los miembros de la banda usan alias tomados de…",
+          "options": [
+            { "id": "a", "text": "Animales", "is_correct": false },
+            { "id": "b", "text": "Ciudades", "is_correct": true },
+            { "id": "c", "text": "Pintores", "is_correct": false },
+            { "id": "d", "text": "Planetas", "is_correct": false }
+          ],
+          "explanation": "Tokio, Berlín, Denver, Moscú, Río, Nairobi, Helsinki, Oslo: nombres de ciudades para que nadie se conozca."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién narra la serie?",
+          "options": [
+            { "id": "a", "text": "Nairobi", "is_correct": false },
+            { "id": "b", "text": "Tokio", "is_correct": true },
+            { "id": "c", "text": "Lisboa", "is_correct": false },
+            { "id": "d", "text": "Mónica", "is_correct": false }
+          ],
+          "explanation": "Tokio, interpretada por Úrsula Corberó, es la voz que cuenta la historia."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el objetivo del primer atraco de la banda?",
+          "options": [
+            { "id": "a", "text": "El Banco de España", "is_correct": false },
+            { "id": "b", "text": "El Museo del Prado", "is_correct": false },
+            { "id": "c", "text": "La Fábrica Nacional de Moneda y Timbre", "is_correct": true },
+            { "id": "d", "text": "El Palacio Real", "is_correct": false }
+          ],
+          "explanation": "En el primer golpe ocupan la Fábrica de Moneda y Timbre para imprimir su propio dinero; el Banco de España es el segundo."
+        },
+        {
+          "id": "q5",
+          "question": "¿De quién es la cara de las máscaras de la banda?",
+          "options": [
+            { "id": "a", "text": "Pablo Picasso", "is_correct": false },
+            { "id": "b", "text": "Francisco de Goya", "is_correct": false },
+            { "id": "c", "text": "Salvador Dalí", "is_correct": true },
+            { "id": "d", "text": "Joan Miró", "is_correct": false }
+          ],
+          "explanation": "La máscara de Dalí y el mono rojo se volvieron la imagen emblemática de la serie."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué canción se convierte en el himno de la banda?",
+          "options": [
+            { "id": "a", "text": "Volare", "is_correct": false },
+            { "id": "b", "text": "La Bamba", "is_correct": false },
+            { "id": "c", "text": "Viva la Vida", "is_correct": false },
+            { "id": "d", "text": "Bella Ciao", "is_correct": true }
+          ],
+          "explanation": "Bella Ciao, el canto de protesta italiano, la cantan el Profesor y Berlín."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién interpreta al Profesor?",
+          "options": [
+            { "id": "a", "text": "Álvaro Morte", "is_correct": true },
+            { "id": "b", "text": "Pedro Alonso", "is_correct": false },
+            { "id": "c", "text": "Miguel Herrán", "is_correct": false },
+            { "id": "d", "text": "Paco Tous", "is_correct": false }
+          ],
+          "explanation": "Álvaro Morte es Sergio Marquina, el Profesor; Pedro Alonso interpreta a Berlín."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué parentesco une a Berlín con el Profesor?",
+          "options": [
+            { "id": "a", "text": "Es su padre", "is_correct": false },
+            { "id": "b", "text": "Es su hijo", "is_correct": false },
+            { "id": "c", "text": "Es su hermano", "is_correct": true },
+            { "id": "d", "text": "No son familia", "is_correct": false }
+          ],
+          "explanation": "Andrés de Fonollosa, 'Berlín', es el hermano mayor del Profesor."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-sopranos-trivia",
+      "title": "The Sopranos Trivia Challenge",
+      "description": "A New Jersey mob boss in therapy: six seasons that changed television forever. How well do you know Tony Soprano and his two families?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["the sopranos", "tv-shows", "drama", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who plays Tony Soprano?",
+          "options": [
+            { "id": "a", "text": "James Gandolfini", "is_correct": true },
+            { "id": "b", "text": "Edie Falco", "is_correct": false },
+            { "id": "c", "text": "Michael Imperioli", "is_correct": false },
+            { "id": "d", "text": "Tony Sirico", "is_correct": false }
+          ],
+          "explanation": "James Gandolfini won three Emmys as Tony; Edie Falco plays his wife Carmela."
+        },
+        {
+          "id": "q2",
+          "question": "In which U.S. state is the series set?",
+          "options": [
+            { "id": "a", "text": "New York", "is_correct": false },
+            { "id": "b", "text": "New Jersey", "is_correct": true },
+            { "id": "c", "text": "Connecticut", "is_correct": false },
+            { "id": "d", "text": "Pennsylvania", "is_correct": false }
+          ],
+          "explanation": "The DiMeo family operates out of North Jersey — the opening credits drive through it."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of Tony's psychiatrist?",
+          "options": [
+            { "id": "a", "text": "Dr. Cusamano", "is_correct": false },
+            { "id": "b", "text": "Dr. Melfi", "is_correct": true },
+            { "id": "c", "text": "Dr. Kupferberg", "is_correct": false },
+            { "id": "d", "text": "Dr. Krakower", "is_correct": false }
+          ],
+          "explanation": "Dr. Jennifer Melfi treats Tony's panic attacks; Kupferberg is her own therapist."
+        },
+        {
+          "id": "q4",
+          "question": "Which network aired The Sopranos?",
+          "options": [
+            { "id": "a", "text": "Showtime", "is_correct": false },
+            { "id": "b", "text": "AMC", "is_correct": false },
+            { "id": "c", "text": "HBO", "is_correct": true },
+            { "id": "d", "text": "FX", "is_correct": false }
+          ],
+          "explanation": "HBO premiered it in 1999 — the show that defined prestige television."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of the strip club the crew uses as headquarters?",
+          "options": [
+            { "id": "a", "text": "Vesuvio", "is_correct": false },
+            { "id": "b", "text": "Bada Bing!", "is_correct": true },
+            { "id": "c", "text": "Satriale's", "is_correct": false },
+            { "id": "d", "text": "The Crazy Horse", "is_correct": false }
+          ],
+          "explanation": "Bada Bing! is the front; Vesuvio is Artie Bucco's restaurant and Satriale's is the pork store."
+        },
+        {
+          "id": "q6",
+          "question": "What animals settle in Tony's swimming pool in the first season?",
+          "options": [
+            { "id": "a", "text": "Geese", "is_correct": false },
+            { "id": "b", "text": "Ducks", "is_correct": true },
+            { "id": "c", "text": "Swans", "is_correct": false },
+            { "id": "d", "text": "Frogs", "is_correct": false }
+          ],
+          "explanation": "The ducks — and their departure — trigger Tony's first panic attack."
+        },
+        {
+          "id": "q7",
+          "question": "Who is Christopher Moltisanti to Tony?",
+          "options": [
+            { "id": "a", "text": "His brother", "is_correct": false },
+            { "id": "b", "text": "His son", "is_correct": false },
+            { "id": "c", "text": "His nephew", "is_correct": true },
+            { "id": "d", "text": "His bodyguard", "is_correct": false }
+          ],
+          "explanation": "Christopher is the nephew Tony is grooming as his successor — played by Michael Imperioli."
+        },
+        {
+          "id": "q8",
+          "question": "How does the series finale famously end?",
+          "options": [
+            { "id": "a", "text": "Tony is shot in court", "is_correct": false },
+            { "id": "b", "text": "A cut to black in a diner", "is_correct": true },
+            { "id": "c", "text": "Tony goes to prison", "is_correct": false },
+            { "id": "d", "text": "A funeral for the whole family", "is_correct": false }
+          ],
+          "explanation": "The 2007 finale cuts to black mid-scene at Holsten's diner — still debated today."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-los-soprano",
+      "title": "Trivia de Los Soprano",
+      "description": "Un capo de Nueva Jersey que va al psiquiatra: seis temporadas que cambiaron la televisión. ¿Qué tan bien conoces a Tony Soprano?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["los soprano", "the sopranos", "series", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién interpreta a Tony Soprano?",
+          "options": [
+            { "id": "a", "text": "Michael Imperioli", "is_correct": false },
+            { "id": "b", "text": "James Gandolfini", "is_correct": true },
+            { "id": "c", "text": "Tony Sirico", "is_correct": false },
+            { "id": "d", "text": "Steven Van Zandt", "is_correct": false }
+          ],
+          "explanation": "James Gandolfini ganó tres premios Emmy por el papel."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué estado de Estados Unidos ocurre la serie?",
+          "options": [
+            { "id": "a", "text": "Nueva York", "is_correct": false },
+            { "id": "b", "text": "Pensilvania", "is_correct": false },
+            { "id": "c", "text": "Nueva Jersey", "is_correct": true },
+            { "id": "d", "text": "Connecticut", "is_correct": false }
+          ],
+          "explanation": "La familia DiMeo opera en el norte de Nueva Jersey; los créditos iniciales recorren ese paisaje."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama la psiquiatra de Tony?",
+          "options": [
+            { "id": "a", "text": "Dra. Melfi", "is_correct": true },
+            { "id": "b", "text": "Dra. Cusamano", "is_correct": false },
+            { "id": "c", "text": "Dra. Kupferberg", "is_correct": false },
+            { "id": "d", "text": "Dra. Krakower", "is_correct": false }
+          ],
+          "explanation": "La doctora Jennifer Melfi trata los ataques de pánico de Tony."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué canal estrenó Los Soprano?",
+          "options": [
+            { "id": "a", "text": "AMC", "is_correct": false },
+            { "id": "b", "text": "HBO", "is_correct": true },
+            { "id": "c", "text": "Showtime", "is_correct": false },
+            { "id": "d", "text": "FX", "is_correct": false }
+          ],
+          "explanation": "HBO la estrenó en 1999; la serie marcó la era de la televisión de prestigio."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el club que la banda usa como cuartel?",
+          "options": [
+            { "id": "a", "text": "Vesuvio", "is_correct": false },
+            { "id": "b", "text": "Satriale's", "is_correct": false },
+            { "id": "c", "text": "Bada Bing!", "is_correct": true },
+            { "id": "d", "text": "The Crazy Horse", "is_correct": false }
+          ],
+          "explanation": "Bada Bing! es la fachada; Vesuvio es el restaurante de Artie Bucco y Satriale's la carnicería."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué animales se instalan en la piscina de Tony en la primera temporada?",
+          "options": [
+            { "id": "a", "text": "Gansos", "is_correct": false },
+            { "id": "b", "text": "Patos", "is_correct": true },
+            { "id": "c", "text": "Cisnes", "is_correct": false },
+            { "id": "d", "text": "Tortugas", "is_correct": false }
+          ],
+          "explanation": "Los patos — y su partida — detonan el primer ataque de pánico de Tony."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué parentesco une a Christopher Moltisanti con Tony?",
+          "options": [
+            { "id": "a", "text": "Es su hijo", "is_correct": false },
+            { "id": "b", "text": "Es su sobrino", "is_correct": true },
+            { "id": "c", "text": "Es su hermano", "is_correct": false },
+            { "id": "d", "text": "Es su primo", "is_correct": false }
+          ],
+          "explanation": "Christopher es el sobrino al que Tony prepara como sucesor; lo interpreta Michael Imperioli."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo termina el último episodio de la serie?",
+          "options": [
+            { "id": "a", "text": "Tony muere frente a cámara", "is_correct": false },
+            { "id": "b", "text": "Tony entra a prisión", "is_correct": false },
+            { "id": "c", "text": "Un corte a negro en un restaurante", "is_correct": true },
+            { "id": "d", "text": "La familia huye del país", "is_correct": false }
+          ],
+          "explanation": "El final de 2007 corta a negro en medio de una escena en el restaurante Holsten's; todavía se debate su significado."
+        }
+      ]
+    },
+    {
+      "slug": "en-peaky-blinders-trivia",
+      "title": "Peaky Blinders Trivia Challenge",
+      "description": "Birmingham, 1919: the Shelby family climbs from backstreet bookies to empire. By order of the Peaky Blinders — prove you know the gang.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["peaky blinders", "tv-shows", "drama", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which family is at the center of the series?",
+          "options": [
+            { "id": "a", "text": "The Changrettas", "is_correct": false },
+            { "id": "b", "text": "The Shelbys", "is_correct": true },
+            { "id": "c", "text": "The Sabinis", "is_correct": false },
+            { "id": "d", "text": "The Lees", "is_correct": false }
+          ],
+          "explanation": "The Shelby family runs the Peaky Blinders; Changretta, Sabini and Lee are rival clans."
+        },
+        {
+          "id": "q2",
+          "question": "In which English city does the story begin?",
+          "options": [
+            { "id": "a", "text": "Manchester", "is_correct": false },
+            { "id": "b", "text": "London", "is_correct": false },
+            { "id": "c", "text": "Birmingham", "is_correct": true },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "The gang rules the working-class streets of Small Heath, Birmingham, right after World War I."
+        },
+        {
+          "id": "q3",
+          "question": "Who plays Tommy Shelby?",
+          "options": [
+            { "id": "a", "text": "Tom Hardy", "is_correct": false },
+            { "id": "b", "text": "Cillian Murphy", "is_correct": true },
+            { "id": "c", "text": "Sam Claflin", "is_correct": false },
+            { "id": "d", "text": "Paul Anderson", "is_correct": false }
+          ],
+          "explanation": "Cillian Murphy is Thomas Shelby; Paul Anderson plays his brother Arthur."
+        },
+        {
+          "id": "q4",
+          "question": "According to legend, what do the Peaky Blinders keep sewn into their caps?",
+          "options": [
+            { "id": "a", "text": "Razor blades", "is_correct": true },
+            { "id": "b", "text": "Coins", "is_correct": false },
+            { "id": "c", "text": "Bullets", "is_correct": false },
+            { "id": "d", "text": "Lock picks", "is_correct": false }
+          ],
+          "explanation": "The gang's name comes from razor blades hidden in the peaks of their flat caps."
+        },
+        {
+          "id": "q5",
+          "question": "What is the gang's famous catchphrase?",
+          "options": [
+            { "id": "a", "text": "'By order of the Peaky Blinders'", "is_correct": true },
+            { "id": "b", "text": "'For Small Heath'", "is_correct": false },
+            { "id": "c", "text": "'The Shelby way'", "is_correct": false },
+            { "id": "d", "text": "'Birmingham forever'", "is_correct": false }
+          ],
+          "explanation": "'By order of the Peaky Blinders' is the line fans quote everywhere."
+        },
+        {
+          "id": "q6",
+          "question": "Which actor plays the unpredictable Alfie Solomons?",
+          "options": [
+            { "id": "a", "text": "Aidan Gillen", "is_correct": false },
+            { "id": "b", "text": "Sam Neill", "is_correct": false },
+            { "id": "c", "text": "Tom Hardy", "is_correct": true },
+            { "id": "d", "text": "Adrien Brody", "is_correct": false }
+          ],
+          "explanation": "Tom Hardy plays the Camden Town gang leader; Adrien Brody is Luca Changretta and Sam Neill is Inspector Campbell."
+        },
+        {
+          "id": "q7",
+          "question": "What is the Shelby family's first business?",
+          "options": [
+            { "id": "a", "text": "Illegal betting", "is_correct": true },
+            { "id": "b", "text": "A shipping company", "is_correct": false },
+            { "id": "c", "text": "A chain of pubs", "is_correct": false },
+            { "id": "d", "text": "A car factory", "is_correct": false }
+          ],
+          "explanation": "Shelby Company Limited starts with backstreet betting shops before expanding into bigger ventures."
+        },
+        {
+          "id": "q8",
+          "question": "Who is Polly Gray to the Shelby brothers?",
+          "options": [
+            { "id": "a", "text": "Their sister", "is_correct": false },
+            { "id": "b", "text": "Their aunt", "is_correct": true },
+            { "id": "c", "text": "Their mother", "is_correct": false },
+            { "id": "d", "text": "Their cousin", "is_correct": false }
+          ],
+          "explanation": "Aunt Polly, played by Helen McCrory, is the matriarch and the company's treasurer."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-peaky-blinders",
+      "title": "Trivia de Peaky Blinders",
+      "description": "Birmingham, 1919: la familia Shelby pasa de las apuestas callejeras a un imperio. Por orden de los Peaky Blinders, demuestra cuánto sabes.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["peaky blinders", "series", "drama", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué familia protagoniza la serie?",
+          "options": [
+            { "id": "a", "text": "Los Changretta", "is_correct": false },
+            { "id": "b", "text": "Los Sabini", "is_correct": false },
+            { "id": "c", "text": "Los Shelby", "is_correct": true },
+            { "id": "d", "text": "Los Lee", "is_correct": false }
+          ],
+          "explanation": "Los Shelby lideran a los Peaky Blinders; Changretta, Sabini y Lee son clanes rivales."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué ciudad inglesa comienza la historia?",
+          "options": [
+            { "id": "a", "text": "Manchester", "is_correct": false },
+            { "id": "b", "text": "Birmingham", "is_correct": true },
+            { "id": "c", "text": "Londres", "is_correct": false },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "La banda controla las calles obreras de Small Heath, en Birmingham, justo después de la Primera Guerra Mundial."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién interpreta a Tommy Shelby?",
+          "options": [
+            { "id": "a", "text": "Tom Hardy", "is_correct": false },
+            { "id": "b", "text": "Paul Anderson", "is_correct": false },
+            { "id": "c", "text": "Cillian Murphy", "is_correct": true },
+            { "id": "d", "text": "Sam Claflin", "is_correct": false }
+          ],
+          "explanation": "Cillian Murphy es Thomas Shelby; Paul Anderson interpreta a su hermano Arthur."
+        },
+        {
+          "id": "q4",
+          "question": "Según la leyenda, ¿qué llevan los Peaky Blinders cosido en las viseras de sus gorras?",
+          "options": [
+            { "id": "a", "text": "Monedas", "is_correct": false },
+            { "id": "b", "text": "Cuchillas de afeitar", "is_correct": true },
+            { "id": "c", "text": "Balas", "is_correct": false },
+            { "id": "d", "text": "Ganzúas", "is_correct": false }
+          ],
+          "explanation": "El nombre de la banda viene de las cuchillas escondidas en la visera de sus gorras."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la frase emblemática de la banda?",
+          "options": [
+            { "id": "a", "text": "'By order of the Peaky Blinders'", "is_correct": true },
+            { "id": "b", "text": "'For Small Heath'", "is_correct": false },
+            { "id": "c", "text": "'The Shelby way'", "is_correct": false },
+            { "id": "d", "text": "'Birmingham forever'", "is_correct": false }
+          ],
+          "explanation": "'Por orden de los Peaky Blinders': la frase que los seguidores repiten en todas partes."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué actor interpreta al impredecible Alfie Solomons?",
+          "options": [
+            { "id": "a", "text": "Sam Neill", "is_correct": false },
+            { "id": "b", "text": "Tom Hardy", "is_correct": true },
+            { "id": "c", "text": "Adrien Brody", "is_correct": false },
+            { "id": "d", "text": "Aidan Gillen", "is_correct": false }
+          ],
+          "explanation": "Tom Hardy es el líder de Camden Town; Adrien Brody interpreta a Luca Changretta."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué negocio empieza la familia Shelby?",
+          "options": [
+            { "id": "a", "text": "Una cadena de pubs", "is_correct": false },
+            { "id": "b", "text": "Una naviera", "is_correct": false },
+            { "id": "c", "text": "Apuestas ilegales", "is_correct": true },
+            { "id": "d", "text": "Una fábrica de autos", "is_correct": false }
+          ],
+          "explanation": "Shelby Company Limited arranca con casas de apuestas clandestinas antes de expandirse a negocios legales e ilegales."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es Polly Gray para los hermanos Shelby?",
+          "options": [
+            { "id": "a", "text": "Su hermana", "is_correct": false },
+            { "id": "b", "text": "Su madre", "is_correct": false },
+            { "id": "c", "text": "Su prima", "is_correct": false },
+            { "id": "d", "text": "Su tía", "is_correct": true }
+          ],
+          "explanation": "La tía Polly, interpretada por Helen McCrory, es la matriarca y la tesorera de la empresa."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-big-bang-theory-trivia",
+      "title": "The Big Bang Theory Trivia Challenge",
+      "description": "Twelve seasons of physics, comic books and 'Bazinga!'. From apartment 4A to the Nobel stage — how much do you remember about Sheldon and the gang?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["the big bang theory", "tv-shows", "sitcom", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What does Sheldon shout after one of his pranks or zingers?",
+          "options": [
+            { "id": "a", "text": "'Eureka!'", "is_correct": false },
+            { "id": "b", "text": "'Bazinga!'", "is_correct": true },
+            { "id": "c", "text": "'Cowabunga!'", "is_correct": false },
+            { "id": "d", "text": "'Boo-yah!'", "is_correct": false }
+          ],
+          "explanation": "'Bazinga!' is Sheldon's signature 'I fooled you' exclamation."
+        },
+        {
+          "id": "q2",
+          "question": "Where do Sheldon, Leonard, Raj and Howard work?",
+          "options": [
+            { "id": "a", "text": "MIT", "is_correct": false },
+            { "id": "b", "text": "Caltech", "is_correct": true },
+            { "id": "c", "text": "NASA", "is_correct": false },
+            { "id": "d", "text": "Princeton", "is_correct": false }
+          ],
+          "explanation": "All four are researchers at Caltech in Pasadena, California."
+        },
+        {
+          "id": "q3",
+          "question": "What is Penny's job when the series begins?",
+          "options": [
+            { "id": "a", "text": "Waitress at The Cheesecake Factory", "is_correct": true },
+            { "id": "b", "text": "Barista", "is_correct": false },
+            { "id": "c", "text": "Nurse", "is_correct": false },
+            { "id": "d", "text": "Librarian", "is_correct": false }
+          ],
+          "explanation": "Penny waits tables at The Cheesecake Factory while chasing an acting career."
+        },
+        {
+          "id": "q4",
+          "question": "Which of the guys goes to the International Space Station?",
+          "options": [
+            { "id": "a", "text": "Leonard", "is_correct": false },
+            { "id": "b", "text": "Raj", "is_correct": false },
+            { "id": "c", "text": "Howard", "is_correct": true },
+            { "id": "d", "text": "Sheldon", "is_correct": false }
+          ],
+          "explanation": "Engineer Howard Wolowitz flies to the ISS — and never lets anyone forget he is an astronaut."
+        },
+        {
+          "id": "q5",
+          "question": "Who plays Sheldon Cooper?",
+          "options": [
+            { "id": "a", "text": "Johnny Galecki", "is_correct": false },
+            { "id": "b", "text": "Jim Parsons", "is_correct": true },
+            { "id": "c", "text": "Kunal Nayyar", "is_correct": false },
+            { "id": "d", "text": "Simon Helberg", "is_correct": false }
+          ],
+          "explanation": "Jim Parsons won four Emmys as Sheldon; Johnny Galecki plays Leonard."
+        },
+        {
+          "id": "q6",
+          "question": "What song does Penny sing to Sheldon when he is sick?",
+          "options": [
+            { "id": "a", "text": "'Soft Kitty'", "is_correct": true },
+            { "id": "b", "text": "'Hush Little Baby'", "is_correct": false },
+            { "id": "c", "text": "'Twinkle Twinkle'", "is_correct": false },
+            { "id": "d", "text": "'The Ballad of Cats'", "is_correct": false }
+          ],
+          "explanation": "'Soft kitty, warm kitty' — the lullaby his mother sang to him as a child."
+        },
+        {
+          "id": "q7",
+          "question": "According to the show, why is the building's elevator broken?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Leonard destroyed it with a rocket fuel experiment",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Sheldon sabotaged it", "is_correct": false },
+            { "id": "c", "text": "It was never installed", "is_correct": false },
+            { "id": "d", "text": "Penny's furniture got stuck in it", "is_correct": false }
+          ],
+          "explanation": "A season 3 flashback shows Leonard's rocket fuel experiment exploding inside the elevator."
+        },
+        {
+          "id": "q8",
+          "question": "How many seasons did the show run?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "10", "is_correct": false },
+            { "id": "c", "text": "11", "is_correct": false },
+            { "id": "d", "text": "12", "is_correct": true }
+          ],
+          "explanation": "Twelve seasons and 279 episodes, from 2007 to 2019."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-the-big-bang-theory",
+      "title": "Trivia de The Big Bang Theory",
+      "description": "Doce temporadas de física, cómics y '¡Bazinga!'. Del departamento 4A al escenario del Nobel: ¿cuánto recuerdas de Sheldon y su grupo?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["the big bang theory", "series", "comedia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué grita Sheldon después de una de sus bromas?",
+          "options": [
+            { "id": "a", "text": "'¡Eureka!'", "is_correct": false },
+            { "id": "b", "text": "'¡Bazinga!'", "is_correct": true },
+            { "id": "c", "text": "'¡Atrápame!'", "is_correct": false },
+            { "id": "d", "text": "'¡Ciencia!'", "is_correct": false }
+          ],
+          "explanation": "'¡Bazinga!' es la marca registrada de Sheldon cuando alguien cae en sus bromas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde trabajan Sheldon, Leonard, Raj y Howard?",
+          "options": [
+            { "id": "a", "text": "En el MIT", "is_correct": false },
+            { "id": "b", "text": "En la NASA", "is_correct": false },
+            { "id": "c", "text": "En Caltech", "is_correct": true },
+            { "id": "d", "text": "En Princeton", "is_correct": false }
+          ],
+          "explanation": "Los cuatro son investigadores de Caltech, en Pasadena, California."
+        },
+        {
+          "id": "q3",
+          "question": "¿De qué trabaja Penny al inicio de la serie?",
+          "options": [
+            { "id": "a", "text": "Enfermera", "is_correct": false },
+            { "id": "b", "text": "Mesera en The Cheesecake Factory", "is_correct": true },
+            { "id": "c", "text": "Barista", "is_correct": false },
+            { "id": "d", "text": "Vendedora", "is_correct": false }
+          ],
+          "explanation": "Penny atiende mesas en The Cheesecake Factory mientras persigue su carrera de actriz."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién del grupo viaja a la Estación Espacial Internacional?",
+          "options": [
+            { "id": "a", "text": "Leonard", "is_correct": false },
+            { "id": "b", "text": "Sheldon", "is_correct": false },
+            { "id": "c", "text": "Raj", "is_correct": false },
+            { "id": "d", "text": "Howard", "is_correct": true }
+          ],
+          "explanation": "El ingeniero Howard Wolowitz viaja a la EEI y no deja de recordar que es astronauta."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién interpreta a Sheldon Cooper?",
+          "options": [
+            { "id": "a", "text": "Jim Parsons", "is_correct": true },
+            { "id": "b", "text": "Johnny Galecki", "is_correct": false },
+            { "id": "c", "text": "Simon Helberg", "is_correct": false },
+            { "id": "d", "text": "Kunal Nayyar", "is_correct": false }
+          ],
+          "explanation": "Jim Parsons ganó cuatro premios Emmy por el papel; Johnny Galecki es Leonard."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué canción le canta Penny a Sheldon cuando está enfermo?",
+          "options": [
+            { "id": "a", "text": "'Hush Little Baby'", "is_correct": false },
+            { "id": "b", "text": "'Soft Kitty'", "is_correct": true },
+            { "id": "c", "text": "'Twinkle Twinkle'", "is_correct": false },
+            { "id": "d", "text": "'Gatito Mío'", "is_correct": false }
+          ],
+          "explanation": "'Soft kitty, warm kitty': la canción de cuna que su mamá le cantaba de niño."
+        },
+        {
+          "id": "q7",
+          "question": "Según la serie, ¿por qué está descompuesto el ascensor del edificio?",
+          "options": [
+            { "id": "a", "text": "Sheldon lo saboteó", "is_correct": false },
+            { "id": "b", "text": "Nunca lo instalaron", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Leonard lo destruyó con un experimento de combustible de cohetes",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Un mueble de Penny lo atascó", "is_correct": false }
+          ],
+          "explanation": "Un flashback de la tercera temporada muestra el experimento de Leonard explotando dentro del ascensor."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántas temporadas tuvo la serie?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "12", "is_correct": true },
+            { "id": "c", "text": "10", "is_correct": false },
+            { "id": "d", "text": "11", "is_correct": false }
+          ],
+          "explanation": "Doce temporadas y 279 episodios, de 2007 a 2019."
+        }
+      ]
+    }
+  ]
+}
