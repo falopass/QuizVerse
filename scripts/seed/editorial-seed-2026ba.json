@@ -241,7 +241,11 @@
           "question": "Which organization presents the Grammy Awards?",
           "options": [
             { "id": "a", "text": "The Recording Academy", "is_correct": true },
-            { "id": "b", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The Academy of Motion Picture Arts and Sciences",
+              "is_correct": false
+            },
             { "id": "c", "text": "The American Music Association", "is_correct": false },
             { "id": "d", "text": "The Hollywood Foreign Press Association", "is_correct": false }
           ],
@@ -342,9 +346,17 @@
           "question": "¿Qué organización entrega los premios Grammy?",
           "options": [
             { "id": "a", "text": "La Academia de la Grabación", "is_correct": true },
-            { "id": "b", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
+            {
+              "id": "b",
+              "text": "La Academia de Artes y Ciencias Cinematográficas",
+              "is_correct": false
+            },
             { "id": "c", "text": "La Asociación Americana de Música", "is_correct": false },
-            { "id": "d", "text": "La Asociación de la Prensa Extranjera de Hollywood", "is_correct": false }
+            {
+              "id": "d",
+              "text": "La Asociación de la Prensa Extranjera de Hollywood",
+              "is_correct": false
+            }
           ],
           "explanation": "La Academia de la Grabación, fundada en 1957, vota y entrega los Grammy."
         },
@@ -487,9 +499,21 @@
           "question": "Which academy administers the Primetime Emmy Awards?",
           "options": [
             { "id": "a", "text": "The Academy of Television Arts & Sciences", "is_correct": true },
-            { "id": "b", "text": "The National Academy of Television Arts & Sciences", "is_correct": false },
-            { "id": "c", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
-            { "id": "d", "text": "The International Academy of Television Arts & Sciences", "is_correct": false }
+            {
+              "id": "b",
+              "text": "The National Academy of Television Arts & Sciences",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "The Academy of Motion Picture Arts and Sciences",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The International Academy of Television Arts & Sciences",
+              "is_correct": false
+            }
           ],
           "explanation": "The Television Academy (ATAS), based in Los Angeles, runs the Primetime Emmys; NATAS handles the Daytime Emmys."
         },
@@ -587,10 +611,26 @@
           "id": "q7",
           "question": "¿Qué academia administra los Primetime Emmy?",
           "options": [
-            { "id": "a", "text": "La Academia de Artes y Ciencias de la Televisión", "is_correct": true },
-            { "id": "b", "text": "La Academia Nacional de Artes y Ciencias de la Televisión", "is_correct": false },
-            { "id": "c", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
-            { "id": "d", "text": "La Academia Internacional de Artes y Ciencias de la Televisión", "is_correct": false }
+            {
+              "id": "a",
+              "text": "La Academia de Artes y Ciencias de la Televisión",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "La Academia Nacional de Artes y Ciencias de la Televisión",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "La Academia de Artes y Ciencias Cinematográficas",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "La Academia Internacional de Artes y Ciencias de la Televisión",
+              "is_correct": false
+            }
           ],
           "explanation": "La Academia de la Televisión (ATAS), con sede en Los Ángeles, gestiona los Primetime Emmy; la NATAS se ocupa de los diurnos."
         },
@@ -634,7 +674,11 @@
           "question": "Which association of journalists founded the Golden Globe Awards?",
           "options": [
             { "id": "a", "text": "The Hollywood Foreign Press Association", "is_correct": true },
-            { "id": "b", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The Academy of Motion Picture Arts and Sciences",
+              "is_correct": false
+            },
             { "id": "c", "text": "The Critics Choice Association", "is_correct": false },
             { "id": "d", "text": "The Screen Actors Guild", "is_correct": false }
           ],
@@ -734,8 +778,16 @@
           "id": "q2",
           "question": "¿Qué asociación de periodistas fundó los Globos de Oro?",
           "options": [
-            { "id": "a", "text": "La Asociación de la Prensa Extranjera de Hollywood", "is_correct": true },
-            { "id": "b", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
+            {
+              "id": "a",
+              "text": "La Asociación de la Prensa Extranjera de Hollywood",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "La Academia de Artes y Ciencias Cinematográficas",
+              "is_correct": false
+            },
             { "id": "c", "text": "La Asociación de Críticos", "is_correct": false },
             { "id": "d", "text": "El Sindicato de Actores", "is_correct": false }
           ],
@@ -757,7 +809,11 @@
           "question": "El premio Cecil B. DeMille, entregado por primera vez en 1952, reconoce qué?",
           "options": [
             { "id": "a", "text": "La mejor dirección", "is_correct": false },
-            { "id": "b", "text": "Una trayectoria en el mundo del espectáculo", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Una trayectoria en el mundo del espectáculo",
+              "is_correct": true
+            },
             { "id": "c", "text": "La película más taquillera", "is_correct": false },
             { "id": "d", "text": "La mejor película extranjera", "is_correct": false }
           ],
