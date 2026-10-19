@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { trackEvent, reportClientError } from '@/lib/telemetry/client';
+import { CONSENT_KEY, hasAnalyticsConsent } from '@/components/shared/cookie-consent';
 
 export function AppTelemetry() {
   const pathname = usePathname();
 
-  React.useEffect(() => {
+  const sendPageView = React.useCallback(() => {
     if (!pathname) return;
 
     const locale = pathname.split('/')[1];
@@ -17,6 +18,26 @@ export function AppTelemetry() {
       locale: locale === 'es' || locale === 'en' ? locale : undefined,
     });
   }, [pathname]);
+
+  React.useEffect(() => {
+    sendPageView();
+  }, [sendPageView]);
+
+  React.useEffect(() => {
+    const handleConsent = (event: Event) => {
+      if ((event as CustomEvent<{ level?: string }>).detail?.level === 'all') sendPageView();
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === CONSENT_KEY && hasAnalyticsConsent()) sendPageView();
+    };
+
+    window.addEventListener('quizverse:consent', handleConsent);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('quizverse:consent', handleConsent);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [sendPageView]);
 
   React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {
