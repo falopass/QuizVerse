@@ -48,9 +48,13 @@ export default async function LocalizedQuizEditPage({
     );
   }
 
+  // Only the editable columns: `questions` carries `is_correct`, which must
+  // never cross to the browser (see AGENTS.md, server-authoritative scoring).
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('*')
+    .select(
+      'id, title, description, category_id, quiz_type, difficulty, language, tags, estimated_minutes'
+    )
     .eq('id', id)
     .eq('creator_id', user.id)
     .maybeSingle();

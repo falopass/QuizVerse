@@ -7,6 +7,7 @@ import { updateQuiz } from '@/actions/quiz.actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { localizeCategory } from '@/lib/i18n/catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { ActionErrorCode } from '@/lib/actions/types';
 import type { Category } from '@/types/quiz';
@@ -37,6 +38,7 @@ const COPY = {
     tags: 'Etiquetas',
     tagsHint: 'Separadas por comas.',
     minutes: 'Minutos estimados',
+    minutesError: 'Los minutos estimados deben ser un número de al menos 1.',
     fixedType: 'Formato',
     fixedLanguage: 'Idioma',
     trivia: 'Trivia',
@@ -59,6 +61,7 @@ const COPY = {
     tags: 'Tags',
     tagsHint: 'Separated by commas.',
     minutes: 'Estimated minutes',
+    minutesError: 'Estimated minutes must be a number of at least 1.',
     fixedType: 'Format',
     fixedLanguage: 'Language',
     trivia: 'Trivia',
@@ -135,6 +138,10 @@ export function QuizEditForm({
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!Number.isFinite(minutes) || minutes < 1) {
+      setErrorMessage(copy.minutesError);
+      return;
+    }
     setIsSubmitting(true);
     setErrorMessage(null);
     try {
@@ -144,7 +151,7 @@ export function QuizEditForm({
         category_id: categoryId || null,
         difficulty,
         tags: parseTags(tags),
-        estimated_minutes: Number.isFinite(minutes) ? minutes : undefined,
+        estimated_minutes: minutes,
       });
       if (!result.success) {
         setErrorMessage(ERROR_LABEL[result.code]?.[es ? 'es' : 'en'] ?? copy.genericError);
@@ -201,7 +208,7 @@ export function QuizEditForm({
             <option value="">{copy.categoryPlaceholder}</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
-                {category.name}
+                {localizeCategory(category, locale)?.name ?? category.name}
               </option>
             ))}
           </select>
@@ -250,8 +257,9 @@ export function QuizEditForm({
           <Input
             id="quiz-edit-minutes"
             type="number"
+            required
             min={1}
-            value={minutes}
+            value={Number.isFinite(minutes) ? minutes : ''}
             onChange={(e) => setMinutes(e.target.valueAsNumber)}
           />
         </div>

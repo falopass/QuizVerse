@@ -100,6 +100,20 @@ describe('QuizEditForm', () => {
     expect(mocks.refresh).toHaveBeenCalledTimes(1);
   });
 
+  it('rechaza guardar con los minutos vacíos y no llama a la action', async () => {
+    const { container } = render(<QuizEditForm quiz={QUIZ} categories={CATEGORIES} locale="es" />);
+
+    fireEvent.change(screen.getByLabelText('Minutos estimados'), { target: { value: '' } });
+    // `fireEvent.submit` salta la validación nativa de `required` y ejercita el
+    // guard del submit (en el navegador la primera barrera es `required`+`min`).
+    fireEvent.submit(container.querySelector('form')!);
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent('Los minutos estimados deben ser un número de al menos 1.');
+    expect(mocks.updateQuiz).not.toHaveBeenCalled();
+    expect(mocks.push).not.toHaveBeenCalled();
+  });
+
   it('muestra el error localizado cuando la action falla', async () => {
     mocks.updateQuiz.mockResolvedValue({
       success: false,
