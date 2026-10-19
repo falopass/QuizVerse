@@ -68,6 +68,7 @@ export function ExploreEditorialPage({
   const [query, setQuery] = React.useState('');
   const [activeMood, setActiveMood] = React.useState<(typeof MOODS.en)[number]['id']>('all');
   const [activeCategory, setActiveCategory] = React.useState('all');
+  const [showAll, setShowAll] = React.useState(false);
 
   const moods = MOODS[locale];
   const localizedQuizzes = React.useMemo(
@@ -124,6 +125,7 @@ export function ExploreEditorialPage({
     pulse: pulseQuiz,
     lanes: laneQuizzes,
     grid: gridQuizzes,
+    rest: restQuizzes,
   } = React.useMemo(
     () => explorerSelection(filteredQuizzes, { preferEditorial: activeMood !== 'popular' }),
     [filteredQuizzes, activeMood]
@@ -142,6 +144,8 @@ export function ExploreEditorialPage({
           pulse: 'Pulso del momento',
           moreWaysIn: 'Más caminos de entrada',
           quizzesAfterFilters: 'quizzes tras filtros',
+          showMore: (count: number) => `Ver los ${count} restantes`,
+          showLess: 'Mostrar menos',
           editorialGrid: 'Entradas curadas',
           editorDeck:
             'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
@@ -163,6 +167,8 @@ export function ExploreEditorialPage({
           pulse: 'Now in pulse',
           moreWaysIn: 'More ways in',
           quizzesAfterFilters: 'quizzes after filters',
+          showMore: (count: number) => `Show the ${count} remaining`,
+          showLess: 'Show less',
           editorialGrid: 'Curated entries',
           editorDeck:
             'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
@@ -215,7 +221,10 @@ export function ExploreEditorialPage({
               <input
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setShowAll(false);
+                }}
                 placeholder={copy.searchPlaceholder}
                 className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
               />
@@ -230,7 +239,10 @@ export function ExploreEditorialPage({
                   key={mood.id}
                   type="button"
                   aria-pressed={activeMood === mood.id}
-                  onClick={() => setActiveMood(mood.id)}
+                  onClick={() => {
+                    setActiveMood(mood.id);
+                    setShowAll(false);
+                  }}
                   className={cn(
                     'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
                     activeMood === mood.id
@@ -256,20 +268,26 @@ export function ExploreEditorialPage({
               <CategoryFilter
                 active={activeCategory === 'all'}
                 label={copy.allCategories}
-                onClick={() => setActiveCategory('all')}
+                onClick={() => {
+                  setActiveCategory('all');
+                  setShowAll(false);
+                }}
               />
               {localizedCategories.map((category) => (
                 <CategoryFilter
                   key={category!.id}
                   active={activeCategory === category!.slug}
                   label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
-                  onClick={() => setActiveCategory(category!.slug)}
+                  onClick={() => {
+                    setActiveCategory(category!.slug);
+                    setShowAll(false);
+                  }}
                 />
               ))}
             </div>
           </div>
         </div>
-        <p role="status" className="text-text-secondary mt-5 text-sm">
+        <p role="status" aria-live="polite" className="text-text-secondary mt-5 text-sm">
           {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
         </p>
       </section>
@@ -359,6 +377,32 @@ export function ExploreEditorialPage({
                   <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
                 ))}
               </div>
+              {restQuizzes.length > 0 ? (
+                <button
+                  type="button"
+                  aria-expanded={showAll}
+                  aria-controls="explore-grid-rest"
+                  onClick={() => setShowAll((value) => !value)}
+                  className="arcade-button arcade-button-lime arcade-more"
+                >
+                  {showAll ? units.showLess : units.showMore(restQuizzes.length)}
+                </button>
+              ) : null}
+              {showAll ? (
+                <div
+                  id="explore-grid-rest"
+                  className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
+                >
+                  {restQuizzes.map((quiz, index) => (
+                    <EditorialQuizCard
+                      key={quiz.id}
+                      quiz={quiz}
+                      locale={locale}
+                      index={gridQuizzes.length + index}
+                    />
+                  ))}
+                </div>
+              ) : null}
             </section>
           ) : null}
         </>

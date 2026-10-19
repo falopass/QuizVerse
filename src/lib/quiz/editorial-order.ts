@@ -14,12 +14,14 @@ export interface ExplorerSelection {
   pulse: Quiz | null;
   lanes: Quiz[];
   grid: Quiz[];
+  rest: Quiz[];
 }
 
 /**
  * What the explorer shows for a given quiz list, already ordered as the
  * caller wants the lanes and grid to follow: a lead card, a pulse card, up
- * to 4 lane cards and up to 12 grid cards — 18 quizzes at most.
+ * to 4 lane cards and up to 12 grid cards — 18 quizzes at most — plus the
+ * remaining pool in `rest` for the "show more" expansion.
  * `preferEditorial` (default) gives the lead slot to a featured quiz and the
  * pulse slot to the best-scored remaining quiz; `false` takes both straight
  * from list order (the "most played" view).
@@ -36,7 +38,13 @@ export function explorerSelection(
     ? ([...pool].sort((a, b) => editorialScore(b) - editorialScore(a))[0] ?? null)
     : (pool[0] ?? null);
   const secondary = pool.filter((quiz) => quiz.id !== pulse?.id);
-  return { lead, pulse, lanes: secondary.slice(0, 4), grid: secondary.slice(4, 16) };
+  return {
+    lead,
+    pulse,
+    lanes: secondary.slice(0, 4),
+    grid: secondary.slice(4, 16),
+    rest: secondary.slice(16),
+  };
 }
 
 /**
