@@ -1,85 +1,44 @@
-import fs from 'node:fs';
+// Aplica las migraciones de supabase/migrations con la CLI oficial de Supabase
+// (`db push --db-url`). Requiere SUPABASE_DB_URL en .env.local (no se commitea).
+// Nota: el remoto ya tiene las migraciones aplicadas a mano, así que la primera
+// corrida requiere una sola vez (con SUPABASE_DB_URL exportada en el shell):
+//   npx -y supabase@latest migration repair --db-url "$SUPABASE_DB_URL" --status applied <versiones>
+// Este script no lo automatiza.
+// La contraseña viaja en los argumentos del proceso: riesgo aceptado en máquina
+// de un solo usuario; si el repo pasa a multi-usuario, se revisa.
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 import dotenv from 'dotenv';
-import { createClient } from '@supabase/supabase-js';
 
-const rootDir = process.cwd();
+const rootDir = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const dbUrl = process.env.SUPABASE_DB_URL;
 
-if (!supabaseUrl || !serviceRoleKey) {
-  console.error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env.local');
+if (!dbUrl) {
+  console.error('Falta SUPABASE_DB_URL en .env.local.');
+  console.error(
+    'Se obtiene en Supabase Dashboard → Connect → connection string (URI, con la contraseña de la base).'
+  );
+  console.error('Sin esa variable este script no toca ninguna base remota.');
   process.exit(1);
 }
 
-const supabase = createClient(supabaseUrl, serviceRoleKey, {
-  auth: { autoRefreshToken: false, persistSession: false },
-});
-
-const migrationsDir = path.join(rootDir, 'supabase', 'migrations');
-const appliedFile = path.join(rootDir, 'supabase', '.applied-migrations.json');
-
-function readApplied() {
-  try {
-    return JSON.parse(fs.readFileSync(appliedFile, 'utf8'));
-  } catch {
-    return { applied: [] };
-  }
-}
-
-function writeApplied(record) {
-  fs.writeFileSync(appliedFile, JSON.stringify(record, null, 2), 'utf8');
-}
-
-async function main() {
-  const files = fs
-    .readdirSync(migrationsDir)
-    .filter((f) => f.endsWith('.sql'))
-    .sort();
-
-  if (files.length === 0) {
-    console.log('No migration files found.');
-    process.exit(0);
-  }
-
-  const record = readApplied();
-  const pending = files.filter((f) => !record.applied.includes(f));
-
-  if (pending.length === 0) {
-    console.log('All migrations already applied.');
-    process.exit(0);
-  }
-
-  for (const file of pending) {
-    const sql = fs.readFileSync(path.join(migrationsDir, file), 'utf8');
-    console.log(`Applying ${file}...`);
-
-    const { error } = await supabase.rpc('exec_sql', { sql_query: sql }).single();
-
-    if (error) {
-      const { error: rawError } = await supabase.rpc('exec_sql_raw', {
-        query: sql,
-      });
-
-      if (rawError) {
-        console.error(`Failed to apply ${file}:`, rawError.message);
-        console.log('Run this SQL manually in Supabase SQL Editor:');
-        console.log('---');
-        console.log(sql);
-        console.log('---');
-        process.exit(1);
-      }
-    }
-
-    record.applied.push(file);
-    writeApplied(record);
-    console.log(`✓ ${file} applied`);
-  }
-}
-
-main().catch((error) => {
-  console.error(error);
+if (!dbUrl.startsWith('postgres')) {
+  console.error('SUPABASE_DB_URL no parece una cadena Postgres (postgresql://...).');
   process.exit(1);
-});
+}
+
+const result = spawnSync(
+  'npx',
+  ['-y', 'supabase@latest', 'db', 'push', '--db-url', dbUrl, '--yes', '--workdir', rootDir],
+  { stdio: 'inherit', cwd: rootDir }
+);
+
+if (result.error) {
+  console.error(`No se pudo ejecutar la CLI de Supabase: ${result.error.message}`);
+  process.exit(1);
+}
+
+process.exit(result.status ?? 1);

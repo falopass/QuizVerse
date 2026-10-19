@@ -92,7 +92,7 @@ Además: ninguna ruta GET valida query params con Zod, y `apiLimiter` solo se us
 - 83 casos en 8 archivos (`engine` 18, `scoring` 13, `validator` 18, `utils` 17, `seo` 14, y 1 en tres de integración).
 - **Cero** tests para `src/actions`, `src/lib/data`, `src/lib/supabase` y `src/app/api`.
 - CI en rojo 5/5 por `format:check` (PR #2 lo arregla).
-- `npm run db:migrate` **no funciona**: depende de `exec_sql`/`exec_sql_raw`, que no existen en la base, y `.env.local` apunta a `localhost`.
+- `npm run db:migrate` usa la CLI oficial (`supabase db push --db-url "$SUPABASE_DB_URL"`). Requiere `SUPABASE_DB_URL` en `.env.local` y, una sola vez, `supabase migration repair --db-url "$SUPABASE_DB_URL" --status applied <versiones>` porque las migraciones se aplicaron a mano.
 - Sin cobertura mínima ni typecheck pre-commit.
 
 ---
