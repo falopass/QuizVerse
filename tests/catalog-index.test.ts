@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildCatalogIndex } from '@/lib/content/catalog-index';
+import { buildCatalogIndex, UNCATEGORIZED_GROUP_SLUG } from '@/lib/content/catalog-index';
 import type { Category, Quiz } from '@/types/quiz';
 
 const category = (slug: string, name: string): Category => ({
@@ -51,7 +51,8 @@ const quiz = (
 });
 
 // 6 quizzes únicos: 3 en movies-tv, 1 en anime-manga, 1 en gaming y 1 huérfano
-// (sin categoría). El duplicado de slug no debe enlazarse dos veces.
+// (sin categoría, que va al grupo sintético final). El duplicado de slug no
+// debe enlazarse dos veces.
 const FIXTURE: Quiz[] = [
   quiz('charlie', 'Charlie movie quiz', 'trivia', MOVIES),
   quiz('alpha', 'Alpha movie quiz', 'trivia', MOVIES),
@@ -65,17 +66,24 @@ const FIXTURE: Quiz[] = [
 describe('buildCatalogIndex', () => {
   const index = buildCatalogIndex(FIXTURE, 'en');
 
-  it('agrupa por categoría y ordena por cantidad y luego por nombre', () => {
-    expect(index.groups.map((group) => group.slug)).toEqual(['movies-tv', 'anime-manga', 'gaming']);
+  it('agrupa por categoría, ordena por cantidad y nombre, y cierra con los huérfanos', () => {
+    expect(index.groups.map((group) => group.slug)).toEqual([
+      'movies-tv',
+      'anime-manga',
+      'gaming',
+      UNCATEGORIZED_GROUP_SLUG,
+    ]);
     expect(index.groups[0].quizzes.map((item) => item.slug)).toEqual(['alpha', 'beta', 'charlie']);
+    expect(index.groups[3].quizzes.map((item) => item.slug)).toEqual(['foxtrot']);
+    expect(index.groups[3].name).toBe('Uncategorized');
   });
 
-  it('no pierde quizzes: total cubre también el huérfano y quita duplicados', () => {
+  it('no pierde quizzes: todos quedan enlazados y sin duplicados', () => {
     expect(index.total).toBe(6);
     const linked = index.groups.flatMap((group) => group.quizzes.map((item) => item.slug));
-    expect(linked).not.toContain('foxtrot');
+    expect(linked).toContain('foxtrot');
     expect(linked.filter((slug) => slug === 'alpha')).toHaveLength(1);
-    expect(linked).toHaveLength(5);
+    expect(linked).toHaveLength(6);
   });
 
   it('localiza el nombre de cada grupo', () => {
@@ -101,5 +109,22 @@ describe('buildCatalogIndex', () => {
   it('omite hubs de tipo sin quizzes', () => {
     const onlyTrivia = buildCatalogIndex([quiz('solo', 'Solo', 'trivia', MOVIES)], 'en');
     expect(onlyTrivia.hubs.map((hub) => hub.slug)).toEqual(['trivia', 'movies-tv']);
+  });
+
+  it('no repite un hub si una categoría comparte el slug de un tipo', () => {
+    // El catálogo de lanzamiento tiene categorías "trivia"/"personality":
+    // en el fallback un grupo podría chocar con el hub de tipo.
+    const fallback = buildCatalogIndex(
+      [quiz('t1', 'T1', 'trivia', category('trivia', 'Trivia'))],
+      'en'
+    );
+    expect(fallback.hubs.filter((hub) => hub.slug === 'trivia')).toHaveLength(1);
+    expect(fallback.groups.map((group) => group.slug)).toEqual(['trivia']);
+  });
+
+  it('uncategorized nunca es hub ni aparece sin huérfanos', () => {
+    expect(index.hubs.map((hub) => hub.slug)).not.toContain(UNCATEGORIZED_GROUP_SLUG);
+    const allCategorized = buildCatalogIndex([quiz('x', 'X', 'trivia', MOVIES)], 'en');
+    expect(allCategorized.groups.map((group) => group.slug)).toEqual(['movies-tv']);
   });
 });

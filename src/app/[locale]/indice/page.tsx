@@ -2,8 +2,9 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo/json-ld';
-import { buildCatalogIndex } from '@/lib/content/catalog-index';
+import { buildCatalogIndex, UNCATEGORIZED_GROUP_SLUG } from '@/lib/content/catalog-index';
 import { getPublishedQuizzes } from '@/lib/data/public';
+import { QUIZ_MAX_ROWS } from '@/lib/data/quiz-pagination';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -64,7 +65,7 @@ export default async function CatalogIndexPage({
   if (!hasLocale(locale)) notFound();
 
   const copy = COPY[locale];
-  const quizzes = await getPublishedQuizzes(5000, locale);
+  const quizzes = await getPublishedQuizzes(QUIZ_MAX_ROWS, locale);
   const index = buildCatalogIndex(quizzes, locale);
   const path = `/${locale}/indice`;
 
@@ -100,12 +101,16 @@ export default async function CatalogIndexPage({
       {index.groups.map((group) => (
         <section key={group.slug} className="mt-10">
           <h2 className="font-display text-2xl font-semibold">
-            <Link
-              href={localizeHref(locale, `/category/${group.slug}`)}
-              className="hover:text-accent-primary"
-            >
-              {group.name}
-            </Link>{' '}
+            {group.slug === UNCATEGORIZED_GROUP_SLUG ? (
+              group.name
+            ) : (
+              <Link
+                href={localizeHref(locale, `/category/${group.slug}`)}
+                className="hover:text-accent-primary"
+              >
+                {group.name}
+              </Link>
+            )}{' '}
             <span className="text-text-secondary text-base font-normal">
               ({group.quizzes.length})
             </span>
