@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { quizCountLabel } from '@/lib/i18n/counts';
 import {
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_ES,
@@ -198,8 +199,8 @@ export function generateCategoryMetadata({
 }: GenerateCategoryMetadataOptions): Metadata {
   const title = quizCount
     ? locale === 'es'
-      ? `${name}: ${quizCount} quizzes online`
-      : `${name}: ${quizCount} quizzes to play`
+      ? `${name}: ${quizCountLabel(quizCount)} online`
+      : `${name}: ${quizCountLabel(quizCount)} to play`
     : locale === 'es'
       ? `Quizzes de ${name}`
       : `${name} quizzes`;
