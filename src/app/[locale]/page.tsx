@@ -7,6 +7,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { homeOgImage } from '@/lib/seo/site';
 import { buildGraph, categoryPath, itemListNode, webPageNode } from '@/lib/seo/structured-data';
 import { CategoryStrip } from '@/components/home/category-strip';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
@@ -42,6 +43,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
     path: `/${locale}`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}`,
     locale,
+    image: homeOgImage(locale),
+    imageAlt: 'QuizVerse',
   });
 }
 
