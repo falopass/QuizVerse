@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
+import { incrementShares } from '@/actions/quiz.actions';
 
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -11,9 +12,11 @@ interface ShareButtonsProps {
   url: string;
   text: string;
   locale?: Locale;
+  /** When set, each real share bumps the quiz `shares_count` counter. */
+  quizId?: string;
 }
 
-export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsProps) {
+export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareButtonsProps) {
   const [copied, setCopied] = React.useState(false);
   const [supportsWebShare, setSupportsWebShare] = React.useState(false);
   const isEs = locale === 'es';
@@ -22,10 +25,16 @@ export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsPr
     setSupportsWebShare('share' in navigator);
   }, []);
 
+  // Best effort: sharing must never break the UI.
+  const trackShare = () => {
+    if (quizId) void incrementShares(quizId).catch(() => undefined);
+  };
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
+      trackShare();
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
@@ -36,6 +45,7 @@ export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsPr
     if (navigator.share) {
       try {
         await navigator.share({ title, text, url });
+        trackShare();
       } catch (err) {
         console.error('Share failed:', err);
       }
@@ -79,6 +89,7 @@ export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsPr
           href={shareLinks.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={trackShare}
           className={cn(
             'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
             'bg-[#25D366] text-white transition-colors hover:bg-[#20bd5a]'
@@ -95,6 +106,7 @@ export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsPr
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={trackShare}
           className={cn(
             'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
             'bg-black text-white transition-colors hover:bg-gray-800'
@@ -111,6 +123,7 @@ export function ShareButtons({ title, url, text, locale = 'en' }: ShareButtonsPr
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={trackShare}
           className={cn(
             'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
             'bg-[#1877F2] text-white transition-colors hover:bg-[#166fe5]'

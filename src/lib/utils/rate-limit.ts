@@ -34,6 +34,8 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
   allowed: boolean;
   remaining: number;
   reset: number;
+  /** True when the check itself failed (e.g. Redis down), not a real throttle. */
+  errored?: boolean;
 }> {
   const redis = getRedis();
   if (!redis) {
@@ -71,7 +73,7 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
     };
   } catch (error) {
     console.error('[rate-limit] Redis error, failing closed:', error);
-    return { allowed: false, remaining: 0, reset: config.window };
+    return { allowed: false, remaining: 0, reset: config.window, errored: true };
   }
 }
 
