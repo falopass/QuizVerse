@@ -1,0 +1,1019 @@
+{
+  "$comment": "Editorial seed 2026bs: five es/en trivia pairs on blockbuster film franchises absent from the catalogue (Fast & Furious, Jurassic Park, Pirates of the Caribbean, The Matrix, Back to the Future), all in the movies-tv category. Every answer is visible in the films themselves. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-fast-and-furious-trivia",
+      "title": "Fast & Furious Trivia: Cars, Family and Heists",
+      "description": "Eight questions on the Fast & Furious saga: Dom's crew, the cars, the heists and how the films fit together.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["fast and furious", "trivia", "cars", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which car is Dominic Toretto most associated with across the saga?",
+          "options": [
+            { "id": "a", "text": "Ford Mustang", "is_correct": false },
+            { "id": "b", "text": "Dodge Charger", "is_correct": true },
+            { "id": "c", "text": "Chevrolet Camaro", "is_correct": false },
+            { "id": "d", "text": "Nissan Skyline", "is_correct": false }
+          ],
+          "explanation": "Dom's black 1970 Dodge Charger R/T, built with his father, is his signature car."
+        },
+        {
+          "id": "q2",
+          "question": "In the first film, what is Brian O'Conner's real job while he hangs out with Dom's crew?",
+          "options": [
+            { "id": "a", "text": "Undercover police officer", "is_correct": true },
+            { "id": "b", "text": "Journalist", "is_correct": false },
+            { "id": "c", "text": "Mechanic", "is_correct": false },
+            { "id": "d", "text": "Street racer", "is_correct": false }
+          ],
+          "explanation": "Brian is an undercover LAPD cop investigating the truck hijackings."
+        },
+        {
+          "id": "q3",
+          "question": "After losing the first race, what does Brian say he owes Dom?",
+          "options": [
+            { "id": "a", "text": "Ten thousand dollars", "is_correct": false },
+            { "id": "b", "text": "A ten-second car", "is_correct": true },
+            { "id": "c", "text": "His driver's license", "is_correct": false },
+            { "id": "d", "text": "A new engine", "is_correct": false }
+          ],
+          "explanation": "Brian's famous line: 'I owe you a ten-second car.'"
+        },
+        {
+          "id": "q4",
+          "question": "Which film takes the action to Tokyo and drift racing?",
+          "options": [
+            { "id": "a", "text": "2 Fast 2 Furious", "is_correct": false },
+            { "id": "b", "text": "Fast Five", "is_correct": false },
+            { "id": "c", "text": "Tokyo Drift", "is_correct": true },
+            { "id": "d", "text": "Furious 7", "is_correct": false }
+          ],
+          "explanation": "The Fast and the Furious: Tokyo Drift (2006) follows Sean Boswell learning to drift in Tokyo."
+        },
+        {
+          "id": "q5",
+          "question": "In Fast Five, what does Dom's crew drag through the streets of Rio de Janeiro with two cars?",
+          "options": [
+            { "id": "a", "text": "An armored truck", "is_correct": false },
+            { "id": "b", "text": "A shipping container", "is_correct": false },
+            { "id": "c", "text": "A bus", "is_correct": false },
+            { "id": "d", "text": "A bank vault", "is_correct": true }
+          ],
+          "explanation": "The climax shows two Chargers towing a huge vault through the city."
+        },
+        {
+          "id": "q6",
+          "question": "Which character is revealed to be alive in Fast & Furious 6 after being believed dead?",
+          "options": [
+            { "id": "a", "text": "Letty", "is_correct": true },
+            { "id": "b", "text": "Han", "is_correct": false },
+            { "id": "c", "text": "Jesse", "is_correct": false },
+            { "id": "d", "text": "Vince", "is_correct": false }
+          ],
+          "explanation": "Letty reappears working with Shaw's crew, suffering from amnesia."
+        },
+        {
+          "id": "q7",
+          "question": "What is the name of Dom's sister?",
+          "options": [
+            { "id": "a", "text": "Elena", "is_correct": false },
+            { "id": "b", "text": "Ramsey", "is_correct": false },
+            { "id": "c", "text": "Mia", "is_correct": true },
+            { "id": "d", "text": "Gisele", "is_correct": false }
+          ],
+          "explanation": "Mia Toretto later becomes Brian's partner."
+        },
+        {
+          "id": "q8",
+          "question": "In Furious 7, why does Deckard Shaw hunt Dom's crew?",
+          "options": [
+            { "id": "a", "text": "To steal a car collection", "is_correct": false },
+            { "id": "b", "text": "To avenge his brother Owen", "is_correct": true },
+            { "id": "c", "text": "To recover stolen gold", "is_correct": false },
+            { "id": "d", "text": "Because Dom betrayed him", "is_correct": false }
+          ],
+          "explanation": "Deckard seeks revenge for Owen, left comatose at the end of the sixth film."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-rapido-y-furioso",
+      "title": "Trivia de Rápido y Furioso: autos, familia y golpes",
+      "description": "Ocho preguntas sobre la saga Rápido y Furioso: el equipo de Dom, los autos, los golpes y el orden de las películas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["rápido y furioso", "trivia", "autos", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Con qué auto se asocia más a Dominic Toretto a lo largo de la saga?",
+          "options": [
+            { "id": "a", "text": "Ford Mustang", "is_correct": false },
+            { "id": "b", "text": "Dodge Charger", "is_correct": true },
+            { "id": "c", "text": "Chevrolet Camaro", "is_correct": false },
+            { "id": "d", "text": "Nissan Skyline", "is_correct": false }
+          ],
+          "explanation": "El Dodge Charger R/T negro de 1970, construido junto a su padre, es el auto insignia de Dom."
+        },
+        {
+          "id": "q2",
+          "question": "En la primera película, ¿cuál es el verdadero trabajo de Brian O'Conner mientras se acerca al equipo de Dom?",
+          "options": [
+            { "id": "a", "text": "Policía encubierto", "is_correct": true },
+            { "id": "b", "text": "Periodista", "is_correct": false },
+            { "id": "c", "text": "Mecánico", "is_correct": false },
+            { "id": "d", "text": "Corredor callejero", "is_correct": false }
+          ],
+          "explanation": "Brian es un policía encubierto que investiga los robos de camiones."
+        },
+        {
+          "id": "q3",
+          "question": "Tras perder la primera carrera, ¿qué dice Brian que le debe a Dom?",
+          "options": [
+            { "id": "a", "text": "Diez mil dólares", "is_correct": false },
+            { "id": "b", "text": "Un auto de diez segundos", "is_correct": true },
+            { "id": "c", "text": "Su licencia de conducir", "is_correct": false },
+            { "id": "d", "text": "Un motor nuevo", "is_correct": false }
+          ],
+          "explanation": "La frase célebre de Brian: «te debo un auto de diez segundos»."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué película lleva la acción a Tokio y a las carreras de derrape?",
+          "options": [
+            { "id": "a", "text": "Más rápido más furioso", "is_correct": false },
+            { "id": "b", "text": "Rápidos y furiosos 5", "is_correct": false },
+            { "id": "c", "text": "Reto Tokio", "is_correct": true },
+            { "id": "d", "text": "Rápidos y furiosos 7", "is_correct": false }
+          ],
+          "explanation": "The Fast and the Furious: Tokyo Drift (2006) sigue a Sean Boswell aprendiendo a derrapar en Tokio."
+        },
+        {
+          "id": "q5",
+          "question": "En Rápidos y furiosos 5, ¿qué arrastra el equipo de Dom por las calles de Río de Janeiro con dos autos?",
+          "options": [
+            { "id": "a", "text": "Un camión blindado", "is_correct": false },
+            { "id": "b", "text": "Un contenedor de carga", "is_correct": false },
+            { "id": "c", "text": "Un autobús", "is_correct": false },
+            { "id": "d", "text": "Una bóveda de banco", "is_correct": true }
+          ],
+          "explanation": "El clímax muestra dos Charger remolcando una enorme bóveda por la ciudad."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué personaje revela estar vivo en Rápidos y furiosos 6 tras creerse muerto?",
+          "options": [
+            { "id": "a", "text": "Letty", "is_correct": true },
+            { "id": "b", "text": "Han", "is_correct": false },
+            { "id": "c", "text": "Jesse", "is_correct": false },
+            { "id": "d", "text": "Vince", "is_correct": false }
+          ],
+          "explanation": "Letty reaparece trabajando con el equipo de Shaw, con amnesia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama la hermana de Dom?",
+          "options": [
+            { "id": "a", "text": "Elena", "is_correct": false },
+            { "id": "b", "text": "Ramsey", "is_correct": false },
+            { "id": "c", "text": "Mia", "is_correct": true },
+            { "id": "d", "text": "Gisele", "is_correct": false }
+          ],
+          "explanation": "Mia Toretto se convierte después en la pareja de Brian."
+        },
+        {
+          "id": "q8",
+          "question": "En Rápidos y furiosos 7, ¿por qué Deckard Shaw persigue al equipo de Dom?",
+          "options": [
+            { "id": "a", "text": "Para robar una colección de autos", "is_correct": false },
+            { "id": "b", "text": "Para vengar a su hermano Owen", "is_correct": true },
+            { "id": "c", "text": "Para recuperar un oro robado", "is_correct": false },
+            { "id": "d", "text": "Porque Dom lo traicionó", "is_correct": false }
+          ],
+          "explanation": "Deckard busca vengar a Owen, que quedó en coma al final de la sexta película."
+        }
+      ]
+    },
+    {
+      "slug": "en-jurassic-park-trivia",
+      "title": "Jurassic Park Trivia: Dinosaurs and the Park",
+      "description": "Eight questions on Jurassic Park: the dinosaurs, the park's science and the characters of the original films.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["jurassic park", "trivia", "dinosaurs", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Where do the scientists get the dinosaur DNA from?",
+          "options": [
+            { "id": "a", "text": "Fossilized bones", "is_correct": false },
+            { "id": "b", "text": "Mosquitoes preserved in amber", "is_correct": true },
+            { "id": "c", "text": "Frozen tissue samples", "is_correct": false },
+            { "id": "d", "text": "Living reptiles", "is_correct": false }
+          ],
+          "explanation": "The DNA comes from blood inside mosquitoes trapped in amber."
+        },
+        {
+          "id": "q2",
+          "question": "What is Alan Grant's profession?",
+          "options": [
+            { "id": "a", "text": "Mathematician", "is_correct": false },
+            { "id": "b", "text": "Lawyer", "is_correct": false },
+            { "id": "c", "text": "Paleontologist", "is_correct": true },
+            { "id": "d", "text": "Game warden", "is_correct": false }
+          ],
+          "explanation": "Grant is a paleontologist invited to endorse the park."
+        },
+        {
+          "id": "q3",
+          "question": "How does Dennis Nedry plan to smuggle dinosaur embryos out of the park?",
+          "options": [
+            { "id": "a", "text": "In his backpack", "is_correct": false },
+            { "id": "b", "text": "In a thermos of coffee", "is_correct": false },
+            { "id": "c", "text": "Sewn into his jacket", "is_correct": false },
+            { "id": "d", "text": "Inside a shaving-cream can", "is_correct": true }
+          ],
+          "explanation": "The embryos are hidden in a fake can of Barbasol shaving cream."
+        },
+        {
+          "id": "q4",
+          "question": "Who says the famous line 'life finds a way'?",
+          "options": [
+            { "id": "a", "text": "Ian Malcolm", "is_correct": true },
+            { "id": "b", "text": "John Hammond", "is_correct": false },
+            { "id": "c", "text": "Alan Grant", "is_correct": false },
+            { "id": "d", "text": "Ellie Sattler", "is_correct": false }
+          ],
+          "explanation": "Chaos theorist Ian Malcolm warns that life cannot be contained."
+        },
+        {
+          "id": "q5",
+          "question": "Why can the dinosaurs breed even though all were engineered to be female?",
+          "options": [
+            { "id": "a", "text": "The lab cloned males too", "is_correct": false },
+            { "id": "b", "text": "Frog DNA lets some change sex", "is_correct": true },
+            { "id": "c", "text": "The raptors laid eggs alone", "is_correct": false },
+            { "id": "d", "text": "The park made a counting error", "is_correct": false }
+          ],
+          "explanation": "West African frog DNA filled the genetic gaps, letting some dinosaurs change sex."
+        },
+        {
+          "id": "q6",
+          "question": "According to Dr. Grant, how does the T. rex detect its prey?",
+          "options": [
+            { "id": "a", "text": "By smell", "is_correct": false },
+            { "id": "b", "text": "By sound", "is_correct": false },
+            { "id": "c", "text": "By movement", "is_correct": true },
+            { "id": "d", "text": "By body heat", "is_correct": false }
+          ],
+          "explanation": "Grant explains that its vision is based on movement, so stay still."
+        },
+        {
+          "id": "q7",
+          "question": "Which dinosaur spits venom at Dennis Nedry before killing him?",
+          "options": [
+            { "id": "a", "text": "Velociraptor", "is_correct": false },
+            { "id": "b", "text": "Compsognathus", "is_correct": false },
+            { "id": "c", "text": "Pteranodon", "is_correct": false },
+            { "id": "d", "text": "Dilophosaurus", "is_correct": true }
+          ],
+          "explanation": "The frilled Dilophosaurus blinds Nedry with its venom."
+        },
+        {
+          "id": "q8",
+          "question": "At the climax in the visitor center, what saves the survivors from the raptors?",
+          "options": [
+            { "id": "a", "text": "The T. rex attacks the raptors", "is_correct": true },
+            { "id": "b", "text": "The raptors run away", "is_correct": false },
+            { "id": "c", "text": "The power comes back on", "is_correct": false },
+            { "id": "d", "text": "A helicopter lands", "is_correct": false }
+          ],
+          "explanation": "The T. rex bursts in and kills the raptors cornering the group."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-jurassic-park",
+      "title": "Trivia de Jurassic Park: dinosaurios y el parque",
+      "description": "Ocho preguntas sobre Jurassic Park: los dinosaurios, la ciencia del parque y los personajes de las películas originales.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["jurassic park", "trivia", "dinosaurios", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De dónde obtienen los científicos el ADN de los dinosaurios?",
+          "options": [
+            { "id": "a", "text": "De huesos fosilizados", "is_correct": false },
+            { "id": "b", "text": "De mosquitos preservados en ámbar", "is_correct": true },
+            { "id": "c", "text": "De muestras de tejido congelado", "is_correct": false },
+            { "id": "d", "text": "De reptiles vivos", "is_correct": false }
+          ],
+          "explanation": "El ADN proviene de la sangre dentro de mosquitos atrapados en ámbar."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la profesión de Alan Grant?",
+          "options": [
+            { "id": "a", "text": "Matemático", "is_correct": false },
+            { "id": "b", "text": "Abogado", "is_correct": false },
+            { "id": "c", "text": "Paleontólogo", "is_correct": true },
+            { "id": "d", "text": "Guardabosques", "is_correct": false }
+          ],
+          "explanation": "Grant es un paleontólogo invitado a avalar el parque."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo planea Dennis Nedry sacar los embriones de dinosaurio del parque?",
+          "options": [
+            { "id": "a", "text": "En su mochila", "is_correct": false },
+            { "id": "b", "text": "En un termo de café", "is_correct": false },
+            { "id": "c", "text": "Cosidos dentro de su chaqueta", "is_correct": false },
+            { "id": "d", "text": "Dentro de una lata de crema de afeitar", "is_correct": true }
+          ],
+          "explanation": "Los embriones van ocultos en una lata falsa de crema de afeitar Barbasol."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién dice la famosa frase «la vida se abre camino»?",
+          "options": [
+            { "id": "a", "text": "Ian Malcolm", "is_correct": true },
+            { "id": "b", "text": "John Hammond", "is_correct": false },
+            { "id": "c", "text": "Alan Grant", "is_correct": false },
+            { "id": "d", "text": "Ellie Sattler", "is_correct": false }
+          ],
+          "explanation": "El teórico del caos Ian Malcolm advierte que la vida no se puede contener."
+        },
+        {
+          "id": "q5",
+          "question": "¿Por qué los dinosaurios logran reproducirse aunque todos fueron diseñados hembras?",
+          "options": [
+            { "id": "a", "text": "El laboratorio también clonó machos", "is_correct": false },
+            {
+              "id": "b",
+              "text": "El ADN de rana permite que algunos cambien de sexo",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Los raptores pusieron huevos solos", "is_correct": false },
+            { "id": "d", "text": "El parque cometió un error de conteo", "is_correct": false }
+          ],
+          "explanation": "El ADN de rana africana rellenó los vacíos genéticos y permite que algunos dinosaurios cambien de sexo."
+        },
+        {
+          "id": "q6",
+          "question": "Según el doctor Grant, ¿cómo detecta el T. rex a su presa?",
+          "options": [
+            { "id": "a", "text": "Por el olfato", "is_correct": false },
+            { "id": "b", "text": "Por el sonido", "is_correct": false },
+            { "id": "c", "text": "Por el movimiento", "is_correct": true },
+            { "id": "d", "text": "Por el calor corporal", "is_correct": false }
+          ],
+          "explanation": "Grant explica que su visión se basa en el movimiento: hay que quedarse inmóvil."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué dinosaurio escupe veneno a Dennis Nedry antes de matarlo?",
+          "options": [
+            { "id": "a", "text": "Velociraptor", "is_correct": false },
+            { "id": "b", "text": "Compsognathus", "is_correct": false },
+            { "id": "c", "text": "Pteranodon", "is_correct": false },
+            { "id": "d", "text": "Dilophosaurus", "is_correct": true }
+          ],
+          "explanation": "El Dilophosaurus de gola ciega a Nedry con su veneno."
+        },
+        {
+          "id": "q8",
+          "question": "En el clímax del centro de visitantes, ¿qué salva a los sobrevivientes de los raptores?",
+          "options": [
+            { "id": "a", "text": "El T. rex ataca a los raptores", "is_correct": true },
+            { "id": "b", "text": "Los raptores huyen", "is_correct": false },
+            { "id": "c", "text": "Vuelve la electricidad", "is_correct": false },
+            { "id": "d", "text": "Aterriza un helicóptero", "is_correct": false }
+          ],
+          "explanation": "El T. rex irrumpe y mata a los raptores que acorralaban al grupo."
+        }
+      ]
+    },
+    {
+      "slug": "en-pirates-of-the-caribbean-trivia",
+      "title": "Pirates of the Caribbean Trivia: Jack Sparrow",
+      "description": "Eight questions on Pirates of the Caribbean: Jack Sparrow, the Black Pearl, curses and the crew's legends.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["pirates of the caribbean", "trivia", "pirates", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the name of Captain Jack Sparrow's ship?",
+          "options": [
+            { "id": "a", "text": "The Flying Dutchman", "is_correct": false },
+            { "id": "b", "text": "The Black Pearl", "is_correct": true },
+            { "id": "c", "text": "The Interceptor", "is_correct": false },
+            { "id": "d", "text": "The Empress", "is_correct": false }
+          ],
+          "explanation": "Jack's beloved ship is the Black Pearl, the fastest ship on the seas."
+        },
+        {
+          "id": "q2",
+          "question": "What curses the crew of the Black Pearl in the first film?",
+          "options": [
+            { "id": "a", "text": "A witch's spell", "is_correct": false },
+            { "id": "b", "text": "The Aztec gold they stole", "is_correct": true },
+            { "id": "c", "text": "A pact with Davy Jones", "is_correct": false },
+            { "id": "d", "text": "A sirens' song", "is_correct": false }
+          ],
+          "explanation": "The cursed Aztec gold leaves them immortal, unable to feel anything."
+        },
+        {
+          "id": "q3",
+          "question": "What reveals the cursed pirates' true form?",
+          "options": [
+            { "id": "a", "text": "Moonlight", "is_correct": true },
+            { "id": "b", "text": "Sunlight", "is_correct": false },
+            { "id": "c", "text": "Rain", "is_correct": false },
+            { "id": "d", "text": "Fire", "is_correct": false }
+          ],
+          "explanation": "Under moonlight the cursed crew appear as living skeletons."
+        },
+        {
+          "id": "q4",
+          "question": "Whose blood is needed to lift the curse?",
+          "options": [
+            { "id": "a", "text": "Jack Sparrow's", "is_correct": false },
+            { "id": "b", "text": "Elizabeth Swann's", "is_correct": false },
+            { "id": "c", "text": "Will Turner's", "is_correct": true },
+            { "id": "d", "text": "Barbossa's", "is_correct": false }
+          ],
+          "explanation": "They need the blood of Bootstrap Bill's child, Will Turner."
+        },
+        {
+          "id": "q5",
+          "question": "What does Jack's compass point to?",
+          "options": [
+            { "id": "a", "text": "North", "is_correct": false },
+            { "id": "b", "text": "The nearest treasure", "is_correct": false },
+            { "id": "c", "text": "The nearest port", "is_correct": false },
+            { "id": "d", "text": "Whatever the holder wants most", "is_correct": true }
+          ],
+          "explanation": "The compass points to the thing its holder desires most."
+        },
+        {
+          "id": "q6",
+          "question": "What is the name of Davy Jones' ship?",
+          "options": [
+            { "id": "a", "text": "The Flying Dutchman", "is_correct": true },
+            { "id": "b", "text": "The Black Pearl", "is_correct": false },
+            { "id": "c", "text": "Queen Anne's Revenge", "is_correct": false },
+            { "id": "d", "text": "The Silent Mary", "is_correct": false }
+          ],
+          "explanation": "Davy Jones commands the Flying Dutchman, ferrying souls lost at sea."
+        },
+        {
+          "id": "q7",
+          "question": "Where is Davy Jones' heart kept?",
+          "options": [
+            { "id": "a", "text": "Around his neck", "is_correct": false },
+            { "id": "b", "text": "In the Dead Man's Chest", "is_correct": true },
+            { "id": "c", "text": "In the Kraken's lair", "is_correct": false },
+            { "id": "d", "text": "Buried in Tortuga", "is_correct": false }
+          ],
+          "explanation": "His heart is locked in the Dead Man's Chest; stabbing it makes you captain of the Dutchman."
+        },
+        {
+          "id": "q8",
+          "question": "Who is elected Pirate King by the Brethren Court in At World's End?",
+          "options": [
+            { "id": "a", "text": "Jack Sparrow", "is_correct": false },
+            { "id": "b", "text": "Barbossa", "is_correct": false },
+            { "id": "c", "text": "Will Turner", "is_correct": false },
+            { "id": "d", "text": "Elizabeth Swann", "is_correct": true }
+          ],
+          "explanation": "Every captain votes for themselves except Jack, who votes for Elizabeth."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-piratas-del-caribe",
+      "title": "Trivia de Piratas del Caribe: Jack Sparrow y maldiciones",
+      "description": "Ocho preguntas sobre Piratas del Caribe: Jack Sparrow, el Perla Negra, las maldiciones y las leyendas de la tripulación.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["piratas del caribe", "trivia", "piratas", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo se llama el barco del capitán Jack Sparrow?",
+          "options": [
+            { "id": "a", "text": "El Holandés Errante", "is_correct": false },
+            { "id": "b", "text": "El Perla Negra", "is_correct": true },
+            { "id": "c", "text": "El Interceptor", "is_correct": false },
+            { "id": "d", "text": "La Emperatriz", "is_correct": false }
+          ],
+          "explanation": "El querido barco de Jack es el Perla Negra, el más veloz de los mares."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué maldice a la tripulación del Perla Negra en la primera película?",
+          "options": [
+            { "id": "a", "text": "El hechizo de una bruja", "is_correct": false },
+            { "id": "b", "text": "El oro azteca que robaron", "is_correct": true },
+            { "id": "c", "text": "Un pacto con Davy Jones", "is_correct": false },
+            { "id": "d", "text": "El canto de las sirenas", "is_correct": false }
+          ],
+          "explanation": "El oro azteca maldito los deja inmortales, incapaces de sentir nada."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué revela la verdadera forma de los piratas malditos?",
+          "options": [
+            { "id": "a", "text": "La luz de la luna", "is_correct": true },
+            { "id": "b", "text": "La luz del sol", "is_correct": false },
+            { "id": "c", "text": "La lluvia", "is_correct": false },
+            { "id": "d", "text": "El fuego", "is_correct": false }
+          ],
+          "explanation": "Bajo la luz de la luna la tripulación maldita se ve como esqueletos vivientes."
+        },
+        {
+          "id": "q4",
+          "question": "¿De quién es la sangre necesaria para romper la maldición?",
+          "options": [
+            { "id": "a", "text": "De Jack Sparrow", "is_correct": false },
+            { "id": "b", "text": "De Elizabeth Swann", "is_correct": false },
+            { "id": "c", "text": "De Will Turner", "is_correct": true },
+            { "id": "d", "text": "De Barbossa", "is_correct": false }
+          ],
+          "explanation": "Necesitan la sangre del hijo de Bill el Botas, Will Turner."
+        },
+        {
+          "id": "q5",
+          "question": "¿Hacia qué apunta la brújula de Jack?",
+          "options": [
+            { "id": "a", "text": "Hacia el norte", "is_correct": false },
+            { "id": "b", "text": "Hacia el tesoro más cercano", "is_correct": false },
+            { "id": "c", "text": "Hacia el puerto más cercano", "is_correct": false },
+            { "id": "d", "text": "Hacia lo que más desea quien la sostiene", "is_correct": true }
+          ],
+          "explanation": "La brújula apunta a aquello que más desea quien la tiene en la mano."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama el barco de Davy Jones?",
+          "options": [
+            { "id": "a", "text": "El Holandés Errante", "is_correct": true },
+            { "id": "b", "text": "El Perla Negra", "is_correct": false },
+            { "id": "c", "text": "La Venganza de la Reina Ana", "is_correct": false },
+            { "id": "d", "text": "El Silent Mary", "is_correct": false }
+          ],
+          "explanation": "Davy Jones comanda el Holandés Errante, que transporta las almas perdidas en el mar."
+        },
+        {
+          "id": "q7",
+          "question": "¿Dónde se guarda el corazón de Davy Jones?",
+          "options": [
+            { "id": "a", "text": "Colgado de su cuello", "is_correct": false },
+            { "id": "b", "text": "En el Cofre de la Muerte", "is_correct": true },
+            { "id": "c", "text": "En la guarida del Kraken", "is_correct": false },
+            { "id": "d", "text": "Enterrado en Tortuga", "is_correct": false }
+          ],
+          "explanation": "Su corazón está encerrado en el Cofre de la Muerte; quien lo apuñale capitanea el Holandés."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién es elegido Rey Pirata por la Corte de los Hermanos en la tercera película?",
+          "options": [
+            { "id": "a", "text": "Jack Sparrow", "is_correct": false },
+            { "id": "b", "text": "Barbossa", "is_correct": false },
+            { "id": "c", "text": "Will Turner", "is_correct": false },
+            { "id": "d", "text": "Elizabeth Swann", "is_correct": true }
+          ],
+          "explanation": "Cada capitán vota por sí mismo, salvo Jack, que vota por Elizabeth."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-matrix-trivia",
+      "title": "The Matrix Trivia: The Red Pill and Beyond",
+      "description": "Eight questions on The Matrix: Neo, the red pill, the Agents, Zion and the sequels of the saga.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["the matrix", "trivia", "sci-fi", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which pill does Neo take to learn the truth about the Matrix?",
+          "options": [
+            { "id": "a", "text": "The blue pill", "is_correct": false },
+            { "id": "b", "text": "The red pill", "is_correct": true },
+            { "id": "c", "text": "A green pill", "is_correct": false },
+            { "id": "d", "text": "Both pills", "is_correct": false }
+          ],
+          "explanation": "The red pill wakes Neo in the real world; the blue one would have let him forget."
+        },
+        {
+          "id": "q2",
+          "question": "What is Neo's real name inside the Matrix?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "John Smith", "is_correct": false },
+            { "id": "c", "text": "Thomas Anderson", "is_correct": true },
+            { "id": "d", "text": "Robert Taylor", "is_correct": false }
+          ],
+          "explanation": "His civilian name is Thomas A. Anderson; Neo is his hacker alias."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of Morpheus' hovercraft?",
+          "options": [
+            { "id": "a", "text": "Osiris", "is_correct": false },
+            { "id": "b", "text": "Nebuchadnezzar", "is_correct": true },
+            { "id": "c", "text": "Logos", "is_correct": false },
+            { "id": "d", "text": "Mjolnir", "is_correct": false }
+          ],
+          "explanation": "The Nebuchadnezzar is Morpheus' ship; Logos and Mjolnir belong to other crews."
+        },
+        {
+          "id": "q4",
+          "question": "Which Agent becomes Neo's nemesis?",
+          "options": [
+            { "id": "a", "text": "Agent Brown", "is_correct": false },
+            { "id": "b", "text": "Agent Johnson", "is_correct": false },
+            { "id": "c", "text": "The Architect", "is_correct": false },
+            { "id": "d", "text": "Agent Smith", "is_correct": true }
+          ],
+          "explanation": "Smith breaks free of the system and becomes a self-replicating virus."
+        },
+        {
+          "id": "q5",
+          "question": "What does Trinity say before shooting an Agent at point-blank range?",
+          "options": [
+            { "id": "a", "text": "'Dodge this.'", "is_correct": true },
+            { "id": "b", "text": "'Run, Neo, run.'", "is_correct": false },
+            { "id": "c", "text": "'There is no spoon.'", "is_correct": false },
+            { "id": "d", "text": "'I know kung fu.'", "is_correct": false }
+          ],
+          "explanation": "Trinity delivers the line right before pulling the trigger on the roof."
+        },
+        {
+          "id": "q6",
+          "question": "How do the rebels enter and exit the Matrix?",
+          "options": [
+            { "id": "a", "text": "Through mirrors", "is_correct": false },
+            { "id": "b", "text": "Through hidden doors", "is_correct": false },
+            { "id": "c", "text": "Through hardwired phone lines", "is_correct": true },
+            { "id": "d", "text": "Through dreams", "is_correct": false }
+          ],
+          "explanation": "Operators connect them via phone lines; a ringing phone is an exit point."
+        },
+        {
+          "id": "q7",
+          "question": "What does the boy bending spoons at the Oracle's home teach Neo?",
+          "options": [
+            { "id": "a", "text": "That he must dodge bullets", "is_correct": false },
+            { "id": "b", "text": "That there is no spoon", "is_correct": true },
+            { "id": "c", "text": "That he should follow the white rabbit", "is_correct": false },
+            { "id": "d", "text": "That the Matrix has him", "is_correct": false }
+          ],
+          "explanation": "'Do not try and bend the spoon... instead, only try to realize the truth: there is no spoon.'"
+        },
+        {
+          "id": "q8",
+          "question": "In The Matrix Revolutions, what does Neo offer the machines in exchange for peace?",
+          "options": [
+            { "id": "a", "text": "To defeat Agent Smith", "is_correct": true },
+            { "id": "b", "text": "To free all humans", "is_correct": false },
+            { "id": "c", "text": "To return to the Matrix forever", "is_correct": false },
+            { "id": "d", "text": "To destroy Zion himself", "is_correct": false }
+          ],
+          "explanation": "Neo fights Smith on the machines' behalf to save both worlds."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-matrix",
+      "title": "Trivia de Matrix: la pastilla roja y más allá",
+      "description": "Ocho preguntas sobre Matrix: Neo, la pastilla roja, los agentes, Zion y las secuelas de la saga.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["matrix", "trivia", "ciencia ficción", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué pastilla toma Neo para conocer la verdad sobre Matrix?",
+          "options": [
+            { "id": "a", "text": "La pastilla azul", "is_correct": false },
+            { "id": "b", "text": "La pastilla roja", "is_correct": true },
+            { "id": "c", "text": "Una pastilla verde", "is_correct": false },
+            { "id": "d", "text": "Las dos pastillas", "is_correct": false }
+          ],
+          "explanation": "La pastilla roja despierta a Neo en el mundo real; la azul lo habría dejado olvidar."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el nombre real de Neo dentro de Matrix?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "John Smith", "is_correct": false },
+            { "id": "c", "text": "Thomas Anderson", "is_correct": true },
+            { "id": "d", "text": "Robert Taylor", "is_correct": false }
+          ],
+          "explanation": "Su nombre civil es Thomas A. Anderson; Neo es su alias de hacker."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama la nave de Morfeo?",
+          "options": [
+            { "id": "a", "text": "Osiris", "is_correct": false },
+            { "id": "b", "text": "Nebuchadnezzar", "is_correct": true },
+            { "id": "c", "text": "Logos", "is_correct": false },
+            { "id": "d", "text": "Mjolnir", "is_correct": false }
+          ],
+          "explanation": "La Nebuchadnezzar es la nave de Morfeo; Logos y Mjolnir pertenecen a otras tripulaciones."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué agente se convierte en el némesis de Neo?",
+          "options": [
+            { "id": "a", "text": "El agente Brown", "is_correct": false },
+            { "id": "b", "text": "El agente Johnson", "is_correct": false },
+            { "id": "c", "text": "El Arquitecto", "is_correct": false },
+            { "id": "d", "text": "El agente Smith", "is_correct": true }
+          ],
+          "explanation": "Smith se libera del sistema y se convierte en un virus que se autorreplica."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué dice Trinity antes de disparar a un agente a quemarropa?",
+          "options": [
+            { "id": "a", "text": "«Esquiva esto»", "is_correct": true },
+            { "id": "b", "text": "«Corre, Neo, corre»", "is_correct": false },
+            { "id": "c", "text": "«No hay cuchara»", "is_correct": false },
+            { "id": "d", "text": "«Sé kung fu»", "is_correct": false }
+          ],
+          "explanation": "Trinity dice la frase justo antes de apretar el gatillo en la azotea."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo entran y salen los rebeldes de Matrix?",
+          "options": [
+            { "id": "a", "text": "A través de espejos", "is_correct": false },
+            { "id": "b", "text": "Por puertas ocultas", "is_correct": false },
+            { "id": "c", "text": "A través de líneas telefónicas fijas", "is_correct": true },
+            { "id": "d", "text": "A través de sueños", "is_correct": false }
+          ],
+          "explanation": "Los operadores los conectan por líneas de teléfono; un teléfono que suena es una salida."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué le enseña a Neo el niño que dobla cucharas en casa del Oráculo?",
+          "options": [
+            { "id": "a", "text": "Que debe esquivar balas", "is_correct": false },
+            { "id": "b", "text": "Que no hay cuchara", "is_correct": true },
+            { "id": "c", "text": "Que debe seguir al conejo blanco", "is_correct": false },
+            { "id": "d", "text": "Que Matrix lo tiene atrapado", "is_correct": false }
+          ],
+          "explanation": "«No intentes doblar la cuchara; solo intenta darte cuenta de la verdad: no hay cuchara»."
+        },
+        {
+          "id": "q8",
+          "question": "En Matrix Revolutions, ¿qué ofrece Neo a las máquinas a cambio de la paz?",
+          "options": [
+            { "id": "a", "text": "Derrotar al agente Smith", "is_correct": true },
+            { "id": "b", "text": "Liberar a todos los humanos", "is_correct": false },
+            { "id": "c", "text": "Volver a Matrix para siempre", "is_correct": false },
+            { "id": "d", "text": "Destruir él mismo Zion", "is_correct": false }
+          ],
+          "explanation": "Neo pelea contra Smith en nombre de las máquinas para salvar ambos mundos."
+        }
+      ]
+    },
+    {
+      "slug": "en-back-to-the-future-trivia",
+      "title": "Back to the Future Trivia: Marty, Doc and 88 mph",
+      "description": "Eight questions on Back to the Future: Marty McFly, Doc Brown, the DeLorean, 1955, 2015 and 88 mph.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["back to the future", "trivia", "time travel", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What speed must the DeLorean reach to travel through time?",
+          "options": [
+            { "id": "a", "text": "55 mph", "is_correct": false },
+            { "id": "b", "text": "88 mph", "is_correct": true },
+            { "id": "c", "text": "100 mph", "is_correct": false },
+            { "id": "d", "text": "121 mph", "is_correct": false }
+          ],
+          "explanation": "Reaching 88 miles per hour triggers the flux capacitor."
+        },
+        {
+          "id": "q2",
+          "question": "According to Doc, how much power does the flux capacitor need?",
+          "options": [
+            { "id": "a", "text": "1.21 megawatts", "is_correct": false },
+            { "id": "b", "text": "12.1 gigawatts", "is_correct": false },
+            { "id": "c", "text": "1.21 gigawatts", "is_correct": true },
+            { "id": "d", "text": "121 watts", "is_correct": false }
+          ],
+          "explanation": "'One point twenty-one gigawatts!' is one of Doc's most famous lines."
+        },
+        {
+          "id": "q3",
+          "question": "What kind of car is the time machine built into?",
+          "options": [
+            { "id": "a", "text": "A DeLorean", "is_correct": true },
+            { "id": "b", "text": "A Corvette", "is_correct": false },
+            { "id": "c", "text": "A Mustang", "is_correct": false },
+            { "id": "d", "text": "A Ferrari", "is_correct": false }
+          ],
+          "explanation": "Doc chose the DeLorean DMC-12, with its stainless-steel body and gull-wing doors."
+        },
+        {
+          "id": "q4",
+          "question": "To which year does Marty travel in the first film?",
+          "options": [
+            { "id": "a", "text": "1985", "is_correct": false },
+            { "id": "b", "text": "2015", "is_correct": false },
+            { "id": "c", "text": "1885", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": true }
+          ],
+          "explanation": "Marty lands in 1955 and meets his teenage parents."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of Doc Brown's dog in 1985?",
+          "options": [
+            { "id": "a", "text": "Einstein", "is_correct": true },
+            { "id": "b", "text": "Mozart", "is_correct": false },
+            { "id": "c", "text": "Tesla", "is_correct": false },
+            { "id": "d", "text": "Galileo", "is_correct": false }
+          ],
+          "explanation": "Einstein is the world's first time traveller; in 1955 Doc's dog is Copernicus."
+        },
+        {
+          "id": "q6",
+          "question": "Which Chuck Berry song does Marty play at the Enchantment Under the Sea dance?",
+          "options": [
+            { "id": "a", "text": "Roll Over Beethoven", "is_correct": false },
+            { "id": "b", "text": "Johnny B. Goode", "is_correct": true },
+            { "id": "c", "text": "Sweet Little Sixteen", "is_correct": false },
+            { "id": "d", "text": "Maybellene", "is_correct": false }
+          ],
+          "explanation": "Marty plays 'Johnny B. Goode', and Marvin Berry phones his cousin Chuck."
+        },
+        {
+          "id": "q7",
+          "question": "What fuel does the DeLorean's time machine originally run on?",
+          "options": [
+            { "id": "a", "text": "Uranium", "is_correct": false },
+            { "id": "b", "text": "Solar power", "is_correct": false },
+            { "id": "c", "text": "Plutonium", "is_correct": true },
+            { "id": "d", "text": "Mr. Fusion", "is_correct": false }
+          ],
+          "explanation": "Plutonium stolen from Libyan terrorists powers it; Mr. Fusion only appears at the end."
+        },
+        {
+          "id": "q8",
+          "question": "To which year do Doc and Marty travel in Back to the Future Part II?",
+          "options": [
+            { "id": "a", "text": "2025", "is_correct": false },
+            { "id": "b", "text": "1999", "is_correct": false },
+            { "id": "c", "text": "1885", "is_correct": false },
+            { "id": "d", "text": "2015", "is_correct": true }
+          ],
+          "explanation": "They travel to October 21, 2015, a future of hoverboards and flying cars."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-regreso-al-futuro",
+      "title": "Trivia de Regreso al Futuro: Marty, Doc y 88 mph",
+      "description": "Ocho preguntas sobre Regreso al Futuro: Marty McFly, Doc Brown, el DeLorean, 1955, 2015 y las 88 mph.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["regreso al futuro", "trivia", "viajes en el tiempo", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿A qué velocidad debe llegar el DeLorean para viajar en el tiempo?",
+          "options": [
+            { "id": "a", "text": "55 mph", "is_correct": false },
+            { "id": "b", "text": "88 mph", "is_correct": true },
+            { "id": "c", "text": "100 mph", "is_correct": false },
+            { "id": "d", "text": "121 mph", "is_correct": false }
+          ],
+          "explanation": "Al alcanzar las 88 millas por hora se activa el condensador de flujo."
+        },
+        {
+          "id": "q2",
+          "question": "Según Doc, ¿cuánta potencia necesita el condensador de flujo?",
+          "options": [
+            { "id": "a", "text": "1,21 megavatios", "is_correct": false },
+            { "id": "b", "text": "12,1 gigavatios", "is_correct": false },
+            { "id": "c", "text": "1,21 gigavatios", "is_correct": true },
+            { "id": "d", "text": "121 vatios", "is_correct": false }
+          ],
+          "explanation": "«¡Un punto veintiún gigavatios!» es una de las frases más famosas de Doc."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué tipo de auto se construye la máquina del tiempo?",
+          "options": [
+            { "id": "a", "text": "Un DeLorean", "is_correct": true },
+            { "id": "b", "text": "Un Corvette", "is_correct": false },
+            { "id": "c", "text": "Un Mustang", "is_correct": false },
+            { "id": "d", "text": "Un Ferrari", "is_correct": false }
+          ],
+          "explanation": "Doc eligió el DeLorean DMC-12, con su carrocería de acero inoxidable y puertas de ala de gaviota."
+        },
+        {
+          "id": "q4",
+          "question": "¿A qué año viaja Marty en la primera película?",
+          "options": [
+            { "id": "a", "text": "1985", "is_correct": false },
+            { "id": "b", "text": "2015", "is_correct": false },
+            { "id": "c", "text": "1885", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": true }
+          ],
+          "explanation": "Marty llega a 1955 y conoce a sus padres adolescentes."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el perro de Doc Brown en 1985?",
+          "options": [
+            { "id": "a", "text": "Einstein", "is_correct": true },
+            { "id": "b", "text": "Mozart", "is_correct": false },
+            { "id": "c", "text": "Tesla", "is_correct": false },
+            { "id": "d", "text": "Galileo", "is_correct": false }
+          ],
+          "explanation": "Einstein es el primer viajero del tiempo; en 1955 el perro de Doc se llama Copérnico."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué canción de Chuck Berry toca Marty en el baile Encantamiento bajo el Mar?",
+          "options": [
+            { "id": "a", "text": "«Roll Over Beethoven»", "is_correct": false },
+            { "id": "b", "text": "«Johnny B. Goode»", "is_correct": true },
+            { "id": "c", "text": "«Sweet Little Sixteen»", "is_correct": false },
+            { "id": "d", "text": "«Maybellene»", "is_correct": false }
+          ],
+          "explanation": "Marty interpreta «Johnny B. Goode» y Marvin Berry llama a su primo Chuck."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué combustible funciona originalmente la máquina del tiempo del DeLorean?",
+          "options": [
+            { "id": "a", "text": "Uranio", "is_correct": false },
+            { "id": "b", "text": "Energía solar", "is_correct": false },
+            { "id": "c", "text": "Plutonio", "is_correct": true },
+            { "id": "d", "text": "Mr. Fusión", "is_correct": false }
+          ],
+          "explanation": "Funciona con el plutonio robado a los terroristas libios; Mr. Fusión solo aparece al final."
+        },
+        {
+          "id": "q8",
+          "question": "¿A qué año viajan Doc y Marty en Regreso al Futuro Parte II?",
+          "options": [
+            { "id": "a", "text": "2025", "is_correct": false },
+            { "id": "b", "text": "1999", "is_correct": false },
+            { "id": "c", "text": "1885", "is_correct": false },
+            { "id": "d", "text": "2015", "is_correct": true }
+          ],
+          "explanation": "Viajan al 21 de octubre de 2015, un futuro de aerotablas y autos voladores."
+        }
+      ]
+    }
+  ]
+}
