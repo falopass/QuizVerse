@@ -9,7 +9,7 @@ const quizConFoto = {
   title: 'Test Quiz',
   quiz_type: 'trivia' as const,
   category: null,
-  cover_image_url: '/stock-covers/test-quiz.jpg',
+  cover_image_url: '/stock-covers/test-quiz',
 };
 
 describe('QuizCoverArt · foto', () => {

@@ -65,7 +65,11 @@ export function QuizCoverArt({
           src={quiz.cover_image_url!}
           alt=""
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes={
+            isAboveFold
+              ? '(max-width: 699px) 100vw, 50vw'
+              : '(max-width: 699px) 100vw, (max-width: 900px) 50vw, 33vw'
+          }
           className="arcade-cover-photo"
           priority={isHero}
           loading={isAboveFold ? 'eager' : 'lazy'}
