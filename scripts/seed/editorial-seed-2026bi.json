@@ -271,14 +271,14 @@
         },
         {
           "id": "q6",
-          "question": "Which country is the world's largest market for electric cars?",
+          "question": "Which country became the world's largest electric car market in 2015, overtaking the United States?",
           "options": [
             { "id": "a", "text": "United States", "is_correct": false },
             { "id": "b", "text": "Germany", "is_correct": false },
             { "id": "c", "text": "Japan", "is_correct": false },
             { "id": "d", "text": "China", "is_correct": true }
           ],
-          "explanation": "China has sold more electric cars than any other country for years."
+          "explanation": "In 2015 China overtook the United States in electric car sales."
         },
         {
           "id": "q7",
@@ -376,14 +376,14 @@
         },
         {
           "id": "q6",
-          "question": "¿Qué país es el mayor mercado mundial de autos eléctricos?",
+          "question": "¿Qué país se convirtió en 2015 en el mayor mercado mundial de autos eléctricos, superando a Estados Unidos?",
           "options": [
             { "id": "a", "text": "Estados Unidos", "is_correct": false },
             { "id": "b", "text": "Alemania", "is_correct": false },
             { "id": "c", "text": "Japón", "is_correct": false },
             { "id": "d", "text": "China", "is_correct": true }
           ],
-          "explanation": "China vende más autos eléctricos que ningún otro país desde hace años."
+          "explanation": "En 2015, China superó a Estados Unidos en ventas de autos eléctricos."
         },
         {
           "id": "q7",
