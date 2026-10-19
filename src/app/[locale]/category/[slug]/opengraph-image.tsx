@@ -33,7 +33,7 @@ export default async function CategoryOpenGraphImage({
       >
         QUIZVERSE
       </div>,
-      { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
+      await arcadeOgOptions()
     );
   }
   const category = localizeCategory(payload.category, uiLocale)!;

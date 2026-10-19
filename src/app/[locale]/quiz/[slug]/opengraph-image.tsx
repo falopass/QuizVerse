@@ -34,7 +34,7 @@ export default async function QuizOpenGraphImage({
       >
         QUIZVERSE
       </div>,
-      { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
+      await arcadeOgOptions()
     );
   }
   const cover = `data:image/svg+xml;base64,${Buffer.from(buildQuizCoverSvg(quiz)).toString('base64')}`;
