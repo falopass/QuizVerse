@@ -118,17 +118,22 @@ async function submit(urls, key, keyLocation) {
 }
 
 async function main() {
+  if (urlsArg !== -1 && (changed || sinceArg !== -1)) {
+    throw new Error('--urls cannot be combined with --changed or --since');
+  }
+
   const { key, keyLocation } = await findKey();
   console.log(`IndexNow key file: ${keyLocation}`);
 
   let urls;
   let since;
+  let entries;
   if (urlsArg !== -1) {
     urls = args[urlsArg + 1]
       .split(',')
       .map((path) => (path.startsWith('http') ? path : `${site}${path}`));
   } else {
-    const entries = await sitemapEntries();
+    entries = await sitemapEntries();
     if (sinceArg !== -1) {
       since = args[sinceArg + 1];
     } else if (changed) {
@@ -163,9 +168,18 @@ async function main() {
       console.log(`  batch ${index / BATCH + 1}: HTTP ${result.status} (${batch.length} URLs)`);
     }
     if (changed) {
+      // Checkpoint = newest lastmod observed in the fetched sitemap, never the
+      // wall clock: a stale snapshot must not advance lastRun past changes it
+      // did not show. shortcut: a stale sitemap can still omit a URL whose
+      // lastmod predates the observed maximum; upgrade by serving a verified
+      // fresh snapshot or keeping a per-URL submission record.
+      const lastmods = entries
+        .map((entry) => Date.parse(entry.lastmod))
+        .filter((ms) => !Number.isNaN(ms));
+      const lastRun = new Date(Math.max(...lastmods)).toISOString();
       await writeFile(
         STATE_FILE,
-        `${JSON.stringify({ lastRun: new Date().toISOString(), lastUrls: urls.length }, null, 2)}\n`
+        `${JSON.stringify({ lastRun, lastUrls: urls.length }, null, 2)}\n`
       );
     }
   }
