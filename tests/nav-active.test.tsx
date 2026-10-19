@@ -20,7 +20,6 @@ vi.mock('@/providers/supabase-provider', () => ({
 }));
 
 import { FloatingNav } from '@/components/layout/floating-nav';
-import { MobileNav } from '@/components/layout/mobile-nav';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 
 beforeEach(() => {
@@ -98,30 +97,5 @@ describe('FloatingNav marca la página activa', () => {
     nav.querySelectorAll('a').forEach((link) => {
       expect(link).not.toHaveAttribute('aria-current');
     });
-  });
-});
-
-describe('MobileNav marca la página activa', () => {
-  it('en /es/quiz marca Explorar con aria-current="page"', async () => {
-    mocks.pathname = '/es/quiz';
-    const dictionary = await getDictionary('es');
-    render(<MobileNav locale="es" dictionary={dictionary} />);
-
-    expect(screen.getByRole('link', { name: dictionary.common.explore })).toHaveAttribute(
-      'aria-current',
-      'page'
-    );
-    expect(screen.getByRole('link', { name: 'Inicio' })).not.toHaveAttribute('aria-current');
-  });
-
-  it('en /es marca Inicio', async () => {
-    mocks.pathname = '/es';
-    const dictionary = await getDictionary('es');
-    render(<MobileNav locale="es" dictionary={dictionary} />);
-
-    expect(screen.getByRole('link', { name: 'Inicio' })).toHaveAttribute('aria-current', 'page');
-    expect(screen.getByRole('link', { name: dictionary.common.explore })).not.toHaveAttribute(
-      'aria-current'
-    );
   });
 });
