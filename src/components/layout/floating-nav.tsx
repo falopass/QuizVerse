@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { getLocalizedCategoryLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { LocaleSwitcher } from './locale-switcher';
+import { UserMenu, UserMenuMobile } from './user-menu';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
 export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
@@ -29,6 +30,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           <Link href={localizeHref(locale, '/quiz')} className="arcade-pill">
             {dictionary.arcade.pickGame} ↗
           </Link>
+          <UserMenu locale={locale} />
         </nav>
         <button
           type="button"
@@ -55,6 +57,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           <Link href={localizeHref(locale, '/category/trivia')} onClick={() => setOpen(false)}>
             {getLocalizedCategoryLabel('trivia', locale)}
           </Link>
+          <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />
         </nav>
       )}
     </header>
