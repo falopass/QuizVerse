@@ -3,11 +3,12 @@
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { trackEvent, reportClientError } from '@/lib/telemetry/client';
+import { CONSENT_KEY, hasAnalyticsConsent } from '@/components/shared/cookie-consent';
 
 export function AppTelemetry() {
   const pathname = usePathname();
 
-  React.useEffect(() => {
+  const sendPageView = React.useCallback(() => {
     if (!pathname) return;
 
     const locale = pathname.split('/')[1];
@@ -19,21 +20,24 @@ export function AppTelemetry() {
   }, [pathname]);
 
   React.useEffect(() => {
-    const handleConsent = (event: Event) => {
-      if ((event as CustomEvent<{ level?: string }>).detail?.level !== 'all') return;
-      if (!pathname) return;
+    sendPageView();
+  }, [sendPageView]);
 
-      const locale = pathname.split('/')[1];
-      void trackEvent({
-        name: 'page_view',
-        path: pathname,
-        locale: locale === 'es' || locale === 'en' ? locale : undefined,
-      });
+  React.useEffect(() => {
+    const handleConsent = (event: Event) => {
+      if ((event as CustomEvent<{ level?: string }>).detail?.level === 'all') sendPageView();
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === CONSENT_KEY && hasAnalyticsConsent()) sendPageView();
     };
 
     window.addEventListener('quizverse:consent', handleConsent);
-    return () => window.removeEventListener('quizverse:consent', handleConsent);
-  }, [pathname]);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('quizverse:consent', handleConsent);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [sendPageView]);
 
   React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {

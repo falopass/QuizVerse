@@ -8,8 +8,8 @@ vi.mock('next/navigation', () => ({
 
 import { trackEvent } from '@/lib/telemetry/client';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
+import { CONSENT_KEY } from '@/components/shared/cookie-consent';
 
-const CONSENT_KEY = 'quizverse-cookie-consent';
 const fetchMock = vi.fn().mockResolvedValue({ ok: true });
 
 function setConsent(level: 'essential' | 'all') {
@@ -59,5 +59,38 @@ describe('AppTelemetry', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const body = JSON.parse(fetchMock.mock.calls[0][1].body as string);
     expect(body).toMatchObject({ name: 'page_view', path: '/es/explore', locale: 'es' });
+  });
+
+  it('emite el page_view cuando el consentimiento llega por storage (otra pestaña)', async () => {
+    render(React.createElement(AppTelemetry));
+    await act(async () => {});
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    setConsent('all');
+    act(() => {
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: CONSENT_KEY,
+          newValue: localStorage.getItem(CONSENT_KEY),
+        })
+      );
+    });
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body as string);
+    expect(body).toMatchObject({ name: 'page_view', path: '/es/explore' });
+  });
+
+  it('ignora eventos storage ajenos al consentimiento', async () => {
+    setConsent('all');
+    render(React.createElement(AppTelemetry));
+    await act(async () => {});
+    fetchMock.mockClear();
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent('storage', { key: 'otra-key', newValue: 'x' }));
+    });
+
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

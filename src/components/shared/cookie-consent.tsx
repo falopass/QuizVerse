@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
 
-const CONSENT_KEY = 'quizverse-cookie-consent';
+export const CONSENT_KEY = 'quizverse-cookie-consent';
 const CONSENT_VERSION = 1;
 
 interface ConsentState {
