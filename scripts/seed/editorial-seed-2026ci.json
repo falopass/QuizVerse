@@ -1,0 +1,1379 @@
+{
+  "$comment": "Editorial seed 2026ci: three es/en trivia pairs on astrology as cultural tradition (zodiac elements and modalities, astrology history, planetary rulers), all in the lifestyle category. The zodiac-signs and chinese-zodiac pairs planned for this batch are omitted: batch 2026bc (PR #191) already seeds those exact slugs and topics. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-zodiac-elements-trivia",
+      "title": "Zodiac Elements Trivia: Triplicities, Modalities and Polarity",
+      "description": "Eight questions on the zodiac's four elements: triplicities, the cardinal, fixed and mutable modalities, and the classical polarity of the twelve signs.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["zodiac", "astrology", "elements", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which three signs make up the zodiac's earth triplicity?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Aries, Leo and Sagittarius",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Taurus, Virgo and Capricorn",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Gemini, Libra and Aquarius",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cancer, Scorpio and Pisces",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Earth unites Taurus, Virgo and Capricorn; fire, air and water group the other nine signs in threes."
+        },
+        {
+          "id": "q2",
+          "question": "Which modality groups Taurus, Leo, Scorpio and Aquarius?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cardinal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Fixed",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Mutable",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Dual",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The fixed signs fall in the middle of each season; tradition links them to steadiness and persistence."
+        },
+        {
+          "id": "q3",
+          "question": "Gemini, Virgo, Sagittarius and Pisces share which modality?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cardinal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Fixed",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mutable",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Angular",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Mutable signs close each season, and tradition associates them with adaptability and change."
+        },
+        {
+          "id": "q4",
+          "question": "In the classical scheme, fire and air signs belong to which polarity?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Masculine or active",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Feminine or passive",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Nocturnal",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Neutral",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Traditional astrology divides the signs into two polarities: fire and air as masculine or active, earth and water as feminine or receptive."
+        },
+        {
+          "id": "q5",
+          "question": "What is the technical term for a group of three signs sharing an element?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Triplicity",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Quadruplicity",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Decan",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cusp",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Three signs per element form a triplicity; the four-sign groups of cardinal, fixed and mutable are called quadruplicities."
+        },
+        {
+          "id": "q6",
+          "question": "Every sign combines one element with one modality. Which sign pairs fire with the fixed modality?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Aries",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Leo",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Sagittarius",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Gemini",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Aries is cardinal fire, Leo is fixed fire and Sagittarius is mutable fire: each element-modality pairing appears exactly once."
+        },
+        {
+          "id": "q7",
+          "question": "The four-element scheme that astrology inherited is credited to which Greek thinker?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Empedocles",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Pythagoras",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Aristotle",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Plato",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Empedocles proposed the four 'roots' — earth, water, air and fire — in the fifth century BC; Aristotle later added a fifth element, aether."
+        },
+        {
+          "id": "q8",
+          "question": "Which water sign is also a cardinal sign?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cancer",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Scorpio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Pisces",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Aquarius",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cancer is cardinal water, Scorpio fixed water and Pisces mutable water; Aquarius is an air sign despite its water-bearer symbol."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-elementos-del-zodiaco",
+      "title": "Trivia de elementos del zodiaco: triplicidades y modalidades",
+      "description": "Ocho preguntas sobre los cuatro elementos del zodiaco: triplicidades, modalidades cardinales, fijas y mutables, y la polaridad clásica de los doce signos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["zodiaco", "astrología", "elementos", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué tres signos forman la triplicidad de tierra del zodiaco?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Aries, Leo y Sagitario",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Tauro, Virgo y Capricornio",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Géminis, Libra y Acuario",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cáncer, Escorpio y Piscis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La tierra une a Tauro, Virgo y Capricornio; el fuego, el aire y el agua agrupan a los otros nueve signos de tres en tres."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué modalidad agrupa a Tauro, Leo, Escorpio y Acuario?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cardinal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Fija",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Mutable",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Dual",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los signos fijos caen en plena estación; la tradición los asocia con la constancia y la persistencia."
+        },
+        {
+          "id": "q3",
+          "question": "Géminis, Virgo, Sagitario y Piscis comparten ¿qué modalidad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cardinal",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Fija",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mutable",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Angular",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los signos mutables cierran cada estación, y la tradición los relaciona con la adaptabilidad y el cambio."
+        },
+        {
+          "id": "q4",
+          "question": "En el esquema clásico, los signos de fuego y de aire pertenecen a ¿qué polaridad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Masculina o activa",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Femenina o pasiva",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Nocturna",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Neutral",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La astrología tradicional divide los signos en dos polaridades: fuego y aire como masculinos o activos, tierra y agua como femeninos o receptivos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama técnicamente el grupo de tres signos que comparten un elemento?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Triplicidad",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Cuadruplicidad",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Decanato",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cúspide",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Tres signos por elemento forman una triplicidad; los grupos de cuatro signos cardinales, fijos y mutables se llaman cuadruplicidades."
+        },
+        {
+          "id": "q6",
+          "question": "Cada signo combina un elemento con una modalidad. ¿Qué signo junta el fuego con la modalidad fija?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Aries",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Leo",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Sagitario",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Géminis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Aries es fuego cardinal, Leo es fuego fijo y Sagitario es fuego mutable: cada combinación de elemento y modalidad aparece una sola vez."
+        },
+        {
+          "id": "q7",
+          "question": "¿A qué pensador griego se atribuye el esquema de cuatro elementos que heredó la astrología?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Empédocles",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Pitágoras",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Aristóteles",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Platón",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Empédocles propuso las cuatro «raíces» — tierra, agua, aire y fuego — en el siglo V a. C.; Aristóteles añadió después un quinto elemento, el éter."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué signo de agua es además un signo cardinal?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cáncer",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Escorpio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Piscis",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Acuario",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cáncer es agua cardinal, Escorpio agua fija y Piscis agua mutable; Acuario es un signo de aire pese a su símbolo del aguador."
+        }
+      ]
+    },
+    {
+      "slug": "en-astrology-history-trivia",
+      "title": "Astrology History Trivia: From Babylon to the Horoscope",
+      "description": "Eight questions on the origins of astrology: the Babylonian division of the ecliptic, the Greek legacy and the birth of the personal horoscope.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["astrology", "history", "babylon", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The twelve-sign zodiac first took shape in which ancient civilization?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Egypt",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Babylonia",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Greece",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Rome",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Babylonian scholars in Mesopotamia divided the ecliptic into twelve equal signs; Egypt and Greece adopted the scheme later."
+        },
+        {
+          "id": "q2",
+          "question": "Around which century did Babylonian scholars divide the ecliptic into twelve equal signs?",
+          "options": [
+            {
+              "id": "a",
+              "text": "15th century BC",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "5th century BC",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "1st century AD",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "10th century AD",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The twelve equal signs of thirty degrees each appear in Babylonian texts around the fifth century BC, building on older omen traditions."
+        },
+        {
+          "id": "q3",
+          "question": "The Greek word at the root of 'zodiac' means roughly what?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Circle of little animals",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Wheel of the stars",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Path of the gods",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Ring of light",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Zōidiakos kyklos means 'circle of little figures' — most of them animals — which is why the word zodiac shares a root with zoo."
+        },
+        {
+          "id": "q4",
+          "question": "Which second-century scholar wrote the Tetrabiblos, antiquity's most influential astrology manual?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Claudius Ptolemy",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Aristotle",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Hipparchus",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Galen",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Ptolemy of Alexandria wrote the Tetrabiblos ('four books'), which organized astrological doctrine and stayed authoritative for over a thousand years."
+        },
+        {
+          "id": "q5",
+          "question": "Astrology spread through the Greek-speaking world mainly during which era?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Bronze Age",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "The Hellenistic period",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "The Renaissance",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "The Middle Ages",
+              "is_correct": false
+            }
+          ],
+          "explanation": "After Alexander's conquests, Babylonian and Egyptian traditions merged with Greek learning in the Hellenistic period, from the late fourth century BC."
+        },
+        {
+          "id": "q6",
+          "question": "Which Egyptian city became the great center of astrological learning in antiquity?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alexandria",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Thebes",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Memphis",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Heliopolis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Alexandria's scholars, Ptolemy among them, fused Babylonian star lore with Greek mathematics and astronomy."
+        },
+        {
+          "id": "q7",
+          "question": "The long Babylonian series of tablets recording celestial omens is known as what?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Enūma Anu Enlil",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Epic of Gilgamesh",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Code of Hammurabi",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Emerald Tablet",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Enūma Anu Enlil collected thousands of celestial omens on about seventy tablets; Gilgamesh is an epic and Hammurabi's code is a law text."
+        },
+        {
+          "id": "q8",
+          "question": "A traditional birth chart is cast from which three pieces of information?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Date, time and place of birth",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Name and date of birth",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Place and name of birth",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Date of birth only",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The chart maps the sky for an exact date, time and place; the hour matters because the rising sign changes roughly every two hours."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-de-la-astrologia",
+      "title": "Trivia de historia de la astrología: de Babilonia al horóscopo",
+      "description": "Ocho preguntas sobre los orígenes de la astrología: la división babilónica de la eclíptica, el legado griego y el nacimiento del horóscopo personal.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["astrología", "historia", "babilonia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué civilización antigua tomó forma el zodiaco de doce signos?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Egipto",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Babilonia",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Grecia",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Roma",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los sabios babilonios de Mesopotamia dividieron la eclíptica en doce signos iguales; Egipto y Grecia adoptaron el esquema más tarde."
+        },
+        {
+          "id": "q2",
+          "question": "¿Hacia qué siglo dividieron los babilonios la eclíptica en doce signos iguales?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Siglo XV a. C.",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Siglo V a. C.",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Siglo I d. C.",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Siglo X d. C.",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los doce signos iguales de treinta grados aparecen en textos babilonios hacia el siglo V a. C., sobre tradiciones de presagios más antiguas."
+        },
+        {
+          "id": "q3",
+          "question": "La palabra griega en la raíz de «zodiaco» significa aproximadamente…",
+          "options": [
+            {
+              "id": "a",
+              "text": "«círculo de animalitos»",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "«rueda de las estrellas»",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "«camino de los dioses»",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "«anillo de luz»",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Zōidiakos kyklos quiere decir «círculo de figuritas» — casi todas animales — y por eso zodiaco comparte raíz con zoológico."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué sabio del siglo II escribió el Tetrabiblos, el manual astrológico más influyente de la Antigüedad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Claudio Ptolomeo",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Aristóteles",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Hiparco",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Galeno",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Ptolomeo de Alejandría escribió el Tetrabiblos («cuatro libros»), que ordenó la doctrina astrológica y siguió siendo autoridad durante más de mil años."
+        },
+        {
+          "id": "q5",
+          "question": "¿Durante qué época se difundió la astrología por el mundo de habla griega?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La Edad del Bronce",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "El período helenístico",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "El Renacimiento",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "La Edad Media",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Tras las conquistas de Alejandro, las tradiciones babilónicas y egipcias se fundieron con el saber griego en el período helenístico, desde finales del siglo IV a. C."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué ciudad egipcia se convirtió en el gran centro del saber astrológico de la Antigüedad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alejandría",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Tebas",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Menfis",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Heliópolis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los sabios de Alejandría, entre ellos Ptolomeo, fundieron el saber estelar babilónico con las matemáticas y la astronomía griegas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama la larga serie babilónica de tablillas con presagios celestes?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Enūma Anu Enlil",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Epopeya de Gilgamesh",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Código de Hammurabi",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Tabla Esmeralda",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Enūma Anu Enlil reunió miles de presagios celestes en unas setenta tablillas; Gilgamesh es una epopeya y el Código de Hammurabi es un texto de leyes."
+        },
+        {
+          "id": "q8",
+          "question": "¿Con qué tres datos se levanta tradicionalmente una carta natal?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Fecha, hora y lugar de nacimiento",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Nombre y fecha de nacimiento",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Lugar y nombre de nacimiento",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Solo la fecha de nacimiento",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La carta dibuja el cielo para una fecha, hora y lugar exactos; la hora importa porque el signo ascendente cambia más o menos cada dos horas."
+        }
+      ]
+    },
+    {
+      "slug": "en-astrology-planets-trivia",
+      "title": "Astrology Planets Trivia: The Ruling Body of Each Sign",
+      "description": "Eight questions on astrology's ruling bodies: the seven classical planets and the modern planets assigned to each zodiac sign.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["astrology", "planets", "zodiac", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which planet rules Aries in traditional astrology?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mars",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Venus",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Jupiter",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Mercury",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Aries belongs to Mars in the classical scheme, a pairing medieval astrologers read as drive and initiative."
+        },
+        {
+          "id": "q2",
+          "question": "Mercury is the traditional ruler of Gemini and which other sign?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Virgo",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Libra",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Aquarius",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Pisces",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Before the outer planets were known, each of the five classical planets ruled two signs; Mercury held Gemini and Virgo."
+        },
+        {
+          "id": "q3",
+          "question": "Which sign does Jupiter traditionally rule?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sagittarius",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Capricorn",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Aquarius",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Leo",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Jupiter rules Sagittarius in the classical scheme; it also held Pisces before Neptune was discovered."
+        },
+        {
+          "id": "q4",
+          "question": "Saturn is the classical ruler of which sign?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Capricorn",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Taurus",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Cancer",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Gemini",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Saturn rules Capricorn, and traditionally Aquarius too; it was the slowest and outermost planet visible to the naked eye."
+        },
+        {
+          "id": "q5",
+          "question": "In modern astrology, which planet is assigned as ruler of Scorpio?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pluto",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Mars",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Neptune",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Saturn",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Scorpio kept Mars as its classical ruler, and modern astrologers added Pluto after its discovery in 1930."
+        },
+        {
+          "id": "q6",
+          "question": "Which celestial body rules Cancer?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The Moon",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Venus",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mercury",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Neptune",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Astrology counts the Sun and Moon among its 'planets'; Cancer belongs to the Moon and Leo to the Sun."
+        },
+        {
+          "id": "q7",
+          "question": "Uranus is the modern ruler of which sign?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Aquarius",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Capricorn",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Pisces",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Gemini",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Aquarius kept Saturn as its classical ruler; Uranus, discovered in 1781, was added as its modern ruler."
+        },
+        {
+          "id": "q8",
+          "question": "Neptune is the modern ruler of which sign?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pisces",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Scorpio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Cancer",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Sagittarius",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Pisces was traditionally ruled by Jupiter; Neptune, discovered in 1846, took over as the sign's modern ruler."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-planetas-y-astrologia",
+      "title": "Trivia de planetas y astrología: el astro regente de cada signo",
+      "description": "Ocho preguntas sobre los regentes de la tradición astrológica: los siete astros clásicos y los planetas modernos asignados a cada signo del zodiaco.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["astrología", "planetas", "zodiaco", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué planeta rige a Aries en la astrología tradicional?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Marte",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Venus",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Júpiter",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Mercurio",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Aries pertenece a Marte en el esquema clásico, una pareja que los astrólogos medievales leían como ímpetu e iniciativa."
+        },
+        {
+          "id": "q2",
+          "question": "Mercurio es el regente tradicional de Géminis y de ¿qué otro signo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Virgo",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Libra",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Acuario",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Piscis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Antes de conocerse los planetas externos, cada uno de los cinco planetas clásicos regía dos signos; Mercurio tenía a Géminis y a Virgo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué signo rige Júpiter en la tradición clásica?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sagitario",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Capricornio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Acuario",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Leo",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Júpiter rige a Sagitario en el esquema clásico; también tenía a Piscis antes de que se descubriera Neptuno."
+        },
+        {
+          "id": "q4",
+          "question": "Saturno es el regente clásico de ¿qué signo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Capricornio",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Tauro",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Cáncer",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Géminis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Saturno rige a Capricornio, y tradicionalmente también a Acuario; era el planeta más lento y externo visible a simple vista."
+        },
+        {
+          "id": "q5",
+          "question": "En la astrología moderna, ¿qué planeta se asigna como regente de Escorpio?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Plutón",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Marte",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Neptuno",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Saturno",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Escorpio conservó a Marte como regente clásico, y los astrólogos modernos le añadieron Plutón tras su descubrimiento en 1930."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué astro rige a Cáncer?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La Luna",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Venus",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Mercurio",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Neptuno",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La astrología cuenta al Sol y a la Luna entre sus «planetas»; Cáncer pertenece a la Luna y Leo al Sol."
+        },
+        {
+          "id": "q7",
+          "question": "Urano es el regente moderno de ¿qué signo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Acuario",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Capricornio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Piscis",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Géminis",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Acuario conservó a Saturno como regente clásico; Urano, descubierto en 1781, se añadió como su regente moderno."
+        },
+        {
+          "id": "q8",
+          "question": "Neptuno es el regente moderno de ¿qué signo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Piscis",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Escorpio",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Cáncer",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Sagitario",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Piscis era regido tradicionalmente por Júpiter; Neptuno, descubierto en 1846, pasó a ser su regente moderno."
+        }
+      ]
+    }
+  ]
+}
