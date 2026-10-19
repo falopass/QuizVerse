@@ -32,7 +32,11 @@ interface SeedQuiz {
 // The five literature topics as (en slug, es slug, category) pairs.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-classic-novels-trivia', 'es-trivia-novelas-clasicas', 'literature'],
-  ['en-books-that-became-movies-trivia', 'es-trivia-libros-que-se-volvieron-peliculas', 'literature'],
+  [
+    'en-books-that-became-movies-trivia',
+    'es-trivia-libros-que-se-volvieron-peliculas',
+    'literature',
+  ],
   ['en-science-fiction-books-trivia', 'es-trivia-libros-de-ciencia-ficcion', 'literature'],
   ['en-poetry-trivia', 'es-trivia-poesia', 'literature'],
   ['en-nobel-literature-trivia', 'es-trivia-premios-nobel-de-literatura', 'literature'],
