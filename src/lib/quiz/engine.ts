@@ -3,7 +3,14 @@
  * Maneja scoring, timer y state machine
  */
 
-import type { Question, Quiz, QuizState, Answer, PersonalityResult } from '@/types/quiz';
+import type {
+  Question,
+  Quiz,
+  QuizState,
+  QuizAction,
+  Answer,
+  PersonalityResult,
+} from '@/types/quiz';
 
 // ============================================
 // SCORING
@@ -124,11 +131,7 @@ export function createInitialQuizState(quiz: Quiz): QuizState {
 /**
  *Reducer para el estado del quiz
  */
-export function quizReducer(
-  state: QuizState,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  action: any
-): QuizState {
+export function quizReducer(state: QuizState, action: QuizAction): QuizState {
   switch (action.type) {
     case 'START_QUIZ':
       return {

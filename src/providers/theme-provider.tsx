@@ -2,7 +2,7 @@
 
 /* eslint-disable react-hooks/set-state-in-effect */
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useEffect, useState, useCallback } from 'react';
 
 type Theme = 'dark' | 'light';
 
@@ -58,12 +58,4 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       {children}
     </Context.Provider>
   );
-}
-
-export function useTheme() {
-  const context = useContext(Context);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
 }
