@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -8,6 +9,7 @@ import { getHubGuide, getRelatedCategories, RELATED_HEADING } from '@/lib/conten
 import { getCategoryPayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
+import { getCategoryGuide } from '@/lib/i18n/category-guides';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { generateCategoryMetadata } from '@/lib/seo/metadata';
 import { categoryOgImage } from '@/lib/seo/site';
@@ -15,6 +17,7 @@ import {
   breadcrumbNode,
   buildGraph,
   categoryPath,
+  faqNode,
   itemListNode,
   quizPath,
   webPageNode,
@@ -60,8 +63,9 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
   const dictionary = await getDictionary(locale);
   const category = localizeCategory(payload.category, locale)!;
   const quizzes = localizeQuizList(payload.quizzes, locale);
+  const guide = getCategoryGuide(payload.category.slug, locale, category.name, quizzes.length);
   const path = categoryPath(locale, slug);
-  const guide = getHubGuide(slug, locale);
+  const hubGuide = getHubGuide(slug, locale);
   const related = getRelatedCategories(
     slug,
     payload.categories.map((item) => item.slug)
@@ -85,6 +89,7 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
               .map((quiz) => ({ name: quiz.title, path: quizPath(locale, quiz.slug) })),
             locale
           ),
+          faqNode(guide.faq),
         ])}
       />
       <Breadcrumbs
@@ -129,29 +134,50 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
           <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />
         ))}
       </div>
-      {guide || related.length >= 2 ? (
+      <section className="arcade-related" aria-labelledby="category-guide">
+        <div className="arcade-section-head">
+          <h2 id="category-guide">
+            {locale === 'es'
+              ? `Cómo son los quizzes de ${category.name}`
+              : `What the ${category.name} quizzes are like`}
+          </h2>
+        </div>
+        {guide.intro.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+        <div className="arcade-section-head">
+          <h2>{locale === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions'}</h2>
+        </div>
+        {guide.faq.map((item) => (
+          <Fragment key={item.question}>
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </Fragment>
+        ))}
+      </section>
+      {hubGuide || related.length >= 2 ? (
         <section
           className="arcade-related"
-          aria-labelledby={guide ? 'hub-guide' : 'related-categories'}
+          aria-labelledby={hubGuide ? 'hub-guide' : 'related-categories'}
         >
           <div className="arcade-section-head">
-            <h2 id={guide ? 'hub-guide' : 'related-categories'}>
-              {guide ? guide.title : RELATED_HEADING[locale]}
+            <h2 id={hubGuide ? 'hub-guide' : 'related-categories'}>
+              {hubGuide ? hubGuide.title : RELATED_HEADING[locale]}
             </h2>
           </div>
-          {guide ? (
+          {hubGuide ? (
             <div className="max-w-2xl space-y-4 pb-6">
-              {guide.intro.map((paragraph) => (
+              {hubGuide.intro.map((paragraph) => (
                 <p key={paragraph} className="text-text-secondary leading-7">
                   {paragraph}
                 </p>
               ))}
               <ul className="text-text-secondary list-disc space-y-1 pl-5">
-                {guide.howTo.map((item) => (
+                {hubGuide.howTo.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <p className="text-text-secondary leading-7">{guide.closing}</p>
+              <p className="text-text-secondary leading-7">{hubGuide.closing}</p>
             </div>
           ) : null}
           {related.length > 0 ? (
