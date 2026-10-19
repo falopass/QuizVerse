@@ -27,6 +27,7 @@ function makeQuiz(overrides: Partial<Quiz>): Quiz {
     is_ai_generated: false,
     published_at: null,
     created_at: '2026-01-01',
+    updated_at: null,
     ...overrides,
   };
 }
@@ -77,11 +78,11 @@ describe('Explorador: botón «Ver más»', () => {
     const { container } = renderPage();
 
     expect(quizLinks(container)).toHaveLength(18);
+    expect(document.getElementById('explore-grid-rest')).toBeNull();
 
     const button = screen.getByRole('button', { name: 'Ver los 12 restantes' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
-    expect(button).toHaveAttribute('aria-controls', 'explore-grid');
-    expect(document.getElementById('explore-grid')).toBeInTheDocument();
+    expect(button).toHaveAttribute('aria-controls', 'explore-grid-rest');
   });
 
   it('renderiza el resto al hacer clic y permite colapsar', () => {
@@ -93,6 +94,10 @@ describe('Explorador: botón «Ver más»', () => {
     expect(quizLinks(container)).toHaveLength(30);
     expect(button).toHaveAttribute('aria-expanded', 'true');
     expect(button).toHaveTextContent('Mostrar menos');
+
+    const rest = document.getElementById('explore-grid-rest');
+    expect(rest).not.toBeNull();
+    expect(button.compareDocumentPosition(rest!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 
     fireEvent.click(button);
     expect(quizLinks(container)).toHaveLength(18);
@@ -115,5 +120,19 @@ describe('Explorador: botón «Ver más»', () => {
 
     fireEvent.click(button);
     expect(quizLinks(container)).toHaveLength(20);
+  });
+
+  it('no reabre los resultados al volver a un filtro ya expandido', () => {
+    const { container } = renderPage();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ver los 12 restantes' }));
+    expect(quizLinks(container)).toHaveLength(30);
+
+    fireEvent.click(screen.getByRole('button', { name: 'C Cine' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Todas' }));
+
+    expect(quizLinks(container)).toHaveLength(18);
+    const button = screen.getByRole('button', { name: 'Ver los 12 restantes' });
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });

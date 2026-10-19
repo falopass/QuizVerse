@@ -68,7 +68,7 @@ export function ExploreEditorialPage({
   const [query, setQuery] = React.useState('');
   const [activeMood, setActiveMood] = React.useState<(typeof MOODS.en)[number]['id']>('all');
   const [activeCategory, setActiveCategory] = React.useState('all');
-  const [expandedKey, setExpandedKey] = React.useState<string | null>(null);
+  const [showAll, setShowAll] = React.useState(false);
 
   const moods = MOODS[locale];
   const localizedQuizzes = React.useMemo(
@@ -130,8 +130,6 @@ export function ExploreEditorialPage({
     () => explorerSelection(filteredQuizzes, { preferEditorial: activeMood !== 'popular' }),
     [filteredQuizzes, activeMood]
   );
-  const filterKey = `${query}|${activeMood}|${activeCategory}`;
-  const showAll = expandedKey === filterKey;
 
   const units =
     locale === 'es'
@@ -223,7 +221,10 @@ export function ExploreEditorialPage({
               <input
                 type="search"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setShowAll(false);
+                }}
                 placeholder={copy.searchPlaceholder}
                 className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
               />
@@ -238,7 +239,10 @@ export function ExploreEditorialPage({
                   key={mood.id}
                   type="button"
                   aria-pressed={activeMood === mood.id}
-                  onClick={() => setActiveMood(mood.id)}
+                  onClick={() => {
+                    setActiveMood(mood.id);
+                    setShowAll(false);
+                  }}
                   className={cn(
                     'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
                     activeMood === mood.id
@@ -264,14 +268,20 @@ export function ExploreEditorialPage({
               <CategoryFilter
                 active={activeCategory === 'all'}
                 label={copy.allCategories}
-                onClick={() => setActiveCategory('all')}
+                onClick={() => {
+                  setActiveCategory('all');
+                  setShowAll(false);
+                }}
               />
               {localizedCategories.map((category) => (
                 <CategoryFilter
                   key={category!.id}
                   active={activeCategory === category!.slug}
                   label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
-                  onClick={() => setActiveCategory(category!.slug)}
+                  onClick={() => {
+                    setActiveCategory(category!.slug);
+                    setShowAll(false);
+                  }}
                 />
               ))}
             </div>
@@ -362,34 +372,36 @@ export function ExploreEditorialPage({
                 <p className="eyebrow">{units.editorialGrid}</p>
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
               </div>
-              <div
-                id="explore-grid"
-                className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
-              >
+              <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {gridQuizzes.map((quiz, index) => (
                   <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
                 ))}
-                {showAll
-                  ? restQuizzes.map((quiz, index) => (
-                      <EditorialQuizCard
-                        key={quiz.id}
-                        quiz={quiz}
-                        locale={locale}
-                        index={gridQuizzes.length + index}
-                      />
-                    ))
-                  : null}
               </div>
               {restQuizzes.length > 0 ? (
                 <button
                   type="button"
                   aria-expanded={showAll}
-                  aria-controls="explore-grid"
-                  onClick={() => setExpandedKey(showAll ? null : filterKey)}
+                  aria-controls="explore-grid-rest"
+                  onClick={() => setShowAll((value) => !value)}
                   className="arcade-button arcade-button-lime arcade-more"
                 >
                   {showAll ? units.showLess : units.showMore(restQuizzes.length)}
                 </button>
+              ) : null}
+              {showAll ? (
+                <div
+                  id="explore-grid-rest"
+                  className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
+                >
+                  {restQuizzes.map((quiz, index) => (
+                    <EditorialQuizCard
+                      key={quiz.id}
+                      quiz={quiz}
+                      locale={locale}
+                      index={gridQuizzes.length + index}
+                    />
+                  ))}
+                </div>
               ) : null}
             </section>
           ) : null}
