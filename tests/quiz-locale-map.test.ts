@@ -129,3 +129,17 @@ it('routes the editorial 2026at pairs both ways', () => {
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
   }
 });
+
+it('routes the editorial 2026az pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-everyday-inventions-trivia', 'es-trivia-inventos-cotidianos'],
+    ['en-world-currencies-trivia', 'es-trivia-monedas-del-mundo'],
+    ['en-world-languages-trivia', 'es-trivia-idiomas-del-mundo'],
+    ['en-international-organizations-trivia', 'es-trivia-organismos-internacionales'],
+    ['en-world-awards-trivia', 'es-trivia-premios-del-mundo'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
