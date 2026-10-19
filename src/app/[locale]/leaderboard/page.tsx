@@ -8,6 +8,7 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { rankFriends } from '@/lib/profile/friends-ranking';
+import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
@@ -47,16 +48,17 @@ export default async function LocalizedLeaderboardPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ scope?: string }>;
+  searchParams: Promise<{ scope?: string; tab?: string }>;
 }) {
-  const [{ locale }, { scope }] = await Promise.all([params, searchParams]);
+  const [{ locale }, { scope, tab }] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) notFound();
 
   const isFriends = scope === 'friends';
+  const isWeekly = !isFriends && tab === 'semanal';
   const supabase = await createClient();
   const [{ data: auth }, leaderboard] = await Promise.all([
     supabase.auth.getUser(),
-    isFriends ? Promise.resolve(null) : getLeaderboard(50),
+    isFriends ? Promise.resolve(null) : isWeekly ? getWeeklyLeaderboard(50) : getLeaderboard(50),
   ]);
   const currentUser = auth.user;
 
@@ -107,8 +109,22 @@ export default async function LocalizedLeaderboardPage({
   }
 
   const currentEntry = entries?.find((entry) => entry.isMe) ?? null;
-  const scopeHref = (value: 'global' | 'friends') =>
-    localizeHref(locale, value === 'friends' ? '/leaderboard?scope=friends' : '/leaderboard');
+  type BoardTab = 'global' | 'weekly' | 'friends';
+  const activeTab: BoardTab = isFriends ? 'friends' : isWeekly ? 'weekly' : 'global';
+  const tabHref = (value: BoardTab) =>
+    localizeHref(
+      locale,
+      value === 'friends'
+        ? '/leaderboard?scope=friends'
+        : value === 'weekly'
+          ? '/leaderboard?tab=semanal'
+          : '/leaderboard'
+    );
+  const tabLabel = (value: BoardTab) => {
+    if (value === 'global') return 'Global';
+    if (value === 'weekly') return locale === 'es' ? 'Semanal' : 'Weekly';
+    return locale === 'es' ? 'Amigos' : 'Friends';
+  };
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-4 pt-28 pb-20">
@@ -144,18 +160,18 @@ export default async function LocalizedLeaderboardPage({
         className="mt-8 flex gap-2"
         aria-label={locale === 'es' ? 'Alcance del ranking' : 'Leaderboard scope'}
       >
-        {(['global', 'friends'] as const).map((value) => (
+        {(['global', 'weekly', 'friends'] as const).map((value) => (
           <Link
             key={value}
-            href={scopeHref(value)}
-            aria-current={isFriends === (value === 'friends') ? 'page' : undefined}
+            href={tabHref(value)}
+            aria-current={activeTab === value ? 'page' : undefined}
             className={
-              isFriends === (value === 'friends')
+              activeTab === value
                 ? 'bg-accent-primary rounded-full px-4 py-2 text-sm font-semibold text-white'
                 : 'ring-border-subtle text-text-secondary rounded-full px-4 py-2 text-sm font-semibold ring-1'
             }
           >
-            {value === 'global' ? 'Global' : locale === 'es' ? 'Amigos' : 'Friends'}
+            {tabLabel(value)}
           </Link>
         ))}
       </nav>
@@ -165,6 +181,28 @@ export default async function LocalizedLeaderboardPage({
           {entries.map((entry, index) => (
             <LeaderboardRow key={entry.id} entry={entry} index={index} locale={locale} />
           ))}
+        </section>
+      )}
+
+      {isWeekly && entries !== null && entries.length === 0 && (
+        <section className="surface-card mt-6 p-6">
+          <p className="eyebrow">{locale === 'es' ? 'Semanal' : 'Weekly'}</p>
+          <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+            {locale === 'es'
+              ? 'Todavía nadie ha jugado esta semana.'
+              : 'Nobody has played this week yet.'}
+          </h2>
+          <p className="text-text-secondary mt-2 max-w-xl text-sm leading-6">
+            {locale === 'es'
+              ? 'Termina un quiz y aparecerás aquí: el tablero solo mira los últimos 7 días.'
+              : 'Finish a quiz and you will show up here: the board only looks at the last 7 days.'}
+          </p>
+          <Link
+            href={localizeHref(locale, '/quiz')}
+            className="text-accent-primary mt-4 inline-block text-sm font-semibold"
+          >
+            {locale === 'es' ? 'Explorar quizzes' : 'Explore quizzes'}
+          </Link>
         </section>
       )}
 
@@ -182,7 +220,7 @@ export default async function LocalizedLeaderboardPage({
             <Link
               href={localizeHref(
                 locale,
-                `/login?redirect=${encodeURIComponent(scopeHref('friends'))}`
+                `/login?redirect=${encodeURIComponent(tabHref('friends'))}`
               )}
               className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
             >
@@ -204,7 +242,7 @@ export default async function LocalizedLeaderboardPage({
               </h2>
             </div>
             <Link
-              href={scopeHref('friends')}
+              href={tabHref('friends')}
               className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
             >
               {locale === 'es' ? 'Reintentar' : 'Try again'}
@@ -233,7 +271,7 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
-      {!isFriends && !currentEntry && (
+      {!isFriends && !currentEntry && (!isWeekly || !currentUser) && (
         <section className="surface-card mt-10 p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
@@ -247,7 +285,7 @@ export default async function LocalizedLeaderboardPage({
             <Link
               href={localizeHref(
                 locale,
-                `/login?redirect=${encodeURIComponent(localizeHref(locale, '/leaderboard'))}`
+                `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
               )}
               className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
             >
