@@ -105,7 +105,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-insects-trivia',
+  'en-insects-trivia-2',
   'Insects and Arachnids Trivia: six legs vs eight legs',
   'Dancing bees, butterflies that taste with their feet and spiders that aren''t even insects. Eight questions about tiny creatures.',
   'trivia',
@@ -128,7 +128,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-insectos',
+  'es-trivia-insectos-2',
   'Trivia de animales: ¿cuánto sabes de insectos y arácnidos?',
   'Abejas que bailan, mariposas que saborean con las patas y arañas que ni siquiera son insectos. ¿Cuánto sabes de ellos?',
   'trivia',

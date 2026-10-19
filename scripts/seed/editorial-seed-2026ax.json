@@ -616,7 +616,7 @@
       ]
     },
     {
-      "slug": "en-world-desserts-trivia",
+      "slug": "en-world-desserts-trivia-2",
       "title": "World Desserts Trivia: Cakes, Pastries and Classics",
       "description": "Eight questions on the world's great desserts, from tiramisu and crème brûlée to baklava, pavlova and gelato.",
       "quiz_type": "trivia",
@@ -725,7 +725,7 @@
       ]
     },
     {
-      "slug": "es-trivia-postres-del-mundo",
+      "slug": "es-trivia-postres-del-mundo-2",
       "title": "Trivia de postres del mundo: dulces clásicos",
       "description": "Ocho preguntas sobre los postres clásicos del mundo, del tiramisú y la crème brûlée al baklava, la pavlova y el gelato.",
       "quiz_type": "trivia",

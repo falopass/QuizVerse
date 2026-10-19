@@ -418,7 +418,7 @@
       ]
     },
     {
-      "slug": "en-birds-trivia",
+      "slug": "en-birds-trivia-2",
       "title": "Birds Trivia: Record Holders and Remarkable Species",
       "description": "Eight questions on the most remarkable birds on Earth: the biggest, the fastest and the farthest-flying species and how they do it.",
       "quiz_type": "trivia",
@@ -519,7 +519,7 @@
       ]
     },
     {
-      "slug": "es-trivia-aves",
+      "slug": "es-trivia-aves-2",
       "title": "Trivia de aves: récords y especies extraordinarias",
       "description": "Ocho preguntas sobre las aves más extraordinarias del planeta: las más grandes, las más rápidas y las que vuelan más lejos.",
       "quiz_type": "trivia",
@@ -620,7 +620,7 @@
       ]
     },
     {
-      "slug": "en-big-cats-trivia",
+      "slug": "en-big-cats-trivia-2",
       "title": "Big Cats Trivia: Lions, Tigers and Other Great Felines",
       "description": "Eight questions on the great cats of the world: where they live, how they hunt and what sets lions, tigers, leopards and jaguars apart.",
       "quiz_type": "trivia",
@@ -721,7 +721,7 @@
       ]
     },
     {
-      "slug": "es-trivia-grandes-felinos",
+      "slug": "es-trivia-grandes-felinos-2",
       "title": "Trivia de grandes felinos: leones, tigres y otros depredadores",
       "description": "Ocho preguntas sobre los grandes felinos del mundo: dónde viven, cómo cazan y qué distingue a leones, tigres, leopardos y jaguares.",
       "quiz_type": "trivia",

@@ -174,7 +174,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-tabla-periodica',
+  'es-trivia-tabla-periodica-2',
   'Trivia de la tabla periódica: elementos, grupos y símbolos',
   'Ocho preguntas sobre la tabla de Mendeléyev: números atómicos, gases nobles, metales alcalinos y los símbolos de cada elemento.',
   'trivia',
