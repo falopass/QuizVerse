@@ -1,0 +1,1187 @@
+{
+  "$comment": "Editorial seed 2026bf: five es/en trivia pairs on money and personal finance (money concepts, saving and budgeting, investing basics, history of money, everyday economics). Every answer is a stable, checkable fact — no rates, prices or advice that expire. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-money-trivia",
+      "title": "Money Trivia: Banknotes, Coins and Everyday Concepts",
+      "description": "Eight questions about the money in your pocket: fiat currency, legal tender, numismatics, mints and the stories behind bills and coins.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["money", "trivia", "currency", "personal finance"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is fiat money?",
+          "options": [
+            { "id": "a", "text": "Money backed by gold reserves", "is_correct": false },
+            { "id": "b", "text": "Money that has value by government decree", "is_correct": true },
+            { "id": "c", "text": "Money issued only in coins", "is_correct": false },
+            { "id": "d", "text": "Money that always keeps its value", "is_correct": false }
+          ],
+          "explanation": "Fiat comes from Latin for 'let it be done': most modern currencies, like the dollar and the euro, are fiat money."
+        },
+        {
+          "id": "q2",
+          "question": "Whose portrait appears on the United States one-dollar bill?",
+          "options": [
+            { "id": "a", "text": "Abraham Lincoln", "is_correct": false },
+            { "id": "b", "text": "Benjamin Franklin", "is_correct": false },
+            { "id": "c", "text": "George Washington", "is_correct": true },
+            { "id": "d", "text": "Thomas Jefferson", "is_correct": false }
+          ],
+          "explanation": "Washington has been on the one-dollar bill since 1869; Lincoln is on the five and Franklin on the hundred."
+        },
+        {
+          "id": "q3",
+          "question": "What does the word 'numismatics' refer to?",
+          "options": [
+            { "id": "a", "text": "The study of numbers in banking", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The study and collection of coins and currency",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The design of credit cards", "is_correct": false },
+            { "id": "d", "text": "The math behind interest", "is_correct": false }
+          ],
+          "explanation": "Numismatics covers coins, tokens and paper money, and serious collectors trace history through them."
+        },
+        {
+          "id": "q4",
+          "question": "Which commodity is traditionally linked to the origin of the word 'salary'?",
+          "options": [
+            { "id": "a", "text": "Salt", "is_correct": true },
+            { "id": "b", "text": "Gold", "is_correct": false },
+            { "id": "c", "text": "Pepper", "is_correct": false },
+            { "id": "d", "text": "Wheat", "is_correct": false }
+          ],
+          "explanation": "'Salary' comes from the Latin salarium, an allowance linked to salt, which was precious in the ancient world."
+        },
+        {
+          "id": "q5",
+          "question": "What is the main job of a mint?",
+          "options": [
+            { "id": "a", "text": "Printing paper banknotes", "is_correct": false },
+            { "id": "b", "text": "Storing gold bars", "is_correct": false },
+            { "id": "c", "text": "Manufacturing coins", "is_correct": true },
+            { "id": "d", "text": "Setting interest rates", "is_correct": false }
+          ],
+          "explanation": "A mint strikes coins for the state; banknotes usually come from separate printing works."
+        },
+        {
+          "id": "q6",
+          "question": "What does it mean that a currency is 'legal tender'?",
+          "options": [
+            { "id": "a", "text": "It must be accepted to settle debts", "is_correct": true },
+            { "id": "b", "text": "It never loses value", "is_correct": false },
+            { "id": "c", "text": "It is backed by silver", "is_correct": false },
+            { "id": "d", "text": "It can be used anywhere in the world", "is_correct": false }
+          ],
+          "explanation": "Legal tender is the money a creditor cannot refuse for settling a debt within its jurisdiction."
+        },
+        {
+          "id": "q7",
+          "question": "Which country put the first polymer (plastic) banknotes into general circulation?",
+          "options": [
+            { "id": "a", "text": "Canada", "is_correct": false },
+            { "id": "b", "text": "The United Kingdom", "is_correct": false },
+            { "id": "c", "text": "Japan", "is_correct": false },
+            { "id": "d", "text": "Australia", "is_correct": true }
+          ],
+          "explanation": "Australia issued a polymer ten-dollar note for its 1988 bicentenary and later converted all its notes."
+        },
+        {
+          "id": "q8",
+          "question": "What do the letters ATM stand for?",
+          "options": [
+            { "id": "a", "text": "Automated teller machine", "is_correct": true },
+            { "id": "b", "text": "Automatic transfer module", "is_correct": false },
+            { "id": "c", "text": "Advanced treasury machine", "is_correct": false },
+            { "id": "d", "text": "Account tracking monitor", "is_correct": false }
+          ],
+          "explanation": "The first ATM was installed by Barclays in London in 1967 and paid out cash against special vouchers."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-dinero",
+      "title": "Trivia de dinero: billetes, monedas y conceptos clave",
+      "description": "Ocho preguntas sobre el dinero de cada día: dinero fíat, curso legal, numismática, casas de moneda y las historias detrás de billetes y monedas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["dinero", "trivia", "monedas", "finanzas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué es el dinero fíat?",
+          "options": [
+            { "id": "a", "text": "Dinero respaldado por reservas de oro", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Dinero que tiene valor por decreto del gobierno",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Dinero emitido solo en monedas", "is_correct": false },
+            { "id": "d", "text": "Dinero que conserva siempre su valor", "is_correct": false }
+          ],
+          "explanation": "Fíat viene del latín 'hágase': la mayoría de las monedas modernas, como el dólar y el euro, son dinero fíat."
+        },
+        {
+          "id": "q2",
+          "question": "¿De quién es el retrato del billete de un dólar de Estados Unidos?",
+          "options": [
+            { "id": "a", "text": "Abraham Lincoln", "is_correct": false },
+            { "id": "b", "text": "Benjamin Franklin", "is_correct": false },
+            { "id": "c", "text": "George Washington", "is_correct": true },
+            { "id": "d", "text": "Thomas Jefferson", "is_correct": false }
+          ],
+          "explanation": "Washington está en el billete de un dólar desde 1869; Lincoln aparece en el de cinco y Franklin en el de cien."
+        },
+        {
+          "id": "q3",
+          "question": "¿A qué se refiere la palabra 'numismática'?",
+          "options": [
+            { "id": "a", "text": "Al estudio de los números en la banca", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Al estudio y colección de monedas y billetes",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Al diseño de tarjetas de crédito", "is_correct": false },
+            { "id": "d", "text": "A las matemáticas del interés", "is_correct": false }
+          ],
+          "explanation": "La numismática abarca monedas, fichas y papel moneda, y permite reconstruir la historia a través de ellos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Con qué producto se vincula tradicionalmente el origen de la palabra 'salario'?",
+          "options": [
+            { "id": "a", "text": "La sal", "is_correct": true },
+            { "id": "b", "text": "El oro", "is_correct": false },
+            { "id": "c", "text": "La pimienta", "is_correct": false },
+            { "id": "d", "text": "El trigo", "is_correct": false }
+          ],
+          "explanation": "'Salario' viene del latín salarium, una asignación vinculada a la sal, un bien muy valioso en la antigüedad."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la función principal de una casa de moneda?",
+          "options": [
+            { "id": "a", "text": "Imprimir billetes de papel", "is_correct": false },
+            { "id": "b", "text": "Guardar lingotes de oro", "is_correct": false },
+            { "id": "c", "text": "Fabricar monedas", "is_correct": true },
+            { "id": "d", "text": "Fijar los tipos de interés", "is_correct": false }
+          ],
+          "explanation": "La casa de moneda acuña monedas para el Estado; los billetes suelen imprimirse en fábricas aparte."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué significa que una moneda tenga 'curso legal'?",
+          "options": [
+            { "id": "a", "text": "Que debe aceptarse para saldar deudas", "is_correct": true },
+            { "id": "b", "text": "Que nunca pierde valor", "is_correct": false },
+            { "id": "c", "text": "Que está respaldada por plata", "is_correct": false },
+            { "id": "d", "text": "Que se puede usar en todo el mundo", "is_correct": false }
+          ],
+          "explanation": "El curso legal obliga al acreedor a aceptar esa moneda para saldar una deuda dentro de su jurisdicción."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué país puso en circulación los primeros billetes de polímero (plástico)?",
+          "options": [
+            { "id": "a", "text": "Canadá", "is_correct": false },
+            { "id": "b", "text": "El Reino Unido", "is_correct": false },
+            { "id": "c", "text": "Japón", "is_correct": false },
+            { "id": "d", "text": "Australia", "is_correct": true }
+          ],
+          "explanation": "Australia emitió un billete de diez dólares de polímero por su bicentenario en 1988 y luego renovó toda su serie."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué significan las siglas ATM?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Automated teller machine (cajero automático)",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Automatic transfer module", "is_correct": false },
+            { "id": "c", "text": "Advanced treasury machine", "is_correct": false },
+            { "id": "d", "text": "Account tracking monitor", "is_correct": false }
+          ],
+          "explanation": "El primer cajero automático lo instaló Barclays en Londres en 1967 y entregaba efectivo con vales especiales."
+        }
+      ]
+    },
+    {
+      "slug": "en-saving-and-budgeting-trivia",
+      "title": "Saving and Budgeting Trivia: Do You Master Your Money?",
+      "description": "Eight questions on saving and budgeting: the 50/30/20 rule, emergency funds, the envelope method and the ideas that keep a budget alive.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["saving", "budgeting", "money", "trivia", "personal finance"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In the 50/30/20 budget rule, what does the 20% slice stand for?",
+          "options": [
+            { "id": "a", "text": "Housing costs", "is_correct": false },
+            { "id": "b", "text": "Fun and wants", "is_correct": false },
+            { "id": "c", "text": "Savings and debt repayment", "is_correct": true },
+            { "id": "d", "text": "Taxes", "is_correct": false }
+          ],
+          "explanation": "The rule splits after-tax income into 50% needs, 30% wants and 20% savings and extra debt payments."
+        },
+        {
+          "id": "q2",
+          "question": "What is an emergency fund?",
+          "options": [
+            { "id": "a", "text": "Money invested in stocks", "is_correct": false },
+            { "id": "b", "text": "A cash reserve for unexpected expenses", "is_correct": true },
+            { "id": "c", "text": "A bonus from your employer", "is_correct": false },
+            { "id": "d", "text": "A government grant", "is_correct": false }
+          ],
+          "explanation": "An emergency fund covers surprises like repairs or medical bills without going into debt."
+        },
+        {
+          "id": "q3",
+          "question": "A common rule of thumb suggests an emergency fund should cover how much essential spending?",
+          "options": [
+            { "id": "a", "text": "One week", "is_correct": false },
+            { "id": "b", "text": "Three to six months", "is_correct": true },
+            { "id": "c", "text": "Two years", "is_correct": false },
+            { "id": "d", "text": "Ten years", "is_correct": false }
+          ],
+          "explanation": "The classic guideline is three to six months of essential expenses, adjusted to each situation."
+        },
+        {
+          "id": "q4",
+          "question": "What does the saying 'pay yourself first' advise?",
+          "options": [
+            { "id": "a", "text": "Spending your paycheck on treats first", "is_correct": false },
+            { "id": "b", "text": "Paying off friends before bills", "is_correct": false },
+            { "id": "c", "text": "Setting aside savings before any spending", "is_correct": true },
+            { "id": "d", "text": "Taking cash out at the start of the month", "is_correct": false }
+          ],
+          "explanation": "The idea is to move money into savings as soon as income arrives, before it can be spent."
+        },
+        {
+          "id": "q5",
+          "question": "How does the envelope budgeting method work?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cash is divided into envelopes by spending category",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Bills are paid only by mail", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Money is kept in a sealed envelope for a year",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Receipts are stored in envelopes for tax season",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Each envelope holds the cash for one category, and when it empties, that budget line is spent."
+        },
+        {
+          "id": "q6",
+          "question": "In a budget, which of these is normally classified as a 'need'?",
+          "options": [
+            { "id": "a", "text": "A streaming subscription", "is_correct": false },
+            { "id": "b", "text": "Concert tickets", "is_correct": false },
+            { "id": "c", "text": "Rent", "is_correct": true },
+            { "id": "d", "text": "A new phone", "is_correct": false }
+          ],
+          "explanation": "Needs are essential expenses like housing, food and transport; wants can wait or be cut."
+        },
+        {
+          "id": "q7",
+          "question": "What does 'living paycheck to paycheck' describe?",
+          "options": [
+            { "id": "a", "text": "Receiving two salaries at once", "is_correct": false },
+            { "id": "b", "text": "Spending all income before the next payday", "is_correct": true },
+            { "id": "c", "text": "Being paid in cash", "is_correct": false },
+            { "id": "d", "text": "Saving every paycheck", "is_correct": false }
+          ],
+          "explanation": "It means each paycheck is fully used up on expenses, leaving no cushion until the next one."
+        },
+        {
+          "id": "q8",
+          "question": "What is a budget?",
+          "options": [
+            { "id": "a", "text": "A record of taxes owed", "is_correct": false },
+            { "id": "b", "text": "A loan from a bank", "is_correct": false },
+            { "id": "c", "text": "A list of things to buy", "is_correct": false },
+            {
+              "id": "d",
+              "text": "A plan that assigns income to expenses, savings and debt",
+              "is_correct": true
+            }
+          ],
+          "explanation": "A budget decides in advance where each unit of income goes instead of wondering where it went."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-ahorro-y-presupuesto",
+      "title": "Trivia de ahorro y presupuesto: ¿cuánto dominas tu dinero?",
+      "description": "Ocho preguntas sobre ahorro y presupuesto: la regla 50/30/20, el fondo de emergencia, el método de los sobres y las ideas que ordenan tus gastos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["ahorro", "presupuesto", "dinero", "trivia", "finanzas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En la regla del presupuesto 50/30/20, ¿qué representa el 20%?",
+          "options": [
+            { "id": "a", "text": "Los gastos de vivienda", "is_correct": false },
+            { "id": "b", "text": "Los gustos y caprichos", "is_correct": false },
+            { "id": "c", "text": "El ahorro y el pago de deudas", "is_correct": true },
+            { "id": "d", "text": "Los impuestos", "is_correct": false }
+          ],
+          "explanation": "La regla divide los ingresos netos en 50% necesidades, 30% gustos y 20% ahorro y pago extra de deudas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es un fondo de emergencia?",
+          "options": [
+            { "id": "a", "text": "Dinero invertido en acciones", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Una reserva de efectivo para gastos inesperados",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un bono del empleador", "is_correct": false },
+            { "id": "d", "text": "Una ayuda del gobierno", "is_correct": false }
+          ],
+          "explanation": "El fondo de emergencia cubre imprevistos como reparaciones o gastos médicos sin endeudarse."
+        },
+        {
+          "id": "q3",
+          "question": "Según una regla general, ¿cuánto gasto esencial debería cubrir un fondo de emergencia?",
+          "options": [
+            { "id": "a", "text": "Una semana", "is_correct": false },
+            { "id": "b", "text": "De tres a seis meses", "is_correct": true },
+            { "id": "c", "text": "Dos años", "is_correct": false },
+            { "id": "d", "text": "Diez años", "is_correct": false }
+          ],
+          "explanation": "La pauta clásica es de tres a seis meses de gastos esenciales, ajustable a cada situación."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué aconseja la frase 'págate a ti primero'?",
+          "options": [
+            { "id": "a", "text": "Gastar el sueldo en caprichos primero", "is_correct": false },
+            { "id": "b", "text": "Pagar a los amigos antes que las cuentas", "is_correct": false },
+            { "id": "c", "text": "Apartar el ahorro antes de cualquier gasto", "is_correct": true },
+            { "id": "d", "text": "Sacar efectivo a inicios de mes", "is_correct": false }
+          ],
+          "explanation": "La idea es mover dinero al ahorro apenas llega el ingreso, antes de que pueda gastarse."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo funciona el método de los sobres?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El efectivo se reparte en sobres por categoría de gasto",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Las cuentas se pagan solo por correo", "is_correct": false },
+            {
+              "id": "c",
+              "text": "El dinero se guarda sellado durante un año",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Los recibos se archivan en sobres para impuestos",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Cada sobre guarda el efectivo de una categoría y, cuando se vacía, esa partida ya se gastó."
+        },
+        {
+          "id": "q6",
+          "question": "En un presupuesto, ¿cuál de estos gastos se clasifica como 'necesidad'?",
+          "options": [
+            { "id": "a", "text": "Una suscripción de streaming", "is_correct": false },
+            { "id": "b", "text": "Entradas a un concierto", "is_correct": false },
+            { "id": "c", "text": "El alquiler", "is_correct": true },
+            { "id": "d", "text": "Un teléfono nuevo", "is_correct": false }
+          ],
+          "explanation": "Las necesidades son gastos esenciales como vivienda, comida y transporte; los gustos pueden esperar."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué describe la expresión 'vivir al día' o de sueldo en sueldo?",
+          "options": [
+            { "id": "a", "text": "Recibir dos sueldos a la vez", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Gastar todo el ingreso antes del siguiente pago",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Cobrar siempre en efectivo", "is_correct": false },
+            { "id": "d", "text": "Ahorrar cada sueldo completo", "is_correct": false }
+          ],
+          "explanation": "Significa que cada sueldo se agota en gastos y no queda colchón hasta el siguiente."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es un presupuesto?",
+          "options": [
+            { "id": "a", "text": "Un registro de impuestos", "is_correct": false },
+            { "id": "b", "text": "Un préstamo bancario", "is_correct": false },
+            { "id": "c", "text": "Una lista de compras", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Un plan que asigna ingresos a gastos, ahorro y deudas",
+              "is_correct": true
+            }
+          ],
+          "explanation": "El presupuesto decide por adelantado a dónde va cada unidad de ingreso, en vez de preguntarse a dónde fue."
+        }
+      ]
+    },
+    {
+      "slug": "en-investing-basics-trivia",
+      "title": "Investing Basics Trivia: Stocks, Bonds and Index Funds",
+      "description": "Eight questions on the basics of investing: compound interest, diversification, dividends and how stocks, bonds and index funds work.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["investing", "stocks", "money", "trivia", "finance"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is compound interest?",
+          "options": [
+            { "id": "a", "text": "Interest paid only on the initial amount", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Interest earned on the principal and on accumulated interest",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A fee charged by banks", "is_correct": false },
+            { "id": "d", "text": "Interest that never changes", "is_correct": false }
+          ],
+          "explanation": "With compounding, each period's interest joins the balance, so growth accelerates over time."
+        },
+        {
+          "id": "q2",
+          "question": "What does buying a share of stock give you?",
+          "options": [
+            { "id": "a", "text": "A loan to the company", "is_correct": false },
+            { "id": "b", "text": "A unit of ownership in a company", "is_correct": true },
+            { "id": "c", "text": "A guaranteed profit", "is_correct": false },
+            { "id": "d", "text": "A product discount", "is_correct": false }
+          ],
+          "explanation": "A share makes you a part-owner, with a claim on profits and often a vote on company matters."
+        },
+        {
+          "id": "q3",
+          "question": "What is a bond?",
+          "options": [
+            { "id": "a", "text": "A share of company ownership", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A loan you make to a government or company in exchange for interest",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A type of bank account", "is_correct": false },
+            { "id": "d", "text": "An insurance policy", "is_correct": false }
+          ],
+          "explanation": "Bondholders lend money and receive interest payments plus the principal back at maturity."
+        },
+        {
+          "id": "q4",
+          "question": "What does an index fund do?",
+          "options": [
+            { "id": "a", "text": "Picks a handful of winning stocks", "is_correct": false },
+            { "id": "b", "text": "Invests only in gold", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Aims to replicate the performance of a market index",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Guarantees fixed returns", "is_correct": false }
+          ],
+          "explanation": "An index fund buys the securities of an index like the S&P 500 instead of betting on single stocks."
+        },
+        {
+          "id": "q5",
+          "question": "What is diversification in investing?",
+          "options": [
+            { "id": "a", "text": "Putting all money in one strong company", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Spreading money across different investments to reduce risk",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Buying and selling every day", "is_correct": false },
+            { "id": "d", "text": "Copying another investor", "is_correct": false }
+          ],
+          "explanation": "Diversifying means poor results in one investment can be offset by the rest of the portfolio."
+        },
+        {
+          "id": "q6",
+          "question": "What is a dividend?",
+          "options": [
+            { "id": "a", "text": "A fee for buying stock", "is_correct": false },
+            { "id": "b", "text": "A tax on investment gains", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A part of company profits paid to shareholders",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A type of bond", "is_correct": false }
+          ],
+          "explanation": "Some companies distribute part of their earnings as dividends, usually every quarter."
+        },
+        {
+          "id": "q7",
+          "question": "What does a 'bull market' describe?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A period of sustained rising prices and optimism",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A market crash", "is_correct": false },
+            { "id": "c", "text": "A cattle trading market", "is_correct": false },
+            { "id": "d", "text": "A closed stock exchange", "is_correct": false }
+          ],
+          "explanation": "The bull attacks upward with its horns; a prolonged fall is its opposite, the bear market."
+        },
+        {
+          "id": "q8",
+          "question": "What is a stock exchange?",
+          "options": [
+            { "id": "a", "text": "A government tax office", "is_correct": false },
+            { "id": "b", "text": "A bank vault", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A marketplace where shares and other securities are bought and sold",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A company that prints money", "is_correct": false }
+          ],
+          "explanation": "Exchanges like the NYSE match buyers and sellers of listed securities under shared rules."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-inversiones",
+      "title": "Trivia de inversiones: acciones, bonos y fondos indexados",
+      "description": "Ocho preguntas sobre los conceptos básicos de invertir: interés compuesto, diversificación, dividendos y cómo funcionan acciones, bonos y fondos indexados.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["inversiones", "acciones", "dinero", "trivia", "finanzas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué es el interés compuesto?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Interés que se paga solo sobre el monto inicial",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Interés ganado sobre el capital y sobre los intereses acumulados",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una comisión bancaria", "is_correct": false },
+            { "id": "d", "text": "Interés que nunca cambia", "is_correct": false }
+          ],
+          "explanation": "Con la capitalización, los intereses de cada período se suman al saldo y el crecimiento se acelera."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué obtienes al comprar una acción?",
+          "options": [
+            { "id": "a", "text": "Un préstamo a la empresa", "is_correct": false },
+            { "id": "b", "text": "Una parte de la propiedad de una empresa", "is_correct": true },
+            { "id": "c", "text": "Una ganancia garantizada", "is_correct": false },
+            { "id": "d", "text": "Un descuento en productos", "is_correct": false }
+          ],
+          "explanation": "La acción te convierte en copropietario, con derecho a ganancias y a menudo a voto."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué es un bono?",
+          "options": [
+            { "id": "a", "text": "Una parte de la propiedad de una empresa", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un préstamo que haces a un gobierno o empresa a cambio de intereses",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un tipo de cuenta bancaria", "is_correct": false },
+            { "id": "d", "text": "Una póliza de seguro", "is_correct": false }
+          ],
+          "explanation": "El tenedor de un bono presta dinero y recibe intereses más el capital al vencimiento."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué hace un fondo indexado?",
+          "options": [
+            { "id": "a", "text": "Elige unas pocas acciones ganadoras", "is_correct": false },
+            { "id": "b", "text": "Invierte solo en oro", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Busca replicar el rendimiento de un índice de mercado",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Garantiza rendimientos fijos", "is_correct": false }
+          ],
+          "explanation": "El fondo indexado compra los valores de un índice como el S&P 500 en lugar de apostar a pocas acciones."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es la diversificación al invertir?",
+          "options": [
+            { "id": "a", "text": "Poner todo el dinero en una sola empresa", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Repartir el dinero entre inversiones distintas para reducir el riesgo",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Comprar y vender todos los días", "is_correct": false },
+            { "id": "d", "text": "Copiar a otro inversionista", "is_correct": false }
+          ],
+          "explanation": "Al diversificar, el mal resultado de una inversión puede compensarse con el resto de la cartera."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué es un dividendo?",
+          "options": [
+            { "id": "a", "text": "Una comisión por comprar acciones", "is_correct": false },
+            { "id": "b", "text": "Un impuesto sobre las ganancias", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Una parte de las ganancias repartida a los accionistas",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Un tipo de bono", "is_correct": false }
+          ],
+          "explanation": "Algunas empresas reparten parte de sus beneficios como dividendos, normalmente cada trimestre."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué describe un 'mercado alcista'?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un período sostenido de precios al alza y optimismo",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una caída de la bolsa", "is_correct": false },
+            { "id": "c", "text": "Un mercado de ganado", "is_correct": false },
+            { "id": "d", "text": "Una bolsa cerrada", "is_correct": false }
+          ],
+          "explanation": "El toro ataca de abajo hacia arriba con los cuernos; su opuesto es el mercado bajista."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es una bolsa de valores?",
+          "options": [
+            { "id": "a", "text": "Una oficina de impuestos", "is_correct": false },
+            { "id": "b", "text": "La bóveda de un banco", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Un mercado donde se compran y venden acciones y otros valores",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Una empresa que imprime dinero", "is_correct": false }
+          ],
+          "explanation": "Bolsas como la de Nueva York emparejan compradores y vendedores de valores bajo reglas comunes."
+        }
+      ]
+    },
+    {
+      "slug": "en-history-of-money-trivia",
+      "title": "History of Money Trivia: From Barter to Paper Bills",
+      "description": "Eight questions on the history of money: barter, the first coins of Lydia, Chinese paper money, the gold standard and the arrival of the euro.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["history", "money", "trivia", "economics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Before money existed, how did people mainly trade?",
+          "options": [
+            { "id": "a", "text": "With credit cards", "is_correct": false },
+            { "id": "b", "text": "By bartering goods and services", "is_correct": true },
+            { "id": "c", "text": "With paper checks", "is_correct": false },
+            { "id": "d", "text": "Through banks", "is_correct": false }
+          ],
+          "explanation": "Barter exchanged goods directly, but it required both sides to want what the other had."
+        },
+        {
+          "id": "q2",
+          "question": "Where were some of the first metal coins minted, around the 7th century BC?",
+          "options": [
+            { "id": "a", "text": "In Rome", "is_correct": false },
+            { "id": "b", "text": "In Egypt", "is_correct": false },
+            { "id": "c", "text": "In Lydia, in modern Turkey", "is_correct": true },
+            { "id": "d", "text": "In China", "is_correct": false }
+          ],
+          "explanation": "The kingdom of Lydia struck electrum coins, a gold-silver alloy that spread through the Mediterranean."
+        },
+        {
+          "id": "q3",
+          "question": "Which civilization introduced the world's first paper money?",
+          "options": [
+            { "id": "a", "text": "The Roman Empire", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": true },
+            { "id": "c", "text": "Venice", "is_correct": false },
+            { "id": "d", "text": "The Ottoman Empire", "is_correct": false }
+          ],
+          "explanation": "Paper money appeared in China under the Tang dynasty and spread widely under the Song."
+        },
+        {
+          "id": "q4",
+          "question": "When did euro banknotes and coins enter circulation?",
+          "options": [
+            { "id": "a", "text": "1992", "is_correct": false },
+            { "id": "b", "text": "1999", "is_correct": false },
+            { "id": "c", "text": "2002", "is_correct": true },
+            { "id": "d", "text": "2010", "is_correct": false }
+          ],
+          "explanation": "The euro existed since 1999 for accounting, but the physical cash arrived on 1 January 2002."
+        },
+        {
+          "id": "q5",
+          "question": "What were cowrie shells used for in parts of Africa and Asia?",
+          "options": [
+            { "id": "a", "text": "As building material", "is_correct": false },
+            { "id": "b", "text": "As money", "is_correct": true },
+            { "id": "c", "text": "As musical instruments", "is_correct": false },
+            { "id": "d", "text": "As writing tablets", "is_correct": false }
+          ],
+          "explanation": "Cowries circulated as currency for centuries because they were durable, portable and hard to fake."
+        },
+        {
+          "id": "q6",
+          "question": "What was the gold standard?",
+          "options": [
+            { "id": "a", "text": "A prize for Olympic winners", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A rule that banks kept only gold in their vaults",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "A system tying the value of currency to gold",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A medieval tax on jewelers", "is_correct": false }
+          ],
+          "explanation": "Under the gold standard each unit of currency could be exchanged for a fixed amount of gold."
+        },
+        {
+          "id": "q7",
+          "question": "Which law created the United States dollar as the country's standard unit of money?",
+          "options": [
+            { "id": "a", "text": "The Coinage Act of 1792", "is_correct": true },
+            { "id": "b", "text": "The Federal Reserve Act of 1913", "is_correct": false },
+            { "id": "c", "text": "The Constitution of 1787", "is_correct": false },
+            { "id": "d", "text": "The Gold Reserve Act of 1934", "is_correct": false }
+          ],
+          "explanation": "The Coinage Act of 1792 defined the dollar and founded the United States Mint."
+        },
+        {
+          "id": "q8",
+          "question": "What were tally sticks used for in medieval Europe?",
+          "options": [
+            { "id": "a", "text": "To record debts and payments", "is_correct": true },
+            { "id": "b", "text": "To build houses", "is_correct": false },
+            { "id": "c", "text": "To play board games", "is_correct": false },
+            { "id": "d", "text": "To count livestock", "is_correct": false }
+          ],
+          "explanation": "Notched wooden sticks recorded debts; England used them for tax accounting for centuries."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-del-dinero",
+      "title": "Trivia de historia del dinero: del trueque a los billetes",
+      "description": "Ocho preguntas sobre la historia del dinero: el trueque, las primeras monedas de Lidia, el papel moneda chino, el patrón oro y la llegada del euro.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["historia", "dinero", "trivia", "economía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Antes de que existiera el dinero, ¿cómo comerciaban las personas?",
+          "options": [
+            { "id": "a", "text": "Con tarjetas de crédito", "is_correct": false },
+            { "id": "b", "text": "Con el trueque de bienes y servicios", "is_correct": true },
+            { "id": "c", "text": "Con cheques de papel", "is_correct": false },
+            { "id": "d", "text": "A través de bancos", "is_correct": false }
+          ],
+          "explanation": "El trueque cambiaba bienes directamente, pero exigía que ambas partes quisieran lo del otro."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde se acuñaron algunas de las primeras monedas de metal, hacia el siglo VII a. C.?",
+          "options": [
+            { "id": "a", "text": "En Roma", "is_correct": false },
+            { "id": "b", "text": "En Egipto", "is_correct": false },
+            { "id": "c", "text": "En Lidia, en la actual Turquía", "is_correct": true },
+            { "id": "d", "text": "En China", "is_correct": false }
+          ],
+          "explanation": "El reino de Lidia acuñó monedas de electro, una aleación de oro y plata que se difundió por el Mediterráneo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué civilización introdujo el primer papel moneda del mundo?",
+          "options": [
+            { "id": "a", "text": "El Imperio romano", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": true },
+            { "id": "c", "text": "Venecia", "is_correct": false },
+            { "id": "d", "text": "El Imperio otomano", "is_correct": false }
+          ],
+          "explanation": "El papel moneda apareció en China con la dinastía Tang y se generalizó bajo la Song."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuándo entraron en circulación los billetes y monedas de euro?",
+          "options": [
+            { "id": "a", "text": "1992", "is_correct": false },
+            { "id": "b", "text": "1999", "is_correct": false },
+            { "id": "c", "text": "2002", "is_correct": true },
+            { "id": "d", "text": "2010", "is_correct": false }
+          ],
+          "explanation": "El euro existía desde 1999 para la contabilidad, pero el efectivo llegó el 1 de enero de 2002."
+        },
+        {
+          "id": "q5",
+          "question": "¿Para qué se usaban las conchas caurí en partes de África y Asia?",
+          "options": [
+            { "id": "a", "text": "Como material de construcción", "is_correct": false },
+            { "id": "b", "text": "Como dinero", "is_correct": true },
+            { "id": "c", "text": "Como instrumentos musicales", "is_correct": false },
+            { "id": "d", "text": "Como tablillas de escritura", "is_correct": false }
+          ],
+          "explanation": "Los cauríes circularon como moneda durante siglos por ser duraderos, portables y difíciles de falsificar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué era el patrón oro?",
+          "options": [
+            { "id": "a", "text": "Un premio para ganadores olímpicos", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Una regla para que los bancos solo guardaran oro",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Un sistema que ataba el valor de la moneda al oro",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Un impuesto medieval a los joyeros", "is_correct": false }
+          ],
+          "explanation": "Con el patrón oro, cada unidad de moneda podía cambiarse por una cantidad fija de oro."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué ley creó el dólar como unidad monetaria estándar de Estados Unidos?",
+          "options": [
+            { "id": "a", "text": "La Ley de Acuñación de 1792", "is_correct": true },
+            { "id": "b", "text": "La Ley de la Reserva Federal de 1913", "is_correct": false },
+            { "id": "c", "text": "La Constitución de 1787", "is_correct": false },
+            { "id": "d", "text": "La Ley de Reserva de Oro de 1934", "is_correct": false }
+          ],
+          "explanation": "La Ley de Acuñación de 1792 definió el dólar y fundó la Casa de Moneda de Estados Unidos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Para qué servían las varas de cuenta (tally sticks) en la Europa medieval?",
+          "options": [
+            { "id": "a", "text": "Para registrar deudas y pagos", "is_correct": true },
+            { "id": "b", "text": "Para construir casas", "is_correct": false },
+            { "id": "c", "text": "Para juegos de mesa", "is_correct": false },
+            { "id": "d", "text": "Para contar ganado", "is_correct": false }
+          ],
+          "explanation": "Las varas de madera con muescas registraban deudas; Inglaterra las usó para impuestos durante siglos."
+        }
+      ]
+    },
+    {
+      "slug": "en-everyday-economics-trivia",
+      "title": "Everyday Economics Trivia: Inflation, GDP and More",
+      "description": "Eight questions on everyday economics: inflation, supply and demand, GDP, opportunity cost and the ideas behind the prices you pay.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["economics", "inflation", "trivia", "money"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is inflation?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A general rise in prices that reduces purchasing power",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A drop in interest rates", "is_correct": false },
+            { "id": "c", "text": "A rise in wages", "is_correct": false },
+            { "id": "d", "text": "A type of tax", "is_correct": false }
+          ],
+          "explanation": "With inflation each unit of currency buys less than before, so money slowly loses value."
+        },
+        {
+          "id": "q2",
+          "question": "According to the law of supply and demand, what tends to happen when demand exceeds supply?",
+          "options": [
+            { "id": "a", "text": "Prices fall", "is_correct": false },
+            { "id": "b", "text": "Prices rise", "is_correct": true },
+            { "id": "c", "text": "Prices disappear", "is_correct": false },
+            { "id": "d", "text": "Nothing changes", "is_correct": false }
+          ],
+          "explanation": "When more people want something than there is available, sellers can charge higher prices."
+        },
+        {
+          "id": "q3",
+          "question": "What does GDP measure?",
+          "options": [
+            { "id": "a", "text": "The population of a country", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The total value of goods and services an economy produces",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The size of the government", "is_correct": false },
+            { "id": "d", "text": "A country's gold reserves", "is_correct": false }
+          ],
+          "explanation": "Gross domestic product adds up all final goods and services produced in a period."
+        },
+        {
+          "id": "q4",
+          "question": "What is the role of a central bank?",
+          "options": [
+            { "id": "a", "text": "Lending only to large companies", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Issuing currency and steering monetary policy",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Collecting household taxes", "is_correct": false },
+            { "id": "d", "text": "Selling products to consumers", "is_correct": false }
+          ],
+          "explanation": "Central banks like the Federal Reserve or the ECB manage the currency and influence credit conditions."
+        },
+        {
+          "id": "q5",
+          "question": "What is opportunity cost?",
+          "options": [
+            { "id": "a", "text": "The price of a product in stores", "is_correct": false },
+            { "id": "b", "text": "A fee for missing a payment", "is_correct": false },
+            {
+              "id": "c",
+              "text": "The value of the best alternative you give up",
+              "is_correct": true
+            },
+            { "id": "d", "text": "The cost of keeping money at home", "is_correct": false }
+          ],
+          "explanation": "Every choice renounces something: the opportunity cost is the best of the options not taken."
+        },
+        {
+          "id": "q6",
+          "question": "What does a recession describe?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A significant and widespread decline in economic activity",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A stock market record", "is_correct": false },
+            { "id": "c", "text": "A period of zero inflation", "is_correct": false },
+            { "id": "d", "text": "A currency change", "is_correct": false }
+          ],
+          "explanation": "A common rule of thumb speaks of two consecutive quarters of falling GDP."
+        },
+        {
+          "id": "q7",
+          "question": "What is a monopoly?",
+          "options": [
+            { "id": "a", "text": "A market with many small sellers", "is_correct": false },
+            { "id": "b", "text": "A single supplier dominating a market", "is_correct": true },
+            { "id": "c", "text": "Only a family board game", "is_correct": false },
+            { "id": "d", "text": "A type of government bond", "is_correct": false }
+          ],
+          "explanation": "A monopoly faces no competition, which can lead to higher prices and less choice."
+        },
+        {
+          "id": "q8",
+          "question": "What are sales taxes and VAT applied to?",
+          "options": [
+            { "id": "a", "text": "Only to imported goods", "is_correct": false },
+            { "id": "b", "text": "Only to company profits", "is_correct": false },
+            { "id": "c", "text": "The purchase of goods and services", "is_correct": true },
+            { "id": "d", "text": "Only to salaries", "is_correct": false }
+          ],
+          "explanation": "Sales tax and VAT charge a percentage on consumption, collected at the moment of purchase."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-economia-cotidiana",
+      "title": "Trivia de economía cotidiana: inflación, PIB y más",
+      "description": "Ocho preguntas sobre la economía de todos los días: inflación, oferta y demanda, PIB, costo de oportunidad y las ideas detrás de los precios.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["economía", "inflación", "trivia", "dinero"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué es la inflación?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un aumento general de precios que reduce el poder adquisitivo",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una baja de los tipos de interés", "is_correct": false },
+            { "id": "c", "text": "Una subida de salarios", "is_correct": false },
+            { "id": "d", "text": "Un tipo de impuesto", "is_correct": false }
+          ],
+          "explanation": "Con inflación, cada unidad de moneda compra menos que antes y el dinero pierde valor poco a poco."
+        },
+        {
+          "id": "q2",
+          "question": "Según la ley de oferta y demanda, ¿qué suele pasar cuando la demanda supera la oferta?",
+          "options": [
+            { "id": "a", "text": "Los precios bajan", "is_correct": false },
+            { "id": "b", "text": "Los precios suben", "is_correct": true },
+            { "id": "c", "text": "Los precios desaparecen", "is_correct": false },
+            { "id": "d", "text": "Nada cambia", "is_correct": false }
+          ],
+          "explanation": "Cuando más gente quiere algo de lo que hay disponible, los vendedores pueden cobrar más."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué mide el PIB?",
+          "options": [
+            { "id": "a", "text": "La población de un país", "is_correct": false },
+            {
+              "id": "b",
+              "text": "El valor total de los bienes y servicios que produce una economía",
+              "is_correct": true
+            },
+            { "id": "c", "text": "El tamaño del gobierno", "is_correct": false },
+            { "id": "d", "text": "Las reservas de oro de un país", "is_correct": false }
+          ],
+          "explanation": "El producto interno bruto suma todos los bienes y servicios finales producidos en un período."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es la función de un banco central?",
+          "options": [
+            { "id": "a", "text": "Prestar solo a grandes empresas", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Emitir moneda y dirigir la política monetaria",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Cobrar impuestos a los hogares", "is_correct": false },
+            { "id": "d", "text": "Vender productos a los consumidores", "is_correct": false }
+          ],
+          "explanation": "Bancos centrales como la Reserva Federal o el BCE gestionan la moneda e influyen en el crédito."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es el costo de oportunidad?",
+          "options": [
+            { "id": "a", "text": "El precio de un producto en tiendas", "is_correct": false },
+            { "id": "b", "text": "Un recargo por pago atrasado", "is_correct": false },
+            {
+              "id": "c",
+              "text": "El valor de la mejor alternativa a la que renuncias",
+              "is_correct": true
+            },
+            { "id": "d", "text": "El costo de guardar dinero en casa", "is_correct": false }
+          ],
+          "explanation": "Toda elección renuncia a algo: el costo de oportunidad es la mejor de las opciones descartadas."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué describe una recesión?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una caída significativa y generalizada de la actividad económica",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Un récord en la bolsa", "is_correct": false },
+            { "id": "c", "text": "Un período de inflación cero", "is_correct": false },
+            { "id": "d", "text": "Un cambio de moneda", "is_correct": false }
+          ],
+          "explanation": "Una regla general habla de dos trimestres seguidos de caída del PIB."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué es un monopolio?",
+          "options": [
+            { "id": "a", "text": "Un mercado con muchos vendedores pequeños", "is_correct": false },
+            { "id": "b", "text": "Un único proveedor que domina un mercado", "is_correct": true },
+            { "id": "c", "text": "Solo un juego de mesa", "is_correct": false },
+            { "id": "d", "text": "Un tipo de bono del Estado", "is_correct": false }
+          ],
+          "explanation": "El monopolio no enfrenta competencia, lo que puede llevar a precios más altos y menos opciones."
+        },
+        {
+          "id": "q8",
+          "question": "¿Sobre qué se aplican el impuesto a las ventas y el IVA?",
+          "options": [
+            { "id": "a", "text": "Solo a los bienes importados", "is_correct": false },
+            { "id": "b", "text": "Solo a las ganancias de las empresas", "is_correct": false },
+            { "id": "c", "text": "A la compra de bienes y servicios", "is_correct": true },
+            { "id": "d", "text": "Solo a los salarios", "is_correct": false }
+          ],
+          "explanation": "El impuesto a las ventas y el IVA cobran un porcentaje sobre el consumo en el momento de la compra."
+        }
+      ]
+    }
+  ]
+}
