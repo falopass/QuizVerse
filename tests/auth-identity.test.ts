@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
+  PasswordResetRequestSchema,
+  PasswordUpdateSchema,
   SignInSchema,
   SignUpSchema,
   isValidUsername,
@@ -90,6 +92,39 @@ describe('esquemas de auth', () => {
   it('el login no exige longitud mínima (la valida el proveedor)', () => {
     expect(SignInSchema.safeParse({ email: 'a@b.co', password: 'x' }).success).toBe(true);
     expect(SignInSchema.safeParse({ email: 'a@b.co', password: '' }).success).toBe(false);
+  });
+});
+
+describe('esquemas de recuperación', () => {
+  it('normaliza el email y deja el locale en en por defecto', () => {
+    const parsed = PasswordResetRequestSchema.parse({ email: '  Ana@Example.COM ' });
+    expect(parsed.email).toBe('ana@example.com');
+    expect(parsed.locale).toBe('en');
+  });
+
+  it('acepta solo los locales del sitio', () => {
+    expect(PasswordResetRequestSchema.safeParse({ email: 'a@b.co', locale: 'es' }).success).toBe(
+      true
+    );
+    expect(PasswordResetRequestSchema.safeParse({ email: 'a@b.co', locale: 'fr' }).success).toBe(
+      false
+    );
+  });
+
+  it('la nueva contraseña exige 8 a 72 caracteres', () => {
+    expect(PasswordUpdateSchema.safeParse({ password: 'corta' }).success).toBe(false);
+    expect(PasswordUpdateSchema.safeParse({ password: 'x'.repeat(73) }).success).toBe(false);
+    expect(PasswordUpdateSchema.safeParse({ password: '12345678' }).success).toBe(true);
+  });
+
+  it('la clave actual es opcional pero no vacía', () => {
+    expect(PasswordUpdateSchema.safeParse({ password: '12345678' }).success).toBe(true);
+    expect(
+      PasswordUpdateSchema.safeParse({ password: '12345678', currentPassword: '' }).success
+    ).toBe(false);
+    expect(
+      PasswordUpdateSchema.safeParse({ password: '12345678', currentPassword: 'vieja' }).success
+    ).toBe(true);
   });
 });
 

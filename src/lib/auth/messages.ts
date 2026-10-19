@@ -29,6 +29,10 @@ const MESSAGES: Record<AuthErrorCode | 'ok', Copy> = {
     en: 'Choose a stronger password.',
     es: 'Elige una contraseña más fuerte.',
   },
+  unauthorized: {
+    en: 'Your session expired; sign in again.',
+    es: 'Tu sesión caducó; inicia sesión de nuevo.',
+  },
   unexpected: {
     en: 'Something went wrong. Try again in a moment.',
     es: 'Algo salió mal. Inténtalo de nuevo en un momento.',
