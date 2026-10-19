@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial seed 2026as (CONT-55): five es/en trivia pairs on sports — the three football legends, all-time records and women who changed sport. Every answer is a stable, checkable fact: closed club cycles, dated finals and ratified records. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-lionel-messi-trivia",
+      "title": "Lionel Messi Trivia: From Rosario to World Cup Glory",
+      "description": "Eight questions on the career of Lionel Messi: from Rosario and La Masia to Barcelona's records and World Cup glory with Argentina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["football", "trivia", "lionel messi", "argentina"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which Argentine city was Lionel Messi born in 1987?",
+          "options": [
+            { "id": "a", "text": "Buenos Aires", "is_correct": false },
+            { "id": "b", "text": "Córdoba", "is_correct": false },
+            { "id": "c", "text": "Rosario", "is_correct": true },
+            { "id": "d", "text": "Mendoza", "is_correct": false }
+          ],
+          "explanation": "Messi was born on 24 June 1987 in Rosario, in Santa Fe province."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Messi join Barcelona's La Masia academy?",
+          "options": [
+            { "id": "a", "text": "1998", "is_correct": false },
+            { "id": "b", "text": "2000", "is_correct": true },
+            { "id": "c", "text": "2002", "is_correct": false },
+            { "id": "d", "text": "2004", "is_correct": false }
+          ],
+          "explanation": "He arrived in 2000, aged 13, after a trial arranged by Carles Rexach."
+        },
+        {
+          "id": "q3",
+          "question": "Against which team did Messi make his official first-team debut for Barcelona in 2004?",
+          "options": [
+            { "id": "a", "text": "Espanyol", "is_correct": true },
+            { "id": "b", "text": "Real Madrid", "is_correct": false },
+            { "id": "c", "text": "Sevilla", "is_correct": false },
+            { "id": "d", "text": "Shakhtar Donetsk", "is_correct": false }
+          ],
+          "explanation": "On 16 October 2004, aged 17, he came on in a league derby against Espanyol at Montjuïc."
+        },
+        {
+          "id": "q4",
+          "question": "In which year did Messi win his first Ballon d'Or?",
+          "options": [
+            { "id": "a", "text": "2008", "is_correct": false },
+            { "id": "b", "text": "2009", "is_correct": true },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2011", "is_correct": false }
+          ],
+          "explanation": "He won the 2009 award, the first of a record run of four in a row through 2012."
+        },
+        {
+          "id": "q5",
+          "question": "How many goals did Messi score in the 2012 calendar year, a Guinness world record?",
+          "options": [
+            { "id": "a", "text": "85", "is_correct": false },
+            { "id": "b", "text": "91", "is_correct": true },
+            { "id": "c", "text": "96", "is_correct": false },
+            { "id": "d", "text": "101", "is_correct": false }
+          ],
+          "explanation": "He scored 91 goals in 2012, breaking Gerd Müller's 1972 mark of 85."
+        },
+        {
+          "id": "q6",
+          "question": "Which club did Messi join after leaving Barcelona in 2021?",
+          "options": [
+            { "id": "a", "text": "Manchester City", "is_correct": false },
+            { "id": "b", "text": "Paris Saint-Germain", "is_correct": true },
+            { "id": "c", "text": "Inter Miami", "is_correct": false },
+            { "id": "d", "text": "Juventus", "is_correct": false }
+          ],
+          "explanation": "He signed for PSG in August 2021 and spent two seasons in Paris."
+        },
+        {
+          "id": "q7",
+          "question": "Which trophy did Messi lift in 2021, his first major title with Argentina's senior team?",
+          "options": [
+            { "id": "a", "text": "Copa América", "is_correct": true },
+            { "id": "b", "text": "FIFA World Cup", "is_correct": false },
+            { "id": "c", "text": "Olympic gold", "is_correct": false },
+            { "id": "d", "text": "Confederations Cup", "is_correct": false }
+          ],
+          "explanation": "Argentina beat Brazil 1–0 at the Maracanã to win the 2021 Copa América."
+        },
+        {
+          "id": "q8",
+          "question": "Which team did Argentina beat in the 2022 World Cup final in Qatar?",
+          "options": [
+            { "id": "a", "text": "Croatia", "is_correct": false },
+            { "id": "b", "text": "France", "is_correct": true },
+            { "id": "c", "text": "Brazil", "is_correct": false },
+            { "id": "d", "text": "England", "is_correct": false }
+          ],
+          "explanation": "Messi scored twice as Argentina won on penalties after a 3–3 draw with France at Lusail."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-lionel-messi",
+      "title": "Trivia de Lionel Messi: de Rosario a la gloria mundial",
+      "description": "Ocho preguntas sobre la carrera de Lionel Messi: de Rosario y La Masia a los récords del Barcelona y la gloria del Mundial con Argentina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["fútbol", "trivia", "lionel messi", "argentina"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad argentina nació Lionel Messi en 1987?",
+          "options": [
+            { "id": "a", "text": "Buenos Aires", "is_correct": false },
+            { "id": "b", "text": "Córdoba", "is_correct": false },
+            { "id": "c", "text": "Rosario", "is_correct": true },
+            { "id": "d", "text": "Mendoza", "is_correct": false }
+          ],
+          "explanation": "Messi nació el 24 de junio de 1987 en Rosario, provincia de Santa Fe."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se incorporó Messi a La Masia, la cantera del Barcelona?",
+          "options": [
+            { "id": "a", "text": "1998", "is_correct": false },
+            { "id": "b", "text": "2000", "is_correct": true },
+            { "id": "c", "text": "2002", "is_correct": false },
+            { "id": "d", "text": "2004", "is_correct": false }
+          ],
+          "explanation": "Llegó en 2000, con 13 años, tras una prueba gestionada por Carles Rexach."
+        },
+        {
+          "id": "q3",
+          "question": "¿Contra qué equipo debutó Messi oficialmente con el primer equipo del Barcelona en 2004?",
+          "options": [
+            { "id": "a", "text": "Espanyol", "is_correct": true },
+            { "id": "b", "text": "Real Madrid", "is_correct": false },
+            { "id": "c", "text": "Sevilla", "is_correct": false },
+            { "id": "d", "text": "Shakhtar Donetsk", "is_correct": false }
+          ],
+          "explanation": "El 16 de octubre de 2004, con 17 años, entró en el derbi liguero contra el Espanyol en Montjuïc."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año ganó Messi su primer Balón de Oro?",
+          "options": [
+            { "id": "a", "text": "2008", "is_correct": false },
+            { "id": "b", "text": "2009", "is_correct": true },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2011", "is_correct": false }
+          ],
+          "explanation": "Ganó el de 2009, el primero de una racha récord de cuatro seguidos hasta 2012."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuántos goles marcó Messi en el año natural 2012, un récord Guinness?",
+          "options": [
+            { "id": "a", "text": "85", "is_correct": false },
+            { "id": "b", "text": "91", "is_correct": true },
+            { "id": "c", "text": "96", "is_correct": false },
+            { "id": "d", "text": "101", "is_correct": false }
+          ],
+          "explanation": "Marcó 91 goles en 2012 y superó la marca de 85 de Gerd Müller de 1972."
+        },
+        {
+          "id": "q6",
+          "question": "¿A qué club llegó Messi tras salir del Barcelona en 2021?",
+          "options": [
+            { "id": "a", "text": "Manchester City", "is_correct": false },
+            { "id": "b", "text": "Paris Saint-Germain", "is_correct": true },
+            { "id": "c", "text": "Inter Miami", "is_correct": false },
+            { "id": "d", "text": "Juventus", "is_correct": false }
+          ],
+          "explanation": "Firmó por el PSG en agosto de 2021 y jugó dos temporadas en París."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué trofeo levantó Messi en 2021, su primer título grande con la selección mayor de Argentina?",
+          "options": [
+            { "id": "a", "text": "Copa América", "is_correct": true },
+            { "id": "b", "text": "Mundial de la FIFA", "is_correct": false },
+            { "id": "c", "text": "Oro olímpico", "is_correct": false },
+            { "id": "d", "text": "Copa Confederaciones", "is_correct": false }
+          ],
+          "explanation": "Argentina venció 1-0 a Brasil en el Maracaná y ganó la Copa América 2021."
+        },
+        {
+          "id": "q8",
+          "question": "¿A qué selección venció Argentina en la final del Mundial de Catar 2022?",
+          "options": [
+            { "id": "a", "text": "Croacia", "is_correct": false },
+            { "id": "b", "text": "Francia", "is_correct": true },
+            { "id": "c", "text": "Brasil", "is_correct": false },
+            { "id": "d", "text": "Inglaterra", "is_correct": false }
+          ],
+          "explanation": "Messi marcó dos goles y Argentina ganó en los penales tras el 3-3 contra Francia en Lusail."
+        }
+      ]
+    },
+    {
+      "slug": "en-cristiano-ronaldo-trivia",
+      "title": "Cristiano Ronaldo Trivia: Madeira, Manchester, Madrid",
+      "description": "From Madeira to Manchester and Madrid: eight questions on Cristiano Ronaldo's records, titles and Portugal's golden era.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["football", "trivia", "cristiano ronaldo", "portugal"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Where was Cristiano Ronaldo born in 1985?",
+          "options": [
+            { "id": "a", "text": "Lisbon", "is_correct": false },
+            { "id": "b", "text": "Porto", "is_correct": false },
+            { "id": "c", "text": "Funchal", "is_correct": true },
+            { "id": "d", "text": "Braga", "is_correct": false }
+          ],
+          "explanation": "He was born in Funchal, on the island of Madeira, on 5 February 1985."
+        },
+        {
+          "id": "q2",
+          "question": "Which club gave Cristiano Ronaldo his professional debut in 2002?",
+          "options": [
+            { "id": "a", "text": "Benfica", "is_correct": false },
+            { "id": "b", "text": "Porto", "is_correct": false },
+            { "id": "c", "text": "Sporting CP", "is_correct": true },
+            { "id": "d", "text": "Manchester United", "is_correct": false }
+          ],
+          "explanation": "He debuted for Sporting CP in 2002 and played one season before moving to England."
+        },
+        {
+          "id": "q3",
+          "question": "In which year did Cristiano Ronaldo sign for Manchester United?",
+          "options": [
+            { "id": "a", "text": "2001", "is_correct": false },
+            { "id": "b", "text": "2003", "is_correct": true },
+            { "id": "c", "text": "2005", "is_correct": false },
+            { "id": "d", "text": "2007", "is_correct": false }
+          ],
+          "explanation": "United paid around £12 million for the 18-year-old in August 2003, after a friendly in Lisbon."
+        },
+        {
+          "id": "q4",
+          "question": "In which year did he win his first Ballon d'Or?",
+          "options": [
+            { "id": "a", "text": "2007", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": true },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2013", "is_correct": false }
+          ],
+          "explanation": "He won the 2008 award after scoring 42 goals in United's Champions League-winning season."
+        },
+        {
+          "id": "q5",
+          "question": "At which club did Cristiano Ronaldo become the all-time top scorer, with 450 goals?",
+          "options": [
+            { "id": "a", "text": "Manchester United", "is_correct": false },
+            { "id": "b", "text": "Juventus", "is_correct": false },
+            { "id": "c", "text": "Real Madrid", "is_correct": true },
+            { "id": "d", "text": "Sporting CP", "is_correct": false }
+          ],
+          "explanation": "He scored 450 goals in 438 games for Real Madrid between 2009 and 2018."
+        },
+        {
+          "id": "q6",
+          "question": "Which tournament did Portugal win in 2016, the country's first major trophy?",
+          "options": [
+            { "id": "a", "text": "UEFA Euro", "is_correct": true },
+            { "id": "b", "text": "FIFA World Cup", "is_correct": false },
+            { "id": "c", "text": "Nations League", "is_correct": false },
+            { "id": "d", "text": "Confederations Cup", "is_correct": false }
+          ],
+          "explanation": "Portugal beat hosts France 1–0 in the Euro 2016 final at the Stade de France."
+        },
+        {
+          "id": "q7",
+          "question": "Which trophy did Portugal lift in 2019 by beating the Netherlands in the final?",
+          "options": [
+            { "id": "a", "text": "Nations League", "is_correct": true },
+            { "id": "b", "text": "UEFA Euro", "is_correct": false },
+            { "id": "c", "text": "FIFA World Cup", "is_correct": false },
+            { "id": "d", "text": "Confederations Cup", "is_correct": false }
+          ],
+          "explanation": "Gonçalo Guedes scored the only goal of the 2019 Nations League final in Porto."
+        },
+        {
+          "id": "q8",
+          "question": "How many UEFA Champions League titles did Cristiano Ronaldo win?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Four", "is_correct": false },
+            { "id": "c", "text": "Five", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "One with Manchester United (2008) and four with Real Madrid (2014, 2016, 2017 and 2018)."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cristiano-ronaldo",
+      "title": "Trivia de Cristiano Ronaldo: Madeira, Manchester y Madrid",
+      "description": "De Madeira a Manchester y Madrid: ocho preguntas sobre los récords y títulos de Cristiano Ronaldo y la era dorada de Portugal.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["fútbol", "trivia", "cristiano ronaldo", "portugal"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Dónde nació Cristiano Ronaldo en 1985?",
+          "options": [
+            { "id": "a", "text": "Lisboa", "is_correct": false },
+            { "id": "b", "text": "Oporto", "is_correct": false },
+            { "id": "c", "text": "Funchal", "is_correct": true },
+            { "id": "d", "text": "Braga", "is_correct": false }
+          ],
+          "explanation": "Nació en Funchal, en la isla de Madeira, el 5 de febrero de 1985."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué club le dio a Cristiano Ronaldo su debut profesional en 2002?",
+          "options": [
+            { "id": "a", "text": "Benfica", "is_correct": false },
+            { "id": "b", "text": "Oporto", "is_correct": false },
+            { "id": "c", "text": "Sporting CP", "is_correct": true },
+            { "id": "d", "text": "Manchester United", "is_correct": false }
+          ],
+          "explanation": "Debutó con el Sporting CP en 2002 y jugó una temporada antes de irse a Inglaterra."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué año fichó Cristiano Ronaldo por el Manchester United?",
+          "options": [
+            { "id": "a", "text": "2001", "is_correct": false },
+            { "id": "b", "text": "2003", "is_correct": true },
+            { "id": "c", "text": "2005", "is_correct": false },
+            { "id": "d", "text": "2007", "is_correct": false }
+          ],
+          "explanation": "El United pagó unas 12 millones de libras por el joven de 18 años en agosto de 2003, tras un amistoso en Lisboa."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año ganó su primer Balón de Oro?",
+          "options": [
+            { "id": "a", "text": "2007", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": true },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2013", "is_correct": false }
+          ],
+          "explanation": "Ganó el de 2008 tras marcar 42 goles en la temporada en que el United ganó la Champions."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué club se convirtió Cristiano Ronaldo en máximo goleador histórico, con 450 goles?",
+          "options": [
+            { "id": "a", "text": "Manchester United", "is_correct": false },
+            { "id": "b", "text": "Juventus", "is_correct": false },
+            { "id": "c", "text": "Real Madrid", "is_correct": true },
+            { "id": "d", "text": "Sporting CP", "is_correct": false }
+          ],
+          "explanation": "Marcó 450 goles en 438 partidos con el Real Madrid entre 2009 y 2018."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué torneo ganó Portugal en 2016, el primer título grande del país?",
+          "options": [
+            { "id": "a", "text": "Eurocopa", "is_correct": true },
+            { "id": "b", "text": "Mundial", "is_correct": false },
+            { "id": "c", "text": "Liga de Naciones", "is_correct": false },
+            { "id": "d", "text": "Copa Confederaciones", "is_correct": false }
+          ],
+          "explanation": "Portugal venció 1-0 a la anfitriona Francia en la final de la Eurocopa 2016 en Saint-Denis."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué trofeo levantó Portugal en 2019 al vencer a Países Bajos en la final?",
+          "options": [
+            { "id": "a", "text": "Liga de Naciones", "is_correct": true },
+            { "id": "b", "text": "Eurocopa", "is_correct": false },
+            { "id": "c", "text": "Mundial", "is_correct": false },
+            { "id": "d", "text": "Copa Confederaciones", "is_correct": false }
+          ],
+          "explanation": "Gonçalo Guedes marcó el único gol de la final de la Liga de Naciones 2019 en Oporto."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántas Champions League ganó Cristiano Ronaldo?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "Una con el Manchester United (2008) y cuatro con el Real Madrid (2014, 2016, 2017 y 2018)."
+        }
+      ]
+    },
+    {
+      "slug": "en-diego-maradona-trivia",
+      "title": "Diego Maradona Trivia: El Diez, from Fiorito to Glory",
+      "description": "From Villa Fiorito to Naples and the Azteca: eight questions on Diego Maradona's career, titles and the World Cup of 1986.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["football", "trivia", "maradona", "world cup"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which town in Buenos Aires province was Diego Maradona born in 1960?",
+          "options": [
+            { "id": "a", "text": "Rosario", "is_correct": false },
+            { "id": "b", "text": "Lanús", "is_correct": true },
+            { "id": "c", "text": "La Plata", "is_correct": false },
+            { "id": "d", "text": "Avellaneda", "is_correct": false }
+          ],
+          "explanation": "He was born in Lanús on 30 October 1960 and grew up in nearby Villa Fiorito."
+        },
+        {
+          "id": "q2",
+          "question": "For which club did a 15-year-old Maradona make his professional debut in 1976?",
+          "options": [
+            { "id": "a", "text": "Boca Juniors", "is_correct": false },
+            { "id": "b", "text": "Argentinos Juniors", "is_correct": true },
+            { "id": "c", "text": "River Plate", "is_correct": false },
+            { "id": "d", "text": "Independiente", "is_correct": false }
+          ],
+          "explanation": "He debuted for Argentinos Juniors on 20 October 1976, ten days before turning 16."
+        },
+        {
+          "id": "q3",
+          "question": "Which Italian club did Maradona join in 1984 and lead to its first two Serie A titles?",
+          "options": [
+            { "id": "a", "text": "Juventus", "is_correct": false },
+            { "id": "b", "text": "Inter", "is_correct": false },
+            { "id": "c", "text": "Napoli", "is_correct": true },
+            { "id": "d", "text": "Milan", "is_correct": false }
+          ],
+          "explanation": "With Napoli he won the 1986–87 and 1989–90 league titles, the first in the club's history."
+        },
+        {
+          "id": "q4",
+          "question": "In which year did Maradona captain Argentina to the World Cup title?",
+          "options": [
+            { "id": "a", "text": "1982", "is_correct": false },
+            { "id": "b", "text": "1986", "is_correct": true },
+            { "id": "c", "text": "1990", "is_correct": false },
+            { "id": "d", "text": "1994", "is_correct": false }
+          ],
+          "explanation": "Mexico 1986: Argentina beat West Germany 3–2 in the final at the Estadio Azteca."
+        },
+        {
+          "id": "q5",
+          "question": "Against which team did Maradona score the 'Goal of the Century' in 1986?",
+          "options": [
+            { "id": "a", "text": "Belgium", "is_correct": false },
+            { "id": "b", "text": "England", "is_correct": true },
+            { "id": "c", "text": "Italy", "is_correct": false },
+            { "id": "d", "text": "West Germany", "is_correct": false }
+          ],
+          "explanation": "He dribbled past five defenders and the goalkeeper in the quarter-final against England on 22 June 1986."
+        },
+        {
+          "id": "q6",
+          "question": "Which team beat Argentina 1–0 in the 1990 World Cup final?",
+          "options": [
+            { "id": "a", "text": "Brazil", "is_correct": false },
+            { "id": "b", "text": "West Germany", "is_correct": true },
+            { "id": "c", "text": "Italy", "is_correct": false },
+            { "id": "d", "text": "England", "is_correct": false }
+          ],
+          "explanation": "Andreas Brehme's late penalty gave West Germany the title in Rome."
+        },
+        {
+          "id": "q7",
+          "question": "With which Brazilian did Maradona share the FIFA Player of the 20th Century honour in 2000?",
+          "options": [
+            { "id": "a", "text": "Romário", "is_correct": false },
+            { "id": "b", "text": "Pelé", "is_correct": true },
+            { "id": "c", "text": "Ronaldo", "is_correct": false },
+            { "id": "d", "text": "Zico", "is_correct": false }
+          ],
+          "explanation": "FIFA split the award: Maradona won the internet vote and Pelé the committee vote."
+        },
+        {
+          "id": "q8",
+          "question": "Maradona coached Argentina's national team at which World Cup?",
+          "options": [
+            { "id": "a", "text": "2006", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": true },
+            { "id": "c", "text": "2014", "is_correct": false },
+            { "id": "d", "text": "2018", "is_correct": false }
+          ],
+          "explanation": "He led Argentina to the quarter-finals at South Africa 2010."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-diego-maradona",
+      "title": "Trivia de Diego Maradona: el Diez, de Fiorito a la gloria",
+      "description": "De Villa Fiorito a Nápoles y al Azteca: ocho preguntas sobre la carrera de Diego Maradona, sus títulos y el Mundial de 1986.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["fútbol", "trivia", "maradona", "mundiales"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué localidad de la provincia de Buenos Aires nació Diego Maradona en 1960?",
+          "options": [
+            { "id": "a", "text": "Rosario", "is_correct": false },
+            { "id": "b", "text": "Lanús", "is_correct": true },
+            { "id": "c", "text": "La Plata", "is_correct": false },
+            { "id": "d", "text": "Avellaneda", "is_correct": false }
+          ],
+          "explanation": "Nació en Lanús el 30 de octubre de 1960 y creció en la vecina Villa Fiorito."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué club debutó profesionalmente Maradona a los 15 años, en 1976?",
+          "options": [
+            { "id": "a", "text": "Boca Juniors", "is_correct": false },
+            { "id": "b", "text": "Argentinos Juniors", "is_correct": true },
+            { "id": "c", "text": "River Plate", "is_correct": false },
+            { "id": "d", "text": "Independiente", "is_correct": false }
+          ],
+          "explanation": "Debutó con Argentinos Juniors el 20 de octubre de 1976, diez días antes de cumplir 16."
+        },
+        {
+          "id": "q3",
+          "question": "¿A qué club italiano llegó Maradona en 1984 y guió a sus dos primeros títulos de Serie A?",
+          "options": [
+            { "id": "a", "text": "Juventus", "is_correct": false },
+            { "id": "b", "text": "Inter", "is_correct": false },
+            { "id": "c", "text": "Napoli", "is_correct": true },
+            { "id": "d", "text": "Milan", "is_correct": false }
+          ],
+          "explanation": "Con el Napoli ganó las ligas 1986-87 y 1989-90, las primeras en la historia del club."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año capitaneó Maradona a Argentina al título del Mundial?",
+          "options": [
+            { "id": "a", "text": "1982", "is_correct": false },
+            { "id": "b", "text": "1986", "is_correct": true },
+            { "id": "c", "text": "1990", "is_correct": false },
+            { "id": "d", "text": "1994", "is_correct": false }
+          ],
+          "explanation": "México 1986: Argentina venció 3-2 a Alemania Federal en la final del Estadio Azteca."
+        },
+        {
+          "id": "q5",
+          "question": "¿Contra qué selección marcó Maradona el «Gol del Siglo» en 1986?",
+          "options": [
+            { "id": "a", "text": "Bélgica", "is_correct": false },
+            { "id": "b", "text": "Inglaterra", "is_correct": true },
+            { "id": "c", "text": "Italia", "is_correct": false },
+            { "id": "d", "text": "Alemania Federal", "is_correct": false }
+          ],
+          "explanation": "Eludió a cinco defensores y al arquero en los cuartos de final contra Inglaterra, el 22 de junio de 1986."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué selección venció 1-0 a Argentina en la final del Mundial de 1990?",
+          "options": [
+            { "id": "a", "text": "Brasil", "is_correct": false },
+            { "id": "b", "text": "Alemania Federal", "is_correct": true },
+            { "id": "c", "text": "Italia", "is_correct": false },
+            { "id": "d", "text": "Inglaterra", "is_correct": false }
+          ],
+          "explanation": "El penal de Andreas Brehme cerca del final le dio el título a Alemania Federal en Roma."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué brasileño compartió Maradona el premio de Jugador del Siglo de la FIFA en 2000?",
+          "options": [
+            { "id": "a", "text": "Romário", "is_correct": false },
+            { "id": "b", "text": "Pelé", "is_correct": true },
+            { "id": "c", "text": "Ronaldo", "is_correct": false },
+            { "id": "d", "text": "Zico", "is_correct": false }
+          ],
+          "explanation": "La FIFA repartió el premio: Maradona ganó el voto de internet y Pelé el del comité."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué Mundial dirigió Maradona a la selección argentina?",
+          "options": [
+            { "id": "a", "text": "2006", "is_correct": false },
+            { "id": "b", "text": "2010", "is_correct": true },
+            { "id": "c", "text": "2014", "is_correct": false },
+            { "id": "d", "text": "2018", "is_correct": false }
+          ],
+          "explanation": "Llevó a Argentina a los cuartos de final en Sudáfrica 2010."
+        }
+      ]
+    },
+    {
+      "slug": "en-sports-records-trivia",
+      "title": "Sports Records Trivia: Bolt, Beamon and Marks That Endure",
+      "description": "Eight questions on the marks that still stand: Bolt's sprint records, unbeaten jumps, perfect 10s and legendary feats.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["sports", "trivia", "world records", "athletics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is Usain Bolt's 100-metre world record, set in Berlin in 2009?",
+          "options": [
+            { "id": "a", "text": "9.58 seconds", "is_correct": true },
+            { "id": "b", "text": "9.63 seconds", "is_correct": false },
+            { "id": "c", "text": "9.69 seconds", "is_correct": false },
+            { "id": "d", "text": "9.72 seconds", "is_correct": false }
+          ],
+          "explanation": "He ran 9.58 on 16 August 2009 at the World Championships in Berlin; the record still stands."
+        },
+        {
+          "id": "q2",
+          "question": "Which Cuban's high jump world record of 2.45 metres has stood since 1993?",
+          "options": [
+            { "id": "a", "text": "Javier Sotomayor", "is_correct": true },
+            { "id": "b", "text": "Alberto Juantorena", "is_correct": false },
+            { "id": "c", "text": "Iván Pedroso", "is_correct": false },
+            { "id": "d", "text": "Ana Fidelia Quirot", "is_correct": false }
+          ],
+          "explanation": "Sotomayor jumped 2.45 metres in Salamanca in July 1993; it remains the men's world record."
+        },
+        {
+          "id": "q3",
+          "question": "Which American jumped 8.95 metres in Tokyo in 1991 to set the long jump world record?",
+          "options": [
+            { "id": "a", "text": "Bob Beamon", "is_correct": false },
+            { "id": "b", "text": "Carl Lewis", "is_correct": false },
+            { "id": "c", "text": "Mike Powell", "is_correct": true },
+            { "id": "d", "text": "Dwight Phillips", "is_correct": false }
+          ],
+          "explanation": "Powell broke Bob Beamon's 1968 mark, which had stood for almost 23 years."
+        },
+        {
+          "id": "q4",
+          "question": "Whose 100-metre record of 10.49 seconds from 1988 still stands in women's athletics?",
+          "options": [
+            { "id": "a", "text": "Florence Griffith Joyner", "is_correct": true },
+            { "id": "b", "text": "Marion Jones", "is_correct": false },
+            { "id": "c", "text": "Evelyn Ashford", "is_correct": false },
+            { "id": "d", "text": "Shelly-Ann Fraser-Pryce", "is_correct": false }
+          ],
+          "explanation": "Flo-Jo ran 10.49 at the US Olympic trials in Indianapolis in July 1988."
+        },
+        {
+          "id": "q5",
+          "question": "Who scored the first perfect 10 in Olympic gymnastics, at Montreal 1976?",
+          "options": [
+            { "id": "a", "text": "Olga Korbut", "is_correct": false },
+            { "id": "b", "text": "Nadia Comăneci", "is_correct": true },
+            { "id": "c", "text": "Nellie Kim", "is_correct": false },
+            { "id": "d", "text": "Ludmilla Tourischeva", "is_correct": false }
+          ],
+          "explanation": "Romania's Comăneci, aged 14, earned the first perfect 10 on the uneven bars."
+        },
+        {
+          "id": "q6",
+          "question": "Which footballer is the only player to win three World Cups?",
+          "options": [
+            { "id": "a", "text": "Diego Maradona", "is_correct": false },
+            { "id": "b", "text": "Pelé", "is_correct": true },
+            { "id": "c", "text": "Franz Beckenbauer", "is_correct": false },
+            { "id": "d", "text": "Ronaldo", "is_correct": false }
+          ],
+          "explanation": "Pelé won in 1958, 1962 and 1970, a record untouched since then."
+        },
+        {
+          "id": "q7",
+          "question": "Wilt Chamberlain's NBA single-game record from 1962 stands at how many points?",
+          "options": [
+            { "id": "a", "text": "81", "is_correct": false },
+            { "id": "b", "text": "91", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": true },
+            { "id": "d", "text": "104", "is_correct": false }
+          ],
+          "explanation": "He scored 100 for the Philadelphia Warriors against the Knicks on 2 March 1962."
+        },
+        {
+          "id": "q8",
+          "question": "Who holds the record for Wimbledon singles titles, with nine?",
+          "options": [
+            { "id": "a", "text": "Serena Williams", "is_correct": false },
+            { "id": "b", "text": "Steffi Graf", "is_correct": false },
+            { "id": "c", "text": "Martina Navratilova", "is_correct": true },
+            { "id": "d", "text": "Roger Federer", "is_correct": false }
+          ],
+          "explanation": "Navratilova won nine Wimbledon singles titles between 1978 and 1990."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-records-del-deporte",
+      "title": "Trivia de récords del deporte: marcas que hicieron historia",
+      "description": "Ocho preguntas sobre las marcas que siguen vigentes: los récords de Bolt, los saltos eternos, los 10 perfectos y gestas legendarias.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["deportes", "trivia", "récords", "atletismo"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el récord mundial de los 100 metros de Usain Bolt, logrado en Berlín en 2009?",
+          "options": [
+            { "id": "a", "text": "9,58 segundos", "is_correct": true },
+            { "id": "b", "text": "9,63 segundos", "is_correct": false },
+            { "id": "c", "text": "9,69 segundos", "is_correct": false },
+            { "id": "d", "text": "9,72 segundos", "is_correct": false }
+          ],
+          "explanation": "Corrió 9,58 el 16 de agosto de 2009 en el Mundial de Berlín; el récord sigue vigente."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué cubano mantiene desde 1993 el récord mundial de salto de altura con 2,45 metros?",
+          "options": [
+            { "id": "a", "text": "Javier Sotomayor", "is_correct": true },
+            { "id": "b", "text": "Alberto Juantorena", "is_correct": false },
+            { "id": "c", "text": "Iván Pedroso", "is_correct": false },
+            { "id": "d", "text": "Ana Fidelia Quirot", "is_correct": false }
+          ],
+          "explanation": "Sotomayor saltó 2,45 metros en Salamanca en julio de 1993; sigue siendo el récord masculino."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué estadounidense saltó 8,95 metros en Tokio en 1991 para el récord mundial de salto de longitud?",
+          "options": [
+            { "id": "a", "text": "Bob Beamon", "is_correct": false },
+            { "id": "b", "text": "Carl Lewis", "is_correct": false },
+            { "id": "c", "text": "Mike Powell", "is_correct": true },
+            { "id": "d", "text": "Dwight Phillips", "is_correct": false }
+          ],
+          "explanation": "Powell superó la marca de Bob Beamon de 1968, que había durado casi 23 años."
+        },
+        {
+          "id": "q4",
+          "question": "¿De quién es el récord de 10,49 segundos en 100 metros que sigue vigente en el atletismo femenino desde 1988?",
+          "options": [
+            { "id": "a", "text": "Florence Griffith Joyner", "is_correct": true },
+            { "id": "b", "text": "Marion Jones", "is_correct": false },
+            { "id": "c", "text": "Evelyn Ashford", "is_correct": false },
+            { "id": "d", "text": "Shelly-Ann Fraser-Pryce", "is_correct": false }
+          ],
+          "explanation": "Flo-Jo corrió 10,49 en las pruebas clasificatorias de Estados Unidos en Indianápolis, en julio de 1988."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién obtuvo el primer 10 perfecto de la gimnasia olímpica, en Montreal 1976?",
+          "options": [
+            { "id": "a", "text": "Olga Korbut", "is_correct": false },
+            { "id": "b", "text": "Nadia Comăneci", "is_correct": true },
+            { "id": "c", "text": "Nellie Kim", "is_correct": false },
+            { "id": "d", "text": "Ludmilla Tourischeva", "is_correct": false }
+          ],
+          "explanation": "La rumana Comăneci, con 14 años, logró el primer 10 perfecto en las barras asimétricas."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué futbolista es el único jugador con tres Mundiales ganados?",
+          "options": [
+            { "id": "a", "text": "Diego Maradona", "is_correct": false },
+            { "id": "b", "text": "Pelé", "is_correct": true },
+            { "id": "c", "text": "Franz Beckenbauer", "is_correct": false },
+            { "id": "d", "text": "Ronaldo", "is_correct": false }
+          ],
+          "explanation": "Pelé ganó en 1958, 1962 y 1970, un récord intacto desde entonces."
+        },
+        {
+          "id": "q7",
+          "question": "¿En cuántos puntos quedó el récord de la NBA en un solo partido que Wilt Chamberlain logró en 1962?",
+          "options": [
+            { "id": "a", "text": "81", "is_correct": false },
+            { "id": "b", "text": "91", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": true },
+            { "id": "d", "text": "104", "is_correct": false }
+          ],
+          "explanation": "Anotó 100 para los Philadelphia Warriors contra los Knicks el 2 de marzo de 1962."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién tiene el récord de títulos individuales de Wimbledon, con nueve?",
+          "options": [
+            { "id": "a", "text": "Serena Williams", "is_correct": false },
+            { "id": "b", "text": "Steffi Graf", "is_correct": false },
+            { "id": "c", "text": "Martina Navratilova", "is_correct": true },
+            { "id": "d", "text": "Roger Federer", "is_correct": false }
+          ],
+          "explanation": "Navratilova ganó nueve Wimbledon entre 1978 y 1990."
+        }
+      ]
+    },
+    {
+      "slug": "en-women-who-changed-sports-trivia",
+      "title": "Women Who Changed Sports Trivia: Pioneers and Champions",
+      "description": "From the Battle of the Sexes to Everest and the Boston Marathon: eight questions on the women who changed sport forever.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["sports", "trivia", "women in sports", "history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who beat Bobby Riggs in the 1973 'Battle of the Sexes' tennis match?",
+          "options": [
+            { "id": "a", "text": "Billie Jean King", "is_correct": true },
+            { "id": "b", "text": "Martina Navratilova", "is_correct": false },
+            { "id": "c", "text": "Chris Evert", "is_correct": false },
+            { "id": "d", "text": "Margaret Court", "is_correct": false }
+          ],
+          "explanation": "King won 6–4, 6–3, 6–3 before some 90 million TV viewers; she founded the WTA that same year."
+        },
+        {
+          "id": "q2",
+          "question": "Which tennis player holds the Open Era record with 23 Grand Slam singles titles?",
+          "options": [
+            { "id": "a", "text": "Steffi Graf", "is_correct": false },
+            { "id": "b", "text": "Serena Williams", "is_correct": true },
+            { "id": "c", "text": "Martina Navratilova", "is_correct": false },
+            { "id": "d", "text": "Margaret Court", "is_correct": false }
+          ],
+          "explanation": "Serena won 23 majors between 1999 and 2017; Margaret Court's 24 predate the Open Era."
+        },
+        {
+          "id": "q3",
+          "question": "Who was the first woman to reach the summit of Mount Everest, in 1975?",
+          "options": [
+            { "id": "a", "text": "Junko Tabei", "is_correct": true },
+            { "id": "b", "text": "Wanda Rutkiewicz", "is_correct": false },
+            { "id": "c", "text": "Pasang Lhamu Sherpa", "is_correct": false },
+            { "id": "d", "text": "Lydia Bradey", "is_correct": false }
+          ],
+          "explanation": "Japan's Junko Tabei reached the summit on 16 May 1975."
+        },
+        {
+          "id": "q4",
+          "question": "In 1926, Gertrude Ederle became the first woman to do what?",
+          "options": [
+            { "id": "a", "text": "Swim the English Channel", "is_correct": true },
+            { "id": "b", "text": "Run a marathon under 3 hours", "is_correct": false },
+            { "id": "c", "text": "Fly solo across the Atlantic", "is_correct": false },
+            { "id": "d", "text": "Win an Olympic boxing medal", "is_correct": false }
+          ],
+          "explanation": "She crossed the Channel in 14 hours and 31 minutes, faster than the men's record of the time."
+        },
+        {
+          "id": "q5",
+          "question": "Who became the first woman to officially run the Boston Marathon, in 1967?",
+          "options": [
+            { "id": "a", "text": "Kathrine Switzer", "is_correct": true },
+            { "id": "b", "text": "Bobbi Gibb", "is_correct": false },
+            { "id": "c", "text": "Joan Benoit", "is_correct": false },
+            { "id": "d", "text": "Grete Waitz", "is_correct": false }
+          ],
+          "explanation": "Switzer finished despite an official trying to tear off her bib mid-race; Gibb had run unofficially in 1966."
+        },
+        {
+          "id": "q6",
+          "question": "Which Brazilian holds the record for the most goals in FIFA Women's World Cup history?",
+          "options": [
+            { "id": "a", "text": "Marta", "is_correct": true },
+            { "id": "b", "text": "Birgit Prinz", "is_correct": false },
+            { "id": "c", "text": "Abby Wambach", "is_correct": false },
+            { "id": "d", "text": "Cristiane", "is_correct": false }
+          ],
+          "explanation": "Marta scored 17 World Cup goals between 2003 and 2019, the record in the women's tournament."
+        },
+        {
+          "id": "q7",
+          "question": "Which American sprinter won three gold medals at the 1960 Rome Olympics?",
+          "options": [
+            { "id": "a", "text": "Wilma Rudolph", "is_correct": true },
+            { "id": "b", "text": "Wyomia Tyus", "is_correct": false },
+            { "id": "c", "text": "Florence Griffith Joyner", "is_correct": false },
+            { "id": "d", "text": "Allyson Felix", "is_correct": false }
+          ],
+          "explanation": "Rudolph won the 100m, the 200m and the 4×100m relay, a first for an American woman."
+        },
+        {
+          "id": "q8",
+          "question": "Who is credited as the first woman to win an Olympic title, in sailing at Paris 1900?",
+          "options": [
+            { "id": "a", "text": "Charlotte Cooper", "is_correct": false },
+            { "id": "b", "text": "Hélène de Pourtalès", "is_correct": true },
+            { "id": "c", "text": "Margaret Abbott", "is_correct": false },
+            { "id": "d", "text": "Madge Syers", "is_correct": false }
+          ],
+          "explanation": "The Swiss sailor won the 1–2 ton class with her husband; Cooper and Abbott won their events later that summer."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mujeres-que-cambiaron-el-deporte",
+      "title": "Trivia de mujeres que cambiaron el deporte: pioneras",
+      "description": "De la Batalla de los Sexos al Everest y al Maratón de Boston: ocho preguntas sobre las mujeres que cambiaron el deporte para siempre.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["deportes", "trivia", "mujeres en el deporte", "historia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién venció a Bobby Riggs en la «Batalla de los Sexos» del tenis en 1973?",
+          "options": [
+            { "id": "a", "text": "Billie Jean King", "is_correct": true },
+            { "id": "b", "text": "Martina Navratilova", "is_correct": false },
+            { "id": "c", "text": "Chris Evert", "is_correct": false },
+            { "id": "d", "text": "Margaret Court", "is_correct": false }
+          ],
+          "explanation": "King ganó 6-4, 6-3, 6-3 ante unos 90 millones de telespectadores; ese mismo año fundó la WTA."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué tenista tiene el récord de la Era Open con 23 títulos individuales de Grand Slam?",
+          "options": [
+            { "id": "a", "text": "Steffi Graf", "is_correct": false },
+            { "id": "b", "text": "Serena Williams", "is_correct": true },
+            { "id": "c", "text": "Martina Navratilova", "is_correct": false },
+            { "id": "d", "text": "Margaret Court", "is_correct": false }
+          ],
+          "explanation": "Serena ganó 23 majors entre 1999 y 2017; los 24 de Margaret Court son anteriores a la Era Open."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién fue la primera mujer en alcanzar la cima del Everest, en 1975?",
+          "options": [
+            { "id": "a", "text": "Junko Tabei", "is_correct": true },
+            { "id": "b", "text": "Wanda Rutkiewicz", "is_correct": false },
+            { "id": "c", "text": "Pasang Lhamu Sherpa", "is_correct": false },
+            { "id": "d", "text": "Lydia Bradey", "is_correct": false }
+          ],
+          "explanation": "La japonesa Junko Tabei coronó el Everest el 16 de mayo de 1975."
+        },
+        {
+          "id": "q4",
+          "question": "En 1926, Gertrude Ederle se convirtió en la primera mujer en lograr qué hazaña?",
+          "options": [
+            { "id": "a", "text": "Nadar el Canal de la Mancha", "is_correct": true },
+            { "id": "b", "text": "Correr un maratón en menos de 3 horas", "is_correct": false },
+            { "id": "c", "text": "Cruzar el Atlántico en avión en solitario", "is_correct": false },
+            { "id": "d", "text": "Ganar una medalla olímpica de boxeo", "is_correct": false }
+          ],
+          "explanation": "Cruzó el Canal en 14 horas y 31 minutos, más rápido que el récord masculino de la época."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién fue la primera mujer en correr oficialmente el Maratón de Boston, en 1967?",
+          "options": [
+            { "id": "a", "text": "Kathrine Switzer", "is_correct": true },
+            { "id": "b", "text": "Bobbi Gibb", "is_correct": false },
+            { "id": "c", "text": "Joan Benoit", "is_correct": false },
+            { "id": "d", "text": "Grete Waitz", "is_correct": false }
+          ],
+          "explanation": "Switzer terminó la carrera pese a que un juez intentó quitarle el dorsal; Gibb había corrido sin dorsal en 1966."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué brasileña tiene el récord de más goles en la historia del Mundial Femenino?",
+          "options": [
+            { "id": "a", "text": "Marta", "is_correct": true },
+            { "id": "b", "text": "Birgit Prinz", "is_correct": false },
+            { "id": "c", "text": "Abby Wambach", "is_correct": false },
+            { "id": "d", "text": "Cristiane", "is_correct": false }
+          ],
+          "explanation": "Marta marcó 17 goles en Mundiales entre 2003 y 2019, el récord del torneo femenino."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué velocista estadounidense ganó tres oros en los Juegos de Roma 1960?",
+          "options": [
+            { "id": "a", "text": "Wilma Rudolph", "is_correct": true },
+            { "id": "b", "text": "Wyomia Tyus", "is_correct": false },
+            { "id": "c", "text": "Florence Griffith Joyner", "is_correct": false },
+            { "id": "d", "text": "Allyson Felix", "is_correct": false }
+          ],
+          "explanation": "Rudolph ganó los 100 m, los 200 m y el relevo 4×100 m, algo inédito para una mujer de Estados Unidos."
+        },
+        {
+          "id": "q8",
+          "question": "¿A quién se le reconoce como la primera mujer en ganar un título olímpico, en vela, en París 1900?",
+          "options": [
+            { "id": "a", "text": "Charlotte Cooper", "is_correct": false },
+            { "id": "b", "text": "Hélène de Pourtalès", "is_correct": true },
+            { "id": "c", "text": "Margaret Abbott", "is_correct": false },
+            { "id": "d", "text": "Madge Syers", "is_correct": false }
+          ],
+          "explanation": "La suiza ganó la clase de 1 a 2 toneladas junto a su marido; Cooper y Abbott ganaron sus pruebas más tarde ese verano."
+        }
+      ]
+    }
+  ]
+}
