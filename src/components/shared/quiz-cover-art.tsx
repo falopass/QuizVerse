@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { cn } from '@/lib/utils/cn';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -60,12 +61,13 @@ export function QuizCoverArt({
       aria-hidden={decorative || undefined}
     >
       {photo && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           src={quiz.cover_image_url!}
           alt=""
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="arcade-cover-photo"
-          decoding="async"
+          priority={isHero}
           loading={isAboveFold ? 'eager' : 'lazy'}
           fetchPriority={isAboveFold ? 'high' : undefined}
         />

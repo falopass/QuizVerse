@@ -65,6 +65,8 @@ const nextConfig: NextConfig = {
   htmlLimitedBots: CRAWLER_USER_AGENTS,
 
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 604800,
     remotePatterns: [
       { protocol: 'https', hostname: '**.supabase.co' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
