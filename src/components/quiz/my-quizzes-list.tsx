@@ -7,7 +7,8 @@ import { deleteQuiz } from '@/actions/quiz.actions';
 import { Button } from '@/components/ui/button';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
-import type { Locale } from '@/lib/i18n/dictionaries';
+import { hasLocale, type Locale } from '@/lib/i18n/dictionaries';
+import type { ActionErrorCode } from '@/lib/actions/types';
 import type { QuizStatus, QuizType } from '@/types/database';
 
 export interface MyQuizRow {
@@ -16,6 +17,7 @@ export interface MyQuizRow {
   title: string;
   status: QuizStatus;
   quiz_type: QuizType;
+  language: string;
   plays_count: number;
   likes_count: number;
   created_at: string;
@@ -35,6 +37,26 @@ const STATUS_TONE: Record<QuizStatus, string> = {
   published: 'border-success/50 text-success',
   rejected: 'border-error/50 text-error',
   archived: 'border-border-subtle text-text-muted',
+};
+
+/** Server actions reply in English; map the code to the page locale. */
+const ERROR_LABEL: Partial<Record<ActionErrorCode, { es: string; en: string }>> = {
+  unauthorized: {
+    es: 'Inicia sesión de nuevo para borrar.',
+    en: 'Sign in again to delete.',
+  },
+  forbidden: {
+    es: 'Ese quiz no es tuyo.',
+    en: 'That quiz is not yours.',
+  },
+  not_found: {
+    es: 'No encontramos ese quiz.',
+    en: 'We could not find that quiz.',
+  },
+  rate_limited: {
+    es: 'Demasiados intentos. Espera un momento.',
+    en: 'Too many attempts. Please wait a moment.',
+  },
 };
 
 export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; locale: Locale }) {
@@ -78,7 +100,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
     try {
       const result = await deleteQuiz(quiz.id);
       if (!result.success) {
-        setErrorMessage(result.error);
+        setErrorMessage(ERROR_LABEL[result.code]?.[es ? 'es' : 'en'] ?? copy.genericError);
         return;
       }
       router.refresh();
@@ -119,7 +141,10 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
           const title =
             quiz.status === 'published' ? (
               <Link
-                href={localizeHref(locale, `/quiz/${quiz.slug}`)}
+                href={localizeHref(
+                  hasLocale(quiz.language) ? quiz.language : locale,
+                  `/quiz/${quiz.slug}`
+                )}
                 className="text-text-primary hover:text-accent-primary font-semibold transition-colors"
               >
                 {quiz.title}

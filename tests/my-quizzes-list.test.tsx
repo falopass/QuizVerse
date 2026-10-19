@@ -32,6 +32,7 @@ const QUIZZES: MyQuizRow[] = [
     title: 'Quiz en borrador',
     status: 'draft',
     quiz_type: 'trivia',
+    language: 'es',
     plays_count: 0,
     likes_count: 0,
     created_at: '2026-10-01T10:00:00Z',
@@ -42,6 +43,7 @@ const QUIZZES: MyQuizRow[] = [
     title: 'Quiz en revisión',
     status: 'pending',
     quiz_type: 'personality',
+    language: 'es',
     plays_count: 0,
     likes_count: 0,
     created_at: '2026-10-02T10:00:00Z',
@@ -52,6 +54,7 @@ const QUIZZES: MyQuizRow[] = [
     title: 'Quiz publicado',
     status: 'published',
     quiz_type: 'trivia',
+    language: 'en',
     plays_count: 12,
     likes_count: 3,
     created_at: '2026-10-03T10:00:00Z',
@@ -76,8 +79,9 @@ describe('MyQuizzesList', () => {
     expect(screen.getByText('En revisión')).toBeInTheDocument();
     expect(screen.getByText('Publicado')).toBeInTheDocument();
 
+    // El enlace usa el idioma del quiz, no el de la página.
     const published = screen.getByRole('link', { name: 'Quiz publicado' });
-    expect(published).toHaveAttribute('href', '/es/quiz/quiz-publicado');
+    expect(published).toHaveAttribute('href', '/en/quiz/quiz-publicado');
     expect(screen.queryByRole('link', { name: 'Quiz en borrador' })).not.toBeInTheDocument();
   });
 
@@ -105,7 +109,7 @@ describe('MyQuizzesList', () => {
     expect(mocks.deleteQuiz).not.toHaveBeenCalled();
   });
 
-  it('muestra el mensaje de la action cuando el borrado falla', async () => {
+  it('muestra el error localizado cuando la action falla', async () => {
     mocks.deleteQuiz.mockResolvedValue({
       success: false,
       code: 'forbidden',
@@ -116,8 +120,23 @@ describe('MyQuizzesList', () => {
     fireEvent.click(screen.getAllByRole('button', { name: 'Borrar' })[0]);
 
     const alert = await screen.findByRole('alert');
-    expect(alert).toHaveTextContent('That quiz is not yours.');
+    expect(alert).toHaveTextContent('Ese quiz no es tuyo.');
     expect(mocks.refresh).not.toHaveBeenCalled();
+  });
+
+  it('cae al mensaje genérico con un código sin copy propia', async () => {
+    mocks.deleteQuiz.mockResolvedValue({
+      success: false,
+      code: 'unexpected',
+      error: 'relation "quizzes" does not exist',
+    });
+    render(<MyQuizzesList quizzes={QUIZZES} locale="en" />);
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Delete' })[0]);
+
+    const alert = await screen.findByRole('alert');
+    expect(alert).toHaveTextContent('We could not delete the quiz right now.');
+    expect(alert).not.toHaveTextContent('relation');
   });
 
   it('ofrece crear un quiz cuando la lista está vacía', () => {

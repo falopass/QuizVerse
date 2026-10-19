@@ -50,7 +50,7 @@ export default async function LocalizedMyQuizzesPage({
 
   const { data: quizzes } = await supabase
     .from('quizzes')
-    .select('id, slug, title, status, quiz_type, plays_count, likes_count, created_at')
+    .select('id, slug, title, status, quiz_type, language, plays_count, likes_count, created_at')
     .eq('creator_id', user.id)
     .order('created_at', { ascending: false })
     .limit(100);
