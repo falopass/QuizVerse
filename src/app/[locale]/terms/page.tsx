@@ -1,6 +1,8 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/json-ld';
+import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
 export async function generateMetadata({
   params,
@@ -103,38 +105,50 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
   };
 
   const t = (key: Record<string, string>) => key[lang] ?? key.en;
+  const title = t(content.title);
 
   return (
-    <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-        {t(content.title)}
-      </h1>
-      <p className="text-text-muted mt-2 text-sm">{t(content.lastUpdated)}</p>
+    <>
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${lang}/terms`, lang, title),
+          breadcrumbNode([
+            { name: lang === 'es' ? 'Inicio' : 'Home', path: `/${lang}` },
+            { name: title, path: `/${lang}/terms` },
+          ]),
+        ])}
+      />
+      <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          {t(content.title)}
+        </h1>
+        <p className="text-text-muted mt-2 text-sm">{t(content.lastUpdated)}</p>
 
-      <div className="mt-8 space-y-8 text-base leading-relaxed">
-        {content.sections.map((section, i) => (
-          <section key={i}>
-            <h2 className="text-text-primary font-display text-xl font-semibold">
-              {t(section.heading)}
-            </h2>
-            <p className="text-text-secondary mt-3">{t(section.body)}</p>
-          </section>
-        ))}
-      </div>
+        <div className="mt-8 space-y-8 text-base leading-relaxed">
+          {content.sections.map((section, i) => (
+            <section key={i}>
+              <h2 className="text-text-primary font-display text-xl font-semibold">
+                {t(section.heading)}
+              </h2>
+              <p className="text-text-secondary mt-3">{t(section.body)}</p>
+            </section>
+          ))}
+        </div>
 
-      <div className="border-border-subtle mt-12 border-t pt-8">
-        <p className="text-text-muted text-sm">
-          {lang === 'es'
-            ? 'Para preguntas sobre estos términos, contáctanos en '
-            : 'For questions about these terms, contact us at '}
-          <a
-            href="mailto:hello@quizverse.org"
-            className="text-accent-primary hover:text-accent-hover underline transition-colors"
-          >
-            hello@quizverse.org
-          </a>
-        </p>
-      </div>
-    </main>
+        <div className="border-border-subtle mt-12 border-t pt-8">
+          <p className="text-text-muted text-sm">
+            {lang === 'es'
+              ? 'Para preguntas sobre estos términos, contáctanos en '
+              : 'For questions about these terms, contact us at '}
+            <a
+              href="mailto:hello@quizverse.org"
+              className="text-accent-primary hover:text-accent-hover underline transition-colors"
+            >
+              hello@quizverse.org
+            </a>
+          </p>
+        </div>
+      </main>
+    </>
   );
 }

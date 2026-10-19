@@ -1,6 +1,8 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { JsonLd } from '@/components/seo/json-ld';
+import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
 export async function generateMetadata({
   params,
@@ -79,45 +81,57 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   };
 
   const t = (key: Record<string, string>) => key[lang] ?? key.en;
+  const title = t(content.title);
 
   return (
-    <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
-        {t(content.title)}
-      </h1>
-      <p className="text-text-muted mt-2 text-sm">{t(content.lastUpdated)}</p>
+    <>
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${lang}/privacy`, lang, title),
+          breadcrumbNode([
+            { name: lang === 'es' ? 'Inicio' : 'Home', path: `/${lang}` },
+            { name: title, path: `/${lang}/privacy` },
+          ]),
+        ])}
+      />
+      <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+        <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
+          {t(content.title)}
+        </h1>
+        <p className="text-text-muted mt-2 text-sm">{t(content.lastUpdated)}</p>
 
-      <div className="mt-8 space-y-8 text-base leading-relaxed">
-        <p className="text-text-secondary">{t(content.sections.intro)}</p>
+        <div className="mt-8 space-y-8 text-base leading-relaxed">
+          <p className="text-text-secondary">{t(content.sections.intro)}</p>
 
-        {(
-          Object.entries(content.sections).filter(([key]) => key !== 'intro') as [
-            string,
-            { heading: { en: string; es: string }; body: { en: string; es: string } },
-          ][]
-        ).map(([, section], index) => (
-          <section key={`privacy-section-${index}`}>
-            <h2 className="text-text-primary font-display text-xl font-semibold">
-              {t(section.heading)}
-            </h2>
-            <p className="text-text-secondary mt-3">{t(section.body)}</p>
-          </section>
-        ))}
-      </div>
+          {(
+            Object.entries(content.sections).filter(([key]) => key !== 'intro') as [
+              string,
+              { heading: { en: string; es: string }; body: { en: string; es: string } },
+            ][]
+          ).map(([, section], index) => (
+            <section key={`privacy-section-${index}`}>
+              <h2 className="text-text-primary font-display text-xl font-semibold">
+                {t(section.heading)}
+              </h2>
+              <p className="text-text-secondary mt-3">{t(section.body)}</p>
+            </section>
+          ))}
+        </div>
 
-      <div className="border-border-subtle mt-12 border-t pt-8">
-        <p className="text-text-muted text-sm">
-          {lang === 'es'
-            ? 'Si tienes preguntas sobre esta política, contáctanos en '
-            : 'If you have questions about this policy, contact us at '}
-          <a
-            href="mailto:hello@quizverse.org"
-            className="text-accent-primary hover:text-accent-hover underline transition-colors"
-          >
-            hello@quizverse.org
-          </a>
-        </p>
-      </div>
-    </main>
+        <div className="border-border-subtle mt-12 border-t pt-8">
+          <p className="text-text-muted text-sm">
+            {lang === 'es'
+              ? 'Si tienes preguntas sobre esta política, contáctanos en '
+              : 'If you have questions about this policy, contact us at '}
+            <a
+              href="mailto:hello@quizverse.org"
+              className="text-accent-primary hover:text-accent-hover underline transition-colors"
+            >
+              hello@quizverse.org
+            </a>
+          </p>
+        </div>
+      </main>
+    </>
   );
 }
