@@ -2424,6 +2424,1218 @@
           "explanation": "La Lista Roja clasifica a las especies de Preocupacion Menor a Extinta segun su riesgo de extincion."
         }
       ]
+    },
+    {
+      "slug": "en-football-clubs-trivia",
+      "title": "Football Clubs Trivia: Badges, Stadiums and Legends",
+      "description": "Eight questions on the world's great football clubs: their stadiums, their records and the players who made them famous.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["football", "soccer", "clubs", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which club has won the most European Cup / UEFA Champions League titles?",
+          "options": [
+            { "id": "a", "text": "AC Milan", "is_correct": false },
+            { "id": "b", "text": "Real Madrid", "is_correct": true },
+            { "id": "c", "text": "Bayern Munich", "is_correct": false },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "Real Madrid has won 15 European titles, most recently in 2024."
+        },
+        {
+          "id": "q2",
+          "question": "Which club plays its home matches at Anfield?",
+          "options": [
+            { "id": "a", "text": "Everton", "is_correct": false },
+            { "id": "b", "text": "Manchester City", "is_correct": false },
+            { "id": "c", "text": "Liverpool", "is_correct": true },
+            { "id": "d", "text": "Leeds United", "is_correct": false }
+          ],
+          "explanation": "Anfield has been Liverpool's home since the club was founded in 1892."
+        },
+        {
+          "id": "q3",
+          "question": "Pele spent almost his entire club career with which Brazilian team?",
+          "options": [
+            { "id": "a", "text": "Flamengo", "is_correct": false },
+            { "id": "b", "text": "Santos", "is_correct": true },
+            { "id": "c", "text": "Corinthians", "is_correct": false },
+            { "id": "d", "text": "Sao Paulo", "is_correct": false }
+          ],
+          "explanation": "Pele played for Santos from 1956 to 1974 before finishing his career in New York."
+        },
+        {
+          "id": "q4",
+          "question": "Which Italian club has won the most Serie A titles?",
+          "options": [
+            { "id": "a", "text": "AC Milan", "is_correct": false },
+            { "id": "b", "text": "Inter Milan", "is_correct": false },
+            { "id": "c", "text": "Roma", "is_correct": false },
+            { "id": "d", "text": "Juventus", "is_correct": true }
+          ],
+          "explanation": "Juventus has won 36 official Serie A titles, more than any other club."
+        },
+        {
+          "id": "q5",
+          "question": "In which year did Manchester United win the Premier League, FA Cup and Champions League treble?",
+          "options": [
+            { "id": "a", "text": "1994", "is_correct": false },
+            { "id": "b", "text": "1999", "is_correct": true },
+            { "id": "c", "text": "2008", "is_correct": false },
+            { "id": "d", "text": "1968", "is_correct": false }
+          ],
+          "explanation": "The 1999 treble was sealed with a stoppage-time comeback against Bayern Munich in Barcelona."
+        },
+        {
+          "id": "q6",
+          "question": "Which Argentine club plays its home matches at La Bombonera?",
+          "options": [
+            { "id": "a", "text": "River Plate", "is_correct": false },
+            { "id": "b", "text": "Independiente", "is_correct": false },
+            { "id": "c", "text": "Boca Juniors", "is_correct": true },
+            { "id": "d", "text": "Racing Club", "is_correct": false }
+          ],
+          "explanation": "La Bombonera, in the La Boca neighbourhood of Buenos Aires, is the home of Boca Juniors."
+        },
+        {
+          "id": "q7",
+          "question": "The 'Yellow Wall', Europe's largest standing terrace, belongs to which German club?",
+          "options": [
+            { "id": "a", "text": "Bayern Munich", "is_correct": false },
+            { "id": "b", "text": "Schalke 04", "is_correct": false },
+            { "id": "c", "text": "Hamburger SV", "is_correct": false },
+            { "id": "d", "text": "Borussia Dortmund", "is_correct": true }
+          ],
+          "explanation": "The Sudtribune at Dortmund's Signal Iduna Park holds around 25,000 standing fans."
+        },
+        {
+          "id": "q8",
+          "question": "Which club won the first five editions of the European Cup, from 1956 to 1960?",
+          "options": [
+            { "id": "a", "text": "Benfica", "is_correct": false },
+            { "id": "b", "text": "Real Madrid", "is_correct": true },
+            { "id": "c", "text": "Barcelona", "is_correct": false },
+            { "id": "d", "text": "Inter Milan", "is_correct": false }
+          ],
+          "explanation": "Real Madrid won the European Cup every year from 1956 to 1960, led by Di Stefano and Puskas."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-clubes-de-futbol",
+      "title": "Trivia de Clubes de Fútbol: Escudos, Estadios y Leyendas",
+      "description": "Ocho preguntas sobre los grandes clubes del fútbol mundial: sus estadios, sus récords y los jugadores que los hicieron eternos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["fútbol", "clubes", "estadios", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué club ha ganado más veces la Copa de Europa / Champions League?",
+          "options": [
+            { "id": "a", "text": "AC Milan", "is_correct": false },
+            { "id": "b", "text": "Real Madrid", "is_correct": true },
+            { "id": "c", "text": "Bayern Múnich", "is_correct": false },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "El Real Madrid ha ganado 15 títulos europeos, el último en 2024."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué estadio juega de local el Liverpool?",
+          "options": [
+            { "id": "a", "text": "Old Trafford", "is_correct": false },
+            { "id": "b", "text": "Anfield", "is_correct": true },
+            { "id": "c", "text": "Etihad Stadium", "is_correct": false },
+            { "id": "d", "text": "Stamford Bridge", "is_correct": false }
+          ],
+          "explanation": "Anfield es la casa del Liverpool desde la fundación del club en 1892."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué club brasileño jugó Pelé casi toda su carrera?",
+          "options": [
+            { "id": "a", "text": "Flamengo", "is_correct": false },
+            { "id": "b", "text": "Corinthians", "is_correct": false },
+            { "id": "c", "text": "Santos", "is_correct": true },
+            { "id": "d", "text": "Palmeiras", "is_correct": false }
+          ],
+          "explanation": "Pelé jugó en el Santos de 1956 a 1974, antes de cerrar su carrera en Nueva York."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué club argentino juega de local en La Bombonera?",
+          "options": [
+            { "id": "a", "text": "River Plate", "is_correct": false },
+            { "id": "b", "text": "Boca Juniors", "is_correct": true },
+            { "id": "c", "text": "Independiente", "is_correct": false },
+            { "id": "d", "text": "Racing Club", "is_correct": false }
+          ],
+          "explanation": "La Bombonera, en el barrio de La Boca de Buenos Aires, es la casa de Boca Juniors."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué club ganó las cinco primeras ediciones de la Copa de Europa, de 1956 a 1960?",
+          "options": [
+            { "id": "a", "text": "Benfica", "is_correct": false },
+            { "id": "b", "text": "Barcelona", "is_correct": false },
+            { "id": "c", "text": "Real Madrid", "is_correct": true },
+            { "id": "d", "text": "Inter de Milán", "is_correct": false }
+          ],
+          "explanation": "El Real Madrid ganó la Copa de Europa cada año entre 1956 y 1960, con Di Stéfano y Puskás."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué club ha ganado más veces la Europa League?",
+          "options": [
+            { "id": "a", "text": "Sevilla", "is_correct": true },
+            { "id": "b", "text": "Atlético de Madrid", "is_correct": false },
+            { "id": "c", "text": "Inter de Milán", "is_correct": false },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "El Sevilla ha ganado la Europa League siete veces, más que ningún otro club."
+        },
+        {
+          "id": "q7",
+          "question": "El 'Muro Amarillo', la mayor grada de pie de Europa, pertenece a qué club alemán?",
+          "options": [
+            { "id": "a", "text": "Bayern Múnich", "is_correct": false },
+            { "id": "b", "text": "Schalke 04", "is_correct": false },
+            { "id": "c", "text": "Borussia Dortmund", "is_correct": true },
+            { "id": "d", "text": "Hamburgo SV", "is_correct": false }
+          ],
+          "explanation": "La Südtribüne del Signal Iduna Park de Dortmund alberga a unos 25.000 aficionados de pie."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué año ganó el Manchester United el triplete de Premier League, FA Cup y Champions?",
+          "options": [
+            { "id": "a", "text": "1994", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": false },
+            { "id": "c", "text": "1968", "is_correct": false },
+            { "id": "d", "text": "1999", "is_correct": true }
+          ],
+          "explanation": "El triplete de 1999 se cerró con una remontada en el tiempo añadido ante el Bayern en Barcelona."
+        }
+      ]
+    },
+    {
+      "slug": "en-90s-music-trivia",
+      "title": "'90s Music Trivia: Grunge, Britpop and Girl Power",
+      "description": "Eight questions on the decade that gave us Nirvana, the Spice Girls and the golden age of the CD.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "music",
+      "tags": ["music", "nineties", "pop", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which band released the album 'Nevermind' in 1991?",
+          "options": [
+            { "id": "a", "text": "Pearl Jam", "is_correct": false },
+            { "id": "b", "text": "Nirvana", "is_correct": true },
+            { "id": "c", "text": "Soundgarden", "is_correct": false },
+            { "id": "d", "text": "Alice in Chains", "is_correct": false }
+          ],
+          "explanation": "'Nevermind', led by 'Smells Like Teen Spirit', pushed grunge into the mainstream."
+        },
+        {
+          "id": "q2",
+          "question": "Which British girl group released 'Wannabe' in 1996?",
+          "options": [
+            { "id": "a", "text": "Spice Girls", "is_correct": true },
+            { "id": "b", "text": "TLC", "is_correct": false },
+            { "id": "c", "text": "All Saints", "is_correct": false },
+            { "id": "d", "text": "Destiny's Child", "is_correct": false }
+          ],
+          "explanation": "'Wannabe' was the Spice Girls' debut single and topped the charts in 37 countries."
+        },
+        {
+          "id": "q3",
+          "question": "'...Baby One More Time' (1998) launched the career of which singer?",
+          "options": [
+            { "id": "a", "text": "Christina Aguilera", "is_correct": false },
+            { "id": "b", "text": "Mandy Moore", "is_correct": false },
+            { "id": "c", "text": "Britney Spears", "is_correct": true },
+            { "id": "d", "text": "Jessica Simpson", "is_correct": false }
+          ],
+          "explanation": "The song made Britney Spears a star at 16 and became one of the best-selling singles ever."
+        },
+        {
+          "id": "q4",
+          "question": "Which band released the acclaimed album 'OK Computer' in 1997?",
+          "options": [
+            { "id": "a", "text": "Oasis", "is_correct": false },
+            { "id": "b", "text": "Blur", "is_correct": false },
+            { "id": "c", "text": "Radiohead", "is_correct": true },
+            { "id": "d", "text": "U2", "is_correct": false }
+          ],
+          "explanation": "'OK Computer' is regularly ranked among the greatest albums of all time."
+        },
+        {
+          "id": "q5",
+          "question": "Puff Daddy's 1997 hit 'I'll Be Missing You' was a tribute to which rapper?",
+          "options": [
+            { "id": "a", "text": "Tupac Shakur", "is_correct": false },
+            { "id": "b", "text": "The Notorious B.I.G.", "is_correct": true },
+            { "id": "c", "text": "Eazy-E", "is_correct": false },
+            { "id": "d", "text": "Nate Dogg", "is_correct": false }
+          ],
+          "explanation": "Built on The Police's 'Every Breath You Take', it mourned Biggie's murder in March 1997."
+        },
+        {
+          "id": "q6",
+          "question": "'Wonderwall' is the signature song of which Manchester band?",
+          "options": [
+            { "id": "a", "text": "The Verve", "is_correct": false },
+            { "id": "b", "text": "Blur", "is_correct": false },
+            { "id": "c", "text": "Oasis", "is_correct": true },
+            { "id": "d", "text": "Pulp", "is_correct": false }
+          ],
+          "explanation": "'Wonderwall' comes from Oasis's 1995 album '(What's the Story) Morning Glory?'."
+        },
+        {
+          "id": "q7",
+          "question": "Which singer released the hit 'Vogue' in 1990?",
+          "options": [
+            { "id": "a", "text": "Madonna", "is_correct": true },
+            { "id": "b", "text": "Janet Jackson", "is_correct": false },
+            { "id": "c", "text": "Whitney Houston", "is_correct": false },
+            { "id": "d", "text": "Cher", "is_correct": false }
+          ],
+          "explanation": "'Vogue' topped the charts in more than 30 countries and became Madonna's signature dance track."
+        },
+        {
+          "id": "q8",
+          "question": "Which rapper released the double album 'All Eyez on Me' in 1996?",
+          "options": [
+            { "id": "a", "text": "Snoop Dogg", "is_correct": false },
+            { "id": "b", "text": "Dr. Dre", "is_correct": false },
+            { "id": "c", "text": "Nas", "is_correct": false },
+            { "id": "d", "text": "Tupac Shakur", "is_correct": true }
+          ],
+          "explanation": "Released months before his death, it was the first solo double album in hip-hop history."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-musica-de-los-90",
+      "title": "Trivia de la Música de los 90: del Grunge al Pop Latino",
+      "description": "Ocho preguntas sobre la década de Nirvana, las Spice Girls, Maná y el apogeo del CD.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "music",
+      "tags": ["música", "noventa", "pop", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué banda lanzó el álbum 'Nevermind' en 1991?",
+          "options": [
+            { "id": "a", "text": "Pearl Jam", "is_correct": false },
+            { "id": "b", "text": "Nirvana", "is_correct": true },
+            { "id": "c", "text": "Soundgarden", "is_correct": false },
+            { "id": "d", "text": "Alice in Chains", "is_correct": false }
+          ],
+          "explanation": "'Nevermind', liderado por 'Smells Like Teen Spirit', llevó el grunge al gran público."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué grupo británico lanzó 'Wannabe' en 1996?",
+          "options": [
+            { "id": "a", "text": "TLC", "is_correct": false },
+            { "id": "b", "text": "All Saints", "is_correct": false },
+            { "id": "c", "text": "Spice Girls", "is_correct": true },
+            { "id": "d", "text": "Destiny's Child", "is_correct": false }
+          ],
+          "explanation": "'Wannabe' fue el primer sencillo de las Spice Girls y encabezó listas en 37 países."
+        },
+        {
+          "id": "q3",
+          "question": "'...Baby One More Time' (1998) lanzó la carrera de qué cantante?",
+          "options": [
+            { "id": "a", "text": "Christina Aguilera", "is_correct": false },
+            { "id": "b", "text": "Britney Spears", "is_correct": true },
+            { "id": "c", "text": "Mandy Moore", "is_correct": false },
+            { "id": "d", "text": "Jessica Simpson", "is_correct": false }
+          ],
+          "explanation": "La canción convirtió a Britney Spears en estrella a los 16 años."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué banda mexicana lanzó el álbum '¿Dónde jugarán los niños?' en 1992?",
+          "options": [
+            { "id": "a", "text": "Café Tacvba", "is_correct": false },
+            { "id": "b", "text": "Los Caifanes", "is_correct": false },
+            { "id": "c", "text": "Maná", "is_correct": true },
+            { "id": "d", "text": "Molotov", "is_correct": false }
+          ],
+          "explanation": "Es el álbum más vendido de Maná y uno de los mayores éxitos del rock en español."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué cantante, conocida como la 'Reina del Tex-Mex', murió en 1995?",
+          "options": [
+            { "id": "a", "text": "Selena", "is_correct": true },
+            { "id": "b", "text": "Gloria Estefan", "is_correct": false },
+            { "id": "c", "text": "Shakira", "is_correct": false },
+            { "id": "d", "text": "Thalía", "is_correct": false }
+          ],
+          "explanation": "Selena Quintanilla fue asesinada en marzo de 1995; su álbum 'Dreaming of You' salió póstumo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué banda española lanzó el álbum 'El espíritu del vino' en 1993?",
+          "options": [
+            { "id": "a", "text": "Extremoduro", "is_correct": false },
+            { "id": "b", "text": "Héroes del Silencio", "is_correct": true },
+            { "id": "c", "text": "Mecano", "is_correct": false },
+            { "id": "d", "text": "Radio Futura", "is_correct": false }
+          ],
+          "explanation": "'El espíritu del vino' fue el tercer álbum de Héroes del Silencio, con Enrique Bunbury al frente."
+        },
+        {
+          "id": "q7",
+          "question": "'Wonderwall' es la canción insignia de qué banda de Mánchester?",
+          "options": [
+            { "id": "a", "text": "The Verve", "is_correct": false },
+            { "id": "b", "text": "Blur", "is_correct": false },
+            { "id": "c", "text": "Oasis", "is_correct": true },
+            { "id": "d", "text": "Pulp", "is_correct": false }
+          ],
+          "explanation": "'Wonderwall' pertenece al álbum '(What's the Story) Morning Glory?' de 1995."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué banda lanzó el aclamado álbum 'OK Computer' en 1997?",
+          "options": [
+            { "id": "a", "text": "Oasis", "is_correct": false },
+            { "id": "b", "text": "Radiohead", "is_correct": true },
+            { "id": "c", "text": "Blur", "is_correct": false },
+            { "id": "d", "text": "U2", "is_correct": false }
+          ],
+          "explanation": "'OK Computer' aparece con frecuencia entre los mejores álbumes de la historia."
+        }
+      ]
+    },
+    {
+      "slug": "en-movie-directors-trivia",
+      "title": "Movie Directors Trivia: The Names Behind the Camera",
+      "description": "Eight questions on the directors who shaped cinema, from Hitchcock's suspense to Miyazaki's animated worlds.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["movies", "directors", "cinema", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who directed 'Jaws' (1975) and 'E.T. the Extra-Terrestrial' (1982)?",
+          "options": [
+            { "id": "a", "text": "George Lucas", "is_correct": false },
+            { "id": "b", "text": "Steven Spielberg", "is_correct": true },
+            { "id": "c", "text": "Robert Zemeckis", "is_correct": false },
+            { "id": "d", "text": "Ridley Scott", "is_correct": false }
+          ],
+          "explanation": "Spielberg's two blockbusters helped define the modern summer movie."
+        },
+        {
+          "id": "q2",
+          "question": "Who wrote and directed 'Pulp Fiction' (1994)?",
+          "options": [
+            { "id": "a", "text": "Martin Scorsese", "is_correct": false },
+            { "id": "b", "text": "David Fincher", "is_correct": false },
+            { "id": "c", "text": "Quentin Tarantino", "is_correct": true },
+            { "id": "d", "text": "Joel Coen", "is_correct": false }
+          ],
+          "explanation": "Tarantino won the Palme d'Or and an Oscar for the film's screenplay."
+        },
+        {
+          "id": "q3",
+          "question": "Which director made 'Psycho' (1960) and 'Vertigo' (1958)?",
+          "options": [
+            { "id": "a", "text": "Alfred Hitchcock", "is_correct": true },
+            { "id": "b", "text": "Orson Welles", "is_correct": false },
+            { "id": "c", "text": "Billy Wilder", "is_correct": false },
+            { "id": "d", "text": "Fritz Lang", "is_correct": false }
+          ],
+          "explanation": "Hitchcock, the 'Master of Suspense', never won a competitive Oscar despite five nominations."
+        },
+        {
+          "id": "q4",
+          "question": "Who directed 'Titanic' (1997) and 'Avatar' (2009)?",
+          "options": [
+            { "id": "a", "text": "James Cameron", "is_correct": true },
+            { "id": "b", "text": "Peter Jackson", "is_correct": false },
+            { "id": "c", "text": "Steven Spielberg", "is_correct": false },
+            { "id": "d", "text": "Michael Bay", "is_correct": false }
+          ],
+          "explanation": "Both films became the highest-grossing movie of their time."
+        },
+        {
+          "id": "q5",
+          "question": "Which New Zealand director made 'The Lord of the Rings' trilogy?",
+          "options": [
+            { "id": "a", "text": "Guillermo del Toro", "is_correct": false },
+            { "id": "b", "text": "Peter Jackson", "is_correct": true },
+            { "id": "c", "text": "Sam Raimi", "is_correct": false },
+            { "id": "d", "text": "Taika Waititi", "is_correct": false }
+          ],
+          "explanation": "Jackson shot all three films back to back in his native New Zealand."
+        },
+        {
+          "id": "q6",
+          "question": "Who directed the animated film 'Spirited Away' (2001)?",
+          "options": [
+            { "id": "a", "text": "Isao Takahata", "is_correct": false },
+            { "id": "b", "text": "Mamoru Hosoda", "is_correct": false },
+            { "id": "c", "text": "Satoshi Kon", "is_correct": false },
+            { "id": "d", "text": "Hayao Miyazaki", "is_correct": true }
+          ],
+          "explanation": "Miyazaki's film won the Oscar for Best Animated Feature, Studio Ghibli's biggest international hit."
+        },
+        {
+          "id": "q7",
+          "question": "Who was the first woman to win the Oscar for Best Director?",
+          "options": [
+            { "id": "a", "text": "Sofia Coppola", "is_correct": false },
+            { "id": "b", "text": "Kathryn Bigelow", "is_correct": true },
+            { "id": "c", "text": "Jane Campion", "is_correct": false },
+            { "id": "d", "text": "Greta Gerwig", "is_correct": false }
+          ],
+          "explanation": "Bigelow won in 2010 for 'The Hurt Locker'."
+        },
+        {
+          "id": "q8",
+          "question": "Which director made 'The Dark Knight' trilogy and 'Inception' (2010)?",
+          "options": [
+            { "id": "a", "text": "Denis Villeneuve", "is_correct": false },
+            { "id": "b", "text": "Zack Snyder", "is_correct": false },
+            { "id": "c", "text": "Christopher Nolan", "is_correct": true },
+            { "id": "d", "text": "J.J. Abrams", "is_correct": false }
+          ],
+          "explanation": "Nolan is known for practical effects and non-linear storytelling."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-directores-de-cine",
+      "title": "Trivia de Directores de Cine: los Nombres Detrás de la Cámara",
+      "description": "Ocho preguntas sobre los directores que marcaron la historia del cine, de Hitchcock a Almodóvar.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["cine", "directores", "películas", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién dirigió 'Tiburón' (1975) y 'E.T., el extraterrestre' (1982)?",
+          "options": [
+            { "id": "a", "text": "George Lucas", "is_correct": false },
+            { "id": "b", "text": "Steven Spielberg", "is_correct": true },
+            { "id": "c", "text": "Robert Zemeckis", "is_correct": false },
+            { "id": "d", "text": "Ridley Scott", "is_correct": false }
+          ],
+          "explanation": "Las dos películas de Spielberg ayudaron a definir el cine comercial moderno."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién escribió y dirigió 'Pulp Fiction' (1994)?",
+          "options": [
+            { "id": "a", "text": "Martin Scorsese", "is_correct": false },
+            { "id": "b", "text": "Quentin Tarantino", "is_correct": true },
+            { "id": "c", "text": "David Fincher", "is_correct": false },
+            { "id": "d", "text": "Joel Coen", "is_correct": false }
+          ],
+          "explanation": "Tarantino ganó la Palma de Oro y el Óscar al mejor guion original."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué director rodó 'Psicosis' (1960) y 'Vértigo' (1958)?",
+          "options": [
+            { "id": "a", "text": "Orson Welles", "is_correct": false },
+            { "id": "b", "text": "Billy Wilder", "is_correct": false },
+            { "id": "c", "text": "Alfred Hitchcock", "is_correct": true },
+            { "id": "d", "text": "Fritz Lang", "is_correct": false }
+          ],
+          "explanation": "Hitchcock, el 'maestro del suspense', nunca ganó un Óscar competitivo pese a cinco nominaciones."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién dirigió 'El laberinto del fauno' (2006)?",
+          "options": [
+            { "id": "a", "text": "Alejandro González Iñárritu", "is_correct": false },
+            { "id": "b", "text": "Guillermo del Toro", "is_correct": true },
+            { "id": "c", "text": "Alfonso Cuarón", "is_correct": false },
+            { "id": "d", "text": "Pedro Almodóvar", "is_correct": false }
+          ],
+          "explanation": "La película del mexicano Guillermo del Toro ganó tres Óscar."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué director español rodó 'Todo sobre mi madre' (1999)?",
+          "options": [
+            { "id": "a", "text": "Pedro Almodóvar", "is_correct": true },
+            { "id": "b", "text": "Luis Buñuel", "is_correct": false },
+            { "id": "c", "text": "Carlos Saura", "is_correct": false },
+            { "id": "d", "text": "Alejandro Amenábar", "is_correct": false }
+          ],
+          "explanation": "La película ganó el Óscar a la mejor película internacional en el año 2000."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién dirigió 'Titanic' (1997) y 'Avatar' (2009)?",
+          "options": [
+            { "id": "a", "text": "Peter Jackson", "is_correct": false },
+            { "id": "b", "text": "Steven Spielberg", "is_correct": false },
+            { "id": "c", "text": "James Cameron", "is_correct": true },
+            { "id": "d", "text": "Michael Bay", "is_correct": false }
+          ],
+          "explanation": "Ambas películas fueron, en su momento, la más taquillera de la historia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién dirigió la película de animación 'El viaje de Chihiro' (2001)?",
+          "options": [
+            { "id": "a", "text": "Isao Takahata", "is_correct": false },
+            { "id": "b", "text": "Hayao Miyazaki", "is_correct": true },
+            { "id": "c", "text": "Mamoru Hosoda", "is_correct": false },
+            { "id": "d", "text": "Satoshi Kon", "is_correct": false }
+          ],
+          "explanation": "La película de Miyazaki ganó el Óscar a la mejor película de animación."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién fue la primera mujer en ganar el Óscar a la mejor dirección?",
+          "options": [
+            { "id": "a", "text": "Sofia Coppola", "is_correct": false },
+            { "id": "b", "text": "Jane Campion", "is_correct": false },
+            { "id": "c", "text": "Kathryn Bigelow", "is_correct": true },
+            { "id": "d", "text": "Greta Gerwig", "is_correct": false }
+          ],
+          "explanation": "Bigelow lo ganó en 2010 por 'The Hurt Locker'."
+        }
+      ]
+    },
+    {
+      "slug": "en-internet-history-trivia",
+      "title": "Internet History Trivia: From ARPANET to the iPhone",
+      "description": "Eight questions on the milestones that built the online world, from a crashed login in 1969 to the first iPhone.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["internet", "technology", "history", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The first message sent over ARPANET in 1969 was meant to be 'LOGIN'. What was actually transmitted before the system crashed?",
+          "options": [
+            { "id": "a", "text": "LO", "is_correct": true },
+            { "id": "b", "text": "LOG", "is_correct": false },
+            { "id": "c", "text": "LOGIN", "is_correct": false },
+            { "id": "d", "text": "HELLO", "is_correct": false }
+          ],
+          "explanation": "The system crashed after two letters, so 'LO' was the first message ever sent."
+        },
+        {
+          "id": "q2",
+          "question": "At which organization did Tim Berners-Lee invent the World Wide Web?",
+          "options": [
+            { "id": "a", "text": "MIT", "is_correct": false },
+            { "id": "b", "text": "NASA", "is_correct": false },
+            { "id": "c", "text": "CERN", "is_correct": true },
+            { "id": "d", "text": "IBM", "is_correct": false }
+          ],
+          "explanation": "Berners-Lee proposed the Web in 1989 at CERN, the physics laboratory in Geneva."
+        },
+        {
+          "id": "q3",
+          "question": "What was the first widely used graphical web browser, released in 1993?",
+          "options": [
+            { "id": "a", "text": "Netscape Navigator", "is_correct": false },
+            { "id": "b", "text": "Mosaic", "is_correct": true },
+            { "id": "c", "text": "Internet Explorer", "is_correct": false },
+            { "id": "d", "text": "Lynx", "is_correct": false }
+          ],
+          "explanation": "NCSA Mosaic made the Web visual; its team went on to build Netscape Navigator."
+        },
+        {
+          "id": "q4",
+          "question": "Which company did Larry Page and Sergey Brin found in 1998?",
+          "options": [
+            { "id": "a", "text": "Yahoo", "is_correct": false },
+            { "id": "b", "text": "AltaVista", "is_correct": false },
+            { "id": "c", "text": "Google", "is_correct": true },
+            { "id": "d", "text": "Amazon", "is_correct": false }
+          ],
+          "explanation": "Google began as a Stanford research project called 'BackRub'."
+        },
+        {
+          "id": "q5",
+          "question": "Which company started in 1994 as an online bookstore?",
+          "options": [
+            { "id": "a", "text": "eBay", "is_correct": false },
+            { "id": "b", "text": "Amazon", "is_correct": true },
+            { "id": "c", "text": "Barnes & Noble", "is_correct": false },
+            { "id": "d", "text": "Alibaba", "is_correct": false }
+          ],
+          "explanation": "Jeff Bezos founded Amazon in July 1994 and shipped the first book a year later."
+        },
+        {
+          "id": "q6",
+          "question": "Which free online encyclopedia, written by volunteers, launched in 2001?",
+          "options": [
+            { "id": "a", "text": "Britannica Online", "is_correct": false },
+            { "id": "b", "text": "Encarta", "is_correct": false },
+            { "id": "c", "text": "About.com", "is_correct": false },
+            { "id": "d", "text": "Wikipedia", "is_correct": true }
+          ],
+          "explanation": "Wikipedia launched in January 2001 and overtook Encarta within a few years."
+        },
+        {
+          "id": "q7",
+          "question": "In what year was YouTube founded?",
+          "options": [
+            { "id": "a", "text": "2003", "is_correct": false },
+            { "id": "b", "text": "2005", "is_correct": true },
+            { "id": "c", "text": "2007", "is_correct": false },
+            { "id": "d", "text": "2001", "is_correct": false }
+          ],
+          "explanation": "Three former PayPal employees founded it; the first video went up in April 2005."
+        },
+        {
+          "id": "q8",
+          "question": "In what year did Apple release the first iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": true },
+            { "id": "c", "text": "2006", "is_correct": false },
+            { "id": "d", "text": "2009", "is_correct": false }
+          ],
+          "explanation": "Steve Jobs presented it in January 2007 as 'an iPod, a phone and an internet communicator'."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-de-internet",
+      "title": "Trivia de la Historia de Internet: de ARPANET al iPhone",
+      "description": "Ocho preguntas sobre los hitos que construyeron el mundo en línea, del primer mensaje de 1969 al primer iPhone.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["internet", "tecnología", "historia", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El primer mensaje enviado por ARPANET en 1969 debía ser 'LOGIN'. ¿Qué se transmitió antes de que el sistema cayera?",
+          "options": [
+            { "id": "a", "text": "LOG", "is_correct": false },
+            { "id": "b", "text": "LO", "is_correct": true },
+            { "id": "c", "text": "LOGIN", "is_correct": false },
+            { "id": "d", "text": "HOLA", "is_correct": false }
+          ],
+          "explanation": "El sistema cayó tras dos letras, así que 'LO' fue el primer mensaje de la historia."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué organización inventó Tim Berners-Lee la World Wide Web?",
+          "options": [
+            { "id": "a", "text": "el MIT", "is_correct": false },
+            { "id": "b", "text": "la NASA", "is_correct": false },
+            { "id": "c", "text": "el CERN", "is_correct": true },
+            { "id": "d", "text": "IBM", "is_correct": false }
+          ],
+          "explanation": "Berners-Lee propuso la Web en 1989 en el CERN, el laboratorio de física de Ginebra."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál fue el primer navegador gráfico de uso masivo, lanzado en 1993?",
+          "options": [
+            { "id": "a", "text": "Netscape Navigator", "is_correct": false },
+            { "id": "b", "text": "Internet Explorer", "is_correct": false },
+            { "id": "c", "text": "Mosaic", "is_correct": true },
+            { "id": "d", "text": "Lynx", "is_correct": false }
+          ],
+          "explanation": "NCSA Mosaic hizo visual la Web; su equipo construyó después Netscape Navigator."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué empresa fundaron Larry Page y Sergey Brin en 1998?",
+          "options": [
+            { "id": "a", "text": "Yahoo", "is_correct": false },
+            { "id": "b", "text": "Google", "is_correct": true },
+            { "id": "c", "text": "AltaVista", "is_correct": false },
+            { "id": "d", "text": "Amazon", "is_correct": false }
+          ],
+          "explanation": "Google nació como un proyecto de investigación en Stanford llamado 'BackRub'."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué empresa empezó en 1994 como una librería en línea?",
+          "options": [
+            { "id": "a", "text": "eBay", "is_correct": false },
+            { "id": "b", "text": "Barnes & Noble", "is_correct": false },
+            { "id": "c", "text": "Alibaba", "is_correct": false },
+            { "id": "d", "text": "Amazon", "is_correct": true }
+          ],
+          "explanation": "Jeff Bezos fundó Amazon en julio de 1994 y envió el primer libro un año después."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué enciclopedia en línea gratuita, escrita por voluntarios, se lanzó en 2001?",
+          "options": [
+            { "id": "a", "text": "Encarta", "is_correct": false },
+            { "id": "b", "text": "Wikipedia", "is_correct": true },
+            { "id": "c", "text": "Britannica Online", "is_correct": false },
+            { "id": "d", "text": "About.com", "is_correct": false }
+          ],
+          "explanation": "Wikipedia se lanzó en enero de 2001 y superó a Encarta en pocos años."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué año se fundó YouTube?",
+          "options": [
+            { "id": "a", "text": "2003", "is_correct": false },
+            { "id": "b", "text": "2001", "is_correct": false },
+            { "id": "c", "text": "2005", "is_correct": true },
+            { "id": "d", "text": "2007", "is_correct": false }
+          ],
+          "explanation": "Lo fundaron tres exempleados de PayPal; el primer video se subió en abril de 2005."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué año lanzó Apple el primer iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2006", "is_correct": false },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2007", "is_correct": true }
+          ],
+          "explanation": "Steve Jobs lo presentó en enero de 2007 como 'un iPod, un teléfono y un comunicador de internet'."
+        }
+      ]
+    },
+    {
+      "slug": "en-nobel-prizes-trivia",
+      "title": "Nobel Prizes Trivia: A Century of Genius",
+      "description": "Eight questions on the world's most famous award: its founder, its records and its most surprising winners.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["nobel", "science", "awards", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The Nobel Prizes were established by the will of which inventor?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "Alfred Nobel", "is_correct": true },
+            { "id": "c", "text": "Alexander Graham Bell", "is_correct": false },
+            { "id": "d", "text": "Guglielmo Marconi", "is_correct": false }
+          ],
+          "explanation": "Nobel, the inventor of dynamite, left most of his fortune to fund the prizes."
+        },
+        {
+          "id": "q2",
+          "question": "In what year were the first Nobel Prizes awarded?",
+          "options": [
+            { "id": "a", "text": "1895", "is_correct": false },
+            { "id": "b", "text": "1910", "is_correct": false },
+            { "id": "c", "text": "1901", "is_correct": true },
+            { "id": "d", "text": "1921", "is_correct": false }
+          ],
+          "explanation": "The first ceremony was held in 1901, the fifth anniversary of Nobel's death."
+        },
+        {
+          "id": "q3",
+          "question": "Who is the only person to win Nobel Prizes in two different sciences?",
+          "options": [
+            { "id": "a", "text": "Linus Pauling", "is_correct": false },
+            { "id": "b", "text": "Albert Einstein", "is_correct": false },
+            { "id": "c", "text": "Niels Bohr", "is_correct": false },
+            { "id": "d", "text": "Marie Curie", "is_correct": true }
+          ],
+          "explanation": "Curie won Physics in 1903 and Chemistry in 1911."
+        },
+        {
+          "id": "q4",
+          "question": "The Nobel Peace Prize is awarded in which city?",
+          "options": [
+            { "id": "a", "text": "Stockholm", "is_correct": false },
+            { "id": "b", "text": "Oslo", "is_correct": true },
+            { "id": "c", "text": "Geneva", "is_correct": false },
+            { "id": "d", "text": "Copenhagen", "is_correct": false }
+          ],
+          "explanation": "All prizes are presented in Stockholm except the Peace Prize, awarded in Oslo."
+        },
+        {
+          "id": "q5",
+          "question": "Albert Einstein won the 1921 Nobel Prize in Physics mainly for explaining what?",
+          "options": [
+            { "id": "a", "text": "The theory of relativity", "is_correct": false },
+            { "id": "b", "text": "Nuclear fission", "is_correct": false },
+            { "id": "c", "text": "The photoelectric effect", "is_correct": true },
+            { "id": "d", "text": "Brownian motion", "is_correct": false }
+          ],
+          "explanation": "Relativity was still controversial, so the committee cited the photoelectric effect."
+        },
+        {
+          "id": "q6",
+          "question": "Which Nobel Prize was added later and is not one of the original five?",
+          "options": [
+            { "id": "a", "text": "Economic Sciences", "is_correct": true },
+            { "id": "b", "text": "Peace", "is_correct": false },
+            { "id": "c", "text": "Literature", "is_correct": false },
+            { "id": "d", "text": "Mathematics", "is_correct": false }
+          ],
+          "explanation": "The economics prize, funded by Sweden's central bank, was first awarded in 1969."
+        },
+        {
+          "id": "q7",
+          "question": "Which singer-songwriter won the Nobel Prize in Literature in 2016?",
+          "options": [
+            { "id": "a", "text": "Leonard Cohen", "is_correct": false },
+            { "id": "b", "text": "Bob Dylan", "is_correct": true },
+            { "id": "c", "text": "Paul McCartney", "is_correct": false },
+            { "id": "d", "text": "Bruce Springsteen", "is_correct": false }
+          ],
+          "explanation": "Dylan was the first songwriter to win the literature prize, 'for new poetic expressions'."
+        },
+        {
+          "id": "q8",
+          "question": "Which of these fields has no Nobel Prize?",
+          "options": [
+            { "id": "a", "text": "Physics", "is_correct": false },
+            { "id": "b", "text": "Medicine", "is_correct": false },
+            { "id": "c", "text": "Mathematics", "is_correct": true },
+            { "id": "d", "text": "Chemistry", "is_correct": false }
+          ],
+          "explanation": "Mathematics was never among Nobel's categories; the Fields Medal is its closest equivalent."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-premios-nobel",
+      "title": "Trivia de los Premios Nobel: un Siglo de Genios",
+      "description": "Ocho preguntas sobre el premio más famoso del mundo: su fundador, sus récords y sus ganadores más sorprendentes.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["nobel", "ciencia", "premios", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué inventor estableció los Premios Nobel en su testamento?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "Alfred Nobel", "is_correct": true },
+            { "id": "c", "text": "Alexander Graham Bell", "is_correct": false },
+            { "id": "d", "text": "Guglielmo Marconi", "is_correct": false }
+          ],
+          "explanation": "Nobel, el inventor de la dinamita, dejó casi toda su fortuna para financiar los premios."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se entregaron los primeros Premios Nobel?",
+          "options": [
+            { "id": "a", "text": "1895", "is_correct": false },
+            { "id": "b", "text": "1901", "is_correct": true },
+            { "id": "c", "text": "1910", "is_correct": false },
+            { "id": "d", "text": "1921", "is_correct": false }
+          ],
+          "explanation": "La primera ceremonia fue en 1901, al cumplirse cinco años de la muerte de Nobel."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién es la única persona con dos Premios Nobel en ciencias distintas?",
+          "options": [
+            { "id": "a", "text": "Linus Pauling", "is_correct": false },
+            { "id": "b", "text": "Albert Einstein", "is_correct": false },
+            { "id": "c", "text": "Marie Curie", "is_correct": true },
+            { "id": "d", "text": "Niels Bohr", "is_correct": false }
+          ],
+          "explanation": "Curie ganó el de Física en 1903 y el de Química en 1911."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué ciudad se entrega el Nobel de la Paz?",
+          "options": [
+            { "id": "a", "text": "Estocolmo", "is_correct": false },
+            { "id": "b", "text": "Ginebra", "is_correct": false },
+            { "id": "c", "text": "Oslo", "is_correct": true },
+            { "id": "d", "text": "Copenhague", "is_correct": false }
+          ],
+          "explanation": "Todos los premios se entregan en Estocolmo salvo el de la Paz, que se entrega en Oslo."
+        },
+        {
+          "id": "q5",
+          "question": "Einstein ganó el Nobel de Física de 1921 principalmente por explicar qué fenómeno?",
+          "options": [
+            { "id": "a", "text": "La teoría de la relatividad", "is_correct": false },
+            { "id": "b", "text": "El efecto fotoeléctrico", "is_correct": true },
+            { "id": "c", "text": "La fisión nuclear", "is_correct": false },
+            { "id": "d", "text": "El movimiento browniano", "is_correct": false }
+          ],
+          "explanation": "La relatividad aún era controvertida, así que el comité citó el efecto fotoeléctrico."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué autor de 'Cien años de soledad' ganó el Nobel de Literatura en 1982?",
+          "options": [
+            { "id": "a", "text": "Pablo Neruda", "is_correct": false },
+            { "id": "b", "text": "Octavio Paz", "is_correct": false },
+            { "id": "c", "text": "Gabriel García Márquez", "is_correct": true },
+            { "id": "d", "text": "Mario Vargas Llosa", "is_correct": false }
+          ],
+          "explanation": "García Márquez lo ganó en 1982; Vargas Llosa lo haría en 2010."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué poeta chileno ganó el Nobel de Literatura en 1971?",
+          "options": [
+            { "id": "a", "text": "Pablo Neruda", "is_correct": true },
+            { "id": "b", "text": "Gabriela Mistral", "is_correct": false },
+            { "id": "c", "text": "Vicente Huidobro", "is_correct": false },
+            { "id": "d", "text": "Jorge Luis Borges", "is_correct": false }
+          ],
+          "explanation": "Neruda ganó en 1971; Mistral, también chilena, lo había ganado en 1945."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál de estos campos NO tiene Premio Nobel?",
+          "options": [
+            { "id": "a", "text": "Física", "is_correct": false },
+            { "id": "b", "text": "Medicina", "is_correct": false },
+            { "id": "c", "text": "Química", "is_correct": false },
+            { "id": "d", "text": "Matemáticas", "is_correct": true }
+          ],
+          "explanation": "Las matemáticas nunca estuvieron entre las categorías; la Medalla Fields es su equivalente más cercano."
+        }
+      ]
+    },
+    {
+      "slug": "en-famous-landmarks-trivia",
+      "title": "Famous Landmarks Trivia: Icons of the World",
+      "description": "Eight questions on the monuments everyone recognizes, from the Eiffel Tower to the rose-red city of Petra.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["landmarks", "monuments", "travel", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The Eiffel Tower was built for which 1889 event?",
+          "options": [
+            { "id": "a", "text": "The coronation of Napoleon III", "is_correct": false },
+            { "id": "b", "text": "The Exposition Universelle", "is_correct": true },
+            { "id": "c", "text": "The opening of the Paris Metro", "is_correct": false },
+            { "id": "d", "text": "The end of the Franco-Prussian War", "is_correct": false }
+          ],
+          "explanation": "It marked 100 years since the French Revolution and was meant to stand for only 20 years."
+        },
+        {
+          "id": "q2",
+          "question": "The Colosseum stands in the centre of which city?",
+          "options": [
+            { "id": "a", "text": "Athens", "is_correct": false },
+            { "id": "b", "text": "Naples", "is_correct": false },
+            { "id": "c", "text": "Rome", "is_correct": true },
+            { "id": "d", "text": "Istanbul", "is_correct": false }
+          ],
+          "explanation": "The nearly 2,000-year-old amphitheatre could hold around 50,000 spectators."
+        },
+        {
+          "id": "q3",
+          "question": "The Taj Mahal was built by which Mughal emperor?",
+          "options": [
+            { "id": "a", "text": "Akbar", "is_correct": false },
+            { "id": "b", "text": "Shah Jahan", "is_correct": true },
+            { "id": "c", "text": "Aurangzeb", "is_correct": false },
+            { "id": "d", "text": "Babur", "is_correct": false }
+          ],
+          "explanation": "Shah Jahan built it in Agra as a mausoleum for his wife Mumtaz Mahal."
+        },
+        {
+          "id": "q4",
+          "question": "Machu Picchu was brought to international attention in 1911 by which explorer?",
+          "options": [
+            { "id": "a", "text": "Charles Darwin", "is_correct": false },
+            { "id": "b", "text": "Thor Heyerdahl", "is_correct": false },
+            { "id": "c", "text": "Hiram Bingham", "is_correct": true },
+            { "id": "d", "text": "Francisco Pizarro", "is_correct": false }
+          ],
+          "explanation": "Bingham, an American historian, publicized the Inca citadel after his 1911 expedition."
+        },
+        {
+          "id": "q5",
+          "question": "The statue of Christ the Redeemer overlooks which city?",
+          "options": [
+            { "id": "a", "text": "Sao Paulo", "is_correct": false },
+            { "id": "b", "text": "Rio de Janeiro", "is_correct": true },
+            { "id": "c", "text": "Buenos Aires", "is_correct": false },
+            { "id": "d", "text": "Lisbon", "is_correct": false }
+          ],
+          "explanation": "Completed in 1931, it stands atop Corcovado mountain in Rio de Janeiro."
+        },
+        {
+          "id": "q6",
+          "question": "The Statue of Liberty was a gift to the United States from which country?",
+          "options": [
+            { "id": "a", "text": "England", "is_correct": false },
+            { "id": "b", "text": "Spain", "is_correct": false },
+            { "id": "c", "text": "Italy", "is_correct": false },
+            { "id": "d", "text": "France", "is_correct": true }
+          ],
+          "explanation": "Designed by Frederic Auguste Bartholdi, it was dedicated in New York Harbour in 1886."
+        },
+        {
+          "id": "q7",
+          "question": "'Big Ben' is the nickname of the Great Bell inside which London tower?",
+          "options": [
+            { "id": "a", "text": "The Tower of London", "is_correct": false },
+            { "id": "b", "text": "Nelson's Column", "is_correct": false },
+            { "id": "c", "text": "The Elizabeth Tower", "is_correct": true },
+            { "id": "d", "text": "Westminster Cathedral", "is_correct": false }
+          ],
+          "explanation": "The tower was renamed the Elizabeth Tower in 2012 for the Queen's Diamond Jubilee."
+        },
+        {
+          "id": "q8",
+          "question": "Which ancient city in Jordan is famous for buildings carved into rose-red rock?",
+          "options": [
+            { "id": "a", "text": "Palmyra", "is_correct": false },
+            { "id": "b", "text": "Petra", "is_correct": true },
+            { "id": "c", "text": "Luxor", "is_correct": false },
+            { "id": "d", "text": "Persepolis", "is_correct": false }
+          ],
+          "explanation": "Petra's most famous facade, Al-Khazneh ('the Treasury'), was carved by the Nabataeans."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-monumentos-famosos",
+      "title": "Trivia de Monumentos Famosos: Iconos del Mundo",
+      "description": "Ocho preguntas sobre los monumentos que todo el mundo reconoce, de la Torre Eiffel a la ciudad rosada de Petra.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "geography",
+      "tags": ["monumentos", "viajes", "geografía", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Para qué evento de 1889 se construyó la Torre Eiffel?",
+          "options": [
+            { "id": "a", "text": "La coronación de Napoleón III", "is_correct": false },
+            { "id": "b", "text": "La apertura del metro de París", "is_correct": false },
+            { "id": "c", "text": "La Exposición Universal", "is_correct": true },
+            { "id": "d", "text": "El fin de la guerra franco-prusiana", "is_correct": false }
+          ],
+          "explanation": "Marcaba el centenario de la Revolución Francesa y debía durar solo 20 años."
+        },
+        {
+          "id": "q2",
+          "question": "El Coliseo se encuentra en el centro de qué ciudad?",
+          "options": [
+            { "id": "a", "text": "Atenas", "is_correct": false },
+            { "id": "b", "text": "Roma", "is_correct": true },
+            { "id": "c", "text": "Nápoles", "is_correct": false },
+            { "id": "d", "text": "Estambul", "is_correct": false }
+          ],
+          "explanation": "El anfiteatro, de casi 2.000 años, podía albergar a unos 50.000 espectadores."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué emperador mogol ordenó construir el Taj Mahal?",
+          "options": [
+            { "id": "a", "text": "Akbar", "is_correct": false },
+            { "id": "b", "text": "Aurangzeb", "is_correct": false },
+            { "id": "c", "text": "Shah Jahan", "is_correct": true },
+            { "id": "d", "text": "Babur", "is_correct": false }
+          ],
+          "explanation": "Shah Jahan lo construyó en Agra como mausoleo para su esposa Mumtaz Mahal."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué explorador dio a conocer Machu Picchu al mundo en 1911?",
+          "options": [
+            { "id": "a", "text": "Charles Darwin", "is_correct": false },
+            { "id": "b", "text": "Hiram Bingham", "is_correct": true },
+            { "id": "c", "text": "Thor Heyerdahl", "is_correct": false },
+            { "id": "d", "text": "Francisco Pizarro", "is_correct": false }
+          ],
+          "explanation": "Bingham, un historiador estadounidense, dio a conocer la ciudadela inca tras su expedición de 1911."
+        },
+        {
+          "id": "q5",
+          "question": "El Cristo Redentor se alza sobre qué ciudad?",
+          "options": [
+            { "id": "a", "text": "São Paulo", "is_correct": false },
+            { "id": "b", "text": "Buenos Aires", "is_correct": false },
+            { "id": "c", "text": "Lisboa", "is_correct": false },
+            { "id": "d", "text": "Río de Janeiro", "is_correct": true }
+          ],
+          "explanation": "Inaugurado en 1931, se encuentra en la cima del cerro del Corcovado."
+        },
+        {
+          "id": "q6",
+          "question": "La Estatua de la Libertad fue un regalo a Estados Unidos de qué país?",
+          "options": [
+            { "id": "a", "text": "Inglaterra", "is_correct": false },
+            { "id": "b", "text": "Francia", "is_correct": true },
+            { "id": "c", "text": "España", "is_correct": false },
+            { "id": "d", "text": "Italia", "is_correct": false }
+          ],
+          "explanation": "Diseñada por Frédéric Auguste Bartholdi, se inauguró en el puerto de Nueva York en 1886."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué ciudad está la Sagrada Familia, la obra inacabada de Gaudí?",
+          "options": [
+            { "id": "a", "text": "Madrid", "is_correct": false },
+            { "id": "b", "text": "Sevilla", "is_correct": false },
+            { "id": "c", "text": "Barcelona", "is_correct": true },
+            { "id": "d", "text": "Valencia", "is_correct": false }
+          ],
+          "explanation": "Lleva en construcción desde 1882 y es el monumento más visitado de España."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué ciudad antigua de Jordania es famosa por sus edificios tallados en la roca?",
+          "options": [
+            { "id": "a", "text": "Palmira", "is_correct": false },
+            { "id": "b", "text": "Luxor", "is_correct": false },
+            { "id": "c", "text": "Persépolis", "is_correct": false },
+            { "id": "d", "text": "Petra", "is_correct": true }
+          ],
+          "explanation": "La fachada más famosa de Petra, Al-Khazneh ('el Tesoro'), fue tallada por los nabateos."
+        }
+      ]
     }
   ]
 }
