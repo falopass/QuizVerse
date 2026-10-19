@@ -2,15 +2,17 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
 
+// Type hubs (trivia, personality) resolve even against the LAUNCH_QUIZZES
+// fallback catalog; topic slugs are the largest categories in the catalog.
 const POPULAR_CATEGORIES = [
+  { slug: 'trivia', en: 'Trivia', es: 'Trivia' },
+  { slug: 'personality', en: 'Personality', es: 'Personalidad' },
   { slug: 'movies-tv', en: 'Movies & TV', es: 'Cine y televisión' },
   { slug: 'anime-manga', en: 'Anime & Manga', es: 'Anime y manga' },
   { slug: 'gaming', en: 'Gaming', es: 'Videojuegos' },
   { slug: 'music', en: 'Music', es: 'Música' },
   { slug: 'culture', en: 'Culture', es: 'Cultura' },
   { slug: 'lifestyle', en: 'Lifestyle', es: 'Estilo de vida' },
-  { slug: 'literature', en: 'Literature', es: 'Literatura' },
-  { slug: 'pop-culture', en: 'Pop Culture', es: 'Cultura pop' },
 ] as const;
 
 export default async function NotFoundPage() {
