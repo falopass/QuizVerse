@@ -39,6 +39,20 @@ it('routes the editorial 2026g pairs both ways', () => {
   }
 });
 
+it('routes the editorial 2026d pairs both ways', () => {
+  const pairs: [string, string][] = [
+    ['en-ancient-rome-trivia', 'es-trivia-antigua-roma'],
+    ['en-ancient-egypt-trivia', 'es-trivia-antiguo-egipto'],
+    ['en-world-war-2-trivia', 'es-trivia-segunda-guerra-mundial'],
+    ['en-nba-trivia', 'es-trivia-nba'],
+    ['en-oscars-trivia', 'es-trivia-premios-oscar'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
+
 it('routes the 2026b editorial pairs both ways', () => {
   const pairs: Array<[string, string]> = [
     ['en-science-basics-trivia', 'es-trivia-ciencia-basica'],
