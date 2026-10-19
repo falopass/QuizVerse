@@ -1,0 +1,444 @@
+{
+  "quizzes": [
+    {
+      "slug": "en-how-deep-does-your-attack-on-titan-knowledge-go",
+      "title": "Attack on Titan: 8 Questions Beyond the Walls"
+    },
+    {
+      "slug": "en-how-deep-does-your-avatar-knowledge-go",
+      "title": "Avatar: The Last Airbender Quiz: Test Your Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-bad-bunny-knowledge-go",
+      "title": "Bad Bunny Trivia: 8 Questions for True Fans"
+    },
+    {
+      "slug": "en-how-deep-does-your-baldur-s-gate-3-knowledge-go",
+      "title": "Baldur's Gate 3: 8 Questions for Your Party"
+    },
+    {
+      "slug": "en-how-deep-does-your-barbie-knowledge-go",
+      "title": "Barbie Trivia: 8 Questions from Barbieland and Beyond"
+    },
+    {
+      "slug": "en-how-deep-does-your-beef-knowledge-go",
+      "title": "Beef Trivia: Can You Ace These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-beyonce-knowledge-go",
+      "title": "Beyoncé Trivia: Can You Ace These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-bridgerton-knowledge-go",
+      "title": "Bridgerton Quiz: How Well Do You Know the Ton?"
+    },
+    {
+      "slug": "en-how-deep-does-your-chainsaw-man-knowledge-go",
+      "title": "Chainsaw Man Trivia: 8 Questions for Devil Hunters"
+    },
+    {
+      "slug": "en-how-deep-does-your-chappell-roan-knowledge-go",
+      "title": "Chappell Roan Quiz: How Well Do You Know Her Music?"
+    },
+    {
+      "slug": "en-how-deep-does-your-classroom-of-the-elite-knowledge-go",
+      "title": "Classroom of the Elite Quiz: Test Your Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-demon-slayer-knowledge-go",
+      "title": "Demon Slayer Trivia: Can You Ace All 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-dr-stone-knowledge-go",
+      "title": "Dr. Stone Quiz: Test Your Kingdom of Science Smarts"
+    },
+    {
+      "slug": "en-how-deep-does-your-dune-knowledge-go",
+      "title": "Dune: 8 Questions Only True Fans of Arrakis Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-elden-ring-knowledge-go",
+      "title": "Elden Ring: 8 Questions Only a Tarnished Can Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-euphoria-knowledge-go",
+      "title": "Euphoria Trivia: 8 Questions for True Fans"
+    },
+    {
+      "slug": "en-how-deep-does-your-frieren-knowledge-go",
+      "title": "Frieren Trivia: Can You Answer All 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-grand-theft-auto-vi-knowledge-go",
+      "title": "Grand Theft Auto VI Quiz: What Do You Know So Far?"
+    },
+    {
+      "slug": "en-how-deep-does-your-hacks-knowledge-go",
+      "title": "Hacks Quiz: How Well Do You Know Deborah Vance?"
+    },
+    {
+      "slug": "en-how-deep-does-your-hades-ii-knowledge-go",
+      "title": "Hades II Quiz: Test Your Knowledge of the Underworld"
+    },
+    {
+      "slug": "en-how-deep-does-your-harry-potter-knowledge-go",
+      "title": "Harry Potter Trivia: Can You Answer All 8?"
+    },
+    {
+      "slug": "en-how-deep-does-your-invincible-knowledge-go",
+      "title": "Invincible Quiz: How Well Do You Know Mark Grayson?"
+    },
+    {
+      "slug": "en-how-deep-does-your-jujutsu-kaisen-knowledge-go",
+      "title": "Jujutsu Kaisen: 8 Questions Only Sorcerers Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-k-pop-knowledge-go",
+      "title": "K-pop Quiz: How Well Do You Know Your Idols?"
+    },
+    {
+      "slug": "en-how-deep-does-your-marvel-knowledge-go",
+      "title": "Marvel Quiz: Test Your Knowledge of the MCU"
+    },
+    {
+      "slug": "en-how-deep-does-your-minecraft-knowledge-go",
+      "title": "Minecraft Trivia: 8 Questions for Master Crafters"
+    },
+    {
+      "slug": "en-how-deep-does-your-naruto-knowledge-go",
+      "title": "Naruto Trivia: 8 Questions for Hidden Leaf Fans"
+    },
+    {
+      "slug": "en-how-deep-does-your-nintendo-switch-2-knowledge-go",
+      "title": "Nintendo Switch 2: 8 Questions for Early Fans"
+    },
+    {
+      "slug": "en-how-deep-does-your-one-piece-knowledge-go",
+      "title": "One Piece Quiz: Test Your Straw Hat Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-oppenheimer-knowledge-go",
+      "title": "Oppenheimer Quiz: Can You Answer These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-pokemon-knowledge-go",
+      "title": "Pokémon Trivia: 8 Questions for Aspiring Trainers"
+    },
+    {
+      "slug": "en-how-deep-does-your-project-hail-mary-knowledge-go",
+      "title": "Project Hail Mary Quiz: How Well Do You Know Rocky?"
+    },
+    {
+      "slug": "en-how-deep-does-your-re-zero-knowledge-go",
+      "title": "Re:ZERO Trivia: Can You Ace These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-resident-evil-knowledge-go",
+      "title": "Resident Evil Quiz: Test Your Survival Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-sabrina-carpenter-knowledge-go",
+      "title": "Sabrina Carpenter: 8 Questions for Real Fans Only"
+    },
+    {
+      "slug": "en-how-deep-does-your-severance-knowledge-go",
+      "title": "Severance Quiz: Can You Ace These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-solo-leveling-knowledge-go",
+      "title": "Solo Leveling Quiz: Can You Clear These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-spider-verse-knowledge-go",
+      "title": "Spider-Verse Quiz: Test Your Multiverse Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-spy-x-family-knowledge-go",
+      "title": "Spy x Family Quiz: How Well Do You Know the Forgers?"
+    },
+    {
+      "slug": "en-how-deep-does-your-squid-game-knowledge-go",
+      "title": "Squid Game Quiz: Could You Survive These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-star-wars-knowledge-go",
+      "title": "Star Wars Quiz: Test Your Knowledge of the Galaxy"
+    },
+    {
+      "slug": "en-how-deep-does-your-starfield-knowledge-go",
+      "title": "Starfield: 8 Questions Only True Explorers Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-stranger-things-knowledge-go",
+      "title": "Stranger Things Quiz: How Well Do You Know Hawkins?"
+    },
+    {
+      "slug": "en-how-deep-does-your-taylor-swift-knowledge-go",
+      "title": "Taylor Swift: 8 Questions Only True Swifties Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-that-time-i-got-reincarnated-as-a-slime-knowledge-",
+      "title": "That Time I Got Reincarnated as a Slime: 8 Trivia Questions"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-bear-knowledge-go",
+      "title": "The Bear Trivia: 8 Questions from the Kitchen"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-boys-knowledge-go",
+      "title": "The Boys Quiz: How Well Do You Know the Seven?"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-last-of-us-knowledge-go",
+      "title": "The Last of Us: 8 Questions Only Survivors Answer"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-legend-of-zelda-knowledge-go",
+      "title": "The Legend of Zelda Quiz: Test Your Hyrule Knowledge"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-mummy-knowledge-go",
+      "title": "The Mummy Trivia: 8 Questions on the 1999 Classic"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-super-mario-galaxy-movie-knowledge-go",
+      "title": "The Super Mario Galaxy Movie: 8 Questions for Fans"
+    },
+    {
+      "slug": "en-how-deep-does-your-the-white-lotus-knowledge-go",
+      "title": "The White Lotus Quiz: How Well Do You Know the Guests?"
+    },
+    {
+      "slug": "en-how-deep-does-your-wednesday-knowledge-go",
+      "title": "Wednesday Trivia: Can You Solve These 8 Questions?"
+    },
+    {
+      "slug": "en-how-deep-does-your-wicked-knowledge-go",
+      "title": "Wicked Trivia: 8 Questions About Oz's Witches"
+    },
+    {
+      "slug": "en-how-deep-does-your-witch-hat-atelier-knowledge-go",
+      "title": "Witch Hat Atelier Quiz: Test Your Magic Knowledge"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-attack-on-titan",
+      "title": "Attack on Titan: el quiz que solo un fan supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-avatar",
+      "title": "Avatar: la leyenda de Aang: demuestra cuánto sabes"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-bad-bunny",
+      "title": "Bad Bunny: trivia de 8 preguntas para fans de verdad"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-baldur-s-gate-3",
+      "title": "Baldur's Gate 3: demuestra cuánto sabes del juego"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-barbie",
+      "title": "Barbie: el quiz que solo una fan de verdad supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-beef",
+      "title": "Beef: el quiz que solo un fan de la serie supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-beyonce",
+      "title": "Beyoncé: demuestra cuánto sabes de Queen Bey"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-bridgerton",
+      "title": "Bridgerton: ¿cuánto sabes de la alta sociedad?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-chainsaw-man",
+      "title": "Chainsaw Man: 8 preguntas para cazadores de demonios"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-chappell-roan",
+      "title": "Chappell Roan: demuestra cuánto sabes de su música"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite",
+      "title": "Classroom of the Elite: ¿cuánto sabes de verdad?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-demon-slayer",
+      "title": "Demon Slayer: 8 preguntas que solo un pilar responde"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-dr-stone",
+      "title": "Dr. Stone: demuestra cuánto sabes con 8 preguntas"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-dune",
+      "title": "Dune: el quiz que solo un fan de Arrakis supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-el-juego-del-calamar",
+      "title": "El Juego del Calamar: ¿sobrevivirías a estas 8 preguntas?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-elden-ring",
+      "title": "Elden Ring: pon a prueba tu conocimiento, Sinluz"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-euphoria",
+      "title": "Euphoria: pon a prueba tu conocimiento de la serie"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-frieren",
+      "title": "Frieren: el quiz que solo un fan del anime supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-grand-theft-auto-vi",
+      "title": "Grand Theft Auto VI: ¿cuánto sabes del juego?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-hacks",
+      "title": "Hacks: el quiz que solo un fan de Deborah Vance supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-hades-ii",
+      "title": "Hades II: trivia de 8 preguntas para fans de verdad"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-harry-potter",
+      "title": "Harry Potter: trivia de 8 preguntas sobre Hogwarts"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-invincible",
+      "title": "Invincible: el quiz que solo un fan supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-jujutsu-kaisen",
+      "title": "Jujutsu Kaisen: 8 preguntas para fans del anime"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-k-pop",
+      "title": "K-pop: ¿cuánto sabes de tus grupos favoritos?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-marvel",
+      "title": "Marvel: pon a prueba lo que sabes de héroes y villanos"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-merlina",
+      "title": "Merlina: 8 preguntas que solo un fan responde"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-minecraft",
+      "title": "Minecraft: trivia de 8 preguntas para expertos"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-naruto",
+      "title": "Naruto: pon a prueba tu conocimiento ninja"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-nintendo-switch-2",
+      "title": "Nintendo Switch 2: ¿cuánto sabes de la consola?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-one-piece",
+      "title": "One Piece: trivia de 8 preguntas para nakamas"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-oppenheimer",
+      "title": "Oppenheimer: ¿cuánto sabes del hombre y la bomba?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-pokemon",
+      "title": "Pokémon: trivia de 8 preguntas para maestros"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-project-hail-mary",
+      "title": "Proyecto Hail Mary: ¿cuánto sabes de la novela?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-re-zero",
+      "title": "Re:ZERO: pon a prueba lo que sabes del anime"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-resident-evil",
+      "title": "Resident Evil: pon a prueba tu conocimiento"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-sabrina-carpenter",
+      "title": "Sabrina Carpenter: el quiz que solo una fan supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-severance",
+      "title": "Severance: demuestra cuánto sabes de Lumon"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-solo-leveling",
+      "title": "Solo Leveling: pon a prueba tu rango de cazador"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-spider-verse",
+      "title": "Spider-Verse: 8 preguntas a través del multiverso"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-spy-x-family",
+      "title": "Spy x Family: ¿cuánto sabes de los Forger?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-star-wars",
+      "title": "Star Wars: trivia de 8 preguntas para fans de verdad"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-starfield",
+      "title": "Starfield: demuestra cuánto sabes con 8 preguntas"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-stranger-things",
+      "title": "Stranger Things: ¿cuánto sabes de Hawkins?"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-taylor-swift",
+      "title": "Taylor Swift: el quiz que solo una swiftie supera"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-that-time-i-got-reincarnate",
+      "title": "That Time I Got Reincarnated as a Slime: 8 preguntas"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-bear",
+      "title": "The Bear: trivia de 8 preguntas desde la cocina"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-boys",
+      "title": "The Boys: 8 preguntas que solo un fan responde"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-last-of-us",
+      "title": "The Last of Us: 8 preguntas para sobrevivientes"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-legend-of-zelda",
+      "title": "The Legend of Zelda: pon a prueba tu conocimiento"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-mummy",
+      "title": "La Momia: 8 preguntas sobre la película de 1999"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-super-mario-galaxy-movi",
+      "title": "The Super Mario Galaxy Movie: trivia en 8 preguntas"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-the-white-lotus",
+      "title": "The White Lotus: demuestra cuánto sabes de la serie"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-wicked",
+      "title": "Wicked: trivia de 8 preguntas sobre las brujas de Oz"
+    },
+    {
+      "slug": "es-que-tan-profundo-llega-tu-conocimiento-de-witch-hat-atelier",
+      "title": "Atelier of Witch Hat: pon a prueba lo que sabes del manga"
+    }
+  ]
+}
