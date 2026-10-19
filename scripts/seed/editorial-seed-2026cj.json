@@ -216,14 +216,14 @@
       "questions": [
         {
           "id": "q1",
-          "question": "Counting overseas territories, how many time zones does France span, more than any other country?",
+          "question": "Counting overseas territories, how many standard time zones does France span, more than any other country?",
           "options": [
             { "id": "a", "text": "Five", "is_correct": false },
             { "id": "b", "text": "Eight", "is_correct": false },
             { "id": "c", "text": "Twelve", "is_correct": true },
             { "id": "d", "text": "Fifteen", "is_correct": false }
           ],
-          "explanation": "From Polynesia to the Caribbean, French territories spread across 12 time zones."
+          "explanation": "From Polynesia to the Caribbean, French territories spread across 12 standard time zones, 13 during daylight saving time."
         },
         {
           "id": "q2",
@@ -317,14 +317,14 @@
       "questions": [
         {
           "id": "q1",
-          "question": "Contando sus territorios de ultramar, ¿por cuántos husos horarios se extiende Francia, más que ningún otro país?",
+          "question": "Contando sus territorios de ultramar, ¿por cuántos husos horarios estándar se extiende Francia, más que ningún otro país?",
           "options": [
             { "id": "a", "text": "Cinco", "is_correct": false },
             { "id": "b", "text": "Ocho", "is_correct": false },
             { "id": "c", "text": "Doce", "is_correct": true },
             { "id": "d", "text": "Quince", "is_correct": false }
           ],
-          "explanation": "De la Polinesia al Caribe, los territorios franceses se reparten en 12 husos horarios."
+          "explanation": "De la Polinesia al Caribe, los territorios franceses se reparten en 12 husos horarios estándar, 13 durante el horario de verano."
         },
         {
           "id": "q2",
@@ -495,14 +495,14 @@
         },
         {
           "id": "q8",
-          "question": "If you have 3 apples and you take away 2, how many apples do you have?",
+          "question": "There are 3 apples on a table and you take 2. How many apples do you have?",
           "options": [
             { "id": "a", "text": "One", "is_correct": false },
             { "id": "b", "text": "Three", "is_correct": false },
             { "id": "c", "text": "Zero", "is_correct": false },
             { "id": "d", "text": "Two", "is_correct": true }
           ],
-          "explanation": "You keep the 2 you took; the 3 apples belonged to the scene, not necessarily to you."
+          "explanation": "You have the 2 you took; the one left on the table stays behind."
         }
       ]
     },
@@ -596,14 +596,14 @@
         },
         {
           "id": "q8",
-          "question": "Si tienes 3 manzanas y tomas 2, ¿cuántas manzanas tienes?",
+          "question": "Hay 3 manzanas sobre la mesa y tomas 2. ¿Cuántas manzanas tienes?",
           "options": [
             { "id": "a", "text": "Una", "is_correct": false },
             { "id": "b", "text": "Tres", "is_correct": false },
             { "id": "c", "text": "Cero", "is_correct": false },
             { "id": "d", "text": "Dos", "is_correct": true }
           ],
-          "explanation": "Te quedas con las 2 que tomaste; las 3 manzanas eran de la escena, no necesariamente tuyas."
+          "explanation": "Tienes las 2 que tomaste; la que queda sobre la mesa no es tuya."
         }
       ]
     },
@@ -896,7 +896,7 @@
         },
         {
           "id": "q7",
-          "question": "In which continent is Egypt located?",
+          "question": "In which continent is most of Egypt located?",
           "options": [
             { "id": "a", "text": "Asia", "is_correct": false },
             { "id": "b", "text": "Africa", "is_correct": true },
@@ -997,7 +997,7 @@
         },
         {
           "id": "q7",
-          "question": "¿En qué continente se encuentra Egipto?",
+          "question": "¿En qué continente se encuentra la mayor parte de Egipto?",
           "options": [
             { "id": "a", "text": "Asia", "is_correct": false },
             { "id": "b", "text": "África", "is_correct": true },
