@@ -19,7 +19,7 @@ const dbUrl = process.env.SUPABASE_DB_URL;
 if (!dbUrl) {
   console.error('Falta SUPABASE_DB_URL en .env.local.');
   console.error(
-    'Se obtiene en Supabase Dashboard → Connect → connection string (URI, con la contraseña de la base).',
+    'Se obtiene en Supabase Dashboard → Connect → connection string (URI, con la contraseña de la base).'
   );
   console.error('Sin esa variable este script no toca ninguna base remota.');
   process.exit(1);
@@ -32,18 +32,8 @@ if (!dbUrl.startsWith('postgres')) {
 
 const result = spawnSync(
   'npx',
-  [
-    '-y',
-    'supabase@latest',
-    'db',
-    'push',
-    '--db-url',
-    dbUrl,
-    '--yes',
-    '--workdir',
-    rootDir,
-  ],
-  { stdio: 'inherit', cwd: rootDir },
+  ['-y', 'supabase@latest', 'db', 'push', '--db-url', dbUrl, '--yes', '--workdir', rootDir],
+  { stdio: 'inherit', cwd: rootDir }
 );
 
 if (result.error) {
