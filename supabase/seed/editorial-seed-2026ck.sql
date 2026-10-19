@@ -199,7 +199,7 @@ insert into public.quizzes
 values (
   'en-american-revolution-trivia',
   'American Revolution Trivia: 1776 to Yorktown',
-  'Eight questions on the American Revolution: the Boston Tea Party, the Declaration of Independence, Valley Forge and victory at Yorktown.',
+  'Eight questions on the American Revolution: the Boston Tea Party, the Declaration of Independence, Saratoga and victory at Yorktown.',
   'trivia',
   'medium',
   'en',
@@ -222,7 +222,7 @@ insert into public.quizzes
 values (
   'es-trivia-independencia-de-estados-unidos',
   'Trivia de la Independencia de EE. UU.: 1776 a Yorktown',
-  'Ocho preguntas sobre la independencia de Estados Unidos: el Motín del Té, la Declaración de 1776, Valley Forge y la victoria en Yorktown.',
+  'Ocho preguntas sobre la independencia de Estados Unidos: el Motín del Té, la Declaración de 1776, Saratoga y la victoria en Yorktown.',
   'trivia',
   'medium',
   'es',
