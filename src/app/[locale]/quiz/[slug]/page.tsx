@@ -47,6 +47,10 @@ export async function generateMetadata({
     image: quizOgImage(locale, quiz.slug),
     imageAlt: quiz.title,
     locale,
+    type: 'article',
+    publishedTime: quiz.published_at,
+    modifiedTime: quiz.updated_at,
+    keywords: quiz.tags.slice(0, 8),
   });
 }
 

@@ -92,6 +92,7 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
     is_featured: false,
     is_ai_generated: false,
     published_at: '2026-05-21T00:00:00.000Z',
+    updated_at: '2026-05-21T00:00:00.000Z',
     created_at: '2026-05-21T00:00:00.000Z',
     ...overrides,
   };

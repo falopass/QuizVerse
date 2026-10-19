@@ -29,6 +29,7 @@ const quiz: Quiz = {
   is_featured: false,
   is_ai_generated: false,
   published_at: '2026-05-21T02:58:55.027Z',
+  updated_at: '2026-05-21T02:58:55.027Z',
   created_at: '2026-05-21T02:58:55.027Z',
 };
 
