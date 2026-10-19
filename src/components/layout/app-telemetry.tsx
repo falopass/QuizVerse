@@ -19,6 +19,23 @@ export function AppTelemetry() {
   }, [pathname]);
 
   React.useEffect(() => {
+    const handleConsent = (event: Event) => {
+      if ((event as CustomEvent<{ level?: string }>).detail?.level !== 'all') return;
+      if (!pathname) return;
+
+      const locale = pathname.split('/')[1];
+      void trackEvent({
+        name: 'page_view',
+        path: pathname,
+        locale: locale === 'es' || locale === 'en' ? locale : undefined,
+      });
+    };
+
+    window.addEventListener('quizverse:consent', handleConsent);
+    return () => window.removeEventListener('quizverse:consent', handleConsent);
+  }, [pathname]);
+
+  React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {
       void reportClientError({
         message: event.message || 'Unknown window error',

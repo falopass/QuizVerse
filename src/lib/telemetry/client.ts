@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from '@/components/shared/cookie-consent';
+
 export type TelemetryEventName =
   | 'page_view'
   | 'locale_switch'
@@ -21,6 +23,7 @@ export interface TelemetryEventPayload {
 }
 
 export async function trackEvent(payload: TelemetryEventPayload) {
+  if (!hasAnalyticsConsent()) return;
   try {
     await fetch('/api/analytics', {
       method: 'POST',

@@ -31,6 +31,7 @@ function getStoredConsent(): ConsentState | null {
 function storeConsent(level: ConsentLevel) {
   const state: ConsentState = { level, version: CONSENT_VERSION, timestamp: Date.now() };
   localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
+  window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level } }));
 }
 
 export function getConsentLevel(): ConsentLevel {
@@ -72,15 +73,11 @@ export function CookieConsentBanner() {
   const acceptAll = useCallback(() => {
     storeConsent('all');
     setVisible(false);
-    window.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { level: 'all' } }));
   }, []);
 
   const acceptEssential = useCallback(() => {
     storeConsent('essential');
     setVisible(false);
-    window.dispatchEvent(
-      new CustomEvent('cookie-consent-changed', { detail: { level: 'essential' } })
-    );
   }, []);
 
   return (
