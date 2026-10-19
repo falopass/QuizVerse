@@ -235,9 +235,7 @@ describe('getFeaturedQuizzes', () => {
 
     const quizzes = await getFeaturedQuizzes(4, 'es');
     expect(quizzes).toHaveLength(1);
-    expect(db.calls).toContain(
-      'quizzes(*) eq:status=published eq:is_featured=true eq:language=es'
-    );
+    expect(db.calls).toContain('quizzes(*) eq:status=published eq:is_featured=true eq:language=es');
   });
 
   it('falls back to featured launch quizzes filtered by locale on error', async () => {
