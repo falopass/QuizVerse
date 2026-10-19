@@ -35,9 +35,11 @@ vi.mock('@/components/quiz/quiz-comments', () => ({
 
 import { QuizDetailPage } from '@/components/home/quiz-detail-page';
 
+// El nombre almacenado viaja en inglés: la ficha lo localiza por slug
+// (`localizeCategory`), así `es` muestra «Cine y televisión» y `en` lo deja tal cual.
 const MOVIES: Category = {
   id: 'cat-movies',
-  name: 'Cine y televisión',
+  name: 'Movies & TV',
   slug: 'movies-tv',
   description: null,
   icon: null,
@@ -120,9 +122,9 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   };
 }
 
-async function renderDetail(locale: string, quiz: Quiz | null) {
+async function renderDetail(locale: string, quiz: Quiz | null, related: Quiz[] = []) {
   dbMocks.getQuizBySlug.mockResolvedValue(quiz);
-  dbMocks.getRelatedQuizzes.mockResolvedValue([]);
+  dbMocks.getRelatedQuizzes.mockResolvedValue(related);
   return render(
     await QuizDetailPage({
       params: Promise.resolve({ locale, slug: 'movies-trivia' }),
@@ -175,6 +177,17 @@ describe('QuizDetailPage · render SEO', () => {
     );
   });
 
+  it('enlaza los quizzes relacionados a su propia ficha', async () => {
+    await renderDetail('es', makeQuiz(), [
+      makeQuiz({ id: 'rel-1', slug: 'sequel-trivia', title: 'Sequel Trivia' }),
+    ]);
+
+    expect(screen.getByRole('link', { name: /Sequel Trivia/ })).toHaveAttribute(
+      'href',
+      '/es/quiz/sequel-trivia'
+    );
+  });
+
   it('«Dentro del quiz» lista solo las 3 primeras preguntas y no fuga is_correct', async () => {
     const { container } = await renderDetail('es', makeQuiz());
 
@@ -196,7 +209,8 @@ describe('QuizDetailPage · render SEO', () => {
 
     expect(screen.getByRole('heading', { name: 'Inside the quiz' })).toBeInTheDocument();
     expect(screen.getByText('Category')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /See all Cine y televisión quizzes/ })).toHaveAttribute(
+    // En `en` la categoría conserva el nombre almacenado («Movies & TV»).
+    expect(screen.getByRole('link', { name: /See all Movies & TV quizzes/ })).toHaveAttribute(
       'href',
       '/en/category/movies-tv'
     );
