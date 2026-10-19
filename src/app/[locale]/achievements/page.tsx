@@ -56,9 +56,7 @@ export default async function LocalizedAchievementsPage({
 
   const es = locale === 'es';
   const unlocked = (data ?? []).flatMap((row) => {
-    const achievement = Array.isArray(row.achievements)
-      ? row.achievements[0]
-      : row.achievements;
+    const achievement = Array.isArray(row.achievements) ? row.achievements[0] : row.achievements;
     return achievement ? [{ ...achievement, unlocked_at: row.unlocked_at }] : [];
   });
 
