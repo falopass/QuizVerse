@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
 const SCRIPT = join(__dirname, '..', 'scripts', 'seed', 'emit-editorial-seed.mjs');
 const SEED_PATH = join(__dirname, '..', 'scripts', 'seed', 'editorial-seed-personality.json');
@@ -69,6 +70,9 @@ describe('editorial-seed-personality', () => {
       expect(es!.language).toBe('es');
       expect(en!.category).toBe(category);
       expect(es!.category).toBe(category);
+      // Sin entrada en el mapa de locales, el switcher y los hreflang caen a home.
+      expect(getEquivalentQuizSlug(enSlug, 'es'), enSlug).toBe(esSlug);
+      expect(getEquivalentQuizSlug(esSlug, 'en'), esSlug).toBe(enSlug);
     }
   });
 
