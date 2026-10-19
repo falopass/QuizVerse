@@ -35,7 +35,11 @@ const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-robotics-trivia', 'es-trivia-robotica', 'technology'],
   ['en-smartphone-history-trivia', 'es-trivia-historia-del-smartphone', 'technology'],
   ['en-social-media-trivia', 'es-trivia-redes-sociales', 'technology'],
-  ['en-gadgets-that-changed-the-world-trivia', 'es-trivia-gadgets-que-cambiaron-el-mundo', 'technology'],
+  [
+    'en-gadgets-that-changed-the-world-trivia',
+    'es-trivia-gadgets-que-cambiaron-el-mundo',
+    'technology',
+  ],
 ];
 
 const VOSEO =

@@ -74,7 +74,11 @@
             { "id": "a", "text": "'Attention Is All You Need'", "is_correct": true },
             { "id": "b", "text": "'Generative Adversarial Nets'", "is_correct": false },
             { "id": "c", "text": "'ImageNet Classification with Deep CNNs'", "is_correct": false },
-            { "id": "d", "text": "'Playing Atari with Deep Reinforcement Learning'", "is_correct": false }
+            {
+              "id": "d",
+              "text": "'Playing Atari with Deep Reinforcement Learning'",
+              "is_correct": false
+            }
           ],
           "explanation": "Eight Google researchers proposed the transformer, the basis of GPT and other language models."
         },
@@ -93,10 +97,22 @@
           "id": "q8",
           "question": "Which three researchers shared the 2018 Turing Award for their work on deep learning?",
           "options": [
-            { "id": "a", "text": "Demis Hassabis, Shane Legg and Mustafa Suleyman", "is_correct": false },
-            { "id": "b", "text": "Geoffrey Hinton, Yann LeCun and Yoshua Bengio", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Demis Hassabis, Shane Legg and Mustafa Suleyman",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Geoffrey Hinton, Yann LeCun and Yoshua Bengio",
+              "is_correct": true
+            },
             { "id": "c", "text": "Fei-Fei Li, Andrew Ng and Sebastian Thrun", "is_correct": false },
-            { "id": "d", "text": "Sam Altman, Greg Brockman and Ilya Sutskever", "is_correct": false }
+            {
+              "id": "d",
+              "text": "Sam Altman, Greg Brockman and Ilya Sutskever",
+              "is_correct": false
+            }
           ],
           "explanation": "The ACM honoured the trio sometimes called the 'godfathers of deep learning'."
         }
@@ -175,7 +191,11 @@
             { "id": "a", "text": "'Attention Is All You Need'", "is_correct": true },
             { "id": "b", "text": "'Generative Adversarial Nets'", "is_correct": false },
             { "id": "c", "text": "'ImageNet Classification with Deep CNNs'", "is_correct": false },
-            { "id": "d", "text": "'Playing Atari with Deep Reinforcement Learning'", "is_correct": false }
+            {
+              "id": "d",
+              "text": "'Playing Atari with Deep Reinforcement Learning'",
+              "is_correct": false
+            }
           ],
           "explanation": "Ocho investigadores de Google propusieron el transformer, la base de GPT y otros modelos de lenguaje."
         },
@@ -194,8 +214,16 @@
           "id": "q8",
           "question": "¿Qué tres investigadores compartieron el Premio Turing 2018 por el aprendizaje profundo?",
           "options": [
-            { "id": "a", "text": "Demis Hassabis, Shane Legg y Mustafa Suleyman", "is_correct": false },
-            { "id": "b", "text": "Geoffrey Hinton, Yann LeCun y Yoshua Bengio", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Demis Hassabis, Shane Legg y Mustafa Suleyman",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Geoffrey Hinton, Yann LeCun y Yoshua Bengio",
+              "is_correct": true
+            },
             { "id": "c", "text": "Fei-Fei Li, Andrew Ng y Sebastian Thrun", "is_correct": false },
             { "id": "d", "text": "Sam Altman, Greg Brockman e Ilya Sutskever", "is_correct": false }
           ],
@@ -498,7 +526,11 @@
           "question": "What did Steve Jobs say the iPhone combined when he unveiled it in 2007?",
           "options": [
             { "id": "a", "text": "A phone, a camera and a GPS", "is_correct": false },
-            { "id": "b", "text": "An iPod, a phone and an internet communicator", "is_correct": true },
+            {
+              "id": "b",
+              "text": "An iPod, a phone and an internet communicator",
+              "is_correct": true
+            },
             { "id": "c", "text": "A computer, a pager and a fax", "is_correct": false },
             { "id": "d", "text": "A browser, a music player and a camera", "is_correct": false }
           ],
@@ -599,9 +631,17 @@
           "question": "¿Qué tres dispositivos dijo Steve Jobs que combinaba el iPhone al presentarlo en 2007?",
           "options": [
             { "id": "a", "text": "Un teléfono, una cámara y un GPS", "is_correct": false },
-            { "id": "b", "text": "Un iPod, un teléfono y un comunicador de internet", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Un iPod, un teléfono y un comunicador de internet",
+              "is_correct": true
+            },
             { "id": "c", "text": "Una computadora, un busca y un fax", "is_correct": false },
-            { "id": "d", "text": "Un navegador, un reproductor de música y una cámara", "is_correct": false }
+            {
+              "id": "d",
+              "text": "Un navegador, un reproductor de música y una cámara",
+              "is_correct": false
+            }
           ],
           "explanation": "'Un iPod, un teléfono y un comunicador de internet' fue el famoso anuncio del tres en uno."
         }
