@@ -96,7 +96,9 @@ describe('editorial-seed-2026ao', () => {
         expect(question.options.length, `${quiz.slug} ${question.id}`).toBeLessThanOrEqual(6);
         const correct = question.options.filter((option) => option.is_correct === true);
         expect(correct, `${quiz.slug} ${question.id}`).toHaveLength(1);
-        expect(question.explanation?.trim().length, `${quiz.slug} ${question.id}`).toBeGreaterThan(0);
+        expect(question.explanation?.trim().length, `${quiz.slug} ${question.id}`).toBeGreaterThan(
+          0
+        );
       }
     }
   });
