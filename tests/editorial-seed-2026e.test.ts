@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
 const SCRIPT = join(__dirname, '..', 'scripts', 'seed', 'emit-editorial-seed.mjs');
 const SEED_PATH = join(__dirname, '..', 'scripts', 'seed', 'editorial-seed-2026e.json');
@@ -73,6 +74,9 @@ describe('editorial-seed-2026e', () => {
     });
     expect(stdout).toContain('insert into public.quizzes');
     expect(stdout).toContain('on conflict (slug) do nothing');
+    // Personality quizzes without results never resolve an outcome; the
+    // emitter must write them, not null.
+    expect(stdout).toContain('"personality_tag":"');
   });
 
   it('tiene exactamente los 5 pares es/en por tema', () => {
@@ -90,6 +94,9 @@ describe('editorial-seed-2026e', () => {
       expect(esSlug.startsWith('es-')).toBe(true);
       expect(en!.category).toBe(category);
       expect(es!.category).toBe(category);
+      // Sin entrada en el mapa de locales, el switcher y los hreflang caen a home.
+      expect(getEquivalentQuizSlug(enSlug, 'es'), enSlug).toBe(esSlug);
+      expect(getEquivalentQuizSlug(esSlug, 'en'), esSlug).toBe(enSlug);
     }
   });
 

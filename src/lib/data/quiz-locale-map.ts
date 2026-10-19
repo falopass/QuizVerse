@@ -132,11 +132,14 @@ const EN_TO_ES: Record<string, string> = {
   'en-the-white-lotus-fan-trivia-challenge': 'es-trivia-fan-de-the-white-lotus',
   'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-merlina',
   // Pares del seed editorial (scripts/seed/editorial-seed-personality.json), mantenidos a mano.
+  'en-what-animal-are-you': 'es-que-animal-eres',
+  'en-what-career-suits-you': 'es-que-carrera-es-para-ti',
   'en-what-is-your-ideal-weekend': 'es-cual-es-tu-fin-de-semana-ideal',
   'en-what-is-your-learning-style': 'es-cual-es-tu-estilo-de-aprendizaje',
   'en-what-is-your-work-style': 'es-cual-es-tu-estilo-de-trabajo',
   'en-what-kind-of-friend-are-you': 'es-que-tipo-de-amigo-eres',
   'en-what-kind-of-traveler-are-you': 'es-que-tipo-de-viajero-eres',
+  'en-what-natural-element-are-you': 'es-que-elemento-natural-eres',
   'en-what-role-would-you-play-inside-attack-on-titan':
     'es-que-rol-jugarias-dentro-de-attack-on-titan',
   'en-what-role-would-you-play-inside-avatar': 'es-que-rol-jugarias-dentro-de-avatar',
@@ -266,6 +269,8 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-energia-de-witch-hat-atelier-combina-mejor-contigo',
   'en-wicked-fan-trivia-challenge': 'es-trivia-fan-de-wicked',
   'en-witch-hat-atelier-fan-trivia-challenge': 'es-trivia-fan-de-witch-hat-atelier',
+  'en-your-intelligence-type': 'es-cual-es-tu-tipo-de-inteligencia',
+  'en-your-mental-age': 'es-cual-es-tu-edad-mental',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
