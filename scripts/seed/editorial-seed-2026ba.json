@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial seed 2026ba: five es/en trivia pairs on awards and film festivals (Cannes, Venice, Berlin and San Sebastián, Grammy, Emmy, Golden Globes, historic award-show moments). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-film-festivals-trivia",
+      "title": "Film Festivals Trivia: Cannes, Venice and the Golden Palms",
+      "description": "Eight questions on the great film festivals: Cannes, Venice, Berlin and San Sebastián, their founding years and their top prizes.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["film festivals", "trivia", "cannes", "cinema", "awards"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which film festival, held on the Lido, is the oldest in the world?",
+          "options": [
+            { "id": "a", "text": "Cannes", "is_correct": false },
+            { "id": "b", "text": "Venice", "is_correct": true },
+            { "id": "c", "text": "Berlin", "is_correct": false },
+            { "id": "d", "text": "Sundance", "is_correct": false }
+          ],
+          "explanation": "The Venice Film Festival was founded in 1932, making it the oldest film festival in the world."
+        },
+        {
+          "id": "q2",
+          "question": "In which year was the Cannes Film Festival first held?",
+          "options": [
+            { "id": "a", "text": "1939", "is_correct": false },
+            { "id": "b", "text": "1946", "is_correct": true },
+            { "id": "c", "text": "1951", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": false }
+          ],
+          "explanation": "A first Cannes festival was planned for 1939 but cancelled when war broke out; it finally opened in 1946."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of the top prize at the Cannes Film Festival?",
+          "options": [
+            { "id": "a", "text": "Golden Lion", "is_correct": false },
+            { "id": "b", "text": "Golden Bear", "is_correct": false },
+            { "id": "c", "text": "Palme d'Or", "is_correct": true },
+            { "id": "d", "text": "Golden Shell", "is_correct": false }
+          ],
+          "explanation": "The Palme d'Or has been the top prize at Cannes since 1955."
+        },
+        {
+          "id": "q4",
+          "question": "The Golden Lion is the top prize of which festival?",
+          "options": [
+            { "id": "a", "text": "Venice", "is_correct": true },
+            { "id": "b", "text": "Berlin", "is_correct": false },
+            { "id": "c", "text": "Locarno", "is_correct": false },
+            { "id": "d", "text": "Cannes", "is_correct": false }
+          ],
+          "explanation": "The Golden Lion has crowned the best film at Venice since 1949."
+        },
+        {
+          "id": "q5",
+          "question": "In which year was the Berlin International Film Festival, the Berlinale, founded?",
+          "options": [
+            { "id": "a", "text": "1946", "is_correct": false },
+            { "id": "b", "text": "1951", "is_correct": true },
+            { "id": "c", "text": "1959", "is_correct": false },
+            { "id": "d", "text": "1968", "is_correct": false }
+          ],
+          "explanation": "The Berlinale was founded in 1951, in the middle of the Cold War, as a showcase for world cinema."
+        },
+        {
+          "id": "q6",
+          "question": "Which award does the Berlinale give to its best film?",
+          "options": [
+            { "id": "a", "text": "Palme d'Or", "is_correct": false },
+            { "id": "b", "text": "Golden Shell", "is_correct": false },
+            { "id": "c", "text": "Caméra d'Or", "is_correct": false },
+            { "id": "d", "text": "Golden Bear", "is_correct": true }
+          ],
+          "explanation": "The Golden Bear nods to the bear on the coat of arms of Berlin."
+        },
+        {
+          "id": "q7",
+          "question": "Which Spanish festival, founded in 1953, awards the Golden Shell?",
+          "options": [
+            { "id": "a", "text": "San Sebastián", "is_correct": true },
+            { "id": "b", "text": "Málaga", "is_correct": false },
+            { "id": "c", "text": "Valladolid", "is_correct": false },
+            { "id": "d", "text": "Sitges", "is_correct": false }
+          ],
+          "explanation": "The San Sebastián festival's top prize is the Concha de Oro, named after La Concha bay."
+        },
+        {
+          "id": "q8",
+          "question": "On which famous boulevard does the Cannes festival take place?",
+          "options": [
+            { "id": "a", "text": "Champs-Élysées", "is_correct": false },
+            { "id": "b", "text": "Via Veneto", "is_correct": false },
+            { "id": "c", "text": "La Croisette", "is_correct": true },
+            { "id": "d", "text": "Hollywood Boulevard", "is_correct": false }
+          ],
+          "explanation": "The Palais des Festivals stands on La Croisette, the waterfront boulevard of Cannes."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-festivales-de-cine",
+      "title": "Trivia de festivales de cine: de Cannes a San Sebastián",
+      "description": "Ocho preguntas sobre los grandes festivales de cine: Cannes, Venecia, Berlín y San Sebastián, sus orígenes y sus premios máximos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["festivales de cine", "trivia", "cannes", "cine", "premios"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué festival de cine, celebrado en el Lido, es el más antiguo del mundo?",
+          "options": [
+            { "id": "a", "text": "Cannes", "is_correct": false },
+            { "id": "b", "text": "Venecia", "is_correct": true },
+            { "id": "c", "text": "Berlín", "is_correct": false },
+            { "id": "d", "text": "Sundance", "is_correct": false }
+          ],
+          "explanation": "El Festival de Cine de Venecia se fundó en 1932 y es el festival de cine más antiguo del mundo."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se celebró por primera vez el Festival de Cannes?",
+          "options": [
+            { "id": "a", "text": "1939", "is_correct": false },
+            { "id": "b", "text": "1946", "is_correct": true },
+            { "id": "c", "text": "1951", "is_correct": false },
+            { "id": "d", "text": "1955", "is_correct": false }
+          ],
+          "explanation": "Se planeó una primera edición para 1939, pero estalló la guerra; el festival abrió por fin en 1946."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el premio máximo del Festival de Cannes?",
+          "options": [
+            { "id": "a", "text": "León de Oro", "is_correct": false },
+            { "id": "b", "text": "Oso de Oro", "is_correct": false },
+            { "id": "c", "text": "Palma de Oro", "is_correct": true },
+            { "id": "d", "text": "Concha de Oro", "is_correct": false }
+          ],
+          "explanation": "La Palma de Oro es el premio máximo de Cannes desde 1955."
+        },
+        {
+          "id": "q4",
+          "question": "El León de Oro es el premio máximo de qué festival?",
+          "options": [
+            { "id": "a", "text": "Venecia", "is_correct": true },
+            { "id": "b", "text": "Berlín", "is_correct": false },
+            { "id": "c", "text": "Locarno", "is_correct": false },
+            { "id": "d", "text": "Cannes", "is_correct": false }
+          ],
+          "explanation": "El León de Oro corona a la mejor película de Venecia desde 1949."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué año se fundó el Festival Internacional de Cine de Berlín, la Berlinale?",
+          "options": [
+            { "id": "a", "text": "1946", "is_correct": false },
+            { "id": "b", "text": "1951", "is_correct": true },
+            { "id": "c", "text": "1959", "is_correct": false },
+            { "id": "d", "text": "1968", "is_correct": false }
+          ],
+          "explanation": "La Berlinale nació en 1951, en plena Guerra Fría, como escaparate del cine mundial."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué premio entrega la Berlinale a su mejor película?",
+          "options": [
+            { "id": "a", "text": "Palma de Oro", "is_correct": false },
+            { "id": "b", "text": "Concha de Oro", "is_correct": false },
+            { "id": "c", "text": "Cámara de Oro", "is_correct": false },
+            { "id": "d", "text": "Oso de Oro", "is_correct": true }
+          ],
+          "explanation": "El Oso de Oro alude al oso del escudo de Berlín."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué festival español, fundado en 1953, entrega la Concha de Oro?",
+          "options": [
+            { "id": "a", "text": "San Sebastián", "is_correct": true },
+            { "id": "b", "text": "Málaga", "is_correct": false },
+            { "id": "c", "text": "Valladolid", "is_correct": false },
+            { "id": "d", "text": "Sitges", "is_correct": false }
+          ],
+          "explanation": "El Festival de San Sebastián debe su Concha de Oro a la bahía de La Concha."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué famoso bulevar se celebra el Festival de Cannes?",
+          "options": [
+            { "id": "a", "text": "Campos Elíseos", "is_correct": false },
+            { "id": "b", "text": "Vía Veneto", "is_correct": false },
+            { "id": "c", "text": "La Croisette", "is_correct": true },
+            { "id": "d", "text": "Hollywood Boulevard", "is_correct": false }
+          ],
+          "explanation": "El Palacio de Festivales está sobre La Croisette, el bulevar junto al mar de Cannes."
+        }
+      ]
+    },
+    {
+      "slug": "en-grammy-awards-trivia",
+      "title": "Grammy Awards Trivia: The Night Music Made History",
+      "description": "Eight questions on the Grammy Awards: the first ceremony, the Big Four categories, the Latin Grammy and the very first winners.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["grammy", "trivia", "music awards", "recording academy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year was the first Grammy Awards ceremony held?",
+          "options": [
+            { "id": "a", "text": "1949", "is_correct": false },
+            { "id": "b", "text": "1959", "is_correct": true },
+            { "id": "c", "text": "1965", "is_correct": false },
+            { "id": "d", "text": "1973", "is_correct": false }
+          ],
+          "explanation": "The first Grammys were presented on 4 May 1959, honouring music released in 1958."
+        },
+        {
+          "id": "q2",
+          "question": "The Grammy trophy depicts which object?",
+          "options": [
+            { "id": "a", "text": "A microphone", "is_correct": false },
+            { "id": "b", "text": "A gramophone", "is_correct": true },
+            { "id": "c", "text": "A vinyl record", "is_correct": false },
+            { "id": "d", "text": "A treble clef", "is_correct": false }
+          ],
+          "explanation": "The gilded gramophone is what gives the Grammy its name."
+        },
+        {
+          "id": "q3",
+          "question": "Which organization presents the Grammy Awards?",
+          "options": [
+            { "id": "a", "text": "The Recording Academy", "is_correct": true },
+            { "id": "b", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
+            { "id": "c", "text": "The American Music Association", "is_correct": false },
+            { "id": "d", "text": "The Hollywood Foreign Press Association", "is_correct": false }
+          ],
+          "explanation": "The Recording Academy, founded in 1957, votes on and presents the Grammys."
+        },
+        {
+          "id": "q4",
+          "question": "In which year was the first Latin Grammy Awards ceremony held?",
+          "options": [
+            { "id": "a", "text": "1995", "is_correct": false },
+            { "id": "b", "text": "1998", "is_correct": false },
+            { "id": "c", "text": "2000", "is_correct": true },
+            { "id": "d", "text": "2005", "is_correct": false }
+          ],
+          "explanation": "The Latin Recording Academy held the first Latin Grammy ceremony in 2000."
+        },
+        {
+          "id": "q5",
+          "question": "Which Italian singer won the very first Grammy for Record of the Year, with «Nel Blu Dipinto Di Blu (Volare)»?",
+          "options": [
+            { "id": "a", "text": "Frank Sinatra", "is_correct": false },
+            { "id": "b", "text": "Domenico Modugno", "is_correct": true },
+            { "id": "c", "text": "Dean Martin", "is_correct": false },
+            { "id": "d", "text": "Perry Como", "is_correct": false }
+          ],
+          "explanation": "Modugno's «Volare» won both Record of the Year and Song of the Year at the first Grammys."
+        },
+        {
+          "id": "q6",
+          "question": "Album of the Year, Record of the Year, Song of the Year and which other award form the Grammys' Big Four?",
+          "options": [
+            { "id": "a", "text": "Best New Artist", "is_correct": true },
+            { "id": "b", "text": "Best Pop Vocal Album", "is_correct": false },
+            { "id": "c", "text": "Producer of the Year", "is_correct": false },
+            { "id": "d", "text": "Best Music Video", "is_correct": false }
+          ],
+          "explanation": "The four general-field categories, open to every genre, are known as the Big Four."
+        },
+        {
+          "id": "q7",
+          "question": "Who won the first Grammy for Album of the Year, for «The Music from Peter Gunn»?",
+          "options": [
+            { "id": "a", "text": "Henry Mancini", "is_correct": true },
+            { "id": "b", "text": "Frank Sinatra", "is_correct": false },
+            { "id": "c", "text": "Ella Fitzgerald", "is_correct": false },
+            { "id": "d", "text": "Nat King Cole", "is_correct": false }
+          ],
+          "explanation": "Mancini's soundtrack to the TV series Peter Gunn took the first Album of the Year."
+        },
+        {
+          "id": "q8",
+          "question": "Who was the first winner of the Grammy for Best New Artist?",
+          "options": [
+            { "id": "a", "text": "Bobby Darin", "is_correct": true },
+            { "id": "b", "text": "Elvis Presley", "is_correct": false },
+            { "id": "c", "text": "Sam Cooke", "is_correct": false },
+            { "id": "d", "text": "Connie Francis", "is_correct": false }
+          ],
+          "explanation": "Darin took the first Best New Artist award at the second Grammy ceremony, the same night «Mack the Knife» won Record of the Year."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-premios-grammy",
+      "title": "Trivia de premios Grammy: música que hizo historia",
+      "description": "Ocho preguntas sobre los premios Grammy: la primera ceremonia, las cuatro grandes categorías, el Latin Grammy y los primeros ganadores.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["grammy", "trivia", "premios musicales", "música"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se celebró la primera ceremonia de los premios Grammy?",
+          "options": [
+            { "id": "a", "text": "1949", "is_correct": false },
+            { "id": "b", "text": "1959", "is_correct": true },
+            { "id": "c", "text": "1965", "is_correct": false },
+            { "id": "d", "text": "1973", "is_correct": false }
+          ],
+          "explanation": "Los primeros Grammy se entregaron el 4 de mayo de 1959 y premiaron la música de 1958."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué objeto representa el trofeo de los Grammy?",
+          "options": [
+            { "id": "a", "text": "Un micrófono", "is_correct": false },
+            { "id": "b", "text": "Un gramófono", "is_correct": true },
+            { "id": "c", "text": "Un disco de vinilo", "is_correct": false },
+            { "id": "d", "text": "Una clave de sol", "is_correct": false }
+          ],
+          "explanation": "El gramófono dorado es lo que da nombre al premio Grammy."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué organización entrega los premios Grammy?",
+          "options": [
+            { "id": "a", "text": "La Academia de la Grabación", "is_correct": true },
+            { "id": "b", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
+            { "id": "c", "text": "La Asociación Americana de Música", "is_correct": false },
+            { "id": "d", "text": "La Asociación de la Prensa Extranjera de Hollywood", "is_correct": false }
+          ],
+          "explanation": "La Academia de la Grabación, fundada en 1957, vota y entrega los Grammy."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año se celebró la primera ceremonia del Latin Grammy?",
+          "options": [
+            { "id": "a", "text": "1995", "is_correct": false },
+            { "id": "b", "text": "1998", "is_correct": false },
+            { "id": "c", "text": "2000", "is_correct": true },
+            { "id": "d", "text": "2005", "is_correct": false }
+          ],
+          "explanation": "La Academia Latina de la Grabación celebró el primer Latin Grammy en 2000."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué cantante italiano ganó el primer Grammy a Grabación del Año con «Nel Blu Dipinto Di Blu (Volare)»?",
+          "options": [
+            { "id": "a", "text": "Frank Sinatra", "is_correct": false },
+            { "id": "b", "text": "Domenico Modugno", "is_correct": true },
+            { "id": "c", "text": "Dean Martin", "is_correct": false },
+            { "id": "d", "text": "Perry Como", "is_correct": false }
+          ],
+          "explanation": "«Volare» de Modugno ganó Grabación del Año y Canción del Año en la primera ceremonia."
+        },
+        {
+          "id": "q6",
+          "question": "Álbum del Año, Grabación del Año, Canción del Año y qué otro premio completan las cuatro categorías principales de los Grammy?",
+          "options": [
+            { "id": "a", "text": "Mejor Nuevo Artista", "is_correct": true },
+            { "id": "b", "text": "Mejor Álbum Vocal Pop", "is_correct": false },
+            { "id": "c", "text": "Productor del Año", "is_correct": false },
+            { "id": "d", "text": "Mejor Vídeo Musical", "is_correct": false }
+          ],
+          "explanation": "Las cuatro categorías del campo general, abiertas a todo género, se conocen como las cuatro grandes."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién ganó el primer Grammy a Álbum del Año por «The Music from Peter Gunn»?",
+          "options": [
+            { "id": "a", "text": "Henry Mancini", "is_correct": true },
+            { "id": "b", "text": "Frank Sinatra", "is_correct": false },
+            { "id": "c", "text": "Ella Fitzgerald", "is_correct": false },
+            { "id": "d", "text": "Nat King Cole", "is_correct": false }
+          ],
+          "explanation": "La banda sonora de Mancini para la serie Peter Gunn se llevó el primer Álbum del Año."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién fue el primer ganador del Grammy a Mejor Nuevo Artista?",
+          "options": [
+            { "id": "a", "text": "Bobby Darin", "is_correct": true },
+            { "id": "b", "text": "Elvis Presley", "is_correct": false },
+            { "id": "c", "text": "Sam Cooke", "is_correct": false },
+            { "id": "d", "text": "Connie Francis", "is_correct": false }
+          ],
+          "explanation": "Darin se llevó el primer Mejor Nuevo Artista en la segunda ceremonia, la misma noche en que «Mack the Knife» ganó Grabación del Año."
+        }
+      ]
+    },
+    {
+      "slug": "en-emmy-awards-trivia",
+      "title": "Emmy Awards Trivia: TV's Biggest Night Since 1949",
+      "description": "Eight questions on the Emmy Awards: the winged statuette, the academies behind the show, Primetime, Daytime and the International Emmy.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["emmy", "trivia", "television", "tv awards"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year were the first Emmy Awards presented?",
+          "options": [
+            { "id": "a", "text": "1949", "is_correct": true },
+            { "id": "b", "text": "1955", "is_correct": false },
+            { "id": "c", "text": "1961", "is_correct": false },
+            { "id": "d", "text": "1968", "is_correct": false }
+          ],
+          "explanation": "The first Emmys were handed out on 25 January 1949 at the Hollywood Athletic Club."
+        },
+        {
+          "id": "q2",
+          "question": "The Emmy statuette depicts a winged woman holding which object?",
+          "options": [
+            { "id": "a", "text": "A globe", "is_correct": false },
+            { "id": "b", "text": "A star", "is_correct": false },
+            { "id": "c", "text": "An atom", "is_correct": true },
+            { "id": "d", "text": "A lightning bolt", "is_correct": false }
+          ],
+          "explanation": "The winged muse holds an atom, symbolising the arts and sciences of television."
+        },
+        {
+          "id": "q3",
+          "question": "The name «Emmy» comes from «Immy», a nickname for which piece of TV technology?",
+          "options": [
+            { "id": "a", "text": "The cathode ray tube", "is_correct": false },
+            { "id": "b", "text": "The image orthicon camera tube", "is_correct": true },
+            { "id": "c", "text": "The satellite dish", "is_correct": false },
+            { "id": "d", "text": "The kinescope", "is_correct": false }
+          ],
+          "explanation": "«Immy» was slang for the image orthicon tube used in early television cameras."
+        },
+        {
+          "id": "q4",
+          "question": "Who received the very first Emmy Award in 1949?",
+          "options": [
+            { "id": "a", "text": "Milton Berle", "is_correct": false },
+            { "id": "b", "text": "Lucille Ball", "is_correct": false },
+            { "id": "c", "text": "Shirley Dinsdale", "is_correct": true },
+            { "id": "d", "text": "Ed Sullivan", "is_correct": false }
+          ],
+          "explanation": "Ventriloquist Shirley Dinsdale was named Most Outstanding Television Personality."
+        },
+        {
+          "id": "q5",
+          "question": "Which Emmy ceremony honours daytime programming like soap operas and talk shows?",
+          "options": [
+            { "id": "a", "text": "The Daytime Emmy Awards", "is_correct": true },
+            { "id": "b", "text": "The Primetime Emmy Awards", "is_correct": false },
+            { "id": "c", "text": "The Creative Arts Emmys", "is_correct": false },
+            { "id": "d", "text": "The International Emmy Awards", "is_correct": false }
+          ],
+          "explanation": "The Daytime Emmys have celebrated daytime television since 1974."
+        },
+        {
+          "id": "q6",
+          "question": "In which year were the International Emmy Awards founded?",
+          "options": [
+            { "id": "a", "text": "1959", "is_correct": false },
+            { "id": "b", "text": "1965", "is_correct": false },
+            { "id": "c", "text": "1973", "is_correct": true },
+            { "id": "d", "text": "1981", "is_correct": false }
+          ],
+          "explanation": "The International Academy created the International Emmys in 1973 for television produced outside the United States."
+        },
+        {
+          "id": "q7",
+          "question": "Which academy administers the Primetime Emmy Awards?",
+          "options": [
+            { "id": "a", "text": "The Academy of Television Arts & Sciences", "is_correct": true },
+            { "id": "b", "text": "The National Academy of Television Arts & Sciences", "is_correct": false },
+            { "id": "c", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
+            { "id": "d", "text": "The International Academy of Television Arts & Sciences", "is_correct": false }
+          ],
+          "explanation": "The Television Academy (ATAS), based in Los Angeles, runs the Primetime Emmys; NATAS handles the Daytime Emmys."
+        },
+        {
+          "id": "q8",
+          "question": "The flagship Emmy honour for a drama is called Outstanding what?",
+          "options": [
+            { "id": "a", "text": "Drama Series", "is_correct": true },
+            { "id": "b", "text": "Dramatic Production", "is_correct": false },
+            { "id": "c", "text": "Television Drama", "is_correct": false },
+            { "id": "d", "text": "Drama Program", "is_correct": false }
+          ],
+          "explanation": "Outstanding Drama Series is the flagship Emmy category for scripted drama."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-premios-emmy",
+      "title": "Trivia de premios Emmy: la gran noche de la televisión",
+      "description": "Ocho preguntas sobre los premios Emmy: la estatuilla alada, las academias detrás, el Primetime, el Daytime y el Emmy Internacional.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["emmy", "trivia", "televisión", "premios de tv"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se entregaron los primeros premios Emmy?",
+          "options": [
+            { "id": "a", "text": "1949", "is_correct": true },
+            { "id": "b", "text": "1955", "is_correct": false },
+            { "id": "c", "text": "1961", "is_correct": false },
+            { "id": "d", "text": "1968", "is_correct": false }
+          ],
+          "explanation": "Los primeros Emmy se entregaron el 25 de enero de 1949 en el Hollywood Athletic Club."
+        },
+        {
+          "id": "q2",
+          "question": "La estatuilla de los Emmy representa a una mujer alada que sostiene qué objeto?",
+          "options": [
+            { "id": "a", "text": "Un globo", "is_correct": false },
+            { "id": "b", "text": "Una estrella", "is_correct": false },
+            { "id": "c", "text": "Un átomo", "is_correct": true },
+            { "id": "d", "text": "Un rayo", "is_correct": false }
+          ],
+          "explanation": "La musa alada sostiene un átomo, símbolo de las artes y las ciencias de la televisión."
+        },
+        {
+          "id": "q3",
+          "question": "El nombre «Emmy» viene de «Immy», apodo de qué pieza de tecnología televisiva?",
+          "options": [
+            { "id": "a", "text": "El tubo de rayos catódicos", "is_correct": false },
+            { "id": "b", "text": "El tubo orticón de imagen de las cámaras", "is_correct": true },
+            { "id": "c", "text": "La antena parabólica", "is_correct": false },
+            { "id": "d", "text": "El quinescopio", "is_correct": false }
+          ],
+          "explanation": "«Immy» era el apodo del tubo orticón de imagen que usaban las primeras cámaras de televisión."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién recibió el primer premio Emmy en 1949?",
+          "options": [
+            { "id": "a", "text": "Milton Berle", "is_correct": false },
+            { "id": "b", "text": "Lucille Ball", "is_correct": false },
+            { "id": "c", "text": "Shirley Dinsdale", "is_correct": true },
+            { "id": "d", "text": "Ed Sullivan", "is_correct": false }
+          ],
+          "explanation": "La ventrílocua Shirley Dinsdale fue elegida la personalidad más destacada de la televisión."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué ceremonia de los Emmy premia la programación diurna, como telenovelas y programas de entrevistas?",
+          "options": [
+            { "id": "a", "text": "Los Daytime Emmy", "is_correct": true },
+            { "id": "b", "text": "Los Primetime Emmy", "is_correct": false },
+            { "id": "c", "text": "Los Emmy de Artes Creativas", "is_correct": false },
+            { "id": "d", "text": "Los Emmy Internacionales", "is_correct": false }
+          ],
+          "explanation": "Los Daytime Emmy celebran la televisión diurna desde 1974."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año se fundaron los premios Emmy Internacionales?",
+          "options": [
+            { "id": "a", "text": "1959", "is_correct": false },
+            { "id": "b", "text": "1965", "is_correct": false },
+            { "id": "c", "text": "1973", "is_correct": true },
+            { "id": "d", "text": "1981", "is_correct": false }
+          ],
+          "explanation": "La Academia Internacional creó los Emmy Internacionales en 1973 para la televisión producida fuera de Estados Unidos."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué academia administra los Primetime Emmy?",
+          "options": [
+            { "id": "a", "text": "La Academia de Artes y Ciencias de la Televisión", "is_correct": true },
+            { "id": "b", "text": "La Academia Nacional de Artes y Ciencias de la Televisión", "is_correct": false },
+            { "id": "c", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
+            { "id": "d", "text": "La Academia Internacional de Artes y Ciencias de la Televisión", "is_correct": false }
+          ],
+          "explanation": "La Academia de la Televisión (ATAS), con sede en Los Ángeles, gestiona los Primetime Emmy; la NATAS se ocupa de los diurnos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama la categoría de los Emmy que premia al mejor drama televisivo?",
+          "options": [
+            { "id": "a", "text": "Outstanding Drama Series", "is_correct": true },
+            { "id": "b", "text": "Outstanding Dramatic Production", "is_correct": false },
+            { "id": "c", "text": "Best Television Drama", "is_correct": false },
+            { "id": "d", "text": "Primetime Drama Award", "is_correct": false }
+          ],
+          "explanation": "«Outstanding Drama Series» es la categoría insignia de los Emmy para la ficción dramática."
+        }
+      ]
+    },
+    {
+      "slug": "en-golden-globes-trivia",
+      "title": "Golden Globes Trivia: Where Film and TV Meet",
+      "description": "Eight questions on the Golden Globes: the journalists who created them, the two genres they split and the Cecil B. DeMille Award.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["golden globes", "trivia", "film awards", "television"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year were the first Golden Globe Awards held?",
+          "options": [
+            { "id": "a", "text": "1944", "is_correct": true },
+            { "id": "b", "text": "1950", "is_correct": false },
+            { "id": "c", "text": "1956", "is_correct": false },
+            { "id": "d", "text": "1962", "is_correct": false }
+          ],
+          "explanation": "The first Golden Globes were an informal luncheon in January 1944, honouring the films of 1943."
+        },
+        {
+          "id": "q2",
+          "question": "Which association of journalists founded the Golden Globe Awards?",
+          "options": [
+            { "id": "a", "text": "The Hollywood Foreign Press Association", "is_correct": true },
+            { "id": "b", "text": "The Academy of Motion Picture Arts and Sciences", "is_correct": false },
+            { "id": "c", "text": "The Critics Choice Association", "is_correct": false },
+            { "id": "d", "text": "The Screen Actors Guild", "is_correct": false }
+          ],
+          "explanation": "The Hollywood Foreign Press Association, founded in 1943, created the awards."
+        },
+        {
+          "id": "q3",
+          "question": "The Golden Globes honour achievements in which two fields?",
+          "options": [
+            { "id": "a", "text": "Film and television", "is_correct": true },
+            { "id": "b", "text": "Film and theatre", "is_correct": false },
+            { "id": "c", "text": "Television and music", "is_correct": false },
+            { "id": "d", "text": "Film and radio", "is_correct": false }
+          ],
+          "explanation": "Unlike the Oscars or the Emmys, the Globes crown movies and television on the same night."
+        },
+        {
+          "id": "q4",
+          "question": "The Cecil B. DeMille Award, first presented in 1952, recognizes what?",
+          "options": [
+            { "id": "a", "text": "Best direction", "is_correct": false },
+            { "id": "b", "text": "A lifetime contribution to entertainment", "is_correct": true },
+            { "id": "c", "text": "The highest-grossing film", "is_correct": false },
+            { "id": "d", "text": "Best foreign film", "is_correct": false }
+          ],
+          "explanation": "The DeMille Award honours a career of outstanding contributions to the world of entertainment."
+        },
+        {
+          "id": "q5",
+          "question": "Who received the first Cecil B. DeMille Award?",
+          "options": [
+            { "id": "a", "text": "Walt Disney", "is_correct": false },
+            { "id": "b", "text": "Cecil B. DeMille", "is_correct": true },
+            { "id": "c", "text": "Louis B. Mayer", "is_correct": false },
+            { "id": "d", "text": "Darryl F. Zanuck", "is_correct": false }
+          ],
+          "explanation": "The award was named for and first given to the director Cecil B. DeMille himself."
+        },
+        {
+          "id": "q6",
+          "question": "Since 1951, the Globes have split their top film categories into Drama and which other genre?",
+          "options": [
+            { "id": "a", "text": "Musical or Comedy", "is_correct": true },
+            { "id": "b", "text": "Action", "is_correct": false },
+            { "id": "c", "text": "Horror", "is_correct": false },
+            { "id": "d", "text": "Documentary", "is_correct": false }
+          ],
+          "explanation": "Since 1951 the Globes crown separate winners for Drama and for Musical or Comedy."
+        },
+        {
+          "id": "q7",
+          "question": "At which Beverly Hills hotel has the Golden Globes ceremony long been held?",
+          "options": [
+            { "id": "a", "text": "The Beverly Wilshire", "is_correct": false },
+            { "id": "b", "text": "The Beverly Hilton", "is_correct": true },
+            { "id": "c", "text": "The Peninsula", "is_correct": false },
+            { "id": "d", "text": "The Bel-Air", "is_correct": false }
+          ],
+          "explanation": "The Beverly Hilton has hosted the Globes since 1961."
+        },
+        {
+          "id": "q8",
+          "question": "The Carol Burnett Award, established in 2019, honours lifetime achievement in which field?",
+          "options": [
+            { "id": "a", "text": "Television", "is_correct": true },
+            { "id": "b", "text": "Film direction", "is_correct": false },
+            { "id": "c", "text": "Comedy writing", "is_correct": false },
+            { "id": "d", "text": "Journalism", "is_correct": false }
+          ],
+          "explanation": "The Burnett Award is the TV counterpart of the film-focused DeMille Award; Carol Burnett was its first recipient."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-globos-de-oro",
+      "title": "Trivia de Globos de Oro: donde el cine y la TV se encuentran",
+      "description": "Ocho preguntas sobre los Globos de Oro: los periodistas que los crearon, los dos géneros que separan y el premio Cecil B. DeMille.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["globos de oro", "trivia", "premios de cine", "televisión"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se celebraron los primeros Globos de Oro?",
+          "options": [
+            { "id": "a", "text": "1944", "is_correct": true },
+            { "id": "b", "text": "1950", "is_correct": false },
+            { "id": "c", "text": "1956", "is_correct": false },
+            { "id": "d", "text": "1962", "is_correct": false }
+          ],
+          "explanation": "Los primeros Globos de Oro fueron un almuerzo informal en enero de 1944, premiando las películas de 1943."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué asociación de periodistas fundó los Globos de Oro?",
+          "options": [
+            { "id": "a", "text": "La Asociación de la Prensa Extranjera de Hollywood", "is_correct": true },
+            { "id": "b", "text": "La Academia de Artes y Ciencias Cinematográficas", "is_correct": false },
+            { "id": "c", "text": "La Asociación de Críticos", "is_correct": false },
+            { "id": "d", "text": "El Sindicato de Actores", "is_correct": false }
+          ],
+          "explanation": "La Asociación de la Prensa Extranjera de Hollywood, fundada en 1943, creó los premios."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué dos campos premian los Globos de Oro?",
+          "options": [
+            { "id": "a", "text": "Cine y televisión", "is_correct": true },
+            { "id": "b", "text": "Cine y teatro", "is_correct": false },
+            { "id": "c", "text": "Televisión y música", "is_correct": false },
+            { "id": "d", "text": "Cine y radio", "is_correct": false }
+          ],
+          "explanation": "A diferencia de los Óscar o los Emmy, los Globos coronan cine y televisión en la misma noche."
+        },
+        {
+          "id": "q4",
+          "question": "El premio Cecil B. DeMille, entregado por primera vez en 1952, reconoce qué?",
+          "options": [
+            { "id": "a", "text": "La mejor dirección", "is_correct": false },
+            { "id": "b", "text": "Una trayectoria en el mundo del espectáculo", "is_correct": true },
+            { "id": "c", "text": "La película más taquillera", "is_correct": false },
+            { "id": "d", "text": "La mejor película extranjera", "is_correct": false }
+          ],
+          "explanation": "El premio DeMille honra una carrera de contribuciones destacadas al mundo del entretenimiento."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién recibió el primer premio Cecil B. DeMille?",
+          "options": [
+            { "id": "a", "text": "Walt Disney", "is_correct": false },
+            { "id": "b", "text": "Cecil B. DeMille", "is_correct": true },
+            { "id": "c", "text": "Louis B. Mayer", "is_correct": false },
+            { "id": "d", "text": "Darryl F. Zanuck", "is_correct": false }
+          ],
+          "explanation": "El premio lleva el nombre del director Cecil B. DeMille, que fue su primer ganador."
+        },
+        {
+          "id": "q6",
+          "question": "Desde 1951, los Globos dividen sus categorías de cine en Drama y qué otro género?",
+          "options": [
+            { "id": "a", "text": "Musical o Comedia", "is_correct": true },
+            { "id": "b", "text": "Acción", "is_correct": false },
+            { "id": "c", "text": "Terror", "is_correct": false },
+            { "id": "d", "text": "Documental", "is_correct": false }
+          ],
+          "explanation": "Desde 1951 los Globos coronan ganadores distintos para Drama y para Musical o Comedia."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué hotel de Beverly Hills se ha celebrado durante décadas la ceremonia de los Globos de Oro?",
+          "options": [
+            { "id": "a", "text": "El Beverly Wilshire", "is_correct": false },
+            { "id": "b", "text": "El Beverly Hilton", "is_correct": true },
+            { "id": "c", "text": "El Peninsula", "is_correct": false },
+            { "id": "d", "text": "El Bel-Air", "is_correct": false }
+          ],
+          "explanation": "El Beverly Hilton acoge los Globos desde 1961."
+        },
+        {
+          "id": "q8",
+          "question": "El premio Carol Burnett, creado en 2019, honra una trayectoria en qué campo?",
+          "options": [
+            { "id": "a", "text": "Televisión", "is_correct": true },
+            { "id": "b", "text": "Dirección de cine", "is_correct": false },
+            { "id": "c", "text": "Guion de comedia", "is_correct": false },
+            { "id": "d", "text": "Periodismo", "is_correct": false }
+          ],
+          "explanation": "El premio Burnett es el equivalente televisivo del DeMille; la propia Carol Burnett fue la primera en recibirlo."
+        }
+      ]
+    },
+    {
+      "slug": "en-award-show-moments-trivia",
+      "title": "Award Show Moments Trivia: The Nights Everyone Remembers",
+      "description": "Eight questions on historic award-show moments: famous firsts, declined trophies and the envelope mix-up everyone still talks about.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "pop-culture",
+      "tags": ["award shows", "trivia", "oscars", "history", "pop culture"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year was the first Academy Awards ceremony held?",
+          "options": [
+            { "id": "a", "text": "1929", "is_correct": true },
+            { "id": "b", "text": "1935", "is_correct": false },
+            { "id": "c", "text": "1941", "is_correct": false },
+            { "id": "d", "text": "1948", "is_correct": false }
+          ],
+          "explanation": "The first Oscars were a private dinner at the Hollywood Roosevelt Hotel on 16 May 1929."
+        },
+        {
+          "id": "q2",
+          "question": "Who became the first African American performer to win an Oscar, for Gone with the Wind in 1940?",
+          "options": [
+            { "id": "a", "text": "Hattie McDaniel", "is_correct": true },
+            { "id": "b", "text": "Butterfly McQueen", "is_correct": false },
+            { "id": "c", "text": "Lena Horne", "is_correct": false },
+            { "id": "d", "text": "Ethel Waters", "is_correct": false }
+          ],
+          "explanation": "McDaniel won Best Supporting Actress for playing Mammy in Gone with the Wind."
+        },
+        {
+          "id": "q3",
+          "question": "In 2010, who became the first woman to win the Oscar for Best Director?",
+          "options": [
+            { "id": "a", "text": "Sofia Coppola", "is_correct": false },
+            { "id": "b", "text": "Kathryn Bigelow", "is_correct": true },
+            { "id": "c", "text": "Jane Campion", "is_correct": false },
+            { "id": "d", "text": "Chloé Zhao", "is_correct": false }
+          ],
+          "explanation": "Bigelow won for The Hurt Locker at the 82nd Academy Awards."
+        },
+        {
+          "id": "q4",
+          "question": "At the 2017 Oscars, which film was mistakenly announced as Best Picture before Moonlight was named the real winner?",
+          "options": [
+            { "id": "a", "text": "La La Land", "is_correct": true },
+            { "id": "b", "text": "Arrival", "is_correct": false },
+            { "id": "c", "text": "Manchester by the Sea", "is_correct": false },
+            { "id": "d", "text": "Fences", "is_correct": false }
+          ],
+          "explanation": "The presenters were handed the wrong envelope and read out La La Land before the error was corrected on stage."
+        },
+        {
+          "id": "q5",
+          "question": "In 1973, which actor declined his Best Actor Oscar for The Godfather?",
+          "options": [
+            { "id": "a", "text": "Al Pacino", "is_correct": false },
+            { "id": "b", "text": "Marlon Brando", "is_correct": true },
+            { "id": "c", "text": "James Caan", "is_correct": false },
+            { "id": "d", "text": "Jack Nicholson", "is_correct": false }
+          ],
+          "explanation": "Brando refused the award and sent activist Sacheen Littlefeather to speak in his place."
+        },
+        {
+          "id": "q6",
+          "question": "Who was the first Black actor to win the Oscar for Best Actor, in 1964?",
+          "options": [
+            { "id": "a", "text": "Sidney Poitier", "is_correct": true },
+            { "id": "b", "text": "Harry Belafonte", "is_correct": false },
+            { "id": "c", "text": "James Earl Jones", "is_correct": false },
+            { "id": "d", "text": "Ossie Davis", "is_correct": false }
+          ],
+          "explanation": "Poitier won for Lilies of the Field at the 36th Academy Awards."
+        },
+        {
+          "id": "q7",
+          "question": "In 2020, which film became the first non-English-language movie to win the Oscar for Best Picture?",
+          "options": [
+            { "id": "a", "text": "Roma", "is_correct": false },
+            { "id": "b", "text": "Parasite", "is_correct": true },
+            { "id": "c", "text": "Amour", "is_correct": false },
+            { "id": "d", "text": "Life Is Beautiful", "is_correct": false }
+          ],
+          "explanation": "Bong Joon-ho's Parasite won four Oscars, including Best Picture, at the 92nd ceremony."
+        },
+        {
+          "id": "q8",
+          "question": "In 2002, who became the first Black woman to win the Oscar for Best Actress?",
+          "options": [
+            { "id": "a", "text": "Whoopi Goldberg", "is_correct": false },
+            { "id": "b", "text": "Halle Berry", "is_correct": true },
+            { "id": "c", "text": "Angela Bassett", "is_correct": false },
+            { "id": "d", "text": "Viola Davis", "is_correct": false }
+          ],
+          "explanation": "Berry won for Monster's Ball at the 74th Academy Awards."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-momentos-historicos-de-premios",
+      "title": "Trivia de momentos históricos de premios: noches para recordar",
+      "description": "Ocho preguntas sobre momentos históricos de los premios: hitos, primeros ganadores y el error de sobre que nadie olvida.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "pop-culture",
+      "tags": ["premios", "trivia", "óscar", "historia", "cultura pop"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se celebró la primera ceremonia de los premios Óscar?",
+          "options": [
+            { "id": "a", "text": "1929", "is_correct": true },
+            { "id": "b", "text": "1935", "is_correct": false },
+            { "id": "c", "text": "1941", "is_correct": false },
+            { "id": "d", "text": "1948", "is_correct": false }
+          ],
+          "explanation": "Los primeros Óscar fueron una cena privada en el hotel Hollywood Roosevelt el 16 de mayo de 1929."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién fue la primera artista afroamericana en ganar un Óscar, por Lo que el viento se llevó en 1940?",
+          "options": [
+            { "id": "a", "text": "Hattie McDaniel", "is_correct": true },
+            { "id": "b", "text": "Butterfly McQueen", "is_correct": false },
+            { "id": "c", "text": "Lena Horne", "is_correct": false },
+            { "id": "d", "text": "Ethel Waters", "is_correct": false }
+          ],
+          "explanation": "McDaniel ganó el premio a Mejor Actriz de Reparto por su papel de Mammy en Lo que el viento se llevó."
+        },
+        {
+          "id": "q3",
+          "question": "En 2010, ¿quién fue la primera mujer en ganar el Óscar a Mejor Dirección?",
+          "options": [
+            { "id": "a", "text": "Sofia Coppola", "is_correct": false },
+            { "id": "b", "text": "Kathryn Bigelow", "is_correct": true },
+            { "id": "c", "text": "Jane Campion", "is_correct": false },
+            { "id": "d", "text": "Chloé Zhao", "is_correct": false }
+          ],
+          "explanation": "Bigelow ganó por «The Hurt Locker» en la 82.ª ceremonia."
+        },
+        {
+          "id": "q4",
+          "question": "En los Óscar de 2017, ¿qué película se anunció por error como Mejor Película antes de que Moonlight fuera declarada ganadora?",
+          "options": [
+            { "id": "a", "text": "La La Land", "is_correct": true },
+            { "id": "b", "text": "La llegada", "is_correct": false },
+            { "id": "c", "text": "Manchester junto al mar", "is_correct": false },
+            { "id": "d", "text": "Fences", "is_correct": false }
+          ],
+          "explanation": "Los presentadores recibieron el sobre equivocado y leyeron La La Land antes de corregir el error en el escenario."
+        },
+        {
+          "id": "q5",
+          "question": "En 1973, ¿qué actor rechazó su Óscar a Mejor Actor por El padrino?",
+          "options": [
+            { "id": "a", "text": "Al Pacino", "is_correct": false },
+            { "id": "b", "text": "Marlon Brando", "is_correct": true },
+            { "id": "c", "text": "James Caan", "is_correct": false },
+            { "id": "d", "text": "Jack Nicholson", "is_correct": false }
+          ],
+          "explanation": "Brando rechazó el premio y envió a la activista Sacheen Littlefeather a hablar en su lugar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién fue el primer actor negro en ganar el Óscar a Mejor Actor, en 1964?",
+          "options": [
+            { "id": "a", "text": "Sidney Poitier", "is_correct": true },
+            { "id": "b", "text": "Harry Belafonte", "is_correct": false },
+            { "id": "c", "text": "James Earl Jones", "is_correct": false },
+            { "id": "d", "text": "Ossie Davis", "is_correct": false }
+          ],
+          "explanation": "Poitier ganó por «Lilies of the Field» en la 36.ª ceremonia."
+        },
+        {
+          "id": "q7",
+          "question": "En 2020, ¿qué película fue la primera en idioma no inglés en ganar el Óscar a Mejor Película?",
+          "options": [
+            { "id": "a", "text": "Roma", "is_correct": false },
+            { "id": "b", "text": "Parásitos", "is_correct": true },
+            { "id": "c", "text": "Amour", "is_correct": false },
+            { "id": "d", "text": "La vida es bella", "is_correct": false }
+          ],
+          "explanation": "«Parásitos», de Bong Joon-ho, ganó cuatro Óscar, incluido el de Mejor Película, en la 92.ª ceremonia."
+        },
+        {
+          "id": "q8",
+          "question": "En 2002, ¿quién fue la primera mujer negra en ganar el Óscar a Mejor Actriz?",
+          "options": [
+            { "id": "a", "text": "Whoopi Goldberg", "is_correct": false },
+            { "id": "b", "text": "Halle Berry", "is_correct": true },
+            { "id": "c", "text": "Angela Bassett", "is_correct": false },
+            { "id": "d", "text": "Viola Davis", "is_correct": false }
+          ],
+          "explanation": "Berry ganó por «Monster's Ball» en la 74.ª ceremonia."
+        }
+      ]
+    }
+  ]
+}
