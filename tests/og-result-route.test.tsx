@@ -86,10 +86,16 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue(session);
 
     const res = await call(ogUrl('?s=share-token-1'));
+    const bytes = await expectPng(res);
 
-    await expectPng(res);
     expect(mocks.getQuizSessionByShareToken).toHaveBeenCalledWith('share-token-1');
     expect(res.headers.get('cache-control')).toContain('s-maxage=86400');
+
+    // The session must reach the card: with its score the render differs
+    // from the generic preview shown without a token.
+    const plain = await call(ogUrl());
+    const plainBytes = new Uint8Array(await plain.arrayBuffer());
+    expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
   });
 
   it('returns the base cover (never a 500) when the slug does not exist', async () => {
