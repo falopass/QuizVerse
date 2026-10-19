@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getHomePayload, getPublishedQuizzes } from '@/lib/data/public';
+import { getCategoryCounts } from '@/lib/data/category-counts';
+import { getHomePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -48,9 +49,9 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
   const dictionary = await getDictionary(locale);
-  const [payload, published] = await Promise.all([
+  const [payload, localeCounts] = await Promise.all([
     getHomePayload(locale),
-    getPublishedQuizzes(1000, locale),
+    getCategoryCounts(locale),
   ]);
   const quizzes = [
     ...new Map(
@@ -67,13 +68,6 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   ];
   const lead = quizzes[0];
   const games = quizzes.filter((quiz) => quiz.id !== lead?.id);
-  // shortcut: per-locale counts are derived from the first 1000 published
-  // quizzes; a category heavier than that gets hidden, never a dead link.
-  const localeCounts = new Map<string, number>();
-  for (const quiz of published) {
-    const slug = quiz.category?.slug;
-    if (slug) localeCounts.set(slug, (localeCounts.get(slug) ?? 0) + 1);
-  }
   const homeCategories = payload.categories
     .map((category) => ({ ...category, quiz_count: localeCounts.get(category.slug) ?? 0 }))
     .filter((category) => category.quiz_count > 0)
