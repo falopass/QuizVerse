@@ -5,6 +5,7 @@ import { join } from 'node:path';
 
 const SCRIPT = join(__dirname, '..', 'scripts', 'seed', 'emit-editorial-seed.mjs');
 const SEED_PATH = join(__dirname, '..', 'scripts', 'seed', 'editorial-seed-2026cl.json');
+const SQL_PATH = join(__dirname, '..', 'supabase', 'seed', 'editorial-seed-2026cl.sql');
 
 interface SeedOption {
   id: string;
@@ -54,6 +55,10 @@ describe('editorial-seed-2026cl', () => {
     });
     expect(stdout).toContain('insert into public.quizzes');
     expect(stdout).toContain('on conflict (slug) do nothing');
+    // The emitted SQL (stdout before the "Validated:" summary) must match the
+    // checked-in file, or the .sql drifted from the .json seed.
+    const checkedIn = readFileSync(SQL_PATH, 'utf8');
+    expect(stdout.startsWith(checkedIn), 'reemitir el .sql con --write').toBe(true);
   });
 
   it('tiene exactamente los 5 pares es/en por tema', () => {
@@ -90,6 +95,15 @@ describe('editorial-seed-2026cl', () => {
         const correct = question.options.filter((option) => option.is_correct === true);
         expect(correct, `${quiz.slug} ${question.id}`).toHaveLength(1);
       }
+    }
+  });
+
+  it('la opción correcta varía de posición dentro de cada quiz', () => {
+    for (const quiz of quizzes) {
+      const positions = quiz.questions.map((question) =>
+        question.options.findIndex((option) => option.is_correct === true)
+      );
+      expect(new Set(positions).size, quiz.slug).toBeGreaterThanOrEqual(3);
     }
   });
 

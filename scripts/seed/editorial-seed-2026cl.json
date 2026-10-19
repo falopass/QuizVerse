@@ -16,8 +16,8 @@
           "id": "q1",
           "question": "Which team won the first Super Bowl, played in January 1967?",
           "options": [
-            { "id": "a", "text": "Green Bay Packers", "is_correct": true },
-            { "id": "b", "text": "Kansas City Chiefs", "is_correct": false },
+            { "id": "a", "text": "Kansas City Chiefs", "is_correct": false },
+            { "id": "b", "text": "Green Bay Packers", "is_correct": true },
             { "id": "c", "text": "Baltimore Colts", "is_correct": false },
             { "id": "d", "text": "Dallas Cowboys", "is_correct": false }
           ],
@@ -27,9 +27,9 @@
           "id": "q2",
           "question": "What was the first Super Bowl officially called?",
           "options": [
-            { "id": "a", "text": "AFL-NFL World Championship Game", "is_correct": true },
-            { "id": "b", "text": "The Big Game", "is_correct": false },
-            { "id": "c", "text": "NFL Championship Game", "is_correct": false },
+            { "id": "a", "text": "The Big Game", "is_correct": false },
+            { "id": "b", "text": "NFL Championship Game", "is_correct": false },
+            { "id": "c", "text": "AFL-NFL World Championship Game", "is_correct": true },
             { "id": "d", "text": "Pro Bowl Final", "is_correct": false }
           ],
           "explanation": "The name 'Super Bowl' was unofficial at first; the inaugural game was billed as the AFL-NFL World Championship Game."
@@ -49,10 +49,10 @@
           "id": "q4",
           "question": "Which player holds the record for most Super Bowl MVP awards, with five?",
           "options": [
-            { "id": "a", "text": "Tom Brady", "is_correct": true },
-            { "id": "b", "text": "Joe Montana", "is_correct": false },
-            { "id": "c", "text": "Bart Starr", "is_correct": false },
-            { "id": "d", "text": "Peyton Manning", "is_correct": false }
+            { "id": "a", "text": "Joe Montana", "is_correct": false },
+            { "id": "b", "text": "Bart Starr", "is_correct": false },
+            { "id": "c", "text": "Peyton Manning", "is_correct": false },
+            { "id": "d", "text": "Tom Brady", "is_correct": true }
           ],
           "explanation": "Brady was named MVP in five of his seven Super Bowl wins; Joe Montana follows with three."
         },
@@ -60,9 +60,9 @@
           "id": "q5",
           "question": "Which team completed the only perfect season in NFL history with a Super Bowl win?",
           "options": [
-            { "id": "a", "text": "Miami Dolphins", "is_correct": true },
-            { "id": "b", "text": "Pittsburgh Steelers", "is_correct": false },
-            { "id": "c", "text": "San Francisco 49ers", "is_correct": false },
+            { "id": "a", "text": "Pittsburgh Steelers", "is_correct": false },
+            { "id": "b", "text": "San Francisco 49ers", "is_correct": false },
+            { "id": "c", "text": "Miami Dolphins", "is_correct": true },
             { "id": "d", "text": "Chicago Bears", "is_correct": false }
           ],
           "explanation": "The 1972 Dolphins went 17-0, capping it with a 14-7 win over Washington in Super Bowl VII."
@@ -71,8 +71,8 @@
           "id": "q6",
           "question": "Which Jets quarterback famously guaranteed victory before Super Bowl III?",
           "options": [
-            { "id": "a", "text": "Joe Namath", "is_correct": true },
-            { "id": "b", "text": "Johnny Unitas", "is_correct": false },
+            { "id": "a", "text": "Johnny Unitas", "is_correct": false },
+            { "id": "b", "text": "Joe Namath", "is_correct": true },
             { "id": "c", "text": "Roger Staubach", "is_correct": false },
             { "id": "d", "text": "Bart Starr", "is_correct": false }
           ],
@@ -82,10 +82,10 @@
           "id": "q7",
           "question": "In Super Bowl LI, the Patriots rallied from a 28-3 deficit to beat which team?",
           "options": [
-            { "id": "a", "text": "Atlanta Falcons", "is_correct": true },
-            { "id": "b", "text": "Seattle Seahawks", "is_correct": false },
-            { "id": "c", "text": "Los Angeles Rams", "is_correct": false },
-            { "id": "d", "text": "Philadelphia Eagles", "is_correct": false }
+            { "id": "a", "text": "Seattle Seahawks", "is_correct": false },
+            { "id": "b", "text": "Los Angeles Rams", "is_correct": false },
+            { "id": "c", "text": "Philadelphia Eagles", "is_correct": false },
+            { "id": "d", "text": "Atlanta Falcons", "is_correct": true }
           ],
           "explanation": "New England won 34-28 in overtime in February 2017 — the largest comeback in Super Bowl history."
         },
@@ -117,9 +117,9 @@
           "id": "q1",
           "question": "¿Qué equipo ganó el primer Super Bowl, jugado en enero de 1967?",
           "options": [
-            { "id": "a", "text": "Green Bay Packers", "is_correct": true },
-            { "id": "b", "text": "Kansas City Chiefs", "is_correct": false },
-            { "id": "c", "text": "Baltimore Colts", "is_correct": false },
+            { "id": "a", "text": "Kansas City Chiefs", "is_correct": false },
+            { "id": "b", "text": "Baltimore Colts", "is_correct": false },
+            { "id": "c", "text": "Green Bay Packers", "is_correct": true },
             { "id": "d", "text": "Dallas Cowboys", "is_correct": false }
           ],
           "explanation": "Green Bay venció 35-10 a Kansas City el 15 de enero de 1967 en el Los Angeles Memorial Coliseum."
@@ -139,10 +139,10 @@
           "id": "q3",
           "question": "¿Quién fue nombrado MVP en cada uno de los dos primeros Super Bowls?",
           "options": [
-            { "id": "a", "text": "Bart Starr", "is_correct": true },
-            { "id": "b", "text": "Joe Namath", "is_correct": false },
-            { "id": "c", "text": "Len Dawson", "is_correct": false },
-            { "id": "d", "text": "Johnny Unitas", "is_correct": false }
+            { "id": "a", "text": "Joe Namath", "is_correct": false },
+            { "id": "b", "text": "Len Dawson", "is_correct": false },
+            { "id": "c", "text": "Johnny Unitas", "is_correct": false },
+            { "id": "d", "text": "Bart Starr", "is_correct": true }
           ],
           "explanation": "Bart Starr, mariscal de campo de los Packers, ganó el premio MVP en los Super Bowls I y II."
         },
@@ -150,8 +150,8 @@
           "id": "q4",
           "question": "¿Qué jugador tiene el récord de más premios MVP del Super Bowl, con cinco?",
           "options": [
-            { "id": "a", "text": "Tom Brady", "is_correct": true },
-            { "id": "b", "text": "Joe Montana", "is_correct": false },
+            { "id": "a", "text": "Joe Montana", "is_correct": false },
+            { "id": "b", "text": "Tom Brady", "is_correct": true },
             { "id": "c", "text": "Bart Starr", "is_correct": false },
             { "id": "d", "text": "Peyton Manning", "is_correct": false }
           ],
@@ -161,10 +161,10 @@
           "id": "q5",
           "question": "¿Qué equipo completó la única temporada perfecta de la NFL con un título de Super Bowl?",
           "options": [
-            { "id": "a", "text": "Miami Dolphins", "is_correct": true },
-            { "id": "b", "text": "Pittsburgh Steelers", "is_correct": false },
-            { "id": "c", "text": "San Francisco 49ers", "is_correct": false },
-            { "id": "d", "text": "Chicago Bears", "is_correct": false }
+            { "id": "a", "text": "Pittsburgh Steelers", "is_correct": false },
+            { "id": "b", "text": "San Francisco 49ers", "is_correct": false },
+            { "id": "c", "text": "Chicago Bears", "is_correct": false },
+            { "id": "d", "text": "Miami Dolphins", "is_correct": true }
           ],
           "explanation": "Los Dolphins de 1972 terminaron 17-0 y cerraron con victoria 14-7 sobre Washington en el Super Bowl VII."
         },
@@ -183,8 +183,8 @@
           "id": "q7",
           "question": "En el Super Bowl LI, los Patriots remontaron un déficit de 28-3 para vencer a qué equipo?",
           "options": [
-            { "id": "a", "text": "Atlanta Falcons", "is_correct": true },
-            { "id": "b", "text": "Seattle Seahawks", "is_correct": false },
+            { "id": "a", "text": "Seattle Seahawks", "is_correct": false },
+            { "id": "b", "text": "Atlanta Falcons", "is_correct": true },
             { "id": "c", "text": "Los Angeles Rams", "is_correct": false },
             { "id": "d", "text": "Philadelphia Eagles", "is_correct": false }
           ],
@@ -194,9 +194,9 @@
           "id": "q8",
           "question": "¿Cómo se llama el trofeo que recibe el campeón del Super Bowl?",
           "options": [
-            { "id": "a", "text": "Trofeo Vince Lombardi", "is_correct": true },
-            { "id": "b", "text": "Trofeo Pete Rozelle", "is_correct": false },
-            { "id": "c", "text": "Commissioner's Trophy", "is_correct": false },
+            { "id": "a", "text": "Trofeo Pete Rozelle", "is_correct": false },
+            { "id": "b", "text": "Commissioner's Trophy", "is_correct": false },
+            { "id": "c", "text": "Trofeo Vince Lombardi", "is_correct": true },
             { "id": "d", "text": "Copa Lombardi", "is_correct": false }
           ],
           "explanation": "El trofeo lleva el nombre de Vince Lombardi desde su muerte en 1970; el Commissioner's Trophy se entrega al campeón de la Serie Mundial."
@@ -229,10 +229,10 @@
           "id": "q2",
           "question": "What was the NFL called at its founding?",
           "options": [
-            { "id": "a", "text": "American Professional Football Association", "is_correct": true },
-            { "id": "b", "text": "National Football League", "is_correct": false },
-            { "id": "c", "text": "United States Football League", "is_correct": false },
-            { "id": "d", "text": "American Football League", "is_correct": false }
+            { "id": "a", "text": "National Football League", "is_correct": false },
+            { "id": "b", "text": "United States Football League", "is_correct": false },
+            { "id": "c", "text": "American Football League", "is_correct": false },
+            { "id": "d", "text": "American Professional Football Association", "is_correct": true }
           ],
           "explanation": "It began as the American Professional Football Association and took the NFL name two years later."
         },
@@ -240,8 +240,8 @@
           "id": "q3",
           "question": "Which franchise has won the most NFL championships, with thirteen?",
           "options": [
-            { "id": "a", "text": "Green Bay Packers", "is_correct": true },
-            { "id": "b", "text": "Chicago Bears", "is_correct": false },
+            { "id": "a", "text": "Chicago Bears", "is_correct": false },
+            { "id": "b", "text": "Green Bay Packers", "is_correct": true },
             { "id": "c", "text": "New York Giants", "is_correct": false },
             { "id": "d", "text": "Pittsburgh Steelers", "is_correct": false }
           ],
@@ -251,9 +251,9 @@
           "id": "q4",
           "question": "The NFL merged with which rival league in a process completed in 1970?",
           "options": [
-            { "id": "a", "text": "American Football League", "is_correct": true },
-            { "id": "b", "text": "United States Football League", "is_correct": false },
-            { "id": "c", "text": "All-America Football Conference", "is_correct": false },
+            { "id": "a", "text": "United States Football League", "is_correct": false },
+            { "id": "b", "text": "All-America Football Conference", "is_correct": false },
+            { "id": "c", "text": "American Football League", "is_correct": true },
             { "id": "d", "text": "XFL", "is_correct": false }
           ],
           "explanation": "The merger with the American Football League created today's AFC and NFC conferences."
@@ -273,9 +273,9 @@
           "id": "q6",
           "question": "Which expansion team is the newest in the NFL, having joined in 2002?",
           "options": [
-            { "id": "a", "text": "Houston Texans", "is_correct": true },
-            { "id": "b", "text": "Jacksonville Jaguars", "is_correct": false },
-            { "id": "c", "text": "Carolina Panthers", "is_correct": false },
+            { "id": "a", "text": "Jacksonville Jaguars", "is_correct": false },
+            { "id": "b", "text": "Carolina Panthers", "is_correct": false },
+            { "id": "c", "text": "Houston Texans", "is_correct": true },
             { "id": "d", "text": "Baltimore Ravens", "is_correct": false }
           ],
           "explanation": "The Texans began play in 2002; the Jaguars and Panthers arrived in 1995 and the Ravens franchise in 1996."
@@ -284,10 +284,10 @@
           "id": "q7",
           "question": "Who is the NFL's all-time leading rusher, with 18,355 yards?",
           "options": [
-            { "id": "a", "text": "Emmitt Smith", "is_correct": true },
-            { "id": "b", "text": "Walter Payton", "is_correct": false },
-            { "id": "c", "text": "Barry Sanders", "is_correct": false },
-            { "id": "d", "text": "Jim Brown", "is_correct": false }
+            { "id": "a", "text": "Walter Payton", "is_correct": false },
+            { "id": "b", "text": "Barry Sanders", "is_correct": false },
+            { "id": "c", "text": "Jim Brown", "is_correct": false },
+            { "id": "d", "text": "Emmitt Smith", "is_correct": true }
           ],
           "explanation": "Smith passed Walter Payton in 2002 and retired after the 2004 season; his record still stands."
         },
@@ -295,8 +295,8 @@
           "id": "q8",
           "question": "What is the oldest stadium still in continuous use in the NFL?",
           "options": [
-            { "id": "a", "text": "Lambeau Field", "is_correct": true },
-            { "id": "b", "text": "Soldier Field", "is_correct": false },
+            { "id": "a", "text": "Soldier Field", "is_correct": false },
+            { "id": "b", "text": "Lambeau Field", "is_correct": true },
             { "id": "c", "text": "Arrowhead Stadium", "is_correct": false },
             { "id": "d", "text": "AT&T Stadium", "is_correct": false }
           ],
@@ -319,10 +319,10 @@
           "id": "q1",
           "question": "¿En qué año se fundó la liga que se convirtió en la NFL?",
           "options": [
-            { "id": "a", "text": "1920", "is_correct": true },
-            { "id": "b", "text": "1892", "is_correct": false },
-            { "id": "c", "text": "1936", "is_correct": false },
-            { "id": "d", "text": "1946", "is_correct": false }
+            { "id": "a", "text": "1892", "is_correct": false },
+            { "id": "b", "text": "1936", "is_correct": false },
+            { "id": "c", "text": "1946", "is_correct": false },
+            { "id": "d", "text": "1920", "is_correct": true }
           ],
           "explanation": "La liga se fundó en 1920 en Canton, Ohio, y pasó a llamarse National Football League en 1922."
         },
@@ -330,8 +330,8 @@
           "id": "q2",
           "question": "¿Cómo se llamaba la NFL en su fundación?",
           "options": [
-            { "id": "a", "text": "American Professional Football Association", "is_correct": true },
-            { "id": "b", "text": "National Football League", "is_correct": false },
+            { "id": "a", "text": "National Football League", "is_correct": false },
+            { "id": "b", "text": "American Professional Football Association", "is_correct": true },
             { "id": "c", "text": "United States Football League", "is_correct": false },
             { "id": "d", "text": "American Football League", "is_correct": false }
           ],
@@ -341,9 +341,9 @@
           "id": "q3",
           "question": "¿Qué franquicia ha ganado más campeonatos de la NFL, con trece?",
           "options": [
-            { "id": "a", "text": "Green Bay Packers", "is_correct": true },
-            { "id": "b", "text": "Chicago Bears", "is_correct": false },
-            { "id": "c", "text": "New York Giants", "is_correct": false },
+            { "id": "a", "text": "Chicago Bears", "is_correct": false },
+            { "id": "b", "text": "New York Giants", "is_correct": false },
+            { "id": "c", "text": "Green Bay Packers", "is_correct": true },
             { "id": "d", "text": "Pittsburgh Steelers", "is_correct": false }
           ],
           "explanation": "Los trece títulos de los Packers incluyen nueve anteriores a la era del Super Bowl y cuatro Super Bowls."
@@ -363,8 +363,8 @@
           "id": "q5",
           "question": "¿Cuál es la franquicia en operación continua más antigua de la NFL, fundada en 1898?",
           "options": [
-            { "id": "a", "text": "Arizona Cardinals", "is_correct": true },
-            { "id": "b", "text": "Chicago Bears", "is_correct": false },
+            { "id": "a", "text": "Chicago Bears", "is_correct": false },
+            { "id": "b", "text": "Arizona Cardinals", "is_correct": true },
             { "id": "c", "text": "Green Bay Packers", "is_correct": false },
             { "id": "d", "text": "New York Giants", "is_correct": false }
           ],
@@ -374,10 +374,10 @@
           "id": "q6",
           "question": "¿Qué equipo de expansión es el más reciente de la NFL, incorporado en 2002?",
           "options": [
-            { "id": "a", "text": "Houston Texans", "is_correct": true },
-            { "id": "b", "text": "Jacksonville Jaguars", "is_correct": false },
-            { "id": "c", "text": "Carolina Panthers", "is_correct": false },
-            { "id": "d", "text": "Baltimore Ravens", "is_correct": false }
+            { "id": "a", "text": "Jacksonville Jaguars", "is_correct": false },
+            { "id": "b", "text": "Carolina Panthers", "is_correct": false },
+            { "id": "c", "text": "Baltimore Ravens", "is_correct": false },
+            { "id": "d", "text": "Houston Texans", "is_correct": true }
           ],
           "explanation": "Los Texans debutaron en 2002; los Jaguars y Panthers llegaron en 1995 y la franquicia de los Ravens en 1996."
         },
@@ -396,9 +396,9 @@
           "id": "q8",
           "question": "¿Cuál es el estadio en uso continuo más antiguo de la NFL?",
           "options": [
-            { "id": "a", "text": "Lambeau Field", "is_correct": true },
-            { "id": "b", "text": "Soldier Field", "is_correct": false },
-            { "id": "c", "text": "Arrowhead Stadium", "is_correct": false },
+            { "id": "a", "text": "Soldier Field", "is_correct": false },
+            { "id": "b", "text": "Arrowhead Stadium", "is_correct": false },
+            { "id": "c", "text": "Lambeau Field", "is_correct": true },
             { "id": "d", "text": "AT&T Stadium", "is_correct": false }
           ],
           "explanation": "Lambeau Field abrió en 1957 y desde entonces es la casa de los Packers."
@@ -420,9 +420,9 @@
           "id": "q1",
           "question": "How many innings does a regulation Major League game last?",
           "options": [
-            { "id": "a", "text": "Nine", "is_correct": true },
-            { "id": "b", "text": "Seven", "is_correct": false },
-            { "id": "c", "text": "Ten", "is_correct": false },
+            { "id": "a", "text": "Seven", "is_correct": false },
+            { "id": "b", "text": "Ten", "is_correct": false },
+            { "id": "c", "text": "Nine", "is_correct": true },
             { "id": "d", "text": "Twelve", "is_correct": false }
           ],
           "explanation": "Nine innings, unless the score is tied — extra innings continue until there is a winner."
@@ -431,10 +431,10 @@
           "id": "q2",
           "question": "Which is the older of MLB's two leagues, founded in 1876?",
           "options": [
-            { "id": "a", "text": "National League", "is_correct": true },
-            { "id": "b", "text": "American League", "is_correct": false },
-            { "id": "c", "text": "Pacific Coast League", "is_correct": false },
-            { "id": "d", "text": "Federal League", "is_correct": false }
+            { "id": "a", "text": "American League", "is_correct": false },
+            { "id": "b", "text": "Pacific Coast League", "is_correct": false },
+            { "id": "c", "text": "Federal League", "is_correct": false },
+            { "id": "d", "text": "National League", "is_correct": true }
           ],
           "explanation": "The National League dates to 1876; the American League declared itself a major league in 1901."
         },
@@ -453,8 +453,8 @@
           "id": "q4",
           "question": "Who holds the career home run record with 762?",
           "options": [
-            { "id": "a", "text": "Barry Bonds", "is_correct": true },
-            { "id": "b", "text": "Hank Aaron", "is_correct": false },
+            { "id": "a", "text": "Hank Aaron", "is_correct": false },
+            { "id": "b", "text": "Barry Bonds", "is_correct": true },
             { "id": "c", "text": "Babe Ruth", "is_correct": false },
             { "id": "d", "text": "Mark McGwire", "is_correct": false }
           ],
@@ -475,8 +475,8 @@
           "id": "q6",
           "question": "The 'Curse of the Bambino' supposedly began when Boston sold which player to the Yankees?",
           "options": [
-            { "id": "a", "text": "Babe Ruth", "is_correct": true },
-            { "id": "b", "text": "Lou Gehrig", "is_correct": false },
+            { "id": "a", "text": "Lou Gehrig", "is_correct": false },
+            { "id": "b", "text": "Babe Ruth", "is_correct": true },
             { "id": "c", "text": "Ted Williams", "is_correct": false },
             { "id": "d", "text": "Cy Young", "is_correct": false }
           ],
@@ -486,9 +486,9 @@
           "id": "q7",
           "question": "Jackie Robinson broke baseball's color barrier in 1947 playing for which team?",
           "options": [
-            { "id": "a", "text": "Brooklyn Dodgers", "is_correct": true },
-            { "id": "b", "text": "New York Yankees", "is_correct": false },
-            { "id": "c", "text": "Boston Braves", "is_correct": false },
+            { "id": "a", "text": "New York Yankees", "is_correct": false },
+            { "id": "b", "text": "Boston Braves", "is_correct": false },
+            { "id": "c", "text": "Brooklyn Dodgers", "is_correct": true },
             { "id": "d", "text": "Cleveland Indians", "is_correct": false }
           ],
           "explanation": "Robinson debuted for Brooklyn on 15 April 1947; MLB retired his number 42 across the whole league."
@@ -497,10 +497,10 @@
           "id": "q8",
           "question": "How far apart are the bases on a Major League diamond?",
           "options": [
-            { "id": "a", "text": "90 feet", "is_correct": true },
-            { "id": "b", "text": "60 feet", "is_correct": false },
-            { "id": "c", "text": "100 feet", "is_correct": false },
-            { "id": "d", "text": "75 feet", "is_correct": false }
+            { "id": "a", "text": "60 feet", "is_correct": false },
+            { "id": "b", "text": "100 feet", "is_correct": false },
+            { "id": "c", "text": "75 feet", "is_correct": false },
+            { "id": "d", "text": "90 feet", "is_correct": true }
           ],
           "explanation": "The 90-foot basepaths have been the standard since the nineteenth century; the mound sits 60 feet 6 inches from home."
         }
@@ -521,8 +521,8 @@
           "id": "q1",
           "question": "¿Cuántas entradas dura un juego reglamentario de las Grandes Ligas?",
           "options": [
-            { "id": "a", "text": "Nueve", "is_correct": true },
-            { "id": "b", "text": "Siete", "is_correct": false },
+            { "id": "a", "text": "Siete", "is_correct": false },
+            { "id": "b", "text": "Nueve", "is_correct": true },
             { "id": "c", "text": "Diez", "is_correct": false },
             { "id": "d", "text": "Doce", "is_correct": false }
           ],
@@ -532,9 +532,9 @@
           "id": "q2",
           "question": "¿Cuál es la más antigua de las dos ligas de la MLB, fundada en 1876?",
           "options": [
-            { "id": "a", "text": "Liga Nacional", "is_correct": true },
-            { "id": "b", "text": "Liga Americana", "is_correct": false },
-            { "id": "c", "text": "Liga de la Costa del Pacífico", "is_correct": false },
+            { "id": "a", "text": "Liga Americana", "is_correct": false },
+            { "id": "b", "text": "Liga de la Costa del Pacífico", "is_correct": false },
+            { "id": "c", "text": "Liga Nacional", "is_correct": true },
             { "id": "d", "text": "Liga Federal", "is_correct": false }
           ],
           "explanation": "La Liga Nacional data de 1876; la Liga Americana se declaró liga mayor en 1901."
@@ -554,10 +554,10 @@
           "id": "q4",
           "question": "¿Quién tiene el récord de jonrones de por vida, con 762?",
           "options": [
-            { "id": "a", "text": "Barry Bonds", "is_correct": true },
-            { "id": "b", "text": "Hank Aaron", "is_correct": false },
-            { "id": "c", "text": "Babe Ruth", "is_correct": false },
-            { "id": "d", "text": "Mark McGwire", "is_correct": false }
+            { "id": "a", "text": "Hank Aaron", "is_correct": false },
+            { "id": "b", "text": "Babe Ruth", "is_correct": false },
+            { "id": "c", "text": "Mark McGwire", "is_correct": false },
+            { "id": "d", "text": "Barry Bonds", "is_correct": true }
           ],
           "explanation": "Bonds superó los 755 de Hank Aaron en 2007 y cerró su carrera con 762 jonrones."
         },
@@ -565,9 +565,9 @@
           "id": "q5",
           "question": "¿Quién es el líder histórico de hits de las Grandes Ligas, con 4.256?",
           "options": [
-            { "id": "a", "text": "Pete Rose", "is_correct": true },
-            { "id": "b", "text": "Ty Cobb", "is_correct": false },
-            { "id": "c", "text": "Derek Jeter", "is_correct": false },
+            { "id": "a", "text": "Ty Cobb", "is_correct": false },
+            { "id": "b", "text": "Derek Jeter", "is_correct": false },
+            { "id": "c", "text": "Pete Rose", "is_correct": true },
             { "id": "d", "text": "Hank Aaron", "is_correct": false }
           ],
           "explanation": "Rose superó a Ty Cobb en 1985; sus 4.256 hits siguen intocables."
@@ -576,8 +576,8 @@
           "id": "q6",
           "question": "La 'Maldición del Bambino' habría comenzado cuando Boston vendió a qué jugador a los Yankees?",
           "options": [
-            { "id": "a", "text": "Babe Ruth", "is_correct": true },
-            { "id": "b", "text": "Lou Gehrig", "is_correct": false },
+            { "id": "a", "text": "Lou Gehrig", "is_correct": false },
+            { "id": "b", "text": "Babe Ruth", "is_correct": true },
             { "id": "c", "text": "Ted Williams", "is_correct": false },
             { "id": "d", "text": "Cy Young", "is_correct": false }
           ],
@@ -587,10 +587,10 @@
           "id": "q7",
           "question": "Jackie Robinson rompió la barrera racial del béisbol en 1947 jugando para qué equipo?",
           "options": [
-            { "id": "a", "text": "Brooklyn Dodgers", "is_correct": true },
-            { "id": "b", "text": "New York Yankees", "is_correct": false },
-            { "id": "c", "text": "Boston Braves", "is_correct": false },
-            { "id": "d", "text": "Cleveland Indians", "is_correct": false }
+            { "id": "a", "text": "New York Yankees", "is_correct": false },
+            { "id": "b", "text": "Boston Braves", "is_correct": false },
+            { "id": "c", "text": "Cleveland Indians", "is_correct": false },
+            { "id": "d", "text": "Brooklyn Dodgers", "is_correct": true }
           ],
           "explanation": "Robinson debutó con Brooklyn el 15 de abril de 1947; la MLB retiró su número 42 en toda la liga."
         },
@@ -622,9 +622,9 @@
           "id": "q1",
           "question": "Which franchise has won the most World Series titles, with 27?",
           "options": [
-            { "id": "a", "text": "New York Yankees", "is_correct": true },
-            { "id": "b", "text": "St. Louis Cardinals", "is_correct": false },
-            { "id": "c", "text": "Boston Red Sox", "is_correct": false },
+            { "id": "a", "text": "St. Louis Cardinals", "is_correct": false },
+            { "id": "b", "text": "Boston Red Sox", "is_correct": false },
+            { "id": "c", "text": "New York Yankees", "is_correct": true },
             { "id": "d", "text": "San Francisco Giants", "is_correct": false }
           ],
           "explanation": "The Yankees' 27 championships are far ahead of the Cardinals' 11, the next best."
@@ -644,10 +644,10 @@
           "id": "q3",
           "question": "Which slugger earned the nickname 'Mr. October' for his World Series heroics?",
           "options": [
-            { "id": "a", "text": "Reggie Jackson", "is_correct": true },
-            { "id": "b", "text": "Babe Ruth", "is_correct": false },
-            { "id": "c", "text": "Mickey Mantle", "is_correct": false },
-            { "id": "d", "text": "Derek Jeter", "is_correct": false }
+            { "id": "a", "text": "Babe Ruth", "is_correct": false },
+            { "id": "b", "text": "Mickey Mantle", "is_correct": false },
+            { "id": "c", "text": "Derek Jeter", "is_correct": false },
+            { "id": "d", "text": "Reggie Jackson", "is_correct": true }
           ],
           "explanation": "Jackson hit three home runs in Game 6 of the 1977 Series for the Yankees — and 'Mr. October' stuck."
         },
@@ -655,8 +655,8 @@
           "id": "q4",
           "question": "In 2016, the Cubs won their first World Series since what year?",
           "options": [
-            { "id": "a", "text": "1908", "is_correct": true },
-            { "id": "b", "text": "1945", "is_correct": false },
+            { "id": "a", "text": "1945", "is_correct": false },
+            { "id": "b", "text": "1908", "is_correct": true },
             { "id": "c", "text": "1918", "is_correct": false },
             { "id": "d", "text": "1929", "is_correct": false }
           ],
@@ -666,10 +666,10 @@
           "id": "q5",
           "question": "The 1969 'Miracle Mets' won the World Series by beating which heavily favored team?",
           "options": [
-            { "id": "a", "text": "Baltimore Orioles", "is_correct": true },
-            { "id": "b", "text": "New York Yankees", "is_correct": false },
-            { "id": "c", "text": "Boston Red Sox", "is_correct": false },
-            { "id": "d", "text": "Cincinnati Reds", "is_correct": false }
+            { "id": "a", "text": "New York Yankees", "is_correct": false },
+            { "id": "b", "text": "Boston Red Sox", "is_correct": false },
+            { "id": "c", "text": "Cincinnati Reds", "is_correct": false },
+            { "id": "d", "text": "Baltimore Orioles", "is_correct": true }
           ],
           "explanation": "The Mets, an expansion team only eight years old, beat the Orioles in five games."
         },
@@ -688,8 +688,8 @@
           "id": "q7",
           "question": "The 1989 World Series was interrupted by an earthquake during which matchup?",
           "options": [
-            { "id": "a", "text": "Giants vs. Athletics", "is_correct": true },
-            { "id": "b", "text": "Dodgers vs. Athletics", "is_correct": false },
+            { "id": "a", "text": "Dodgers vs. Athletics", "is_correct": false },
+            { "id": "b", "text": "Giants vs. Athletics", "is_correct": true },
             { "id": "c", "text": "Giants vs. Dodgers", "is_correct": false },
             { "id": "d", "text": "Athletics vs. Reds", "is_correct": false }
           ],
@@ -699,9 +699,9 @@
           "id": "q8",
           "question": "Who won the first World Series MVP award, in 1955?",
           "options": [
-            { "id": "a", "text": "Johnny Podres", "is_correct": true },
-            { "id": "b", "text": "Yogi Berra", "is_correct": false },
-            { "id": "c", "text": "Duke Snider", "is_correct": false },
+            { "id": "a", "text": "Yogi Berra", "is_correct": false },
+            { "id": "b", "text": "Duke Snider", "is_correct": false },
+            { "id": "c", "text": "Johnny Podres", "is_correct": true },
             { "id": "d", "text": "Sandy Koufax", "is_correct": false }
           ],
           "explanation": "Brooklyn left-hander Podres won two games, including the clincher, in the Dodgers' first title."
@@ -734,10 +734,10 @@
           "id": "q2",
           "question": "¿Quién lanzó el único juego perfecto en la historia de la Serie Mundial, en 1956?",
           "options": [
-            { "id": "a", "text": "Don Larsen", "is_correct": true },
-            { "id": "b", "text": "Sandy Koufax", "is_correct": false },
-            { "id": "c", "text": "Bob Gibson", "is_correct": false },
-            { "id": "d", "text": "Whitey Ford", "is_correct": false }
+            { "id": "a", "text": "Sandy Koufax", "is_correct": false },
+            { "id": "b", "text": "Bob Gibson", "is_correct": false },
+            { "id": "c", "text": "Whitey Ford", "is_correct": false },
+            { "id": "d", "text": "Don Larsen", "is_correct": true }
           ],
           "explanation": "La joya de Larsen fue en el Juego 5, con los Yankees ante los Brooklyn Dodgers: 27 bateadores, 27 outs."
         },
@@ -745,8 +745,8 @@
           "id": "q3",
           "question": "¿Qué bateador se ganó el apodo de 'Mr. October' por sus hazañas en la Serie Mundial?",
           "options": [
-            { "id": "a", "text": "Reggie Jackson", "is_correct": true },
-            { "id": "b", "text": "Babe Ruth", "is_correct": false },
+            { "id": "a", "text": "Babe Ruth", "is_correct": false },
+            { "id": "b", "text": "Reggie Jackson", "is_correct": true },
             { "id": "c", "text": "Mickey Mantle", "is_correct": false },
             { "id": "d", "text": "Derek Jeter", "is_correct": false }
           ],
@@ -756,9 +756,9 @@
           "id": "q4",
           "question": "En 2016, los Cubs ganaron su primera Serie Mundial desde qué año?",
           "options": [
-            { "id": "a", "text": "1908", "is_correct": true },
-            { "id": "b", "text": "1945", "is_correct": false },
-            { "id": "c", "text": "1918", "is_correct": false },
+            { "id": "a", "text": "1945", "is_correct": false },
+            { "id": "b", "text": "1918", "is_correct": false },
+            { "id": "c", "text": "1908", "is_correct": true },
             { "id": "d", "text": "1929", "is_correct": false }
           ],
           "explanation": "Los Cubs acabaron con una sequía de 108 años al vencer a Cleveland en un dramático Juego 7."
@@ -778,9 +778,9 @@
           "id": "q6",
           "question": "¿Quién conectó el único cuadrangular que terminó un Juego 7 de Serie Mundial, en 1960?",
           "options": [
-            { "id": "a", "text": "Bill Mazeroski", "is_correct": true },
-            { "id": "b", "text": "Joe Carter", "is_correct": false },
-            { "id": "c", "text": "Kirk Gibson", "is_correct": false },
+            { "id": "a", "text": "Joe Carter", "is_correct": false },
+            { "id": "b", "text": "Kirk Gibson", "is_correct": false },
+            { "id": "c", "text": "Bill Mazeroski", "is_correct": true },
             { "id": "d", "text": "Bobby Thomson", "is_correct": false }
           ],
           "explanation": "El jonrón de Mazeroski le dio el título a Pittsburgh sobre los Yankees; el de Joe Carter en 1993 cerró un Juego 6."
@@ -789,10 +789,10 @@
           "id": "q7",
           "question": "La Serie Mundial de 1989 se interrumpió por un terremoto durante qué cruce?",
           "options": [
-            { "id": "a", "text": "Giants contra Athletics", "is_correct": true },
-            { "id": "b", "text": "Dodgers contra Athletics", "is_correct": false },
-            { "id": "c", "text": "Giants contra Dodgers", "is_correct": false },
-            { "id": "d", "text": "Athletics contra Reds", "is_correct": false }
+            { "id": "a", "text": "Dodgers contra Athletics", "is_correct": false },
+            { "id": "b", "text": "Giants contra Dodgers", "is_correct": false },
+            { "id": "c", "text": "Athletics contra Reds", "is_correct": false },
+            { "id": "d", "text": "Giants contra Athletics", "is_correct": true }
           ],
           "explanation": "El terremoto de Loma Prieta sacudió San Francisco antes del Juego 3; Oakland barrió la Serie."
         },
@@ -800,8 +800,8 @@
           "id": "q8",
           "question": "¿Quién ganó el primer premio MVP de la Serie Mundial, en 1955?",
           "options": [
-            { "id": "a", "text": "Johnny Podres", "is_correct": true },
-            { "id": "b", "text": "Yogi Berra", "is_correct": false },
+            { "id": "a", "text": "Yogi Berra", "is_correct": false },
+            { "id": "b", "text": "Johnny Podres", "is_correct": true },
             { "id": "c", "text": "Duke Snider", "is_correct": false },
             { "id": "d", "text": "Sandy Koufax", "is_correct": false }
           ],
@@ -824,10 +824,10 @@
           "id": "q1",
           "question": "In which city was the first Caribbean Series played, in 1949?",
           "options": [
-            { "id": "a", "text": "Havana", "is_correct": true },
-            { "id": "b", "text": "San Juan", "is_correct": false },
-            { "id": "c", "text": "Caracas", "is_correct": false },
-            { "id": "d", "text": "Santo Domingo", "is_correct": false }
+            { "id": "a", "text": "San Juan", "is_correct": false },
+            { "id": "b", "text": "Caracas", "is_correct": false },
+            { "id": "c", "text": "Santo Domingo", "is_correct": false },
+            { "id": "d", "text": "Havana", "is_correct": true }
           ],
           "explanation": "Cuba hosted the inaugural Serie del Caribe in February 1949 at Havana's Gran Estadio."
         },
@@ -835,8 +835,8 @@
           "id": "q2",
           "question": "Which club won that inaugural Caribbean Series in 1949?",
           "options": [
-            { "id": "a", "text": "Almendares", "is_correct": true },
-            { "id": "b", "text": "Cangrejeros de Santurce", "is_correct": false },
+            { "id": "a", "text": "Cangrejeros de Santurce", "is_correct": false },
+            { "id": "b", "text": "Almendares", "is_correct": true },
             { "id": "c", "text": "Tigres del Licey", "is_correct": false },
             { "id": "d", "text": "Navegantes del Magallanes", "is_correct": false }
           ],
@@ -846,9 +846,9 @@
           "id": "q3",
           "question": "Which country's clubs have won the most Caribbean Series titles?",
           "options": [
-            { "id": "a", "text": "Dominican Republic", "is_correct": true },
-            { "id": "b", "text": "Puerto Rico", "is_correct": false },
-            { "id": "c", "text": "Venezuela", "is_correct": false },
+            { "id": "a", "text": "Puerto Rico", "is_correct": false },
+            { "id": "b", "text": "Venezuela", "is_correct": false },
+            { "id": "c", "text": "Dominican Republic", "is_correct": true },
             { "id": "d", "text": "Mexico", "is_correct": false }
           ],
           "explanation": "Dominican clubs, led by Licey and Águilas Cibaeñas, top the all-time table ahead of Puerto Rico."
@@ -868,8 +868,8 @@
           "id": "q5",
           "question": "Which country joined the Caribbean Series in 1971, after the tournament's revival?",
           "options": [
-            { "id": "a", "text": "Mexico", "is_correct": true },
-            { "id": "b", "text": "Cuba", "is_correct": false },
+            { "id": "a", "text": "Cuba", "is_correct": false },
+            { "id": "b", "text": "Mexico", "is_correct": true },
             { "id": "c", "text": "Panama", "is_correct": false },
             { "id": "d", "text": "Colombia", "is_correct": false }
           ],
@@ -879,10 +879,10 @@
           "id": "q6",
           "question": "Who was the first Latin American-born player inducted into the National Baseball Hall of Fame?",
           "options": [
-            { "id": "a", "text": "Roberto Clemente", "is_correct": true },
-            { "id": "b", "text": "Juan Marichal", "is_correct": false },
-            { "id": "c", "text": "Orlando Cepeda", "is_correct": false },
-            { "id": "d", "text": "Luis Aparicio", "is_correct": false }
+            { "id": "a", "text": "Juan Marichal", "is_correct": false },
+            { "id": "b", "text": "Orlando Cepeda", "is_correct": false },
+            { "id": "c", "text": "Luis Aparicio", "is_correct": false },
+            { "id": "d", "text": "Roberto Clemente", "is_correct": true }
           ],
           "explanation": "Puerto Rico's Clemente was elected in a special 1973 vote after his death; Marichal, Cepeda and Aparicio followed."
         },
@@ -901,9 +901,9 @@
           "id": "q8",
           "question": "In 1981, which Mexican pitcher won both Rookie of the Year and the Cy Young Award?",
           "options": [
-            { "id": "a", "text": "Fernando Valenzuela", "is_correct": true },
-            { "id": "b", "text": "Jaime García", "is_correct": false },
-            { "id": "c", "text": "Yovani Gallardo", "is_correct": false },
+            { "id": "a", "text": "Jaime García", "is_correct": false },
+            { "id": "b", "text": "Yovani Gallardo", "is_correct": false },
+            { "id": "c", "text": "Fernando Valenzuela", "is_correct": true },
             { "id": "d", "text": "Teddy Higuera", "is_correct": false }
           ],
           "explanation": "'Fernandomania' swept baseball in 1981; no rookie has matched Valenzuela's double since."
@@ -925,9 +925,9 @@
           "id": "q1",
           "question": "¿En qué ciudad se jugó la primera Serie del Caribe, en 1949?",
           "options": [
-            { "id": "a", "text": "La Habana", "is_correct": true },
-            { "id": "b", "text": "San Juan", "is_correct": false },
-            { "id": "c", "text": "Caracas", "is_correct": false },
+            { "id": "a", "text": "San Juan", "is_correct": false },
+            { "id": "b", "text": "Caracas", "is_correct": false },
+            { "id": "c", "text": "La Habana", "is_correct": true },
             { "id": "d", "text": "Santo Domingo", "is_correct": false }
           ],
           "explanation": "Cuba fue sede de la Serie del Caribe inaugural en febrero de 1949, en el Gran Estadio de La Habana."
@@ -936,10 +936,10 @@
           "id": "q2",
           "question": "¿Qué club ganó esa Serie del Caribe inaugural de 1949?",
           "options": [
-            { "id": "a", "text": "Almendares", "is_correct": true },
-            { "id": "b", "text": "Cangrejeros de Santurce", "is_correct": false },
-            { "id": "c", "text": "Tigres del Licey", "is_correct": false },
-            { "id": "d", "text": "Navegantes del Magallanes", "is_correct": false }
+            { "id": "a", "text": "Cangrejeros de Santurce", "is_correct": false },
+            { "id": "b", "text": "Tigres del Licey", "is_correct": false },
+            { "id": "c", "text": "Navegantes del Magallanes", "is_correct": false },
+            { "id": "d", "text": "Almendares", "is_correct": true }
           ],
           "explanation": "El Almendares de Cuba se coronó invicto; los otros tres clubes se volvieron potencias caribeñas después."
         },
@@ -958,8 +958,8 @@
           "id": "q4",
           "question": "¿Qué club ha ganado más campeonatos de la Serie del Caribe?",
           "options": [
-            { "id": "a", "text": "Tigres del Licey", "is_correct": true },
-            { "id": "b", "text": "Águilas Cibaeñas", "is_correct": false },
+            { "id": "a", "text": "Águilas Cibaeñas", "is_correct": false },
+            { "id": "b", "text": "Tigres del Licey", "is_correct": true },
             { "id": "c", "text": "Criollos de Caguas", "is_correct": false },
             { "id": "d", "text": "Leones del Caracas", "is_correct": false }
           ],
@@ -980,8 +980,8 @@
           "id": "q6",
           "question": "¿Quién fue el primer jugador nacido en América Latina en entrar al Salón de la Fama del Béisbol?",
           "options": [
-            { "id": "a", "text": "Roberto Clemente", "is_correct": true },
-            { "id": "b", "text": "Juan Marichal", "is_correct": false },
+            { "id": "a", "text": "Juan Marichal", "is_correct": false },
+            { "id": "b", "text": "Roberto Clemente", "is_correct": true },
             { "id": "c", "text": "Orlando Cepeda", "is_correct": false },
             { "id": "d", "text": "Luis Aparicio", "is_correct": false }
           ],
@@ -991,9 +991,9 @@
           "id": "q7",
           "question": "¿Quién fue el primer jugador nacido en República Dominicana elegido al Salón de la Fama?",
           "options": [
-            { "id": "a", "text": "Juan Marichal", "is_correct": true },
-            { "id": "b", "text": "Pedro Martínez", "is_correct": false },
-            { "id": "c", "text": "Sammy Sosa", "is_correct": false },
+            { "id": "a", "text": "Pedro Martínez", "is_correct": false },
+            { "id": "b", "text": "Sammy Sosa", "is_correct": false },
+            { "id": "c", "text": "Juan Marichal", "is_correct": true },
             { "id": "d", "text": "Vladimir Guerrero", "is_correct": false }
           ],
           "explanation": "Marichal, el 'Dandy Dominicano' de la pierna en alto, entró en 1983; Pedro Martínez lo siguió en 2015."
@@ -1002,10 +1002,10 @@
           "id": "q8",
           "question": "En 1981, ¿qué lanzador mexicano ganó el Novato del Año y el Premio Cy Young?",
           "options": [
-            { "id": "a", "text": "Fernando Valenzuela", "is_correct": true },
-            { "id": "b", "text": "Jaime García", "is_correct": false },
-            { "id": "c", "text": "Yovani Gallardo", "is_correct": false },
-            { "id": "d", "text": "Teddy Higuera", "is_correct": false }
+            { "id": "a", "text": "Jaime García", "is_correct": false },
+            { "id": "b", "text": "Yovani Gallardo", "is_correct": false },
+            { "id": "c", "text": "Teddy Higuera", "is_correct": false },
+            { "id": "d", "text": "Fernando Valenzuela", "is_correct": true }
           ],
           "explanation": "La 'Fernandomanía' arrasó el béisbol en 1981; ningún novato ha igualado desde entonces ese doblete de Valenzuela."
         }
