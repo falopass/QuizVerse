@@ -113,7 +113,7 @@ describe('GET /stock-covers/[slug]', () => {
     expect(mocks.getQuizBySlug).not.toHaveBeenCalled();
   });
 
-  it('falls back to the procedural SVG when the upstream fetch fails', async () => {
+  it('falls back to short-lived procedural SVG when the upstream fetch fails', async () => {
     mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
 
@@ -124,11 +124,12 @@ describe('GET /stock-covers/[slug]', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
-    expect(response.headers.get('cache-control')).toContain('immutable');
+    expect(response.headers.get('cache-control')).toContain('max-age=60');
+    expect(response.headers.get('cache-control')).not.toContain('immutable');
     expect(await response.text()).toContain('<svg');
   });
 
-  it('falls back to the procedural SVG when the upstream responds !ok', async () => {
+  it('falls back to short-lived procedural SVG when the upstream responds !ok', async () => {
     mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response('gone', { status: 404 })));
 
@@ -139,10 +140,11 @@ describe('GET /stock-covers/[slug]', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
-    expect(response.headers.get('cache-control')).toContain('immutable');
+    expect(response.headers.get('cache-control')).toContain('max-age=60');
+    expect(response.headers.get('cache-control')).not.toContain('immutable');
   });
 
-  it('serves the procedural SVG when the slug has no manifest entry', async () => {
+  it('serves short-lived procedural SVG when the slug has no manifest entry', async () => {
     vi.stubGlobal('fetch', vi.fn());
 
     const response = await stockCoverGet(
@@ -152,7 +154,8 @@ describe('GET /stock-covers/[slug]', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
-    expect(response.headers.get('cache-control')).toContain('immutable');
+    expect(response.headers.get('cache-control')).toContain('max-age=60');
+    expect(response.headers.get('cache-control')).not.toContain('immutable');
     expect(fetch).not.toHaveBeenCalled();
   });
 
