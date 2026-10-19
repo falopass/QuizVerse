@@ -495,14 +495,14 @@
         },
         {
           "id": "q8",
-          "question": "What did the Seven Wonders have in common?",
+          "question": "Which of the Seven Wonders stood furthest east?",
           "options": [
-            { "id": "a", "text": "They all stood on mainland Greece", "is_correct": false },
-            { "id": "b", "text": "They all ringed the Mediterranean Sea", "is_correct": true },
-            { "id": "c", "text": "They all survived into the Middle Ages", "is_correct": false },
-            { "id": "d", "text": "They were all tombs of kings", "is_correct": false }
+            { "id": "a", "text": "The Statue of Zeus at Olympia", "is_correct": false },
+            { "id": "b", "text": "The Temple of Artemis at Ephesus", "is_correct": false },
+            { "id": "c", "text": "The Hanging Gardens of Babylon", "is_correct": true },
+            { "id": "d", "text": "The Lighthouse of Alexandria", "is_correct": false }
           ],
-          "explanation": "The list was a Greek travel guide: every wonder could be reached by sailing the Mediterranean or its coasts."
+          "explanation": "Babylon, in present-day Iraq, lay far inland on the Euphrates, much further east than the wonders of Greece, Anatolia and Egypt."
         }
       ]
     },
@@ -596,14 +596,14 @@
         },
         {
           "id": "q8",
-          "question": "¿Qué tenían en común las siete maravillas?",
+          "question": "¿Qué maravilla se ubicaba más al este de las siete?",
           "options": [
-            { "id": "a", "text": "Todas estaban en la Grecia continental", "is_correct": false },
-            { "id": "b", "text": "Todas eran tumbas de reyes", "is_correct": false },
-            { "id": "c", "text": "Todas rodeaban el mar Mediterráneo", "is_correct": true },
-            { "id": "d", "text": "Todas llegaron a la Edad Media", "is_correct": false }
+            { "id": "a", "text": "La estatua de Zeus en Olimpia", "is_correct": false },
+            { "id": "b", "text": "El Templo de Artemisa en Éfeso", "is_correct": false },
+            { "id": "c", "text": "El Faro de Alejandría", "is_correct": false },
+            { "id": "d", "text": "Los Jardines Colgantes de Babilonia", "is_correct": true }
           ],
-          "explanation": "La lista era una guía de viaje griega: a cada maravilla se podía llegar navegando por el Mediterráneo o sus costas."
+          "explanation": "Babilonia, en el actual Irak, estaba tierra adentro sobre el Éufrates, mucho más al este que las maravillas de Grecia, Anatolia y Egipto."
         }
       ]
     },
