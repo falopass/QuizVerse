@@ -40,6 +40,9 @@ export function QuizCoverArt({
   decorative = false,
 }: QuizCoverArtProps) {
   const photo = quiz.cover_image_url?.startsWith('/stock-covers/');
+  // Hero se deduce de las props (decorative + priorityLabel con texto), sin un prop
+  // nuevo: solo el hero de la home pasa ambas; tarjetas y detalle quedan en lazy.
+  const isHero = decorative && typeof priorityLabel === 'string' && priorityLabel.trim() !== '';
   const artTitle = quiz.title.trim();
   const bucket = titleBucket(artTitle, compact);
   return (
@@ -54,8 +57,17 @@ export function QuizCoverArt({
       aria-label={decorative ? undefined : quiz.title}
       aria-hidden={decorative || undefined}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      {photo && <img src={quiz.cover_image_url!} alt="" className="arcade-cover-photo" />}
+      {photo && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={quiz.cover_image_url!}
+          alt=""
+          className="arcade-cover-photo"
+          decoding="async"
+          loading={isHero ? 'eager' : 'lazy'}
+          fetchPriority={isHero ? 'high' : undefined}
+        />
+      )}
       {priorityLabel !== '' && (
         <span className="arcade-cover-stamp">
           {priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}
