@@ -62,7 +62,10 @@ beforeEach(() => {
   mocks.deleteQuiz.mockReset();
   mocks.deleteQuiz.mockResolvedValue({ success: true });
   mocks.refresh.mockReset();
-  vi.stubGlobal('confirm', vi.fn(() => true));
+  vi.stubGlobal(
+    'confirm',
+    vi.fn(() => true)
+  );
 });
 
 describe('MyQuizzesList', () => {
@@ -90,7 +93,10 @@ describe('MyQuizzesList', () => {
   });
 
   it('no llama a la action si se cancela la confirmación', async () => {
-    vi.stubGlobal('confirm', vi.fn(() => false));
+    vi.stubGlobal(
+      'confirm',
+      vi.fn(() => false)
+    );
     render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
 
     fireEvent.click(screen.getAllByRole('button', { name: 'Borrar' })[0]);
