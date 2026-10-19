@@ -568,7 +568,11 @@
             { "id": "a", "text": "Rescatar a los rehenes", "is_correct": false },
             { "id": "b", "text": "Capturar la bandera enemiga", "is_correct": false },
             { "id": "c", "text": "Colocar la C4 en un punto de bomba", "is_correct": true },
-            { "id": "d", "text": "Escoltar al portador de la bomba hasta la salida", "is_correct": false }
+            {
+              "id": "d",
+              "text": "Escoltar al portador de la bomba hasta la salida",
+              "is_correct": false
+            }
           ],
           "explanation": "Los terroristas plantan la bomba en el punto A o B; los antiterroristas deben desactivarla a tiempo."
         },
