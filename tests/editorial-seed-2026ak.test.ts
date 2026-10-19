@@ -45,7 +45,12 @@ const EXPECTED_PAIRS: Array<[string, string, string, string]> = [
   ['en-world-spices-trivia', 'es-que-especie-eres', 'food-drink', 'food-drink'],
   ['es-trivia-tabla-periodica', 'en-which-element-are-you', 'science', 'science'],
   ['en-animal-superpowers-trivia', 'es-que-superpoder-animal-tendrias', 'animals', 'animals'],
-  ['es-trivia-lugares-extremos-del-mundo', 'en-which-extreme-place-are-you', 'geography', 'geography'],
+  [
+    'es-trivia-lugares-extremos-del-mundo',
+    'en-which-extreme-place-are-you',
+    'geography',
+    'geography',
+  ],
   ['en-ancient-sports-trivia', 'es-que-deporte-de-la-antiguedad-eres', 'history', 'sports'],
 ];
 
@@ -126,7 +131,10 @@ describe('editorial-seed-2026ak', () => {
       expect(quiz.results!.length, quiz.slug).toBeLessThanOrEqual(6);
       for (const question of quiz.questions) {
         for (const option of question.options) {
-          expect(option.personality_tags?.length, `${quiz.slug} ${question.id}/${option.id}`).toBeGreaterThanOrEqual(1);
+          expect(
+            option.personality_tags?.length,
+            `${quiz.slug} ${question.id}/${option.id}`
+          ).toBeGreaterThanOrEqual(1);
           for (const tag of option.personality_tags ?? []) {
             expect(resultTags.has(tag), `${quiz.slug}: tag ${tag} sin resultado`).toBe(true);
           }
@@ -139,7 +147,9 @@ describe('editorial-seed-2026ak', () => {
         )
       );
       for (const result of quiz.results!) {
-        expect(usedTags.has(result.personality_tag!), `${quiz.slug}: resultado inalcanzable`).toBe(true);
+        expect(usedTags.has(result.personality_tag!), `${quiz.slug}: resultado inalcanzable`).toBe(
+          true
+        );
       }
     }
   });
@@ -154,10 +164,7 @@ describe('editorial-seed-2026ak', () => {
           question.explanation ?? '',
           ...question.options.map((option) => option.text),
         ]),
-        ...(quiz.results ?? []).flatMap((result) => [
-          result.title ?? '',
-          result.description ?? '',
-        ]),
+        ...(quiz.results ?? []).flatMap((result) => [result.title ?? '', result.description ?? '']),
       ].join(' ');
       expect(VOSEO.test(text), `${quiz.slug}: ${text.match(VOSEO)?.[0]}`).toBe(false);
     }

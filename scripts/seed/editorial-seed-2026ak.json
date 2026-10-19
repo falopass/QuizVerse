@@ -117,11 +117,31 @@
           "id": "q1",
           "question": "Es viernes por la noche. ¿Dónde te encontramos?",
           "options": [
-            { "id": "a", "text": "En una cena pequeña donde cada detalle está pensado", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "En casa, con manta, té y algo recién horneado", "personality_tags": ["cinnamon"] },
-            { "id": "c", "text": "Donde sea, si hay postre y buena compañía", "personality_tags": ["vanilla"] },
-            { "id": "d", "text": "En la fiesta más ruidosa de la ciudad", "personality_tags": ["chili"] },
-            { "id": "e", "text": "En un plan tranquilo, aunque sea en mi propio balcón", "personality_tags": ["turmeric"] }
+            {
+              "id": "a",
+              "text": "En una cena pequeña donde cada detalle está pensado",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "En casa, con manta, té y algo recién horneado",
+              "personality_tags": ["cinnamon"]
+            },
+            {
+              "id": "c",
+              "text": "Donde sea, si hay postre y buena compañía",
+              "personality_tags": ["vanilla"]
+            },
+            {
+              "id": "d",
+              "text": "En la fiesta más ruidosa de la ciudad",
+              "personality_tags": ["chili"]
+            },
+            {
+              "id": "e",
+              "text": "En un plan tranquilo, aunque sea en mi propio balcón",
+              "personality_tags": ["turmeric"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -130,7 +150,11 @@
           "id": "q2",
           "question": "Tus amigos te describirían como...",
           "options": [
-            { "id": "a", "text": "Exótico y difícil de encontrar", "personality_tags": ["saffron"] },
+            {
+              "id": "a",
+              "text": "Exótico y difícil de encontrar",
+              "personality_tags": ["saffron"]
+            },
             { "id": "b", "text": "Cálido y acogedor", "personality_tags": ["cinnamon"] },
             { "id": "c", "text": "Dulce y confiable", "personality_tags": ["vanilla"] },
             { "id": "d", "text": "Intenso y sin filtro", "personality_tags": ["chili"] },
@@ -143,11 +167,31 @@
           "id": "q3",
           "question": "¿Cómo enfrentas un problema?",
           "options": [
-            { "id": "a", "text": "Con paciencia milimétrica: los detalles importan", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "Reuniendo a todos alrededor de una mesa", "personality_tags": ["cinnamon"] },
-            { "id": "c", "text": "Suavizando los ánimos de a poco", "personality_tags": ["vanilla"] },
-            { "id": "d", "text": "Yendo directo al grano, aunque queme", "personality_tags": ["chili"] },
-            { "id": "e", "text": "Respirando hondo antes de actuar", "personality_tags": ["turmeric"] }
+            {
+              "id": "a",
+              "text": "Con paciencia milimétrica: los detalles importan",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "Reuniendo a todos alrededor de una mesa",
+              "personality_tags": ["cinnamon"]
+            },
+            {
+              "id": "c",
+              "text": "Suavizando los ánimos de a poco",
+              "personality_tags": ["vanilla"]
+            },
+            {
+              "id": "d",
+              "text": "Yendo directo al grano, aunque queme",
+              "personality_tags": ["chili"]
+            },
+            {
+              "id": "e",
+              "text": "Respirando hondo antes de actuar",
+              "personality_tags": ["turmeric"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -156,8 +200,16 @@
           "id": "q4",
           "question": "Elige un postre:",
           "options": [
-            { "id": "a", "text": "Arroz con leche al azafrán y cardamomo", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "Rollos de canela recién hechos", "personality_tags": ["cinnamon"] },
+            {
+              "id": "a",
+              "text": "Arroz con leche al azafrán y cardamomo",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "Rollos de canela recién hechos",
+              "personality_tags": ["cinnamon"]
+            },
             { "id": "c", "text": "Helado de vainilla clásico", "personality_tags": ["vanilla"] },
             { "id": "d", "text": "Chocolate picante con chile", "personality_tags": ["chili"] },
             { "id": "e", "text": "Leche dorada con cúrcuma", "personality_tags": ["turmeric"] }
@@ -169,11 +221,31 @@
           "id": "q5",
           "question": "¿Cuál es tu ritmo ideal de viaje?",
           "options": [
-            { "id": "a", "text": "Poco, pero a lugares que nadie conoce", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "Pueblos acogedores con mercados y panaderías", "personality_tags": ["cinnamon"] },
-            { "id": "c", "text": "Playas tranquilas con tiempo para leer", "personality_tags": ["vanilla"] },
-            { "id": "d", "text": "Donde haya comida callejera que pique", "personality_tags": ["chili"] },
-            { "id": "e", "text": "Un retiro tranquilo entre montañas", "personality_tags": ["turmeric"] }
+            {
+              "id": "a",
+              "text": "Poco, pero a lugares que nadie conoce",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "Pueblos acogedores con mercados y panaderías",
+              "personality_tags": ["cinnamon"]
+            },
+            {
+              "id": "c",
+              "text": "Playas tranquilas con tiempo para leer",
+              "personality_tags": ["vanilla"]
+            },
+            {
+              "id": "d",
+              "text": "Donde haya comida callejera que pique",
+              "personality_tags": ["chili"]
+            },
+            {
+              "id": "e",
+              "text": "Un retiro tranquilo entre montañas",
+              "personality_tags": ["turmeric"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -182,10 +254,26 @@
           "id": "q6",
           "question": "En una conversación de grupo, tú...",
           "options": [
-            { "id": "a", "text": "Hablas poco, pero todos escuchan cuando lo haces", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "Haces que nadie se sienta fuera", "personality_tags": ["cinnamon"] },
-            { "id": "c", "text": "Pones la nota amable que calma el debate", "personality_tags": ["vanilla"] },
-            { "id": "d", "text": "Dices lo que nadie se atreve a decir", "personality_tags": ["chili"] },
+            {
+              "id": "a",
+              "text": "Hablas poco, pero todos escuchan cuando lo haces",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "Haces que nadie se sienta fuera",
+              "personality_tags": ["cinnamon"]
+            },
+            {
+              "id": "c",
+              "text": "Pones la nota amable que calma el debate",
+              "personality_tags": ["vanilla"]
+            },
+            {
+              "id": "d",
+              "text": "Dices lo que nadie se atreve a decir",
+              "personality_tags": ["chili"]
+            },
             { "id": "e", "text": "Aportas calma y perspectiva", "personality_tags": ["turmeric"] }
           ],
           "explanation": null,
@@ -195,11 +283,27 @@
           "id": "q7",
           "question": "¿Qué frase va más contigo?",
           "options": [
-            { "id": "a", "text": "«La calidad antes que la cantidad»", "personality_tags": ["saffron"] },
-            { "id": "b", "text": "«El hogar es donde huele a canela»", "personality_tags": ["cinnamon"] },
-            { "id": "c", "text": "«Lo simple, bien hecho, nunca falla»", "personality_tags": ["vanilla"] },
+            {
+              "id": "a",
+              "text": "«La calidad antes que la cantidad»",
+              "personality_tags": ["saffron"]
+            },
+            {
+              "id": "b",
+              "text": "«El hogar es donde huele a canela»",
+              "personality_tags": ["cinnamon"]
+            },
+            {
+              "id": "c",
+              "text": "«Lo simple, bien hecho, nunca falla»",
+              "personality_tags": ["vanilla"]
+            },
             { "id": "d", "text": "«Sin pasión no hay sabor»", "personality_tags": ["chili"] },
-            { "id": "e", "text": "«El equilibrio es la verdadera especia»", "personality_tags": ["turmeric"] }
+            {
+              "id": "e",
+              "text": "«El equilibrio es la verdadera especia»",
+              "personality_tags": ["turmeric"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -359,11 +463,31 @@
           "id": "q1",
           "question": "Your ideal Friday night is...",
           "options": [
-            { "id": "a", "text": "Hosting dinner: I built this group and I keep it together", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "Out moving: dancing, walking, anything with air", "personality_tags": ["oxygen"] },
-            { "id": "c", "text": "Same spot as always, same people — that's the point", "personality_tags": ["iron"] },
-            { "id": "d", "text": "Something exclusive: a tasting menu, a gallery opening", "personality_tags": ["gold"] },
-            { "id": "e", "text": "The loudest, brightest plan on offer", "personality_tags": ["neon"] }
+            {
+              "id": "a",
+              "text": "Hosting dinner: I built this group and I keep it together",
+              "personality_tags": ["carbon"]
+            },
+            {
+              "id": "b",
+              "text": "Out moving: dancing, walking, anything with air",
+              "personality_tags": ["oxygen"]
+            },
+            {
+              "id": "c",
+              "text": "Same spot as always, same people — that's the point",
+              "personality_tags": ["iron"]
+            },
+            {
+              "id": "d",
+              "text": "Something exclusive: a tasting menu, a gallery opening",
+              "personality_tags": ["gold"]
+            },
+            {
+              "id": "e",
+              "text": "The loudest, brightest plan on offer",
+              "personality_tags": ["neon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -372,11 +496,27 @@
           "id": "q2",
           "question": "At work, you're the one who...",
           "options": [
-            { "id": "a", "text": "Connects the team: every project runs through you", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "Energizes the room the second you walk in", "personality_tags": ["oxygen"] },
-            { "id": "c", "text": "Never misses a deadline, never complains", "personality_tags": ["iron"] },
+            {
+              "id": "a",
+              "text": "Connects the team: every project runs through you",
+              "personality_tags": ["carbon"]
+            },
+            {
+              "id": "b",
+              "text": "Energizes the room the second you walk in",
+              "personality_tags": ["oxygen"]
+            },
+            {
+              "id": "c",
+              "text": "Never misses a deadline, never complains",
+              "personality_tags": ["iron"]
+            },
             { "id": "d", "text": "Does few things, but flawlessly", "personality_tags": ["gold"] },
-            { "id": "e", "text": "Gets noticed: your ideas light up the meeting", "personality_tags": ["neon"] }
+            {
+              "id": "e",
+              "text": "Gets noticed: your ideas light up the meeting",
+              "personality_tags": ["neon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -385,10 +525,18 @@
           "id": "q3",
           "question": "Pick a superpower:",
           "options": [
-            { "id": "a", "text": "Shapeshifting — becoming whatever is needed", "personality_tags": ["carbon"] },
+            {
+              "id": "a",
+              "text": "Shapeshifting — becoming whatever is needed",
+              "personality_tags": ["carbon"]
+            },
             { "id": "b", "text": "Being everywhere at once", "personality_tags": ["oxygen"] },
             { "id": "c", "text": "Invulnerability", "personality_tags": ["iron"] },
-            { "id": "d", "text": "Timelessness — never aging, never fading", "personality_tags": ["gold"] },
+            {
+              "id": "d",
+              "text": "Timelessness — never aging, never fading",
+              "personality_tags": ["gold"]
+            },
             { "id": "e", "text": "Glowing in the dark", "personality_tags": ["neon"] }
           ],
           "explanation": null,
@@ -398,10 +546,26 @@
           "id": "q4",
           "question": "Your reputation in the group chat:",
           "options": [
-            { "id": "a", "text": "The organizer: nothing happens without your thread", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "The hype person: all energy, all the time", "personality_tags": ["oxygen"] },
-            { "id": "c", "text": "The rock: people call you when things go wrong", "personality_tags": ["iron"] },
-            { "id": "d", "text": "The mystery: rarely posts, always lands", "personality_tags": ["gold"] },
+            {
+              "id": "a",
+              "text": "The organizer: nothing happens without your thread",
+              "personality_tags": ["carbon"]
+            },
+            {
+              "id": "b",
+              "text": "The hype person: all energy, all the time",
+              "personality_tags": ["oxygen"]
+            },
+            {
+              "id": "c",
+              "text": "The rock: people call you when things go wrong",
+              "personality_tags": ["iron"]
+            },
+            {
+              "id": "d",
+              "text": "The mystery: rarely posts, always lands",
+              "personality_tags": ["gold"]
+            },
             { "id": "e", "text": "The one with the loudest takes", "personality_tags": ["neon"] }
           ],
           "explanation": null,
@@ -411,11 +575,31 @@
           "id": "q5",
           "question": "Choose a job description:",
           "options": [
-            { "id": "a", "text": "Be the skeleton of every living thing", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "Fuel every breath and every fire", "personality_tags": ["oxygen"] },
-            { "id": "c", "text": "Hold up bridges, ships and the Earth's core", "personality_tags": ["iron"] },
-            { "id": "d", "text": "Sit in a vault looking immaculate for millennia", "personality_tags": ["gold"] },
-            { "id": "e", "text": "Turn a boring tube of gas into a glowing sign", "personality_tags": ["neon"] }
+            {
+              "id": "a",
+              "text": "Be the skeleton of every living thing",
+              "personality_tags": ["carbon"]
+            },
+            {
+              "id": "b",
+              "text": "Fuel every breath and every fire",
+              "personality_tags": ["oxygen"]
+            },
+            {
+              "id": "c",
+              "text": "Hold up bridges, ships and the Earth's core",
+              "personality_tags": ["iron"]
+            },
+            {
+              "id": "d",
+              "text": "Sit in a vault looking immaculate for millennia",
+              "personality_tags": ["gold"]
+            },
+            {
+              "id": "e",
+              "text": "Turn a boring tube of gas into a glowing sign",
+              "personality_tags": ["neon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -424,11 +608,31 @@
           "id": "q6",
           "question": "How do you handle change?",
           "options": [
-            { "id": "a", "text": "I bond with it: change is just new structure", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "I flow with it; still or moving, I'm fine", "personality_tags": ["oxygen"] },
-            { "id": "c", "text": "I resist it, but I bend before I break", "personality_tags": ["iron"] },
-            { "id": "d", "text": "I don't react: I stay exactly as I am", "personality_tags": ["gold"] },
-            { "id": "e", "text": "I charge it up: change makes me brighter", "personality_tags": ["neon"] }
+            {
+              "id": "a",
+              "text": "I bond with it: change is just new structure",
+              "personality_tags": ["carbon"]
+            },
+            {
+              "id": "b",
+              "text": "I flow with it; still or moving, I'm fine",
+              "personality_tags": ["oxygen"]
+            },
+            {
+              "id": "c",
+              "text": "I resist it, but I bend before I break",
+              "personality_tags": ["iron"]
+            },
+            {
+              "id": "d",
+              "text": "I don't react: I stay exactly as I am",
+              "personality_tags": ["gold"]
+            },
+            {
+              "id": "e",
+              "text": "I charge it up: change makes me brighter",
+              "personality_tags": ["neon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -438,9 +642,17 @@
           "question": "What would your friends borrow from you?",
           "options": [
             { "id": "a", "text": "Connections: you know everyone", "personality_tags": ["carbon"] },
-            { "id": "b", "text": "Energy: you recharge whoever is near", "personality_tags": ["oxygen"] },
+            {
+              "id": "b",
+              "text": "Energy: you recharge whoever is near",
+              "personality_tags": ["oxygen"]
+            },
             { "id": "c", "text": "Reliability: your word is steel", "personality_tags": ["iron"] },
-            { "id": "d", "text": "Taste: you only keep the good stuff", "personality_tags": ["gold"] },
+            {
+              "id": "d",
+              "text": "Taste: you only keep the good stuff",
+              "personality_tags": ["gold"]
+            },
             { "id": "e", "text": "Visibility: you make things seen", "personality_tags": ["neon"] }
           ],
           "explanation": null,
@@ -513,7 +725,11 @@
           "options": [
             { "id": "a", "text": "It releases an electric shock", "is_correct": false },
             { "id": "b", "text": "It injects venom into the prey", "is_correct": false },
-            { "id": "c", "text": "Its club moves so fast it boils the water into cavitation bubbles", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Its club moves so fast it boils the water into cavitation bubbles",
+              "is_correct": true
+            },
             { "id": "d", "text": "It can strike only once in its life", "is_correct": false }
           ],
           "explanation": "The strike accelerates so fast it vaporizes water, and the collapse of the bubbles delivers a second shockwave — even a tiny flash of light."
@@ -547,7 +763,11 @@
             { "id": "a", "text": "Only its tail", "is_correct": false },
             { "id": "b", "text": "Only its skin", "is_correct": false },
             { "id": "c", "text": "Nothing — it's a myth", "is_correct": false },
-            { "id": "d", "text": "Entire limbs and parts of its heart and spinal cord", "is_correct": true }
+            {
+              "id": "d",
+              "text": "Entire limbs and parts of its heart and spinal cord",
+              "is_correct": true
+            }
           ],
           "explanation": "Axolotls regrow whole limbs and sections of the heart and spinal cord without scarring, which makes them stars of regenerative-medicine research."
         },
@@ -601,9 +821,21 @@
           "id": "q1",
           "question": "Si pudieras elegir un sentido extra, ¿cuál sería?",
           "options": [
-            { "id": "a", "text": "Curarme de cualquier golpe", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "Escuchar lo que nadie oye en la oscuridad", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "Cambiar de aspecto según el ambiente", "personality_tags": ["camouflage"] },
+            {
+              "id": "a",
+              "text": "Curarme de cualquier golpe",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "Escuchar lo que nadie oye en la oscuridad",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "Cambiar de aspecto según el ambiente",
+              "personality_tags": ["camouflage"]
+            },
             { "id": "d", "text": "Moverme sin tocar el suelo", "personality_tags": ["hovering"] },
             { "id": "e", "text": "Sentir toda mi propia fuerza", "personality_tags": ["strength"] }
           ],
@@ -614,11 +846,31 @@
           "id": "q2",
           "question": "Tu forma de resolver problemas es...",
           "options": [
-            { "id": "a", "text": "Recomponerme y empezar de nuevo, las veces que haga falta", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "Medir el terreno con señales que otros ignoran", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "Mimetizarme hasta encontrar el ángulo perfecto", "personality_tags": ["camouflage"] },
-            { "id": "d", "text": "Ir y venir hasta encontrar el punto exacto", "personality_tags": ["hovering"] },
-            { "id": "e", "text": "Empujar hasta que se mueva, sea lo que sea", "personality_tags": ["strength"] }
+            {
+              "id": "a",
+              "text": "Recomponerme y empezar de nuevo, las veces que haga falta",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "Medir el terreno con señales que otros ignoran",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "Mimetizarme hasta encontrar el ángulo perfecto",
+              "personality_tags": ["camouflage"]
+            },
+            {
+              "id": "d",
+              "text": "Ir y venir hasta encontrar el punto exacto",
+              "personality_tags": ["hovering"]
+            },
+            {
+              "id": "e",
+              "text": "Empujar hasta que se mueva, sea lo que sea",
+              "personality_tags": ["strength"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -627,11 +879,31 @@
           "id": "q3",
           "question": "¿Qué plan prefieres?",
           "options": [
-            { "id": "a", "text": "Quedarme en casa recuperando energías", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "Explorar la ciudad de noche", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "Pasar desapercibido en un museo lleno", "personality_tags": ["camouflage"] },
-            { "id": "d", "text": "Picar de todo un poco, sin quedarme quieto", "personality_tags": ["hovering"] },
-            { "id": "e", "text": "Gimnasio, montaña o la mudanza de un amigo", "personality_tags": ["strength"] }
+            {
+              "id": "a",
+              "text": "Quedarme en casa recuperando energías",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "Explorar la ciudad de noche",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "Pasar desapercibido en un museo lleno",
+              "personality_tags": ["camouflage"]
+            },
+            {
+              "id": "d",
+              "text": "Picar de todo un poco, sin quedarme quieto",
+              "personality_tags": ["hovering"]
+            },
+            {
+              "id": "e",
+              "text": "Gimnasio, montaña o la mudanza de un amigo",
+              "personality_tags": ["strength"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -640,11 +912,31 @@
           "id": "q4",
           "question": "En tu equipo, eres quien...",
           "options": [
-            { "id": "a", "text": "Se recupera primero de las crisis", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "Detecta los problemas antes de que lleguen", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "Trabaja en silencio y sorprende con el resultado", "personality_tags": ["camouflage"] },
-            { "id": "d", "text": "Salta de tarea en tarea sin perder el ritmo", "personality_tags": ["hovering"] },
-            { "id": "e", "text": "Levanta lo que nadie más puede", "personality_tags": ["strength"] }
+            {
+              "id": "a",
+              "text": "Se recupera primero de las crisis",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "Detecta los problemas antes de que lleguen",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "Trabaja en silencio y sorprende con el resultado",
+              "personality_tags": ["camouflage"]
+            },
+            {
+              "id": "d",
+              "text": "Salta de tarea en tarea sin perder el ritmo",
+              "personality_tags": ["hovering"]
+            },
+            {
+              "id": "e",
+              "text": "Levanta lo que nadie más puede",
+              "personality_tags": ["strength"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -666,11 +958,31 @@
           "id": "q6",
           "question": "Elige tu frase:",
           "options": [
-            { "id": "a", "text": "«Lo que no me destruye, me reconstruye»", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "«Escucho con todo el cuerpo»", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "«El mejor movimiento es el que no se ve»", "personality_tags": ["camouflage"] },
-            { "id": "d", "text": "«Quien vuela bajo, ve más flores»", "personality_tags": ["hovering"] },
-            { "id": "e", "text": "«No pesan los kilos, pesa la actitud»", "personality_tags": ["strength"] }
+            {
+              "id": "a",
+              "text": "«Lo que no me destruye, me reconstruye»",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "«Escucho con todo el cuerpo»",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "«El mejor movimiento es el que no se ve»",
+              "personality_tags": ["camouflage"]
+            },
+            {
+              "id": "d",
+              "text": "«Quien vuela bajo, ve más flores»",
+              "personality_tags": ["hovering"]
+            },
+            {
+              "id": "e",
+              "text": "«No pesan los kilos, pesa la actitud»",
+              "personality_tags": ["strength"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -679,11 +991,31 @@
           "id": "q7",
           "question": "¿A qué animal admiras en secreto?",
           "options": [
-            { "id": "a", "text": "Al ajolote, que se regenera entero", "personality_tags": ["regeneration"] },
-            { "id": "b", "text": "Al murciélago, que ve sin ojos", "personality_tags": ["echolocation"] },
-            { "id": "c", "text": "Al pulpo, maestro del disfraz", "personality_tags": ["camouflage"] },
-            { "id": "d", "text": "Al colibrí, que desafía la gravedad", "personality_tags": ["hovering"] },
-            { "id": "e", "text": "Al escarabajo pelotero, que arrastra lo imposible", "personality_tags": ["strength"] }
+            {
+              "id": "a",
+              "text": "Al ajolote, que se regenera entero",
+              "personality_tags": ["regeneration"]
+            },
+            {
+              "id": "b",
+              "text": "Al murciélago, que ve sin ojos",
+              "personality_tags": ["echolocation"]
+            },
+            {
+              "id": "c",
+              "text": "Al pulpo, maestro del disfraz",
+              "personality_tags": ["camouflage"]
+            },
+            {
+              "id": "d",
+              "text": "Al colibrí, que desafía la gravedad",
+              "personality_tags": ["hovering"]
+            },
+            {
+              "id": "e",
+              "text": "Al escarabajo pelotero, que arrastra lo imposible",
+              "personality_tags": ["strength"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -843,10 +1175,22 @@
           "id": "q1",
           "question": "Your ideal environment is...",
           "options": [
-            { "id": "a", "text": "The top of somewhere — any summit will do", "personality_tags": ["everest"] },
+            {
+              "id": "a",
+              "text": "The top of somewhere — any summit will do",
+              "personality_tags": ["everest"]
+            },
             { "id": "b", "text": "Clean, dry, empty horizons", "personality_tags": ["atacama"] },
-            { "id": "c", "text": "Somewhere quiet and unreachable", "personality_tags": ["trench"] },
-            { "id": "d", "text": "A white silence that belongs to no one", "personality_tags": ["antarctica"] },
+            {
+              "id": "c",
+              "text": "Somewhere quiet and unreachable",
+              "personality_tags": ["trench"]
+            },
+            {
+              "id": "d",
+              "text": "A white silence that belongs to no one",
+              "personality_tags": ["antarctica"]
+            },
             { "id": "e", "text": "Anywhere dense, green and alive", "personality_tags": ["amazon"] }
           ],
           "explanation": null,
@@ -857,10 +1201,26 @@
           "question": "People say your personality is...",
           "options": [
             { "id": "a", "text": "Ambitious — always climbing", "personality_tags": ["everest"] },
-            { "id": "b", "text": "Minimal — you need almost nothing", "personality_tags": ["atacama"] },
-            { "id": "c", "text": "Deep — nobody fully reaches the bottom of you", "personality_tags": ["trench"] },
-            { "id": "d", "text": "Cool — literally unbothered", "personality_tags": ["antarctica"] },
-            { "id": "e", "text": "Abundant — you overflow with ideas and people", "personality_tags": ["amazon"] }
+            {
+              "id": "b",
+              "text": "Minimal — you need almost nothing",
+              "personality_tags": ["atacama"]
+            },
+            {
+              "id": "c",
+              "text": "Deep — nobody fully reaches the bottom of you",
+              "personality_tags": ["trench"]
+            },
+            {
+              "id": "d",
+              "text": "Cool — literally unbothered",
+              "personality_tags": ["antarctica"]
+            },
+            {
+              "id": "e",
+              "text": "Abundant — you overflow with ideas and people",
+              "personality_tags": ["amazon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -869,11 +1229,31 @@
           "id": "q3",
           "question": "In a crisis, you...",
           "options": [
-            { "id": "a", "text": "Take the high ground and decide", "personality_tags": ["everest"] },
-            { "id": "b", "text": "Cut everything to the essentials", "personality_tags": ["atacama"] },
-            { "id": "c", "text": "Go quiet and process at your own pressure", "personality_tags": ["trench"] },
-            { "id": "d", "text": "Stay frozen-calm while others melt", "personality_tags": ["antarctica"] },
-            { "id": "e", "text": "Adapt — you thrive in any climate", "personality_tags": ["amazon"] }
+            {
+              "id": "a",
+              "text": "Take the high ground and decide",
+              "personality_tags": ["everest"]
+            },
+            {
+              "id": "b",
+              "text": "Cut everything to the essentials",
+              "personality_tags": ["atacama"]
+            },
+            {
+              "id": "c",
+              "text": "Go quiet and process at your own pressure",
+              "personality_tags": ["trench"]
+            },
+            {
+              "id": "d",
+              "text": "Stay frozen-calm while others melt",
+              "personality_tags": ["antarctica"]
+            },
+            {
+              "id": "e",
+              "text": "Adapt — you thrive in any climate",
+              "personality_tags": ["amazon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -882,11 +1262,27 @@
           "id": "q4",
           "question": "Your social battery...",
           "options": [
-            { "id": "a", "text": "Charges on challenges, not crowds", "personality_tags": ["everest"] },
+            {
+              "id": "a",
+              "text": "Charges on challenges, not crowds",
+              "personality_tags": ["everest"]
+            },
             { "id": "b", "text": "Runs forever on very little", "personality_tags": ["atacama"] },
-            { "id": "c", "text": "Goes deepest in one-on-one conversations", "personality_tags": ["trench"] },
-            { "id": "d", "text": "Is selective — only a few species survive your climate", "personality_tags": ["antarctica"] },
-            { "id": "e", "text": "Feeds an entire ecosystem of friends", "personality_tags": ["amazon"] }
+            {
+              "id": "c",
+              "text": "Goes deepest in one-on-one conversations",
+              "personality_tags": ["trench"]
+            },
+            {
+              "id": "d",
+              "text": "Is selective — only a few species survive your climate",
+              "personality_tags": ["antarctica"]
+            },
+            {
+              "id": "e",
+              "text": "Feeds an entire ecosystem of friends",
+              "personality_tags": ["amazon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -908,11 +1304,27 @@
           "id": "q6",
           "question": "Your weekend fantasy:",
           "options": [
-            { "id": "a", "text": "Climbing something with a flag on top", "personality_tags": ["everest"] },
-            { "id": "b", "text": "Stargazing where nothing grows", "personality_tags": ["atacama"] },
-            { "id": "c", "text": "Vanishing where no one can reach you", "personality_tags": ["trench"] },
+            {
+              "id": "a",
+              "text": "Climbing something with a flag on top",
+              "personality_tags": ["everest"]
+            },
+            {
+              "id": "b",
+              "text": "Stargazing where nothing grows",
+              "personality_tags": ["atacama"]
+            },
+            {
+              "id": "c",
+              "text": "Vanishing where no one can reach you",
+              "personality_tags": ["trench"]
+            },
             { "id": "d", "text": "Total silence, total white", "personality_tags": ["antarctica"] },
-            { "id": "e", "text": "Getting lost somewhere loud and green", "personality_tags": ["amazon"] }
+            {
+              "id": "e",
+              "text": "Getting lost somewhere loud and green",
+              "personality_tags": ["amazon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -924,8 +1336,16 @@
             { "id": "a", "text": "«Because it's there»", "personality_tags": ["everest"] },
             { "id": "b", "text": "«Less, but better»", "personality_tags": ["atacama"] },
             { "id": "c", "text": "«Still waters run deep»", "personality_tags": ["trench"] },
-            { "id": "d", "text": "«Cold is just another kind of quiet»", "personality_tags": ["antarctica"] },
-            { "id": "e", "text": "«Grow where you're planted — everywhere»", "personality_tags": ["amazon"] }
+            {
+              "id": "d",
+              "text": "«Cold is just another kind of quiet»",
+              "personality_tags": ["antarctica"]
+            },
+            {
+              "id": "e",
+              "text": "«Grow where you're planted — everywhere»",
+              "personality_tags": ["amazon"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1085,10 +1505,26 @@
           "id": "q1",
           "question": "¿Cómo prefieres ganar?",
           "options": [
-            { "id": "a", "text": "Siendo el más rápido, sin discusión", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Con riesgo, a toda velocidad y al filo del trompo", "personality_tags": ["charioteer"] },
-            { "id": "c", "text": "Con técnica pura, contacto y aguante", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "En equipo y con un sentido mayor", "personality_tags": ["ballplayer"] },
+            {
+              "id": "a",
+              "text": "Siendo el más rápido, sin discusión",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "Con riesgo, a toda velocidad y al filo del trompo",
+              "personality_tags": ["charioteer"]
+            },
+            {
+              "id": "c",
+              "text": "Con técnica pura, contacto y aguante",
+              "personality_tags": ["pankration"]
+            },
+            {
+              "id": "d",
+              "text": "En equipo y con un sentido mayor",
+              "personality_tags": ["ballplayer"]
+            },
             { "id": "e", "text": "Con el público entero de pie", "personality_tags": ["gladiator"] }
           ],
           "explanation": null,
@@ -1098,11 +1534,27 @@
           "id": "q2",
           "question": "Tu relación con las reglas es...",
           "options": [
-            { "id": "a", "text": "Simples: una recta y el primero en llegar gana", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Las conozco para doblarlas en la curva", "personality_tags": ["charioteer"] },
+            {
+              "id": "a",
+              "text": "Simples: una recta y el primero en llegar gana",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "Las conozco para doblarlas en la curva",
+              "personality_tags": ["charioteer"]
+            },
             { "id": "c", "text": "Cuanto menos haya, mejor", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "Sagradas: el juego significa algo más grande", "personality_tags": ["ballplayer"] },
-            { "id": "e", "text": "Las que hagan el mejor espectáculo", "personality_tags": ["gladiator"] }
+            {
+              "id": "d",
+              "text": "Sagradas: el juego significa algo más grande",
+              "personality_tags": ["ballplayer"]
+            },
+            {
+              "id": "e",
+              "text": "Las que hagan el mejor espectáculo",
+              "personality_tags": ["gladiator"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1111,11 +1563,31 @@
           "id": "q3",
           "question": "¿Qué entrenamiento elegirías?",
           "options": [
-            { "id": "a", "text": "Series de velocidad todos los días", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Horas domando caballos y curvas", "personality_tags": ["charioteer"] },
-            { "id": "c", "text": "Combate de práctica hasta caer rendido", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "Práctica con el equipo al amanecer", "personality_tags": ["ballplayer"] },
-            { "id": "e", "text": "Exhibición de fuerza frente a toda la escuela", "personality_tags": ["gladiator"] }
+            {
+              "id": "a",
+              "text": "Series de velocidad todos los días",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "Horas domando caballos y curvas",
+              "personality_tags": ["charioteer"]
+            },
+            {
+              "id": "c",
+              "text": "Combate de práctica hasta caer rendido",
+              "personality_tags": ["pankration"]
+            },
+            {
+              "id": "d",
+              "text": "Práctica con el equipo al amanecer",
+              "personality_tags": ["ballplayer"]
+            },
+            {
+              "id": "e",
+              "text": "Exhibición de fuerza frente a toda la escuela",
+              "personality_tags": ["gladiator"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1124,11 +1596,31 @@
           "id": "q4",
           "question": "Tu arena ideal es...",
           "options": [
-            { "id": "a", "text": "Una pista de tierra de doscientos metros", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Un circo con ciento cincuenta mil gargantas", "personality_tags": ["charioteer"] },
-            { "id": "c", "text": "Un ring de tierra batida sin jueces", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "Una cancha de piedra entre dos templos", "personality_tags": ["ballplayer"] },
-            { "id": "e", "text": "El anfiteatro lleno un día de fiesta", "personality_tags": ["gladiator"] }
+            {
+              "id": "a",
+              "text": "Una pista de tierra de doscientos metros",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "Un circo con ciento cincuenta mil gargantas",
+              "personality_tags": ["charioteer"]
+            },
+            {
+              "id": "c",
+              "text": "Un ring de tierra batida sin jueces",
+              "personality_tags": ["pankration"]
+            },
+            {
+              "id": "d",
+              "text": "Una cancha de piedra entre dos templos",
+              "personality_tags": ["ballplayer"]
+            },
+            {
+              "id": "e",
+              "text": "El anfiteatro lleno un día de fiesta",
+              "personality_tags": ["gladiator"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1138,7 +1630,11 @@
           "question": "¿Qué temes más?",
           "options": [
             { "id": "a", "text": "Llegar segundo por un palmo", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Perder el control en la última curva", "personality_tags": ["charioteer"] },
+            {
+              "id": "b",
+              "text": "Perder el control en la última curva",
+              "personality_tags": ["charioteer"]
+            },
             { "id": "c", "text": "Que me obliguen a rendirme", "personality_tags": ["pankration"] },
             { "id": "d", "text": "Fallar a mi equipo", "personality_tags": ["ballplayer"] },
             { "id": "e", "text": "Aburrir a la grada", "personality_tags": ["gladiator"] }
@@ -1150,11 +1646,31 @@
           "id": "q6",
           "question": "Tu motivación secreta es...",
           "options": [
-            { "id": "a", "text": "Que mi nombre quede escrito junto al récord", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "La adrenalina del peligro real", "personality_tags": ["charioteer"] },
-            { "id": "c", "text": "Demostrar que aguanto lo que nadie", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "Honrar algo más grande que yo", "personality_tags": ["ballplayer"] },
-            { "id": "e", "text": "La gloria, los laureles y la multitud", "personality_tags": ["gladiator"] }
+            {
+              "id": "a",
+              "text": "Que mi nombre quede escrito junto al récord",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "La adrenalina del peligro real",
+              "personality_tags": ["charioteer"]
+            },
+            {
+              "id": "c",
+              "text": "Demostrar que aguanto lo que nadie",
+              "personality_tags": ["pankration"]
+            },
+            {
+              "id": "d",
+              "text": "Honrar algo más grande que yo",
+              "personality_tags": ["ballplayer"]
+            },
+            {
+              "id": "e",
+              "text": "La gloria, los laureles y la multitud",
+              "personality_tags": ["gladiator"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -1163,11 +1679,31 @@
           "id": "q7",
           "question": "Elige tu premio soñado:",
           "options": [
-            { "id": "a", "text": "Una corona de olivo y la eternidad", "personality_tags": ["sprinter"] },
-            { "id": "b", "text": "Una bolsa de oro y la libertad", "personality_tags": ["charioteer"] },
-            { "id": "c", "text": "El respeto absoluto del rival", "personality_tags": ["pankration"] },
-            { "id": "d", "text": "Que el juego continúe otro milenio", "personality_tags": ["ballplayer"] },
-            { "id": "e", "text": "La ovación de todo el imperio", "personality_tags": ["gladiator"] }
+            {
+              "id": "a",
+              "text": "Una corona de olivo y la eternidad",
+              "personality_tags": ["sprinter"]
+            },
+            {
+              "id": "b",
+              "text": "Una bolsa de oro y la libertad",
+              "personality_tags": ["charioteer"]
+            },
+            {
+              "id": "c",
+              "text": "El respeto absoluto del rival",
+              "personality_tags": ["pankration"]
+            },
+            {
+              "id": "d",
+              "text": "Que el juego continúe otro milenio",
+              "personality_tags": ["ballplayer"]
+            },
+            {
+              "id": "e",
+              "text": "La ovación de todo el imperio",
+              "personality_tags": ["gladiator"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
