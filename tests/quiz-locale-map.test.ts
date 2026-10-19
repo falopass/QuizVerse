@@ -11,6 +11,20 @@ it('routes published seed pairs both ways and leaves unknown quizzes without an 
   expect(getEquivalentQuizSlug('en-unknown-quiz', 'es')).toBeNull();
 });
 
+it('routes the 2026t editorial pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-boxing-trivia', 'es-trivia-boxeo'],
+    ['en-mma-ufc-trivia', 'es-trivia-mma-ufc'],
+    ['en-martial-arts-trivia', 'es-trivia-artes-marciales'],
+    ['en-track-and-field-trivia', 'es-trivia-atletismo'],
+    ['en-cycling-trivia', 'es-trivia-ciclismo'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
+
 it('routes the evergreen personality pairs both ways', () => {
   const pairs: Array<[string, string]> = [
     ['en-what-kind-of-traveler-are-you', 'es-que-tipo-de-viajero-eres'],
