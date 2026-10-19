@@ -8,27 +8,34 @@ describe('achievementToastMessage', () => {
   });
 
   it('arma el copy en singular con un logro', () => {
-    expect(achievementToastMessage('es', [{ id: 'first_quiz', name: 'Primer quiz' }])).toEqual({
+    expect(achievementToastMessage('es', [{ id: 'first_quiz', name: 'First Steps' }])).toEqual({
       title: '¡Logro desbloqueado!',
-      description: 'Primer quiz',
+      description: 'Primeros pasos',
     });
-    expect(achievementToastMessage('en', [{ id: 'first_quiz', name: 'First quiz' }])).toEqual({
+    expect(achievementToastMessage('en', [{ id: 'first_quiz', name: 'First Steps' }])).toEqual({
       title: 'Achievement unlocked!',
-      description: 'First quiz',
+      description: 'First Steps',
     });
   });
 
   it('lista todos los nombres en plural', () => {
     const unlocked = [
-      { id: 'first_quiz', name: 'Primer quiz' },
-      { id: 'perfect_score', name: 'Perfeccionista' },
+      { id: 'first_quiz', name: 'First Steps' },
+      { id: 'perfect_score', name: 'Flawless' },
     ];
     expect(achievementToastMessage('es', unlocked)).toEqual({
       title: '¡Logros desbloqueados!',
-      description: 'Primer quiz · Perfeccionista',
+      description: 'Primeros pasos · Impecable',
     });
     const en = achievementToastMessage('en', unlocked);
     expect(en?.title).toBe('Achievements unlocked!');
-    expect(en?.description).toBe('Primer quiz · Perfeccionista');
+    expect(en?.description).toBe('First Steps · Flawless');
+  });
+
+  it('mantiene el nombre del servidor para ids desconocidos', () => {
+    const message = achievementToastMessage('es', [
+      { id: 'logro_nuevo', name: 'Server Provided Name' },
+    ]);
+    expect(message?.description).toBe('Server Provided Name');
   });
 });

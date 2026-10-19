@@ -462,17 +462,8 @@ BEGIN
       updated_at = NOW()
   WHERE id = NEW.player_id;
 
-  IF (SELECT quizzes_played FROM public.profiles WHERE id = NEW.player_id) = 1 THEN
-    INSERT INTO public.user_achievements (user_id, achievement_id)
-    VALUES (NEW.player_id, 'first_quiz')
-    ON CONFLICT (user_id, achievement_id) DO NOTHING;
-
-    UPDATE public.profiles
-    SET points = points + COALESCE((SELECT points_reward FROM public.achievements WHERE id = 'first_quiz'), 0),
-        updated_at = NOW()
-    WHERE id = NEW.player_id;
-  END IF;
-
+  -- Los logros los desbloquea checkAchievements() en la app (ver migracion 011):
+  -- el trigger solo lleva puntos y contadores.
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
