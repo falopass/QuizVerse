@@ -1,5 +1,4 @@
-﻿import type { Locale } from '@/lib/i18n/dictionaries';
-import { inferVisualProfile } from '@/lib/design/visual-profile';
+﻿import { inferVisualProfile } from '@/lib/design/visual-profile';
 import type { Quiz } from '@/types/quiz';
 
 export interface CoverTheme {
@@ -179,20 +178,4 @@ export function getCoverTheme(
   const override = THEME_BY_KEY[profile.theme_key];
 
   return override ? { ...base, ...override } : base;
-}
-
-export function getCoverEyebrow(locale: Locale, quizType: Quiz['quiz_type']) {
-  if (locale === 'es') {
-    if (quizType === 'personality') return 'Selección de personalidad';
-    if (quizType === 'trivia') return 'Selección de trivia';
-    return 'Selección editorial';
-  }
-
-  if (quizType === 'personality') return 'Personality pick';
-  if (quizType === 'trivia') return 'Trivia pick';
-  return 'Editorial pick';
-}
-
-export function getCoverOpenLabel(locale: Locale) {
-  return locale === 'es' ? 'Abrir quiz' : 'Open quiz';
 }
