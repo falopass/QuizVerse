@@ -52,3 +52,10 @@ it('routes the 2026b editorial pairs both ways', () => {
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
   }
 });
+
+it('routes the editorial 2026c pairs both ways', () => {
+  expect(getEquivalentQuizSlug('en-world-flags-trivia', 'es')).toBe('es-trivia-banderas-del-mundo');
+  expect(getEquivalentQuizSlug('es-trivia-frases-de-peliculas', 'en')).toBe(
+    'en-movie-quotes-trivia'
+  );
+});
