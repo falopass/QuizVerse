@@ -90,9 +90,10 @@ describe('ResultScreen · enlace al hub de categoría', () => {
   it('pinta el enlace aunque no haya relacionados', () => {
     renderResult();
 
-    expect(
-      screen.getByRole('link', { name: /see all movies & tv quizzes/i })
-    ).toHaveAttribute('href', '/en/category/movies-tv');
+    expect(screen.getByRole('link', { name: /see all movies & tv quizzes/i })).toHaveAttribute(
+      'href',
+      '/en/category/movies-tv'
+    );
   });
 
   it('no pinta el enlace sin categoría y el resto sigue renderizando', () => {
