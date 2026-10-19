@@ -1,0 +1,409 @@
+{
+  "$comment": "Editorial seed, batch 2026o: high-volume pet trivia the catalogue still misses (dogs, cats). The Messi, Cristiano Ronaldo and Michael Jackson pairs of the original ticket already shipped in batches 2026as (PR #146) and 2026ai (PR #140) under the same slugs. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-dog-trivia",
+      "title": "Dog Trivia: Senses, Breeds and Curious Facts",
+      "description": "Eight questions about our oldest companion: superpowered noses, famous breeds and facts every dog lover should know.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["dogs", "pets", "animals", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "From which wild animal do domestic dogs descend?",
+          "options": [
+            { "id": "a", "text": "The coyote", "is_correct": false },
+            { "id": "b", "text": "The gray wolf", "is_correct": true },
+            { "id": "c", "text": "The red fox", "is_correct": false },
+            { "id": "d", "text": "The African wild dog", "is_correct": false }
+          ],
+          "explanation": "Every domestic dog (Canis lupus familiaris) descends from the gray wolf; domestication began at least 15,000 years ago."
+        },
+        {
+          "id": "q2",
+          "question": "Roughly how many olfactory receptors does a dog's nose have?",
+          "options": [
+            { "id": "a", "text": "3 million", "is_correct": false },
+            { "id": "b", "text": "30 million", "is_correct": false },
+            { "id": "c", "text": "300 million", "is_correct": true },
+            { "id": "d", "text": "3 billion", "is_correct": false }
+          ],
+          "explanation": "Dogs pack about 300 million olfactory receptors, versus only 5 or 6 million in humans."
+        },
+        {
+          "id": "q3",
+          "question": "Which breed is known as the \"barkless dog\"?",
+          "options": [
+            { "id": "a", "text": "Beagle", "is_correct": false },
+            { "id": "b", "text": "Basset Hound", "is_correct": false },
+            { "id": "c", "text": "Basenji", "is_correct": true },
+            { "id": "d", "text": "Borzoi", "is_correct": false }
+          ],
+          "explanation": "The Basenji does not bark; its unusually shaped larynx produces a yodel-like sound instead."
+        },
+        {
+          "id": "q4",
+          "question": "How are Dalmatian puppies born?",
+          "options": [
+            { "id": "a", "text": "Fully spotted", "is_correct": false },
+            { "id": "b", "text": "Completely white", "is_correct": true },
+            { "id": "c", "text": "With gray patches", "is_correct": false },
+            { "id": "d", "text": "Deaf", "is_correct": false }
+          ],
+          "explanation": "Dalmatians are born pure white; their famous spots develop during the first weeks of life."
+        },
+        {
+          "id": "q5",
+          "question": "How do dogs mainly cool themselves down?",
+          "options": [
+            { "id": "a", "text": "Sweating through their skin", "is_correct": false },
+            { "id": "b", "text": "Panting", "is_correct": true },
+            { "id": "c", "text": "Shedding their fur", "is_correct": false },
+            { "id": "d", "text": "Shaking their ears", "is_correct": false }
+          ],
+          "explanation": "Dogs only sweat through their paw pads, so panting is their main way to release heat."
+        },
+        {
+          "id": "q6",
+          "question": "Which is the fastest dog breed, capable of reaching about 72 km/h?",
+          "options": [
+            { "id": "a", "text": "Whippet", "is_correct": false },
+            { "id": "b", "text": "Saluki", "is_correct": false },
+            { "id": "c", "text": "Border Collie", "is_correct": false },
+            { "id": "d", "text": "Greyhound", "is_correct": true }
+          ],
+          "explanation": "The Greyhound reaches around 72 km/h (45 mph), making it the fastest dog breed."
+        },
+        {
+          "id": "q7",
+          "question": "Which part of a dog is as unique as a human fingerprint?",
+          "options": [
+            { "id": "a", "text": "Its nose print", "is_correct": true },
+            { "id": "b", "text": "Its ear shape", "is_correct": false },
+            { "id": "c", "text": "Its tail", "is_correct": false },
+            { "id": "d", "text": "Its bark", "is_correct": false }
+          ],
+          "explanation": "Each dog's nose print is unique, and some kennel clubs accept it as proof of identity."
+        },
+        {
+          "id": "q8",
+          "question": "Which breed held the American Kennel Club's #1 registration spot for 31 consecutive years (1991-2022)?",
+          "options": [
+            { "id": "a", "text": "German Shepherd", "is_correct": false },
+            { "id": "b", "text": "Labrador Retriever", "is_correct": true },
+            { "id": "c", "text": "Golden Retriever", "is_correct": false },
+            { "id": "d", "text": "Beagle", "is_correct": false }
+          ],
+          "explanation": "The Labrador Retriever led AKC registrations for 31 straight years until the French Bulldog took the top spot."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-perros",
+      "title": "Trivia de perros: sentidos, razas y datos curiosos",
+      "description": "Ocho preguntas sobre el compañero más antiguo del ser humano: olfatos prodigiosos, razas famosas y datos que todo amante de los perros conoce.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["perros", "mascotas", "animales", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué animal salvaje descienden los perros domésticos?",
+          "options": [
+            { "id": "a", "text": "Del coyote", "is_correct": false },
+            { "id": "b", "text": "Del lobo gris", "is_correct": true },
+            { "id": "c", "text": "Del zorro rojo", "is_correct": false },
+            { "id": "d", "text": "Del perro salvaje africano", "is_correct": false }
+          ],
+          "explanation": "Todos los perros (Canis lupus familiaris) descienden del lobo gris; la domesticación empezó hace al menos 15 000 años."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos receptores olfativos tiene, aproximadamente, la nariz de un perro?",
+          "options": [
+            { "id": "a", "text": "3 millones", "is_correct": false },
+            { "id": "b", "text": "30 millones", "is_correct": false },
+            { "id": "c", "text": "300 millones", "is_correct": true },
+            { "id": "d", "text": "3 000 millones", "is_correct": false }
+          ],
+          "explanation": "Los perros tienen unos 300 millones de receptores olfativos, frente a los 5 o 6 millones de los humanos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué raza es conocida como «el perro que no ladra»?",
+          "options": [
+            { "id": "a", "text": "Beagle", "is_correct": false },
+            { "id": "b", "text": "Basset Hound", "is_correct": false },
+            { "id": "c", "text": "Basenji", "is_correct": true },
+            { "id": "d", "text": "Borzoi", "is_correct": false }
+          ],
+          "explanation": "El Basenji no ladra; su laringe, de forma particular, produce un sonido parecido a un canto tirolés."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo nacen los cachorros de dálmata?",
+          "options": [
+            { "id": "a", "text": "Con todas sus manchas", "is_correct": false },
+            { "id": "b", "text": "Completamente blancos", "is_correct": true },
+            { "id": "c", "text": "Con manchas grises", "is_correct": false },
+            { "id": "d", "text": "Sordos", "is_correct": false }
+          ],
+          "explanation": "Los dálmatas nacen blancos puros; sus famosas manchas aparecen durante las primeras semanas de vida."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se refrescan los perros principalmente?",
+          "options": [
+            { "id": "a", "text": "Sudando a través de la piel", "is_correct": false },
+            { "id": "b", "text": "Jadeando", "is_correct": true },
+            { "id": "c", "text": "Mudando el pelaje", "is_correct": false },
+            { "id": "d", "text": "Moviendo las orejas", "is_correct": false }
+          ],
+          "explanation": "Los perros solo sudan por las almohadillas de las patas, así que el jadeo es su principal forma de soltar calor."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la raza de perro más rápida, capaz de alcanzar unos 72 km/h?",
+          "options": [
+            { "id": "a", "text": "Whippet", "is_correct": false },
+            { "id": "b", "text": "Saluki", "is_correct": false },
+            { "id": "c", "text": "Border Collie", "is_correct": false },
+            { "id": "d", "text": "Galgo inglés (Greyhound)", "is_correct": true }
+          ],
+          "explanation": "El Greyhound o galgo inglés llega a unos 72 km/h, lo que lo convierte en la raza más veloz."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué parte del perro es tan única como la huella dactilar humana?",
+          "options": [
+            { "id": "a", "text": "La huella de su nariz", "is_correct": true },
+            { "id": "b", "text": "La forma de sus orejas", "is_correct": false },
+            { "id": "c", "text": "Su cola", "is_correct": false },
+            { "id": "d", "text": "Su ladrido", "is_correct": false }
+          ],
+          "explanation": "La trufa de cada perro tiene un patrón único, y algunos clubes caninos la aceptan como prueba de identidad."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué raza mantuvo el primer puesto de registro del American Kennel Club durante 31 años seguidos (1991-2022)?",
+          "options": [
+            { "id": "a", "text": "Pastor alemán", "is_correct": false },
+            { "id": "b", "text": "Labrador Retriever", "is_correct": true },
+            { "id": "c", "text": "Golden Retriever", "is_correct": false },
+            { "id": "d", "text": "Beagle", "is_correct": false }
+          ],
+          "explanation": "El Labrador Retriever lideró los registros del AKC durante 31 años consecutivos, hasta que el Bulldog Francés le arrebató el puesto."
+        }
+      ]
+    },
+    {
+      "slug": "en-cat-trivia",
+      "title": "Cat Trivia: Whiskers, Purrs and Feline Facts",
+      "description": "Eight questions about cats: their keen senses, their curious quirks and the breeds that have shared our homes for millennia.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["cats", "pets", "animals", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which ancient civilization revered cats and had a cat-headed goddess?",
+          "options": [
+            { "id": "a", "text": "Rome", "is_correct": false },
+            { "id": "b", "text": "Egypt", "is_correct": true },
+            { "id": "c", "text": "Greece", "is_correct": false },
+            { "id": "d", "text": "Babylon", "is_correct": false }
+          ],
+          "explanation": "In ancient Egypt cats were sacred animals, and the goddess Bastet was depicted with a cat's head."
+        },
+        {
+          "id": "q2",
+          "question": "Which taste are cats unable to detect?",
+          "options": [
+            { "id": "a", "text": "Bitter", "is_correct": false },
+            { "id": "b", "text": "Sour", "is_correct": false },
+            { "id": "c", "text": "Sweet", "is_correct": true },
+            { "id": "d", "text": "Salty", "is_correct": false }
+          ],
+          "explanation": "Cats lack a working sweet-taste receptor gene, so they cannot taste sweetness at all."
+        },
+        {
+          "id": "q3",
+          "question": "Why are almost all calico (tricolour) cats female?",
+          "options": [
+            { "id": "a", "text": "Male cats lack the colour gene entirely", "is_correct": false },
+            { "id": "b", "text": "The coat-colour genes sit on the X chromosome", "is_correct": true },
+            { "id": "c", "text": "Breeders only raise females", "is_correct": false },
+            { "id": "d", "text": "It is just a myth", "is_correct": false }
+          ],
+          "explanation": "The orange and black coat genes are carried on the X chromosome, so the calico pattern needs two X chromosomes; male calicos are rare XXY exceptions."
+        },
+        {
+          "id": "q4",
+          "question": "What do cats mainly use their whiskers for?",
+          "options": [
+            { "id": "a", "text": "Keeping their balance", "is_correct": false },
+            { "id": "b", "text": "Measuring spaces and sensing their surroundings", "is_correct": true },
+            { "id": "c", "text": "Catching prey", "is_correct": false },
+            { "id": "d", "text": "Staying warm", "is_correct": false }
+          ],
+          "explanation": "Whiskers are touch sensors that pick up air currents and tell a cat whether it can fit through an opening."
+        },
+        {
+          "id": "q5",
+          "question": "How many hours a day does a cat typically sleep?",
+          "options": [
+            { "id": "a", "text": "4 to 6 hours", "is_correct": false },
+            { "id": "b", "text": "8 to 10 hours", "is_correct": false },
+            { "id": "c", "text": "12 to 16 hours", "is_correct": true },
+            { "id": "d", "text": "20 to 22 hours", "is_correct": false }
+          ],
+          "explanation": "Cats sleep between 12 and 16 hours a day, up to about 70% of their lives."
+        },
+        {
+          "id": "q6",
+          "question": "Up to what frequency can cats hear, roughly?",
+          "options": [
+            { "id": "a", "text": "20 kHz", "is_correct": false },
+            { "id": "b", "text": "45 kHz", "is_correct": false },
+            { "id": "c", "text": "64 kHz", "is_correct": true },
+            { "id": "d", "text": "100 kHz", "is_correct": false }
+          ],
+          "explanation": "Cats hear frequencies up to about 64 kHz, well beyond dogs (~45 kHz) and humans (~20 kHz)."
+        },
+        {
+          "id": "q7",
+          "question": "Which is one of the largest domestic cat breeds?",
+          "options": [
+            { "id": "a", "text": "Siamese", "is_correct": false },
+            { "id": "b", "text": "Sphynx", "is_correct": false },
+            { "id": "c", "text": "Scottish Fold", "is_correct": false },
+            { "id": "d", "text": "Maine Coon", "is_correct": true }
+          ],
+          "explanation": "Maine Coons can exceed 8 kg and reach a metre in length, making them one of the largest domestic breeds."
+        },
+        {
+          "id": "q8",
+          "question": "What is the scientific name of the domestic cat?",
+          "options": [
+            { "id": "a", "text": "Felis catus", "is_correct": true },
+            { "id": "b", "text": "Canis familiaris", "is_correct": false },
+            { "id": "c", "text": "Panthera leo", "is_correct": false },
+            { "id": "d", "text": "Lynx lynx", "is_correct": false }
+          ],
+          "explanation": "The domestic cat is Felis catus (also classified as Felis silvestris catus), descendant of the African wildcat."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-gatos",
+      "title": "Trivia de gatos: bigotes, ronroneos y datos felinos",
+      "description": "Ocho preguntas sobre gatos: sus sentidos afinados, sus curiosas rarezas y las razas que llevan milenios compartiendo nuestras casas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["gatos", "mascotas", "animales", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué civilización antigua veneraba a los gatos y tenía una diosa con cabeza de gato?",
+          "options": [
+            { "id": "a", "text": "Roma", "is_correct": false },
+            { "id": "b", "text": "Egipto", "is_correct": true },
+            { "id": "c", "text": "Grecia", "is_correct": false },
+            { "id": "d", "text": "Babilonia", "is_correct": false }
+          ],
+          "explanation": "En el antiguo Egipto los gatos eran animales sagrados, y la diosa Bastet se representaba con cabeza de gato."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué sabor no pueden detectar los gatos?",
+          "options": [
+            { "id": "a", "text": "Amargo", "is_correct": false },
+            { "id": "b", "text": "Ácido", "is_correct": false },
+            { "id": "c", "text": "Dulce", "is_correct": true },
+            { "id": "d", "text": "Salado", "is_correct": false }
+          ],
+          "explanation": "Los gatos carecen de un gen funcional del receptor de lo dulce, así que no pueden saborearlo en absoluto."
+        },
+        {
+          "id": "q3",
+          "question": "¿Por qué casi todos los gatos de pelaje calicó (tricolor) son hembras?",
+          "options": [
+            { "id": "a", "text": "Los machos no tienen el gen del color", "is_correct": false },
+            { "id": "b", "text": "Los genes del color van en el cromosoma X", "is_correct": true },
+            { "id": "c", "text": "Los criadores solo crían hembras", "is_correct": false },
+            { "id": "d", "text": "Es solo un mito", "is_correct": false }
+          ],
+          "explanation": "Los genes del pelaje naranja y negro van en el cromosoma X, así que el patrón calicó necesita dos cromosomas X; los machos tricolores son excepciones XXY muy raras."
+        },
+        {
+          "id": "q4",
+          "question": "¿Para qué usan los gatos principalmente los bigotes?",
+          "options": [
+            { "id": "a", "text": "Mantener el equilibrio", "is_correct": false },
+            { "id": "b", "text": "Medir espacios y percibir el entorno", "is_correct": true },
+            { "id": "c", "text": "Atrapar presas", "is_correct": false },
+            { "id": "d", "text": "Abrigarse", "is_correct": false }
+          ],
+          "explanation": "Los bigotes (vibrisas) son sensores táctiles que captan corrientes de aire y le indican al gato si cabe por un hueco."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuántas horas al día suele dormir un gato?",
+          "options": [
+            { "id": "a", "text": "De 4 a 6 horas", "is_correct": false },
+            { "id": "b", "text": "De 8 a 10 horas", "is_correct": false },
+            { "id": "c", "text": "De 12 a 16 horas", "is_correct": true },
+            { "id": "d", "text": "De 20 a 22 horas", "is_correct": false }
+          ],
+          "explanation": "Los gatos duermen entre 12 y 16 horas al día, hasta cerca de un 70% de su vida."
+        },
+        {
+          "id": "q6",
+          "question": "¿Hasta qué frecuencia pueden oír los gatos, aproximadamente?",
+          "options": [
+            { "id": "a", "text": "20 kHz", "is_correct": false },
+            { "id": "b", "text": "45 kHz", "is_correct": false },
+            { "id": "c", "text": "64 kHz", "is_correct": true },
+            { "id": "d", "text": "100 kHz", "is_correct": false }
+          ],
+          "explanation": "Los gatos oyen frecuencias de hasta unos 64 kHz, muy por encima de los perros (~45 kHz) y de los humanos (~20 kHz)."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es una de las razas de gato doméstico más grandes?",
+          "options": [
+            { "id": "a", "text": "Siamés", "is_correct": false },
+            { "id": "b", "text": "Esfinge", "is_correct": false },
+            { "id": "c", "text": "Scottish Fold", "is_correct": false },
+            { "id": "d", "text": "Maine Coon", "is_correct": true }
+          ],
+          "explanation": "Los Maine Coon pueden superar los 8 kg y alcanzar un metro de longitud: una de las razas domésticas más grandes."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es el nombre científico del gato doméstico?",
+          "options": [
+            { "id": "a", "text": "Felis catus", "is_correct": true },
+            { "id": "b", "text": "Canis familiaris", "is_correct": false },
+            { "id": "c", "text": "Panthera leo", "is_correct": false },
+            { "id": "d", "text": "Lynx lynx", "is_correct": false }
+          ],
+          "explanation": "El gato doméstico es Felis catus (también clasificado como Felis silvestris catus), descendiente del gato montés africano."
+        }
+      ]
+    }
+  ]
+}
