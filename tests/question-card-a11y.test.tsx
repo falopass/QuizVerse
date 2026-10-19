@@ -66,11 +66,7 @@ describe('QuestionCard — anuncio del veredicto (A11Y-04)', () => {
 
   it('sin showFeedback la región existe pero queda vacía', () => {
     const { container } = render(
-      <QuestionCard
-        {...BASE_PROPS}
-        question={makeQuestion()}
-        selectedOptionId={null}
-      />
+      <QuestionCard {...BASE_PROPS} question={makeQuestion()} selectedOptionId={null} />
     );
 
     expect(liveRegion(container)).toBeEmptyDOMElement();

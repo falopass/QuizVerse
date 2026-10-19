@@ -90,12 +90,7 @@ export function QuestionCard({
       </div>
       {/* Sin role="status" a propósito: quiz-player cuenta las regiones status
           (progreso + marcador + veredicto). aria-live basta para anunciar. */}
-      <div
-        key={question.id}
-        aria-live="polite"
-        aria-atomic="true"
-        className="sr-only"
-      >
+      <div key={question.id} aria-live="polite" aria-atomic="true" className="sr-only">
         {showFeedback &&
           correctOptionId !== null &&
           `${
