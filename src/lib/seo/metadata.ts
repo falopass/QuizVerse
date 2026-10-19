@@ -136,7 +136,11 @@ export function buildMetadata({
     title: resolveTitle(title, absoluteTitle),
     description: resolvedDescription,
     ...(keywords && keywords.length > 0 ? { keywords } : {}),
-    alternates: { canonical, languages },
+    alternates: {
+      canonical,
+      languages,
+      types: { 'application/atom+xml': absoluteUrl(`/${locale}/feed.xml`) },
+    },
     openGraph: {
       type,
       url: canonical,
