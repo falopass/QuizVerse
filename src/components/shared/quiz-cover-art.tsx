@@ -40,9 +40,11 @@ export function QuizCoverArt({
   decorative = false,
 }: QuizCoverArtProps) {
   const photo = quiz.cover_image_url?.startsWith('/stock-covers/');
-  // Hero se deduce de las props (decorative + priorityLabel con texto), sin un prop
-  // nuevo: solo el hero de la home pasa ambas; tarjetas y detalle quedan en lazy.
+  // Above-the-fold se deduce de las props sin un prop nuevo: el hero pasa
+  // decorative + priorityLabel con texto y el detalle pasa priorityLabel="";
+  // las tarjetas no la pasan (undefined) y quedan en lazy.
   const isHero = decorative && typeof priorityLabel === 'string' && priorityLabel.trim() !== '';
+  const isAboveFold = isHero || priorityLabel === '';
   const artTitle = quiz.title.trim();
   const bucket = titleBucket(artTitle, compact);
   return (
@@ -64,7 +66,7 @@ export function QuizCoverArt({
           alt=""
           className="arcade-cover-photo"
           decoding="async"
-          loading={isHero ? 'eager' : 'lazy'}
+          loading={isAboveFold ? 'eager' : 'lazy'}
           fetchPriority={isHero ? 'high' : undefined}
         />
       )}
