@@ -1,0 +1,1516 @@
+{
+  "quizzes": [
+    {
+      "slug": "en-solar-system-moons-trivia",
+      "title": "Solar System Trivia: Moons, the Sun and Cosmic Scale",
+      "description": "Eight questions about the moons, the Sun and the true scale of the Solar System — no rockets, just the neighborhood itself.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "solar system", "space", "astronomy", "moons"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which is the largest moon in the Solar System?",
+          "options": [
+            { "id": "a", "text": "Titan", "is_correct": false },
+            { "id": "b", "text": "Ganymede", "is_correct": true },
+            { "id": "c", "text": "Earth's Moon", "is_correct": false },
+            { "id": "d", "text": "Europa", "is_correct": false }
+          ],
+          "explanation": "Ganymede is bigger than the planet Mercury, though only about half as massive."
+        },
+        {
+          "id": "q2",
+          "question": "About how long does sunlight take to reach Earth?",
+          "options": [
+            { "id": "a", "text": "About 8 seconds", "is_correct": false },
+            { "id": "b", "text": "About 8 minutes", "is_correct": true },
+            { "id": "c", "text": "About 8 hours", "is_correct": false },
+            { "id": "d", "text": "About 8 days", "is_correct": false }
+          ],
+          "explanation": "Light covers the roughly 150 million kilometers between the Sun and Earth in about 8 minutes and 20 seconds."
+        },
+        {
+          "id": "q3",
+          "question": "Roughly how much of the Solar System's total mass is in the Sun?",
+          "options": [
+            { "id": "a", "text": "About half", "is_correct": false },
+            { "id": "b", "text": "About 75%", "is_correct": false },
+            { "id": "c", "text": "About 90%", "is_correct": false },
+            { "id": "d", "text": "About 99.8%", "is_correct": true }
+          ],
+          "explanation": "Everything else — planets, moons, asteroids — makes up just 0.2%, and Jupiter holds most of that."
+        },
+        {
+          "id": "q4",
+          "question": "Which moon of Saturn sprays geysers of water vapor into space?",
+          "options": [
+            { "id": "a", "text": "Titan", "is_correct": false },
+            { "id": "b", "text": "Enceladus", "is_correct": true },
+            { "id": "c", "text": "Mimas", "is_correct": false },
+            { "id": "d", "text": "Rhea", "is_correct": false }
+          ],
+          "explanation": "Enceladus vents water from a salty ocean beneath its ice, and the plumes help feed Saturn's E ring."
+        },
+        {
+          "id": "q5",
+          "question": "Jupiter's four largest moons are named after the astronomer who first observed them. Who?",
+          "options": [
+            { "id": "a", "text": "Copernicus", "is_correct": false },
+            { "id": "b", "text": "Kepler", "is_correct": false },
+            { "id": "c", "text": "Galileo", "is_correct": true },
+            { "id": "d", "text": "Newton", "is_correct": false }
+          ],
+          "explanation": "Io, Europa, Ganymede and Callisto are the Galilean moons, first seen through Galileo's telescope in 1610."
+        },
+        {
+          "id": "q6",
+          "question": "On which planet is a single day longer than an entire year?",
+          "options": [
+            { "id": "a", "text": "Mercury", "is_correct": false },
+            { "id": "b", "text": "Venus", "is_correct": true },
+            { "id": "c", "text": "Mars", "is_correct": false },
+            { "id": "d", "text": "Neptune", "is_correct": false }
+          ],
+          "explanation": "Venus spins so slowly that one rotation takes about 243 Earth days, while its trip around the Sun takes 225."
+        },
+        {
+          "id": "q7",
+          "question": "Which moon has lakes and rivers of liquid methane on its surface?",
+          "options": [
+            { "id": "a", "text": "Europa", "is_correct": false },
+            { "id": "b", "text": "Titan", "is_correct": true },
+            { "id": "c", "text": "Phobos", "is_correct": false },
+            { "id": "d", "text": "Triton", "is_correct": false }
+          ],
+          "explanation": "Titan is the only world besides Earth known to have stable liquid on its surface — methane and ethane instead of water."
+        },
+        {
+          "id": "q8",
+          "question": "Olympus Mons, the tallest volcano in the Solar System, rises on which planet?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": false },
+            { "id": "b", "text": "Earth", "is_correct": false },
+            { "id": "c", "text": "Mars", "is_correct": true },
+            { "id": "d", "text": "Mercury", "is_correct": false }
+          ],
+          "explanation": "At about 22 kilometers high, Olympus Mons is nearly two and a half times the height of Mount Everest."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-lunas-del-sistema-solar",
+      "title": "Trivia del sistema solar: lunas, el Sol y la escala cósmica",
+      "description": "Ocho preguntas sobre las lunas, el Sol y la verdadera escala del sistema solar: sin cohetes ni misiones, solo el vecindario cósmico.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "sistema solar", "espacio", "astronomía", "lunas"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la luna más grande del sistema solar?",
+          "options": [
+            { "id": "a", "text": "Titán", "is_correct": false },
+            { "id": "b", "text": "Ganímedes", "is_correct": true },
+            { "id": "c", "text": "La Luna", "is_correct": false },
+            { "id": "d", "text": "Europa", "is_correct": false }
+          ],
+          "explanation": "Ganímedes es más grande que el planeta Mercurio, aunque con apenas la mitad de su masa."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuánto tarda la luz del Sol en llegar a la Tierra?",
+          "options": [
+            { "id": "a", "text": "Unos 8 segundos", "is_correct": false },
+            { "id": "b", "text": "Unos 8 minutos", "is_correct": true },
+            { "id": "c", "text": "Unas 8 horas", "is_correct": false },
+            { "id": "d", "text": "Unos 8 días", "is_correct": false }
+          ],
+          "explanation": "La luz recorre los cerca de 150 millones de kilómetros entre el Sol y la Tierra en unos 8 minutos y 20 segundos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué parte de la masa total del sistema solar está en el Sol?",
+          "options": [
+            { "id": "a", "text": "Cerca de la mitad", "is_correct": false },
+            { "id": "b", "text": "Cerca del 75 %", "is_correct": false },
+            { "id": "c", "text": "Cerca del 90 %", "is_correct": false },
+            { "id": "d", "text": "Cerca del 99,8 %", "is_correct": true }
+          ],
+          "explanation": "Todo lo demás —planetas, lunas y asteroides— suma apenas un 0,2 %, y Júpiter concentra la mayor parte de eso."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué luna de Saturno lanza géiseres de vapor de agua al espacio?",
+          "options": [
+            { "id": "a", "text": "Titán", "is_correct": false },
+            { "id": "b", "text": "Encélado", "is_correct": true },
+            { "id": "c", "text": "Mimas", "is_correct": false },
+            { "id": "d", "text": "Rea", "is_correct": false }
+          ],
+          "explanation": "Encélado expulsa agua de un océano salado bajo su hielo, y esas columnas alimentan el anillo E de Saturno."
+        },
+        {
+          "id": "q5",
+          "question": "Las cuatro lunas más grandes de Júpiter llevan el nombre del astrónomo que las observó primero. ¿Quién?",
+          "options": [
+            { "id": "a", "text": "Copérnico", "is_correct": false },
+            { "id": "b", "text": "Kepler", "is_correct": false },
+            { "id": "c", "text": "Galileo", "is_correct": true },
+            { "id": "d", "text": "Newton", "is_correct": false }
+          ],
+          "explanation": "Ío, Europa, Ganímedes y Calisto son las lunas galileanas, vistas por primera vez con el telescopio de Galileo en 1610."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué planeta un solo día dura más que un año entero?",
+          "options": [
+            { "id": "a", "text": "Mercurio", "is_correct": false },
+            { "id": "b", "text": "Venus", "is_correct": true },
+            { "id": "c", "text": "Marte", "is_correct": false },
+            { "id": "d", "text": "Neptuno", "is_correct": false }
+          ],
+          "explanation": "Venus gira tan lento que una rotación tarda unos 243 días terrestres, mientras que su vuelta al Sol dura 225."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué luna tiene lagos y ríos de metano líquido en su superficie?",
+          "options": [
+            { "id": "a", "text": "Europa", "is_correct": false },
+            { "id": "b", "text": "Titán", "is_correct": true },
+            { "id": "c", "text": "Fobos", "is_correct": false },
+            { "id": "d", "text": "Tritón", "is_correct": false }
+          ],
+          "explanation": "Titán es el único mundo además de la Tierra con líquido estable en la superficie: metano y etano en lugar de agua."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué planeta está el monte Olimpo, el volcán más alto del sistema solar?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": false },
+            { "id": "b", "text": "La Tierra", "is_correct": false },
+            { "id": "c", "text": "Marte", "is_correct": true },
+            { "id": "d", "text": "Mercurio", "is_correct": false }
+          ],
+          "explanation": "Con unos 22 kilómetros de altura, el monte Olimpo es casi dos veces y media más alto que el Everest."
+        }
+      ]
+    },
+    {
+      "slug": "en-great-inventions-trivia",
+      "title": "Great Inventions Trivia: From the Wheel to Electricity",
+      "description": "From the wheel to the electric battery: eight questions on the breakthrough inventions that quietly built the modern world.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "inventions", "history of science", "evergreen"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The first known wheels appeared around 3500 BCE in which region?",
+          "options": [
+            { "id": "a", "text": "Egypt", "is_correct": false },
+            { "id": "b", "text": "Mesopotamia", "is_correct": true },
+            { "id": "c", "text": "China", "is_correct": false },
+            { "id": "d", "text": "Greece", "is_correct": false }
+          ],
+          "explanation": "The earliest wheels were potter's wheels; carts and transport wheels came a few centuries later."
+        },
+        {
+          "id": "q2",
+          "question": "The magnetic compass was invented in which country?",
+          "options": [
+            { "id": "a", "text": "China", "is_correct": true },
+            { "id": "b", "text": "Greece", "is_correct": false },
+            { "id": "c", "text": "Egypt", "is_correct": false },
+            { "id": "d", "text": "Italy", "is_correct": false }
+          ],
+          "explanation": "Chinese scholars were using lodestone compasses by the Han dynasty, centuries before sailors adopted them."
+        },
+        {
+          "id": "q3",
+          "question": "Who was the first to aim a telescope at the sky and publish what he saw?",
+          "options": [
+            { "id": "a", "text": "Galileo Galilei", "is_correct": true },
+            { "id": "b", "text": "Isaac Newton", "is_correct": false },
+            { "id": "c", "text": "Johannes Kepler", "is_correct": false },
+            { "id": "d", "text": "Hans Lippershey", "is_correct": false }
+          ],
+          "explanation": "Lippershey patented the telescope, but Galileo's 1610 observations of lunar craters and Jupiter's moons changed astronomy."
+        },
+        {
+          "id": "q4",
+          "question": "Whose improvements made the steam engine practical for factories and railways?",
+          "options": [
+            { "id": "a", "text": "Thomas Newcomen", "is_correct": false },
+            { "id": "b", "text": "James Watt", "is_correct": true },
+            { "id": "c", "text": "George Stephenson", "is_correct": false },
+            { "id": "d", "text": "Robert Fulton", "is_correct": false }
+          ],
+          "explanation": "Newcomen built the earlier atmospheric engine; Watt's separate condenser made it far more efficient."
+        },
+        {
+          "id": "q5",
+          "question": "Who created the first vaccine, against smallpox, in 1796?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Edward Jenner", "is_correct": true },
+            { "id": "c", "text": "Alexander Fleming", "is_correct": false },
+            { "id": "d", "text": "Robert Koch", "is_correct": false }
+          ],
+          "explanation": "Jenner used material from cowpox — which is why 'vaccine' comes from vacca, Latin for cow."
+        },
+        {
+          "id": "q6",
+          "question": "In 1831, who discovered electromagnetic induction, the principle behind every electric generator?",
+          "options": [
+            { "id": "a", "text": "Michael Faraday", "is_correct": true },
+            { "id": "b", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "c", "text": "Thomas Edison", "is_correct": false },
+            { "id": "d", "text": "James Clerk Maxwell", "is_correct": false }
+          ],
+          "explanation": "Faraday showed that a moving magnet induces an electric current; Maxwell later wrote the equations that describe it."
+        },
+        {
+          "id": "q7",
+          "question": "Who built the first true electric battery in 1800?",
+          "options": [
+            { "id": "a", "text": "Luigi Galvani", "is_correct": false },
+            { "id": "b", "text": "Alessandro Volta", "is_correct": true },
+            { "id": "c", "text": "Michael Faraday", "is_correct": false },
+            { "id": "d", "text": "André-Marie Ampère", "is_correct": false }
+          ],
+          "explanation": "Volta's 'voltaic pile' stacked zinc and copper discs — and the volt is named after him."
+        },
+        {
+          "id": "q8",
+          "question": "Who gave the first public demonstration of surgery under ether anesthesia, in 1846?",
+          "options": [
+            { "id": "a", "text": "Joseph Lister", "is_correct": false },
+            { "id": "b", "text": "William Morton", "is_correct": true },
+            { "id": "c", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "d", "text": "James Simpson", "is_correct": false }
+          ],
+          "explanation": "The demonstration at Massachusetts General Hospital made painless surgery possible; Lister later added antiseptics."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-grandes-inventos",
+      "title": "Trivia de grandes inventos: de la rueda a la electricidad",
+      "description": "De la rueda a la pila eléctrica: ocho preguntas sobre los inventos que hicieron posible el mundo moderno tal como lo conoces.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "inventos", "historia de la ciencia", "evergreen"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué región aparecieron las primeras ruedas conocidas, hacia el 3500 a. C.?",
+          "options": [
+            { "id": "a", "text": "Egipto", "is_correct": false },
+            { "id": "b", "text": "Mesopotamia", "is_correct": true },
+            { "id": "c", "text": "China", "is_correct": false },
+            { "id": "d", "text": "Grecia", "is_correct": false }
+          ],
+          "explanation": "Las primeras ruedas fueron tornos de alfarero; las ruedas de transporte llegaron unos siglos después."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué país se inventó la brújula magnética?",
+          "options": [
+            { "id": "a", "text": "China", "is_correct": true },
+            { "id": "b", "text": "Grecia", "is_correct": false },
+            { "id": "c", "text": "Egipto", "is_correct": false },
+            { "id": "d", "text": "Italia", "is_correct": false }
+          ],
+          "explanation": "Los sabios chinos ya usaban brújulas de magnetita en la dinastía Han, siglos antes de que los marinos las adoptaran."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién fue el primero en apuntar un telescopio al cielo y publicar lo que vio?",
+          "options": [
+            { "id": "a", "text": "Galileo Galilei", "is_correct": true },
+            { "id": "b", "text": "Isaac Newton", "is_correct": false },
+            { "id": "c", "text": "Johannes Kepler", "is_correct": false },
+            { "id": "d", "text": "Hans Lippershey", "is_correct": false }
+          ],
+          "explanation": "Lippershey patentó el telescopio, pero las observaciones de Galileo en 1610 —cráteres lunares, lunas de Júpiter— cambiaron la astronomía."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién mejoró la máquina de vapor hasta hacerla práctica para fábricas y ferrocarriles?",
+          "options": [
+            { "id": "a", "text": "Thomas Newcomen", "is_correct": false },
+            { "id": "b", "text": "James Watt", "is_correct": true },
+            { "id": "c", "text": "George Stephenson", "is_correct": false },
+            { "id": "d", "text": "Robert Fulton", "is_correct": false }
+          ],
+          "explanation": "Newcomen construyó la máquina atmosférica anterior; el condensador separado de Watt la hizo mucho más eficiente."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién creó la primera vacuna, contra la viruela, en 1796?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Edward Jenner", "is_correct": true },
+            { "id": "c", "text": "Alexander Fleming", "is_correct": false },
+            { "id": "d", "text": "Robert Koch", "is_correct": false }
+          ],
+          "explanation": "Jenner usó material de la viruela bovina: por eso 'vacuna' viene de vacca, 'vaca' en latín."
+        },
+        {
+          "id": "q6",
+          "question": "En 1831, ¿quién descubrió la inducción electromagnética, el principio de todo generador eléctrico?",
+          "options": [
+            { "id": "a", "text": "Michael Faraday", "is_correct": true },
+            { "id": "b", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "c", "text": "Thomas Edison", "is_correct": false },
+            { "id": "d", "text": "James Clerk Maxwell", "is_correct": false }
+          ],
+          "explanation": "Faraday demostró que un imán en movimiento induce corriente; Maxwell escribió después las ecuaciones que lo describen."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién construyó la primera batería eléctrica en 1800?",
+          "options": [
+            { "id": "a", "text": "Luigi Galvani", "is_correct": false },
+            { "id": "b", "text": "Alessandro Volta", "is_correct": true },
+            { "id": "c", "text": "Michael Faraday", "is_correct": false },
+            { "id": "d", "text": "André-Marie Ampère", "is_correct": false }
+          ],
+          "explanation": "La 'pila voltaica' apilaba discos de zinc y cobre, y el voltio lleva su nombre."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién hizo la primera demostración pública de una cirugía con anestesia de éter, en 1846?",
+          "options": [
+            { "id": "a", "text": "Joseph Lister", "is_correct": false },
+            { "id": "b", "text": "William Morton", "is_correct": true },
+            { "id": "c", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "d", "text": "James Simpson", "is_correct": false }
+          ],
+          "explanation": "La demostración en el Hospital General de Massachusetts hizo posible operar sin dolor; Lister añadió después los antisépticos."
+        }
+      ]
+    },
+    {
+      "slug": "en-brain-and-senses-trivia",
+      "title": "Brain and Senses Trivia: How You Perceive the World",
+      "description": "Eight questions on how the brain and senses build what you perceive: memory, dreams, taste, blind spots and the 10% myth.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "brain", "senses", "neuroscience", "perception"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which is the largest part of the human brain?",
+          "options": [
+            { "id": "a", "text": "The cerebellum", "is_correct": false },
+            { "id": "b", "text": "The brain stem", "is_correct": false },
+            { "id": "c", "text": "The cerebrum", "is_correct": true },
+            { "id": "d", "text": "The hypothalamus", "is_correct": false }
+          ],
+          "explanation": "The cerebrum makes up about 85% of the brain's weight and handles thinking, memory and voluntary movement."
+        },
+        {
+          "id": "q2",
+          "question": "Which part of the brain coordinates balance and smooth movement?",
+          "options": [
+            { "id": "a", "text": "The cerebellum", "is_correct": true },
+            { "id": "b", "text": "The cerebrum", "is_correct": false },
+            { "id": "c", "text": "The thalamus", "is_correct": false },
+            { "id": "d", "text": "The amygdala", "is_correct": false }
+          ],
+          "explanation": "The cerebellum sits under the back of the cerebrum and fine-tunes movement, posture and coordination."
+        },
+        {
+          "id": "q3",
+          "question": "How many basic tastes can the human tongue detect?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Four", "is_correct": false },
+            { "id": "c", "text": "Five", "is_correct": true },
+            { "id": "d", "text": "Seven", "is_correct": false }
+          ],
+          "explanation": "Sweet, sour, salty, bitter and umami — and the 'tongue map' is a myth: every region detects all five."
+        },
+        {
+          "id": "q4",
+          "question": "Which inner-ear structure turns sound vibrations into nerve signals?",
+          "options": [
+            { "id": "a", "text": "The eardrum", "is_correct": false },
+            { "id": "b", "text": "The cochlea", "is_correct": true },
+            { "id": "c", "text": "The auditory canal", "is_correct": false },
+            { "id": "d", "text": "The stirrup", "is_correct": false }
+          ],
+          "explanation": "The snail-shaped cochlea is lined with tiny hair cells that convert vibration into electrical signals for the brain."
+        },
+        {
+          "id": "q5",
+          "question": "Each eye has a blind spot because…",
+          "options": [
+            { "id": "a", "text": "the cornea blocks part of the light", "is_correct": false },
+            {
+              "id": "b",
+              "text": "the optic nerve exits where there are no photoreceptors",
+              "is_correct": true
+            },
+            { "id": "c", "text": "the lens cannot focus at the edges", "is_correct": false },
+            { "id": "d", "text": "the pupil dilates unevenly", "is_correct": false }
+          ],
+          "explanation": "The retina has no light receptors where the optic nerve leaves the eye — your brain simply fills in the gap."
+        },
+        {
+          "id": "q6",
+          "question": "During which sleep stage do the most vivid dreams occur?",
+          "options": [
+            { "id": "a", "text": "REM sleep", "is_correct": true },
+            { "id": "b", "text": "Deep slow-wave sleep", "is_correct": false },
+            { "id": "c", "text": "The falling-asleep stage", "is_correct": false },
+            { "id": "d", "text": "All stages equally", "is_correct": false }
+          ],
+          "explanation": "During REM — rapid eye movement — sleep, the brain is nearly as active as when awake while the body's muscles stay relaxed."
+        },
+        {
+          "id": "q7",
+          "question": "Which seahorse-shaped brain structure is essential for forming new long-term memories?",
+          "options": [
+            { "id": "a", "text": "The amygdala", "is_correct": false },
+            { "id": "b", "text": "The hippocampus", "is_correct": true },
+            { "id": "c", "text": "The thalamus", "is_correct": false },
+            { "id": "d", "text": "The pons", "is_correct": false }
+          ],
+          "explanation": "Patient H.M., who had both hippocampi removed, could no longer form new lasting memories."
+        },
+        {
+          "id": "q8",
+          "question": "The claim that humans use only 10% of the brain is…",
+          "options": [
+            { "id": "a", "text": "a myth — we use virtually all of it", "is_correct": true },
+            { "id": "b", "text": "true for most people", "is_correct": false },
+            { "id": "c", "text": "true only during sleep", "is_correct": false },
+            { "id": "d", "text": "still unproven", "is_correct": false }
+          ],
+          "explanation": "Brain imaging shows activity throughout the brain even during simple tasks; no 90% sits idle."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cerebro-y-sentidos",
+      "title": "Trivia del cerebro y los sentidos: cómo percibes el mundo",
+      "description": "Ocho preguntas sobre cómo el cerebro y los sentidos construyen lo que percibes: memoria, sueños, gustos y el mito del 10 %.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cerebro", "sentidos", "neurociencia", "percepción"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué parte del cerebro humano supone cerca del 85 % de su peso?",
+          "options": [
+            { "id": "a", "text": "El cerebelo", "is_correct": false },
+            { "id": "b", "text": "El tronco encefálico", "is_correct": false },
+            { "id": "c", "text": "El telencéfalo", "is_correct": true },
+            { "id": "d", "text": "El hipotálamo", "is_correct": false }
+          ],
+          "explanation": "El telencéfalo se encarga del pensamiento, la memoria y el movimiento voluntario."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué parte del cerebro coordina el equilibrio y la precisión del movimiento?",
+          "options": [
+            { "id": "a", "text": "El cerebelo", "is_correct": true },
+            { "id": "b", "text": "El telencéfalo", "is_correct": false },
+            { "id": "c", "text": "El tálamo", "is_correct": false },
+            { "id": "d", "text": "La amígdala", "is_correct": false }
+          ],
+          "explanation": "El cerebelo está bajo la parte trasera del telencéfalo y ajusta el movimiento, la postura y la coordinación."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos sabores básicos detecta la lengua humana?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Siete", "is_correct": false }
+          ],
+          "explanation": "Dulce, ácido, salado, amargo y umami; además, el 'mapa de la lengua' es un mito: todas las zonas detectan los cinco."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué estructura del oído interno convierte las vibraciones del sonido en señales nerviosas?",
+          "options": [
+            { "id": "a", "text": "El tímpano", "is_correct": false },
+            { "id": "b", "text": "La cóclea", "is_correct": true },
+            { "id": "c", "text": "El conducto auditivo", "is_correct": false },
+            { "id": "d", "text": "El estribo", "is_correct": false }
+          ],
+          "explanation": "La cóclea, con forma de caracol, está cubierta de células ciliadas que transforman la vibración en señales eléctricas para el cerebro."
+        },
+        {
+          "id": "q5",
+          "question": "Cada ojo tiene un punto ciego porque…",
+          "options": [
+            { "id": "a", "text": "la córnea bloquea parte de la luz", "is_correct": false },
+            {
+              "id": "b",
+              "text": "el nervio óptico sale donde no hay fotorreceptores",
+              "is_correct": true
+            },
+            { "id": "c", "text": "el cristalino no enfoca en los bordes", "is_correct": false },
+            { "id": "d", "text": "la pupila se dilata de forma irregular", "is_correct": false }
+          ],
+          "explanation": "La retina no tiene receptores de luz donde sale el nervio óptico, y el cerebro simplemente rellena el hueco."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué fase del sueño ocurren los sueños más vívidos?",
+          "options": [
+            { "id": "a", "text": "En la fase REM", "is_correct": true },
+            { "id": "b", "text": "En el sueño profundo de ondas lentas", "is_correct": false },
+            { "id": "c", "text": "En la fase de adormecimiento", "is_correct": false },
+            { "id": "d", "text": "En todas por igual", "is_correct": false }
+          ],
+          "explanation": "Durante el sueño REM —movimientos oculares rápidos— el cerebro está casi tan activo como despierto mientras los músculos permanecen relajados."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué estructura del cerebro, con forma de caballito de mar, es esencial para formar recuerdos duraderos?",
+          "options": [
+            { "id": "a", "text": "La amígdala", "is_correct": false },
+            { "id": "b", "text": "El hipocampo", "is_correct": true },
+            { "id": "c", "text": "El tálamo", "is_correct": false },
+            { "id": "d", "text": "La protuberancia", "is_correct": false }
+          ],
+          "explanation": "El paciente H.M., al que le extirparon ambos hipocampos, no volvió a poder formar recuerdos duraderos."
+        },
+        {
+          "id": "q8",
+          "question": "La idea de que los humanos usamos solo el 10 % del cerebro es…",
+          "options": [
+            { "id": "a", "text": "un mito: usamos prácticamente todo", "is_correct": true },
+            { "id": "b", "text": "cierta en la mayoría de las personas", "is_correct": false },
+            { "id": "c", "text": "cierta solo durante el sueño", "is_correct": false },
+            { "id": "d", "text": "aún sin demostrar", "is_correct": false }
+          ],
+          "explanation": "Las imágenes cerebrales muestran actividad en todo el cerebro incluso en tareas simples; no hay un 90 % inactivo."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-planet-are-you",
+      "title": "Which Planet Are You?",
+      "description": "Mercury, Mars or Neptune? Seven questions to find out which planet matches your orbit — and what that says about your energy.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "science",
+      "tags": ["personality quiz", "science", "planets", "space", "evergreen"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "results": [
+        {
+          "id": "r1",
+          "title": "Mercury",
+          "description": "You're Mercury: closest to the action and impossible to pin down. You think fast, move fast and lose interest just as fast — your real gift is momentum.",
+          "personality_tag": "mercury",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Venus",
+          "description": "You're Venus: the one everyone quietly orbits. You make rooms warmer and arguments shorter, and your taste rarely misses.",
+          "personality_tag": "venus",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Mars",
+          "description": "You're Mars: first through the door and rarely sorry about it. You don't wait for permission, and your energy drags the hesitant along.",
+          "personality_tag": "mars",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Jupiter",
+          "description": "You're Jupiter: you take up space in the best way. People feel braver near you because you bet big and you mean it.",
+          "personality_tag": "jupiter",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Saturn",
+          "description": "You're Saturn: rings, not sparks. You build things meant to outlast trends, and your patience pays compound interest.",
+          "personality_tag": "saturn",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Neptune",
+          "description": "You're Neptune: half here, half in the world you're imagining. Your hunches arrive before your reasons, and they're usually right.",
+          "personality_tag": "neptune",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your free Saturday morning looks like…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Up early — two errands done before anyone else wakes up",
+              "personality_tags": ["mercury", "saturn"]
+            },
+            {
+              "id": "b",
+              "text": "A long brunch that quietly becomes the whole afternoon",
+              "personality_tags": ["venus", "jupiter"]
+            },
+            {
+              "id": "c",
+              "text": "Something physical: a trail, the gym, a game",
+              "personality_tags": ["mars"]
+            },
+            {
+              "id": "d",
+              "text": "Still in bed, halfway inside a daydream",
+              "personality_tags": ["neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "question": "At a party, you're the one who…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Talks to every circle — ten conversations, zero deep ones",
+              "personality_tags": ["mercury"]
+            },
+            {
+              "id": "b",
+              "text": "Finds one person and talks until the lights come on",
+              "personality_tags": ["venus", "neptune"]
+            },
+            {
+              "id": "c",
+              "text": "Organizes the game or the toast",
+              "personality_tags": ["jupiter", "saturn"]
+            },
+            { "id": "d", "text": "Ends up in a bet or a dare", "personality_tags": ["mars"] }
+          ]
+        },
+        {
+          "id": "q3",
+          "question": "Pick your ideal workspace:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A clean desk, a plan, everything labeled",
+              "personality_tags": ["saturn"]
+            },
+            {
+              "id": "b",
+              "text": "A beautiful mess: plants, prints, soft light",
+              "personality_tags": ["venus"]
+            },
+            {
+              "id": "c",
+              "text": "Wherever the action is — a fixed desk is optional",
+              "personality_tags": ["mercury", "mars"]
+            },
+            {
+              "id": "d",
+              "text": "A window, headphones and room to think big",
+              "personality_tags": ["jupiter", "neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q4",
+          "question": "Your friends would say your superpower is…",
+          "options": [
+            { "id": "a", "text": "You get things moving", "personality_tags": ["mercury", "mars"] },
+            { "id": "b", "text": "You make people feel at home", "personality_tags": ["venus"] },
+            {
+              "id": "c",
+              "text": "You see the plan nobody else saw",
+              "personality_tags": ["jupiter"]
+            },
+            { "id": "d", "text": "You hear what people don't say", "personality_tags": ["neptune"] }
+          ]
+        },
+        {
+          "id": "q5",
+          "question": "What annoys you most?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Waiting. For anything.",
+              "personality_tags": ["mercury", "mars"]
+            },
+            { "id": "b", "text": "Rudeness and pointless conflict", "personality_tags": ["venus"] },
+            {
+              "id": "c",
+              "text": "Vague plans with no owner and no date",
+              "personality_tags": ["saturn", "jupiter"]
+            },
+            {
+              "id": "d",
+              "text": "People who kill a good idea with a spreadsheet",
+              "personality_tags": ["neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q6",
+          "question": "Choose a vacation:",
+          "options": [
+            { "id": "a", "text": "A new city every two days", "personality_tags": ["mercury"] },
+            {
+              "id": "b",
+              "text": "Somewhere beautiful with excellent food",
+              "personality_tags": ["venus"]
+            },
+            {
+              "id": "c",
+              "text": "An expedition: summit, dive, distance",
+              "personality_tags": ["mars"]
+            },
+            {
+              "id": "d",
+              "text": "The grand tour — go big or stay home",
+              "personality_tags": ["jupiter"]
+            }
+          ]
+        },
+        {
+          "id": "q7",
+          "question": "How do you make a hard decision?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lists, criteria and patience — the classic way",
+              "personality_tags": ["saturn"]
+            },
+            {
+              "id": "b",
+              "text": "Gut feeling. It's usually right.",
+              "personality_tags": ["neptune", "mars"]
+            },
+            {
+              "id": "c",
+              "text": "Ask around, then decide in a minute",
+              "personality_tags": ["mercury", "venus"]
+            },
+            {
+              "id": "d",
+              "text": "Think about where it leads in ten years",
+              "personality_tags": ["jupiter"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "es-que-planeta-eres",
+      "title": "¿Qué planeta eres?",
+      "description": "¿Mercurio, Marte o Neptuno? Responde siete preguntas y descubre qué planeta del sistema solar refleja tu forma de ser y de moverte.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "science",
+      "tags": ["quiz de personalidad", "ciencia", "planetas", "espacio", "evergreen"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "results": [
+        {
+          "id": "r1",
+          "title": "Mercurio",
+          "description": "Eres Mercurio: el más cercano a la acción e imposible de atrapar. Piensas rápido, te mueves rápido y pierdes el interés igual de rápido: tu verdadero don es el impulso.",
+          "personality_tag": "mercury",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Venus",
+          "description": "Eres Venus: en torno a ti orbitan todos sin notarlo. Haces las salas más cálidas y las discusiones más cortas, y tu gusto casi nunca falla.",
+          "personality_tag": "venus",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Marte",
+          "description": "Eres Marte: el primero en cruzar la puerta y rara vez arrepentido. No esperas permiso, y tu energía arrastra a los que dudan.",
+          "personality_tag": "mars",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Júpiter",
+          "description": "Eres Júpiter: ocupas espacio de la mejor manera. La gente se siente más valiente cerca de ti porque apuestas en grande y lo dices en serio.",
+          "personality_tag": "jupiter",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Saturno",
+          "description": "Eres Saturno: anillos, no chispas. Construyes cosas pensadas para durar más que las modas, y tu paciencia paga interés compuesto.",
+          "personality_tag": "saturn",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Neptuno",
+          "description": "Eres Neptuno: la mitad de ti está aquí y la otra en el mundo que imaginas. Tus corazonadas llegan antes que tus razones, y suelen acertar.",
+          "personality_tag": "neptune",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un sábado por la mañana sin planes se ve así…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Despierto desde temprano: dos pendientes resueltos antes de que despierte el resto",
+              "personality_tags": ["mercury", "saturn"]
+            },
+            {
+              "id": "b",
+              "text": "Un brunch largo que se convierte, sin darte cuenta, en toda la tarde",
+              "personality_tags": ["venus", "jupiter"]
+            },
+            {
+              "id": "c",
+              "text": "Algo físico: caminata, gimnasio o un partido",
+              "personality_tags": ["mars"]
+            },
+            {
+              "id": "d",
+              "text": "Todavía en la cama, a medio camino de una ensoñación",
+              "personality_tags": ["neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "question": "En una fiesta, tú eres quien…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Habla con todos los grupos: diez conversaciones, ninguna profunda",
+              "personality_tags": ["mercury"]
+            },
+            {
+              "id": "b",
+              "text": "Encuentra a una persona y habla hasta que encienden las luces",
+              "personality_tags": ["venus", "neptune"]
+            },
+            {
+              "id": "c",
+              "text": "Organiza el juego o el brindis",
+              "personality_tags": ["jupiter", "saturn"]
+            },
+            {
+              "id": "d",
+              "text": "Termina metido en una apuesta o un reto",
+              "personality_tags": ["mars"]
+            }
+          ]
+        },
+        {
+          "id": "q3",
+          "question": "Elige tu espacio de trabajo ideal:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un escritorio limpio, un plan y todo etiquetado",
+              "personality_tags": ["saturn"]
+            },
+            {
+              "id": "b",
+              "text": "Un desorden bonito: plantas, láminas, luz suave",
+              "personality_tags": ["venus"]
+            },
+            {
+              "id": "c",
+              "text": "Donde esté la acción: el escritorio fijo es opcional",
+              "personality_tags": ["mercury", "mars"]
+            },
+            {
+              "id": "d",
+              "text": "Una ventana, auriculares y espacio para pensar en grande",
+              "personality_tags": ["jupiter", "neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q4",
+          "question": "Tus amigos dirían que tu superpoder es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pones las cosas en marcha",
+              "personality_tags": ["mercury", "mars"]
+            },
+            {
+              "id": "b",
+              "text": "Haces que la gente se sienta en casa",
+              "personality_tags": ["venus"]
+            },
+            { "id": "c", "text": "Ves el plan que nadie más vio", "personality_tags": ["jupiter"] },
+            {
+              "id": "d",
+              "text": "Escuchas lo que la gente no dice",
+              "personality_tags": ["neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué te molesta más?",
+          "options": [
+            { "id": "a", "text": "Esperar. Lo que sea.", "personality_tags": ["mercury", "mars"] },
+            {
+              "id": "b",
+              "text": "La rudeza y los conflictos sin sentido",
+              "personality_tags": ["venus"]
+            },
+            {
+              "id": "c",
+              "text": "Los planes vagos, sin responsable ni fecha",
+              "personality_tags": ["saturn", "jupiter"]
+            },
+            {
+              "id": "d",
+              "text": "La gente que mata una buena idea con una hoja de cálculo",
+              "personality_tags": ["neptune"]
+            }
+          ]
+        },
+        {
+          "id": "q6",
+          "question": "Elige unas vacaciones:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una ciudad nueva cada dos días",
+              "personality_tags": ["mercury"]
+            },
+            {
+              "id": "b",
+              "text": "Un lugar bonito con comida excelente",
+              "personality_tags": ["venus"]
+            },
+            {
+              "id": "c",
+              "text": "Una expedición: cumbre, buceo, distancia",
+              "personality_tags": ["mars"]
+            },
+            {
+              "id": "d",
+              "text": "La gran vuelta: en grande o me quedo en casa",
+              "personality_tags": ["jupiter"]
+            }
+          ]
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo tomas una decisión difícil?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Listas, criterios y paciencia: el método clásico",
+              "personality_tags": ["saturn"]
+            },
+            {
+              "id": "b",
+              "text": "Con intuición. Casi siempre acierta.",
+              "personality_tags": ["neptune", "mars"]
+            },
+            {
+              "id": "c",
+              "text": "Pregunto por ahí y decido en un minuto",
+              "personality_tags": ["mercury", "venus"]
+            },
+            {
+              "id": "d",
+              "text": "Pienso a dónde lleva en diez años",
+              "personality_tags": ["jupiter"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "en-which-scientist-are-you",
+      "title": "Which Scientist Are You?",
+      "description": "Curie, Darwin, Einstein, Newton or Tesla? Seven questions to reveal which great scientist shares your way of thinking about the world.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "science",
+      "tags": ["personality quiz", "science", "scientists", "history of science", "evergreen"],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "results": [
+        {
+          "id": "r1",
+          "title": "Marie Curie",
+          "description": "You'd be Marie Curie: you trust evidence over applause and you finish what you start. Your edge is endurance — you outlast the hard questions.",
+          "personality_tag": "curie",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r2",
+          "title": "Charles Darwin",
+          "description": "You'd be Darwin: patient enough to watch for twenty years what others glance at once. Your conclusions arrive slowly and land like a hammer.",
+          "personality_tag": "darwin",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Albert Einstein",
+          "description": "You'd be Einstein: you solve problems in your head before touching a pencil, and you're at your best questioning what everyone else accepts.",
+          "personality_tag": "einstein",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Isaac Newton",
+          "description": "You'd be Newton: you want the rule underneath the thing. Give you a hard problem and a closed door, and you come back with a system.",
+          "personality_tag": "newton",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Nikola Tesla",
+          "description": "You'd be Tesla: your ideas arrive fully lit. You'd rather build the strange prototype than write the safe memo, and sometimes the future agrees.",
+          "personality_tag": "tesla",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A problem hooks you. What's the first move?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Straight to the bench: try it, measure it, repeat",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "Collect examples for months before saying anything",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Run a thought experiment on a long walk",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Close the door and derive it from first principles",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "question": "Your ideal project is…",
+          "options": [
+            {
+              "id": "a",
+              "text": "One hard question, years deep, no shortcuts",
+              "personality_tags": ["curie", "darwin"]
+            },
+            {
+              "id": "b",
+              "text": "A theory that quietly rewrites the rules",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "c",
+              "text": "A prototype nobody believed could work",
+              "personality_tags": ["tesla"]
+            },
+            {
+              "id": "d",
+              "text": "A grand system that explains it all",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q3",
+          "question": "Pick your workspace:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A lab bench with stains on every surface",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "A field notebook and a very long walk",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "A chalkboard, a violin, interruptions welcome",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "A workshop at three in the morning",
+              "personality_tags": ["tesla"]
+            }
+          ]
+        },
+        {
+          "id": "q4",
+          "question": "A theory you love fails the data. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Check the instruments and run it again",
+              "personality_tags": ["curie", "tesla"]
+            },
+            {
+              "id": "b",
+              "text": "Keep the data, change the theory",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Get excited — the anomaly is the interesting part",
+              "personality_tags": ["einstein"]
+            },
+            { "id": "d", "text": "Go back and rebuild the axioms", "personality_tags": ["newton"] }
+          ]
+        },
+        {
+          "id": "q5",
+          "question": "Your colleagues would describe you as…",
+          "options": [
+            { "id": "a", "text": "Relentless", "personality_tags": ["curie"] },
+            { "id": "b", "text": "The careful one", "personality_tags": ["darwin"] },
+            {
+              "id": "c",
+              "text": "The dreamer who's somehow always right",
+              "personality_tags": ["einstein", "tesla"]
+            },
+            {
+              "id": "d",
+              "text": "Intense — brilliant, not always easy",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q6",
+          "question": "Choose your legacy:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Discoveries that keep saving lives a century later",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "An idea that changes how everyone sees the world",
+              "personality_tags": ["darwin", "einstein"]
+            },
+            {
+              "id": "c",
+              "text": "Laws so solid they're still used every day",
+              "personality_tags": ["newton"]
+            },
+            { "id": "d", "text": "Machines humming in every home", "personality_tags": ["tesla"] }
+          ]
+        },
+        {
+          "id": "q7",
+          "question": "Science is, above all…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Patient observation of what's actually there",
+              "personality_tags": ["darwin"]
+            },
+            { "id": "b", "text": "Imagination with a power source", "personality_tags": ["tesla"] },
+            {
+              "id": "c",
+              "text": "The questions nobody thought to ask",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Order hiding inside the chaos",
+              "personality_tags": ["newton", "curie"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "es-que-cientifico-serias",
+      "title": "¿Qué científico serías?",
+      "description": "¿Curie, Darwin, Einstein, Newton o Tesla? Responde siete preguntas y descubre qué gran científico comparte tu forma de pensar.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "science",
+      "tags": [
+        "quiz de personalidad",
+        "ciencia",
+        "científicos",
+        "historia de la ciencia",
+        "evergreen"
+      ],
+      "estimated_minutes": 4,
+      "cover_type": "procedural",
+      "results": [
+        {
+          "id": "r1",
+          "title": "Marie Curie",
+          "description": "Serías Marie Curie: confías en la evidencia más que en los aplausos y terminas lo que empiezas. Tu ventaja es la resistencia: duras más que las preguntas difíciles.",
+          "personality_tag": "curie",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r2",
+          "title": "Charles Darwin",
+          "description": "Serías Darwin: tienes la paciencia de observar veinte años lo que otros miran un segundo. Tus conclusiones llegan despacio y caen como un martillo.",
+          "personality_tag": "darwin",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Albert Einstein",
+          "description": "Serías Einstein: resuelves los problemas en la cabeza antes de tocar un lápiz, y brillas cuestionando lo que todos dan por hecho.",
+          "personality_tag": "einstein",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Isaac Newton",
+          "description": "Serías Newton: buscas la regla que está debajo de las cosas. Te dan un problema difícil y una puerta cerrada, y vuelves con un sistema.",
+          "personality_tag": "newton",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Nikola Tesla",
+          "description": "Serías Tesla: tus ideas llegan ya encendidas. Prefieres construir el prototipo extraño antes que escribir el memo seguro, y a veces el futuro te da la razón.",
+          "personality_tag": "tesla",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un problema te atrapa. ¿Cuál es tu primer movimiento?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Directo a la mesa de trabajo: probar, medir, repetir",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "Juntar ejemplos durante meses antes de decir nada",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Hacer un experimento mental en una caminata larga",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Cerrar la puerta y derivarlo desde primeros principios",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "question": "Tu proyecto ideal es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una pregunta difícil, años de fondo, sin atajos",
+              "personality_tags": ["curie", "darwin"]
+            },
+            {
+              "id": "b",
+              "text": "Una teoría que reescribe las reglas en silencio",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "c",
+              "text": "Un prototipo que nadie creía posible",
+              "personality_tags": ["tesla"]
+            },
+            {
+              "id": "d",
+              "text": "Un gran sistema que lo explica todo",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q3",
+          "question": "Elige tu espacio de trabajo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una mesa de laboratorio con manchas en cada superficie",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "Un cuaderno de campo y una caminata muy larga",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Una pizarra, un violín y las interrupciones bienvenidas",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Un taller a las tres de la mañana",
+              "personality_tags": ["tesla"]
+            }
+          ]
+        },
+        {
+          "id": "q4",
+          "question": "Una teoría que te encanta falla con los datos. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Revisas los instrumentos y repites el experimento",
+              "personality_tags": ["curie", "tesla"]
+            },
+            {
+              "id": "b",
+              "text": "Conservas los datos y cambias la teoría",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Te entusiasmas: la anomalía es lo interesante",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Vuelves atrás y reconstruyes los axiomas",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q5",
+          "question": "Tus colegas te describirían como…",
+          "options": [
+            { "id": "a", "text": "Alguien que no se rinde", "personality_tags": ["curie"] },
+            {
+              "id": "b",
+              "text": "La persona más cuidadosa del grupo",
+              "personality_tags": ["darwin"]
+            },
+            {
+              "id": "c",
+              "text": "Alguien con ideas raras que suelen acertar",
+              "personality_tags": ["einstein", "tesla"]
+            },
+            {
+              "id": "d",
+              "text": "Alguien intenso: brillante, no siempre fácil",
+              "personality_tags": ["newton"]
+            }
+          ]
+        },
+        {
+          "id": "q6",
+          "question": "Elige tu legado:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Descubrimientos que siguen salvando vidas un siglo después",
+              "personality_tags": ["curie"]
+            },
+            {
+              "id": "b",
+              "text": "Una idea que cambia la forma en que todos ven el mundo",
+              "personality_tags": ["darwin", "einstein"]
+            },
+            {
+              "id": "c",
+              "text": "Leyes tan sólidas que se siguen usando a diario",
+              "personality_tags": ["newton"]
+            },
+            {
+              "id": "d",
+              "text": "Máquinas funcionando en cada casa",
+              "personality_tags": ["tesla"]
+            }
+          ]
+        },
+        {
+          "id": "q7",
+          "question": "La ciencia es, ante todo…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Observación paciente de lo que realmente está ahí",
+              "personality_tags": ["darwin"]
+            },
+            { "id": "b", "text": "Imaginación con fuente de poder", "personality_tags": ["tesla"] },
+            {
+              "id": "c",
+              "text": "Las preguntas que nadie pensó hacer",
+              "personality_tags": ["einstein"]
+            },
+            {
+              "id": "d",
+              "text": "Orden escondido dentro del caos",
+              "personality_tags": ["newton", "curie"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
