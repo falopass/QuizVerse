@@ -7,6 +7,7 @@ import {
   sharedPathAlternates,
   type SlugIndex,
 } from '@/lib/seo/sitemap-alternates';
+import { newestIso } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
@@ -31,6 +32,7 @@ interface QuizRow {
   slug: string;
   language: string | null;
   published_at: string | null;
+  updated_at: string | null;
   quiz_type: string | null;
   category_id: string | null;
   category: { slug: string | null } | null;
@@ -41,7 +43,9 @@ async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
     const supabase = await createClient();
     const { data, error } = await supabase
       .from('quizzes')
-      .select('slug, language, published_at, quiz_type, category_id, category:categories(slug)')
+      .select(
+        'slug, language, published_at, updated_at, quiz_type, category_id, category:categories(slug)'
+      )
       .eq('status', 'published')
       .order('published_at', { ascending: false })
       .limit(50000);
@@ -51,23 +55,6 @@ async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
   } catch {
     return [];
   }
-}
-
-function newest(dates: Array<string | null | undefined>): string | undefined {
-  let best: number | undefined;
-  let bestIso: string | undefined;
-
-  for (const value of dates) {
-    if (!value) continue;
-    const time = new Date(value).getTime();
-    if (Number.isNaN(time)) continue;
-    if (best === undefined || time > best) {
-      best = time;
-      bestIso = value;
-    }
-  }
-
-  return bestIso;
 }
 
 const EDITORIAL_PAGES: Array<{
@@ -94,8 +81,11 @@ export async function GET() {
   const slugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
   /** Slugs con página `/{locale}/category/{slug}`, ya sea hub de tipo o categoría. */
   const hubSlugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
-  const categoryHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
-  const typeHubs = new Map<string, { locale: Locale; slug: string; dates: string[] }>();
+  const categoryHubs = new Map<
+    string,
+    { locale: Locale; slug: string; dates: Array<string | null> }
+  >();
+  const typeHubs = new Map<string, { locale: Locale; slug: string; dates: Array<string | null> }>();
 
   for (const quiz of quizzes) {
     const locale = (quiz.language === 'es' ? 'es' : 'en') as Locale;
@@ -103,12 +93,10 @@ export async function GET() {
     perLocale.get(locale)?.push(quiz);
     slugsByLocale.get(locale)?.add(quiz.slug);
 
-    const date = quiz.published_at;
-
     if (quiz.quiz_type && TYPE_HUBS.includes(quiz.quiz_type)) {
       const key = `${locale}:type:${quiz.quiz_type}`;
       const hub = typeHubs.get(key) ?? { locale, slug: quiz.quiz_type, dates: [] };
-      hub.dates.push(date ?? '');
+      hub.dates.push(quiz.published_at, quiz.updated_at);
       typeHubs.set(key, hub);
       hubSlugsByLocale.get(locale)?.add(quiz.quiz_type);
     }
@@ -117,7 +105,7 @@ export async function GET() {
     if (categorySlug) {
       const key = `${locale}:cat:${categorySlug}`;
       const hub = categoryHubs.get(key) ?? { locale, slug: categorySlug, dates: [] };
-      hub.dates.push(date ?? '');
+      hub.dates.push(quiz.published_at, quiz.updated_at);
       categoryHubs.set(key, hub);
       hubSlugsByLocale.get(locale)?.add(categorySlug);
     }
@@ -127,7 +115,7 @@ export async function GET() {
 
   for (const locale of locales) {
     const localeQuizzes = perLocale.get(locale) ?? [];
-    const localeNewest = newest(localeQuizzes.map((quiz) => quiz.published_at));
+    const localeNewest = newestIso(localeQuizzes.map((quiz) => quiz.published_at));
 
     for (const page of EDITORIAL_PAGES) {
       entries.push({
@@ -144,7 +132,7 @@ export async function GET() {
       if (hub.locale !== locale) continue;
       entries.push({
         url: `/${locale}/category/${hub.slug}`,
-        lastModified: newest(hub.dates),
+        lastModified: newestIso(hub.dates),
         changeFrequency: 'daily',
         priority: 0.8,
         alternates: hubAlternates(locale, hub.slug, hubSlugsByLocale),
@@ -155,7 +143,7 @@ export async function GET() {
       if (hub.locale !== locale) continue;
       entries.push({
         url: `/${locale}/category/${hub.slug}`,
-        lastModified: newest(hub.dates),
+        lastModified: newestIso(hub.dates),
         changeFrequency: 'weekly',
         priority: 0.7,
         alternates: hubAlternates(locale, hub.slug, hubSlugsByLocale),
@@ -166,7 +154,7 @@ export async function GET() {
       const other: Locale = locale === 'es' ? 'en' : 'es';
       entries.push({
         url: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}`,
-        lastModified: quiz.published_at ?? undefined,
+        lastModified: newestIso([quiz.published_at, quiz.updated_at]),
         changeFrequency: 'weekly',
         priority: 0.7,
         alternates: quizAlternates(
