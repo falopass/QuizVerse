@@ -124,9 +124,10 @@ describe('CatalogIndexPage · render', () => {
       'Videojuegos (2)',
     ]);
     // El h2 enlaza al hub de la categoría.
-    expect(
-      screen.getByRole('link', { name: 'Cine y televisión' })
-    ).toHaveAttribute('href', '/es/category/movies-tv');
+    expect(screen.getByRole('link', { name: 'Cine y televisión' })).toHaveAttribute(
+      'href',
+      '/es/category/movies-tv'
+    );
   });
 
   it('enlaza cada quiz del catálogo a /{locale}/quiz/{slug}', async () => {
@@ -166,8 +167,8 @@ describe('CatalogIndexPage · render', () => {
   });
 
   it('locale desconocido dispara notFound()', async () => {
-    await expect(
-      CatalogIndexPage({ params: Promise.resolve({ locale: 'fr' }) })
-    ).rejects.toThrow('notFound');
+    await expect(CatalogIndexPage({ params: Promise.resolve({ locale: 'fr' }) })).rejects.toThrow(
+      'notFound'
+    );
   });
 });

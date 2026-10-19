@@ -82,7 +82,12 @@ function payload(overrides: Record<string, unknown> = {}) {
     categories: [MOVIES, ANIME, GAMING],
     quizzes: [
       makeQuiz({ id: 'q1', slug: 'trivia-cine', title: 'Trivia de cine' }),
-      makeQuiz({ id: 'q2', slug: 'que-personaje-eres', title: '¿Qué personaje eres?', quiz_type: 'personality' }),
+      makeQuiz({
+        id: 'q2',
+        slug: 'que-personaje-eres',
+        title: '¿Qué personaje eres?',
+        quiz_type: 'personality',
+      }),
     ],
     ...overrides,
   };
@@ -98,9 +103,7 @@ function jsonLd(container: HTMLElement) {
 }
 
 async function renderPage(slug = 'movies-tv', locale = 'es') {
-  return render(
-    await LocalizedCategoryPage({ params: Promise.resolve({ locale, slug }) })
-  );
+  return render(await LocalizedCategoryPage({ params: Promise.resolve({ locale, slug }) }));
 }
 
 beforeEach(() => {
@@ -114,9 +117,7 @@ describe('LocalizedCategoryPage · render', () => {
     await renderPage();
 
     const localized = localizeCategory(MOVIES, 'es')!;
-    expect(
-      screen.getByRole('heading', { level: 1, name: localized.name })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: localized.name })).toBeInTheDocument();
     expect(screen.getByText(MOVIES.description!)).toBeInTheDocument();
     expect(screen.getByText('2 juegos mostrados')).toBeInTheDocument();
   });
