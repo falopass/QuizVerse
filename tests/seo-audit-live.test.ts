@@ -108,11 +108,9 @@ describe('analyzePage', () => {
   });
 
   it('marca JSON-LD inválido', () => {
-    const result = analyzePage(
-      page(GOOD_HEAD.replace('{"@context"', '{roto')),
-      QUIZ_URL,
-      { status: 200 }
-    );
+    const result = analyzePage(page(GOOD_HEAD.replace('{"@context"', '{roto')), QUIZ_URL, {
+      status: 200,
+    });
     expect(result.ok).toBe(false);
     expect(result.failures.join('; ')).toContain('json-ld inválido');
   });

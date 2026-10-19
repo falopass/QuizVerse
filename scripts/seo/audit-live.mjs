@@ -315,11 +315,15 @@ async function main() {
 
   for (const result of results) {
     console.log(
-      result.ok ? ` ok    ${toPath(result.url)}` : ` falla ${toPath(result.url)} — ${result.failures.join('; ')}`
+      result.ok
+        ? ` ok    ${toPath(result.url)}`
+        : ` falla ${toPath(result.url)} — ${result.failures.join('; ')}`
     );
   }
   const failed = results.filter((r) => !r.ok);
-  console.log(`\n${results.length} urls · ${results.length - failed.length} ok · ${failed.length} fallas`);
+  console.log(
+    `\n${results.length} urls · ${results.length - failed.length} ok · ${failed.length} fallas`
+  );
 
   if (jsonFile) {
     const report = {
