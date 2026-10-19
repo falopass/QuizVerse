@@ -96,6 +96,13 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     const plain = await call(ogUrl());
     const plainBytes = new Uint8Array(await plain.arrayBuffer());
     expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
+
+    // And the score itself must be drawn: a different score must change
+    // the pixels, so a card that drops the session would fail here too.
+    mocks.getQuizSessionByShareToken.mockResolvedValue({ ...session, score: 3 });
+    const otherScore = await call(ogUrl('?s=share-token-1'));
+    const otherScoreBytes = new Uint8Array(await otherScore.arrayBuffer());
+    expect(Buffer.from(otherScoreBytes).equals(Buffer.from(bytes))).toBe(false);
   });
 
   it('returns the base cover (never a 500) when the slug does not exist', async () => {
