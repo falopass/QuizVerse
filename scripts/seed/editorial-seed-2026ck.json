@@ -229,7 +229,11 @@
           "id": "q2",
           "question": "Which document of August 1789 declared that \"men are born and remain free and equal in rights\"?",
           "options": [
-            { "id": "a", "text": "The Declaration of the Rights of Man and of the Citizen", "is_correct": true },
+            {
+              "id": "a",
+              "text": "The Declaration of the Rights of Man and of the Citizen",
+              "is_correct": true
+            },
             { "id": "b", "text": "The Civil Constitution of the Clergy", "is_correct": false },
             { "id": "c", "text": "The Napoleonic Code", "is_correct": false },
             { "id": "d", "text": "The Constitution of 1791", "is_correct": false }
@@ -330,7 +334,11 @@
           "id": "q2",
           "question": "¿Qué documento de agosto de 1789 proclamó que «los hombres nacen y permanecen libres e iguales en derechos»?",
           "options": [
-            { "id": "a", "text": "La Declaración de los Derechos del Hombre y del Ciudadano", "is_correct": true },
+            {
+              "id": "a",
+              "text": "La Declaración de los Derechos del Hombre y del Ciudadano",
+              "is_correct": true
+            },
             { "id": "b", "text": "La Constitución civil del clero", "is_correct": false },
             { "id": "c", "text": "El Código Napoleón", "is_correct": false },
             { "id": "d", "text": "La Constitución de 1791", "is_correct": false }
@@ -666,7 +674,11 @@
           "id": "q5",
           "question": "What does the \"October Revolution\" refer to?",
           "options": [
-            { "id": "a", "text": "The Bolshevik seizure of power in Petrograd", "is_correct": true },
+            {
+              "id": "a",
+              "text": "The Bolshevik seizure of power in Petrograd",
+              "is_correct": true
+            },
             { "id": "b", "text": "The abdication of the tsar", "is_correct": false },
             { "id": "c", "text": "The signing of Brest-Litovsk", "is_correct": false },
             { "id": "d", "text": "The end of the Civil War", "is_correct": false }
@@ -767,7 +779,11 @@
           "id": "q5",
           "question": "¿A qué se refiere la «Revolución de Octubre»?",
           "options": [
-            { "id": "a", "text": "La toma del poder por los bolcheviques en Petrogrado", "is_correct": true },
+            {
+              "id": "a",
+              "text": "La toma del poder por los bolcheviques en Petrogrado",
+              "is_correct": true
+            },
             { "id": "b", "text": "La abdicación del zar", "is_correct": false },
             { "id": "c", "text": "La firma de Brest-Litovsk", "is_correct": false },
             { "id": "d", "text": "El fin de la guerra civil", "is_correct": false }
