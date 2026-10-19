@@ -84,7 +84,11 @@
           "options": [
             { "id": "a", "text": "He's an accountant", "is_correct": false },
             { "id": "b", "text": "He's a 'transponster'", "is_correct": false },
-            { "id": "c", "text": "Statistical analysis and data reconfiguration", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Statistical analysis and data reconfiguration",
+              "is_correct": true
+            },
             { "id": "d", "text": "He's a corporate lawyer", "is_correct": false }
           ],
           "explanation": "Nobody can name it — Monica's guess 'transponster' costs them the apartment. His real title is statistical analysis and data reconfiguration."
@@ -690,7 +694,11 @@
           "options": [
             { "id": "a", "text": "Deliver pizzas", "is_correct": false },
             { "id": "b", "text": "Survive zombie waves", "is_correct": false },
-            { "id": "c", "text": "Escape prison and rob banks — or stop them as police", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Escape prison and rob banks — or stop them as police",
+              "is_correct": true
+            },
             { "id": "d", "text": "Build and defend a castle", "is_correct": false }
           ],
           "explanation": "Jailbreak pits criminals against police; delivering pizzas is Work at a Pizza Place."
