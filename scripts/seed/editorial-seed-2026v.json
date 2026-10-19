@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial batch 2026v (CONT-31): trivia pairs filling the thin science and animals categories — everyday physics, cell biology, marine animals, insects and ecosystems. Every answer is a stable, checkable fact; no population figures, dated studies or current-events data. The es marine slug is es-trivia-animales-del-mar because es-trivia-animales-marinos is already taken by batch 2026f. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-everyday-physics-trivia",
+      "title": "Everyday Physics Trivia: Why Things Fall and Fly",
+      "description": "Gravity, light, sound and friction explain more of your day than you think. Eight questions about the physics hiding in plain sight.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "physics", "everyday life", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Ignoring air resistance, what happens when a heavy object and a light object are dropped from the same height?",
+          "options": [
+            { "id": "a", "text": "The heavy object lands first", "is_correct": false },
+            { "id": "b", "text": "The light object lands first", "is_correct": false },
+            { "id": "c", "text": "They hit the ground at the same time", "is_correct": true },
+            { "id": "d", "text": "They fall at a constant speed", "is_correct": false }
+          ],
+          "explanation": "Gravity accelerates everything at about 9.8 m/s² regardless of mass; an astronaut famously showed it on the Moon with a hammer and a feather."
+        },
+        {
+          "id": "q2",
+          "question": "Why does a clear daytime sky look blue?",
+          "options": [
+            { "id": "a", "text": "Blue light is scattered by the atmosphere more than other colours", "is_correct": true },
+            { "id": "b", "text": "The oceans reflect blue light upwards", "is_correct": false },
+            { "id": "c", "text": "The ozone layer is naturally blue", "is_correct": false },
+            { "id": "d", "text": "Sunlight is actually blue before it reaches Earth", "is_correct": false }
+          ],
+          "explanation": "Air molecules scatter short blue wavelengths in every direction — Rayleigh scattering — which is also why sunsets look red."
+        },
+        {
+          "id": "q3",
+          "question": "At sea level, at what temperature does pure water boil?",
+          "options": [
+            { "id": "a", "text": "90 °C", "is_correct": false },
+            { "id": "b", "text": "100 °C", "is_correct": true },
+            { "id": "c", "text": "110 °C", "is_correct": false },
+            { "id": "d", "text": "120 °C", "is_correct": false }
+          ],
+          "explanation": "100 °C is the boiling point at sea-level pressure; on a high mountain water boils at a lower temperature."
+        },
+        {
+          "id": "q4",
+          "question": "Which force lets you walk forward without slipping?",
+          "options": [
+            { "id": "a", "text": "Gravity", "is_correct": false },
+            { "id": "b", "text": "Magnetism", "is_correct": false },
+            { "id": "c", "text": "Air resistance", "is_correct": false },
+            { "id": "d", "text": "Friction", "is_correct": true }
+          ],
+          "explanation": "Your shoe pushes backwards on the ground and friction pushes you forwards — on ice there is almost none, so walking fails."
+        },
+        {
+          "id": "q5",
+          "question": "In a storm, why do you see the lightning before you hear the thunder?",
+          "options": [
+            { "id": "a", "text": "Light travels much faster than sound", "is_correct": true },
+            { "id": "b", "text": "Thunder is produced a few seconds after lightning", "is_correct": false },
+            { "id": "c", "text": "Sound travels upwards while light travels down", "is_correct": false },
+            { "id": "d", "text": "Rain slows the sound waves down", "is_correct": false }
+          ],
+          "explanation": "Light covers the distance almost instantly; sound moves at about 340 m/s, so counting the seconds to the thunder estimates the storm's distance."
+        },
+        {
+          "id": "q6",
+          "question": "Passengers on a bus lurch forward when it brakes suddenly. Which physics principle explains this?",
+          "options": [
+            { "id": "a", "text": "Gravity", "is_correct": false },
+            { "id": "b", "text": "Inertia", "is_correct": true },
+            { "id": "c", "text": "Buoyancy", "is_correct": false },
+            { "id": "d", "text": "Magnetism", "is_correct": false }
+          ],
+          "explanation": "Inertia — Newton's first law: a body in motion keeps moving until a force, like the seat or seatbelt, stops it."
+        },
+        {
+          "id": "q7",
+          "question": "Why does a helium balloon rise when you let it go?",
+          "options": [
+            { "id": "a", "text": "Helium is lighter than air, so buoyancy pushes the balloon up", "is_correct": true },
+            { "id": "b", "text": "Helium actively repels gravity", "is_correct": false },
+            { "id": "c", "text": "Wind currents carry it upwards", "is_correct": false },
+            { "id": "d", "text": "The rubber is lighter than air", "is_correct": false }
+          ],
+          "explanation": "The balloon floats for the same reason a cork floats on water: it is less dense than the fluid around it, so the denser air sinks beneath it."
+        },
+        {
+          "id": "q8",
+          "question": "How does a microwave oven mainly heat food?",
+          "options": [
+            { "id": "a", "text": "It heats the air inside, which cooks the food", "is_correct": false },
+            { "id": "b", "text": "It makes water molecules in the food vibrate", "is_correct": true },
+            { "id": "c", "text": "It uses small amounts of radioactivity", "is_correct": false },
+            { "id": "d", "text": "It cooks food with visible light", "is_correct": false }
+          ],
+          "explanation": "Microwaves make water molecules rotate and collide, generating heat inside the food itself — which is why dry dishes stay cooler."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-fisica-cotidiana",
+      "title": "Trivia de física cotidiana: por qué caen y vuelan las cosas",
+      "description": "La gravedad, la luz, el sonido y la fricción explican más de tu día de lo que crees. Ocho preguntas sobre la física que está a la vista.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "física", "vida cotidiana", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Si ignoramos la resistencia del aire, ¿qué ocurre al soltar un objeto pesado y uno ligero desde la misma altura?",
+          "options": [
+            { "id": "a", "text": "El objeto pesado llega primero al suelo", "is_correct": false },
+            { "id": "b", "text": "El objeto ligero llega primero al suelo", "is_correct": false },
+            { "id": "c", "text": "Llegan al suelo al mismo tiempo", "is_correct": true },
+            { "id": "d", "text": "Caen a velocidad constante", "is_correct": false }
+          ],
+          "explanation": "La gravedad acelera todo a unos 9,8 m/s² sin importar la masa; en la Luna un astronauta lo mostró con un martillo y una pluma."
+        },
+        {
+          "id": "q2",
+          "question": "¿Por qué el cielo despejado se ve azul durante el día?",
+          "options": [
+            { "id": "a", "text": "La atmósfera dispersa la luz azul más que otros colores", "is_correct": true },
+            { "id": "b", "text": "Los océanos reflejan luz azul hacia el cielo", "is_correct": false },
+            { "id": "c", "text": "La capa de ozono es de color azul", "is_correct": false },
+            { "id": "d", "text": "La luz del Sol es azul antes de llegar a la Tierra", "is_correct": false }
+          ],
+          "explanation": "Las moléculas del aire dispersan las longitudes de onda cortas del azul en todas direcciones; por eso también los atardeceres se ven rojos."
+        },
+        {
+          "id": "q3",
+          "question": "A nivel del mar, ¿a qué temperatura hierve el agua pura?",
+          "options": [
+            { "id": "a", "text": "90 °C", "is_correct": false },
+            { "id": "b", "text": "100 °C", "is_correct": true },
+            { "id": "c", "text": "110 °C", "is_correct": false },
+            { "id": "d", "text": "120 °C", "is_correct": false }
+          ],
+          "explanation": "100 °C es el punto de ebullición a presión del nivel del mar; en una montaña alta el agua hierve a menor temperatura."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué fuerza permite caminar hacia adelante sin resbalar?",
+          "options": [
+            { "id": "a", "text": "La gravedad", "is_correct": false },
+            { "id": "b", "text": "El magnetismo", "is_correct": false },
+            { "id": "c", "text": "La resistencia del aire", "is_correct": false },
+            { "id": "d", "text": "La fricción", "is_correct": true }
+          ],
+          "explanation": "El zapato empuja el suelo hacia atrás y la fricción te empuja hacia adelante; sobre el hielo casi no hay fricción y caminar falla."
+        },
+        {
+          "id": "q5",
+          "question": "En una tormenta, ¿por qué se ve el relámpago antes de oír el trueno?",
+          "options": [
+            { "id": "a", "text": "La luz viaja mucho más rápido que el sonido", "is_correct": true },
+            { "id": "b", "text": "El trueno se produce unos segundos después del relámpago", "is_correct": false },
+            { "id": "c", "text": "El sonido viaja hacia arriba y la luz hacia abajo", "is_correct": false },
+            { "id": "d", "text": "La lluvia frena las ondas de sonido", "is_correct": false }
+          ],
+          "explanation": "La luz recorre la distancia casi al instante; el sonido avanza a unos 340 m/s, así que contar los segundos hasta el trueno estima la distancia de la tormenta."
+        },
+        {
+          "id": "q6",
+          "question": "Los pasajeros de un bus se inclinan hacia adelante cuando frena de golpe. ¿Qué principio físico lo explica?",
+          "options": [
+            { "id": "a", "text": "La gravedad", "is_correct": false },
+            { "id": "b", "text": "La inercia", "is_correct": true },
+            { "id": "c", "text": "La flotación", "is_correct": false },
+            { "id": "d", "text": "El magnetismo", "is_correct": false }
+          ],
+          "explanation": "La inercia —la primera ley de Newton—: un cuerpo en movimiento sigue moviéndose hasta que una fuerza, como el asiento o el cinturón, lo detiene."
+        },
+        {
+          "id": "q7",
+          "question": "¿Por qué sube un globo de helio al soltarlo?",
+          "options": [
+            { "id": "a", "text": "El helio es menos denso que el aire y la flotación empuja el globo hacia arriba", "is_correct": true },
+            { "id": "b", "text": "El helio repele la gravedad", "is_correct": false },
+            { "id": "c", "text": "Las corrientes de viento lo llevan hacia arriba", "is_correct": false },
+            { "id": "d", "text": "La goma del globo es más ligera que el aire", "is_correct": false }
+          ],
+          "explanation": "El globo flota por la misma razón que un corcho flota en el agua: es menos denso que el fluido que lo rodea."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo calienta principalmente los alimentos un horno de microondas?",
+          "options": [
+            { "id": "a", "text": "Calienta el aire interior, que cocina el alimento", "is_correct": false },
+            { "id": "b", "text": "Hace vibrar las moléculas de agua del alimento", "is_correct": true },
+            { "id": "c", "text": "Usa pequeñas cantidades de radiactividad", "is_correct": false },
+            { "id": "d", "text": "Cocina los alimentos con luz visible", "is_correct": false }
+          ],
+          "explanation": "Las microondas hacen rotar y chocar las moléculas de agua, generando calor dentro del alimento; por eso un plato seco se calienta menos."
+        }
+      ]
+    },
+    {
+      "slug": "en-cell-biology-trivia",
+      "title": "Cell Biology Trivia: How Life Works Inside",
+      "description": "Powerhouses, libraries of DNA and protein factories: eight questions about the tiny machinery that keeps every living thing running.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "biology", "cells", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which organelle is known as the powerhouse of the cell?",
+          "options": [
+            { "id": "a", "text": "The nucleus", "is_correct": false },
+            { "id": "b", "text": "The ribosome", "is_correct": false },
+            { "id": "c", "text": "The mitochondrion", "is_correct": true },
+            { "id": "d", "text": "The vacuole", "is_correct": false }
+          ],
+          "explanation": "Mitochondria produce ATP, the molecule cells use as energy currency."
+        },
+        {
+          "id": "q2",
+          "question": "In a eukaryotic cell, where is most of the DNA stored?",
+          "options": [
+            { "id": "a", "text": "In the nucleus", "is_correct": true },
+            { "id": "b", "text": "In the cell membrane", "is_correct": false },
+            { "id": "c", "text": "In the ribosomes", "is_correct": false },
+            { "id": "d", "text": "In the vacuole", "is_correct": false }
+          ],
+          "explanation": "The nucleus holds the genome; mitochondria keep only a tiny leftover genome of their own."
+        },
+        {
+          "id": "q3",
+          "question": "What do ribosomes build inside a cell?",
+          "options": [
+            { "id": "a", "text": "Sugars", "is_correct": false },
+            { "id": "b", "text": "Proteins", "is_correct": true },
+            { "id": "c", "text": "Membranes", "is_correct": false },
+            { "id": "d", "text": "DNA", "is_correct": false }
+          ],
+          "explanation": "Ribosomes read messenger RNA and link amino acids into proteins, one instruction at a time."
+        },
+        {
+          "id": "q4",
+          "question": "Which structure controls what enters and leaves the cell?",
+          "options": [
+            { "id": "a", "text": "The cell wall", "is_correct": false },
+            { "id": "b", "text": "The nucleus", "is_correct": false },
+            { "id": "c", "text": "The cytoskeleton", "is_correct": false },
+            { "id": "d", "text": "The cell membrane", "is_correct": true }
+          ],
+          "explanation": "The plasma membrane is selectively permeable: it lets nutrients in and waste out while keeping the inside stable."
+        },
+        {
+          "id": "q5",
+          "question": "Inside which organelle do plant cells carry out photosynthesis?",
+          "options": [
+            { "id": "a", "text": "The chloroplast", "is_correct": true },
+            { "id": "b", "text": "The mitochondrion", "is_correct": false },
+            { "id": "c", "text": "The nucleus", "is_correct": false },
+            { "id": "d", "text": "The lysosome", "is_correct": false }
+          ],
+          "explanation": "Chloroplasts contain chlorophyll, the green pigment that captures sunlight to make sugars."
+        },
+        {
+          "id": "q6",
+          "question": "Which human cell loses its nucleus when it matures?",
+          "options": [
+            { "id": "a", "text": "The neuron", "is_correct": false },
+            { "id": "b", "text": "The muscle cell", "is_correct": false },
+            { "id": "c", "text": "The red blood cell", "is_correct": true },
+            { "id": "d", "text": "The skin cell", "is_correct": false }
+          ],
+          "explanation": "Mature red blood cells eject their nucleus to make more room for haemoglobin, the protein that carries oxygen."
+        },
+        {
+          "id": "q7",
+          "question": "According to cell theory, what is the basic structural unit of all living things?",
+          "options": [
+            { "id": "a", "text": "The atom", "is_correct": false },
+            { "id": "b", "text": "The tissue", "is_correct": false },
+            { "id": "c", "text": "The organ", "is_correct": false },
+            { "id": "d", "text": "The cell", "is_correct": true }
+          ],
+          "explanation": "Cell theory says every organism is made of cells and every new cell comes from an existing cell."
+        },
+        {
+          "id": "q8",
+          "question": "Which is often cited as the largest single cell in nature?",
+          "options": [
+            { "id": "a", "text": "An ostrich egg", "is_correct": true },
+            { "id": "b", "text": "A human neuron", "is_correct": false },
+            { "id": "c", "text": "An amoeba", "is_correct": false },
+            { "id": "d", "text": "A chicken egg shell", "is_correct": false }
+          ],
+          "explanation": "The yolk of an ostrich egg is a single cell — the biggest you can hold in one hand."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-biologia-celular",
+      "title": "Trivia de biología celular: cómo funciona la vida por dentro",
+      "description": "Centrales de energía, bibliotecas de ADN y fábricas de proteínas: ocho preguntas sobre la maquinaria diminuta que mantiene viva a toda criatura.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "biología", "células", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué orgánulo es conocido como la central energética de la célula?",
+          "options": [
+            { "id": "a", "text": "El núcleo", "is_correct": false },
+            { "id": "b", "text": "El ribosoma", "is_correct": false },
+            { "id": "c", "text": "La mitocondria", "is_correct": true },
+            { "id": "d", "text": "La vacuola", "is_correct": false }
+          ],
+          "explanation": "Las mitocondrias producen ATP, la molécula que las células usan como moneda de energía."
+        },
+        {
+          "id": "q2",
+          "question": "En una célula eucariota, ¿dónde se almacena la mayor parte del ADN?",
+          "options": [
+            { "id": "a", "text": "En el núcleo", "is_correct": true },
+            { "id": "b", "text": "En la membrana celular", "is_correct": false },
+            { "id": "c", "text": "En los ribosomas", "is_correct": false },
+            { "id": "d", "text": "En la vacuola", "is_correct": false }
+          ],
+          "explanation": "El núcleo guarda el genoma; las mitocondrias conservan apenas un pequeño genoma propio."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué fabrican los ribosomas dentro de la célula?",
+          "options": [
+            { "id": "a", "text": "Azúcares", "is_correct": false },
+            { "id": "b", "text": "Proteínas", "is_correct": true },
+            { "id": "c", "text": "Membranas", "is_correct": false },
+            { "id": "d", "text": "ADN", "is_correct": false }
+          ],
+          "explanation": "Los ribosomas leen el ARN mensajero y enlazan aminoácidos para formar proteínas, una instrucción a la vez."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué estructura controla qué entra y qué sale de la célula?",
+          "options": [
+            { "id": "a", "text": "La pared celular", "is_correct": false },
+            { "id": "b", "text": "El núcleo", "is_correct": false },
+            { "id": "c", "text": "El citoesqueleto", "is_correct": false },
+            { "id": "d", "text": "La membrana celular", "is_correct": true }
+          ],
+          "explanation": "La membrana plasmática es selectivamente permeable: deja entrar nutrientes y salir desechos mientras mantiene estable el interior."
+        },
+        {
+          "id": "q5",
+          "question": "¿Dentro de qué orgánulo realizan la fotosíntesis las células vegetales?",
+          "options": [
+            { "id": "a", "text": "El cloroplasto", "is_correct": true },
+            { "id": "b", "text": "La mitocondria", "is_correct": false },
+            { "id": "c", "text": "El núcleo", "is_correct": false },
+            { "id": "d", "text": "El lisosoma", "is_correct": false }
+          ],
+          "explanation": "Los cloroplastos contienen clorofila, el pigmento verde que captura la luz solar para fabricar azúcares."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué célula humana pierde su núcleo al madurar?",
+          "options": [
+            { "id": "a", "text": "La neurona", "is_correct": false },
+            { "id": "b", "text": "La célula muscular", "is_correct": false },
+            { "id": "c", "text": "El glóbulo rojo", "is_correct": true },
+            { "id": "d", "text": "La célula de la piel", "is_correct": false }
+          ],
+          "explanation": "Los glóbulos rojos maduros expulsan su núcleo para hacer más espacio a la hemoglobina, la proteína que transporta oxígeno."
+        },
+        {
+          "id": "q7",
+          "question": "Según la teoría celular, ¿cuál es la unidad estructural básica de todos los seres vivos?",
+          "options": [
+            { "id": "a", "text": "El átomo", "is_correct": false },
+            { "id": "b", "text": "El tejido", "is_correct": false },
+            { "id": "c", "text": "El órgano", "is_correct": false },
+            { "id": "d", "text": "La célula", "is_correct": true }
+          ],
+          "explanation": "La teoría celular dice que todo organismo está hecho de células y que cada célula nueva proviene de una célula existente."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál suele citarse como la célula individual más grande de la naturaleza?",
+          "options": [
+            { "id": "a", "text": "Un huevo de avestruz", "is_correct": true },
+            { "id": "b", "text": "Una neurona humana", "is_correct": false },
+            { "id": "c", "text": "Una ameba", "is_correct": false },
+            { "id": "d", "text": "Una cáscara de huevo de gallina", "is_correct": false }
+          ],
+          "explanation": "La yema de un huevo de avestruz es una sola célula, la más grande que cabe en una mano."
+        }
+      ]
+    },
+    {
+      "slug": "en-marine-animals-trivia",
+      "title": "Marine Animals Trivia: Giants, Deep Sea and Reefs",
+      "description": "From glowing hunters of the deep to animals that sleep with half a brain: eight questions about life in the ocean.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["marine animals", "ocean", "deep sea", "animals", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How do dolphins sleep without drowning?",
+          "options": [
+            { "id": "a", "text": "They rest one half of the brain at a time", "is_correct": true },
+            { "id": "b", "text": "They hold their breath all night", "is_correct": false },
+            { "id": "c", "text": "They sleep on the sea floor", "is_correct": false },
+            { "id": "d", "text": "They never really sleep", "is_correct": false }
+          ],
+          "explanation": "Dolphins sleep with one brain hemisphere at a time, keeping the other awake enough to surface and breathe."
+        },
+        {
+          "id": "q2",
+          "question": "What is a coral reef actually made of?",
+          "options": [
+            { "id": "a", "text": "Underwater plants", "is_correct": false },
+            { "id": "b", "text": "Colonies of tiny animals called polyps", "is_correct": true },
+            { "id": "c", "text": "Volcanic rock", "is_correct": false },
+            { "id": "d", "text": "Accumulated seashells", "is_correct": false }
+          ],
+          "explanation": "Each coral is a colony of small animals related to jellyfish; over generations their calcium carbonate skeletons build the reef."
+        },
+        {
+          "id": "q3",
+          "question": "The giant squid has the largest eyes in the animal kingdom. About how big are they?",
+          "options": [
+            { "id": "a", "text": "Like a golf ball", "is_correct": false },
+            { "id": "b", "text": "Like a tennis ball", "is_correct": false },
+            { "id": "c", "text": "Like a dinner plate", "is_correct": true },
+            { "id": "d", "text": "Like a football", "is_correct": false }
+          ],
+          "explanation": "Its eyes measure around 25 cm across, probably to spot the faint glow of sperm whales hunting in the dark."
+        },
+        {
+          "id": "q4",
+          "question": "Which deep-sea fish attracts prey with a glowing lure dangling in front of its mouth?",
+          "options": [
+            { "id": "a", "text": "The anglerfish", "is_correct": true },
+            { "id": "b", "text": "The lantern shark", "is_correct": false },
+            { "id": "c", "text": "The barracuda", "is_correct": false },
+            { "id": "d", "text": "The moray eel", "is_correct": false }
+          ],
+          "explanation": "The female anglerfish's lure, the esca, glows thanks to bioluminescent bacteria living inside it."
+        },
+        {
+          "id": "q5",
+          "question": "What is bioluminescence?",
+          "options": [
+            { "id": "a", "text": "Light reflected by fish scales", "is_correct": false },
+            { "id": "b", "text": "Light produced by living organisms through a chemical reaction", "is_correct": true },
+            { "id": "c", "text": "Sunlight stored in seawater", "is_correct": false },
+            { "id": "d", "text": "Electric sparks between sea creatures", "is_correct": false }
+          ],
+          "explanation": "Most deep-sea animals can make their own light to hunt, hide or find a mate — it is the most common light in the ocean."
+        },
+        {
+          "id": "q6",
+          "question": "Which small jellyfish is famous for being able to revert to an earlier stage of its life cycle?",
+          "options": [
+            { "id": "a", "text": "The lion's mane jellyfish", "is_correct": false },
+            { "id": "b", "text": "The box jellyfish", "is_correct": false },
+            { "id": "c", "text": "The moon jellyfish", "is_correct": false },
+            { "id": "d", "text": "Turritopsis dohrnii, the 'immortal jellyfish'", "is_correct": true }
+          ],
+          "explanation": "When stressed or injured, Turritopsis dohrnii can turn back into a polyp and start its life cycle again."
+        },
+        {
+          "id": "q7",
+          "question": "Roughly how much of the oxygen in Earth's atmosphere is produced by ocean phytoplankton?",
+          "options": [
+            { "id": "a", "text": "About 10 %", "is_correct": false },
+            { "id": "b", "text": "About half", "is_correct": true },
+            { "id": "c", "text": "About 90 %", "is_correct": false },
+            { "id": "d", "text": "None — oxygen only comes from forests", "is_correct": false }
+          ],
+          "explanation": "Estimates credit marine phytoplankton with around half of the planet's oxygen production through photosynthesis."
+        },
+        {
+          "id": "q8",
+          "question": "The mantis shrimp is famous for its strike. What can it do?",
+          "options": [
+            { "id": "a", "text": "Stun prey with an electric shock", "is_correct": false },
+            { "id": "b", "text": "Shoot venomous darts", "is_correct": false },
+            { "id": "c", "text": "Punch fast enough to crack crab shells", "is_correct": true },
+            { "id": "d", "text": "Squeeze prey like a boa constrictor", "is_correct": false }
+          ],
+          "explanation": "Its club accelerates like a bullet, and the cavitation bubbles it creates add a second shockwave — enough to break shells and even aquarium glass."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-animales-del-mar",
+      "title": "Trivia de animales marinos: gigantes, abismos y arrecifes",
+      "description": "De cazadores luminosos en las profundidades a animales que duermen con medio cerebro: ocho preguntas sobre la vida en el océano.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales marinos", "océano", "aguas profundas", "animales", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo duermen los delfines sin ahogarse?",
+          "options": [
+            { "id": "a", "text": "Descansan una mitad del cerebro a la vez", "is_correct": true },
+            { "id": "b", "text": "Aguantan la respiración toda la noche", "is_correct": false },
+            { "id": "c", "text": "Duermen en el fondo del mar", "is_correct": false },
+            { "id": "d", "text": "En realidad nunca duermen", "is_correct": false }
+          ],
+          "explanation": "Los delfines duermen con un hemisferio cerebral a la vez, manteniendo el otro lo suficientemente despierto para salir a respirar."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué está hecho realmente un arrecife de coral?",
+          "options": [
+            { "id": "a", "text": "De plantas submarinas", "is_correct": false },
+            { "id": "b", "text": "De colonias de animales diminutos llamados pólipos", "is_correct": true },
+            { "id": "c", "text": "De roca volcánica", "is_correct": false },
+            { "id": "d", "text": "De conchas acumuladas", "is_correct": false }
+          ],
+          "explanation": "Cada coral es una colonia de pequeños animales emparentados con las medusas; con generaciones, sus esqueletos de carbonato de calcio forman el arrecife."
+        },
+        {
+          "id": "q3",
+          "question": "El calamar gigante tiene los ojos más grandes del reino animal. ¿De qué tamaño son, aproximadamente?",
+          "options": [
+            { "id": "a", "text": "Como una pelota de golf", "is_correct": false },
+            { "id": "b", "text": "Como una pelota de tenis", "is_correct": false },
+            { "id": "c", "text": "Como un plato de comida", "is_correct": true },
+            { "id": "d", "text": "Como un balón de fútbol", "is_correct": false }
+          ],
+          "explanation": "Sus ojos miden unos 25 cm de diámetro, probablemente para detectar el brillo tenue de los cachalotes que cazan en la oscuridad."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué pez de las profundidades atrae a sus presas con un señuelo luminoso frente a su boca?",
+          "options": [
+            { "id": "a", "text": "El pez rape o tamboril", "is_correct": true },
+            { "id": "b", "text": "El tiburón linterna", "is_correct": false },
+            { "id": "c", "text": "El pez barracuda", "is_correct": false },
+            { "id": "d", "text": "La morena", "is_correct": false }
+          ],
+          "explanation": "El señuelo de la hembra del pez rape, la esca, brilla gracias a bacterias bioluminiscentes que viven dentro de él."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es la bioluminiscencia?",
+          "options": [
+            { "id": "a", "text": "Luz reflejada por las escamas de los peces", "is_correct": false },
+            { "id": "b", "text": "Luz producida por organismos vivos mediante una reacción química", "is_correct": true },
+            { "id": "c", "text": "Luz solar almacenada en el agua de mar", "is_correct": false },
+            { "id": "d", "text": "Chispas eléctricas entre criaturas marinas", "is_correct": false }
+          ],
+          "explanation": "La mayoría de los animales de las profundidades puede producir luz propia para cazar, esconderse o encontrar pareja."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué pequeña medusa es famosa por poder volver a una etapa anterior de su ciclo de vida?",
+          "options": [
+            { "id": "a", "text": "La medusa melena de león", "is_correct": false },
+            { "id": "b", "text": "La avispa de mar", "is_correct": false },
+            { "id": "c", "text": "La medusa luna", "is_correct": false },
+            { "id": "d", "text": "Turritopsis dohrnii, la «medusa inmortal»", "is_correct": true }
+          ],
+          "explanation": "Cuando está bajo estrés o herida, Turritopsis dohrnii puede regresar a la forma de pólipo y reiniciar su ciclo de vida."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué parte del oxígeno de la atmósfera produce, aproximadamente, el fitoplancton oceánico?",
+          "options": [
+            { "id": "a", "text": "Cerca del 10 %", "is_correct": false },
+            { "id": "b", "text": "Cerca de la mitad", "is_correct": true },
+            { "id": "c", "text": "Cerca del 90 %", "is_correct": false },
+            { "id": "d", "text": "Nada: el oxígeno solo viene de los bosques", "is_correct": false }
+          ],
+          "explanation": "Las estimaciones atribuyen al fitoplancton marino alrededor de la mitad de la producción de oxígeno del planeta mediante la fotosíntesis."
+        },
+        {
+          "id": "q8",
+          "question": "El camarón mantis es famoso por su golpe. ¿Qué puede hacer?",
+          "options": [
+            { "id": "a", "text": "Aturdir a sus presas con una descarga eléctrica", "is_correct": false },
+            { "id": "b", "text": "Disparar dardos venenosos", "is_correct": false },
+            { "id": "c", "text": "Golpear tan rápido que rompe caparazones de cangrejo", "is_correct": true },
+            { "id": "d", "text": "Estrujar a sus presas como una boa", "is_correct": false }
+          ],
+          "explanation": "Su garra acelera como una bala y las burbujas de cavitación que crea suman una segunda onda de choque: suficiente para romper conchas y hasta vidrios de acuario."
+        }
+      ]
+    },
+    {
+      "slug": "en-insects-trivia",
+      "title": "Insects Trivia: Six Legs, Superpowers",
+      "description": "A million described species, record-breaking strength and dances that give directions: eight questions about the most successful animals on Earth.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "animals",
+      "tags": ["insects", "bugs", "animals", "nature", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many legs does an insect have?",
+          "options": [
+            { "id": "a", "text": "Four", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": true },
+            { "id": "c", "text": "Eight", "is_correct": false },
+            { "id": "d", "text": "It depends on the species", "is_correct": false }
+          ],
+          "explanation": "Six legs is the defining trait: spiders have eight and are arachnids, not insects."
+        },
+        {
+          "id": "q2",
+          "question": "Instead of an internal skeleton, what supports an insect's body?",
+          "options": [
+            { "id": "a", "text": "A cartilage frame", "is_correct": false },
+            { "id": "b", "text": "Fluid pressure alone", "is_correct": false },
+            { "id": "c", "text": "An external skeleton — the exoskeleton", "is_correct": true },
+            { "id": "d", "text": "Small bones under the skin", "is_correct": false }
+          ],
+          "explanation": "The exoskeleton, made largely of chitin, works like armour — which is why insects must moult to grow."
+        },
+        {
+          "id": "q3",
+          "question": "What is the process called when a caterpillar transforms into a butterfly?",
+          "options": [
+            { "id": "a", "text": "Photosynthesis", "is_correct": false },
+            { "id": "b", "text": "Hibernation", "is_correct": false },
+            { "id": "c", "text": "Pollination", "is_correct": false },
+            { "id": "d", "text": "Metamorphosis", "is_correct": true }
+          ],
+          "explanation": "Inside the chrysalis the caterpillar's body reorganises almost completely — one of the most radical makeovers in nature."
+        },
+        {
+          "id": "q4",
+          "question": "How do honeybees tell their nestmates where to find food?",
+          "options": [
+            { "id": "a", "text": "With a waggle dance", "is_correct": true },
+            { "id": "b", "text": "With high-pitched songs", "is_correct": false },
+            { "id": "c", "text": "By leaving scent marks on the hive walls", "is_correct": false },
+            { "id": "d", "text": "By flashing their wings", "is_correct": false }
+          ],
+          "explanation": "The angle and duration of the waggle dance encode the direction and distance of the food source relative to the sun."
+        },
+        {
+          "id": "q5",
+          "question": "Which insect can taste its food with sensors on its feet?",
+          "options": [
+            { "id": "a", "text": "The ant", "is_correct": false },
+            { "id": "b", "text": "The butterfly", "is_correct": true },
+            { "id": "c", "text": "The beetle", "is_correct": false },
+            { "id": "d", "text": "The grasshopper", "is_correct": false }
+          ],
+          "explanation": "Butterflies carry taste receptors on their feet, so landing on a plant already tells them whether it is a good spot to lay eggs."
+        },
+        {
+          "id": "q6",
+          "question": "Roughly what share of all described animal species are insects?",
+          "options": [
+            { "id": "a", "text": "About one tenth", "is_correct": false },
+            { "id": "b", "text": "About a quarter", "is_correct": false },
+            { "id": "c", "text": "More than half", "is_correct": true },
+            { "id": "d", "text": "Almost none — they are a tiny group", "is_correct": false }
+          ],
+          "explanation": "Around a million insect species have been described — more than half of all known animal species — and many more remain unnamed."
+        },
+        {
+          "id": "q7",
+          "question": "Which insect can survive for weeks even after losing its head?",
+          "options": [
+            { "id": "a", "text": "The cockroach", "is_correct": true },
+            { "id": "b", "text": "The mosquito", "is_correct": false },
+            { "id": "c", "text": "The moth", "is_correct": false },
+            { "id": "d", "text": "The bee", "is_correct": false }
+          ],
+          "explanation": "Cockroaches breathe through pores in their body segments, not through the head; they eventually die of dehydration, not the wound."
+        },
+        {
+          "id": "q8",
+          "question": "Which insects were already flying long before the dinosaurs appeared?",
+          "options": [
+            { "id": "a", "text": "Butterflies", "is_correct": false },
+            { "id": "b", "text": "Termites", "is_correct": false },
+            { "id": "c", "text": "Wasps", "is_correct": false },
+            { "id": "d", "text": "Dragonflies", "is_correct": true }
+          ],
+          "explanation": "Dragonfly ancestors took to the air around 300 million years ago — some had wingspans wider than a hawk's."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-insectos",
+      "title": "Trivia de insectos: seis patas y superpoderes",
+      "description": "Un millón de especies descritas, fuerza de récord y danzas que indican direcciones: ocho preguntas sobre los animales más exitosos del planeta.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "animals",
+      "tags": ["insectos", "bichos", "animales", "naturaleza", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas patas tiene un insecto?",
+          "options": [
+            { "id": "a", "text": "Cuatro", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": true },
+            { "id": "c", "text": "Ocho", "is_correct": false },
+            { "id": "d", "text": "Depende de la especie", "is_correct": false }
+          ],
+          "explanation": "Seis patas es el rasgo que los define: las arañas tienen ocho y son arácnidos, no insectos."
+        },
+        {
+          "id": "q2",
+          "question": "En lugar de un esqueleto interno, ¿qué sostiene el cuerpo de un insecto?",
+          "options": [
+            { "id": "a", "text": "Una armazón de cartílago", "is_correct": false },
+            { "id": "b", "text": "Solo la presión de los fluidos", "is_correct": false },
+            { "id": "c", "text": "Un esqueleto externo: el exoesqueleto", "is_correct": true },
+            { "id": "d", "text": "Huesos pequeños bajo la piel", "is_correct": false }
+          ],
+          "explanation": "El exoesqueleto, hecho en gran parte de quitina, funciona como una armadura; por eso los insectos deben mudar para crecer."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el proceso por el que una oruga se transforma en mariposa?",
+          "options": [
+            { "id": "a", "text": "Fotosíntesis", "is_correct": false },
+            { "id": "b", "text": "Hibernación", "is_correct": false },
+            { "id": "c", "text": "Polinización", "is_correct": false },
+            { "id": "d", "text": "Metamorfosis", "is_correct": true }
+          ],
+          "explanation": "Dentro de la crisálida el cuerpo de la oruga se reorganiza casi por completo: uno de los cambios más radicales de la naturaleza."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo le indican las abejas a sus compañeras dónde encontrar comida?",
+          "options": [
+            { "id": "a", "text": "Con la danza de la meneo o danza en ocho", "is_correct": true },
+            { "id": "b", "text": "Con cantos agudos", "is_correct": false },
+            { "id": "c", "text": "Dejando marcas de olor en las paredes de la colmena", "is_correct": false },
+            { "id": "d", "text": "Haciendo brillar sus alas", "is_correct": false }
+          ],
+          "explanation": "El ángulo y la duración de la danza codifican la dirección y la distancia del alimento en relación con el Sol."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué insecto puede saborear su comida con sensores en las patas?",
+          "options": [
+            { "id": "a", "text": "La hormiga", "is_correct": false },
+            { "id": "b", "text": "La mariposa", "is_correct": true },
+            { "id": "c", "text": "El escarabajo", "is_correct": false },
+            { "id": "d", "text": "El saltamontes", "is_correct": false }
+          ],
+          "explanation": "Las mariposas tienen receptores de sabor en las patas: al posarse en una planta ya saben si es un buen lugar para poner huevos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué parte de todas las especies animales descritas son insectos, aproximadamente?",
+          "options": [
+            { "id": "a", "text": "Una décima parte", "is_correct": false },
+            { "id": "b", "text": "Una cuarta parte", "is_correct": false },
+            { "id": "c", "text": "Más de la mitad", "is_correct": true },
+            { "id": "d", "text": "Casi ninguna: son un grupo minúsculo", "is_correct": false }
+          ],
+          "explanation": "Se han descrito alrededor de un millón de especies de insectos —más de la mitad de las especies animales conocidas— y quedan muchas sin nombrar."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué insecto puede sobrevivir semanas incluso después de perder la cabeza?",
+          "options": [
+            { "id": "a", "text": "La cucaracha", "is_correct": true },
+            { "id": "b", "text": "El mosquito", "is_correct": false },
+            { "id": "c", "text": "La polilla", "is_correct": false },
+            { "id": "d", "text": "La abeja", "is_correct": false }
+          ],
+          "explanation": "Las cucarachas respiran por poros en los segmentos del cuerpo, no por la cabeza; al final mueren de deshidratación, no por la herida."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué insectos ya volaban mucho antes de que aparecieran los dinosaurios?",
+          "options": [
+            { "id": "a", "text": "Las mariposas", "is_correct": false },
+            { "id": "b", "text": "Las termitas", "is_correct": false },
+            { "id": "c", "text": "Las avispas", "is_correct": false },
+            { "id": "d", "text": "Las libélulas", "is_correct": true }
+          ],
+          "explanation": "Los ancestros de las libélulas volaban hace unos 300 millones de años; algunos tenían una envergadura mayor que la de un halcón."
+        }
+      ]
+    },
+    {
+      "slug": "en-ecosystems-trivia",
+      "title": "Ecosystems Trivia: Food Webs and Balance",
+      "description": "Producers, predators, decomposers and the quiet arithmetic that keeps nature balanced: eight questions about how ecosystems work.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "ecosystems", "ecology", "nature", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In a food web, what are plants called because they make their own food?",
+          "options": [
+            { "id": "a", "text": "Consumers", "is_correct": false },
+            { "id": "b", "text": "Producers", "is_correct": true },
+            { "id": "c", "text": "Decomposers", "is_correct": false },
+            { "id": "d", "text": "Predators", "is_correct": false }
+          ],
+          "explanation": "Producers turn sunlight into food through photosynthesis; every other level of the web depends on them."
+        },
+        {
+          "id": "q2",
+          "question": "Which organisms break down dead matter and return nutrients to the soil?",
+          "options": [
+            { "id": "a", "text": "Herbivores", "is_correct": false },
+            { "id": "b", "text": "Scavengers", "is_correct": false },
+            { "id": "c", "text": "Decomposers such as fungi and bacteria", "is_correct": true },
+            { "id": "d", "text": "Pollinators", "is_correct": false }
+          ],
+          "explanation": "Without decomposers, nutrients would stay locked in dead matter and ecosystems would run out of building blocks."
+        },
+        {
+          "id": "q3",
+          "question": "Roughly how much energy is passed on from one level of a food chain to the next?",
+          "options": [
+            { "id": "a", "text": "About 10 %", "is_correct": true },
+            { "id": "b", "text": "About 50 %", "is_correct": false },
+            { "id": "c", "text": "About 90 %", "is_correct": false },
+            { "id": "d", "text": "All of it", "is_correct": false }
+          ],
+          "explanation": "The 'ten per cent rule' is why there are far fewer eagles than rabbits: most energy is lost as heat at each step."
+        },
+        {
+          "id": "q4",
+          "question": "What is a keystone species?",
+          "options": [
+            { "id": "a", "text": "The largest animal in the ecosystem", "is_correct": false },
+            { "id": "b", "text": "A species whose removal has an outsized effect on the whole ecosystem", "is_correct": true },
+            { "id": "c", "text": "The species with the longest lifespan", "is_correct": false },
+            { "id": "d", "text": "Any species that was introduced by humans", "is_correct": false }
+          ],
+          "explanation": "Sea otters are the classic example: when they disappear, sea urchins multiply and destroy the kelp forests."
+        },
+        {
+          "id": "q5",
+          "question": "What is an animal at the top of its food web, with no natural predators, called?",
+          "options": [
+            { "id": "a", "text": "A keystone herbivore", "is_correct": false },
+            { "id": "b", "text": "A primary consumer", "is_correct": false },
+            { "id": "c", "text": "An apex predator", "is_correct": true },
+            { "id": "d", "text": "An omnivore", "is_correct": false }
+          ],
+          "explanation": "Apex predators like orcas and eagles regulate the populations below them — remove them and the web unbalances."
+        },
+        {
+          "id": "q6",
+          "question": "Where does almost all the energy in most ecosystems originally come from?",
+          "options": [
+            { "id": "a", "text": "The heat of Earth's core", "is_correct": false },
+            { "id": "b", "text": "The sun", "is_correct": true },
+            { "id": "c", "text": "The wind", "is_correct": false },
+            { "id": "d", "text": "The moon's pull", "is_correct": false }
+          ],
+          "explanation": "Nearly every food web starts with plants capturing sunlight; deep-sea vents using chemicals are the rare exception."
+        },
+        {
+          "id": "q7",
+          "question": "What is the general term for a close, long-term relationship between two different species?",
+          "options": [
+            { "id": "a", "text": "Photosynthesis", "is_correct": false },
+            { "id": "b", "text": "Succession", "is_correct": false },
+            { "id": "c", "text": "Hibernation", "is_correct": false },
+            { "id": "d", "text": "Symbiosis", "is_correct": true }
+          ],
+          "explanation": "Symbiosis covers mutually helpful partnerships (clownfish and anemone), one-sided benefits and even parasitism."
+        },
+        {
+          "id": "q8",
+          "question": "After a forest fire, the gradual process by which a community of species grows back is called what?",
+          "options": [
+            { "id": "a", "text": "Ecological succession", "is_correct": true },
+            { "id": "b", "text": "Natural selection", "is_correct": false },
+            { "id": "c", "text": "Migration", "is_correct": false },
+            { "id": "d", "text": "Extinction", "is_correct": false }
+          ],
+          "explanation": "Pioneer species colonise first, then shrubs and trees follow — succession rebuilds the ecosystem stage by stage."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-ecosistemas",
+      "title": "Trivia de ecosistemas: redes tróficas y equilibrio",
+      "description": "Productores, depredadores, descomponedores y la aritmética silenciosa que mantiene el equilibrio de la naturaleza: ocho preguntas sobre cómo funcionan los ecosistemas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "ecosistemas", "ecología", "naturaleza", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En una red trófica, ¿cómo se llama a las plantas porque producen su propio alimento?",
+          "options": [
+            { "id": "a", "text": "Consumidores", "is_correct": false },
+            { "id": "b", "text": "Productores", "is_correct": true },
+            { "id": "c", "text": "Descomponedores", "is_correct": false },
+            { "id": "d", "text": "Depredadores", "is_correct": false }
+          ],
+          "explanation": "Los productores convierten la luz solar en alimento mediante la fotosíntesis; todos los demás niveles de la red dependen de ellos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué organismos descomponen la materia muerta y devuelven los nutrientes al suelo?",
+          "options": [
+            { "id": "a", "text": "Los herbívoros", "is_correct": false },
+            { "id": "b", "text": "Los carroñeros", "is_correct": false },
+            { "id": "c", "text": "Los descomponedores, como hongos y bacterias", "is_correct": true },
+            { "id": "d", "text": "Los polinizadores", "is_correct": false }
+          ],
+          "explanation": "Sin descomponedores, los nutrientes quedarían atrapados en la materia muerta y los ecosistemas se quedarían sin materia prima."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué parte de la energía se transfiere aproximadamente de un nivel trófico al siguiente?",
+          "options": [
+            { "id": "a", "text": "Cerca del 10 %", "is_correct": true },
+            { "id": "b", "text": "Cerca del 50 %", "is_correct": false },
+            { "id": "c", "text": "Cerca del 90 %", "is_correct": false },
+            { "id": "d", "text": "Toda la energía", "is_correct": false }
+          ],
+          "explanation": "La «regla del 10 %» explica por qué hay muchas menos águilas que conejos: la mayoría de la energía se pierde como calor en cada paso."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué es una especie clave (especie piedra angular)?",
+          "options": [
+            { "id": "a", "text": "El animal más grande del ecosistema", "is_correct": false },
+            { "id": "b", "text": "Una especie cuya desaparición afecta desproporcionadamente a todo el ecosistema", "is_correct": true },
+            { "id": "c", "text": "La especie con la vida más larga", "is_correct": false },
+            { "id": "d", "text": "Cualquier especie introducida por el ser humano", "is_correct": false }
+          ],
+          "explanation": "Las nutrias marinas son el ejemplo clásico: cuando desaparecen, los erizos de mar se multiplican y destruyen los bosques de kelp."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama a un animal en la cima de su red trófica, sin depredadores naturales?",
+          "options": [
+            { "id": "a", "text": "Herbívoro clave", "is_correct": false },
+            { "id": "b", "text": "Consumidor primario", "is_correct": false },
+            { "id": "c", "text": "Superdepredador", "is_correct": true },
+            { "id": "d", "text": "Omnívoro", "is_correct": false }
+          ],
+          "explanation": "Los superdepredadores como las orcas y las águilas regulan las poblaciones debajo de ellos; al quitarlos la red se desequilibra."
+        },
+        {
+          "id": "q6",
+          "question": "¿De dónde proviene originalmente casi toda la energía de la mayoría de los ecosistemas?",
+          "options": [
+            { "id": "a", "text": "Del calor del núcleo de la Tierra", "is_correct": false },
+            { "id": "b", "text": "Del Sol", "is_correct": true },
+            { "id": "c", "text": "Del viento", "is_correct": false },
+            { "id": "d", "text": "De la atracción de la Luna", "is_correct": false }
+          ],
+          "explanation": "Casi toda red trófica empieza con plantas que capturan luz solar; las fuentes hidrotermales del fondo marino son la rara excepción."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el término general para una relación cercana y duradera entre dos especies distintas?",
+          "options": [
+            { "id": "a", "text": "Fotosíntesis", "is_correct": false },
+            { "id": "b", "text": "Sucesión", "is_correct": false },
+            { "id": "c", "text": "Hibernación", "is_correct": false },
+            { "id": "d", "text": "Simbiosis", "is_correct": true }
+          ],
+          "explanation": "La simbiosis abarca alianzas beneficiosas para ambos (pez payaso y anémona), beneficios para uno solo e incluso el parasitismo."
+        },
+        {
+          "id": "q8",
+          "question": "Tras un incendio forestal, ¿cómo se llama el proceso gradual por el que la comunidad de especies se recupera?",
+          "options": [
+            { "id": "a", "text": "Sucesión ecológica", "is_correct": true },
+            { "id": "b", "text": "Selección natural", "is_correct": false },
+            { "id": "c", "text": "Migración", "is_correct": false },
+            { "id": "d", "text": "Extinción", "is_correct": false }
+          ],
+          "explanation": "Primero colonizan las especies pioneras, luego llegan los arbustos y los árboles: la sucesión reconstruye el ecosistema por etapas."
+        }
+      ]
+    }
+  ]
+}
