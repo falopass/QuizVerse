@@ -200,12 +200,13 @@ export function ExploreEditorialPage({
           />
           <MetricCard
             value={formatCompactNumber(
-              filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0)
+              filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0),
+              locale
             )}
             label={copy.playsInView ?? units.playsInView}
           />
           <MetricCard
-            value={formatCompactNumber(localizedQuizzes.length)}
+            value={formatCompactNumber(localizedQuizzes.length, locale)}
             label={copy.publishedNow ?? units.publishedNow}
           />
         </div>
@@ -313,7 +314,7 @@ export function ExploreEditorialPage({
                       {pulseQuiz.estimated_minutes} {units.min}
                     </span>
                     <span>
-                      {formatCompactNumber(pulseQuiz.plays_count)} {units.plays}
+                      {formatCompactNumber(pulseQuiz.plays_count, locale)} {units.plays}
                     </span>
                     <Link
                       href={localizeHref(locale, `/quiz/${pulseQuiz.slug}`)}
