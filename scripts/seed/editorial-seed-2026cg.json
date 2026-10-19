@@ -847,7 +847,11 @@
           "question": "Why do rabbits need hay available all day?",
           "options": [
             { "id": "a", "text": "They like to sleep on it", "is_correct": false },
-            { "id": "b", "text": "Their teeth never stop growing and its fiber keeps digestion moving", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Their teeth never stop growing and its fiber keeps digestion moving",
+              "is_correct": true
+            },
             { "id": "c", "text": "It replaces drinking water", "is_correct": false },
             { "id": "d", "text": "It cleans their ears", "is_correct": false }
           ],
@@ -948,7 +952,11 @@
           "question": "¿Por qué el conejo necesita heno disponible todo el día?",
           "options": [
             { "id": "a", "text": "Porque le gusta dormir sobre él", "is_correct": false },
-            { "id": "b", "text": "Porque sus dientes no dejan de crecer y la fibra mantiene la digestión", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Porque sus dientes no dejan de crecer y la fibra mantiene la digestión",
+              "is_correct": true
+            },
             { "id": "c", "text": "Porque sustituye al agua", "is_correct": false },
             { "id": "d", "text": "Porque le limpia los oídos", "is_correct": false }
           ],
