@@ -96,3 +96,9 @@ importación a la base de producción la hace Diego.** Ningún script debe
 escribir en Supabase producción desde una sesión de agente: los comandos
 `docker exec … psql` de este documento se citan como referencia para el dueño,
 no para ejecutarlos aquí.
+
+## Publicar en producción
+
+Cuando el lote está mergeado en `main`, la importación a la base de producción
+sigue el runbook [`publicar-contenido.md`](./publicar-contenido.md): verificación
+previa, comando exacto de `psql`, comprobaciones posteriores y reversión.
