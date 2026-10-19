@@ -5,8 +5,8 @@ export function formatNumber(num: number): string {
   return new Intl.NumberFormat('en-US').format(num);
 }
 
-export function formatCompactNumber(num: number): string {
-  return new Intl.NumberFormat('en-US', {
+export function formatCompactNumber(num: number, locale: string = 'en'): string {
+  return new Intl.NumberFormat(locale, {
     notation: 'compact',
     compactDisplay: 'short',
     maximumFractionDigits: 1,
