@@ -165,6 +165,20 @@ describe('validateAIQuizResponse', () => {
     const result = validateAIQuizResponse({ ...validTrivia(), estimated_minutes: 0 }, 'trivia');
     expect(result.valid).toBe(false);
   });
+
+  it('acepta personality_tag null, que el prompt permite y createQuiz persiste', () => {
+    const quiz = validPersonality();
+    (quiz.results[0] as { personality_tag: string | null }).personality_tag = null;
+    const result = validateAIQuizResponse(quiz, 'personality');
+    expect(result.valid).toBe(true);
+  });
+
+  it('rechaza explanation mayor a 500 caracteres, el límite que createQuiz exige', () => {
+    const quiz = validTrivia();
+    quiz.questions[0].explanation = 'x'.repeat(501);
+    const result = validateAIQuizResponse(quiz, 'trivia');
+    expect(result.valid).toBe(false);
+  });
 });
 
 // Caso de ruta: el POST debe responder 502 (no 200) cuando la AI devuelve
@@ -216,6 +230,22 @@ describe('POST /api/quiz/generate', () => {
     expect(response.status).toBe(502);
     expect(body.error).toBe('Generated quiz is invalid');
     expect(body.details).toBeUndefined();
+  });
+
+  it('responde el 502 en español cuando la request pide language es', async () => {
+    process.env.DEEPSEEK_API_KEY = 'test-key';
+    const broken = validTrivia();
+    broken.questions[0] = triviaQuestion('q1', [
+      { id: 'a', text: 'A', is_correct: true },
+      { id: 'b', text: 'B', is_correct: true },
+    ]);
+    generateSpy.mockResolvedValueOnce({ success: true, data: broken });
+
+    const response = await POST(makeRequest({ ...requestBody, language: 'es' }));
+    const body = await response.json();
+
+    expect(response.status).toBe(502);
+    expect(body.error).toBe('El quiz generado no es válido');
   });
 
   it('responde 200 con la forma habitual cuando el quiz es válido', async () => {

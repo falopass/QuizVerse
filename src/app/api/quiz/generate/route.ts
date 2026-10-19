@@ -83,7 +83,11 @@ export async function POST(request: NextRequest) {
       quizType: parsed.data.quiz_type,
       errors: aiValidation.errors,
     });
-    return NextResponse.json({ error: 'Generated quiz is invalid', rateLimit }, { status: 502 });
+    const error =
+      parsed.data.language === 'es'
+        ? 'El quiz generado no es válido'
+        : 'Generated quiz is invalid';
+    return NextResponse.json({ error, rateLimit }, { status: 502 });
   }
 
   const validationWarnings: string[] = [];

@@ -32,7 +32,7 @@ const PersonalityResultSchema = z.object({
   image_url: z.string().url().optional().nullable(),
   min_score: z.number().optional(),
   max_score: z.number().optional(),
-  personality_tag: z.string().optional(),
+  personality_tag: z.string().optional().nullable(),
   background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
 });
 
@@ -59,13 +59,16 @@ const AIOptionSchema = z.object({
   text: z.string().min(1).max(500),
   is_correct: z.boolean().optional(),
   personality_tags: z.array(z.string()).optional(),
+  image_url: z.string().url().optional().nullable(),
 });
 
 const AIQuestionSchema = z.object({
   id: z.string().min(1),
   question: z.string().min(1).max(1000),
   options: z.array(AIOptionSchema).min(2).max(6),
-  explanation: z.string().optional().nullable(),
+  explanation: z.string().max(500).optional().nullable(),
+  image_url: z.string().url().optional().nullable(),
+  time_limit_seconds: z.number().min(5).max(300).optional().nullable(),
 });
 
 const AIResultSchema = z.object({
@@ -74,6 +77,9 @@ const AIResultSchema = z.object({
   description: z.string().min(1).max(1000),
   personality_tag: z.string().optional().nullable(),
   background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
+  image_url: z.string().url().optional().nullable(),
+  min_score: z.number().optional(),
+  max_score: z.number().optional(),
 });
 
 export const AIQuizResponseSchema = z.object({
