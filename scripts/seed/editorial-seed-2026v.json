@@ -27,10 +27,18 @@
           "id": "q2",
           "question": "Why does a clear daytime sky look blue?",
           "options": [
-            { "id": "a", "text": "Blue light is scattered by the atmosphere more than other colours", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Blue light is scattered by the atmosphere more than other colours",
+              "is_correct": true
+            },
             { "id": "b", "text": "The oceans reflect blue light upwards", "is_correct": false },
             { "id": "c", "text": "The ozone layer is naturally blue", "is_correct": false },
-            { "id": "d", "text": "Sunlight is actually blue before it reaches Earth", "is_correct": false }
+            {
+              "id": "d",
+              "text": "Sunlight is actually blue before it reaches Earth",
+              "is_correct": false
+            }
           ],
           "explanation": "Air molecules scatter short blue wavelengths in every direction — Rayleigh scattering — which is also why sunsets look red."
         },
@@ -61,8 +69,16 @@
           "question": "In a storm, why do you see the lightning before you hear the thunder?",
           "options": [
             { "id": "a", "text": "Light travels much faster than sound", "is_correct": true },
-            { "id": "b", "text": "Thunder is produced a few seconds after lightning", "is_correct": false },
-            { "id": "c", "text": "Sound travels upwards while light travels down", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Thunder is produced a few seconds after lightning",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Sound travels upwards while light travels down",
+              "is_correct": false
+            },
             { "id": "d", "text": "Rain slows the sound waves down", "is_correct": false }
           ],
           "explanation": "Light covers the distance almost instantly; sound moves at about 340 m/s, so counting the seconds to the thunder estimates the storm's distance."
@@ -82,7 +98,11 @@
           "id": "q7",
           "question": "Why does a helium balloon rise when you let it go?",
           "options": [
-            { "id": "a", "text": "Helium is lighter than air, so buoyancy pushes the balloon up", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Helium is lighter than air, so buoyancy pushes the balloon up",
+              "is_correct": true
+            },
             { "id": "b", "text": "Helium actively repels gravity", "is_correct": false },
             { "id": "c", "text": "Wind currents carry it upwards", "is_correct": false },
             { "id": "d", "text": "The rubber is lighter than air", "is_correct": false }
@@ -93,8 +113,16 @@
           "id": "q8",
           "question": "How does a microwave oven mainly heat food?",
           "options": [
-            { "id": "a", "text": "It heats the air inside, which cooks the food", "is_correct": false },
-            { "id": "b", "text": "It makes water molecules in the food vibrate", "is_correct": true },
+            {
+              "id": "a",
+              "text": "It heats the air inside, which cooks the food",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "It makes water molecules in the food vibrate",
+              "is_correct": true
+            },
             { "id": "c", "text": "It uses small amounts of radioactivity", "is_correct": false },
             { "id": "d", "text": "It cooks food with visible light", "is_correct": false }
           ],
@@ -128,10 +156,22 @@
           "id": "q2",
           "question": "¿Por qué el cielo despejado se ve azul durante el día?",
           "options": [
-            { "id": "a", "text": "La atmósfera dispersa la luz azul más que otros colores", "is_correct": true },
-            { "id": "b", "text": "Los océanos reflejan luz azul hacia el cielo", "is_correct": false },
+            {
+              "id": "a",
+              "text": "La atmósfera dispersa la luz azul más que otros colores",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Los océanos reflejan luz azul hacia el cielo",
+              "is_correct": false
+            },
             { "id": "c", "text": "La capa de ozono es de color azul", "is_correct": false },
-            { "id": "d", "text": "La luz del Sol es azul antes de llegar a la Tierra", "is_correct": false }
+            {
+              "id": "d",
+              "text": "La luz del Sol es azul antes de llegar a la Tierra",
+              "is_correct": false
+            }
           ],
           "explanation": "Las moléculas del aire dispersan las longitudes de onda cortas del azul en todas direcciones; por eso también los atardeceres se ven rojos."
         },
@@ -161,9 +201,21 @@
           "id": "q5",
           "question": "En una tormenta, ¿por qué se ve el relámpago antes de oír el trueno?",
           "options": [
-            { "id": "a", "text": "La luz viaja mucho más rápido que el sonido", "is_correct": true },
-            { "id": "b", "text": "El trueno se produce unos segundos después del relámpago", "is_correct": false },
-            { "id": "c", "text": "El sonido viaja hacia arriba y la luz hacia abajo", "is_correct": false },
+            {
+              "id": "a",
+              "text": "La luz viaja mucho más rápido que el sonido",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "El trueno se produce unos segundos después del relámpago",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "El sonido viaja hacia arriba y la luz hacia abajo",
+              "is_correct": false
+            },
             { "id": "d", "text": "La lluvia frena las ondas de sonido", "is_correct": false }
           ],
           "explanation": "La luz recorre la distancia casi al instante; el sonido avanza a unos 340 m/s, así que contar los segundos hasta el trueno estima la distancia de la tormenta."
@@ -183,10 +235,22 @@
           "id": "q7",
           "question": "¿Por qué sube un globo de helio al soltarlo?",
           "options": [
-            { "id": "a", "text": "El helio es menos denso que el aire y la flotación empuja el globo hacia arriba", "is_correct": true },
+            {
+              "id": "a",
+              "text": "El helio es menos denso que el aire y la flotación empuja el globo hacia arriba",
+              "is_correct": true
+            },
             { "id": "b", "text": "El helio repele la gravedad", "is_correct": false },
-            { "id": "c", "text": "Las corrientes de viento lo llevan hacia arriba", "is_correct": false },
-            { "id": "d", "text": "La goma del globo es más ligera que el aire", "is_correct": false }
+            {
+              "id": "c",
+              "text": "Las corrientes de viento lo llevan hacia arriba",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "La goma del globo es más ligera que el aire",
+              "is_correct": false
+            }
           ],
           "explanation": "El globo flota por la misma razón que un corcho flota en el agua: es menos denso que el fluido que lo rodea."
         },
@@ -194,8 +258,16 @@
           "id": "q8",
           "question": "¿Cómo calienta principalmente los alimentos un horno de microondas?",
           "options": [
-            { "id": "a", "text": "Calienta el aire interior, que cocina el alimento", "is_correct": false },
-            { "id": "b", "text": "Hace vibrar las moléculas de agua del alimento", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Calienta el aire interior, que cocina el alimento",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Hace vibrar las moléculas de agua del alimento",
+              "is_correct": true
+            },
             { "id": "c", "text": "Usa pequeñas cantidades de radiactividad", "is_correct": false },
             { "id": "d", "text": "Cocina los alimentos con luz visible", "is_correct": false }
           ],
@@ -465,7 +537,11 @@
           "question": "What is bioluminescence?",
           "options": [
             { "id": "a", "text": "Light reflected by fish scales", "is_correct": false },
-            { "id": "b", "text": "Light produced by living organisms through a chemical reaction", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Light produced by living organisms through a chemical reaction",
+              "is_correct": true
+            },
             { "id": "c", "text": "Sunlight stored in seawater", "is_correct": false },
             { "id": "d", "text": "Electric sparks between sea creatures", "is_correct": false }
           ],
@@ -478,7 +554,11 @@
             { "id": "a", "text": "The lion's mane jellyfish", "is_correct": false },
             { "id": "b", "text": "The box jellyfish", "is_correct": false },
             { "id": "c", "text": "The moon jellyfish", "is_correct": false },
-            { "id": "d", "text": "Turritopsis dohrnii, the 'immortal jellyfish'", "is_correct": true }
+            {
+              "id": "d",
+              "text": "Turritopsis dohrnii, the 'immortal jellyfish'",
+              "is_correct": true
+            }
           ],
           "explanation": "When stressed or injured, Turritopsis dohrnii can turn back into a polyp and start its life cycle again."
         },
@@ -533,7 +613,11 @@
           "question": "¿De qué está hecho realmente un arrecife de coral?",
           "options": [
             { "id": "a", "text": "De plantas submarinas", "is_correct": false },
-            { "id": "b", "text": "De colonias de animales diminutos llamados pólipos", "is_correct": true },
+            {
+              "id": "b",
+              "text": "De colonias de animales diminutos llamados pólipos",
+              "is_correct": true
+            },
             { "id": "c", "text": "De roca volcánica", "is_correct": false },
             { "id": "d", "text": "De conchas acumuladas", "is_correct": false }
           ],
@@ -565,8 +649,16 @@
           "id": "q5",
           "question": "¿Qué es la bioluminiscencia?",
           "options": [
-            { "id": "a", "text": "Luz reflejada por las escamas de los peces", "is_correct": false },
-            { "id": "b", "text": "Luz producida por organismos vivos mediante una reacción química", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Luz reflejada por las escamas de los peces",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Luz producida por organismos vivos mediante una reacción química",
+              "is_correct": true
+            },
             { "id": "c", "text": "Luz solar almacenada en el agua de mar", "is_correct": false },
             { "id": "d", "text": "Chispas eléctricas entre criaturas marinas", "is_correct": false }
           ],
@@ -598,9 +690,17 @@
           "id": "q8",
           "question": "El camarón mantis es famoso por su golpe. ¿Qué puede hacer?",
           "options": [
-            { "id": "a", "text": "Aturdir a sus presas con una descarga eléctrica", "is_correct": false },
+            {
+              "id": "a",
+              "text": "Aturdir a sus presas con una descarga eléctrica",
+              "is_correct": false
+            },
             { "id": "b", "text": "Disparar dardos venenosos", "is_correct": false },
-            { "id": "c", "text": "Golpear tan rápido que rompe caparazones de cangrejo", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Golpear tan rápido que rompe caparazones de cangrejo",
+              "is_correct": true
+            },
             { "id": "d", "text": "Estrujar a sus presas como una boa", "is_correct": false }
           ],
           "explanation": "Su garra acelera como una bala y las burbujas de cavitación que crea suman una segunda onda de choque: suficiente para romper conchas y hasta vidrios de acuario."
@@ -758,7 +858,11 @@
           "options": [
             { "id": "a", "text": "Con la danza de la meneo o danza en ocho", "is_correct": true },
             { "id": "b", "text": "Con cantos agudos", "is_correct": false },
-            { "id": "c", "text": "Dejando marcas de olor en las paredes de la colmena", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Dejando marcas de olor en las paredes de la colmena",
+              "is_correct": false
+            },
             { "id": "d", "text": "Haciendo brillar sus alas", "is_correct": false }
           ],
           "explanation": "El ángulo y la duración de la danza codifican la dirección y la distancia del alimento en relación con el Sol."
@@ -858,7 +962,11 @@
           "question": "What is a keystone species?",
           "options": [
             { "id": "a", "text": "The largest animal in the ecosystem", "is_correct": false },
-            { "id": "b", "text": "A species whose removal has an outsized effect on the whole ecosystem", "is_correct": true },
+            {
+              "id": "b",
+              "text": "A species whose removal has an outsized effect on the whole ecosystem",
+              "is_correct": true
+            },
             { "id": "c", "text": "The species with the longest lifespan", "is_correct": false },
             { "id": "d", "text": "Any species that was introduced by humans", "is_correct": false }
           ],
@@ -938,7 +1046,11 @@
           "options": [
             { "id": "a", "text": "Los herbívoros", "is_correct": false },
             { "id": "b", "text": "Los carroñeros", "is_correct": false },
-            { "id": "c", "text": "Los descomponedores, como hongos y bacterias", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Los descomponedores, como hongos y bacterias",
+              "is_correct": true
+            },
             { "id": "d", "text": "Los polinizadores", "is_correct": false }
           ],
           "explanation": "Sin descomponedores, los nutrientes quedarían atrapados en la materia muerta y los ecosistemas se quedarían sin materia prima."
@@ -959,9 +1071,17 @@
           "question": "¿Qué es una especie clave (especie piedra angular)?",
           "options": [
             { "id": "a", "text": "El animal más grande del ecosistema", "is_correct": false },
-            { "id": "b", "text": "Una especie cuya desaparición afecta desproporcionadamente a todo el ecosistema", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Una especie cuya desaparición afecta desproporcionadamente a todo el ecosistema",
+              "is_correct": true
+            },
             { "id": "c", "text": "La especie con la vida más larga", "is_correct": false },
-            { "id": "d", "text": "Cualquier especie introducida por el ser humano", "is_correct": false }
+            {
+              "id": "d",
+              "text": "Cualquier especie introducida por el ser humano",
+              "is_correct": false
+            }
           ],
           "explanation": "Las nutrias marinas son el ejemplo clásico: cuando desaparecen, los erizos de mar se multiplican y destruyen los bosques de kelp."
         },
