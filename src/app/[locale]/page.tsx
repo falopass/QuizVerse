@@ -3,10 +3,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getHomePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
-import { localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { buildGraph, categoryPath, itemListNode, webPageNode } from '@/lib/seo/structured-data';
+import { CategoryStrip } from '@/components/home/category-strip';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { JsonLd } from '@/components/seo/json-ld';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 
 interface LocalePageProps {
@@ -61,9 +64,23 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   ];
   const lead = quizzes[0];
   const games = quizzes.filter((quiz) => quiz.id !== lead?.id);
+  const categoryItems = payload.categories
+    .filter((category) => category.quiz_count > 0)
+    .sort((a, b) => b.quiz_count - a.quiz_count)
+    .slice(0, 16)
+    .map((category) => ({
+      name: localizeCategory(category, locale)?.name ?? category.name,
+      path: categoryPath(locale, category.slug),
+    }));
 
   return (
     <div className="arcade-wrap arcade-page">
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${locale}`, locale, HOME_COPY[locale].title),
+          itemListNode(categoryItems, locale),
+        ])}
+      />
       <section className="arcade-hero">
         <div className="arcade-hero-copy">
           <span className="arcade-live">● {dictionary.home.sections.discovery}</span>
@@ -120,6 +137,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           {dictionary.common.explore} ↗
         </Link>
       </section>
+      <CategoryStrip categories={payload.categories} locale={locale} />
     </div>
   );
 }
