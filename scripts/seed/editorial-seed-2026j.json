@@ -256,7 +256,7 @@
             { "id": "c", "text": "Aerosmith", "is_correct": false },
             { "id": "d", "text": "Electric Light Orchestra", "is_correct": false }
           ],
-          "explanation": "The Freddie Mercury song opened the album A Night at the Opera and topped the UK chart for nine weeks."
+          "explanation": "The Freddie Mercury song closed the album A Night at the Opera and topped the UK chart for nine weeks."
         },
         {
           "id": "q5",
@@ -357,7 +357,7 @@
             { "id": "c", "text": "Aerosmith", "is_correct": false },
             { "id": "d", "text": "Electric Light Orchestra", "is_correct": false }
           ],
-          "explanation": "La canción de Freddie Mercury abrió el álbum A Night at the Opera y lideró la lista británica nueve semanas."
+          "explanation": "La canción de Freddie Mercury cerró el álbum A Night at the Opera y lideró la lista británica nueve semanas."
         },
         {
           "id": "q5",
