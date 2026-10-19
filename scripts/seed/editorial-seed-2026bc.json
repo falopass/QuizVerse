@@ -271,7 +271,7 @@
         },
         {
           "id": "q6",
-          "question": "Which planet rules Leo in astrology?",
+          "question": "Which celestial body rules Leo in astrology?",
           "options": [
             { "id": "a", "text": "Mars", "is_correct": false },
             { "id": "b", "text": "Venus", "is_correct": false },
@@ -372,7 +372,7 @@
         },
         {
           "id": "q6",
-          "question": "¿Qué planeta rige a Leo según la astrología?",
+          "question": "¿Qué astro rige a Leo según la astrología?",
           "options": [
             { "id": "a", "text": "Marte", "is_correct": false },
             { "id": "b", "text": "Venus", "is_correct": false },
