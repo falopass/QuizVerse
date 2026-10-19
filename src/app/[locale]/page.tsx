@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getHomePayload } from '@/lib/data/public';
+import { getHomePayload, getPublishedQuizzes } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
-import { localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { buildGraph, categoryPath, itemListNode, webPageNode } from '@/lib/seo/structured-data';
+import { CategoryStrip } from '@/components/home/category-strip';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { JsonLd } from '@/components/seo/json-ld';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 
 interface LocalePageProps {
@@ -45,7 +48,10 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
   const dictionary = await getDictionary(locale);
-  const payload = await getHomePayload(locale);
+  const [payload, published] = await Promise.all([
+    getHomePayload(locale),
+    getPublishedQuizzes(1000, locale),
+  ]);
   const quizzes = [
     ...new Map(
       localizeQuizList(
@@ -61,9 +67,35 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   ];
   const lead = quizzes[0];
   const games = quizzes.filter((quiz) => quiz.id !== lead?.id);
+  // shortcut: per-locale counts are derived from the first 1000 published
+  // quizzes; a category heavier than that gets hidden, never a dead link.
+  const localeCounts = new Map<string, number>();
+  for (const quiz of published) {
+    const slug = quiz.category?.slug;
+    if (slug) localeCounts.set(slug, (localeCounts.get(slug) ?? 0) + 1);
+  }
+  const homeCategories = payload.categories
+    .map((category) => ({ ...category, quiz_count: localeCounts.get(category.slug) ?? 0 }))
+    .filter((category) => category.quiz_count > 0)
+    .sort((a, b) => b.quiz_count - a.quiz_count)
+    .slice(0, 16);
+  const categoryItems = homeCategories.map((category) => ({
+    name: localizeCategory(category, locale)?.name ?? category.name,
+    path: categoryPath(locale, category.slug),
+  }));
 
   return (
     <div className="arcade-wrap arcade-page">
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${locale}`, locale, HOME_COPY[locale].title),
+          itemListNode(
+            categoryItems,
+            locale,
+            locale === 'es' ? 'Categorías de QuizVerse' : 'QuizVerse categories'
+          ),
+        ])}
+      />
       <section className="arcade-hero">
         <div className="arcade-hero-copy">
           <span className="arcade-live">● {dictionary.home.sections.discovery}</span>
@@ -120,6 +152,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           {dictionary.common.explore} ↗
         </Link>
       </section>
+      <CategoryStrip categories={homeCategories} locale={locale} />
     </div>
   );
 }

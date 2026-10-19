@@ -68,12 +68,13 @@ export function breadcrumbNode(items: BreadcrumbItem[]): JsonLdNode | null {
 
 export function itemListNode(
   items: Array<{ name: string; path: string }>,
-  locale: Locale
+  locale: Locale,
+  name?: string
 ): JsonLdNode | null {
   if (items.length === 0) return null;
   return {
     '@type': 'ItemList',
-    name: locale === 'es' ? 'Quizzes de QuizVerse' : 'QuizVerse quizzes',
+    name: name ?? (locale === 'es' ? 'Quizzes de QuizVerse' : 'QuizVerse quizzes'),
     numberOfItems: items.length,
     itemListElement: items.map((item, index) => ({
       '@type': 'ListItem',
