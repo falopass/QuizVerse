@@ -1,0 +1,1043 @@
+{
+  "$comment": "Editorial seed 2026bt: five es/en trivia pairs on the great mythologies missing from the catalogue (Egyptian, Roman, Japanese, Celtic, Hindu), all in the culture category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-egyptian-mythology-trivia",
+      "title": "Egyptian Mythology Trivia: Gods and the Afterlife",
+      "description": "Eight questions on the gods and beliefs of ancient Egypt: Ra, Osiris, Isis, Anubis, the weighing of the heart and the Book of the Dead.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["egyptian mythology", "mythology", "trivia", "gods"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which Egyptian sun god is usually shown with a falcon's head crowned by a sun disk?",
+          "options": [
+            { "id": "a", "text": "Osiris", "is_correct": false },
+            { "id": "b", "text": "Ra", "is_correct": true },
+            { "id": "c", "text": "Anubis", "is_correct": false },
+            { "id": "d", "text": "Sobek", "is_correct": false }
+          ],
+          "explanation": "Ra crossed the sky by day in his solar bark and traveled through the underworld at night."
+        },
+        {
+          "id": "q2",
+          "question": "Which god ruled the underworld and presided over the judgment of the dead?",
+          "options": [
+            { "id": "a", "text": "Horus", "is_correct": false },
+            { "id": "b", "text": "Thoth", "is_correct": false },
+            { "id": "c", "text": "Osiris", "is_correct": true },
+            { "id": "d", "text": "Set", "is_correct": false }
+          ],
+          "explanation": "Osiris, murdered and resurrected, became lord of the Duat and judge of souls."
+        },
+        {
+          "id": "q3",
+          "question": "Which goddess, wife of Osiris and mother of Horus, was famed for her magic?",
+          "options": [
+            { "id": "a", "text": "Isis", "is_correct": true },
+            { "id": "b", "text": "Sekhmet", "is_correct": false },
+            { "id": "c", "text": "Bastet", "is_correct": false },
+            { "id": "d", "text": "Nephthys", "is_correct": false }
+          ],
+          "explanation": "Isis reassembled the body of Osiris with her magic and protected her son Horus."
+        },
+        {
+          "id": "q4",
+          "question": "Which jackal-headed god guided the dead and weighed their hearts?",
+          "options": [
+            { "id": "a", "text": "Khnum", "is_correct": false },
+            { "id": "b", "text": "Anubis", "is_correct": true },
+            { "id": "c", "text": "Sobek", "is_correct": false },
+            { "id": "d", "text": "Ptah", "is_correct": false }
+          ],
+          "explanation": "Anubis oversaw mummification and the weighing of the heart ceremony."
+        },
+        {
+          "id": "q5",
+          "question": "Which falcon-headed sky god, son of Osiris and Isis, fought Set for the throne?",
+          "options": [
+            { "id": "a", "text": "Ra", "is_correct": false },
+            { "id": "b", "text": "Khonsu", "is_correct": false },
+            { "id": "c", "text": "Horus", "is_correct": true },
+            { "id": "d", "text": "Atum", "is_correct": false }
+          ],
+          "explanation": "Horus avenged his father; pharaohs were regarded as the living Horus."
+        },
+        {
+          "id": "q6",
+          "question": "In the judgment of Osiris, what was the heart of the deceased weighed against?",
+          "options": [
+            { "id": "a", "text": "A golden scarab", "is_correct": false },
+            { "id": "b", "text": "The feather of Maat", "is_correct": true },
+            { "id": "c", "text": "An obelisk of granite", "is_correct": false },
+            { "id": "d", "text": "A lotus flower", "is_correct": false }
+          ],
+          "explanation": "If the heart was heavier than the feather of truth, the monster Ammit devoured it."
+        },
+        {
+          "id": "q7",
+          "question": "What was the Book of the Dead?",
+          "options": [
+            { "id": "a", "text": "A pharaoh's royal chronicle", "is_correct": false },
+            { "id": "b", "text": "A census of the Nile", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A collection of spells to guide the dead through the afterlife",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A map of the pyramids", "is_correct": false }
+          ],
+          "explanation": "It was a papyrus placed in tombs with formulas to pass the trials of the Duat."
+        },
+        {
+          "id": "q8",
+          "question": "Which god of the desert and chaos murdered Osiris in the myth?",
+          "options": [
+            { "id": "a", "text": "Apophis", "is_correct": false },
+            { "id": "b", "text": "Khonsu", "is_correct": false },
+            { "id": "c", "text": "Atum", "is_correct": false },
+            { "id": "d", "text": "Set", "is_correct": true }
+          ],
+          "explanation": "Set trapped Osiris in a chest and scattered his body; Horus defeated him afterwards."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-egipcia",
+      "title": "Trivia de mitología egipcia: dioses y el más allá",
+      "description": "Ocho preguntas sobre los dioses y las creencias del antiguo Egipto: Ra, Osiris, Isis, Anubis, el juicio del corazón y el Libro de los Muertos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["mitología egipcia", "mitología", "trivia", "dioses"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dios egipcio del sol suele representarse con cabeza de halcón coronada por un disco solar?",
+          "options": [
+            { "id": "a", "text": "Osiris", "is_correct": false },
+            { "id": "b", "text": "Anubis", "is_correct": false },
+            { "id": "c", "text": "Sobek", "is_correct": false },
+            { "id": "d", "text": "Ra", "is_correct": true }
+          ],
+          "explanation": "Ra cruzaba el cielo de día en su barca solar y viajaba por el inframundo de noche."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué dios gobernaba el inframundo y presidía el juicio de los muertos?",
+          "options": [
+            { "id": "a", "text": "Osiris", "is_correct": true },
+            { "id": "b", "text": "Horus", "is_correct": false },
+            { "id": "c", "text": "Thoth", "is_correct": false },
+            { "id": "d", "text": "Set", "is_correct": false }
+          ],
+          "explanation": "Osiris, asesinado y resucitado, se convirtió en señor de la Duat y juez de las almas."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué diosa, esposa de Osiris y madre de Horus, era famosa por su magia?",
+          "options": [
+            { "id": "a", "text": "Sekhmet", "is_correct": false },
+            { "id": "b", "text": "Isis", "is_correct": true },
+            { "id": "c", "text": "Bastet", "is_correct": false },
+            { "id": "d", "text": "Neftis", "is_correct": false }
+          ],
+          "explanation": "Isis recompuso el cuerpo de Osiris con su magia y protegió a su hijo Horus."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué dios con cabeza de chacal guiaba a los muertos y pesaba sus corazones?",
+          "options": [
+            { "id": "a", "text": "Anubis", "is_correct": true },
+            { "id": "b", "text": "Jnum", "is_correct": false },
+            { "id": "c", "text": "Sobek", "is_correct": false },
+            { "id": "d", "text": "Ptah", "is_correct": false }
+          ],
+          "explanation": "Anubis vigilaba la momificación y presidía la ceremonia del peso del corazón."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué dios del cielo con cabeza de halcón, hijo de Osiris e Isis, luchó contra Set por el trono?",
+          "options": [
+            { "id": "a", "text": "Ra", "is_correct": false },
+            { "id": "b", "text": "Horus", "is_correct": true },
+            { "id": "c", "text": "Thoth", "is_correct": false },
+            { "id": "d", "text": "Atum", "is_correct": false }
+          ],
+          "explanation": "Horus vengó a su padre; los faraones eran considerados el Horus viviente."
+        },
+        {
+          "id": "q6",
+          "question": "En el juicio de Osiris, ¿contra qué se pesaba el corazón del difunto?",
+          "options": [
+            { "id": "a", "text": "Un escarabajo de oro", "is_correct": false },
+            { "id": "b", "text": "Un obelisco de granito", "is_correct": false },
+            { "id": "c", "text": "La pluma de Maat", "is_correct": true },
+            { "id": "d", "text": "Una flor de loto", "is_correct": false }
+          ],
+          "explanation": "Si el corazón pesaba más que la pluma de la verdad, el monstruo Ammit lo devoraba."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué era el Libro de los Muertos?",
+          "options": [
+            { "id": "a", "text": "Una crónica real del faraón", "is_correct": false },
+            { "id": "b", "text": "Un censo del Nilo", "is_correct": false },
+            { "id": "c", "text": "Un mapa de las pirámides", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Una colección de conjuros para guiar al difunto en el más allá",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Era un papiro que se dejaba en las tumbas con fórmulas para superar las pruebas de la Duat."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué dios del desierto y el caos asesinó a Osiris según el mito?",
+          "options": [
+            { "id": "a", "text": "Set", "is_correct": true },
+            { "id": "b", "text": "Apofis", "is_correct": false },
+            { "id": "c", "text": "Atum", "is_correct": false },
+            { "id": "d", "text": "Ptah", "is_correct": false }
+          ],
+          "explanation": "Set encerró a Osiris en un cofre y dispersó su cuerpo; Horus lo derrotó después."
+        }
+      ]
+    },
+    {
+      "slug": "en-roman-mythology-trivia",
+      "title": "Roman Mythology Trivia: Gods, Heroes and the Aeneid",
+      "description": "Eight questions on the Roman pantheon and its Greek counterparts: Jupiter, Mars, Neptune, Minerva, Janus and Aeneas's journey to Italy.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["roman mythology", "mythology", "trivia", "gods"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who was the king of the Roman gods, counterpart of the Greek Zeus?",
+          "options": [
+            { "id": "a", "text": "Neptune", "is_correct": false },
+            { "id": "b", "text": "Mars", "is_correct": false },
+            { "id": "c", "text": "Jupiter", "is_correct": true },
+            { "id": "d", "text": "Apollo", "is_correct": false }
+          ],
+          "explanation": "Jupiter wielded the thunderbolt and ruled from his temple on the Capitoline Hill."
+        },
+        {
+          "id": "q2",
+          "question": "Which Roman god of war was the father of Romulus and Remus?",
+          "options": [
+            { "id": "a", "text": "Mars", "is_correct": true },
+            { "id": "b", "text": "Vulcan", "is_correct": false },
+            { "id": "c", "text": "Janus", "is_correct": false },
+            { "id": "d", "text": "Mercury", "is_correct": false }
+          ],
+          "explanation": "Mars fathered the twins with Rhea Silvia; March (Martius) is named after him."
+        },
+        {
+          "id": "q3",
+          "question": "Which Roman god of the sea corresponds to the Greek Poseidon?",
+          "options": [
+            { "id": "a", "text": "Triton", "is_correct": false },
+            { "id": "b", "text": "Neptune", "is_correct": true },
+            { "id": "c", "text": "Pluto", "is_correct": false },
+            { "id": "d", "text": "Oceanus", "is_correct": false }
+          ],
+          "explanation": "Neptune carried the trident and was also linked to horses and earthquakes."
+        },
+        {
+          "id": "q4",
+          "question": "Which Roman goddess of wisdom corresponds to the Greek Athena?",
+          "options": [
+            { "id": "a", "text": "Diana", "is_correct": false },
+            { "id": "b", "text": "Juno", "is_correct": false },
+            { "id": "c", "text": "Minerva", "is_correct": true },
+            { "id": "d", "text": "Vesta", "is_correct": false }
+          ],
+          "explanation": "Minerva protected crafts, wisdom and defensive war, like the Greek Athena."
+        },
+        {
+          "id": "q5",
+          "question": "Which Trojan hero journeys to Italy in Virgil's Aeneid?",
+          "options": [
+            { "id": "a", "text": "Hector", "is_correct": false },
+            { "id": "b", "text": "Aeneas", "is_correct": true },
+            { "id": "c", "text": "Achilles", "is_correct": false },
+            { "id": "d", "text": "Odysseus", "is_correct": false }
+          ],
+          "explanation": "Aeneas escaped burning Troy and became the mythical ancestor of the founders of Rome."
+        },
+        {
+          "id": "q6",
+          "question": "Which Roman goddess of love and beauty corresponds to the Greek Aphrodite?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": true },
+            { "id": "b", "text": "Ceres", "is_correct": false },
+            { "id": "c", "text": "Flora", "is_correct": false },
+            { "id": "d", "text": "Diana", "is_correct": false }
+          ],
+          "explanation": "Venus was central to Roman identity: Julius Caesar's family claimed descent from her."
+        },
+        {
+          "id": "q7",
+          "question": "Which messenger god with winged sandals corresponds to the Greek Hermes?",
+          "options": [
+            { "id": "a", "text": "Faunus", "is_correct": false },
+            { "id": "b", "text": "Mercury", "is_correct": true },
+            { "id": "c", "text": "Bacchus", "is_correct": false },
+            { "id": "d", "text": "Saturn", "is_correct": false }
+          ],
+          "explanation": "Mercury guided souls and protected travelers, merchants and thieves."
+        },
+        {
+          "id": "q8",
+          "question": "Which two-faced Roman god of beginnings gives his name to January?",
+          "options": [
+            { "id": "a", "text": "Janus", "is_correct": true },
+            { "id": "b", "text": "Quirinus", "is_correct": false },
+            { "id": "c", "text": "Terminus", "is_correct": false },
+            { "id": "d", "text": "Silvanus", "is_correct": false }
+          ],
+          "explanation": "Janus looked to past and future; the gates of his temple closed only in times of peace."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-romana",
+      "title": "Trivia de mitología romana: dioses, héroes y la Eneida",
+      "description": "Ocho preguntas sobre el panteón romano y sus equivalentes griegos: Júpiter, Marte, Neptuno, Minerva, Jano y el viaje de Eneas a Italia.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["mitología romana", "mitología", "trivia", "dioses"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién era el rey de los dioses romanos, equivalente al griego Zeus?",
+          "options": [
+            { "id": "a", "text": "Neptuno", "is_correct": false },
+            { "id": "b", "text": "Júpiter", "is_correct": true },
+            { "id": "c", "text": "Marte", "is_correct": false },
+            { "id": "d", "text": "Apolo", "is_correct": false }
+          ],
+          "explanation": "Júpiter empuñaba el rayo y reinaba desde su templo de la colina Capitolina."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué dios romano de la guerra fue padre de Rómulo y Remo?",
+          "options": [
+            { "id": "a", "text": "Vulcano", "is_correct": false },
+            { "id": "b", "text": "Jano", "is_correct": false },
+            { "id": "c", "text": "Marte", "is_correct": true },
+            { "id": "d", "text": "Mercurio", "is_correct": false }
+          ],
+          "explanation": "Marte engendró a los gemelos con Rea Silvia; marzo (martius) lleva su nombre."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dios romano del mar corresponde al griego Poseidón?",
+          "options": [
+            { "id": "a", "text": "Plutón", "is_correct": false },
+            { "id": "b", "text": "Océano", "is_correct": false },
+            { "id": "c", "text": "Tritón", "is_correct": false },
+            { "id": "d", "text": "Neptuno", "is_correct": true }
+          ],
+          "explanation": "Neptuno llevaba el tridente y también se le vinculaba con los caballos y los terremotos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué diosa romana de la sabiduría corresponde a la griega Atenea?",
+          "options": [
+            { "id": "a", "text": "Minerva", "is_correct": true },
+            { "id": "b", "text": "Diana", "is_correct": false },
+            { "id": "c", "text": "Juno", "is_correct": false },
+            { "id": "d", "text": "Vesta", "is_correct": false }
+          ],
+          "explanation": "Minerva protegía los oficios, la sabiduría y la guerra defensiva, como la griega Atenea."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué héroe troyano viaja a Italia en la Eneida de Virgilio?",
+          "options": [
+            { "id": "a", "text": "Héctor", "is_correct": false },
+            { "id": "b", "text": "Aquiles", "is_correct": false },
+            { "id": "c", "text": "Odiseo", "is_correct": false },
+            { "id": "d", "text": "Eneas", "is_correct": true }
+          ],
+          "explanation": "Eneas escapó de Troya en llamas y se convirtió en el antepasado mítico de los fundadores de Roma."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué diosa romana del amor y la belleza corresponde a la griega Afrodita?",
+          "options": [
+            { "id": "a", "text": "Ceres", "is_correct": false },
+            { "id": "b", "text": "Venus", "is_correct": true },
+            { "id": "c", "text": "Flora", "is_correct": false },
+            { "id": "d", "text": "Diana", "is_correct": false }
+          ],
+          "explanation": "Venus era central para Roma: la familia de Julio César decía descender de ella."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué dios mensajero de sandalias aladas corresponde al griego Hermes?",
+          "options": [
+            { "id": "a", "text": "Fauno", "is_correct": false },
+            { "id": "b", "text": "Baco", "is_correct": false },
+            { "id": "c", "text": "Mercurio", "is_correct": true },
+            { "id": "d", "text": "Saturno", "is_correct": false }
+          ],
+          "explanation": "Mercurio guiaba a las almas y protegía a viajeros, comerciantes y ladrones."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué dios romano de dos caras, señor de los comienzos, da nombre a enero?",
+          "options": [
+            { "id": "a", "text": "Quirino", "is_correct": false },
+            { "id": "b", "text": "Termino", "is_correct": false },
+            { "id": "c", "text": "Silvano", "is_correct": false },
+            { "id": "d", "text": "Jano", "is_correct": true }
+          ],
+          "explanation": "Jano miraba al pasado y al futuro; las puertas de su templo solo se cerraban en tiempos de paz."
+        }
+      ]
+    },
+    {
+      "slug": "en-japanese-mythology-trivia",
+      "title": "Japanese Mythology Trivia: Kami, Goddesses and Yokai",
+      "description": "Eight questions on the myths of Japan: Izanagi and Izanami, Amaterasu, Susanoo, the kami of Shinto, torii gates and the world of yokai.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["japanese mythology", "mythology", "trivia", "shinto"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which divine couple created the islands of Japan in the creation myth?",
+          "options": [
+            { "id": "a", "text": "Amaterasu and Susanoo", "is_correct": false },
+            { "id": "b", "text": "Izanagi and Izanami", "is_correct": true },
+            { "id": "c", "text": "Fujin and Raijin", "is_correct": false },
+            { "id": "d", "text": "Hachiman and Inari", "is_correct": false }
+          ],
+          "explanation": "From the Heavenly Bridge they stirred the sea with a jeweled spear, and its drops formed the islands."
+        },
+        {
+          "id": "q2",
+          "question": "Which sun goddess hid in a cave and plunged the world into darkness?",
+          "options": [
+            { "id": "a", "text": "Amaterasu", "is_correct": true },
+            { "id": "b", "text": "Tsukuyomi", "is_correct": false },
+            { "id": "c", "text": "Inari", "is_correct": false },
+            { "id": "d", "text": "Raijin", "is_correct": false }
+          ],
+          "explanation": "The dance of the goddess Ame-no-Uzume and a mirror lured her out; she is the most revered kami."
+        },
+        {
+          "id": "q3",
+          "question": "Which stormy god of sea and storms is Amaterasu's unruly brother?",
+          "options": [
+            { "id": "a", "text": "Fujin", "is_correct": false },
+            { "id": "b", "text": "Susanoo", "is_correct": true },
+            { "id": "c", "text": "Tsukuyomi", "is_correct": false },
+            { "id": "d", "text": "Hachiman", "is_correct": false }
+          ],
+          "explanation": "His rampage drove Amaterasu into the cave; later he redeemed himself by slaying the serpent Orochi."
+        },
+        {
+          "id": "q4",
+          "question": "In Shinto, what are the kami?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Spirits or deities venerated in nature and shrines",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Warrior monks", "is_correct": false },
+            { "id": "c", "text": "Sacred swords", "is_correct": false },
+            { "id": "d", "text": "Buddhist sutras", "is_correct": false }
+          ],
+          "explanation": "Kami inhabit mountains, rivers, trees and ancestors; Shinto means 'the way of the kami'."
+        },
+        {
+          "id": "q5",
+          "question": "What are yokai in Japanese folklore?",
+          "options": [
+            { "id": "a", "text": "Noble samurai houses", "is_correct": false },
+            { "id": "b", "text": "Ritual tea vessels", "is_correct": false },
+            { "id": "c", "text": "Supernatural creatures and spirits", "is_correct": true },
+            { "id": "d", "text": "Shrine maidens", "is_correct": false }
+          ],
+          "explanation": "Yokai range from mischievous foxes and kappa to vengeful ghosts; they fill Japanese tales."
+        },
+        {
+          "id": "q6",
+          "question": "The Japanese imperial family traditionally claims descent from which deity?",
+          "options": [
+            { "id": "a", "text": "Susanoo", "is_correct": false },
+            { "id": "b", "text": "Izanagi", "is_correct": false },
+            { "id": "c", "text": "Amaterasu", "is_correct": true },
+            { "id": "d", "text": "Inari", "is_correct": false }
+          ],
+          "explanation": "The mirror, jewel and sword of the imperial regalia come from the myth of Amaterasu."
+        },
+        {
+          "id": "q7",
+          "question": "What does a torii gate mark?",
+          "options": [
+            { "id": "a", "text": "The entrance to a sacred Shinto space", "is_correct": true },
+            { "id": "b", "text": "The border between two provinces", "is_correct": false },
+            { "id": "c", "text": "A Buddhist cemetery", "is_correct": false },
+            { "id": "d", "text": "The emperor's palace", "is_correct": false }
+          ],
+          "explanation": "Torii mark the passage from the ordinary world to the sacred ground of a shrine."
+        },
+        {
+          "id": "q8",
+          "question": "Which eight-headed serpent did Susanoo slay?",
+          "options": [
+            { "id": "a", "text": "Yamata no Orochi", "is_correct": true },
+            { "id": "b", "text": "Ryujin", "is_correct": false },
+            { "id": "c", "text": "Nue", "is_correct": false },
+            { "id": "d", "text": "Tatsu", "is_correct": false }
+          ],
+          "explanation": "Susanoo made the serpent drunk on sake; inside its tail he found the sword Kusanagi."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-japonesa",
+      "title": "Trivia de mitología japonesa: kami, diosas y yokai",
+      "description": "Ocho preguntas sobre los mitos de Japón: Izanagi e Izanami, Amaterasu, Susanoo, los kami del sintoísmo, los torii y el mundo de los yokai.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["mitología japonesa", "mitología", "trivia", "sintoísmo"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué pareja divina creó las islas de Japón en el mito de la creación?",
+          "options": [
+            { "id": "a", "text": "Izanagi e Izanami", "is_correct": true },
+            { "id": "b", "text": "Amaterasu y Susanoo", "is_correct": false },
+            { "id": "c", "text": "Fujin y Raijin", "is_correct": false },
+            { "id": "d", "text": "Hachiman e Inari", "is_correct": false }
+          ],
+          "explanation": "Desde el Puente Celestial agitaron el mar con una lanza enjoyada, y de sus gotas nacieron las islas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué diosa del sol se escondió en una cueva y dejó el mundo a oscuras?",
+          "options": [
+            { "id": "a", "text": "Tsukuyomi", "is_correct": false },
+            { "id": "b", "text": "Inari", "is_correct": false },
+            { "id": "c", "text": "Amaterasu", "is_correct": true },
+            { "id": "d", "text": "Raijin", "is_correct": false }
+          ],
+          "explanation": "La danza de la diosa Ame-no-Uzume y un espejo la sacaron de la cueva; es la kami más venerada."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dios tempestuoso del mar y las tormentas es el hermano indisciplinado de Amaterasu?",
+          "options": [
+            { "id": "a", "text": "Susanoo", "is_correct": true },
+            { "id": "b", "text": "Fujin", "is_correct": false },
+            { "id": "c", "text": "Tsukuyomi", "is_correct": false },
+            { "id": "d", "text": "Hachiman", "is_correct": false }
+          ],
+          "explanation": "Su salvajada hizo que Amaterasu se refugiara en la cueva; luego se redimió matando a la serpiente Orochi."
+        },
+        {
+          "id": "q4",
+          "question": "En el sintoísmo, ¿qué son los kami?",
+          "options": [
+            { "id": "a", "text": "Monjes guerreros", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Espíritus o deidades venerados en la naturaleza y los santuarios",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Espadas sagradas", "is_correct": false },
+            { "id": "d", "text": "Sutras budistas", "is_correct": false }
+          ],
+          "explanation": "Los kami habitan montañas, ríos, árboles y ancestros; sintoísmo significa «el camino de los kami»."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué son los yokai en el folclore japonés?",
+          "options": [
+            { "id": "a", "text": "Criaturas y espíritus sobrenaturales", "is_correct": true },
+            { "id": "b", "text": "Casas nobles de samuráis", "is_correct": false },
+            { "id": "c", "text": "Utensilios de la ceremonia del té", "is_correct": false },
+            { "id": "d", "text": "Doncellas de los santuarios", "is_correct": false }
+          ],
+          "explanation": "Los yokai van de zorros traviesos y kappa a fantasmas vengativos; pueblan los cuentos de Japón."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué deidad dice la tradición que desciende la familia imperial japonesa?",
+          "options": [
+            { "id": "a", "text": "Susanoo", "is_correct": false },
+            { "id": "b", "text": "Amaterasu", "is_correct": true },
+            { "id": "c", "text": "Izanagi", "is_correct": false },
+            { "id": "d", "text": "Inari", "is_correct": false }
+          ],
+          "explanation": "El espejo, la joya y la espada de las insignias imperiales provienen del mito de Amaterasu."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué marca una puerta torii?",
+          "options": [
+            { "id": "a", "text": "La frontera entre dos provincias", "is_correct": false },
+            { "id": "b", "text": "Un cementerio budista", "is_correct": false },
+            { "id": "c", "text": "La entrada a un espacio sagrado sintoísta", "is_correct": true },
+            { "id": "d", "text": "El palacio del emperador", "is_correct": false }
+          ],
+          "explanation": "Los torii señalan el paso del mundo ordinario al terreno sagrado de un santuario."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué serpiente de ocho cabezas derrotó Susanoo?",
+          "options": [
+            { "id": "a", "text": "Ryujin", "is_correct": false },
+            { "id": "b", "text": "Nue", "is_correct": false },
+            { "id": "c", "text": "Tatsu", "is_correct": false },
+            { "id": "d", "text": "Yamata no Orochi", "is_correct": true }
+          ],
+          "explanation": "Susanoo emborrachó a la serpiente con sake; en su cola encontró la espada Kusanagi."
+        }
+      ]
+    },
+    {
+      "slug": "en-celtic-mythology-trivia",
+      "title": "Celtic Mythology Trivia: Gods, Heroes and the Otherworld",
+      "description": "Eight questions on Celtic legend: the Tuatha Dé Danann, the Morrigan, Cú Chulainn, druids, Samhain and the magical cauldron of rebirth.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["celtic mythology", "mythology", "trivia", "folklore"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who were the Tuatha Dé Danann in Irish mythology?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The divine race, people of the goddess Danu",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Viking raiders of Dublin", "is_correct": false },
+            { "id": "c", "text": "Roman legionaries", "is_correct": false },
+            { "id": "d", "text": "The first monks of Ireland", "is_correct": false }
+          ],
+          "explanation": "They were the god-people who ruled Ireland before the mortal Milesians arrived."
+        },
+        {
+          "id": "q2",
+          "question": "Which triple goddess of war and fate often appeared as a crow on battlefields?",
+          "options": [
+            { "id": "a", "text": "Brigid", "is_correct": false },
+            { "id": "b", "text": "The Morrigan", "is_correct": true },
+            { "id": "c", "text": "Rhiannon", "is_correct": false },
+            { "id": "d", "text": "Danu", "is_correct": false }
+          ],
+          "explanation": "The Morrigan foretold deaths and could take the shape of a crow over the fighting."
+        },
+        {
+          "id": "q3",
+          "question": "Which Ulster hero won fame in the Táin Bó Cúailnge, the Cattle Raid of Cooley?",
+          "options": [
+            { "id": "a", "text": "Cú Chulainn", "is_correct": true },
+            { "id": "b", "text": "Fionn mac Cumhaill", "is_correct": false },
+            { "id": "c", "text": "Lugh", "is_correct": false },
+            { "id": "d", "text": "Conchobar", "is_correct": false }
+          ],
+          "explanation": "Cú Chulainn, the 'Hound of Culann', single-handedly held off Queen Medb's army."
+        },
+        {
+          "id": "q4",
+          "question": "Who were the druids in Celtic society?",
+          "options": [
+            { "id": "a", "text": "Priests, judges and keepers of knowledge", "is_correct": true },
+            { "id": "b", "text": "Mercenary soldiers", "is_correct": false },
+            { "id": "c", "text": "Traveling merchants", "is_correct": false },
+            { "id": "d", "text": "Enslaved builders", "is_correct": false }
+          ],
+          "explanation": "Druids led rituals, settled disputes and memorized the lore in sacred oak groves."
+        },
+        {
+          "id": "q5",
+          "question": "What is the Otherworld in Celtic myth?",
+          "options": [
+            { "id": "a", "text": "A volcanic island", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A parallel realm of gods, spirits and the dead",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The Roman underworld", "is_correct": false },
+            { "id": "d", "text": "A druidic library", "is_correct": false }
+          ],
+          "explanation": "It could be reached through mounds, mist or sea; time flows differently there."
+        },
+        {
+          "id": "q6",
+          "question": "Which festival, precursor of Halloween, closed the Celtic year when the veil thinned?",
+          "options": [
+            { "id": "a", "text": "Beltane", "is_correct": false },
+            { "id": "b", "text": "Imbolc", "is_correct": false },
+            { "id": "c", "text": "Samhain", "is_correct": true },
+            { "id": "d", "text": "Lughnasadh", "is_correct": false }
+          ],
+          "explanation": "At Samhain (1 November) the dead and the sidhe could cross into our world."
+        },
+        {
+          "id": "q7",
+          "question": "In Welsh legend, what did the cauldron of rebirth do?",
+          "options": [
+            { "id": "a", "text": "Boiled infinite gold", "is_correct": false },
+            { "id": "b", "text": "Restored slain warriors to life", "is_correct": true },
+            { "id": "c", "text": "Brewed prophetic dreams", "is_correct": false },
+            { "id": "d", "text": "Forged magic swords", "is_correct": false }
+          ],
+          "explanation": "The Pair Dadeni revived dead warriors, though they returned unable to speak."
+        },
+        {
+          "id": "q8",
+          "question": "Which father-god of the Tuatha Dé Danann carried a huge club and owned a bottomless cauldron?",
+          "options": [
+            { "id": "a", "text": "Nuada", "is_correct": false },
+            { "id": "b", "text": "Lugh", "is_correct": false },
+            { "id": "c", "text": "The Dagda", "is_correct": true },
+            { "id": "d", "text": "Balor", "is_correct": false }
+          ],
+          "explanation": "The Dagda's club could kill with one end and revive with the other; his cauldron never emptied."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-celta",
+      "title": "Trivia de mitología celta: dioses, héroes y el Otro Mundo",
+      "description": "Ocho preguntas sobre la leyenda celta: los Tuatha Dé Danann, la Morrigan, Cú Chulainn, los druidas, Samhain y el caldero del renacimiento.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["mitología celta", "mitología", "trivia", "folclore"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quiénes eran los Tuatha Dé Danann en la mitología irlandesa?",
+          "options": [
+            { "id": "a", "text": "Invasores vikingos de Dublín", "is_correct": false },
+            { "id": "b", "text": "La raza divina, el pueblo de la diosa Danu", "is_correct": true },
+            { "id": "c", "text": "Legionarios romanos", "is_correct": false },
+            { "id": "d", "text": "Los primeros monjes de Irlanda", "is_correct": false }
+          ],
+          "explanation": "Eran el pueblo de los dioses que gobernó Irlanda antes de la llegada de los mortales milesios."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué diosa triple de la guerra y el destino solía aparecer como un cuervo en los campos de batalla?",
+          "options": [
+            { "id": "a", "text": "Brigid", "is_correct": false },
+            { "id": "b", "text": "Rhiannon", "is_correct": false },
+            { "id": "c", "text": "La Morrigan", "is_correct": true },
+            { "id": "d", "text": "Danu", "is_correct": false }
+          ],
+          "explanation": "La Morrigan anunciaba muertes y podía adoptar la forma de un cuervo sobre los combates."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué héroe del Ulster se hizo famoso en la Táin Bó Cúailnge, el robo del toro de Cooley?",
+          "options": [
+            { "id": "a", "text": "Fionn mac Cumhaill", "is_correct": false },
+            { "id": "b", "text": "Cú Chulainn", "is_correct": true },
+            { "id": "c", "text": "Lugh", "is_correct": false },
+            { "id": "d", "text": "Conchobar", "is_correct": false }
+          ],
+          "explanation": "Cú Chulainn, el «Perro de Culann», contuvo en solitario al ejército de la reina Medb."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quiénes eran los druidas en la sociedad celta?",
+          "options": [
+            { "id": "a", "text": "Soldados mercenarios", "is_correct": false },
+            { "id": "b", "text": "Sacerdotes, jueces y guardianes del saber", "is_correct": true },
+            { "id": "c", "text": "Comerciantes itinerantes", "is_correct": false },
+            { "id": "d", "text": "Constructores esclavizados", "is_correct": false }
+          ],
+          "explanation": "Los druidas dirigían los rituales, resolvían disputas y memorizaban el saber en bosques sagrados de roble."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es el Otro Mundo en la mitología celta?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un reino paralelo de dioses, espíritus y muertos",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una isla volcánica", "is_correct": false },
+            { "id": "c", "text": "El inframundo romano", "is_correct": false },
+            { "id": "d", "text": "Una biblioteca druídica", "is_correct": false }
+          ],
+          "explanation": "Se llegaba a través de túmulos, niebla o mar; allí el tiempo fluye de otro modo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué fiesta, precursora de Halloween, cerraba el año celta cuando el velo se volvía más fino?",
+          "options": [
+            { "id": "a", "text": "Beltane", "is_correct": false },
+            { "id": "b", "text": "Samhain", "is_correct": true },
+            { "id": "c", "text": "Imbolc", "is_correct": false },
+            { "id": "d", "text": "Lughnasadh", "is_correct": false }
+          ],
+          "explanation": "En Samhain (1 de noviembre) los muertos y el sidhe podían cruzar a nuestro mundo."
+        },
+        {
+          "id": "q7",
+          "question": "En la leyenda galesa, ¿qué hacía el caldero del renacimiento?",
+          "options": [
+            { "id": "a", "text": "Hervía oro infinito", "is_correct": false },
+            { "id": "b", "text": "Destilaba sueños proféticos", "is_correct": false },
+            { "id": "c", "text": "Devolvía la vida a los guerreros caídos", "is_correct": true },
+            { "id": "d", "text": "Forjaba espadas mágicas", "is_correct": false }
+          ],
+          "explanation": "El Pair Dadeni resucitaba a los guerreros muertos, aunque volvían sin habla."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué dios patriarcal de los Tuatha Dé Danann llevaba una maza gigante y un caldero inagotable?",
+          "options": [
+            { "id": "a", "text": "Nuada", "is_correct": false },
+            { "id": "b", "text": "Lugh", "is_correct": false },
+            { "id": "c", "text": "Balor", "is_correct": false },
+            { "id": "d", "text": "El Dagda", "is_correct": true }
+          ],
+          "explanation": "La maza del Dagda mataba con un extremo y resucitaba con el otro; su caldero nunca se vaciaba."
+        }
+      ]
+    },
+    {
+      "slug": "en-hindu-mythology-trivia",
+      "title": "Hindu Mythology Trivia: Gods, Epics and Avatars",
+      "description": "Eight questions on Hindu gods and epics: Brahma, Vishnu, Shiva, Ganesha, the Ramayana, the Mahabharata and the meaning of avatar.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["hindu mythology", "mythology", "trivia", "gods"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which god of the Hindu trinity is the creator of the universe?",
+          "options": [
+            { "id": "a", "text": "Vishnu", "is_correct": false },
+            { "id": "b", "text": "Shiva", "is_correct": false },
+            { "id": "c", "text": "Brahma", "is_correct": true },
+            { "id": "d", "text": "Indra", "is_correct": false }
+          ],
+          "explanation": "Brahma forms the trimurti with Vishnu the preserver and Shiva the destroyer."
+        },
+        {
+          "id": "q2",
+          "question": "Which god preserves the universe and descends to earth in avatars?",
+          "options": [
+            { "id": "a", "text": "Vishnu", "is_correct": true },
+            { "id": "b", "text": "Brahma", "is_correct": false },
+            { "id": "c", "text": "Agni", "is_correct": false },
+            { "id": "d", "text": "Yama", "is_correct": false }
+          ],
+          "explanation": "Vishnu descends whenever dharma weakens; tradition counts ten great avatars."
+        },
+        {
+          "id": "q3",
+          "question": "Which god destroys and transforms, often shown dancing as Nataraja?",
+          "options": [
+            { "id": "a", "text": "Indra", "is_correct": false },
+            { "id": "b", "text": "Shiva", "is_correct": true },
+            { "id": "c", "text": "Surya", "is_correct": false },
+            { "id": "d", "text": "Varuna", "is_correct": false }
+          ],
+          "explanation": "Shiva's dance of destruction clears the way for the renewal of the world."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of the epic that tells the story of Prince Rama?",
+          "options": [
+            { "id": "a", "text": "The Mahabharata", "is_correct": false },
+            { "id": "b", "text": "The Puranas", "is_correct": false },
+            { "id": "c", "text": "The Vedas", "is_correct": false },
+            { "id": "d", "text": "The Ramayana", "is_correct": true }
+          ],
+          "explanation": "The Ramayana tells of Rama's exile and the rescue of Sita from Ravana."
+        },
+        {
+          "id": "q5",
+          "question": "Which Indian epic contains the Bhagavad Gita?",
+          "options": [
+            { "id": "a", "text": "The Mahabharata", "is_correct": true },
+            { "id": "b", "text": "The Ramayana", "is_correct": false },
+            { "id": "c", "text": "The Upanishads", "is_correct": false },
+            { "id": "d", "text": "The Panchatantra", "is_correct": false }
+          ],
+          "explanation": "The Gita is Krishna's dialogue with Arjuna on the eve of the great battle."
+        },
+        {
+          "id": "q6",
+          "question": "What is an avatar in the Hindu tradition?",
+          "options": [
+            { "id": "a", "text": "A sacred mountain", "is_correct": false },
+            { "id": "b", "text": "A priestly title", "is_correct": false },
+            { "id": "c", "text": "The earthly incarnation of a deity", "is_correct": true },
+            { "id": "d", "text": "A temple offering", "is_correct": false }
+          ],
+          "explanation": "Avatar means 'descent': a god takes form on earth to restore cosmic order."
+        },
+        {
+          "id": "q7",
+          "question": "Which elephant-headed god removes obstacles and blesses beginnings?",
+          "options": [
+            { "id": "a", "text": "Hanuman", "is_correct": false },
+            { "id": "b", "text": "Ganesha", "is_correct": true },
+            { "id": "c", "text": "Kartikeya", "is_correct": false },
+            { "id": "d", "text": "Garuda", "is_correct": false }
+          ],
+          "explanation": "Ganesha, son of Shiva and Parvati, is invoked before every new undertaking."
+        },
+        {
+          "id": "q8",
+          "question": "In the Mahabharata, who serves as Arjuna's charioteer and delivers the Bhagavad Gita?",
+          "options": [
+            { "id": "a", "text": "Bhishma", "is_correct": false },
+            { "id": "b", "text": "Krishna", "is_correct": true },
+            { "id": "c", "text": "Yudhishthira", "is_correct": false },
+            { "id": "d", "text": "Drona", "is_correct": false }
+          ],
+          "explanation": "Krishna, avatar of Vishnu, reveals his divine form while teaching Arjuna."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-hindu",
+      "title": "Trivia de mitología hindú: dioses, epopeyas y avatares",
+      "description": "Ocho preguntas sobre dioses y epopeyas hindúes: Brahma, Vishnu, Shiva, Ganesha, el Ramayana, el Mahabharata y el significado de avatar.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["mitología hindú", "mitología", "trivia", "dioses"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dios de la tríada hindú es el creador del universo?",
+          "options": [
+            { "id": "a", "text": "Vishnu", "is_correct": false },
+            { "id": "b", "text": "Brahma", "is_correct": true },
+            { "id": "c", "text": "Shiva", "is_correct": false },
+            { "id": "d", "text": "Indra", "is_correct": false }
+          ],
+          "explanation": "Brahma forma el trimurti con Vishnu el preservador y Shiva el destructor."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué dios preserva el universo y desciende a la tierra en avatares?",
+          "options": [
+            { "id": "a", "text": "Brahma", "is_correct": false },
+            { "id": "b", "text": "Agni", "is_correct": false },
+            { "id": "c", "text": "Vishnu", "is_correct": true },
+            { "id": "d", "text": "Yama", "is_correct": false }
+          ],
+          "explanation": "Vishnu desciende cada vez que el dharma decae; la tradición cuenta diez grandes avatares."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dios destruye y transforma, representado bailando como Nataraja?",
+          "options": [
+            { "id": "a", "text": "Shiva", "is_correct": true },
+            { "id": "b", "text": "Indra", "is_correct": false },
+            { "id": "c", "text": "Suria", "is_correct": false },
+            { "id": "d", "text": "Varuna", "is_correct": false }
+          ],
+          "explanation": "La danza de la destrucción de Shiva despeja el camino para la renovación del mundo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama la epopeya que narra la historia del príncipe Rama?",
+          "options": [
+            { "id": "a", "text": "El Mahabharata", "is_correct": false },
+            { "id": "b", "text": "Los Puranas", "is_correct": false },
+            { "id": "c", "text": "El Ramayana", "is_correct": true },
+            { "id": "d", "text": "Los Vedas", "is_correct": false }
+          ],
+          "explanation": "El Ramayana cuenta el exilio de Rama y el rescate de Sita de las garras de Ravana."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué epopeya india contiene el Bhagavad Gita?",
+          "options": [
+            { "id": "a", "text": "El Ramayana", "is_correct": false },
+            { "id": "b", "text": "El Mahabharata", "is_correct": true },
+            { "id": "c", "text": "Los Upanishads", "is_correct": false },
+            { "id": "d", "text": "El Panchatantra", "is_correct": false }
+          ],
+          "explanation": "El Gita es el diálogo de Krishna con Arjuna en vísperas de la gran batalla."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué es un avatar en la tradición hindú?",
+          "options": [
+            { "id": "a", "text": "Una montaña sagrada", "is_correct": false },
+            { "id": "b", "text": "La encarnación terrenal de una deidad", "is_correct": true },
+            { "id": "c", "text": "Un título sacerdotal", "is_correct": false },
+            { "id": "d", "text": "Una ofrenda del templo", "is_correct": false }
+          ],
+          "explanation": "Avatar significa «descenso»: un dios toma forma en la tierra para restaurar el orden cósmico."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué dios con cabeza de elefante elimina los obstáculos y bendice los comienzos?",
+          "options": [
+            { "id": "a", "text": "Hanuman", "is_correct": false },
+            { "id": "b", "text": "Kartikeya", "is_correct": false },
+            { "id": "c", "text": "Ganesha", "is_correct": true },
+            { "id": "d", "text": "Garuda", "is_correct": false }
+          ],
+          "explanation": "Ganesha, hijo de Shiva y Parvati, se invoca antes de cada nuevo emprendimiento."
+        },
+        {
+          "id": "q8",
+          "question": "En el Mahabharata, ¿quién sirve de auriga a Arjuna y le enseña el Bhagavad Gita?",
+          "options": [
+            { "id": "a", "text": "Bhishma", "is_correct": false },
+            { "id": "b", "text": "Yudhishthira", "is_correct": false },
+            { "id": "c", "text": "Krishna", "is_correct": true },
+            { "id": "d", "text": "Drona", "is_correct": false }
+          ],
+          "explanation": "Krishna, avatar de Vishnu, revela su forma divina mientras instruye a Arjuna."
+        }
+      ]
+    }
+  ]
+}
