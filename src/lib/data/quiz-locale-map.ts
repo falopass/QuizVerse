@@ -281,6 +281,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-witch-hat-atelier-fan-trivia-challenge': 'es-trivia-fan-de-witch-hat-atelier',
   'en-your-intelligence-type': 'es-cual-es-tu-tipo-de-inteligencia',
   'en-your-mental-age': 'es-cual-es-tu-edad-mental',
+  // Pares del lote editorial 2026j (scripts/seed/editorial-seed-2026j.json), mantenidos a mano.
+  'en-90s-movies-trivia': 'es-trivia-peliculas-de-los-90',
+  'en-classic-rock-trivia': 'es-trivia-rock-clasico',
+  'en-formula-1-trivia': 'es-trivia-formula-1',
+  'en-middle-ages-trivia': 'es-trivia-edad-media',
+  'en-video-game-history-trivia': 'es-trivia-historia-videojuegos',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
