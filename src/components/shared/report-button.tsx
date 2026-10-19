@@ -127,6 +127,7 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
           reset();
         }}
         title={copy.title}
+        closeLabel={locale === 'es' ? 'Cerrar' : 'Close'}
       >
         <div className="space-y-4">
           <p className="text-text-secondary text-sm leading-6">{copy.description}</p>
