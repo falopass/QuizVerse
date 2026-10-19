@@ -1,8 +1,51 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { buildAtomFeed } from '@/lib/seo/feed';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { SITE_URL } from '@/lib/seo/site';
 import type { Quiz } from '@/types/quiz';
+
+interface RecordedFeedQuery {
+  eqs: Array<[string, unknown]>;
+  orders: Array<[string, Record<string, unknown>]>;
+  limit: number | null;
+}
+
+const recorded: RecordedFeedQuery = { eqs: [], orders: [], limit: null };
+let queuedResult: { data: unknown[] | null; error: { message: string } | null } = {
+  data: [],
+  error: null,
+};
+
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: async () => ({
+    from: () => {
+      const builder = {
+        select: () => builder,
+        eq: (column: string, value: unknown) => {
+          recorded.eqs.push([column, value]);
+          return builder;
+        },
+        order: (column: string, options: Record<string, unknown>) => {
+          recorded.orders.push([column, options]);
+          return builder;
+        },
+        limit: (n: number) => {
+          recorded.limit = n;
+          return Promise.resolve(queuedResult);
+        },
+      };
+      return builder;
+    },
+  }),
+}));
+
+vi.mock('next/navigation', () => ({
+  notFound: () => {
+    throw new Error('NEXT_NOT_FOUND');
+  },
+}));
+
+const { GET } = await import('@/app/[locale]/feed.xml/route');
 
 function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   return {
@@ -139,5 +182,78 @@ describe('buildMetadata — Atom alternate', () => {
     expect(metadata.alternates?.types).toEqual({
       'application/atom+xml': `${SITE_URL}/es/feed.xml`,
     });
+  });
+});
+
+describe('GET /[locale]/feed.xml', () => {
+  beforeEach(() => {
+    recorded.eqs = [];
+    recorded.orders = [];
+    recorded.limit = null;
+    queuedResult = { data: [], error: null };
+  });
+
+  function feedRow(overrides: Record<string, unknown> = {}) {
+    return {
+      slug: 'space-trivia',
+      title: 'Space Trivia',
+      description: 'A quiz.',
+      published_at: '2026-10-18T00:00:00.000Z',
+      updated_at: '2026-10-18T00:00:00.000Z',
+      created_at: '2026-10-18T00:00:00.000Z',
+      ...overrides,
+    };
+  }
+
+  function get(locale: string) {
+    return GET(new Request(`https://quizverse.org/${locale}/feed.xml`), {
+      params: Promise.resolve({ locale }),
+    });
+  }
+
+  it('asks the DB for the 30 newest published quizzes of the locale', async () => {
+    queuedResult = { data: [feedRow()], error: null };
+    const res = await get('es');
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toContain('application/atom+xml');
+    expect(recorded.eqs).toEqual([
+      ['status', 'published'],
+      ['language', 'es'],
+    ]);
+    expect(recorded.orders[0]).toEqual([
+      'published_at',
+      expect.objectContaining({ ascending: false }),
+    ]);
+    expect(recorded.limit).toBe(30);
+  });
+
+  it('returns a retryable 503 instead of stale entries when the DB read fails', async () => {
+    queuedResult = { data: null, error: { message: 'db down' } };
+    const res = await get('en');
+
+    expect(res.status).toBe(503);
+    expect(res.headers.get('cache-control')).toBe('no-store');
+    expect(res.headers.get('retry-after')).toBe('300');
+  });
+
+  it('derives the feed timestamp from the newest update across all entries', async () => {
+    queuedResult = {
+      data: [
+        feedRow({ slug: 'new', published_at: '2026-10-19T00:00:00.000Z', updated_at: null }),
+        feedRow({ slug: 'edited', updated_at: '2026-10-19T12:00:00.000Z' }),
+      ],
+      error: null,
+    };
+    const res = await get('en');
+    const xml = await res.text();
+
+    // La entrada "edited" se modificó después de publicar "new": el feed debe
+    // anunciar la fecha más reciente de cualquier entrada, no la del último alta.
+    expect(xml).toContain('<updated>2026-10-19T12:00:00.000Z</updated>');
+  });
+
+  it('rejects unknown locales', async () => {
+    await expect(get('fr')).rejects.toThrow('NEXT_NOT_FOUND');
   });
 });

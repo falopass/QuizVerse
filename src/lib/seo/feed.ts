@@ -1,7 +1,16 @@
 import type { Locale } from '@/lib/i18n/dictionaries';
-import type { Quiz } from '@/types/quiz';
 import { clampDescription } from './metadata';
 import { SITE_NAME, absoluteUrl } from './site';
+
+/** Los únicos campos que el feed necesita; `Quiz` los satisface. */
+export interface FeedQuiz {
+  slug: string;
+  title: string;
+  description: string | null;
+  published_at: string | null;
+  updated_at: string | null;
+  created_at: string;
+}
 
 // Copia local: el escapador de sitemap.ts no se exporta y ese archivo no se toca.
 function escapeXml(value: string): string {
@@ -21,7 +30,7 @@ function isoDate(value: string | null | undefined): string | null {
 
 export interface AtomFeedInput {
   locale: Locale;
-  quizzes: Quiz[];
+  quizzes: FeedQuiz[];
   /** ISO datetime del cambio más reciente; los lectores lo usan para omitir feeds sin cambios. */
   updated: string;
 }
