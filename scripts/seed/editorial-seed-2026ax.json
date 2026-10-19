@@ -94,7 +94,11 @@
           "question": "What does the 'DOP' label on an Italian food certify?",
           "options": [
             { "id": "a", "text": "That it is organic", "is_correct": false },
-            { "id": "b", "text": "That it is made in a defined area using recognised methods", "is_correct": true },
+            {
+              "id": "b",
+              "text": "That it is made in a defined area using recognised methods",
+              "is_correct": true
+            },
             { "id": "c", "text": "That it contains no additives", "is_correct": false },
             { "id": "d", "text": "That it is exported only within the EU", "is_correct": false }
           ],
@@ -195,7 +199,11 @@
           "question": "¿Qué certifica el sello «DOP» en un alimento italiano?",
           "options": [
             { "id": "a", "text": "Que es ecológico", "is_correct": false },
-            { "id": "b", "text": "Que se produce en una zona definida con métodos reconocidos", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Que se produce en una zona definida con métodos reconocidos",
+              "is_correct": true
+            },
             { "id": "c", "text": "Que no lleva aditivos", "is_correct": false },
             { "id": "d", "text": "Que solo se exporta dentro de la UE", "is_correct": false }
           ],
@@ -633,7 +641,11 @@
           "id": "q2",
           "question": "How is a crème brûlée finished just before serving?",
           "options": [
-            { "id": "a", "text": "By caramelising sugar on top into a brittle crust", "is_correct": true },
+            {
+              "id": "a",
+              "text": "By caramelising sugar on top into a brittle crust",
+              "is_correct": true
+            },
             { "id": "b", "text": "By glazing it with warm honey", "is_correct": false },
             { "id": "c", "text": "By covering it with meringue", "is_correct": false },
             { "id": "d", "text": "By dusting it with flour", "is_correct": false }
@@ -667,7 +679,11 @@
           "question": "How does Italian gelato differ from standard ice cream?",
           "options": [
             { "id": "a", "text": "It is made without milk", "is_correct": false },
-            { "id": "b", "text": "It is churned with less air and less fat, so it is denser", "is_correct": true },
+            {
+              "id": "b",
+              "text": "It is churned with less air and less fat, so it is denser",
+              "is_correct": true
+            },
             { "id": "c", "text": "It always contains eggs", "is_correct": false },
             { "id": "d", "text": "It is frozen with liquid nitrogen", "is_correct": false }
           ],
@@ -734,7 +750,11 @@
           "id": "q2",
           "question": "¿Cómo se termina una crème brûlée justo antes de servirla?",
           "options": [
-            { "id": "a", "text": "Caramelizando el azúcar de la superficie hasta formar una costra", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Caramelizando el azúcar de la superficie hasta formar una costra",
+              "is_correct": true
+            },
             { "id": "b", "text": "Bañándola con miel tibia", "is_correct": false },
             { "id": "c", "text": "Cubriéndola con merengue", "is_correct": false },
             { "id": "d", "text": "Espolvoreándola con harina", "is_correct": false }
@@ -768,7 +788,11 @@
           "question": "¿En qué se diferencia el gelato italiano del helado común?",
           "options": [
             { "id": "a", "text": "Se hace sin leche", "is_correct": false },
-            { "id": "b", "text": "Se bate con menos aire y menos grasa, por eso es más denso", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Se bate con menos aire y menos grasa, por eso es más denso",
+              "is_correct": true
+            },
             { "id": "c", "text": "Siempre lleva huevo", "is_correct": false },
             { "id": "d", "text": "Se congela con nitrógeno líquido", "is_correct": false }
           ],
