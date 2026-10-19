@@ -90,6 +90,49 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     });
     await waitFor(() => expect(document.activeElement).toBe(nextHeading));
   });
+
+  it('tras el veredicto el foco llega al enunciado en el auto-avance', async () => {
+    await startPlaying('en');
+
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+    await screen.findByText('Correct');
+
+    // Auto-avance real: el temporizador de feedback (~1.5 s) monta la tarjeta
+    // nueva tras la animación de salida.
+    const nextHeading = await screen.findByRole(
+      'heading',
+      { name: 'Which planet is closest to the Sun?' },
+      { timeout: 4000 }
+    );
+    await waitFor(() => expect(document.activeElement).toBe(nextHeading));
+  });
+
+  it('ignora las teclas 1-4 mientras el veredicto está en vuelo', async () => {
+    let resolveReveal!: (verdict: {
+      isCorrect: boolean;
+      correctOptionId: string;
+      explanation: string | null;
+    }) => void;
+    vi.mocked(requestAnswerVerdict).mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveReveal = resolve;
+        })
+    );
+    await startPlaying('en');
+
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+
+    // Mientras el servidor decide, la selección no debe cambiar: de lo
+    // contrario la tarjeta marcaría incorrecta una opción que no se envió.
+    fireEvent.keyDown(window, { key: '2' });
+    resolveReveal({ isCorrect: false, correctOptionId: 'q1b', explanation: null });
+
+    await screen.findByText('Miss');
+    expect(screen.getByRole('button', { name: /INCORRECT/ })).toHaveAccessibleName(/Saturn/);
+  });
 });
 
 describe('QuizPlayer veredicto accesible', () => {

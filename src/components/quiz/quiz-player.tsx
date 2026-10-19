@@ -70,6 +70,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           changeMode: 'Cambiar modo',
           quizNotFound: 'No encontramos este quiz.',
           pauseGame: 'Pausar juego',
+          correct: 'Correcto',
+          miss: 'Fallaste',
           nowPlaying: 'Jugando ahora',
           skip: 'Saltar',
           finish: 'Terminar',
@@ -83,6 +85,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           changeMode: 'Change mode',
           quizNotFound: 'Quiz not found.',
           pauseGame: 'Pause game',
+          correct: 'Correct',
+          miss: 'Miss',
           nowPlaying: 'Now playing',
           skip: 'Skip',
           finish: 'Finish',
@@ -294,6 +298,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
       if (event.key >= '1' && event.key <= '4') {
         const index = Number(event.key) - 1;
         if (
+          !isCheckingAnswer &&
           index < currentQuestion.options.length &&
           !hiddenOptionIds.includes(currentQuestion.options[index].id)
         ) {
@@ -316,6 +321,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   }, [
     getCurrentQuestion,
     hiddenOptionIds,
+    isCheckingAnswer,
     isCompleted,
     isPaused,
     showModeSelector,
@@ -575,6 +581,13 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                   locale={uiLocale}
                   hiddenOptionIds={hiddenOptionIds}
                   headingRef={focusQuestionHeading}
+                  verdictText={
+                    showFeedback && lastAnswerCorrect !== null && quiz.quiz_type === 'trivia'
+                      ? lastAnswerCorrect
+                        ? copy.correct
+                        : copy.miss
+                      : null
+                  }
                 />
               </motion.div>
             </AnimatePresence>

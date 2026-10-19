@@ -27,6 +27,12 @@ interface QuestionCardProps {
    * so the player uses it to move focus to the new heading.
    */
   headingRef?: Ref<HTMLHeadingElement>;
+  /**
+   * Localized verdict text for the answer just given. It comes from the
+   * server's verdict, so it stays truthful even if the visible selection
+   * changed after the answer was sent (or the question has no answer key).
+   */
+  verdictText?: string | null;
 }
 
 export function QuestionCard({
@@ -42,17 +48,17 @@ export function QuestionCard({
   locale,
   hiddenOptionIds = [],
   headingRef,
+  verdictText,
 }: QuestionCardProps) {
   const es = locale === 'es';
-  // The verdict is announced once, in this live region: the per-option badges
-  // already live inside each button's accessible name.
-  const showVerdict = showFeedback && correctOptionId !== null;
-  const verdictWasCorrect = selectedOptionId !== null && selectedOptionId === correctOptionId;
+  // The region mounts empty while the answer is being checked so the verdict
+  // updates an existing live region instead of appearing already populated.
+  const verdictPending = disabled && !showFeedback;
   return (
     <article className="arcade-question">
-      {showVerdict && (
+      {(verdictPending || verdictText) && (
         <span className="arcade-answer-feedback" role="status" aria-live="polite">
-          {verdictWasCorrect ? (es ? 'Correcto' : 'Correct') : es ? 'Fallaste' : 'Miss'}
+          {verdictText}
         </span>
       )}
       <div className="arcade-question-head">
