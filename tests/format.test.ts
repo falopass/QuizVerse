@@ -58,14 +58,14 @@ describe('formatRelativeDate', () => {
   it('en: absolute date for >= 7 days', () => {
     const then = secondsAgo(8 * 86400);
     expect(formatRelativeDate(then, 'en')).toBe(
-      then.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }),
+      then.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     );
   });
 
   it('en: future date falls back to absolute date', () => {
     const future = new Date(Date.now() + 3600_000);
     expect(formatRelativeDate(future, 'en')).toBe(
-      future.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' }),
+      future.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     );
   });
 
@@ -85,7 +85,7 @@ describe('formatRelativeDate', () => {
   it('es: future date falls back to absolute date', () => {
     const future = new Date(Date.now() + 3600_000);
     expect(formatRelativeDate(future, 'es')).toBe(
-      future.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' }),
+      future.toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' })
     );
   });
 });
