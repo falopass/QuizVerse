@@ -38,7 +38,7 @@ interface QuizRow {
   category: { slug: string | null } | null;
 }
 
-async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
+async function fetchPublishedQuizzes(): Promise<{ quizzes: QuizRow[]; failed: boolean }> {
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -50,10 +50,10 @@ async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
       .order('published_at', { ascending: false })
       .limit(50000);
 
-    if (error || !data) return [];
-    return data as unknown as QuizRow[];
+    if (error) return { quizzes: [], failed: true };
+    return { quizzes: (data ?? []) as unknown as QuizRow[], failed: false };
   } catch {
-    return [];
+    return { quizzes: [], failed: true };
   }
 }
 
@@ -76,7 +76,17 @@ const EDITORIAL_PAGES: Array<{
 const TYPE_HUBS = ['trivia', 'personality'];
 
 export async function GET() {
-  const quizzes = await fetchPublishedQuizzes();
+  const { quizzes, failed } = await fetchPublishedQuizzes();
+
+  // Un 200 con catálogo vacío desindexaría el sitio: mejor un 503 para que
+  // Google reintente y conserve el último sitemap bueno.
+  if (failed) {
+    console.error('[sitemap] no se pudo leer el catálogo');
+    return new NextResponse('sitemap unavailable', {
+      status: 503,
+      headers: { 'Retry-After': '300', 'Cache-Control': 'no-store' },
+    });
+  }
 
   const perLocale = new Map<Locale, QuizRow[]>(locales.map((locale) => [locale, []]));
   const slugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
