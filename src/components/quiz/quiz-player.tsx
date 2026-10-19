@@ -16,7 +16,9 @@ import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
+import { achievementToastMessage } from '@/lib/quiz/achievement-toast';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
+import { useToast } from '@/providers/toast-provider';
 
 interface QuizPlayerProps {
   quiz: Quiz;
@@ -114,6 +116,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   } | null>(null);
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
+  const { success: toastSuccess } = useToast();
 
   const {
     gameMode,
@@ -254,6 +257,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
               answers: answers.length,
             },
           });
+          const unlockedToast = achievementToastMessage(uiLocale, result.achievements_unlocked);
+          if (unlockedToast) toastSuccess(unlockedToast.title, unlockedToast.description);
         }
       } catch (error) {
         console.error('Failed to submit quiz result', error);
@@ -271,6 +276,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     quiz.questions.length,
     quiz.quiz_type,
     quiz.slug,
+    toastSuccess,
     uiLocale,
   ]);
 
