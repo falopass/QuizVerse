@@ -25,6 +25,7 @@ import type {
 } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
+import { getCategoryCounts } from '@/lib/data/category-counts';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
@@ -295,9 +296,12 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
         (!locale || quiz.language === locale)
     );
   }
-  const populated = new Set(
-    (await getPublishedQuizzes(QUIZ_MAX_ROWS, locale)).map((quiz) => quiz.category?.slug)
-  );
+  // Las tarjetas no leen preguntas ni resultados: se recortan antes de
+  // serializar el payload a la página (mismo criterio que /quiz).
+  const lightQuizzes = quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
+  // Las categorías pobladas salen de un conteo ligero por slug; si la consulta
+  // falla (mapa vacío) se muestran todas, como antes.
+  const populated = locale ? await getCategoryCounts(locale) : new Map<string, number>();
   return {
     category: category ?? {
       id: slug,
@@ -308,11 +312,12 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
       color: null,
       gradient_from: null,
       gradient_to: null,
-      quiz_count: quizzes.length,
+      quiz_count: lightQuizzes.length,
       sort_order: 0,
     },
-    categories: categories.filter((item) => populated.has(item.slug)),
-    quizzes,
+    categories:
+      populated.size > 0 ? categories.filter((item) => populated.has(item.slug)) : categories,
+    quizzes: lightQuizzes,
   };
 });
 
