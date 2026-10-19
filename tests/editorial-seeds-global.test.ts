@@ -34,9 +34,9 @@ describe('lotes editoriales en conjunto', () => {
         execFileSync('node', [EMITTER, '--input', file], {
           encoding: 'utf8',
           stdio: ['ignore', 'pipe', 'pipe'],
-        }),
+        })
       ).not.toThrow();
-    },
+    }
   );
 
   it('ningún slug se repite entre lotes', () => {
@@ -68,7 +68,9 @@ describe('lotes editoriales en conjunto', () => {
       const name = file.split('/').pop() ?? file;
       for (const quiz of loadBatch(file)) {
         if (catalogSlugs.has(quiz.slug)) {
-          collisions.push(`slug "${quiz.slug}" de ${name} ya existe en generated/trending-seed.json`);
+          collisions.push(
+            `slug "${quiz.slug}" de ${name} ya existe en generated/trending-seed.json`
+          );
         }
       }
     }
