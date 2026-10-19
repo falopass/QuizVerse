@@ -54,9 +54,14 @@ export function FollowButton({
     if (pending) return;
     const next = !following;
     setPending(true);
-    const result = await toggleFollowAction(targetUserId, next);
-    if (result.ok) setFollowing(next);
-    setPending(false);
+    try {
+      const result = await toggleFollowAction(targetUserId, next);
+      if (result.ok) setFollowing(next);
+    } catch {
+      // La action puede rechazar por red: el estado queda igual y el botón se rehabilita.
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
