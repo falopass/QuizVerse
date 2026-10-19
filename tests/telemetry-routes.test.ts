@@ -51,9 +51,7 @@ describe('POST /api/analytics', () => {
   });
 
   it('rejects metadata with more than 10 keys', async () => {
-    const metadata = Object.fromEntries(
-      Array.from({ length: 11 }, (_, i) => [`k${i}`, 'v'])
-    );
+    const metadata = Object.fromEntries(Array.from({ length: 11 }, (_, i) => [`k${i}`, 'v']));
     const response = await analyticsPOST(analytics({ name: 'page_view', metadata }));
 
     expect(response.status).toBe(400);
@@ -102,9 +100,7 @@ describe('POST /api/monitor', () => {
   });
 
   it('rejects metadata over the cap', async () => {
-    const metadata = Object.fromEntries(
-      Array.from({ length: 11 }, (_, i) => [`k${i}`, 'v'])
-    );
+    const metadata = Object.fromEntries(Array.from({ length: 11 }, (_, i) => [`k${i}`, 'v']));
     const response = await monitorPOST(monitor({ message: 'boom', metadata }));
 
     expect(response.status).toBe(400);
