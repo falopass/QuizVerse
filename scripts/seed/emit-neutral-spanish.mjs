@@ -40,8 +40,12 @@ const ALLOWED_KEYS = new Set(['title', 'description', 'questions']);
 // Rioplatense voseo markers. The character-class boundaries (instead of \b,
 // which treats accented letters as non-word) make "Poné a prueba" match while
 // "mostrándoles" or "nuevos" do not.
+// "estás" y "elegí" quedaron fuera a propósito: son válidos en español neutro
+// («tú estás», «yo elegí») y los falsos positivos bloqueaban correcciones
+// legítimas. El imperativo rioplatense «elegí (vos)» no se puede distinguir
+// del pretérito «yo elegí» sin contexto, así que no se cubre.
 const VOSEO_RE =
-  /(?<![a-záéíóúñü])(poné|sos|tenés|querés|elegí|mirá|sabés|podés|debés|usás|vivís|jugás|sentís|decís|vení|hacé|andá|creés|pensás|estás|vos)(?![a-záéíóúñü])/i;
+  /(?<![a-záéíóúñü])(poné|sos|tenés|querés|mirá|sabés|podés|debés|usás|vivís|jugás|sentís|decís|vení|hacé|andá|creés|pensás|vos)(?![a-záéíóúñü])/i;
 
 // Keys that carry prose the override is allowed to change; everything else in a
 // question/option is structural (ids, is_correct, personality_tags, timers).
