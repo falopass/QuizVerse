@@ -1,0 +1,164 @@
+{
+  "quizzes": [
+    {
+      "slug": "en-attack-on-titan-fan-trivia-challenge",
+      "title": "Attack on Titan Trivia: 8 Questions for True Fans"
+    },
+    {
+      "slug": "en-avatar-fan-trivia-challenge",
+      "title": "Avatar Trivia Quiz: How Much Do You Remember?"
+    },
+    {
+      "slug": "en-bad-bunny-fan-trivia-challenge",
+      "title": "Bad Bunny Trivia: 8 Questions for Real Fans"
+    },
+    {
+      "slug": "en-baldur-s-gate-3-fan-trivia-challenge",
+      "title": "Baldur's Gate 3 Trivia: 8 Questions for Your Party"
+    },
+    {
+      "slug": "en-barbie-fan-trivia-challenge",
+      "title": "Barbie Trivia: How Much Do You Remember?"
+    },
+    {
+      "slug": "en-beef-fan-trivia-challenge",
+      "title": "Beef Trivia: 8 Questions About the Netflix Series"
+    },
+    {
+      "slug": "en-beyonce-fan-trivia-challenge",
+      "title": "Beyoncé Trivia: 8 Questions for the Beyhive"
+    },
+    {
+      "slug": "en-bridgerton-fan-trivia-challenge",
+      "title": "Bridgerton Trivia: 8 Questions for the Ton"
+    },
+    {
+      "slug": "en-chainsaw-man-fan-trivia-challenge",
+      "title": "Chainsaw Man Trivia: 8 Questions for Devil Hunters"
+    },
+    {
+      "slug": "en-chappell-roan-fan-trivia-challenge",
+      "title": "Chappell Roan Trivia: How Well Do You Know Her?"
+    },
+    {
+      "slug": "en-classroom-of-the-elite-fan-trivia-challenge",
+      "title": "Classroom of the Elite Trivia: Do You Remember?"
+    },
+    {
+      "slug": "en-demon-slayer-fan-trivia-challenge",
+      "title": "Demon Slayer Trivia: 8 Questions for Slayers"
+    },
+    {
+      "slug": "en-dr-stone-fan-trivia-challenge",
+      "title": "Dr. Stone Trivia: 8 Questions from the Stone World"
+    },
+    {
+      "slug": "en-dune-fan-trivia-challenge",
+      "title": "Dune Trivia: 8 Questions from Arrakis"
+    },
+    {
+      "slug": "en-elden-ring-fan-trivia-challenge",
+      "title": "Elden Ring Trivia: 8 Questions in the Lands Between"
+    },
+    {
+      "slug": "en-euphoria-fan-trivia-challenge",
+      "title": "Euphoria Trivia: How Much Do You Remember?"
+    },
+    {
+      "slug": "en-frieren-fan-trivia-challenge",
+      "title": "Frieren Trivia: How Well Do You Know the Mage?"
+    },
+    {
+      "slug": "en-grand-theft-auto-vi-fan-trivia-challenge",
+      "title": "Grand Theft Auto VI Trivia: What Do You Know So Far?"
+    },
+    {
+      "slug": "en-hacks-fan-trivia-challenge",
+      "title": "Hacks Trivia: 8 Questions About Deborah Vance"
+    },
+    {
+      "slug": "en-hades-ii-fan-trivia-challenge",
+      "title": "Hades II Trivia: 8 Questions for the Underworld"
+    },
+    {
+      "slug": "es-trivia-fan-de-attack-on-titan",
+      "title": "Attack on Titan: trivia de 8 preguntas para fans"
+    },
+    {
+      "slug": "es-trivia-fan-de-avatar",
+      "title": "Avatar: ¿cuánto recuerdas? Trivia de 8 preguntas"
+    },
+    {
+      "slug": "es-trivia-fan-de-bad-bunny",
+      "title": "Bad Bunny: trivia de 8 preguntas para verdaderos fans"
+    },
+    {
+      "slug": "es-trivia-fan-de-baldur-s-gate-3",
+      "title": "Baldur's Gate 3: trivia de 8 preguntas para tu grupo"
+    },
+    {
+      "slug": "es-trivia-fan-de-barbie",
+      "title": "Barbie: trivia de 8 preguntas, ¿cuánto recuerdas?"
+    },
+    {
+      "slug": "es-trivia-fan-de-beef",
+      "title": "Beef: trivia de 8 preguntas sobre la serie de Netflix"
+    },
+    {
+      "slug": "es-trivia-fan-de-beyonce",
+      "title": "Beyoncé: trivia de 8 preguntas para el Beyhive"
+    },
+    {
+      "slug": "es-trivia-fan-de-bridgerton",
+      "title": "Bridgerton: trivia de 8 preguntas para la alta sociedad"
+    },
+    {
+      "slug": "es-trivia-fan-de-chainsaw-man",
+      "title": "Chainsaw Man: trivia de 8 preguntas para cazadores"
+    },
+    {
+      "slug": "es-trivia-fan-de-chappell-roan",
+      "title": "Chappell Roan: trivia de 8 preguntas para fans"
+    },
+    {
+      "slug": "es-trivia-fan-de-classroom-of-the-elite",
+      "title": "Classroom of the Elite: trivia, ¿cuánto recuerdas?"
+    },
+    {
+      "slug": "es-trivia-fan-de-demon-slayer",
+      "title": "Demon Slayer: trivia de 8 preguntas para cazadores de demonios"
+    },
+    {
+      "slug": "es-trivia-fan-de-dr-stone",
+      "title": "Dr. Stone: trivia de 8 preguntas del mundo de piedra"
+    },
+    {
+      "slug": "es-trivia-fan-de-dune",
+      "title": "Dune: trivia de 8 preguntas desde Arrakis"
+    },
+    {
+      "slug": "es-trivia-fan-de-el-juego-del-calamar",
+      "title": "El juego del calamar: ¿cuánto recuerdas? 8 preguntas"
+    },
+    {
+      "slug": "es-trivia-fan-de-elden-ring",
+      "title": "Elden Ring: trivia de 8 preguntas en las Tierras Intermedias"
+    },
+    {
+      "slug": "es-trivia-fan-de-euphoria",
+      "title": "Euphoria: ¿cuánto recuerdas de la serie? 8 preguntas"
+    },
+    {
+      "slug": "es-trivia-fan-de-frieren",
+      "title": "Frieren: ¿cuánto sabes de la maga? 8 preguntas"
+    },
+    {
+      "slug": "es-trivia-fan-de-grand-theft-auto-vi",
+      "title": "Grand Theft Auto VI: lo que se sabe, en 8 preguntas"
+    },
+    {
+      "slug": "es-trivia-fan-de-hacks",
+      "title": "Hacks: trivia de 8 preguntas sobre Deborah Vance"
+    }
+  ]
+}
