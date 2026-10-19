@@ -25,6 +25,7 @@ import type {
 } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
+import { localizeQuizList } from '@/lib/i18n/catalog';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
   const supabase = await createClient();
@@ -366,14 +367,16 @@ export async function getRelatedQuizzes(
     }
 
     const categoryMap = new Map(categories.map((item) => [item.id, item]));
-    return rows.slice(0, 3).map((row) => normalizeQuiz(row, categoryMap));
+    const related = rows.slice(0, 3).map((row) => normalizeQuiz(row, categoryMap));
+    return locale ? localizeQuizList(related, locale) : related;
   } catch {
-    return LAUNCH_QUIZZES.filter(
+    const launch = LAUNCH_QUIZZES.filter(
       (quiz) =>
         quiz.slug !== slug &&
         quiz.category?.slug === categorySlug &&
         (!locale || quiz.language === locale)
     ).slice(0, 3);
+    return locale ? localizeQuizList(launch, locale) : launch;
   }
 }
 

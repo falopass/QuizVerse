@@ -54,8 +54,8 @@ vi.mock('@/lib/data/normalizers', () => ({
 
 import { getRelatedQuizzes } from '@/lib/data/public';
 
-const history = { id: 'cat-history', slug: 'history', name: 'Historia' };
-const movies = { id: 'cat-movies', slug: 'movies-tv', name: 'Peliculas' };
+const history = { id: 'cat-history', slug: 'history', name: 'History' };
+const movies = { id: 'cat-movies', slug: 'movies-tv', name: 'Movies & TV' };
 
 function row(slug: string, categoryId: string, playsCount = 0) {
   return {
@@ -90,6 +90,11 @@ describe('getRelatedQuizzes', () => {
     const related = await getRelatedQuizzes('hist-a', 'history', 'es');
 
     expect(related.map((quiz) => quiz.slug)).toEqual(['hist-b', 'pop-1', 'pop-2']);
+    expect(related.map((quiz) => quiz.category?.name)).toEqual([
+      'Historia',
+      'Cine y televisión',
+      'Cine y televisión',
+    ]);
     expect(state.limitCalls).toEqual([
       { byCategory: true, n: 3 },
       { byCategory: false, n: 10 },
