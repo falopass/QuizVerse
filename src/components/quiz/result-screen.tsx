@@ -84,6 +84,7 @@ export function ResultScreen({
           rematch: 'Revancha',
           acceptChallenge: 'Aceptar el reto',
           keepPlaying: 'Sigue jugando',
+          explanation: 'Explicación',
         }
       : {
           eyebrow: 'Result',
@@ -112,6 +113,7 @@ export function ResultScreen({
           rematch: 'Rematch',
           acceptChallenge: 'Take the challenge',
           keepPlaying: 'Keep playing',
+          explanation: 'Explanation',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -310,6 +312,7 @@ export function ResultScreen({
                             )?.text ?? null,
                           correctOptionText: null,
                           isCorrect: answer.is_correct,
+                          explanation: question?.explanation ?? null,
                         } satisfies QuizReviewItem;
                       })
                     ).map((item, index) => {
@@ -337,6 +340,12 @@ export function ResultScreen({
                             <p className="text-success mt-2 text-sm font-medium">
                               {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {item.correctOptionText}
                             </p>
+                          )}
+                          {item.explanation && (
+                            <div className="arcade-explanation">
+                              <strong>{copy.explanation}</strong>
+                              <p>{item.explanation}</p>
+                            </div>
                           )}
                         </div>
                       );

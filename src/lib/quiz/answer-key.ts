@@ -138,6 +138,7 @@ export function buildReview(
           quiz.quiz_type === 'trivia'
             ? Boolean(selected && correct && selected.id === correct.id)
             : Boolean(answer.is_correct),
+        explanation: question.explanation ?? null,
       },
     ];
   });
