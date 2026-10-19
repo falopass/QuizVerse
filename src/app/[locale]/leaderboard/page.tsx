@@ -9,7 +9,15 @@ import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { rankFriends } from '@/lib/profile/friends-ranking';
 import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
+import { Breadcrumbs } from '@/components/seo/breadcrumbs';
+import { JsonLd } from '@/components/seo/json-ld';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
+
+const LEADERBOARD_TITLE: Record<Locale, string> = {
+  es: 'Ranking de jugadores',
+  en: 'Player leaderboard',
+};
 
 export async function generateMetadata({
   params,
@@ -22,7 +30,7 @@ export async function generateMetadata({
   }
 
   return buildMetadata({
-    title: locale === 'es' ? 'Ranking de jugadores' : 'Player leaderboard',
+    title: LEADERBOARD_TITLE[locale],
     description:
       locale === 'es'
         ? 'Mira quién lidera el ranking de QuizVerse: puntos, quizzes jugados y los jugadores más activos de la comunidad.'
@@ -121,6 +129,10 @@ export default async function LocalizedLeaderboardPage({
   }
 
   const currentEntry = entries?.find((entry) => entry.isMe) ?? null;
+  const trail = [
+    { name: locale === 'es' ? 'Inicio' : 'Home', href: `/${locale}` },
+    { name: LEADERBOARD_TITLE[locale], href: `/${locale}/leaderboard` },
+  ];
   type BoardTab = 'global' | 'weekly' | 'friends';
   const activeTab: BoardTab = isFriends ? 'friends' : isWeekly ? 'weekly' : 'global';
   const tabHref = (value: BoardTab) =>
@@ -140,6 +152,13 @@ export default async function LocalizedLeaderboardPage({
 
   return (
     <main className="mx-auto min-h-screen max-w-6xl px-4 pt-28 pb-20">
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${locale}/leaderboard`, locale, LEADERBOARD_TITLE[locale]),
+          breadcrumbNode(trail.map(({ name, href }) => ({ name, path: href }))),
+        ])}
+      />
+      <Breadcrumbs locale={locale} items={trail} className="mb-6" />
       <section className="surface-panel p-8 md:p-10">
         <p className="eyebrow">{locale === 'es' ? 'Ranking' : 'Leaderboard'}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
