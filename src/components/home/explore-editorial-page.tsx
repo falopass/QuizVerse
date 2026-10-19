@@ -68,6 +68,7 @@ export function ExploreEditorialPage({
   const [query, setQuery] = React.useState('');
   const [activeMood, setActiveMood] = React.useState<(typeof MOODS.en)[number]['id']>('all');
   const [activeCategory, setActiveCategory] = React.useState('all');
+  const [expandedKey, setExpandedKey] = React.useState<string | null>(null);
 
   const moods = MOODS[locale];
   const localizedQuizzes = React.useMemo(
@@ -124,10 +125,13 @@ export function ExploreEditorialPage({
     pulse: pulseQuiz,
     lanes: laneQuizzes,
     grid: gridQuizzes,
+    rest: restQuizzes,
   } = React.useMemo(
     () => explorerSelection(filteredQuizzes, { preferEditorial: activeMood !== 'popular' }),
     [filteredQuizzes, activeMood]
   );
+  const filterKey = `${query}|${activeMood}|${activeCategory}`;
+  const showAll = expandedKey === filterKey;
 
   const units =
     locale === 'es'
@@ -142,6 +146,8 @@ export function ExploreEditorialPage({
           pulse: 'Pulso del momento',
           moreWaysIn: 'Más caminos de entrada',
           quizzesAfterFilters: 'quizzes tras filtros',
+          showMore: (count: number) => `Ver los ${count} restantes`,
+          showLess: 'Mostrar menos',
           editorialGrid: 'Entradas curadas',
           editorDeck:
             'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
@@ -163,6 +169,8 @@ export function ExploreEditorialPage({
           pulse: 'Now in pulse',
           moreWaysIn: 'More ways in',
           quizzesAfterFilters: 'quizzes after filters',
+          showMore: (count: number) => `Show the ${count} remaining`,
+          showLess: 'Show less',
           editorialGrid: 'Curated entries',
           editorDeck:
             'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
@@ -269,7 +277,7 @@ export function ExploreEditorialPage({
             </div>
           </div>
         </div>
-        <p role="status" className="text-text-secondary mt-5 text-sm">
+        <p role="status" aria-live="polite" className="text-text-secondary mt-5 text-sm">
           {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
         </p>
       </section>
@@ -354,11 +362,35 @@ export function ExploreEditorialPage({
                 <p className="eyebrow">{units.editorialGrid}</p>
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
               </div>
-              <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
+              <div
+                id="explore-grid"
+                className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
+              >
                 {gridQuizzes.map((quiz, index) => (
                   <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
                 ))}
+                {showAll
+                  ? restQuizzes.map((quiz, index) => (
+                      <EditorialQuizCard
+                        key={quiz.id}
+                        quiz={quiz}
+                        locale={locale}
+                        index={gridQuizzes.length + index}
+                      />
+                    ))
+                  : null}
               </div>
+              {restQuizzes.length > 0 ? (
+                <button
+                  type="button"
+                  aria-expanded={showAll}
+                  aria-controls="explore-grid"
+                  onClick={() => setExpandedKey(showAll ? null : filterKey)}
+                  className="arcade-button arcade-button-lime arcade-more"
+                >
+                  {showAll ? units.showLess : units.showMore(restQuizzes.length)}
+                </button>
+              ) : null}
             </section>
           ) : null}
         </>
