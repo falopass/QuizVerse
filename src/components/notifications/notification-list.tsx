@@ -26,7 +26,8 @@ const COPY = {
     marking: 'Marcando…',
     unread: (n: number) => (n === 1 ? '1 sin leer' : `${n} sin leer`),
     unreadTag: 'sin leer',
-    empty: 'Aún no tienes notificaciones. Cuando alguien comente tus quizzes o te siga, aparecerá aquí.',
+    empty:
+      'Aún no tienes notificaciones. Cuando alguien comente tus quizzes o te siga, aparecerá aquí.',
     error: 'No pudimos marcarlas como leídas. Inténtalo otra vez.',
     types: {
       comment: 'Comentario',
@@ -42,7 +43,8 @@ const COPY = {
     marking: 'Marking…',
     unread: (n: number) => (n === 1 ? '1 unread' : `${n} unread`),
     unreadTag: 'unread',
-    empty: 'No notifications yet. When someone comments on your quizzes or follows you, it will show up here.',
+    empty:
+      'No notifications yet. When someone comments on your quizzes or follows you, it will show up here.',
     error: 'We could not mark them as read. Please try again.',
     types: {
       comment: 'Comment',
@@ -134,26 +136,20 @@ export function NotificationList({
                 <span className="border-border-subtle text-text-muted rounded-full border px-2 py-0.5">
                   {copy.types[notification.type]}
                 </span>
-                {!notification.is_read ? (
-                  <span className="sr-only">{copy.unreadTag}</span>
-                ) : null}
+                {!notification.is_read ? <span className="sr-only">{copy.unreadTag}</span> : null}
                 <time dateTime={notification.created_at} className="text-text-muted">
                   {formatRelativeDate(notification.created_at, locale)}
                 </time>
               </p>
               <p
                 className={`mt-1 text-sm leading-6 ${
-                  notification.is_read
-                    ? 'text-text-secondary'
-                    : 'text-text-primary font-semibold'
+                  notification.is_read ? 'text-text-secondary' : 'text-text-primary font-semibold'
                 }`}
               >
                 {notification.title}
               </p>
               {notification.body ? (
-                <p className="text-text-secondary mt-0.5 text-sm leading-6">
-                  {notification.body}
-                </p>
+                <p className="text-text-secondary mt-0.5 text-sm leading-6">{notification.body}</p>
               ) : null}
             </div>
           </li>
