@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial batch 2026s (CONT-28): trivia pairs for music legends with zero catalogue coverage — The Beatles, Elvis Presley, Madonna, The Rolling Stones and Coldplay. (The commissioned list included Shakira, but she already has a pair in editorial-seed-2026ah.json, so the Rolling Stones take that slot.) Every answer is a stable, checkable fact: released discography, career milestones, years and places. No 2026 events, no recent sales figures, no personal details of living people. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-the-beatles-trivia",
+      "title": "The Beatles Trivia Challenge",
+      "description": "From Liverpool's Cavern Club to the Abbey Road crossing: four lads who changed pop music forever. How much do you know about the Fab Four?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["the beatles", "music", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which English city did The Beatles form?",
+          "options": [
+            { "id": "a", "text": "Manchester", "is_correct": false },
+            { "id": "b", "text": "London", "is_correct": false },
+            { "id": "c", "text": "Liverpool", "is_correct": true },
+            { "id": "d", "text": "Birmingham", "is_correct": false }
+          ],
+          "explanation": "The band came together in Liverpool, where the Cavern Club became their early home."
+        },
+        {
+          "id": "q2",
+          "question": "Who was The Beatles' drummer during their years of fame?",
+          "options": [
+            { "id": "a", "text": "Pete Best", "is_correct": false },
+            { "id": "b", "text": "Ringo Starr", "is_correct": true },
+            { "id": "c", "text": "Stuart Sutcliffe", "is_correct": false },
+            { "id": "d", "text": "George Martin", "is_correct": false }
+          ],
+          "explanation": "Ringo Starr replaced original drummer Pete Best in August 1962; Sutcliffe played bass early on and Martin was the producer."
+        },
+        {
+          "id": "q3",
+          "question": "Which album cover shows the four of them crossing a zebra crossing?",
+          "options": [
+            { "id": "a", "text": "Sgt. Pepper's Lonely Hearts Club Band", "is_correct": false },
+            { "id": "b", "text": "Revolver", "is_correct": false },
+            { "id": "c", "text": "Let It Be", "is_correct": false },
+            { "id": "d", "text": "Abbey Road", "is_correct": true }
+          ],
+          "explanation": "The Abbey Road cover was shot on the street outside the studio; the crossing is still a tourist attraction."
+        },
+        {
+          "id": "q4",
+          "question": "Who produced nearly all of The Beatles' records and is often called 'the fifth Beatle'?",
+          "options": [
+            { "id": "a", "text": "George Martin", "is_correct": true },
+            { "id": "b", "text": "Brian Epstein", "is_correct": false },
+            { "id": "c", "text": "Phil Spector", "is_correct": false },
+            { "id": "d", "text": "George Harrison", "is_correct": false }
+          ],
+          "explanation": "George Martin signed them to Parlophone and shaped their studio sound; Epstein was the manager and Spector only finished Let It Be."
+        },
+        {
+          "id": "q5",
+          "question": "Paul McCartney wrote 'Hey Jude' to comfort whom?",
+          "options": [
+            { "id": "a", "text": "John Lennon's mother Julia", "is_correct": false },
+            { "id": "b", "text": "His own daughter Mary", "is_correct": false },
+            { "id": "c", "text": "John Lennon's son Julian", "is_correct": true },
+            { "id": "d", "text": "A fan named Judy", "is_correct": false }
+          ],
+          "explanation": "He wrote it as 'Hey Jules' for five-year-old Julian during John and Cynthia Lennon's divorce."
+        },
+        {
+          "id": "q6",
+          "question": "Which was the last studio album The Beatles recorded together?",
+          "options": [
+            { "id": "a", "text": "The White Album", "is_correct": false },
+            { "id": "b", "text": "Abbey Road", "is_correct": true },
+            { "id": "c", "text": "Let It Be", "is_correct": false },
+            { "id": "d", "text": "Magical Mystery Tour", "is_correct": false }
+          ],
+          "explanation": "Abbey Road was recorded in mid-1969; Let It Be came out later, in 1970, but had been recorded earlier."
+        },
+        {
+          "id": "q7",
+          "question": "Where did The Beatles give their famous final live performance in January 1969?",
+          "options": [
+            { "id": "a", "text": "Shea Stadium, New York", "is_correct": false },
+            { "id": "b", "text": "The Cavern Club", "is_correct": false },
+            { "id": "c", "text": "The Ed Sullivan Show", "is_correct": false },
+            { "id": "d", "text": "The rooftop of the Apple Corps building", "is_correct": true }
+          ],
+          "explanation": "On 30 January 1969 they played an unannounced concert on the roof of 3 Savile Row in London until the police shut it down."
+        },
+        {
+          "id": "q8",
+          "question": "Which 1967 album introduces a fictional band and includes 'Lucy in the Sky with Diamonds'?",
+          "options": [
+            { "id": "a", "text": "Sgt. Pepper's Lonely Hearts Club Band", "is_correct": true },
+            { "id": "b", "text": "Rubber Soul", "is_correct": false },
+            { "id": "c", "text": "Revolver", "is_correct": false },
+            { "id": "d", "text": "The White Album", "is_correct": false }
+          ],
+          "explanation": "Sgt. Pepper's presented the Beatles as an alter-ego band and became a landmark of psychedelic rock."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-the-beatles",
+      "title": "Trivia de The Beatles",
+      "description": "De la Cavern Club de Liverpool al paso de cebra de Abbey Road: el grupo que cambió la música pop para siempre. ¿Cuánto sabes de los Fab Four?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["the beatles", "musica", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué ciudad inglesa son The Beatles?",
+          "options": [
+            { "id": "a", "text": "Liverpool", "is_correct": true },
+            { "id": "b", "text": "Mánchester", "is_correct": false },
+            { "id": "c", "text": "Londres", "is_correct": false },
+            { "id": "d", "text": "Leeds", "is_correct": false }
+          ],
+          "explanation": "Se formaron en Liverpool, donde el club The Cavern fue su primer escenario habitual."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el verdadero nombre de Ringo Starr?",
+          "options": [
+            { "id": "a", "text": "Roger Taylor", "is_correct": false },
+            { "id": "b", "text": "Reginald Dwight", "is_correct": false },
+            { "id": "c", "text": "Richard Starkey", "is_correct": true },
+            { "id": "d", "text": "Robert Plant", "is_correct": false }
+          ],
+          "explanation": "Ringo Starr nació como Richard Starkey; Reginald Dwight es Elton John, Taylor el baterista de Queen y Plant el cantante de Led Zeppelin."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué año se separó oficialmente el grupo?",
+          "options": [
+            { "id": "a", "text": "1968", "is_correct": false },
+            { "id": "b", "text": "1973", "is_correct": false },
+            { "id": "c", "text": "1975", "is_correct": false },
+            { "id": "d", "text": "1970", "is_correct": true }
+          ],
+          "explanation": "Paul McCartney anunció su salida en abril de 1970 y Let It Be salió un mes después."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué canción de Abbey Road compuso George Harrison?",
+          "options": [
+            { "id": "a", "text": "'Come Together'", "is_correct": false },
+            { "id": "b", "text": "'Here Comes the Sun'", "is_correct": true },
+            { "id": "c", "text": "'I Am the Walrus'", "is_correct": false },
+            { "id": "d", "text": "'Get Back'", "is_correct": false }
+          ],
+          "explanation": "Harrison la escribió en el jardín de Eric Clapton; en el mismo disco también firmó 'Something'."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué hicieron los Beatles el 30 de enero de 1969?",
+          "options": [
+            { "id": "a", "text": "Lanzaron Let It Be", "is_correct": false },
+            { "id": "b", "text": "Aparecieron en el Ed Sullivan Show", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Tocaron por última vez en vivo, en la azotea de Apple",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Grabaron 'Hey Jude'", "is_correct": false }
+          ],
+          "explanation": "Fue el célebre concierto de la azotea en Savile Row, interrumpido por la policía."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llamaba la discográfica que el grupo fundó en 1968?",
+          "options": [
+            { "id": "a", "text": "Parlophone", "is_correct": false },
+            { "id": "b", "text": "Decca", "is_correct": false },
+            { "id": "c", "text": "Apple Corps", "is_correct": true },
+            { "id": "d", "text": "Capitol", "is_correct": false }
+          ],
+          "explanation": "Apple Corps editó sus discos desde 1968; Parlophone era su sello dentro de EMI y Decca los había rechazado en 1962."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué álbum de 1967 presenta a una banda ficticia como alter ego del grupo?",
+          "options": [
+            { "id": "a", "text": "Revolver", "is_correct": false },
+            { "id": "b", "text": "Sgt. Pepper's Lonely Hearts Club Band", "is_correct": true },
+            { "id": "c", "text": "Rubber Soul", "is_correct": false },
+            { "id": "d", "text": "Magical Mystery Tour", "is_correct": false }
+          ],
+          "explanation": "Sgt. Pepper's los presentaba como otra banda y marcó un hito del rock psicodélico."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es la canción de los Beatles más versionada de la historia?",
+          "options": [
+            { "id": "a", "text": "'Yesterday'", "is_correct": true },
+            { "id": "b", "text": "'Hey Jude'", "is_correct": false },
+            { "id": "c", "text": "'Let It Be'", "is_correct": false },
+            { "id": "d", "text": "'Twist and Shout'", "is_correct": false }
+          ],
+          "explanation": "'Yesterday', compuesta por Paul McCartney, figura en el libro Guinness como la canción más versionada."
+        }
+      ]
+    },
+    {
+      "slug": "en-elvis-presley-trivia",
+      "title": "Elvis Presley Trivia Challenge",
+      "description": "From a two-room house in Tupelo to Graceland and Las Vegas: the King of Rock and Roll's life in questions. Can you keep up with Elvis?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["elvis presley", "music", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which Mississippi town was Elvis born in 1935?",
+          "options": [
+            { "id": "a", "text": "Memphis", "is_correct": false },
+            { "id": "b", "text": "Jackson", "is_correct": false },
+            { "id": "c", "text": "Tupelo", "is_correct": true },
+            { "id": "d", "text": "Nashville", "is_correct": false }
+          ],
+          "explanation": "He was born in Tupelo and moved to Memphis, Tennessee, as a teenager."
+        },
+        {
+          "id": "q2",
+          "question": "What is the name of Elvis's Memphis mansion, now open to the public?",
+          "options": [
+            { "id": "a", "text": "Graceland", "is_correct": true },
+            { "id": "b", "text": "Heartbreak Hotel", "is_correct": false },
+            { "id": "c", "text": "Neverland", "is_correct": false },
+            { "id": "d", "text": "Sun Villa", "is_correct": false }
+          ],
+          "explanation": "Elvis bought Graceland in 1957; it is now a museum and one of the most visited homes in the United States."
+        },
+        {
+          "id": "q3",
+          "question": "Which 1956 single gave Elvis his first No. 1 on the US pop chart?",
+          "options": [
+            { "id": "a", "text": "'Hound Dog'", "is_correct": false },
+            { "id": "b", "text": "'Jailhouse Rock'", "is_correct": false },
+            { "id": "c", "text": "'That's All Right'", "is_correct": false },
+            { "id": "d", "text": "'Heartbreak Hotel'", "is_correct": true }
+          ],
+          "explanation": "'Heartbreak Hotel' topped the chart in April 1956; 'That's All Right' was his first single but only a local hit."
+        },
+        {
+          "id": "q4",
+          "question": "Which small Memphis label, run by Sam Phillips, first recorded Elvis?",
+          "options": [
+            { "id": "a", "text": "Stax", "is_correct": false },
+            { "id": "b", "text": "Sun Records", "is_correct": true },
+            { "id": "c", "text": "Motown", "is_correct": false },
+            { "id": "d", "text": "RCA Victor", "is_correct": false }
+          ],
+          "explanation": "Sam Phillips's Sun Records released his first singles in 1954; RCA Victor bought his contract a year later."
+        },
+        {
+          "id": "q5",
+          "question": "Where was Elvis stationed during his US Army service (1958–1960)?",
+          "options": [
+            { "id": "a", "text": "Korea", "is_correct": false },
+            { "id": "b", "text": "Hawaii", "is_correct": false },
+            { "id": "c", "text": "Germany", "is_correct": true },
+            { "id": "d", "text": "Japan", "is_correct": false }
+          ],
+          "explanation": "He served in Friedberg, West Germany, where he met Priscilla Beaulieu."
+        },
+        {
+          "id": "q6",
+          "question": "In which 1957 film does Elvis play a convict who becomes a singer?",
+          "options": [
+            { "id": "a", "text": "Love Me Tender", "is_correct": false },
+            { "id": "b", "text": "Blue Hawaii", "is_correct": false },
+            { "id": "c", "text": "Viva Las Vegas", "is_correct": false },
+            { "id": "d", "text": "Jailhouse Rock", "is_correct": true }
+          ],
+          "explanation": "Jailhouse Rock's title-song dance sequence is one of the most famous scenes in his film career."
+        },
+        {
+          "id": "q7",
+          "question": "What was Elvis's televised 1968 return to live performance known as?",
+          "options": [
+            { "id": "a", "text": "Aloha from Hawaii", "is_correct": false },
+            { "id": "b", "text": "The '68 Comeback Special", "is_correct": true },
+            { "id": "c", "text": "Elvis in Concert", "is_correct": false },
+            { "id": "d", "text": "That's the Way It Is", "is_correct": false }
+          ],
+          "explanation": "The NBC special aired in December 1968; Aloha from Hawaii came five years later, in 1973."
+        },
+        {
+          "id": "q8",
+          "question": "Which 1969 single was Elvis's last No. 1 on the Billboard Hot 100?",
+          "options": [
+            { "id": "a", "text": "'Can't Help Falling in Love'", "is_correct": false },
+            { "id": "b", "text": "'Burning Love'", "is_correct": false },
+            { "id": "c", "text": "'Suspicious Minds'", "is_correct": true },
+            { "id": "d", "text": "'Are You Lonesome Tonight?'", "is_correct": false }
+          ],
+          "explanation": "'Suspicious Minds' hit No. 1 in November 1969; 'Burning Love' (1972) peaked at No. 2."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-elvis-presley",
+      "title": "Trivia de Elvis Presley",
+      "description": "De una casa humilde en Tupelo a la mansión Graceland: la vida del Rey del Rock and Roll en preguntas. ¿Cuánto sabes de Elvis?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["elvis presley", "musica", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad nació Elvis en 1935?",
+          "options": [
+            { "id": "a", "text": "Memphis", "is_correct": false },
+            { "id": "b", "text": "Tupelo", "is_correct": true },
+            { "id": "c", "text": "Nashville", "is_correct": false },
+            { "id": "d", "text": "Nueva Orleans", "is_correct": false }
+          ],
+          "explanation": "Nació en Tupelo, Misisipi, y de adolescente se mudó con su familia a Memphis, Tennessee."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama la mansión de Elvis en Memphis, hoy abierta al público?",
+          "options": [
+            { "id": "a", "text": "Neverland", "is_correct": false },
+            { "id": "b", "text": "Heartbreak Hotel", "is_correct": false },
+            { "id": "c", "text": "Graceland", "is_correct": true },
+            { "id": "d", "text": "Sun Villa", "is_correct": false }
+          ],
+          "explanation": "Elvis compró Graceland en 1957; hoy es museo y una de las casas más visitadas de Estados Unidos."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué pequeño sello de Memphis, dirigido por Sam Phillips, grabó Elvis sus primeros discos?",
+          "options": [
+            { "id": "a", "text": "Stax", "is_correct": false },
+            { "id": "b", "text": "RCA Victor", "is_correct": false },
+            { "id": "c", "text": "Motown", "is_correct": false },
+            { "id": "d", "text": "Sun Records", "is_correct": true }
+          ],
+          "explanation": "Sun Records lanzó sus primeros sencillos en 1954; RCA Victor le compró el contrato un año después."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué canción le dio su primer número 1 en Estados Unidos en 1956?",
+          "options": [
+            { "id": "a", "text": "'Heartbreak Hotel'", "is_correct": true },
+            { "id": "b", "text": "'Hound Dog'", "is_correct": false },
+            { "id": "c", "text": "'Love Me Tender'", "is_correct": false },
+            { "id": "d", "text": "'All Shook Up'", "is_correct": false }
+          ],
+          "explanation": "'Heartbreak Hotel' llegó al número 1 en abril de 1956 y abrió su etapa en RCA."
+        },
+        {
+          "id": "q5",
+          "question": "¿Dónde cumplió Elvis su servicio militar entre 1958 y 1960?",
+          "options": [
+            { "id": "a", "text": "En Corea", "is_correct": false },
+            { "id": "b", "text": "En Alemania", "is_correct": true },
+            { "id": "c", "text": "En Hawái", "is_correct": false },
+            { "id": "d", "text": "En Japón", "is_correct": false }
+          ],
+          "explanation": "Sirvió en Friedberg, en la entonces Alemania Occidental."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llamaba su representante, conocido como 'el Coronel'?",
+          "options": [
+            { "id": "a", "text": "Brian Epstein", "is_correct": false },
+            { "id": "b", "text": "Sam Phillips", "is_correct": false },
+            { "id": "c", "text": "Coronel Sanders", "is_correct": false },
+            { "id": "d", "text": "Coronel Tom Parker", "is_correct": true }
+          ],
+          "explanation": "El Coronel Tom Parker dirigió su carrera desde 1955; Epstein manejaba a los Beatles y Phillips fue quien lo descubrió."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué película de 1961, ambientada en Hawái, canta 'Can't Help Falling in Love'?",
+          "options": [
+            { "id": "a", "text": "Viva Las Vegas", "is_correct": false },
+            { "id": "b", "text": "Blue Hawaii", "is_correct": true },
+            { "id": "c", "text": "Girls! Girls! Girls!", "is_correct": false },
+            { "id": "d", "text": "Fun in Acapulco", "is_correct": false }
+          ],
+          "explanation": "Blue Hawaii fue su película más taquillera y consolidó su etapa de comedias musicales exóticas."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué año murió Elvis en Graceland?",
+          "options": [
+            { "id": "a", "text": "1969", "is_correct": false },
+            { "id": "b", "text": "1974", "is_correct": false },
+            { "id": "c", "text": "1980", "is_correct": false },
+            { "id": "d", "text": "1977", "is_correct": true }
+          ],
+          "explanation": "Murió en Graceland el 16 de agosto de 1977, a los 42 años."
+        }
+      ]
+    },
+    {
+      "slug": "en-madonna-trivia",
+      "title": "Madonna Trivia Challenge",
+      "description": "Four decades of reinvention, hit albums and record-breaking tours from the Queen of Pop. How well do you know Madonna's music?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["madonna", "music", "pop", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which US state was Madonna born?",
+          "options": [
+            { "id": "a", "text": "New York", "is_correct": false },
+            { "id": "b", "text": "California", "is_correct": false },
+            { "id": "c", "text": "Michigan", "is_correct": true },
+            { "id": "d", "text": "Illinois", "is_correct": false }
+          ],
+          "explanation": "She was born in Bay City, Michigan, in 1958 and moved to New York in the late 1970s."
+        },
+        {
+          "id": "q2",
+          "question": "Which 1984 album and single turned Madonna into a superstar?",
+          "options": [
+            { "id": "a", "text": "Like a Virgin", "is_correct": true },
+            { "id": "b", "text": "Madonna", "is_correct": false },
+            { "id": "c", "text": "True Blue", "is_correct": false },
+            { "id": "d", "text": "Like a Prayer", "is_correct": false }
+          ],
+          "explanation": "Like a Virgin was her first No. 1 album and single, boosted by her famous MTV performance in a wedding dress."
+        },
+        {
+          "id": "q3",
+          "question": "Which 1990 single popularized the ballroom-inspired dance style it is named after?",
+          "options": [
+            { "id": "a", "text": "'Express Yourself'", "is_correct": false },
+            { "id": "b", "text": "'Vogue'", "is_correct": true },
+            { "id": "c", "text": "'Justify My Love'", "is_correct": false },
+            { "id": "d", "text": "'Ray of Light'", "is_correct": false }
+          ],
+          "explanation": "'Vogue' took New York's ballroom culture to the top of the charts worldwide."
+        },
+        {
+          "id": "q4",
+          "question": "For which film role did Madonna win a Golden Globe for best actress?",
+          "options": [
+            { "id": "a", "text": "Breathless Mahoney in Dick Tracy", "is_correct": false },
+            { "id": "b", "text": "Susan in Desperately Seeking Susan", "is_correct": false },
+            { "id": "c", "text": "Eva Perón in Evita", "is_correct": true },
+            { "id": "d", "text": "A baseball player in A League of Their Own", "is_correct": false }
+          ],
+          "explanation": "She won the 1997 Golden Globe for playing Eva Perón in the film version of the musical Evita."
+        },
+        {
+          "id": "q5",
+          "question": "Which 1998 electronica-influenced album includes 'Frozen'?",
+          "options": [
+            { "id": "a", "text": "Music", "is_correct": false },
+            { "id": "b", "text": "Bedtime Stories", "is_correct": false },
+            { "id": "c", "text": "American Life", "is_correct": false },
+            { "id": "d", "text": "Ray of Light", "is_correct": true }
+          ],
+          "explanation": "Ray of Light, produced with William Orbit, won four Grammys and is often called her most acclaimed album."
+        },
+        {
+          "id": "q6",
+          "question": "What was the name of Madonna's 1990 tour famous for the conical corsets designed by Jean Paul Gaultier?",
+          "options": [
+            { "id": "a", "text": "The Girlie Show", "is_correct": false },
+            { "id": "b", "text": "Blond Ambition World Tour", "is_correct": true },
+            { "id": "c", "text": "Who's That Girl World Tour", "is_correct": false },
+            { "id": "d", "text": "Drowned World Tour", "is_correct": false }
+          ],
+          "explanation": "The Blond Ambition Tour mixed theatre and pop spectacle and inspired the documentary Truth or Dare."
+        },
+        {
+          "id": "q7",
+          "question": "Madonna's 1989 video with burning crosses drew condemnation from the Vatican. Which song was it for?",
+          "options": [
+            { "id": "a", "text": "'Papa Don't Preach'", "is_correct": false },
+            { "id": "b", "text": "'Material Girl'", "is_correct": false },
+            { "id": "c", "text": "'Like a Prayer'", "is_correct": true },
+            { "id": "d", "text": "'Frozen'", "is_correct": false }
+          ],
+          "explanation": "The 'Like a Prayer' video cost her a Pepsi sponsorship and became one of pop's great controversies."
+        },
+        {
+          "id": "q8",
+          "question": "Which 2005 album, built as a nonstop dancefloor set, includes 'Hung Up'?",
+          "options": [
+            { "id": "a", "text": "Hard Candy", "is_correct": false },
+            { "id": "b", "text": "Confessions on a Dance Floor", "is_correct": true },
+            { "id": "c", "text": "MDNA", "is_correct": false },
+            { "id": "d", "text": "Madame X", "is_correct": false }
+          ],
+          "explanation": "Confessions on a Dance Floor was mixed like a DJ set; 'Hung Up' samples ABBA's 'Gimme! Gimme! Gimme!'."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-madonna",
+      "title": "Trivia de Madonna",
+      "description": "Cuatro décadas de reinvención, álbumes históricos y giras récord de la Reina del Pop. ¿Qué tan bien conoces la música de Madonna?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["madonna", "musica", "pop", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué estado de Estados Unidos nació Madonna?",
+          "options": [
+            { "id": "a", "text": "Nueva York", "is_correct": false },
+            { "id": "b", "text": "Míchigan", "is_correct": true },
+            { "id": "c", "text": "Florida", "is_correct": false },
+            { "id": "d", "text": "Texas", "is_correct": false }
+          ],
+          "explanation": "Nació en Bay City, Míchigan, en 1958 y se mudó a Nueva York a finales de los años 70."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué álbum de 1984 la convirtió en superestrella?",
+          "options": [
+            { "id": "a", "text": "True Blue", "is_correct": false },
+            { "id": "b", "text": "Madonna", "is_correct": false },
+            { "id": "c", "text": "Like a Virgin", "is_correct": true },
+            { "id": "d", "text": "Like a Prayer", "is_correct": false }
+          ],
+          "explanation": "Like a Virgin le dio su primer número 1, impulsado por su icónica actuación en los MTV con vestido de novia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué sencillo de 1990 hizo mundialmente famoso un baile nacido en los ballrooms neoyorquinos?",
+          "options": [
+            { "id": "a", "text": "'Vogue'", "is_correct": true },
+            { "id": "b", "text": "'Express Yourself'", "is_correct": false },
+            { "id": "c", "text": "'Justify My Love'", "is_correct": false },
+            { "id": "d", "text": "'Rescue Me'", "is_correct": false }
+          ],
+          "explanation": "'Vogue' llevó la cultura ballroom a la cima de las listas de medio mundo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué papel le valió un Globo de Oro como mejor actriz?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una jugadora de béisbol en A League of Their Own",
+              "is_correct": false
+            },
+            { "id": "b", "text": "Eva Perón en Evita", "is_correct": true },
+            { "id": "c", "text": "Breathless Mahoney en Dick Tracy", "is_correct": false },
+            { "id": "d", "text": "Susan en Desperately Seeking Susan", "is_correct": false }
+          ],
+          "explanation": "Ganó el Globo de Oro de 1997 por interpretar a Eva Perón en la versión cinematográfica del musical."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué álbum de 1998, con sonido electrónico, incluye 'Frozen'?",
+          "options": [
+            { "id": "a", "text": "Music", "is_correct": false },
+            { "id": "b", "text": "American Life", "is_correct": false },
+            { "id": "c", "text": "Bedtime Stories", "is_correct": false },
+            { "id": "d", "text": "Ray of Light", "is_correct": true }
+          ],
+          "explanation": "Ray of Light, producido con William Orbit, ganó cuatro Grammys y es uno de sus discos más aclamados."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llamó su gira de 1990 famosa por los corsés cónicos de Jean Paul Gaultier?",
+          "options": [
+            { "id": "a", "text": "Blond Ambition World Tour", "is_correct": true },
+            { "id": "b", "text": "The Girlie Show", "is_correct": false },
+            { "id": "c", "text": "Who's That Girl World Tour", "is_correct": false },
+            { "id": "d", "text": "Drowned World Tour", "is_correct": false }
+          ],
+          "explanation": "La gira Blond Ambition mezcló teatro y espectáculo pop e inspiró el documental Truth or Dare."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué gira de 2008-2009 se convirtió, en su momento, en la más taquillera de un artista en solitario?",
+          "options": [
+            { "id": "a", "text": "MDNA Tour", "is_correct": false },
+            { "id": "b", "text": "Rebel Heart Tour", "is_correct": false },
+            { "id": "c", "text": "Sticky & Sweet Tour", "is_correct": true },
+            { "id": "d", "text": "Celebration Tour", "is_correct": false }
+          ],
+          "explanation": "La Sticky & Sweet Tour recaudó cifras récord para un solista y recorrió 32 países."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué álbum de 2005, montado como un set de baile continuo, incluye 'Hung Up'?",
+          "options": [
+            { "id": "a", "text": "MDNA", "is_correct": false },
+            { "id": "b", "text": "Confessions on a Dance Floor", "is_correct": true },
+            { "id": "c", "text": "Hard Candy", "is_correct": false },
+            { "id": "d", "text": "Rebel Heart", "is_correct": false }
+          ],
+          "explanation": "Confessions on a Dance Floor suena como una sesión de DJ sin pausas; 'Hung Up' samplea a ABBA."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-rolling-stones-trivia",
+      "title": "The Rolling Stones Trivia Challenge",
+      "description": "Sixty years of rock and roll: Satisfaction, the tongue logo and the longest-running band on the planet. How well do you know the Stones?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["the rolling stones", "music", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city did The Rolling Stones form in 1962?",
+          "options": [
+            { "id": "a", "text": "Liverpool", "is_correct": false },
+            { "id": "b", "text": "London", "is_correct": true },
+            { "id": "c", "text": "Manchester", "is_correct": false },
+            { "id": "d", "text": "New York", "is_correct": false }
+          ],
+          "explanation": "They played their first gig at the Marquee Club in London in July 1962."
+        },
+        {
+          "id": "q2",
+          "question": "Who has been the band's lead singer since the very beginning?",
+          "options": [
+            { "id": "a", "text": "Keith Richards", "is_correct": false },
+            { "id": "b", "text": "Brian Jones", "is_correct": false },
+            { "id": "c", "text": "Ronnie Wood", "is_correct": false },
+            { "id": "d", "text": "Mick Jagger", "is_correct": true }
+          ],
+          "explanation": "Mick Jagger has fronted the Stones since 1962; Richards plays guitar and Wood joined in 1975."
+        },
+        {
+          "id": "q3",
+          "question": "Which 1965 single became their first No. 1 in the United States?",
+          "options": [
+            { "id": "a", "text": "'(I Can't Get No) Satisfaction'", "is_correct": true },
+            { "id": "b", "text": "'Paint It Black'", "is_correct": false },
+            { "id": "c", "text": "'Get Off of My Cloud'", "is_correct": false },
+            { "id": "d", "text": "'Ruby Tuesday'", "is_correct": false }
+          ],
+          "explanation": "'Satisfaction' topped the Billboard chart in July 1965 and remains their signature song."
+        },
+        {
+          "id": "q4",
+          "question": "On which 1971 album did the famous tongue-and-lips logo first appear?",
+          "options": [
+            { "id": "a", "text": "Beggars Banquet", "is_correct": false },
+            { "id": "b", "text": "Exile on Main St.", "is_correct": false },
+            { "id": "c", "text": "Sticky Fingers", "is_correct": true },
+            { "id": "d", "text": "Some Girls", "is_correct": false }
+          ],
+          "explanation": "John Pasche designed the tongue logo, which debuted on Sticky Fingers and became the band's emblem."
+        },
+        {
+          "id": "q5",
+          "question": "Which founding member named the band after a Muddy Waters song and died in 1969?",
+          "options": [
+            { "id": "a", "text": "Bill Wyman", "is_correct": false },
+            { "id": "b", "text": "Brian Jones", "is_correct": true },
+            { "id": "c", "text": "Ian Stewart", "is_correct": false },
+            { "id": "d", "text": "Charlie Watts", "is_correct": false }
+          ],
+          "explanation": "Brian Jones took the name from Muddy Waters' 'Rollin' Stone'; he died in July 1969, weeks after leaving the band."
+        },
+        {
+          "id": "q6",
+          "question": "Which 1969 album opens with 'Gimme Shelter' and closes with 'You Can't Always Get What You Want'?",
+          "options": [
+            { "id": "a", "text": "Beggars Banquet", "is_correct": false },
+            { "id": "b", "text": "Aftermath", "is_correct": false },
+            { "id": "c", "text": "Let It Bleed", "is_correct": true },
+            { "id": "d", "text": "Sticky Fingers", "is_correct": false }
+          ],
+          "explanation": "Let It Bleed bookends those two classics, both featuring singer Merry Clayton's famous guest vocal on 'Gimme Shelter'."
+        },
+        {
+          "id": "q7",
+          "question": "Who was the band's drummer from 1963 until his death in 2021?",
+          "options": [
+            { "id": "a", "text": "Charlie Watts", "is_correct": true },
+            { "id": "b", "text": "Mick Avory", "is_correct": false },
+            { "id": "c", "text": "Keith Moon", "is_correct": false },
+            { "id": "d", "text": "Steve Jordan", "is_correct": false }
+          ],
+          "explanation": "Charlie Watts held the drum seat for 58 years; Steve Jordan became the touring drummer after his death."
+        },
+        {
+          "id": "q8",
+          "question": "Which 1981 hit opens the Tattoo You album and became a concert staple?",
+          "options": [
+            { "id": "a", "text": "'Miss You'", "is_correct": false },
+            { "id": "b", "text": "'Angie'", "is_correct": false },
+            { "id": "c", "text": "'Brown Sugar'", "is_correct": false },
+            { "id": "d", "text": "'Start Me Up'", "is_correct": true }
+          ],
+          "explanation": "'Start Me Up' opens Tattoo You and has opened dozens of Stones shows ever since."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-the-rolling-stones",
+      "title": "Trivia de The Rolling Stones",
+      "description": "Sesenta años de rock and roll: Satisfaction, el logo de la lengua y la banda más longeva del planeta. ¿Cuánto sabes de los Stones?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["the rolling stones", "musica", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad se formaron The Rolling Stones en 1962?",
+          "options": [
+            { "id": "a", "text": "Londres", "is_correct": true },
+            { "id": "b", "text": "Liverpool", "is_correct": false },
+            { "id": "c", "text": "Mánchester", "is_correct": false },
+            { "id": "d", "text": "Nueva York", "is_correct": false }
+          ],
+          "explanation": "Tocaron su primer concierto en el Marquee Club de Londres en julio de 1962."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién canta en la banda desde el primer día?",
+          "options": [
+            { "id": "a", "text": "Keith Richards", "is_correct": false },
+            { "id": "b", "text": "Mick Jagger", "is_correct": true },
+            { "id": "c", "text": "Ronnie Wood", "is_correct": false },
+            { "id": "d", "text": "Bill Wyman", "is_correct": false }
+          ],
+          "explanation": "Mick Jagger es el frontman desde 1962; Richards toca la guitarra y Wood se unió en 1975."
+        },
+        {
+          "id": "q3",
+          "question": "¿De qué canción de Muddy Waters tomaron el nombre del grupo?",
+          "options": [
+            { "id": "a", "text": "'Mannish Boy'", "is_correct": false },
+            { "id": "b", "text": "'Hoochie Coochie Man'", "is_correct": false },
+            { "id": "c", "text": "'Rollin' Stone'", "is_correct": true },
+            { "id": "d", "text": "'Got My Mojo Working'", "is_correct": false }
+          ],
+          "explanation": "Brian Jones eligió el nombre por el tema 'Rollin' Stone' de Muddy Waters, su músico favorito."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué sencillo de 1965 les dio su primer número 1 en Estados Unidos?",
+          "options": [
+            { "id": "a", "text": "'Paint It Black'", "is_correct": false },
+            { "id": "b", "text": "'(I Can't Get No) Satisfaction'", "is_correct": true },
+            { "id": "c", "text": "'Get Off of My Cloud'", "is_correct": false },
+            { "id": "d", "text": "'Jumpin' Jack Flash'", "is_correct": false }
+          ],
+          "explanation": "'Satisfaction' encabezó la lista Billboard en julio de 1965 y sigue siendo su canción insignia."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué álbum de 1971 apareció por primera vez el famoso logo de la lengua?",
+          "options": [
+            { "id": "a", "text": "Exile on Main St.", "is_correct": false },
+            { "id": "b", "text": "Some Girls", "is_correct": false },
+            { "id": "c", "text": "Sticky Fingers", "is_correct": true },
+            { "id": "d", "text": "Beggars Banquet", "is_correct": false }
+          ],
+          "explanation": "John Pasche diseñó la lengua, que debutó en Sticky Fingers y se convirtió en el emblema de la banda."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué álbum doble de 1972, grabado en su mayor parte en Francia, se considera su obra maestra?",
+          "options": [
+            { "id": "a", "text": "Exile on Main St.", "is_correct": true },
+            { "id": "b", "text": "Some Girls", "is_correct": false },
+            { "id": "c", "text": "Let It Bleed", "is_correct": false },
+            { "id": "d", "text": "Tattoo You", "is_correct": false }
+          ],
+          "explanation": "Exile on Main St. se grabó en la villa Nellcôte, en el sur de Francia, mientras la banda evitaba impuestos en Reino Unido."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién fue el baterista de los Stones desde 1963 hasta su muerte en 2021?",
+          "options": [
+            { "id": "a", "text": "Steve Jordan", "is_correct": false },
+            { "id": "b", "text": "Charlie Watts", "is_correct": true },
+            { "id": "c", "text": "Mick Taylor", "is_correct": false },
+            { "id": "d", "text": "Ian Stewart", "is_correct": false }
+          ],
+          "explanation": "Charlie Watts ocupó la batería durante 58 años; Steve Jordan pasó a ser el baterista de gira tras su muerte."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué guitarrista se incorporó en 1975 procedente de Faces?",
+          "options": [
+            { "id": "a", "text": "Mick Taylor", "is_correct": false },
+            { "id": "b", "text": "Jeff Beck", "is_correct": false },
+            { "id": "c", "text": "Rod Stewart", "is_correct": false },
+            { "id": "d", "text": "Ronnie Wood", "is_correct": true }
+          ],
+          "explanation": "Ronnie Wood reemplazó a Mick Taylor; Rod Stewart era su compañero de banda en Faces."
+        }
+      ]
+    },
+    {
+      "slug": "en-coldplay-trivia",
+      "title": "Coldplay Trivia Challenge",
+      "description": "From 'Yellow' to 'Viva la Vida' and record-breaking stadium tours: two decades of anthems from the British band. How well do you know Coldplay?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["coldplay", "music", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city did Coldplay form?",
+          "options": [
+            { "id": "a", "text": "Manchester", "is_correct": false },
+            { "id": "b", "text": "London", "is_correct": true },
+            { "id": "c", "text": "Liverpool", "is_correct": false },
+            { "id": "d", "text": "Glasgow", "is_correct": false }
+          ],
+          "explanation": "The members met at University College London in 1997."
+        },
+        {
+          "id": "q2",
+          "question": "What was Coldplay's debut album, released in 2000?",
+          "options": [
+            { "id": "a", "text": "X&Y", "is_correct": false },
+            { "id": "b", "text": "A Rush of Blood to the Head", "is_correct": false },
+            { "id": "c", "text": "Parachutes", "is_correct": true },
+            { "id": "d", "text": "Mylo Xyloto", "is_correct": false }
+          ],
+          "explanation": "Parachutes won the Mercury-nominated band a Grammy for best alternative music album."
+        },
+        {
+          "id": "q3",
+          "question": "Which Parachutes single became their first big hit?",
+          "options": [
+            { "id": "a", "text": "'Shiver'", "is_correct": false },
+            { "id": "b", "text": "'Yellow'", "is_correct": true },
+            { "id": "c", "text": "'Trouble'", "is_correct": false },
+            { "id": "d", "text": "'Speed of Sound'", "is_correct": false }
+          ],
+          "explanation": "'Yellow' reached the UK top 5 in 2000 and made them international names."
+        },
+        {
+          "id": "q4",
+          "question": "Who is Coldplay's lead singer?",
+          "options": [
+            { "id": "a", "text": "Will Champion", "is_correct": false },
+            { "id": "b", "text": "Guy Berryman", "is_correct": false },
+            { "id": "c", "text": "Jonny Buckland", "is_correct": false },
+            { "id": "d", "text": "Chris Martin", "is_correct": true }
+          ],
+          "explanation": "Chris Martin sings and plays piano; Buckland is the guitarist, Berryman the bassist and Champion the drummer."
+        },
+        {
+          "id": "q5",
+          "question": "Which 2008 album took its title from a Frida Kahlo painting?",
+          "options": [
+            { "id": "a", "text": "Viva la Vida or Death and All His Friends", "is_correct": true },
+            { "id": "b", "text": "Mylo Xyloto", "is_correct": false },
+            { "id": "c", "text": "Ghost Stories", "is_correct": false },
+            { "id": "d", "text": "Everyday Life", "is_correct": false }
+          ],
+          "explanation": "Chris Martin spotted the phrase on a Kahlo still life; it means 'long live life'."
+        },
+        {
+          "id": "q6",
+          "question": "Which song won Coldplay the Grammy for Song of the Year in 2009?",
+          "options": [
+            { "id": "a", "text": "'Clocks'", "is_correct": false },
+            { "id": "b", "text": "'Fix You'", "is_correct": false },
+            { "id": "c", "text": "'Viva la Vida'", "is_correct": true },
+            { "id": "d", "text": "'Paradise'", "is_correct": false }
+          ],
+          "explanation": "'Viva la Vida' won Song of the Year; 'Clocks' had taken Record of the Year in 2004."
+        },
+        {
+          "id": "q7",
+          "question": "Which South Korean group collaborated with Coldplay on 'My Universe' (2021)?",
+          "options": [
+            { "id": "a", "text": "Blackpink", "is_correct": false },
+            { "id": "b", "text": "BTS", "is_correct": true },
+            { "id": "c", "text": "EXO", "is_correct": false },
+            { "id": "d", "text": "BigBang", "is_correct": false }
+          ],
+          "explanation": "'My Universe', from Music of the Spheres, debuted at No. 1 on the Billboard Hot 100."
+        },
+        {
+          "id": "q8",
+          "question": "In which year did Coldplay headline the Super Bowl halftime show?",
+          "options": [
+            { "id": "a", "text": "2012", "is_correct": false },
+            { "id": "b", "text": "2014", "is_correct": false },
+            { "id": "c", "text": "2016", "is_correct": true },
+            { "id": "d", "text": "2020", "is_correct": false }
+          ],
+          "explanation": "They headlined Super Bowl 50 in February 2016, joined by Beyoncé and Bruno Mars."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-coldplay",
+      "title": "Trivia de Coldplay",
+      "description": "De 'Yellow' a 'Viva la Vida' y giras récord en estadios: dos décadas de himnos de la banda británica. ¿Cuánto sabes de Coldplay?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["coldplay", "musica", "rock", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad se formó Coldplay?",
+          "options": [
+            { "id": "a", "text": "Londres", "is_correct": true },
+            { "id": "b", "text": "Mánchester", "is_correct": false },
+            { "id": "c", "text": "Dublín", "is_correct": false },
+            { "id": "d", "text": "Liverpool", "is_correct": false }
+          ],
+          "explanation": "Los miembros se conocieron en el University College London en 1997."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llamaba el grupo antes de adoptar el nombre Coldplay?",
+          "options": [
+            { "id": "a", "text": "Keane", "is_correct": false },
+            { "id": "b", "text": "Travis", "is_correct": false },
+            { "id": "c", "text": "Starfish", "is_correct": true },
+            { "id": "d", "text": "Snow Patrol", "is_correct": false }
+          ],
+          "explanation": "Tocaron brevemente como Starfish antes de quedarse con Coldplay en 1998."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál fue su primer álbum, publicado en 2000?",
+          "options": [
+            { "id": "a", "text": "Parachutes", "is_correct": true },
+            { "id": "b", "text": "X&Y", "is_correct": false },
+            { "id": "c", "text": "A Rush of Blood to the Head", "is_correct": false },
+            { "id": "d", "text": "Viva la Vida", "is_correct": false }
+          ],
+          "explanation": "Parachutes les valió el Grammy al mejor álbum de música alternativa."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué sencillo de Parachutes los catapultó a la fama?",
+          "options": [
+            { "id": "a", "text": "'Shiver'", "is_correct": false },
+            { "id": "b", "text": "'Trouble'", "is_correct": false },
+            { "id": "c", "text": "'Speed of Sound'", "is_correct": false },
+            { "id": "d", "text": "'Yellow'", "is_correct": true }
+          ],
+          "explanation": "'Yellow' llegó al top 5 británico en 2000 y los hizo conocidos en todo el mundo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué álbum de 2008 toma su título de un cuadro de Frida Kahlo?",
+          "options": [
+            { "id": "a", "text": "Mylo Xyloto", "is_correct": false },
+            { "id": "b", "text": "Ghost Stories", "is_correct": false },
+            { "id": "c", "text": "Viva la Vida", "is_correct": true },
+            { "id": "d", "text": "Everyday Life", "is_correct": false }
+          ],
+          "explanation": "Chris Martin vio la frase en una naturaleza muerta de Kahlo; el disco completo se llama Viva la Vida or Death and All His Friends."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama el baterista de Coldplay?",
+          "options": [
+            { "id": "a", "text": "Chris Martin", "is_correct": false },
+            { "id": "b", "text": "Will Champion", "is_correct": true },
+            { "id": "c", "text": "Guy Berryman", "is_correct": false },
+            { "id": "d", "text": "Jonny Buckland", "is_correct": false }
+          ],
+          "explanation": "Will Champion toca la batería; Martin canta, Berryman toca el bajo y Buckland la guitarra."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué grupo surcoreano grabaron 'My Universe' en 2021?",
+          "options": [
+            { "id": "a", "text": "Blackpink", "is_correct": false },
+            { "id": "b", "text": "EXO", "is_correct": false },
+            { "id": "c", "text": "BigBang", "is_correct": false },
+            { "id": "d", "text": "BTS", "is_correct": true }
+          ],
+          "explanation": "'My Universe', del álbum Music of the Spheres, debutó en el número 1 del Billboard Hot 100."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué álbum de 2015 incluye 'Adventure of a Lifetime' y 'Hymn for the Weekend'?",
+          "options": [
+            { "id": "a", "text": "A Head Full of Dreams", "is_correct": true },
+            { "id": "b", "text": "Ghost Stories", "is_correct": false },
+            { "id": "c", "text": "Everyday Life", "is_correct": false },
+            { "id": "d", "text": "Music of the Spheres", "is_correct": false }
+          ],
+          "explanation": "A Head Full of Dreams cerró una era colorida y dio pie a una gira mundial en estadios."
+        }
+      ]
+    }
+  ]
+}
