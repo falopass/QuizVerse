@@ -40,6 +40,14 @@ describe('formatNumber', () => {
   it('debería formatear cero', () => {
     expect(formatNumber(0)).toBe('0');
   });
+
+  it('debería usar separador de miles español con locale es', () => {
+    expect(formatNumber(1000000, 'es')).toBe('1.000.000');
+  });
+
+  it('debería mantener el formato en-US con locale en', () => {
+    expect(formatNumber(1000000, 'en')).toBe('1,000,000');
+  });
 });
 
 describe('formatCompactNumber', () => {
@@ -53,6 +61,15 @@ describe('formatCompactNumber', () => {
 
   it('debería mantener números pequeños', () => {
     expect(formatCompactNumber(42)).toBe('42');
+  });
+
+  it('debería compactar con unidades en español con locale es', () => {
+    expect(formatCompactNumber(1500, 'es')).toBe('1,5\u00a0mil');
+    expect(formatCompactNumber(2000000, 'es')).toBe('2\u00a0M');
+  });
+
+  it('debería mantener el formato en-US con locale en', () => {
+    expect(formatCompactNumber(1500, 'en')).toBe('1.5K');
   });
 });
 
@@ -84,5 +101,34 @@ describe('formatRelativeDate', () => {
     const date = new Date(Date.now() - 10 * 86400 * 1000);
     const result = formatRelativeDate(date);
     expect(result).toMatch(/\w{3}\s\d{1,2},\s\d{4}/);
+  });
+
+  it('debería mostrar "ahora mismo" con locale es', () => {
+    expect(formatRelativeDate(new Date(), 'es')).toBe('ahora mismo');
+  });
+
+  it('debería mostrar minutos en español', () => {
+    const date = new Date(Date.now() - 5 * 60 * 1000);
+    expect(formatRelativeDate(date, 'es')).toBe('hace 5 min');
+  });
+
+  it('debería mostrar horas en español con singular y plural', () => {
+    expect(formatRelativeDate(new Date(Date.now() - 3600 * 1000), 'es')).toBe('hace 1 hora');
+    expect(formatRelativeDate(new Date(Date.now() - 3 * 3600 * 1000), 'es')).toBe('hace 3 horas');
+  });
+
+  it('debería mostrar días en español con singular y plural', () => {
+    expect(formatRelativeDate(new Date(Date.now() - 86400 * 1000), 'es')).toBe('hace 1 día');
+    expect(formatRelativeDate(new Date(Date.now() - 2 * 86400 * 1000), 'es')).toBe('hace 2 días');
+  });
+
+  it('debería mostrar fecha en español para más de 7 días', () => {
+    const result = formatRelativeDate(new Date('2020-01-15T12:00:00Z'), 'es');
+    expect(result).toBe('15 ene 2020');
+  });
+
+  it('debería mantener los textos en inglés con locale en', () => {
+    expect(formatRelativeDate(new Date(), 'en')).toBe('just now');
+    expect(formatRelativeDate(new Date(Date.now() - 2 * 86400 * 1000), 'en')).toBe('2 days ago');
   });
 });

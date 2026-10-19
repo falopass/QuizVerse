@@ -370,13 +370,13 @@ function LeaderboardRow({
       <div className="min-w-0 flex-1">
         <h2 className="text-text-primary truncate text-lg font-semibold">{entry.name}</h2>
         <p className="text-text-secondary mt-1 text-sm">
-          {formatCompactNumber(entry.quizzesPlayed)}{' '}
+          {formatCompactNumber(entry.quizzesPlayed, locale)}{' '}
           {locale === 'es' ? 'quizzes jugados' : 'quizzes played'}
         </p>
       </div>
       <div className="text-right">
         <p className="text-accent-primary text-2xl font-semibold">
-          {formatCompactNumber(entry.points)}
+          {formatCompactNumber(entry.points, locale)}
         </p>
         <p className="text-text-muted text-xs tracking-[0.16em] uppercase">
           {locale === 'es' ? 'puntos' : 'points'}

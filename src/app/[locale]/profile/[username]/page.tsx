@@ -114,23 +114,23 @@ export default async function LocalizedProfilePage({
           </div>
           <div className="grid items-start gap-4 sm:grid-cols-3">
             <StatCard
-              value={formatCompactNumber(profile.points)}
+              value={formatCompactNumber(profile.points, locale)}
               label={locale === 'es' ? 'Puntos' : 'Points'}
             />
             <StatCard
-              value={formatCompactNumber(profile.quizzes_played)}
+              value={formatCompactNumber(profile.quizzes_played, locale)}
               label={locale === 'es' ? 'Jugados' : 'Played'}
             />
             <StatCard
-              value={formatCompactNumber(profile.quizzes_created)}
+              value={formatCompactNumber(profile.quizzes_created, locale)}
               label={locale === 'es' ? 'Creados' : 'Created'}
             />
             <StatCard
-              value={formatCompactNumber(countsRow.data?.followers_count ?? 0)}
+              value={formatCompactNumber(countsRow.data?.followers_count ?? 0, locale)}
               label={locale === 'es' ? 'Seguidores' : 'Followers'}
             />
             <StatCard
-              value={formatCompactNumber(countsRow.data?.following_count ?? 0)}
+              value={formatCompactNumber(countsRow.data?.following_count ?? 0, locale)}
               label={locale === 'es' ? 'Siguiendo' : 'Following'}
             />
           </div>
