@@ -1,0 +1,2507 @@
+{
+  "$comment": "Editorial seed 2026e (CONT-10): second round of evergreen, non-franchise personality quizzes — animal, career, intelligence type, mental age, natural element — as en/es pairs. Round 1 lives in editorial-seed-personality.json (CONT-08). Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-what-animal-are-you",
+      "title": "What Animal Are You?",
+      "description": "Eight questions about how you move through the world — your instincts, your people, your pace — translated into the animal you carry inside.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["personality quiz", "animals", "lifestyle", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Wolf",
+          "description": "Loyal to the bone and stronger in a pack. You read the room before you move and you never leave your people behind.",
+          "personality_tag": "wolf",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "The Owl",
+          "description": "Quiet, watchful and sharper than you let on. Your best thinking starts after everyone else has gone to sleep.",
+          "personality_tag": "owl",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "The Dolphin",
+          "description": "Playful, social and quick-witted. You turn strangers into allies and dull afternoons into stories.",
+          "personality_tag": "dolphin",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "The Cat",
+          "description": "Independent, curious and impossible to rush. You choose your people carefully — and your naps even more carefully.",
+          "personality_tag": "cat",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your ideal Saturday looks like:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A long hike or a road trip with the whole crew.",
+              "personality_tags": ["wolf"]
+            },
+            {
+              "id": "b",
+              "text": "A slow morning, a book, and nobody expecting me anywhere.",
+              "personality_tags": ["owl"]
+            },
+            {
+              "id": "c",
+              "text": "Brunch that turns into a beach day with whoever's free.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "My own plan — maybe a museum, maybe a nap, definitely no schedule.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "In a group project, you're the one who:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Keeps everyone together and makes sure nobody's left out.",
+              "personality_tags": ["wolf"]
+            },
+            {
+              "id": "b",
+              "text": "Quietly does the deep work at 2 a.m.",
+              "personality_tags": ["owl"]
+            },
+            {
+              "id": "c",
+              "text": "Brainstorms out loud and gets people laughing.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "Takes my part and delivers it — my way.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "A friend is in trouble at midnight. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Show up first, ask questions later.",
+              "personality_tags": ["wolf"]
+            },
+            {
+              "id": "b",
+              "text": "Listen carefully and help them think it through.",
+              "personality_tags": ["owl"]
+            },
+            {
+              "id": "c",
+              "text": "Cheer them up until the problem shrinks.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "Give them space, then exactly the help they asked for.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Pick a superpower:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Never tiring when the team needs me.",
+              "personality_tags": ["wolf"]
+            },
+            { "id": "b", "text": "Seeing what everyone else misses.", "personality_tags": ["owl"] },
+            {
+              "id": "c",
+              "text": "Making anyone like me in five minutes.",
+              "personality_tags": ["dolphin"]
+            },
+            { "id": "d", "text": "Always landing on my feet.", "personality_tags": ["cat"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your energy peaks:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Early — first one up, ready to move.",
+              "personality_tags": ["wolf"]
+            },
+            {
+              "id": "b",
+              "text": "Late at night, when it's finally quiet.",
+              "personality_tags": ["owl"]
+            },
+            {
+              "id": "c",
+              "text": "Around other people — I feed off the crowd.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "In random bursts, then I need to recharge alone.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "How do you handle conflict?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Head-on, especially if it's about my people.",
+              "personality_tags": ["wolf"]
+            },
+            {
+              "id": "b",
+              "text": "I wait, watch and pick the one moment that matters.",
+              "personality_tags": ["owl"]
+            },
+            {
+              "id": "c",
+              "text": "I defuse it with humor before it gets heavy.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "I walk away and come back when I've cooled off.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your friends would describe you as:",
+          "options": [
+            { "id": "a", "text": "The loyal one — always there.", "personality_tags": ["wolf"] },
+            {
+              "id": "b",
+              "text": "The wise one — the advice hotline.",
+              "personality_tags": ["owl"]
+            },
+            { "id": "c", "text": "The fun one — the plan-maker.", "personality_tags": ["dolphin"] },
+            {
+              "id": "d",
+              "text": "The mysterious one — hard to read, worth it.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Choose a landscape:",
+          "options": [
+            { "id": "a", "text": "A pine forest under snow.", "personality_tags": ["wolf"] },
+            { "id": "b", "text": "A moonlit library tower.", "personality_tags": ["owl"] },
+            {
+              "id": "c",
+              "text": "Warm water and an open horizon.",
+              "personality_tags": ["dolphin"]
+            },
+            {
+              "id": "d",
+              "text": "A sunny windowsill high above the street.",
+              "personality_tags": ["cat"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-animal-eres",
+      "title": "¿Qué animal eres?",
+      "description": "Ocho preguntas sobre cómo te mueves por el mundo —tus instintos, tu gente, tu ritmo— traducidas al animal que llevas dentro.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["test de personalidad", "animales", "estilo de vida", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El lobo",
+          "description": "Leal hasta la médula y más fuerte en manada. Lees el ambiente antes de moverte y nunca dejas atrás a los tuyos.",
+          "personality_tag": "lobo",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "El búho",
+          "description": "Tranquilo, observador y más astuto de lo que aparentas. Tus mejores ideas llegan cuando todos ya se durmieron.",
+          "personality_tag": "buho",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "El delfín",
+          "description": "Juguetón, sociable y de reflejos rápidos. Conviertes desconocidos en aliados y tardes aburridas en anécdotas.",
+          "personality_tag": "delfin",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "El gato",
+          "description": "Independiente, curioso e imposible de apurar. Eliges a tu gente con cuidado y tus siestas con más cuidado todavía.",
+          "personality_tag": "gato",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu sábado ideal se parece a:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una caminata larga o un viaje por carretera con todo el grupo.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "Una mañana lenta, un libro y nadie esperándome en ningún lado.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Un desayuno que termina en día de playa con quien se sume.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "Mi propio plan: quizá un museo, quizá una siesta, desde luego sin horario.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "En un proyecto de grupo, eres quien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mantiene unido al equipo y cuida que nadie se quede fuera.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "Hace en silencio el trabajo profundo a las 2 a. m.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Lanza ideas en voz alta y hace reír a la gente.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "Toma su parte y la entrega, a su manera.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Un amigo tiene un problema a medianoche. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Apareces primero y preguntas después.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "Escuchas con calma y le ayudas a pensarlo.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Lo animas hasta que el problema se achica.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "Le das espacio y luego exactamente la ayuda que pidió.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Elige un superpoder:",
+          "options": [
+            {
+              "id": "a",
+              "text": "No cansarme nunca cuando el equipo me necesita.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "Ver lo que todos los demás pasan por alto.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Crear simpatía en cinco minutos con cualquiera.",
+              "personality_tags": ["delfin"]
+            },
+            { "id": "d", "text": "Caer siempre de pie.", "personality_tags": ["gato"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu energía llega a su punto máximo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Temprano: el primero en levantarse y listo para moverse.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "De noche, cuando por fin hay silencio.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Con más gente alrededor: la multitud me alimenta.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "En rachas imprevisibles, y luego necesito recargar a solas.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo manejas los conflictos?",
+          "options": [
+            {
+              "id": "a",
+              "text": "De frente, sobre todo si se trata de los míos.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "Espero, observo y elijo el único momento que importa.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Lo desactivo con humor antes de que se ponga serio.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "Me retiro y vuelvo cuando ya se me pasó.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Tus amigos te describirían como:",
+          "options": [
+            { "id": "a", "text": "El leal: siempre está.", "personality_tags": ["lobo"] },
+            { "id": "b", "text": "El sabio: la línea de consejos.", "personality_tags": ["buho"] },
+            {
+              "id": "c",
+              "text": "El divertido: el que arma los planes.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "El misterioso: difícil de leer, pero vale la pena.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Elige un paisaje:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un bosque de pinos bajo la nieve.",
+              "personality_tags": ["lobo"]
+            },
+            {
+              "id": "b",
+              "text": "La torre de una biblioteca bajo la luna.",
+              "personality_tags": ["buho"]
+            },
+            {
+              "id": "c",
+              "text": "Agua tibia y un horizonte abierto.",
+              "personality_tags": ["delfin"]
+            },
+            {
+              "id": "d",
+              "text": "Un ventanal soleado muy por encima de la calle.",
+              "personality_tags": ["gato"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-what-career-suits-you",
+      "title": "What Career Suits You?",
+      "description": "Not a crystal ball — eight questions about how you think, work and help, pointing at the kind of career where you'd actually thrive.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["personality quiz", "career", "work", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Builder",
+          "description": "You think with your hands and your eyes on the real world. Engineering, code or carpentry — you need work you can point at and say: I made that.",
+          "personality_tag": "builder",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "The Guide",
+          "description": "Your best days end with someone better off than when they met you. Teaching, medicine or counseling turn that instinct into a career.",
+          "personality_tag": "guide",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "The Storyteller",
+          "description": "You process the world by retelling it. Writing, film, design or marketing give your observations somewhere to live.",
+          "personality_tag": "storyteller",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "The Strategist",
+          "description": "You see systems where others see chaos. Business, law, data or public policy reward the way you weigh options and call the play.",
+          "personality_tag": "strategist",
+          "background_theme": "stars"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The school subject you actually enjoyed:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Workshop, physics or anything we built with our hands.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "Biology or psychology — how people work.",
+              "personality_tags": ["guide"]
+            },
+            { "id": "c", "text": "Literature, art, drama.", "personality_tags": ["storyteller"] },
+            {
+              "id": "d",
+              "text": "Math and economics — the logic underneath.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "A problem lands on your desk. First instinct:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Prototype a fix and iterate until it holds.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "Ask who it affects and what they need.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "Reframe it — the story changes the solution.",
+              "personality_tags": ["storyteller"]
+            },
+            {
+              "id": "d",
+              "text": "Map the options and pick the one with the best odds.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your ideal workday ends with:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Something finished that didn't exist this morning.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "A person who leaves better than they arrived.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "A draft, a cut, a sketch — something that says something.",
+              "personality_tags": ["storyteller"]
+            },
+            {
+              "id": "d",
+              "text": "A decision made and a plan in motion.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Pick a compliment:",
+          "options": [
+            { "id": "a", "text": "\"You make things work.\"", "personality_tags": ["builder"] },
+            { "id": "b", "text": "\"You make people feel heard.\"", "personality_tags": ["guide"] },
+            {
+              "id": "c",
+              "text": "\"You make it interesting.\"",
+              "personality_tags": ["storyteller"]
+            },
+            { "id": "d", "text": "\"You make the call.\"", "personality_tags": ["strategist"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "In a group, you're usually:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The one who starts building while others discuss.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "The one checking that everyone's on board.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "The one pitching the wild idea that ends up working.",
+              "personality_tags": ["storyteller"]
+            },
+            {
+              "id": "d",
+              "text": "The one turning ideas into a budget and a timeline.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "A free year to learn anything. You pick:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A trade, a stack, an instrument — a skill I can touch.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "Languages and people — how to help better.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "Film, music, writing — a craft of stories.",
+              "personality_tags": ["storyteller"]
+            },
+            {
+              "id": "d",
+              "text": "Markets, code, negotiation — levers that move things.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "What drains you fastest?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Meetings that produce only more meetings.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "Work that helps no one in particular.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "Templates, routine, everything already decided.",
+              "personality_tags": ["storyteller"]
+            },
+            { "id": "d", "text": "Chaos without a plan.", "personality_tags": ["strategist"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Your desk, honestly:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Tools, prototypes, half-finished fixes.",
+              "personality_tags": ["builder"]
+            },
+            {
+              "id": "b",
+              "text": "Photos and notes from people I've helped.",
+              "personality_tags": ["guide"]
+            },
+            {
+              "id": "c",
+              "text": "Sketches, quotes, three notebooks at once.",
+              "personality_tags": ["storyteller"]
+            },
+            {
+              "id": "d",
+              "text": "Lists, charts and a calendar that means it.",
+              "personality_tags": ["strategist"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-carrera-es-para-ti",
+      "title": "¿Qué carrera es para ti?",
+      "description": "No es una bola de cristal: ocho preguntas sobre cómo piensas, trabajas y ayudas, que apuntan al tipo de carrera donde rendirías de verdad.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["test de personalidad", "carrera", "trabajo", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El constructor",
+          "description": "Piensas con las manos y con los ojos puestos en el mundo real. Ingeniería, código o carpintería: necesitas un trabajo que puedas señalar y decir: eso lo hice yo.",
+          "personality_tag": "constructor",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "El guía",
+          "description": "Tus mejores días terminan con alguien mejor que cuando te conoció. Enseñanza, medicina o acompañamiento convierten ese instinto en oficio.",
+          "personality_tag": "guia",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "El narrador",
+          "description": "Procesas el mundo contándolo de nuevo. Escritura, cine, diseño o marketing le dan a tus observaciones un lugar donde vivir.",
+          "personality_tag": "narrador",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "El estratega",
+          "description": "Ves sistemas donde otros ven caos. Negocios, derecho, datos o políticas públicas premian tu forma de sopesar opciones y tomar la decisión.",
+          "personality_tag": "estratega",
+          "background_theme": "stars"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "La materia que sí disfrutabas en el colegio:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Taller, física o cualquier cosa que se construyera con las manos.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Biología o psicología: cómo funciona la gente.",
+              "personality_tags": ["guia"]
+            },
+            { "id": "c", "text": "Literatura, arte, teatro.", "personality_tags": ["narrador"] },
+            {
+              "id": "d",
+              "text": "Matemáticas y economía: la lógica de fondo.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Un problema cae en tu escritorio. Primer instinto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Haces un prototipo de la solución e iteras hasta que aguante.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Preguntas a quién afecta y qué necesita.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "Lo replanteas: cambiar el relato cambia la solución.",
+              "personality_tags": ["narrador"]
+            },
+            {
+              "id": "d",
+              "text": "Mapeas las opciones y eliges la de mejores probabilidades.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu día laboral ideal termina con:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Algo terminado que esta mañana no existía.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Una persona que se va mejor de como llegó.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "Un borrador, un corte, un boceto: algo que dice algo.",
+              "personality_tags": ["narrador"]
+            },
+            {
+              "id": "d",
+              "text": "Una decisión tomada y un plan en marcha.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Elige un cumplido:",
+          "options": [
+            {
+              "id": "a",
+              "text": "«Haces que las cosas funcionen».",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "«Haces que la gente se sienta escuchada».",
+              "personality_tags": ["guia"]
+            },
+            { "id": "c", "text": "«Haces que sea interesante».", "personality_tags": ["narrador"] },
+            { "id": "d", "text": "«Tomas la decisión».", "personality_tags": ["estratega"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "En un grupo, normalmente eres:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El que empieza a construir mientras otros discuten.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "El que comprueba que todos van en el mismo barco.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "El que lanza la idea loca que termina funcionando.",
+              "personality_tags": ["narrador"]
+            },
+            {
+              "id": "d",
+              "text": "El que convierte las ideas en presupuesto y calendario.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Un año libre para aprender lo que sea. Eliges:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un oficio, una tecnología, un instrumento: una habilidad tangible.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Idiomas y personas: cómo ayudar mejor.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "Cine, música, escritura: un oficio de historias.",
+              "personality_tags": ["narrador"]
+            },
+            {
+              "id": "d",
+              "text": "Mercados, código, negociación: palancas que mueven cosas.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué te agota más rápido?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Reuniones que solo producen más reuniones.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Trabajo que no ayuda a nadie en particular.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "Plantillas, rutina, todo ya decidido.",
+              "personality_tags": ["narrador"]
+            },
+            { "id": "d", "text": "El caos sin plan.", "personality_tags": ["estratega"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Tu escritorio, sinceramente:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Herramientas, prototipos, arreglos a medio hacer.",
+              "personality_tags": ["constructor"]
+            },
+            {
+              "id": "b",
+              "text": "Fotos y notas de gente a la que ayudaste.",
+              "personality_tags": ["guia"]
+            },
+            {
+              "id": "c",
+              "text": "Bocetos, citas y tres libretas a la vez.",
+              "personality_tags": ["narrador"]
+            },
+            {
+              "id": "d",
+              "text": "Listas, gráficos y un calendario que va en serio.",
+              "personality_tags": ["estratega"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-your-intelligence-type",
+      "title": "What Is Your Intelligence Type?",
+      "description": "Everyone's smart — just not in the same way. Eight everyday questions to spot the channel your brain prefers.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "culture",
+      "tags": ["personality quiz", "intelligence", "psychology", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Analyst",
+          "description": "Patterns, proofs, systems. You trust what you can take apart and put back together — and you're usually right.",
+          "personality_tag": "analyst",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r2",
+          "title": "The Creator",
+          "description": "You connect things nobody thought to connect. Images, melodies, metaphors: your thinking arrives sideways and lands perfectly.",
+          "personality_tag": "creator",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "The People Reader",
+          "description": "You hear what isn't said. Moods, motives, group dynamics — your intelligence runs on other humans and it rarely misses.",
+          "personality_tag": "social",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "The Hands-On Mind",
+          "description": "You learn by doing and fix by touching. Give you a broken thing and an afternoon, and you'll return both improved.",
+          "personality_tag": "practical",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "You learn a new skill fastest by:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Breaking it into steps and understanding the rules first.",
+              "personality_tags": ["analyst"]
+            },
+            {
+              "id": "b",
+              "text": "Watching once, then improvising my own version.",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "Learning with someone — talking it through as we go.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Doing it with my hands until the body remembers.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Which puzzle do you pick?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A logic grid or a chess problem.",
+              "personality_tags": ["analyst"]
+            },
+            { "id": "b", "text": "A blank page and a deadline.", "personality_tags": ["creator"] },
+            {
+              "id": "c",
+              "text": "A negotiation — real stakes, real people.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "A broken engine or flat-pack furniture missing instructions.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your best ideas show up when you're:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alone with a problem and enough time.",
+              "personality_tags": ["analyst"]
+            },
+            {
+              "id": "b",
+              "text": "Halfway into something else — shower, walk, dishes.",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "In conversation — they spark off other people.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Mid-task, hands already on the thing.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Friends come to you when they need:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A decision untangled, pros and cons laid out.",
+              "personality_tags": ["analyst"]
+            },
+            {
+              "id": "b",
+              "text": "A name, a concept, a way to say the unsayable.",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "Someone to read the situation and tell them the truth.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Something fixed, built or figured out on the spot.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "A map, a story, a group chat and a toolbox — you grab:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The map — give me the layout of the whole.",
+              "personality_tags": ["analyst"]
+            },
+            {
+              "id": "b",
+              "text": "The story — I think in narrative.",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "The group chat — people are my interface.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "The toolbox — I'll learn the terrain by walking it.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "How do you know you've understood something?",
+          "options": [
+            {
+              "id": "a",
+              "text": "I can prove it or explain why it fails.",
+              "personality_tags": ["analyst"]
+            },
+            {
+              "id": "b",
+              "text": "I can say it with an image that surprises even me.",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "I can explain it to anyone, in their own terms.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "I can just do it — no notes needed.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "The compliment you secretly like most:",
+          "options": [
+            { "id": "a", "text": "\"Your logic is airtight.\"", "personality_tags": ["analyst"] },
+            {
+              "id": "b",
+              "text": "\"How did you come up with that?\"",
+              "personality_tags": ["creator"]
+            },
+            {
+              "id": "c",
+              "text": "\"You always know what to say.\"",
+              "personality_tags": ["social"]
+            },
+            { "id": "d", "text": "\"You can fix anything.\"", "personality_tags": ["practical"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Pick a historical workshop to sit in on:",
+          "options": [
+            { "id": "a", "text": "Euclid's geometry circle.", "personality_tags": ["analyst"] },
+            { "id": "b", "text": "Leonardo's studio.", "personality_tags": ["creator"] },
+            {
+              "id": "c",
+              "text": "A diplomatic salon full of rivals.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "A master builder's construction site.",
+              "personality_tags": ["practical"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-cual-es-tu-tipo-de-inteligencia",
+      "title": "¿Cuál es tu tipo de inteligencia?",
+      "description": "Toda persona es inteligente, pero no de la misma manera. Ocho preguntas cotidianas para descubrir el canal que tu cerebro prefiere.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "culture",
+      "tags": ["test de personalidad", "inteligencia", "psicologia", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El analista",
+          "description": "Patrones, pruebas, sistemas. Confías en lo que puedes desarmar y volver a armar, y casi siempre aciertas.",
+          "personality_tag": "analista",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r2",
+          "title": "El creativo",
+          "description": "Conectas cosas que nadie pensó en conectar. Imágenes, melodías, metáforas: piensas de lado y aterrizas perfecto.",
+          "personality_tag": "creativo",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "El lector de personas",
+          "description": "Escuchas lo que no se dice. Ánimos, motivos, dinámicas de grupo: tu inteligencia corre por otras personas y casi nunca falla.",
+          "personality_tag": "social",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "La mente práctica",
+          "description": "Aprendes haciendo y arreglas tocando. Te dan algo roto y una tarde, y devuelves ambos mejorados.",
+          "personality_tag": "practico",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Aprendes una habilidad nueva más rápido:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dividiéndola en pasos y entendiendo primero las reglas.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "Viéndola una vez y luego improvisando tu propia versión.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "Con alguien: hablándola sobre la marcha.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Haciéndola con las manos hasta que el cuerpo la recuerda.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué rompecabezas eliges?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una cuadrícula lógica o un problema de ajedrez.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "Una página en blanco y una fecha límite.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "Una negociación: apuestas reales, personas reales.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Un motor averiado o un mueble sin instrucciones.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tus mejores ideas llegan cuando estás:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A solas con un problema y tiempo suficiente.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "A medias en otra cosa: ducha, caminata, platos.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "Conversando: saltan chispas de otra gente.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "En plena tarea, con las manos ya en el asunto.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tus amigos te buscan cuando necesitan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una decisión desenredada, con pros y contras sobre la mesa.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "Un nombre, un concepto, una forma de decir lo indecible.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "Alguien que lea la situación y les diga la verdad.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Algo arreglado, construido o resuelto en el momento.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Un mapa, una historia, un chat de grupo y una caja de herramientas: eliges:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El mapa: quiero el esquema del conjunto.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "La historia: pienso en narrativa.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "El chat: las personas son mi interfaz.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "La caja de herramientas: aprendo el terreno caminándolo.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo sabes que entendiste algo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Puedo demostrarlo o explicar por qué falla.",
+              "personality_tags": ["analista"]
+            },
+            {
+              "id": "b",
+              "text": "Puedo decirlo con una imagen que me sorprende hasta a mí.",
+              "personality_tags": ["creativo"]
+            },
+            {
+              "id": "c",
+              "text": "Puedo explicárselo a cualquiera, en sus propios términos.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "Simplemente lo hago, sin apuntes.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "El cumplido que en secreto más te gusta:",
+          "options": [
+            { "id": "a", "text": "«Tu lógica es impecable».", "personality_tags": ["analista"] },
+            { "id": "b", "text": "«¿Cómo se te ocurrió eso?».", "personality_tags": ["creativo"] },
+            { "id": "c", "text": "«Siempre sabes qué decir».", "personality_tags": ["social"] },
+            { "id": "d", "text": "«Lo arreglas todo».", "personality_tags": ["practico"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Elige un taller histórico para sentarte a observar:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El círculo de geometría de Euclides.",
+              "personality_tags": ["analista"]
+            },
+            { "id": "b", "text": "El estudio de Leonardo.", "personality_tags": ["creativo"] },
+            {
+              "id": "c",
+              "text": "Un salón diplomático lleno de rivales.",
+              "personality_tags": ["social"]
+            },
+            {
+              "id": "d",
+              "text": "La obra de un maestro de obras.",
+              "personality_tags": ["practico"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-your-mental-age",
+      "title": "What Is Your Mental Age?",
+      "description": "ID cards lie. Eight questions about how you actually react, plan and play — translated into the age you really are inside.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "culture",
+      "tags": ["personality quiz", "mental age", "psychology", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Forever Twelve",
+          "description": "Everything is still a little bit magical to you. Boredom is your only enemy and wonder is your default setting.",
+          "personality_tag": "curious_kid",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "The Free Twenties",
+          "description": "Open roads, open tabs, open mind. You're built for beginnings and allergic to \"we've always done it this way\".",
+          "personality_tag": "free_spirit",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "The Steady Thirties",
+          "description": "You've made peace with calendars and you actually like a good plan. People borrow your stability the way they borrow umbrellas.",
+          "personality_tag": "grounded",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "The Old Soul",
+          "description": "You've been sixty since you were sixteen. Long conversations, slow mornings and the pleasure of watching things grow.",
+          "personality_tag": "old_soul",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tonight's plans got canceled. Honestly?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Yes! Pajamas, snacks, cartoons — the dream.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "Fine — that means the night is mine to improvise.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "Slightly annoyed; the plan was the plan.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "Relieved. I was going to suggest staying in anyway.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Your relationship with your phone:",
+          "options": [
+            {
+              "id": "a",
+              "text": "It's basically a game console that also makes calls.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "Camera, maps, group chats — it's how I roam.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "Calendar and reminders; it keeps the machine running.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "Mostly silent, mostly in a drawer, always charged.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Pick a Friday night:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Game night with too much sugar.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "A concert in a city I've never visited.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "Dinner at the place we all like, booked ahead.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "Two friends, one bottle, talking until 3 a.m.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "How do you make big decisions?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Gut first, thinking later — what's the worst that could happen?",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "I flip a coin; I usually know what I want mid-air.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "I list the options, sleep on it and decide on schedule.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "I ask what matters in ten years and work backwards.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your idea of a treat:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A toy store with money in my pocket.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "A last-minute ticket anywhere.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "New sheets, a clean kitchen, an early night.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "A first edition or a very good tea.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "At weddings you're the one who:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Is on the dance floor before the music even starts.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "Sits with strangers and leaves with new friends.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "Secretly enjoys that everything runs on time.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "Gives the toast that makes three people cry.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "What do you collect without meaning to?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Stickers, memes, little things that make me laugh.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "Boarding passes and stories.",
+              "personality_tags": ["free_spirit"]
+            },
+            { "id": "c", "text": "Routines that actually work.", "personality_tags": ["grounded"] },
+            {
+              "id": "d",
+              "text": "Notebooks, recipes and other people's good advice.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Time travel opens for one day. You go:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Back to recess, obviously.",
+              "personality_tags": ["curious_kid"]
+            },
+            {
+              "id": "b",
+              "text": "Forward — I want to see what this all becomes.",
+              "personality_tags": ["free_spirit"]
+            },
+            {
+              "id": "c",
+              "text": "Nowhere; today has enough going on.",
+              "personality_tags": ["grounded"]
+            },
+            {
+              "id": "d",
+              "text": "Back, to listen to the people who are no longer here.",
+              "personality_tags": ["old_soul"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-cual-es-tu-edad-mental",
+      "title": "¿Cuál es tu edad mental?",
+      "description": "Los documentos mienten. Ocho preguntas sobre cómo reaccionas, planeas y juegas de verdad, traducidas a la edad que llevas por dentro.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "culture",
+      "tags": ["test de personalidad", "edad mental", "psicologia", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Doce para siempre",
+          "description": "Todo sigue siendo un poco mágico para ti. El aburrimiento es tu único enemigo y el asombro tu configuración de fábrica.",
+          "personality_tag": "nino_curioso",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Los veinte libres",
+          "description": "Páginas abiertas, rutas abiertas, mente abierta. Lo tuyo son los comienzos y te da alergia el «siempre se hizo así».",
+          "personality_tag": "espiritu_libre",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Los treinta estables",
+          "description": "Te reconciliaste con el calendario y hasta te gusta un buen plan. Los demás piden prestada tu estabilidad como quien pide un paraguas.",
+          "personality_tag": "centrado",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "El alma vieja",
+          "description": "Tienes sesenta desde los dieciséis. Conversaciones largas, mañanas lentas y el placer de ver crecer las cosas.",
+          "personality_tag": "alma_vieja",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Se cancelaron los planes de esta noche. ¿Sinceramente?",
+          "options": [
+            {
+              "id": "a",
+              "text": "¡Sí! Pijama, snacks y caricaturas: el sueño.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Bien: la noche queda libre para improvisar.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Me fastidia un poco; el plan era el plan.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Alivio. Iba a proponer quedarme en casa de todos modos.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tu relación con el teléfono:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Es básicamente una consola que también hace llamadas.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Cámara, mapas, chats de grupo: así me muevo.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Calendario y recordatorios: mantiene la máquina andando.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Casi siempre en silencio, casi siempre en un cajón, siempre con batería.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Elige un viernes por la noche:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Noche de juegos con demasiada azúcar.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Un concierto en una ciudad que no conozco.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Cena en el lugar de siempre, reservado con tiempo.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Dos amigos, una botella y conversación hasta las 3 a. m.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo tomas las decisiones grandes?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Primero el instinto, después pensar: ¿qué es lo peor que puede pasar?",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Lanzo una moneda; a mitad del aire ya sé lo que quiero.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Hago la lista, duermo una noche y decido según lo previsto.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Pregunto qué importará en diez años y trabajo hacia atrás.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu idea de un gusto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una juguetería con dinero en el bolsillo.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Un pasaje de último minuto a cualquier parte.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Sábanas nuevas, cocina limpia, dormir temprano.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Una primera edición o un té muy bueno.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "En las bodas eres quien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Está en la pista antes de que empiece la música.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Se sienta con desconocidos y se va con amigos nuevos.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Disfruta en secreto de que todo salga a tiempo.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Da el brindis que hace llorar a tres personas.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué coleccionas sin proponértelo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Stickers, memes, cosas pequeñas que me hacen reír.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Tarjetas de embarque e historias.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "Rutinas que de verdad funcionan.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Libretas, recetas y los buenos consejos ajenos.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "El viaje en el tiempo abre por un día. Vas:",
+          "options": [
+            {
+              "id": "a",
+              "text": "De vuelta al recreo, obviamente.",
+              "personality_tags": ["nino_curioso"]
+            },
+            {
+              "id": "b",
+              "text": "Al futuro: quiero ver en qué termina todo esto.",
+              "personality_tags": ["espiritu_libre"]
+            },
+            {
+              "id": "c",
+              "text": "A ningún lado; hoy ya tiene suficiente.",
+              "personality_tags": ["centrado"]
+            },
+            {
+              "id": "d",
+              "text": "Atrás, a escuchar a la gente que ya no está.",
+              "personality_tags": ["alma_vieja"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-what-natural-element-are-you",
+      "title": "What Natural Element Are You?",
+      "description": "Fire, water, earth or air — eight questions to find the element your temperament was probably made from.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["personality quiz", "elements", "nature", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Fire",
+          "description": "You warm rooms or burn them; there is no in-between. Passionate, fast and impossible to ignore — the trick is aiming the flame.",
+          "personality_tag": "fire",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Water",
+          "description": "You take the shape of whatever holds you and always find the way downhill. Calm on the surface, with depths people underestimate.",
+          "personality_tag": "water",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Earth",
+          "description": "Solid, patient, unshakeable. Things grow around you because you make it safe for them to try.",
+          "personality_tag": "earth",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "Air",
+          "description": "You move light and think lighter. Curious, quick and impossible to pin down — you bring the fresh air into every stale room.",
+          "personality_tag": "air",
+          "background_theme": "stars"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your reaction to bad news:",
+          "options": [
+            {
+              "id": "a",
+              "text": "I flare up fast, then burn it off and act.",
+              "personality_tags": ["fire"]
+            },
+            {
+              "id": "b",
+              "text": "I absorb it quietly and let it settle before I move.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "I plant my feet and start listing what still stands.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "I need air — a walk, a drive, open sky — then I think.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "On a group trip, you are:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The engine — I get people moving and deciding.",
+              "personality_tags": ["fire"]
+            },
+            {
+              "id": "b",
+              "text": "The current — I keep the mood flowing and adapt to everyone.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "The anchor — I hold the budget, the booking and the backup plan.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "The breeze — I drift between subgroups and connect them all.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your kind of weather:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dry heat and a long summer evening.",
+              "personality_tags": ["fire"]
+            },
+            {
+              "id": "b",
+              "text": "Rain on the roof while I'm warm inside.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "Crisp autumn, solid ground, visible breath.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "Windy and bright, the kind that messes your hair.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "When you're angry, honestly:",
+          "options": [
+            {
+              "id": "a",
+              "text": "It shows immediately — sparks first, apologies later.",
+              "personality_tags": ["fire"]
+            },
+            {
+              "id": "b",
+              "text": "I go quiet and deep; it takes a while to come back up.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "I get very still and very firm; moving me is the hard part.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "I'm suddenly elsewhere — gone for a walk, a run, a bus.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Pick a landscape to live in for a year:",
+          "options": [
+            { "id": "a", "text": "A volcanic island.", "personality_tags": ["fire"] },
+            { "id": "b", "text": "A houseboat on a slow river.", "personality_tags": ["water"] },
+            {
+              "id": "c",
+              "text": "A mountain valley with a garden.",
+              "personality_tags": ["earth"]
+            },
+            { "id": "d", "text": "A lighthouse on a windy coast.", "personality_tags": ["air"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "People rely on you for:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Energy — I light the fuse on stalled plans.",
+              "personality_tags": ["fire"]
+            },
+            {
+              "id": "b",
+              "text": "Calm — I lower the temperature of any room.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "Stability — I'm the one who remembers and shows up.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "Perspective — I bring the idea nobody tried.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your pace, most days:",
+          "options": [
+            { "id": "a", "text": "Fast, intense, all-in.", "personality_tags": ["fire"] },
+            {
+              "id": "b",
+              "text": "Steady — I go around obstacles, not through them.",
+              "personality_tags": ["water"]
+            },
+            {
+              "id": "c",
+              "text": "Slow and deliberate; I arrive when I arrive.",
+              "personality_tags": ["earth"]
+            },
+            {
+              "id": "d",
+              "text": "Bursts and drifts — hard to schedule, easy to follow.",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Which compliment lands best?",
+          "options": [
+            { "id": "a", "text": "\"You're impossible to ignore.\"", "personality_tags": ["fire"] },
+            {
+              "id": "b",
+              "text": "\"Being near you calms me down.\"",
+              "personality_tags": ["water"]
+            },
+            { "id": "c", "text": "\"You make me feel safe.\"", "personality_tags": ["earth"] },
+            {
+              "id": "d",
+              "text": "\"You make everything feel possible.\"",
+              "personality_tags": ["air"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-elemento-natural-eres",
+      "title": "¿Qué elemento natural eres?",
+      "description": "Fuego, agua, tierra o aire: ocho preguntas para hallar el elemento del que probablemente está hecho tu temperamento.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["test de personalidad", "elementos", "naturaleza", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Fuego",
+          "description": "Calientas las salas o las quemas; no hay punto medio. Apasionado, veloz e imposible de ignorar: el truco está en apuntar la llama.",
+          "personality_tag": "fuego",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Agua",
+          "description": "Tomas la forma de lo que te contiene y siempre encuentras el camino cuesta abajo. Calma en la superficie, con profundidades que la gente subestima.",
+          "personality_tag": "agua",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Tierra",
+          "description": "Sólida, paciente, inamovible. Las cosas crecen a tu alrededor porque contigo se atreven a intentarlo.",
+          "personality_tag": "tierra",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "Aire",
+          "description": "Te mueves ligero y piensas más ligero todavía. Curioso, rápido, imposible de atrapar: traes aire fresco a cada sala viciada.",
+          "personality_tag": "aire",
+          "background_theme": "stars"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu reacción ante una mala noticia:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Me enciendo rápido, lo quemo y actúo.",
+              "personality_tags": ["fuego"]
+            },
+            {
+              "id": "b",
+              "text": "La absorbo en silencio y la dejo asentarse antes de moverme.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Afirmo los pies y empiezo a listar lo que sigue en pie.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "Necesito aire: una caminata, un auto, cielo abierto, y luego pienso.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "En un viaje en grupo eres:",
+          "options": [
+            {
+              "id": "a",
+              "text": "El motor: pongo a la gente en movimiento y a decidir.",
+              "personality_tags": ["fuego"]
+            },
+            {
+              "id": "b",
+              "text": "La corriente: mantengo el ánimo fluyendo y me adapto a todos.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "El ancla: llevo el presupuesto, la reserva y el plan B.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "La brisa: voy de subgrupo en subgrupo y los conecto a todos.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu tipo de clima:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Calor seco y una tarde larga de verano.",
+              "personality_tags": ["fuego"]
+            },
+            {
+              "id": "b",
+              "text": "Lluvia en el techo mientras estoy adentro y abrigado.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Otoño fresco, suelo firme, el aliento visible.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "Ventoso y luminoso, de esos que despeinan.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Cuando te enojas, honestamente:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Se nota al instante: chispas primero, disculpas después.",
+              "personality_tags": ["fuego"]
+            },
+            {
+              "id": "b",
+              "text": "Me vuelvo silencio profundo; tardo en volver a la superficie.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Me pongo muy quieto y muy firme; moverme es lo difícil.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "De pronto estoy en otra parte: caminando, corriendo, en un bus.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Elige un paisaje para vivir un año:",
+          "options": [
+            { "id": "a", "text": "Una isla volcánica.", "personality_tags": ["fuego"] },
+            {
+              "id": "b",
+              "text": "Una casa flotante en un río lento.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Un valle de montaña con huerta.",
+              "personality_tags": ["tierra"]
+            },
+            { "id": "d", "text": "Un faro en una costa ventosa.", "personality_tags": ["aire"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "La gente cuenta contigo para:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Energía: enciendo la mecha de los planes estancados.",
+              "personality_tags": ["fuego"]
+            },
+            {
+              "id": "b",
+              "text": "Calma: bajo la temperatura de cualquier sala.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Estabilidad: soy quien recuerda y aparece.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "Perspectiva: traigo la idea que nadie probó.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Tu ritmo, la mayoría de los días:",
+          "options": [
+            { "id": "a", "text": "Rápido, intenso, a fondo.", "personality_tags": ["fuego"] },
+            {
+              "id": "b",
+              "text": "Parejo: rodeo los obstáculos, no los atravieso.",
+              "personality_tags": ["agua"]
+            },
+            {
+              "id": "c",
+              "text": "Lento y deliberado: llego cuando llego.",
+              "personality_tags": ["tierra"]
+            },
+            {
+              "id": "d",
+              "text": "Rachas y derivas: difícil de agendar, fácil de seguir.",
+              "personality_tags": ["aire"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué cumplido te cae mejor?",
+          "options": [
+            { "id": "a", "text": "«Eres imposible de ignorar».", "personality_tags": ["fuego"] },
+            { "id": "b", "text": "«Estar cerca de ti me calma».", "personality_tags": ["agua"] },
+            { "id": "c", "text": "«Contigo me siento a salvo».", "personality_tags": ["tierra"] },
+            { "id": "d", "text": "«Haces que todo parezca posible».", "personality_tags": ["aire"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    }
+  ]
+}
