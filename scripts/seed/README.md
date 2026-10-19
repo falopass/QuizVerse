@@ -65,6 +65,27 @@ node scripts/seed/emit-editorial-seed.mjs --write --out supabase/seed/editorial-
 
 The insert is `ON CONFLICT (slug) DO NOTHING`, so the seed is safe to re-run.
 
+### Adding a new batch
+
+1. Create `scripts/seed/editorial-seed-<batch>.json` with a `"quizzes"` array
+   (one file per batch; usually paired en/es quizzes).
+2. Emit the versioned SQL:
+   `node scripts/seed/emit-editorial-seed.mjs --input scripts/seed/editorial-seed-<batch>.json --write --out supabase/seed/editorial-seed-<batch>.sql`
+   It prints `Validated: {…}` with the per-category count before writing.
+3. Add `tests/editorial-seed-<batch>.test.ts` covering the batch (see the
+   existing per-batch tests).
+4. Importing the SQL into the database is the owner's decision.
+
+The emitter refuses to emit when:
+
+- a slug repeats, is invalid or does not start with its language prefix
+  (`en-` / `es-`),
+- the title is shorter than 10 chars or the description shorter than 40,
+- the category or language is not in the allowed sets,
+- a quiz has fewer than 5 questions, a question has no text, fewer than
+  2 options or duplicated option ids,
+- a trivia question does not have exactly one correct option.
+
 ## 3. Quality gate: `audit-content.mjs`
 
 Reads `supabase/seed/audit-export.sql` output and fails (exit 1) on blocking
