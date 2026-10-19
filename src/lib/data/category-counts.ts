@@ -17,23 +17,29 @@ function categorySlug(join: CategoryJoin): string | null {
 // categories like it does today.
 export async function getCategoryCounts(locale: Locale): Promise<Map<string, number>> {
   const counts = new Map<string, number>();
-  const supabase = await createClient();
 
-  for (let from = 0; ; from += PAGE_SIZE) {
-    const { data, error } = await supabase
-      .from('quizzes')
-      .select('category:categories(slug)')
-      .eq('status', 'published')
-      .eq('language', locale)
-      .range(from, from + PAGE_SIZE - 1);
+  try {
+    const supabase = await createClient();
 
-    if (error || !data) return new Map();
+    for (let from = 0; ; from += PAGE_SIZE) {
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select('category:categories(slug)')
+        .eq('status', 'published')
+        .eq('language', locale)
+        .order('id')
+        .range(from, from + PAGE_SIZE - 1);
 
-    for (const row of data as { category: CategoryJoin }[]) {
-      const slug = categorySlug(row.category);
-      if (slug) counts.set(slug, (counts.get(slug) ?? 0) + 1);
+      if (error || !data) return new Map();
+
+      for (const row of data as { category: CategoryJoin }[]) {
+        const slug = categorySlug(row.category);
+        if (slug) counts.set(slug, (counts.get(slug) ?? 0) + 1);
+      }
+
+      if (data.length < PAGE_SIZE) return counts;
     }
-
-    if (data.length < PAGE_SIZE) return counts;
+  } catch {
+    return new Map();
   }
 }

@@ -3,23 +3,28 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('server-only', () => ({}));
 
 const rangeMock = vi.fn();
+const createClientMock = vi.fn();
 
 vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
-    from: () => {
-      const query = {
-        eq: () => query,
-        range: rangeMock,
-      };
-      return { select: () => query };
-    },
-  }),
+  createClient: () => createClientMock(),
 }));
 
 import { getCategoryCounts } from '@/lib/data/category-counts';
 
 describe('getCategoryCounts', () => {
-  beforeEach(() => rangeMock.mockReset());
+  beforeEach(() => {
+    rangeMock.mockReset();
+    createClientMock.mockReset().mockResolvedValue({
+      from: () => {
+        const query = {
+          eq: () => query,
+          order: () => query,
+          range: rangeMock,
+        };
+        return { select: () => query };
+      },
+    });
+  });
   it('counts quizzes per category slug', async () => {
     rangeMock.mockResolvedValueOnce({
       data: [
@@ -55,6 +60,11 @@ describe('getCategoryCounts', () => {
 
   it('returns an empty map on query failure without throwing', async () => {
     rangeMock.mockResolvedValueOnce({ data: null, error: new Error('network down') });
+    await expect(getCategoryCounts('en')).resolves.toEqual(new Map());
+  });
+
+  it('returns an empty map when the Supabase client cannot be created', async () => {
+    createClientMock.mockRejectedValueOnce(new Error('missing env'));
     await expect(getCategoryCounts('en')).resolves.toEqual(new Map());
   });
 });
