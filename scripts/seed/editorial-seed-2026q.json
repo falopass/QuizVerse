@@ -890,7 +890,11 @@
           "id": "q7",
           "question": "According to the show, why is the building's elevator broken?",
           "options": [
-            { "id": "a", "text": "Leonard destroyed it with a rocket fuel experiment", "is_correct": true },
+            {
+              "id": "a",
+              "text": "Leonard destroyed it with a rocket fuel experiment",
+              "is_correct": true
+            },
             { "id": "b", "text": "Sheldon sabotaged it", "is_correct": false },
             { "id": "c", "text": "It was never installed", "is_correct": false },
             { "id": "d", "text": "Penny's furniture got stuck in it", "is_correct": false }
@@ -993,7 +997,11 @@
           "options": [
             { "id": "a", "text": "Sheldon lo saboteó", "is_correct": false },
             { "id": "b", "text": "Nunca lo instalaron", "is_correct": false },
-            { "id": "c", "text": "Leonard lo destruyó con un experimento de combustible de cohetes", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Leonard lo destruyó con un experimento de combustible de cohetes",
+              "is_correct": true
+            },
             { "id": "d", "text": "Un mueble de Penny lo atascó", "is_correct": false }
           ],
           "explanation": "Un flashback de la tercera temporada muestra el experimento de Leonard explotando dentro del ascensor."
