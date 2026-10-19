@@ -112,6 +112,21 @@ export function QuestionCard({
           );
         })}
       </div>
+      {/* Sin role="status" a propósito: quiz-player cuenta las regiones status
+          (progreso + marcador + veredicto). aria-live basta para anunciar. */}
+      <div key={question.id} aria-live="polite" aria-atomic="true" className="sr-only">
+        {showFeedback &&
+          correctOptionId !== null &&
+          `${
+            selectedOptionId === correctOptionId
+              ? es
+                ? 'Correcto.'
+                : 'Correct.'
+              : es
+                ? 'Incorrecto.'
+                : 'Incorrect.'
+          }${question.explanation ? ` ${question.explanation}` : ''}`}
+      </div>
       {showExplanation && showFeedback && question.explanation && (
         <div className="arcade-explanation">
           <strong>{es ? 'EXPLICACIÓN' : 'EXPLANATION'}</strong>
