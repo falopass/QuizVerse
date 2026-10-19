@@ -9,12 +9,7 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": [
-        "zodiac",
-        "astrology",
-        "elements",
-        "trivia"
-      ],
+      "tags": ["zodiac", "astrology", "elements", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -243,12 +238,7 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": [
-        "zodiaco",
-        "astrología",
-        "elementos",
-        "trivia"
-      ],
+      "tags": ["zodiaco", "astrología", "elementos", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -477,12 +467,7 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": [
-        "astrology",
-        "history",
-        "babylon",
-        "trivia"
-      ],
+      "tags": ["astrology", "history", "babylon", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -711,12 +696,7 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": [
-        "astrología",
-        "historia",
-        "babilonia",
-        "trivia"
-      ],
+      "tags": ["astrología", "historia", "babilonia", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -945,12 +925,7 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": [
-        "astrology",
-        "planets",
-        "zodiac",
-        "trivia"
-      ],
+      "tags": ["astrology", "planets", "zodiac", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -1179,12 +1154,7 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": [
-        "astrología",
-        "planetas",
-        "zodiaco",
-        "trivia"
-      ],
+      "tags": ["astrología", "planetas", "zodiaco", "trivia"],
       "estimated_minutes": 3,
       "questions": [
         {
