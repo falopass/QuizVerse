@@ -47,6 +47,16 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           >
             {getLocalizedCategoryLabel('trivia', locale)}
           </Link>
+          {/* /random is a 307 route handler, not an RSC page: no prefetch so the
+              redirect resolves to the real quiz URL on click. */}
+          <Link
+            href={localizeHref(locale, '/random')}
+            prefetch={false}
+            className={cn('arcade-nav-link', isActive('/random') && 'text-accent-primary')}
+            aria-current={isActive('/random') ? 'page' : undefined}
+          >
+            {dictionary.common.randomQuiz}
+          </Link>
           <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
           <Link href={localizeHref(locale, '/quiz')} className="arcade-pill">
             {dictionary.arcade.pickGame} ↗
@@ -92,6 +102,15 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             onClick={() => setOpen(false)}
           >
             {getLocalizedCategoryLabel('trivia', locale)}
+          </Link>
+          <Link
+            href={localizeHref(locale, '/random')}
+            prefetch={false}
+            className={cn(isActive('/random') && 'text-accent-primary')}
+            aria-current={isActive('/random') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
+            {dictionary.common.randomQuiz}
           </Link>
           <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />
         </nav>

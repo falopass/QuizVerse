@@ -18,6 +18,7 @@ export interface Dictionary {
     questionsShort: string;
     backHome: string;
     switchLocale: string;
+    randomQuiz: string;
   };
   nav: {
     statement: string;
@@ -149,6 +150,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       questionsShort: 'questions',
       backHome: 'Back home',
       switchLocale: 'Language',
+      randomQuiz: 'Surprise me',
     },
     nav: {
       statement: 'Editorial quizzes for curious people.',
@@ -281,6 +283,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       questionsShort: 'preguntas',
       backHome: 'Volver al inicio',
       switchLocale: 'Idioma',
+      randomQuiz: 'Sorpréndeme',
     },
     nav: {
       statement: 'Quizzes editoriales para gente curiosa.',
