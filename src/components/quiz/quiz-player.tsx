@@ -295,7 +295,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
       const currentQuestion = getCurrentQuestion();
       if (!currentQuestion) return;
 
-      if (event.key >= '1' && event.key <= '4') {
+      if (event.key >= '1' && event.key <= '9') {
         const index = Number(event.key) - 1;
         if (
           !isCheckingAnswer &&

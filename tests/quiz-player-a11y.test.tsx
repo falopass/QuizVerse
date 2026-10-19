@@ -108,6 +108,36 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     await waitFor(() => expect(document.activeElement).toBe(nextHeading));
   });
 
+  it('la tecla 5 selecciona la quinta opción en un quiz de personalidad', async () => {
+    const personalityQuiz = makeQuiz({
+      quiz_type: 'personality',
+      questions: [
+        {
+          id: 'q1',
+          question: 'Pick a landscape:',
+          options: [
+            { id: 'q1a', text: 'Temples' },
+            { id: 'q1b', text: 'Hills' },
+            { id: 'q1c', text: 'Fjords' },
+            { id: 'q1d', text: 'Jungle' },
+            { id: 'q1e', text: 'Glaciers' },
+          ],
+        },
+      ],
+      results: null,
+    });
+    render(<QuizPlayer quiz={personalityQuiz} locale="en" />);
+    fireEvent.click(screen.getByRole('button', { name: /Clásico|Classic/ }));
+    await screen.findByText(/CHOOSE AN ANSWER/);
+
+    fireEvent.keyDown(window, { key: '5' });
+
+    expect(screen.getByRole('button', { name: /Glaciers/ })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    );
+  });
+
   it('ignora las teclas 1-4 mientras el veredicto está en vuelo', async () => {
     let resolveReveal!: (verdict: {
       isCorrect: boolean;

@@ -143,3 +143,17 @@ it('routes the editorial 2026az pairs both ways', () => {
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
   }
 });
+
+it('routes the editorial 2026an pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-flag-meanings-trivia', 'es-trivia-significado-de-las-banderas'],
+    ['en-rivers-lakes-mountains-trivia', 'es-trivia-rios-lagos-y-montanas'],
+    ['en-islands-and-oceans-trivia', 'es-trivia-islas-y-oceanos'],
+    ['en-which-country-fits-you', 'es-que-pais-encaja-contigo'],
+    ['en-which-city-are-you', 'es-que-ciudad-del-mundo-eres'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
