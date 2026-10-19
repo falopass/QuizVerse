@@ -719,7 +719,7 @@
     {
       "slug": "es-trivia-historia-de-la-aviacion",
       "title": "Trivia de historia de la aviación: de Kitty Hawk al jet",
-      "description": "Ocho preguntas sobre la historia del vuelo: los hermanos Wright, el primer cruce del Atlántico en solitario, el primer avión a reacción comercial y el Concorde.",
+      "description": "Ocho preguntas sobre la historia del vuelo: los hermanos Wright, el primer cruce en solitario del Atlántico, el primer jet comercial y el Concorde.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "es",
@@ -929,7 +929,7 @@
     {
       "slug": "es-trivia-nutricion-y-alimentacion",
       "title": "Trivia de nutrición: nutrientes, grupos de alimentos y mitos",
-      "description": "Ocho preguntas sobre nutrición básica: qué hacen los carbohidratos, las proteínas y las grasas, de dónde sale la fibra y las vitaminas detrás de los consejos de siempre.",
+      "description": "Ocho preguntas sobre nutrición básica: qué hacen los carbohidratos, las proteínas y las grasas, de dónde sale la fibra y qué vitaminas importan.",
       "quiz_type": "trivia",
       "difficulty": "easy",
       "language": "es",

@@ -176,7 +176,7 @@ insert into public.quizzes
 values (
   'es-trivia-historia-de-la-aviacion',
   'Trivia de historia de la aviación: de Kitty Hawk al jet',
-  'Ocho preguntas sobre la historia del vuelo: los hermanos Wright, el primer cruce del Atlántico en solitario, el primer avión a reacción comercial y el Concorde.',
+  'Ocho preguntas sobre la historia del vuelo: los hermanos Wright, el primer cruce en solitario del Atlántico, el primer jet comercial y el Concorde.',
   'trivia',
   'medium',
   'es',
@@ -222,7 +222,7 @@ insert into public.quizzes
 values (
   'es-trivia-nutricion-y-alimentacion',
   'Trivia de nutrición: nutrientes, grupos de alimentos y mitos',
-  'Ocho preguntas sobre nutrición básica: qué hacen los carbohidratos, las proteínas y las grasas, de dónde sale la fibra y las vitaminas detrás de los consejos de siempre.',
+  'Ocho preguntas sobre nutrición básica: qué hacen los carbohidratos, las proteínas y las grasas, de dónde sale la fibra y qué vitaminas importan.',
   'trivia',
   'easy',
   'es',
