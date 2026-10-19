@@ -52,6 +52,23 @@ describe('emit-title-overrides-2', () => {
     assert.match(stdout, /^commit;/m);
   });
 
+  it('guarda cada UPDATE con el título viejo del catálogo', () => {
+    const { status, stdout } = runScript({ quizzes: loadBatch() });
+    assert.equal(status, 0);
+    // The precondition skips rows whose title was edited after the snapshot.
+    assert.equal((stdout.match(/^  AND title = '/gm) ?? []).length, 69);
+    assert.match(
+      stdout,
+      /WHERE slug = 'en-the-boys-fan-trivia-challenge'\n  AND title = 'The Boys Fan Trivia Challenge';/
+    );
+  });
+
+  it('deja stdout como SQL puro: el resumen va a stderr', () => {
+    const { status, stdout } = runScript({ quizzes: loadBatch() });
+    assert.equal(status, 0);
+    assert.match(stdout.trimEnd(), /commit;$/);
+  });
+
   it('escapa comillas simples en los títulos', () => {
     const { status, stdout } = runScript({ quizzes: loadBatch() });
     assert.equal(status, 0);
