@@ -231,8 +231,43 @@ describe('buildReview', () => {
         selectedOptionText: 'Mars',
         correctOptionText: 'Saturn',
         isCorrect: false,
+        explanation: null,
       },
     ]);
+    expect(JSON.stringify(review)).not.toContain('is_correct');
+  });
+
+  it('carries the question explanation into the review', () => {
+    const quiz = makeQuiz({
+      questions: [
+        {
+          id: 'q1',
+          question: 'Which planet has the most moons?',
+          explanation: 'Saturn leads the count with more than 270 confirmed moons.',
+          options: [
+            { id: 'q1a', text: 'Saturn', is_correct: true },
+            { id: 'q1b', text: 'Mars' },
+          ],
+        },
+      ],
+    });
+
+    const review = buildReview(quiz, [
+      { question_id: 'q1', selected_option_id: 'q1a', is_correct: true },
+    ]);
+
+    expect(review[0].explanation).toBe(
+      'Saturn leads the count with more than 270 confirmed moons.'
+    );
+    expect(JSON.stringify(review)).not.toContain('is_correct');
+  });
+
+  it('uses null when the question has no explanation', () => {
+    const review = buildReview(makeQuiz(), [
+      { question_id: 'q2', selected_option_id: 'q2a', is_correct: true },
+    ]);
+
+    expect(review[0].explanation).toBeNull();
     expect(JSON.stringify(review)).not.toContain('is_correct');
   });
 });

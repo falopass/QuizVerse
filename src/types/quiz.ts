@@ -147,6 +147,7 @@ export interface QuizReviewItem {
   selectedOptionText: string | null;
   correctOptionText: string | null;
   isCorrect: boolean;
+  explanation: string | null;
 }
 
 export interface GameSession {
