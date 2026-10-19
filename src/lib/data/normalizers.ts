@@ -124,6 +124,7 @@ export function normalizeQuiz(
     is_featured: row.is_featured,
     is_ai_generated: row.is_ai_generated,
     published_at: row.published_at,
+    updated_at: row.updated_at ?? null,
     created_at: row.created_at,
     category: row.category_id ? (categories.get(row.category_id) ?? null) : null,
     creator: creator ?? null,

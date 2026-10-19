@@ -44,6 +44,7 @@ const quiz: Quiz = {
   is_featured: false,
   is_ai_generated: false,
   published_at: '2026-05-21T02:58:55.027Z',
+  updated_at: '2026-05-21T02:58:55.027Z',
   created_at: '2026-05-21T02:58:55.027Z',
 };
 
@@ -180,6 +181,27 @@ describe('structured data', () => {
     // No aggregateRating: there are no real ratings to publish.
     expect(node).not.toHaveProperty('aggregateRating');
     expect(node.interactionStatistic).toMatchObject({ userInteractionCount: 120 });
+  });
+
+  it('reports the edit date as dateModified, falling back to publication', () => {
+    const edited = quizNode({
+      quiz: { ...quiz, updated_at: '2026-06-10T00:00:00.000Z' },
+      locale: 'en',
+      category: null,
+      description: 'A description',
+      imageUrl: 'https://quizverse.org/og/x.png',
+    });
+    expect(edited.dateModified).toBe('2026-06-10T00:00:00.000Z');
+    expect(edited.datePublished).toBe('2026-05-21T02:58:55.027Z');
+
+    const neverEdited = quizNode({
+      quiz: { ...quiz, updated_at: null },
+      locale: 'en',
+      category: null,
+      description: 'A description',
+      imageUrl: 'https://quizverse.org/og/x.png',
+    });
+    expect(neverEdited.dateModified).toBe('2026-05-21T02:58:55.027Z');
   });
 
   it('omits optional nodes instead of emitting empty ones', () => {

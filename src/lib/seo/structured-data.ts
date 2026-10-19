@@ -137,7 +137,9 @@ export function quizNode({
       height: 630,
     },
     ...(quiz.published_at ? { datePublished: quiz.published_at } : {}),
-    ...(quiz.published_at ? { dateModified: quiz.published_at } : {}),
+    ...((quiz.updated_at ?? quiz.published_at)
+      ? { dateModified: quiz.updated_at ?? quiz.published_at }
+      : {}),
     ...(quiz.plays_count > 0
       ? {
           interactionStatistic: {

@@ -69,6 +69,7 @@ export interface Quiz {
   is_featured: boolean;
   is_ai_generated: boolean;
   published_at: string | null;
+  updated_at: string | null;
   created_at: string;
   visual_profile?: VisualProfile;
   // Datos relacionados (opcional)
