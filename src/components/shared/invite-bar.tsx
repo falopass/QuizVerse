@@ -10,6 +10,7 @@
 
 import * as React from 'react';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { copyText } from '@/lib/utils/clipboard';
 import { buildEmbedSnippet } from '@/lib/seo/embed';
 
 export interface InviteBarProps {
@@ -27,6 +28,7 @@ export interface InviteBarProps {
 export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
   const [copied, setCopied] = React.useState(false);
   const [embedCopied, setEmbedCopied] = React.useState(false);
+  const [copyError, setCopyError] = React.useState<string | null>(null);
   const es = locale === 'es';
   const embed = buildEmbedSnippet(url, locale, quizTitle);
 
@@ -40,23 +42,25 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
   )}&url=${encodeURIComponent(url)}`;
 
   const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
+    if (await copyText(url)) {
       setCopied(true);
+      setCopyError(null);
       window.setTimeout(() => setCopied(false), 2000);
-    } catch {
+    } else {
       setCopied(false);
+      setCopyError(url);
     }
   };
 
   const handleCopyEmbed = async () => {
     if (!embed) return;
-    try {
-      await navigator.clipboard.writeText(embed.snippet);
+    if (await copyText(embed.snippet)) {
       setEmbedCopied(true);
+      setCopyError(null);
       window.setTimeout(() => setEmbedCopied(false), 2000);
-    } catch {
+    } else {
       setEmbedCopied(false);
+      setCopyError(embed.snippet);
     }
   };
 
@@ -100,6 +104,19 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
           </button>
         ) : null}
       </div>
+      {copyError !== null && (
+        <div role="status" aria-live="polite" className="mt-3">
+          <p className="text-xs text-[var(--text-secondary)]">
+            {es ? 'No pudimos copiar: selecciona el enlace' : "Couldn't copy: select the link"}
+          </p>
+          <input
+            readOnly
+            value={copyError}
+            onFocus={(event) => event.currentTarget.select()}
+            className="mt-1 w-full rounded-lg border border-[#474558] bg-transparent px-3 py-2 text-xs text-[var(--text-primary)]"
+          />
+        </div>
+      )}
     </div>
   );
 }
