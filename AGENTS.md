@@ -19,6 +19,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Vercel PR preview for visual checks.
 - If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge only when the owner asks for it or approves it, with CI green; never on your own initiative. Never deploy.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
+- There is no `CHANGELOG.md`. Changes are documented in each PR description; do not create the file or ask for one.
 
 ## Stack
 
@@ -38,9 +39,10 @@ This project is developed on a single personal machine, and also worked on by Cl
 ## Commands
 
 ```bash
-# App lifecycle
-npm run dev        # Dev server → http://localhost:3000
-npm run build      # Production build
+# App lifecycle — BLOCKED on the work machine
+# npm run dev and npm run build are denied in the owner's machine config.
+# The build runs in CI per PR (.github/workflows/ci.yml) and in Cloud sessions;
+# use the Vercel PR preview for visual checks instead of a local dev server.
 npm start          # Production server
 npm run lint       # ESLint
 
@@ -168,6 +170,19 @@ Pipeline reproducible en `scripts/seed/` (ver `scripts/seed/README.md`):
 - `seed:audit` es la puerta de calidad: falla si hay preguntas sin respuesta,
   opciones vacías o slugs duplicados.
 
+Flujo por lotes: el contenido nuevo entra como `scripts/seed/editorial-seed-<lote>.json`
+(un lote por archivo, pares en/es) y se emite con
+
+```bash
+node scripts/seed/emit-editorial-seed.mjs --input scripts/seed/editorial-seed-<lote>.json \
+  --write --out supabase/seed/editorial-seed-<lote>.sql
+```
+
+El emisor imprime `Validated: {…}` con el conteo por categoría; el SQL es
+idempotente (`ON CONFLICT (slug) DO NOTHING`) y cada lote lleva su test
+`tests/editorial-seed-<lote>.test.ts`. Aplicar el SQL a la DB es decisión del
+dueño. Detalles en `scripts/seed/README.md`.
+
 Categorías vacías no son un estado válido: si una categoría se queda sin quizzes,
 la página 404 y el sitemap la omite.
 
@@ -245,15 +260,19 @@ regenerarla, o las peticiones devuelven 403.
 
 Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 
-## Catalog Stats (current, 2026-10-18)
+## Catalog Stats (≥ 524; audit DB 2026-10-18 + lotes posteriores)
 
-- 524 quizzes published (4192 questions)
-- 262 en English, 262 en Spanish
-- 246 trivia, 278 personality
-- 16 categorías pobladas: movies-tv 174, anime-manga 119, gaming 94, music 51,
-  lifestyle 21, culture 20, literature 12, pop-culture 9, technology 5,
-  relationships 5, food-drink 3, science 3, animals 2, sports 2, geography 2,
-  history 2
+- ≥ 524 quizzes published: el último audit contra la DB
+  (`generated/audit/content-audit.json`, 2026-10-18) contó 524 quizzes y 4192
+  preguntas (262 en, 262 es; 246 trivia, 278 personality), y desde entonces se
+  mergearon lotes editoriales nuevos.
+- Los seeds editoriales versionados suman 314 quizzes
+  (`grep -c 'insert into public.quizzes' supabase/seed/*.sql`: 157 en + 157 es;
+  284 trivia + 30 personality, según `scripts/seed/editorial-seed*.json`).
+- Por categoría (audit 2026-10-18, ya parcialmente desactualizado):
+  movies-tv 174, anime-manga 119, gaming 94, music 51, lifestyle 21, culture 20,
+  literature 12, pop-culture 9, technology 5, relationships 5, food-drink 3,
+  science 3, animals 2, sports 2, geography 2, history 2.
 - `personality` es un hub de _tipo_ de quiz (`/category/personality`), no una
   categoría de tema: se queda sin filas a propósito
 - Regenerar la taxonomía: `npm run seed:categorize`; auditar: `npm run seed:audit`
