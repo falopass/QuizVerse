@@ -551,6 +551,8 @@ select {
   flex-direction: column;
   min-width: 0;
   height: 349px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 349px;
   overflow: hidden;
   border: 1px solid #383644;
   background: var(--bg-secondary);
