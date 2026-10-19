@@ -98,14 +98,14 @@ describe('resultOgImage', () => {
     );
   });
 
-  it('emite siempre una URL absoluta https sin dobles barras', () => {
+  it('emite siempre una URL absoluta sobre SITE_URL sin dobles barras', () => {
     for (const url of [
       quizOgImage('es', 'trivia-de-chile'),
       categoryOgImage('en', 'movies-tv'),
       resultOgImage('es', 'x', 'tok'),
     ]) {
-      expect(url.startsWith('https://')).toBe(true);
-      expect(url.replace('https://', '')).not.toContain('//');
+      expect(url.startsWith(SITE_URL)).toBe(true);
+      expect(url.slice(SITE_URL.length)).not.toContain('//');
     }
   });
 });
