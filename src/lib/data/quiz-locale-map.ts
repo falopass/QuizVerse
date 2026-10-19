@@ -131,6 +131,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-the-super-mario-galaxy-movie-fan-trivia': 'es-trivia-fan-de-the-super-mario-galaxy-movie',
   'en-the-white-lotus-fan-trivia-challenge': 'es-trivia-fan-de-the-white-lotus',
   'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-merlina',
+  // Pares del seed editorial (scripts/seed/editorial-seed-personality.json), mantenidos a mano.
+  'en-what-is-your-ideal-weekend': 'es-cual-es-tu-fin-de-semana-ideal',
+  'en-what-is-your-learning-style': 'es-cual-es-tu-estilo-de-aprendizaje',
+  'en-what-is-your-work-style': 'es-cual-es-tu-estilo-de-trabajo',
+  'en-what-kind-of-friend-are-you': 'es-que-tipo-de-amigo-eres',
+  'en-what-kind-of-traveler-are-you': 'es-que-tipo-de-viajero-eres',
   'en-what-role-would-you-play-inside-attack-on-titan':
     'es-que-rol-jugarias-dentro-de-attack-on-titan',
   'en-what-role-would-you-play-inside-avatar': 'es-que-rol-jugarias-dentro-de-avatar',
