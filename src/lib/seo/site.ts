@@ -61,6 +61,11 @@ export const OTHER_VERIFICATIONS = {
     : {}),
 };
 
+/** Home dynamic OG image route (app/[locale]/opengraph-image.tsx). */
+export function homeOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/opengraph-image`;
+}
+
 /** Per-quiz dynamic OG image route (app/[locale]/quiz/[slug]/opengraph-image.tsx). */
 export function quizOgImage(locale: string, slug: string): string {
   return `${SITE_URL}/${locale}/quiz/${encodeURIComponent(slug)}/opengraph-image`;
