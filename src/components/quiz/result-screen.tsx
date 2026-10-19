@@ -374,6 +374,19 @@ export function ResultScreen({
         </section>
       )}
 
+      {quiz.category?.slug && (
+        <div className="arcade-related relative z-10 mx-auto max-w-6xl">
+          <Link
+            href={localizeHref(uiLocale, `/category/${quiz.category.slug}`)}
+            className="arcade-result-ranking inline-block"
+          >
+            {uiLocale === 'es'
+              ? `Ver todos los quizzes de ${quiz.category.name} ↗`
+              : `See all ${quiz.category.name} quizzes ↗`}
+          </Link>
+        </div>
+      )}
+
       <AnimatePresence>
         {showShare && (
           <motion.div

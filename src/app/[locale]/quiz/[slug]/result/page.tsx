@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { ResultScreen } from '@/components/quiz/result-screen';
 import { getQuizBySlug, getQuizSessionByShareToken, getRelatedQuizzes } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
-import { localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeQuizCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
@@ -118,7 +118,7 @@ export default async function LocalizedQuizResultPage({
   return (
     <ResultScreen
       locale={locale}
-      quiz={toClientQuiz(quiz)}
+      quiz={toClientQuiz(localizeQuizCategory(quiz, locale))}
       result={resolvedResult}
       triviaScore={triviaScore}
       answers={session?.answers ?? []}
