@@ -39,6 +39,9 @@ export function Modal({
   closeLabel = 'Close',
 }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
+  const instanceId = React.useId();
+  const titleId = `${instanceId}-title`;
+  const descriptionId = `${instanceId}-description`;
 
   useEffect(() => {
     if (!isOpen) return;
@@ -132,14 +135,14 @@ export function Modal({
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={title ? 'modal-title' : undefined}
-        aria-describedby={description ? 'modal-description' : undefined}
+        aria-labelledby={title ? titleId : undefined}
+        aria-describedby={description ? descriptionId : undefined}
       >
         {/* Header */}
         {(title || showCloseButton) && (
           <div className="border-border-subtle flex items-center justify-between border-b px-6 py-4">
             {title && (
-              <h2 id="modal-title" className="text-text-primary text-lg font-semibold">
+              <h2 id={titleId} className="text-text-primary text-lg font-semibold">
                 {title}
               </h2>
             )}
@@ -165,7 +168,7 @@ export function Modal({
         {/* Body */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {description && (
-            <p id="modal-description" className="text-text-secondary text-sm leading-6">
+            <p id={descriptionId} className="text-text-secondary text-sm leading-6">
               {description}
             </p>
           )}
