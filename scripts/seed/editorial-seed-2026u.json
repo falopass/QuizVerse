@@ -38,10 +38,18 @@
           "id": "q3",
           "question": "Chile measures about 4,300 km from north to south but only around 177 km on average across. What is it often called?",
           "options": [
-            { "id": "a", "text": "The longest and narrowest country in the world", "is_correct": true },
+            {
+              "id": "a",
+              "text": "The longest and narrowest country in the world",
+              "is_correct": true
+            },
             { "id": "b", "text": "The widest country in South America", "is_correct": false },
             { "id": "c", "text": "The smallest country in South America", "is_correct": false },
-            { "id": "d", "text": "The only landlocked country in South America", "is_correct": false }
+            {
+              "id": "d",
+              "text": "The only landlocked country in South America",
+              "is_correct": false
+            }
           ],
           "explanation": "Chile runs roughly 4,300 km along the Pacific while averaging under 200 km in width: the classic 'long and narrow' country."
         },
@@ -219,9 +227,17 @@
           "question": "What does Cinco de Mayo actually commemorate?",
           "options": [
             { "id": "a", "text": "Mexican independence day", "is_correct": false },
-            { "id": "b", "text": "The Mexican victory over the French army at Puebla in 1862", "is_correct": true },
+            {
+              "id": "b",
+              "text": "The Mexican victory over the French army at Puebla in 1862",
+              "is_correct": true
+            },
             { "id": "c", "text": "The start of the Mexican Revolution", "is_correct": false },
-            { "id": "d", "text": "The end of the war against the United States", "is_correct": false }
+            {
+              "id": "d",
+              "text": "The end of the war against the United States",
+              "is_correct": false
+            }
           ],
           "explanation": "Cinco de Mayo marks the 1862 Battle of Puebla; Mexico's independence day is September 16, commemorating the Grito de Dolores of 1810."
         },
@@ -320,7 +336,11 @@
           "question": "¿Qué conmemora el 5 de mayo?",
           "options": [
             { "id": "a", "text": "La independencia de México", "is_correct": false },
-            { "id": "b", "text": "La victoria sobre el ejército francés en la batalla de Puebla de 1862", "is_correct": true },
+            {
+              "id": "b",
+              "text": "La victoria sobre el ejército francés en la batalla de Puebla de 1862",
+              "is_correct": true
+            },
             { "id": "c", "text": "El inicio de la Revolución mexicana", "is_correct": false },
             { "id": "d", "text": "El fin de la guerra contra Estados Unidos", "is_correct": false }
           ],
@@ -667,7 +687,11 @@
           "question": "What was 'Tawantinsuyu'?",
           "options": [
             { "id": "a", "text": "A sacred mountain", "is_correct": false },
-            { "id": "b", "text": "The Quechua name of the Inca Empire — 'the four regions united'", "is_correct": true },
+            {
+              "id": "b",
+              "text": "The Quechua name of the Inca Empire — 'the four regions united'",
+              "is_correct": true
+            },
             { "id": "c", "text": "The royal Inca road", "is_correct": false },
             { "id": "d", "text": "The festival of the sun", "is_correct": false }
           ],
