@@ -8,7 +8,11 @@ import { cn } from '@/lib/utils/cn';
 import { ShareButtons } from '@/components/shared/share-buttons';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
-import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
+import {
+  getLocalizedLanguageLabel,
+  getLocalizedTypeLabel,
+  localizeCategory,
+} from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { challengeOutcome, type ChallengeScore } from '@/lib/quiz/challenge';
 import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
@@ -122,6 +126,9 @@ export function ResultScreen({
   // score persistido son preguntas respondidas (n/N), no aciertos: el veredicto
   // compara títulos de resultado, no puntos.
   const personality = quiz.quiz_type === 'personality';
+  // La pantalla se renderiza desde /result y desde QuizPlayer al terminar la
+  // partida; localizar aquí cubre ambas vías sin depender de cada página.
+  const category = localizeCategory(quiz.category, uiLocale);
   const myScore: ChallengeScore = triviaScore
     ? { score: triviaScore.correct, maxScore: triviaScore.total, resultTitle: result?.title }
     : { score: 0, maxScore: 0, resultTitle: result?.title };
@@ -374,15 +381,15 @@ export function ResultScreen({
         </section>
       )}
 
-      {quiz.category?.slug && (
+      {category?.slug && (
         <div className="arcade-related relative z-10 mx-auto max-w-6xl">
           <Link
-            href={localizeHref(uiLocale, `/category/${quiz.category.slug}`)}
+            href={localizeHref(uiLocale, `/category/${category.slug}`)}
             className="arcade-result-ranking inline-block"
           >
             {uiLocale === 'es'
-              ? `Ver todos los quizzes de ${quiz.category.name} ↗`
-              : `See all ${quiz.category.name} quizzes ↗`}
+              ? `Ver todos los quizzes de ${category.name} ↗`
+              : `See all ${category.name} quizzes ↗`}
           </Link>
         </div>
       )}

@@ -80,10 +80,14 @@ describe('ResultScreen · enlace al hub de categoría', () => {
     expect(links[0]).toHaveTextContent('See all Movies & TV quizzes');
   });
 
-  it('localiza href y texto en español', () => {
+  it('localiza href y nombre de la categoría en español', () => {
+    // El nombre llega en inglés desde la DB (vía QuizPlayer o /result) y el
+    // componente lo traduce: cubre también la pantalla tras jugar en /es.
     renderResult({ locale: 'es', quiz: makeQuiz({ category: MOVIES_CATEGORY }) });
 
-    const link = screen.getByRole('link', { name: /ver todos los quizzes de movies & tv/i });
+    const link = screen.getByRole('link', {
+      name: /ver todos los quizzes de cine y televisión/i,
+    });
     expect(link).toHaveAttribute('href', '/es/category/movies-tv');
   });
 
