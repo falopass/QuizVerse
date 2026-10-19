@@ -8,7 +8,10 @@ description: Verifica un cambio en QuizVerse antes de abrir o actualizar un PR, 
 Verifica una sola vez, al final, desde el agente principal y de a un comando pesado por vez. Los subagentes no corren nada de esto.
 
 1. Mientras iteras: `npx vitest related <archivos tocados> --run`.
-2. Antes del commit, en este orden: `npm run typecheck`, `npm run lint`, `npm test`. Si tocaste formato a mano: `npm run format:check`.
+2. Antes del commit, en este orden:
+   a. `npx prettier --write` sobre cada archivo que creaste o tocaste (no hace falta el repo entero).
+   b. `npm run format:check` (tiene que pasar; el CI lo corre siempre sobre todo el repo).
+   c. `npm run typecheck`, `npm run lint`, `npm test`.
 3. `npm run build` lo corre el CI de cada PR (`.github/workflows/ci.yml`) y se puede correr en una sesión Cloud. En la máquina del dueño está bloqueado; no lo esquives con `npx next build`.
 4. Reglas que el diff no puede romper (ver `AGENTS.md`):
    - Ningún quiz llega al cliente sin `toClientQuiz()`: `is_correct` vive solo en el servidor.
