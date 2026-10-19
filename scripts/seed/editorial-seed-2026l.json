@@ -1,0 +1,927 @@
+{
+  "$comment": "Editorial batch 2026l (CONT-17): trivia pairs for five high-search topics with zero catalogue coverage — The Simpsons, Game of Thrones, Studio Ghibli, Sonic the Hedgehog and Christmas. Every answer is a stable, checkable fact; no seasons in progress, spin-offs, box office or news about people. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-the-simpsons-trivia",
+      "title": "The Simpsons Fan Trivia Challenge",
+      "description": "Springfield's yellow family has been on the air since 1989. From D'oh! to Duff, how much do you remember from The Simpsons?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["the simpsons", "tv-shows", "animation", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which town do the Simpsons live?",
+          "options": [
+            { "id": "a", "text": "Shelbyville", "is_correct": false },
+            { "id": "b", "text": "Springfield", "is_correct": true },
+            { "id": "c", "text": "Ogdenville", "is_correct": false },
+            { "id": "d", "text": "Brockway", "is_correct": false }
+          ],
+          "explanation": "Springfield, next door to its eternal rival Shelbyville; Ogdenville and Brockway appear in the episode 'Marge vs. the Monorail'."
+        },
+        {
+          "id": "q2",
+          "question": "Where does Homer work?",
+          "options": [
+            { "id": "a", "text": "At the Kwik-E-Mart", "is_correct": false },
+            { "id": "b", "text": "At Moe's Tavern", "is_correct": false },
+            { "id": "c", "text": "At Springfield Elementary", "is_correct": false },
+            { "id": "d", "text": "At the Springfield Nuclear Power Plant", "is_correct": true }
+          ],
+          "explanation": "Homer is the safety inspector of sector 7-G at Mr. Burns's nuclear plant."
+        },
+        {
+          "id": "q3",
+          "question": "In which year did The Simpsons premiere as a half-hour series?",
+          "options": [
+            { "id": "a", "text": "1985", "is_correct": false },
+            { "id": "b", "text": "1987", "is_correct": false },
+            { "id": "c", "text": "1989", "is_correct": true },
+            { "id": "d", "text": "1991", "is_correct": false }
+          ],
+          "explanation": "The first episode aired on 17 December 1989; the family had debuted two years earlier in shorts on The Tracey Ullman Show."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of the family's dog?",
+          "options": [
+            { "id": "a", "text": "Santa's Little Helper", "is_correct": true },
+            { "id": "b", "text": "Snowball II", "is_correct": false },
+            { "id": "c", "text": "Laddie", "is_correct": false },
+            { "id": "d", "text": "Itchy", "is_correct": false }
+          ],
+          "explanation": "They adopt him at the dog track in the very first episode; Snowball II is the cat and Itchy is the cartoon mouse."
+        },
+        {
+          "id": "q5",
+          "question": "Which instrument does Lisa play?",
+          "options": [
+            { "id": "a", "text": "The violin", "is_correct": false },
+            { "id": "b", "text": "The trumpet", "is_correct": false },
+            { "id": "c", "text": "The flute", "is_correct": false },
+            { "id": "d", "text": "The saxophone", "is_correct": true }
+          ],
+          "explanation": "Lisa's baritone sax solo is part of the opening credits of every episode."
+        },
+        {
+          "id": "q6",
+          "question": "Who runs the Kwik-E-Mart?",
+          "options": [
+            { "id": "a", "text": "Apu", "is_correct": true },
+            { "id": "b", "text": "Moe Szyslak", "is_correct": false },
+            { "id": "c", "text": "Comic Book Guy", "is_correct": false },
+            { "id": "d", "text": "Ned Flanders", "is_correct": false }
+          ],
+          "explanation": "Apu Nahasapeemapetilon works endless shifts at the Kwik-E-Mart; Moe owns the tavern."
+        },
+        {
+          "id": "q7",
+          "question": "Who is Bart's best friend?",
+          "options": [
+            { "id": "a", "text": "Nelson Muntz", "is_correct": false },
+            { "id": "b", "text": "Martin Prince", "is_correct": false },
+            { "id": "c", "text": "Milhouse Van Houten", "is_correct": true },
+            { "id": "d", "text": "Ralph Wiggum", "is_correct": false }
+          ],
+          "explanation": "Milhouse is Bart's loyal — and hopelessly uncool — sidekick; Nelson is the school bully."
+        },
+        {
+          "id": "q8",
+          "question": "What does Homer shout when something goes wrong?",
+          "options": [
+            { "id": "a", "text": "'Ay, caramba!'", "is_correct": false },
+            { "id": "b", "text": "'D'oh!'", "is_correct": true },
+            { "id": "c", "text": "'Excellent!'", "is_correct": false },
+            { "id": "d", "text": "'Okely-dokely!'", "is_correct": false }
+          ],
+          "explanation": "'D'oh!' is so famous it entered the Oxford English Dictionary; 'Ay, caramba!' is Bart's line."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-los-simpson",
+      "title": "Trivia fan de Los Simpson: Springfield",
+      "description": "La familia amarilla de Springfield está al aire desde 1989. Del Duff al '¡Ay, caramba!', ¿cuánto recuerdas de Los Simpson?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["los simpson", "series", "animacion", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad vive la familia Simpson?",
+          "options": [
+            { "id": "a", "text": "Shelbyville", "is_correct": false },
+            { "id": "b", "text": "Ogdenville", "is_correct": false },
+            { "id": "c", "text": "Springfield", "is_correct": true },
+            { "id": "d", "text": "Capital City", "is_correct": false }
+          ],
+          "explanation": "Springfield, junto a su eterna rival Shelbyville; Ogdenville y Capital City son otras ciudades de la serie."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde trabaja Homer?",
+          "options": [
+            { "id": "a", "text": "En la planta nuclear de Springfield", "is_correct": true },
+            { "id": "b", "text": "En la taberna de Moe", "is_correct": false },
+            { "id": "c", "text": "En el supermercado Kwik-E-Mart", "is_correct": false },
+            { "id": "d", "text": "En la escuela primaria", "is_correct": false }
+          ],
+          "explanation": "Homer es inspector de seguridad del sector 7-G en la planta nuclear del señor Burns."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué año se estrenó la serie con episodios propios?",
+          "options": [
+            { "id": "a", "text": "1987", "is_correct": false },
+            { "id": "b", "text": "1991", "is_correct": false },
+            { "id": "c", "text": "1985", "is_correct": false },
+            { "id": "d", "text": "1989", "is_correct": true }
+          ],
+          "explanation": "El primer episodio se emitió el 17 de diciembre de 1989; en 1987 la familia había debutado en cortos dentro del show de Tracey Ullman."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué cerveza toma siempre Homer?",
+          "options": [
+            { "id": "a", "text": "Buzz Cola", "is_correct": false },
+            { "id": "b", "text": "Duff", "is_correct": true },
+            { "id": "c", "text": "Fudd", "is_correct": false },
+            { "id": "d", "text": "Pawtucket", "is_correct": false }
+          ],
+          "explanation": "La Duff es la cerveza de Springfield; la Fudd es su parodia de Shelbyville y Pawtucket es de Padre de familia."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el vecino devoto y amable de los Simpson?",
+          "options": [
+            { "id": "a", "text": "Moe Szyslak", "is_correct": false },
+            { "id": "b", "text": "Krusty el Payaso", "is_correct": false },
+            { "id": "c", "text": "Ned Flanders", "is_correct": true },
+            { "id": "d", "text": "Apu", "is_correct": false }
+          ],
+          "explanation": "Ned Flanders, con su 'Okely-dokely', vive al lado y aguanta a Homer con una paciencia infinita."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué instrumento toca Lisa?",
+          "options": [
+            { "id": "a", "text": "La flauta", "is_correct": false },
+            { "id": "b", "text": "El violín", "is_correct": false },
+            { "id": "c", "text": "La trompeta", "is_correct": false },
+            { "id": "d", "text": "El saxofón", "is_correct": true }
+          ],
+          "explanation": "El solo de saxofón de Lisa en los créditos iniciales cambia en cada episodio."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la frase clásica de Bart?",
+          "options": [
+            { "id": "a", "text": "'¡Ay, caramba!'", "is_correct": true },
+            { "id": "b", "text": "'¡D'oh!'", "is_correct": false },
+            { "id": "c", "text": "'¡Excelente!'", "is_correct": false },
+            { "id": "d", "text": "'¡Okely-dokely!'", "is_correct": false }
+          ],
+          "explanation": "'¡Ay, caramba!' es el grito de Bart; '¡D'oh!' es de Homer, '¡Excelente!' del señor Burns y '¡Okely-dokely!' de Flanders."
+        }
+      ]
+    },
+    {
+      "slug": "en-game-of-thrones-trivia",
+      "title": "Game of Thrones Fan Trivia Challenge",
+      "description": "Eight seasons of houses, dragons and betrayals across Westeros. Test what you remember from Game of Thrones and its world.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["game of thrones", "tv-shows", "fantasy", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "On which book series is Game of Thrones based?",
+          "options": [
+            { "id": "a", "text": "The Wheel of Time", "is_correct": false },
+            { "id": "b", "text": "The Kingkiller Chronicle", "is_correct": false },
+            { "id": "c", "text": "The Stormlight Archive", "is_correct": false },
+            { "id": "d", "text": "A Song of Ice and Fire", "is_correct": true }
+          ],
+          "explanation": "George R.R. Martin's A Song of Ice and Fire began with A Game of Thrones in 1996."
+        },
+        {
+          "id": "q2",
+          "question": "What is the motto of House Stark?",
+          "options": [
+            { "id": "a", "text": "'Fire and Blood'", "is_correct": false },
+            { "id": "b", "text": "'Winter Is Coming'", "is_correct": true },
+            { "id": "c", "text": "'Hear Me Roar'", "is_correct": false },
+            { "id": "d", "text": "'We Do Not Sow'", "is_correct": false }
+          ],
+          "explanation": "'Winter Is Coming' belongs to the Starks; 'Fire and Blood' is Targaryen, 'Hear Me Roar' Lannister and 'We Do Not Sow' Greyjoy."
+        },
+        {
+          "id": "q3",
+          "question": "What are the names of Daenerys's three dragons?",
+          "options": [
+            { "id": "a", "text": "Drogon, Rhaegal and Viserion", "is_correct": true },
+            { "id": "b", "text": "Drogon, Balerion and Viserion", "is_correct": false },
+            { "id": "c", "text": "Rhaegal, Meraxes and Viserion", "is_correct": false },
+            { "id": "d", "text": "Vhagar, Rhaegal and Drogon", "is_correct": false }
+          ],
+          "explanation": "She named them after her husband Drogo and her brothers Rhaegar and Viserys; Balerion, Meraxes and Vhagar are dragons of earlier Targaryens."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of Jon Snow's direwolf?",
+          "options": [
+            { "id": "a", "text": "Nymeria", "is_correct": false },
+            { "id": "b", "text": "Grey Wind", "is_correct": false },
+            { "id": "c", "text": "Ghost", "is_correct": true },
+            { "id": "d", "text": "Summer", "is_correct": false }
+          ],
+          "explanation": "Ghost is Jon's albino direwolf; Nymeria is Arya's, Grey Wind Robb's and Summer Bran's."
+        },
+        {
+          "id": "q5",
+          "question": "Which of these materials can kill a White Walker?",
+          "options": [
+            { "id": "a", "text": "Bronze", "is_correct": false },
+            { "id": "b", "text": "Silver", "is_correct": false },
+            { "id": "c", "text": "Ordinary iron", "is_correct": false },
+            { "id": "d", "text": "Valyrian steel", "is_correct": true }
+          ],
+          "explanation": "Only Valyrian steel and dragonglass can destroy a White Walker — normal weapons shatter against them."
+        },
+        {
+          "id": "q6",
+          "question": "What is the name of Arya Stark's sword?",
+          "options": [
+            { "id": "a", "text": "Longclaw", "is_correct": false },
+            { "id": "b", "text": "Needle", "is_correct": true },
+            { "id": "c", "text": "Oathkeeper", "is_correct": false },
+            { "id": "d", "text": "Ice", "is_correct": false }
+          ],
+          "explanation": "Jon gives Arya the slender blade she names Needle; Longclaw is Jon's own sword and Ice is Ned Stark's."
+        },
+        {
+          "id": "q7",
+          "question": "In which years did the HBO series air?",
+          "options": [
+            { "id": "a", "text": "2009-2016", "is_correct": false },
+            { "id": "b", "text": "2010-2018", "is_correct": false },
+            { "id": "c", "text": "2013-2020", "is_correct": false },
+            { "id": "d", "text": "2011-2019", "is_correct": true }
+          ],
+          "explanation": "Eight seasons, from April 2011 to May 2019."
+        },
+        {
+          "id": "q8",
+          "question": "Who is known as 'the Mother of Dragons'?",
+          "options": [
+            { "id": "a", "text": "Melisandre", "is_correct": false },
+            { "id": "b", "text": "Cersei Lannister", "is_correct": false },
+            { "id": "c", "text": "Sansa Stark", "is_correct": false },
+            { "id": "d", "text": "Daenerys Targaryen", "is_correct": true }
+          ],
+          "explanation": "Daenerys earned the title when she hatched three dragons in Khal Drogo's funeral pyre."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-juego-de-tronos",
+      "title": "Trivia de Juego de Tronos para fans",
+      "description": "Ocho temporadas de casas, dragones y traiciones por todo Poniente. Pon a prueba cuánto recuerdas de Juego de Tronos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["juego de tronos", "series", "fantasia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué serie de novelas se basa Juego de Tronos?",
+          "options": [
+            { "id": "a", "text": "Canción de hielo y fuego", "is_correct": true },
+            { "id": "b", "text": "La rueda del tiempo", "is_correct": false },
+            { "id": "c", "text": "Crónica del asesino de reyes", "is_correct": false },
+            { "id": "d", "text": "El archivo de las tormentas", "is_correct": false }
+          ],
+          "explanation": "Canción de hielo y fuego, de George R.R. Martin, comenzó con la novela Juego de tronos en 1996."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el lema de la casa Stark?",
+          "options": [
+            { "id": "a", "text": "'Fuego y sangre'", "is_correct": false },
+            { "id": "b", "text": "'Oye mi rugido'", "is_correct": false },
+            { "id": "c", "text": "'Se acerca el invierno'", "is_correct": true },
+            { "id": "d", "text": "'Nosotros no sembramos'", "is_correct": false }
+          ],
+          "explanation": "'Se acerca el invierno' es de los Stark; 'Fuego y sangre' es Targaryen, 'Oye mi rugido' Lannister y 'Nosotros no sembramos' Greyjoy."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llaman los tres dragones de Daenerys?",
+          "options": [
+            { "id": "a", "text": "Drogon, Balerion y Viserion", "is_correct": false },
+            { "id": "b", "text": "Drogon, Rhaegal y Viserion", "is_correct": true },
+            { "id": "c", "text": "Rhaegal, Meraxes y Viserion", "is_correct": false },
+            { "id": "d", "text": "Vhagar, Rhaegal y Drogon", "is_correct": false }
+          ],
+          "explanation": "Los nombró por su esposo Drogo y sus hermanos Rhaegar y Viserys; Balerion, Meraxes y Vhagar son dragones de Targaryen anteriores."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el nombre del lobo huargo de Jon Snow?",
+          "options": [
+            { "id": "a", "text": "Nymeria", "is_correct": false },
+            { "id": "b", "text": "Viento Gris", "is_correct": false },
+            { "id": "c", "text": "Verano", "is_correct": false },
+            { "id": "d", "text": "Fantasma", "is_correct": true }
+          ],
+          "explanation": "Fantasma es el huargo albino de Jon; Nymeria es de Arya, Viento Gris de Robb y Verano de Bran."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué material puede destruir a un Caminante Blanco?",
+          "options": [
+            { "id": "a", "text": "El bronce", "is_correct": false },
+            { "id": "b", "text": "El acero valyrio", "is_correct": true },
+            { "id": "c", "text": "La plata", "is_correct": false },
+            { "id": "d", "text": "El hierro común", "is_correct": false }
+          ],
+          "explanation": "Solo el acero valyrio y el vidriagón los destruyen; las armas normales se rompen contra ellos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama la espada de Arya Stark?",
+          "options": [
+            { "id": "a", "text": "Larga Garra", "is_correct": false },
+            { "id": "b", "text": "Guardajuramentos", "is_correct": false },
+            { "id": "c", "text": "Aguja", "is_correct": true },
+            { "id": "d", "text": "Hielo", "is_correct": false }
+          ],
+          "explanation": "Jon regala a Arya la fina espada que ella bautiza Aguja; Larga Garra es la espada de Jon y Hielo la de Ned Stark."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién es conocida como 'la Madre de Dragones'?",
+          "options": [
+            { "id": "a", "text": "Daenerys Targaryen", "is_correct": true },
+            { "id": "b", "text": "Melisandre", "is_correct": false },
+            { "id": "c", "text": "Cersei Lannister", "is_correct": false },
+            { "id": "d", "text": "Sansa Stark", "is_correct": false }
+          ],
+          "explanation": "Daenerys ganó el título al eclosionar tres dragones en la pira funeraria de Khal Drogo."
+        }
+      ]
+    },
+    {
+      "slug": "en-studio-ghibli-trivia",
+      "title": "Studio Ghibli Fan Trivia Challenge",
+      "description": "From Totoro to Spirited Away, Studio Ghibli built some of animation's most beloved worlds. How well do you know them?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["studio ghibli", "anime", "miyazaki", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year was Studio Ghibli founded?",
+          "options": [
+            { "id": "a", "text": "1979", "is_correct": false },
+            { "id": "b", "text": "1985", "is_correct": true },
+            { "id": "c", "text": "1990", "is_correct": false },
+            { "id": "d", "text": "1995", "is_correct": false }
+          ],
+          "explanation": "Hayao Miyazaki, Isao Takahata and Toshio Suzuki founded the studio in 1985, after Nausicaä's success."
+        },
+        {
+          "id": "q2",
+          "question": "Which Ghibli film won the Oscar for Best Animated Feature in 2003?",
+          "options": [
+            { "id": "a", "text": "Princess Mononoke", "is_correct": false },
+            { "id": "b", "text": "Kiki's Delivery Service", "is_correct": false },
+            { "id": "c", "text": "Spirited Away", "is_correct": true },
+            { "id": "d", "text": "Howl's Moving Castle", "is_correct": false }
+          ],
+          "explanation": "Spirited Away (2001) took the statuette at the March 2003 ceremony; Howl's was nominated two years later but lost."
+        },
+        {
+          "id": "q3",
+          "question": "Which character is Studio Ghibli's mascot, featured in its logo?",
+          "options": [
+            { "id": "a", "text": "Jiji", "is_correct": false },
+            { "id": "b", "text": "Ponyo", "is_correct": false },
+            { "id": "c", "text": "Calcifer", "is_correct": false },
+            { "id": "d", "text": "Totoro", "is_correct": true }
+          ],
+          "explanation": "The giant forest spirit Totoro appears in the studio's logo before every film."
+        },
+        {
+          "id": "q4",
+          "question": "In Spirited Away, where does Chihiro work to save her parents?",
+          "options": [
+            { "id": "a", "text": "In a bathhouse for spirits", "is_correct": true },
+            { "id": "b", "text": "In a noodle shop", "is_correct": false },
+            { "id": "c", "text": "In a floating castle", "is_correct": false },
+            { "id": "d", "text": "In a mountain shrine", "is_correct": false }
+          ],
+          "explanation": "The witch Yubaba forces her to work in the bathhouse where gods and spirits come to relax."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of the fire demon who powers Howl's moving castle?",
+          "options": [
+            { "id": "a", "text": "Kaonashi", "is_correct": false },
+            { "id": "b", "text": "Jiji", "is_correct": false },
+            { "id": "c", "text": "Calcifer", "is_correct": true },
+            { "id": "d", "text": "Totoro", "is_correct": false }
+          ],
+          "explanation": "Calcifer is the little flame bound to Howl's heart that keeps the castle walking."
+        },
+        {
+          "id": "q6",
+          "question": "Who directed My Neighbor Totoro and Spirited Away?",
+          "options": [
+            { "id": "a", "text": "Isao Takahata", "is_correct": false },
+            { "id": "b", "text": "Hiromasa Yonebayashi", "is_correct": false },
+            { "id": "c", "text": "Goro Miyazaki", "is_correct": false },
+            { "id": "d", "text": "Hayao Miyazaki", "is_correct": true }
+          ],
+          "explanation": "Both are Hayao Miyazaki films; Takahata directed Grave of the Fireflies and Yonebayashi Arrietty."
+        },
+        {
+          "id": "q7",
+          "question": "Which Miyazaki film follows a goldfish girl who wants to become human?",
+          "options": [
+            { "id": "a", "text": "Ponyo", "is_correct": true },
+            { "id": "b", "text": "The Wind Rises", "is_correct": false },
+            { "id": "c", "text": "Whisper of the Heart", "is_correct": false },
+            { "id": "d", "text": "Castle in the Sky", "is_correct": false }
+          ],
+          "explanation": "Ponyo (2008) loosely retells The Little Mermaid through the friendship between Ponyo and Sosuke."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-studio-ghibli",
+      "title": "Trivia de Studio Ghibli para fans",
+      "description": "De Totoro a El viaje de Chihiro, Studio Ghibli creó algunos de los mundos más queridos de la animación. ¿Cuánto los conoces?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["studio ghibli", "anime", "miyazaki", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se fundó Studio Ghibli?",
+          "options": [
+            { "id": "a", "text": "1985", "is_correct": true },
+            { "id": "b", "text": "1979", "is_correct": false },
+            { "id": "c", "text": "1990", "is_correct": false },
+            { "id": "d", "text": "1995", "is_correct": false }
+          ],
+          "explanation": "Hayao Miyazaki, Isao Takahata y Toshio Suzuki fundaron el estudio en 1985, tras el éxito de Nausicaä."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué película de Ghibli ganó el Óscar a mejor película animada en 2003?",
+          "options": [
+            { "id": "a", "text": "La princesa Mononoke", "is_correct": false },
+            { "id": "b", "text": "La tumba de las luciérnagas", "is_correct": false },
+            { "id": "c", "text": "Mi vecino Totoro", "is_correct": false },
+            { "id": "d", "text": "El viaje de Chihiro", "is_correct": true }
+          ],
+          "explanation": "El viaje de Chihiro (2001) recibió la estatuilla en la ceremonia de marzo de 2003."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué personaje es la mascota oficial del estudio y aparece en su logotipo?",
+          "options": [
+            { "id": "a", "text": "Ponyo", "is_correct": false },
+            { "id": "b", "text": "Totoro", "is_correct": true },
+            { "id": "c", "text": "Jiji", "is_correct": false },
+            { "id": "d", "text": "Calcifer", "is_correct": false }
+          ],
+          "explanation": "El gran espíritu del bosque Totoro abre el logotipo del estudio antes de cada película."
+        },
+        {
+          "id": "q4",
+          "question": "En El viaje de Chihiro, ¿dónde trabaja Chihiro para salvar a sus padres?",
+          "options": [
+            { "id": "a", "text": "En una tienda de fideos", "is_correct": false },
+            { "id": "b", "text": "En una posada de montaña", "is_correct": false },
+            { "id": "c", "text": "En una casa de baños de los espíritus", "is_correct": true },
+            { "id": "d", "text": "En un circo flotante", "is_correct": false }
+          ],
+          "explanation": "La bruja Yubaba la obliga a trabajar en la casa de baños donde los dioses y espíritus van a descansar."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el demonio de fuego que mueve el castillo de Howl?",
+          "options": [
+            { "id": "a", "text": "Sin Cara", "is_correct": false },
+            { "id": "b", "text": "Calcifer", "is_correct": true },
+            { "id": "c", "text": "Jiji", "is_correct": false },
+            { "id": "d", "text": "Totoro", "is_correct": false }
+          ],
+          "explanation": "Calcifer es la llamita ligada al corazón de Howl que mantiene el castillo en movimiento; Sin Cara es el espíritu de El viaje de Chihiro."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién dirigió Mi vecino Totoro y El viaje de Chihiro?",
+          "options": [
+            { "id": "a", "text": "Isao Takahata", "is_correct": false },
+            { "id": "b", "text": "Goro Miyazaki", "is_correct": false },
+            { "id": "c", "text": "Hiromasa Yonebayashi", "is_correct": false },
+            { "id": "d", "text": "Hayao Miyazaki", "is_correct": true }
+          ],
+          "explanation": "Ambas son de Hayao Miyazaki; Takahata dirigió La tumba de las luciérnagas y Yonebayashi Arrietty."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué película de Isao Takahata es un drama sobre dos hermanos en la Segunda Guerra Mundial?",
+          "options": [
+            { "id": "a", "text": "Mi vecino Totoro", "is_correct": false },
+            { "id": "b", "text": "El viento se levanta", "is_correct": false },
+            { "id": "c", "text": "La tumba de las luciérnagas", "is_correct": true },
+            { "id": "d", "text": "El cuento de la princesa Kaguya", "is_correct": false }
+          ],
+          "explanation": "La tumba de las luciérnagas (1988), de Takahata, sigue a Seita y Setsuko en el Japón de 1945."
+        }
+      ]
+    },
+    {
+      "slug": "en-sonic-trivia",
+      "title": "Sonic the Hedgehog Fan Trivia Challenge",
+      "description": "The blue blur has been speeding through Green Hill Zone since 1991. Test how well you know Sonic the Hedgehog.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "gaming",
+      "tags": ["sonic", "sega", "video-games", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year was the first Sonic the Hedgehog game released?",
+          "options": [
+            { "id": "a", "text": "1987", "is_correct": false },
+            { "id": "b", "text": "1989", "is_correct": false },
+            { "id": "c", "text": "1991", "is_correct": true },
+            { "id": "d", "text": "1994", "is_correct": false }
+          ],
+          "explanation": "Sonic the Hedgehog launched on 23 June 1991 and turned the blue hedgehog into Sega's mascot."
+        },
+        {
+          "id": "q2",
+          "question": "On which console did Sonic make his debut?",
+          "options": [
+            { "id": "a", "text": "Super Nintendo", "is_correct": false },
+            { "id": "b", "text": "Sega Saturn", "is_correct": false },
+            { "id": "c", "text": "PlayStation", "is_correct": false },
+            { "id": "d", "text": "Sega Genesis (Mega Drive)", "is_correct": true }
+          ],
+          "explanation": "He debuted on Sega's 16-bit console — Genesis in North America, Mega Drive elsewhere."
+        },
+        {
+          "id": "q3",
+          "question": "What does Sonic drop when he takes a hit?",
+          "options": [
+            { "id": "a", "text": "His rings", "is_correct": true },
+            { "id": "b", "text": "His Chaos Emeralds", "is_correct": false },
+            { "id": "c", "text": "His speed", "is_correct": false },
+            { "id": "d", "text": "A life, always", "is_correct": false }
+          ],
+          "explanation": "As long as Sonic holds at least one ring, a hit only scatters them instead of costing a life."
+        },
+        {
+          "id": "q4",
+          "question": "Who is Sonic's two-tailed fox sidekick?",
+          "options": [
+            { "id": "a", "text": "Knuckles", "is_correct": false },
+            { "id": "b", "text": "Shadow", "is_correct": false },
+            { "id": "c", "text": "Silver", "is_correct": false },
+            { "id": "d", "text": "Tails", "is_correct": true }
+          ],
+          "explanation": "Miles 'Tails' Prower joined in Sonic the Hedgehog 2 (1992) and can fly by spinning his two tails."
+        },
+        {
+          "id": "q5",
+          "question": "What does Knuckles guard on Angel Island?",
+          "options": [
+            { "id": "a", "text": "The Master Emerald", "is_correct": true },
+            { "id": "b", "text": "A stockpile of rings", "is_correct": false },
+            { "id": "c", "text": "The Tornado plane", "is_correct": false },
+            { "id": "d", "text": "Robotnik's laboratory", "is_correct": false }
+          ],
+          "explanation": "Knuckles, the red echidna from Sonic 3 (1994), is the last guardian of the Master Emerald."
+        },
+        {
+          "id": "q6",
+          "question": "How many Chaos Emeralds does Sonic need to turn into Super Sonic?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": false },
+            { "id": "c", "text": "Seven", "is_correct": true },
+            { "id": "d", "text": "Ten", "is_correct": false }
+          ],
+          "explanation": "All seven Chaos Emeralds turn Sonic golden and nearly invincible — a transformation introduced in Sonic 2."
+        },
+        {
+          "id": "q7",
+          "question": "What is the name of Sonic's arch-enemy?",
+          "options": [
+            { "id": "a", "text": "Dr. Wily", "is_correct": false },
+            { "id": "b", "text": "Bowser", "is_correct": false },
+            { "id": "c", "text": "Dr. Robotnik, also known as Dr. Eggman", "is_correct": true },
+            { "id": "d", "text": "King K. Rool", "is_correct": false }
+          ],
+          "explanation": "The mustached scientist is called Robotnik in the West and Eggman in Japan; the others are villains from Mega Man, Mario and Donkey Kong."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sonic",
+      "title": "Trivia fan de Sonic the Hedgehog",
+      "description": "El erizo azul corre por Green Hill Zone desde 1991. Pon a prueba cuánto sabes de Sonic the Hedgehog y su mundo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "gaming",
+      "tags": ["sonic", "sega", "videojuegos", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año se lanzó el primer juego de Sonic the Hedgehog?",
+          "options": [
+            { "id": "a", "text": "1991", "is_correct": true },
+            { "id": "b", "text": "1987", "is_correct": false },
+            { "id": "c", "text": "1989", "is_correct": false },
+            { "id": "d", "text": "1994", "is_correct": false }
+          ],
+          "explanation": "Sonic the Hedgehog salió el 23 de junio de 1991 y convirtió al erizo azul en la mascota de Sega."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué consola debutó Sonic?",
+          "options": [
+            { "id": "a", "text": "Super Nintendo", "is_correct": false },
+            { "id": "b", "text": "Sega Genesis (Mega Drive)", "is_correct": true },
+            { "id": "c", "text": "Sega Saturn", "is_correct": false },
+            { "id": "d", "text": "PlayStation", "is_correct": false }
+          ],
+          "explanation": "Debutó en la consola de 16 bits de Sega, llamada Genesis en América y Mega Drive en el resto del mundo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué suelta Sonic cuando recibe un golpe?",
+          "options": [
+            { "id": "a", "text": "Las esmeraldas del Caos", "is_correct": false },
+            { "id": "b", "text": "Su velocidad", "is_correct": false },
+            { "id": "c", "text": "Los anillos", "is_correct": true },
+            { "id": "d", "text": "Una vida, siempre", "is_correct": false }
+          ],
+          "explanation": "Mientras Sonic conserve al menos un anillo, un golpe solo los dispersa en lugar de costarle una vida."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién es el compañero zorro de dos colas de Sonic?",
+          "options": [
+            { "id": "a", "text": "Knuckles", "is_correct": false },
+            { "id": "b", "text": "Shadow", "is_correct": false },
+            { "id": "c", "text": "Tails", "is_correct": true },
+            { "id": "d", "text": "Silver", "is_correct": false }
+          ],
+          "explanation": "Miles 'Tails' Prower se unió en Sonic the Hedgehog 2 (1992) y puede volar girando sus dos colas."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué vigila Knuckles en la Isla Ángel?",
+          "options": [
+            { "id": "a", "text": "La Esmeralda Maestra", "is_correct": true },
+            { "id": "b", "text": "Una reserva de anillos", "is_correct": false },
+            { "id": "c", "text": "El avión Tornado", "is_correct": false },
+            { "id": "d", "text": "El laboratorio de Robotnik", "is_correct": false }
+          ],
+          "explanation": "Knuckles, la equidna roja que debutó en Sonic 3 (1994), es el último guardián de la Esmeralda Maestra."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántas esmeraldas del Caos necesita Sonic para convertirse en Super Sonic?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Siete", "is_correct": true },
+            { "id": "c", "text": "Seis", "is_correct": false },
+            { "id": "d", "text": "Diez", "is_correct": false }
+          ],
+          "explanation": "Las siete esmeraldas vuelven a Sonic dorado y casi invencible; la transformación apareció en Sonic 2."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama el enemigo principal de Sonic?",
+          "options": [
+            { "id": "a", "text": "Dr. Wily", "is_correct": false },
+            { "id": "b", "text": "Dr. Robotnik, también llamado Dr. Eggman", "is_correct": true },
+            { "id": "c", "text": "Bowser", "is_correct": false },
+            { "id": "d", "text": "King K. Rool", "is_correct": false }
+          ],
+          "explanation": "El científico del bigote es Robotnik en Occidente y Eggman en Japón; los otros son villanos de Mega Man, Mario y Donkey Kong."
+        }
+      ]
+    },
+    {
+      "slug": "en-christmas-trivia",
+      "title": "Christmas Fan Trivia Challenge",
+      "description": "Carols, classic films and traditions from Christmas trees to Rudolph: test how much you know about Christmas around the world.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["christmas", "holidays", "traditions", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In Home Alone (1990), what is the name of the boy left behind?",
+          "options": [
+            { "id": "a", "text": "Buzz", "is_correct": false },
+            { "id": "b", "text": "Kevin McCallister", "is_correct": true },
+            { "id": "c", "text": "Fuller", "is_correct": false },
+            { "id": "d", "text": "Jeff", "is_correct": false }
+          ],
+          "explanation": "Kevin, played by Macaulay Culkin, is left behind when the family flies to Paris; Buzz and Jeff are his brothers and Fuller his cousin."
+        },
+        {
+          "id": "q2",
+          "question": "Who wrote 'A Christmas Carol', the story of Ebenezer Scrooge?",
+          "options": [
+            { "id": "a", "text": "Oscar Wilde", "is_correct": false },
+            { "id": "b", "text": "Mark Twain", "is_correct": false },
+            { "id": "c", "text": "Charles Dickens", "is_correct": true },
+            { "id": "d", "text": "Jane Austen", "is_correct": false }
+          ],
+          "explanation": "Dickens published the novella in 1843; its ghosts of Christmas Past, Present and Yet to Come visit Scrooge on Christmas Eve."
+        },
+        {
+          "id": "q3",
+          "question": "In which year was Elf, starring Will Ferrell as Buddy, released?",
+          "options": [
+            { "id": "a", "text": "1999", "is_correct": false },
+            { "id": "b", "text": "2001", "is_correct": false },
+            { "id": "c", "text": "2003", "is_correct": true },
+            { "id": "d", "text": "2006", "is_correct": false }
+          ],
+          "explanation": "Buddy travels from the North Pole to New York in the 2003 film directed by Jon Favreau."
+        },
+        {
+          "id": "q4",
+          "question": "'Jingle Bells' was originally written for which holiday?",
+          "options": [
+            { "id": "a", "text": "Christmas", "is_correct": false },
+            { "id": "b", "text": "Thanksgiving", "is_correct": true },
+            { "id": "c", "text": "New Year's Eve", "is_correct": false },
+            { "id": "d", "text": "Easter", "is_correct": false }
+          ],
+          "explanation": "James Lord Pierpont published it in 1857 as 'One Horse Open Sleigh', meant for Thanksgiving; Christmas adopted it later."
+        },
+        {
+          "id": "q5",
+          "question": "Which reindeer earns a place at the front of Santa's sleigh thanks to his glowing red nose?",
+          "options": [
+            { "id": "a", "text": "Dasher", "is_correct": false },
+            { "id": "b", "text": "Donner", "is_correct": false },
+            { "id": "c", "text": "Blitzen", "is_correct": false },
+            { "id": "d", "text": "Rudolph", "is_correct": true }
+          ],
+          "explanation": "Rudolph was created in 1939 for a Montgomery Ward booklet; the other three come from the 1823 poem 'The Night Before Christmas'."
+        },
+        {
+          "id": "q6",
+          "question": "In 'It's a Wonderful Life' (1946), what happens every time a bell rings?",
+          "options": [
+            { "id": "a", "text": "An angel gets its wings", "is_correct": true },
+            { "id": "b", "text": "A wish comes true", "is_correct": false },
+            { "id": "c", "text": "Santa gets a new reindeer", "is_correct": false },
+            { "id": "d", "text": "Snow starts falling", "is_correct": false }
+          ],
+          "explanation": "The line is Zuzu's: her father's guardian angel Clarence earns his wings by the end of the film."
+        },
+        {
+          "id": "q7",
+          "question": "Which country is credited with starting the decorated Christmas tree tradition?",
+          "options": [
+            { "id": "a", "text": "Norway", "is_correct": false },
+            { "id": "b", "text": "England", "is_correct": false },
+            { "id": "c", "text": "The United States", "is_correct": false },
+            { "id": "d", "text": "Germany", "is_correct": true }
+          ],
+          "explanation": "The modern Tannenbaum spread from Germany in the 16th century, long before it reached the rest of the world."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-navidad",
+      "title": "Trivia de Navidad: tradiciones y clásicos",
+      "description": "Villancicos, películas clásicas y tradiciones de la Navidad, del árbol a los Reyes Magos. ¿Cuánto sabes de estas fiestas?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["navidad", "fiestas", "tradiciones", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué niño queda solo en casa en la película navideña de 1990?",
+          "options": [
+            { "id": "a", "text": "Buzz", "is_correct": false },
+            { "id": "b", "text": "Jeff", "is_correct": false },
+            { "id": "c", "text": "Kevin McCallister", "is_correct": true },
+            { "id": "d", "text": "Fuller", "is_correct": false }
+          ],
+          "explanation": "Kevin, interpretado por Macaulay Culkin, se queda atrás cuando la familia vuela a París; Buzz y Jeff son sus hermanos y Fuller su primo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién escribió 'Cuento de Navidad', la historia del señor Scrooge?",
+          "options": [
+            { "id": "a", "text": "Charles Dickens", "is_correct": true },
+            { "id": "b", "text": "Oscar Wilde", "is_correct": false },
+            { "id": "c", "text": "Mark Twain", "is_correct": false },
+            { "id": "d", "text": "Jane Austen", "is_correct": false }
+          ],
+          "explanation": "Dickens publicó la novela en 1843; los espíritus de las Navidades pasadas, presentes y futuras visitan a Scrooge en Nochebuena."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el reno de la nariz roja?",
+          "options": [
+            { "id": "a", "text": "Dasher", "is_correct": false },
+            { "id": "b", "text": "Rodolfo", "is_correct": true },
+            { "id": "c", "text": "Donner", "is_correct": false },
+            { "id": "d", "text": "Blitzen", "is_correct": false }
+          ],
+          "explanation": "Rodolfo (Rudolph) nació en un folleto de 1939; los otros renos vienen del poema de 1823 'La noche antes de Navidad'."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año se estrenó Elf, la película de Will Ferrell?",
+          "options": [
+            { "id": "a", "text": "1999", "is_correct": false },
+            { "id": "b", "text": "2006", "is_correct": false },
+            { "id": "c", "text": "2001", "is_correct": false },
+            { "id": "d", "text": "2003", "is_correct": true }
+          ],
+          "explanation": "Buddy viaja del Polo Norte a Nueva York en la película de 2003 dirigida por Jon Favreau."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué personaje verde odia la Navidad en el clásico del Dr. Seuss?",
+          "options": [
+            { "id": "a", "text": "Jack Skellington", "is_correct": false },
+            { "id": "b", "text": "Shrek", "is_correct": false },
+            { "id": "c", "text": "El Grinch", "is_correct": true },
+            { "id": "d", "text": "Scrooge", "is_correct": false }
+          ],
+          "explanation": "El Grinch robó la Navidad en el libro de 1957; Jack Skellington solo quiso celebrarla a su manera y Scrooge es de Dickens."
+        },
+        {
+          "id": "q6",
+          "question": "Según la tradición, ¿qué regalos llevaron los Reyes Magos al niño Jesús?",
+          "options": [
+            { "id": "a", "text": "Oro, incienso y mirra", "is_correct": true },
+            { "id": "b", "text": "Oro, mirra y romero", "is_correct": false },
+            { "id": "c", "text": "Plata, incienso y mirra", "is_correct": false },
+            { "id": "d", "text": "Oro, canela y mirra", "is_correct": false }
+          ],
+          "explanation": "Melchor, Gaspar y Baltasar ofrecieron oro, incienso y mirra, que se recuerdan el 6 de enero."
+        },
+        {
+          "id": "q7",
+          "question": "¿De qué país viene la tradición del árbol de Navidad decorado?",
+          "options": [
+            { "id": "a", "text": "Noruega", "is_correct": false },
+            { "id": "b", "text": "Inglaterra", "is_correct": false },
+            { "id": "c", "text": "Alemania", "is_correct": true },
+            { "id": "d", "text": "Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "El Tannenbaum moderno se extendió desde Alemania en el siglo XVI, mucho antes de llegar al resto del mundo."
+        }
+      ]
+    }
+  ]
+}
