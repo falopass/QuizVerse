@@ -58,6 +58,7 @@ export function MobileNav({ dictionary, locale }: { dictionary: Dictionary; loca
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? 'page' : undefined}
                 className={cn(
                   'flex min-w-0 flex-col items-center gap-1 rounded-lg px-3 py-2 text-[10px] font-medium transition-colors',
                   active ? 'text-accent-primary' : 'text-text-muted'

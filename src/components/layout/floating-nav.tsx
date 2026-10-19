@@ -2,14 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { getLocalizedCategoryLabel } from '@/lib/i18n/catalog';
-import { localizeHref } from '@/lib/i18n/navigation';
+import { localizeHref, stripLocaleFromPathname } from '@/lib/i18n/navigation';
+import { cn } from '@/lib/utils/cn';
 import { LocaleSwitcher } from './locale-switcher';
 import { UserMenu, UserMenuMobile } from './user-menu';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
 export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const normalizedPathname = stripLocaleFromPathname(pathname || '/');
+  const isActive = (match: string) =>
+    normalizedPathname === match || normalizedPathname.startsWith(`${match}/`);
   return (
     <header className="arcade-header">
       <div className="arcade-wrap arcade-header-inner">
@@ -17,13 +23,28 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           QUIZ<span>VERSE</span>
         </Link>
         <nav className="arcade-nav" aria-label={dictionary.arcade.mainNavigation}>
-          <Link href={localizeHref(locale, '/quiz')} className="arcade-nav-link">
+          <Link
+            href={localizeHref(locale, '/quiz')}
+            className={cn('arcade-nav-link', isActive('/quiz') && 'text-accent-primary')}
+            aria-current={isActive('/quiz') ? 'page' : undefined}
+          >
             {dictionary.common.explore}
           </Link>
-          <Link href={localizeHref(locale, '/category/personality')} className="arcade-nav-link">
+          <Link
+            href={localizeHref(locale, '/category/personality')}
+            className={cn(
+              'arcade-nav-link',
+              isActive('/category/personality') && 'text-accent-primary'
+            )}
+            aria-current={isActive('/category/personality') ? 'page' : undefined}
+          >
             {getLocalizedCategoryLabel('personality', locale)}
           </Link>
-          <Link href={localizeHref(locale, '/category/trivia')} className="arcade-nav-link">
+          <Link
+            href={localizeHref(locale, '/category/trivia')}
+            className={cn('arcade-nav-link', isActive('/category/trivia') && 'text-accent-primary')}
+            aria-current={isActive('/category/trivia') ? 'page' : undefined}
+          >
             {getLocalizedCategoryLabel('trivia', locale)}
           </Link>
           <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
