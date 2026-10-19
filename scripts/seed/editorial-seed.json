@@ -1414,6 +1414,1016 @@
           "explanation": "Brasil venció a Italia en los penales tras un 0-0, la primera final de un Mundial definida desde el punto penal."
         }
       ]
+    },
+    {
+      "slug": "en-world-street-food-trivia",
+      "title": "World Street Food Trivia: 8 Iconic Bites",
+      "description": "From tacos al pastor to Osaka's takoyaki, eight questions on the world's most famous street food.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "street-food", "trivia", "world-cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The vertical rotisserie used for tacos al pastor arrived in Mexico with immigrants from which country?",
+          "options": [
+            { "id": "a", "text": "Spain", "is_correct": false },
+            { "id": "b", "text": "Lebanon", "is_correct": true },
+            { "id": "c", "text": "Italy", "is_correct": false },
+            { "id": "d", "text": "Greece", "is_correct": false }
+          ],
+          "explanation": "Lebanese immigrants brought the shawarma spit to Mexico in the 20th century, where it became the trompo of tacos al pastor."
+        },
+        {
+          "id": "q2",
+          "question": "Banh mi, a sandwich that combines a French baguette with local fillings, is a street food staple of which country?",
+          "options": [
+            { "id": "a", "text": "Thailand", "is_correct": false },
+            { "id": "b", "text": "Vietnam", "is_correct": true },
+            { "id": "c", "text": "South Korea", "is_correct": false },
+            { "id": "d", "text": "India", "is_correct": false }
+          ],
+          "explanation": "The banh mi was born in Vietnam during the French colonial era, mixing baguette with Vietnamese fillings."
+        },
+        {
+          "id": "q3",
+          "question": "Currywurst, sausage with curried ketchup, was invented in 1949 in which city?",
+          "options": [
+            { "id": "a", "text": "Munich", "is_correct": false },
+            { "id": "b", "text": "Vienna", "is_correct": false },
+            { "id": "c", "text": "Berlin", "is_correct": true },
+            { "id": "d", "text": "Hamburg", "is_correct": false }
+          ],
+          "explanation": "Herta Heuwer is credited with mixing ketchup and curry powder in Berlin in 1949."
+        },
+        {
+          "id": "q4",
+          "question": "Takoyaki, the fried octopus balls, originated in which Japanese city?",
+          "options": [
+            { "id": "a", "text": "Osaka", "is_correct": true },
+            { "id": "b", "text": "Tokyo", "is_correct": false },
+            { "id": "c", "text": "Kyoto", "is_correct": false },
+            { "id": "d", "text": "Sapporo", "is_correct": false }
+          ],
+          "explanation": "Takoyaki was created in Osaka in 1935 and remains a symbol of the city's street food scene."
+        },
+        {
+          "id": "q5",
+          "question": "Arepas, the griddled cakes sold on the streets of Venezuela and Colombia, are made from what?",
+          "options": [
+            { "id": "a", "text": "Wheat flour", "is_correct": false },
+            { "id": "b", "text": "Pre-cooked corn flour", "is_correct": true },
+            { "id": "c", "text": "Rice flour", "is_correct": false },
+            { "id": "d", "text": "Potato starch", "is_correct": false }
+          ],
+          "explanation": "Arepas are made from dough of pre-cooked maize flour, a staple since before colonisation."
+        },
+        {
+          "id": "q6",
+          "question": "Falafel, the fried snack sold across the Middle East, is usually made from which legume?",
+          "options": [
+            { "id": "a", "text": "Lentils", "is_correct": false },
+            { "id": "b", "text": "Chickpeas", "is_correct": true },
+            { "id": "c", "text": "Kidney beans", "is_correct": false },
+            { "id": "d", "text": "Soybeans", "is_correct": false }
+          ],
+          "explanation": "Most falafel is made from ground chickpeas; the Egyptian version, ta'ameya, uses fava beans."
+        },
+        {
+          "id": "q7",
+          "question": "Pad Thai, the stir-fried rice noodle dish, is the iconic street food of which country?",
+          "options": [
+            { "id": "a", "text": "Vietnam", "is_correct": false },
+            { "id": "b", "text": "Malaysia", "is_correct": false },
+            { "id": "c", "text": "Thailand", "is_correct": true },
+            { "id": "d", "text": "Philippines", "is_correct": false }
+          ],
+          "explanation": "Pad Thai was promoted as Thailand's national dish in the mid-20th century."
+        },
+        {
+          "id": "q8",
+          "question": "Churros dipped in thick hot chocolate are a classic street snack of which country?",
+          "options": [
+            { "id": "a", "text": "Portugal", "is_correct": false },
+            { "id": "b", "text": "Spain", "is_correct": true },
+            { "id": "c", "text": "Argentina", "is_correct": false },
+            { "id": "d", "text": "France", "is_correct": false }
+          ],
+          "explanation": "Churros con chocolate are a Spanish tradition, sold at churrerias and street stalls."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-callejera",
+      "title": "Trivia de comida callejera: tacos, falafel y churros",
+      "description": "Del trompo del taco al pastor al takoyaki de Osaka: ocho preguntas sobre la comida callejera mas famosa del mundo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "comida-callejera", "trivia", "gastronomia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El trompo vertical de los tacos al pastor llego a Mexico con inmigrantes de que pais?",
+          "options": [
+            { "id": "a", "text": "Espana", "is_correct": false },
+            { "id": "b", "text": "Libano", "is_correct": true },
+            { "id": "c", "text": "Italia", "is_correct": false },
+            { "id": "d", "text": "Grecia", "is_correct": false }
+          ],
+          "explanation": "Los inmigrantes libaneses llevaron el asador de shawarma a Mexico en el siglo XX y alli nacio el trompo del pastor."
+        },
+        {
+          "id": "q2",
+          "question": "El shawarma, carne asada en un espeton vertical, es comida callejera tipica de que region?",
+          "options": [
+            { "id": "a", "text": "Europa del Este", "is_correct": false },
+            { "id": "b", "text": "Oriente Medio", "is_correct": true },
+            { "id": "c", "text": "Sudeste Asiatico", "is_correct": false },
+            { "id": "d", "text": "America Central", "is_correct": false }
+          ],
+          "explanation": "El shawarma tiene origen otomano y hoy se vende en puestos de todo el Levante y Turquia."
+        },
+        {
+          "id": "q3",
+          "question": "Los takoyaki, las bolitas fritas de Osaka, van rellenas de que ingrediente?",
+          "options": [
+            { "id": "a", "text": "Camaron", "is_correct": false },
+            { "id": "b", "text": "Pollo", "is_correct": false },
+            { "id": "c", "text": "Pulpo", "is_correct": true },
+            { "id": "d", "text": "Cangrejo", "is_correct": false }
+          ],
+          "explanation": "Tako significa pulpo en japones; el plato nacio en Osaka en 1935."
+        },
+        {
+          "id": "q4",
+          "question": "El elote y los esquites, maiz preparado con chile, limon y queso, son un clasico callejero de que pais?",
+          "options": [
+            { "id": "a", "text": "Espana", "is_correct": false },
+            { "id": "b", "text": "Mexico", "is_correct": true },
+            { "id": "c", "text": "Chile", "is_correct": false },
+            { "id": "d", "text": "Marruecos", "is_correct": false }
+          ],
+          "explanation": "El elote en vaso o en mazorca es uno de los antojitos callejeros mas populares de Mexico."
+        },
+        {
+          "id": "q5",
+          "question": "El pho, la sopa de fideos de arroz vendida en puestos callejeros, es el plato insignia de que pais?",
+          "options": [
+            { "id": "a", "text": "Vietnam", "is_correct": true },
+            { "id": "b", "text": "Tailandia", "is_correct": false },
+            { "id": "c", "text": "China", "is_correct": false },
+            { "id": "d", "text": "Japon", "is_correct": false }
+          ],
+          "explanation": "El pho nacio en el norte de Vietnam a comienzos del siglo XX."
+        },
+        {
+          "id": "q6",
+          "question": "Las arepas son comida callejera emblematica de Venezuela y de que otro pais?",
+          "options": [
+            { "id": "a", "text": "Ecuador", "is_correct": false },
+            { "id": "b", "text": "Colombia", "is_correct": true },
+            { "id": "c", "text": "Bolivia", "is_correct": false },
+            { "id": "d", "text": "Uruguay", "is_correct": false }
+          ],
+          "explanation": "La arepa de maiz es alimento basico tanto de Venezuela como de Colombia desde antes de la colonia."
+        },
+        {
+          "id": "q7",
+          "question": "Que bocado callejero aleman consiste en salchicha con ketchup y curry en polvo?",
+          "options": [
+            { "id": "a", "text": "Bratwurst", "is_correct": false },
+            { "id": "b", "text": "Currywurst", "is_correct": true },
+            { "id": "c", "text": "Schnitzel", "is_correct": false },
+            { "id": "d", "text": "Kebab", "is_correct": false }
+          ],
+          "explanation": "El currywurst se invento en Berlin en 1949, en el puesto de Herta Heuwer."
+        },
+        {
+          "id": "q8",
+          "question": "El falafel egipcio, llamado ta'ameya, se prepara tradicionalmente con que legumbre?",
+          "options": [
+            { "id": "a", "text": "Garbanzos", "is_correct": false },
+            { "id": "b", "text": "Habas", "is_correct": true },
+            { "id": "c", "text": "Lentejas", "is_correct": false },
+            { "id": "d", "text": "Guisantes", "is_correct": false }
+          ],
+          "explanation": "A diferencia del falafel de garbanzos del resto de la region, el egipcio usa habas."
+        }
+      ]
+    },
+    {
+      "slug": "en-tech-and-ai-history-trivia",
+      "title": "Tech and AI History Trivia: From ENIAC to Deep Blue",
+      "description": "From the first microprocessor to the machine that beat Kasparov, eight milestones of computing and AI.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "ai", "computers", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did Apple release the first iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": true },
+            { "id": "c", "text": "2009", "is_correct": false },
+            { "id": "d", "text": "2010", "is_correct": false }
+          ],
+          "explanation": "Steve Jobs introduced the iPhone in January 2007 and it went on sale that June."
+        },
+        {
+          "id": "q2",
+          "question": "What does HTTP, the protocol the web runs on, stand for?",
+          "options": [
+            { "id": "a", "text": "HyperText Transfer Protocol", "is_correct": true },
+            { "id": "b", "text": "High Throughput Transfer Process", "is_correct": false },
+            { "id": "c", "text": "HyperText Terminal Program", "is_correct": false },
+            { "id": "d", "text": "Host Text Transmission Protocol", "is_correct": false }
+          ],
+          "explanation": "Tim Berners-Lee designed HTTP at CERN in 1989 to serve hypertext documents."
+        },
+        {
+          "id": "q3",
+          "question": "Which company built the first commercial microprocessor, the 4004, in 1971?",
+          "options": [
+            { "id": "a", "text": "IBM", "is_correct": false },
+            { "id": "b", "text": "Intel", "is_correct": true },
+            { "id": "c", "text": "Motorola", "is_correct": false },
+            { "id": "d", "text": "Texas Instruments", "is_correct": false }
+          ],
+          "explanation": "The Intel 4004, led by Federico Faggin's team, packed a whole CPU into a single chip."
+        },
+        {
+          "id": "q4",
+          "question": "Tim Berners-Lee proposed the World Wide Web in 1989 while working at which organisation?",
+          "options": [
+            { "id": "a", "text": "MIT", "is_correct": false },
+            { "id": "b", "text": "CERN", "is_correct": true },
+            { "id": "c", "text": "NASA", "is_correct": false },
+            { "id": "d", "text": "IBM", "is_correct": false }
+          ],
+          "explanation": "He wrote the proposal to share documents between researchers at CERN, the physics lab in Geneva."
+        },
+        {
+          "id": "q5",
+          "question": "Which IBM computer defeated reigning world chess champion Garry Kasparov in 1997?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": false },
+            { "id": "b", "text": "Deep Blue", "is_correct": true },
+            { "id": "c", "text": "Deep Thought", "is_correct": false },
+            { "id": "d", "text": "AlphaZero", "is_correct": false }
+          ],
+          "explanation": "Deep Blue won the 1997 rematch 3.5 to 2.5, the first match win of a machine over a reigning champion."
+        },
+        {
+          "id": "q6",
+          "question": "The term 'artificial intelligence' was coined at a 1956 workshop at which university?",
+          "options": [
+            { "id": "a", "text": "Stanford", "is_correct": false },
+            { "id": "b", "text": "MIT", "is_correct": false },
+            { "id": "c", "text": "Dartmouth", "is_correct": true },
+            { "id": "d", "text": "Harvard", "is_correct": false }
+          ],
+          "explanation": "John McCarthy used the term in the proposal for the Dartmouth Summer Research Project."
+        },
+        {
+          "id": "q7",
+          "question": "ENIAC, one of the first general-purpose electronic computers, was completed in which decade?",
+          "options": [
+            { "id": "a", "text": "The 1930s", "is_correct": false },
+            { "id": "b", "text": "The 1940s", "is_correct": true },
+            { "id": "c", "text": "The 1950s", "is_correct": false },
+            { "id": "d", "text": "The 1960s", "is_correct": false }
+          ],
+          "explanation": "ENIAC was finished in 1945 at the University of Pennsylvania and announced publicly in 1946."
+        },
+        {
+          "id": "q8",
+          "question": "The first message sent over ARPANET in 1969 crashed after which two letters?",
+          "options": [
+            { "id": "a", "text": "HI", "is_correct": false },
+            { "id": "b", "text": "LO", "is_correct": true },
+            { "id": "c", "text": "OK", "is_correct": false },
+            { "id": "d", "text": "GO", "is_correct": false }
+          ],
+          "explanation": "UCLA tried to send LOGIN to Stanford, but the system crashed after the first two letters."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-tecnologia-ia",
+      "title": "Trivia de tecnologia e IA: del primer chip a la web",
+      "description": "Del primer microprocesador a la maquina que vencio a Kasparov: ocho hitos de la informatica y la IA.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnologia", "ia", "computacion", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En que ano lanzo Apple el primer iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2007", "is_correct": true },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2003", "is_correct": false }
+          ],
+          "explanation": "Steve Jobs lo presento en enero de 2007 y salio a la venta en junio de ese ano."
+        },
+        {
+          "id": "q2",
+          "question": "ARPANET, la red que precedio a internet, envio su primer mensaje en que ano?",
+          "options": [
+            { "id": "a", "text": "1969", "is_correct": true },
+            { "id": "b", "text": "1979", "is_correct": false },
+            { "id": "c", "text": "1983", "is_correct": false },
+            { "id": "d", "text": "1961", "is_correct": false }
+          ],
+          "explanation": "En octubre de 1969 UCLA intento enviar LOGIN a Stanford y el sistema cayo tras las letras LO."
+        },
+        {
+          "id": "q3",
+          "question": "Que maquina de IBM derroto al campeon mundial de ajedrez Garry Kasparov en 1997?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": false },
+            { "id": "b", "text": "Deep Blue", "is_correct": true },
+            { "id": "c", "text": "AlphaGo", "is_correct": false },
+            { "id": "d", "text": "ENIAC", "is_correct": false }
+          ],
+          "explanation": "Deep Blue gano la revancha 3,5 a 2,5, la primera vez que una maquina vencio a un campeon vigente."
+        },
+        {
+          "id": "q4",
+          "question": "La World Wide Web fue propuesta en 1989 por Tim Berners-Lee, que trabajaba en que institucion?",
+          "options": [
+            { "id": "a", "text": "La NASA", "is_correct": false },
+            { "id": "b", "text": "El CERN", "is_correct": true },
+            { "id": "c", "text": "El MIT", "is_correct": false },
+            { "id": "d", "text": "Microsoft", "is_correct": false }
+          ],
+          "explanation": "La diseno en el CERN, el laboratorio europeo de fisica de particulas en Ginebra."
+        },
+        {
+          "id": "q5",
+          "question": "El primer microprocesador comercial, lanzado en 1971, fue el Intel...",
+          "options": [
+            { "id": "a", "text": "8086", "is_correct": false },
+            { "id": "b", "text": "4004", "is_correct": true },
+            { "id": "c", "text": "8008", "is_correct": false },
+            { "id": "d", "text": "Pentium", "is_correct": false }
+          ],
+          "explanation": "El Intel 4004 metio una CPU completa en un solo chip por primera vez."
+        },
+        {
+          "id": "q6",
+          "question": "El termino 'inteligencia artificial' se acuno en un seminario de 1956 en que universidad estadounidense?",
+          "options": [
+            { "id": "a", "text": "Harvard", "is_correct": false },
+            { "id": "b", "text": "Stanford", "is_correct": false },
+            { "id": "c", "text": "Dartmouth", "is_correct": true },
+            { "id": "d", "text": "Berkeley", "is_correct": false }
+          ],
+          "explanation": "John McCarthy lo propuso para el taller de verano de Dartmouth College."
+        },
+        {
+          "id": "q7",
+          "question": "ENIAC, una de las primeras computadoras electronicas de proposito general, se termino en que decada?",
+          "options": [
+            { "id": "a", "text": "Los anos 30", "is_correct": false },
+            { "id": "b", "text": "Los anos 40", "is_correct": true },
+            { "id": "c", "text": "Los anos 50", "is_correct": false },
+            { "id": "d", "text": "Los anos 60", "is_correct": false }
+          ],
+          "explanation": "Se completo en 1945 en la Universidad de Pensilvania y se anuncio al publico en 1946."
+        },
+        {
+          "id": "q8",
+          "question": "Que supercomputadora de IBM gano el concurso televisivo Jeopardy! en 2011?",
+          "options": [
+            { "id": "a", "text": "Deep Blue", "is_correct": false },
+            { "id": "b", "text": "Watson", "is_correct": true },
+            { "id": "c", "text": "Summit", "is_correct": false },
+            { "id": "d", "text": "AlphaGo", "is_correct": false }
+          ],
+          "explanation": "Watson vencio a Ken Jennings y Brad Rutter, dos de los mejores concursantes de la historia del programa."
+        }
+      ]
+    },
+    {
+      "slug": "en-classic-books-trivia",
+      "title": "Classic Books Trivia: 8 Literary Landmarks",
+      "description": "From Don Quixote's horse to the first line of Moby-Dick, eight questions on classics of world literature.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "books", "classics", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote One Hundred Years of Solitude?",
+          "options": [
+            { "id": "a", "text": "Jorge Luis Borges", "is_correct": false },
+            { "id": "b", "text": "Gabriel Garcia Marquez", "is_correct": true },
+            { "id": "c", "text": "Pablo Neruda", "is_correct": false },
+            { "id": "d", "text": "Julio Cortazar", "is_correct": false }
+          ],
+          "explanation": "Published in 1967, it made Garcia Marquez the emblem of the Latin American Boom; he won the Nobel Prize in 1982."
+        },
+        {
+          "id": "q2",
+          "question": "In Don Quixote, what is the name of the knight's bony horse?",
+          "options": [
+            { "id": "a", "text": "Babieca", "is_correct": false },
+            { "id": "b", "text": "Rocinante", "is_correct": true },
+            { "id": "c", "text": "Bucephalus", "is_correct": false },
+            { "id": "d", "text": "Shadowfax", "is_correct": false }
+          ],
+          "explanation": "Rocinante's name plays on rocin, a workhorse, and ante, meaning before."
+        },
+        {
+          "id": "q3",
+          "question": "Pride and Prejudice was written by which author?",
+          "options": [
+            { "id": "a", "text": "Charlotte Bronte", "is_correct": false },
+            { "id": "b", "text": "Jane Austen", "is_correct": true },
+            { "id": "c", "text": "Emily Dickinson", "is_correct": false },
+            { "id": "d", "text": "Mary Shelley", "is_correct": false }
+          ],
+          "explanation": "Austen published it in 1813, her second novel after Sense and Sensibility."
+        },
+        {
+          "id": "q4",
+          "question": "Which novel famously opens with the line 'Call me Ishmael'?",
+          "options": [
+            { "id": "a", "text": "Moby-Dick", "is_correct": true },
+            { "id": "b", "text": "The Old Man and the Sea", "is_correct": false },
+            { "id": "c", "text": "Treasure Island", "is_correct": false },
+            { "id": "d", "text": "Heart of Darkness", "is_correct": false }
+          ],
+          "explanation": "Herman Melville's whaling epic was published in 1851."
+        },
+        {
+          "id": "q5",
+          "question": "In George Orwell's 1984, which figure watches over the citizens of Oceania?",
+          "options": [
+            { "id": "a", "text": "Emmanuel Goldstein", "is_correct": false },
+            { "id": "b", "text": "Big Brother", "is_correct": true },
+            { "id": "c", "text": "O'Brien", "is_correct": false },
+            { "id": "d", "text": "The Inner Party", "is_correct": false }
+          ],
+          "explanation": "Big Brother is watching you; Goldstein is the supposed enemy of the state."
+        },
+        {
+          "id": "q6",
+          "question": "Shakespeare's Romeo and Juliet is set in which Italian city?",
+          "options": [
+            { "id": "a", "text": "Venice", "is_correct": false },
+            { "id": "b", "text": "Verona", "is_correct": true },
+            { "id": "c", "text": "Florence", "is_correct": false },
+            { "id": "d", "text": "Rome", "is_correct": false }
+          ],
+          "explanation": "The feuding Montague and Capulet families live in Verona."
+        },
+        {
+          "id": "q7",
+          "question": "Who wrote Crime and Punishment, the novel of the student Raskolnikov?",
+          "options": [
+            { "id": "a", "text": "Leo Tolstoy", "is_correct": false },
+            { "id": "b", "text": "Fyodor Dostoevsky", "is_correct": true },
+            { "id": "c", "text": "Anton Chekhov", "is_correct": false },
+            { "id": "d", "text": "Ivan Turgenev", "is_correct": false }
+          ],
+          "explanation": "Dostoevsky published it in 1866; it follows Raskolnikov after he murders a pawnbroker."
+        },
+        {
+          "id": "q8",
+          "question": "The Little Prince was written by which French aviator?",
+          "options": [
+            { "id": "a", "text": "Antoine de Saint-Exupery", "is_correct": true },
+            { "id": "b", "text": "Victor Hugo", "is_correct": false },
+            { "id": "c", "text": "Albert Camus", "is_correct": false },
+            { "id": "d", "text": "Jules Verne", "is_correct": false }
+          ],
+          "explanation": "Published in 1943, it is among the best-selling and most translated books in history."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-libros-clasicos",
+      "title": "Trivia de libros clasicos: de Cervantes a Garcia Marquez",
+      "description": "Del escudero del Quijote al asteroide del Principito: ocho preguntas sobre clasicos de la literatura universal.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "libros", "clasicos", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En que ano se publico Cien anos de soledad, de Gabriel Garcia Marquez?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1967", "is_correct": true },
+            { "id": "c", "text": "1975", "is_correct": false },
+            { "id": "d", "text": "1982", "is_correct": false }
+          ],
+          "explanation": "Se publico en 1967 y dio impulso al Boom latinoamericano; su autor gano el Nobel en 1982."
+        },
+        {
+          "id": "q2",
+          "question": "Como se llama el escudero que acompana a Don Quijote en sus salidas?",
+          "options": [
+            { "id": "a", "text": "Sancho Panza", "is_correct": true },
+            { "id": "b", "text": "Sanson Carrasco", "is_correct": false },
+            { "id": "c", "text": "Rocinante", "is_correct": false },
+            { "id": "d", "text": "El Bachiller", "is_correct": false }
+          ],
+          "explanation": "Sancho Panza lo sigue a lomos de su burro; Rocinante es el caballo del hidalgo."
+        },
+        {
+          "id": "q3",
+          "question": "Matar a un ruisenor, la novela sobre un juicio en el sur de Estados Unidos, la escribio que autora?",
+          "options": [
+            { "id": "a", "text": "Harper Lee", "is_correct": true },
+            { "id": "b", "text": "Toni Morrison", "is_correct": false },
+            { "id": "c", "text": "Louisa May Alcott", "is_correct": false },
+            { "id": "d", "text": "Virginia Woolf", "is_correct": false }
+          ],
+          "explanation": "Harper Lee la publico en 1960 y gano el Premio Pulitzer en 1961."
+        },
+        {
+          "id": "q4",
+          "question": "Que novela de Mary Shelley narra la creacion de un ser por el doctor Victor Frankenstein?",
+          "options": [
+            { "id": "a", "text": "Dracula", "is_correct": false },
+            { "id": "b", "text": "Frankenstein", "is_correct": true },
+            { "id": "c", "text": "El retrato de Dorian Gray", "is_correct": false },
+            { "id": "d", "text": "Jane Eyre", "is_correct": false }
+          ],
+          "explanation": "Shelley la publico en 1818 tras concebirla durante el famoso verano de 1816 en Ginebra."
+        },
+        {
+          "id": "q5",
+          "question": "En El principito, el protagonista proviene de cual de estos lugares?",
+          "options": [
+            { "id": "a", "text": "Marte", "is_correct": false },
+            { "id": "b", "text": "El asteroide B-612", "is_correct": true },
+            { "id": "c", "text": "Venus", "is_correct": false },
+            { "id": "d", "text": "El planeta del rey", "is_correct": false }
+          ],
+          "explanation": "El principito vive en el asteroide B-612 con su rosa y tres volcanes."
+        },
+        {
+          "id": "q6",
+          "question": "Que autor ruso escribio Guerra y paz y Anna Karenina?",
+          "options": [
+            { "id": "a", "text": "Fiodor Dostoievski", "is_correct": false },
+            { "id": "b", "text": "Leon Tolstoi", "is_correct": true },
+            { "id": "c", "text": "Nikolai Gogol", "is_correct": false },
+            { "id": "d", "text": "Anton Chejov", "is_correct": false }
+          ],
+          "explanation": "Tolstoi publico Guerra y paz entre 1865 y 1869 y Anna Karenina entre 1875 y 1877."
+        },
+        {
+          "id": "q7",
+          "question": "La Odisea, el poema epico sobre el regreso de Odiseo a Itaca, se atribuye a que poeta griego?",
+          "options": [
+            { "id": "a", "text": "Homero", "is_correct": true },
+            { "id": "b", "text": "Hesiodo", "is_correct": false },
+            { "id": "c", "text": "Sofocles", "is_correct": false },
+            { "id": "d", "text": "Esquilo", "is_correct": false }
+          ],
+          "explanation": "Homero es tambien el autor atribuido de la Iliada; ambos poemas se fijaron por escrito hacia el siglo VIII a. C."
+        },
+        {
+          "id": "q8",
+          "question": "Que dramaturgo ingles escribio Hamlet, Macbeth y Otelo?",
+          "options": [
+            { "id": "a", "text": "Oscar Wilde", "is_correct": false },
+            { "id": "b", "text": "William Shakespeare", "is_correct": true },
+            { "id": "c", "text": "Christopher Marlowe", "is_correct": false },
+            { "id": "d", "text": "George Bernard Shaw", "is_correct": false }
+          ],
+          "explanation": "Shakespeare escribio unas 39 obras entre finales del siglo XVI y comienzos del XVII."
+        }
+      ]
+    },
+    {
+      "slug": "en-space-missions-trivia",
+      "title": "Space Missions Trivia: From Sputnik to Mars",
+      "description": "Sputnik, Apollo 11 and Voyager's Golden Record: eight questions on the missions that took us to space.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["space", "science", "nasa", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which mission landed the first humans on the Moon?",
+          "options": [
+            { "id": "a", "text": "Apollo 8", "is_correct": false },
+            { "id": "b", "text": "Apollo 11", "is_correct": true },
+            { "id": "c", "text": "Apollo 13", "is_correct": false },
+            { "id": "d", "text": "Gemini 4", "is_correct": false }
+          ],
+          "explanation": "Armstrong and Aldrin walked on the Moon on 20 July 1969; Apollo 8 had only orbited it."
+        },
+        {
+          "id": "q2",
+          "question": "What was the name of the first artificial satellite, launched in 1957?",
+          "options": [
+            { "id": "a", "text": "Explorer 1", "is_correct": false },
+            { "id": "b", "text": "Sputnik 1", "is_correct": true },
+            { "id": "c", "text": "Vostok 1", "is_correct": false },
+            { "id": "d", "text": "Telstar", "is_correct": false }
+          ],
+          "explanation": "The Soviet Sputnik 1 was a polished sphere with four antennas that beeped for three weeks."
+        },
+        {
+          "id": "q3",
+          "question": "Who was the first human to travel into space?",
+          "options": [
+            { "id": "a", "text": "Alan Shepard", "is_correct": false },
+            { "id": "b", "text": "Yuri Gagarin", "is_correct": true },
+            { "id": "c", "text": "John Glenn", "is_correct": false },
+            { "id": "d", "text": "Neil Armstrong", "is_correct": false }
+          ],
+          "explanation": "Gagarin completed one orbit of Earth aboard Vostok 1 on 12 April 1961."
+        },
+        {
+          "id": "q4",
+          "question": "Which Soviet-Russian space station operated in low Earth orbit from 1986 to 2001?",
+          "options": [
+            { "id": "a", "text": "Skylab", "is_correct": false },
+            { "id": "b", "text": "Mir", "is_correct": true },
+            { "id": "c", "text": "Salyut 1", "is_correct": false },
+            { "id": "d", "text": "Tiangong", "is_correct": false }
+          ],
+          "explanation": "Mir hosted crews for 15 years before being deorbited over the Pacific Ocean."
+        },
+        {
+          "id": "q5",
+          "question": "Voyager 1, launched in 1977, carries which artifact as a message to any finder?",
+          "options": [
+            { "id": "a", "text": "A golden record", "is_correct": true },
+            { "id": "b", "text": "A microfilm library", "is_correct": false },
+            { "id": "c", "text": "A radio beacon", "is_correct": false },
+            { "id": "d", "text": "A silicon chip archive", "is_correct": false }
+          ],
+          "explanation": "The Golden Record holds sounds, greetings in 55 languages and images of Earth."
+        },
+        {
+          "id": "q6",
+          "question": "Which NASA rover landed on Mars in August 2012?",
+          "options": [
+            { "id": "a", "text": "Sojourner", "is_correct": false },
+            { "id": "b", "text": "Curiosity", "is_correct": true },
+            { "id": "c", "text": "Perseverance", "is_correct": false },
+            { "id": "d", "text": "Opportunity", "is_correct": false }
+          ],
+          "explanation": "Curiosity landed in Gale crater in 2012; Perseverance followed in 2021."
+        },
+        {
+          "id": "q7",
+          "question": "The Hubble Space Telescope was launched in which year?",
+          "options": [
+            { "id": "a", "text": "1985", "is_correct": false },
+            { "id": "b", "text": "1990", "is_correct": true },
+            { "id": "c", "text": "1998", "is_correct": false },
+            { "id": "d", "text": "2003", "is_correct": false }
+          ],
+          "explanation": "Hubble launched aboard shuttle Discovery in April 1990; its mirror flaw was fixed in 1993."
+        },
+        {
+          "id": "q8",
+          "question": "Who was the first woman in space?",
+          "options": [
+            { "id": "a", "text": "Valentina Tereshkova", "is_correct": true },
+            { "id": "b", "text": "Sally Ride", "is_correct": false },
+            { "id": "c", "text": "Svetlana Savitskaya", "is_correct": false },
+            { "id": "d", "text": "Mae Jemison", "is_correct": false }
+          ],
+          "explanation": "Tereshkova flew solo on Vostok 6 in 1963; Sally Ride was the first American woman, in 1983."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-misiones-espaciales",
+      "title": "Trivia de misiones espaciales: del Sputnik a Marte",
+      "description": "De la primera orbita tripulada a los rovers de Marte: ocho preguntas sobre las misiones que nos llevaron al espacio.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["espacio", "ciencia", "nasa", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Que astronauta fue el primero en pisar la Luna?",
+          "options": [
+            { "id": "a", "text": "Buzz Aldrin", "is_correct": false },
+            { "id": "b", "text": "Neil Armstrong", "is_correct": true },
+            { "id": "c", "text": "Michael Collins", "is_correct": false },
+            { "id": "d", "text": "Yuri Gagarin", "is_correct": false }
+          ],
+          "explanation": "Armstrong piso la superficie el 20 de julio de 1969 durante la mision Apolo 11."
+        },
+        {
+          "id": "q2",
+          "question": "Como se llamaba la perra sovietica que orbito la Tierra en 1957, a bordo del Sputnik 2?",
+          "options": [
+            { "id": "a", "text": "Belka", "is_correct": false },
+            { "id": "b", "text": "Laika", "is_correct": true },
+            { "id": "c", "text": "Strelka", "is_correct": false },
+            { "id": "d", "text": "Zvezdochka", "is_correct": false }
+          ],
+          "explanation": "Laika fue el primer ser vivo en orbitar la Tierra, solo un mes despues del Sputnik 1."
+        },
+        {
+          "id": "q3",
+          "question": "En que ano viajo Yuri Gagarin al espacio, convirtiendose en la primera persona en hacerlo?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1961", "is_correct": true },
+            { "id": "c", "text": "1963", "is_correct": false },
+            { "id": "d", "text": "1969", "is_correct": false }
+          ],
+          "explanation": "Gagarin completo una orbita terrestre en el Vostok 1 el 12 de abril de 1961."
+        },
+        {
+          "id": "q4",
+          "question": "El primer modulo de la Estacion Espacial Internacional se lanzo en que ano?",
+          "options": [
+            { "id": "a", "text": "1986", "is_correct": false },
+            { "id": "b", "text": "1998", "is_correct": true },
+            { "id": "c", "text": "2001", "is_correct": false },
+            { "id": "d", "text": "1990", "is_correct": false }
+          ],
+          "explanation": "El modulo ruso Zarya despego en noviembre de 1998; la EEI lleva tripulada sin interrupcion desde 2000."
+        },
+        {
+          "id": "q5",
+          "question": "La sonda Voyager 1, lanzada en 1977, porta que mensaje para quien la encuentre?",
+          "options": [
+            { "id": "a", "text": "Una biblioteca en microfilme", "is_correct": false },
+            { "id": "b", "text": "Un disco dorado", "is_correct": true },
+            { "id": "c", "text": "Una capsula de ADN", "is_correct": false },
+            { "id": "d", "text": "Un mapa estelar impreso", "is_correct": false }
+          ],
+          "explanation": "El Disco de Oro contiene sonidos, saludos en 55 idiomas e imagenes de la Tierra."
+        },
+        {
+          "id": "q6",
+          "question": "Que rover de la NASA aterrizo en Marte en febrero de 2021 con el helicoptero Ingenuity?",
+          "options": [
+            { "id": "a", "text": "Curiosity", "is_correct": false },
+            { "id": "b", "text": "Perseverance", "is_correct": true },
+            { "id": "c", "text": "Spirit", "is_correct": false },
+            { "id": "d", "text": "Opportunity", "is_correct": false }
+          ],
+          "explanation": "Perseverance e Ingenuity llegaron al crater Jezero; el helicoptero realizo 72 vuelos."
+        },
+        {
+          "id": "q7",
+          "question": "El telescopio espacial Hubble fue lanzado en que ano?",
+          "options": [
+            { "id": "a", "text": "1990", "is_correct": true },
+            { "id": "b", "text": "1980", "is_correct": false },
+            { "id": "c", "text": "1998", "is_correct": false },
+            { "id": "d", "text": "2001", "is_correct": false }
+          ],
+          "explanation": "Despego en abril de 1990 a bordo del transbordador Discovery; en 1993 se corrigio su espejo defectuoso."
+        },
+        {
+          "id": "q8",
+          "question": "En que nave viajo Valentina Tereshkova, la primera mujer en el espacio?",
+          "options": [
+            { "id": "a", "text": "Vostok 1", "is_correct": false },
+            { "id": "b", "text": "Vostok 6", "is_correct": true },
+            { "id": "c", "text": "Soyuz 1", "is_correct": false },
+            { "id": "d", "text": "Mercury-Atlas 6", "is_correct": false }
+          ],
+          "explanation": "Tereshkova volo sola en el Vostok 6 en junio de 1963, con solo 26 anos."
+        }
+      ]
+    },
+    {
+      "slug": "en-endangered-species-trivia",
+      "title": "Endangered Species Trivia: Animals on the Brink",
+      "description": "From the vaquita of the Gulf of California to the kakapo of New Zealand, eight questions on Earth's rarest animals.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "conservation", "nature", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The giant panda's only wild habitat is in the mountain ranges of which country?",
+          "options": [
+            { "id": "a", "text": "Japan", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": true },
+            { "id": "c", "text": "India", "is_correct": false },
+            { "id": "d", "text": "Nepal", "is_correct": false }
+          ],
+          "explanation": "Wild pandas live mainly in the bamboo forests of Sichuan province, China."
+        },
+        {
+          "id": "q2",
+          "question": "The vaquita, the world's rarest marine mammal, lives only in which body of water?",
+          "options": [
+            { "id": "a", "text": "The Caribbean Sea", "is_correct": false },
+            { "id": "b", "text": "The Gulf of California", "is_correct": true },
+            { "id": "c", "text": "The Coral Sea", "is_correct": false },
+            { "id": "d", "text": "The Bay of Bengal", "is_correct": false }
+          ],
+          "explanation": "Fewer than a dozen vaquitas are believed to remain in the northern Gulf of California."
+        },
+        {
+          "id": "q3",
+          "question": "The kakapo, a flightless nocturnal parrot, is native to which country?",
+          "options": [
+            { "id": "a", "text": "Australia", "is_correct": false },
+            { "id": "b", "text": "New Zealand", "is_correct": true },
+            { "id": "c", "text": "Madagascar", "is_correct": false },
+            { "id": "d", "text": "Brazil", "is_correct": false }
+          ],
+          "explanation": "Fewer than 250 kakapos survive, all on predator-free islands of New Zealand."
+        },
+        {
+          "id": "q4",
+          "question": "The Amur leopard, among the rarest big cats, lives mainly in which region?",
+          "options": [
+            { "id": "a", "text": "The Amazon basin", "is_correct": false },
+            { "id": "b", "text": "The Russian Far East", "is_correct": true },
+            { "id": "c", "text": "The Serengeti", "is_correct": false },
+            { "id": "d", "text": "The Himalayas of Nepal", "is_correct": false }
+          ],
+          "explanation": "Most remaining Amur leopards live in the forests along the Russia-China border."
+        },
+        {
+          "id": "q5",
+          "question": "Which is the largest living species of rhinoceros?",
+          "options": [
+            { "id": "a", "text": "Indian rhinoceros", "is_correct": false },
+            { "id": "b", "text": "White rhinoceros", "is_correct": true },
+            { "id": "c", "text": "Black rhinoceros", "is_correct": false },
+            { "id": "d", "text": "Javan rhinoceros", "is_correct": false }
+          ],
+          "explanation": "The white rhino can exceed 2,000 kg; the southern subspecies recovered from fewer than 100 animals."
+        },
+        {
+          "id": "q6",
+          "question": "All remaining wild Javan rhinos live inside which national park?",
+          "options": [
+            { "id": "a", "text": "Komodo National Park", "is_correct": false },
+            { "id": "b", "text": "Ujung Kulon", "is_correct": true },
+            { "id": "c", "text": "Chitwan", "is_correct": false },
+            { "id": "d", "text": "Kruger", "is_correct": false }
+          ],
+          "explanation": "Ujung Kulon, at the western tip of Java, holds the only known population of about 70 animals."
+        },
+        {
+          "id": "q7",
+          "question": "The mountain gorilla survives mainly in the forests of which region?",
+          "options": [
+            { "id": "a", "text": "The cloud forests of Central America", "is_correct": false },
+            { "id": "b", "text": "The Virunga mountains of Central Africa", "is_correct": true },
+            { "id": "c", "text": "The lowlands of Borneo", "is_correct": false },
+            { "id": "d", "text": "The Congo savanna", "is_correct": false }
+          ],
+          "explanation": "Mountain gorillas live in the Virunga volcanoes region shared by Rwanda, Uganda and DR Congo."
+        },
+        {
+          "id": "q8",
+          "question": "What does the IUCN Red List measure?",
+          "options": [
+            { "id": "a", "text": "Species' risk of extinction", "is_correct": true },
+            { "id": "b", "text": "Animal population growth", "is_correct": false },
+            { "id": "c", "text": "Habitat quality", "is_correct": false },
+            { "id": "d", "text": "Illegal trade volume", "is_correct": false }
+          ],
+          "explanation": "The Red List ranks species from Least Concern to Extinct according to their extinction risk."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-especies-amenazadas",
+      "title": "Trivia de especies amenazadas: animales al borde",
+      "description": "De la vaquita del golfo de California al kakapo de Nueva Zelanda: ocho preguntas sobre los animales mas raros del planeta.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "conservacion", "naturaleza", "trivia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "La mayoria de los pandas gigantes salvajes vive en los bosques de bambu de que provincia china?",
+          "options": [
+            { "id": "a", "text": "Yunnan", "is_correct": false },
+            { "id": "b", "text": "Sichuan", "is_correct": true },
+            { "id": "c", "text": "Guangdong", "is_correct": false },
+            { "id": "d", "text": "Heilongjiang", "is_correct": false }
+          ],
+          "explanation": "Las montanas de Sichuan concentran la mayor parte del habitat silvestre del panda."
+        },
+        {
+          "id": "q2",
+          "question": "La vaquita, el mamifero marino mas raro del mundo, vive unicamente en que lugar?",
+          "options": [
+            { "id": "a", "text": "El mar Caribe", "is_correct": false },
+            { "id": "b", "text": "El golfo de California", "is_correct": true },
+            { "id": "c", "text": "El mar de Bering", "is_correct": false },
+            { "id": "d", "text": "La bahia de Bengala", "is_correct": false }
+          ],
+          "explanation": "Se estima que quedan menos de una decena de vaquitas en el norte del golfo de California."
+        },
+        {
+          "id": "q3",
+          "question": "El kakapo, un loro nocturno incapaz de volar, es originario de que pais?",
+          "options": [
+            { "id": "a", "text": "Australia", "is_correct": false },
+            { "id": "b", "text": "Nueva Zelanda", "is_correct": true },
+            { "id": "c", "text": "Madagascar", "is_correct": false },
+            { "id": "d", "text": "Papua Nueva Guinea", "is_correct": false }
+          ],
+          "explanation": "Sobreviven menos de 250 kakapos, todos en islas libres de depredadores de Nueva Zelanda."
+        },
+        {
+          "id": "q4",
+          "question": "El leopardo de Amur habita los bosques de la frontera entre Rusia y que otro pais?",
+          "options": [
+            { "id": "a", "text": "Mongolia", "is_correct": false },
+            { "id": "b", "text": "China", "is_correct": true },
+            { "id": "c", "text": "Kazajistan", "is_correct": false },
+            { "id": "d", "text": "Corea del Sur", "is_correct": false }
+          ],
+          "explanation": "La mayor parte de los leopardos de Amur que quedan vive en el Lejano Oriente ruso y el noreste de China."
+        },
+        {
+          "id": "q5",
+          "question": "Cual es la especie de rinoceronte mas grande que existe hoy?",
+          "options": [
+            { "id": "a", "text": "Rinoceronte negro", "is_correct": false },
+            { "id": "b", "text": "Rinoceronte blanco", "is_correct": true },
+            { "id": "c", "text": "Rinoceronte indio", "is_correct": false },
+            { "id": "d", "text": "Rinoceronte de Java", "is_correct": false }
+          ],
+          "explanation": "El rinoceronte blanco puede superar los 2.000 kg; la subespecie del sur se recupero de menos de 100 ejemplares."
+        },
+        {
+          "id": "q6",
+          "question": "Todos los rinocerontes de Java salvajes que quedan viven dentro de que parque nacional?",
+          "options": [
+            { "id": "a", "text": "Komodo", "is_correct": false },
+            { "id": "b", "text": "Ujung Kulon", "is_correct": true },
+            { "id": "c", "text": "Chitwan", "is_correct": false },
+            { "id": "d", "text": "Kruger", "is_correct": false }
+          ],
+          "explanation": "Ujung Kulon, en el extremo oeste de Java, alberga la unica poblacion conocida, de unos 70 animales."
+        },
+        {
+          "id": "q7",
+          "question": "El gorila de montana sobrevive sobre todo en los bosques de que region?",
+          "options": [
+            { "id": "a", "text": "Los volcanes Virunga, en Africa central", "is_correct": true },
+            { "id": "b", "text": "Las selvas de Borneo", "is_correct": false },
+            { "id": "c", "text": "Los Andes colombianos", "is_correct": false },
+            { "id": "d", "text": "Las montanas de Madagascar", "is_correct": false }
+          ],
+          "explanation": "Habita la region de los volcanes Virunga, compartida por Ruanda, Uganda y la RD del Congo."
+        },
+        {
+          "id": "q8",
+          "question": "Que mide la Lista Roja de la UICN?",
+          "options": [
+            { "id": "a", "text": "El crecimiento de las poblaciones", "is_correct": false },
+            { "id": "b", "text": "El riesgo de extincion de las especies", "is_correct": true },
+            { "id": "c", "text": "La calidad del habitat", "is_correct": false },
+            { "id": "d", "text": "El volumen del trafico ilegal", "is_correct": false }
+          ],
+          "explanation": "La Lista Roja clasifica a las especies de Preocupacion Menor a Extinta segun su riesgo de extincion."
+        }
+      ]
     }
   ]
 }

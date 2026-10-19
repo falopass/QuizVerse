@@ -41,9 +41,10 @@ The `update_category_quiz_count` trigger keeps `categories.quiz_count` in sync.
 ## 2. Editorial content: `editorial-seed.json` + `emit-editorial-seed.mjs`
 
 Fills the categories the imported catalogue cannot cover — currently history,
-geography, sports, science and animals — with quizzes whose answers are stable,
-checkable facts (dates, capitals, sport rules). Nothing is invented per run: the
-content lives in `editorial-seed.json` and is reviewed like code.
+geography, sports, science, animals, food-drink, technology and literature —
+with quizzes whose answers are stable, checkable facts (dates, capitals, sport
+rules). Nothing is invented per run: the content lives in `editorial-seed.json`
+and is reviewed like code.
 
 ```bash
 node scripts/seed/emit-editorial-seed.mjs --write
