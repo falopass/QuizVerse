@@ -5,7 +5,12 @@ import { getPublishedQuizCount } from '@/lib/data/public';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const revalidate = 3600;
+
+// La ruta es dinámica (el conteo lee cookies() vía el cliente SSR), así que
+// `revalidate` no la cachearía: el cacheo va en cabeceras, como en api/og/result.
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+};
 
 function brandCard() {
   return (
@@ -36,7 +41,7 @@ export default async function HomeOpenGraphImage({
   const uiLocale = hasLocale(locale) ? locale : 'en';
   const count = await getPublishedQuizCount(uiLocale);
   if (count === 0) {
-    return new ImageResponse(brandCard(), await arcadeOgOptions());
+    return new ImageResponse(brandCard(), { ...(await arcadeOgOptions()), headers: CACHE_HEADERS });
   }
   const tagline =
     uiLocale === 'es'
@@ -108,6 +113,6 @@ export default async function HomeOpenGraphImage({
         {uiLocale === 'es' ? 'Jugar ahora >' : 'Play now >'}
       </div>
     </div>,
-    await arcadeOgOptions()
+    { ...(await arcadeOgOptions()), headers: CACHE_HEADERS }
   );
 }
