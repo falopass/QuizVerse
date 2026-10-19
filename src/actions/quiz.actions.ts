@@ -11,6 +11,7 @@
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { z } from 'zod';
+import { hasLocale, locales } from '@/lib/i18n/dictionaries';
 import { createClient } from '@/lib/supabase/server';
 import { toJson } from '@/lib/supabase/json';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
@@ -52,18 +53,37 @@ async function currentUser() {
   return { supabase, user };
 }
 
-/** True when the authenticated user owns the quiz. */
-async function ownsQuiz(
+/** The quiz's slug and language when the user owns it, else `null`. */
+async function ownedQuiz(
   supabase: Awaited<ReturnType<typeof createClient>>,
   quizId: string,
   userId: string
-): Promise<boolean> {
+): Promise<{ slug: string; language: string } | null> {
   const { data } = await supabase
     .from('quizzes')
-    .select('creator_id')
+    .select('creator_id, slug, language')
     .eq('id', quizId)
     .maybeSingle();
-  return Boolean(data && data.creator_id === userId);
+  if (!data || data.creator_id !== userId) return null;
+  return { slug: data.slug, language: data.language };
+}
+
+/** Locales where a quiz is listed: its own, or every one for unknown values. */
+function quizLocales(language: string): readonly string[] {
+  return hasLocale(language) ? [language] : locales;
+}
+
+/** Revalidates the localized home, explore and detail pages of a quiz. */
+function revalidateQuizPages(language: string, slug: string) {
+  for (const locale of quizLocales(language)) {
+    revalidatePath(`/${locale}`);
+    revalidatePath(`/${locale}/quiz`);
+    revalidatePath(`/${locale}/quiz/${slug}`);
+  }
+  // Category hubs and creator profiles list quizzes too. Their slug/username
+  // aren't at hand without a join, so the dynamic routes go out wholesale.
+  revalidatePath('/[locale]/category/[slug]', 'page');
+  revalidatePath('/[locale]/profile/[username]', 'page');
 }
 
 // ============================================
@@ -128,8 +148,7 @@ export async function createQuiz(
   if (error || !quiz)
     return actionFailure('unexpected', error?.message ?? 'Could not save the quiz.');
 
-  revalidatePath('/quiz');
-  revalidatePath('/');
+  revalidateQuizPages(parsed.data.language, quiz.slug);
 
   return { success: true, quiz: { id: quiz.id, slug: quiz.slug } };
 }
@@ -141,9 +160,8 @@ export async function createQuiz(
 export async function updateQuiz(id: string, input: unknown): Promise<ActionResult> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to edit a quiz.');
-  if (!(await ownsQuiz(supabase, id, user.id))) {
-    return actionFailure('forbidden', 'That quiz is not yours.');
-  }
+  const quiz = await ownedQuiz(supabase, id, user.id);
+  if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
 
   const parsed = updateQuizSchema.safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
@@ -151,23 +169,24 @@ export async function updateQuiz(id: string, input: unknown): Promise<ActionResu
   const { error } = await supabase.from('quizzes').update(parsed.data).eq('id', id);
   if (error) return actionFailure('unexpected', error.message);
 
-  revalidatePath('/quiz');
-  revalidatePath('/');
+  revalidateQuizPages(quiz.language, quiz.slug);
+  // A language change moves the quiz between locales: refresh the new one too.
+  if (parsed.data.language && parsed.data.language !== quiz.language) {
+    revalidateQuizPages(parsed.data.language, quiz.slug);
+  }
   return { success: true };
 }
 
 export async function deleteQuiz(id: string): Promise<ActionResult> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to delete a quiz.');
-  if (!(await ownsQuiz(supabase, id, user.id))) {
-    return actionFailure('forbidden', 'That quiz is not yours.');
-  }
+  const quiz = await ownedQuiz(supabase, id, user.id);
+  if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
 
   const { error } = await supabase.from('quizzes').delete().eq('id', id);
   if (error) return actionFailure('unexpected', error.message);
 
-  revalidatePath('/quiz');
-  revalidatePath('/');
+  revalidateQuizPages(quiz.language, quiz.slug);
   return { success: true };
 }
 
@@ -277,7 +296,19 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 
   if (error) return actionFailure('unexpected', error.message);
 
-  revalidatePath(`/quiz/${parsed.data}`);
+  const { data: quiz } = await supabase
+    .from('quizzes')
+    .select('slug, language')
+    .eq('id', parsed.data)
+    .maybeSingle();
+
+  if (quiz) {
+    for (const locale of quizLocales(quiz.language)) {
+      // Detail shows the count; explore ranks by likes_count.
+      revalidatePath(`/${locale}/quiz`);
+      revalidatePath(`/${locale}/quiz/${quiz.slug}`);
+    }
+  }
   return { success: true, liked: Boolean(data) };
 }
 
