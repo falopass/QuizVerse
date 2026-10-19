@@ -6,8 +6,8 @@
 - `src/components/home/quiz-detail-page.tsx`.
 - `src/components/quiz/game-mode-selector.tsx`, `power-up-bar.tsx`, `question-card.tsx`, `quiz-player.tsx`, `quiz-progress.tsx`, `result-screen.tsx`, `streak-indicator.tsx`.
 - `src/components/shared/cookie-consent.tsx`, `quiz-cover-art.tsx`.
-- `src/lib/quiz/scoring.ts`, `src/stores/quiz-store.ts`.
-- `tests/arcade-game.test.ts`, `tests/scoring.test.ts`.
+- El módulo `scoring.ts` de `src/lib/quiz/` (borrado después por código muerto), `src/stores/quiz-store.ts`.
+- `tests/arcade-game.test.ts` y el test del módulo `scoring` (borrado con el módulo).
 - Este informe.
 
 ## Resultado real de los comandos
