@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { entrance } from '@/lib/ui/motion';
 import { usePathname } from 'next/navigation';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
@@ -60,6 +61,7 @@ export function CookieConsentBanner() {
   const pathname = usePathname();
   const locale = pathname?.startsWith('/es') ? 'es' : 'en';
   const initialized = useRef(false);
+  const reduceMotion = useReducedMotion() ?? false;
 
   useEffect(() => {
     if (initialized.current) return;
@@ -95,10 +97,12 @@ export function CookieConsentBanner() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          {...entrance(reduceMotion, {
+            initial: { y: 100, opacity: 0 },
+            animate: { y: 0, opacity: 1 },
+            exit: { y: 100, opacity: 0 },
+            transition: { type: 'spring', stiffness: 300, damping: 30 },
+          })}
           className="cookie-consent-banner"
         >
           <div className="cookie-consent-inner">

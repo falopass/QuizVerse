@@ -1,7 +1,8 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { entrance } from '@/lib/ui/motion';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 
@@ -63,12 +64,15 @@ function ToastItem({
   onClose: (id: string) => void;
   closeLabel: string;
 }) {
+  const reduceMotion = useReducedMotion() ?? false;
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: -20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -20, scale: 0.95 }}
+      {...entrance(reduceMotion, {
+        layout: true,
+        initial: { opacity: 0, y: -20, scale: 0.95 },
+        animate: { opacity: 1, y: 0, scale: 1 },
+        exit: { opacity: 0, y: -20, scale: 0.95 },
+      })}
       className={cn(
         'relative flex items-start gap-3 rounded-lg border p-4 shadow-lg',
         'bg-bg-secondary border-border-subtle',
