@@ -7,10 +7,7 @@
  */
 
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import {
-  requestAnswerVerdict,
-  requestEliminatedOptions,
-} from '@/lib/quiz/reveal-client';
+import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
 
 const INPUT = { quizId: 'quiz-1', questionId: 'q1', selectedOptionId: 'q1a' };
 const HINT_INPUT = { quizId: 'quiz-1', questionId: 'q1' };
@@ -40,8 +37,8 @@ describe('requestAnswerVerdict', () => {
           isCorrect: true,
           correctOptionId: 'q1a',
           explanation: 'Saturn has the most moons.',
-        }),
-      ),
+        })
+      )
     );
 
     const result = await requestAnswerVerdict(INPUT);
@@ -54,10 +51,7 @@ describe('requestAnswerVerdict', () => {
   });
 
   it('POSTs to /api/quiz/reveal with purpose "answer" and no-store cache', async () => {
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue(okResponse({ isCorrect: false })),
-    );
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse({ isCorrect: false })));
 
     await requestAnswerVerdict(INPUT);
 
@@ -74,15 +68,17 @@ describe('requestAnswerVerdict', () => {
     async (body) => {
       vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse(body)));
       expect(await requestAnswerVerdict(INPUT)).toBeNull();
-    },
+    }
   );
 
   it('normalizes non-string correctOptionId and explanation to null', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockResolvedValue(
-        okResponse({ isCorrect: false, correctOptionId: 42, explanation: { es: 'x' } }),
-      ),
+      vi
+        .fn()
+        .mockResolvedValue(
+          okResponse({ isCorrect: false, correctOptionId: 42, explanation: { es: 'x' } })
+        )
     );
 
     expect(await requestAnswerVerdict(INPUT)).toEqual({
@@ -95,7 +91,7 @@ describe('requestAnswerVerdict', () => {
   it('returns null when the response is not ok', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockResolvedValue({ ok: false, json: vi.fn() } as unknown as Response),
+      vi.fn().mockResolvedValue({ ok: false, json: vi.fn() } as unknown as Response)
     );
     expect(await requestAnswerVerdict(INPUT)).toBeNull();
   });
@@ -111,7 +107,7 @@ describe('requestAnswerVerdict', () => {
       vi.fn().mockResolvedValue({
         ok: true,
         json: () => Promise.reject(new SyntaxError('Unexpected token')),
-      } as unknown as Response),
+      } as unknown as Response)
     );
     expect(await requestAnswerVerdict(INPUT)).toBeNull();
   });
@@ -138,7 +134,7 @@ describe('requestEliminatedOptions', () => {
   it('filters out non-string entries', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockResolvedValue(okResponse({ eliminated: ['a', 3, null, 'b', {}] })),
+      vi.fn().mockResolvedValue(okResponse({ eliminated: ['a', 3, null, 'b', {}] }))
     );
     expect(await requestEliminatedOptions(HINT_INPUT)).toEqual(['a', 'b']);
   });
@@ -148,7 +144,7 @@ describe('requestEliminatedOptions', () => {
     async (body) => {
       vi.stubGlobal('fetch', vi.fn().mockResolvedValue(okResponse(body)));
       expect(await requestEliminatedOptions(HINT_INPUT)).toBeNull();
-    },
+    }
   );
 
   it('returns null on network error', async () => {
