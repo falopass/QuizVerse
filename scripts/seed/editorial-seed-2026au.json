@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial seed 2026au: five es/en trivia pairs on animals (dog breeds, cat breeds, birds, big cats, venomous animals). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-dog-breeds-trivia",
+      "title": "Dog Breeds Trivia: Origins and Traits of Famous Breeds",
+      "description": "Eight questions on the origins and traits of famous dog breeds, from the Siberian Husky's sledding past to the Basenji's silent bark.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "trivia", "dogs", "dog breeds"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which breed was developed in Germany to hunt badgers, and is named after that prey?",
+          "options": [
+            { "id": "a", "text": "Beagle", "is_correct": false },
+            { "id": "b", "text": "Dachshund", "is_correct": true },
+            { "id": "c", "text": "Pembroke Welsh Corgi", "is_correct": false },
+            { "id": "d", "text": "Basset Hound", "is_correct": false }
+          ],
+          "explanation": "Dachshund comes from the German Dachs (badger) and Hund (dog); its long body fit inside badger burrows."
+        },
+        {
+          "id": "q2",
+          "question": "The Siberian Husky was bred by the Chukchi people of northeastern Asia mainly to do what?",
+          "options": [
+            { "id": "a", "text": "Herd reindeer", "is_correct": false },
+            { "id": "b", "text": "Pull sleds over long distances", "is_correct": true },
+            { "id": "c", "text": "Guard camps from bears", "is_correct": false },
+            { "id": "d", "text": "Hunt seals on the ice", "is_correct": false }
+          ],
+          "explanation": "Chukchi teams pulled light loads across frozen Siberia; the breed reached Alaska in the early 1900s."
+        },
+        {
+          "id": "q3",
+          "question": "Which African breed is known as the 'barkless dog' because it yodels instead of barking?",
+          "options": [
+            { "id": "a", "text": "Basenji", "is_correct": true },
+            { "id": "b", "text": "Rhodesian Ridgeback", "is_correct": false },
+            { "id": "c", "text": "Pharaoh Hound", "is_correct": false },
+            { "id": "d", "text": "Saluki", "is_correct": false }
+          ],
+          "explanation": "The Basenji of Central Africa has an unusually shaped larynx, so it makes a yodel-like sound called a barroo."
+        },
+        {
+          "id": "q4",
+          "question": "Which Chinese breed is recognized by its lion-like mane and blue-black tongue?",
+          "options": [
+            { "id": "a", "text": "Shar-Pei", "is_correct": false },
+            { "id": "b", "text": "Chow Chow", "is_correct": true },
+            { "id": "c", "text": "Pug", "is_correct": false },
+            { "id": "d", "text": "Pekingese", "is_correct": false }
+          ],
+          "explanation": "The Chow Chow is one of the oldest breeds and is famous for its dense ruff and distinctive dark tongue."
+        },
+        {
+          "id": "q5",
+          "question": "Which herding breed from the Anglo-Scottish border is widely regarded as the most trainable working dog?",
+          "options": [
+            { "id": "a", "text": "German Shepherd", "is_correct": false },
+            { "id": "b", "text": "Shetland Sheepdog", "is_correct": false },
+            { "id": "c", "text": "Australian Shepherd", "is_correct": false },
+            { "id": "d", "text": "Border Collie", "is_correct": true }
+          ],
+          "explanation": "The Border Collie was perfected by shepherds in the border country and excels at sheepdog trials and agility."
+        },
+        {
+          "id": "q6",
+          "question": "The Dalmatian earned its place in firehouses by doing what historically?",
+          "options": [
+            { "id": "a", "text": "Pulling water carts", "is_correct": false },
+            { "id": "b", "text": "Running alongside horse-drawn carriages as a coach dog", "is_correct": true },
+            { "id": "c", "text": "Catching rats in stables", "is_correct": false },
+            { "id": "d", "text": "Carrying messages between stations", "is_correct": false }
+          ],
+          "explanation": "Dalmatians ran ahead of and beside horse-drawn coaches; fire brigades kept the tradition with their engines."
+        },
+        {
+          "id": "q7",
+          "question": "Which breed is the smallest dog recognized by major kennel clubs?",
+          "options": [
+            { "id": "a", "text": "Chihuahua", "is_correct": true },
+            { "id": "b", "text": "Pomeranian", "is_correct": false },
+            { "id": "c", "text": "Yorkshire Terrier", "is_correct": false },
+            { "id": "d", "text": "Toy Poodle", "is_correct": false }
+          ],
+          "explanation": "The Chihuahua, named after the Mexican state, often weighs under two kilograms."
+        },
+        {
+          "id": "q8",
+          "question": "The Labrador Retriever's ancestors were developed to help fishermen in which region?",
+          "options": [
+            { "id": "a", "text": "Labrador, Canada", "is_correct": false },
+            { "id": "b", "text": "Newfoundland, Canada", "is_correct": true },
+            { "id": "c", "text": "Nova Scotia, Canada", "is_correct": false },
+            { "id": "d", "text": "Scotland", "is_correct": false }
+          ],
+          "explanation": "Despite the name, the breed descends from the St. John's water dog of Newfoundland; the standard was fixed in England."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-razas-de-perros",
+      "title": "Trivia de razas de perros: orígenes y rasgos",
+      "description": "Ocho preguntas sobre el origen y los rasgos de razas de perros famosas, del trineo del husky siberiano al basenji que no ladra.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "trivia", "perros", "razas de perros"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué raza se crió en Alemania para cazar tejones, de donde toma su nombre?",
+          "options": [
+            { "id": "a", "text": "Beagle", "is_correct": false },
+            { "id": "b", "text": "Dachshund", "is_correct": true },
+            { "id": "c", "text": "Corgi galés de Pembroke", "is_correct": false },
+            { "id": "d", "text": "Basset hound", "is_correct": false }
+          ],
+          "explanation": "Dachshund viene del alemán Dachs (tejón) y Hund (perro); su cuerpo alargado cabía en las madrigueras."
+        },
+        {
+          "id": "q2",
+          "question": "¿Para qué criaban los chukchi del noreste de Asia al husky siberiano?",
+          "options": [
+            { "id": "a", "text": "Para arrear renos", "is_correct": false },
+            { "id": "b", "text": "Para tirar de trineos en largas distancias", "is_correct": true },
+            { "id": "c", "text": "Para vigilar los campamentos frente a osos", "is_correct": false },
+            { "id": "d", "text": "Para cazar focas en el hielo", "is_correct": false }
+          ],
+          "explanation": "Los equipos chukchi arrastraban cargas ligeras por Siberia; la raza llegó a Alaska a comienzos del siglo XX."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué raza africana es conocida como «el perro que no ladra» porque emite un sonido parecido al yodel?",
+          "options": [
+            { "id": "a", "text": "Basenji", "is_correct": true },
+            { "id": "b", "text": "Ridgeback de Rodesia", "is_correct": false },
+            { "id": "c", "text": "Sabueso faraón", "is_correct": false },
+            { "id": "d", "text": "Saluki", "is_correct": false }
+          ],
+          "explanation": "El basenji de África central tiene una laringe de forma inusual y produce un sonido llamado barroo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué raza china se reconoce por su melena de león y su lengua de color azul oscuro?",
+          "options": [
+            { "id": "a", "text": "Shar pei", "is_correct": false },
+            { "id": "b", "text": "Chow chow", "is_correct": true },
+            { "id": "c", "text": "Pug", "is_correct": false },
+            { "id": "d", "text": "Pequinés", "is_correct": false }
+          ],
+          "explanation": "El chow chow es una de las razas más antiguas y destaca por su denso collar de pelo y su lengua oscura."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué raza pastora de la frontera angloescocesa se considera el perro de trabajo más entrenable?",
+          "options": [
+            { "id": "a", "text": "Pastor alemán", "is_correct": false },
+            { "id": "b", "text": "Pastor de las islas Shetland", "is_correct": false },
+            { "id": "c", "text": "Pastor australiano", "is_correct": false },
+            { "id": "d", "text": "Border collie", "is_correct": true }
+          ],
+          "explanation": "El border collie fue perfeccionado por pastores de la frontera y domina las pruebas de pastoreo y la agilidad."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué hacía históricamente el dálmata para ganarse su lugar en los cuarteles de bomberos?",
+          "options": [
+            { "id": "a", "text": "Tirar de carros de agua", "is_correct": false },
+            { "id": "b", "text": "Correr junto a los carruajes de caballos como perro de coche", "is_correct": true },
+            { "id": "c", "text": "Cazar ratas en las cuadras", "is_correct": false },
+            { "id": "d", "text": "Llevar mensajes entre estaciones", "is_correct": false }
+          ],
+          "explanation": "Los dálmatas corrían delante y al lado de los carruajes; los bomberos mantuvieron la tradición con sus carros."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la raza de perro más pequeña reconocida por las principales federaciones caninas?",
+          "options": [
+            { "id": "a", "text": "Chihuahua", "is_correct": true },
+            { "id": "b", "text": "Pomerania", "is_correct": false },
+            { "id": "c", "text": "Yorkshire terrier", "is_correct": false },
+            { "id": "d", "text": "Caniche toy", "is_correct": false }
+          ],
+          "explanation": "El chihuahua, que toma el nombre del estado mexicano, suele pesar menos de dos kilos."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué región se criaron los ancestros del labrador retriever para ayudar a los pescadores?",
+          "options": [
+            { "id": "a", "text": "Labrador, Canadá", "is_correct": false },
+            { "id": "b", "text": "Terranova, Canadá", "is_correct": true },
+            { "id": "c", "text": "Nueva Escocia, Canadá", "is_correct": false },
+            { "id": "d", "text": "Escocia", "is_correct": false }
+          ],
+          "explanation": "A pesar del nombre, la raza desciende del perro de aguas de San Juan, de Terranova; el estándar se fijó en Inglaterra."
+        }
+      ]
+    },
+    {
+      "slug": "en-cat-breeds-trivia",
+      "title": "Cat Breeds Trivia: Origins of Famous Felines",
+      "description": "Eight questions on where famous cat breeds come from and what makes them unique, from the hairless Sphynx to the giant Maine Coon.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "trivia", "cats", "cat breeds"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which breed is famous for its nearly hairless body, the result of a natural mutation in Canada?",
+          "options": [
+            { "id": "a", "text": "Sphynx", "is_correct": true },
+            { "id": "b", "text": "Devon Rex", "is_correct": false },
+            { "id": "c", "text": "Cornish Rex", "is_correct": false },
+            { "id": "d", "text": "Burmese", "is_correct": false }
+          ],
+          "explanation": "The Sphynx emerged in Toronto in the 1960s from a natural genetic mutation and is bred for its hairless look."
+        },
+        {
+          "id": "q2",
+          "question": "The Maine Coon, one of the largest domestic cat breeds, comes from which country?",
+          "options": [
+            { "id": "a", "text": "Norway", "is_correct": false },
+            { "id": "b", "text": "United States", "is_correct": true },
+            { "id": "c", "text": "Russia", "is_correct": false },
+            { "id": "d", "text": "United Kingdom", "is_correct": false }
+          ],
+          "explanation": "The breed is native to the state of Maine, where its heavy coat and bushy tail suit the winters."
+        },
+        {
+          "id": "q3",
+          "question": "Which breed, originally from Thailand, is famous for blue eyes and a color-pointed coat?",
+          "options": [
+            { "id": "a", "text": "Siamese", "is_correct": true },
+            { "id": "b", "text": "Bombay", "is_correct": false },
+            { "id": "c", "text": "Korat", "is_correct": false },
+            { "id": "d", "text": "Russian Blue", "is_correct": false }
+          ],
+          "explanation": "The Siamese came from Siam, present-day Thailand; its darker points are caused by a temperature-sensitive enzyme."
+        },
+        {
+          "id": "q4",
+          "question": "Which breed is defined by a natural mutation that folds its ears forward and down?",
+          "options": [
+            { "id": "a", "text": "Scottish Fold", "is_correct": true },
+            { "id": "b", "text": "American Curl", "is_correct": false },
+            { "id": "c", "text": "British Shorthair", "is_correct": false },
+            { "id": "d", "text": "Devon Rex", "is_correct": false }
+          ],
+          "explanation": "The Scottish Fold's ears bend forward; the American Curl's ears curl backward instead."
+        },
+        {
+          "id": "q5",
+          "question": "Which breed, native to Norway, has a dense water-resistant coat adapted to Scandinavian winters?",
+          "options": [
+            { "id": "a", "text": "Norwegian Forest Cat", "is_correct": true },
+            { "id": "b", "text": "Russian Blue", "is_correct": false },
+            { "id": "c", "text": "Chartreux", "is_correct": false },
+            { "id": "d", "text": "British Shorthair", "is_correct": false }
+          ],
+          "explanation": "The Norwegian Forest Cat, or skogkatt, has a double coat and tufted paws built for snowy forests."
+        },
+        {
+          "id": "q6",
+          "question": "Which short-tailed Japanese breed is said to have inspired the maneki-neko 'beckoning cat' figurine?",
+          "options": [
+            { "id": "a", "text": "Japanese Bobtail", "is_correct": true },
+            { "id": "b", "text": "Manx", "is_correct": false },
+            { "id": "c", "text": "Korat", "is_correct": false },
+            { "id": "d", "text": "Birman", "is_correct": false }
+          ],
+          "explanation": "The Japanese Bobtail's pom-pom tail has appeared in art for centuries, and the lucky cat is modeled on it."
+        },
+        {
+          "id": "q7",
+          "question": "Which breed was created by crossing domestic cats with the Asian leopard cat (Prionailurus bengalensis)?",
+          "options": [
+            { "id": "a", "text": "Bengal", "is_correct": true },
+            { "id": "b", "text": "Savannah", "is_correct": false },
+            { "id": "c", "text": "Ocicat", "is_correct": false },
+            { "id": "d", "text": "Egyptian Mau", "is_correct": false }
+          ],
+          "explanation": "The Bengal pairs domestic cats with the Asian leopard cat; the Ocicat looks wild but has no wildcat blood."
+        },
+        {
+          "id": "q8",
+          "question": "Which breed was named for its tendency to go limp and relaxed when picked up?",
+          "options": [
+            { "id": "a", "text": "Ragdoll", "is_correct": true },
+            { "id": "b", "text": "Persian", "is_correct": false },
+            { "id": "c", "text": "Birman", "is_correct": false },
+            { "id": "d", "text": "Himalayan", "is_correct": false }
+          ],
+          "explanation": "The Ragdoll was developed in California in the 1960s and is famous for its placid, floppy temperament."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-razas-de-gatos",
+      "title": "Trivia de razas de gatos: orígenes y rasgos felinos",
+      "description": "Ocho preguntas sobre el origen y los rasgos de razas de gatos famosas, del gato esfinge sin pelo al gigante Maine Coon.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "trivia", "gatos", "razas de gatos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué raza es famosa por su cuerpo casi sin pelo, resultado de una mutación natural en Canadá?",
+          "options": [
+            { "id": "a", "text": "Esfinge o sphynx", "is_correct": true },
+            { "id": "b", "text": "Devon rex", "is_correct": false },
+            { "id": "c", "text": "Cornish rex", "is_correct": false },
+            { "id": "d", "text": "Bosque de Noruega", "is_correct": false }
+          ],
+          "explanation": "El sphynx surgió en Toronto en los años sesenta por una mutación genética natural y se cría por su aspecto sin pelo."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué país procede el Maine Coon, una de las razas de gato doméstico más grandes?",
+          "options": [
+            { "id": "a", "text": "Noruega", "is_correct": false },
+            { "id": "b", "text": "Estados Unidos", "is_correct": true },
+            { "id": "c", "text": "Rusia", "is_correct": false },
+            { "id": "d", "text": "Reino Unido", "is_correct": false }
+          ],
+          "explanation": "La raza es originaria del estado de Maine, donde su pelaje espeso y su cola poblada resisten el invierno."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué raza, originaria de Tailandia, es famosa por sus ojos azules y su manto de extremidades oscuras?",
+          "options": [
+            { "id": "a", "text": "Siamés", "is_correct": true },
+            { "id": "b", "text": "Bombay", "is_correct": false },
+            { "id": "c", "text": "Korat", "is_correct": false },
+            { "id": "d", "text": "Azul ruso", "is_correct": false }
+          ],
+          "explanation": "El siamés procede del antiguo Siam, la actual Tailandia; sus puntas oscuras se deben a una enzima sensible a la temperatura."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué raza se define por una mutación natural que dobla las orejas hacia adelante y abajo?",
+          "options": [
+            { "id": "a", "text": "Scottish fold", "is_correct": true },
+            { "id": "b", "text": "American curl", "is_correct": false },
+            { "id": "c", "text": "British shorthair", "is_correct": false },
+            { "id": "d", "text": "Devon rex", "is_correct": false }
+          ],
+          "explanation": "Las orejas del scottish fold se doblan hacia adelante; las del american curl se curvan hacia atrás."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué raza, originaria de Noruega, tiene un manto denso e impermeable adaptado a los inviernos escandinavos?",
+          "options": [
+            { "id": "a", "text": "Bosque de Noruega", "is_correct": true },
+            { "id": "b", "text": "Azul ruso", "is_correct": false },
+            { "id": "c", "text": "Cartujo", "is_correct": false },
+            { "id": "d", "text": "British shorthair", "is_correct": false }
+          ],
+          "explanation": "El gato bosque de Noruega, o skogkatt, tiene doble capa de pelo y patas con mechones para el bosque nevado."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué raza japonesa de cola corta inspiró la figura del maneki-neko, el «gato de la suerte»?",
+          "options": [
+            { "id": "a", "text": "Bobtail japonés", "is_correct": true },
+            { "id": "b", "text": "Manx", "is_correct": false },
+            { "id": "c", "text": "Korat", "is_correct": false },
+            { "id": "d", "text": "Sagrado de Birmania", "is_correct": false }
+          ],
+          "explanation": "La cola en pompón del bobtail japonés aparece en el arte desde hace siglos y el gato de la fortuna se modeló sobre ella."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué raza se creó cruzando gatos domésticos con el gato leopardo asiático (Prionailurus bengalensis)?",
+          "options": [
+            { "id": "a", "text": "Bengalí", "is_correct": true },
+            { "id": "b", "text": "Savannah", "is_correct": false },
+            { "id": "c", "text": "Ocicat", "is_correct": false },
+            { "id": "d", "text": "Mau egipcio", "is_correct": false }
+          ],
+          "explanation": "El bengalí combina gatos domésticos con el gato leopardo asiático; el ocicat parece salvaje pero no tiene sangre de felino silvestre."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué raza debe su nombre a que se relaja y queda floja cuando la toman en brazos?",
+          "options": [
+            { "id": "a", "text": "Ragdoll", "is_correct": true },
+            { "id": "b", "text": "Persa", "is_correct": false },
+            { "id": "c", "text": "Sagrado de Birmania", "is_correct": false },
+            { "id": "d", "text": "Himalayo", "is_correct": false }
+          ],
+          "explanation": "El ragdoll se creó en California en los años sesenta y es famoso por su temperamento tranquilo y relajado."
+        }
+      ]
+    },
+    {
+      "slug": "en-birds-trivia",
+      "title": "Birds Trivia: Record Holders and Remarkable Species",
+      "description": "Eight questions on the most remarkable birds on Earth: the biggest, the fastest and the farthest-flying species and how they do it.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "trivia", "birds", "nature"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which bird has the largest wingspan of any living species, reaching about 3.5 metres?",
+          "options": [
+            { "id": "a", "text": "Wandering albatross", "is_correct": true },
+            { "id": "b", "text": "Andean condor", "is_correct": false },
+            { "id": "c", "text": "Mute swan", "is_correct": false },
+            { "id": "d", "text": "Golden eagle", "is_correct": false }
+          ],
+          "explanation": "The wandering albatross (Diomedea exulans) holds the record, with verified wingspans of over 3.4 metres."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the largest living bird, native to Africa and unable to fly?",
+          "options": [
+            { "id": "a", "text": "Emu", "is_correct": false },
+            { "id": "b", "text": "Southern cassowary", "is_correct": false },
+            { "id": "c", "text": "Common ostrich", "is_correct": true },
+            { "id": "d", "text": "Emperor penguin", "is_correct": false }
+          ],
+          "explanation": "The common ostrich (Struthio camelus) stands up to 2.8 metres tall and can weigh over 150 kilograms."
+        },
+        {
+          "id": "q3",
+          "question": "Which bird is the fastest animal on Earth in a hunting dive, exceeding 300 km/h?",
+          "options": [
+            { "id": "a", "text": "Golden eagle", "is_correct": false },
+            { "id": "b", "text": "Peregrine falcon", "is_correct": true },
+            { "id": "c", "text": "Common swift", "is_correct": false },
+            { "id": "d", "text": "Gyrfalcon", "is_correct": false }
+          ],
+          "explanation": "The peregrine falcon (Falco peregrinus) has been measured above 320 km/h in a stoop."
+        },
+        {
+          "id": "q4",
+          "question": "Which small bird can stay airborne for around ten months, feeding, drinking and even sleeping on the wing?",
+          "options": [
+            { "id": "a", "text": "Barn swallow", "is_correct": false },
+            { "id": "b", "text": "Common swift", "is_correct": true },
+            { "id": "c", "text": "House martin", "is_correct": false },
+            { "id": "d", "text": "Arctic tern", "is_correct": false }
+          ],
+          "explanation": "Tracking studies show the common swift (Apus apus) lands only to breed."
+        },
+        {
+          "id": "q5",
+          "question": "Which seabird makes the longest migration on Earth, flying between the Arctic and Antarctic each year?",
+          "options": [
+            { "id": "a", "text": "Arctic tern", "is_correct": true },
+            { "id": "b", "text": "Bar-tailed godwit", "is_correct": false },
+            { "id": "c", "text": "Wandering albatross", "is_correct": false },
+            { "id": "d", "text": "Northern gannet", "is_correct": false }
+          ],
+          "explanation": "The Arctic tern (Sterna paradisaea) can cover more than 70,000 kilometres a year between the poles."
+        },
+        {
+          "id": "q6",
+          "question": "Which bird can hover in place and is the only group able to fly backwards?",
+          "options": [
+            { "id": "a", "text": "Kestrel", "is_correct": false },
+            { "id": "b", "text": "Kingfisher", "is_correct": false },
+            { "id": "c", "text": "Hummingbird", "is_correct": true },
+            { "id": "d", "text": "Sunbird", "is_correct": false }
+          ],
+          "explanation": "Hummingbirds beat their wings in a figure-eight pattern, which allows hovering and backward flight."
+        },
+        {
+          "id": "q7",
+          "question": "Which Andean scavenger is among the largest flying birds, with a wingspan over three metres?",
+          "options": [
+            { "id": "a", "text": "Harpy eagle", "is_correct": false },
+            { "id": "b", "text": "California condor", "is_correct": false },
+            { "id": "c", "text": "Cinereous vulture", "is_correct": false },
+            { "id": "d", "text": "Andean condor", "is_correct": true }
+          ],
+          "explanation": "The Andean condor (Vultur gryphus) soars on mountain thermals and can weigh up to 15 kilograms."
+        },
+        {
+          "id": "q8",
+          "question": "Which flightless New Zealand bird lays an egg equal to about a quarter of its body weight?",
+          "options": [
+            { "id": "a", "text": "Kiwi", "is_correct": true },
+            { "id": "b", "text": "Kakapo", "is_correct": false },
+            { "id": "c", "text": "Weka", "is_correct": false },
+            { "id": "d", "text": "Southern cassowary", "is_correct": false }
+          ],
+          "explanation": "The kiwi's egg is the largest relative to body size of any bird, so the female needs an unusually wide pelvis."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-aves",
+      "title": "Trivia de aves: récords y especies extraordinarias",
+      "description": "Ocho preguntas sobre las aves más extraordinarias del planeta: las más grandes, las más rápidas y las que vuelan más lejos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "trivia", "aves", "naturaleza"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué ave tiene la mayor envergadura de todas las especies vivas, de unos 3,5 metros?",
+          "options": [
+            { "id": "a", "text": "Albatros errante", "is_correct": true },
+            { "id": "b", "text": "Cóndor andino", "is_correct": false },
+            { "id": "c", "text": "Cisne blanco", "is_correct": false },
+            { "id": "d", "text": "Águila real", "is_correct": false }
+          ],
+          "explanation": "El albatros errante (Diomedea exulans) ostenta el récord, con envergaduras verificadas de más de 3,4 metros."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el ave viva más grande, originaria de África e incapaz de volar?",
+          "options": [
+            { "id": "a", "text": "Emú", "is_correct": false },
+            { "id": "b", "text": "Casuario austral", "is_correct": false },
+            { "id": "c", "text": "Avestruz común", "is_correct": true },
+            { "id": "d", "text": "Pingüino emperador", "is_correct": false }
+          ],
+          "explanation": "El avestruz común (Struthio camelus) mide hasta 2,8 metros y puede superar los 150 kilos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué ave es el animal más rápido del planeta en picado de caza, superando los 300 km/h?",
+          "options": [
+            { "id": "a", "text": "Águila real", "is_correct": false },
+            { "id": "b", "text": "Halcón peregrino", "is_correct": true },
+            { "id": "c", "text": "Vencejo común", "is_correct": false },
+            { "id": "d", "text": "Halcón gerifalte", "is_correct": false }
+          ],
+          "explanation": "El halcón peregrino (Falco peregrinus) se ha medido por encima de los 320 km/h en picado."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué ave pequeña puede permanecer en el aire unos diez meses, comiendo, bebiendo e incluso durmiendo en vuelo?",
+          "options": [
+            { "id": "a", "text": "Golondrina común", "is_correct": false },
+            { "id": "b", "text": "Vencejo común", "is_correct": true },
+            { "id": "c", "text": "Avión común", "is_correct": false },
+            { "id": "d", "text": "Charrán ártico", "is_correct": false }
+          ],
+          "explanation": "Los estudios de seguimiento muestran que el vencejo común (Apus apus) solo se posa para criar."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué ave marina realiza la migración más larga de la Tierra, volando cada año entre el Ártico y la Antártida?",
+          "options": [
+            { "id": "a", "text": "Charrán ártico", "is_correct": true },
+            { "id": "b", "text": "Aguja colipinta", "is_correct": false },
+            { "id": "c", "text": "Albatros errante", "is_correct": false },
+            { "id": "d", "text": "Alcatraz común", "is_correct": false }
+          ],
+          "explanation": "El charrán ártico (Sterna paradisaea) puede recorrer más de 70.000 kilómetros al año entre los polos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué ave puede volar suspendida en un punto y es el único grupo capaz de volar hacia atrás?",
+          "options": [
+            { "id": "a", "text": "Cernícalo", "is_correct": false },
+            { "id": "b", "text": "Martín pescador", "is_correct": false },
+            { "id": "c", "text": "Colibrí", "is_correct": true },
+            { "id": "d", "text": "Suimanga", "is_correct": false }
+          ],
+          "explanation": "Los colibríes baten las alas en forma de ocho, lo que permite el vuelo sostenido y hacia atrás."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué ave carroñera de los Andes está entre las aves voladoras más grandes, con más de tres metros de envergadura?",
+          "options": [
+            { "id": "a", "text": "Águila harpía", "is_correct": false },
+            { "id": "b", "text": "Cóndor de California", "is_correct": false },
+            { "id": "c", "text": "Buitre negro", "is_correct": false },
+            { "id": "d", "text": "Cóndor andino", "is_correct": true }
+          ],
+          "explanation": "El cóndor andino (Vultur gryphus) planea en las corrientes térmicas y puede pesar hasta 15 kilos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué ave no voladora de Nueva Zelanda pone un huevo equivalente a un cuarto de su peso corporal?",
+          "options": [
+            { "id": "a", "text": "Kiwi", "is_correct": true },
+            { "id": "b", "text": "Kákapo", "is_correct": false },
+            { "id": "c", "text": "Weka", "is_correct": false },
+            { "id": "d", "text": "Casuario austral", "is_correct": false }
+          ],
+          "explanation": "El huevo del kiwi es el mayor en proporción al cuerpo de todas las aves; la hembra necesita una pelvis muy ancha."
+        }
+      ]
+    },
+    {
+      "slug": "en-big-cats-trivia",
+      "title": "Big Cats Trivia: Lions, Tigers and Other Great Felines",
+      "description": "Eight questions on the great cats of the world: where they live, how they hunt and what sets lions, tigers, leopards and jaguars apart.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "trivia", "big cats", "felines"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which big cat is the only one that lives in social groups called prides?",
+          "options": [
+            { "id": "a", "text": "Lion", "is_correct": true },
+            { "id": "b", "text": "Tiger", "is_correct": false },
+            { "id": "c", "text": "Leopard", "is_correct": false },
+            { "id": "d", "text": "Cheetah", "is_correct": false }
+          ],
+          "explanation": "Lions form prides of related females with their cubs and a small group of males; the others live mainly alone."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the largest living cat species, with males that can exceed 300 kilograms?",
+          "options": [
+            { "id": "a", "text": "Lion", "is_correct": false },
+            { "id": "b", "text": "Jaguar", "is_correct": false },
+            { "id": "c", "text": "Tiger", "is_correct": true },
+            { "id": "d", "text": "Leopard", "is_correct": false }
+          ],
+          "explanation": "The tiger (Panthera tigris) is the biggest cat; the largest males of the Siberian and Bengal populations top 300 kg."
+        },
+        {
+          "id": "q3",
+          "question": "Which big cat habitually hauls its prey into trees, out of reach of scavengers?",
+          "options": [
+            { "id": "a", "text": "Cheetah", "is_correct": false },
+            { "id": "b", "text": "Lion", "is_correct": false },
+            { "id": "c", "text": "Leopard", "is_correct": true },
+            { "id": "d", "text": "Puma", "is_correct": false }
+          ],
+          "explanation": "The leopard can climb while carrying prey heavier than itself, keeping kills away from hyenas and lions."
+        },
+        {
+          "id": "q4",
+          "question": "The 'black panthers' of the Americas are usually melanistic individuals of which species?",
+          "options": [
+            { "id": "a", "text": "Puma", "is_correct": false },
+            { "id": "b", "text": "Ocelot", "is_correct": false },
+            { "id": "c", "text": "Leopard", "is_correct": false },
+            { "id": "d", "text": "Jaguar", "is_correct": true }
+          ],
+          "explanation": "In the Americas a black panther is almost always a melanistic jaguar; in Asia and Africa the term refers to leopards."
+        },
+        {
+          "id": "q5",
+          "question": "Which cat has the widest natural range in the Americas, from Canada to the southern Andes?",
+          "options": [
+            { "id": "a", "text": "Jaguar", "is_correct": false },
+            { "id": "b", "text": "Ocelot", "is_correct": false },
+            { "id": "c", "text": "Bobcat", "is_correct": false },
+            { "id": "d", "text": "Puma", "is_correct": true }
+          ],
+          "explanation": "The puma (Puma concolor), also called cougar or mountain lion, ranges farther than any other land mammal in the hemisphere."
+        },
+        {
+          "id": "q6",
+          "question": "Which big cat is adapted to the high mountains of Central and South Asia, with a thick smoky-grey coat?",
+          "options": [
+            { "id": "a", "text": "Clouded leopard", "is_correct": false },
+            { "id": "b", "text": "Snow leopard", "is_correct": true },
+            { "id": "c", "text": "Eurasian lynx", "is_correct": false },
+            { "id": "d", "text": "Bengal tiger", "is_correct": false }
+          ],
+          "explanation": "The snow leopard (Panthera uncia) lives between roughly 3,000 and 5,500 metres in the Himalayas and neighbouring ranges."
+        },
+        {
+          "id": "q7",
+          "question": "Which cat is the fastest land animal, though it is not a member of the genus Panthera?",
+          "options": [
+            { "id": "a", "text": "Cheetah", "is_correct": true },
+            { "id": "b", "text": "Lion", "is_correct": false },
+            { "id": "c", "text": "Leopard", "is_correct": false },
+            { "id": "d", "text": "Tiger", "is_correct": false }
+          ],
+          "explanation": "The cheetah (Acinonyx jubatus) reaches around 100 km/h in short bursts and cannot roar like the Panthera cats."
+        },
+        {
+          "id": "q8",
+          "question": "Which forest cat of Southeast Asia has the longest canine teeth relative to body size?",
+          "options": [
+            { "id": "a", "text": "Serval", "is_correct": false },
+            { "id": "b", "text": "Caracal", "is_correct": false },
+            { "id": "c", "text": "Clouded leopard", "is_correct": true },
+            { "id": "d", "text": "Fishing cat", "is_correct": false }
+          ],
+          "explanation": "The clouded leopard (Neofelis nebulosa) has canines proportionally as long as those of some extinct sabre-tooths."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-grandes-felinos",
+      "title": "Trivia de grandes felinos: leones, tigres y otros depredadores",
+      "description": "Ocho preguntas sobre los grandes felinos del mundo: dónde viven, cómo cazan y qué distingue a leones, tigres, leopardos y jaguares.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "trivia", "grandes felinos", "felinos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué gran felino es el único que vive en grupos sociales llamados manadas?",
+          "options": [
+            { "id": "a", "text": "León", "is_correct": true },
+            { "id": "b", "text": "Tigre", "is_correct": false },
+            { "id": "c", "text": "Leopardo", "is_correct": false },
+            { "id": "d", "text": "Guepardo", "is_correct": false }
+          ],
+          "explanation": "Los leones forman manadas de hembras emparentadas con sus cachorros y pocos machos; los demás viven casi siempre solos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la especie de felino viva más grande, con machos que pueden superar los 300 kilos?",
+          "options": [
+            { "id": "a", "text": "León", "is_correct": false },
+            { "id": "b", "text": "Jaguar", "is_correct": false },
+            { "id": "c", "text": "Tigre", "is_correct": true },
+            { "id": "d", "text": "Leopardo", "is_correct": false }
+          ],
+          "explanation": "El tigre (Panthera tigris) es el felino más grande; los machos de las poblaciones siberiana y bengalí superan los 300 kilos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué gran felino sube sus presas a los árboles para alejarlas de los carroñeros?",
+          "options": [
+            { "id": "a", "text": "Guepardo", "is_correct": false },
+            { "id": "b", "text": "León", "is_correct": false },
+            { "id": "c", "text": "Leopardo", "is_correct": true },
+            { "id": "d", "text": "Puma", "is_correct": false }
+          ],
+          "explanation": "El leopardo puede trepar cargando presas más pesadas que él para resguardarlas de hienas y leones."
+        },
+        {
+          "id": "q4",
+          "question": "Las «panteras negras» de América suelen ser ejemplares melánicos de qué especie?",
+          "options": [
+            { "id": "a", "text": "Puma", "is_correct": false },
+            { "id": "b", "text": "Ocelote", "is_correct": false },
+            { "id": "c", "text": "Leopardo", "is_correct": false },
+            { "id": "d", "text": "Jaguar", "is_correct": true }
+          ],
+          "explanation": "En América una pantera negra es casi siempre un jaguar melánico; en Asia y África el término se refiere a leopardos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué felino tiene la mayor distribución natural de América, desde Canadá hasta los Andes del sur?",
+          "options": [
+            { "id": "a", "text": "Jaguar", "is_correct": false },
+            { "id": "b", "text": "Ocelote", "is_correct": false },
+            { "id": "c", "text": "Lince rojo", "is_correct": false },
+            { "id": "d", "text": "Puma", "is_correct": true }
+          ],
+          "explanation": "El puma (Puma concolor), también llamado león de montaña, abarca más territorio que cualquier otro mamífero terrestre del hemisferio."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué gran felino está adaptado a las altas montañas de Asia central y meridional, con un pelaje grisáceo y espeso?",
+          "options": [
+            { "id": "a", "text": "Pantera nebulosa", "is_correct": false },
+            { "id": "b", "text": "Leopardo de las nieves", "is_correct": true },
+            { "id": "c", "text": "Lince euroasiático", "is_correct": false },
+            { "id": "d", "text": "Tigre de Bengala", "is_correct": false }
+          ],
+          "explanation": "El leopardo de las nieves (Panthera uncia) vive entre unos 3.000 y 5.500 metros en el Himalaya y cordilleras vecinas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué felino es el animal terrestre más rápido, aunque no pertenece al género Panthera?",
+          "options": [
+            { "id": "a", "text": "Guepardo", "is_correct": true },
+            { "id": "b", "text": "León", "is_correct": false },
+            { "id": "c", "text": "Leopardo", "is_correct": false },
+            { "id": "d", "text": "Tigre", "is_correct": false }
+          ],
+          "explanation": "El guepardo (Acinonyx jubatus) alcanza unos 100 km/h en carreras cortas y no puede rugir como los Panthera."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué felino de los bosques del sudeste asiático tiene los caninos más largos en proporción a su tamaño?",
+          "options": [
+            { "id": "a", "text": "Serval", "is_correct": false },
+            { "id": "b", "text": "Caracal", "is_correct": false },
+            { "id": "c", "text": "Pantera nebulosa", "is_correct": true },
+            { "id": "d", "text": "Gato pescador", "is_correct": false }
+          ],
+          "explanation": "La pantera nebulosa (Neofelis nebulosa) tiene unos caninos tan largos, en proporción, como los de algunos dientes de sable extintos."
+        }
+      ]
+    },
+    {
+      "slug": "en-venomous-animals-trivia",
+      "title": "Venomous Animals Trivia: Snakes, Spiders and Sea Creatures",
+      "description": "Eight questions on venomous animals around the world, from the inland taipan and the blue-ringed octopus to the surprising platypus.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "trivia", "venomous animals", "snakes"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which Australian snake has the most toxic venom of any land snake measured?",
+          "options": [
+            { "id": "a", "text": "King cobra", "is_correct": false },
+            { "id": "b", "text": "Black mamba", "is_correct": false },
+            { "id": "c", "text": "Inland taipan", "is_correct": true },
+            { "id": "d", "text": "Eastern brown snake", "is_correct": false }
+          ],
+          "explanation": "The inland taipan (Oxyuranus microlepidotus) tops toxicity tests; it lives in remote areas and bites are extremely rare."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the world's longest venomous snake, reaching over five metres?",
+          "options": [
+            { "id": "a", "text": "King cobra", "is_correct": true },
+            { "id": "b", "text": "Black mamba", "is_correct": false },
+            { "id": "c", "text": "Gaboon viper", "is_correct": false },
+            { "id": "d", "text": "Boa constrictor", "is_correct": false }
+          ],
+          "explanation": "The king cobra (Ophiophagus hannah) of South and Southeast Asia feeds mainly on other snakes."
+        },
+        {
+          "id": "q3",
+          "question": "Which small octopus flashes bright blue rings when threatened and carries lethal tetrodotoxin?",
+          "options": [
+            { "id": "a", "text": "Mimic octopus", "is_correct": false },
+            { "id": "b", "text": "Blue-ringed octopus", "is_correct": true },
+            { "id": "c", "text": "Common octopus", "is_correct": false },
+            { "id": "d", "text": "Dumbo octopus", "is_correct": false }
+          ],
+          "explanation": "The blue-ringed octopus (Hapalochlaena) of Australian waters carries enough toxin to kill several adults."
+        },
+        {
+          "id": "q4",
+          "question": "Which jellyfish, found in northern Australian waters, is considered the most venomous marine animal?",
+          "options": [
+            { "id": "a", "text": "Lion's mane jellyfish", "is_correct": false },
+            { "id": "b", "text": "Portuguese man o' war", "is_correct": false },
+            { "id": "c", "text": "Irukandji jellyfish", "is_correct": false },
+            { "id": "d", "text": "Australian box jellyfish", "is_correct": true }
+          ],
+          "explanation": "Chironex fleckeri, the Australian box jellyfish or sea wasp, has tentacles that can kill within minutes."
+        },
+        {
+          "id": "q5",
+          "question": "Which mammal injects venom through spurs on its hind legs, one of the very few venomous mammals?",
+          "options": [
+            { "id": "a", "text": "Slow loris", "is_correct": false },
+            { "id": "b", "text": "Echidna", "is_correct": false },
+            { "id": "c", "text": "Platypus", "is_correct": true },
+            { "id": "d", "text": "Hispaniolan solenodon", "is_correct": false }
+          ],
+          "explanation": "Male platypuses carry venomous ankle spurs that deliver intense pain; the venom flows in the breeding season."
+        },
+        {
+          "id": "q6",
+          "question": "Which venomous lizard with black-and-orange beaded skin lives in the southwestern United States and Mexico?",
+          "options": [
+            { "id": "a", "text": "Gila monster", "is_correct": true },
+            { "id": "b", "text": "Mexican beaded lizard", "is_correct": false },
+            { "id": "c", "text": "Green iguana", "is_correct": false },
+            { "id": "d", "text": "Thorny devil", "is_correct": false }
+          ],
+          "explanation": "The Gila monster (Heloderma suspectum) chews venom into its victim and is protected by law in several US states."
+        },
+        {
+          "id": "q7",
+          "question": "Which spider is known for necrotic venom and a violin-shaped mark on its back?",
+          "options": [
+            { "id": "a", "text": "Black widow", "is_correct": false },
+            { "id": "b", "text": "Sydney funnel-web", "is_correct": false },
+            { "id": "c", "text": "Brown recluse", "is_correct": true },
+            { "id": "d", "text": "Wolf spider", "is_correct": false }
+          ],
+          "explanation": "The brown recluse (Loxosceles reclusa) of the United States carries a violin-shaped mark pointing toward the abdomen."
+        },
+        {
+          "id": "q8",
+          "question": "Which fish, camouflaged on tropical reefs, has the most venomous spines of any fish?",
+          "options": [
+            { "id": "a", "text": "Lionfish", "is_correct": false },
+            { "id": "b", "text": "Stonefish", "is_correct": true },
+            { "id": "c", "text": "Pufferfish", "is_correct": false },
+            { "id": "d", "text": "Moray eel", "is_correct": false }
+          ],
+          "explanation": "The stonefish (Synanceia) hides like a rock and its dorsal spines inject one of the most painful venoms known."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-animales-venenosos",
+      "title": "Trivia de animales venenosos: serpientes, arañas y vida marina",
+      "description": "Ocho preguntas sobre animales venenosos del mundo, de la taipán del interior y el pulpo de anillos azules al sorprendente ornitorrinco.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "trivia", "animales venenosos", "serpientes"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué serpiente australiana tiene el veneno más tóxico de todas las serpientes terrestres medidas?",
+          "options": [
+            { "id": "a", "text": "Cobra real", "is_correct": false },
+            { "id": "b", "text": "Mamba negra", "is_correct": false },
+            { "id": "c", "text": "Taipán del interior", "is_correct": true },
+            { "id": "d", "text": "Serpiente marrón oriental", "is_correct": false }
+          ],
+          "explanation": "La taipán del interior (Oxyuranus microlepidotus) encabeza las pruebas de toxicidad; vive en zonas remotas y las mordeduras son rarísimas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la serpiente venenosa más larga del mundo, capaz de superar los cinco metros?",
+          "options": [
+            { "id": "a", "text": "Cobra real", "is_correct": true },
+            { "id": "b", "text": "Mamba negra", "is_correct": false },
+            { "id": "c", "text": "Víbora de Gabón", "is_correct": false },
+            { "id": "d", "text": "Boa constrictor", "is_correct": false }
+          ],
+          "explanation": "La cobra real (Ophiophagus hannah), del sur y sudeste asiático, se alimenta sobre todo de otras serpientes."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué pequeño pulpo muestra brillantes anillos azules al sentirse amenazado y porta tetrodotoxina letal?",
+          "options": [
+            { "id": "a", "text": "Pulpo mímico", "is_correct": false },
+            { "id": "b", "text": "Pulpo de anillos azules", "is_correct": true },
+            { "id": "c", "text": "Pulpo común", "is_correct": false },
+            { "id": "d", "text": "Pulpo dumbo", "is_correct": false }
+          ],
+          "explanation": "El pulpo de anillos azules (Hapalochlaena), de aguas australianas, porta toxina suficiente para matar a varios adultos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué medusa, presente en las aguas del norte de Australia, se considera el animal marino más venenoso?",
+          "options": [
+            { "id": "a", "text": "Medusa melena de león", "is_correct": false },
+            { "id": "b", "text": "Carabela portuguesa", "is_correct": false },
+            { "id": "c", "text": "Medusa irukandji", "is_correct": false },
+            { "id": "d", "text": "Avispa de mar australiana", "is_correct": true }
+          ],
+          "explanation": "Chironex fleckeri, la avispa de mar o medusa de caja australiana, tiene tentáculos capaces de matar en minutos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué mamífero inyecta veneno con espolones en las patas traseras, uno de los poquísimos mamíferos venenosos?",
+          "options": [
+            { "id": "a", "text": "Loris perezoso", "is_correct": false },
+            { "id": "b", "text": "Equidna", "is_correct": false },
+            { "id": "c", "text": "Ornitorrinco", "is_correct": true },
+            { "id": "d", "text": "Solenodonte de La Española", "is_correct": false }
+          ],
+          "explanation": "Los ornitorrincos macho llevan espolones venenosos en el tobillo; el veneno fluye en la época de cría."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué lagarto venenoso de piel negra y naranja con aspecto de cuentas vive en el suroeste de Estados Unidos y México?",
+          "options": [
+            { "id": "a", "text": "Monstruo de Gila", "is_correct": true },
+            { "id": "b", "text": "Lagarto enchaquirado mexicano", "is_correct": false },
+            { "id": "c", "text": "Iguana verde", "is_correct": false },
+            { "id": "d", "text": "Diablo espinoso", "is_correct": false }
+          ],
+          "explanation": "El monstruo de Gila (Heloderma suspectum) inocula el veneno masticando; está protegido por ley en varios estados de EE. UU."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué araña se reconoce por su veneno necrótico y una marca en forma de violín en el dorso?",
+          "options": [
+            { "id": "a", "text": "Viuda negra", "is_correct": false },
+            { "id": "b", "text": "Araña de tela embudo de Sídney", "is_correct": false },
+            { "id": "c", "text": "Reclusa parda", "is_correct": true },
+            { "id": "d", "text": "Araña lobo", "is_correct": false }
+          ],
+          "explanation": "La reclusa parda (Loxosceles reclusa), de Estados Unidos, lleva una marca de violín que apunta hacia el abdomen."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué pez, camuflado en los arrecifes tropicales, tiene las espinas más venenosas de todos los peces?",
+          "options": [
+            { "id": "a", "text": "Pez león", "is_correct": false },
+            { "id": "b", "text": "Pez piedra", "is_correct": true },
+            { "id": "c", "text": "Pez globo", "is_correct": false },
+            { "id": "d", "text": "Morena", "is_correct": false }
+          ],
+          "explanation": "El pez piedra (Synanceia) se oculta como una roca y sus espinas dorsales inyectan uno de los venenos más dolorosos que existen."
+        }
+      ]
+    }
+  ]
+}
