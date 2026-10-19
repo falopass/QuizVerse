@@ -11,6 +11,8 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizedPath, generateProfileMetadata } from '@/lib/seo/metadata';
 import { absoluteUrl } from '@/lib/seo/site';
 import { ShareButtons } from '@/components/shared/share-buttons';
+import { FollowButton } from '@/components/profile/follow-button';
+import { createClient } from '@/lib/supabase/server';
 
 export async function generateMetadata({
   params,
@@ -47,9 +49,28 @@ export default async function LocalizedProfilePage({
   const profile = await getProfileByUsername(username);
   if (!profile) notFound();
 
-  const [quizzes, achievements] = await Promise.all([
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isOwnProfile = user?.id === profile.id;
+
+  const [quizzes, achievements, countsRow, followRow] = await Promise.all([
     getQuizzesByCreatorId(profile.id),
     getUnlockedAchievements(profile.id),
+    supabase
+      .from('profiles')
+      .select('followers_count, following_count')
+      .eq('id', profile.id)
+      .single(),
+    user && !isOwnProfile
+      ? supabase
+          .from('user_follows')
+          .select('following_id')
+          .eq('follower_id', user.id)
+          .eq('following_id', profile.id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
   ]);
 
   return (
@@ -70,7 +91,15 @@ export default async function LocalizedProfilePage({
                   ? 'Un perfil de QuizVerse en construcción, con quizzes publicados y una huella editorial propia.'
                   : 'A QuizVerse profile with published quizzes and a visible editorial footprint.')}
             </p>
-            <div className="mt-6 max-w-md">
+            <div className="mt-6 flex max-w-md flex-col items-start gap-4">
+              {!isOwnProfile ? (
+                <FollowButton
+                  targetUserId={profile.id}
+                  initialFollowing={Boolean(followRow.data)}
+                  isAuthenticated={Boolean(user)}
+                  locale={locale}
+                />
+              ) : null}
               <ShareButtons
                 locale={locale}
                 title={`${profile.display_name || profile.username} · QuizVerse`}
@@ -95,6 +124,14 @@ export default async function LocalizedProfilePage({
             <StatCard
               value={formatCompactNumber(profile.quizzes_created)}
               label={locale === 'es' ? 'Creados' : 'Created'}
+            />
+            <StatCard
+              value={formatCompactNumber(countsRow.data?.followers_count ?? 0)}
+              label={locale === 'es' ? 'Seguidores' : 'Followers'}
+            />
+            <StatCard
+              value={formatCompactNumber(countsRow.data?.following_count ?? 0)}
+              label={locale === 'es' ? 'Siguiendo' : 'Following'}
             />
           </div>
         </div>
