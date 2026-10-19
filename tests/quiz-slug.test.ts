@@ -54,10 +54,8 @@ describe('slugifyTitle', () => {
 
 describe('generateUniqueSlug', () => {
   const free = async () => false;
-  const takenFrom =
-    (taken: ReadonlySet<string>) =>
-    async (candidate: string) =>
-      taken.has(candidate);
+  const takenFrom = (taken: ReadonlySet<string>) => async (candidate: string) =>
+    taken.has(candidate);
 
   it('returns the bare slug when the first candidate is free', async () => {
     const exists = vi.fn(free);
