@@ -181,6 +181,7 @@ describe('structured data', () => {
     // No aggregateRating: there are no real ratings to publish.
     expect(node).not.toHaveProperty('aggregateRating');
     expect(node.interactionStatistic).toMatchObject({ userInteractionCount: 120 });
+    expect(node.author).toEqual({ '@id': `${SITE_URL}/#organization` });
   });
 
   it('reports the edit date as dateModified, falling back to publication', () => {
