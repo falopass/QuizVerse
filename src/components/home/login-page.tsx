@@ -3,6 +3,7 @@ import { LoginForm } from '@/components/auth/login-form';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale, getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 
 export async function LoginPageView({
   redirectTo = '/',
@@ -51,10 +52,7 @@ export async function LoginPageView({
           privacy: 'Privacy Policy',
           terms: 'Terms',
         };
-  const safeRedirect =
-    redirectTo && redirectTo.startsWith('/') && !redirectTo.startsWith('//')
-      ? redirectTo
-      : localizeHref(locale, '/');
+  const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
   const callbackUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/callback?next=${encodeURIComponent(safeRedirect)}`;
   const googleAuthUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(callbackUrl)}`;
   const githubAuthUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(callbackUrl)}`;

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { RegisterForm } from '@/components/auth/register-form';
 import { getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 
 export async function RegisterPageView({
   redirectTo = '/',
@@ -44,8 +45,7 @@ export async function RegisterPageView({
         terms: 'Terms',
       };
 
-  const safeRedirect =
-    redirectTo && redirectTo.startsWith('/') ? redirectTo : localizeHref(locale, '/');
+  const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
 
   return (
     <div className="min-h-screen px-4 pt-28 pb-20">
