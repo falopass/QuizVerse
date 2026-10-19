@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
 import { ToastViewport } from '@/components/ui/toast';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
+import { WebVitals } from '@/components/layout/web-vitals';
 import { CookieConsentBanner } from '@/components/shared/cookie-consent';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildGraph, organizationNode, websiteNode } from '@/lib/seo/structured-data';
@@ -156,6 +157,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <ThemeProvider>
             <ToastProvider>
               <AppTelemetry />
+              <WebVitals />
               {children}
               <ToastViewport />
               <CookieConsentBanner />

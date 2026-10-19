@@ -7,7 +7,8 @@ export type TelemetryEventName =
   | 'quiz_complete'
   | 'create_start'
   | 'create_complete'
-  | 'client_error';
+  | 'client_error'
+  | 'web_vitals';
 
 export interface TelemetryEventPayload {
   name: TelemetryEventName;
