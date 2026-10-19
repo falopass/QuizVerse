@@ -1,0 +1,1215 @@
+{
+  "$comment": "Editorial seed 2026ak: five es/en pairs on the thinnest categories. Each pair shares one theme but mixes formats — one trivia quiz and one personality quiz — so the batch lands 5 trivia and 5 personality quizzes and covers food-drink, science, animals, geography, history and sports. Every trivia answer is a stable, checkable fact and carries an explanation. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-world-spices-trivia",
+      "title": "World Spices Trivia: The Flavors That Moved Empires",
+      "description": "Eight questions on saffron, vanilla, cinnamon and the spice trade that redrew the map, from the Banda Islands to Ceylon.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "spices", "trivia", "world cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Saffron, the most expensive spice in the world by weight, comes from which part of the crocus flower?",
+          "options": [
+            { "id": "a", "text": "The petals", "is_correct": false },
+            { "id": "b", "text": "The dried stigmas", "is_correct": true },
+            { "id": "c", "text": "The stamens", "is_correct": false },
+            { "id": "d", "text": "The roots", "is_correct": false }
+          ],
+          "explanation": "Each Crocus sativus flower yields only three red stigmas, so a kilo of saffron takes around 150,000 flowers, all picked by hand."
+        },
+        {
+          "id": "q2",
+          "question": "Which spice was so prized in medieval Europe that it was used to pay rents and dowries?",
+          "options": [
+            { "id": "a", "text": "Cloves", "is_correct": false },
+            { "id": "b", "text": "Ginger", "is_correct": false },
+            { "id": "c", "text": "Black pepper", "is_correct": true },
+            { "id": "d", "text": "Cardamom", "is_correct": false }
+          ],
+          "explanation": "Black pepper was once worth its weight in silver: Romans demanded it as tribute, and the race for pepper pushed the Portuguese around Africa to India."
+        },
+        {
+          "id": "q3",
+          "question": "Vanilla is native to which region, where the Totonac people first cultivated it?",
+          "options": [
+            { "id": "a", "text": "Madagascar", "is_correct": false },
+            { "id": "b", "text": "Indonesia", "is_correct": false },
+            { "id": "c", "text": "India", "is_correct": false },
+            { "id": "d", "text": "Mexico", "is_correct": true }
+          ],
+          "explanation": "Vanilla planifolia is native to Mexico. The Totonacs of Veracruz grew it long before the Aztecs used it to flavor their chocolate."
+        },
+        {
+          "id": "q4",
+          "question": "Most of the world's 'true' cinnamon (Cinnamomum verum) still comes from which island nation?",
+          "options": [
+            { "id": "a", "text": "Sri Lanka", "is_correct": true },
+            { "id": "b", "text": "Vietnam", "is_correct": false },
+            { "id": "c", "text": "Madagascar", "is_correct": false },
+            { "id": "d", "text": "Cuba", "is_correct": false }
+          ],
+          "explanation": "Cinnamomum verum is native to Sri Lanka — the old Ceylon — which still supplies most true cinnamon, milder and thinner-barked than the cassia sold elsewhere."
+        },
+        {
+          "id": "q5",
+          "question": "Nutmeg and mace grow on the same tree — which remote island group was their only source until the 18th century?",
+          "options": [
+            { "id": "a", "text": "The Canary Islands", "is_correct": false },
+            { "id": "b", "text": "The Falkland Islands", "is_correct": false },
+            { "id": "c", "text": "The Banda Islands", "is_correct": true },
+            { "id": "d", "text": "The Faroe Islands", "is_correct": false }
+          ],
+          "explanation": "The Banda Islands, in Indonesia's Moluccas, were the world's only source of nutmeg; in 1667 the Dutch traded Manhattan to the English for tiny Banda's island of Run."
+        },
+        {
+          "id": "q6",
+          "question": "Which bright yellow spice gives mustard and most curry powders their color?",
+          "options": [
+            { "id": "a", "text": "Cumin", "is_correct": false },
+            { "id": "b", "text": "Turmeric", "is_correct": true },
+            { "id": "c", "text": "Coriander", "is_correct": false },
+            { "id": "d", "text": "Fenugreek", "is_correct": false }
+          ],
+          "explanation": "Turmeric, the rhizome of Curcuma longa, contains curcumin, an intense golden pigment used for millennia in South Asian cooking and dyeing."
+        },
+        {
+          "id": "q7",
+          "question": "Cloves, the spice studded into hams and oranges, are actually which part of the clove tree?",
+          "options": [
+            { "id": "a", "text": "The bark", "is_correct": false },
+            { "id": "b", "text": "The seeds", "is_correct": false },
+            { "id": "c", "text": "The unopened flower buds", "is_correct": true },
+            { "id": "d", "text": "The roots", "is_correct": false }
+          ],
+          "explanation": "Cloves are the dried, unopened flower buds of Syzygium aromaticum, an evergreen native to Indonesia's Maluku Islands."
+        },
+        {
+          "id": "q8",
+          "question": "Which spice, made from dried red peppers, gives Spanish chorizo its signature red color?",
+          "options": [
+            { "id": "a", "text": "Paprika", "is_correct": true },
+            { "id": "b", "text": "Saffron", "is_correct": false },
+            { "id": "c", "text": "Turmeric", "is_correct": false },
+            { "id": "d", "text": "Annatto", "is_correct": false }
+          ],
+          "explanation": "Paprika — pimentón — is ground dried red pepper, brought to Spain from the Americas in the 16th century and now essential to chorizo."
+        }
+      ]
+    },
+    {
+      "slug": "es-que-especie-eres",
+      "title": "¿Qué especie eres? El test de personalidad con sabor",
+      "description": "Azafrán, canela, vainilla, chile o cúrcuma: siete preguntas para descubrir qué especia del mundo se parece a tu forma de ser.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["test de personalidad", "especias", "comida", "sabores"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Es viernes por la noche. ¿Dónde te encontramos?",
+          "options": [
+            { "id": "a", "text": "En una cena pequeña donde cada detalle está pensado", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "En casa, con manta, té y algo recién horneado", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Donde sea, si hay postre y buena compañía", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "En la fiesta más ruidosa de la ciudad", "personality_tags": ["chili"] },
+            { "id": "e", "text": "En un plan tranquilo, aunque sea en mi propio balcón", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tus amigos te describirían como...",
+          "options": [
+            { "id": "a", "text": "Exótico y difícil de encontrar", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "Cálido y acogedor", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Dulce y confiable", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "Intenso y sin filtro", "personality_tags": ["chili"] },
+            { "id": "e", "text": "Sereno y con buena energía", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo enfrentas un problema?",
+          "options": [
+            { "id": "a", "text": "Con paciencia milimétrica: los detalles importan", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "Reuniendo a todos alrededor de una mesa", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Suavizando los ánimos de a poco", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "Yendo directo al grano, aunque queme", "personality_tags": ["chili"] },
+            { "id": "e", "text": "Respirando hondo antes de actuar", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Elige un postre:",
+          "options": [
+            { "id": "a", "text": "Arroz con leche al azafrán y cardamomo", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "Rollos de canela recién hechos", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Helado de vainilla clásico", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "Chocolate picante con chile", "personality_tags": ["chili"] },
+            { "id": "e", "text": "Leche dorada con cúrcuma", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es tu ritmo ideal de viaje?",
+          "options": [
+            { "id": "a", "text": "Poco, pero a lugares que nadie conoce", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "Pueblos acogedores con mercados y panaderías", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Playas tranquilas con tiempo para leer", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "Donde haya comida callejera que pique", "personality_tags": ["chili"] },
+            { "id": "e", "text": "Un retiro tranquilo entre montañas", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "En una conversación de grupo, tú...",
+          "options": [
+            { "id": "a", "text": "Hablas poco, pero todos escuchan cuando lo haces", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "Haces que nadie se sienta fuera", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "Pones la nota amable que calma el debate", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "Dices lo que nadie se atreve a decir", "personality_tags": ["chili"] },
+            { "id": "e", "text": "Aportas calma y perspectiva", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué frase va más contigo?",
+          "options": [
+            { "id": "a", "text": "«La calidad antes que la cantidad»", "personality_tags": ["saffron"] },
+            { "id": "b", "text": "«El hogar es donde huele a canela»", "personality_tags": ["cinnamon"] },
+            { "id": "c", "text": "«Lo simple, bien hecho, nunca falla»", "personality_tags": ["vanilla"] },
+            { "id": "d", "text": "«Sin pasión no hay sabor»", "personality_tags": ["chili"] },
+            { "id": "e", "text": "«El equilibrio es la verdadera especia»", "personality_tags": ["turmeric"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Azafrán",
+          "description": "Raro, preciso y de efecto inmediato: como el azafrán, basta una pizca tuya para cambiar un plato entero. Prefieres la calidad a la cantidad y no regalas tu tiempo a cualquiera.",
+          "personality_tag": "saffron",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r2",
+          "title": "Canela",
+          "description": "Eres el sabor que sabe a casa: cálido, clásico y capaz de unir a cualquier grupo. La gente se acerca a ti como a la cocina en invierno.",
+          "personality_tag": "cinnamon",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Vainilla",
+          "description": "Dulce sin esfuerzo y eternamente versátil: mejoras todo lo que tocas sin pedir protagonismo. El mundo infravalora la vainilla; la gente que te conoce, no.",
+          "personality_tag": "vanilla",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Chile",
+          "description": "Intenso, directo e imposible de ignorar: quien te prueba no te olvida. Conviertes cualquier plan soso en una historia que se cuenta después.",
+          "personality_tag": "chili",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r5",
+          "title": "Cúrcuma",
+          "description": "Dorada, tranquila y buena para todo el ambiente: llevas la calma a sitios donde no estaba invitada. Tu brillo no pide atención, simplemente la tiene.",
+          "personality_tag": "turmeric",
+          "background_theme": "stars"
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tabla-periodica",
+      "title": "Trivia de la tabla periódica: ¿cuánto sabes de los elementos?",
+      "description": "Ocho preguntas sobre los elementos, sus símbolos y las historias de la tabla periódica que ordena toda la materia del universo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "química", "tabla periódica", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el elemento más abundante del universo observable?",
+          "options": [
+            { "id": "a", "text": "Oxígeno", "is_correct": false },
+            { "id": "b", "text": "Helio", "is_correct": false },
+            { "id": "c", "text": "Hidrógeno", "is_correct": true },
+            { "id": "d", "text": "Carbono", "is_correct": false }
+          ],
+          "explanation": "El hidrógeno representa cerca del 75 % de la materia común del universo: nació en el Big Bang y sigue alimentando a las estrellas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué símbolo químico tiene el oro en la tabla periódica?",
+          "options": [
+            { "id": "a", "text": "Go", "is_correct": false },
+            { "id": "b", "text": "Or", "is_correct": false },
+            { "id": "c", "text": "Ag", "is_correct": false },
+            { "id": "d", "text": "Au", "is_correct": true }
+          ],
+          "explanation": "Au viene del latín «aurum», amanecer brillante. La Ag de la plata viene de «argentum», igual que la Argentina."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el único metal que es líquido a temperatura ambiente?",
+          "options": [
+            { "id": "a", "text": "Galio", "is_correct": false },
+            { "id": "b", "text": "Mercurio", "is_correct": true },
+            { "id": "c", "text": "Sodio", "is_correct": false },
+            { "id": "d", "text": "Plomo", "is_correct": false }
+          ],
+          "explanation": "El mercurio funde a -39 °C y por eso llenó los termómetros clásicos. El galio también se funde, pero solo a unos 30 °C, en la palma de la mano."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué gas noble ilumina los letreros de colores y toma su nombre del griego «nuevo»?",
+          "options": [
+            { "id": "a", "text": "Argón", "is_correct": false },
+            { "id": "b", "text": "Neón", "is_correct": true },
+            { "id": "c", "text": "Xenón", "is_correct": false },
+            { "id": "d", "text": "Criptón", "is_correct": false }
+          ],
+          "explanation": "El neón, de «neos» (nuevo), produce la clásica luz rojo anaranjada cuando la corriente eléctrica atraviesa el gas en un tubo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué elemento, con número atómico 6, es la base de toda la química orgánica?",
+          "options": [
+            { "id": "a", "text": "Silicio", "is_correct": false },
+            { "id": "b", "text": "Nitrógeno", "is_correct": false },
+            { "id": "c", "text": "Oxígeno", "is_correct": false },
+            { "id": "d", "text": "Carbono", "is_correct": true }
+          ],
+          "explanation": "El carbono forma cuatro enlaces y cadenas casi infinitas: el diamante, el grafito, el ADN y tú son variaciones del mismo elemento."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué químico publicó en 1869 la tabla periódica que ordenó los elementos y predijo los que faltaban?",
+          "options": [
+            { "id": "a", "text": "Lavoisier", "is_correct": false },
+            { "id": "b", "text": "Mendeléyev", "is_correct": true },
+            { "id": "c", "text": "Dalton", "is_correct": false },
+            { "id": "d", "text": "Rutherford", "is_correct": false }
+          ],
+          "explanation": "Dmitri Mendeléyev ordenó los elementos por masa y propiedades, dejó huecos y acertó al predecir el galio, el escandio y el germanio."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué elemento constituye cerca del 78 % de la atmósfera terrestre?",
+          "options": [
+            { "id": "a", "text": "Oxígeno", "is_correct": false },
+            { "id": "b", "text": "Nitrógeno", "is_correct": true },
+            { "id": "c", "text": "Dióxido de carbono", "is_correct": false },
+            { "id": "d", "text": "Argón", "is_correct": false }
+          ],
+          "explanation": "El nitrógeno domina el aire que respiras, aunque casi no reacciona: las plantas solo lo aprovechan tras ser fijado por bacterias o por los rayos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál de estos metales se almacena en aceite porque reacciona violentamente con el agua?",
+          "options": [
+            { "id": "a", "text": "Hierro", "is_correct": false },
+            { "id": "b", "text": "Cobre", "is_correct": false },
+            { "id": "c", "text": "Sodio", "is_correct": true },
+            { "id": "d", "text": "Plata", "is_correct": false }
+          ],
+          "explanation": "El sodio se oxida y puede arder al contacto con el agua, por eso se conserva en aceite mineral. Es un metal alcalino, como el potasio."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-element-are-you",
+      "title": "Which Element Are You? The Periodic Table Personality Test",
+      "description": "Carbon, oxygen, iron, gold or neon: seven everyday questions reveal which element of the periodic table matches how you move through the world.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "science",
+      "tags": ["personality quiz", "science", "elements", "periodic table"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your ideal Friday night is...",
+          "options": [
+            { "id": "a", "text": "Hosting dinner: I built this group and I keep it together", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "Out moving: dancing, walking, anything with air", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "Same spot as always, same people — that's the point", "personality_tags": ["iron"] },
+            { "id": "d", "text": "Something exclusive: a tasting menu, a gallery opening", "personality_tags": ["gold"] },
+            { "id": "e", "text": "The loudest, brightest plan on offer", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "At work, you're the one who...",
+          "options": [
+            { "id": "a", "text": "Connects the team: every project runs through you", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "Energizes the room the second you walk in", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "Never misses a deadline, never complains", "personality_tags": ["iron"] },
+            { "id": "d", "text": "Does few things, but flawlessly", "personality_tags": ["gold"] },
+            { "id": "e", "text": "Gets noticed: your ideas light up the meeting", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Pick a superpower:",
+          "options": [
+            { "id": "a", "text": "Shapeshifting — becoming whatever is needed", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "Being everywhere at once", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "Invulnerability", "personality_tags": ["iron"] },
+            { "id": "d", "text": "Timelessness — never aging, never fading", "personality_tags": ["gold"] },
+            { "id": "e", "text": "Glowing in the dark", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your reputation in the group chat:",
+          "options": [
+            { "id": "a", "text": "The organizer: nothing happens without your thread", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "The hype person: all energy, all the time", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "The rock: people call you when things go wrong", "personality_tags": ["iron"] },
+            { "id": "d", "text": "The mystery: rarely posts, always lands", "personality_tags": ["gold"] },
+            { "id": "e", "text": "The one with the loudest takes", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Choose a job description:",
+          "options": [
+            { "id": "a", "text": "Be the skeleton of every living thing", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "Fuel every breath and every fire", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "Hold up bridges, ships and the Earth's core", "personality_tags": ["iron"] },
+            { "id": "d", "text": "Sit in a vault looking immaculate for millennia", "personality_tags": ["gold"] },
+            { "id": "e", "text": "Turn a boring tube of gas into a glowing sign", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "How do you handle change?",
+          "options": [
+            { "id": "a", "text": "I bond with it: change is just new structure", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "I flow with it; still or moving, I'm fine", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "I resist it, but I bend before I break", "personality_tags": ["iron"] },
+            { "id": "d", "text": "I don't react: I stay exactly as I am", "personality_tags": ["gold"] },
+            { "id": "e", "text": "I charge it up: change makes me brighter", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "What would your friends borrow from you?",
+          "options": [
+            { "id": "a", "text": "Connections: you know everyone", "personality_tags": ["carbon"] },
+            { "id": "b", "text": "Energy: you recharge whoever is near", "personality_tags": ["oxygen"] },
+            { "id": "c", "text": "Reliability: your word is steel", "personality_tags": ["iron"] },
+            { "id": "d", "text": "Taste: you only keep the good stuff", "personality_tags": ["gold"] },
+            { "id": "e", "text": "Visibility: you make things seen", "personality_tags": ["neon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Carbon",
+          "description": "You're the backbone: like carbon, you form the chains everything else hangs on. Groups, projects and people hold their shape because you're in them.",
+          "personality_tag": "carbon",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Oxygen",
+          "description": "Invisible but vital: the moment you arrive, everything breathes easier. You fuel every fire you touch and still somehow never run out.",
+          "personality_tag": "oxygen",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Iron",
+          "description": "Forged, dependable and quietly everywhere: you're the element inside bridges, blood and the Earth's own core. People lean on you because you never buckle first.",
+          "personality_tag": "iron",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Gold",
+          "description": "Rare, unreactive and permanently valuable: trends oxidize around you while you stay exactly the same. You don't chase attention; attention conducts to you.",
+          "personality_tag": "gold",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Neon",
+          "description": "Put a little current through you and the whole street lights up. You're the element that turned a boring gas tube into the most famous glow on Earth.",
+          "personality_tag": "neon",
+          "background_theme": "stars"
+        }
+      ]
+    },
+    {
+      "slug": "en-animal-superpowers-trivia",
+      "title": "Animal Superpowers Trivia: Nature's Most Extreme Abilities",
+      "description": "Eight questions on the wildest abilities in the animal kingdom: regeneration, half-brain sleep, backward flight and a shrimp that punches like a bullet.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "nature", "trivia", "wildlife"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Butterflies can taste their food — with which body part?",
+          "options": [
+            { "id": "a", "text": "Their antennae", "is_correct": false },
+            { "id": "b", "text": "Their feet", "is_correct": true },
+            { "id": "c", "text": "Their wing edges", "is_correct": false },
+            { "id": "d", "text": "Their eyes", "is_correct": false }
+          ],
+          "explanation": "Butterflies carry taste receptors on their feet, so landing on a leaf instantly tells them whether it's the right plant for their eggs."
+        },
+        {
+          "id": "q2",
+          "question": "What happens when a mantis shrimp strikes with its famous punch?",
+          "options": [
+            { "id": "a", "text": "It releases an electric shock", "is_correct": false },
+            { "id": "b", "text": "It injects venom into the prey", "is_correct": false },
+            { "id": "c", "text": "Its club moves so fast it boils the water into cavitation bubbles", "is_correct": true },
+            { "id": "d", "text": "It can strike only once in its life", "is_correct": false }
+          ],
+          "explanation": "The strike accelerates so fast it vaporizes water, and the collapse of the bubbles delivers a second shockwave — even a tiny flash of light."
+        },
+        {
+          "id": "q3",
+          "question": "Which group of mammals is the only one capable of true sustained flight?",
+          "options": [
+            { "id": "a", "text": "Flying squirrels", "is_correct": false },
+            { "id": "b", "text": "Bats", "is_correct": true },
+            { "id": "c", "text": "Sugar gliders", "is_correct": false },
+            { "id": "d", "text": "Colugos", "is_correct": false }
+          ],
+          "explanation": "Flying squirrels, gliders and colugos only glide; bats flap and sustain powered flight, which is why they rule the night sky."
+        },
+        {
+          "id": "q4",
+          "question": "Which bird can hover in place and even fly backwards?",
+          "options": [
+            { "id": "a", "text": "The kestrel", "is_correct": false },
+            { "id": "b", "text": "The kingfisher", "is_correct": false },
+            { "id": "c", "text": "The hummingbird", "is_correct": true },
+            { "id": "d", "text": "The albatross", "is_correct": false }
+          ],
+          "explanation": "A hummingbird's wings rotate at the shoulder in a figure-eight, letting it hover and fly backwards — a trick no other bird can pull off."
+        },
+        {
+          "id": "q5",
+          "question": "The axolotl, a Mexican salamander, is famous for regenerating which of these?",
+          "options": [
+            { "id": "a", "text": "Only its tail", "is_correct": false },
+            { "id": "b", "text": "Only its skin", "is_correct": false },
+            { "id": "c", "text": "Nothing — it's a myth", "is_correct": false },
+            { "id": "d", "text": "Entire limbs and parts of its heart and spinal cord", "is_correct": true }
+          ],
+          "explanation": "Axolotls regrow whole limbs and sections of the heart and spinal cord without scarring, which makes them stars of regenerative-medicine research."
+        },
+        {
+          "id": "q6",
+          "question": "How does an octopus mostly 'taste' the world around it?",
+          "options": [
+            { "id": "a", "text": "With receptors on its arms", "is_correct": true },
+            { "id": "b", "text": "With its beak", "is_correct": false },
+            { "id": "c", "text": "With its eyes", "is_correct": false },
+            { "id": "d", "text": "Through the water in its siphon", "is_correct": false }
+          ],
+          "explanation": "An octopus's suckers are packed with chemical receptors, so each arm can taste whatever it touches — and process much of it without the brain."
+        },
+        {
+          "id": "q7",
+          "question": "Which animal sleeps with one half of its brain awake at a time?",
+          "options": [
+            { "id": "a", "text": "The sloth", "is_correct": false },
+            { "id": "b", "text": "The dolphin", "is_correct": true },
+            { "id": "c", "text": "The koala", "is_correct": false },
+            { "id": "d", "text": "The cat", "is_correct": false }
+          ],
+          "explanation": "Dolphins use unihemispheric sleep: one brain hemisphere rests while the other keeps surfacing for air and watching for predators."
+        },
+        {
+          "id": "q8",
+          "question": "Greenland sharks are the longest-lived vertebrates known — roughly how old was the oldest estimated individual?",
+          "options": [
+            { "id": "a", "text": "About 50 years", "is_correct": false },
+            { "id": "b", "text": "About 100 years", "is_correct": false },
+            { "id": "c", "text": "About 400 years", "is_correct": true },
+            { "id": "d", "text": "About 200 years", "is_correct": false }
+          ],
+          "explanation": "Radiocarbon dating of eye tissue put one Greenland shark near 400 years old — born around the time of Shakespeare and still swimming."
+        }
+      ]
+    },
+    {
+      "slug": "es-que-superpoder-animal-tendrias",
+      "title": "¿Qué superpoder animal tendrías? Descúbrelo en este test",
+      "description": "Regeneración, ecolocalización o camuflaje total: siete preguntas para descubrir qué poder del reino animal va con tu forma de ser.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "animals",
+      "tags": ["test de personalidad", "animales", "superpoderes", "naturaleza"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Si pudieras elegir un sentido extra, ¿cuál sería?",
+          "options": [
+            { "id": "a", "text": "Curarme de cualquier golpe", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "Escuchar lo que nadie oye en la oscuridad", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "Cambiar de aspecto según el ambiente", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "Moverme sin tocar el suelo", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "Sentir toda mi propia fuerza", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tu forma de resolver problemas es...",
+          "options": [
+            { "id": "a", "text": "Recomponerme y empezar de nuevo, las veces que haga falta", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "Medir el terreno con señales que otros ignoran", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "Mimetizarme hasta encontrar el ángulo perfecto", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "Ir y venir hasta encontrar el punto exacto", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "Empujar hasta que se mueva, sea lo que sea", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué plan prefieres?",
+          "options": [
+            { "id": "a", "text": "Quedarme en casa recuperando energías", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "Explorar la ciudad de noche", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "Pasar desapercibido en un museo lleno", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "Picar de todo un poco, sin quedarme quieto", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "Gimnasio, montaña o la mudanza de un amigo", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "En tu equipo, eres quien...",
+          "options": [
+            { "id": "a", "text": "Se recupera primero de las crisis", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "Detecta los problemas antes de que lleguen", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "Trabaja en silencio y sorprende con el resultado", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "Salta de tarea en tarea sin perder el ritmo", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "Levanta lo que nadie más puede", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es tu mayor virtud?",
+          "options": [
+            { "id": "a", "text": "La resiliencia", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "La intuición", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "La discreción", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "La ligereza", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "La potencia", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Elige tu frase:",
+          "options": [
+            { "id": "a", "text": "«Lo que no me destruye, me reconstruye»", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "«Escucho con todo el cuerpo»", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "«El mejor movimiento es el que no se ve»", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "«Quien vuela bajo, ve más flores»", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "«No pesan los kilos, pesa la actitud»", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿A qué animal admiras en secreto?",
+          "options": [
+            { "id": "a", "text": "Al ajolote, que se regenera entero", "personality_tags": ["regeneration"] },
+            { "id": "b", "text": "Al murciélago, que ve sin ojos", "personality_tags": ["echolocation"] },
+            { "id": "c", "text": "Al pulpo, maestro del disfraz", "personality_tags": ["camouflage"] },
+            { "id": "d", "text": "Al colibrí, que desafía la gravedad", "personality_tags": ["hovering"] },
+            { "id": "e", "text": "Al escarabajo pelotero, que arrastra lo imposible", "personality_tags": ["strength"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Regeneración de ajolote",
+          "description": "Caerte no existe: como el ajolote, reconstruyes lo que la vida te quita y vuelves sin cicatrices. Tu calma para rehacerte desconcierta a quienes te ven romperse.",
+          "personality_tag": "regeneration",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Ecolocalización de murciélago",
+          "description": "Te orientas en la oscuridad por señales que otros ni registran. Donde todos ven ruido, tú lees el mapa completo.",
+          "personality_tag": "echolocation",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "Camuflaje total de pulpo",
+          "description": "El pulpo no solo cambia de color: cambia de textura y de idea. Tú también te fundes con cada ambiente hasta que decides ser visible, y entonces nadie te quita los ojos de encima.",
+          "personality_tag": "camouflage",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "Vuelo estacionario de colibrí",
+          "description": "El colibrí sostiene lo imposible batiendo ochenta veces por segundo. Tú también mantienes mil cosas en el aire a la vez, y encima encuentras el néctar.",
+          "personality_tag": "hovering",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Superfuerza de escarabajo pelotero",
+          "description": "El escarabajo pelotero arrastra más de mil veces su propio peso. Tú también cargas responsabilidades que parecen de otra escala y sigues empujando cuesta arriba.",
+          "personality_tag": "strength",
+          "background_theme": "fire"
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-lugares-extremos-del-mundo",
+      "title": "Trivia de lugares extremos: los récords del planeta Tierra",
+      "description": "Ocho preguntas sobre los rincones más fríos, secos, profundos y altos del planeta, del desierto de Atacama a la fosa de las Marianas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": ["geografía", "trivia", "récords", "planeta"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el lugar habitado más frío de la Tierra, donde se registraron -67,7 °C?",
+          "options": [
+            { "id": "a", "text": "Yellowknife, Canadá", "is_correct": false },
+            { "id": "b", "text": "Oimyakón, Rusia", "is_correct": true },
+            { "id": "c", "text": "Ushuaia, Argentina", "is_correct": false },
+            { "id": "d", "text": "Barrow, Alaska", "is_correct": false }
+          ],
+          "explanation": "Oimyakón, en Siberia, registró -67,7 °C en 1933. Sus cientos de habitantes siguen viviendo allí todo el año."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el desierto más seco del mundo, con estaciones que nunca han registrado lluvia?",
+          "options": [
+            { "id": "a", "text": "El Sáhara", "is_correct": false },
+            { "id": "b", "text": "El desierto de Gobi", "is_correct": false },
+            { "id": "c", "text": "El desierto de Atacama", "is_correct": true },
+            { "id": "d", "text": "El desierto de Kalahari", "is_correct": false }
+          ],
+          "explanation": "El Atacama, en Chile, es el desierto no polar más seco del planeta: algunas de sus estaciones meteorológicas jamás han medido una gota de lluvia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el punto más profundo de los océanos, a unos 11 kilómetros bajo el nivel del mar?",
+          "options": [
+            { "id": "a", "text": "La fosa de Puerto Rico", "is_correct": false },
+            { "id": "b", "text": "La fosa de Tonga", "is_correct": false },
+            { "id": "c", "text": "La fosa de Java", "is_correct": false },
+            { "id": "d", "text": "La fosa de las Marianas", "is_correct": true }
+          ],
+          "explanation": "El abismo Challenger, en la fosa de las Marianas, baja a unos 10 935 metros: allí cabría el Everest con más de dos kilómetros de agua encima."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el país más pequeño del mundo, con menos de medio kilómetro cuadrado?",
+          "options": [
+            { "id": "a", "text": "Mónaco", "is_correct": false },
+            { "id": "b", "text": "San Marino", "is_correct": false },
+            { "id": "c", "text": "Ciudad del Vaticano", "is_correct": true },
+            { "id": "d", "text": "Liechtenstein", "is_correct": false }
+          ],
+          "explanation": "La Ciudad del Vaticano ocupa unos 0,49 km² dentro de Roma: cabría entera en un parque urbano."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué montaña es la más alta del mundo si se mide desde su base en el fondo del océano?",
+          "options": [
+            { "id": "a", "text": "El Everest", "is_correct": false },
+            { "id": "b", "text": "El Mauna Kea", "is_correct": true },
+            { "id": "c", "text": "El Kilimanjaro", "is_correct": false },
+            { "id": "d", "text": "El Aconcagua", "is_correct": false }
+          ],
+          "explanation": "El Mauna Kea mide unos 10 200 metros desde su base submarina, aunque solo 4 207 sobresalen del mar de Hawái."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es el lago más profundo del planeta, con más de 1 600 metros de profundidad?",
+          "options": [
+            { "id": "a", "text": "El lago Titicaca", "is_correct": false },
+            { "id": "b", "text": "El mar Caspio", "is_correct": false },
+            { "id": "c", "text": "El lago Baikal", "is_correct": true },
+            { "id": "d", "text": "El lago Tanganica", "is_correct": false }
+          ],
+          "explanation": "El Baikal, en Siberia, baja hasta unos 1 642 metros y guarda por sí solo alrededor del 20 % del agua dulce superficial del mundo."
+        },
+        {
+          "id": "q7",
+          "question": "¿Dónde se registró la temperatura más alta reconocida en la Tierra, 56,7 °C en 1913?",
+          "options": [
+            { "id": "a", "text": "El valle de la Muerte, EE. UU.", "is_correct": true },
+            { "id": "b", "text": "El desierto de Lut, Irán", "is_correct": false },
+            { "id": "c", "text": "El Sáhara, Libia", "is_correct": false },
+            { "id": "d", "text": "El desierto de Sonora, México", "is_correct": false }
+          ],
+          "explanation": "Furnace Creek, en el Valle de la Muerte, mantiene el récord desde 1913: la OMM anuló en 2012 la marca libia de 58 °C al demostrar un error de medición."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es la isla más grande del mundo?",
+          "options": [
+            { "id": "a", "text": "Borneo", "is_correct": false },
+            { "id": "b", "text": "Madagascar", "is_correct": false },
+            { "id": "c", "text": "Nueva Guinea", "is_correct": false },
+            { "id": "d", "text": "Groenlandia", "is_correct": true }
+          ],
+          "explanation": "Groenlandia, con unos 2,16 millones de km², gana con claridad: Australia es mayor, pero se clasifica como continente, no como isla."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-extreme-place-are-you",
+      "title": "Which Extreme Place on Earth Are You? Take the Quiz",
+      "description": "Everest, the Atacama or the deepest ocean trench: seven questions to find the most extreme place on Earth that matches your personality.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["personality quiz", "geography", "extreme places", "nature"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your ideal environment is...",
+          "options": [
+            { "id": "a", "text": "The top of somewhere — any summit will do", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Clean, dry, empty horizons", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Somewhere quiet and unreachable", "personality_tags": ["trench"] },
+            { "id": "d", "text": "A white silence that belongs to no one", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "Anywhere dense, green and alive", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "People say your personality is...",
+          "options": [
+            { "id": "a", "text": "Ambitious — always climbing", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Minimal — you need almost nothing", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Deep — nobody fully reaches the bottom of you", "personality_tags": ["trench"] },
+            { "id": "d", "text": "Cool — literally unbothered", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "Abundant — you overflow with ideas and people", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "In a crisis, you...",
+          "options": [
+            { "id": "a", "text": "Take the high ground and decide", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Cut everything to the essentials", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Go quiet and process at your own pressure", "personality_tags": ["trench"] },
+            { "id": "d", "text": "Stay frozen-calm while others melt", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "Adapt — you thrive in any climate", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your social battery...",
+          "options": [
+            { "id": "a", "text": "Charges on challenges, not crowds", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Runs forever on very little", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Goes deepest in one-on-one conversations", "personality_tags": ["trench"] },
+            { "id": "d", "text": "Is selective — only a few species survive your climate", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "Feeds an entire ecosystem of friends", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Pick a record to hold:",
+          "options": [
+            { "id": "a", "text": "Highest on Earth", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Driest on Earth", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Deepest on Earth", "personality_tags": ["trench"] },
+            { "id": "d", "text": "Coldest on Earth", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "The most alive place on Earth", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your weekend fantasy:",
+          "options": [
+            { "id": "a", "text": "Climbing something with a flag on top", "personality_tags": ["everest"] },
+            { "id": "b", "text": "Stargazing where nothing grows", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "Vanishing where no one can reach you", "personality_tags": ["trench"] },
+            { "id": "d", "text": "Total silence, total white", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "Getting lost somewhere loud and green", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your motto:",
+          "options": [
+            { "id": "a", "text": "«Because it's there»", "personality_tags": ["everest"] },
+            { "id": "b", "text": "«Less, but better»", "personality_tags": ["atacama"] },
+            { "id": "c", "text": "«Still waters run deep»", "personality_tags": ["trench"] },
+            { "id": "d", "text": "«Cold is just another kind of quiet»", "personality_tags": ["antarctica"] },
+            { "id": "e", "text": "«Grow where you're planted — everywhere»", "personality_tags": ["amazon"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Mount Everest",
+          "description": "You're the summit people measure themselves against. You don't chase height; you are the height, and everyone quietly checks your weather before making plans.",
+          "personality_tag": "everest",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r2",
+          "title": "The Atacama Desert",
+          "description": "You run on almost nothing and still outshine almost everyone. Under your sky, astronomers see further than anywhere on Earth — people near you see clearer too.",
+          "personality_tag": "atacama",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r3",
+          "title": "The Mariana Trench",
+          "description": "Deeper than anyone suspects and calm under pressure that would crush a submarine. People think they know you; they've barely reached your surface.",
+          "personality_tag": "trench",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Antarctica",
+          "description": "Belonging to nobody and visited by few, you're the continent that keeps its cool in every sense. Your silence is not empty — it's a treaty everyone respects.",
+          "personality_tag": "antarctica",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "The Amazon Rainforest",
+          "description": "One in ten species on the planet lives inside you — your mind hosts that kind of density. Loud, green and generative, you're less a place than an engine of life.",
+          "personality_tag": "amazon",
+          "background_theme": "forest"
+        }
+      ]
+    },
+    {
+      "slug": "en-ancient-sports-trivia",
+      "title": "Ancient Sports Trivia: From Olympia to the Circus Maximus",
+      "description": "Eight questions on the original athletes: pankration brawls, sacred truces, chariot factions and the rubber ball game of the Maya.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "ancient sports", "trivia", "antiquity"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The ancient Olympic Games were held every four years in honor of which god?",
+          "options": [
+            { "id": "a", "text": "Apollo", "is_correct": false },
+            { "id": "b", "text": "Zeus", "is_correct": true },
+            { "id": "c", "text": "Ares", "is_correct": false },
+            { "id": "d", "text": "Hermes", "is_correct": false }
+          ],
+          "explanation": "Olympia was a sanctuary of Zeus: the Games were a religious festival, and victors' statues stood beside his great gold-and-ivory temple."
+        },
+        {
+          "id": "q2",
+          "question": "Which ancient Greek sport mixed boxing and wrestling in an almost no-rules contest?",
+          "options": [
+            { "id": "a", "text": "Discus", "is_correct": false },
+            { "id": "b", "text": "The hoplitodromos", "is_correct": false },
+            { "id": "c", "text": "Pankration", "is_correct": true },
+            { "id": "d", "text": "The pentathlon", "is_correct": false }
+          ],
+          "explanation": "Pankration allowed nearly everything except biting and eye-gouging — the closest thing the ancient world had to mixed martial arts."
+        },
+        {
+          "id": "q3",
+          "question": "Where did ancient Rome stage its wildly popular chariot races?",
+          "options": [
+            { "id": "a", "text": "In the Colosseum", "is_correct": false },
+            { "id": "b", "text": "In the circus", "is_correct": true },
+            { "id": "c", "text": "In the Forum", "is_correct": false },
+            { "id": "d", "text": "On the Tiber river", "is_correct": false }
+          ],
+          "explanation": "Races ran in circuses, not amphitheaters: the Circus Maximus held over 150,000 fans cheering factions like the Blues and the Greens."
+        },
+        {
+          "id": "q4",
+          "question": "In the Maya ballgame, players moved the heavy solid rubber ball mainly with which body part?",
+          "options": [
+            { "id": "a", "text": "Their hands", "is_correct": false },
+            { "id": "b", "text": "Their feet", "is_correct": false },
+            { "id": "c", "text": "Their heads", "is_correct": false },
+            { "id": "d", "text": "Their hips", "is_correct": true }
+          ],
+          "explanation": "Players struck the ball with their hips, protected by heavy padding; stone courts still survive across Mexico and Central America."
+        },
+        {
+          "id": "q5",
+          "question": "Gladiator fights in Rome grew out of which original ceremony?",
+          "options": [
+            { "id": "a", "text": "Victory parades", "is_correct": false },
+            { "id": "b", "text": "Funeral rites honoring the dead", "is_correct": true },
+            { "id": "c", "text": "Harvest festivals", "is_correct": false },
+            { "id": "d", "text": "Imperial weddings", "is_correct": false }
+          ],
+          "explanation": "The first gladiatorial bouts (munera) were staged as offerings at elite funerals; only later did they become mass entertainment in amphitheaters."
+        },
+        {
+          "id": "q6",
+          "question": "What did the Greeks call the sacred truce that let athletes travel safely to the Games?",
+          "options": [
+            { "id": "a", "text": "The agon", "is_correct": false },
+            { "id": "b", "text": "The polis", "is_correct": false },
+            { "id": "c", "text": "The ekecheiria", "is_correct": true },
+            { "id": "d", "text": "The palaestra", "is_correct": false }
+          ],
+          "explanation": "The ekecheiria — 'the holding of hands' — suspended wars so competitors and spectators could cross hostile territory to reach Olympia."
+        },
+        {
+          "id": "q7",
+          "question": "Athletes at the ancient Olympic Games competed wearing what?",
+          "options": [
+            { "id": "a", "text": "Leather armor", "is_correct": false },
+            { "id": "b", "text": "Nothing at all", "is_correct": true },
+            { "id": "c", "text": "Wool tunics", "is_correct": false },
+            { "id": "d", "text": "Laurel crowns", "is_correct": false }
+          ],
+          "explanation": "They competed nude — gymnos in Greek — which is why a place to train is still called a gymnasium."
+        },
+        {
+          "id": "q8",
+          "question": "What was a naumachia, the most extravagant spectacle of imperial Rome?",
+          "options": [
+            { "id": "a", "text": "A chariot race on water", "is_correct": false },
+            { "id": "b", "text": "An underwater diving contest", "is_correct": false },
+            { "id": "c", "text": "A festival of the river gods", "is_correct": false },
+            { "id": "d", "text": "A mock naval battle in a flooded arena", "is_correct": true }
+          ],
+          "explanation": "Emperors flooded entire basins and staged full-scale sea battles; Claudius put 19,000 men aboard real warships on Lake Fucinus."
+        }
+      ]
+    },
+    {
+      "slug": "es-que-deporte-de-la-antiguedad-eres",
+      "title": "¿Qué deporte de la antigüedad serías? Test de personalidad",
+      "description": "Carreras de cuadrigas, pankration o el juego de pelota maya: siete preguntas para saber en qué arena de la antigüedad brillarías.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "sports",
+      "tags": ["test de personalidad", "deportes", "antigüedad", "historia"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo prefieres ganar?",
+          "options": [
+            { "id": "a", "text": "Siendo el más rápido, sin discusión", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Con riesgo, a toda velocidad y al filo del trompo", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Con técnica pura, contacto y aguante", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "En equipo y con un sentido mayor", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "Con el público entero de pie", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tu relación con las reglas es...",
+          "options": [
+            { "id": "a", "text": "Simples: una recta y el primero en llegar gana", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Las conozco para doblarlas en la curva", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Cuanto menos haya, mejor", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Sagradas: el juego significa algo más grande", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "Las que hagan el mejor espectáculo", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué entrenamiento elegirías?",
+          "options": [
+            { "id": "a", "text": "Series de velocidad todos los días", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Horas domando caballos y curvas", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Combate de práctica hasta caer rendido", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Práctica con el equipo al amanecer", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "Exhibición de fuerza frente a toda la escuela", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu arena ideal es...",
+          "options": [
+            { "id": "a", "text": "Una pista de tierra de doscientos metros", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Un circo con ciento cincuenta mil gargantas", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Un ring de tierra batida sin jueces", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Una cancha de piedra entre dos templos", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "El anfiteatro lleno un día de fiesta", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué temes más?",
+          "options": [
+            { "id": "a", "text": "Llegar segundo por un palmo", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Perder el control en la última curva", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Que me obliguen a rendirme", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Fallar a mi equipo", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "Aburrir a la grada", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu motivación secreta es...",
+          "options": [
+            { "id": "a", "text": "Que mi nombre quede escrito junto al récord", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "La adrenalina del peligro real", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "Demostrar que aguanto lo que nadie", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Honrar algo más grande que yo", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "La gloria, los laureles y la multitud", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige tu premio soñado:",
+          "options": [
+            { "id": "a", "text": "Una corona de olivo y la eternidad", "personality_tags": ["sprinter"] },
+            { "id": "b", "text": "Una bolsa de oro y la libertad", "personality_tags": ["charioteer"] },
+            { "id": "c", "text": "El respeto absoluto del rival", "personality_tags": ["pankration"] },
+            { "id": "d", "text": "Que el juego continúe otro milenio", "personality_tags": ["ballplayer"] },
+            { "id": "e", "text": "La ovación de todo el imperio", "personality_tags": ["gladiator"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ],
+      "results": [
+        {
+          "id": "r1",
+          "title": "Velocista del stadion",
+          "description": "El stadion era la prueba madre de Olimpia: una recta, un nombre y la inmortalidad. Tú compites igual: sin rodeos, a toda velocidad y a nombre propio.",
+          "personality_tag": "sprinter",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Auriga de cuadrigas",
+          "description": "El auriga arriesgaba el cuello en cada curva y el circo entero lo sabía. Vives en ese punto donde el control roza el desastre, y ahí nadie te gana.",
+          "personality_tag": "charioteer",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Luchador de pankration",
+          "description": "Boxeo, lucha y casi ninguna regla: el pankration era para quien lo daba todo. No peleas por pelear: peleas porque rendirse no está en tu vocabulario.",
+          "personality_tag": "pankration",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Jugador de pelota maya",
+          "description": "El juego de pelota era deporte, ritual y cosmogonía a la vez. Juegas en equipo, con cadera y con propósito: para ti cada partido significa algo más que el marcador.",
+          "personality_tag": "ballplayer",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Gladiador",
+          "description": "Entrenabas en la escuela, salías a la arena y el imperio entero te miraba. Tú entiendes que el esfuerzo sin público también cuenta, pero con público sabe mejor.",
+          "personality_tag": "gladiator",
+          "background_theme": "ocean"
+        }
+      ]
+    }
+  ]
+}
