@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial batch 2026ac (CONT-38): five trivia pairs on tennis — the four Grand Slams, Federer and Nadal, Djokovic and Serena Williams, surfaces and rules, and historic moments — to fill the thin sports category. Every answer is a stable, checkable fact: retired players' final records, tournament venues and settled rules; no current rankings, recent results or unconfirmed retirements. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-tennis-grand-slams-trivia",
+      "title": "Tennis Trivia: How Well Do You Know the Grand Slams?",
+      "description": "Melbourne, Paris, London and New York: trophies, traditions and the four stages that crown the tennis year.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["tennis", "grand slam", "sports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which city hosts the Australian Open?",
+          "options": [
+            { "id": "a", "text": "Sydney", "is_correct": false },
+            { "id": "b", "text": "Melbourne", "is_correct": true },
+            { "id": "c", "text": "Brisbane", "is_correct": false },
+            { "id": "d", "text": "Perth", "is_correct": false }
+          ],
+          "explanation": "The Australian Open has been played at Melbourne Park since 1988."
+        },
+        {
+          "id": "q2",
+          "question": "The French Open is named after Roland Garros. Who was he?",
+          "options": [
+            { "id": "a", "text": "A World War I fighter pilot", "is_correct": true },
+            { "id": "b", "text": "The tournament's founder", "is_correct": false },
+            { "id": "c", "text": "A French champion of the 1920s", "is_correct": false },
+            { "id": "d", "text": "The stadium's architect", "is_correct": false }
+          ],
+          "explanation": "Roland Garros was a French aviator killed in 1918; the stadium took his name in 1928."
+        },
+        {
+          "id": "q3",
+          "question": "Which Grand Slam opens the tennis calendar every year?",
+          "options": [
+            { "id": "a", "text": "Wimbledon", "is_correct": false },
+            { "id": "b", "text": "Roland Garros", "is_correct": false },
+            { "id": "c", "text": "US Open", "is_correct": false },
+            { "id": "d", "text": "Australian Open", "is_correct": true }
+          ],
+          "explanation": "The order is Australian Open (January), Roland Garros, Wimbledon and the US Open."
+        },
+        {
+          "id": "q4",
+          "question": "Which trophy does the Wimbledon women's singles champion receive?",
+          "options": [
+            { "id": "a", "text": "The Venus Rosewater Dish", "is_correct": true },
+            { "id": "b", "text": "The Daphne Akhurst Memorial Cup", "is_correct": false },
+            { "id": "c", "text": "The Suzanne Lenglen Cup", "is_correct": false },
+            { "id": "d", "text": "The Musketeers' Cup", "is_correct": false }
+          ],
+          "explanation": "The Venus Rosewater Dish has been awarded since 1886; the other cups belong to the Australian and French Opens."
+        },
+        {
+          "id": "q5",
+          "question": "What is the men's singles trophy at Roland Garros called?",
+          "options": [
+            { "id": "a", "text": "The Norman Brookes Challenge Cup", "is_correct": false },
+            { "id": "b", "text": "The Venus Rosewater Dish", "is_correct": false },
+            { "id": "c", "text": "The Musketeers' Cup", "is_correct": true },
+            { "id": "d", "text": "The Silver Challenge Cup", "is_correct": false }
+          ],
+          "explanation": "The Coupe des Mousquetaires honours the four 'Musketeers' who won France the 1927 Davis Cup."
+        },
+        {
+          "id": "q6",
+          "question": "Which venue, the largest tennis stadium in the world, hosts the US Open final?",
+          "options": [
+            { "id": "a", "text": "Rod Laver Arena", "is_correct": false },
+            { "id": "b", "text": "Centre Court", "is_correct": false },
+            { "id": "c", "text": "Arthur Ashe Stadium", "is_correct": true },
+            { "id": "d", "text": "Court Philippe-Chatrier", "is_correct": false }
+          ],
+          "explanation": "Arthur Ashe Stadium seats almost 24,000 people and opened in 1997."
+        },
+        {
+          "id": "q7",
+          "question": "Wimbledon's dress code famously requires players to wear what?",
+          "options": [
+            { "id": "a", "text": "The club's green and purple", "is_correct": false },
+            { "id": "b", "text": "Almost entirely white clothing", "is_correct": true },
+            { "id": "c", "text": "Long trousers or skirts", "is_correct": false },
+            { "id": "d", "text": "Clothing without sponsor logos", "is_correct": false }
+          ],
+          "explanation": "The all-white rule at the All England Club dates back to the Victorian era."
+        },
+        {
+          "id": "q8",
+          "question": "Which Grand Slam is nicknamed the 'Happy Slam'?",
+          "options": [
+            { "id": "a", "text": "US Open", "is_correct": false },
+            { "id": "b", "text": "Roland Garros", "is_correct": false },
+            { "id": "c", "text": "Wimbledon", "is_correct": false },
+            { "id": "d", "text": "Australian Open", "is_correct": true }
+          ],
+          "explanation": "Players call the Australian Open the Happy Slam for its relaxed January atmosphere."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tenis-grand-slams",
+      "title": "Trivia de tenis: ¿cuánto sabes de los Grand Slams?",
+      "description": "Melbourne, París, Londres y Nueva York: trofeos, tradiciones y los cuatro escenarios que coronan el año del tenis.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["tenis", "grand slam", "deportes", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad se juega el Abierto de Australia?",
+          "options": [
+            { "id": "a", "text": "Melbourne", "is_correct": true },
+            { "id": "b", "text": "Sídney", "is_correct": false },
+            { "id": "c", "text": "Adelaida", "is_correct": false },
+            { "id": "d", "text": "Perth", "is_correct": false }
+          ],
+          "explanation": "El Abierto de Australia se juega en Melbourne Park desde 1988."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién fue Roland Garros, el nombre del torneo parisino?",
+          "options": [
+            { "id": "a", "text": "El fundador del torneo", "is_correct": false },
+            { "id": "b", "text": "Un campeón francés de los años 20", "is_correct": false },
+            { "id": "c", "text": "El arquitecto del estadio", "is_correct": false },
+            { "id": "d", "text": "Un aviador de la Primera Guerra Mundial", "is_correct": true }
+          ],
+          "explanation": "Roland Garros fue un aviador francés caído en 1918; el estadio tomó su nombre en 1928."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué Grand Slam abre el calendario cada año?",
+          "options": [
+            { "id": "a", "text": "Wimbledon", "is_correct": false },
+            { "id": "b", "text": "El Abierto de Australia", "is_correct": true },
+            { "id": "c", "text": "Roland Garros", "is_correct": false },
+            { "id": "d", "text": "El US Open", "is_correct": false }
+          ],
+          "explanation": "El orden es Abierto de Australia (enero), Roland Garros, Wimbledon y US Open."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué trofeo recibe la campeona individual de Wimbledon?",
+          "options": [
+            { "id": "a", "text": "La Copa Daphne Akhurst", "is_correct": false },
+            { "id": "b", "text": "El Venus Rosewater Dish", "is_correct": true },
+            { "id": "c", "text": "La Copa Suzanne Lenglen", "is_correct": false },
+            { "id": "d", "text": "La Copa de los Mosqueteros", "is_correct": false }
+          ],
+          "explanation": "El Venus Rosewater Dish se entrega desde 1886; las otras copas son de Australia y Roland Garros."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el estadio más grande del tenis, escenario de la final del US Open?",
+          "options": [
+            { "id": "a", "text": "Rod Laver Arena", "is_correct": false },
+            { "id": "b", "text": "Centre Court", "is_correct": false },
+            { "id": "c", "text": "Philippe-Chatrier", "is_correct": false },
+            { "id": "d", "text": "Arthur Ashe Stadium", "is_correct": true }
+          ],
+          "explanation": "El Arthur Ashe Stadium tiene casi 24.000 localidades y se inauguró en 1997."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué exige el famoso código de vestimenta de Wimbledon?",
+          "options": [
+            { "id": "a", "text": "Vestir casi totalmente de blanco", "is_correct": true },
+            { "id": "b", "text": "Llevar el verde y morado del club", "is_correct": false },
+            { "id": "c", "text": "Jugar sin logos de patrocinadores", "is_correct": false },
+            { "id": "d", "text": "Usar pantalón o falda larga", "is_correct": false }
+          ],
+          "explanation": "La regla del blanco casi total en el All England Club viene de la época victoriana."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué tradición gastronómica asocia el público con Wimbledon?",
+          "options": [
+            { "id": "a", "text": "Fish and chips", "is_correct": false },
+            { "id": "b", "text": "Té con sándwiches de pepino", "is_correct": false },
+            { "id": "c", "text": "Fresas con crema", "is_correct": true },
+            { "id": "d", "text": "Pastel de carne", "is_correct": false }
+          ],
+          "explanation": "Las fresas con crema son el clásico de Wimbledon desde las primeras ediciones del torneo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué apodo recibe el Abierto de Australia entre los jugadores?",
+          "options": [
+            { "id": "a", "text": "El Slam del Pacífico", "is_correct": false },
+            { "id": "b", "text": "El Slam dorado", "is_correct": false },
+            { "id": "c", "text": "El Slam de medianoche", "is_correct": false },
+            { "id": "d", "text": "El «Happy Slam»", "is_correct": true }
+          ],
+          "explanation": "Al Abierto de Australia lo llaman el Happy Slam por su ambiente relajado de enero."
+        }
+      ]
+    },
+    {
+      "slug": "en-federer-nadal-trivia",
+      "title": "Tennis Trivia: Federer and Nadal, the Rivalry of an Era",
+      "description": "The Swiss maestro and the King of Clay: records, epic finals and the rivalry that defined two decades of tennis.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["tennis", "federer", "nadal", "sports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which country is Roger Federer from?",
+          "options": [
+            { "id": "a", "text": "Austria", "is_correct": false },
+            { "id": "b", "text": "Germany", "is_correct": false },
+            { "id": "c", "text": "Sweden", "is_correct": false },
+            { "id": "d", "text": "Switzerland", "is_correct": true }
+          ],
+          "explanation": "Federer was born in Basel, Switzerland, in 1981."
+        },
+        {
+          "id": "q2",
+          "question": "On which Spanish island was Rafael Nadal born and raised?",
+          "options": [
+            { "id": "a", "text": "Tenerife", "is_correct": false },
+            { "id": "b", "text": "Mallorca", "is_correct": true },
+            { "id": "c", "text": "Ibiza", "is_correct": false },
+            { "id": "d", "text": "Gran Canaria", "is_correct": false }
+          ],
+          "explanation": "Nadal was born in Manacor, Mallorca, and still keeps his academy there."
+        },
+        {
+          "id": "q3",
+          "question": "How many Roland Garros titles did Nadal win in his career?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "18", "is_correct": false },
+            { "id": "c", "text": "14", "is_correct": true },
+            { "id": "d", "text": "16", "is_correct": false }
+          ],
+          "explanation": "Fourteen titles in Paris between 2005 and 2022, the most dominant record at any major."
+        },
+        {
+          "id": "q4",
+          "question": "How many Wimbledon titles did Federer win in his career?",
+          "options": [
+            { "id": "a", "text": "8", "is_correct": true },
+            { "id": "b", "text": "7", "is_correct": false },
+            { "id": "c", "text": "9", "is_correct": false },
+            { "id": "d", "text": "10", "is_correct": false }
+          ],
+          "explanation": "Federer won eight Wimbledons between 2003 and 2017, a men's record at the tournament."
+        },
+        {
+          "id": "q5",
+          "question": "The 2008 Wimbledon final, often called the greatest match ever played, ended how?",
+          "options": [
+            { "id": "a", "text": "10-8 to Nadal in the fifth set", "is_correct": false },
+            { "id": "b", "text": "8-6 to Federer in the fifth set", "is_correct": false },
+            { "id": "c", "text": "7-5 to Federer in the fifth set", "is_correct": false },
+            { "id": "d", "text": "9-7 to Nadal in the fifth set", "is_correct": true }
+          ],
+          "explanation": "Nadal beat the five-time defending champion 9-7 in the fifth, finishing in near darkness."
+        },
+        {
+          "id": "q6",
+          "question": "Who coached Nadal for most of his career?",
+          "options": [
+            { "id": "a", "text": "His uncle Toni Nadal", "is_correct": true },
+            { "id": "b", "text": "Carlos Moyá", "is_correct": false },
+            { "id": "c", "text": "His father Sebastián", "is_correct": false },
+            { "id": "d", "text": "His uncle Miguel Ángel", "is_correct": false }
+          ],
+          "explanation": "Toni Nadal coached Rafa from childhood until 2017; Miguel Ángel, his other uncle, played football for Barcelona."
+        },
+        {
+          "id": "q7",
+          "question": "Federer holds the record for most consecutive weeks as world No. 1. How many?",
+          "options": [
+            { "id": "a", "text": "160", "is_correct": false },
+            { "id": "b", "text": "237", "is_correct": true },
+            { "id": "c", "text": "200", "is_correct": false },
+            { "id": "d", "text": "310", "is_correct": false }
+          ],
+          "explanation": "He stayed on top for 237 straight weeks, from February 2004 to August 2008."
+        },
+        {
+          "id": "q8",
+          "question": "Between 2005 and 2007, Nadal won a record streak of consecutive matches on clay. How many?",
+          "options": [
+            { "id": "a", "text": "65", "is_correct": false },
+            { "id": "b", "text": "99", "is_correct": false },
+            { "id": "c", "text": "55", "is_correct": false },
+            { "id": "d", "text": "81", "is_correct": true }
+          ],
+          "explanation": "The 81-match clay streak ended when Federer beat him in the 2007 Hamburg final."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-federer-nadal",
+      "title": "Trivia de tenis: Federer y Nadal, la gran rivalidad",
+      "description": "El maestro suizo y el rey de la arcilla: récords, finales épicas y la rivalidad que marcó dos décadas del tenis.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["tenis", "federer", "nadal", "deportes", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué ciudad suiza es Roger Federer?",
+          "options": [
+            { "id": "a", "text": "Ginebra", "is_correct": false },
+            { "id": "b", "text": "Zúrich", "is_correct": false },
+            { "id": "c", "text": "Basilea", "is_correct": true },
+            { "id": "d", "text": "Berna", "is_correct": false }
+          ],
+          "explanation": "Federer nació en Basilea en 1981."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué pueblo de Mallorca nació Rafa Nadal?",
+          "options": [
+            { "id": "a", "text": "Palma", "is_correct": false },
+            { "id": "b", "text": "Alcúdia", "is_correct": false },
+            { "id": "c", "text": "Andratx", "is_correct": false },
+            { "id": "d", "text": "Manacor", "is_correct": true }
+          ],
+          "explanation": "Nadal nació en Manacor en 1986, donde hoy tiene su academia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos títulos de Roland Garros ganó Nadal en su carrera?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "14", "is_correct": true },
+            { "id": "c", "text": "16", "is_correct": false },
+            { "id": "d", "text": "18", "is_correct": false }
+          ],
+          "explanation": "Catorce títulos en París entre 2005 y 2022, el récord más dominante en un major."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuántos Wimbledon ganó Federer en su carrera?",
+          "options": [
+            { "id": "a", "text": "6", "is_correct": false },
+            { "id": "b", "text": "7", "is_correct": false },
+            { "id": "c", "text": "9", "is_correct": false },
+            { "id": "d", "text": "8", "is_correct": true }
+          ],
+          "explanation": "Ocho Wimbledons entre 2003 y 2017, el récord masculino del torneo."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué torneo jugó Federer su último partido antes de retirarse en 2022?",
+          "options": [
+            { "id": "a", "text": "Laver Cup", "is_correct": true },
+            { "id": "b", "text": "Wimbledon", "is_correct": false },
+            { "id": "c", "text": "US Open", "is_correct": false },
+            { "id": "d", "text": "ATP Finals", "is_correct": false }
+          ],
+          "explanation": "Se despidió en la Laver Cup de Londres, jugando dobles junto a Nadal."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién entrenó a Nadal durante la mayor parte de su carrera?",
+          "options": [
+            { "id": "a", "text": "Carlos Moyá", "is_correct": false },
+            { "id": "b", "text": "Su padre Sebastián", "is_correct": false },
+            { "id": "c", "text": "Su tío Toni", "is_correct": true },
+            { "id": "d", "text": "Su tío Miguel Ángel", "is_correct": false }
+          ],
+          "explanation": "Toni Nadal lo entrenó desde niño hasta 2017; su otro tío, Miguel Ángel, fue futbolista del Barcelona."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con qué mano juega Nadal?",
+          "options": [
+            { "id": "a", "text": "Con la derecha", "is_correct": false },
+            { "id": "b", "text": "Con las dos por igual", "is_correct": false },
+            { "id": "c", "text": "Con la izquierda", "is_correct": true },
+            { "id": "d", "text": "Cambia según el golpe", "is_correct": false }
+          ],
+          "explanation": "Nadal juega de zurdo aunque en la vida diaria es diestro."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántos partidos seguidos ganó Nadal en arcilla entre 2005 y 2007, su récord en una superficie?",
+          "options": [
+            { "id": "a", "text": "81", "is_correct": true },
+            { "id": "b", "text": "60", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": false },
+            { "id": "d", "text": "72", "is_correct": false }
+          ],
+          "explanation": "La racha de 81 partidos en arcilla terminó cuando Federer lo venció en la final de Hamburgo 2007."
+        }
+      ]
+    },
+    {
+      "slug": "en-djokovic-serena-trivia",
+      "title": "Tennis Trivia: Djokovic and Serena Williams",
+      "description": "From Belgrade to Compton: questions on Novak Djokovic and Serena Williams, two of the greatest to hold a racket.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["tennis", "djokovic", "serena williams", "sports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which country does Novak Djokovic represent?",
+          "options": [
+            { "id": "a", "text": "Croatia", "is_correct": false },
+            { "id": "b", "text": "Serbia", "is_correct": true },
+            { "id": "c", "text": "Montenegro", "is_correct": false },
+            { "id": "d", "text": "Slovenia", "is_correct": false }
+          ],
+          "explanation": "Djokovic was born in Belgrade in 1987 and led Serbia to its first Davis Cup in 2010."
+        },
+        {
+          "id": "q2",
+          "question": "Where did Djokovic win his first Grand Slam singles title?",
+          "options": [
+            { "id": "a", "text": "Wimbledon 2007", "is_correct": false },
+            { "id": "b", "text": "US Open 2008", "is_correct": false },
+            { "id": "c", "text": "Australian Open 2008", "is_correct": true },
+            { "id": "d", "text": "Roland Garros 2009", "is_correct": false }
+          ],
+          "explanation": "He won the 2008 Australian Open at 20, beating Jo-Wilfried Tsonga in the final."
+        },
+        {
+          "id": "q3",
+          "question": "What did Djokovic complete by winning the Olympic gold medal at Paris 2024?",
+          "options": [
+            { "id": "a", "text": "A calendar-year Grand Slam", "is_correct": false },
+            { "id": "b", "text": "The career Golden Slam", "is_correct": true },
+            { "id": "c", "text": "A tenth Wimbledon title", "is_correct": false },
+            { "id": "d", "text": "His first Davis Cup", "is_correct": false }
+          ],
+          "explanation": "The Paris gold was the only big title he was missing: he had already won all four majors."
+        },
+        {
+          "id": "q4",
+          "question": "The 'Nole Slam' refers to Djokovic doing what across 2015 and 2016?",
+          "options": [
+            { "id": "a", "text": "Holding all four major titles at once", "is_correct": true },
+            { "id": "b", "text": "Winning all four majors in one year", "is_correct": false },
+            { "id": "c", "text": "Going a full season unbeaten", "is_correct": false },
+            { "id": "d", "text": "Winning four straight Australian Opens", "is_correct": false }
+          ],
+          "explanation": "From Wimbledon 2015 to Roland Garros 2016 he held all four titles, on three different surfaces."
+        },
+        {
+          "id": "q5",
+          "question": "The longest Grand Slam final ever, 5 hours 53 minutes at the 2012 Australian Open, was Djokovic against whom?",
+          "options": [
+            { "id": "a", "text": "Roger Federer", "is_correct": false },
+            { "id": "b", "text": "Andy Murray", "is_correct": false },
+            { "id": "c", "text": "Stan Wawrinka", "is_correct": false },
+            { "id": "d", "text": "Rafael Nadal", "is_correct": true }
+          ],
+          "explanation": "Djokovic beat Nadal 7-5 in the fifth; both needed chairs for the trophy ceremony."
+        },
+        {
+          "id": "q6",
+          "question": "Where did Serena Williams win her first Grand Slam singles title, aged 17?",
+          "options": [
+            { "id": "a", "text": "Wimbledon 2000", "is_correct": false },
+            { "id": "b", "text": "Roland Garros 1999", "is_correct": false },
+            { "id": "c", "text": "US Open 1999", "is_correct": true },
+            { "id": "d", "text": "Australian Open 1998", "is_correct": false }
+          ],
+          "explanation": "She beat Martina Hingis in the 1999 US Open final, the first of her 23 majors."
+        },
+        {
+          "id": "q7",
+          "question": "Serena's older sister, also a multiple Grand Slam champion, is?",
+          "options": [
+            { "id": "a", "text": "Lyndrea", "is_correct": false },
+            { "id": "b", "text": "Cori", "is_correct": false },
+            { "id": "c", "text": "Sloane", "is_correct": false },
+            { "id": "d", "text": "Venus", "is_correct": true }
+          ],
+          "explanation": "Venus Williams won seven majors; the sisters played nine Grand Slam finals against each other."
+        },
+        {
+          "id": "q8",
+          "question": "Serena won her 23rd and last Grand Slam title while early in her pregnancy, at which event?",
+          "options": [
+            { "id": "a", "text": "Australian Open 2017", "is_correct": true },
+            { "id": "b", "text": "Wimbledon 2016", "is_correct": false },
+            { "id": "c", "text": "US Open 2015", "is_correct": false },
+            { "id": "d", "text": "Roland Garros 2015", "is_correct": false }
+          ],
+          "explanation": "She beat Venus in the 2017 Australian Open final and gave birth later that year."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-djokovic-serena",
+      "title": "Trivia de tenis: Djokovic y Serena Williams",
+      "description": "De Belgrado a Compton: preguntas sobre Novak Djokovic y Serena Williams, dos leyendas absolutas del tenis.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["tenis", "djokovic", "serena williams", "deportes", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad nació Novak Djokovic?",
+          "options": [
+            { "id": "a", "text": "Zagreb", "is_correct": false },
+            { "id": "b", "text": "Sarajevo", "is_correct": false },
+            { "id": "c", "text": "Belgrado", "is_correct": true },
+            { "id": "d", "text": "Podgorica", "is_correct": false }
+          ],
+          "explanation": "Djokovic nació en Belgrado en 1987 y llevó a Serbia a su primera Copa Davis en 2010."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál fue el primer Grand Slam que ganó Djokovic?",
+          "options": [
+            { "id": "a", "text": "El Abierto de Australia 2008", "is_correct": true },
+            { "id": "b", "text": "Wimbledon 2007", "is_correct": false },
+            { "id": "c", "text": "El US Open 2008", "is_correct": false },
+            { "id": "d", "text": "Roland Garros 2009", "is_correct": false }
+          ],
+          "explanation": "Ganó el Abierto de Australia 2008 con 20 años, ante Jo-Wilfried Tsonga."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué completó Djokovic con el oro olímpico de París 2024?",
+          "options": [
+            { "id": "a", "text": "El Grand Slam del año natural", "is_correct": false },
+            { "id": "b", "text": "Un décimo Wimbledon", "is_correct": false },
+            { "id": "c", "text": "Su primera Copa Davis", "is_correct": false },
+            { "id": "d", "text": "El Golden Slam de carrera", "is_correct": true }
+          ],
+          "explanation": "El oro parisino era el único gran título que le faltaba: ya tenía los cuatro majors."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama la hermana mayor de Serena, también campeona de Grand Slams?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": true },
+            { "id": "b", "text": "Lyndrea", "is_correct": false },
+            { "id": "c", "text": "Cori", "is_correct": false },
+            { "id": "d", "text": "Sloane", "is_correct": false }
+          ],
+          "explanation": "Venus Williams ganó siete majors; las hermanas se enfrentaron en nueve finales de Grand Slam."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué barrio de Los Ángeles crecieron Venus y Serena Williams?",
+          "options": [
+            { "id": "a", "text": "Beverly Hills", "is_correct": false },
+            { "id": "b", "text": "Compton", "is_correct": true },
+            { "id": "c", "text": "Malibú", "is_correct": false },
+            { "id": "d", "text": "Pasadena", "is_correct": false }
+          ],
+          "explanation": "Las hermanas aprendieron a jugar en las pistas públicas de Compton."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién fue el primer entrenador de las hermanas Williams?",
+          "options": [
+            { "id": "a", "text": "Rick Macci", "is_correct": false },
+            { "id": "b", "text": "Patrick Mouratoglou", "is_correct": false },
+            { "id": "c", "text": "Oracene Price, su madre", "is_correct": false },
+            { "id": "d", "text": "Richard Williams, su padre", "is_correct": true }
+          ],
+          "explanation": "Richard Williams les enseñó sin experiencia previa en el tenis, siguiendo un plan que trazó antes de que nacieran."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos oros olímpicos ganaron Venus y Serena juntas en dobles?",
+          "options": [
+            { "id": "a", "text": "2", "is_correct": false },
+            { "id": "b", "text": "1", "is_correct": false },
+            { "id": "c", "text": "3", "is_correct": true },
+            { "id": "d", "text": "4", "is_correct": false }
+          ],
+          "explanation": "Ganaron el oro en Sídney 2000, Pekín 2008 y Londres 2012; Serena sumó el individual en 2012."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué torneo ganó Serena su último Grand Slam, en 2017?",
+          "options": [
+            { "id": "a", "text": "Wimbledon", "is_correct": false },
+            { "id": "b", "text": "El US Open", "is_correct": false },
+            { "id": "c", "text": "Roland Garros", "is_correct": false },
+            { "id": "d", "text": "El Abierto de Australia", "is_correct": true }
+          ],
+          "explanation": "Venció a Venus en la final del Abierto de Australia 2017, ya en las primeras semanas de embarazo."
+        }
+      ]
+    },
+    {
+      "slug": "en-tennis-surfaces-rules-trivia",
+      "title": "Tennis Trivia: Surfaces and Rules of the Game",
+      "description": "Clay, grass, hard courts and the strange arithmetic of 15-30-40: test how well you know tennis surfaces and rules.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["tennis", "surfaces", "rules", "sports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "On what surface are the US Open and the Australian Open played?",
+          "options": [
+            { "id": "a", "text": "Grass", "is_correct": false },
+            { "id": "b", "text": "Clay", "is_correct": false },
+            { "id": "c", "text": "Hard courts", "is_correct": true },
+            { "id": "d", "text": "Carpet", "is_correct": false }
+          ],
+          "explanation": "Both are hard-court majors: the US Open uses DecoTurf and the Australian Open Plexicushion."
+        },
+        {
+          "id": "q2",
+          "question": "In 2008 the Australian Open changed its courts to which colour?",
+          "options": [
+            { "id": "a", "text": "Green", "is_correct": false },
+            { "id": "b", "text": "Blue", "is_correct": true },
+            { "id": "c", "text": "Red", "is_correct": false },
+            { "id": "d", "text": "Purple", "is_correct": false }
+          ],
+          "explanation": "The tournament switched from the old green Rebound Ace to blue Plexicushion in 2008."
+        },
+        {
+          "id": "q3",
+          "question": "Green clay (Har-Tru), used at some U.S. events, is made from what?",
+          "options": [
+            { "id": "a", "text": "Crushed brick", "is_correct": false },
+            { "id": "b", "text": "Dyed sand", "is_correct": false },
+            { "id": "c", "text": "Shredded rubber", "is_correct": false },
+            { "id": "d", "text": "Crushed stone", "is_correct": true }
+          ],
+          "explanation": "Har-Tru is crushed basalt rock; European red clay, by contrast, is crushed brick."
+        },
+        {
+          "id": "q4",
+          "question": "What is a 'deuce' in a tennis game?",
+          "options": [
+            { "id": "a", "text": "The score tied at 40-40", "is_correct": true },
+            { "id": "b", "text": "A serve that hits the net", "is_correct": false },
+            { "id": "c", "text": "The tiebreak game", "is_correct": false },
+            { "id": "d", "text": "A double fault", "is_correct": false }
+          ],
+          "explanation": "Deuce means 40-40; from there a player needs two points in a row to take the game."
+        },
+        {
+          "id": "q5",
+          "question": "To win a game from deuce, a player must win how many consecutive points?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Three", "is_correct": false },
+            { "id": "c", "text": "Two", "is_correct": true },
+            { "id": "d", "text": "Four", "is_correct": false }
+          ],
+          "explanation": "After deuce come advantage and game point: two consecutive points close the game."
+        },
+        {
+          "id": "q6",
+          "question": "At what score in a set is a tiebreak normally played?",
+          "options": [
+            { "id": "a", "text": "5-5", "is_correct": false },
+            { "id": "b", "text": "6-5", "is_correct": false },
+            { "id": "c", "text": "7-6", "is_correct": false },
+            { "id": "d", "text": "6-6", "is_correct": true }
+          ],
+          "explanation": "A set tied at six games each is decided by a tiebreak, usually to seven points."
+        },
+        {
+          "id": "q7",
+          "question": "Men's singles matches at the Grand Slams are played at most over how many sets?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": true },
+            { "id": "b", "text": "Three", "is_correct": false },
+            { "id": "c", "text": "Four", "is_correct": false },
+            { "id": "d", "text": "Seven", "is_correct": false }
+          ],
+          "explanation": "Men's majors are best of five sets; women's and most tour matches are best of three."
+        },
+        {
+          "id": "q8",
+          "question": "Since 2022, how do all four majors decide a final set tied at 6-6?",
+          "options": [
+            { "id": "a", "text": "Play continues until a two-game lead", "is_correct": false },
+            { "id": "b", "text": "A 10-point tiebreak", "is_correct": true },
+            { "id": "c", "text": "A standard 7-point tiebreak", "is_correct": false },
+            { "id": "d", "text": "A single deciding point", "is_correct": false }
+          ],
+          "explanation": "Since 2022 the four majors use a 10-point match tiebreak at 6-6 in the last set."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tenis-superficies-reglas",
+      "title": "Trivia de tenis: superficies y reglas del juego",
+      "description": "Arcilla, césped, pista dura y la curiosa aritmética del 15-30-40: ¿cuánto sabes de las reglas del tenis?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["tenis", "superficies", "reglas", "deportes", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué superficie se juegan el US Open y el Abierto de Australia?",
+          "options": [
+            { "id": "a", "text": "Arcilla", "is_correct": false },
+            { "id": "b", "text": "Pista dura", "is_correct": true },
+            { "id": "c", "text": "Césped", "is_correct": false },
+            { "id": "d", "text": "Moqueta", "is_correct": false }
+          ],
+          "explanation": "Ambos son majors de pista dura: el US Open usa DecoTurf y el Abierto de Australia, Plexicushion."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué está hecha la arcilla verde (Har-Tru) de algunos torneos de EE. UU.?",
+          "options": [
+            { "id": "a", "text": "Ladrillo molido", "is_correct": false },
+            { "id": "b", "text": "Arena teñida", "is_correct": false },
+            { "id": "c", "text": "Piedra triturada", "is_correct": true },
+            { "id": "d", "text": "Caucho reciclado", "is_correct": false }
+          ],
+          "explanation": "La Har-Tru es roca basáltica triturada; la arcilla roja europea, en cambio, es ladrillo molido."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué significa «deuce» en un juego de tenis?",
+          "options": [
+            { "id": "a", "text": "Saque que toca la red", "is_correct": false },
+            { "id": "b", "text": "Doble falta", "is_correct": false },
+            { "id": "c", "text": "Muerte súbita", "is_correct": false },
+            { "id": "d", "text": "Empate a 40", "is_correct": true }
+          ],
+          "explanation": "«Deuce» es el empate a 40; desde ahí se necesitan dos puntos seguidos para cerrar el juego."
+        },
+        {
+          "id": "q4",
+          "question": "Para cerrar un juego tras el «deuce», hay que ganar",
+          "options": [
+            { "id": "a", "text": "Dos puntos seguidos", "is_correct": true },
+            { "id": "b", "text": "Un solo punto", "is_correct": false },
+            { "id": "c", "text": "Tres puntos seguidos", "is_correct": false },
+            { "id": "d", "text": "Cuatro puntos seguidos", "is_correct": false }
+          ],
+          "explanation": "Tras el «deuce» vienen la ventaja y el punto de juego: dos puntos consecutivos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Con qué marcador de juegos en un set se juega el tiebreak?",
+          "options": [
+            { "id": "a", "text": "5-5", "is_correct": false },
+            { "id": "b", "text": "6-6", "is_correct": true },
+            { "id": "c", "text": "6-5", "is_correct": false },
+            { "id": "d", "text": "4-4", "is_correct": false }
+          ],
+          "explanation": "Un set empatado a seis juegos se decide en un tiebreak, normalmente a siete puntos."
+        },
+        {
+          "id": "q6",
+          "question": "¿A cuántos sets se juegan los partidos masculinos de los Grand Slams?",
+          "options": [
+            { "id": "a", "text": "Al mejor de tres", "is_correct": false },
+            { "id": "b", "text": "Al mejor de siete", "is_correct": false },
+            { "id": "c", "text": "Siempre a cinco sets", "is_correct": false },
+            { "id": "d", "text": "Al mejor de cinco", "is_correct": true }
+          ],
+          "explanation": "Los majors masculinos son al mejor de cinco sets; el resto del circuito y el femenino, al mejor de tres."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué pasa cuando un saque «let» toca la red y entra en el cuadro bueno?",
+          "options": [
+            { "id": "a", "text": "Se pierde el punto", "is_correct": false },
+            { "id": "b", "text": "El saque se repite", "is_correct": true },
+            { "id": "c", "text": "Cuenta como doble falta", "is_correct": false },
+            { "id": "d", "text": "El punto continúa", "is_correct": false }
+          ],
+          "explanation": "Un «let» en el saque no vale: el saque se repite sin contar como falta."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué experimento hizo el Masters de Madrid en 2012 que nunca se repitió?",
+          "options": [
+            { "id": "a", "text": "Pelotas rosas", "is_correct": false },
+            { "id": "b", "text": "Césped bajo techo", "is_correct": false },
+            { "id": "c", "text": "Sets a cuatro juegos", "is_correct": false },
+            { "id": "d", "text": "Arcilla azul", "is_correct": true }
+          ],
+          "explanation": "La arcilla azul de 2012 fue criticada por resbalar y el torneo volvió al rojo al año siguiente."
+        }
+      ]
+    },
+    {
+      "slug": "en-tennis-history-trivia",
+      "title": "Tennis Trivia: Historic Matches and Moments",
+      "description": "Epic marathons, barrier-breaking champions and the matches that changed tennis forever: how much do you remember?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["tennis", "history", "sports", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The longest match in tennis history (11 hours 5 minutes, fifth set 70-68) at Wimbledon 2010 was played between?",
+          "options": [
+            { "id": "a", "text": "Federer and Nadal", "is_correct": false },
+            { "id": "b", "text": "Isner and Mahut", "is_correct": true },
+            { "id": "c", "text": "Djokovic and Nadal", "is_correct": false },
+            { "id": "d", "text": "McEnroe and Borg", "is_correct": false }
+          ],
+          "explanation": "John Isner beat Nicolas Mahut over three days; Wimbledon put a plaque on Court 18."
+        },
+        {
+          "id": "q2",
+          "question": "The Open Era began in which year, when the majors admitted professional players?",
+          "options": [
+            { "id": "a", "text": "1960", "is_correct": false },
+            { "id": "b", "text": "1973", "is_correct": false },
+            { "id": "c", "text": "1968", "is_correct": true },
+            { "id": "d", "text": "1980", "is_correct": false }
+          ],
+          "explanation": "Roland Garros 1968 was the first major open to amateurs and professionals alike."
+        },
+        {
+          "id": "q3",
+          "question": "Who was the first Black man to win Wimbledon, in 1975?",
+          "options": [
+            { "id": "a", "text": "Yannick Noah", "is_correct": false },
+            { "id": "b", "text": "Stan Smith", "is_correct": false },
+            { "id": "c", "text": "Jimmy Connors", "is_correct": false },
+            { "id": "d", "text": "Arthur Ashe", "is_correct": true }
+          ],
+          "explanation": "Arthur Ashe beat defending champion Jimmy Connors in the 1975 final."
+        },
+        {
+          "id": "q4",
+          "question": "The first Black player to win a Grand Slam singles title was?",
+          "options": [
+            { "id": "a", "text": "Arthur Ashe", "is_correct": false },
+            { "id": "b", "text": "Althea Gibson", "is_correct": true },
+            { "id": "c", "text": "Venus Williams", "is_correct": false },
+            { "id": "d", "text": "Zina Garrison", "is_correct": false }
+          ],
+          "explanation": "Althea Gibson won Roland Garros in 1956, then Wimbledon and the US Open in 1957 and 1958."
+        },
+        {
+          "id": "q5",
+          "question": "The youngest men's Wimbledon champion, at 17 in 1985, was?",
+          "options": [
+            { "id": "a", "text": "Björn Borg", "is_correct": false },
+            { "id": "b", "text": "Michael Chang", "is_correct": false },
+            { "id": "c", "text": "Boris Becker", "is_correct": true },
+            { "id": "d", "text": "Mats Wilander", "is_correct": false }
+          ],
+          "explanation": "Becker won unseeded at 17 years and 7 months; Chang was 17 too at his 1989 Roland Garros title."
+        },
+        {
+          "id": "q6",
+          "question": "Federer announced himself at Wimbledon 2001 by ending whose reign?",
+          "options": [
+            { "id": "a", "text": "Andre Agassi", "is_correct": false },
+            { "id": "b", "text": "Goran Ivanišević", "is_correct": false },
+            { "id": "c", "text": "Pat Rafter", "is_correct": false },
+            { "id": "d", "text": "Pete Sampras", "is_correct": true }
+          ],
+          "explanation": "The 19-year-old Federer beat Sampras in the fourth round, ending his 31-match Wimbledon win streak."
+        },
+        {
+          "id": "q7",
+          "question": "Which 1969 Wimbledon match of 112 games pushed the sport to adopt the tiebreak?",
+          "options": [
+            { "id": "a", "text": "Laver vs Rosewall", "is_correct": false },
+            { "id": "b", "text": "González vs Pasarell", "is_correct": true },
+            { "id": "c", "text": "Borg vs Gerulaitis", "is_correct": false },
+            { "id": "d", "text": "Ashe vs Okker", "is_correct": false }
+          ],
+          "explanation": "Pancho González, 41, beat Charlie Pasarell over two days; the marathon hastened the tiebreak."
+        },
+        {
+          "id": "q8",
+          "question": "The youngest Grand Slam singles champion of the Open Era, at 16 in 1997, was?",
+          "options": [
+            { "id": "a", "text": "Monica Seles", "is_correct": false },
+            { "id": "b", "text": "Steffi Graf", "is_correct": false },
+            { "id": "c", "text": "Tracy Austin", "is_correct": false },
+            { "id": "d", "text": "Martina Hingis", "is_correct": true }
+          ],
+          "explanation": "Hingis won the 1997 Australian Open at 16 years and 3 months."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tenis-momentos-historicos",
+      "title": "Trivia de tenis: partidos y momentos históricos",
+      "description": "Maratones épicos, campeones que rompieron barreras y los partidos que cambiaron el tenis: ¿cuánto recuerdas?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["tenis", "historia", "deportes", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuánto duró el partido más largo de la historia, Isner vs Mahut en Wimbledon 2010?",
+          "options": [
+            { "id": "a", "text": "8 horas justas", "is_correct": false },
+            { "id": "b", "text": "6 horas y media", "is_correct": false },
+            { "id": "c", "text": "14 horas", "is_correct": false },
+            { "id": "d", "text": "11 horas y 5 minutos", "is_correct": true }
+          ],
+          "explanation": "Se jugó en tres días y el quinto set acabó 70-68; Wimbledon puso una placa en la pista 18."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año comenzó la Era Open, cuando los majors admitieron a jugadores profesionales?",
+          "options": [
+            { "id": "a", "text": "1958", "is_correct": false },
+            { "id": "b", "text": "1973", "is_correct": false },
+            { "id": "c", "text": "1968", "is_correct": true },
+            { "id": "d", "text": "1984", "is_correct": false }
+          ],
+          "explanation": "Roland Garros 1968 fue el primer major abierto a amateurs y profesionales."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién fue el primer hombre negro en ganar Wimbledon, en 1975?",
+          "options": [
+            { "id": "a", "text": "Arthur Ashe", "is_correct": true },
+            { "id": "b", "text": "Yannick Noah", "is_correct": false },
+            { "id": "c", "text": "Stan Smith", "is_correct": false },
+            { "id": "d", "text": "Jimmy Connors", "is_correct": false }
+          ],
+          "explanation": "Arthur Ashe venció al campeón defensor Jimmy Connors en la final de 1975."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién fue la primera tenista negra en ganar un título de Grand Slam?",
+          "options": [
+            { "id": "a", "text": "Venus Williams", "is_correct": false },
+            { "id": "b", "text": "Zina Garrison", "is_correct": false },
+            { "id": "c", "text": "Althea Gibson", "is_correct": true },
+            { "id": "d", "text": "Serena Williams", "is_correct": false }
+          ],
+          "explanation": "Althea Gibson ganó Roland Garros en 1956 y luego Wimbledon y el US Open en 1957 y 1958."
+        },
+        {
+          "id": "q5",
+          "question": "¿Con qué edad ganó Boris Becker Wimbledon en 1985, como campeón masculino más joven?",
+          "options": [
+            { "id": "a", "text": "18 años", "is_correct": false },
+            { "id": "b", "text": "17 años", "is_correct": true },
+            { "id": "c", "text": "19 años", "is_correct": false },
+            { "id": "d", "text": "20 años", "is_correct": false }
+          ],
+          "explanation": "Becker ganó sin ser cabeza de serie con 17 años y 7 meses."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué grito hizo famoso John McEnroe durante Wimbledon 1981?",
+          "options": [
+            { "id": "a", "text": "«New balls, please!»", "is_correct": false },
+            { "id": "b", "text": "«Game, set, match!»", "is_correct": false },
+            { "id": "c", "text": "«Are you kidding me?»", "is_correct": false },
+            { "id": "d", "text": "«You cannot be serious!»", "is_correct": true }
+          ],
+          "explanation": "«You cannot be serious!» quedó como el berrinche más célebre del tenis; McEnroe ganó ese Wimbledon."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué partido de Wimbledon 1969, con 112 juegos, impulsó la adopción del tiebreak?",
+          "options": [
+            { "id": "a", "text": "González vs Pasarell", "is_correct": true },
+            { "id": "b", "text": "Laver vs Rosewall", "is_correct": false },
+            { "id": "c", "text": "Borg vs Gerulaitis", "is_correct": false },
+            { "id": "d", "text": "Ashe vs Okker", "is_correct": false }
+          ],
+          "explanation": "Pancho González, de 41 años, venció a Charlie Pasarell en dos días; la maratón aceleró el tiebreak."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién es la campeona individual de Grand Slam más joven de la Era Open?",
+          "options": [
+            { "id": "a", "text": "Monica Seles", "is_correct": false },
+            { "id": "b", "text": "Steffi Graf", "is_correct": false },
+            { "id": "c", "text": "Martina Hingis", "is_correct": true },
+            { "id": "d", "text": "Tracy Austin", "is_correct": false }
+          ],
+          "explanation": "Hingis ganó el Abierto de Australia 1997 con 16 años y 3 meses."
+        }
+      ]
+    }
+  ]
+}
