@@ -322,6 +322,8 @@ export interface HomeCardGroups {
   freshlyPublished: QuizCardViewModel[];
 }
 
+// Relacionados de la misma categoría; si no llegan a 3, se completan con los
+// más jugados del mismo idioma.
 export async function getRelatedQuizzes(
   slug: string,
   categorySlug?: string | null,
@@ -344,8 +346,27 @@ export async function getRelatedQuizzes(
     const { data, error } = await query.order('plays_count', { ascending: false }).limit(3);
     if (error || !data) throw error ?? new Error('Could not fetch related quizzes');
 
-    const categoryMap = new Map([[category.id, category]]);
-    return (data as QuizRow[]).map((row) => normalizeQuiz(row, categoryMap));
+    const rows = [...(data as QuizRow[])];
+    if (rows.length < 3) {
+      let popular = supabase
+        .from('quizzes')
+        .select('*')
+        .eq('status', 'published')
+        .neq('slug', slug);
+      if (locale) popular = popular.eq('language', locale);
+      const { data: extra } = await popular.order('plays_count', { ascending: false }).limit(10);
+      const seen = new Set(rows.map((row) => row.slug));
+      for (const row of (extra ?? []) as QuizRow[]) {
+        if (rows.length >= 3) break;
+        if (!seen.has(row.slug)) {
+          seen.add(row.slug);
+          rows.push(row);
+        }
+      }
+    }
+
+    const categoryMap = new Map(categories.map((item) => [item.id, item]));
+    return rows.slice(0, 3).map((row) => normalizeQuiz(row, categoryMap));
   } catch {
     return LAUNCH_QUIZZES.filter(
       (quiz) =>

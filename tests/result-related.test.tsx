@@ -6,7 +6,7 @@ vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
 const dbMocks = vi.hoisted(() => ({
   filters: [] as string[],
-  limit: 0,
+  limits: [] as number[],
   createClientCalls: 0,
   quizzes: [] as Array<{ id: string; slug: string; category_id: string }>,
 }));
@@ -38,7 +38,7 @@ vi.mock('@/lib/supabase/server', () => ({
                   },
                   order: () => query,
                   limit: async (n: number) => {
-                    dbMocks.limit = n;
+                    dbMocks.limits.push(n);
                     return { data: dbMocks.quizzes, error: null };
                   },
                 };
@@ -166,7 +166,7 @@ describe('ResultScreen · quizzes relacionados', () => {
 describe('getRelatedQuizzes', () => {
   beforeEach(() => {
     dbMocks.filters = [];
-    dbMocks.limit = 0;
+    dbMocks.limits = [];
     dbMocks.createClientCalls = 0;
     dbMocks.quizzes = [
       { id: 'q2', slug: 'science-quiz-2', category_id: 'cat-science' },
@@ -183,7 +183,7 @@ describe('getRelatedQuizzes', () => {
     expect(dbMocks.filters).toContain('eq:category_id=cat-science');
     expect(dbMocks.filters).toContain('eq:language=en');
     expect(dbMocks.filters).toContain('neq:slug=science-quiz-1');
-    expect(dbMocks.limit).toBe(3);
+    expect(dbMocks.limits[0]).toBe(3);
   });
 
   it('devuelve [] sin tocar la base cuando el quiz no tiene categoría', async () => {
