@@ -277,3 +277,22 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
   revalidatePath(`/quiz/${parsed.data}`);
   return { success: true, liked: Boolean(data) };
 }
+
+// ============================================
+// SHARES
+// ============================================
+
+/**
+ * Counts a share. Fire-and-forget from the share buttons: a failure must never
+ * reach the player, and anonymous visitors share results too.
+ */
+export async function incrementShares(quizId: string): Promise<ActionResult> {
+  const parsed = z.string().uuid().safeParse(quizId);
+  if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });
+  if (error) return actionFailure('unexpected', error.message);
+
+  return { success: true };
+}

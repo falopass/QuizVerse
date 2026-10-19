@@ -378,6 +378,7 @@ export function ResultScreen({
               </div>
               <ShareButtons
                 locale={uiLocale}
+                quizId={quiz.id}
                 title={
                   uiLocale === 'es'
                     ? `Obtuve ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en "${quiz.title}"`
@@ -405,9 +406,7 @@ function ResultMetric({ label, value }: { label: string; value: string }) {
 
 /** Lo que se muestra como marca: aciertos en trivia, título en personality. */
 function challengeMark(score: ChallengeScore, personality: boolean): string {
-  return personality
-    ? (score.resultTitle ?? '—')
-    : `${score.score}/${score.maxScore}`;
+  return personality ? (score.resultTitle ?? '—') : `${score.score}/${score.maxScore}`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {
