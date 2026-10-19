@@ -31,6 +31,11 @@ export interface QuizComment {
   author: QuizCommentAuthor | null;
 }
 
+export interface QuizCommentsPage {
+  comments: QuizComment[];
+  total: number;
+}
+
 const COMMENT_SELECT = 'id, body, created_at, author:profiles(username, display_name, avatar_url)';
 
 const commentSchema = z.object({
@@ -49,32 +54,38 @@ async function clientIp(): Promise<string> {
   return headerList.get('x-real-ip') ?? 'unknown';
 }
 
+const EMPTY_PAGE: QuizCommentsPage = { comments: [], total: 0 };
+
 /**
- * Últimos comentarios de un quiz publicado. Sin auth: la RLS ya permite leer.
- * Cualquier fallo devuelve lista vacía — la ficha nunca se rompe por esto.
+ * Últimos 50 comentarios de un quiz publicado + total real. Sin auth: la RLS
+ * ya permite leer. Cualquier fallo devuelve página vacía — la ficha nunca se
+ * rompe por esto.
  */
-export async function getQuizComments(quizId: string): Promise<QuizComment[]> {
+export async function getQuizComments(quizId: string): Promise<QuizCommentsPage> {
   const parsed = z.string().uuid().safeParse(quizId);
-  if (!parsed.success) return [];
+  if (!parsed.success) return EMPTY_PAGE;
 
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase
+    const { data, count, error } = await supabase
       .from('quiz_comments')
-      .select(COMMENT_SELECT)
+      .select(COMMENT_SELECT, { count: 'exact' })
       .eq('quiz_id', parsed.data)
       .order('created_at', { ascending: false })
       .limit(50);
 
-    if (error || !data) return [];
-    return data.map((row) => ({
-      id: row.id,
-      body: row.body,
-      created_at: row.created_at,
-      author: row.author ?? null,
-    }));
+    if (error || !data) return EMPTY_PAGE;
+    return {
+      comments: data.map((row) => ({
+        id: row.id,
+        body: row.body,
+        created_at: row.created_at,
+        author: row.author ?? null,
+      })),
+      total: count ?? data.length,
+    };
   } catch {
-    return [];
+    return EMPTY_PAGE;
   }
 }
 
@@ -93,6 +104,17 @@ export async function createComment(
 
   const { allowed } = await commentLimiter.check(await clientIp());
   if (!allowed) return actionFailure('rate_limited', 'Too many comments. Please wait.');
+
+  // The INSERT policy only checks ownership: without this look-up an
+  // authenticated caller could comment on drafts/pending quizzes and still
+  // fire the notification trigger.
+  const { data: quiz } = await supabase
+    .from('quizzes')
+    .select('id')
+    .eq('id', parsed.data.quizId)
+    .eq('status', 'published')
+    .maybeSingle();
+  if (!quiz) return actionFailure('not_found', 'Quiz not found.');
 
   const { data, error } = await supabase
     .from('quiz_comments')

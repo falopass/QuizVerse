@@ -11,7 +11,12 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { createComment, getQuizComments, type QuizComment } from '@/actions/comments.actions';
+import {
+  createComment,
+  getQuizComments,
+  type QuizComment,
+  type QuizCommentsPage,
+} from '@/actions/comments.actions';
 import { useSupabase } from '@/providers/supabase-provider';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -28,6 +33,7 @@ const COPY = {
     error: 'No pudimos publicar tu comentario. Inténtalo otra vez.',
     rateLimited: 'Estás comentando muy rápido. Espera un momento.',
     count: (n: number) => (n === 1 ? '1 comentario' : `${n} comentarios`),
+    latestOnly: 'Se muestran los 50 más recientes.',
   },
   en: {
     title: 'Comments',
@@ -40,6 +46,7 @@ const COPY = {
     error: 'We could not post your comment. Please try again.',
     rateLimited: 'You are commenting too fast. Please wait.',
     count: (n: number) => (n === 1 ? '1 comment' : `${n} comments`),
+    latestOnly: 'Showing the 50 most recent.',
   },
 } as const;
 
@@ -85,7 +92,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
   const copy = COPY[locale];
   const pathname = usePathname();
   const { user, loading: authLoading } = useSupabase();
-  const [comments, setComments] = useState<QuizComment[] | null>(null);
+  // `loaded` se etiqueta con su quizId: al navegar entre fichas el componente
+  // se reutiliza y no puede mostrar comentarios del quiz anterior ni aceptar
+  // un alta que resuelva ya en la ficha nueva.
+  const [loaded, setLoaded] = useState<{ quizId: string; page: QuizCommentsPage } | null>(null);
+  const page = loaded?.quizId === quizId ? loaded.page : null;
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -93,11 +104,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
   useEffect(() => {
     let cancelled = false;
     getQuizComments(quizId)
-      .then((rows) => {
-        if (!cancelled) setComments(rows);
+      .then((page) => {
+        if (!cancelled) setLoaded({ quizId, page });
       })
       .catch(() => {
-        if (!cancelled) setComments([]);
+        if (!cancelled) setLoaded({ quizId, page: { comments: [], total: 0 } });
       });
     return () => {
       cancelled = true;
@@ -113,7 +124,17 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
     try {
       const result = await createComment(quizId, body);
       if (result.success) {
-        setComments((prev) => [result.comment, ...(prev ?? [])]);
+        setLoaded((prev) =>
+          prev && prev.quizId !== quizId
+            ? prev
+            : {
+                quizId,
+                page: {
+                  comments: [result.comment, ...(prev?.page.comments ?? [])],
+                  total: (prev?.page.total ?? 0) + 1,
+                },
+              }
+        );
         setDraft('');
       } else {
         setError(result.code === 'rate_limited' ? copy.rateLimited : copy.error);
@@ -131,7 +152,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
     <section className="arcade-related" aria-labelledby="quiz-comments">
       <div className="arcade-section-head">
         <h2 id="quiz-comments">{copy.title}</h2>
-        <p aria-live="polite">{comments === null ? copy.loading : copy.count(comments.length)}</p>
+        <p aria-live="polite">
+          {page === null
+            ? copy.loading
+            : `${copy.count(page.total)}${page.total > page.comments.length ? ` · ${copy.latestOnly}` : ''}`}
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mb-6">
@@ -166,11 +191,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
         </div>
       </form>
 
-      {comments === null ? null : comments.length === 0 ? (
+      {page === null ? null : page.comments.length === 0 ? (
         <p className="text-text-muted text-sm">{copy.empty}</p>
       ) : (
         <ul className="space-y-3">
-          {comments.map((comment) => (
+          {page.comments.map((comment) => (
             <li
               key={comment.id}
               className="border-border-subtle bg-bg-secondary flex gap-3 rounded-[4px] border p-4"

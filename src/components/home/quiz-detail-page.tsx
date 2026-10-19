@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { z } from 'zod';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
@@ -235,7 +236,11 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
         </section>
       )}
 
-      <QuizComments quizId={quiz.id} locale={locale} />
+      {/* Los quizzes del catálogo de respaldo (`launch-*`) no existen en la DB:
+          sin fila en `quizzes` no hay comentarios que leer ni escribir. */}
+      {z.string().uuid().safeParse(quiz.id).success && (
+        <QuizComments quizId={quiz.id} locale={locale} />
+      )}
     </div>
   );
 }
