@@ -30,6 +30,8 @@ const MOODS = {
 export const fold = (value: string) =>
   value
     .normalize('NFD')
+    .replace(/n\u0303/g, '\u00f1')
+    .replace(/N\u0303/g, '\u00d1')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 
@@ -80,12 +82,14 @@ export function ExploreEditorialPage({
     let next = [...localizedQuizzes];
     if (query.trim()) {
       const normalizedQuery = fold(query.trim());
-      next = next.filter(
-        (quiz) =>
-          fold(quiz.title).includes(normalizedQuery) ||
-          fold(quiz.description ?? '').includes(normalizedQuery) ||
-          quiz.tags.some((tag) => fold(tag).includes(normalizedQuery))
-      );
+      if (normalizedQuery) {
+        next = next.filter(
+          (quiz) =>
+            fold(quiz.title).includes(normalizedQuery) ||
+            fold(quiz.description ?? '').includes(normalizedQuery) ||
+            quiz.tags.some((tag) => fold(tag).includes(normalizedQuery))
+        );
+      }
     }
 
     if (activeCategory !== 'all') {

@@ -50,8 +50,8 @@ const COPY = {
   allCategories: 'Todas',
 };
 
-function renderPage() {
-  return render(<ExploreEditorialPage locale="es" quizzes={QUIZZES} categories={[]} copy={COPY} />);
+function renderPage(quizzes: Quiz[] = QUIZZES) {
+  return render(<ExploreEditorialPage locale="es" quizzes={quizzes} categories={[]} copy={COPY} />);
 }
 
 function search(value: string) {
@@ -91,5 +91,39 @@ describe('Búsqueda del explorador sin acentos', () => {
     search('   ');
 
     expect(screen.getByRole('status')).toHaveTextContent('2 quizzes tras filtros');
+  });
+
+  it('una query de solo diacríticos equivale a búsqueda vacía', () => {
+    renderPage();
+    search('́');
+
+    expect(screen.getByRole('status')).toHaveTextContent('2 quizzes tras filtros');
+  });
+
+  it('«ñ» sigue siendo una letra distinta de «n»', () => {
+    renderPage([
+      makeQuiz({ id: 'q-anno', slug: 'ano', title: 'Ano' }),
+      makeQuiz({ id: 'q-anya', slug: 'ano-nuevo', title: 'Año nuevo' }),
+    ]);
+
+    search('año');
+    expect(screen.getByRole('status')).toHaveTextContent('1 quizzes tras filtros');
+    expect(screen.getAllByText('Año nuevo').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Ano')).not.toBeInTheDocument();
+
+    search('ano');
+    expect(screen.getByRole('status')).toHaveTextContent('1 quizzes tras filtros');
+    expect(screen.getAllByText('Ano').length).toBeGreaterThan(0);
+    expect(screen.queryByText('Año nuevo')).not.toBeInTheDocument();
+  });
+
+  it('reconoce «ñ» precompuesta y descompuesta', () => {
+    renderPage([makeQuiz({ id: 'q-anya', slug: 'ano-nuevo', title: 'Año nuevo' })]);
+
+    search('año');
+    expect(screen.getByRole('status')).toHaveTextContent('1 quizzes tras filtros');
+
+    search('año');
+    expect(screen.getByRole('status')).toHaveTextContent('1 quizzes tras filtros');
   });
 });
