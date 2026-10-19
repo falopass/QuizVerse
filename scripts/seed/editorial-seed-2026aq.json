@@ -1,0 +1,1647 @@
+{
+  "$comment": "Editorial seed 2026aq (CONT-53): five es/en pairs on desserts, coffee and wine for food-drink — three trivia pairs (world desserts, coffee, wine, all with per-question explanations) plus two personality quizzes (which dessert are you, which coffee are you). Only stable, checkable facts — no brands, awards, vintages or prices. Covers are procedural (no cover_image_url emitted). Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-world-desserts-trivia",
+      "title": "World Desserts Trivia: Tiramisu, Flan and Baklava",
+      "description": "Tiramisu, crème brûlée, flan, baklava and tres leches: eight questions on the world's most beloved desserts and their stories.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["desserts", "trivia", "food", "sweets"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which dessert layers coffee-soaked ladyfingers with mascarpone cream?",
+          "options": [
+            { "id": "a", "text": "Tres leches cake", "is_correct": false },
+            { "id": "b", "text": "Tiramisù", "is_correct": true },
+            { "id": "c", "text": "Panna cotta", "is_correct": false },
+            { "id": "d", "text": "Profiteroles", "is_correct": false }
+          ],
+          "explanation": "Tiramisù, from Italy's Veneto region, soaks savoiardi in espresso; its name means 'pick me up'."
+        },
+        {
+          "id": "q2",
+          "question": "What creates the signature crackly top of crème brûlée?",
+          "options": [
+            { "id": "a", "text": "Sugar caramelized with a torch", "is_correct": true },
+            { "id": "b", "text": "A baked meringue layer", "is_correct": false },
+            { "id": "c", "text": "A thin chocolate glaze", "is_correct": false },
+            { "id": "d", "text": "Toasted almond flakes", "is_correct": false }
+          ],
+          "explanation": "Sugar is sprinkled over the custard and caramelized until it hardens; 'brûlée' is French for 'burnt'."
+        },
+        {
+          "id": "q3",
+          "question": "Flan, popular across Spain and Latin America, is a custard baked over a layer of what?",
+          "options": [
+            { "id": "a", "text": "Melted chocolate", "is_correct": false },
+            { "id": "b", "text": "Fruit compote", "is_correct": false },
+            { "id": "c", "text": "Liquid caramel", "is_correct": true },
+            { "id": "d", "text": "Sweetened condensed milk", "is_correct": false }
+          ],
+          "explanation": "The mold is lined with caramel before the custard goes in, so the flan unmolds carrying its own sauce."
+        },
+        {
+          "id": "q4",
+          "question": "Baklava stacks many thin sheets of which pastry, filled with nuts and soaked in syrup or honey?",
+          "options": [
+            { "id": "a", "text": "Choux pastry", "is_correct": false },
+            { "id": "b", "text": "Phyllo dough", "is_correct": true },
+            { "id": "c", "text": "Puff pastry", "is_correct": false },
+            { "id": "d", "text": "Shortcrust pastry", "is_correct": false }
+          ],
+          "explanation": "Baklava spread across the Ottoman world; each region favors its own nut — pistachio, walnut or almond."
+        },
+        {
+          "id": "q5",
+          "question": "Tres leches cake is soaked in evaporated milk, condensed milk and which third dairy?",
+          "options": [
+            { "id": "a", "text": "Whole milk or cream", "is_correct": true },
+            { "id": "b", "text": "Coconut milk", "is_correct": false },
+            { "id": "c", "text": "Goat's milk", "is_correct": false },
+            { "id": "d", "text": "Buttermilk", "is_correct": false }
+          ],
+          "explanation": "The sponge drinks in evaporated milk, condensed milk and cream; it's a celebration cake across Latin America."
+        },
+        {
+          "id": "q6",
+          "question": "Mochi, the soft and chewy Japanese sweet, is made by pounding which ingredient?",
+          "options": [
+            { "id": "a", "text": "Taro root", "is_correct": false },
+            { "id": "b", "text": "Red bean paste", "is_correct": false },
+            { "id": "c", "text": "Wheat dough", "is_correct": false },
+            { "id": "d", "text": "Glutinous rice", "is_correct": true }
+          ],
+          "explanation": "Steamed mochigome rice is pounded until elastic; the New Year pounding ceremony is called mochitsuki."
+        },
+        {
+          "id": "q7",
+          "question": "Pavlova, the crisp meringue dessert claimed by both Australia and New Zealand, honors whom?",
+          "options": [
+            { "id": "a", "text": "A Russian ballerina", "is_correct": true },
+            { "id": "b", "text": "A Sydney pastry chef", "is_correct": false },
+            { "id": "c", "text": "A queen consort", "is_correct": false },
+            { "id": "d", "text": "An opera singer", "is_correct": false }
+          ],
+          "explanation": "It was named for ballerina Anna Pavlova after her 1920s tour; which country invented it is still argued."
+        },
+        {
+          "id": "q8",
+          "question": "Gulab jamun — fried milk-solid balls soaked in syrup — comes from which region?",
+          "options": [
+            { "id": "a", "text": "The Middle East", "is_correct": false },
+            { "id": "b", "text": "South Asia", "is_correct": true },
+            { "id": "c", "text": "Southeast Asia", "is_correct": false },
+            { "id": "d", "text": "North Africa", "is_correct": false }
+          ],
+          "explanation": "A festival staple in India and its neighbors; 'gulab' refers to the rose water in the syrup."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-postres-del-mundo",
+      "title": "Trivia de postres del mundo: tiramisú, flan y baklava",
+      "description": "Tiramisú, crème brûlée, flan, baklava y tres leches: ocho preguntas sobre los postres más queridos del mundo y sus historias.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["postres", "trivia", "comida", "dulces"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué postre alterna capas de bizcochos empapados en café con crema de mascarpone?",
+          "options": [
+            { "id": "a", "text": "Pastel de tres leches", "is_correct": false },
+            { "id": "b", "text": "Tiramisú", "is_correct": true },
+            { "id": "c", "text": "Panna cotta", "is_correct": false },
+            { "id": "d", "text": "Profiteroles", "is_correct": false }
+          ],
+          "explanation": "El tiramisú, de la región italiana del Véneto, empapa savoiardi en espresso; su nombre significa 'anímame'."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué crea la costra crujiente de la crème brûlée?",
+          "options": [
+            { "id": "a", "text": "Azúcar caramelizado con un soplete", "is_correct": true },
+            { "id": "b", "text": "Una capa de merengue horneado", "is_correct": false },
+            { "id": "c", "text": "Un baño fino de chocolate", "is_correct": false },
+            { "id": "d", "text": "Almendras tostadas", "is_correct": false }
+          ],
+          "explanation": "Se espolvorea azúcar sobre la crema y se carameliza hasta endurecer; 'brûlée' significa 'quemado' en francés."
+        },
+        {
+          "id": "q3",
+          "question": "El flan clásico, popular en España y Latinoamérica, es una natilla horneada sobre una capa de ¿qué?",
+          "options": [
+            { "id": "a", "text": "Chocolate fundido", "is_correct": false },
+            { "id": "b", "text": "Compota de frutas", "is_correct": false },
+            { "id": "c", "text": "Caramelo líquido", "is_correct": true },
+            { "id": "d", "text": "Leche condensada", "is_correct": false }
+          ],
+          "explanation": "El molde se cubre de caramelo antes de la natilla, de modo que al desmoldarlo el flan lleva su propia salsa."
+        },
+        {
+          "id": "q4",
+          "question": "El baklava apila finas láminas de ¿qué masa, con frutos secos y almíbar o miel?",
+          "options": [
+            { "id": "a", "text": "Masa choux", "is_correct": false },
+            { "id": "b", "text": "Masa filo", "is_correct": true },
+            { "id": "c", "text": "Hojaldre", "is_correct": false },
+            { "id": "d", "text": "Masa quebrada", "is_correct": false }
+          ],
+          "explanation": "El baklava se extendió por el mundo otomano; cada región elige su fruto seco: pistacho, nuez o almendra."
+        },
+        {
+          "id": "q5",
+          "question": "El pastel de tres leches se empapa en leche evaporada, leche condensada y ¿qué tercer lácteo?",
+          "options": [
+            { "id": "a", "text": "Leche entera o crema", "is_correct": true },
+            { "id": "b", "text": "Leche de coco", "is_correct": false },
+            { "id": "c", "text": "Leche de cabra", "is_correct": false },
+            { "id": "d", "text": "Suero de leche", "is_correct": false }
+          ],
+          "explanation": "El bizcocho absorbe leche evaporada, leche condensada y crema; es un pastel de celebración en toda Latinoamérica."
+        },
+        {
+          "id": "q6",
+          "question": "El mochi, el dulce japonés suave y elástico, se hace machacando ¿qué ingrediente?",
+          "options": [
+            { "id": "a", "text": "Raíz de taro", "is_correct": false },
+            { "id": "b", "text": "Pasta de frijol rojo", "is_correct": false },
+            { "id": "c", "text": "Masa de trigo", "is_correct": false },
+            { "id": "d", "text": "Arroz glutinoso", "is_correct": true }
+          ],
+          "explanation": "El arroz mochigome cocido al vapor se machaca hasta volverse elástico; la ceremonia de Año Nuevo es el mochitsuki."
+        },
+        {
+          "id": "q7",
+          "question": "La pavlova, el merengue crujiente que se disputan Australia y Nueva Zelanda, homenajea a ¿quién?",
+          "options": [
+            { "id": "a", "text": "Una bailarina rusa", "is_correct": true },
+            { "id": "b", "text": "Un repostero de Sídney", "is_correct": false },
+            { "id": "c", "text": "Una reina consorte", "is_correct": false },
+            { "id": "d", "text": "Una cantante de ópera", "is_correct": false }
+          ],
+          "explanation": "Lleva el nombre de la bailarina Anna Pávlova tras su gira de los años 20; aún se discute qué país la inventó."
+        },
+        {
+          "id": "q8",
+          "question": "El gulab jamun — bolitas fritas de sólidos lácteos en almíbar — viene de ¿qué región?",
+          "options": [
+            { "id": "a", "text": "Medio Oriente", "is_correct": false },
+            { "id": "b", "text": "Asia del Sur", "is_correct": true },
+            { "id": "c", "text": "Sudeste asiático", "is_correct": false },
+            { "id": "d", "text": "Norte de África", "is_correct": false }
+          ],
+          "explanation": "Es un clásico de las fiestas en India y países vecinos; 'gulab' alude al agua de rosas del almíbar."
+        }
+      ]
+    },
+    {
+      "slug": "en-coffee-trivia",
+      "title": "Coffee Trivia: Beans, Brews and Café Culture",
+      "description": "From arabica beans to cold brew and Swedish fika: eight questions on coffee varieties, brewing methods and café culture.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["coffee", "trivia", "drinks", "food"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which species supplies most of the world's coffee?",
+          "options": [
+            { "id": "a", "text": "Robusta", "is_correct": false },
+            { "id": "b", "text": "Arabica", "is_correct": true },
+            { "id": "c", "text": "Liberica", "is_correct": false },
+            { "id": "d", "text": "Excelsa", "is_correct": false }
+          ],
+          "explanation": "Coffea arabica accounts for roughly two-thirds of world production; robusta is stronger and more caffeinated."
+        },
+        {
+          "id": "q2",
+          "question": "What defines espresso brewing?",
+          "options": [
+            { "id": "a", "text": "Coffee steeped overnight in cold water", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Hot water forced through fine grounds under pressure",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Grounds boiled with sugar in a small pot", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Coffee dripped slowly through a cloth filter",
+              "is_correct": false
+            }
+          ],
+          "explanation": "About nine bars of pressure push water through the puck in under 30 seconds, producing the crema."
+        },
+        {
+          "id": "q3",
+          "question": "A French press brews coffee by which method?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Immersion — grounds steep, then get pressed",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Vacuum suction between two chambers", "is_correct": false },
+            { "id": "c", "text": "High-pressure steam", "is_correct": false },
+            { "id": "d", "text": "Slow paper filtration", "is_correct": false }
+          ],
+          "explanation": "Coarse grounds soak in hot water for a few minutes before the metal plunger separates them from the brew."
+        },
+        {
+          "id": "q4",
+          "question": "How is cold brew coffee made?",
+          "options": [
+            { "id": "a", "text": "Espresso poured over ice", "is_correct": false },
+            { "id": "b", "text": "Hot coffee chilled in the fridge", "is_correct": false },
+            { "id": "c", "text": "Coffee frozen into cubes", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Coarse grounds steeped in cold water for hours",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Twelve hours or more of cold steeping extracts a smooth, less acidic concentrate served over ice."
+        },
+        {
+          "id": "q5",
+          "question": "In coffee tasting, what does 'body' describe?",
+          "options": [
+            { "id": "a", "text": "The caffeine content", "is_correct": false },
+            { "id": "b", "text": "The roast color", "is_correct": false },
+            { "id": "c", "text": "The bitterness level", "is_correct": false },
+            { "id": "d", "text": "The weight and texture in the mouth", "is_correct": true }
+          ],
+          "explanation": "Body runs from light and tea-like to heavy and syrupy — it's how the coffee feels, not how it tastes."
+        },
+        {
+          "id": "q6",
+          "question": "How is traditional Turkish coffee prepared?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Simmered unfiltered in a small pot called a cezve",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Pressed through a metal plunger", "is_correct": false },
+            { "id": "c", "text": "Dripped through a paper filter", "is_correct": false },
+            { "id": "d", "text": "Forced through with steam pressure", "is_correct": false }
+          ],
+          "explanation": "Very finely ground coffee simmers with water and sugar in a cezve; the grounds settle at the bottom of the cup."
+        },
+        {
+          "id": "q7",
+          "question": "In Sweden, what is 'fika'?",
+          "options": [
+            { "id": "a", "text": "A type of dark roast", "is_correct": false },
+            { "id": "b", "text": "A metal coffee pot", "is_correct": false },
+            { "id": "c", "text": "A social coffee break, often with pastries", "is_correct": true },
+            { "id": "d", "text": "A tax on coffee imports", "is_correct": false }
+          ],
+          "explanation": "Fika is the Swedish institution of pausing for coffee and a bun — cinnamon rolls are the classic companion."
+        },
+        {
+          "id": "q8",
+          "question": "Which country produces the most coffee in the world?",
+          "options": [
+            { "id": "a", "text": "Colombia", "is_correct": false },
+            { "id": "b", "text": "Ethiopia", "is_correct": false },
+            { "id": "c", "text": "Brazil", "is_correct": true },
+            { "id": "d", "text": "Vietnam", "is_correct": false }
+          ],
+          "explanation": "Brazil has led world production since the 19th century; Vietnam follows, mainly with robusta."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cafe",
+      "title": "Trivia de café: granos, métodos y cultura cafetera",
+      "description": "Del grano arábica al cold brew y la fika sueca: ocho preguntas sobre variedades, métodos de preparación y cultura del café.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["café", "trivia", "bebidas", "comida"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué especie aporta la mayor parte del café del mundo?",
+          "options": [
+            { "id": "a", "text": "Robusta", "is_correct": false },
+            { "id": "b", "text": "Arábica", "is_correct": true },
+            { "id": "c", "text": "Libérica", "is_correct": false },
+            { "id": "d", "text": "Excelsa", "is_correct": false }
+          ],
+          "explanation": "La Coffea arabica representa cerca de dos tercios de la producción mundial; la robusta es más fuerte y cafeinada."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué define la preparación de un espresso?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Agua caliente empujada a presión por un café molido fino",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Café en infusión fría durante una noche", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Café hervido con azúcar en una olla pequeña",
+              "is_correct": false
+            },
+            { "id": "d", "text": "Goteo lento a través de un filtro de tela", "is_correct": false }
+          ],
+          "explanation": "Unos nueve bares de presión empujan el agua en menos de 30 segundos y producen la crema característica."
+        },
+        {
+          "id": "q3",
+          "question": "¿Con qué método prepara el café una prensa francesa?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Inmersión: el café reposa y luego se presiona",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Succión al vacío entre dos cámaras", "is_correct": false },
+            { "id": "c", "text": "Vapor a alta presión", "is_correct": false },
+            { "id": "d", "text": "Filtrado lento en papel", "is_correct": false }
+          ],
+          "explanation": "El café molido grueso reposa en agua caliente unos minutos y el émbolo metálico lo separa después."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se hace el café cold brew?",
+          "options": [
+            { "id": "a", "text": "Espresso servido sobre hielo", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Café molido grueso en infusión fría durante horas",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Café caliente enfriado en la nevera", "is_correct": false },
+            { "id": "d", "text": "Café congelado en cubitos", "is_correct": false }
+          ],
+          "explanation": "Doce horas o más de infusión en frío extraen un concentrado suave y menos ácido que se sirve con hielo."
+        },
+        {
+          "id": "q5",
+          "question": "En la cata de café, ¿qué describe el 'cuerpo'?",
+          "options": [
+            { "id": "a", "text": "El contenido de cafeína", "is_correct": false },
+            { "id": "b", "text": "El color del tueste", "is_correct": false },
+            { "id": "c", "text": "El peso y la textura en la boca", "is_correct": true },
+            { "id": "d", "text": "El nivel de amargor", "is_correct": false }
+          ],
+          "explanation": "El cuerpo va de ligero y parecido al té a denso y almibarado: es cómo se siente, no cómo sabe."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se prepara el café turco tradicional?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hervido a fuego lento, sin filtrar, en un cezve",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Prensado con un émbolo metálico", "is_correct": false },
+            { "id": "c", "text": "Filtrado en papel", "is_correct": false },
+            { "id": "d", "text": "Presionado con vapor", "is_correct": false }
+          ],
+          "explanation": "El café molido muy fino hierve con agua y azúcar en un cezve; los posos se asientan en el fondo de la taza."
+        },
+        {
+          "id": "q7",
+          "question": "En Suecia, ¿qué es la 'fika'?",
+          "options": [
+            { "id": "a", "text": "Un tipo de tueste oscuro", "is_correct": false },
+            { "id": "b", "text": "Una cafetera metálica", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Una pausa social para el café, a menudo con bollería",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Un impuesto a las importaciones de café", "is_correct": false }
+          ],
+          "explanation": "La fika es la institución sueca de parar a tomar café con un bollo; el clásico acompañante es el rollo de canela."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué país produce más café del mundo?",
+          "options": [
+            { "id": "a", "text": "Brasil", "is_correct": true },
+            { "id": "b", "text": "Colombia", "is_correct": false },
+            { "id": "c", "text": "Etiopía", "is_correct": false },
+            { "id": "d", "text": "Vietnam", "is_correct": false }
+          ],
+          "explanation": "Brasil lidera la producción mundial desde el siglo XIX; Vietnam le sigue, sobre todo con robusta."
+        }
+      ]
+    },
+    {
+      "slug": "en-wine-trivia",
+      "title": "Wine Trivia: Grapes, Regions and How to Taste",
+      "description": "Grapes, regions and the right way to taste: eight questions on wine fundamentals, from pinot noir to tannins — no vintages needed.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["wine", "trivia", "drinks", "food"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Red Burgundy wines are made almost entirely from which grape?",
+          "options": [
+            { "id": "a", "text": "Cabernet Sauvignon", "is_correct": false },
+            { "id": "b", "text": "Pinot Noir", "is_correct": true },
+            { "id": "c", "text": "Merlot", "is_correct": false },
+            { "id": "d", "text": "Syrah", "is_correct": false }
+          ],
+          "explanation": "Red Burgundy is pinot noir and white Burgundy is chardonnay; both grapes spread from Burgundy to the world."
+        },
+        {
+          "id": "q2",
+          "question": "Rioja, famous for tempranillo-based reds, is a wine region in which country?",
+          "options": [
+            { "id": "a", "text": "Portugal", "is_correct": false },
+            { "id": "b", "text": "Italy", "is_correct": false },
+            { "id": "c", "text": "Argentina", "is_correct": false },
+            { "id": "d", "text": "Spain", "is_correct": true }
+          ],
+          "explanation": "Rioja sits in northern Spain and was the country's first region to earn the top DOCa quality category."
+        },
+        {
+          "id": "q3",
+          "question": "In wine, what are tannins?",
+          "options": [
+            { "id": "a", "text": "Sugars left after fermentation", "is_correct": false },
+            { "id": "b", "text": "Bubbles trapped during bottling", "is_correct": false },
+            { "id": "c", "text": "Acids that make wine taste sharp", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Compounds from skins, seeds and oak that dry the mouth",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Tannins create that drying, grippy feeling and help red wines age."
+        },
+        {
+          "id": "q4",
+          "question": "What is the correct order of a wine tasting?",
+          "options": [
+            { "id": "a", "text": "Look, smell, sip", "is_correct": true },
+            { "id": "b", "text": "Sip, smell, look", "is_correct": false },
+            { "id": "c", "text": "Smell, look, sip", "is_correct": false },
+            { "id": "d", "text": "Chill, look, sip", "is_correct": false }
+          ],
+          "explanation": "Tasters judge color and clarity first, then swirl the glass for aromas, and only then take a sip."
+        },
+        {
+          "id": "q5",
+          "question": "Legally, where can true champagne come from?",
+          "options": [
+            { "id": "a", "text": "Any bottle-fermented sparkling wine", "is_correct": false },
+            { "id": "b", "text": "The Champagne region of France", "is_correct": true },
+            { "id": "c", "text": "Any French sparkling wine", "is_correct": false },
+            { "id": "d", "text": "Only the city of Reims", "is_correct": false }
+          ],
+          "explanation": "Champagne is a protected name; the same method elsewhere produces 'traditional method' sparkling wine."
+        },
+        {
+          "id": "q6",
+          "question": "Sancerre, from France's Loire Valley, is made from which grape?",
+          "options": [
+            { "id": "a", "text": "Chardonnay", "is_correct": false },
+            { "id": "b", "text": "Riesling", "is_correct": false },
+            { "id": "c", "text": "Sauvignon Blanc", "is_correct": true },
+            { "id": "d", "text": "Pinot Grigio", "is_correct": false }
+          ],
+          "explanation": "Sancerre is a world benchmark for sauvignon blanc: crisp, citrusy and mineral."
+        },
+        {
+          "id": "q7",
+          "question": "When a wine is described as 'dry', it means:",
+          "options": [
+            { "id": "a", "text": "It has high alcohol", "is_correct": false },
+            { "id": "b", "text": "It was aged in oak", "is_correct": false },
+            { "id": "c", "text": "It has little or no residual sugar", "is_correct": true },
+            { "id": "d", "text": "It makes your mouth pucker", "is_correct": false }
+          ],
+          "explanation": "Dry means the yeast converted the grape sugars into alcohol — it's about sweetness, not texture."
+        },
+        {
+          "id": "q8",
+          "question": "Malbec, a grape of French origin, is the signature red of which country?",
+          "options": [
+            { "id": "a", "text": "Argentina", "is_correct": true },
+            { "id": "b", "text": "Chile", "is_correct": false },
+            { "id": "c", "text": "Spain", "is_correct": false },
+            { "id": "d", "text": "South Africa", "is_correct": false }
+          ],
+          "explanation": "Malbec found its home in Mendoza, where altitude and sunshine turned it into Argentina's flagship red."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-vino",
+      "title": "Trivia de vino: uvas, regiones y cómo catar",
+      "description": "Uvas, regiones y la forma correcta de catar: ocho preguntas sobre lo esencial del vino, del pinot noir a los taninos y Rioja.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["vino", "trivia", "bebidas", "comida"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Los tintos de Borgoña se elaboran casi por completo con ¿qué uva?",
+          "options": [
+            { "id": "a", "text": "Cabernet sauvignon", "is_correct": false },
+            { "id": "b", "text": "Pinot noir", "is_correct": true },
+            { "id": "c", "text": "Merlot", "is_correct": false },
+            { "id": "d", "text": "Syrah", "is_correct": false }
+          ],
+          "explanation": "El Borgoña tinto es pinot noir y el blanco es chardonnay; ambas uvas viajaron de Borgoña al mundo."
+        },
+        {
+          "id": "q2",
+          "question": "Rioja, famosa por sus tintos de tempranillo, es una región vinícola de ¿qué país?",
+          "options": [
+            { "id": "a", "text": "España", "is_correct": true },
+            { "id": "b", "text": "Portugal", "is_correct": false },
+            { "id": "c", "text": "Italia", "is_correct": false },
+            { "id": "d", "text": "Argentina", "is_correct": false }
+          ],
+          "explanation": "Rioja está en el norte de España y fue la primera región del país en lograr la máxima categoría, la DOCa."
+        },
+        {
+          "id": "q3",
+          "question": "En el vino, ¿qué son los taninos?",
+          "options": [
+            { "id": "a", "text": "Azúcares que quedan tras la fermentación", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Compuestos de pieles, pepitas y roble que secan la boca",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Burbujas atrapadas en el embotellado", "is_correct": false },
+            { "id": "d", "text": "Ácidos que hacen el vino punzante", "is_correct": false }
+          ],
+          "explanation": "Los taninos producen esa sensación seca y áspera, y ayudan a que los tintos envejezcan."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el orden correcto de una cata de vino?",
+          "options": [
+            { "id": "a", "text": "Mirar, oler, probar", "is_correct": true },
+            { "id": "b", "text": "Probar, oler, mirar", "is_correct": false },
+            { "id": "c", "text": "Oler, mirar, probar", "is_correct": false },
+            { "id": "d", "text": "Enfriar, mirar, probar", "is_correct": false }
+          ],
+          "explanation": "Primero se juzga el color y la limpieza, luego se agita la copa para los aromas y al final se prueba."
+        },
+        {
+          "id": "q5",
+          "question": "Legalmente, ¿de dónde puede venir un auténtico champán?",
+          "options": [
+            {
+              "id": "a",
+              "text": "De cualquier espumoso fermentado en botella",
+              "is_correct": false
+            },
+            { "id": "b", "text": "De la región francesa de Champagne", "is_correct": true },
+            { "id": "c", "text": "De cualquier espumoso francés", "is_correct": false },
+            { "id": "d", "text": "Solo de la ciudad de Reims", "is_correct": false }
+          ],
+          "explanation": "Champagne es una denominación protegida; con el mismo método en otro lugar es 'método tradicional'."
+        },
+        {
+          "id": "q6",
+          "question": "El Sancerre, del valle del Loira en Francia, se hace con ¿qué uva?",
+          "options": [
+            { "id": "a", "text": "Chardonnay", "is_correct": false },
+            { "id": "b", "text": "Riesling", "is_correct": false },
+            { "id": "c", "text": "Sauvignon blanc", "is_correct": true },
+            { "id": "d", "text": "Pinot grigio", "is_correct": false }
+          ],
+          "explanation": "Sancerre es un referente mundial del sauvignon blanc: fresco, cítrico y mineral."
+        },
+        {
+          "id": "q7",
+          "question": "Cuando un vino se describe como 'seco', significa que:",
+          "options": [
+            { "id": "a", "text": "Tiene mucho alcohol", "is_correct": false },
+            { "id": "b", "text": "Envejeció en barrica", "is_correct": false },
+            { "id": "c", "text": "Tiene poco o nada de azúcar residual", "is_correct": true },
+            { "id": "d", "text": "Te hace fruncir la boca", "is_correct": false }
+          ],
+          "explanation": "Seco significa que la levadura convirtió los azúcares en alcohol: habla de dulzor, no de textura."
+        },
+        {
+          "id": "q8",
+          "question": "La malbec, una uva de origen francés, es el tinto emblemático de ¿qué país?",
+          "options": [
+            { "id": "a", "text": "Argentina", "is_correct": true },
+            { "id": "b", "text": "Chile", "is_correct": false },
+            { "id": "c", "text": "España", "is_correct": false },
+            { "id": "d", "text": "Sudáfrica", "is_correct": false }
+          ],
+          "explanation": "La malbec encontró su casa en Mendoza, donde la altura y el sol la convirtieron en el emblema argentino."
+        }
+      ]
+    },
+    {
+      "slug": "en-which-dessert-are-you",
+      "title": "Which Dessert Are You? A Personality Quiz",
+      "description": "Comforting tiramisu or polished crème brûlée? Eight questions reveal which dessert matches the way you celebrate and share.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["personality quiz", "desserts", "food", "fun"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Tiramisu",
+          "description": "You're layered and easy to love: cocoa-dusted warmth up top, real depth underneath. People come to you to exhale — and they never leave hungry.",
+          "personality_tag": "tiramisu",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Crème brûlée",
+          "description": "Polished shell, soft center. You hold yourself to a high standard and it shows — but anyone who cracks the surface finds you're sweeter than the crust suggests.",
+          "personality_tag": "brulee",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Baklava",
+          "description": "You're golden, generous and impossible to ignore: a hundred layers of effort dressed up as celebration. Wherever there's a full table, you made it happen.",
+          "personality_tag": "baklava",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Mochi",
+          "description": "Soft-spoken but never boring. You adapt to any room, hold your shape under pressure and surprise anyone expecting something ordinary.",
+          "personality_tag": "mochi",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "It's your turn to bring dessert to a dinner. You pick:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A make-ahead classic everyone secretly hopes for.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Something elegant with a crackly finish and a little drama.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "A big tray of something rich that feeds the whole table.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "A small, pretty bite gone in one or two mouthfuls.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "The compliment you'd most like to receive:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Being around you feels like a deep exhale.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Everything you do has intention in it.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "You make ordinary days feel like a holiday.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "You fit in everywhere without trying.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Pick a texture:",
+          "options": [
+            { "id": "a", "text": "Creamy and layered", "personality_tags": ["tiramisu"] },
+            { "id": "b", "text": "Crisp shell over silky custard", "personality_tags": ["brulee"] },
+            { "id": "c", "text": "Crunchy, syrupy, nutty", "personality_tags": ["baklava"] },
+            { "id": "d", "text": "Soft and chewy", "personality_tags": ["mochi"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "At a party, you're the one who:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ends up in the kitchen circle, keeping the easy talks going.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Notices the playlist, the lighting and whether the glasses match.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Brings the toast, the extra chairs and the second dessert.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Floats between groups and knows everyone by midnight.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your relationship with tradition:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The classics are classics for a reason.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Respect the rules, then execute them perfectly.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Traditions exist to be shared and passed around.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Old forms, new fillings — keep the spirit, update the flavor.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "How do you take a compliment?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Warm smile, then a story to change the subject.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Thank them — it was entirely intentional.",
+              "personality_tags": ["brulee"]
+            },
+            { "id": "c", "text": "Return it doubled.", "personality_tags": ["baklava"] },
+            {
+              "id": "d",
+              "text": "A little embarrassed, quietly pleased.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick your ideal Sunday afternoon:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A long lunch with your people, nobody checking the time.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "A museum, a gallery, or finally perfecting that recipe.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "A market, a festival — anywhere crowded and loud.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "A quiet walk, a good book, nowhere to be.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Friends come to you when they need:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Comfort and a plate of something warm.",
+              "personality_tags": ["tiramisu"]
+            },
+            { "id": "b", "text": "An honest opinion and a plan.", "personality_tags": ["brulee"] },
+            {
+              "id": "c",
+              "text": "Energy, enthusiasm and a full table.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Someone who listens without judging.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-postre-eres",
+      "title": "¿Qué postre eres? Un quiz de personalidad",
+      "description": "¿Tiramisú acogedor o crème brûlée impecable? Ocho preguntas revelan qué postre refleja tu forma de celebrar y compartir.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["quiz de personalidad", "postres", "comida", "diversión"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Tiramisú",
+          "description": "Eres capas fáciles de querer: calidez con cacao por fuera y profundidad de verdad por dentro. La gente viene a ti a soltar el aire, y nunca se va con hambre.",
+          "personality_tag": "tiramisu",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Crème brûlée",
+          "description": "Costra impecable, centro suave. Te exiges un estándar alto y se nota — pero quien rompe la superficie descubre que eres mucho más dulce de lo que parece.",
+          "personality_tag": "brulee",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Baklava",
+          "description": "Eres dorado, generoso e imposible de ignorar: cien capas de esfuerzo vestidas de celebración. Donde hay una mesa llena, la armaste tú.",
+          "personality_tag": "baklava",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "Mochi",
+          "description": "Hablas bajito, pero nunca aburres. Te adaptas a cualquier sala, conservas tu forma bajo presión y sorprendes a quien esperaba algo ordinario.",
+          "personality_tag": "mochi",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Te toca llevar el postre a una cena. Eliges:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un clásico que todos esperan en secreto.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Algo elegante, con costra crujiente y un toque de teatro.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Una fuente generosa que alcance para toda la mesa.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Un bocado pequeño y bonito de dos mordiscos.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "El cumplido que más te gustaría recibir:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Estar contigo es como soltar el aire.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Todo lo que haces tiene intención.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Conviertes un día normal en una fiesta.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Encajas en todas partes sin esfuerzo.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Elige una textura:",
+          "options": [
+            { "id": "a", "text": "Cremosa y en capas", "personality_tags": ["tiramisu"] },
+            {
+              "id": "b",
+              "text": "Costra crocante sobre crema sedosa",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Crujiente, almibarada, con frutos secos",
+              "personality_tags": ["baklava"]
+            },
+            { "id": "d", "text": "Suave y masticable", "personality_tags": ["mochi"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "En una fiesta, tú eres quien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Termina en la cocina, manteniendo viva la conversación.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Nota la música, la luz y si las copas combinan.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Trae el brindis, las sillas extra y el segundo postre.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Flota entre grupos y a medianoche conoce a todos.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu relación con la tradición:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Los clásicos son clásicos por algo.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Respeta las reglas y ejecútalas a la perfección.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Las tradiciones existen para compartirse.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Forma antigua, relleno nuevo: conserva el espíritu, cambia el sabor.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo recibes un cumplido?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sonrisa cálida y una historia para cambiar de tema.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Gracias — fue completamente intencional.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Lo devuelves multiplicado por dos.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Un poco de vergüenza y un gusto discreto.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige tu domingo por la tarde ideal:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una comida larga con tu gente, sin mirar el reloj.",
+              "personality_tags": ["tiramisu"]
+            },
+            {
+              "id": "b",
+              "text": "Un museo, una galería, o por fin perfeccionar esa receta.",
+              "personality_tags": ["brulee"]
+            },
+            {
+              "id": "c",
+              "text": "Un mercado, una feria: cualquier lugar lleno y ruidoso.",
+              "personality_tags": ["baklava"]
+            },
+            {
+              "id": "d",
+              "text": "Un paseo tranquilo, un buen libro, nada pendiente.",
+              "personality_tags": ["mochi"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Tus amigos te buscan cuando necesitan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Consuelo y un plato de algo caliente.",
+              "personality_tags": ["tiramisu"]
+            },
+            { "id": "b", "text": "Una opinión honesta y un plan.", "personality_tags": ["brulee"] },
+            {
+              "id": "c",
+              "text": "Energía, entusiasmo y una mesa llena.",
+              "personality_tags": ["baklava"]
+            },
+            { "id": "d", "text": "Alguien que escuche sin juzgar.", "personality_tags": ["mochi"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-coffee-are-you",
+      "title": "Which Coffee Matches Your Personality?",
+      "description": "Straight espresso, foamy cappuccino or patient cold brew? Eight questions match your personality to the coffee you'd order.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["personality quiz", "coffee", "drinks", "fun"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Espresso",
+          "description": "You're the straight shot: intense, focused and allergic to filler. You say what you mean in under a minute — and people trust you because nothing's hidden in the crema.",
+          "personality_tag": "espresso",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Cappuccino",
+          "description": "Perfect thirds: substance, softness and a dusting of style. You believe classics became classics because they work, and you carry that balance into everything you touch.",
+          "personality_tag": "cappuccino",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Latte",
+          "description": "Warm, smooth and easy to be around. You're the drink people order when they want the day to go gently — and the friend they call when they need it to.",
+          "personality_tag": "latte",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Cold Brew",
+          "description": "Slow to make, impossible to rush, worth the wait. You do things your way on your own schedule, and the result comes out smoother and stronger for it.",
+          "personality_tag": "coldbrew",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "It's 7 am and the day needs a plan. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Already did step one — mornings are for doing.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Follow the ritual: same routine, done properly.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Ease in slowly; the day can wait a few minutes.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Started yesterday — today's plan closed last night.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "A friend would describe your style as:",
+          "options": [
+            { "id": "a", "text": "Intense, in the best way.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Classic, with everything in its place.",
+              "personality_tags": ["cappuccino"]
+            },
+            { "id": "c", "text": "Soft-spoken and welcoming.", "personality_tags": ["latte"] },
+            {
+              "id": "d",
+              "text": "Unbothered and a little unconventional.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Pick your way through a big project:",
+          "options": [
+            {
+              "id": "a",
+              "text": "One focused sprint, no distractions.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Steady daily sessions, everything measured.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Long comfortable stretches, with snacks.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Slow prep, then let the result compound.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "At a café, you usually:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Order at the counter and you're out in three minutes.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Sit with a proper cup — no paper lids.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Find the comfy chair and stay a while.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Try whatever the barista is excited about.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your relationship with routines:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Efficiency is a love language.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Rituals make everything feel right.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Comfort first; structure follows.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Rules are more like suggestions.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your first hour of the day looks like:",
+          "options": [
+            { "id": "a", "text": "Fast — alarm, up, moving.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Deliberate — the same well-practiced sequence.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Gentle — slow wake, warm drink, quiet start.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Whatever happens — every day is its own brew.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "When a plan falls apart, you:",
+          "options": [
+            { "id": "a", "text": "Cut straight to the fix.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Reset the pieces and restart the sequence.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Take a breath, then work it out kindly.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Shrug — the backup plan was brewing already.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "The compliment that lands best:",
+          "options": [
+            {
+              "id": "a",
+              "text": "You get straight to the point.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "You make everything look effortless.",
+              "personality_tags": ["cappuccino"]
+            },
+            { "id": "c", "text": "Talking to you feels easy.", "personality_tags": ["latte"] },
+            { "id": "d", "text": "You're always one step ahead.", "personality_tags": ["coldbrew"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-cafe-eres",
+      "title": "¿Qué café eres? Un quiz de personalidad",
+      "description": "¿Espresso directo, capuchino espumoso o cold brew paciente? Ocho preguntas revelan qué café encaja de verdad con tu personalidad.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["quiz de personalidad", "café", "bebidas", "diversión"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Espresso",
+          "description": "Eres el trago directo: intenso, enfocado y alérgico al relleno. Dices lo que piensas en menos de un minuto, y te creen porque no hay nada escondido en la crema.",
+          "personality_tag": "espresso",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Capuchino",
+          "description": "Tercios perfectos: sustancia, suavidad y una pizca de estilo. Crees que los clásicos son clásicos porque funcionan, y llevas ese equilibrio a todo lo que tocas.",
+          "personality_tag": "cappuccino",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Latte",
+          "description": "Cálido, suave y fácil de tener cerca. Eres la bebida que la gente pide cuando quiere un día gentil, y el amigo al que llaman cuando lo necesitan.",
+          "personality_tag": "latte",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Cold Brew",
+          "description": "Lento de hacer, imposible de apurar, vale la espera. Haces las cosas a tu manera y a tu ritmo, y el resultado sale más suave y más fuerte.",
+          "personality_tag": "coldbrew",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Son las 7 am y el día necesita un plan. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ya ejecutaste el paso uno: las mañanas son para hacer.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Sigues el ritual: la misma rutina, bien hecha.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Entras despacio; el día puede esperar unos minutos.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Empezaste ayer: el plan de hoy se cerró anoche.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Un amigo describiría tu estilo como:",
+          "options": [
+            { "id": "a", "text": "Intenso, en el buen sentido.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Clásico, con todo en su lugar.",
+              "personality_tags": ["cappuccino"]
+            },
+            { "id": "c", "text": "De trato suave y acogedor.", "personality_tags": ["latte"] },
+            {
+              "id": "d",
+              "text": "Despreocupado y poco convencional.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Elige cómo atacar un proyecto grande:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un sprint concentrado, sin distracciones.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Sesiones diarias constantes, todo medido.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Jornadas largas y cómodas, con algo para picar.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Preparación lenta y luego dejas que el resultado crezca.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "En una cafetería, normalmente tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pides en la barra y en tres minutos estás fuera.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Te sientas con tu taza de verdad, sin tapas de papel.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Buscas el sillón cómodo y te quedas un rato.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Pruebas lo que emociona al barista.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu relación con las rutinas:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La eficiencia es un lenguaje de cariño.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Los rituales hacen que todo se sienta bien.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Primero la comodidad; la estructura después.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Las reglas son más bien sugerencias.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo es tu primera hora del día?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rápida: alarma, de pie, en movimiento.",
+              "personality_tags": ["espresso"]
+            },
+            {
+              "id": "b",
+              "text": "Deliberada: la misma secuencia ya practicada.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Suave: despertar lento, bebida caliente, arranque tranquilo.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Lo que salga: cada día es su propia mezcla.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Cuando un plan se desarma, tú:",
+          "options": [
+            { "id": "a", "text": "Vas directo a la solución.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Reacomodas las piezas y reinicias la secuencia.",
+              "personality_tags": ["cappuccino"]
+            },
+            {
+              "id": "c",
+              "text": "Respiras y lo resuelves con calma.",
+              "personality_tags": ["latte"]
+            },
+            {
+              "id": "d",
+              "text": "Encoges los hombros: el plan B ya estaba en marcha.",
+              "personality_tags": ["coldbrew"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "El cumplido que más te llega:",
+          "options": [
+            { "id": "a", "text": "Vas directo al punto.", "personality_tags": ["espresso"] },
+            {
+              "id": "b",
+              "text": "Haces que todo parezca fácil.",
+              "personality_tags": ["cappuccino"]
+            },
+            { "id": "c", "text": "Hablar contigo es fácil.", "personality_tags": ["latte"] },
+            { "id": "d", "text": "Siempre vas un paso adelante.", "personality_tags": ["coldbrew"] }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    }
+  ]
+}
