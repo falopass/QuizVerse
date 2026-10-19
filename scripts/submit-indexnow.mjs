@@ -1,10 +1,11 @@
-#!/usr/bin/env node
 /**
  * IndexNow submission — pushes every URL in the sitemap to Bing, Yandex,
  * Seznam and Naver within minutes instead of waiting for a recrawl.
  *
  *   node scripts/submit-indexnow.mjs                 # submit all sitemap URLs
  *   node scripts/submit-indexnow.mjs --dry-run       # print what would be sent
+ *   node scripts/submit-indexnow.mjs --changed       # only URLs with lastmod after last run
+ *   node scripts/submit-indexnow.mjs --since 2026-01-01T00:00:00Z
  *   node scripts/submit-indexnow.mjs --urls /en/quiz,/es/quiz
  *   node scripts/submit-indexnow.mjs --site https://quizverse.org
  *
@@ -12,26 +13,54 @@
  * contain exactly that key. This script looks for it in public/ and refuses to
  * run if the file is missing — submitting with an unreachable key file returns
  * 403 and silently teaches the search engines nothing.
+ *
+ * --changed keeps its state in generated/indexnow-state.json (local, gitignored).
  */
 
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = join(ROOT, 'public');
+const STATE_FILE = join(ROOT, 'generated', 'indexnow-state.json');
 const KEY_PATTERN = /^[a-f0-9]{8,128}\.txt$/;
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
+const changed = args.includes('--changed');
 const siteArg = args.indexOf('--site');
 const urlsArg = args.indexOf('--urls');
+const sinceArg = args.indexOf('--since');
 const site = (
   siteArg !== -1 ? args[siteArg + 1] : process.env.NEXT_PUBLIC_SITE_URL || 'https://quizverse.org'
 ).replace(/\/+$/, '');
 
 /** IndexNow endpoints. The shared one fans out to every participating engine. */
 const ENDPOINT = 'https://api.indexnow.org/indexnow';
+
+/** Parse a sitemap XML into { url, lastmod? } entries. */
+export function parseSitemapEntries(xml) {
+  const entries = [];
+  for (const match of xml.matchAll(/<url>([\s\S]*?)<\/url>/g)) {
+    const block = match[1];
+    const loc = block.match(/<loc>([^<]+)<\/loc>/);
+    if (!loc) continue;
+    const lastmod = block.match(/<lastmod>([^<]+)<\/lastmod>/);
+    entries.push({ url: loc[1].trim(), lastmod: lastmod ? lastmod[1].trim() : undefined });
+  }
+  return entries;
+}
+
+/** Entries whose lastmod is a valid date strictly after `sinceIso`. */
+export function changedSince(entries, sinceIso) {
+  const since = Date.parse(sinceIso);
+  if (Number.isNaN(since)) throw new Error(`Invalid --since date: "${sinceIso}"`);
+  return entries.filter(
+    (entry) =>
+      entry.lastmod && !Number.isNaN(Date.parse(entry.lastmod)) && Date.parse(entry.lastmod) > since
+  );
+}
 
 async function findKey() {
   const files = await readdir(PUBLIC);
@@ -53,7 +82,7 @@ async function findKey() {
   return { key, keyLocation: `${site}/${file}` };
 }
 
-async function sitemapUrls() {
+async function sitemapEntries() {
   const response = await fetch(`${site}/sitemap.xml`, {
     headers: { accept: 'application/xml' },
     signal: AbortSignal.timeout(30_000),
@@ -62,9 +91,9 @@ async function sitemapUrls() {
     throw new Error(`Could not fetch ${site}/sitemap.xml (HTTP ${response.status})`);
   }
   const xml = await response.text();
-  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim());
-  if (urls.length === 0) throw new Error('Sitemap returned no <loc> entries');
-  return urls;
+  const entries = parseSitemapEntries(xml);
+  if (entries.length === 0) throw new Error('Sitemap returned no <loc> entries');
+  return entries;
 }
 
 async function submit(urls, key, keyLocation) {
@@ -89,35 +118,77 @@ async function submit(urls, key, keyLocation) {
 }
 
 async function main() {
+  if (urlsArg !== -1 && (changed || sinceArg !== -1)) {
+    throw new Error('--urls cannot be combined with --changed or --since');
+  }
+
   const { key, keyLocation } = await findKey();
   console.log(`IndexNow key file: ${keyLocation}`);
 
-  const urls =
-    urlsArg !== -1
-      ? args[urlsArg + 1]
-          .split(',')
-          .map((path) => (path.startsWith('http') ? path : `${site}${path}`))
-      : await sitemapUrls();
+  let urls;
+  let since;
+  let entries;
+  if (urlsArg !== -1) {
+    urls = args[urlsArg + 1]
+      .split(',')
+      .map((path) => (path.startsWith('http') ? path : `${site}${path}`));
+  } else {
+    entries = await sitemapEntries();
+    if (sinceArg !== -1) {
+      since = args[sinceArg + 1];
+    } else if (changed) {
+      const state = JSON.parse(await readFile(STATE_FILE, 'utf8').catch(() => '{}'));
+      since = state.lastRun;
+      if (!since) {
+        console.log('No previous run recorded; submitting the full sitemap.');
+      }
+    }
+    urls = since
+      ? changedSince(entries, since).map((entry) => entry.url)
+      : entries.map((e) => e.url);
+  }
 
-  console.log(`Submitting ${urls.length} URLs to IndexNow (${dryRun ? 'dry run' : 'live'})`);
-
-  if (dryRun) {
-    for (const url of urls.slice(0, 10)) console.log(`  ${url}`);
-    if (urls.length > 10) console.log(`  … and ${urls.length - 10} more`);
+  if (urls.length === 0) {
+    console.log(`RESULTADO: 0 urls enviadas (sin cambios desde ${since})`);
     return;
   }
 
-  // IndexNow accepts up to 10.000 URLs per request; batch to keep payloads sane.
-  const BATCH = 500;
-  for (let index = 0; index < urls.length; index += BATCH) {
-    const batch = urls.slice(index, index + BATCH);
-    const result = await submit(batch, key, keyLocation);
-    console.log(`  batch ${index / BATCH + 1}: HTTP ${result.status} (${batch.length} URLs)`);
+  console.log(
+    `Submitting ${urls.length} URLs to IndexNow (${dryRun ? 'dry run' : 'live'}${since ? `, changed since ${since}` : ''})`
+  );
+  if (dryRun) {
+    for (const url of urls.slice(0, 10)) console.log(`  ${url}`);
+    if (urls.length > 10) console.log(`  … and ${urls.length - 10} more`);
+  } else {
+    // IndexNow accepts up to 10.000 URLs per request; batch to keep payloads sane.
+    const BATCH = 500;
+    for (let index = 0; index < urls.length; index += BATCH) {
+      const batch = urls.slice(index, index + BATCH);
+      const result = await submit(batch, key, keyLocation);
+      console.log(`  batch ${index / BATCH + 1}: HTTP ${result.status} (${batch.length} URLs)`);
+    }
+    if (changed) {
+      // Checkpoint = newest lastmod observed in the fetched sitemap, never the
+      // wall clock: a stale snapshot must not advance lastRun past changes it
+      // did not show. shortcut: a stale sitemap can still omit a URL whose
+      // lastmod predates the observed maximum; upgrade by serving a verified
+      // fresh snapshot or keeping a per-URL submission record.
+      const lastmods = entries
+        .map((entry) => Date.parse(entry.lastmod))
+        .filter((ms) => !Number.isNaN(ms));
+      const lastRun = new Date(Math.max(...lastmods)).toISOString();
+      await writeFile(
+        STATE_FILE,
+        `${JSON.stringify({ lastRun, lastUrls: urls.length }, null, 2)}\n`
+      );
+    }
   }
-  console.log('Done.');
+  console.log(`RESULTADO: ${urls.length} urls enviadas`);
 }
 
-main().catch((error) => {
-  console.error(`IndexNow failed: ${error.message}`);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(`IndexNow failed: ${error.message}`);
+    process.exit(1);
+  });
+}
