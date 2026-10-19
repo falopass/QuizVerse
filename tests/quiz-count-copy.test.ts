@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { categoryDescription, countLabel, visibleGamesLabel } from '@/lib/i18n/counts';
+import {
+  categoryDescription,
+  countLabel,
+  quizCountLabel,
+  visibleGamesLabel,
+} from '@/lib/i18n/counts';
+import { generateCategoryMetadata } from '@/lib/seo/metadata';
 
 describe('countLabel', () => {
   it.each([
@@ -75,5 +81,39 @@ describe('categoryDescription', () => {
     ).toBe(
       'Sharp rounds. 12 free History quizzes on QuizVerse, with instant results and no signup.'
     );
+  });
+});
+
+describe('quizCountLabel', () => {
+  it.each([
+    [0, '0 quizzes'],
+    [1, '1 quiz'],
+    [2, '2 quizzes'],
+    [99, '99 quizzes'],
+  ] as const)('%i → %s', (count, expected) => {
+    expect(quizCountLabel(count)).toBe(expected);
+  });
+});
+
+describe('generateCategoryMetadata title', () => {
+  it('usa el singular con 1 quiz en ambos idiomas', () => {
+    expect(
+      generateCategoryMetadata({ name: 'Historia', slug: 'history', locale: 'es', quizCount: 1 })
+        .title
+    ).toBe('Historia: 1 quiz online');
+    expect(
+      generateCategoryMetadata({ name: 'History', slug: 'history', locale: 'en', quizCount: 1 })
+        .title
+    ).toBe('History: 1 quiz to play');
+  });
+
+  it('mantiene el plural con 12 quizzes', () => {
+    expect(
+      generateCategoryMetadata({ name: 'Cine', slug: 'movies', locale: 'es', quizCount: 12 }).title
+    ).toBe('Cine: 12 quizzes online');
+    expect(
+      generateCategoryMetadata({ name: 'Movies', slug: 'movies', locale: 'en', quizCount: 12 })
+        .title
+    ).toBe('Movies: 12 quizzes to play');
   });
 });

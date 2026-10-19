@@ -28,3 +28,7 @@ export function categoryDescription(input: {
     ? `${lead}${input.count} ${word} de ${input.name} gratis en QuizVerse, con resultado al instante y sin registro.`
     : `${lead}${input.count} free ${input.name} ${word} on QuizVerse, with instant results and no signup.`;
 }
+
+export function quizCountLabel(count: number): string {
+  return `${count} ${count === 1 ? 'quiz' : 'quizzes'}`;
+}
