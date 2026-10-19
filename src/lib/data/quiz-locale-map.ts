@@ -391,6 +391,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-f1-teams-trivia': 'es-trivia-escuderias-de-f1',
   'en-f1-2026-rules-trivia': 'es-trivia-reglamento-f1-2026',
   'en-f1-legends-trivia': 'es-trivia-leyendas-de-la-f1',
+  // Pares del lote editorial 2026bo (scripts/seed/editorial-seed-2026bo.json): emojis, memes y jerga de internet.
+  'en-emoji-trivia': 'es-trivia-emojis',
+  'en-emoji-movie-titles-trivia': 'es-trivia-peliculas-en-emojis',
+  'en-emoji-faces-trivia': 'es-trivia-emojis-de-caras',
+  'en-internet-memes-trivia': 'es-trivia-memes-de-internet',
+  'en-internet-slang-trivia': 'es-trivia-jerga-de-internet',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
