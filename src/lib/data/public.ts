@@ -288,11 +288,34 @@ export async function getRelatedQuizzes(
   slug: string,
   categorySlug?: string | null,
   locale?: Locale
-) {
-  const quizzes = await getPublishedQuizzes(24, locale);
-  return quizzes
-    .filter((quiz) => quiz.slug !== slug && quiz.category?.slug === categorySlug)
-    .slice(0, 3);
+): Promise<Quiz[]> {
+  if (!categorySlug) return [];
+  try {
+    const [supabase, categories] = await Promise.all([createClient(), getPublicCategories()]);
+    const category = categories.find((item) => item.slug === categorySlug);
+    if (!category) throw new Error(`Unknown category: ${categorySlug}`);
+
+    let query = supabase
+      .from('quizzes')
+      .select('*')
+      .eq('status', 'published')
+      .eq('category_id', category.id)
+      .neq('slug', slug);
+    if (locale) query = query.eq('language', locale);
+
+    const { data, error } = await query.order('plays_count', { ascending: false }).limit(3);
+    if (error || !data) throw error ?? new Error('Could not fetch related quizzes');
+
+    const categoryMap = new Map([[category.id, category]]);
+    return (data as QuizRow[]).map((row) => normalizeQuiz(row, categoryMap));
+  } catch {
+    return LAUNCH_QUIZZES.filter(
+      (quiz) =>
+        quiz.slug !== slug &&
+        quiz.category?.slug === categorySlug &&
+        (!locale || quiz.language === locale)
+    ).slice(0, 3);
+  }
 }
 
 export const getQuizSessionByShareToken = cache(
