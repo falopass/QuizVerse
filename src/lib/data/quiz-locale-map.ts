@@ -330,6 +330,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-martial-arts-trivia': 'es-trivia-artes-marciales',
   'en-mma-ufc-trivia': 'es-trivia-mma-ufc',
   'en-track-and-field-trivia': 'es-trivia-atletismo',
+  // Lote editorial 2026z (scripts/seed/editorial-seed-2026z.json): arte y pintura.
+  'en-van-gogh-trivia': 'es-trivia-van-gogh',
+  'en-leonardo-da-vinci-trivia': 'es-trivia-leonardo-da-vinci',
+  'en-picasso-trivia': 'es-trivia-picasso',
+  'en-salvador-dali-trivia': 'es-trivia-salvador-dali',
+  'en-famous-paintings-museums-trivia': 'es-trivia-grandes-obras-museos',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
