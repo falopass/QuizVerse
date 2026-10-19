@@ -4,7 +4,7 @@
     {
       "slug": "en-el-chavo-del-8-trivia",
       "title": "El Chavo del 8 Trivia: Vecindad, Characters and Quotes",
-      "description": "The boy in the barrel, the neighbor who owes fourteen months of rent and a courtyard every Latin American home knows: El Chavo del 8, Chespirito's beloved Mexican sitcom. How many characters and quotes do you remember?",
+      "description": "The boy in the barrel, Don Ramón's unpaid rent and a courtyard all of Latin America knows: El Chavo del 8, Chespirito's classic Mexican sitcom.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "en",
@@ -25,14 +25,14 @@
         },
         {
           "id": "q2",
-          "question": "Inside the vecindad, where does the Chavo live?",
+          "question": "Inside the vecindad, where does the Chavo hide — and often sleep?",
           "options": [
             { "id": "a", "text": "In a barrel", "is_correct": true },
             { "id": "b", "text": "In the building's laundry room", "is_correct": false },
             { "id": "c", "text": "Under the courtyard staircase", "is_correct": false },
             { "id": "d", "text": "In a treehouse", "is_correct": false }
           ],
-          "explanation": "The barrel in the middle of the courtyard is his home — and the show's most famous prop."
+          "explanation": "The barrel in the courtyard is where he hides and sleeps; the famous apartment 8 is never shown on screen."
         },
         {
           "id": "q3",
@@ -104,8 +104,8 @@
     },
     {
       "slug": "es-trivia-el-chavo-del-8",
-      "title": "Trivia de El Chavo del 8: la vecindad, personajes y frases",
-      "description": "El niño del barril, Don Ramón y la vecindad que toda Latinoamérica conoce: la comedia de Chespirito que crió a generaciones. ¿Cuántos personajes y frases recuerdas?",
+      "title": "El Chavo del 8 Trivia: vecindad, personajes y frases",
+      "description": "El niño del barril, Don Ramón y su renta sin pagar: El Chavo del 8, la comedia de Chespirito que marcó a generaciones.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "es",
@@ -126,14 +126,14 @@
         },
         {
           "id": "q2",
-          "question": "¿Dónde vive el Chavo dentro de la vecindad?",
+          "question": "¿Dónde se esconde —y muchas veces duerme— el Chavo en la vecindad?",
           "options": [
             { "id": "a", "text": "En un barril", "is_correct": true },
             { "id": "b", "text": "En la lavandería", "is_correct": false },
             { "id": "c", "text": "Debajo de la escalera del patio", "is_correct": false },
             { "id": "d", "text": "En la azotea", "is_correct": false }
           ],
-          "explanation": "El barril en medio del patio es su casa y el símbolo más famoso de la serie."
+          "explanation": "El barril del patio es donde se esconde y duerme; el famoso departamento 8 nunca aparece en pantalla."
         },
         {
           "id": "q3",
@@ -206,7 +206,7 @@
     {
       "slug": "en-el-chapulin-colorado-trivia",
       "title": "El Chapulín Colorado Trivia: Heroes and Catchphrases",
-      "description": "More agile than a turtle, stronger than a mouse, nobler than lettuce: El Chapulín Colorado, Chespirito's clumsy red-and-yellow superhero. Test your memory of his gadgets and catchphrases.",
+      "description": "Nobler than lettuce and clumsier than any hero: El Chapulín Colorado, Chespirito's legendary parody superhero. Test his gadgets and quotes.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "en",
@@ -310,8 +310,8 @@
     },
     {
       "slug": "es-trivia-el-chapulin-colorado",
-      "title": "Trivia de El Chapulín Colorado: héroes y frases",
-      "description": "Más ágil que una tortuga, más fuerte que un ratón, más noble que una lechuga: El Chapulín Colorado, el superhéroe torpe de Chespirito. ¿Cuánto recuerdas de sus artilugios y frases?",
+      "title": "El Chapulín Colorado Trivia: héroes y frases",
+      "description": "Más ágil que una tortuga y más noble que una lechuga: El Chapulín Colorado, el superhéroe torpe de Chespirito.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "es",
@@ -412,7 +412,7 @@
     {
       "slug": "en-classic-telenovelas-trivia",
       "title": "Classic Telenovelas Trivia: Plots and Stars",
-      "description": "Evil twins, unforgettable villains and weddings that never go as planned: the classic Latin American telenovelas everyone watched with their family. How much do you remember?",
+      "description": "Evil twins, unforgettable villains and weddings gone wrong: the classic Latin American telenovelas everyone watched with family.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "en",
@@ -496,12 +496,23 @@
             { "id": "d", "text": "She is deaf", "is_correct": false }
           ],
           "explanation": "Esmeralda, played by Leticia Calderón, is a blind young woman; the telenovela remade an earlier Venezuelan classic."
+        },
+        {
+          "id": "q8",
+          "question": "In Rubí (2004), who plays the ambitious protagonist?",
+          "options": [
+            { "id": "a", "text": "Bárbara Mori", "is_correct": true },
+            { "id": "b", "text": "Jacqueline Bracamontes", "is_correct": false },
+            { "id": "c", "text": "Michelle Vieth", "is_correct": false },
+            { "id": "d", "text": "Anahí", "is_correct": false }
+          ],
+          "explanation": "Bárbara Mori is Rubí; Jacqueline Bracamontes plays her friend Maribel in the same telenovela."
         }
       ]
     },
     {
       "slug": "es-trivia-telenovelas-clasicas",
-      "title": "Trivia de telenovelas clásicas: tramas y estrellas",
+      "title": "Telenovelas clásicas Trivia: tramas y estrellas",
       "description": "Gemelas malvadas, villanas inolvidables y bodas que nunca salen como se planea: las telenovelas clásicas que todo el mundo vio en familia. ¿Cuánto recuerdas?",
       "quiz_type": "trivia",
       "difficulty": "medium",
@@ -586,6 +597,17 @@
             { "id": "d", "text": "Carrusel de las Américas", "is_correct": false }
           ],
           "explanation": "Carrusel (1989) tiene a Gabriela Rivero como la maestra Ximena; Vivan los niños es su remake de 2002."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué telenovela de 1997 sigue a una joven ciega interpretada por Leticia Calderón?",
+          "options": [
+            { "id": "a", "text": "Rosalinda", "is_correct": false },
+            { "id": "b", "text": "Esmeralda", "is_correct": true },
+            { "id": "c", "text": "María la del Barrio", "is_correct": false },
+            { "id": "d", "text": "La Usurpadora", "is_correct": false }
+          ],
+          "explanation": "Esmeralda (1997), con Leticia Calderón, es un remake de una telenovela venezolana anterior."
         }
       ]
     },
@@ -676,12 +698,23 @@
             { "id": "d", "text": "Siempre en Domingo", "is_correct": true }
           ],
           "explanation": "Raúl Velasco's Siempre en Domingo was a Sunday fixture for Mexican families; Chabelo had his own Sunday show, En familia con Chabelo."
+        },
+        {
+          "id": "q8",
+          "question": "Xavier López 'Chabelo' hosted which long-running Sunday family show on Televisa?",
+          "options": [
+            { "id": "a", "text": "En familia con Chabelo", "is_correct": true },
+            { "id": "b", "text": "Siempre en Domingo", "is_correct": false },
+            { "id": "c", "text": "Sábado Gigante", "is_correct": false },
+            { "id": "d", "text": "Otro Rollo", "is_correct": false }
+          ],
+          "explanation": "En familia con Chabelo accompanied Sunday mornings on Televisa for decades; Siempre en Domingo was Raúl Velasco's show."
         }
       ]
     },
     {
       "slug": "es-trivia-programas-tv-latinos-90",
-      "title": "Trivia de programas de TV latinos de los 90",
+      "title": "TV latina de los 90 Trivia: programas y cortinas",
       "description": "Gigantes de los sábados, orfanatos musicales y humor de medianoche: la televisión latinoamericana que definió los años 90. ¿Cuántos programas recuerdas?",
       "quiz_type": "trivia",
       "difficulty": "medium",
@@ -766,13 +799,24 @@
             { "id": "d", "text": "En familia con Chabelo", "is_correct": true }
           ],
           "explanation": "En familia con Chabelo acompañó los domingos de Televisa durante décadas; Siempre en Domingo era el programa de Raúl Velasco."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué programa infantil peruano de los 90 hizo famosas a sus 'dalinas'?",
+          "options": [
+            { "id": "a", "text": "Cachureos", "is_correct": false },
+            { "id": "b", "text": "Nubeluz", "is_correct": true },
+            { "id": "c", "text": "Jugate Conmigo", "is_correct": false },
+            { "id": "d", "text": "Chiquititas", "is_correct": false }
+          ],
+          "explanation": "Nubeluz se emitió en Perú entre 1990 y 1996 y fue un fenómeno en toda Latinoamérica."
         }
       ]
     },
     {
       "slug": "en-latin-dubbing-voices-trivia",
       "title": "Latin Dubbing Trivia: The Voices Behind the Icons",
-      "description": "Goku, Homer Simpson and Sailor Moon all speak with famous Mexican voices: the Latin American dubbing actors behind the icons. Can you match each voice to its character?",
+      "description": "Goku, Homer Simpson and Sailor Moon speak with famous Mexican voices: the Latin dubbing actors behind the icons.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "en",
@@ -856,13 +900,24 @@
             { "id": "d", "text": "Gabriel Ramos", "is_correct": false }
           ],
           "explanation": "Jesús Barrero voiced Seiya and Luke Skywalker — two of the most beloved heroes of a generation."
+        },
+        {
+          "id": "q8",
+          "question": "Who is Disney's official Latin American Spanish voice of Mickey Mouse?",
+          "options": [
+            { "id": "a", "text": "Carlos Segundo", "is_correct": false },
+            { "id": "b", "text": "Humberto Vélez", "is_correct": false },
+            { "id": "c", "text": "Mario Filio", "is_correct": true },
+            { "id": "d", "text": "Gabriel Ramos", "is_correct": false }
+          ],
+          "explanation": "Mario Filio has been Mickey's Latin Spanish voice for Disney since 2004."
         }
       ]
     },
     {
       "slug": "es-trivia-doblaje-latino",
-      "title": "Trivia del doblaje latino: las voces detrás de los personajes",
-      "description": "Goku, Homero Simpson y Sailor Moon hablan con voces mexicanas inolvidables: los actores del doblaje latino detrás de los íconos. ¿Puedes unir cada voz con su personaje?",
+      "title": "Doblaje latino Trivia: las voces detrás de los íconos",
+      "description": "Goku, Homero Simpson y Sailor Moon hablan con voces mexicanas: los actores del doblaje latino tras los íconos.",
       "quiz_type": "trivia",
       "difficulty": "medium",
       "language": "es",
@@ -946,6 +1001,17 @@
             { "id": "d", "text": "Gabriel Ramos", "is_correct": false }
           ],
           "explanation": "Jesús Barrero dio voz a dos de los héroes más queridos de una generación."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué actriz dobló a Misty en las primeras temporadas de Pokémon?",
+          "options": [
+            { "id": "a", "text": "Patricia Acevedo", "is_correct": false },
+            { "id": "b", "text": "Xóchitl Ugarte", "is_correct": true },
+            { "id": "c", "text": "Cristina Hernández", "is_correct": false },
+            { "id": "d", "text": "Isabel Martiñón", "is_correct": false }
+          ],
+          "explanation": "Xóchitl Ugarte era Misty junto al Ash de Gabriel Ramos; Isabel Martiñón dobló a Naruto."
         }
       ]
     }

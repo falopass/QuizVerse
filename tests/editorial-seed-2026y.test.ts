@@ -87,11 +87,19 @@ describe('editorial-seed-2026y', () => {
     }
   });
 
-  it('cada quiz es trivia de 6-8 preguntas, 4 opciones y una sola correcta', () => {
+  it('respeta los rangos editoriales de título y descripción', () => {
+    for (const quiz of quizzes) {
+      expect(quiz.title.length, quiz.slug).toBeGreaterThanOrEqual(30);
+      expect(quiz.title.length, quiz.slug).toBeLessThanOrEqual(65);
+      expect(quiz.description.length, quiz.slug).toBeGreaterThanOrEqual(80);
+      expect(quiz.description.length, quiz.slug).toBeLessThanOrEqual(158);
+    }
+  });
+
+  it('cada quiz es trivia de 8 preguntas, 4 opciones y una sola correcta', () => {
     for (const quiz of quizzes) {
       expect(quiz.quiz_type, quiz.slug).toBe('trivia');
-      expect(quiz.questions.length, quiz.slug).toBeGreaterThanOrEqual(6);
-      expect(quiz.questions.length, quiz.slug).toBeLessThanOrEqual(8);
+      expect(quiz.questions, quiz.slug).toHaveLength(8);
       for (const question of quiz.questions) {
         const where = `${quiz.slug} ${question.id}`;
         expect(question.options, where).toHaveLength(4);
