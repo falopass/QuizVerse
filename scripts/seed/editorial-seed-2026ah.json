@@ -58,14 +58,14 @@
         },
         {
           "id": "q5",
-          "question": "Which legendary Mexican composer produced 'Romance' and wrote most of its songs?",
+          "question": "Which legendary Mexican bolero composer co-produced 'Romance'?",
           "options": [
             { "id": "a", "text": "Emilio Estefan", "is_correct": false },
             { "id": "b", "text": "Armando Manzanero", "is_correct": true },
             { "id": "c", "text": "Juan Luis Guerra", "is_correct": false },
             { "id": "d", "text": "Rudy Pérez", "is_correct": false }
           ],
-          "explanation": "Armando Manzanero, the great Yucatán bolero composer, co-produced the album and wrote its core repertoire."
+          "explanation": "Armando Manzanero co-produced the album and wrote some of its tracks; most of the repertoire consists of earlier boleros by several composers."
         },
         {
           "id": "q6",
@@ -155,7 +155,7 @@
             { "id": "c", "text": "Romance", "is_correct": true },
             { "id": "d", "text": "20 Años", "is_correct": false }
           ],
-          "explanation": "Romance (1991), producido por Armando Manzanero, devolvió el bolero al gran público."
+          "explanation": "Romance (1991), coproducido por Armando Manzanero, devolvió el bolero al gran público."
         },
         {
           "id": "q5",
