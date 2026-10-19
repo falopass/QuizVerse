@@ -75,6 +75,21 @@ describe('UserMenu', () => {
     expect(screen.getByRole('menuitem', { name: 'Cerrar sesión' })).toBeInTheDocument();
   });
 
+  it('con name en blanco cae a display_name antes que al email', () => {
+    mocks.useSupabase.mockReturnValue({
+      user: {
+        email: 'ada@example.com',
+        user_metadata: { name: '   ', display_name: 'Ada Lovelace' },
+      },
+      loading: false,
+      signOut: mocks.signOut,
+    });
+
+    render(<UserMenu locale="es" />);
+
+    expect(screen.getByRole('button', { name: /ada lovelace/i })).toBeInTheDocument();
+  });
+
   it('sin nombre en metadata usa la parte local del email, nunca el email completo', () => {
     mocks.useSupabase.mockReturnValue({
       user: { email: 'ada@example.com', user_metadata: {} },

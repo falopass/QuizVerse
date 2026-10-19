@@ -11,8 +11,9 @@ import type { Locale } from '@/lib/i18n/dictionaries';
 
 function displayName(user: User): string {
   const metadata = user.user_metadata as { name?: unknown; display_name?: unknown };
-  const name = metadata.name ?? metadata.display_name;
-  if (typeof name === 'string' && name.trim()) return name.trim();
+  for (const name of [metadata.name, metadata.display_name]) {
+    if (typeof name === 'string' && name.trim()) return name.trim();
+  }
   return user.email?.split('@')[0] ?? '';
 }
 
