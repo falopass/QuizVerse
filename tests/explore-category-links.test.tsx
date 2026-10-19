@@ -64,9 +64,7 @@ const CATEGORIES: Category[] = CATEGORY_FIXTURES.map((fixture, index) => ({
   sort_order: index + 1,
 }));
 
-const QUIZZES = [
-  makeQuiz({ id: 'q1', slug: 'quiz-1', title: 'Quiz 1', plays_count: 100 }),
-];
+const QUIZZES = [makeQuiz({ id: 'q1', slug: 'quiz-1', title: 'Quiz 1', plays_count: 100 })];
 
 const COPY = {
   title: 'Explora',
@@ -79,12 +77,7 @@ const COPY = {
 
 function renderPage(locale: 'es' | 'en') {
   return render(
-    <ExploreEditorialPage
-      locale={locale}
-      quizzes={QUIZZES}
-      categories={CATEGORIES}
-      copy={COPY}
-    />
+    <ExploreEditorialPage locale={locale} quizzes={QUIZZES} categories={CATEGORIES} copy={COPY} />
   );
 }
 
@@ -92,9 +85,7 @@ describe('Enlaces del explorador a los hubs de categoría', () => {
   it('enlaza las 16 categorías pobladas en /es', () => {
     const { container } = renderPage('es');
 
-    const links = [
-      ...container.querySelectorAll<HTMLAnchorElement>('a[href^="/es/category/"]'),
-    ];
+    const links = [...container.querySelectorAll<HTMLAnchorElement>('a[href^="/es/category/"]')];
     const hrefs = links.map((link) => link.getAttribute('href'));
 
     expect(links).toHaveLength(16);
@@ -106,9 +97,7 @@ describe('Enlaces del explorador a los hubs de categoría', () => {
   it('enlaza las 16 categorías pobladas en /en', () => {
     const { container } = renderPage('en');
 
-    const links = [
-      ...container.querySelectorAll<HTMLAnchorElement>('a[href^="/en/category/"]'),
-    ];
+    const links = [...container.querySelectorAll<HTMLAnchorElement>('a[href^="/en/category/"]')];
     const hrefs = links.map((link) => link.getAttribute('href'));
 
     expect(links).toHaveLength(16);
