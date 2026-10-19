@@ -11,7 +11,9 @@ export function AppTelemetry() {
   const sendPageView = React.useCallback(() => {
     if (!pathname) return;
 
-    const locale = pathname.split('/')[1];
+    // En /embed/{locale}/... el idioma es el segundo segmento, no el primero.
+    const segments = pathname.split('/');
+    const locale = segments[1] === 'embed' ? segments[2] : segments[1];
     void trackEvent({
       name: 'page_view',
       path: pathname,

@@ -81,8 +81,15 @@ export function CookieConsentBanner() {
     setVisible(false);
   }, []);
 
-  // Los embeds viven dentro de iframes ajenos: el banner taparía el quiz.
-  if (pathname?.startsWith('/embed')) return null;
+  // Dentro de un iframe ajeno el banner taparía el quiz; una visita directa a
+  // /embed sí conserva el flujo normal de consentimiento.
+  if (
+    pathname?.startsWith('/embed') &&
+    typeof window !== 'undefined' &&
+    window.self !== window.top
+  ) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
