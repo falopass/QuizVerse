@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getQuizBySlug } from '@/lib/data/public';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
@@ -33,7 +34,7 @@ export default async function QuizOpenGraphImage({
       >
         QUIZVERSE
       </div>,
-      await arcadeOgOptions()
+      { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
     );
   }
   const cover = `data:image/svg+xml;base64,${Buffer.from(buildQuizCoverSvg(quiz)).toString('base64')}`;
@@ -133,6 +134,6 @@ export default async function QuizOpenGraphImage({
         />
       </div>
     </div>,
-    await arcadeOgOptions()
+    { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
   );
 }
