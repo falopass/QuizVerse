@@ -18,10 +18,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Submit recently changed sitemap URLs to IndexNow
+      - name: Submit sitemap URLs to IndexNow
         env:
-          WINDOW_HOURS: ${{ github.event_name == 'schedule' && '25' || '2' }}
+          # Push/manual: recent lastmod only. Daily: full sitemap, so URLs
+          # missed by a stale sitemap snapshot or lacking lastmod still reach
+          # IndexNow within a day.
+          WINDOW_HOURS: ${{ github.event_name == 'schedule' && '' || '2' }}
         run: |
-          since="$(date -u -d "${WINDOW_HOURS} hours ago" +%Y-%m-%dT%H:%M:%SZ)"
-          echo "Submitting URLs with lastmod after ${since}"
-          node scripts/submit-indexnow.mjs --since "${since}"
+          if [ -n "${WINDOW_HOURS}" ]; then
+            since="$(date -u -d "${WINDOW_HOURS} hours ago" +%Y-%m-%dT%H:%M:%SZ)"
+            echo "Submitting URLs with lastmod after ${since}"
+            node scripts/submit-indexnow.mjs --since "${since}"
+          else
+            echo "Daily run: submitting the full sitemap"
+            node scripts/submit-indexnow.mjs
+          fi
