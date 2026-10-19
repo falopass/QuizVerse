@@ -1,10 +1,64 @@
 import React from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
+const dbMocks = vi.hoisted(() => ({
+  filters: [] as string[],
+  limit: 0,
+  createClientCalls: 0,
+  quizzes: [] as Array<{ id: string; slug: string; category_id: string }>,
+}));
+
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: async () => {
+    dbMocks.createClientCalls += 1;
+    return {
+      from: (table: string) =>
+        table === 'categories'
+          ? {
+              select: () => ({
+                order: async () => ({
+                  data: [{ id: 'cat-science', slug: 'science', name: 'Science' }],
+                  error: null,
+                }),
+              }),
+            }
+          : {
+              select: () => {
+                const query = {
+                  eq: (column: string, value: string) => {
+                    dbMocks.filters.push(`eq:${column}=${value}`);
+                    return query;
+                  },
+                  neq: (column: string, value: string) => {
+                    dbMocks.filters.push(`neq:${column}=${value}`);
+                    return query;
+                  },
+                  order: () => query,
+                  limit: async (n: number) => {
+                    dbMocks.limit = n;
+                    return { data: dbMocks.quizzes, error: null };
+                  },
+                };
+                return query;
+              },
+            },
+    };
+  },
+}));
+
+vi.mock('@/lib/data/normalizers', () => ({
+  normalizeCategory: (row: unknown) => row,
+  normalizeQuiz: (row: Record<string, unknown>, categories: Map<string, unknown>) => ({
+    ...row,
+    category: categories.get(row.category_id as string) ?? null,
+  }),
+}));
+
 import { ResultScreen } from '@/components/quiz/result-screen';
+import { getRelatedQuizzes } from '@/lib/data/public';
 import type { Quiz } from '@/types/quiz';
 
 function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
@@ -106,5 +160,41 @@ describe('ResultScreen · quizzes relacionados', () => {
 
     renderResult({ related: [] });
     expect(screen.queryByRole('region', { name: 'Sigue jugando' })).not.toBeInTheDocument();
+  });
+});
+
+describe('getRelatedQuizzes', () => {
+  beforeEach(() => {
+    dbMocks.filters = [];
+    dbMocks.limit = 0;
+    dbMocks.createClientCalls = 0;
+    dbMocks.quizzes = [
+      { id: 'q2', slug: 'science-quiz-2', category_id: 'cat-science' },
+      { id: 'q3', slug: 'science-quiz-3', category_id: 'cat-science' },
+    ];
+  });
+
+  it('filtra por categoría en la query antes del límite', async () => {
+    const related = await getRelatedQuizzes('science-quiz-1', 'science', 'en');
+
+    expect(related).toHaveLength(2);
+    expect(related[0].category?.slug).toBe('science');
+    // La categoría se aplica en la base, no sobre un top global por plays.
+    expect(dbMocks.filters).toContain('eq:category_id=cat-science');
+    expect(dbMocks.filters).toContain('eq:language=en');
+    expect(dbMocks.filters).toContain('neq:slug=science-quiz-1');
+    expect(dbMocks.limit).toBe(3);
+  });
+
+  it('devuelve [] sin tocar la base cuando el quiz no tiene categoría', async () => {
+    expect(await getRelatedQuizzes('science-quiz-1', null, 'en')).toEqual([]);
+    expect(dbMocks.createClientCalls).toBe(0);
+  });
+
+  it('cae al catálogo local cuando la categoría no existe', async () => {
+    const related = await getRelatedQuizzes('x', 'categoria-inexistente', 'en');
+
+    expect(Array.isArray(related)).toBe(true);
+    expect(related.every((quiz) => quiz.category?.slug === 'categoria-inexistente')).toBe(true);
   });
 });
