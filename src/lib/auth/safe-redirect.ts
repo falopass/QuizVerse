@@ -4,7 +4,9 @@ import { z } from 'zod';
 const internalPathSchema = z
   .string()
   .startsWith('/')
-  .refine((path) => !path.startsWith('//') && !path.startsWith('/\\') && !/[\x00-\x1f\x7f]/.test(path));
+  .refine(
+    (path) => !path.startsWith('//') && !path.startsWith('/\\') && !/[\x00-\x1f\x7f]/.test(path)
+  );
 
 export function safeRedirectPath(value: string | null | undefined, fallback: string): string {
   const parsed = internalPathSchema.safeParse(value);
