@@ -2,11 +2,13 @@
 /**
  * Emits the editorial seed (scripts/seed/editorial-seed.json) as idempotent SQL.
  *
- * The seed fills the categories the imported catalogue left empty — history,
- * geography and sports — with quizzes whose answers are stable, checkable facts.
+ * The seed fills the categories the imported catalogue left thin — history,
+ * geography, sports, science and animals — with quizzes whose answers are
+ * stable, checkable facts.
  *
  *   node scripts/seed/emit-editorial-seed.mjs              # print SQL to stdout
  *   node scripts/seed/emit-editorial-seed.mjs --write       # write the .sql file
+ *   node scripts/seed/emit-editorial-seed.mjs --write --out supabase/seed/editorial-seed.sql
  *
  * The script validates before emitting: unique slugs, exactly one correct option
  * per trivia question, 2–10 options per question, and a category that exists in
@@ -14,13 +16,12 @@
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SEED_PATH = join(ROOT, 'scripts', 'seed', 'editorial-seed.json');
-const OUTPUT_DIR = join(ROOT, 'generated', 'audit');
-const OUTPUT_PATH = join(OUTPUT_DIR, 'editorial-seed.sql');
+const OUTPUT_PATH = join(ROOT, 'generated', 'audit', 'editorial-seed.sql');
 
 const CATEGORIES = new Set([
   'personality',
@@ -140,6 +141,13 @@ function buildSql(quizzes) {
 
 function main() {
   const write = process.argv.includes('--write');
+  const outIndex = process.argv.indexOf('--out');
+  const outArg = outIndex === -1 ? null : process.argv[outIndex + 1];
+  if (outIndex !== -1 && (!outArg || outArg.startsWith('--'))) {
+    console.error('--out needs a path, e.g. --out supabase/seed/editorial-seed.sql');
+    process.exit(1);
+  }
+  const outputPath = outArg ? resolve(ROOT, outArg) : OUTPUT_PATH;
   const seed = JSON.parse(readFileSync(SEED_PATH, 'utf8'));
   const quizzes = seed.quizzes ?? [];
 
@@ -152,9 +160,9 @@ function main() {
 
   const sql = buildSql(quizzes);
   if (write) {
-    mkdirSync(OUTPUT_DIR, { recursive: true });
-    writeFileSync(OUTPUT_PATH, sql, 'utf8');
-    console.log(`Wrote ${OUTPUT_PATH} (${quizzes.length} quizzes)`);
+    mkdirSync(dirname(outputPath), { recursive: true });
+    writeFileSync(outputPath, sql, 'utf8');
+    console.log(`Wrote ${outputPath} (${quizzes.length} quizzes)`);
   } else {
     process.stdout.write(sql);
   }
