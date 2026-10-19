@@ -24,3 +24,17 @@ it('routes the evergreen personality pairs both ways', () => {
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
   }
 });
+
+it('routes the editorial 2026g pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-dinosaurs-trivia', 'es-trivia-dinosaurios'],
+    ['en-pre-columbian-civilizations-trivia', 'es-trivia-civilizaciones-precolombinas'],
+    ['en-norse-mythology-trivia', 'es-trivia-mitologia-nordica'],
+    ['en-great-explorers-trivia', 'es-trivia-grandes-exploradores'],
+    ['en-80s-movies-trivia', 'es-trivia-peliculas-de-los-80'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
