@@ -1,5 +1,6 @@
 'use client';
 
+import type { Ref } from 'react';
 import { cn } from '@/lib/utils/cn';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Question } from '@/types/quiz';
@@ -21,6 +22,17 @@ interface QuestionCardProps {
   disabled?: boolean;
   locale: Locale;
   hiddenOptionIds?: string[];
+  /**
+   * Ref for the question heading: the card remounts on every question change,
+   * so the player uses it to move focus to the new heading.
+   */
+  headingRef?: Ref<HTMLHeadingElement>;
+  /**
+   * Localized verdict text for the answer just given. It comes from the
+   * server's verdict, so it stays truthful even if the visible selection
+   * changed after the answer was sent (or the question has no answer key).
+   */
+  verdictText?: string | null;
 }
 
 export function QuestionCard({
@@ -35,10 +47,20 @@ export function QuestionCard({
   disabled = false,
   locale,
   hiddenOptionIds = [],
+  headingRef,
+  verdictText,
 }: QuestionCardProps) {
   const es = locale === 'es';
+  // The region mounts empty while the answer is being checked so the verdict
+  // updates an existing live region instead of appearing already populated.
+  const verdictPending = disabled && !showFeedback;
   return (
     <article className="arcade-question">
+      {(verdictPending || verdictText) && (
+        <span className="arcade-answer-feedback" role="status" aria-live="polite">
+          {verdictText}
+        </span>
+      )}
       <div className="arcade-question-head">
         <span>
           {es ? 'PREGUNTA' : 'QUESTION'} {String(questionNumber).padStart(2, '0')} /{' '}
@@ -46,7 +68,9 @@ export function QuestionCard({
         </span>
         <span>{es ? 'ELIGE UNA RESPUESTA' : 'CHOOSE AN ANSWER'}</span>
       </div>
-      <h2>{question.question}</h2>
+      <h2 ref={headingRef} tabIndex={-1}>
+        {question.question}
+      </h2>
       {question.image_url && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
