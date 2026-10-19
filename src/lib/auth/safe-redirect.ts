@@ -1,13 +1,12 @@
+import { z } from 'zod';
+
 // Open redirect: una sola regla para ?redirect=/next, reemplaza las copias en login, registro y callback.
+const internalPathSchema = z
+  .string()
+  .startsWith('/')
+  .refine((path) => !path.startsWith('//') && !path.startsWith('/\\') && !/[\x00-\x1f\x7f]/.test(path));
+
 export function safeRedirectPath(value: string | null | undefined, fallback: string): string {
-  if (
-    typeof value !== 'string' ||
-    !value.startsWith('/') ||
-    value.startsWith('//') ||
-    value.startsWith('/\\') ||
-    /[\x00-\x1f\x7f]/.test(value)
-  ) {
-    return fallback;
-  }
-  return value;
+  const parsed = internalPathSchema.safeParse(value);
+  return parsed.success ? parsed.data : fallback;
 }
