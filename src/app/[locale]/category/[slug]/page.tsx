@@ -108,9 +108,7 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
         </span>
         <h1>{category.name}</h1>
         <p>{category.description}</p>
-        <strong>
-          {visibleGamesLabel(quizzes.length, locale)}
-        </strong>
+        <strong>{visibleGamesLabel(quizzes.length, locale)}</strong>
       </section>
       <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
         <Link href={localizeHref(locale, '/quiz')}>{dictionary.arcade.allCategories}</Link>

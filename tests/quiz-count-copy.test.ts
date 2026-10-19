@@ -72,6 +72,8 @@ describe('categoryDescription', () => {
     );
     expect(
       categoryDescription({ count: 12, name: 'History', tagline: 'Sharp rounds.', locale: 'en' })
-    ).toBe('Sharp rounds. 12 free History quizzes on QuizVerse, with instant results and no signup.');
+    ).toBe(
+      'Sharp rounds. 12 free History quizzes on QuizVerse, with instant results and no signup.'
+    );
   });
 });
