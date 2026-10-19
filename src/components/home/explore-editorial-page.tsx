@@ -27,6 +27,12 @@ const MOODS = {
   ],
 } as const;
 
+export const fold = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
 interface ExploreCatalogPageProps {
   locale: Locale;
   quizzes: Quiz[];
@@ -73,12 +79,12 @@ export function ExploreEditorialPage({
   const filteredQuizzes = React.useMemo(() => {
     let next = [...localizedQuizzes];
     if (query.trim()) {
-      const normalizedQuery = query.trim().toLowerCase();
+      const normalizedQuery = fold(query.trim());
       next = next.filter(
         (quiz) =>
-          quiz.title.toLowerCase().includes(normalizedQuery) ||
-          (quiz.description ?? '').toLowerCase().includes(normalizedQuery) ||
-          quiz.tags.some((tag) => tag.toLowerCase().includes(normalizedQuery))
+          fold(quiz.title).includes(normalizedQuery) ||
+          fold(quiz.description ?? '').includes(normalizedQuery) ||
+          quiz.tags.some((tag) => fold(tag).includes(normalizedQuery))
       );
     }
 
