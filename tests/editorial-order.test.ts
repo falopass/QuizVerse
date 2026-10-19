@@ -154,17 +154,34 @@ describe('listas cortas y vacías', () => {
 });
 
 describe('explorerVisibleQuizzes', () => {
-  it('devuelve como mucho 18, con lead y pulse primero y sin repetir ids', () => {
+  it('devuelve como mucho 18, en el orden lead-pulse-lanes-grid y sin repetir ids', () => {
+    // Score crece con plays_count: q24 es el mejor puntuado, q0 el peor.
+    // El destacado (q10) gana el lead; el pulse va al mejor score restante (q24);
+    // lanes y grid siguen el orden de score descendente hasta completar 18.
     const list = Array.from({ length: 25 }, (_, i) =>
       makeQuiz({ id: `q${i}`, plays_count: i, is_featured: i === 10 })
     );
     const visible = explorerVisibleQuizzes(list);
-    const { lead, pulse } = explorerSelection(
-      [...list].sort((a, b) => editorialScore(b) - editorialScore(a))
-    );
-    expect(visible).toHaveLength(18);
-    expect(visible[0].id).toBe(lead?.id);
-    expect(visible[1].id).toBe(pulse?.id);
+    expect(ids(visible)).toEqual([
+      'q10',
+      'q24',
+      'q23',
+      'q22',
+      'q21',
+      'q20',
+      'q19',
+      'q18',
+      'q17',
+      'q16',
+      'q15',
+      'q14',
+      'q13',
+      'q12',
+      'q11',
+      'q9',
+      'q8',
+      'q7',
+    ]);
     expect(new Set(ids(visible)).size).toBe(18);
   });
 
