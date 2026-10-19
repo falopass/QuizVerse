@@ -87,7 +87,7 @@
             { "id": "c", "text": "Zaragoza", "is_correct": false },
             { "id": "d", "text": "Pamplona", "is_correct": true }
           ],
-          "explanation": "Pamplona's encierros run each morning from 6 to 14 July during the San Fermín festival."
+          "explanation": "Pamplona's encierros run each morning from 7 to 14 July; the festival opens on 6 July."
         },
         {
           "id": "q8",
@@ -188,7 +188,7 @@
             { "id": "c", "text": "Zaragoza", "is_correct": false },
             { "id": "d", "text": "Pamplona", "is_correct": true }
           ],
-          "explanation": "Los encierros de Pamplona se corren cada mañana del 6 al 14 de julio, durante las fiestas de San Fermín."
+          "explanation": "Los encierros de Pamplona se corren cada mañana del 7 al 14 de julio; las fiestas abren el 6."
         },
         {
           "id": "q8",
