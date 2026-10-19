@@ -352,7 +352,11 @@
           "id": "q4",
           "question": "¿Qué compañía comercial europea controló gran parte de India antes de la Corona británica?",
           "options": [
-            { "id": "a", "text": "La Compañía Neerlandesa de las Indias Orientales", "is_correct": false },
+            {
+              "id": "a",
+              "text": "La Compañía Neerlandesa de las Indias Orientales",
+              "is_correct": false
+            },
             { "id": "b", "text": "La Compañía de las Indias Orientales", "is_correct": true },
             { "id": "c", "text": "La Compañía de la Bahía de Hudson", "is_correct": false },
             { "id": "d", "text": "La Corona portuguesa", "is_correct": false }
@@ -533,7 +537,11 @@
           "question": "¿Qué es el biryani?",
           "options": [
             { "id": "a", "text": "Una masa frita", "is_correct": false },
-            { "id": "b", "text": "Un plato de arroz especiado con carne o verduras", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Un plato de arroz especiado con carne o verduras",
+              "is_correct": true
+            },
             { "id": "c", "text": "Una sopa de lentejas", "is_correct": false },
             { "id": "d", "text": "Un postre de yogur", "is_correct": false }
           ],
