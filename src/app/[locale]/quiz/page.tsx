@@ -1,9 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExploreEditorialPage } from '@/components/home/explore-editorial-page';
+import { JsonLd } from '@/components/seo/json-ld';
 import { getExplorePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/dictionaries';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { buildGraph, itemListNode, quizPath, webPageNode } from '@/lib/seo/structured-data';
+
+/** How many quizzes the ItemList advertises. Keeps the JSON-LD payload small. */
+const ITEM_LIST_LIMIT = 24;
+
+const EXPLORER_TITLE: Record<Locale, string> = {
+  es: 'Explora todos los quizzes — trivia, personalidad y fandom',
+  en: 'Explore all quizzes — trivia, personality and fandom',
+};
 
 export async function generateMetadata({
   params,
@@ -16,10 +27,7 @@ export async function generateMetadata({
   }
 
   return buildMetadata({
-    title:
-      locale === 'es'
-        ? 'Explora todos los quizzes — trivia, personalidad y fandom'
-        : 'Explore all quizzes — trivia, personality and fandom',
+    title: EXPLORER_TITLE[locale],
     description:
       locale === 'es'
         ? 'Explora el catálogo completo de QuizVerse por tema, mood y ritmo. Trivia, tests de personalidad y retos de fandom gratis.'
@@ -47,27 +55,40 @@ export default async function LocalizedQuizExplorerPage({
   const quizzes = payload.quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
 
   return (
-    <ExploreEditorialPage
-      locale={locale}
-      quizzes={quizzes}
-      categories={payload.categories}
-      copy={{
-        title: dictionary.explore.title,
-        subtitle: dictionary.explore.subtitle,
-        searchPlaceholder: dictionary.explore.searchPlaceholder,
-        emptyTitle: dictionary.explore.emptyTitle,
-        emptyBody: dictionary.explore.emptyBody,
-        allCategories: dictionary.explore.allCategories,
-        eyebrow: locale === 'es' ? 'Explorar' : 'Explore',
-        visibleNow: locale === 'es' ? 'Visibles ahora' : 'Visible now',
-        playsInView: locale === 'es' ? 'Partidas en vista' : 'Plays in view',
-        publishedNow: locale === 'es' ? 'Publicados ahora' : 'Published now',
-        searchLabel: locale === 'es' ? 'Buscar' : 'Search',
-        categoryLanes: locale === 'es' ? 'Carriles de categoría' : 'Category lanes',
-        leadPick: locale === 'es' ? 'Selección principal' : 'Lead pick',
-        moreWaysIn: locale === 'es' ? 'Más caminos de entrada' : 'More ways in',
-        quizzesAfterFilters: locale === 'es' ? 'quizzes tras filtros' : 'quizzes after filters',
-      }}
-    />
+    <>
+      <JsonLd
+        data={buildGraph([
+          webPageNode(`/${locale}/quiz`, locale, EXPLORER_TITLE[locale]),
+          itemListNode(
+            payload.quizzes
+              .slice(0, ITEM_LIST_LIMIT)
+              .map((quiz) => ({ name: quiz.title, path: quizPath(locale, quiz.slug) })),
+            locale
+          ),
+        ])}
+      />
+      <ExploreEditorialPage
+        locale={locale}
+        quizzes={quizzes}
+        categories={payload.categories}
+        copy={{
+          title: dictionary.explore.title,
+          subtitle: dictionary.explore.subtitle,
+          searchPlaceholder: dictionary.explore.searchPlaceholder,
+          emptyTitle: dictionary.explore.emptyTitle,
+          emptyBody: dictionary.explore.emptyBody,
+          allCategories: dictionary.explore.allCategories,
+          eyebrow: locale === 'es' ? 'Explorar' : 'Explore',
+          visibleNow: locale === 'es' ? 'Visibles ahora' : 'Visible now',
+          playsInView: locale === 'es' ? 'Partidas en vista' : 'Plays in view',
+          publishedNow: locale === 'es' ? 'Publicados ahora' : 'Published now',
+          searchLabel: locale === 'es' ? 'Buscar' : 'Search',
+          categoryLanes: locale === 'es' ? 'Carriles de categoría' : 'Category lanes',
+          leadPick: locale === 'es' ? 'Selección principal' : 'Lead pick',
+          moreWaysIn: locale === 'es' ? 'Más caminos de entrada' : 'More ways in',
+          quizzesAfterFilters: locale === 'es' ? 'quizzes tras filtros' : 'quizzes after filters',
+        }}
+      />
+    </>
   );
 }
