@@ -68,6 +68,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         personality: 'Personalidad',
         plays: 'partidas',
         likes: 'me gusta',
+        edit: 'Editar',
         delete: 'Borrar',
         confirm: (title: string) =>
           `¿Borrar «${title}»? Se eliminará para siempre, junto con sus partidas.`,
@@ -81,6 +82,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         personality: 'Personality',
         plays: 'plays',
         likes: 'likes',
+        edit: 'Edit',
         delete: 'Delete',
         confirm: (title: string) =>
           `Delete "${title}"? It will be gone forever, along with its play sessions.`,
@@ -181,15 +183,23 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                   {date}
                 </p>
               </div>
-              <Button
-                variant="danger"
-                size="sm"
-                isLoading={deletingId === quiz.id}
-                disabled={deletingId !== null}
-                onClick={() => remove(quiz)}
-              >
-                {copy.delete}
-              </Button>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={localizeHref(locale, `/my-quizzes/${quiz.id}/edit`)}
+                  className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-all duration-200"
+                >
+                  {copy.edit}
+                </Link>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  isLoading={deletingId === quiz.id}
+                  disabled={deletingId !== null}
+                  onClick={() => remove(quiz)}
+                >
+                  {copy.delete}
+                </Button>
+              </div>
             </li>
           );
         })}
