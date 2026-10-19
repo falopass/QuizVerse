@@ -1,0 +1,1055 @@
+{
+  "$comment": "Editorial seed 2026bu: five es/en trivia pairs on great classical composers — Mozart, Beethoven, Bach, Chopin and Vivaldi — all in the music category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-mozart-trivia",
+      "title": "Mozart Trivia: Life, Operas and the Requiem",
+      "description": "Eight questions on Wolfgang Amadeus Mozart: his Salzburg childhood, the great operas, Eine kleine Nachtmusik and the Requiem he left unfinished.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["classical music", "mozart", "opera", "composers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city was Mozart born in 1756?",
+          "options": [
+            { "id": "a", "text": "Vienna", "is_correct": false },
+            { "id": "b", "text": "Salzburg", "is_correct": true },
+            { "id": "c", "text": "Prague", "is_correct": false },
+            { "id": "d", "text": "Munich", "is_correct": false }
+          ],
+          "explanation": "Wolfgang Amadeus Mozart was born in Salzburg on 27 January 1756; he moved to Vienna as an adult in 1781."
+        },
+        {
+          "id": "q2",
+          "question": "As a child prodigy, Mozart toured Europe performing alongside which family member?",
+          "options": [
+            { "id": "a", "text": "His mother Anna Maria", "is_correct": false },
+            { "id": "b", "text": "His sister Maria Anna, \"Nannerl\"", "is_correct": true },
+            { "id": "c", "text": "His younger brother", "is_correct": false },
+            { "id": "d", "text": "His cousin the \"Bäsle\"", "is_correct": false }
+          ],
+          "explanation": "Maria Anna Mozart, nicknamed Nannerl, was also a keyboard prodigy; the siblings toured Europe together as children."
+        },
+        {
+          "id": "q3",
+          "question": "Which Mozart opera features the Queen of the Night's famous aria?",
+          "options": [
+            { "id": "a", "text": "Don Giovanni", "is_correct": false },
+            { "id": "b", "text": "The Marriage of Figaro", "is_correct": false },
+            { "id": "c", "text": "The Magic Flute", "is_correct": true },
+            { "id": "d", "text": "Così fan tutte", "is_correct": false }
+          ],
+          "explanation": "Der Hölle Rache, the Queen of the Night's aria with its famous high F, appears in The Magic Flute (1791)."
+        },
+        {
+          "id": "q4",
+          "question": "Who completed the Requiem that Mozart left unfinished at his death?",
+          "options": [
+            { "id": "a", "text": "Joseph Haydn", "is_correct": false },
+            { "id": "b", "text": "Antonio Salieri", "is_correct": false },
+            { "id": "c", "text": "Franz Xaver Süßmayr", "is_correct": true },
+            { "id": "d", "text": "Ludwig van Beethoven", "is_correct": false }
+          ],
+          "explanation": "His pupil Franz Xaver Süßmayr finished the Requiem in 1792, at the request of Mozart's widow Constanze."
+        },
+        {
+          "id": "q5",
+          "question": "At roughly what age did Mozart start composing music?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": true },
+            { "id": "b", "text": "Nine", "is_correct": false },
+            { "id": "c", "text": "Thirteen", "is_correct": false },
+            { "id": "d", "text": "Seventeen", "is_correct": false }
+          ],
+          "explanation": "He wrote his first small pieces around age five, preserved thanks to his father Leopold."
+        },
+        {
+          "id": "q6",
+          "question": "In which city did Mozart live from 1781 until his death?",
+          "options": [
+            { "id": "a", "text": "Salzburg", "is_correct": false },
+            { "id": "b", "text": "Vienna", "is_correct": true },
+            { "id": "c", "text": "Paris", "is_correct": false },
+            { "id": "d", "text": "London", "is_correct": false }
+          ],
+          "explanation": "He broke with the Archbishop of Salzburg in 1781 and spent his final decade in Vienna."
+        },
+        {
+          "id": "q7",
+          "question": "What was the name of Mozart's wife?",
+          "options": [
+            { "id": "a", "text": "Constanze Weber", "is_correct": true },
+            { "id": "b", "text": "Maria Anna Mozart", "is_correct": false },
+            { "id": "c", "text": "Aloysia Weber", "is_correct": false },
+            { "id": "d", "text": "Josepha Weber", "is_correct": false }
+          ],
+          "explanation": "He married Constanze Weber in 1782; before that he had been in love with her sister, the singer Aloysia."
+        },
+        {
+          "id": "q8",
+          "question": "What does the title \"Eine kleine Nachtmusik\" mean?",
+          "options": [
+            { "id": "a", "text": "\"A little night music\"", "is_correct": true },
+            { "id": "b", "text": "\"A great symphony\"", "is_correct": false },
+            { "id": "c", "text": "\"A night at the opera\"", "is_correct": false },
+            { "id": "d", "text": "\"Music for a small hall\"", "is_correct": false }
+          ],
+          "explanation": "Serenade No. 13 in G major, K. 525 (1787), translates as 'a little night music' — a serenade for strings."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mozart",
+      "title": "Trivia de Mozart: vida, óperas y el Réquiem",
+      "description": "Ocho preguntas sobre Wolfgang Amadeus Mozart: su infancia en Salzburgo, las grandes óperas, Eine kleine Nachtmusik y el Réquiem que dejó inconcluso.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["música clásica", "mozart", "ópera", "compositores"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad nació Mozart en 1756?",
+          "options": [
+            { "id": "a", "text": "Viena", "is_correct": false },
+            { "id": "b", "text": "Salzburgo", "is_correct": true },
+            { "id": "c", "text": "Praga", "is_correct": false },
+            { "id": "d", "text": "Múnich", "is_correct": false }
+          ],
+          "explanation": "Wolfgang Amadeus Mozart nació en Salzburgo el 27 de enero de 1756; ya adulto, en 1781, se mudó a Viena."
+        },
+        {
+          "id": "q2",
+          "question": "De niño prodigio, Mozart recorrió Europa actuando junto a qué familiar?",
+          "options": [
+            { "id": "a", "text": "Su madre, Anna Maria", "is_correct": false },
+            { "id": "b", "text": "Su hermana Maria Anna, «Nannerl»", "is_correct": true },
+            { "id": "c", "text": "Su hermano menor", "is_correct": false },
+            { "id": "d", "text": "Su prima, la «Bäsle»", "is_correct": false }
+          ],
+          "explanation": "Maria Anna Mozart, apodada Nannerl, también era prodigio del teclado; los hermanos giraron juntos por Europa."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué ópera de Mozart aparece la famosa aria de la Reina de la Noche?",
+          "options": [
+            { "id": "a", "text": "Don Giovanni", "is_correct": false },
+            { "id": "b", "text": "Las bodas de Fígaro", "is_correct": false },
+            { "id": "c", "text": "La flauta mágica", "is_correct": true },
+            { "id": "d", "text": "Così fan tutte", "is_correct": false }
+          ],
+          "explanation": "El aria de venganza de la Reina de la Noche, con su célebre fa sobreagudo, está en La flauta mágica (1791)."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién completó el Réquiem que Mozart dejó inconcluso a su muerte?",
+          "options": [
+            { "id": "a", "text": "Joseph Haydn", "is_correct": false },
+            { "id": "b", "text": "Antonio Salieri", "is_correct": false },
+            { "id": "c", "text": "Franz Xaver Süßmayr", "is_correct": true },
+            { "id": "d", "text": "Ludwig van Beethoven", "is_correct": false }
+          ],
+          "explanation": "Su alumno Franz Xaver Süßmayr terminó el Réquiem en 1792, por encargo de la viuda de Mozart, Constanze."
+        },
+        {
+          "id": "q5",
+          "question": "¿A qué edad aproximada empezó Mozart a componer?",
+          "options": [
+            { "id": "a", "text": "A los cinco años", "is_correct": true },
+            { "id": "b", "text": "A los nueve años", "is_correct": false },
+            { "id": "c", "text": "A los trece años", "is_correct": false },
+            { "id": "d", "text": "A los diecisiete años", "is_correct": false }
+          ],
+          "explanation": "Escribió sus primeras piezas hacia los cinco años, conservadas gracias a su padre Leopold."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué ciudad vivió Mozart desde 1781 hasta su muerte?",
+          "options": [
+            { "id": "a", "text": "Salzburgo", "is_correct": false },
+            { "id": "b", "text": "Viena", "is_correct": true },
+            { "id": "c", "text": "París", "is_correct": false },
+            { "id": "d", "text": "Londres", "is_correct": false }
+          ],
+          "explanation": "Rompió con el arzobispo de Salzburgo en 1781 y pasó su última década en Viena."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llamaba la esposa de Mozart?",
+          "options": [
+            { "id": "a", "text": "Constanze Weber", "is_correct": true },
+            { "id": "b", "text": "Maria Anna Mozart", "is_correct": false },
+            { "id": "c", "text": "Aloysia Weber", "is_correct": false },
+            { "id": "d", "text": "Josepha Weber", "is_correct": false }
+          ],
+          "explanation": "Se casó con Constanze Weber en 1782; antes había estado enamorado de su hermana, la cantante Aloysia."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué significa el título «Eine kleine Nachtmusik»?",
+          "options": [
+            { "id": "a", "text": "«Una pequeña música nocturna»", "is_correct": true },
+            { "id": "b", "text": "«Una gran sinfonía»", "is_correct": false },
+            { "id": "c", "text": "«Una noche en la ópera»", "is_correct": false },
+            { "id": "d", "text": "«Música para una sala pequeña»", "is_correct": false }
+          ],
+          "explanation": "La Serenata n.º 13 en sol mayor, K. 525 (1787), se traduce como «una pequeña música nocturna»: una serenata para cuerdas."
+        }
+      ]
+    },
+    {
+      "slug": "en-beethoven-trivia",
+      "title": "Beethoven Trivia: Deafness, Symphonies and Fidelio",
+      "description": "Eight questions on Ludwig van Beethoven: Bonn, his hearing loss, the Eroica, the Ninth with chorus, Für Elise and his only opera, Fidelio.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["classical music", "beethoven", "symphonies", "composers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city was Beethoven born in 1770?",
+          "options": [
+            { "id": "a", "text": "Vienna", "is_correct": false },
+            { "id": "b", "text": "Bonn", "is_correct": true },
+            { "id": "c", "text": "Berlin", "is_correct": false },
+            { "id": "d", "text": "Leipzig", "is_correct": false }
+          ],
+          "explanation": "He was born in Bonn in December 1770 and moved to Vienna in 1792, where he lived until his death."
+        },
+        {
+          "id": "q2",
+          "question": "In the 1802 \"Heiligenstadt Testament\", Beethoven confessed his despair over what?",
+          "options": [
+            { "id": "a", "text": "His growing deafness", "is_correct": true },
+            { "id": "b", "text": "A lost love", "is_correct": false },
+            { "id": "c", "text": "His debts", "is_correct": false },
+            { "id": "d", "text": "A failed opera", "is_correct": false }
+          ],
+          "explanation": "The unsent letter to his brothers describes his anguish as his hearing failed; by his forties he was nearly deaf."
+        },
+        {
+          "id": "q3",
+          "question": "Which symphony did Beethoven originally dedicate to Napoleon Bonaparte before angrily scratching out the dedication?",
+          "options": [
+            { "id": "a", "text": "The Fifth", "is_correct": false },
+            { "id": "b", "text": "The Third, \"Eroica\"", "is_correct": true },
+            { "id": "c", "text": "The Sixth, \"Pastoral\"", "is_correct": false },
+            { "id": "d", "text": "The First", "is_correct": false }
+          ],
+          "explanation": "He admired Napoleon until he crowned himself emperor in 1804; the symphony became the \"Eroica\"."
+        },
+        {
+          "id": "q4",
+          "question": "What was unprecedented about the finale of Beethoven's Ninth Symphony at its 1824 premiere?",
+          "options": [
+            { "id": "a", "text": "It used electronic instruments", "is_correct": false },
+            { "id": "b", "text": "It added vocal soloists and a chorus", "is_correct": true },
+            { "id": "c", "text": "It lasted under ten minutes", "is_correct": false },
+            { "id": "d", "text": "It had no orchestra", "is_correct": false }
+          ],
+          "explanation": "No major composer had put a chorus in a symphony; the finale sets Schiller's \"Ode to Joy\", conducted by a nearly deaf Beethoven."
+        },
+        {
+          "id": "q5",
+          "question": "When was Beethoven's \"Für Elise\" first published?",
+          "options": [
+            { "id": "a", "text": "In 1810, while he was alive", "is_correct": false },
+            { "id": "b", "text": "A year before he died", "is_correct": false },
+            { "id": "c", "text": "Decades after his death", "is_correct": true },
+            { "id": "d", "text": "During World War I", "is_correct": false }
+          ],
+          "explanation": "The piece was found among his papers and published in 1867, forty years after his death."
+        },
+        {
+          "id": "q6",
+          "question": "Where does the nickname \"Moonlight Sonata\" come from?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A critic who compared it to moonlight on a lake",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Beethoven himself", "is_correct": false },
+            { "id": "c", "text": "His publisher's daughter", "is_correct": false },
+            { "id": "d", "text": "A poem by Goethe", "is_correct": false }
+          ],
+          "explanation": "Critic Ludwig Rellstab likened the first movement to moonlight on Lake Lucerne; Beethoven called it Sonata quasi una fantasia."
+        },
+        {
+          "id": "q7",
+          "question": "What is \"Fidelio\"?",
+          "options": [
+            { "id": "a", "text": "Beethoven's only opera", "is_correct": true },
+            { "id": "b", "text": "His first piano sonata", "is_correct": false },
+            { "id": "c", "text": "A string quartet", "is_correct": false },
+            { "id": "d", "text": "His final symphony", "is_correct": false }
+          ],
+          "explanation": "Fidelio, about a wife who rescues her imprisoned husband, is the only opera Beethoven completed."
+        },
+        {
+          "id": "q8",
+          "question": "How many symphonies did Beethoven complete?",
+          "options": [
+            { "id": "a", "text": "Seven", "is_correct": false },
+            { "id": "b", "text": "Nine", "is_correct": true },
+            { "id": "c", "text": "Twelve", "is_correct": false },
+            { "id": "d", "text": "Forty-one", "is_correct": false }
+          ],
+          "explanation": "Nine symphonies: Mozart wrote 41 and Haydn over a hundred, but Beethoven's nine transformed the genre."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-beethoven",
+      "title": "Trivia de Beethoven: sordera, sinfonías y Fidelio",
+      "description": "Ocho preguntas sobre Ludwig van Beethoven: Bonn, la pérdida de audición, la Heroica, la Novena con coro, Para Elisa y su única ópera, Fidelio.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["música clásica", "beethoven", "sinfonías", "compositores"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad nació Beethoven en 1770?",
+          "options": [
+            { "id": "a", "text": "Viena", "is_correct": false },
+            { "id": "b", "text": "Bonn", "is_correct": true },
+            { "id": "c", "text": "Berlín", "is_correct": false },
+            { "id": "d", "text": "Leipzig", "is_correct": false }
+          ],
+          "explanation": "Nació en Bonn en diciembre de 1770 y se trasladó a Viena en 1792, donde vivió hasta su muerte."
+        },
+        {
+          "id": "q2",
+          "question": "En el «Testamento de Heiligenstadt» (1802), ¿por qué confesó Beethoven su desesperación?",
+          "options": [
+            { "id": "a", "text": "Por su creciente sordera", "is_correct": true },
+            { "id": "b", "text": "Por un amor perdido", "is_correct": false },
+            { "id": "c", "text": "Por sus deudas", "is_correct": false },
+            { "id": "d", "text": "Por una ópera fracasada", "is_correct": false }
+          ],
+          "explanation": "La carta nunca enviada a sus hermanos describe su angustia al perder el oído; hacia los cuarenta era casi sordo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué sinfonía dedicó Beethoven en un principio a Napoleón, antes de borrar furioso la dedicatoria?",
+          "options": [
+            { "id": "a", "text": "La Quinta", "is_correct": false },
+            { "id": "b", "text": "La Tercera, «Heroica»", "is_correct": true },
+            { "id": "c", "text": "La Sexta, «Pastoral»", "is_correct": false },
+            { "id": "d", "text": "La Primera", "is_correct": false }
+          ],
+          "explanation": "Admiraba a Napoleón hasta que se coronó emperador en 1804; la sinfonía quedó como la «Heroica»."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué tuvo de inédito el final de la Novena sinfonía en su estreno de 1824?",
+          "options": [
+            { "id": "a", "text": "Usó instrumentos electrónicos", "is_correct": false },
+            { "id": "b", "text": "Incluyó solistas vocales y un coro", "is_correct": true },
+            { "id": "c", "text": "Duró menos de diez minutos", "is_correct": false },
+            { "id": "d", "text": "No tuvo orquesta", "is_correct": false }
+          ],
+          "explanation": "Ningún gran compositor había puesto un coro en una sinfonía; el final musicaliza la «Oda a la alegría» de Schiller, dirigido por un Beethoven casi sordo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuándo se publicó por primera vez «Für Elise» («Para Elisa»)?",
+          "options": [
+            { "id": "a", "text": "En 1810, en vida del autor", "is_correct": false },
+            { "id": "b", "text": "Un año antes de morir", "is_correct": false },
+            { "id": "c", "text": "Décadas después de su muerte", "is_correct": true },
+            { "id": "d", "text": "Durante la Primera Guerra Mundial", "is_correct": false }
+          ],
+          "explanation": "La pieza apareció entre sus papeles y se publicó en 1867, cuarenta años después de su muerte."
+        },
+        {
+          "id": "q6",
+          "question": "¿De dónde viene el apodo «Sonata Claro de Luna»?",
+          "options": [
+            {
+              "id": "a",
+              "text": "De un crítico que la comparó con el reflejo de la luna en un lago",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Del propio Beethoven", "is_correct": false },
+            { "id": "c", "text": "De la hija de su editor", "is_correct": false },
+            { "id": "d", "text": "De un poema de Goethe", "is_correct": false }
+          ],
+          "explanation": "El crítico Ludwig Rellstab comparó el primer movimiento con la luz de la luna sobre el lago de los Cuatro Cantones; Beethoven la llamó Sonata quasi una fantasia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué es «Fidelio»?",
+          "options": [
+            { "id": "a", "text": "La única ópera de Beethoven", "is_correct": true },
+            { "id": "b", "text": "Su primera sonata para piano", "is_correct": false },
+            { "id": "c", "text": "Un cuarteto de cuerdas", "is_correct": false },
+            { "id": "d", "text": "Su última sinfonía", "is_correct": false }
+          ],
+          "explanation": "Fidelio, sobre una esposa que rescata a su marido encarcelado, es la única ópera que Beethoven completó."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántas sinfonías completó Beethoven?",
+          "options": [
+            { "id": "a", "text": "Siete", "is_correct": false },
+            { "id": "b", "text": "Nueve", "is_correct": true },
+            { "id": "c", "text": "Doce", "is_correct": false },
+            { "id": "d", "text": "Cuarenta y una", "is_correct": false }
+          ],
+          "explanation": "Nueve sinfonías: Mozart escribió 41 y Haydn más de cien, pero las nueve de Beethoven transformaron el género."
+        }
+      ]
+    },
+    {
+      "slug": "en-bach-trivia",
+      "title": "Bach Trivia: Fugues, the Organ and a Musical Family",
+      "description": "Eight questions on Johann Sebastian Bach: Eisenach, his fame as an organist, the fugue, the Brandenburg Concertos and a family of musicians.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["classical music", "bach", "baroque", "composers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which German town was Johann Sebastian Bach born in 1685?",
+          "options": [
+            { "id": "a", "text": "Leipzig", "is_correct": false },
+            { "id": "b", "text": "Eisenach", "is_correct": true },
+            { "id": "c", "text": "Dresden", "is_correct": false },
+            { "id": "d", "text": "Weimar", "is_correct": false }
+          ],
+          "explanation": "He was born in Eisenach, in Thuringia; he died in Leipzig in 1750."
+        },
+        {
+          "id": "q2",
+          "question": "As a performer, Bach was most famous in his lifetime for playing which instrument?",
+          "options": [
+            { "id": "a", "text": "The violin", "is_correct": false },
+            { "id": "b", "text": "The organ", "is_correct": true },
+            { "id": "c", "text": "The trumpet", "is_correct": false },
+            { "id": "d", "text": "The lute", "is_correct": false }
+          ],
+          "explanation": "He was a renowned organ virtuoso, so respected that towns asked him to examine their new organs."
+        },
+        {
+          "id": "q3",
+          "question": "In 1705 the young Bach walked about 400 km to Lübeck mainly to do what?",
+          "options": [
+            { "id": "a", "text": "Buy a new harpsichord", "is_correct": false },
+            { "id": "b", "text": "Hear the organist Dieterich Buxtehude", "is_correct": true },
+            { "id": "c", "text": "Attend his own wedding", "is_correct": false },
+            { "id": "d", "text": "Meet the Danish king", "is_correct": false }
+          ],
+          "explanation": "He walked from Arnstadt to hear Buxtehude play and stayed three months, getting in trouble for overstaying his leave."
+        },
+        {
+          "id": "q4",
+          "question": "What is a fugue?",
+          "options": [
+            { "id": "a", "text": "A dance for lute", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A composition where a theme is imitated by successive voices",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A pattern of church bells", "is_correct": false },
+            { "id": "d", "text": "A type of opera aria", "is_correct": false }
+          ],
+          "explanation": "One voice states the subject and the others enter imitating it; Bach's Art of Fugue and Well-Tempered Clavier are the model."
+        },
+        {
+          "id": "q5",
+          "question": "To whom did Bach send the six concertos now known as the \"Brandenburg Concertos\"?",
+          "options": [
+            { "id": "a", "text": "The King of Prussia", "is_correct": false },
+            { "id": "b", "text": "The Margrave of Brandenburg", "is_correct": true },
+            { "id": "c", "text": "The Archbishop of Salzburg", "is_correct": false },
+            { "id": "d", "text": "The Duke of Weimar", "is_correct": false }
+          ],
+          "explanation": "He sent them in 1721 to Margrave Christian Ludwig of Brandenburg, who probably never had them played."
+        },
+        {
+          "id": "q6",
+          "question": "Which of these composers was a son of Bach who also became famous?",
+          "options": [
+            { "id": "a", "text": "Georg Philipp Telemann", "is_correct": false },
+            { "id": "b", "text": "Carl Philipp Emanuel Bach", "is_correct": true },
+            { "id": "c", "text": "George Frideric Handel", "is_correct": false },
+            { "id": "d", "text": "Johann Pachelbel", "is_correct": false }
+          ],
+          "explanation": "Several of Bach's sons were composers; C. P. E. Bach was among the most influential of the next generation."
+        },
+        {
+          "id": "q7",
+          "question": "What does Bach's \"Well-Tempered Clavier\" contain?",
+          "options": [
+            { "id": "a", "text": "Etudes for pedal organ", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Preludes and fugues in all 24 major and minor keys",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Twelve harpsichord concertos", "is_correct": false },
+            { "id": "d", "text": "A year of church cantatas", "is_correct": false }
+          ],
+          "explanation": "Its two books demonstrate keyboard music in every key, made practical by 'well-tempered' tuning."
+        },
+        {
+          "id": "q8",
+          "question": "Which post did Bach hold in Leipzig from 1723 until his death?",
+          "options": [
+            { "id": "a", "text": "Court composer to the Emperor", "is_correct": false },
+            { "id": "b", "text": "Thomaskantor at St. Thomas School", "is_correct": true },
+            { "id": "c", "text": "Opera house director", "is_correct": false },
+            { "id": "d", "text": "Cathedral organist in Hamburg", "is_correct": false }
+          ],
+          "explanation": "As Thomaskantor he taught at St. Thomas School and directed music for Leipzig's main churches, writing most of his cantatas there."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-bach",
+      "title": "Trivia de Bach: fugas, órgano y una familia musical",
+      "description": "Ocho preguntas sobre Johann Sebastian Bach: Eisenach, su fama de organista, la fuga, los Conciertos de Brandeburgo y una familia de músicos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["música clásica", "bach", "barroco", "compositores"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad alemana nació Johann Sebastian Bach en 1685?",
+          "options": [
+            { "id": "a", "text": "Leipzig", "is_correct": false },
+            { "id": "b", "text": "Eisenach", "is_correct": true },
+            { "id": "c", "text": "Dresde", "is_correct": false },
+            { "id": "d", "text": "Weimar", "is_correct": false }
+          ],
+          "explanation": "Nació en Eisenach, en Turingia; murió en Leipzig en 1750."
+        },
+        {
+          "id": "q2",
+          "question": "Como intérprete, en vida Bach era famoso sobre todo por tocar qué instrumento?",
+          "options": [
+            { "id": "a", "text": "El violín", "is_correct": false },
+            { "id": "b", "text": "El órgano", "is_correct": true },
+            { "id": "c", "text": "La trompeta", "is_correct": false },
+            { "id": "d", "text": "El laúd", "is_correct": false }
+          ],
+          "explanation": "Era un virtuoso del órgano tan reconocido que las ciudades le pedían examinar sus órganos nuevos."
+        },
+        {
+          "id": "q3",
+          "question": "En 1705, el joven Bach caminó unos 400 km hasta Lübeck sobre todo para qué?",
+          "options": [
+            { "id": "a", "text": "Comprar un clavecín nuevo", "is_correct": false },
+            { "id": "b", "text": "Escuchar al organista Dieterich Buxtehude", "is_correct": true },
+            { "id": "c", "text": "Asistir a su propia boda", "is_correct": false },
+            { "id": "d", "text": "Conocer al rey de Dinamarca", "is_correct": false }
+          ],
+          "explanation": "Caminó desde Arnstadt para escuchar a Buxtehude y se quedó tres meses, lo que le trajo problemas por exceder su permiso."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué es una fuga?",
+          "options": [
+            { "id": "a", "text": "Un baile para laúd", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Una composición en la que un tema es imitado por voces sucesivas",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un toque de campanas de iglesia", "is_correct": false },
+            { "id": "d", "text": "Un tipo de aria de ópera", "is_correct": false }
+          ],
+          "explanation": "Una voz expone el tema y las demás entran imitándolo; El arte de la fuga y El clave bien temperado son el modelo."
+        },
+        {
+          "id": "q5",
+          "question": "¿A quién envió Bach los seis conciertos hoy conocidos como «Conciertos de Brandeburgo»?",
+          "options": [
+            { "id": "a", "text": "Al rey de Prusia", "is_correct": false },
+            { "id": "b", "text": "Al margrave de Brandeburgo", "is_correct": true },
+            { "id": "c", "text": "Al arzobispo de Salzburgo", "is_correct": false },
+            { "id": "d", "text": "Al duque de Weimar", "is_correct": false }
+          ],
+          "explanation": "Se los envió en 1721 al margrave Cristián Luis de Brandeburgo, que probablemente nunca los mandó tocar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál de estos compositores fue un hijo de Bach que también se hizo famoso?",
+          "options": [
+            { "id": "a", "text": "Georg Philipp Telemann", "is_correct": false },
+            { "id": "b", "text": "Carl Philipp Emanuel Bach", "is_correct": true },
+            { "id": "c", "text": "Georg Friedrich Händel", "is_correct": false },
+            { "id": "d", "text": "Johann Pachelbel", "is_correct": false }
+          ],
+          "explanation": "Varios hijos de Bach fueron compositores; C. P. E. Bach fue de los más influyentes de la generación siguiente."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué contiene «El clave bien temperado» de Bach?",
+          "options": [
+            { "id": "a", "text": "Estudios para órgano de pedales", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Preludios y fugas en los 24 tonos mayores y menores",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Doce conciertos para clavecín", "is_correct": false },
+            { "id": "d", "text": "Cantatas de iglesia para todo el año", "is_correct": false }
+          ],
+          "explanation": "Sus dos libros demuestran la música de teclado en cada tonalidad, posible gracias a la afinación «bien temperada»."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué puesto ocupó Bach en Leipzig desde 1723 hasta su muerte?",
+          "options": [
+            { "id": "a", "text": "Compositor de corte del emperador", "is_correct": false },
+            { "id": "b", "text": "Kantor de la escuela de Santo Tomás", "is_correct": true },
+            { "id": "c", "text": "Director del teatro de ópera", "is_correct": false },
+            { "id": "d", "text": "Organista de la catedral de Hamburgo", "is_correct": false }
+          ],
+          "explanation": "Como Thomaskantor enseñaba en la escuela de Santo Tomás y dirigía la música de las principales iglesias de Leipzig, donde escribió la mayoría de sus cantatas."
+        }
+      ]
+    },
+    {
+      "slug": "en-chopin-trivia",
+      "title": "Chopin Trivia: Paris, Nocturnes and Polish Dances",
+      "description": "Eight questions on Frédéric Chopin: his Polish roots, life in Paris, the nocturnes and polonaises, George Sand and the Minute Waltz.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["classical music", "chopin", "piano", "composers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which country was Frédéric Chopin born in 1810?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Poland", "is_correct": true },
+            { "id": "c", "text": "Hungary", "is_correct": false },
+            { "id": "d", "text": "Austria", "is_correct": false }
+          ],
+          "explanation": "He was born in Żelazowa Wola, near Warsaw, to a French father and a Polish mother."
+        },
+        {
+          "id": "q2",
+          "question": "Where did Chopin live for the second half of his life, after leaving Poland in 1830?",
+          "options": [
+            { "id": "a", "text": "Vienna", "is_correct": false },
+            { "id": "b", "text": "Paris", "is_correct": true },
+            { "id": "c", "text": "London", "is_correct": false },
+            { "id": "d", "text": "Rome", "is_correct": false }
+          ],
+          "explanation": "He settled in Paris in 1831, played in aristocratic salons and never returned to Poland."
+        },
+        {
+          "id": "q3",
+          "question": "For which instrument did Chopin compose almost all of his works?",
+          "options": [
+            { "id": "a", "text": "The violin", "is_correct": false },
+            { "id": "b", "text": "The piano", "is_correct": true },
+            { "id": "c", "text": "The cello", "is_correct": false },
+            { "id": "d", "text": "The organ", "is_correct": false }
+          ],
+          "explanation": "Nearly everything he published is for solo piano or features it prominently — a rare single-instrument catalogue."
+        },
+        {
+          "id": "q4",
+          "question": "Which genre of dreamy, night-inspired piano piece is most associated with Chopin?",
+          "options": [
+            { "id": "a", "text": "The nocturne", "is_correct": true },
+            { "id": "b", "text": "The rondo", "is_correct": false },
+            { "id": "c", "text": "The gavotte", "is_correct": false },
+            { "id": "d", "text": "The overture", "is_correct": false }
+          ],
+          "explanation": "He perfected the nocturne, a form pioneered by Irish composer John Field, writing 21 of them."
+        },
+        {
+          "id": "q5",
+          "question": "Chopin's polonaises and mazurkas are based on what?",
+          "options": [
+            { "id": "a", "text": "French court dances", "is_correct": false },
+            { "id": "b", "text": "Traditional dances of Poland", "is_correct": true },
+            { "id": "c", "text": "Church hymns", "is_correct": false },
+            { "id": "d", "text": "Opera melodies", "is_correct": false }
+          ],
+          "explanation": "Both are Polish dances that Chopin turned into statements of national identity while living abroad."
+        },
+        {
+          "id": "q6",
+          "question": "The novelist Aurore Dudevant, Chopin's partner for nearly a decade, was better known by what name?",
+          "options": [
+            { "id": "a", "text": "George Eliot", "is_correct": false },
+            { "id": "b", "text": "George Sand", "is_correct": true },
+            { "id": "c", "text": "Colette", "is_correct": false },
+            { "id": "d", "text": "Madame de Staël", "is_correct": false }
+          ],
+          "explanation": "She wrote under the male pen name George Sand; their nine-year relationship shaped Chopin's final years."
+        },
+        {
+          "id": "q7",
+          "question": "After his death, per his wish, Chopin's heart was taken to which city?",
+          "options": [
+            { "id": "a", "text": "Paris", "is_correct": false },
+            { "id": "b", "text": "Warsaw", "is_correct": true },
+            { "id": "c", "text": "Vienna", "is_correct": false },
+            { "id": "d", "text": "Kraków", "is_correct": false }
+          ],
+          "explanation": "He is buried in Père Lachaise Cemetery in Paris, but his heart rests in a pillar of Holy Cross Church in Warsaw."
+        },
+        {
+          "id": "q8",
+          "question": "What does the \"Minute\" in Chopin's \"Minute Waltz\" actually mean?",
+          "options": [
+            { "id": "a", "text": "It should be played in sixty seconds", "is_correct": false },
+            { "id": "b", "text": "Small or miniature, not sixty seconds", "is_correct": true },
+            { "id": "c", "text": "It was composed in one minute", "is_correct": false },
+            { "id": "d", "text": "It marks a minute of silence", "is_correct": false }
+          ],
+          "explanation": "The nickname means 'small'; actually playing the waltz in a minute would demand an absurd tempo."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-chopin",
+      "title": "Trivia de Chopin: París, nocturnos y danzas polacas",
+      "description": "Ocho preguntas sobre Frédéric Chopin: sus raíces polacas, su vida en París, los nocturnos y polonesas, George Sand y el vals del Minuto.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["música clásica", "chopin", "piano", "compositores"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué país nació Frédéric Chopin en 1810?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Polonia", "is_correct": true },
+            { "id": "c", "text": "Hungría", "is_correct": false },
+            { "id": "d", "text": "Austria", "is_correct": false }
+          ],
+          "explanation": "Nació en Żelazowa Wola, cerca de Varsovia, hijo de padre francés y madre polaca."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde vivió Chopin la segunda mitad de su vida, tras salir de Polonia en 1830?",
+          "options": [
+            { "id": "a", "text": "Viena", "is_correct": false },
+            { "id": "b", "text": "París", "is_correct": true },
+            { "id": "c", "text": "Londres", "is_correct": false },
+            { "id": "d", "text": "Roma", "is_correct": false }
+          ],
+          "explanation": "Se instaló en París en 1831, tocaba en salones aristocráticos y nunca volvió a Polonia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Para qué instrumento compuso Chopin casi toda su obra?",
+          "options": [
+            { "id": "a", "text": "El violín", "is_correct": false },
+            { "id": "b", "text": "El piano", "is_correct": true },
+            { "id": "c", "text": "El violonchelo", "is_correct": false },
+            { "id": "d", "text": "El órgano", "is_correct": false }
+          ],
+          "explanation": "Casi todo lo que publicó es para piano solo o lo tiene como protagonista: un catálogo inusual de un solo instrumento."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué género de pieza para piano soñadora e inspirada en la noche se asocia más con Chopin?",
+          "options": [
+            { "id": "a", "text": "El nocturno", "is_correct": true },
+            { "id": "b", "text": "El rondó", "is_correct": false },
+            { "id": "c", "text": "La gavota", "is_correct": false },
+            { "id": "d", "text": "La obertura", "is_correct": false }
+          ],
+          "explanation": "Perfeccionó el nocturno, una forma creada por el compositor irlandés John Field: escribió 21."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué se basan las polonesas y mazurcas de Chopin?",
+          "options": [
+            { "id": "a", "text": "En danzas de la corte francesa", "is_correct": false },
+            { "id": "b", "text": "En danzas tradicionales de Polonia", "is_correct": true },
+            { "id": "c", "text": "En himnos de iglesia", "is_correct": false },
+            { "id": "d", "text": "En melodías de ópera", "is_correct": false }
+          ],
+          "explanation": "Ambas son danzas polacas que Chopin convirtió en declaración de identidad nacional desde el extranjero."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se conocía mejor a la novelista Aurore Dudevant, pareja de Chopin durante casi una década?",
+          "options": [
+            { "id": "a", "text": "George Eliot", "is_correct": false },
+            { "id": "b", "text": "George Sand", "is_correct": true },
+            { "id": "c", "text": "Colette", "is_correct": false },
+            { "id": "d", "text": "Madame de Staël", "is_correct": false }
+          ],
+          "explanation": "Escribía con el seudónimo masculino George Sand; sus nueve años juntos marcaron la etapa final del compositor."
+        },
+        {
+          "id": "q7",
+          "question": "Tras su muerte, el corazón de Chopin fue llevado, según su deseo, a qué ciudad?",
+          "options": [
+            { "id": "a", "text": "París", "is_correct": false },
+            { "id": "b", "text": "Varsovia", "is_correct": true },
+            { "id": "c", "text": "Viena", "is_correct": false },
+            { "id": "d", "text": "Cracovia", "is_correct": false }
+          ],
+          "explanation": "Está enterrado en el cementerio Père-Lachaise de París, pero su corazón descansa en un pilar de la iglesia de la Santa Cruz de Varsovia."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué significa en realidad el «minuto» del «Vals del Minuto» de Chopin?",
+          "options": [
+            { "id": "a", "text": "Que debe tocarse en sesenta segundos", "is_correct": false },
+            { "id": "b", "text": "Pequeño o miniatura, no sesenta segundos", "is_correct": true },
+            { "id": "c", "text": "Que se compuso en un minuto", "is_correct": false },
+            { "id": "d", "text": "Que marca un minuto de silencio", "is_correct": false }
+          ],
+          "explanation": "El apodo significa «pequeño»; tocar el vals de verdad en un minuto exigiría un tempo absurdo."
+        }
+      ]
+    },
+    {
+      "slug": "en-vivaldi-trivia",
+      "title": "Vivaldi Trivia: Venice, the Red Priest and the Seasons",
+      "description": "Eight questions on Antonio Vivaldi: Venice, the Red Priest, the girls' orchestra of the Pietà and the concertos of The Four Seasons.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["classical music", "vivaldi", "baroque", "the four seasons"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city was Antonio Vivaldi born in 1678?",
+          "options": [
+            { "id": "a", "text": "Rome", "is_correct": false },
+            { "id": "b", "text": "Venice", "is_correct": true },
+            { "id": "c", "text": "Florence", "is_correct": false },
+            { "id": "d", "text": "Milan", "is_correct": false }
+          ],
+          "explanation": "He was born in Venice and spent most of his career there."
+        },
+        {
+          "id": "q2",
+          "question": "Vivaldi's nickname \"Il Prete Rosso\" means what?",
+          "options": [
+            { "id": "a", "text": "The Blind Composer", "is_correct": false },
+            { "id": "b", "text": "The Red Priest", "is_correct": true },
+            { "id": "c", "text": "The Venetian Doge", "is_correct": false },
+            { "id": "d", "text": "The Little Sparrow", "is_correct": false }
+          ],
+          "explanation": "He had red hair and was ordained a Catholic priest in 1703."
+        },
+        {
+          "id": "q3",
+          "question": "What is unusual about Vivaldi's \"Four Seasons\" for its time?",
+          "options": [
+            { "id": "a", "text": "It uses percussion instruments", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Each concerto is paired with a sonnet describing the scene",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It was written for piano", "is_correct": false },
+            { "id": "d", "text": "It has no violins", "is_correct": false }
+          ],
+          "explanation": "Each of the four violin concertos is linked to a sonnet — early 'programme music' that paints storms, birdsong and ice."
+        },
+        {
+          "id": "q4",
+          "question": "Vivaldi was a virtuoso of which instrument, featured in most of his concertos?",
+          "options": [
+            { "id": "a", "text": "The flute", "is_correct": false },
+            { "id": "b", "text": "The violin", "is_correct": true },
+            { "id": "c", "text": "The harpsichord", "is_correct": false },
+            { "id": "d", "text": "The cello", "is_correct": false }
+          ],
+          "explanation": "He was a celebrated violinist and wrote more than 200 concertos for his instrument."
+        },
+        {
+          "id": "q5",
+          "question": "Roughly how many concertos did Vivaldi compose?",
+          "options": [
+            { "id": "a", "text": "About 50", "is_correct": false },
+            { "id": "b", "text": "About 150", "is_correct": false },
+            { "id": "c", "text": "About 500", "is_correct": true },
+            { "id": "d", "text": "About 2,000", "is_correct": false }
+          ],
+          "explanation": "He wrote roughly 500 concertos; Stravinsky joked that Vivaldi composed the same concerto 500 times."
+        },
+        {
+          "id": "q6",
+          "question": "At the Ospedale della Pietà in Venice, Vivaldi taught music to whom?",
+          "options": [
+            { "id": "a", "text": "The sons of noblemen", "is_correct": false },
+            { "id": "b", "text": "Girls in a home for abandoned children", "is_correct": true },
+            { "id": "c", "text": "Seminary students", "is_correct": false },
+            { "id": "d", "text": "Court pages", "is_correct": false }
+          ],
+          "explanation": "The Pietà's all-female orchestra and choir, trained by Vivaldi, became a musical attraction of Venice."
+        },
+        {
+          "id": "q7",
+          "question": "How did Vivaldi's life end in 1741?",
+          "options": [
+            { "id": "a", "text": "Rich and famous in Venice", "is_correct": false },
+            {
+              "id": "b",
+              "text": "He died in Vienna, poor and nearly forgotten",
+              "is_correct": true
+            },
+            { "id": "c", "text": "At sea, traveling to Spain", "is_correct": false },
+            { "id": "d", "text": "In a duel in Rome", "is_correct": false }
+          ],
+          "explanation": "He moved to Vienna hoping for imperial patronage, died months later and was buried in an unmarked grave."
+        },
+        {
+          "id": "q8",
+          "question": "Which great composer studied Vivaldi and transcribed several of his concertos for keyboard?",
+          "options": [
+            { "id": "a", "text": "Mozart", "is_correct": false },
+            { "id": "b", "text": "Johann Sebastian Bach", "is_correct": true },
+            { "id": "c", "text": "Beethoven", "is_correct": false },
+            { "id": "d", "text": "Handel", "is_correct": false }
+          ],
+          "explanation": "Bach transcribed several Vivaldi concertos for organ and harpsichord; the exercise shaped his own concerto style."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-vivaldi",
+      "title": "Trivia de Vivaldi: Venecia, el cura rojo y las estaciones",
+      "description": "Ocho preguntas sobre Antonio Vivaldi: Venecia, el cura rojo, la orquesta de niñas de la Piedad y los conciertos de Las cuatro estaciones.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["música clásica", "vivaldi", "barroco", "las cuatro estaciones"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad nació Antonio Vivaldi en 1678?",
+          "options": [
+            { "id": "a", "text": "Roma", "is_correct": false },
+            { "id": "b", "text": "Venecia", "is_correct": true },
+            { "id": "c", "text": "Florencia", "is_correct": false },
+            { "id": "d", "text": "Milán", "is_correct": false }
+          ],
+          "explanation": "Nació en Venecia y allí pasó la mayor parte de su carrera."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué significa el apodo de Vivaldi, «Il Prete Rosso»?",
+          "options": [
+            { "id": "a", "text": "El compositor ciego", "is_correct": false },
+            { "id": "b", "text": "El cura rojo", "is_correct": true },
+            { "id": "c", "text": "El dux de Venecia", "is_correct": false },
+            { "id": "d", "text": "El gorrioncito", "is_correct": false }
+          ],
+          "explanation": "Tenía el pelo pelirrojo y se ordenó sacerdote católico en 1703."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué tienen de inusual «Las cuatro estaciones» de Vivaldi para su época?",
+          "options": [
+            { "id": "a", "text": "Usan instrumentos de percusión", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Cada concierto va acompañado de un soneto que describe la escena",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Se escribieron para piano", "is_correct": false },
+            { "id": "d", "text": "No tienen violines", "is_correct": false }
+          ],
+          "explanation": "Cada concierto para violín va unido a un soneto: una «música programática» temprana que pinta tormentas, pájaros y hielo."
+        },
+        {
+          "id": "q4",
+          "question": "¿De qué instrumento era Vivaldi virtuoso, protagonista de la mayoría de sus conciertos?",
+          "options": [
+            { "id": "a", "text": "La flauta", "is_correct": false },
+            { "id": "b", "text": "El violín", "is_correct": true },
+            { "id": "c", "text": "El clavecín", "is_correct": false },
+            { "id": "d", "text": "El violonchelo", "is_correct": false }
+          ],
+          "explanation": "Era un violinista célebre y escribió más de 200 conciertos para su instrumento."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuántos conciertos compuso Vivaldi aproximadamente?",
+          "options": [
+            { "id": "a", "text": "Unos 50", "is_correct": false },
+            { "id": "b", "text": "Unos 150", "is_correct": false },
+            { "id": "c", "text": "Unos 500", "is_correct": true },
+            { "id": "d", "text": "Unos 2.000", "is_correct": false }
+          ],
+          "explanation": "Escribió unos 500 conciertos; Stravinsky bromeó con que Vivaldi compuso el mismo concierto 500 veces."
+        },
+        {
+          "id": "q6",
+          "question": "En el Ospedale della Pietà de Venecia, Vivaldi enseñaba música a quiénes?",
+          "options": [
+            { "id": "a", "text": "A hijos de nobles", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A niñas de un hospicio para niños abandonados",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A estudiantes de seminario", "is_correct": false },
+            { "id": "d", "text": "A pajes de la corte", "is_correct": false }
+          ],
+          "explanation": "La orquesta y el coro de niñas de la Piedad, formados por Vivaldi, llegaron a ser una atracción musical de Venecia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo terminó la vida de Vivaldi en 1741?",
+          "options": [
+            { "id": "a", "text": "Rico y famoso en Venecia", "is_correct": false },
+            { "id": "b", "text": "Murió en Viena, pobre y casi olvidado", "is_correct": true },
+            { "id": "c", "text": "En el mar, viajando a España", "is_correct": false },
+            { "id": "d", "text": "En un duelo en Roma", "is_correct": false }
+          ],
+          "explanation": "Se mudó a Viena buscando el patrocinio imperial, murió a los pocos meses y fue enterrado en una tumba sin nombre."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué gran compositor estudió a Vivaldi y transcribió varios de sus conciertos para teclado?",
+          "options": [
+            { "id": "a", "text": "Mozart", "is_correct": false },
+            { "id": "b", "text": "Johann Sebastian Bach", "is_correct": true },
+            { "id": "c", "text": "Beethoven", "is_correct": false },
+            { "id": "d", "text": "Händel", "is_correct": false }
+          ],
+          "explanation": "Bach transcribió varios conciertos de Vivaldi para órgano y clavecín; el ejercicio marcó su propio estilo concertante."
+        }
+      ]
+    }
+  ]
+}
