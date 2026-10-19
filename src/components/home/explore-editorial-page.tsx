@@ -109,11 +109,14 @@ export function ExploreEditorialPage({
   }, [activeCategory, activeMood, localizedQuizzes, query]);
 
   const featuredLead =
-    filteredQuizzes.find((quiz) => quiz.is_featured) ?? filteredQuizzes[0] ?? null;
+    activeMood === 'popular'
+      ? (filteredQuizzes[0] ?? null)
+      : (filteredQuizzes.find((quiz) => quiz.is_featured) ?? filteredQuizzes[0] ?? null);
+  const pulsePool = filteredQuizzes.filter((quiz) => quiz.id !== featuredLead?.id);
   const pulseQuiz =
-    filteredQuizzes
-      .filter((quiz) => quiz.id !== featuredLead?.id)
-      .sort((a, b) => editorialScore(b) - editorialScore(a))[0] ?? null;
+    activeMood === 'popular'
+      ? (pulsePool[0] ?? null)
+      : (pulsePool.sort((a, b) => editorialScore(b) - editorialScore(a))[0] ?? null);
   const secondaryPool = filteredQuizzes.filter(
     (quiz) => quiz.id !== featuredLead?.id && quiz.id !== pulseQuiz?.id
   );
@@ -260,6 +263,9 @@ export function ExploreEditorialPage({
             </div>
           </div>
         </div>
+        <p role="status" className="text-text-secondary mt-5 text-sm">
+          {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
+        </p>
       </section>
 
       {featuredLead ? (
@@ -321,9 +327,6 @@ export function ExploreEditorialPage({
                   <p className="eyebrow">{units.categoryLanes}</p>
                   <h2 className="mt-2 text-4xl">{units.lanesTitle}</h2>
                 </div>
-                <p role="status" className="text-text-secondary text-sm">
-                  {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
-                </p>
               </div>
               <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-4">
                 {laneQuizzes.map((quiz, index) => (

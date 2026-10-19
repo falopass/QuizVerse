@@ -32,7 +32,7 @@ function makeQuiz(overrides: Partial<Quiz>): Quiz {
 }
 
 const QUIZZES = [
-  makeQuiz({ id: 'q-low', slug: 'low', title: 'Low plays', plays_count: 10 }),
+  makeQuiz({ id: 'q-low', slug: 'low', title: 'Low plays', plays_count: 10, is_featured: true }),
   makeQuiz({ id: 'q-top', slug: 'top', title: 'Top plays', plays_count: 500, likes_count: 3 }),
   makeQuiz({ id: 'q-mid', slug: 'mid', title: 'Mid plays', plays_count: 100, likes_count: 50 }),
 ];
@@ -79,6 +79,12 @@ describe('Filtros del explorador', () => {
     expect(status).toHaveTextContent('3 quizzes tras filtros');
   });
 
+  it('mantiene la región status montada cuando el filtro deja cero resultados', () => {
+    renderPage();
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'zzz' } });
+    expect(screen.getByRole('status')).toHaveTextContent('0 quizzes tras filtros');
+  });
+
   it('marca la búsqueda como type=search', () => {
     renderPage();
     expect(screen.getByRole('searchbox')).toBeInTheDocument();
@@ -90,6 +96,10 @@ describe('Filtros del explorador', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Más jugados' }));
 
     const quizLinks = [...container.querySelectorAll<HTMLAnchorElement>('a[href*="/quiz/"]')];
-    expect(quizLinks[0]).toHaveTextContent('Top plays');
+    expect(quizLinks.map((link) => link.getAttribute('href'))).toEqual([
+      expect.stringContaining('/quiz/top'),
+      expect.stringContaining('/quiz/mid'),
+      expect.stringContaining('/quiz/low'),
+    ]);
   });
 });
