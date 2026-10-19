@@ -94,6 +94,27 @@ describe('buildReport', () => {
     expect(report.total).toBe(4);
   });
 
+  it('resuelve hrefs relativos contra baseUrl (la URL final tras redirect), no la clave normalizada', () => {
+    const report = buildReport(
+      [
+        // /en redirige a /en/: "quiz" debe resolver a /en/quiz como en el navegador
+        { url: `${SITE}/en`, baseUrl: `${SITE}/en/`, html: page('<a href="quiz">q</a>') },
+        { url: `${SITE}/en/quiz`, html: page('') },
+      ],
+      SITE
+    );
+    expect(report.singleInbound).toEqual([{ path: '/en/quiz', from: '/en' }]);
+    expect(report.orphans).toEqual(['/en']);
+  });
+
+  it('reporta sub-sitemaps fallidos como errores del informe, fuera del grafo', () => {
+    const report = buildReport([{ url: `${SITE}/en`, html: page('') }], SITE, [
+      { url: `${SITE}/sitemap-b.xml`, error: 'HTTP 503' },
+    ]);
+    expect(report.errorCount).toBe(1);
+    expect(report.errors).toEqual([{ path: '/sitemap-b.xml', error: 'HTTP 503' }]);
+  });
+
   it('cuenta las páginas fallidas como errors y sigue el informe', () => {
     const report = buildReport(
       [

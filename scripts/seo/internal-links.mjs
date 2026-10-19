@@ -9,11 +9,11 @@
  *
  * --input lee los *.html de un directorio local y les asigna la URL por nombre
  *   de archivo (en/quiz.html → /en/quiz, index.html → /) para probar sin red.
- * --fail-on-orphans sale con código 1 si hay huérfanas; por defecto sale 0:
- *   es un informe, no un gate.
+ * --fail-on-orphans sale con código 1 si hay huérfanas o si el informe quedó
+ *   inconcluso por errores de fetch; por defecto sale 0: es un informe, no un gate.
  *
  * Solo lectura: GETs públicos, sin cabeceras de auth ni escrituras.
- * Salida: 0 informe OK · 1 huérfanas con --fail-on-orphans · 2 uso o red.
+ * Salida: 0 informe OK · 1 huérfanas o errores con --fail-on-orphans · 2 uso o red.
  */
 
 import { readdir, readFile } from 'node:fs/promises';
@@ -32,7 +32,8 @@ const USAGE = `uso: node scripts/seo/internal-links.mjs (--sitemap <url> | --inp
                       (index.html → /, en/quiz.html → /en/quiz)
   --base <origen>     origen del sitio para --input (por defecto ${DEFAULT_BASE})
   --json              imprime además el informe completo como JSON
-  --fail-on-orphans   sale con código 1 si hay páginas huérfanas (por defecto: 0)
+  --fail-on-orphans   sale con código 1 si hay huérfanas o errores de fetch
+                      (un informe incompleto no puede descartar huérfanas)
   --help              muestra esta ayuda`;
 
 function decodeEntities(text) {
@@ -117,9 +118,13 @@ export function extractInternalLinks(html, pageUrl, siteOrigin) {
 /**
  * Grafo de enlaces internos sobre `pages` ({ url, html } o { url, error }).
  * Un enlace entrante es una página distinta que la enlaza: ni self-loops ni
- * varios <a> desde la misma página suman más de uno.
+ * varios <a> desde la misma página suman más de uno. Los href relativos se
+ * resuelven contra `page.baseUrl` (la URL final tras redirects) o `page.url`
+ * sin normalizar: la barra final define el directorio base en el navegador.
+ * `loadErrors` son fallos fuera de las páginas (p.ej. sub-sitemaps) que se
+ * reportan como errores sin entrar al grafo.
  */
-export function buildReport(pages, siteOrigin) {
+export function buildReport(pages, siteOrigin, loadErrors = []) {
   const origin = new URL(siteOrigin).origin;
   const byUrl = new Map();
   for (const page of pages) {
@@ -135,7 +140,8 @@ export function buildReport(pages, siteOrigin) {
       errors.push({ url: source, error: String(page.error) });
       continue;
     }
-    for (const target of extractInternalLinks(page.html ?? '', source, origin)) {
+    const base = page.baseUrl ?? page.url;
+    for (const target of extractInternalLinks(page.html ?? '', base, origin)) {
       if (target === source) continue;
       if (!inbound.has(target)) {
         linksOutsideSitemap += 1;
@@ -154,11 +160,15 @@ export function buildReport(pages, siteOrigin) {
     .sort((a, b) => b.count - a.count || a.path.localeCompare(b.path))
     .slice(0, 10);
 
+  const allErrors = [...errors, ...loadErrors].map(({ url, error }) => ({
+    path: toPath(url),
+    error,
+  }));
   return {
     origin,
     total: byUrl.size,
-    errorCount: errors.length,
-    errors: errors.map(({ url, error }) => ({ path: toPath(url), error })),
+    errorCount: allErrors.length,
+    errors: allErrors,
     orphans: orphans.map(toPath),
     singleInbound,
     topLinked,
@@ -229,19 +239,20 @@ async function fetchText(url) {
 }
 
 async function loadSitemapUrls(sitemapUrl) {
-  let locs = parseSitemap(await fetchText(sitemapUrl));
-  // Si el documento es un sitemapindex, los <loc> son sub-sitemaps: un nivel más.
-  if (locs.length > 0 && locs.every((loc) => loc.endsWith('.xml'))) {
-    const nested = await mapPool(locs, CONCURRENCY, async (url) => {
-      try {
-        return parseSitemap(await fetchText(url));
-      } catch {
-        return [];
-      }
-    });
-    locs = nested.flat();
-  }
-  return locs;
+  const xml = await fetchText(sitemapUrl);
+  // Un sitemapindex lista sub-sitemaps en <loc>: hay que bajar un nivel más.
+  // Se detecta por la raíz del documento, no por el sufijo de la URL.
+  if (!/<sitemapindex[\s>]/i.test(xml)) return { urls: parseSitemap(xml), failedSitemaps: [] };
+  const failedSitemaps = [];
+  const nested = await mapPool(parseSitemap(xml), CONCURRENCY, async (url) => {
+    try {
+      return parseSitemap(await fetchText(url));
+    } catch (error) {
+      failedSitemaps.push({ url, error: error instanceof Error ? error.message : String(error) });
+      return [];
+    }
+  });
+  return { urls: nested.flat(), failedSitemaps };
 }
 
 function fileToPath(rel) {
@@ -288,23 +299,31 @@ async function main() {
       : DEFAULT_BASE;
 
   let pages;
+  let loadErrors = [];
   if (args.input) {
     pages = await readInputPages(args.input, siteOrigin);
     if (pages.length === 0) throw new Error(`sin archivos *.html en ${args.input}`);
     console.log(`Auditando ${pages.length} páginas locales de ${args.input} (${siteOrigin})`);
   } else {
-    const urls = [...new Set((await loadSitemapUrls(args.sitemap)).map(normalizePageUrl))];
-    if (urls.length === 0) throw new Error(`el sitemap no tiene <loc>: ${args.sitemap}`);
-    console.log(`Auditando enlaces internos de ${urls.length} urls (${args.sitemap})`);
-    pages = await mapPool(urls, CONCURRENCY, async (url) => {
+    const { urls: locs, failedSitemaps } = await loadSitemapUrls(args.sitemap);
+    // La clave del grafo es la URL normalizada; el fetch usa el <loc> original.
+    const targets = new Map();
+    for (const loc of locs) {
+      const key = normalizePageUrl(loc);
+      if (!targets.has(key)) targets.set(key, loc);
+    }
+    if (targets.size === 0) throw new Error(`el sitemap no tiene <loc>: ${args.sitemap}`);
+    console.log(`Auditando enlaces internos de ${targets.size} urls (${args.sitemap})`);
+    loadErrors = failedSitemaps;
+    pages = await mapPool([...targets], CONCURRENCY, async ([url, fetchUrl]) => {
       let page;
       try {
-        const response = await fetch(url, {
+        const response = await fetch(fetchUrl, {
           headers: { accept: 'text/html', 'user-agent': USER_AGENT },
           signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         });
         page = response.ok
-          ? { url, html: await response.text() }
+          ? { url, baseUrl: response.url, html: await response.text() }
           : { url, error: `HTTP ${response.status}` };
       } catch (error) {
         page = { url, error: error instanceof Error ? error.message : String(error) };
@@ -314,10 +333,13 @@ async function main() {
     });
   }
 
-  const report = buildReport(pages, siteOrigin);
+  const report = buildReport(pages, siteOrigin, loadErrors);
   printReport(report);
   if (args.json) console.log(`\n${JSON.stringify(report, null, 2)}`);
-  if (args.failOnOrphans && report.orphans.length > 0) process.exitCode = 1;
+  // Con errores de fetch el informe es inconcluso: no puede descartar huérfanas.
+  if (args.failOnOrphans && (report.orphans.length > 0 || report.errorCount > 0)) {
+    process.exitCode = 1;
+  }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
