@@ -14,13 +14,46 @@ vi.mock('@/lib/supabase/server', () => ({
 
 vi.mock('@/lib/data/public', () => ({
   getExplorePayload: async () => ({
-    quizzes: Array.from({ length: 30 }, (_, index) => ({
-      id: `q${index + 1}`,
-      slug: `quiz-${index + 1}`,
-      title: `Quiz ${index + 1}`,
-      questions: [{ id: `qq${index + 1}` }],
-      results: [{ id: `qr${index + 1}` }],
-    })),
+    quizzes: [
+      // Va primero en el payload pero sin tracción: el orden editorial la
+      // recoloca. El ItemList debe seguir el orden visible, no este.
+      {
+        id: 'q-first',
+        slug: 'primera-del-payload',
+        title: 'Primera del payload',
+        is_featured: false,
+        plays_count: 0,
+        likes_count: 0,
+        quiz_type: 'trivia',
+        cover_image_url: null,
+        questions: [],
+        results: null,
+      },
+      {
+        id: 'q-featured',
+        slug: 'portada-destacada',
+        title: 'Portada destacada',
+        is_featured: true,
+        plays_count: 0,
+        likes_count: 0,
+        quiz_type: 'trivia',
+        cover_image_url: null,
+        questions: [],
+        results: null,
+      },
+      ...Array.from({ length: 28 }, (_, index) => ({
+        id: `q${index + 1}`,
+        slug: `quiz-${index + 1}`,
+        title: `Quiz ${index + 1}`,
+        is_featured: false,
+        plays_count: 100 - index,
+        likes_count: 0,
+        quiz_type: 'trivia',
+        cover_image_url: null,
+        questions: [],
+        results: null,
+      })),
+    ],
     categories: [],
   }),
   getLeaderboard: async () => [
@@ -53,7 +86,7 @@ const nodeOfType = (graph: JsonLdGraph, type: string) =>
   graph['@graph'].find((node) => node['@type'] === type);
 
 describe('JSON-LD de /{locale}/quiz (explorador)', () => {
-  it('emite WebPage + ItemList con a lo sumo 24 quizzes', async () => {
+  it('emite WebPage + ItemList con los 18 quizzes visibles, en el orden renderizado', async () => {
     const tree = await ExplorerPage({ params: Promise.resolve({ locale: 'es' }) });
     const graph = findJsonLd(tree);
 
@@ -76,14 +109,19 @@ describe('JSON-LD de /{locale}/quiz (explorador)', () => {
       name: string;
       url: string;
     }>;
-    expect(itemList?.numberOfItems).toBe(24);
-    expect(items).toHaveLength(24);
-    expect(items[0]).toMatchObject({
-      position: 1,
-      name: 'Quiz 1',
-      url: `${SITE_URL}/es/quiz/quiz-1`,
-    });
-    expect(items[23].url).toBe(`${SITE_URL}/es/quiz/quiz-24`);
+    // El explorador muestra lead + pulse + 4 lanes + 12 grid = 18 como
+    // máximo: los otros 12 del payload no pueden anunciarse.
+    const expectedSlugs = [
+      'portada-destacada',
+      ...Array.from({ length: 17 }, (_, index) => `quiz-${index + 1}`),
+    ];
+    expect(itemList?.numberOfItems).toBe(18);
+    expect(items.map((item) => item.url)).toEqual(
+      expectedSlugs.map((slug) => `${SITE_URL}/es/quiz/${slug}`)
+    );
+    expect(items.map((item) => item.position)).toEqual(
+      Array.from({ length: 18 }, (_, index) => index + 1)
+    );
   });
 });
 

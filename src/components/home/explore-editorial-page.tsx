@@ -7,6 +7,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { editorialScore, explorerSelection } from '@/lib/quiz/editorial-order';
 import type { Category, Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -108,20 +109,15 @@ export function ExploreEditorialPage({
     return next;
   }, [activeCategory, activeMood, localizedQuizzes, query]);
 
-  const featuredLead =
-    activeMood === 'popular'
-      ? (filteredQuizzes[0] ?? null)
-      : (filteredQuizzes.find((quiz) => quiz.is_featured) ?? filteredQuizzes[0] ?? null);
-  const pulsePool = filteredQuizzes.filter((quiz) => quiz.id !== featuredLead?.id);
-  const pulseQuiz =
-    activeMood === 'popular'
-      ? (pulsePool[0] ?? null)
-      : (pulsePool.sort((a, b) => editorialScore(b) - editorialScore(a))[0] ?? null);
-  const secondaryPool = filteredQuizzes.filter(
-    (quiz) => quiz.id !== featuredLead?.id && quiz.id !== pulseQuiz?.id
+  const {
+    lead: featuredLead,
+    pulse: pulseQuiz,
+    lanes: laneQuizzes,
+    grid: gridQuizzes,
+  } = React.useMemo(
+    () => explorerSelection(filteredQuizzes, { preferEditorial: activeMood !== 'popular' }),
+    [filteredQuizzes, activeMood]
   );
-  const laneQuizzes = secondaryPool.slice(0, 4);
-  const gridQuizzes = secondaryPool.slice(4, 16);
 
   const units =
     locale === 'es'
@@ -400,14 +396,5 @@ function CategoryFilter({
     >
       {label}
     </button>
-  );
-}
-
-function editorialScore(quiz: Quiz) {
-  const featuredBoost = quiz.is_featured ? 220 : 0;
-  const stockBoost = quiz.cover_image_url?.startsWith('/stock-covers/') ? 28 : 0;
-  const personalityBoost = quiz.quiz_type === 'personality' ? 6 : 0;
-  return (
-    featuredBoost + stockBoost + quiz.plays_count * 2 + quiz.likes_count * 4 + personalityBoost
   );
 }

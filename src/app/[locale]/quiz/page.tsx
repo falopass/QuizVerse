@@ -7,9 +7,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { buildGraph, itemListNode, quizPath, webPageNode } from '@/lib/seo/structured-data';
-
-/** How many quizzes the ItemList advertises. Keeps the JSON-LD payload small. */
-const ITEM_LIST_LIMIT = 24;
+import { explorerVisibleQuizzes } from '@/lib/quiz/editorial-order';
 
 const EXPLORER_TITLE: Record<Locale, string> = {
   es: 'Explora todos los quizzes — trivia, personalidad y fandom',
@@ -60,9 +58,10 @@ export default async function LocalizedQuizExplorerPage({
         data={buildGraph([
           webPageNode(`/${locale}/quiz`, locale, EXPLORER_TITLE[locale]),
           itemListNode(
-            payload.quizzes
-              .slice(0, ITEM_LIST_LIMIT)
-              .map((quiz) => ({ name: quiz.title, path: quizPath(locale, quiz.slug) })),
+            explorerVisibleQuizzes(payload.quizzes).map((quiz) => ({
+              name: quiz.title,
+              path: quizPath(locale, quiz.slug),
+            })),
             locale
           ),
         ])}
