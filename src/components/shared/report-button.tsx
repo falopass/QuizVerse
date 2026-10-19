@@ -162,7 +162,12 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
           )}
 
           {status === 'success' ? (
-            <p id="report-feedback" role="status" aria-live="polite" className="text-success text-sm font-medium">
+            <p
+              id="report-feedback"
+              role="status"
+              aria-live="polite"
+              className="text-success text-sm font-medium"
+            >
               {copy.success}
             </p>
           ) : null}

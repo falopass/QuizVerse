@@ -4,10 +4,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { ReportButton } from '@/components/shared/report-button';
 
 function mockFetch(ok: boolean) {
-  vi.stubGlobal(
-    'fetch',
-    vi.fn().mockResolvedValue({ ok } as Response)
-  );
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok } as Response));
 }
 
 function renderAndSubmit(locale: 'es' | 'en') {
