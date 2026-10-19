@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
+import { getHubGuide, getRelatedCategories, RELATED_HEADING } from '@/lib/content/hub-guides';
 import { getCategoryPayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
@@ -60,6 +61,13 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
   const category = localizeCategory(payload.category, locale)!;
   const quizzes = localizeQuizList(payload.quizzes, locale);
   const path = categoryPath(locale, slug);
+  const guide = getHubGuide(slug, locale);
+  const related = getRelatedCategories(
+    slug,
+    payload.categories.map((item) => item.slug)
+  )
+    .map((relatedSlug) => payload.categories.find((item) => item.slug === relatedSlug))
+    .filter((item): item is (typeof payload.categories)[number] => Boolean(item));
 
   return (
     <div className="arcade-wrap arcade-page arcade-category">
@@ -121,6 +129,45 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
           <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />
         ))}
       </div>
+      {guide || related.length >= 2 ? (
+        <section
+          className="arcade-related"
+          aria-labelledby={guide ? 'hub-guide' : 'related-categories'}
+        >
+          <div className="arcade-section-head">
+            <h2 id={guide ? 'hub-guide' : 'related-categories'}>
+              {guide ? guide.title : RELATED_HEADING[locale]}
+            </h2>
+          </div>
+          {guide ? (
+            <div className="max-w-2xl space-y-4 pb-6">
+              {guide.intro.map((paragraph) => (
+                <p key={paragraph} className="text-text-secondary leading-7">
+                  {paragraph}
+                </p>
+              ))}
+              <ul className="text-text-secondary list-disc space-y-1 pl-5">
+                {guide.howTo.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="text-text-secondary leading-7">{guide.closing}</p>
+            </div>
+          ) : null}
+          {related.length > 0 ? (
+            <nav className="arcade-filters" aria-label={RELATED_HEADING[locale]}>
+              {related.map((item) => {
+                const localized = localizeCategory(item, locale)!;
+                return (
+                  <Link key={item.id} href={localizeHref(locale, `/category/${item.slug}`)}>
+                    {localized.name}
+                  </Link>
+                );
+              })}
+            </nav>
+          ) : null}
+        </section>
+      ) : null}
     </div>
   );
 }
