@@ -1,7 +1,22 @@
 import { describe, expect, it } from 'vitest';
-import { buildMetadata, clampDescription } from '@/lib/seo/metadata';
+import {
+  buildMetadata,
+  clampDescription,
+  generateCategoryMetadata,
+  generateProfileMetadata,
+  localizedPath,
+} from '@/lib/seo/metadata';
 import { generateSitemapXml } from '@/lib/seo/sitemap';
-import { buildGraph, breadcrumbNode, isoDuration, quizNode } from '@/lib/seo/structured-data';
+import {
+  buildGraph,
+  breadcrumbNode,
+  categoryPath,
+  isoDuration,
+  itemListNode,
+  quizNode,
+  quizPath,
+  webPageNode,
+} from '@/lib/seo/structured-data';
 import { SITE_URL } from '@/lib/seo/site';
 import type { Quiz } from '@/types/quiz';
 
@@ -213,5 +228,183 @@ describe('generateSitemapXml — alternates bilingües', () => {
       SITE_URL
     );
     expect(xml).toContain('href="https://quizverse.org/es/quiz/b&amp;c"');
+  });
+});
+
+describe('itemListNode', () => {
+  const items = [
+    { name: 'Space Trivia', path: '/en/quiz/space-trivia' },
+    { name: 'Movie Night', path: '/en/quiz/movie-night' },
+  ];
+
+  it('returns null for an empty list', () => {
+    expect(itemListNode([], 'en')).toBeNull();
+  });
+
+  it('lists items with positions starting at 1 and absolute URLs', () => {
+    const node = itemListNode(items, 'en');
+
+    expect(node).toMatchObject({ '@type': 'ItemList', numberOfItems: 2 });
+    expect(node?.itemListElement).toEqual([
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Space Trivia',
+        url: `${SITE_URL}/en/quiz/space-trivia`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Movie Night',
+        url: `${SITE_URL}/en/quiz/movie-night`,
+      },
+    ]);
+  });
+
+  it('defaults the list name by locale and honors a custom one', () => {
+    expect(itemListNode(items, 'en')?.name).toBe('QuizVerse quizzes');
+    expect(itemListNode(items, 'es')?.name).toBe('Quizzes de QuizVerse');
+    expect(itemListNode(items, 'en', 'Trending')?.name).toBe('Trending');
+  });
+});
+
+describe('webPageNode', () => {
+  it('emits a WebPage anchored to #webpage and part of #website', () => {
+    const node = webPageNode('/en/about', 'en', 'About QuizVerse');
+
+    expect(node['@type']).toBe('WebPage');
+    expect(node.url).toBe(`${SITE_URL}/en/about`);
+    expect(node['@id']).toBe(`${SITE_URL}/en/about#webpage`);
+    expect(node.inLanguage).toBe('en');
+    expect(node.isPartOf).toEqual({ '@id': `${SITE_URL}/#website` });
+  });
+
+  it('marks Spanish pages as inLanguage es', () => {
+    expect(webPageNode('/es/about', 'es', 'Acerca').inLanguage).toBe('es');
+  });
+});
+
+describe('categoryPath and quizPath', () => {
+  it('prefixes the locale', () => {
+    expect(categoryPath('es', 'movies-tv')).toBe('/es/category/movies-tv');
+    expect(quizPath('en', 'space-trivia')).toBe('/en/quiz/space-trivia');
+  });
+
+  it('percent-encodes special characters in the slug', () => {
+    expect(quizPath('en', 'a&b')).toBe('/en/quiz/a%26b');
+    expect(categoryPath('en', 'a&b')).toBe('/en/category/a%26b');
+  });
+});
+
+describe('localizedPath', () => {
+  it('maps the root to the locale prefix', () => {
+    expect(localizedPath('es', '/')).toBe('/es');
+  });
+
+  it('adds the leading slash when missing', () => {
+    expect(localizedPath('en', 'quiz')).toBe('/en/quiz');
+  });
+
+  it('keeps paths that already start with a slash', () => {
+    expect(localizedPath('en', '/quiz')).toBe('/en/quiz');
+  });
+});
+
+describe('generateCategoryMetadata', () => {
+  it('includes the quiz count in the title (en and es)', () => {
+    const en = generateCategoryMetadata({
+      name: 'Movies',
+      slug: 'movies',
+      locale: 'en',
+      quizCount: 7,
+    });
+    const es = generateCategoryMetadata({
+      name: 'Cine',
+      slug: 'movies',
+      locale: 'es',
+      quizCount: 7,
+    });
+
+    expect(en.title).toBe('Movies: 7 quizzes to play');
+    expect(es.title).toBe('Cine: 7 quizzes online');
+  });
+
+  it('falls back to a count-less title', () => {
+    expect(generateCategoryMetadata({ name: 'Movies', slug: 'movies', locale: 'en' }).title).toBe(
+      'Movies quizzes'
+    );
+    expect(generateCategoryMetadata({ name: 'Cine', slug: 'movies', locale: 'es' }).title).toBe(
+      'Quizzes de Cine'
+    );
+  });
+
+  it('emits canonical and hreflang in both directions with x-default to English', () => {
+    const metadata = generateCategoryMetadata({ name: 'Movies', slug: 'movies', locale: 'es' });
+
+    expect(metadata.alternates?.canonical).toBe(`${SITE_URL}/es/category/movies`);
+    expect(metadata.alternates?.languages).toEqual({
+      es: `${SITE_URL}/es/category/movies`,
+      en: `${SITE_URL}/en/category/movies`,
+      'x-default': `${SITE_URL}/en/category/movies`,
+    });
+  });
+});
+
+describe('generateProfileMetadata', () => {
+  it('keeps profiles out of the index', () => {
+    const metadata = generateProfileMetadata({ username: 'diego' });
+    expect(metadata.robots).toMatchObject({ index: false });
+  });
+
+  it('emits a canonical profile URL', () => {
+    const metadata = generateProfileMetadata({ username: 'diego', locale: 'en' });
+    expect(metadata.alternates?.canonical).toBe(`${SITE_URL}/en/profile/diego`);
+  });
+
+  it('uses the bio when present and a fallback otherwise', () => {
+    expect(generateProfileMetadata({ username: 'diego', bio: 'Quiz maker.' }).description).toBe(
+      'Quiz maker.'
+    );
+    expect(generateProfileMetadata({ username: 'diego', quizzesCreated: 3 }).description).toBe(
+      'diego has created 3 quizzes on QuizVerse.'
+    );
+    expect(
+      generateProfileMetadata({ username: 'diego', displayName: 'Diego', locale: 'es' }).description
+    ).toBe('Diego ha creado 0 quizzes en QuizVerse.');
+  });
+});
+
+describe('buildMetadata passthrough', () => {
+  it('forwards type, keywords and article timestamps to Open Graph', () => {
+    const metadata = buildMetadata({
+      title: 'Article',
+      description: 'Body.',
+      path: '/en/blog/post',
+      locale: 'en',
+      type: 'article',
+      keywords: ['trivia', 'movies'],
+      publishedTime: '2026-01-01T00:00:00.000Z',
+      modifiedTime: '2026-02-01T00:00:00.000Z',
+    });
+
+    expect(metadata.keywords).toEqual(['trivia', 'movies']);
+    expect(metadata.openGraph).toMatchObject({
+      type: 'article',
+      publishedTime: '2026-01-01T00:00:00.000Z',
+      modifiedTime: '2026-02-01T00:00:00.000Z',
+    });
+  });
+
+  it('emits the alternate OG locale for each locale', () => {
+    const en = buildMetadata({ title: 'T', description: 'D', path: '/en', locale: 'en' });
+    const es = buildMetadata({ title: 'T', description: 'D', path: '/es', locale: 'es' });
+
+    expect(en.openGraph?.alternateLocale).toEqual(['es_ES']);
+    expect(es.openGraph?.alternateLocale).toEqual(['en_US']);
+  });
+
+  it('always uses the large-image Twitter card', () => {
+    const metadata = buildMetadata({ title: 'T', description: 'D', path: '/en', locale: 'en' });
+    expect(metadata.twitter).toMatchObject({ card: 'summary_large_image' });
   });
 });
