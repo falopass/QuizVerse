@@ -139,6 +139,28 @@ describe('MyQuizzesList', () => {
     expect(alert).not.toHaveTextContent('relation');
   });
 
+  it('formatea los contadores compactos en español cuando locale="es"', () => {
+    const quiz: MyQuizRow = {
+      ...QUIZZES[2],
+      plays_count: 1500,
+      likes_count: 2000000,
+    };
+    render(<MyQuizzesList quizzes={[quiz]} locale="es" />);
+
+    expect(screen.getByText(/1,5\smil partidas · 2\sM me gusta/)).toBeInTheDocument();
+  });
+
+  it('formatea los contadores compactos en inglés cuando locale="en"', () => {
+    const quiz: MyQuizRow = {
+      ...QUIZZES[2],
+      plays_count: 1500,
+      likes_count: 2000000,
+    };
+    render(<MyQuizzesList quizzes={[quiz]} locale="en" />);
+
+    expect(screen.getByText(/1\.5K plays · 2M likes/)).toBeInTheDocument();
+  });
+
   it('ofrece crear un quiz cuando la lista está vacía', () => {
     render(<MyQuizzesList quizzes={[]} locale="en" />);
 

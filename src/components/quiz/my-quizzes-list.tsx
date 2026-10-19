@@ -154,7 +154,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
             ) : (
               <span className="text-text-primary font-semibold">{quiz.title}</span>
             );
-          const date = new Date(quiz.created_at).toLocaleDateString(es ? 'es-ES' : 'en-US', {
+          const date = new Date(quiz.created_at).toLocaleDateString(es ? 'es' : 'en-US', {
             day: 'numeric',
             month: 'short',
             year: 'numeric',
@@ -176,9 +176,9 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                 <p className="text-text-muted mt-2 text-sm">
                   {quiz.quiz_type === 'trivia' ? copy.trivia : copy.personality}
                   {' · '}
-                  {formatCompactNumber(quiz.plays_count)} {copy.plays}
+                  {formatCompactNumber(quiz.plays_count, locale)} {copy.plays}
                   {' · '}
-                  {formatCompactNumber(quiz.likes_count)} {copy.likes}
+                  {formatCompactNumber(quiz.likes_count, locale)} {copy.likes}
                   {' · '}
                   {date}
                 </p>
