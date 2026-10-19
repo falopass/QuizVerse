@@ -77,6 +77,15 @@ describe('GET /api/sitemap — disponibilidad', () => {
     expect(response.headers.get('Retry-After')).toBe('300');
   });
 
+  it('responde 503 cuando Supabase devuelve data: null sin error', async () => {
+    state.result = { data: null, error: null };
+    const response = await GET();
+    state.result = { data: [], error: null };
+
+    expect(response.status).toBe(503);
+    expect(response.headers.get('Retry-After')).toBe('300');
+  });
+
   it('un catálogo vacío legítimo sigue siendo 200 con las páginas editoriales', async () => {
     state.result = { data: [], error: null };
     const response = await GET();
