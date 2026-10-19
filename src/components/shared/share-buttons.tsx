@@ -39,6 +39,7 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
       trackShare();
       setTimeout(() => setCopied(false), 2000);
     } else {
+      setCopied(false);
       setCopyFailed(true);
     }
   };

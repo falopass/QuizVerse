@@ -107,7 +107,13 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
       {copyError !== null && (
         <div role="status" aria-live="polite" className="mt-3">
           <p className="text-xs text-[var(--text-secondary)]">
-            {es ? 'No pudimos copiar: selecciona el enlace' : "Couldn't copy: select the link"}
+            {copyError === url
+              ? es
+                ? 'No pudimos copiar: selecciona el enlace'
+                : "Couldn't copy: select the link"
+              : es
+                ? 'No pudimos copiar: selecciona el código'
+                : "Couldn't copy: select the code"}
           </p>
           <input
             readOnly
