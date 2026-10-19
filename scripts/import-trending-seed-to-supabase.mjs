@@ -19,6 +19,19 @@ const sourcePath = process.env.SEED_SOURCE_PATH
   : path.join(rootDir, 'generated', 'trending-seed.json');
 const isDryRun = process.env.SEED_DRY_RUN === '1';
 
+// Title overrides win over the seed titles, so re-importing the catalogue does
+// not undo the batches applied via supabase/seed/quiz-title-overrides.sql.
+const titleOverrides = new Map();
+const titleOverridesPath = path.join(rootDir, 'scripts', 'seed', 'quiz-title-overrides.json');
+if (fs.existsSync(titleOverridesPath)) {
+  const { quizzes: overrides } = JSON.parse(fs.readFileSync(titleOverridesPath, 'utf8'));
+  for (const entry of overrides ?? []) {
+    if (typeof entry?.slug === 'string' && typeof entry?.title === 'string' && entry.title) {
+      titleOverrides.set(entry.slug, entry.title);
+    }
+  }
+}
+
 const supabase = createClient(supabaseUrl, serviceRoleKey, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
@@ -190,7 +203,7 @@ function buildQuizRow(quiz, categoryId) {
 
   return {
     category_id: categoryId ?? null,
-    title: quiz.title,
+    title: titleOverrides.get(quiz.slug) ?? quiz.title,
     slug: quiz.slug,
     description: quiz.description ?? null,
     cover_image_url: quiz.cover_image_url ?? null,
@@ -297,6 +310,7 @@ async function main() {
     dryRun: isDryRun,
     totalInFile: quizzes.length,
     imported: rows.length,
+    titleOverridesApplied: rows.filter((row) => titleOverrides.has(row.slug)).length,
     skipped: skipped.length,
     byLanguage: rows.reduce((acc, row) => {
       acc[row.language] = (acc[row.language] ?? 0) + 1;

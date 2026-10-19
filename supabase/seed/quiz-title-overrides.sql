@@ -33,7 +33,7 @@ SET title = 'Barbie Trivia: How Much Do You Remember?',
 WHERE slug = 'en-barbie-fan-trivia-challenge';
 
 UPDATE public.quizzes
-SET title = 'Beef Trivia: 8 Questions About the Netflix Series',
+SET title = 'Beef Trivia: 8 Questions About Cuts and Cooking',
     updated_at = now()
 WHERE slug = 'en-beef-fan-trivia-challenge';
 
