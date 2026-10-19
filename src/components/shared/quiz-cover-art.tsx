@@ -67,7 +67,7 @@ export function QuizCoverArt({
           className="arcade-cover-photo"
           decoding="async"
           loading={isAboveFold ? 'eager' : 'lazy'}
-          fetchPriority={isHero ? 'high' : undefined}
+          fetchPriority={isAboveFold ? 'high' : undefined}
         />
       )}
       {priorityLabel !== '' && (

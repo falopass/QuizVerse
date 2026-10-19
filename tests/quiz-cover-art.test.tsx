@@ -32,14 +32,15 @@ describe('QuizCoverArt · foto', () => {
     expect(img).not.toHaveAttribute('fetchpriority');
   });
 
-  it('detalle (decorative + priorityLabel=""): eager sin fetchpriority (above the fold)', () => {
+  it('detalle (decorative + priorityLabel=""): eager y fetchpriority=high', () => {
     const { container } = render(
       <QuizCoverArt quiz={quizConFoto} locale="es" decorative priorityLabel="" />
     );
     const img = container.querySelector('img.arcade-cover-photo');
     expect(img).not.toBeNull();
     expect(img).toHaveAttribute('loading', 'eager');
-    expect(img).not.toHaveAttribute('fetchpriority');
+    expect(img).toHaveAttribute('fetchpriority', 'high');
+    expect(img).toHaveAttribute('decoding', 'async');
   });
 
   it('quiz sin foto no renderiza ningún <img>', () => {
