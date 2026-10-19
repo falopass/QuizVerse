@@ -833,14 +833,14 @@
         },
         {
           "id": "q2",
-          "question": "Which tennis player holds the Open Era record with 23 Grand Slam singles titles?",
+          "question": "Which tennis player holds the women's Open Era record with 23 Grand Slam singles titles?",
           "options": [
             { "id": "a", "text": "Steffi Graf", "is_correct": false },
             { "id": "b", "text": "Serena Williams", "is_correct": true },
             { "id": "c", "text": "Martina Navratilova", "is_correct": false },
             { "id": "d", "text": "Margaret Court", "is_correct": false }
           ],
-          "explanation": "Serena won 23 majors between 1999 and 2017; Margaret Court's 24 predate the Open Era."
+          "explanation": "Serena won 23 majors between 1999 and 2017, the women's Open Era record; Court's 24 span both eras."
         },
         {
           "id": "q3",
@@ -934,14 +934,14 @@
         },
         {
           "id": "q2",
-          "question": "¿Qué tenista tiene el récord de la Era Open con 23 títulos individuales de Grand Slam?",
+          "question": "¿Qué tenista tiene el récord femenino de la Era Open con 23 títulos individuales de Grand Slam?",
           "options": [
             { "id": "a", "text": "Steffi Graf", "is_correct": false },
             { "id": "b", "text": "Serena Williams", "is_correct": true },
             { "id": "c", "text": "Martina Navratilova", "is_correct": false },
             { "id": "d", "text": "Margaret Court", "is_correct": false }
           ],
-          "explanation": "Serena ganó 23 majors entre 1999 y 2017; los 24 de Margaret Court son anteriores a la Era Open."
+          "explanation": "Serena ganó 23 majors entre 1999 y 2017, el récord femenino de la Era Open; los 24 de Margaret Court abarcan ambas eras."
         },
         {
           "id": "q3",
