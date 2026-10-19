@@ -155,6 +155,27 @@ export function quizNode({
   };
 }
 
+export function aboutPageNode({
+  path,
+  locale,
+  name,
+}: {
+  path: string;
+  locale: Locale;
+  name: string;
+}): JsonLdNode {
+  const url = absoluteUrl(path);
+  return {
+    '@type': 'AboutPage',
+    '@id': `${url}#aboutpage`,
+    url,
+    name,
+    inLanguage: locale === 'es' ? 'es' : 'en',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#organization` },
+  };
+}
+
 export function webPageNode(path: string, locale: Locale, name: string): JsonLdNode {
   return {
     '@type': 'WebPage',

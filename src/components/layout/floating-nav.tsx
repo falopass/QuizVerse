@@ -57,6 +57,13 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           >
             {dictionary.common.randomQuiz}
           </Link>
+          <Link
+            href={localizeHref(locale, '/editorial')}
+            className={cn('arcade-nav-link', isActive('/editorial') && 'text-accent-primary')}
+            aria-current={isActive('/editorial') ? 'page' : undefined}
+          >
+            {locale === 'es' ? 'Cómo trabajamos' : 'How we work'}
+          </Link>
           <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
           <Link href={localizeHref(locale, '/quiz')} className="arcade-pill">
             {dictionary.arcade.pickGame} ↗
@@ -111,6 +118,14 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             onClick={() => setOpen(false)}
           >
             {dictionary.common.randomQuiz}
+          </Link>
+          <Link
+            href={localizeHref(locale, '/editorial')}
+            className={cn(isActive('/editorial') && 'text-accent-primary')}
+            aria-current={isActive('/editorial') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
+            {locale === 'es' ? 'Cómo trabajamos' : 'How we work'}
           </Link>
           <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />
         </nav>
