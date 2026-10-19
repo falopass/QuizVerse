@@ -95,15 +95,27 @@ beforeEach(() => {
   mocks.rpcResult = { data: true, error: null };
 });
 
+const HUB_PATHS = [
+  ['/[locale]/category/[slug]', 'page'],
+  ['/[locale]/profile/[username]', 'page'],
+];
+
+const expectHubs = () => {
+  for (const args of HUB_PATHS) {
+    expect(mocks.revalidate).toHaveBeenCalledWith(...args);
+  }
+};
+
 describe('createQuiz', () => {
   it('revalida las rutas localizadas del locale del quiz', async () => {
     const result = await createQuiz(createInput('es'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(3);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(5);
     expect(mocks.revalidate).toHaveBeenCalledWith('/es');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
+    expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
   });
@@ -112,12 +124,13 @@ describe('createQuiz', () => {
     const result = await createQuiz(createInput('pt'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(8);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
     }
+    expectHubs();
   });
 });
 
@@ -126,12 +139,14 @@ describe('updateQuiz', () => {
     const result = await updateQuiz(QUIZ_ID, { language: 'es' });
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
+    // 3 paths × 2 locales + 2 hub patterns × 2 calls (los hubs se repiten, es idempotente)
+    expect(mocks.revalidate).toHaveBeenCalledTimes(10);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
     }
+    expectHubs();
   });
 });
 
@@ -140,23 +155,25 @@ describe('deleteQuiz', () => {
     const result = await deleteQuiz(QUIZ_ID);
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(3);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(5);
     expect(mocks.revalidate).toHaveBeenCalledWith('/en');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz/quiz-de-prueba');
+    expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
   });
 });
 
 describe('likeQuiz', () => {
-  it('revalida solo el detalle localizado, por slug y no por id', async () => {
+  it('revalida detalle y explorar localizados, por slug y no por id', async () => {
     mocks.quizRow = { data: { creator_id: 'otro', slug: 'quiz-de-prueba', language: 'es' } };
 
     const result = await likeQuiz(QUIZ_ID);
 
     expect(result).toEqual({ success: true, liked: true });
-    expect(mocks.revalidate).toHaveBeenCalledTimes(1);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(2);
+    expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
     expect(mocks.revalidate).not.toHaveBeenCalledWith(`/quiz/${QUIZ_ID}`);
   });

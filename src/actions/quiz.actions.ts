@@ -80,6 +80,10 @@ function revalidateQuizPages(language: string, slug: string) {
     revalidatePath(`/${locale}/quiz`);
     revalidatePath(`/${locale}/quiz/${slug}`);
   }
+  // Category hubs and creator profiles list quizzes too. Their slug/username
+  // aren't at hand without a join, so the dynamic routes go out wholesale.
+  revalidatePath('/[locale]/category/[slug]', 'page');
+  revalidatePath('/[locale]/profile/[username]', 'page');
 }
 
 // ============================================
@@ -300,6 +304,8 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 
   if (quiz) {
     for (const locale of quizLocales(quiz.language)) {
+      // Detail shows the count; explore ranks by likes_count.
+      revalidatePath(`/${locale}/quiz`);
       revalidatePath(`/${locale}/quiz/${quiz.slug}`);
     }
   }
