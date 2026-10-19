@@ -53,11 +53,31 @@
           "id": "q1",
           "question": "It's your week to clean the kitchen. What actually happens?",
           "options": [
-            { "id": "a", "text": "It's already done — I cleaned before anyone noticed.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "I clean it, then gently remind everyone whose turn is next.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "The rota I made says exactly who does what and when.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Kitchen? I've been living on takeout for weeks.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "I promise to do it, and the pile achieves sentience first.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "It's already done — I cleaned before anyone noticed.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "I clean it, then gently remind everyone whose turn is next.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "The rota I made says exactly who does what and when.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Kitchen? I've been living on takeout for weeks.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "I promise to do it, and the pile achieves sentience first.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -66,11 +86,31 @@
           "id": "q2",
           "question": "Your flatmate leaves passive-aggressive notes on the fridge. Your move:",
           "options": [
-            { "id": "a", "text": "Ignore the notes and keep doing my part.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Ask them directly, nicely, what's bothering them.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Propose a house meeting with an agenda.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "I never see the notes. I never see anyone.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Reply with an equally cryptic note.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Ignore the notes and keep doing my part.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Ask them directly, nicely, what's bothering them.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Propose a house meeting with an agenda.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "I never see the notes. I never see anyone.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Reply with an equally cryptic note.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -79,11 +119,31 @@
           "id": "q3",
           "question": "The shared expenses spreadsheet says you owe money. You:",
           "options": [
-            { "id": "a", "text": "Pay immediately, before anyone has to ask.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Pay, and check everyone else is okay with the numbers.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "I made the spreadsheet. The payment is already scheduled.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Didn't know there was a spreadsheet.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "'I'll get you next month' — a tradition by now.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Pay immediately, before anyone has to ask.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Pay, and check everyone else is okay with the numbers.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "I made the spreadsheet. The payment is already scheduled.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Didn't know there was a spreadsheet.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "'I'll get you next month' — a tradition by now.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -92,11 +152,27 @@
           "id": "q4",
           "question": "It's 2 am and your flatmate is blasting music. You:",
           "options": [
-            { "id": "a", "text": "Knock once, politely, then put in earplugs.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Text them a friendly 'can we lower it?' with a meme.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Cite the quiet hours clause we all agreed to.", "personality_tags": ["manager"] },
+            {
+              "id": "a",
+              "text": "Knock once, politely, then put in earplugs.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Text them a friendly 'can we lower it?' with a meme.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Cite the quiet hours clause we all agreed to.",
+              "personality_tags": ["manager"]
+            },
             { "id": "d", "text": "Nothing. I sleep through worse.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Blast my own playlist back. Escalation.", "personality_tags": ["chaos"] }
+            {
+              "id": "e",
+              "text": "Blast my own playlist back. Escalation.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -105,9 +181,21 @@
           "id": "q5",
           "question": "Your food keeps disappearing from the fridge. You:",
           "options": [
-            { "id": "a", "text": "Label everything and buy a spare for the house.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Bring it up at dinner, half-joking, and fix it.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Institute the labeled-shelf system.", "personality_tags": ["manager"] },
+            {
+              "id": "a",
+              "text": "Label everything and buy a spare for the house.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Bring it up at dinner, half-joking, and fix it.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Institute the labeled-shelf system.",
+              "personality_tags": ["manager"]
+            },
             { "id": "d", "text": "Start keeping food in my room.", "personality_tags": ["ghost"] },
             { "id": "e", "text": "Booby-trap a decoy sandwich.", "personality_tags": ["chaos"] }
           ],
@@ -118,9 +206,21 @@
           "id": "q6",
           "question": "Someone asks what living with you is like. Your flatmates would say:",
           "options": [
-            { "id": "a", "text": "'Reliable. Everything just works when they're around.'", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "'Easy to talk to. Zero drama.'", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "'Runs the house like a small nation.'", "personality_tags": ["manager"] },
+            {
+              "id": "a",
+              "text": "'Reliable. Everything just works when they're around.'",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "'Easy to talk to. Zero drama.'",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "'Runs the house like a small nation.'",
+              "personality_tags": ["manager"]
+            },
             { "id": "d", "text": "'...Do they still live here?'", "personality_tags": ["ghost"] },
             { "id": "e", "text": "'Never boring. Often expensive.'", "personality_tags": ["chaos"] }
           ],
@@ -132,10 +232,26 @@
           "question": "The landlord raises the rent. You:",
           "options": [
             { "id": "a", "text": "Send my share the same day.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Make sure everyone understands the new split.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Renegotiate, with comparable listings attached.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Pay whatever the group chat says.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Suggest a house party to 'crowdfund' it.", "personality_tags": ["chaos"] }
+            {
+              "id": "b",
+              "text": "Make sure everyone understands the new split.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Renegotiate, with comparable listings attached.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Pay whatever the group chat says.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Suggest a house party to 'crowdfund' it.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -194,11 +310,31 @@
           "id": "q1",
           "question": "Es tu semana de limpiar la cocina. ¿Qué pasa en realidad?",
           "options": [
-            { "id": "a", "text": "Ya está hecho: la limpié antes de que nadie lo notara.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "La limpio y recuerdo con tacto a quién le toca después.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "El calendario que hice dice exactamente quién hace qué y cuándo.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "¿Cocina? Llevo semanas viviendo de comida para llevar.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Prometo hacerlo, y la pila de platos cobra vida primero.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Ya está hecho: la limpié antes de que nadie lo notara.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "La limpio y recuerdo con tacto a quién le toca después.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "El calendario que hice dice exactamente quién hace qué y cuándo.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "¿Cocina? Llevo semanas viviendo de comida para llevar.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Prometo hacerlo, y la pila de platos cobra vida primero.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -207,11 +343,31 @@
           "id": "q2",
           "question": "Tu compañero deja notas pasivo-agresivas en el refrigerador. ¿Qué haces?",
           "options": [
-            { "id": "a", "text": "Ignoro las notas y sigo haciendo mi parte.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Le pregunto directamente, con buena onda, qué le molesta.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Propongo una reunión de la casa con agenda.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Nunca veo las notas. Nunca veo a nadie.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Respondo con una nota igual de críptica.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Ignoro las notas y sigo haciendo mi parte.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Le pregunto directamente, con buena onda, qué le molesta.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Propongo una reunión de la casa con agenda.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Nunca veo las notas. Nunca veo a nadie.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Respondo con una nota igual de críptica.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -220,11 +376,31 @@
           "id": "q3",
           "question": "La hoja de gastos compartidos indica que debes dinero. Tú:",
           "options": [
-            { "id": "a", "text": "Pago de inmediato, antes de que alguien tenga que pedirlo.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Pago y reviso que todos estén de acuerdo con las cuentas.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "La hoja es mía. El pago ya está programado.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "No sabía que existía una hoja de gastos.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "'Te pago el mes que viene': ya es tradición.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Pago de inmediato, antes de que alguien tenga que pedirlo.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Pago y reviso que todos estén de acuerdo con las cuentas.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "La hoja es mía. El pago ya está programado.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "No sabía que existía una hoja de gastos.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "'Te pago el mes que viene': ya es tradición.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -233,11 +409,27 @@
           "id": "q4",
           "question": "Son las 2 de la mañana y tu compañero tiene la música a todo volumen. Tú:",
           "options": [
-            { "id": "a", "text": "Toco su puerta una vez, con amabilidad, y me pongo tapones.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Le escribo un '¿le bajamos?' amable con un meme.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Cito el horario de silencio que todos acordamos.", "personality_tags": ["manager"] },
+            {
+              "id": "a",
+              "text": "Toco su puerta una vez, con amabilidad, y me pongo tapones.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Le escribo un '¿le bajamos?' amable con un meme.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Cito el horario de silencio que todos acordamos.",
+              "personality_tags": ["manager"]
+            },
             { "id": "d", "text": "Nada. Duermo con ruidos peores.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Pongo mi propia playlist más fuerte. Escalada.", "personality_tags": ["chaos"] }
+            {
+              "id": "e",
+              "text": "Pongo mi propia playlist más fuerte. Escalada.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -246,11 +438,31 @@
           "id": "q5",
           "question": "Tu comida sigue desapareciendo del refrigerador. Tú:",
           "options": [
-            { "id": "a", "text": "Etiqueto todo y compro extra para la casa.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Lo saco a colación en la cena, medio en broma, y lo resuelvo.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Instauro el sistema de repisas etiquetadas.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Empiezo a guardar la comida en mi cuarto.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Preparo un sándwich señuelo con trampa.", "personality_tags": ["chaos"] }
+            {
+              "id": "a",
+              "text": "Etiqueto todo y compro extra para la casa.",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "Lo saco a colación en la cena, medio en broma, y lo resuelvo.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Instauro el sistema de repisas etiquetadas.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Empiezo a guardar la comida en mi cuarto.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Preparo un sándwich señuelo con trampa.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -259,9 +471,21 @@
           "id": "q6",
           "question": "Alguien pregunta cómo es vivir contigo. Tus compañeros dirían:",
           "options": [
-            { "id": "a", "text": "'Confiable. Todo funciona cuando está.'", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "'Se puede hablar de todo. Cero drama.'", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "'Administra la casa como un pequeño país.'", "personality_tags": ["manager"] },
+            {
+              "id": "a",
+              "text": "'Confiable. Todo funciona cuando está.'",
+              "personality_tags": ["pillar"]
+            },
+            {
+              "id": "b",
+              "text": "'Se puede hablar de todo. Cero drama.'",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "'Administra la casa como un pequeño país.'",
+              "personality_tags": ["manager"]
+            },
             { "id": "d", "text": "'¿Todavía vive aquí?'", "personality_tags": ["ghost"] },
             { "id": "e", "text": "'Nunca aburrido. A veces caro.'", "personality_tags": ["chaos"] }
           ],
@@ -273,10 +497,26 @@
           "question": "El casero sube la renta. Tú:",
           "options": [
             { "id": "a", "text": "Envío mi parte el mismo día.", "personality_tags": ["pillar"] },
-            { "id": "b", "text": "Me aseguro de que todos entiendan la nueva división.", "personality_tags": ["diplomat"] },
-            { "id": "c", "text": "Renegocio con precios de pisos comparables adjuntos.", "personality_tags": ["manager"] },
-            { "id": "d", "text": "Pago lo que diga el chat del grupo.", "personality_tags": ["ghost"] },
-            { "id": "e", "text": "Propongo una fiesta para 'financiarlo'.", "personality_tags": ["chaos"] }
+            {
+              "id": "b",
+              "text": "Me aseguro de que todos entiendan la nueva división.",
+              "personality_tags": ["diplomat"]
+            },
+            {
+              "id": "c",
+              "text": "Renegocio con precios de pisos comparables adjuntos.",
+              "personality_tags": ["manager"]
+            },
+            {
+              "id": "d",
+              "text": "Pago lo que diga el chat del grupo.",
+              "personality_tags": ["ghost"]
+            },
+            {
+              "id": "e",
+              "text": "Propongo una fiesta para 'financiarlo'.",
+              "personality_tags": ["chaos"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -335,11 +575,31 @@
           "id": "q1",
           "question": "Your phone buzzes with a notification during dinner with friends. You:",
           "options": [
-            { "id": "a", "text": "Don't see it — my notifications are off by default.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Glance in case it's the bank or the family group.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Check it quickly and put the phone away.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "Check it, reply, and end up scrolling for twenty minutes.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Skip it — I have thousands of unread notifications anyway.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "Don't see it — my notifications are off by default.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Glance in case it's the bank or the family group.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Check it quickly and put the phone away.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "Check it, reply, and end up scrolling for twenty minutes.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Skip it — I have thousands of unread notifications anyway.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -348,11 +608,31 @@
           "id": "q2",
           "question": "It's bedtime. Where is your phone?",
           "options": [
-            { "id": "a", "text": "Charging in another room; I read on paper.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "On the nightstand, in focus mode until morning.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Next to the bed, but I stop scrolling at a set hour.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "In my hand until I fall asleep mid-video.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Under the pillow, with six podcasts queued.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "Charging in another room; I read on paper.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "On the nightstand, in focus mode until morning.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Next to the bed, but I stop scrolling at a set hour.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "In my hand until I fall asleep mid-video.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Under the pillow, with six podcasts queued.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -361,11 +641,31 @@
           "id": "q3",
           "question": "A website asks you to create yet another account. Your password strategy:",
           "options": [
-            { "id": "a", "text": "I decline; I keep my accounts to a minimum.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "The password manager generates a unique one.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "A formula I can remember — close enough to safe.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "The same one as always. It has served me well.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Create it and let the browser remember it forever.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "I decline; I keep my accounts to a minimum.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "The password manager generates a unique one.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "A formula I can remember — close enough to safe.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "The same one as always. It has served me well.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Create it and let the browser remember it forever.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -374,11 +674,31 @@
           "id": "q4",
           "question": "Your photos from the last five years are:",
           "options": [
-            { "id": "a", "text": "A small curated album; I delete ruthlessly.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Backed up in two places and sorted by year.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "In the cloud, mostly unorganized but findable.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "Somewhere between three apps and a dead phone.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "All thirty thousand of them. Every blurry one. Forever.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "A small curated album; I delete ruthlessly.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Backed up in two places and sorted by year.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "In the cloud, mostly unorganized but findable.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "Somewhere between three apps and a dead phone.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "All thirty thousand of them. Every blurry one. Forever.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -387,11 +707,31 @@
           "id": "q5",
           "question": "Your inbox right now:",
           "options": [
-            { "id": "a", "text": "Inbox zero, or close to it.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Filtered and labeled; the security alerts get read.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "A few unread, nothing on fire.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "The unread count is a number I no longer perceive.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "It holds newsletters from services I forgot existed.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "Inbox zero, or close to it.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Filtered and labeled; the security alerts get read.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "A few unread, nothing on fire.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "The unread count is a number I no longer perceive.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "It holds newsletters from services I forgot existed.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -400,11 +740,31 @@
           "id": "q6",
           "question": "You get a 'your account was accessed' alert. First reaction:",
           "options": [
-            { "id": "a", "text": "I rarely get those; I use very few services.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Verify through the official app, then change the password.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Check whether it was me, then decide.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "Panic and click the link in the email.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Add it to the pile of alerts I'll review someday.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "I rarely get those; I use very few services.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Verify through the official app, then change the password.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Check whether it was me, then decide.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "Panic and click the link in the email.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Add it to the pile of alerts I'll review someday.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -413,11 +773,31 @@
           "id": "q7",
           "question": "How do you feel after an hour on social media?",
           "options": [
-            { "id": "a", "text": "I wouldn't know — my feed is minimal by design.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Fine; I notice when an app drains me and adjust.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Entertained, mostly. Sometimes a bit numb.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "The hour became three and I feel worse than when I started.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "I saved forty posts to a folder I'll never open.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "I wouldn't know — my feed is minimal by design.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Fine; I notice when an app drains me and adjust.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Entertained, mostly. Sometimes a bit numb.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "The hour became three and I feel worse than when I started.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "I saved forty posts to a folder I'll never open.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -476,11 +856,31 @@
           "id": "q1",
           "question": "El teléfono vibra con una notificación mientras cenas con amigos. Tú:",
           "options": [
-            { "id": "a", "text": "No la veo: mis notificaciones están apagadas por defecto.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Miro por si es el banco o el grupo familiar.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "La reviso rápido y guardo el teléfono.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "La reviso, respondo y termino scrolleando veinte minutos.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Ni la reviso: tengo miles de notificaciones sin leer de todos modos.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "No la veo: mis notificaciones están apagadas por defecto.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Miro por si es el banco o el grupo familiar.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "La reviso rápido y guardo el teléfono.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "La reviso, respondo y termino scrolleando veinte minutos.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Ni la reviso: tengo miles de notificaciones sin leer de todos modos.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -489,11 +889,31 @@
           "id": "q2",
           "question": "Es hora de dormir. ¿Dónde está tu teléfono?",
           "options": [
-            { "id": "a", "text": "Cargando en otra habitación; leo en papel.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "En la mesa de noche, en modo concentración hasta mañana.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Junto a la cama, pero dejo de scrollear a una hora fija.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "En mi mano hasta que me duermo a mitad de un video.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Bajo la almohada, con seis podcasts en cola.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "Cargando en otra habitación; leo en papel.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "En la mesa de noche, en modo concentración hasta mañana.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Junto a la cama, pero dejo de scrollear a una hora fija.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "En mi mano hasta que me duermo a mitad de un video.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Bajo la almohada, con seis podcasts en cola.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -502,11 +922,31 @@
           "id": "q3",
           "question": "Un sitio web te pide crear otra cuenta. Tu estrategia de contraseña:",
           "options": [
-            { "id": "a", "text": "Me niego: mantengo mis cuentas al mínimo.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "El gestor de contraseñas genera una única.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Una fórmula que puedo recordar: suficientemente segura.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "La misma de siempre. Me ha servido bien.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "La creo y dejo que el navegador la recuerde para siempre.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "Me niego: mantengo mis cuentas al mínimo.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "El gestor de contraseñas genera una única.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Una fórmula que puedo recordar: suficientemente segura.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "La misma de siempre. Me ha servido bien.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "La creo y dejo que el navegador la recuerde para siempre.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -515,11 +955,31 @@
           "id": "q4",
           "question": "Tus fotos de los últimos cinco años están:",
           "options": [
-            { "id": "a", "text": "En un álbum curado y pequeño; borro sin piedad.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Con copia de seguridad en dos lugares y ordenadas por año.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "En la nube, algo desordenadas pero encontrables.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "Repartidas entre tres apps y un teléfono muerto.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Son treinta mil. Todas. Incluidas las borrosas. Para siempre.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "En un álbum curado y pequeño; borro sin piedad.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Con copia de seguridad en dos lugares y ordenadas por año.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "En la nube, algo desordenadas pero encontrables.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "Repartidas entre tres apps y un teléfono muerto.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Son treinta mil. Todas. Incluidas las borrosas. Para siempre.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -529,10 +989,26 @@
           "question": "Tu bandeja de entrada ahora mismo:",
           "options": [
             { "id": "a", "text": "Cero pendientes, o casi.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Filtrada y etiquetada; las alertas de seguridad sí se leen.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Algunos sin leer, nada urgente.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "El contador de sin leer es un número que ya no percibo.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Tiene boletines de servicios que olvidé que existían.", "personality_tags": ["hoarder"] }
+            {
+              "id": "b",
+              "text": "Filtrada y etiquetada; las alertas de seguridad sí se leen.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Algunos sin leer, nada urgente.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "El contador de sin leer es un número que ya no percibo.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Tiene boletines de servicios que olvidé que existían.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -541,11 +1017,27 @@
           "id": "q6",
           "question": "Te llega una alerta de 'acceso a tu cuenta'. Primera reacción:",
           "options": [
-            { "id": "a", "text": "Rara vez me llegan: uso muy pocos servicios.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Verifico en la app oficial y cambio la contraseña.", "personality_tags": ["guardian"] },
+            {
+              "id": "a",
+              "text": "Rara vez me llegan: uso muy pocos servicios.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Verifico en la app oficial y cambio la contraseña.",
+              "personality_tags": ["guardian"]
+            },
             { "id": "c", "text": "Reviso si fui yo y decido.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "Pánico y clic en el enlace del correo.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "La sumo a la pila de alertas que revisaré algún día.", "personality_tags": ["hoarder"] }
+            {
+              "id": "d",
+              "text": "Pánico y clic en el enlace del correo.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "La sumo a la pila de alertas que revisaré algún día.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -554,11 +1046,31 @@
           "id": "q7",
           "question": "¿Cómo te sientes tras una hora en redes sociales?",
           "options": [
-            { "id": "a", "text": "No lo sé: mi feed es mínimo por diseño.", "personality_tags": ["minimalist"] },
-            { "id": "b", "text": "Bien; noto cuándo una app me drena y ajusto.", "personality_tags": ["guardian"] },
-            { "id": "c", "text": "Entretenido, en general. A veces un poco adormecido.", "personality_tags": ["balanced"] },
-            { "id": "d", "text": "La hora se volvieron tres y me siento peor que al empezar.", "personality_tags": ["scroller"] },
-            { "id": "e", "text": "Guardé cuarenta publicaciones en una carpeta que nunca abriré.", "personality_tags": ["hoarder"] }
+            {
+              "id": "a",
+              "text": "No lo sé: mi feed es mínimo por diseño.",
+              "personality_tags": ["minimalist"]
+            },
+            {
+              "id": "b",
+              "text": "Bien; noto cuándo una app me drena y ajusto.",
+              "personality_tags": ["guardian"]
+            },
+            {
+              "id": "c",
+              "text": "Entretenido, en general. A veces un poco adormecido.",
+              "personality_tags": ["balanced"]
+            },
+            {
+              "id": "d",
+              "text": "La hora se volvieron tres y me siento peor que al empezar.",
+              "personality_tags": ["scroller"]
+            },
+            {
+              "id": "e",
+              "text": "Guardé cuarenta publicaciones en una carpeta que nunca abriré.",
+              "personality_tags": ["hoarder"]
+            }
           ],
           "explanation": null,
           "time_limit_seconds": 30
@@ -627,7 +1139,11 @@
             { "id": "a", "text": "Deleting spam automatically", "is_correct": false },
             { "id": "b", "text": "Encrypting your connection", "is_correct": false },
             { "id": "c", "text": "A virus that spreads on its own", "is_correct": false },
-            { "id": "d", "text": "Fake messages imitating trusted senders to steal data", "is_correct": true }
+            {
+              "id": "d",
+              "text": "Fake messages imitating trusted senders to steal data",
+              "is_correct": true
+            }
           ],
           "explanation": "Phishing uses emails or sites that look legitimate to trick people into revealing passwords or card numbers."
         },
@@ -636,7 +1152,11 @@
           "question": "What does incognito or private browsing mode actually do?",
           "options": [
             { "id": "a", "text": "Makes you anonymous online", "is_correct": false },
-            { "id": "b", "text": "Only avoids saving your history on that device", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Only avoids saving your history on that device",
+              "is_correct": true
+            },
             { "id": "c", "text": "Encrypts all your traffic", "is_correct": false },
             { "id": "d", "text": "Blocks every ad", "is_correct": false }
           ],
@@ -659,7 +1179,11 @@
           "options": [
             { "id": "a", "text": "Three passwords, two emails, one account", "is_correct": false },
             { "id": "b", "text": "Three folders, two drives, one cloud", "is_correct": false },
-            { "id": "c", "text": "Three copies, on two different media, one offsite", "is_correct": true },
+            {
+              "id": "c",
+              "text": "Three copies, on two different media, one offsite",
+              "is_correct": true
+            },
             { "id": "d", "text": "Three users, two keys, one administrator", "is_correct": false }
           ],
           "explanation": "The classic rule: at least three copies, on two kinds of storage, with one copy away from home."
@@ -728,7 +1252,11 @@
             { "id": "a", "text": "Borrar el spam automáticamente", "is_correct": false },
             { "id": "b", "text": "Cifrar tu conexión", "is_correct": false },
             { "id": "c", "text": "Un virus que se propaga solo", "is_correct": false },
-            { "id": "d", "text": "Mensajes falsos que imitan a remitentes de confianza para robar datos", "is_correct": true }
+            {
+              "id": "d",
+              "text": "Mensajes falsos que imitan a remitentes de confianza para robar datos",
+              "is_correct": true
+            }
           ],
           "explanation": "El phishing usa correos o sitios que parecen legítimos para que la gente entregue contraseñas o datos bancarios."
         },
@@ -737,7 +1265,11 @@
           "question": "¿Qué hace realmente el modo incógnito o de navegación privada?",
           "options": [
             { "id": "a", "text": "Te vuelve anónimo en internet", "is_correct": false },
-            { "id": "b", "text": "Solo evita guardar tu historial en ese dispositivo", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Solo evita guardar tu historial en ese dispositivo",
+              "is_correct": true
+            },
             { "id": "c", "text": "Cifra todo tu tráfico", "is_correct": false },
             { "id": "d", "text": "Bloquea toda la publicidad", "is_correct": false }
           ],
@@ -749,7 +1281,11 @@
           "options": [
             { "id": "a", "text": "La NASA, para misiones espaciales", "is_correct": false },
             { "id": "b", "text": "Un consorcio de aerolíneas", "is_correct": false },
-            { "id": "c", "text": "El Departamento de Defensa de Estados Unidos", "is_correct": true },
+            {
+              "id": "c",
+              "text": "El Departamento de Defensa de Estados Unidos",
+              "is_correct": true
+            },
             { "id": "d", "text": "Las compañías telefónicas", "is_correct": false }
           ],
           "explanation": "El ejército estadounidense desarrolló el GPS y lo abrió al uso civil; los teléfonos lo combinan con otros sistemas de satélite."
@@ -758,10 +1294,22 @@
           "id": "q8",
           "question": "La regla '3-2-1' de copias de seguridad recomienda guardar tus datos como:",
           "options": [
-            { "id": "a", "text": "Tres contraseñas, dos correos y una cuenta", "is_correct": false },
+            {
+              "id": "a",
+              "text": "Tres contraseñas, dos correos y una cuenta",
+              "is_correct": false
+            },
             { "id": "b", "text": "Tres carpetas, dos discos y una nube", "is_correct": false },
-            { "id": "c", "text": "Tres copias, en dos soportes distintos y una fuera de casa", "is_correct": true },
-            { "id": "d", "text": "Tres usuarios, dos claves y un administrador", "is_correct": false }
+            {
+              "id": "c",
+              "text": "Tres copias, en dos soportes distintos y una fuera de casa",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Tres usuarios, dos claves y un administrador",
+              "is_correct": false
+            }
           ],
           "explanation": "La regla clásica: al menos tres copias, en dos tipos de almacenamiento, con una copia lejos de casa."
         }

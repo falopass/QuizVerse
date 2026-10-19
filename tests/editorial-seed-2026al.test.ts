@@ -42,7 +42,11 @@ interface SeedQuiz {
 // The five topics as (en slug, es slug, category) pairs.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-how-good-a-roommate-are-you', 'es-que-tan-buen-companero-de-piso-eres', 'relationships'],
-  ['en-how-healthy-are-your-digital-habits', 'es-que-tan-saludables-son-tus-habitos-digitales', 'technology'],
+  [
+    'en-how-healthy-are-your-digital-habits',
+    'es-que-tan-saludables-son-tus-habitos-digitales',
+    'technology',
+  ],
   ['en-everyday-technology-trivia', 'es-trivia-tecnologia-cotidiana', 'technology'],
   ['en-world-literature-trivia', 'es-trivia-literatura-universal', 'literature'],
   ['en-2000s-pop-culture-trivia', 'es-trivia-cultura-pop-de-los-2000', 'pop-culture'],
