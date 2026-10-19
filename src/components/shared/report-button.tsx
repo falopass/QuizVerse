@@ -162,10 +162,19 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
           )}
 
           {status === 'success' ? (
-            <p className="text-success text-sm font-medium">{copy.success}</p>
+            <p
+              id="report-feedback"
+              role="status"
+              aria-live="polite"
+              className="text-success text-sm font-medium"
+            >
+              {copy.success}
+            </p>
           ) : null}
           {status === 'error' ? (
-            <p className="text-error text-sm font-medium">{copy.error}</p>
+            <p id="report-feedback" role="alert" className="text-error text-sm font-medium">
+              {copy.error}
+            </p>
           ) : null}
 
           <div className="flex gap-3 pt-4">
@@ -183,6 +192,7 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
               variant="danger"
               onClick={handleSubmit}
               disabled={!selectedReason || isSubmitting}
+              aria-describedby={status !== 'idle' ? 'report-feedback' : undefined}
               className="flex-1"
             >
               {isSubmitting ? copy.submitting : copy.submit}
