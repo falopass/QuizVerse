@@ -1,0 +1,444 @@
+{
+  "quizzes": [
+    {
+      "slug": "en-which-the-boys-energy-matches-you-best",
+      "title": "The Boys Quiz: Which Character Matches Your Vibe?"
+    },
+    {
+      "slug": "es-que-energia-de-the-boys-combina-mejor-contigo",
+      "title": "The Boys: ¿qué personaje eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-stranger-things-energy-matches-you-best",
+      "title": "Stranger Things: Which Party Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-stranger-things-combina-mejor-contigo",
+      "title": "Stranger Things: descubre qué personaje eres"
+    },
+    {
+      "slug": "en-which-euphoria-energy-matches-you-best",
+      "title": "Euphoria Personality Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-euphoria-combina-mejor-contigo",
+      "title": "Euphoria: ¿qué personaje eres según tu personalidad?"
+    },
+    {
+      "slug": "en-which-beef-energy-matches-you-best",
+      "title": "Beef Quiz: Which Vibe Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-beef-combina-mejor-contigo",
+      "title": "Beef: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-hacks-energy-matches-you-best",
+      "title": "Hacks Personality Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-hacks-combina-mejor-contigo",
+      "title": "Hacks: ¿qué personaje eres? Test"
+    },
+    {
+      "slug": "en-which-star-wars-energy-matches-you-best",
+      "title": "Star Wars: Which Galactic Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-star-wars-combina-mejor-contigo",
+      "title": "Star Wars: ¿qué rol galáctico eres? Test"
+    },
+    {
+      "slug": "en-which-re-zero-energy-matches-you-best",
+      "title": "Re:Zero Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-re-zero-combina-mejor-contigo",
+      "title": "Re:Zero: ¿qué personaje eres? Descúbrelo aquí"
+    },
+    {
+      "slug": "en-which-witch-hat-atelier-energy-matches-you-best",
+      "title": "Witch Hat Atelier: Which Witch Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-witch-hat-atelier-combina-mejor-contigo",
+      "title": "Witch Hat Atelier: ¿qué tipo de maga eres?"
+    },
+    {
+      "slug": "en-which-classroom-of-the-elite-energy-matches-you-best",
+      "title": "Classroom of the Elite: Which Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-classroom-of-the-elite-combina-mejor-contigo",
+      "title": "Classroom of the Elite: ¿qué personaje eres? Test"
+    },
+    {
+      "slug": "en-which-dr-stone-energy-matches-you-best",
+      "title": "Dr. Stone Personality Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-dr-stone-combina-mejor-contigo",
+      "title": "Dr. Stone: descubre qué personaje eres"
+    },
+    {
+      "slug": "en-which-that-time-i-got-reincarnated-as-a-slime-energy-matches-you-best",
+      "title": "That Time I Got Reincarnated as a Slime: Who Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-that-time-i-got-reincarnated-as-a-slime-combina-mejor-",
+      "title": "That Time I Got Reincarnated as a Slime: ¿qué poder eres?"
+    },
+    {
+      "slug": "en-which-the-super-mario-galaxy-movie-energy-matches-you-best",
+      "title": "The Super Mario Galaxy Movie: Who Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-super-mario-galaxy-movie-combina-mejor-contigo",
+      "title": "The Super Mario Galaxy Movie: ¿qué estrella eres?"
+    },
+    {
+      "slug": "en-which-project-hail-mary-energy-matches-you-best",
+      "title": "Project Hail Mary: Which Crew Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-project-hail-mary-combina-mejor-contigo",
+      "title": "Project Hail Mary: ¿qué rol de la misión eres?"
+    },
+    {
+      "slug": "en-which-the-mummy-energy-matches-you-best",
+      "title": "The Mummy Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-mummy-combina-mejor-contigo",
+      "title": "La Momia: ¿qué personaje eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-grand-theft-auto-vi-energy-matches-you-best",
+      "title": "GTA 6 Personality Quiz: Which Vibe Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-grand-theft-auto-vi-combina-mejor-contigo",
+      "title": "GTA 6: ¿qué tipo de forajido eres? Test"
+    },
+    {
+      "slug": "en-which-resident-evil-energy-matches-you-best",
+      "title": "Resident Evil: Which Survivor Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-resident-evil-combina-mejor-contigo",
+      "title": "Resident Evil: ¿qué tipo de superviviente eres?"
+    },
+    {
+      "slug": "en-which-hades-ii-energy-matches-you-best",
+      "title": "Hades II: Which Underworld Spirit Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-hades-ii-combina-mejor-contigo",
+      "title": "Hades II: ¿qué personaje eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-starfield-energy-matches-you-best",
+      "title": "Starfield Quiz: Which Space Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-starfield-combina-mejor-contigo",
+      "title": "Starfield: ¿qué tipo de viajero espacial eres?"
+    },
+    {
+      "slug": "en-which-invincible-energy-matches-you-best",
+      "title": "Invincible: Which Inner Force Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-invincible-combina-mejor-contigo",
+      "title": "Invincible: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-harry-potter-energy-matches-you-best",
+      "title": "Harry Potter: Which Hogwarts House Matches You?"
+    },
+    {
+      "slug": "es-que-energia-de-harry-potter-combina-mejor-contigo",
+      "title": "Harry Potter: ¿a qué casa de Hogwarts perteneces?"
+    },
+    {
+      "slug": "en-which-marvel-energy-matches-you-best",
+      "title": "Marvel Personality Quiz: Which Hero Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-marvel-combina-mejor-contigo",
+      "title": "Marvel: ¿qué tipo de héroe eres? Test"
+    },
+    {
+      "slug": "en-which-naruto-energy-matches-you-best",
+      "title": "Naruto Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-naruto-combina-mejor-contigo",
+      "title": "Naruto: ¿qué tipo de ninja eres? Test"
+    },
+    {
+      "slug": "en-which-one-piece-energy-matches-you-best",
+      "title": "One Piece: Which Straw Hat Role Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-one-piece-combina-mejor-contigo",
+      "title": "One Piece: ¿qué Sombrero de Paja eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-demon-slayer-energy-matches-you-best",
+      "title": "Demon Slayer: Which Breathing Style Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-demon-slayer-combina-mejor-contigo",
+      "title": "Demon Slayer: ¿qué respiración eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-jujutsu-kaisen-energy-matches-you-best",
+      "title": "Jujutsu Kaisen: Which Sorcerer Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-jujutsu-kaisen-combina-mejor-contigo",
+      "title": "Jujutsu Kaisen: ¿qué personaje eres? Test"
+    },
+    {
+      "slug": "en-which-attack-on-titan-energy-matches-you-best",
+      "title": "Attack on Titan: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-attack-on-titan-combina-mejor-contigo",
+      "title": "Attack on Titan: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-pokemon-energy-matches-you-best",
+      "title": "Pokémon Quiz: Which Pokémon Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-pokemon-combina-mejor-contigo",
+      "title": "Pokémon: ¿qué tipo eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-the-legend-of-zelda-energy-matches-you-best",
+      "title": "The Legend of Zelda: Which Hero Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-legend-of-zelda-combina-mejor-contigo",
+      "title": "The Legend of Zelda: ¿qué tipo de héroe eres?"
+    },
+    {
+      "slug": "en-which-taylor-swift-energy-matches-you-best",
+      "title": "Taylor Swift: Which Era Are You? Take the Quiz"
+    },
+    {
+      "slug": "es-que-energia-de-taylor-swift-combina-mejor-contigo",
+      "title": "Taylor Swift: ¿qué era eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-k-pop-energy-matches-you-best",
+      "title": "K-Pop Quiz: Which Idol Style Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-k-pop-combina-mejor-contigo",
+      "title": "K-Pop: ¿qué tipo de ídolo eres? Test"
+    },
+    {
+      "slug": "en-which-wicked-energy-matches-you-best",
+      "title": "Wicked Personality Quiz: Who Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-wicked-combina-mejor-contigo",
+      "title": "Wicked: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-severance-energy-matches-you-best",
+      "title": "Severance: Which Lumon Role Fits You?"
+    },
+    {
+      "slug": "es-que-energia-de-severance-combina-mejor-contigo",
+      "title": "Severance: ¿en qué departamento de Lumon encajas?"
+    },
+    {
+      "slug": "en-which-the-last-of-us-energy-matches-you-best",
+      "title": "The Last of Us: Which Survivor Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-last-of-us-combina-mejor-contigo",
+      "title": "The Last of Us: ¿qué tipo de superviviente eres?"
+    },
+    {
+      "slug": "en-which-the-white-lotus-energy-matches-you-best",
+      "title": "The White Lotus: Which Guest Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-white-lotus-combina-mejor-contigo",
+      "title": "The White Lotus: ¿qué huésped eres? Test"
+    },
+    {
+      "slug": "en-which-the-bear-energy-matches-you-best",
+      "title": "The Bear: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-the-bear-combina-mejor-contigo",
+      "title": "The Bear: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-squid-game-energy-matches-you-best",
+      "title": "Squid Game: Which Player Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-el-juego-del-calamar-combina-mejor-contigo",
+      "title": "El Juego del Calamar: ¿qué jugador eres? Test"
+    },
+    {
+      "slug": "en-which-wednesday-energy-matches-you-best",
+      "title": "Wednesday Personality Quiz: Which Persona Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-merlina-combina-mejor-contigo",
+      "title": "Merlina (Wednesday): ¿qué versión de Merlina eres?"
+    },
+    {
+      "slug": "en-which-bridgerton-energy-matches-you-best",
+      "title": "Bridgerton Personality Quiz: Who Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-bridgerton-combina-mejor-contigo",
+      "title": "Bridgerton: ¿qué papel de la alta sociedad eres?"
+    },
+    {
+      "slug": "en-which-solo-leveling-energy-matches-you-best",
+      "title": "Solo Leveling: Which Hunter Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-solo-leveling-combina-mejor-contigo",
+      "title": "Solo Leveling: ¿qué tipo de cazador eres?"
+    },
+    {
+      "slug": "en-which-frieren-energy-matches-you-best",
+      "title": "Frieren: Which Party Member Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-frieren-combina-mejor-contigo",
+      "title": "Frieren: ¿qué personaje eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-chainsaw-man-energy-matches-you-best",
+      "title": "Chainsaw Man: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-chainsaw-man-combina-mejor-contigo",
+      "title": "Chainsaw Man: ¿qué personaje eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-spy-x-family-energy-matches-you-best",
+      "title": "Spy x Family: Which Forger Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-spy-x-family-combina-mejor-contigo",
+      "title": "Spy x Family: ¿qué Forger eres? Test"
+    },
+    {
+      "slug": "en-which-dune-energy-matches-you-best",
+      "title": "Dune Quiz: Which Character Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-dune-combina-mejor-contigo",
+      "title": "Dune: ¿de qué facción eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-avatar-energy-matches-you-best",
+      "title": "Avatar: Which Element Would You Bend?"
+    },
+    {
+      "slug": "es-que-energia-de-avatar-combina-mejor-contigo",
+      "title": "Avatar: ¿qué elemento dominarías? Test"
+    },
+    {
+      "slug": "en-which-barbie-energy-matches-you-best",
+      "title": "Barbie: Which Barbie Are You? Take the Quiz"
+    },
+    {
+      "slug": "es-que-energia-de-barbie-combina-mejor-contigo",
+      "title": "Barbie: ¿qué Barbie eres? Descúbrelo"
+    },
+    {
+      "slug": "en-which-oppenheimer-energy-matches-you-best",
+      "title": "Oppenheimer Quiz: Which Role Would You Play?"
+    },
+    {
+      "slug": "es-que-energia-de-oppenheimer-combina-mejor-contigo",
+      "title": "Oppenheimer: ¿qué rol jugarías? Test"
+    },
+    {
+      "slug": "en-which-spider-verse-energy-matches-you-best",
+      "title": "Spider-Verse: Which Spider-Hero Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-spider-verse-combina-mejor-contigo",
+      "title": "Spider-Verse: ¿qué Spider-Man eres? Test"
+    },
+    {
+      "slug": "en-which-nintendo-switch-2-energy-matches-you-best",
+      "title": "Nintendo Switch 2: Which Gamer Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-nintendo-switch-2-combina-mejor-contigo",
+      "title": "Nintendo Switch 2: ¿qué tipo de jugador eres?"
+    },
+    {
+      "slug": "en-which-baldur-s-gate-3-energy-matches-you-best",
+      "title": "Baldur's Gate 3: Which Companion Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-baldur-s-gate-3-combina-mejor-contigo",
+      "title": "Baldur's Gate 3: ¿qué compañero eres? Test"
+    },
+    {
+      "slug": "en-which-elden-ring-energy-matches-you-best",
+      "title": "Elden Ring: Which Tarnished Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-elden-ring-combina-mejor-contigo",
+      "title": "Elden Ring: ¿qué tipo de Sinluz eres? Test"
+    },
+    {
+      "slug": "en-which-minecraft-energy-matches-you-best",
+      "title": "Minecraft: Which Player Type Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-minecraft-combina-mejor-contigo",
+      "title": "Minecraft: ¿qué dimensión eres? Test"
+    },
+    {
+      "slug": "en-which-chappell-roan-energy-matches-you-best",
+      "title": "Chappell Roan Quiz: Which Persona Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-chappell-roan-combina-mejor-contigo",
+      "title": "Chappell Roan: ¿qué versión de ti eres? Test"
+    },
+    {
+      "slug": "en-which-sabrina-carpenter-energy-matches-you-best",
+      "title": "Sabrina Carpenter: Which Vibe Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-sabrina-carpenter-combina-mejor-contigo",
+      "title": "Sabrina Carpenter: ¿cómo eres? Test de personalidad"
+    },
+    {
+      "slug": "en-which-beyonce-energy-matches-you-best",
+      "title": "Beyoncé Quiz: Which Persona Are You?"
+    },
+    {
+      "slug": "es-que-energia-de-beyonce-combina-mejor-contigo",
+      "title": "Beyoncé: ¿qué diva llevas dentro? Descúbrelo"
+    },
+    {
+      "slug": "en-which-bad-bunny-energy-matches-you-best",
+      "title": "Bad Bunny: Which Vibe Are You? Take the Quiz"
+    },
+    {
+      "slug": "es-que-energia-de-bad-bunny-combina-mejor-contigo",
+      "title": "Bad Bunny: ¿qué versión del Conejo eres? Test"
+    }
+  ]
+}
