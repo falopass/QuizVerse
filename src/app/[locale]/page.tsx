@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { getHomePayload } from '@/lib/data/public';
+import { dailyPickCopy, pickDailyQuiz } from '@/lib/content/daily-pick';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -70,7 +71,10 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     ).values(),
   ];
   const lead = quizzes[0];
-  const games = quizzes.filter((quiz) => quiz.id !== lead?.id);
+  const today = new Date();
+  const dailyQuiz = pickDailyQuiz(quizzes, today);
+  const dailyCopy = dailyQuiz ? dailyPickCopy(locale, today) : null;
+  const games = quizzes.filter((quiz) => quiz.id !== lead?.id && quiz.id !== dailyQuiz?.id);
   const homeCategories = payload.categories
     .map((category) => ({ ...category, quiz_count: localeCounts.get(category.slug) ?? 0 }))
     .filter((category) => category.quiz_count > 0)
@@ -132,6 +136,28 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
         <span>{dictionary.arcade.stripMiddle}</span>
         <span>{dictionary.arcade.stripEnd}</span>
       </div>
+      {dailyQuiz && dailyCopy ? (
+        <section className="arcade-related">
+          <div className="arcade-section-head">
+            <div>
+              <span className="arcade-tag">
+                {dailyCopy.eyebrow} · {dailyCopy.dateLabel}
+              </span>
+              <h2>{dailyCopy.title}</h2>
+            </div>
+            <p>{dailyCopy.body}</p>
+          </div>
+          <div className="arcade-grid">
+            <EditorialQuizCard quiz={dailyQuiz} locale={locale} />
+          </div>
+          <Link
+            href={localizeHref(locale, `/quiz/${dailyQuiz.slug}`)}
+            className="arcade-button arcade-button-lime arcade-more"
+          >
+            {dictionary.common.playNow} ↗
+          </Link>
+        </section>
+      ) : null}
       <section id="games" className="arcade-games">
         <div className="arcade-section-head">
           <h2>{dictionary.arcade.chooseGame}</h2>
