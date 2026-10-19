@@ -356,6 +356,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-gta-trivia': 'es-trivia-gta',
   'en-playstation-history-trivia': 'es-trivia-playstation',
   'en-xbox-history-trivia': 'es-trivia-xbox',
+  // Pares del lote editorial 2026at (scripts/seed/editorial-seed-2026at.json), mantenidos a mano.
+  'en-black-holes-trivia': 'es-trivia-agujeros-negros',
+  'en-deep-sea-trivia': 'es-trivia-fondo-del-mar',
+  'en-dna-and-genetics-trivia': 'es-trivia-adn-y-genetica',
+  'en-periodic-table-trivia': 'es-trivia-tabla-periodica',
+  'en-volcanoes-and-earthquakes-trivia': 'es-trivia-volcanes-y-terremotos',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));

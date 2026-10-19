@@ -36,7 +36,7 @@
         },
         {
           "id": "q3",
-          "question": "Which physicist coined the term 'black hole' in 1967?",
+          "question": "Which physicist popularized the term 'black hole' in 1967?",
           "options": [
             { "id": "a", "text": "Stephen Hawking", "is_correct": false },
             { "id": "b", "text": "Karl Schwarzschild", "is_correct": false },
@@ -137,7 +137,7 @@
         },
         {
           "id": "q3",
-          "question": "¿Qué físico acuñó el término «agujero negro» en 1967?",
+          "question": "¿Qué físico popularizó el término «agujero negro» en 1967?",
           "options": [
             { "id": "a", "text": "Stephen Hawking", "is_correct": false },
             { "id": "b", "text": "Karl Schwarzschild", "is_correct": false },

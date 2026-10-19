@@ -115,3 +115,17 @@ it('routes the editorial 2026c pairs both ways', () => {
     'en-movie-quotes-trivia'
   );
 });
+
+it('routes the editorial 2026at pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-black-holes-trivia', 'es-trivia-agujeros-negros'],
+    ['en-dna-and-genetics-trivia', 'es-trivia-adn-y-genetica'],
+    ['en-volcanoes-and-earthquakes-trivia', 'es-trivia-volcanes-y-terremotos'],
+    ['en-periodic-table-trivia', 'es-trivia-tabla-periodica'],
+    ['en-deep-sea-trivia', 'es-trivia-fondo-del-mar'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
