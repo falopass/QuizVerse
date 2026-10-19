@@ -690,7 +690,11 @@
           "options": [
             { "id": "a", "text": "The phonograph", "is_correct": false },
             { "id": "b", "text": "The kinetoscope", "is_correct": false },
-            { "id": "c", "text": "The cinematograph, the first public film screening", "is_correct": true },
+            {
+              "id": "c",
+              "text": "The cinematograph, the first public film screening",
+              "is_correct": true
+            },
             { "id": "d", "text": "The telephone", "is_correct": false }
           ],
           "explanation": "On 28 December 1895 they projected Workers Leaving the Factory, the birth of cinema."
@@ -791,7 +795,11 @@
           "options": [
             { "id": "a", "text": "El fonógrafo", "is_correct": false },
             { "id": "b", "text": "El kinetoscopio", "is_correct": false },
-            { "id": "c", "text": "El cinematógrafo, la primera proyección pública de cine", "is_correct": true },
+            {
+              "id": "c",
+              "text": "El cinematógrafo, la primera proyección pública de cine",
+              "is_correct": true
+            },
             { "id": "d", "text": "El teléfono", "is_correct": false }
           ],
           "explanation": "El 28 de diciembre de 1895 proyectaron «La salida de la fábrica»: el nacimiento del cine."
