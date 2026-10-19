@@ -94,11 +94,21 @@ export function EditorialErrorState({
   body = 'The page could not finish loading. Try again, or jump back into the catalog.',
   onRetry,
   showRetry = true,
+  retryLabel = 'Try again',
+  homeHref = '/',
+  homeLabel = 'Go home',
+  browseHref = '/quiz',
+  browseLabel = 'Browse quizzes',
 }: {
   title?: string;
   body?: string;
   onRetry?: () => void;
   showRetry?: boolean;
+  retryLabel?: string;
+  homeHref?: string;
+  homeLabel?: string;
+  browseHref?: string;
+  browseLabel?: string;
 }) {
   return (
     <div className="min-h-[70vh] px-4 pt-28 pb-16">
@@ -116,20 +126,20 @@ export function EditorialErrorState({
                 onClick={onRetry}
                 className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
               >
-                Try again
+                {retryLabel}
               </button>
             ) : null}
             <Link
-              href="/"
+              href={homeHref}
               className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
             >
-              Go home
+              {homeLabel}
             </Link>
             <Link
-              href="/quiz"
+              href={browseHref}
               className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
             >
-              Browse quizzes
+              {browseLabel}
             </Link>
           </div>
         </div>
