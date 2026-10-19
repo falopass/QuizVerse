@@ -122,6 +122,14 @@ export function UserMenu({ locale }: { locale: Locale }) {
           </Link>
           <Link
             role="menuitem"
+            href={localizeHref(locale, '/achievements')}
+            className={itemClass}
+            onClick={() => setOpen(false)}
+          >
+            {isEs ? 'Mis logros' : 'My achievements'}
+          </Link>
+          <Link
+            role="menuitem"
             href={localizeHref(locale, '/settings')}
             className={itemClass}
             onClick={() => setOpen(false)}
@@ -156,6 +164,9 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
     <>
       <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
         {isEs ? 'Mis quizzes' : 'My quizzes'}
+      </Link>
+      <Link href={localizeHref(locale, '/achievements')} onClick={onSelect}>
+        {isEs ? 'Mis logros' : 'My achievements'}
       </Link>
       <Link href={localizeHref(locale, '/settings')} onClick={onSelect}>
         {isEs ? 'Ajustes' : 'Settings'}
