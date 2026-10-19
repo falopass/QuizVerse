@@ -26,6 +26,7 @@ function makeQuiz(overrides: Partial<Quiz>): Quiz {
     is_featured: false,
     is_ai_generated: false,
     published_at: null,
+    updated_at: null,
     created_at: '2026-01-01',
     ...overrides,
   };

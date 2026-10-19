@@ -1,6 +1,5 @@
-// Runs under `node --test`. Vitest does not discover *.test.mjs (its include
-// only covers .test.ts/.test.tsx), so this file is a plain Node test on purpose.
-import { describe, it } from 'node:test';
+// Runs under vitest: vitest.config.ts includes tests/**/*.test.mjs.
+import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
