@@ -40,7 +40,8 @@ export const QuizCreateSchema = z.object({
   title: z.string().min(5).max(120),
   description: z.string().max(300).optional().nullable(),
   cover_image_url: z.string().url().optional().nullable(),
-  quiz_type: z.enum(['trivia', 'personality', 'poll']),
+  // La DB conserva 'poll' en su enum; vuelve a las entradas cuando exista implementación completa (puntuación incluida).
+  quiz_type: z.enum(['trivia', 'personality']),
   difficulty: z.enum(['easy', 'medium', 'hard']),
   language: z.string().min(2).max(10).default('en'),
   category_id: z.string().uuid().optional().nullable(),
