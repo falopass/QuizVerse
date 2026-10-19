@@ -6,7 +6,6 @@ import {
   DEFAULT_OG_IMAGE_HEIGHT,
   DEFAULT_OG_IMAGE_WIDTH,
   SITE_NAME,
-  SITE_URL,
   TWITTER_HANDLE,
   absoluteUrl,
 } from './site';
@@ -166,44 +165,6 @@ export function buildMetadata({
   };
 }
 
-export interface GenerateQuizMetadataOptions {
-  title: string;
-  description: string;
-  image?: string;
-  /** Absolute canonical URL. */
-  url?: string;
-  locale?: Locale;
-  /** Absolute URL of the translated counterpart, only when it exists. */
-  alternateUrl?: string;
-}
-
-function toPath(url: string): string {
-  if (!url.startsWith('http')) return url;
-  return url.startsWith(SITE_URL) ? url.slice(SITE_URL.length) || '/' : url;
-}
-
-export function generateQuizMetadata({
-  title,
-  description,
-  image,
-  url,
-  locale = 'en',
-  alternateUrl,
-}: GenerateQuizMetadataOptions): Metadata {
-  const path = url ? toPath(url) : localizedPath(locale, '/');
-  const counterpart = alternateUrl && alternateUrl !== url ? toPath(alternateUrl) : null;
-
-  return buildMetadata({
-    title,
-    description,
-    path,
-    locale,
-    alternatePath: counterpart,
-    image,
-    imageAlt: title,
-  });
-}
-
 export interface GenerateCategoryMetadataOptions {
   name: string;
   slug: string;
@@ -269,5 +230,3 @@ export function generateProfileMetadata({
     noindex: true,
   });
 }
-
-export default generateQuizMetadata;

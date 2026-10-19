@@ -254,12 +254,3 @@ export function generateSlug(title: string): string {
     .replace(/^-+|-+$/g, '')
     .substring(0, 60);
 }
-
-/**
- * Calcula el costo estimado de generación (DeepSeek pricing)
- * ~$0.0008 por quiz generado
- */
-export function estimateGenerationCost(tokenCount: number): number {
-  const COST_PER_MILLION_TOKENS = 0.28; // deepseek-chat output pricing
-  return (tokenCount / 1_000_000) * COST_PER_MILLION_TOKENS;
-}
