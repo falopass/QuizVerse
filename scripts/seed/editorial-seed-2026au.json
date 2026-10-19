@@ -72,7 +72,11 @@
           "question": "The Dalmatian earned its place in firehouses by doing what historically?",
           "options": [
             { "id": "a", "text": "Pulling water carts", "is_correct": false },
-            { "id": "b", "text": "Running alongside horse-drawn carriages as a coach dog", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Running alongside horse-drawn carriages as a coach dog",
+              "is_correct": true
+            },
             { "id": "c", "text": "Catching rats in stables", "is_correct": false },
             { "id": "d", "text": "Carrying messages between stations", "is_correct": false }
           ],
@@ -130,7 +134,11 @@
           "options": [
             { "id": "a", "text": "Para arrear renos", "is_correct": false },
             { "id": "b", "text": "Para tirar de trineos en largas distancias", "is_correct": true },
-            { "id": "c", "text": "Para vigilar los campamentos frente a osos", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Para vigilar los campamentos frente a osos",
+              "is_correct": false
+            },
             { "id": "d", "text": "Para cazar focas en el hielo", "is_correct": false }
           ],
           "explanation": "Los equipos chukchi arrastraban cargas ligeras por Siberia; la raza llegó a Alaska a comienzos del siglo XX."
@@ -173,7 +181,11 @@
           "question": "¿Qué hacía históricamente el dálmata para ganarse su lugar en los cuarteles de bomberos?",
           "options": [
             { "id": "a", "text": "Tirar de carros de agua", "is_correct": false },
-            { "id": "b", "text": "Correr junto a los carruajes de caballos como perro de coche", "is_correct": true },
+            {
+              "id": "b",
+              "text": "Correr junto a los carruajes de caballos como perro de coche",
+              "is_correct": true
+            },
             { "id": "c", "text": "Cazar ratas en las cuadras", "is_correct": false },
             { "id": "d", "text": "Llevar mensajes entre estaciones", "is_correct": false }
           ],
