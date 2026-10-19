@@ -1,0 +1,280 @@
+{
+  "quizzes": [
+    {
+      "slug": "en-the-boys-fan-trivia-challenge",
+      "title": "The Boys Trivia: Homelander, Compound V and The Seven"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-boys",
+      "title": "The Boys: ¿cuánto sabes de Patriota y Los Siete?"
+    },
+    {
+      "slug": "en-stranger-things-fan-trivia-challenge",
+      "title": "Stranger Things: How Well Do You Know the Upside Down?"
+    },
+    {
+      "slug": "es-trivia-fan-de-stranger-things",
+      "title": "Stranger Things: trivia de Hawkins y el Upside Down"
+    },
+    {
+      "slug": "en-star-wars-fan-trivia-challenge",
+      "title": "Star Wars Quiz: Jedi, Droids and the Millennium Falcon"
+    },
+    {
+      "slug": "es-trivia-fan-de-star-wars",
+      "title": "Star Wars: pon a prueba tu conocimiento de la saga"
+    },
+    {
+      "slug": "en-re-zero-fan-trivia-challenge",
+      "title": "Re:ZERO: Test Your Knowledge of Return by Death"
+    },
+    {
+      "slug": "es-trivia-fan-de-re-zero",
+      "title": "Re:ZERO: demuestra lo que sabes de Subaru y Emilia"
+    },
+    {
+      "slug": "en-witch-hat-atelier-fan-trivia-challenge",
+      "title": "Witch Hat Atelier Trivia: Coco, Qifrey and Forbidden Magic"
+    },
+    {
+      "slug": "es-trivia-fan-de-witch-hat-atelier",
+      "title": "Witch Hat Atelier: 8 preguntas sobre Coco y la magia"
+    },
+    {
+      "slug": "en-that-time-i-got-reincarnated-as-a-slime-fan-trivia-challenge",
+      "title": "That Time I Got Reincarnated as a Slime: Prove You Know Rimuru"
+    },
+    {
+      "slug": "es-trivia-fan-de-that-time-i-got-reincarnated-as-a-slime",
+      "title": "That Time I Got Reincarnated as a Slime: trivia de Rimuru"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-super-mario-galaxy-movie",
+      "title": "The Super Mario Galaxy Movie: trivia de la película"
+    },
+    {
+      "slug": "en-project-hail-mary-fan-trivia-challenge",
+      "title": "Project Hail Mary: How Well Do You Know Ryland and Rocky?"
+    },
+    {
+      "slug": "es-trivia-fan-de-project-hail-mary",
+      "title": "Project Hail Mary: pon a prueba tu memoria sobre la novela"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-mummy",
+      "title": "The Mummy: 8 preguntas sobre Rick O'Connell e Imhotep"
+    },
+    {
+      "slug": "en-the-mummy-fan-trivia-challenge",
+      "title": "The Mummy: Test Your Knowledge of the 1999 Classic"
+    },
+    {
+      "slug": "en-resident-evil-fan-trivia-challenge",
+      "title": "Resident Evil Quiz: Raccoon City, Umbrella and Nemesis"
+    },
+    {
+      "slug": "es-trivia-fan-de-resident-evil",
+      "title": "Resident Evil: ¿cuánto sabes de Umbrella y Raccoon City?"
+    },
+    {
+      "slug": "es-trivia-fan-de-hades-ii",
+      "title": "Hades II: trivia de Melinoë y los titanes"
+    },
+    {
+      "slug": "en-starfield-fan-trivia-challenge",
+      "title": "Starfield Trivia: Constellation, Factions and Artifacts"
+    },
+    {
+      "slug": "es-trivia-fan-de-starfield",
+      "title": "Starfield: demuestra lo que sabes del RPG de Bethesda"
+    },
+    {
+      "slug": "en-invincible-fan-trivia-challenge",
+      "title": "Invincible: How Well Do You Know Mark Grayson's World?"
+    },
+    {
+      "slug": "es-trivia-fan-de-invincible",
+      "title": "Invincible: ¿cuánto sabes de Mark Grayson y Omni-Man?"
+    },
+    {
+      "slug": "en-harry-potter-fan-trivia-challenge",
+      "title": "Harry Potter: Test Your Hogwarts Knowledge"
+    },
+    {
+      "slug": "es-trivia-fan-de-harry-potter",
+      "title": "Harry Potter: 8 preguntas sobre Hogwarts y el Quidditch"
+    },
+    {
+      "slug": "en-marvel-fan-trivia-challenge",
+      "title": "Marvel Quiz: Infinity Stones, Thor and the MCU"
+    },
+    {
+      "slug": "es-trivia-fan-de-marvel",
+      "title": "Marvel: pon a prueba tu conocimiento del UCM"
+    },
+    {
+      "slug": "en-naruto-fan-trivia-challenge",
+      "title": "Naruto Trivia: The Hidden Leaf and the Nine-Tails"
+    },
+    {
+      "slug": "es-trivia-fan-de-naruto",
+      "title": "Naruto: trivia de la Aldea Oculta de la Hoja"
+    },
+    {
+      "slug": "en-one-piece-fan-trivia-challenge",
+      "title": "One Piece: Prove You Know the Straw Hat Crew"
+    },
+    {
+      "slug": "es-trivia-fan-de-one-piece",
+      "title": "One Piece: ¿cuánto sabes de los Sombrero de Paja?"
+    },
+    {
+      "slug": "en-jujutsu-kaisen-fan-trivia-challenge",
+      "title": "Jujutsu Kaisen: How Well Do You Know Cursed Techniques?"
+    },
+    {
+      "slug": "es-trivia-fan-de-jujutsu-kaisen",
+      "title": "Jujutsu Kaisen: demuestra lo que sabes de las maldiciones"
+    },
+    {
+      "slug": "en-pokemon-fan-trivia-challenge",
+      "title": "Pokémon Trivia: Kanto, Types and Evolutions"
+    },
+    {
+      "slug": "es-trivia-fan-de-pokemon",
+      "title": "Pokémon: pon a prueba tu conocimiento de Kanto"
+    },
+    {
+      "slug": "en-the-legend-of-zelda-fan-trivia-challenge",
+      "title": "The Legend of Zelda: Test Your Knowledge of Hyrule"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-legend-of-zelda",
+      "title": "The Legend of Zelda: trivia de Link y el reino de Hyrule"
+    },
+    {
+      "slug": "es-trivia-fan-de-taylor-swift",
+      "title": "Taylor Swift: ¿cuánto sabes de sus álbumes y eras?"
+    },
+    {
+      "slug": "en-taylor-swift-fan-trivia-challenge",
+      "title": "Taylor Swift Quiz: Albums, Lyrics and the Eras"
+    },
+    {
+      "slug": "en-k-pop-fan-trivia-challenge",
+      "title": "K-pop: How Well Do You Know BTS, BLACKPINK and More?"
+    },
+    {
+      "slug": "es-trivia-fan-de-k-pop",
+      "title": "K-pop: 8 preguntas sobre BTS, BLACKPINK y más"
+    },
+    {
+      "slug": "en-wicked-fan-trivia-challenge",
+      "title": "Wicked Trivia: Elphaba, Glinda and the Land of Oz"
+    },
+    {
+      "slug": "es-trivia-fan-de-wicked",
+      "title": "Wicked: pon a prueba lo que sabes de Elphaba y Glinda"
+    },
+    {
+      "slug": "en-severance-fan-trivia-challenge",
+      "title": "Severance: Test Your Knowledge of Lumon and MDR"
+    },
+    {
+      "slug": "es-trivia-fan-de-severance",
+      "title": "Severance: ¿cuánto sabes de Lumon y sus empleados?"
+    },
+    {
+      "slug": "en-the-last-of-us-fan-trivia-challenge",
+      "title": "The Last of Us Quiz: Joel, Ellie and the Cordyceps"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-last-of-us",
+      "title": "The Last of Us: trivia de Joel, Ellie y los infectados"
+    },
+    {
+      "slug": "en-the-white-lotus-fan-trivia-challenge",
+      "title": "The White Lotus: How Well Do You Know the Guests?"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-white-lotus",
+      "title": "The White Lotus: demuestra lo que sabes del hotel"
+    },
+    {
+      "slug": "en-the-bear-fan-trivia-challenge",
+      "title": "The Bear Trivia: Carmy, Sydney and The Beef"
+    },
+    {
+      "slug": "es-trivia-fan-de-the-bear",
+      "title": "The Bear: 8 preguntas sobre Carmy y la cocina"
+    },
+    {
+      "slug": "en-squid-game-fan-trivia-challenge",
+      "title": "Squid Game: Prove You Know the Games and Players"
+    },
+    {
+      "slug": "en-wednesday-fan-trivia-challenge",
+      "title": "Wednesday Quiz: Nevermore, Thing and the Addams Family"
+    },
+    {
+      "slug": "es-trivia-fan-de-merlina",
+      "title": "Merlina: ¿cuánto sabes de la Academia Nunca Más?"
+    },
+    {
+      "slug": "en-solo-leveling-fan-trivia-challenge",
+      "title": "Solo Leveling: How Well Do You Know Sung Jinwoo?"
+    },
+    {
+      "slug": "es-trivia-fan-de-solo-leveling",
+      "title": "Solo Leveling: trivia de Sung Jin-Woo y las sombras"
+    },
+    {
+      "slug": "en-spy-x-family-fan-trivia-challenge",
+      "title": "Spy x Family Trivia: The Forgers and Their Secrets"
+    },
+    {
+      "slug": "es-trivia-fan-de-spy-x-family",
+      "title": "Spy x Family: pon a prueba lo que sabes de los Forger"
+    },
+    {
+      "slug": "en-oppenheimer-fan-trivia-challenge",
+      "title": "Oppenheimer: Test Your Knowledge of the Film and History"
+    },
+    {
+      "slug": "es-trivia-fan-de-oppenheimer",
+      "title": "Oppenheimer: demuestra lo que sabes de la bomba atómica"
+    },
+    {
+      "slug": "en-spider-verse-fan-trivia-challenge",
+      "title": "Spider-Verse Quiz: Miles Morales and the Spider Society"
+    },
+    {
+      "slug": "es-trivia-fan-de-spider-verse",
+      "title": "Spider-Verse: ¿cuánto sabes del multiverso arácnido?"
+    },
+    {
+      "slug": "en-nintendo-switch-2-fan-trivia-challenge",
+      "title": "Nintendo Switch 2 Trivia: Specs, Features and Launch Games"
+    },
+    {
+      "slug": "es-trivia-fan-de-nintendo-switch-2",
+      "title": "Nintendo Switch 2: pon a prueba lo que sabes de la consola"
+    },
+    {
+      "slug": "en-minecraft-fan-trivia-challenge",
+      "title": "Minecraft: Prove You Know Your Blocks and Mobs"
+    },
+    {
+      "slug": "es-trivia-fan-de-minecraft",
+      "title": "Minecraft: 8 preguntas sobre bloques, mobs y el End"
+    },
+    {
+      "slug": "en-sabrina-carpenter-fan-trivia-challenge",
+      "title": "Sabrina Carpenter: How Well Do You Know Her Music?"
+    },
+    {
+      "slug": "es-trivia-fan-de-sabrina-carpenter",
+      "title": "Sabrina Carpenter: trivia de su música y sus años en Disney"
+    }
+  ]
+}
