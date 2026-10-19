@@ -70,8 +70,6 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           changeMode: 'Cambiar modo',
           quizNotFound: 'No encontramos este quiz.',
           pauseGame: 'Pausar juego',
-          correct: 'Correcto',
-          miss: 'Fallaste',
           nowPlaying: 'Jugando ahora',
           skip: 'Saltar',
           finish: 'Terminar',
@@ -85,8 +83,6 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           changeMode: 'Change mode',
           quizNotFound: 'Quiz not found.',
           pauseGame: 'Pause game',
-          correct: 'Correct',
-          miss: 'Miss',
           nowPlaying: 'Now playing',
           skip: 'Skip',
           finish: 'Finish',
@@ -145,6 +141,15 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   } = useQuizStore();
   const hiddenOptionIds =
     hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
+  /**
+   * The card remounts per question (AnimatePresence exit runs before the new
+   * card mounts), so a plain effect on `currentQuestionIndex` would focus the
+   * heading that is leaving. A ref callback fires when the new heading mounts:
+   * that is when focus must land, or it falls to <body>.
+   */
+  const focusQuestionHeading = React.useCallback((heading: HTMLHeadingElement | null) => {
+    heading?.focus();
+  }, []);
 
   /**
    * Asks the server whether the selected option is right, then records the
@@ -527,11 +532,6 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
         </motion.div>
 
         <div className="arcade-play-body flex-1 px-4 py-8 md:py-10">
-          {showFeedback && lastAnswerCorrect !== null && quiz.quiz_type === 'trivia' && (
-            <p className="arcade-answer-feedback" role="status">
-              {lastAnswerCorrect ? copy.correct : copy.miss}
-            </p>
-          )}
           {/* Marcador/racha: región aparte para no repetir el veredicto */}
           <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
             {scoreAnnouncement}
@@ -574,6 +574,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                   }
                   locale={uiLocale}
                   hiddenOptionIds={hiddenOptionIds}
+                  headingRef={focusQuestionHeading}
                 />
               </motion.div>
             </AnimatePresence>
