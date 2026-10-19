@@ -9,6 +9,7 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { absoluteUrl } from '@/lib/seo/site';
 import {
   breadcrumbNode,
   buildGraph,
@@ -53,6 +54,7 @@ export async function generateMetadata({
     path: `/${locale}/indice`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/indice`,
     locale,
+    image: absoluteUrl(`/${locale}/indice/opengraph-image`),
   });
 }
 
