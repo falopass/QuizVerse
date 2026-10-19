@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
 const EMITTER = join(__dirname, '..', 'scripts', 'seed', 'emit-editorial-seed.mjs');
 const SEED = join(__dirname, '..', 'scripts', 'seed', 'editorial-seed-2026aj.json');
@@ -103,6 +104,13 @@ describe('editorial-seed-2026aj', () => {
         );
         expect(question.explanation?.length ?? 0, where).toBeGreaterThan(0);
       }
+    }
+  });
+
+  it('enlaza cada par es/en a través del mapa de idiomas', () => {
+    for (const [enSlug, esSlug] of EXPECTED_PAIRS) {
+      expect(getEquivalentQuizSlug(enSlug, 'es'), enSlug).toBe(esSlug);
+      expect(getEquivalentQuizSlug(esSlug, 'en'), esSlug).toBe(enSlug);
     }
   });
 
