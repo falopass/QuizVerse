@@ -58,14 +58,14 @@
         },
         {
           "id": "q5",
-          "question": "How many rounds does a modern world championship boxing match have?",
+          "question": "How many rounds does a modern men's world championship boxing match have?",
           "options": [
             { "id": "a", "text": "10", "is_correct": false },
             { "id": "b", "text": "12", "is_correct": true },
             { "id": "c", "text": "15", "is_correct": false },
             { "id": "d", "text": "8", "is_correct": false }
           ],
-          "explanation": "Title bouts were shortened from 15 to 12 rounds during the 1980s."
+          "explanation": "Men's title bouts were shortened from 15 to 12 rounds during the 1980s; women's title bouts use ten rounds."
         },
         {
           "id": "q6",
@@ -159,14 +159,14 @@
         },
         {
           "id": "q5",
-          "question": "¿Cuántos asaltos tiene hoy un combate por el título mundial de boxeo?",
+          "question": "¿Cuántos asaltos tiene hoy un combate masculino por el título mundial de boxeo?",
           "options": [
             { "id": "a", "text": "10", "is_correct": false },
             { "id": "b", "text": "15", "is_correct": false },
             { "id": "c", "text": "8", "is_correct": false },
             { "id": "d", "text": "12", "is_correct": true }
           ],
-          "explanation": "Las peleas de título pasaron de 15 a 12 asaltos durante la década de 1980."
+          "explanation": "Las peleas de título masculinas pasaron de 15 a 12 asaltos durante la década de 1980; las femeninas se disputan a diez."
         },
         {
           "id": "q6",
