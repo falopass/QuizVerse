@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getQuizBySlug } from '@/lib/data/public';
+import { getCategoryPayload, getQuizBySlug } from '@/lib/data/public';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
 const querySchema = z.object({
@@ -19,5 +19,12 @@ export async function GET(request: Request) {
   const counterpart = equivalentSlug ? await getQuizBySlug(equivalentSlug, to) : null;
   if (counterpart) return NextResponse.json({ href: `/${to}/quiz/${counterpart.slug}` });
   const categorySlug = source.category?.slug;
-  return NextResponse.json({ href: categorySlug ? `/${to}/category/${categorySlug}` : `/${to}` });
+  // La página de categoría hace 404 si no tiene quizzes publicados en `to`,
+  // así que solo se ofrece cuando el destino existe de verdad.
+  if (categorySlug) {
+    const payload = await getCategoryPayload(categorySlug, to);
+    if (payload && payload.quizzes.length > 0)
+      return NextResponse.json({ href: `/${to}/category/${categorySlug}` });
+  }
+  return NextResponse.json({ href: `/${to}` });
 }
