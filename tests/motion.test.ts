@@ -17,6 +17,19 @@ describe('entrance (prefers-reduced-motion)', () => {
     expect(out).not.toHaveProperty('transition');
   });
 
+  it('con labels de variant neutraliza la animación con reduced', () => {
+    const out = entrance(true, {
+      initial: 'hidden',
+      animate: 'visible',
+      exit: 'exit',
+      transition: { delay: 0.1 },
+    });
+    expect(out.initial).toEqual({});
+    expect(out.animate).toEqual({});
+    expect(out.exit).toEqual({});
+    expect(out).not.toHaveProperty('transition');
+  });
+
   it('con reduced = false devuelve las mismas props', () => {
     expect(entrance(false, props)).toEqual(props);
   });
