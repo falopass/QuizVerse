@@ -10,30 +10,6 @@ const LeaderboardQuerySchema = PaginationSchema.extend({
   scope: z.enum(['global', 'friends']).default('global'),
 });
 
-interface LeaderboardRow {
-  id: string;
-  username: string;
-  display_name: string | null;
-  avatar_url: string | null;
-  points: number;
-  quizzes_played: number;
-}
-
-/**
- * `user_follows` existe en la base (migracion 006) pero no esta en
- * `src/types/database.ts`. Hasta regenerar tipos, esta interfaz estrecha es la
- * unica superficie que necesita el ranking de amigos.
- */
-interface FollowsTable {
-  from(table: 'user_follows'): {
-    select(columns: string): {
-      eq(
-        column: string,
-        value: string
-      ): Promise<{ data: Array<{ following_id: string }> | null; error: unknown }>;
-    };
-  };
-}
 /**
  * GET /api/leaderboard?scope=global|friends&limit=
  *
@@ -63,17 +39,14 @@ export async function GET(request: Request) {
 
   if (!user) return jsonError(401, 'unauthorized');
 
-  const { data: follows, error: followsError } = await (supabase as unknown as FollowsTable)
+  const { data: follows, error: followsError } = await supabase
     .from('user_follows')
     .select('following_id')
     .eq('follower_id', user.id);
 
   if (followsError) return jsonError(503, 'leaderboard_unavailable');
 
-  const ids = [
-    user.id,
-    ...((follows ?? []) as Array<{ following_id: string }>).map((f) => f.following_id),
-  ];
+  const ids = [user.id, ...(follows ?? []).map((f) => f.following_id)];
 
   const { data: rows, error } = await supabase
     .from('profiles')
@@ -84,7 +57,7 @@ export async function GET(request: Request) {
 
   if (error) return jsonError(503, 'leaderboard_unavailable');
 
-  const entries = ((rows ?? []) as unknown as LeaderboardRow[]).map((row, index) => ({
+  const entries = (rows ?? []).map((row, index) => ({
     rank: index + 1,
     id: row.id,
     username: row.username,

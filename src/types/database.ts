@@ -15,6 +15,13 @@ export type ReportReason =
   | 'hate_speech'
   | 'copyright'
   | 'other';
+export type NotificationType =
+  | 'comment'
+  | 'follow'
+  | 'quiz_approved'
+  | 'quiz_rejected'
+  | 'achievement'
+  | 'mention';
 
 export interface Database {
   public: {
@@ -32,6 +39,8 @@ export interface Database {
           is_admin: boolean;
           is_verified: boolean;
           preferred_language: string;
+          followers_count: number;
+          following_count: number;
           created_at: string;
           updated_at: string;
         };
@@ -47,6 +56,8 @@ export interface Database {
           is_admin?: boolean;
           is_verified?: boolean;
           preferred_language?: string;
+          followers_count?: number;
+          following_count?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -62,6 +73,8 @@ export interface Database {
           is_admin?: boolean;
           is_verified?: boolean;
           preferred_language?: string;
+          followers_count?: number;
+          following_count?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -434,6 +447,135 @@ export interface Database {
           },
         ];
       };
+      quiz_comments: {
+        Row: {
+          id: string;
+          quiz_id: string;
+          user_id: string;
+          parent_id: string | null;
+          body: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          quiz_id: string;
+          user_id: string;
+          parent_id?: string | null;
+          body: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          quiz_id?: string;
+          user_id?: string;
+          parent_id?: string | null;
+          body?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_comments_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_comments_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_comments_parent_id_fkey';
+            columns: ['parent_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz_comments';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_follows: {
+        Row: {
+          follower_id: string;
+          following_id: string;
+          created_at: string;
+        };
+        Insert: {
+          follower_id: string;
+          following_id: string;
+          created_at?: string;
+        };
+        Update: {
+          follower_id?: string;
+          following_id?: string;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'user_follows_follower_id_fkey';
+            columns: ['follower_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_follows_following_id_fkey';
+            columns: ['following_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      notifications: {
+        Row: {
+          id: string;
+          user_id: string;
+          type: NotificationType;
+          title: string;
+          body: string | null;
+          data: Json | null;
+          is_read: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          type: NotificationType;
+          title: string;
+          body?: string | null;
+          data?: Json | null;
+          is_read?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          type?: NotificationType;
+          title?: string;
+          body?: string | null;
+          data?: Json | null;
+          is_read?: boolean;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'notifications_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Views: {};
@@ -464,6 +606,13 @@ export interface Database {
         | 'hate_speech'
         | 'copyright'
         | 'other';
+      notification_type:
+        | 'comment'
+        | 'follow'
+        | 'quiz_approved'
+        | 'quiz_rejected'
+        | 'achievement'
+        | 'mention';
     };
   };
 }
