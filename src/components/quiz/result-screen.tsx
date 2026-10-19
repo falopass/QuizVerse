@@ -312,7 +312,7 @@ export function ResultScreen({
                             )?.text ?? null,
                           correctOptionText: null,
                           isCorrect: answer.is_correct,
-                          explanation: null,
+                          explanation: question?.explanation ?? null,
                         } satisfies QuizReviewItem;
                       })
                     ).map((item, index) => {
