@@ -9,6 +9,7 @@ import { getHubGuide, getRelatedCategories, RELATED_HEADING } from '@/lib/conten
 import { getCategoryPayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
+import { categoryDescription, visibleGamesLabel } from '@/lib/i18n/counts';
 import { getCategoryGuide } from '@/lib/i18n/category-guides';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { generateCategoryMetadata } from '@/lib/seo/metadata';
@@ -35,14 +36,15 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
   if (!payload || payload.quizzes.length === 0) notFound();
   const category = localizeCategory(payload.category, locale)!;
   const count = payload.quizzes.length;
-  const tagline = category.description?.trim();
 
   // The stored taglines are short ("Sharp rounds with clean pacing."), so the
   // catalogue size and the offer are appended to fill the SERP snippet.
-  const description =
-    locale === 'es'
-      ? `${tagline ? `${tagline} ` : ''}${count} quizzes de ${category.name} gratis en QuizVerse, con resultado al instante y sin registro.`
-      : `${tagline ? `${tagline} ` : ''}${count} free ${category.name} quizzes on QuizVerse, with instant results and no signup.`;
+  const description = categoryDescription({
+    count,
+    name: category.name,
+    tagline: category.description,
+    locale,
+  });
 
   return generateCategoryMetadata({
     name: category.name,
@@ -106,9 +108,7 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
         </span>
         <h1>{category.name}</h1>
         <p>{category.description}</p>
-        <strong>
-          {quizzes.length} {dictionary.arcade.visibleGames}
-        </strong>
+        <strong>{visibleGamesLabel(quizzes.length, locale)}</strong>
       </section>
       <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
         <Link href={localizeHref(locale, '/quiz')}>{dictionary.arcade.allCategories}</Link>
