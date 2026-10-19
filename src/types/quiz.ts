@@ -270,8 +270,8 @@ export interface QuizState {
 export type QuizAction =
   | { type: 'START_QUIZ' }
   | { type: 'SELECT_OPTION'; optionId: string }
-  | { type: 'SUBMIT_ANSWER'; is_correct: boolean; time_ms: number }
+  | { type: 'SUBMIT_ANSWER'; questionId: string; is_correct: boolean; time_ms: number }
   | { type: 'NEXT_QUESTION' }
-  | { type: 'COMPLETE_QUIZ'; score: number; max_score: number }
+  | { type: 'COMPLETE_QUIZ' }
   | { type: 'TICK_TIME'; remaining: number }
-  | { type: 'RESET' };
+  | { type: 'RESET'; quiz: Quiz };
