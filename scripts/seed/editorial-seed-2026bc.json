@@ -1,0 +1,1031 @@
+{
+  "$comment": "Editorial seed 2026bc: five es/en trivia pairs on astrology and the zodiac (signs, elements and rulers, mythology, Chinese zodiac, astrology vs astronomy). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-zodiac-signs-trivia",
+      "title": "Zodiac Signs Trivia: Dates, Order and Symbols of the 12 Signs",
+      "description": "Eight questions on the twelve zodiac signs: their order, their date ranges and the symbol behind each one. Can you name the sign of every birthday?",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrology", "zodiac"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many signs make up the Western zodiac?",
+          "options": [
+            { "id": "a", "text": "Ten", "is_correct": false },
+            { "id": "b", "text": "Twelve", "is_correct": true },
+            { "id": "c", "text": "Thirteen", "is_correct": false },
+            { "id": "d", "text": "Nine", "is_correct": false }
+          ],
+          "explanation": "The Western zodiac divides the ecliptic into twelve signs of thirty degrees each."
+        },
+        {
+          "id": "q2",
+          "question": "Which sign opens the zodiac year?",
+          "options": [
+            { "id": "a", "text": "Pisces", "is_correct": false },
+            { "id": "b", "text": "Capricorn", "is_correct": false },
+            { "id": "c", "text": "Aries", "is_correct": true },
+            { "id": "d", "text": "Virgo", "is_correct": false }
+          ],
+          "explanation": "Aries opens the cycle at the March equinox."
+        },
+        {
+          "id": "q3",
+          "question": "A person born on 25 December belongs to which sign?",
+          "options": [
+            { "id": "a", "text": "Sagittarius", "is_correct": false },
+            { "id": "b", "text": "Aquarius", "is_correct": false },
+            { "id": "c", "text": "Scorpio", "is_correct": false },
+            { "id": "d", "text": "Capricorn", "is_correct": true }
+          ],
+          "explanation": "Capricorn season runs from about 22 December to 19 January."
+        },
+        {
+          "id": "q4",
+          "question": "What is the symbol of Libra?",
+          "options": [
+            { "id": "a", "text": "The scales", "is_correct": true },
+            { "id": "b", "text": "The crab", "is_correct": false },
+            { "id": "c", "text": "The twins", "is_correct": false },
+            { "id": "d", "text": "The archer", "is_correct": false }
+          ],
+          "explanation": "Libra is the only sign represented by an object: the scales of balance."
+        },
+        {
+          "id": "q5",
+          "question": "Which sign comes right after Virgo in the zodiacal order?",
+          "options": [
+            { "id": "a", "text": "Leo", "is_correct": false },
+            { "id": "b", "text": "Libra", "is_correct": true },
+            { "id": "c", "text": "Scorpio", "is_correct": false },
+            { "id": "d", "text": "Cancer", "is_correct": false }
+          ],
+          "explanation": "The order runs Virgo, Libra, Scorpio and then Sagittarius."
+        },
+        {
+          "id": "q6",
+          "question": "Which sign closes the zodiac cycle?",
+          "options": [
+            { "id": "a", "text": "Aquarius", "is_correct": false },
+            { "id": "b", "text": "Capricorn", "is_correct": false },
+            { "id": "c", "text": "Aries", "is_correct": false },
+            { "id": "d", "text": "Pisces", "is_correct": true }
+          ],
+          "explanation": "Pisces is the twelfth and last sign before the cycle restarts with Aries."
+        },
+        {
+          "id": "q7",
+          "question": "Sagittarius is represented by which figure?",
+          "options": [
+            { "id": "a", "text": "The ram", "is_correct": false },
+            { "id": "b", "text": "The lion", "is_correct": false },
+            { "id": "c", "text": "The archer", "is_correct": true },
+            { "id": "d", "text": "The water-bearer", "is_correct": false }
+          ],
+          "explanation": "Sagittarius is the archer, drawn as a centaur drawing his bow."
+        },
+        {
+          "id": "q8",
+          "question": "Around which date does Aries season begin?",
+          "options": [
+            { "id": "a", "text": "21 June", "is_correct": false },
+            { "id": "b", "text": "19 February", "is_correct": false },
+            { "id": "c", "text": "22 September", "is_correct": false },
+            { "id": "d", "text": "21 March", "is_correct": true }
+          ],
+          "explanation": "Aries starts around 21 March, at the March equinox."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-signos-del-zodiaco",
+      "title": "Trivia de signos del zodiaco: fechas, orden y símbolos de los 12 signos",
+      "description": "Ocho preguntas sobre los doce signos del zodiaco: su orden, sus fechas y el símbolo detrás de cada uno. ¿Sabes qué signo corresponde a cada cumpleaños?",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrología", "zodiaco"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos signos componen el zodiaco occidental?",
+          "options": [
+            { "id": "a", "text": "Diez", "is_correct": false },
+            { "id": "b", "text": "Doce", "is_correct": true },
+            { "id": "c", "text": "Trece", "is_correct": false },
+            { "id": "d", "text": "Nueve", "is_correct": false }
+          ],
+          "explanation": "El zodiaco occidental divide la eclíptica en doce signos de treinta grados."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué signo abre el año zodiacal?",
+          "options": [
+            { "id": "a", "text": "Piscis", "is_correct": false },
+            { "id": "b", "text": "Capricornio", "is_correct": false },
+            { "id": "c", "text": "Aries", "is_correct": true },
+            { "id": "d", "text": "Virgo", "is_correct": false }
+          ],
+          "explanation": "Aries abre el ciclo en el equinoccio de marzo."
+        },
+        {
+          "id": "q3",
+          "question": "¿A qué signo pertenece una persona nacida el 25 de diciembre?",
+          "options": [
+            { "id": "a", "text": "Sagitario", "is_correct": false },
+            { "id": "b", "text": "Acuario", "is_correct": false },
+            { "id": "c", "text": "Escorpio", "is_correct": false },
+            { "id": "d", "text": "Capricornio", "is_correct": true }
+          ],
+          "explanation": "La temporada de Capricornio va del 22 de diciembre al 19 de enero aproximadamente."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el símbolo de Libra?",
+          "options": [
+            { "id": "a", "text": "La balanza", "is_correct": true },
+            { "id": "b", "text": "El cangrejo", "is_correct": false },
+            { "id": "c", "text": "Los gemelos", "is_correct": false },
+            { "id": "d", "text": "El arquero", "is_correct": false }
+          ],
+          "explanation": "Libra es el único signo representado por un objeto: la balanza."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué signo sigue a Virgo en el orden zodiacal?",
+          "options": [
+            { "id": "a", "text": "Leo", "is_correct": false },
+            { "id": "b", "text": "Libra", "is_correct": true },
+            { "id": "c", "text": "Escorpio", "is_correct": false },
+            { "id": "d", "text": "Cáncer", "is_correct": false }
+          ],
+          "explanation": "El orden va Virgo, Libra, Escorpio y después Sagitario."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué signo cierra el ciclo del zodiaco?",
+          "options": [
+            { "id": "a", "text": "Acuario", "is_correct": false },
+            { "id": "b", "text": "Capricornio", "is_correct": false },
+            { "id": "c", "text": "Aries", "is_correct": false },
+            { "id": "d", "text": "Piscis", "is_correct": true }
+          ],
+          "explanation": "Piscis es el duodécimo y último signo antes de que el ciclo reinicie con Aries."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué figura representa a Sagitario?",
+          "options": [
+            { "id": "a", "text": "El carnero", "is_correct": false },
+            { "id": "b", "text": "El león", "is_correct": false },
+            { "id": "c", "text": "El arquero", "is_correct": true },
+            { "id": "d", "text": "El aguador", "is_correct": false }
+          ],
+          "explanation": "Sagitario es el arquero, dibujado como un centauro tensando el arco."
+        },
+        {
+          "id": "q8",
+          "question": "¿Hacia qué fecha empieza la temporada de Aries?",
+          "options": [
+            { "id": "a", "text": "21 de junio", "is_correct": false },
+            { "id": "b", "text": "19 de febrero", "is_correct": false },
+            { "id": "c", "text": "22 de septiembre", "is_correct": false },
+            { "id": "d", "text": "21 de marzo", "is_correct": true }
+          ],
+          "explanation": "Aries comienza alrededor del 21 de marzo, en el equinoccio de marzo."
+        }
+      ]
+    },
+    {
+      "slug": "en-zodiac-elements-and-rulers-trivia",
+      "title": "Zodiac Elements and Ruling Planets Trivia",
+      "description": "Fire, earth, air and water, plus the planets that rule each sign. Eight questions on how astrology groups the twelve zodiac signs.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrology", "zodiac", "elements"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many classical elements group the zodiac signs?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Five", "is_correct": false },
+            { "id": "c", "text": "Four", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "Fire, earth, air and water each group three signs."
+        },
+        {
+          "id": "q2",
+          "question": "Which element includes Aries, Leo and Sagittarius?",
+          "options": [
+            { "id": "a", "text": "Earth", "is_correct": false },
+            { "id": "b", "text": "Fire", "is_correct": true },
+            { "id": "c", "text": "Air", "is_correct": false },
+            { "id": "d", "text": "Water", "is_correct": false }
+          ],
+          "explanation": "The fire signs are Aries, Leo and Sagittarius."
+        },
+        {
+          "id": "q3",
+          "question": "Cancer, Scorpio and Pisces share which element?",
+          "options": [
+            { "id": "a", "text": "Air", "is_correct": false },
+            { "id": "b", "text": "Earth", "is_correct": false },
+            { "id": "c", "text": "Fire", "is_correct": false },
+            { "id": "d", "text": "Water", "is_correct": true }
+          ],
+          "explanation": "Cancer, Scorpio and Pisces are the three water signs."
+        },
+        {
+          "id": "q4",
+          "question": "Gemini, Libra and Aquarius belong to which element?",
+          "options": [
+            { "id": "a", "text": "Air", "is_correct": true },
+            { "id": "b", "text": "Water", "is_correct": false },
+            { "id": "c", "text": "Earth", "is_correct": false },
+            { "id": "d", "text": "Fire", "is_correct": false }
+          ],
+          "explanation": "Gemini, Libra and Aquarius are the air signs."
+        },
+        {
+          "id": "q5",
+          "question": "Which earth sign runs from late August to late September?",
+          "options": [
+            { "id": "a", "text": "Taurus", "is_correct": false },
+            { "id": "b", "text": "Capricorn", "is_correct": false },
+            { "id": "c", "text": "Virgo", "is_correct": true },
+            { "id": "d", "text": "Scorpio", "is_correct": false }
+          ],
+          "explanation": "Virgo, an earth sign, covers about 23 August to 22 September."
+        },
+        {
+          "id": "q6",
+          "question": "Which celestial body rules Leo in astrology?",
+          "options": [
+            { "id": "a", "text": "Mars", "is_correct": false },
+            { "id": "b", "text": "Venus", "is_correct": false },
+            { "id": "c", "text": "Jupiter", "is_correct": false },
+            { "id": "d", "text": "The Sun", "is_correct": true }
+          ],
+          "explanation": "Leo is ruled by the Sun, the centre of the solar system."
+        },
+        {
+          "id": "q7",
+          "question": "Venus rules Taurus and which other sign?",
+          "options": [
+            { "id": "a", "text": "Libra", "is_correct": true },
+            { "id": "b", "text": "Pisces", "is_correct": false },
+            { "id": "c", "text": "Gemini", "is_correct": false },
+            { "id": "d", "text": "Aries", "is_correct": false }
+          ],
+          "explanation": "In astrology, Venus rules both Taurus and Libra."
+        },
+        {
+          "id": "q8",
+          "question": "Which modality groups Aries, Cancer, Libra and Capricorn?",
+          "options": [
+            { "id": "a", "text": "Fixed", "is_correct": false },
+            { "id": "b", "text": "Mutable", "is_correct": false },
+            { "id": "c", "text": "Cardinal", "is_correct": true },
+            { "id": "d", "text": "Dual", "is_correct": false }
+          ],
+          "explanation": "The cardinal signs open each season: Aries, Cancer, Libra and Capricorn."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-elementos-y-regentes-del-zodiaco",
+      "title": "Trivia de elementos y regentes del zodiaco",
+      "description": "Fuego, tierra, aire y agua, más los planetas que rigen cada signo. Ocho preguntas sobre cómo la astrología agrupa los doce signos del zodiaco.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrología", "zodiaco", "elementos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos elementos clásicos agrupan a los signos del zodiaco?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cinco", "is_correct": false },
+            { "id": "c", "text": "Cuatro", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "Fuego, tierra, aire y agua agrupan tres signos cada uno."
+        },
+        {
+          "id": "q2",
+          "question": "¿A qué elemento pertenecen Aries, Leo y Sagitario?",
+          "options": [
+            { "id": "a", "text": "Tierra", "is_correct": false },
+            { "id": "b", "text": "Fuego", "is_correct": true },
+            { "id": "c", "text": "Aire", "is_correct": false },
+            { "id": "d", "text": "Agua", "is_correct": false }
+          ],
+          "explanation": "Los signos de fuego son Aries, Leo y Sagitario."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué elemento comparten Cáncer, Escorpio y Piscis?",
+          "options": [
+            { "id": "a", "text": "Aire", "is_correct": false },
+            { "id": "b", "text": "Tierra", "is_correct": false },
+            { "id": "c", "text": "Fuego", "is_correct": false },
+            { "id": "d", "text": "Agua", "is_correct": true }
+          ],
+          "explanation": "Cáncer, Escorpio y Piscis son los tres signos de agua."
+        },
+        {
+          "id": "q4",
+          "question": "¿A qué elemento pertenecen Géminis, Libra y Acuario?",
+          "options": [
+            { "id": "a", "text": "Aire", "is_correct": true },
+            { "id": "b", "text": "Agua", "is_correct": false },
+            { "id": "c", "text": "Tierra", "is_correct": false },
+            { "id": "d", "text": "Fuego", "is_correct": false }
+          ],
+          "explanation": "Géminis, Libra y Acuario son los signos de aire."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué signo de tierra va de finales de agosto a finales de septiembre?",
+          "options": [
+            { "id": "a", "text": "Tauro", "is_correct": false },
+            { "id": "b", "text": "Capricornio", "is_correct": false },
+            { "id": "c", "text": "Virgo", "is_correct": true },
+            { "id": "d", "text": "Escorpio", "is_correct": false }
+          ],
+          "explanation": "Virgo, un signo de tierra, abarca del 23 de agosto al 22 de septiembre aproximadamente."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué astro rige a Leo según la astrología?",
+          "options": [
+            { "id": "a", "text": "Marte", "is_correct": false },
+            { "id": "b", "text": "Venus", "is_correct": false },
+            { "id": "c", "text": "Júpiter", "is_correct": false },
+            { "id": "d", "text": "El Sol", "is_correct": true }
+          ],
+          "explanation": "Leo está regido por el Sol, el centro del sistema solar."
+        },
+        {
+          "id": "q7",
+          "question": "Venus rige a Tauro y a qué otro signo?",
+          "options": [
+            { "id": "a", "text": "Libra", "is_correct": true },
+            { "id": "b", "text": "Piscis", "is_correct": false },
+            { "id": "c", "text": "Géminis", "is_correct": false },
+            { "id": "d", "text": "Aries", "is_correct": false }
+          ],
+          "explanation": "En la astrología, Venus rige tanto a Tauro como a Libra."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué modalidad agrupa a Aries, Cáncer, Libra y Capricornio?",
+          "options": [
+            { "id": "a", "text": "Fijo", "is_correct": false },
+            { "id": "b", "text": "Mutable", "is_correct": false },
+            { "id": "c", "text": "Cardinal", "is_correct": true },
+            { "id": "d", "text": "Dual", "is_correct": false }
+          ],
+          "explanation": "Los signos cardinales abren cada estación: Aries, Cáncer, Libra y Capricornio."
+        }
+      ]
+    },
+    {
+      "slug": "en-zodiac-mythology-trivia",
+      "title": "Zodiac Mythology Trivia: The Greek Myths Behind the Constellations",
+      "description": "Behind each zodiac constellation hides a Greek myth. Eight questions on the heroes, gods and creatures written in the sky.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrology", "mythology", "zodiac"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which hero killed the Nemean lion that became the constellation Leo?",
+          "options": [
+            { "id": "a", "text": "Perseus", "is_correct": false },
+            { "id": "b", "text": "Heracles", "is_correct": true },
+            { "id": "c", "text": "Theseus", "is_correct": false },
+            { "id": "d", "text": "Achilles", "is_correct": false }
+          ],
+          "explanation": "The Nemean lion was the first of the twelve labours of Heracles."
+        },
+        {
+          "id": "q2",
+          "question": "Which twin brothers gave their name to the constellation Gemini?",
+          "options": [
+            { "id": "a", "text": "Romulus and Remus", "is_correct": false },
+            { "id": "b", "text": "Castor and Pollux", "is_correct": true },
+            { "id": "c", "text": "Phobos and Deimos", "is_correct": false },
+            { "id": "d", "text": "Zetes and Calais", "is_correct": false }
+          ],
+          "explanation": "The Dioscuri, Castor and Pollux, were placed in the sky by Zeus."
+        },
+        {
+          "id": "q3",
+          "question": "Which Greek god took the form of a bull to carry off Europa?",
+          "options": [
+            { "id": "a", "text": "Poseidon", "is_correct": false },
+            { "id": "b", "text": "Ares", "is_correct": false },
+            { "id": "c", "text": "Apollo", "is_correct": false },
+            { "id": "d", "text": "Zeus", "is_correct": true }
+          ],
+          "explanation": "Zeus, transformed into a white bull, carried Europa across the sea to Crete."
+        },
+        {
+          "id": "q4",
+          "question": "What hybrid creature represents Capricorn?",
+          "options": [
+            { "id": "a", "text": "A goat with a fish tail", "is_correct": true },
+            { "id": "b", "text": "A centaur", "is_correct": false },
+            { "id": "c", "text": "A winged horse", "is_correct": false },
+            { "id": "d", "text": "A two-headed dog", "is_correct": false }
+          ],
+          "explanation": "Capricorn is the sea-goat, half goat and half fish."
+        },
+        {
+          "id": "q5",
+          "question": "According to the myth, the scorpion of Scorpio killed which hunter?",
+          "options": [
+            { "id": "a", "text": "Achilles", "is_correct": false },
+            { "id": "b", "text": "Odysseus", "is_correct": false },
+            { "id": "c", "text": "Orion", "is_correct": true },
+            { "id": "d", "text": "Actaeon", "is_correct": false }
+          ],
+          "explanation": "The scorpion killed Orion, and the two were placed on opposite sides of the sky."
+        },
+        {
+          "id": "q6",
+          "question": "Which zodiac figure is drawn as a centaur drawing a bow?",
+          "options": [
+            { "id": "a", "text": "Aquarius", "is_correct": false },
+            { "id": "b", "text": "Sagittarius", "is_correct": true },
+            { "id": "c", "text": "Gemini", "is_correct": false },
+            { "id": "d", "text": "Taurus", "is_correct": false }
+          ],
+          "explanation": "Sagittarius is the centaur archer, often identified with Chiron."
+        },
+        {
+          "id": "q7",
+          "question": "Who is the water-bearer represented by the constellation Aquarius?",
+          "options": [
+            { "id": "a", "text": "Atlas", "is_correct": false },
+            { "id": "b", "text": "Icarus", "is_correct": false },
+            { "id": "c", "text": "Prometheus", "is_correct": false },
+            { "id": "d", "text": "Ganymede", "is_correct": true }
+          ],
+          "explanation": "Aquarius is Ganymede, the cup-bearer of the gods on Olympus."
+        },
+        {
+          "id": "q8",
+          "question": "Virgo, the maiden, is often identified with which Greek goddess of justice?",
+          "options": [
+            { "id": "a", "text": "Astraea", "is_correct": true },
+            { "id": "b", "text": "Aphrodite", "is_correct": false },
+            { "id": "c", "text": "Artemis", "is_correct": false },
+            { "id": "d", "text": "Hera", "is_correct": false }
+          ],
+          "explanation": "Virgo is commonly linked to Astraea, the goddess who carried the scales of justice."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitologia-del-zodiaco",
+      "title": "Trivia de mitología del zodiaco: los mitos griegos detrás de las constelaciones",
+      "description": "Detrás de cada constelación del zodiaco se esconde un mito griego. Ocho preguntas sobre los héroes, dioses y criaturas escritos en el cielo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrología", "mitología", "zodiaco"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué héroe venció al león de Nemea que se convirtió en la constelación de Leo?",
+          "options": [
+            { "id": "a", "text": "Perseo", "is_correct": false },
+            { "id": "b", "text": "Heracles", "is_correct": true },
+            { "id": "c", "text": "Teseo", "is_correct": false },
+            { "id": "d", "text": "Aquiles", "is_correct": false }
+          ],
+          "explanation": "El león de Nemea fue el primero de los doce trabajos de Heracles."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué hermanos gemelos dieron nombre a la constelación de Géminis?",
+          "options": [
+            { "id": "a", "text": "Rómulo y Remo", "is_correct": false },
+            { "id": "b", "text": "Cástor y Pólux", "is_correct": true },
+            { "id": "c", "text": "Fobos y Deimos", "is_correct": false },
+            { "id": "d", "text": "Zetes y Calais", "is_correct": false }
+          ],
+          "explanation": "Los Dióscuros, Cástor y Pólux, fueron colocados en el cielo por Zeus."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dios griego tomó la forma de un toro para raptar a Europa?",
+          "options": [
+            { "id": "a", "text": "Poseidón", "is_correct": false },
+            { "id": "b", "text": "Ares", "is_correct": false },
+            { "id": "c", "text": "Apolo", "is_correct": false },
+            { "id": "d", "text": "Zeus", "is_correct": true }
+          ],
+          "explanation": "Zeus, transformado en un toro blanco, llevó a Europa a través del mar hasta Creta."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué criatura híbrida representa a Capricornio?",
+          "options": [
+            { "id": "a", "text": "Una cabra con cola de pez", "is_correct": true },
+            { "id": "b", "text": "Un centauro", "is_correct": false },
+            { "id": "c", "text": "Un caballo alado", "is_correct": false },
+            { "id": "d", "text": "Un perro de dos cabezas", "is_correct": false }
+          ],
+          "explanation": "Capricornio es la cabra marina, mitad cabra y mitad pez."
+        },
+        {
+          "id": "q5",
+          "question": "Según el mito, el escorpión de Escorpio mató a qué cazador?",
+          "options": [
+            { "id": "a", "text": "Aquiles", "is_correct": false },
+            { "id": "b", "text": "Odiseo", "is_correct": false },
+            { "id": "c", "text": "Orión", "is_correct": true },
+            { "id": "d", "text": "Acteón", "is_correct": false }
+          ],
+          "explanation": "El escorpión mató a Orión y ambos quedaron en lados opuestos del cielo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué figura del zodiaco se dibuja como un centauro tensando un arco?",
+          "options": [
+            { "id": "a", "text": "Acuario", "is_correct": false },
+            { "id": "b", "text": "Sagitario", "is_correct": true },
+            { "id": "c", "text": "Géminis", "is_correct": false },
+            { "id": "d", "text": "Tauro", "is_correct": false }
+          ],
+          "explanation": "Sagitario es el centauro arquero, a menudo identificado con Quirón."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién es el aguador representado por la constelación de Acuario?",
+          "options": [
+            { "id": "a", "text": "Atlas", "is_correct": false },
+            { "id": "b", "text": "Ícaro", "is_correct": false },
+            { "id": "c", "text": "Prometeo", "is_correct": false },
+            { "id": "d", "text": "Ganímedes", "is_correct": true }
+          ],
+          "explanation": "Acuario es Ganímedes, el copero de los dioses en el Olimpo."
+        },
+        {
+          "id": "q8",
+          "question": "¿A qué diosa griega de la justicia se suele identificar con Virgo, la doncella?",
+          "options": [
+            { "id": "a", "text": "Astrea", "is_correct": true },
+            { "id": "b", "text": "Afrodita", "is_correct": false },
+            { "id": "c", "text": "Artemisa", "is_correct": false },
+            { "id": "d", "text": "Hera", "is_correct": false }
+          ],
+          "explanation": "Virgo se suele vincular con Astrea, la diosa que portaba la balanza de la justicia."
+        }
+      ]
+    },
+    {
+      "slug": "en-chinese-zodiac-trivia",
+      "title": "Chinese Zodiac Trivia: The Twelve Animals of the Lunar Cycle",
+      "description": "The Chinese zodiac assigns an animal to each year in a twelve-year cycle. Eight questions on the animals, their order and the Great Race legend.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "chinese zodiac", "astrology"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many animals make up the Chinese zodiac?",
+          "options": [
+            { "id": "a", "text": "Ten", "is_correct": false },
+            { "id": "b", "text": "Twelve", "is_correct": true },
+            { "id": "c", "text": "Seven", "is_correct": false },
+            { "id": "d", "text": "Eight", "is_correct": false }
+          ],
+          "explanation": "The cycle has twelve animals, from the rat to the pig."
+        },
+        {
+          "id": "q2",
+          "question": "Which animal opens the Chinese zodiac cycle?",
+          "options": [
+            { "id": "a", "text": "The dragon", "is_correct": false },
+            { "id": "b", "text": "The ox", "is_correct": false },
+            { "id": "c", "text": "The rat", "is_correct": true },
+            { "id": "d", "text": "The tiger", "is_correct": false }
+          ],
+          "explanation": "The rat won the legendary race and leads the cycle."
+        },
+        {
+          "id": "q3",
+          "question": "Which animal closes the twelve-year cycle?",
+          "options": [
+            { "id": "a", "text": "The dog", "is_correct": false },
+            { "id": "b", "text": "The rooster", "is_correct": false },
+            { "id": "c", "text": "The horse", "is_correct": false },
+            { "id": "d", "text": "The pig", "is_correct": true }
+          ],
+          "explanation": "The pig, last to arrive in the legend, closes the cycle."
+        },
+        {
+          "id": "q4",
+          "question": "After how many years does the same zodiac animal return?",
+          "options": [
+            { "id": "a", "text": "Ten", "is_correct": false },
+            { "id": "b", "text": "Twelve", "is_correct": true },
+            { "id": "c", "text": "Sixteen", "is_correct": false },
+            { "id": "d", "text": "Sixty", "is_correct": false }
+          ],
+          "explanation": "Each animal rules one year in a repeating twelve-year cycle."
+        },
+        {
+          "id": "q5",
+          "question": "In the legend, who called the Great Race that set the order of the animals?",
+          "options": [
+            { "id": "a", "text": "The Jade Emperor", "is_correct": true },
+            { "id": "b", "text": "The Yellow Emperor", "is_correct": false },
+            { "id": "c", "text": "The Dragon King", "is_correct": false },
+            { "id": "d", "text": "The Monkey King", "is_correct": false }
+          ],
+          "explanation": "In the most common telling, the Jade Emperor summoned the animals to a race."
+        },
+        {
+          "id": "q6",
+          "question": "Which is the only mythical creature among the twelve animals?",
+          "options": [
+            { "id": "a", "text": "The snake", "is_correct": false },
+            { "id": "b", "text": "The goat", "is_correct": false },
+            { "id": "c", "text": "The dragon", "is_correct": true },
+            { "id": "d", "text": "The rooster", "is_correct": false }
+          ],
+          "explanation": "The dragon is the only legendary animal; the other eleven are real."
+        },
+        {
+          "id": "q7",
+          "question": "Which animal rules the Chinese lunar year that began in 2025?",
+          "options": [
+            { "id": "a", "text": "The dragon", "is_correct": false },
+            { "id": "b", "text": "The snake", "is_correct": true },
+            { "id": "c", "text": "The horse", "is_correct": false },
+            { "id": "d", "text": "The rabbit", "is_correct": false }
+          ],
+          "explanation": "The year of the snake started on 29 January 2025."
+        },
+        {
+          "id": "q8",
+          "question": "When does the animal of the Chinese zodiac actually change?",
+          "options": [
+            { "id": "a", "text": "On 1 January", "is_correct": false },
+            { "id": "b", "text": "At the Chinese New Year", "is_correct": true },
+            { "id": "c", "text": "At the March equinox", "is_correct": false },
+            { "id": "d", "text": "On the first full moon of January", "is_correct": false }
+          ],
+          "explanation": "The animal changes at the Lunar New Year, between late January and mid-February."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-zodiaco-chino",
+      "title": "Trivia del zodiaco chino: los doce animales del ciclo lunar",
+      "description": "El zodiaco chino asigna un animal a cada año en un ciclo de doce años. Ocho preguntas sobre los animales, su orden y la leyenda de la Gran Carrera.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "zodiaco chino", "astrología"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos animales componen el zodiaco chino?",
+          "options": [
+            { "id": "a", "text": "Diez", "is_correct": false },
+            { "id": "b", "text": "Doce", "is_correct": true },
+            { "id": "c", "text": "Siete", "is_correct": false },
+            { "id": "d", "text": "Ocho", "is_correct": false }
+          ],
+          "explanation": "El ciclo tiene doce animales, de la rata al cerdo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué animal abre el ciclo del zodiaco chino?",
+          "options": [
+            { "id": "a", "text": "El dragón", "is_correct": false },
+            { "id": "b", "text": "El buey", "is_correct": false },
+            { "id": "c", "text": "La rata", "is_correct": true },
+            { "id": "d", "text": "El tigre", "is_correct": false }
+          ],
+          "explanation": "La rata ganó la carrera de la leyenda y encabeza el ciclo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué animal cierra el ciclo de doce años?",
+          "options": [
+            { "id": "a", "text": "El perro", "is_correct": false },
+            { "id": "b", "text": "El gallo", "is_correct": false },
+            { "id": "c", "text": "El caballo", "is_correct": false },
+            { "id": "d", "text": "El cerdo", "is_correct": true }
+          ],
+          "explanation": "El cerdo, el último en llegar en la leyenda, cierra el ciclo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cada cuántos años se repite el mismo animal del zodiaco chino?",
+          "options": [
+            { "id": "a", "text": "Cada 10 años", "is_correct": false },
+            { "id": "b", "text": "Cada 12 años", "is_correct": true },
+            { "id": "c", "text": "Cada 16 años", "is_correct": false },
+            { "id": "d", "text": "Cada 60 años", "is_correct": false }
+          ],
+          "explanation": "Cada animal rige un año dentro de un ciclo que se repite cada doce años."
+        },
+        {
+          "id": "q5",
+          "question": "Según la leyenda, ¿quién convocó la Gran Carrera que fijó el orden de los animales?",
+          "options": [
+            { "id": "a", "text": "El Emperador de Jade", "is_correct": true },
+            { "id": "b", "text": "El Emperador Amarillo", "is_correct": false },
+            { "id": "c", "text": "El Rey Dragón", "is_correct": false },
+            { "id": "d", "text": "El Rey Mono", "is_correct": false }
+          ],
+          "explanation": "En la versión más difundida, el Emperador de Jade convocó a los animales a una carrera."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la única criatura mitológica entre los doce animales?",
+          "options": [
+            { "id": "a", "text": "La serpiente", "is_correct": false },
+            { "id": "b", "text": "La cabra", "is_correct": false },
+            { "id": "c", "text": "El dragón", "is_correct": true },
+            { "id": "d", "text": "El gallo", "is_correct": false }
+          ],
+          "explanation": "El dragón es el único animal legendario; los otros once existen."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué animal rige el año lunar chino que comenzó en 2025?",
+          "options": [
+            { "id": "a", "text": "El dragón", "is_correct": false },
+            { "id": "b", "text": "La serpiente", "is_correct": true },
+            { "id": "c", "text": "El caballo", "is_correct": false },
+            { "id": "d", "text": "El conejo", "is_correct": false }
+          ],
+          "explanation": "El año de la serpiente empezó el 29 de enero de 2025."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuándo cambia realmente el animal del zodiaco chino?",
+          "options": [
+            { "id": "a", "text": "El 1 de enero", "is_correct": false },
+            { "id": "b", "text": "En el Año Nuevo chino", "is_correct": true },
+            { "id": "c", "text": "En el equinoccio de marzo", "is_correct": false },
+            { "id": "d", "text": "En la primera luna llena de enero", "is_correct": false }
+          ],
+          "explanation": "El animal cambia en el Año Nuevo lunar, entre finales de enero y mediados de febrero."
+        }
+      ]
+    },
+    {
+      "slug": "en-astrology-vs-astronomy-trivia",
+      "title": "Astrology vs Astronomy Trivia: Same Sky, Two Very Different Subjects",
+      "description": "One is a science, the other an ancient belief system. Eight questions to tell verifiable astronomical facts apart from astrological claims.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrology", "astronomy", "science"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which of these is a science that studies celestial objects and their phenomena?",
+          "options": [
+            { "id": "a", "text": "Astrology", "is_correct": false },
+            { "id": "b", "text": "Astronomy", "is_correct": true },
+            { "id": "c", "text": "Numerology", "is_correct": false },
+            { "id": "d", "text": "Palmistry", "is_correct": false }
+          ],
+          "explanation": "Astronomy is the science that studies stars, planets and other celestial bodies."
+        },
+        {
+          "id": "q2",
+          "question": "What does astrology claim?",
+          "options": [
+            { "id": "a", "text": "That comets are made of rock", "is_correct": false },
+            { "id": "b", "text": "That the Moon has no gravity", "is_correct": false },
+            {
+              "id": "c",
+              "text": "That celestial positions influence personality and human events",
+              "is_correct": true
+            },
+            { "id": "d", "text": "That the Sun orbits the Earth", "is_correct": false }
+          ],
+          "explanation": "Astrology holds that the positions of the stars at birth shape personality and destiny."
+        },
+        {
+          "id": "q3",
+          "question": "How many planets does modern astronomy count in the solar system?",
+          "options": [
+            { "id": "a", "text": "Seven", "is_correct": false },
+            { "id": "b", "text": "Nine", "is_correct": false },
+            { "id": "c", "text": "Ten", "is_correct": false },
+            { "id": "d", "text": "Eight", "is_correct": true }
+          ],
+          "explanation": "Since 2006 the official count is eight; Pluto is classed as a dwarf planet."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of the slow wobble of Earth's axis that shifts the equinoxes over centuries?",
+          "options": [
+            { "id": "a", "text": "Precession", "is_correct": true },
+            { "id": "b", "text": "Refraction", "is_correct": false },
+            { "id": "c", "text": "Inclination", "is_correct": false },
+            { "id": "d", "text": "Parallax", "is_correct": false }
+          ],
+          "explanation": "Precession completes a full cycle about every 26,000 years."
+        },
+        {
+          "id": "q5",
+          "question": "What causes the seasons on Earth?",
+          "options": [
+            { "id": "a", "text": "The changing distance to the Sun", "is_correct": false },
+            { "id": "b", "text": "The tilt of Earth's axis", "is_correct": true },
+            { "id": "c", "text": "Solar flares", "is_correct": false },
+            { "id": "d", "text": "The pull of the Moon", "is_correct": false }
+          ],
+          "explanation": "The axis tilts about 23.5 degrees, changing how directly sunlight hits each hemisphere."
+        },
+        {
+          "id": "q6",
+          "question": "How many constellations does the International Astronomical Union officially recognize?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "48", "is_correct": false },
+            { "id": "c", "text": "88", "is_correct": true },
+            { "id": "d", "text": "120", "is_correct": false }
+          ],
+          "explanation": "The IAU fixed the official list of 88 constellations in 1922."
+        },
+        {
+          "id": "q7",
+          "question": "Which constellation does the Sun actually cross that is left out of the 12 astrological signs?",
+          "options": [
+            { "id": "a", "text": "Orion", "is_correct": false },
+            { "id": "b", "text": "Ophiuchus", "is_correct": true },
+            { "id": "c", "text": "Ursa Major", "is_correct": false },
+            { "id": "d", "text": "Cygnus", "is_correct": false }
+          ],
+          "explanation": "The ecliptic passes through thirteen constellations, including Ophiuchus."
+        },
+        {
+          "id": "q8",
+          "question": "Do today's astrological sign dates still match the constellations of the same name?",
+          "options": [
+            { "id": "a", "text": "Yes, exactly", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No, precession shifted them by roughly one sign",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Yes, but only at the equinoxes", "is_correct": false },
+            { "id": "d", "text": "No, the names never matched", "is_correct": false }
+          ],
+          "explanation": "Since the signs were fixed about two thousand years ago, precession has shifted them about one sign."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-astrologia-vs-astronomia",
+      "title": "Trivia de astrología contra astronomía: el mismo cielo, dos disciplinas distintas",
+      "description": "Una es ciencia y la otra un sistema de creencias antiguo. Ocho preguntas para distinguir datos astronómicos verificables de afirmaciones astrológicas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "lifestyle",
+      "tags": ["lifestyle", "trivia", "astrología", "astronomía", "ciencia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál de estas disciplinas es una ciencia que estudia los astros y sus fenómenos?",
+          "options": [
+            { "id": "a", "text": "La astrología", "is_correct": false },
+            { "id": "b", "text": "La astronomía", "is_correct": true },
+            { "id": "c", "text": "La numerología", "is_correct": false },
+            { "id": "d", "text": "La quiromancia", "is_correct": false }
+          ],
+          "explanation": "La astronomía es la ciencia que estudia estrellas, planetas y demás cuerpos celestes."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué afirma la astrología?",
+          "options": [
+            { "id": "a", "text": "Que los cometas están hechos de roca", "is_correct": false },
+            { "id": "b", "text": "Que la Luna no tiene gravedad", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Que la posición de los astros influye en la personalidad y los hechos humanos",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Que el Sol gira alrededor de la Tierra", "is_correct": false }
+          ],
+          "explanation": "La astrología sostiene que la posición de los astros al nacer marca la personalidad y el destino."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos planetas cuenta hoy la astronomía en el sistema solar?",
+          "options": [
+            { "id": "a", "text": "Siete", "is_correct": false },
+            { "id": "b", "text": "Nueve", "is_correct": false },
+            { "id": "c", "text": "Diez", "is_correct": false },
+            { "id": "d", "text": "Ocho", "is_correct": true }
+          ],
+          "explanation": "Desde 2006 la cuenta oficial es de ocho; Plutón se clasifica como planeta enano."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el balanceo lento del eje terrestre que desplaza los equinoccios a lo largo de los siglos?",
+          "options": [
+            { "id": "a", "text": "Precesión", "is_correct": true },
+            { "id": "b", "text": "Refracción", "is_correct": false },
+            { "id": "c", "text": "Inclinación", "is_correct": false },
+            { "id": "d", "text": "Paralaje", "is_correct": false }
+          ],
+          "explanation": "La precesión completa un ciclo cada 26.000 años aproximadamente."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué causa las estaciones del año en la Tierra?",
+          "options": [
+            { "id": "a", "text": "La distancia cambiante al Sol", "is_correct": false },
+            { "id": "b", "text": "La inclinación del eje terrestre", "is_correct": true },
+            { "id": "c", "text": "Las erupciones solares", "is_correct": false },
+            { "id": "d", "text": "La atracción de la Luna", "is_correct": false }
+          ],
+          "explanation": "El eje se inclina unos 23,5 grados y cambia lo directo que llega el sol a cada hemisferio."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántas constelaciones reconoce oficialmente la Unión Astronómica Internacional?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "48", "is_correct": false },
+            { "id": "c", "text": "88", "is_correct": true },
+            { "id": "d", "text": "120", "is_correct": false }
+          ],
+          "explanation": "La UAI fijó la lista oficial de 88 constelaciones en 1922."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué constelación cruza el Sol y queda fuera de los 12 signos astrológicos?",
+          "options": [
+            { "id": "a", "text": "Orión", "is_correct": false },
+            { "id": "b", "text": "Ofiuco", "is_correct": true },
+            { "id": "c", "text": "Osa Mayor", "is_correct": false },
+            { "id": "d", "text": "El Cisne", "is_correct": false }
+          ],
+          "explanation": "La eclíptica atraviesa trece constelaciones, incluida Ofiuco."
+        },
+        {
+          "id": "q8",
+          "question": "¿Coinciden hoy las fechas de los signos con las constelaciones del mismo nombre?",
+          "options": [
+            { "id": "a", "text": "Sí, exactamente", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No, la precesión las desplazó cerca de un signo",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Sí, pero solo en los equinoccios", "is_correct": false },
+            { "id": "d", "text": "No, los nombres nunca coincidieron", "is_correct": false }
+          ],
+          "explanation": "Desde que los signos quedaron fijos hace unos dos mil años, la precesión los corrió cerca de un signo."
+        }
+      ]
+    }
+  ]
+}
