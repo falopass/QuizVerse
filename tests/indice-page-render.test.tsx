@@ -90,6 +90,11 @@ const CATALOG: Quiz[] = [
   }),
 ];
 
+// Un quiz en inglés dentro del origen: si la página dejara de pasar `locale` a
+// getPublishedQuizzes, se colaría en /es/indice y los tests lo detectarían.
+const EN_QUIZ = makeQuiz({ id: 'q6', slug: 'en-movies', title: 'Movies quiz', language: 'en' });
+const DB = [...CATALOG, EN_QUIZ];
+
 function jsonLd(container: HTMLElement) {
   const script = container.querySelector('script[type="application/ld+json"]');
   expect(script).not.toBeNull();
@@ -101,7 +106,11 @@ function jsonLd(container: HTMLElement) {
 
 beforeEach(() => {
   dbMocks.getPublishedQuizzes.mockReset();
-  dbMocks.getPublishedQuizzes.mockResolvedValue(CATALOG);
+  // El mock respeta el `locale` que recibe, como hace la capa real: así un
+  // índice que mezcle idiomas queda detectado por los tests.
+  dbMocks.getPublishedQuizzes.mockImplementation((_limit: number, locale?: string) =>
+    Promise.resolve(DB.filter((quiz) => quiz.language === locale))
+  );
 });
 
 describe('CatalogIndexPage · render', () => {
@@ -137,6 +146,9 @@ describe('CatalogIndexPage · render', () => {
       const link = screen.getByRole('link', { name: quiz.title });
       expect(link).toHaveAttribute('href', `/es/quiz/${quiz.slug}`);
     }
+    // El quiz en inglés del origen no se cuela en el índice en español.
+    expect(screen.queryByRole('link', { name: EN_QUIZ.title })).not.toBeInTheDocument();
+    expect(dbMocks.getPublishedQuizzes).toHaveBeenCalledWith(expect.any(Number), 'es');
   });
 
   it('emite JSON-LD con WebPage, BreadcrumbList e ItemList de hubs', async () => {

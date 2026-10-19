@@ -46,6 +46,9 @@ const category = (slug: string, name: string): Category => ({
 const MOVIES = { ...category('movies-tv', 'Movies & TV'), description: 'Tests de cine y series.' };
 const ANIME = category('anime-manga', 'Anime & Manga');
 const GAMING = category('gaming', 'Gaming');
+// 'lifestyle' tiene copy curado en CATEGORY_COPY: localizeCategory reemplaza
+// nombre y descripción, así que sirve para verificar la localización real.
+const LIFESTYLE = { ...category('lifestyle', 'Lifestyle'), description: 'Stored English tagline.' };
 
 function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   return {
@@ -118,8 +121,26 @@ describe('LocalizedCategoryPage · render', () => {
 
     const localized = localizeCategory(MOVIES, 'es')!;
     expect(screen.getByRole('heading', { level: 1, name: localized.name })).toBeInTheDocument();
-    expect(screen.getByText(MOVIES.description!)).toBeInTheDocument();
+    expect(screen.getByText(localized.description!)).toBeInTheDocument();
     expect(screen.getByText('2 juegos mostrados')).toBeInTheDocument();
+  });
+
+  it('aplica la localización de nombre y descripción de la categoría', async () => {
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ category: LIFESTYLE, categories: [LIFESTYLE, ANIME, GAMING] })
+    );
+
+    await render(
+      await LocalizedCategoryPage({
+        params: Promise.resolve({ locale: 'es', slug: 'lifestyle' }),
+      })
+    );
+
+    const localized = localizeCategory(LIFESTYLE, 'es')!;
+    expect(localized.description).not.toBe(LIFESTYLE.description);
+    expect(screen.getByRole('heading', { level: 1, name: localized.name })).toBeInTheDocument();
+    expect(screen.getByText(localized.description!)).toBeInTheDocument();
+    expect(screen.queryByText(LIFESTYLE.description!)).not.toBeInTheDocument();
   });
 
   it('pinta la guía editorial: intro y FAQ salen de getCategoryGuide', async () => {
