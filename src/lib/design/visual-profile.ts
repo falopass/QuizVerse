@@ -227,12 +227,3 @@ export function inferVisualProfile(quiz: QuizVisualInput): VisualProfile {
     cover_search_terms: preset.searchTerms,
   };
 }
-
-export function withVisualProfile<T extends QuizVisualInput>(
-  quiz: T
-): T & { visual_profile: VisualProfile } {
-  return {
-    ...quiz,
-    visual_profile: inferVisualProfile(quiz),
-  };
-}

@@ -12,8 +12,3 @@ import type { Json } from '@/types/database';
 export function toJson(value: unknown): Json {
   return value as Json;
 }
-
-/** Reads a `jsonb` column back as a typed value. Callers validate the shape. */
-export function fromJson<T>(value: Json | null | undefined, fallback: T): T {
-  return (value ?? fallback) as unknown as T;
-}

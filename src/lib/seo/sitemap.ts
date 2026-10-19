@@ -75,16 +75,4 @@ ${urls}
 `;
 }
 
-export function generateSitemapIndexXml(sitemapUrls: string[]): string {
-  const items = sitemapUrls
-    .map((url) => `  <sitemap><loc>${escapeXml(url)}</loc></sitemap>`)
-    .join('\n');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${items}
-</sitemapindex>
-`;
-}
-
 export default generateSitemapXml;
