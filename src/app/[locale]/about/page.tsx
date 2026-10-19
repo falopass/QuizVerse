@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { localizeHref } from '@/lib/i18n/navigation';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
 
@@ -91,6 +93,111 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           {lang === 'es'
             ? 'QuizVerse es desarrollado por un equipo pequeño con experiencia en producto, diseño editorial y desarrollo full-stack. Creemos que el contenido interactivo merece mejor ejecución.'
             : 'QuizVerse is built by a small team with experience in product, editorial design, and full-stack development. We believe interactive content deserves better execution.'}
+        </p>
+      </div>
+
+      <div className="border-border-subtle mt-12 border-t pt-8">
+        <h2 className="font-display text-2xl font-semibold">
+          {lang === 'es' ? 'Cómo se hacen los quizzes' : 'How our quizzes are made'}
+        </h2>
+        <div className="text-text-secondary mt-4 space-y-4 text-lg leading-relaxed">
+          {lang === 'es' ? (
+            <>
+              <p>
+                Cada quiz empieza con generación asistida por IA y termina con curaduría humana. La
+                máquina propone preguntas, opciones y descripciones; una persona revisa el
+                resultado, pule los copys y decide qué se publica y qué se descarta. Nada llega al
+                catálogo sin pasar por ese filtro.
+              </p>
+              <p>
+                La clasificación también es determinista: una tabla de reglas ordenada asigna cada
+                quiz a su categoría por tema — primero franquicias, luego temas y al final las
+                categorías generales — en lugar de depender de etiquetado manual. El mismo contenido
+                produce siempre la misma clasificación, así que el catálogo se puede auditar de
+                punta a punta.
+              </p>
+              <p>
+                Antes de publicarse, una auditoría automática bloquea el lote si encuentra preguntas
+                sin una única respuesta correcta, opciones vacías, slugs duplicados o descripciones
+                demasiado cortas. Si un quiz no pasa la validación, no se publica.
+              </p>
+            </>
+          ) : (
+            <>
+              <p>
+                Every quiz starts with AI-assisted generation and ends with human curation. The
+                machine proposes questions, options, and descriptions; a person reviews the result,
+                polishes the copy, and decides what gets published and what gets cut. Nothing
+                reaches the catalog without passing that filter.
+              </p>
+              <p>
+                Classification is deterministic too: an ordered rule table assigns each quiz to its
+                subject category — franchises first, then topics, then broader themes — instead of
+                relying on manual tagging. The same content always produces the same classification,
+                so the whole catalog can be audited end to end.
+              </p>
+              <p>
+                Before anything ships, an automated audit blocks the batch if it finds questions
+                without a single correct answer, empty options, duplicate slugs, or thin
+                descriptions. If a quiz fails validation, it does not get published.
+              </p>
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="border-border-subtle mt-12 border-t pt-8">
+        <h2 className="font-display text-2xl font-semibold">
+          {lang === 'es' ? 'Empieza a explorar' : 'Start exploring'}
+        </h2>
+        <p className="text-text-secondary mt-3 text-base leading-relaxed">
+          {lang === 'es' ? (
+            <>
+              ¿Por dónde empezar? Recorre el{' '}
+              <Link href={localizeHref(lang, '/quiz')} className="text-accent-primary underline">
+                catálogo de quizzes
+              </Link>
+              , mira quién encabeza el{' '}
+              <Link
+                href={localizeHref(lang, '/leaderboard')}
+                className="text-accent-primary underline"
+              >
+                ranking
+              </Link>
+              ,{' '}
+              <Link href={localizeHref(lang, '/create')} className="text-accent-primary underline">
+                crea tu propio quiz
+              </Link>{' '}
+              o{' '}
+              <Link href={localizeHref(lang, '/contact')} className="text-accent-primary underline">
+                escríbenos
+              </Link>{' '}
+              si tienes una idea que debería existir.
+            </>
+          ) : (
+            <>
+              Not sure where to begin? Browse the{' '}
+              <Link href={localizeHref(lang, '/quiz')} className="text-accent-primary underline">
+                quiz catalog
+              </Link>
+              , see who is on top of the{' '}
+              <Link
+                href={localizeHref(lang, '/leaderboard')}
+                className="text-accent-primary underline"
+              >
+                leaderboard
+              </Link>
+              ,{' '}
+              <Link href={localizeHref(lang, '/create')} className="text-accent-primary underline">
+                create your own quiz
+              </Link>{' '}
+              or{' '}
+              <Link href={localizeHref(lang, '/contact')} className="text-accent-primary underline">
+                get in touch
+              </Link>{' '}
+              if there is an idea you think should exist.
+            </>
+          )}
         </p>
       </div>
     </main>
