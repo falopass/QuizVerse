@@ -69,13 +69,28 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           className="arcade-mobile-menu"
           aria-label={dictionary.arcade.mainNavigation}
         >
-          <Link href={localizeHref(locale, '/quiz')} onClick={() => setOpen(false)}>
+          <Link
+            href={localizeHref(locale, '/quiz')}
+            className={cn(isActive('/quiz') && 'text-accent-primary')}
+            aria-current={isActive('/quiz') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
             {dictionary.common.explore}
           </Link>
-          <Link href={localizeHref(locale, '/category/personality')} onClick={() => setOpen(false)}>
+          <Link
+            href={localizeHref(locale, '/category/personality')}
+            className={cn(isActive('/category/personality') && 'text-accent-primary')}
+            aria-current={isActive('/category/personality') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
             {getLocalizedCategoryLabel('personality', locale)}
           </Link>
-          <Link href={localizeHref(locale, '/category/trivia')} onClick={() => setOpen(false)}>
+          <Link
+            href={localizeHref(locale, '/category/trivia')}
+            className={cn(isActive('/category/trivia') && 'text-accent-primary')}
+            aria-current={isActive('/category/trivia') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
             {getLocalizedCategoryLabel('trivia', locale)}
           </Link>
           <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />

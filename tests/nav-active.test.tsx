@@ -1,6 +1,6 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 const mocks = vi.hoisted(() => ({
   pathname: '/es',
@@ -67,6 +67,26 @@ describe('FloatingNav marca la página activa', () => {
     expect(screen.getByRole('link', { name: dictionary.common.explore })).not.toHaveAttribute(
       'aria-current'
     );
+  });
+
+  it('en el menú hamburguesa abierto también marca la página activa', async () => {
+    mocks.pathname = '/es/category/personality';
+    const dictionary = await getDictionary('es');
+    render(<FloatingNav locale="es" dictionary={dictionary} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /menú/i }));
+
+    const menu = document.getElementById('arcade-mobile-menu');
+    expect(menu).not.toBeNull();
+    const links = menu!.querySelectorAll('a');
+    const personality = Array.from(links).find((a) => /personalidad/i.test(a.textContent ?? ''));
+    const explore = Array.from(links).find(
+      (a) => (a.textContent ?? '').trim() === dictionary.common.explore
+    );
+    expect(personality).toBeDefined();
+    expect(explore).toBeDefined();
+    expect(personality).toHaveAttribute('aria-current', 'page');
+    expect(explore).not.toHaveAttribute('aria-current');
   });
 
   it('en /es/leaderboard ningún enlace de la navegación lleva aria-current', async () => {
