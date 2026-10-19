@@ -41,14 +41,17 @@ The `update_category_quiz_count` trigger keeps `categories.quiz_count` in sync.
 ## 2. Editorial content: `editorial-seed.json` + `emit-editorial-seed.mjs`
 
 Fills the categories the imported catalogue cannot cover — currently history,
-geography and sports — with quizzes whose answers are stable, checkable facts
-(dates, capitals, sport rules). Nothing is invented per run: the content lives in
-`editorial-seed.json` and is reviewed like code.
+geography, sports, science and animals — with quizzes whose answers are stable,
+checkable facts (dates, capitals, sport rules). Nothing is invented per run: the
+content lives in `editorial-seed.json` and is reviewed like code.
 
 ```bash
 node scripts/seed/emit-editorial-seed.mjs --write
 docker exec -i supabase-db psql -U postgres -d postgres -v ON_ERROR_STOP=1 \
   < generated/audit/editorial-seed.sql
+
+# Versioned copy for the repo (supabase/seed/ is tracked; generated/audit/*.sql is not)
+node scripts/seed/emit-editorial-seed.mjs --write --out supabase/seed/editorial-seed.sql
 ```
 
 `emit-editorial-seed.mjs` refuses to emit when:

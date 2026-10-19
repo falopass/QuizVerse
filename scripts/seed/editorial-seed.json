@@ -606,6 +606,814 @@
           "explanation": "Viene del francés 'l'oeuf', el huevo, que se dibuja como un cero."
         }
       ]
+    },
+    {
+      "slug": "en-world-capitals-trivia",
+      "title": "World Capitals Trivia: The Cities That Trip Everyone Up",
+      "description": "Eight capitals that often trip people up, from Brasília and Ankara to Abuja and Wellington, each with the history behind the choice.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": ["geography", "capitals", "trivia", "world cities"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the capital of Brazil?",
+          "options": [
+            { "id": "a", "text": "Rio de Janeiro", "is_correct": false },
+            { "id": "b", "text": "São Paulo", "is_correct": false },
+            { "id": "c", "text": "Brasília", "is_correct": true },
+            { "id": "d", "text": "Salvador", "is_correct": false }
+          ],
+          "explanation": "Brasília was inaugurated as the capital on 21 April 1960, taking over from Rio de Janeiro."
+        },
+        {
+          "id": "q2",
+          "question": "Which city is the capital of Turkey?",
+          "options": [
+            { "id": "a", "text": "Ankara", "is_correct": true },
+            { "id": "b", "text": "Istanbul", "is_correct": false },
+            { "id": "c", "text": "Izmir", "is_correct": false },
+            { "id": "d", "text": "Antalya", "is_correct": false }
+          ],
+          "explanation": "Ankara became the capital in 1923, the year the Republic of Turkey was proclaimed."
+        },
+        {
+          "id": "q3",
+          "question": "What is the capital of New Zealand?",
+          "options": [
+            { "id": "a", "text": "Auckland", "is_correct": false },
+            { "id": "b", "text": "Wellington", "is_correct": true },
+            { "id": "c", "text": "Christchurch", "is_correct": false },
+            { "id": "d", "text": "Queenstown", "is_correct": false }
+          ],
+          "explanation": "Wellington has been the capital since 1865, when it replaced Auckland."
+        },
+        {
+          "id": "q4",
+          "question": "Which city is the capital of Morocco?",
+          "options": [
+            { "id": "a", "text": "Casablanca", "is_correct": false },
+            { "id": "b", "text": "Marrakesh", "is_correct": false },
+            { "id": "c", "text": "Fez", "is_correct": false },
+            { "id": "d", "text": "Rabat", "is_correct": true }
+          ],
+          "explanation": "Rabat became the capital in 1912 and kept the role when Morocco became independent in 1956."
+        },
+        {
+          "id": "q5",
+          "question": "Which city became the capital of reunified Vietnam?",
+          "options": [
+            { "id": "a", "text": "Ho Chi Minh City", "is_correct": false },
+            { "id": "b", "text": "Hanoi", "is_correct": true },
+            { "id": "c", "text": "Da Nang", "is_correct": false },
+            { "id": "d", "text": "Hue", "is_correct": false }
+          ],
+          "explanation": "Hanoi was named the capital of the reunified Socialist Republic of Vietnam in 1976."
+        },
+        {
+          "id": "q6",
+          "question": "Which city replaced Lagos as the capital of Nigeria?",
+          "options": [
+            { "id": "a", "text": "Abuja", "is_correct": true },
+            { "id": "b", "text": "Kano", "is_correct": false },
+            { "id": "c", "text": "Ibadan", "is_correct": false },
+            { "id": "d", "text": "Port Harcourt", "is_correct": false }
+          ],
+          "explanation": "Abuja officially became the capital of Nigeria on 12 December 1991."
+        },
+        {
+          "id": "q7",
+          "question": "Which South American capital was founded by Francisco Pizarro?",
+          "options": [
+            { "id": "a", "text": "Quito", "is_correct": false },
+            { "id": "b", "text": "La Paz", "is_correct": false },
+            { "id": "c", "text": "Lima", "is_correct": true },
+            { "id": "d", "text": "Santiago", "is_correct": false }
+          ],
+          "explanation": "Pizarro founded Lima on 18 January 1535 as the capital of the Spanish colony in Peru."
+        },
+        {
+          "id": "q8",
+          "question": "Which capital city was known as Christiania for three centuries?",
+          "options": [
+            { "id": "a", "text": "Copenhagen", "is_correct": false },
+            { "id": "b", "text": "Stockholm", "is_correct": false },
+            { "id": "c", "text": "Helsinki", "is_correct": false },
+            { "id": "d", "text": "Oslo", "is_correct": true }
+          ],
+          "explanation": "Norway's capital was called Christiania, later spelled Kristiania, from 1624 until it took back the name Oslo in 1925."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-capitales-del-mundo",
+      "title": "Trivia de capitales del mundo: ¿dónde gobierna cada país?",
+      "description": "Ocho capitales de América, Europa y Asia, de Sucre y Asunción a Lisboa y Nueva Delhi, con el dato histórico que explica cada una.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": ["geografía", "capitales", "trivia", "ciudades"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué ciudad es la capital constitucional de Bolivia?",
+          "options": [
+            { "id": "a", "text": "La Paz", "is_correct": false },
+            { "id": "b", "text": "Sucre", "is_correct": true },
+            { "id": "c", "text": "Cochabamba", "is_correct": false },
+            { "id": "d", "text": "Santa Cruz de la Sierra", "is_correct": false }
+          ],
+          "explanation": "La Constitución de 2009 fija a Sucre como capital, aunque el Gobierno y la Asamblea funcionan en La Paz."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde tiene su sede el Gobierno federal de Estados Unidos?",
+          "options": [
+            { "id": "a", "text": "Nueva York", "is_correct": false },
+            { "id": "b", "text": "Filadelfia", "is_correct": false },
+            { "id": "c", "text": "Boston", "is_correct": false },
+            { "id": "d", "text": "Washington D. C.", "is_correct": true }
+          ],
+          "explanation": "Washington D. C. es la sede del Gobierno federal desde 1800, cuando el Congreso se trasladó allí."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es la capital de Portugal?",
+          "options": [
+            { "id": "a", "text": "Lisboa", "is_correct": true },
+            { "id": "b", "text": "Oporto", "is_correct": false },
+            { "id": "c", "text": "Coímbra", "is_correct": false },
+            { "id": "d", "text": "Braga", "is_correct": false }
+          ],
+          "explanation": "Lisboa, en la desembocadura del río Tajo, es la capital y la ciudad más poblada de Portugal."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué capital sudamericana fundó Gonzalo Jiménez de Quesada?",
+          "options": [
+            { "id": "a", "text": "Caracas", "is_correct": false },
+            { "id": "b", "text": "Quito", "is_correct": false },
+            { "id": "c", "text": "Bogotá", "is_correct": true },
+            { "id": "d", "text": "Lima", "is_correct": false }
+          ],
+          "explanation": "Jiménez de Quesada fundó Bogotá el 6 de agosto de 1538, hoy capital de Colombia."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué ciudad funciona el Parlamento de Escocia?",
+          "options": [
+            { "id": "a", "text": "Glasgow", "is_correct": false },
+            { "id": "b", "text": "Edimburgo", "is_correct": true },
+            { "id": "c", "text": "Aberdeen", "is_correct": false },
+            { "id": "d", "text": "Dundee", "is_correct": false }
+          ],
+          "explanation": "El Parlamento escocés se restableció en Edimburgo, la capital de Escocia, en 1999."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué ciudad reemplazó a Calcuta como capital de la India británica?",
+          "options": [
+            { "id": "a", "text": "Nueva Delhi", "is_correct": true },
+            { "id": "b", "text": "Bombay", "is_correct": false },
+            { "id": "c", "text": "Madrás", "is_correct": false },
+            { "id": "d", "text": "Bangalore", "is_correct": false }
+          ],
+          "explanation": "Calcuta fue la capital hasta 1911, y Nueva Delhi se inauguró oficialmente como capital en 1931."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la capital de Paraguay?",
+          "options": [
+            { "id": "a", "text": "Ciudad del Este", "is_correct": false },
+            { "id": "b", "text": "Encarnación", "is_correct": false },
+            { "id": "c", "text": "Concepción", "is_correct": false },
+            { "id": "d", "text": "Asunción", "is_correct": true }
+          ],
+          "explanation": "Asunción fue fundada el 15 de agosto de 1537 y es una de las ciudades más antiguas de Sudamérica."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué ciudad es la capital de la República Popular China?",
+          "options": [
+            { "id": "a", "text": "Shanghái", "is_correct": false },
+            { "id": "b", "text": "Pekín", "is_correct": true },
+            { "id": "c", "text": "Hong Kong", "is_correct": false },
+            { "id": "d", "text": "Cantón", "is_correct": false }
+          ],
+          "explanation": "Mao Zedong proclamó la República Popular China en Pekín el 1 de octubre de 1949, con esa ciudad como capital."
+        }
+      ]
+    },
+    {
+      "slug": "en-animal-kingdom-trivia",
+      "title": "Animal Kingdom Trivia: 8 Facts From the Wild",
+      "description": "From the octopus's three hearts to the egg-laying platypus, eight questions on the surprising biology of the animal kingdom.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "animals",
+      "tags": ["animals", "nature", "trivia", "wildlife"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many hearts does an octopus have?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Two", "is_correct": false },
+            { "id": "c", "text": "Three", "is_correct": true },
+            { "id": "d", "text": "Four", "is_correct": false }
+          ],
+          "explanation": "An octopus has two hearts that pump blood through its gills and a third that sends it to the rest of the body."
+        },
+        {
+          "id": "q2",
+          "question": "What is a group of lions called?",
+          "options": [
+            { "id": "a", "text": "A pack", "is_correct": false },
+            { "id": "b", "text": "A pride", "is_correct": true },
+            { "id": "c", "text": "A herd", "is_correct": false },
+            { "id": "d", "text": "A colony", "is_correct": false }
+          ],
+          "explanation": "Lions are the most social of the big cats and live in family groups called prides."
+        },
+        {
+          "id": "q3",
+          "question": "Which of these mammals can truly fly rather than glide?",
+          "options": [
+            { "id": "a", "text": "The bat", "is_correct": true },
+            { "id": "b", "text": "The flying squirrel", "is_correct": false },
+            { "id": "c", "text": "The sugar glider", "is_correct": false },
+            { "id": "d", "text": "The colugo", "is_correct": false }
+          ],
+          "explanation": "Bats are the only mammals capable of powered flight; flying squirrels, sugar gliders and colugos only glide."
+        },
+        {
+          "id": "q4",
+          "question": "What kind of animal is the Komodo dragon?",
+          "options": [
+            { "id": "a", "text": "A snake", "is_correct": false },
+            { "id": "b", "text": "A crocodile", "is_correct": false },
+            { "id": "c", "text": "A salamander", "is_correct": false },
+            { "id": "d", "text": "A lizard", "is_correct": true }
+          ],
+          "explanation": "The Komodo dragon is a monitor lizard that lives on a handful of Indonesian islands, including Komodo."
+        },
+        {
+          "id": "q5",
+          "question": "What makes up almost all of a giant panda's diet?",
+          "options": [
+            { "id": "a", "text": "Eucalyptus leaves", "is_correct": false },
+            { "id": "b", "text": "Bamboo", "is_correct": true },
+            { "id": "c", "text": "Fish", "is_correct": false },
+            { "id": "d", "text": "Berries", "is_correct": false }
+          ],
+          "explanation": "Bamboo makes up about 99% of what a giant panda eats."
+        },
+        {
+          "id": "q6",
+          "question": "Which living bird lays the largest eggs?",
+          "options": [
+            { "id": "a", "text": "The emu", "is_correct": false },
+            { "id": "b", "text": "The albatross", "is_correct": false },
+            { "id": "c", "text": "The ostrich", "is_correct": true },
+            { "id": "d", "text": "The emperor penguin", "is_correct": false }
+          ],
+          "explanation": "An ostrich egg is about 15 cm long and weighs more than a kilogram, the largest of any living bird."
+        },
+        {
+          "id": "q7",
+          "question": "Which of these mammals lays eggs?",
+          "options": [
+            { "id": "a", "text": "The platypus", "is_correct": true },
+            { "id": "b", "text": "The koala", "is_correct": false },
+            { "id": "c", "text": "The sloth", "is_correct": false },
+            { "id": "d", "text": "The armadillo", "is_correct": false }
+          ],
+          "explanation": "The platypus is a monotreme, one of the few egg-laying mammals alongside the echidnas."
+        },
+        {
+          "id": "q8",
+          "question": "What is a baby kangaroo called?",
+          "options": [
+            { "id": "a", "text": "A cub", "is_correct": false },
+            { "id": "b", "text": "A kit", "is_correct": false },
+            { "id": "c", "text": "A calf", "is_correct": false },
+            { "id": "d", "text": "A joey", "is_correct": true }
+          ],
+          "explanation": "Baby kangaroos are called joeys and finish developing inside their mother's pouch."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-reino-animal",
+      "title": "Trivia del reino animal: ajolotes, llamas y pingüinos",
+      "description": "Ajolotes, llamas, koalas y pingüinos: ocho preguntas sobre cómo nacen, respiran y se clasifican los animales del planeta.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales", "naturaleza", "trivia", "fauna"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas patas tiene un insecto adulto?",
+          "options": [
+            { "id": "a", "text": "Cuatro", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": true },
+            { "id": "c", "text": "Ocho", "is_correct": false },
+            { "id": "d", "text": "Diez", "is_correct": false }
+          ],
+          "explanation": "Todos los insectos adultos tienen seis patas, unidas al tórax; las arañas, con ocho, son arácnidos."
+        },
+        {
+          "id": "q2",
+          "question": "¿A qué grupo de animales pertenece la ballena?",
+          "options": [
+            { "id": "a", "text": "Peces", "is_correct": false },
+            { "id": "b", "text": "Reptiles", "is_correct": false },
+            { "id": "c", "text": "Mamíferos", "is_correct": true },
+            { "id": "d", "text": "Anfibios", "is_correct": false }
+          ],
+          "explanation": "Las ballenas respiran aire con pulmones y amamantan a sus crías, como todos los mamíferos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál de estos animales es un marsupial?",
+          "options": [
+            { "id": "a", "text": "El koala", "is_correct": true },
+            { "id": "b", "text": "El oso panda", "is_correct": false },
+            { "id": "c", "text": "El perezoso", "is_correct": false },
+            { "id": "d", "text": "El mapache", "is_correct": false }
+          ],
+          "explanation": "La cría del koala termina de desarrollarse en la bolsa de su madre, igual que la del canguro."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué tipo de animal es el ajolote?",
+          "options": [
+            { "id": "a", "text": "Un pez", "is_correct": false },
+            { "id": "b", "text": "Un reptil", "is_correct": false },
+            { "id": "c", "text": "Un mamífero", "is_correct": false },
+            { "id": "d", "text": "Un anfibio", "is_correct": true }
+          ],
+          "explanation": "El ajolote es un anfibio originario de los lagos del valle de México, como Xochimilco."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué animal sudamericano es pariente del camello?",
+          "options": [
+            { "id": "a", "text": "El tapir", "is_correct": false },
+            { "id": "b", "text": "La llama", "is_correct": true },
+            { "id": "c", "text": "El carpincho", "is_correct": false },
+            { "id": "d", "text": "El puma", "is_correct": false }
+          ],
+          "explanation": "La llama pertenece a la familia de los camélidos, junto con la alpaca, el guanaco y la vicuña."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama la cría de la rana al salir del huevo?",
+          "options": [
+            { "id": "a", "text": "Oruga", "is_correct": false },
+            { "id": "b", "text": "Alevín", "is_correct": false },
+            { "id": "c", "text": "Renacuajo", "is_correct": true },
+            { "id": "d", "text": "Larva de mosca", "is_correct": false }
+          ],
+          "explanation": "Las ranas nacen como renacuajos acuáticos, que respiran por branquias hasta completar su metamorfosis."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál de estas aves no puede volar?",
+          "options": [
+            { "id": "a", "text": "El pingüino", "is_correct": true },
+            { "id": "b", "text": "La gaviota", "is_correct": false },
+            { "id": "c", "text": "El albatros", "is_correct": false },
+            { "id": "d", "text": "El cóndor", "is_correct": false }
+          ],
+          "explanation": "Los pingüinos tienen alas convertidas en aletas, que usan para nadar y no para volar."
+        },
+        {
+          "id": "q8",
+          "question": "¿Con qué órganos obtienen los peces el oxígeno del agua?",
+          "options": [
+            { "id": "a", "text": "Pulmones", "is_correct": false },
+            { "id": "b", "text": "Escamas", "is_correct": false },
+            { "id": "c", "text": "Aletas", "is_correct": false },
+            { "id": "d", "text": "Branquias", "is_correct": true }
+          ],
+          "explanation": "Las branquias de los peces extraen el oxígeno disuelto en el agua que pasa a través de ellas."
+        }
+      ]
+    },
+    {
+      "slug": "en-human-body-trivia",
+      "title": "Human Body Trivia: 8 Questions on How You Work",
+      "description": "Bones, blood, chromosomes and the organ that makes insulin: eight questions on the anatomy facts every biology class covers.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "anatomy", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many bones are in the adult human skeleton?",
+          "options": [
+            { "id": "a", "text": "186", "is_correct": false },
+            { "id": "b", "text": "206", "is_correct": true },
+            { "id": "c", "text": "226", "is_correct": false },
+            { "id": "d", "text": "256", "is_correct": false }
+          ],
+          "explanation": "An adult skeleton has 206 bones; a newborn has close to 300, and many fuse as the body grows."
+        },
+        {
+          "id": "q2",
+          "question": "What is the largest organ of the human body?",
+          "options": [
+            { "id": "a", "text": "The liver", "is_correct": false },
+            { "id": "b", "text": "The brain", "is_correct": false },
+            { "id": "c", "text": "The skin", "is_correct": true },
+            { "id": "d", "text": "The lungs", "is_correct": false }
+          ],
+          "explanation": "The skin is the largest organ, covering about 1.5 to 2 square metres in an adult."
+        },
+        {
+          "id": "q3",
+          "question": "How many chambers does the human heart have?",
+          "options": [
+            { "id": "a", "text": "Four", "is_correct": true },
+            { "id": "b", "text": "Two", "is_correct": false },
+            { "id": "c", "text": "Three", "is_correct": false },
+            { "id": "d", "text": "Five", "is_correct": false }
+          ],
+          "explanation": "The heart has two upper chambers, the atria, and two lower ones, the ventricles."
+        },
+        {
+          "id": "q4",
+          "question": "Which blood cells carry oxygen around the body?",
+          "options": [
+            { "id": "a", "text": "White blood cells", "is_correct": false },
+            { "id": "b", "text": "Platelets", "is_correct": false },
+            { "id": "c", "text": "Plasma cells", "is_correct": false },
+            { "id": "d", "text": "Red blood cells", "is_correct": true }
+          ],
+          "explanation": "Red blood cells carry oxygen bound to haemoglobin, an iron-containing protein."
+        },
+        {
+          "id": "q5",
+          "question": "What is the smallest bone in the human body?",
+          "options": [
+            { "id": "a", "text": "The hyoid", "is_correct": false },
+            { "id": "b", "text": "The stapes", "is_correct": true },
+            { "id": "c", "text": "The kneecap", "is_correct": false },
+            { "id": "d", "text": "The coccyx", "is_correct": false }
+          ],
+          "explanation": "The stapes, one of the three tiny bones of the middle ear, is about 3 mm long."
+        },
+        {
+          "id": "q6",
+          "question": "Which organ produces insulin?",
+          "options": [
+            { "id": "a", "text": "The liver", "is_correct": false },
+            { "id": "b", "text": "The kidneys", "is_correct": false },
+            { "id": "c", "text": "The pancreas", "is_correct": true },
+            { "id": "d", "text": "The stomach", "is_correct": false }
+          ],
+          "explanation": "Insulin is made by the beta cells in the islets of Langerhans, inside the pancreas."
+        },
+        {
+          "id": "q7",
+          "question": "What is the longest bone in the human body?",
+          "options": [
+            { "id": "a", "text": "The femur", "is_correct": true },
+            { "id": "b", "text": "The tibia", "is_correct": false },
+            { "id": "c", "text": "The humerus", "is_correct": false },
+            { "id": "d", "text": "The fibula", "is_correct": false }
+          ],
+          "explanation": "The femur, or thigh bone, is the longest and strongest bone in the body."
+        },
+        {
+          "id": "q8",
+          "question": "How many pairs of chromosomes do human cells normally have?",
+          "options": [
+            { "id": "a", "text": "21", "is_correct": false },
+            { "id": "b", "text": "22", "is_correct": false },
+            { "id": "c", "text": "24", "is_correct": false },
+            { "id": "d", "text": "23", "is_correct": true }
+          ],
+          "explanation": "Most human cells hold 46 chromosomes in 23 pairs, one set inherited from each parent."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cuerpo-humano",
+      "title": "Trivia del cuerpo humano: 8 preguntas sobre cómo funcionas",
+      "description": "Dientes, riñones, diafragma y médula ósea: ocho preguntas sobre los órganos que te mantienen vivo y lo que hace cada uno.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "anatomía", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos dientes tiene la dentadura permanente completa de un adulto?",
+          "options": [
+            { "id": "a", "text": "20", "is_correct": false },
+            { "id": "b", "text": "28", "is_correct": false },
+            { "id": "c", "text": "32", "is_correct": true },
+            { "id": "d", "text": "36", "is_correct": false }
+          ],
+          "explanation": "La dentadura adulta completa tiene 32 piezas, contando las cuatro muelas del juicio; la de leche tiene 20."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué órganos filtran la sangre y producen la orina?",
+          "options": [
+            { "id": "a", "text": "Los riñones", "is_correct": true },
+            { "id": "b", "text": "El hígado", "is_correct": false },
+            { "id": "c", "text": "Los pulmones", "is_correct": false },
+            { "id": "d", "text": "El bazo", "is_correct": false }
+          ],
+          "explanation": "Los riñones filtran la sangre y eliminan los desechos y el exceso de agua en forma de orina."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué gas eliminamos como desecho al exhalar?",
+          "options": [
+            { "id": "a", "text": "Oxígeno", "is_correct": false },
+            { "id": "b", "text": "Dióxido de carbono", "is_correct": true },
+            { "id": "c", "text": "Hidrógeno", "is_correct": false },
+            { "id": "d", "text": "Helio", "is_correct": false }
+          ],
+          "explanation": "Las células consumen oxígeno y liberan dióxido de carbono, que la sangre lleva a los pulmones para expulsarlo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Dónde se forman las células de la sangre en un adulto?",
+          "options": [
+            { "id": "a", "text": "En el hígado", "is_correct": false },
+            { "id": "b", "text": "En el corazón", "is_correct": false },
+            { "id": "c", "text": "En el bazo", "is_correct": false },
+            { "id": "d", "text": "En la médula ósea", "is_correct": true }
+          ],
+          "explanation": "Glóbulos rojos, glóbulos blancos y plaquetas se forman en la médula ósea roja de huesos como la pelvis y el esternón."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué órgano produce la bilis?",
+          "options": [
+            { "id": "a", "text": "La vesícula biliar", "is_correct": false },
+            { "id": "b", "text": "El hígado", "is_correct": true },
+            { "id": "c", "text": "El páncreas", "is_correct": false },
+            { "id": "d", "text": "El estómago", "is_correct": false }
+          ],
+          "explanation": "La bilis se produce en el hígado y se almacena en la vesícula biliar hasta que se necesita para digerir grasas."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué músculo es el principal responsable de la respiración?",
+          "options": [
+            { "id": "a", "text": "Los abdominales", "is_correct": false },
+            { "id": "b", "text": "Los pectorales", "is_correct": false },
+            { "id": "c", "text": "El diafragma", "is_correct": true },
+            { "id": "d", "text": "El trapecio", "is_correct": false }
+          ],
+          "explanation": "El diafragma, situado bajo los pulmones, se contrae al inhalar y agranda la cavidad torácica."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué vitamina fabrica la piel cuando recibe luz solar?",
+          "options": [
+            { "id": "a", "text": "Vitamina D", "is_correct": true },
+            { "id": "b", "text": "Vitamina A", "is_correct": false },
+            { "id": "c", "text": "Vitamina C", "is_correct": false },
+            { "id": "d", "text": "Vitamina K", "is_correct": false }
+          ],
+          "explanation": "La piel sintetiza vitamina D a partir de la radiación ultravioleta B del sol."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama la parte coloreada del ojo?",
+          "options": [
+            { "id": "a", "text": "La pupila", "is_correct": false },
+            { "id": "b", "text": "La córnea", "is_correct": false },
+            { "id": "c", "text": "La retina", "is_correct": false },
+            { "id": "d", "text": "El iris", "is_correct": true }
+          ],
+          "explanation": "El iris es un músculo con pigmento que regula cuánta luz entra por la pupila."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-cup-history-trivia",
+      "title": "World Cup History Trivia: Hosts and Champions, 1930–2022",
+      "description": "From Uruguay 1930 to Qatar 2022, eight questions on the hosts, finals and champions that shaped football's biggest tournament.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["football", "world cup", "sports history", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which country hosted the first FIFA World Cup in 1930?",
+          "options": [
+            { "id": "a", "text": "Italy", "is_correct": false },
+            { "id": "b", "text": "Uruguay", "is_correct": true },
+            { "id": "c", "text": "Brazil", "is_correct": false },
+            { "id": "d", "text": "France", "is_correct": false }
+          ],
+          "explanation": "Uruguay hosted and won the first World Cup in 1930, beating Argentina 4–2 in the final in Montevideo."
+        },
+        {
+          "id": "q2",
+          "question": "Which country won the 1966 World Cup on home soil?",
+          "options": [
+            { "id": "a", "text": "West Germany", "is_correct": false },
+            { "id": "b", "text": "Brazil", "is_correct": false },
+            { "id": "c", "text": "England", "is_correct": true },
+            { "id": "d", "text": "Portugal", "is_correct": false }
+          ],
+          "explanation": "England beat West Germany 4–2 after extra time in the 1966 final at Wembley."
+        },
+        {
+          "id": "q3",
+          "question": "Which two countries co-hosted the 2002 World Cup, the first held in Asia?",
+          "options": [
+            { "id": "a", "text": "South Korea and Japan", "is_correct": true },
+            { "id": "b", "text": "Japan and China", "is_correct": false },
+            { "id": "c", "text": "China and South Korea", "is_correct": false },
+            { "id": "d", "text": "Japan and Thailand", "is_correct": false }
+          ],
+          "explanation": "The 2002 tournament was played in South Korea and Japan, the first World Cup shared by two hosts."
+        },
+        {
+          "id": "q4",
+          "question": "Which country won the 2010 World Cup in South Africa?",
+          "options": [
+            { "id": "a", "text": "Netherlands", "is_correct": false },
+            { "id": "b", "text": "Germany", "is_correct": false },
+            { "id": "c", "text": "Brazil", "is_correct": false },
+            { "id": "d", "text": "Spain", "is_correct": true }
+          ],
+          "explanation": "Spain beat the Netherlands 1–0 after extra time, with a goal from Andrés Iniesta."
+        },
+        {
+          "id": "q5",
+          "question": "Which country hosted the 2014 World Cup?",
+          "options": [
+            { "id": "a", "text": "Argentina", "is_correct": false },
+            { "id": "b", "text": "Brazil", "is_correct": true },
+            { "id": "c", "text": "Germany", "is_correct": false },
+            { "id": "d", "text": "Russia", "is_correct": false }
+          ],
+          "explanation": "Brazil hosted in 2014, and Germany beat Argentina 1–0 after extra time in the final at the Maracanã."
+        },
+        {
+          "id": "q6",
+          "question": "Which country won its first World Cup as host in 1998?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": true },
+            { "id": "b", "text": "Brazil", "is_correct": false },
+            { "id": "c", "text": "Italy", "is_correct": false },
+            { "id": "d", "text": "Croatia", "is_correct": false }
+          ],
+          "explanation": "France beat Brazil 3–0 in the 1998 final at the Stade de France."
+        },
+        {
+          "id": "q7",
+          "question": "Which World Cup was the first played in November and December?",
+          "options": [
+            { "id": "a", "text": "2010", "is_correct": false },
+            { "id": "b", "text": "2014", "is_correct": false },
+            { "id": "c", "text": "2022", "is_correct": true },
+            { "id": "d", "text": "2018", "is_correct": false }
+          ],
+          "explanation": "Qatar 2022 ran from 20 November to 18 December to avoid the summer heat of the Gulf."
+        },
+        {
+          "id": "q8",
+          "question": "Which team won the 1954 final in Bern after trailing Hungary 2–0?",
+          "options": [
+            { "id": "a", "text": "Uruguay", "is_correct": false },
+            { "id": "b", "text": "Brazil", "is_correct": false },
+            { "id": "c", "text": "Austria", "is_correct": false },
+            { "id": "d", "text": "West Germany", "is_correct": true }
+          ],
+          "explanation": "West Germany came back to beat Hungary 3–2 in the 1954 final, remembered as the Miracle of Bern."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-mundiales-futbol",
+      "title": "Trivia de los Mundiales: sedes, finales y campeones",
+      "description": "Del Maracanazo de 1950 a Rusia 2018: ocho preguntas sobre las sedes, las finales y los campeones de la Copa Mundial de la FIFA.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["fútbol", "mundiales", "historia del deporte", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué selección ganó el Mundial de 1950 tras vencer a Brasil en el Maracaná?",
+          "options": [
+            { "id": "a", "text": "Uruguay", "is_correct": true },
+            { "id": "b", "text": "Suecia", "is_correct": false },
+            { "id": "c", "text": "España", "is_correct": false },
+            { "id": "d", "text": "Italia", "is_correct": false }
+          ],
+          "explanation": "Uruguay venció 2-1 a Brasil el 16 de julio de 1950 en el partido decisivo, conocido como el Maracanazo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué país organizó el Mundial de 1962?",
+          "options": [
+            { "id": "a", "text": "Argentina", "is_correct": false },
+            { "id": "b", "text": "Uruguay", "is_correct": false },
+            { "id": "c", "text": "México", "is_correct": false },
+            { "id": "d", "text": "Chile", "is_correct": true }
+          ],
+          "explanation": "Chile fue sede en 1962: Brasil se quedó con el título y el anfitrión terminó tercero."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué país fue el primero en organizar dos Mundiales?",
+          "options": [
+            { "id": "a", "text": "Italia", "is_correct": false },
+            { "id": "b", "text": "México", "is_correct": true },
+            { "id": "c", "text": "Francia", "is_correct": false },
+            { "id": "d", "text": "Brasil", "is_correct": false }
+          ],
+          "explanation": "México fue sede en 1970 y en 1986, y así se convirtió en el primer país en organizar dos Copas del Mundo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién anotó el gol conocido como «la mano de Dios» en México 1986?",
+          "options": [
+            { "id": "a", "text": "Pelé", "is_correct": false },
+            { "id": "b", "text": "Mario Kempes", "is_correct": false },
+            { "id": "c", "text": "Diego Maradona", "is_correct": true },
+            { "id": "d", "text": "Gary Lineker", "is_correct": false }
+          ],
+          "explanation": "Maradona marcó con la mano ante Inglaterra en los cuartos de final del 22 de junio de 1986."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué selección ganó el Mundial de 1978, jugado en Argentina?",
+          "options": [
+            { "id": "a", "text": "Argentina", "is_correct": true },
+            { "id": "b", "text": "Países Bajos", "is_correct": false },
+            { "id": "c", "text": "Brasil", "is_correct": false },
+            { "id": "d", "text": "Italia", "is_correct": false }
+          ],
+          "explanation": "Argentina venció 3-1 a los Países Bajos en la prórroga de la final, jugada en el estadio Monumental."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué selección ganó el Mundial de Alemania 2006?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Alemania", "is_correct": false },
+            { "id": "c", "text": "Portugal", "is_correct": false },
+            { "id": "d", "text": "Italia", "is_correct": true }
+          ],
+          "explanation": "Italia empató 1-1 con Francia en la final de Berlín y ganó la copa en la tanda de penales."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué país se jugó el Mundial de 2018?",
+          "options": [
+            { "id": "a", "text": "Alemania", "is_correct": false },
+            { "id": "b", "text": "Rusia", "is_correct": true },
+            { "id": "c", "text": "Brasil", "is_correct": false },
+            { "id": "d", "text": "Catar", "is_correct": false }
+          ],
+          "explanation": "Rusia organizó el Mundial de 2018, que ganó Francia al vencer 4-2 a Croacia en la final."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué selección ganó el Mundial de Estados Unidos 1994?",
+          "options": [
+            { "id": "a", "text": "Italia", "is_correct": false },
+            { "id": "b", "text": "Alemania", "is_correct": false },
+            { "id": "c", "text": "Brasil", "is_correct": true },
+            { "id": "d", "text": "Suecia", "is_correct": false }
+          ],
+          "explanation": "Brasil venció a Italia en los penales tras un 0-0, la primera final de un Mundial definida desde el punto penal."
+        }
+      ]
     }
   ]
 }
