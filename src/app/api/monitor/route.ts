@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiLimiter } from '@/lib/utils/rate-limit';
+import { createRateLimiter } from '@/lib/utils/rate-limit';
+
+// No crítico: si Redis cae, degradamos abierto en vez de tumbar el monitor.
+const monitorLimiter = createRateLimiter('api', 100, 60, 'open');
 
 export async function POST(request: NextRequest) {
   const { headers } = request;
   const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
-  const { allowed } = await apiLimiter.check(`monitor:${ip}`);
+  const { allowed } = await monitorLimiter.check(`monitor:${ip}`);
   if (!allowed) {
     return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
   }
