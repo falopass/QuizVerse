@@ -61,6 +61,17 @@ const CATEGORY_ES_NAMES: Record<string, string> = {
   relationships: 'Relaciones',
 };
 
+export const CATEGORY_SLUG_NAMES: Record<string, string> = {
+  'movies-tv': 'Movies & TV',
+  'anime-manga': 'Anime & Manga',
+  gaming: 'Gaming',
+  music: 'Music',
+  lifestyle: 'Lifestyle',
+  culture: 'Culture',
+  literature: 'Literature',
+  'pop-culture': 'Pop Culture',
+};
+
 const TYPE_COPY = {
   personality: { en: 'Personality', es: 'Personalidad' },
   trivia: { en: 'Trivia', es: 'Trivia' },
@@ -114,6 +125,16 @@ export function getLocalizedCategoryLabel(
     : locale === 'es'
       ? (CATEGORY_ES_NAMES[slug.toLowerCase()] ?? slug)
       : slug;
+}
+
+export function getCategoryLabelBySlug(slug: string, locale: Locale): string {
+  const name = CATEGORY_SLUG_NAMES[slug];
+  if (!name) return slug;
+
+  const localized = CATEGORY_COPY[slug as keyof typeof CATEGORY_COPY];
+  if (localized) return localized[locale].name;
+
+  return locale === 'es' ? (CATEGORY_ES_NAMES[name.toLowerCase()] ?? name) : name;
 }
 
 export function getLocalizedTypeLabel(type: Quiz['quiz_type'], locale: Locale) {
