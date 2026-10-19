@@ -325,6 +325,21 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const totalQuestions = quiz.questions.length;
   const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
+  // Marcador para lectores de pantalla: cambia solo al responder, no por tecla.
+  const answeredCount = answers.length;
+  const announcementParts: string[] = [];
+  if (quiz.quiz_type === 'trivia' && answeredCount > 0) {
+    announcementParts.push(
+      uiLocale === 'es'
+        ? `${getScore().correct} de ${answeredCount} correctas`
+        : `${getScore().correct} of ${answeredCount} correct`
+    );
+  }
+  if (streak >= 2) {
+    announcementParts.push(uiLocale === 'es' ? `Racha de ${streak}` : `Streak of ${streak}`);
+  }
+  const scoreAnnouncement = announcementParts.join(' · ');
+
   const handleStartGame = (mode: GameMode) => {
     startGame(quiz, mode);
     setShowModeSelector(false);
@@ -517,6 +532,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
               {lastAnswerCorrect ? copy.correct : copy.miss}
             </p>
           )}
+          {/* Marcador/racha: región aparte para no repetir el veredicto */}
+          <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+            {scoreAnnouncement}
+          </p>
           <div className="mx-auto mb-6 flex max-w-5xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="arcade-play-label">{copy.nowPlaying}</p>
