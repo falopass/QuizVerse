@@ -1,0 +1,1319 @@
+{
+  "$comment": "Editorial seed 2026bx: five es/en trivia pairs on psychology — cognitive biases, emotions, memory and learning, social psychology and popular myths — all in the science category. Every answer is a stable, textbook-level finding. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-cognitive-biases-trivia",
+      "title": "Cognitive Biases Trivia: How Your Mind Tricks You",
+      "description": "Eight questions on cognitive biases: anchoring, loss aversion, confirmation bias, the Dunning-Kruger effect and the shortcuts your brain takes.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["psychology", "cognitive biases", "trivia", "brain"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which two researchers introduced the study of cognitive biases in the 1970s?",
+          "options": [
+            { "id": "a", "text": "Sigmund Freud and Carl Jung", "is_correct": false },
+            { "id": "b", "text": "Daniel Kahneman and Amos Tversky", "is_correct": true },
+            { "id": "c", "text": "B. F. Skinner and John Watson", "is_correct": false },
+            { "id": "d", "text": "Stanley Milgram and Philip Zimbardo", "is_correct": false }
+          ],
+          "explanation": "Kahneman and Tversky's 1974 paper 'Judgment under Uncertainty' founded the heuristics-and-biases research program."
+        },
+        {
+          "id": "q2",
+          "question": "What is the anchoring bias?",
+          "options": [
+            { "id": "a", "text": "Judging people by their appearance", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Relying too heavily on the first piece of information offered",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Remembering only the last item in a list", "is_correct": false },
+            { "id": "d", "text": "Preferring information from experts", "is_correct": false }
+          ],
+          "explanation": "A first number or fact 'anchors' later estimates, even when it is irrelevant or random."
+        },
+        {
+          "id": "q3",
+          "question": "What does the confirmation bias describe?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Seeking and remembering information that confirms what you already believe",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Changing your mind quickly when shown evidence",
+              "is_correct": false
+            },
+            { "id": "c", "text": "Confirming orders before acting", "is_correct": false },
+            { "id": "d", "text": "Feeling confident about every decision", "is_correct": false }
+          ],
+          "explanation": "People favor evidence that fits their beliefs and discount or forget the rest."
+        },
+        {
+          "id": "q4",
+          "question": "In prospect theory, what is loss aversion?",
+          "options": [
+            { "id": "a", "text": "The fear of losing your wallet", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Losses feeling about twice as powerful as equivalent gains",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Avoiding games of chance", "is_correct": false },
+            { "id": "d", "text": "Forgetting negative experiences", "is_correct": false }
+          ],
+          "explanation": "Kahneman and Tversky showed that losing a sum hurts roughly twice as much as gaining the same sum feels good."
+        },
+        {
+          "id": "q5",
+          "question": "What does the availability heuristic describe?",
+          "options": [
+            { "id": "a", "text": "How fast you can type an answer", "is_correct": false },
+            { "id": "b", "text": "How much data a computer can hold", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Judging how likely something is by how easily examples come to mind",
+              "is_correct": true
+            },
+            { "id": "d", "text": "How many friends a person has", "is_correct": false }
+          ],
+          "explanation": "Vivid or recent events feel more common — which is why plane crashes can scare people more than car trips."
+        },
+        {
+          "id": "q6",
+          "question": "What does the Dunning-Kruger effect describe?",
+          "options": [
+            { "id": "a", "text": "Experts underestimating their fame", "is_correct": false },
+            {
+              "id": "b",
+              "text": "People with low skill overestimating their competence",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Children learning faster than adults", "is_correct": false },
+            { "id": "d", "text": "Memory improving under stress", "is_correct": false }
+          ],
+          "explanation": "Not knowing much about a topic makes it hard to notice your own mistakes — so novices feel overconfident."
+        },
+        {
+          "id": "q7",
+          "question": "What is the halo effect?",
+          "options": [
+            {
+              "id": "a",
+              "text": "One positive trait shaping our overall impression of a person",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Lighting that makes faces look better", "is_correct": false },
+            { "id": "c", "text": "Forgetting names after introductions", "is_correct": false },
+            { "id": "d", "text": "Feeling good after exercise", "is_correct": false }
+          ],
+          "explanation": "Seeing someone as attractive or kind makes us assume they are also smart or honest."
+        },
+        {
+          "id": "q8",
+          "question": "What is hindsight bias, also called the 'knew-it-all-along' effect?",
+          "options": [
+            { "id": "a", "text": "Predicting events before they happen", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Believing, after the outcome, that you predicted it all along",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Remembering the past as worse than it was", "is_correct": false },
+            { "id": "d", "text": "Learning only from your own mistakes", "is_correct": false }
+          ],
+          "explanation": "Once the outcome is known, events seem obvious and predictable — as if you had seen them coming."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sesgos-cognitivos",
+      "title": "Trivia de sesgos cognitivos: cómo te engaña tu mente",
+      "description": "Ocho preguntas sobre sesgos cognitivos: anclaje, aversión a la pérdida, sesgo de confirmación y los atajos que toma tu mente.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["psicología", "sesgos cognitivos", "trivia", "mente"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dos investigadores introdujeron el estudio de los sesgos cognitivos en los años setenta?",
+          "options": [
+            { "id": "a", "text": "Sigmund Freud y Carl Jung", "is_correct": false },
+            { "id": "b", "text": "Daniel Kahneman y Amos Tversky", "is_correct": true },
+            { "id": "c", "text": "B. F. Skinner y John Watson", "is_correct": false },
+            { "id": "d", "text": "Stanley Milgram y Philip Zimbardo", "is_correct": false }
+          ],
+          "explanation": "El artículo de Kahneman y Tversky de 1974, 'Judgment under Uncertainty', fundó el programa de heurísticas y sesgos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es el sesgo de anclaje?",
+          "options": [
+            { "id": "a", "text": "Juzgar a la gente por su apariencia", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Apoyarse demasiado en la primera información recibida",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Recordar solo el último elemento de una lista",
+              "is_correct": false
+            },
+            { "id": "d", "text": "Preferir la información de los expertos", "is_correct": false }
+          ],
+          "explanation": "Un primer dato o número 'ancla' las estimaciones posteriores, aunque sea irrelevante o aleatorio."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué describe el sesgo de confirmación?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Buscar y recordar información que confirma lo que ya crees",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Cambiar de idea rápido ante la evidencia", "is_correct": false },
+            { "id": "c", "text": "Confirmar órdenes antes de actuar", "is_correct": false },
+            { "id": "d", "text": "Sentirse seguro de cada decisión", "is_correct": false }
+          ],
+          "explanation": "La gente favorece la evidencia que encaja con sus creencias y descarta u olvida el resto."
+        },
+        {
+          "id": "q4",
+          "question": "En la teoría de los prospectos, ¿qué es la aversión a la pérdida?",
+          "options": [
+            { "id": "a", "text": "El miedo a perder la billetera", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que las pérdidas pesan cerca del doble que las ganancias equivalentes",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Evitar los juegos de azar", "is_correct": false },
+            { "id": "d", "text": "Olvidar las experiencias negativas", "is_correct": false }
+          ],
+          "explanation": "Kahneman y Tversky mostraron que perder una cantidad duele aproximadamente el doble de lo que alegra ganarla."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué describe la heurística de disponibilidad?",
+          "options": [
+            { "id": "a", "text": "Qué tan rápido escribes una respuesta", "is_correct": false },
+            { "id": "b", "text": "Cuántos datos guarda una computadora", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Juzgar qué tan probable es algo según lo fácil que vienen ejemplos a la mente",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Cuántos amigos tiene una persona", "is_correct": false }
+          ],
+          "explanation": "Los eventos vívidos o recientes parecen más comunes: por eso un accidente aéreo asusta más que un viaje en auto."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué describe el efecto Dunning-Kruger?",
+          "options": [
+            { "id": "a", "text": "Expertos que subestiman su fama", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Personas con poca habilidad que sobreestiman su competencia",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Niños que aprenden más rápido que los adultos",
+              "is_correct": false
+            },
+            { "id": "d", "text": "Memoria que mejora bajo estrés", "is_correct": false }
+          ],
+          "explanation": "Saber poco de un tema dificulta notar los propios errores, así que el novato se siente demasiado confiado."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué es el efecto halo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Que un rasgo positivo tiñe nuestra impresión general de una persona",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Iluminación que embellece los rostros", "is_correct": false },
+            { "id": "c", "text": "Olvidar nombres tras una presentación", "is_correct": false },
+            { "id": "d", "text": "Sentirse bien después de hacer ejercicio", "is_correct": false }
+          ],
+          "explanation": "Percibir a alguien como atractivo o amable nos lleva a suponer que también es inteligente u honesto."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es el sesgo retrospectivo, el efecto de 'ya lo sabía'?",
+          "options": [
+            { "id": "a", "text": "Predecir eventos antes de que ocurran", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Creer, tras conocer el resultado, que lo habías previsto desde el inicio",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Recordar el pasado peor de lo que fue", "is_correct": false },
+            { "id": "d", "text": "Aprender solo de los errores propios", "is_correct": false }
+          ],
+          "explanation": "Conocido el resultado, los eventos parecen obvios y predecibles, como si siempre los hubieras visto venir."
+        }
+      ]
+    },
+    {
+      "slug": "en-psychology-of-emotions-trivia",
+      "title": "Psychology of Emotions Trivia: What Moves Us",
+      "description": "Eight questions on the psychology of emotions: the classic theories, Paul Ekman's basic emotions and why we catch other people's feelings.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["psychology", "emotions", "trivia", "feelings"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which psychologist catalogued six basic emotions — happiness, sadness, fear, anger, surprise and disgust — from facial expressions across cultures?",
+          "options": [
+            { "id": "a", "text": "Paul Ekman", "is_correct": true },
+            { "id": "b", "text": "Sigmund Freud", "is_correct": false },
+            { "id": "c", "text": "Carl Rogers", "is_correct": false },
+            { "id": "d", "text": "Ivan Pavlov", "is_correct": false }
+          ],
+          "explanation": "Ekman studied facial expressions in many cultures in the 1960s and 1970s and proposed the universal basic emotions."
+        },
+        {
+          "id": "q2",
+          "question": "In the James-Lange theory, where does an emotion come from?",
+          "options": [
+            { "id": "a", "text": "Unconscious childhood conflicts", "is_correct": false },
+            { "id": "b", "text": "The body's physical reaction to an event", "is_correct": true },
+            { "id": "c", "text": "Other people's approval", "is_correct": false },
+            { "id": "d", "text": "Dreams", "is_correct": false }
+          ],
+          "explanation": "James and Lange argued we feel afraid because our body reacts — 'we tremble, therefore we are afraid'."
+        },
+        {
+          "id": "q3",
+          "question": "What two ingredients does the Schachter-Singer theory say form an emotion?",
+          "options": [
+            { "id": "a", "text": "Genetics and diet", "is_correct": false },
+            { "id": "b", "text": "Sleep and exercise", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Physiological arousal plus a cognitive label for it",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Rewards and punishments", "is_correct": false }
+          ],
+          "explanation": "In their 1962 experiment, the same adrenaline dose felt like euphoria or anger depending on the context."
+        },
+        {
+          "id": "q4",
+          "question": "Which brain structure is especially linked to detecting fear and threats?",
+          "options": [
+            { "id": "a", "text": "The cerebellum", "is_correct": false },
+            { "id": "b", "text": "The hippocampus", "is_correct": false },
+            { "id": "c", "text": "The medulla", "is_correct": false },
+            { "id": "d", "text": "The amygdala", "is_correct": true }
+          ],
+          "explanation": "The amygdala, deep in the temporal lobe, flags the emotional significance of what we perceive — especially danger."
+        },
+        {
+          "id": "q5",
+          "question": "What is emotional contagion?",
+          "options": [
+            { "id": "a", "text": "A virus spread by touch", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Catching and mimicking the emotions of people around you",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A technique to control fear", "is_correct": false },
+            { "id": "d", "text": "Feeling two emotions at once", "is_correct": false }
+          ],
+          "explanation": "People unconsciously mimic expressions and moods — which is why laughter and yawns spread through a room."
+        },
+        {
+          "id": "q6",
+          "question": "What do psychologists call predicting how a future event will make you feel?",
+          "options": [
+            { "id": "a", "text": "Mind reading", "is_correct": false },
+            { "id": "b", "text": "Affective forecasting", "is_correct": true },
+            { "id": "c", "text": "Emotional recall", "is_correct": false },
+            { "id": "d", "text": "Mood tracking", "is_correct": false }
+          ],
+          "explanation": "Research on affective forecasting shows we often overestimate how bad or good we will feel — the impact bias."
+        },
+        {
+          "id": "q7",
+          "question": "What does 'emotional intelligence', popularized by Daniel Goleman, refer to?",
+          "options": [
+            { "id": "a", "text": "Memorizing facts about emotions", "is_correct": false },
+            { "id": "b", "text": "A high IQ score", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Perceiving, understanding and managing emotions in yourself and others",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Feeling emotions more intensely", "is_correct": false }
+          ],
+          "explanation": "The concept, studied by Salovey and Mayer, was popularized by Goleman's 1995 book."
+        },
+        {
+          "id": "q8",
+          "question": "Which classic theory says the emotional feeling and the bodily reaction happen at the same time, independently?",
+          "options": [
+            { "id": "a", "text": "The Cannon-Bard theory", "is_correct": true },
+            { "id": "b", "text": "The James-Lange theory", "is_correct": false },
+            { "id": "c", "text": "The two-factor theory", "is_correct": false },
+            { "id": "d", "text": "Appraisal theory", "is_correct": false }
+          ],
+          "explanation": "Cannon and Bard argued that the brain sends the emotional experience and the body's signals in parallel, not one after the other."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-psicologia-de-las-emociones",
+      "title": "Trivia de psicología de las emociones: lo que sentimos",
+      "description": "Ocho preguntas sobre la psicología de las emociones: las teorías clásicas, las emociones básicas de Ekman y por qué se contagian las ajenas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["psicología", "emociones", "trivia", "sentimientos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué psicólogo catalogó seis emociones básicas —alegría, tristeza, miedo, ira, sorpresa y asco— a partir de expresiones faciales en distintas culturas?",
+          "options": [
+            { "id": "a", "text": "Paul Ekman", "is_correct": true },
+            { "id": "b", "text": "Sigmund Freud", "is_correct": false },
+            { "id": "c", "text": "Carl Rogers", "is_correct": false },
+            { "id": "d", "text": "Iván Pávlov", "is_correct": false }
+          ],
+          "explanation": "Ekman estudió expresiones faciales en muchas culturas en los años sesenta y setenta y propuso las emociones básicas universales."
+        },
+        {
+          "id": "q2",
+          "question": "Según la teoría de James-Lange, ¿de dónde surge una emoción?",
+          "options": [
+            { "id": "a", "text": "De conflictos infantiles inconscientes", "is_correct": false },
+            {
+              "id": "b",
+              "text": "De la reacción física del cuerpo ante un evento",
+              "is_correct": true
+            },
+            { "id": "c", "text": "De la aprobación de los demás", "is_correct": false },
+            { "id": "d", "text": "De los sueños", "is_correct": false }
+          ],
+          "explanation": "James y Lange sostenían que sentimos miedo porque el cuerpo reacciona: 'temblamos, luego tenemos miedo'."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dos ingredientes forman una emoción según la teoría de Schachter y Singer?",
+          "options": [
+            { "id": "a", "text": "Genética y alimentación", "is_correct": false },
+            { "id": "b", "text": "Sueño y ejercicio", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Activación fisiológica más una etiqueta mental para interpretarla",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Premios y castigos", "is_correct": false }
+          ],
+          "explanation": "En su experimento de 1962, la misma dosis de adrenalina se sentía como euforia o como ira según el contexto."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué estructura cerebral está especialmente ligada a detectar el miedo y las amenazas?",
+          "options": [
+            { "id": "a", "text": "El cerebelo", "is_correct": false },
+            { "id": "b", "text": "El hipocampo", "is_correct": false },
+            { "id": "c", "text": "El bulbo raquídeo", "is_correct": false },
+            { "id": "d", "text": "La amígdala", "is_correct": true }
+          ],
+          "explanation": "La amígdala, en el lóbulo temporal, marca la importancia emocional de lo que percibimos, sobre todo el peligro."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es el contagio emocional?",
+          "options": [
+            { "id": "a", "text": "Un virus que se transmite al tacto", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Captar e imitar las emociones de quienes te rodean",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una técnica para controlar el miedo", "is_correct": false },
+            { "id": "d", "text": "Sentir dos emociones a la vez", "is_correct": false }
+          ],
+          "explanation": "Imitamos sin darnos cuenta expresiones y estados de ánimo: por eso la risa y el bostezo se pegan."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo llaman los psicólogos a predecir cómo te hará sentir un evento futuro?",
+          "options": [
+            { "id": "a", "text": "Lectura de mente", "is_correct": false },
+            { "id": "b", "text": "Pronóstico afectivo", "is_correct": true },
+            { "id": "c", "text": "Recuerdo emocional", "is_correct": false },
+            { "id": "d", "text": "Registro del humor", "is_correct": false }
+          ],
+          "explanation": "La investigación del pronóstico afectivo muestra que solemos sobreestimar qué tan mal o bien nos sentiremos: el sesgo de impacto."
+        },
+        {
+          "id": "q7",
+          "question": "¿A qué se refiere la 'inteligencia emocional' popularizada por Daniel Goleman?",
+          "options": [
+            { "id": "a", "text": "A memorizar datos sobre emociones", "is_correct": false },
+            { "id": "b", "text": "A un puntaje alto de CI", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A percibir, entender y manejar las emociones propias y ajenas",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A sentir emociones más intensas", "is_correct": false }
+          ],
+          "explanation": "El concepto, estudiado por Salovey y Mayer, se popularizó con el libro de Goleman de 1995."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué teoría clásica dice que la emoción y la reacción corporal ocurren a la vez y de forma independiente?",
+          "options": [
+            { "id": "a", "text": "La teoría de Cannon-Bard", "is_correct": true },
+            { "id": "b", "text": "La teoría de James-Lange", "is_correct": false },
+            { "id": "c", "text": "La teoría de los dos factores", "is_correct": false },
+            { "id": "d", "text": "La teoría de la evaluación cognitiva", "is_correct": false }
+          ],
+          "explanation": "Cannon y Bard sostenían que el cerebro envía la experiencia emocional y las señales corporales en paralelo, no una tras otra."
+        }
+      ]
+    },
+    {
+      "slug": "en-memory-and-learning-trivia",
+      "title": "Memory and Learning Trivia: How We Remember",
+      "description": "Eight questions on memory and learning: the forgetting curve, spaced practice, chunking and why our memories rebuild themselves.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["psychology", "memory", "learning", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which psychologist drew the 'forgetting curve' in 1885 by testing himself with nonsense syllables?",
+          "options": [
+            { "id": "a", "text": "Hermann Ebbinghaus", "is_correct": true },
+            { "id": "b", "text": "Wilhelm Wundt", "is_correct": false },
+            { "id": "c", "text": "William James", "is_correct": false },
+            { "id": "d", "text": "Sigmund Freud", "is_correct": false }
+          ],
+          "explanation": "Ebbinghaus memorized lists like 'wuf' and 'tav' to measure how fast memory fades."
+        },
+        {
+          "id": "q2",
+          "question": "What does the forgetting curve show?",
+          "options": [
+            { "id": "a", "text": "Memory improves forever on its own", "is_correct": false },
+            {
+              "id": "b",
+              "text": "We forget fastest right after learning, then the loss slows down",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Old memories never fade", "is_correct": false },
+            { "id": "d", "text": "Sleep erases memories", "is_correct": false }
+          ],
+          "explanation": "Most of a new fact is lost in the first hours; reviewing it at intervals flattens the curve."
+        },
+        {
+          "id": "q3",
+          "question": "What is spaced repetition?",
+          "options": [
+            { "id": "a", "text": "Studying the night before the exam", "is_correct": false },
+            { "id": "b", "text": "Repeating material aloud in a group", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Reviewing material at increasing intervals over time",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Highlighting the key sentences", "is_correct": false }
+          ],
+          "explanation": "Spreading reviews across days beats cramming — one of the most replicated findings in learning science."
+        },
+        {
+          "id": "q4",
+          "question": "According to George Miller's classic 1956 paper, about how many items can short-term memory hold?",
+          "options": [
+            { "id": "a", "text": "2 items", "is_correct": false },
+            { "id": "b", "text": "7, plus or minus 2", "is_correct": true },
+            { "id": "c", "text": "20 items", "is_correct": false },
+            { "id": "d", "text": "An unlimited number", "is_correct": false }
+          ],
+          "explanation": "Miller's 'Magical Number Seven' estimated that working memory holds around seven chunks."
+        },
+        {
+          "id": "q5",
+          "question": "What is 'chunking' in memory?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Grouping information into meaningful units to hold more of it",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Forgetting on purpose", "is_correct": false },
+            { "id": "c", "text": "Studying while eating", "is_correct": false },
+            { "id": "d", "text": "Writing everything down", "is_correct": false }
+          ],
+          "explanation": "Grouping the digits 1-4-9-2 into '1492' turns four items into one."
+        },
+        {
+          "id": "q6",
+          "question": "What did Elizabeth Loftus's research show about memory?",
+          "options": [
+            { "id": "a", "text": "Memory works like a video recording", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Memories are reconstructed and can be altered by later information",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Children always remember better than adults",
+              "is_correct": false
+            },
+            { "id": "d", "text": "Memories never change once stored", "is_correct": false }
+          ],
+          "explanation": "In the misinformation effect, wording like 'smashed' versus 'hit' changed what witnesses remembered."
+        },
+        {
+          "id": "q7",
+          "question": "What does the 'testing effect' say about studying?",
+          "options": [
+            { "id": "a", "text": "Tests only measure, never teach", "is_correct": false },
+            { "id": "b", "text": "Studying with music improves grades", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Retrieving information from memory strengthens it more than rereading",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Taking breaks ruins concentration", "is_correct": false }
+          ],
+          "explanation": "Quizzing yourself is one of the most effective study techniques — better than rereading notes."
+        },
+        {
+          "id": "q8",
+          "question": "What is the serial position effect?",
+          "options": [
+            {
+              "id": "a",
+              "text": "We remember the first and last items of a list best",
+              "is_correct": true
+            },
+            { "id": "b", "text": "The middle of a list is easiest to recall", "is_correct": false },
+            { "id": "c", "text": "Position in the list doesn't matter", "is_correct": false },
+            { "id": "d", "text": "Only odd-numbered items are remembered", "is_correct": false }
+          ],
+          "explanation": "Primacy favors the items at the start and recency those at the end; the middle gets the worst of it."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-memoria-y-aprendizaje",
+      "title": "Trivia de memoria y aprendizaje: cómo recordamos",
+      "description": "Ocho preguntas sobre memoria y aprendizaje: la curva del olvido, el repaso espaciado y por qué los recuerdos se reconstruyen.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["psicología", "memoria", "aprendizaje", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué psicólogo trazó la 'curva del olvido' en 1885 examinándose a sí mismo con sílabas sin sentido?",
+          "options": [
+            { "id": "a", "text": "Hermann Ebbinghaus", "is_correct": true },
+            { "id": "b", "text": "Wilhelm Wundt", "is_correct": false },
+            { "id": "c", "text": "William James", "is_correct": false },
+            { "id": "d", "text": "Sigmund Freud", "is_correct": false }
+          ],
+          "explanation": "Ebbinghaus memorizó listas como 'wuf' y 'tav' para medir qué tan rápido se desvanece la memoria."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué muestra la curva del olvido?",
+          "options": [
+            { "id": "a", "text": "Que la memoria mejora sola para siempre", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que olvidamos más rápido justo después de aprender y luego la pérdida se frena",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que los recuerdos viejos nunca se borran", "is_correct": false },
+            { "id": "d", "text": "Que dormir borra los recuerdos", "is_correct": false }
+          ],
+          "explanation": "Gran parte de un dato nuevo se pierde en las primeras horas; repasarlo a intervalos aplana la curva."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué es la repetición espaciada?",
+          "options": [
+            { "id": "a", "text": "Estudiar la noche antes del examen", "is_correct": false },
+            { "id": "b", "text": "Repetir el material en voz alta en grupo", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Repasar el material a intervalos crecientes en el tiempo",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Subrayar las frases clave", "is_correct": false }
+          ],
+          "explanation": "Repartir los repasos en varios días supera al estudio intensivo: es uno de los hallazgos más replicados de la ciencia del aprendizaje."
+        },
+        {
+          "id": "q4",
+          "question": "Según el clásico artículo de George Miller de 1956, ¿cuántos elementos retiene la memoria a corto plazo?",
+          "options": [
+            { "id": "a", "text": "2 elementos", "is_correct": false },
+            { "id": "b", "text": "7, más o menos 2", "is_correct": true },
+            { "id": "c", "text": "20 elementos", "is_correct": false },
+            { "id": "d", "text": "Un número ilimitado", "is_correct": false }
+          ],
+          "explanation": "El 'número mágico siete' de Miller estimó que la memoria de trabajo guarda unas siete unidades."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es la 'agrupación' (chunking) en la memoria?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dividir la información en grupos con sentido para retener más",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Olvidar a propósito", "is_correct": false },
+            { "id": "c", "text": "Estudiar mientras comes", "is_correct": false },
+            { "id": "d", "text": "Escribirlo todo", "is_correct": false }
+          ],
+          "explanation": "Agrupar los dígitos 1-4-9-2 como '1492' convierte cuatro elementos en uno."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué mostró la investigación de Elizabeth Loftus sobre la memoria?",
+          "options": [
+            { "id": "a", "text": "Que la memoria graba como una cámara", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que los recuerdos se reconstruyen y la información posterior puede alterarlos",
+              "is_correct": true
+            },
+            {
+              "id": "c",
+              "text": "Que los niños siempre recuerdan mejor que los adultos",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Que los recuerdos nunca cambian una vez guardados",
+              "is_correct": false
+            }
+          ],
+          "explanation": "En el efecto de desinformación, palabras como 'chocaron' frente a 'rozaron' cambiaban lo que los testigos recordaban."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué dice el 'efecto del examen' sobre el estudio?",
+          "options": [
+            { "id": "a", "text": "Que los exámenes solo miden, no enseñan", "is_correct": false },
+            { "id": "b", "text": "Que estudiar con música mejora las notas", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Que recuperar la información de la memoria la refuerza más que releerla",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Que tomar descansos arruina la concentración",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Ponerse a prueba es una de las técnicas de estudio más eficaces, mejor que releer los apuntes."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es el efecto de posición serial?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Que recordamos mejor el primer y el último elemento de una lista",
+              "is_correct": true
+            },
+            {
+              "id": "b",
+              "text": "Que el medio de una lista es lo más fácil de recordar",
+              "is_correct": false
+            },
+            { "id": "c", "text": "Que la posición en la lista no importa", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Que solo se recuerdan los elementos impares",
+              "is_correct": false
+            }
+          ],
+          "explanation": "La primacía favorece el inicio y la recencia el final; el medio se lleva la peor parte."
+        }
+      ]
+    },
+    {
+      "slug": "en-social-psychology-trivia",
+      "title": "Social Psychology Trivia: Why We Follow the Crowd",
+      "description": "Eight questions on social psychology: Milgram's obedience study, the bystander effect, conformity and how groups shape our behavior.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["psychology", "social psychology", "trivia", "behavior"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In Stanley Milgram's 1960s experiments, what did participants do when an authority figure ordered them to continue?",
+          "options": [
+            { "id": "a", "text": "They refused immediately", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Many kept administering what they believed were electric shocks to a stranger",
+              "is_correct": true
+            },
+            { "id": "c", "text": "They attacked the experimenter", "is_correct": false },
+            { "id": "d", "text": "They fell asleep", "is_correct": false }
+          ],
+          "explanation": "About two-thirds reached the maximum shock level — a landmark, and much debated, demonstration of obedience."
+        },
+        {
+          "id": "q2",
+          "question": "What is the bystander effect?",
+          "options": [
+            { "id": "a", "text": "People help more in crowds", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The more witnesses present, the less likely each one is to help",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Bystanders never notice accidents", "is_correct": false },
+            { "id": "d", "text": "Helping only happens at home", "is_correct": false }
+          ],
+          "explanation": "Latané and Darley showed that diffusion of responsibility slows helping in an emergency."
+        },
+        {
+          "id": "q3",
+          "question": "What is cognitive dissonance, per Leon Festinger?",
+          "options": [
+            { "id": "a", "text": "Mental noise caused by loud music", "is_correct": false },
+            { "id": "b", "text": "Forgetting a song stuck in your head", "is_correct": false },
+            {
+              "id": "c",
+              "text": "The discomfort of holding conflicting beliefs or actions, which pushes us to change one",
+              "is_correct": true
+            },
+            { "id": "d", "text": "The ability to multitask", "is_correct": false }
+          ],
+          "explanation": "Festinger's classic studies showed people adjust their beliefs to match their actions when the two clash."
+        },
+        {
+          "id": "q4",
+          "question": "What is the fundamental attribution error?",
+          "options": [
+            { "id": "a", "text": "Blaming your own failures on luck", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Attributing others' behavior to their personality while underestimating the situation",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Forgetting people's names", "is_correct": false },
+            { "id": "d", "text": "Praising yourself for success", "is_correct": false }
+          ],
+          "explanation": "We explain a stranger's rudeness by their character but our own by our circumstances."
+        },
+        {
+          "id": "q5",
+          "question": "In Solomon Asch's conformity experiments, what did many participants do?",
+          "options": [
+            { "id": "a", "text": "Always gave the correct answer", "is_correct": false },
+            { "id": "b", "text": "Left the room", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Gave a clearly wrong answer about line lengths to match the group",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Argued with everyone", "is_correct": false }
+          ],
+          "explanation": "With confederates all picking the wrong line, many participants conformed at least once."
+        },
+        {
+          "id": "q6",
+          "question": "What is social loafing?",
+          "options": [
+            { "id": "a", "text": "Working harder in teams", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Exerting less effort when working in a group than alone",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A type of bread", "is_correct": false },
+            { "id": "d", "text": "Being lazy only at home", "is_correct": false }
+          ],
+          "explanation": "When individual output is hard to identify, some people pull less — also called the Ringelmann effect."
+        },
+        {
+          "id": "q7",
+          "question": "What did Sherif's Robbers Cave experiment (1954) show about groups?",
+          "options": [
+            { "id": "a", "text": "Groups always cooperate", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Competition between groups breeds hostility, and shared goals reduce it",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Children cannot form groups", "is_correct": false },
+            { "id": "d", "text": "Leaders are unnecessary", "is_correct": false }
+          ],
+          "explanation": "Two groups of boys at a camp became rivals when competing and reconciled through superordinate goals."
+        },
+        {
+          "id": "q8",
+          "question": "What is the 'foot-in-the-door' technique?",
+          "options": [
+            { "id": "a", "text": "Literally blocking a door", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Getting agreement to a big request by first securing a small one",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Entering without permission", "is_correct": false },
+            { "id": "d", "text": "A sales tax trick", "is_correct": false }
+          ],
+          "explanation": "Freedman and Fraser (1966) found that agreeing to a small sign made homeowners more likely to accept a huge billboard."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-psicologia-social",
+      "title": "Trivia de psicología social: por qué seguimos al grupo",
+      "description": "Ocho preguntas sobre psicología social: el experimento de Milgram, el efecto espectador, la conformidad y cómo el grupo nos moldea.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["psicología", "psicología social", "trivia", "conducta"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En los experimentos de Stanley Milgram de los años sesenta, ¿qué hicieron los participantes cuando una autoridad les ordenaba seguir?",
+          "options": [
+            { "id": "a", "text": "Se negaban de inmediato", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Muchos siguieron administrando lo que creían descargas eléctricas a un desconocido",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Atacaron al experimentador", "is_correct": false },
+            { "id": "d", "text": "Se quedaron dormidos", "is_correct": false }
+          ],
+          "explanation": "Cerca de dos tercios llegó al nivel máximo de descarga: una demostración histórica —y muy debatida— de obediencia."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es el efecto espectador?",
+          "options": [
+            { "id": "a", "text": "Que la gente ayuda más entre multitudes", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que cuantos más testigos hay, menos probable es que cada uno ayude",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que los testigos nunca ven los accidentes", "is_correct": false },
+            { "id": "d", "text": "Que la ayuda solo ocurre en casa", "is_correct": false }
+          ],
+          "explanation": "Latané y Darley mostraron que la difusión de la responsabilidad frena la ayuda en una emergencia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué es la disonancia cognitiva, según Leon Festinger?",
+          "options": [
+            { "id": "a", "text": "Ruido mental causado por la música alta", "is_correct": false },
+            { "id": "b", "text": "Olvidar una canción pegajosa", "is_correct": false },
+            {
+              "id": "c",
+              "text": "La incomodidad de sostener creencias o acciones contradictorias, que nos empuja a cambiar una",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "La capacidad de hacer varias cosas a la vez",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Los estudios clásicos de Festinger mostraron que la gente ajusta sus creencias para que coincidan con sus actos cuando chocan."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué es el error fundamental de atribución?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Culpar a la suerte de los propios fracasos",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Atribuir la conducta de otros a su personalidad y subestimar la situación",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Olvidar los nombres de la gente", "is_correct": false },
+            { "id": "d", "text": "Felicitarse por el éxito propio", "is_correct": false }
+          ],
+          "explanation": "Explicamos la grosería de un desconocido por su carácter, pero la nuestra por las circunstancias."
+        },
+        {
+          "id": "q5",
+          "question": "En los experimentos de conformidad de Solomon Asch, ¿qué hacían muchos participantes?",
+          "options": [
+            { "id": "a", "text": "Siempre daban la respuesta correcta", "is_correct": false },
+            { "id": "b", "text": "Salían de la sala", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Daban una respuesta claramente errónea sobre la longitud de unas líneas para seguir al grupo",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Discutían con todos", "is_correct": false }
+          ],
+          "explanation": "Cuando los cómplices señalaban la línea equivocada, muchos participantes se conformaron al menos una vez."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué es el ocio social (social loafing)?",
+          "options": [
+            { "id": "a", "text": "Trabajar más en equipo", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Esforzarse menos al trabajar en grupo que a solas",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una clase de pan", "is_correct": false },
+            { "id": "d", "text": "Ser perezoso solo en casa", "is_correct": false }
+          ],
+          "explanation": "Cuando el aporte individual no es identificable, algunos tiran menos: también se llama efecto Ringelmann."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué demostró el experimento de la Cueva de los Ladrones de Sherif (1954) sobre los grupos?",
+          "options": [
+            { "id": "a", "text": "Que los grupos siempre cooperan", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que la competencia entre grupos genera hostilidad y las metas compartidas la reducen",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que los niños no pueden formar grupos", "is_correct": false },
+            { "id": "d", "text": "Que los líderes sobran", "is_correct": false }
+          ],
+          "explanation": "Dos grupos de niños en un campamento se hicieron rivales al competir y se reconciliaron con metas superordinadas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué es la técnica del 'pie en la puerta'?",
+          "options": [
+            { "id": "a", "text": "Bloquear una puerta literalmente", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Conseguir el sí a una petición grande tras asegurar antes una pequeña",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Entrar sin permiso", "is_correct": false },
+            { "id": "d", "text": "Un truco de impuestos", "is_correct": false }
+          ],
+          "explanation": "Freedman y Fraser (1966) hallaron que aceptar un letrero pequeño hacía más probable aceptar un cartel enorme en el jardín."
+        }
+      ]
+    },
+    {
+      "slug": "en-psychology-myths-trivia",
+      "title": "Psychology Myths Trivia: Facts vs. Folklore",
+      "description": "Eight questions on popular psychology myths: the 10% brain idea, left-brained people, the Mozart effect and what research actually shows.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "science",
+      "tags": ["psychology", "myths", "trivia", "science"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A famous myth says we use only 10% of our brain. What does science say?",
+          "options": [
+            { "id": "a", "text": "The myth is correct", "is_correct": false },
+            {
+              "id": "b",
+              "text": "It's a myth — virtually all of the brain has a known function",
+              "is_correct": true
+            },
+            { "id": "c", "text": "We actually use only 5%", "is_correct": false },
+            { "id": "d", "text": "It only applies to geniuses", "is_correct": false }
+          ],
+          "explanation": "Brain imaging shows activity across virtually all regions; no part is known to be completely idle."
+        },
+        {
+          "id": "q2",
+          "question": "The idea that people are 'left-brained' (logical) or 'right-brained' (creative) is...",
+          "options": [
+            { "id": "a", "text": "Solid science", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A myth — both hemispheres work together on almost every task",
+              "is_correct": true
+            },
+            { "id": "c", "text": "True only for artists", "is_correct": false },
+            { "id": "d", "text": "Proven by Einstein", "is_correct": false }
+          ],
+          "explanation": "Hemispheres specialize in some functions, but personality is not split between them."
+        },
+        {
+          "id": "q3",
+          "question": "What does research say about the 'Mozart effect' — that listening to Mozart makes children smarter?",
+          "options": [
+            { "id": "a", "text": "It doubles IQ", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The effect was small, temporary and misreported — it doesn't raise intelligence",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It only works in Vienna", "is_correct": false },
+            { "id": "d", "text": "It is the basis of music school", "is_correct": false }
+          ],
+          "explanation": "A 1993 study found a brief improvement on one spatial task; the media inflated it into a brain-boosting myth."
+        },
+        {
+          "id": "q4",
+          "question": "Can a polygraph ('lie detector') reliably detect lies?",
+          "options": [
+            { "id": "a", "text": "Yes, 100% of the time", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No — it measures physiological arousal, which is not the same as lying",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Only in the movies", "is_correct": false },
+            { "id": "d", "text": "Only with children", "is_correct": false }
+          ],
+          "explanation": "Polygraphs track sweating and heart rate; truthful but nervous people can fail, and calm liars can pass."
+        },
+        {
+          "id": "q5",
+          "question": "Do opposites attract, according to relationship research?",
+          "options": [
+            { "id": "a", "text": "Always", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Research mostly finds the opposite — similarity predicts attraction and stability",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Only in romantic comedies", "is_correct": false },
+            { "id": "d", "text": "Only after age 40", "is_correct": false }
+          ],
+          "explanation": "Decades of studies show we tend to pair with people similar in values, background and personality."
+        },
+        {
+          "id": "q6",
+          "question": "Does venting anger — hitting a pillow, yelling — reliably reduce aggression?",
+          "options": [
+            { "id": "a", "text": "Yes, it 'releases' rage like steam", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Studies suggest it can maintain or even increase anger",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Only on Mondays", "is_correct": false },
+            { "id": "d", "text": "It cures stress completely", "is_correct": false }
+          ],
+          "explanation": "The catharsis hypothesis was largely refuted: venting rehearses anger rather than draining it."
+        },
+        {
+          "id": "q7",
+          "question": "In 1957 James Vicary claimed subliminal ads ('Drink Coke') tripled sales in a cinema. What happened later?",
+          "options": [
+            { "id": "a", "text": "It was confirmed in laboratories", "is_correct": false },
+            {
+              "id": "b",
+              "text": "He admitted the data were fabricated — subliminal ads don't control behavior",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It became federal law", "is_correct": false },
+            { "id": "d", "text": "It works only with popcorn", "is_correct": false }
+          ],
+          "explanation": "The 'experiment' was a marketing hoax; later studies found subliminal cues have weak, fleeting effects at most."
+        },
+        {
+          "id": "q8",
+          "question": "Do students learn better when teaching matches their 'learning style' (visual, auditory, kinesthetic)?",
+          "options": [
+            { "id": "a", "text": "Yes, it is proven", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No — reviews of studies find that matching styles doesn't improve learning",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Only for languages", "is_correct": false },
+            { "id": "d", "text": "Only in children", "is_correct": false }
+          ],
+          "explanation": "A 2008 review by Pashler and colleagues found no evidence for the meshing hypothesis, though the idea stays popular."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mitos-de-la-psicologia",
+      "title": "Trivia de mitos de la psicología: hechos contra el folclor",
+      "description": "Ocho preguntas sobre mitos de la psicología: el 10% del cerebro, los hemisferios dominantes, el efecto Mozart y lo que dice la ciencia.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "science",
+      "tags": ["psicología", "mitos", "trivia", "ciencia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un famoso mito dice que solo usamos el 10% del cerebro. ¿Qué dice la ciencia?",
+          "options": [
+            { "id": "a", "text": "Que el mito es correcto", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que es un mito: prácticamente todo el cerebro tiene una función conocida",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que en realidad usamos solo el 5%", "is_correct": false },
+            { "id": "d", "text": "Que solo aplica a los genios", "is_correct": false }
+          ],
+          "explanation": "Las imágenes cerebrales muestran actividad en casi todas las regiones; no se conoce ninguna parte completamente inactiva."
+        },
+        {
+          "id": "q2",
+          "question": "La idea de que hay personas de 'hemisferio izquierdo' (lógicas) o 'derecho' (creativas) es...",
+          "options": [
+            { "id": "a", "text": "Ciencia sólida", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un mito: ambos hemisferios trabajan juntos en casi toda tarea",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Cierta solo en artistas", "is_correct": false },
+            { "id": "d", "text": "Probada por Einstein", "is_correct": false }
+          ],
+          "explanation": "Los hemisferios se especializan en algunas funciones, pero la personalidad no se reparte entre ellos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dice la investigación sobre el 'efecto Mozart': que escuchar a Mozart vuelve más listos a los niños?",
+          "options": [
+            { "id": "a", "text": "Que duplica el CI", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Que el efecto era pequeño, temporal y mal difundido: no aumenta la inteligencia",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Que solo funciona en Viena", "is_correct": false },
+            { "id": "d", "text": "Que es la base de la escuela de música", "is_correct": false }
+          ],
+          "explanation": "Un estudio de 1993 halló una mejora breve en una tarea espacial; los medios la inflaron hasta convertirla en mito."
+        },
+        {
+          "id": "q4",
+          "question": "¿Puede un polígrafo ('detector de mentiras') detectar mentiras con fiabilidad?",
+          "options": [
+            { "id": "a", "text": "Sí, el 100% de las veces", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No: mide la activación fisiológica, que no es lo mismo que mentir",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Solo en las películas", "is_correct": false },
+            { "id": "d", "text": "Solo con niños", "is_correct": false }
+          ],
+          "explanation": "El polígrafo registra sudor y ritmo cardiaco; una persona honesta y nerviosa puede fallar y un mentiroso tranquilo pasar."
+        },
+        {
+          "id": "q5",
+          "question": "Según la investigación sobre relaciones, ¿los opuestos se atraen?",
+          "options": [
+            { "id": "a", "text": "Siempre", "is_correct": false },
+            {
+              "id": "b",
+              "text": "La investigación encuentra casi lo contrario: la similitud predice atracción y estabilidad",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Solo en las comedias románticas", "is_correct": false },
+            { "id": "d", "text": "Solo después de los 40", "is_correct": false }
+          ],
+          "explanation": "Décadas de estudios muestran que solemos emparejarnos con personas parecidas en valores, origen y personalidad."
+        },
+        {
+          "id": "q6",
+          "question": "¿Desahogar la ira —golpear un cojín, gritar— reduce de forma fiable la agresión?",
+          "options": [
+            { "id": "a", "text": "Sí, 'libera' la rabia como vapor", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Los estudios sugieren que puede mantenerla o incluso aumentarla",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Solo los lunes", "is_correct": false },
+            { "id": "d", "text": "Cura el estrés por completo", "is_correct": false }
+          ],
+          "explanation": "La hipótesis de la catarsis quedó en gran parte refutada: desahogarse ensaya la ira en vez de drenarla."
+        },
+        {
+          "id": "q7",
+          "question": "En 1957 James Vicary afirmó que anuncios subliminales ('Bebe Coca-Cola') triplicaron las ventas en un cine. ¿Qué pasó después?",
+          "options": [
+            { "id": "a", "text": "Se confirmó en laboratorios", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Admitió que los datos eran inventados: la publicidad subliminal no controla la conducta",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Se convirtió en ley federal", "is_correct": false },
+            { "id": "d", "text": "Solo funciona con palomitas", "is_correct": false }
+          ],
+          "explanation": "El 'experimento' fue un engaño de marketing; estudios posteriores hallaron que las señales subliminales tienen efectos débiles y pasajeros a lo sumo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Aprenden mejor los estudiantes cuando la enseñanza coincide con su 'estilo de aprendizaje' (visual, auditivo, kinestésico)?",
+          "options": [
+            { "id": "a", "text": "Sí, está probado", "is_correct": false },
+            {
+              "id": "b",
+              "text": "No: las revisiones de estudios encuentran que ajustar el estilo no mejora el aprendizaje",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Solo con idiomas", "is_correct": false },
+            { "id": "d", "text": "Solo en niños", "is_correct": false }
+          ],
+          "explanation": "Una revisión de 2008 de Pashler y sus colegas no halló evidencia de la hipótesis de ajuste, aunque la idea sigue popular."
+        }
+      ]
+    }
+  ]
+}
