@@ -1,9 +1,11 @@
 // Aplica las migraciones de supabase/migrations con la CLI oficial de Supabase
 // (`db push --db-url`). Requiere SUPABASE_DB_URL en .env.local (no se commitea).
 // Nota: el remoto ya tiene las migraciones aplicadas a mano, así que la primera
-// corrida requiere una sola vez:
-//   supabase migration repair --status applied <versiones>
+// corrida requiere una sola vez (con SUPABASE_DB_URL exportada en el shell):
+//   npx -y supabase@latest migration repair --db-url "$SUPABASE_DB_URL" --status applied <versiones>
 // Este script no lo automatiza.
+// La contraseña viaja en los argumentos del proceso: riesgo aceptado en máquina
+// de un solo usuario; si el repo pasa a multi-usuario, se revisa.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
