@@ -18,7 +18,7 @@ function tableResult(result: DbResult, calls: Call[]) {
   const builder: Record<string, unknown> & { then: (resolve: (v: DbResult) => void) => void } = {
     then: (resolve) => resolve(result),
   };
-  for (const method of ['select', 'eq', 'gte', 'not', 'in', 'order', 'limit']) {
+  for (const method of ['select', 'eq', 'gte', 'not', 'in', 'order', 'limit', 'range']) {
     builder[method] = (...args: unknown[]) => {
       calls.push({ method, args });
       return builder;
@@ -45,18 +45,26 @@ function profileRow(id: string) {
   };
 }
 
-/** Enchufa el mock de `from()` y devuelve las llamadas registradas por tabla. */
-function mockDb({ sessions, profiles }: { sessions: unknown[]; profiles: unknown[] }) {
+const ok = (data: unknown): DbResult => ({ data, error: null });
+const fail = (): DbResult => ({ data: null, error: new Error('boom') });
+
+/**
+ * Enchufa el mock de `from()` y devuelve las llamadas por tabla.
+ * `sessionPages` se consume página a página: cada `from('game_sessions')`
+ * resuelve la siguiente, o `{data: []}` si ya no quedan.
+ */
+function mockDb({ sessionPages, profiles }: { sessionPages: DbResult[]; profiles: DbResult }) {
   const calls: Record<'game_sessions' | 'profiles', Call[]> = {
     game_sessions: [],
     profiles: [],
   };
+  const pages = [...sessionPages];
   mocks.from.mockImplementation((table: string) => {
     if (table === 'game_sessions') {
-      return tableResult({ data: sessions, error: null }, calls.game_sessions);
+      return tableResult(pages.shift() ?? ok([]), calls.game_sessions);
     }
     if (table === 'profiles') {
-      return tableResult({ data: profiles, error: null }, calls.profiles);
+      return tableResult(profiles, calls.profiles);
     }
     throw new Error(`tabla inesperada: ${table}`);
   });
@@ -70,12 +78,14 @@ beforeEach(() => {
 describe('getWeeklyLeaderboard', () => {
   it('agrega dos sesiones del mismo jugador con la fórmula del trigger', async () => {
     mockDb({
-      sessions: [
-        { player_id: 'u1', score: 10, max_score: 10 }, // perfecta: 35
-        { player_id: 'u1', score: 4, max_score: 10 }, // normal: 10
-        { player_id: 'u2', score: 10, max_score: 10 }, // perfecta: 35
+      sessionPages: [
+        ok([
+          { player_id: 'u1', score: 10, max_score: 10 }, // perfecta: 35
+          { player_id: 'u1', score: 4, max_score: 10 }, // normal: 10
+          { player_id: 'u2', score: 10, max_score: 10 }, // perfecta: 35
+        ]),
       ],
-      profiles: [profileRow('u1'), profileRow('u2')],
+      profiles: ok([profileRow('u1'), profileRow('u2')]),
     });
 
     const entries = await getWeeklyLeaderboard(50);
@@ -88,11 +98,13 @@ describe('getWeeklyLeaderboard', () => {
 
   it('filtra en la query la ventana de 7 días y los player_id nulos', async () => {
     const calls = mockDb({
-      sessions: [
-        { player_id: null, score: 10, max_score: 10 }, // defensa: aunque llegara, se salta
-        { player_id: 'u1', score: 3, max_score: 10 },
+      sessionPages: [
+        ok([
+          { player_id: null, score: 10, max_score: 10 }, // defensa: aunque llegara, se salta
+          { player_id: 'u1', score: 3, max_score: 10 },
+        ]),
       ],
-      profiles: [profileRow('u1')],
+      profiles: ok([profileRow('u1')]),
     });
 
     const entries = await getWeeklyLeaderboard(50);
@@ -111,14 +123,39 @@ describe('getWeeklyLeaderboard', () => {
     expect(Math.abs(since - expectedSince)).toBeLessThan(10_000);
   });
 
+  it('barre todas las páginas de la semana, no solo la primera', async () => {
+    const fullPage = Array.from({ length: 1000 }, () => ({
+      player_id: 'u1',
+      score: 1,
+      max_score: 10,
+    }));
+    const calls = mockDb({
+      sessionPages: [ok(fullPage), ok([{ player_id: 'u2', score: 10, max_score: 10 }])],
+      profiles: ok([profileRow('u1'), profileRow('u2')]),
+    });
+
+    const entries = await getWeeklyLeaderboard(50);
+
+    const ranges = calls.game_sessions.filter((call) => call.method === 'range');
+    expect(ranges).toEqual([
+      { method: 'range', args: [0, 999] },
+      { method: 'range', args: [1000, 1999] },
+    ]);
+    expect(calls.game_sessions).toContainEqual({ method: 'order', args: ['id'] });
+    expect(entries[0]).toMatchObject({ rank: 1, quizzesPlayed: 1000 });
+    expect(entries[1]).toMatchObject({ rank: 2, quizzesPlayed: 1 });
+  });
+
   it('respeta el limit y solo pide los perfiles del top', async () => {
     const calls = mockDb({
-      sessions: [
-        { player_id: 'u1', score: 1, max_score: 10 },
-        { player_id: 'u2', score: 1, max_score: 10 },
-        { player_id: 'u3', score: 1, max_score: 10 },
+      sessionPages: [
+        ok([
+          { player_id: 'u1', score: 1, max_score: 10 },
+          { player_id: 'u2', score: 1, max_score: 10 },
+          { player_id: 'u3', score: 1, max_score: 10 },
+        ]),
       ],
-      profiles: [profileRow('u1'), profileRow('u2')],
+      profiles: ok([profileRow('u1'), profileRow('u2')]),
     });
 
     const entries = await getWeeklyLeaderboard(2);
@@ -130,9 +167,24 @@ describe('getWeeklyLeaderboard', () => {
   });
 
   it('sin sesiones en la semana devuelve [] y no consulta profiles', async () => {
-    const calls = mockDb({ sessions: [], profiles: [] });
+    const calls = mockDb({ sessionPages: [ok([])], profiles: ok([]) });
 
     expect(await getWeeklyLeaderboard(50)).toEqual([]);
     expect(calls.profiles).toHaveLength(0);
+  });
+
+  it('propaga el error si falla la consulta de sesiones', async () => {
+    mockDb({ sessionPages: [fail()], profiles: ok([]) });
+
+    await expect(getWeeklyLeaderboard(50)).rejects.toThrow();
+  });
+
+  it('propaga el error si falla la consulta de perfiles', async () => {
+    mockDb({
+      sessionPages: [ok([{ player_id: 'u1', score: 1, max_score: 10 }])],
+      profiles: fail(),
+    });
+
+    await expect(getWeeklyLeaderboard(50)).rejects.toThrow();
   });
 });

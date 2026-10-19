@@ -56,9 +56,19 @@ export default async function LocalizedLeaderboardPage({
   const isFriends = scope === 'friends';
   const isWeekly = !isFriends && tab === 'semanal';
   const supabase = await createClient();
+  // `null` en el board semanal = la consulta falló: se muestra aviso con
+  // reintento, no el estado vacío (igual que `friendsFailed`).
+  let weeklyFailed = false;
   const [{ data: auth }, leaderboard] = await Promise.all([
     supabase.auth.getUser(),
-    isFriends ? Promise.resolve(null) : isWeekly ? getWeeklyLeaderboard(50) : getLeaderboard(50),
+    isFriends
+      ? Promise.resolve(null)
+      : isWeekly
+        ? getWeeklyLeaderboard(50).catch(() => {
+            weeklyFailed = true;
+            return null;
+          })
+        : getLeaderboard(50),
   ]);
   const currentUser = auth.user;
 
@@ -69,15 +79,17 @@ export default async function LocalizedLeaderboardPage({
   let friendsFailed = false;
 
   if (!isFriends) {
-    entries = (leaderboard ?? []).map((entry) => ({
-      rank: entry.rank,
-      id: entry.user.id,
-      username: entry.user.username,
-      name: entry.user.display_name || entry.user.username,
-      points: entry.points,
-      quizzesPlayed: entry.quizzesPlayed,
-      isMe: entry.user.id === currentUser?.id,
-    }));
+    entries = weeklyFailed
+      ? null
+      : (leaderboard ?? []).map((entry) => ({
+          rank: entry.rank,
+          id: entry.user.id,
+          username: entry.user.username,
+          name: entry.user.display_name || entry.user.username,
+          points: entry.points,
+          quizzesPlayed: entry.quizzesPlayed,
+          isMe: entry.user.id === currentUser?.id,
+        }));
   } else if (!currentUser) {
     entries = null;
   } else {
@@ -184,6 +196,27 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
+      {isWeekly && entries === null && (
+        <section className="surface-card mt-6 p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="eyebrow">{locale === 'es' ? 'Semanal' : 'Weekly'}</p>
+              <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                {locale === 'es'
+                  ? 'No pudimos cargar el ranking semanal.'
+                  : 'We could not load the weekly leaderboard.'}
+              </h2>
+            </div>
+            <Link
+              href={tabHref('weekly')}
+              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+            >
+              {locale === 'es' ? 'Reintentar' : 'Try again'}
+            </Link>
+          </div>
+        </section>
+      )}
+
       {isWeekly && entries !== null && entries.length === 0 && (
         <section className="surface-card mt-6 p-6">
           <p className="eyebrow">{locale === 'es' ? 'Semanal' : 'Weekly'}</p>
@@ -271,7 +304,7 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
-      {!isFriends && !currentEntry && (!isWeekly || !currentUser) && (
+      {!isFriends && entries !== null && !currentEntry && (!isWeekly || !currentUser) && (
         <section className="surface-card mt-10 p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
