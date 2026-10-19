@@ -7,9 +7,7 @@ vi.mock('@/actions/quiz.actions', () => ({
 }));
 
 vi.mock('@/lib/quiz/reveal-client', () => ({
-  requestAnswerVerdict: vi
-    .fn()
-    .mockResolvedValue({ isCorrect: true, correctOptionId: 'q1a' }),
+  requestAnswerVerdict: vi.fn().mockResolvedValue({ isCorrect: true, correctOptionId: 'q1a' }),
   requestEliminatedOptions: vi.fn().mockResolvedValue(null),
 }));
 
