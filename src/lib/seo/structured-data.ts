@@ -149,6 +149,7 @@ export function quizNode({
           },
         }
       : {}),
+    author: { '@id': `${SITE_URL}/#organization` },
     publisher: { '@id': `${SITE_URL}/#organization` },
     isPartOf: { '@id': `${SITE_URL}/#website` },
   };
