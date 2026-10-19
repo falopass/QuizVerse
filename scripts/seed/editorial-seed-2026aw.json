@@ -1,0 +1,1055 @@
+{
+  "$comment": "Editorial seed 2026aw: five es/en trivia pairs on technology (AI, robotics, smartphones, social media, gadgets). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-artificial-intelligence-trivia",
+      "title": "Artificial Intelligence Trivia: From Turing to Transformers",
+      "description": "Eight questions on the milestones of artificial intelligence: Turing, Dartmouth, Deep Blue, AlphaGo and the transformer era.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "trivia", "artificial intelligence", "ai"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who proposed the 'imitation game' as a test of machine intelligence in 1950?",
+          "options": [
+            { "id": "a", "text": "Alan Turing", "is_correct": true },
+            { "id": "b", "text": "John von Neumann", "is_correct": false },
+            { "id": "c", "text": "Claude Shannon", "is_correct": false },
+            { "id": "d", "text": "Norbert Wiener", "is_correct": false }
+          ],
+          "explanation": "Turing opened his 1950 paper 'Computing Machinery and Intelligence' with the imitation game."
+        },
+        {
+          "id": "q2",
+          "question": "Where was the term 'artificial intelligence' coined in 1956?",
+          "options": [
+            { "id": "a", "text": "MIT", "is_correct": false },
+            { "id": "b", "text": "Stanford University", "is_correct": false },
+            { "id": "c", "text": "Dartmouth College", "is_correct": true },
+            { "id": "d", "text": "Bell Labs", "is_correct": false }
+          ],
+          "explanation": "John McCarthy used it in the proposal for the Dartmouth summer research workshop."
+        },
+        {
+          "id": "q3",
+          "question": "Which IBM computer defeated world chess champion Garry Kasparov in 1997?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": false },
+            { "id": "b", "text": "Deep Blue", "is_correct": true },
+            { "id": "c", "text": "Deep Thought", "is_correct": false },
+            { "id": "d", "text": "AlphaZero", "is_correct": false }
+          ],
+          "explanation": "Deep Blue won the six-game rematch 3.5–2.5 in May 1997."
+        },
+        {
+          "id": "q4",
+          "question": "Which IBM system won the quiz show Jeopardy! in 2011?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": true },
+            { "id": "b", "text": "Deep Blue", "is_correct": false },
+            { "id": "c", "text": "ELIZA", "is_correct": false },
+            { "id": "d", "text": "Siri", "is_correct": false }
+          ],
+          "explanation": "Watson beat champions Ken Jennings and Brad Rutter in a televised match."
+        },
+        {
+          "id": "q5",
+          "question": "Which DeepMind program beat Go champion Lee Sedol in 2016?",
+          "options": [
+            { "id": "a", "text": "Stockfish", "is_correct": false },
+            { "id": "b", "text": "MuZero", "is_correct": false },
+            { "id": "c", "text": "AlphaZero", "is_correct": false },
+            { "id": "d", "text": "AlphaGo", "is_correct": true }
+          ],
+          "explanation": "AlphaGo won the five-game match in Seoul 4–1, a milestone for Go, long thought beyond computers."
+        },
+        {
+          "id": "q6",
+          "question": "Which 2017 paper introduced the transformer architecture behind modern chatbots?",
+          "options": [
+            { "id": "a", "text": "'Attention Is All You Need'", "is_correct": true },
+            { "id": "b", "text": "'Generative Adversarial Nets'", "is_correct": false },
+            { "id": "c", "text": "'ImageNet Classification with Deep CNNs'", "is_correct": false },
+            {
+              "id": "d",
+              "text": "'Playing Atari with Deep Reinforcement Learning'",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Eight Google researchers proposed the transformer, the basis of GPT and other language models."
+        },
+        {
+          "id": "q7",
+          "question": "How many parameters did OpenAI's GPT-3 have when it was released in 2020?",
+          "options": [
+            { "id": "a", "text": "1.5 billion", "is_correct": false },
+            { "id": "b", "text": "17 billion", "is_correct": false },
+            { "id": "c", "text": "175 billion", "is_correct": true },
+            { "id": "d", "text": "1.5 trillion", "is_correct": false }
+          ],
+          "explanation": "GPT-3's largest version had 175 billion parameters, about 100 times GPT-2's."
+        },
+        {
+          "id": "q8",
+          "question": "Which three researchers shared the 2018 Turing Award for their work on deep learning?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Demis Hassabis, Shane Legg and Mustafa Suleyman",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Geoffrey Hinton, Yann LeCun and Yoshua Bengio",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Fei-Fei Li, Andrew Ng and Sebastian Thrun", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Sam Altman, Greg Brockman and Ilya Sutskever",
+              "is_correct": false
+            }
+          ],
+          "explanation": "The ACM honoured the trio sometimes called the 'godfathers of deep learning'."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-inteligencia-artificial",
+      "title": "Trivia de inteligencia artificial: de Turing a los transformers",
+      "description": "Ocho preguntas sobre los hitos de la inteligencia artificial: Turing, Dartmouth, Deep Blue, AlphaGo y la era transformer.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnología", "trivia", "inteligencia artificial", "ia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién propuso el 'juego de imitación' como prueba de inteligencia en una máquina en 1950?",
+          "options": [
+            { "id": "a", "text": "Alan Turing", "is_correct": true },
+            { "id": "b", "text": "John von Neumann", "is_correct": false },
+            { "id": "c", "text": "Claude Shannon", "is_correct": false },
+            { "id": "d", "text": "Norbert Wiener", "is_correct": false }
+          ],
+          "explanation": "Turing abrió su artículo de 1950 'Computing Machinery and Intelligence' con el juego de imitación."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde se acuñó el término 'inteligencia artificial' en 1956?",
+          "options": [
+            { "id": "a", "text": "MIT", "is_correct": false },
+            { "id": "b", "text": "Universidad de Stanford", "is_correct": false },
+            { "id": "c", "text": "Dartmouth College", "is_correct": true },
+            { "id": "d", "text": "Laboratorios Bell", "is_correct": false }
+          ],
+          "explanation": "John McCarthy lo usó en la propuesta del taller de verano de Dartmouth."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué computadora de IBM venció al campeón mundial de ajedrez Garry Kasparov en 1997?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": false },
+            { "id": "b", "text": "Deep Blue", "is_correct": true },
+            { "id": "c", "text": "Deep Thought", "is_correct": false },
+            { "id": "d", "text": "AlphaZero", "is_correct": false }
+          ],
+          "explanation": "Deep Blue ganó la revancha de seis partidas 3,5–2,5 en mayo de 1997."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué sistema de IBM ganó el concurso televisivo Jeopardy! en 2011?",
+          "options": [
+            { "id": "a", "text": "Watson", "is_correct": true },
+            { "id": "b", "text": "Deep Blue", "is_correct": false },
+            { "id": "c", "text": "ELIZA", "is_correct": false },
+            { "id": "d", "text": "Siri", "is_correct": false }
+          ],
+          "explanation": "Watson derrotó a los campeones Ken Jennings y Brad Rutter en un duelo televisado."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué programa de DeepMind venció al campeón de Go Lee Sedol en 2016?",
+          "options": [
+            { "id": "a", "text": "Stockfish", "is_correct": false },
+            { "id": "b", "text": "MuZero", "is_correct": false },
+            { "id": "c", "text": "AlphaZero", "is_correct": false },
+            { "id": "d", "text": "AlphaGo", "is_correct": true }
+          ],
+          "explanation": "AlphaGo ganó la serie de cinco partidas en Seúl por 4–1, un hito en un juego que se creía fuera del alcance de las máquinas."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué artículo de 2017 introdujo la arquitectura transformer detrás de los chatbots actuales?",
+          "options": [
+            { "id": "a", "text": "'Attention Is All You Need'", "is_correct": true },
+            { "id": "b", "text": "'Generative Adversarial Nets'", "is_correct": false },
+            { "id": "c", "text": "'ImageNet Classification with Deep CNNs'", "is_correct": false },
+            {
+              "id": "d",
+              "text": "'Playing Atari with Deep Reinforcement Learning'",
+              "is_correct": false
+            }
+          ],
+          "explanation": "Ocho investigadores de Google propusieron el transformer, la base de GPT y otros modelos de lenguaje."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos parámetros tenía GPT-3 de OpenAI cuando se lanzó en 2020?",
+          "options": [
+            { "id": "a", "text": "1.500 millones", "is_correct": false },
+            { "id": "b", "text": "17.000 millones", "is_correct": false },
+            { "id": "c", "text": "175.000 millones", "is_correct": true },
+            { "id": "d", "text": "1,5 billones", "is_correct": false }
+          ],
+          "explanation": "La versión más grande de GPT-3 tenía 175.000 millones de parámetros, unas 100 veces más que GPT-2."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué tres investigadores compartieron el Premio Turing 2018 por el aprendizaje profundo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Demis Hassabis, Shane Legg y Mustafa Suleyman",
+              "is_correct": false
+            },
+            {
+              "id": "b",
+              "text": "Geoffrey Hinton, Yann LeCun y Yoshua Bengio",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Fei-Fei Li, Andrew Ng y Sebastian Thrun", "is_correct": false },
+            { "id": "d", "text": "Sam Altman, Greg Brockman e Ilya Sutskever", "is_correct": false }
+          ],
+          "explanation": "La ACM distinguió al trío a veces llamado los 'padrinos del aprendizaje profundo'."
+        }
+      ]
+    },
+    {
+      "slug": "en-robotics-trivia",
+      "title": "Robotics Trivia: From Unimate to Mars Rovers",
+      "description": "Eight questions on the machines that moved robotics forward, from the first industrial arm to the rovers on Mars.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "trivia", "robotics", "robots"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which machine, installed at a General Motors plant in 1961, was the first industrial robot?",
+          "options": [
+            { "id": "a", "text": "PUMA", "is_correct": false },
+            { "id": "b", "text": "Unimate", "is_correct": true },
+            { "id": "c", "text": "Shakey", "is_correct": false },
+            { "id": "d", "text": "AIBO", "is_correct": false }
+          ],
+          "explanation": "Unimate lifted hot die-cast parts on the assembly line at the GM plant in Ewing, New Jersey."
+        },
+        {
+          "id": "q2",
+          "question": "In which 1920 play did the word 'robot' first appear?",
+          "options": [
+            { "id": "a", "text": "Metropolis", "is_correct": false },
+            { "id": "b", "text": "The War of the Worlds", "is_correct": false },
+            { "id": "c", "text": "R.U.R. (Rossum's Universal Robots)", "is_correct": true },
+            { "id": "d", "text": "Frankenstein", "is_correct": false }
+          ],
+          "explanation": "Karel Čapek's play took the name from 'robota', Czech for forced labour."
+        },
+        {
+          "id": "q3",
+          "question": "Which 1942 Isaac Asimov short story introduced the Three Laws of Robotics?",
+          "options": [
+            { "id": "a", "text": "'Runaround'", "is_correct": true },
+            { "id": "b", "text": "'Robbie'", "is_correct": false },
+            { "id": "c", "text": "'The Caves of Steel'", "is_correct": false },
+            { "id": "d", "text": "'The Evitable Conflict'", "is_correct": false }
+          ],
+          "explanation": "Asimov stated the three laws explicitly in 'Runaround', later collected in 'I, Robot'."
+        },
+        {
+          "id": "q4",
+          "question": "Which Honda humanoid robot, unveiled in 2000, could walk, run and climb stairs?",
+          "options": [
+            { "id": "a", "text": "Atlas", "is_correct": false },
+            { "id": "b", "text": "Pepper", "is_correct": false },
+            { "id": "c", "text": "QRIO", "is_correct": false },
+            { "id": "d", "text": "ASIMO", "is_correct": true }
+          ],
+          "explanation": "ASIMO, the result of more than a decade of Honda research, demonstrated on two legs."
+        },
+        {
+          "id": "q5",
+          "question": "Which NASA rover has been exploring Gale crater on Mars since 2012?",
+          "options": [
+            { "id": "a", "text": "Curiosity", "is_correct": true },
+            { "id": "b", "text": "Sojourner", "is_correct": false },
+            { "id": "c", "text": "Opportunity", "is_correct": false },
+            { "id": "d", "text": "Perseverance", "is_correct": false }
+          ],
+          "explanation": "Curiosity landed in August 2012 with the skycrane manoeuvre and still operates."
+        },
+        {
+          "id": "q6",
+          "question": "Which rover landed on Mars in 2021 carrying the Ingenuity helicopter?",
+          "options": [
+            { "id": "a", "text": "Spirit", "is_correct": false },
+            { "id": "b", "text": "Perseverance", "is_correct": true },
+            { "id": "c", "text": "Curiosity", "is_correct": false },
+            { "id": "d", "text": "Sojourner", "is_correct": false }
+          ],
+          "explanation": "Perseverance touched down in Jezero crater; Ingenuity made the first powered flight on another planet."
+        },
+        {
+          "id": "q7",
+          "question": "Which robotic system, cleared by the FDA in 2000, assists surgeons in the operating room?",
+          "options": [
+            { "id": "a", "text": "AESOP", "is_correct": false },
+            { "id": "b", "text": "ZEUS", "is_correct": false },
+            { "id": "c", "text": "da Vinci Surgical System", "is_correct": true },
+            { "id": "d", "text": "Mako", "is_correct": false }
+          ],
+          "explanation": "The da Vinci system translates the surgeon's hand movements into precise instrument motion."
+        },
+        {
+          "id": "q8",
+          "question": "Which iRobot vacuum robot, launched in 2002, became a household name?",
+          "options": [
+            { "id": "a", "text": "Roomba", "is_correct": true },
+            { "id": "b", "text": "Scooba", "is_correct": false },
+            { "id": "c", "text": "Trilobite", "is_correct": false },
+            { "id": "d", "text": "Neato", "is_correct": false }
+          ],
+          "explanation": "Roomba brought domestic robots to millions of homes and sold over a million units in its first years."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-robotica",
+      "title": "Trivia de robótica: de Unimate a los rovers de Marte",
+      "description": "Ocho preguntas sobre las máquinas que hicieron avanzar la robótica, del primer brazo industrial a los rovers de Marte.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnología", "trivia", "robótica", "robots"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué máquina, instalada en una planta de General Motors en 1961, fue el primer robot industrial?",
+          "options": [
+            { "id": "a", "text": "PUMA", "is_correct": false },
+            { "id": "b", "text": "Unimate", "is_correct": true },
+            { "id": "c", "text": "Shakey", "is_correct": false },
+            { "id": "d", "text": "AIBO", "is_correct": false }
+          ],
+          "explanation": "Unimate manipulaba piezas calientes de fundición a presión en la cadena de montaje de la planta de Ewing, Nueva Jersey."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué obra de teatro de 1920 apareció por primera vez la palabra 'robot'?",
+          "options": [
+            { "id": "a", "text": "Metrópolis", "is_correct": false },
+            { "id": "b", "text": "La guerra de los mundos", "is_correct": false },
+            { "id": "c", "text": "R.U.R. (Los robots universales de Rossum)", "is_correct": true },
+            { "id": "d", "text": "Frankenstein", "is_correct": false }
+          ],
+          "explanation": "La obra de Karel Čapek tomó el nombre de 'robota', trabajo forzado en checo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué relato de Isaac Asimov de 1942 introdujo las Tres Leyes de la Robótica?",
+          "options": [
+            { "id": "a", "text": "'Runaround'", "is_correct": true },
+            { "id": "b", "text": "'Robbie'", "is_correct": false },
+            { "id": "c", "text": "'Las bóvedas de acero'", "is_correct": false },
+            { "id": "d", "text": "'El conflicto evitable'", "is_correct": false }
+          ],
+          "explanation": "Asimov enunció las tres leyes explícitamente en 'Runaround', recogido luego en 'Yo, robot'."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué robot humanoide de Honda, presentado en 2000, podía caminar, correr y subir escaleras?",
+          "options": [
+            { "id": "a", "text": "Atlas", "is_correct": false },
+            { "id": "b", "text": "Pepper", "is_correct": false },
+            { "id": "c", "text": "QRIO", "is_correct": false },
+            { "id": "d", "text": "ASIMO", "is_correct": true }
+          ],
+          "explanation": "ASIMO, fruto de más de una década de investigación de Honda, se desplazaba sobre dos piernas."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué rover de la NASA explora el cráter Gale de Marte desde 2012?",
+          "options": [
+            { "id": "a", "text": "Curiosity", "is_correct": true },
+            { "id": "b", "text": "Sojourner", "is_correct": false },
+            { "id": "c", "text": "Opportunity", "is_correct": false },
+            { "id": "d", "text": "Perseverance", "is_correct": false }
+          ],
+          "explanation": "Curiosity aterrizó en agosto de 2012 con la maniobra de la grúa volante y sigue operando."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué rover aterrizó en Marte en 2021 llevando el helicóptero Ingenuity?",
+          "options": [
+            { "id": "a", "text": "Spirit", "is_correct": false },
+            { "id": "b", "text": "Perseverance", "is_correct": true },
+            { "id": "c", "text": "Curiosity", "is_correct": false },
+            { "id": "d", "text": "Sojourner", "is_correct": false }
+          ],
+          "explanation": "Perseverance se posó en el cráter Jezero; Ingenuity realizó el primer vuelo propulsado en otro planeta."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué sistema robótico, autorizado por la FDA en 2000, asiste a los cirujanos en el quirófano?",
+          "options": [
+            { "id": "a", "text": "AESOP", "is_correct": false },
+            { "id": "b", "text": "ZEUS", "is_correct": false },
+            { "id": "c", "text": "Sistema quirúrgico da Vinci", "is_correct": true },
+            { "id": "d", "text": "Mako", "is_correct": false }
+          ],
+          "explanation": "El sistema da Vinci traduce los movimientos de las manos del cirujano en movimientos precisos de los instrumentos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué robot aspirador de iRobot, lanzado en 2002, se convirtió en un nombre familiar?",
+          "options": [
+            { "id": "a", "text": "Roomba", "is_correct": true },
+            { "id": "b", "text": "Scooba", "is_correct": false },
+            { "id": "c", "text": "Trilobite", "is_correct": false },
+            { "id": "d", "text": "Neato", "is_correct": false }
+          ],
+          "explanation": "Roomba llevó los robots domésticos a millones de hogares y vendió más de un millón de unidades en sus primeros años."
+        }
+      ]
+    },
+    {
+      "slug": "en-smartphone-history-trivia",
+      "title": "Smartphone History Trivia: From IBM Simon to iPhone",
+      "description": "Eight questions on the history of the smartphone, from IBM Simon and the Nokia 3310 to the iPhone and Android.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "trivia", "smartphones", "mobile phones"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which 1994 device is regarded as the first smartphone?",
+          "options": [
+            { "id": "a", "text": "Nokia 9000 Communicator", "is_correct": false },
+            { "id": "b", "text": "IBM Simon", "is_correct": true },
+            { "id": "c", "text": "BlackBerry 850", "is_correct": false },
+            { "id": "d", "text": "PalmPilot", "is_correct": false }
+          ],
+          "explanation": "The IBM Simon combined a phone with a touchscreen, email, calendar and apps."
+        },
+        {
+          "id": "q2",
+          "question": "Who made the first call from a handheld mobile phone in 1973?",
+          "options": [
+            { "id": "a", "text": "Martin Cooper", "is_correct": true },
+            { "id": "b", "text": "Steve Jobs", "is_correct": false },
+            { "id": "c", "text": "Tim Berners-Lee", "is_correct": false },
+            { "id": "d", "text": "Vint Cerf", "is_correct": false }
+          ],
+          "explanation": "Motorola engineer Martin Cooper called a rival at Bell Labs from a New York street."
+        },
+        {
+          "id": "q3",
+          "question": "Which Nokia phone, released in 2000, became famous for the game Snake?",
+          "options": [
+            { "id": "a", "text": "Nokia 3210", "is_correct": false },
+            { "id": "b", "text": "Nokia 8110", "is_correct": false },
+            { "id": "c", "text": "Nokia 3310", "is_correct": true },
+            { "id": "d", "text": "Nokia 5110", "is_correct": false }
+          ],
+          "explanation": "The 3310 sold about 126 million units and is remembered for its battery life and toughness."
+        },
+        {
+          "id": "q4",
+          "question": "In which year did Apple introduce the first iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": false },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2007", "is_correct": true }
+          ],
+          "explanation": "Steve Jobs presented it in January 2007; it went on sale that June."
+        },
+        {
+          "id": "q5",
+          "question": "Which was the first commercially sold Android phone, launched in 2008?",
+          "options": [
+            { "id": "a", "text": "HTC Dream (T-Mobile G1)", "is_correct": true },
+            { "id": "b", "text": "Motorola Droid", "is_correct": false },
+            { "id": "c", "text": "Samsung Galaxy S", "is_correct": false },
+            { "id": "d", "text": "Nexus One", "is_correct": false }
+          ],
+          "explanation": "The HTC Dream, sold as the T-Mobile G1, shipped with Android 1.0 in October 2008."
+        },
+        {
+          "id": "q6",
+          "question": "Which brand made its name with physical QWERTY keyboards and push email?",
+          "options": [
+            { "id": "a", "text": "Palm", "is_correct": false },
+            { "id": "b", "text": "Sidekick", "is_correct": false },
+            { "id": "c", "text": "BlackBerry", "is_correct": true },
+            { "id": "d", "text": "HTC", "is_correct": false }
+          ],
+          "explanation": "BlackBerry devices dominated business messaging through the 2000s."
+        },
+        {
+          "id": "q7",
+          "question": "Which operating system powered most Nokia smartphones before the Windows Phone era?",
+          "options": [
+            { "id": "a", "text": "Symbian", "is_correct": true },
+            { "id": "b", "text": "MeeGo", "is_correct": false },
+            { "id": "c", "text": "Series 40", "is_correct": false },
+            { "id": "d", "text": "Windows Mobile", "is_correct": false }
+          ],
+          "explanation": "Nokia adopted Windows Phone in 2011; until then Symbian ran its smartphones."
+        },
+        {
+          "id": "q8",
+          "question": "What did Steve Jobs say the iPhone combined when he unveiled it in 2007?",
+          "options": [
+            { "id": "a", "text": "A phone, a camera and a GPS", "is_correct": false },
+            {
+              "id": "b",
+              "text": "An iPod, a phone and an internet communicator",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A computer, a pager and a fax", "is_correct": false },
+            { "id": "d", "text": "A browser, a music player and a camera", "is_correct": false }
+          ],
+          "explanation": "'An iPod, a phone, and an internet communicator' was the famous three-in-one pitch."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-del-smartphone",
+      "title": "Trivia de historia del smartphone: del IBM Simon al iPhone",
+      "description": "Ocho preguntas sobre la historia del smartphone, del IBM Simon y el Nokia 3310 al iPhone y Android.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnología", "trivia", "smartphones", "teléfonos móviles"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dispositivo de 1994 se considera el primer smartphone?",
+          "options": [
+            { "id": "a", "text": "Nokia 9000 Communicator", "is_correct": false },
+            { "id": "b", "text": "IBM Simon", "is_correct": true },
+            { "id": "c", "text": "BlackBerry 850", "is_correct": false },
+            { "id": "d", "text": "PalmPilot", "is_correct": false }
+          ],
+          "explanation": "El IBM Simon combinaba teléfono con pantalla táctil, correo, calendario y aplicaciones."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién hizo la primera llamada desde un teléfono móvil portátil en 1973?",
+          "options": [
+            { "id": "a", "text": "Martin Cooper", "is_correct": true },
+            { "id": "b", "text": "Steve Jobs", "is_correct": false },
+            { "id": "c", "text": "Tim Berners-Lee", "is_correct": false },
+            { "id": "d", "text": "Vint Cerf", "is_correct": false }
+          ],
+          "explanation": "El ingeniero de Motorola Martin Cooper llamó a un rival de Bell Labs desde una calle de Nueva York."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué teléfono de Nokia, lanzado en 2000, se hizo famoso por el juego Snake?",
+          "options": [
+            { "id": "a", "text": "Nokia 3210", "is_correct": false },
+            { "id": "b", "text": "Nokia 8110", "is_correct": false },
+            { "id": "c", "text": "Nokia 3310", "is_correct": true },
+            { "id": "d", "text": "Nokia 5110", "is_correct": false }
+          ],
+          "explanation": "El 3310 vendió unos 126 millones de unidades y es recordado por su batería y resistencia."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué año presentó Apple el primer iPhone?",
+          "options": [
+            { "id": "a", "text": "2005", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": false },
+            { "id": "c", "text": "2010", "is_correct": false },
+            { "id": "d", "text": "2007", "is_correct": true }
+          ],
+          "explanation": "Steve Jobs lo presentó en enero de 2007; salió a la venta en junio de ese año."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál fue el primer teléfono Android a la venta, lanzado en 2008?",
+          "options": [
+            { "id": "a", "text": "HTC Dream (T-Mobile G1)", "is_correct": true },
+            { "id": "b", "text": "Motorola Droid", "is_correct": false },
+            { "id": "c", "text": "Samsung Galaxy S", "is_correct": false },
+            { "id": "d", "text": "Nexus One", "is_correct": false }
+          ],
+          "explanation": "El HTC Dream, vendido como T-Mobile G1, llegó con Android 1.0 en octubre de 2008."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué marca se hizo famosa por sus teclados físicos QWERTY y el correo push?",
+          "options": [
+            { "id": "a", "text": "Palm", "is_correct": false },
+            { "id": "b", "text": "Sidekick", "is_correct": false },
+            { "id": "c", "text": "BlackBerry", "is_correct": true },
+            { "id": "d", "text": "HTC", "is_correct": false }
+          ],
+          "explanation": "Los BlackBerry dominaron la mensajería de empresa durante la década de 2000."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué sistema operativo llevaban la mayoría de los smartphones de Nokia antes de la era Windows Phone?",
+          "options": [
+            { "id": "a", "text": "Symbian", "is_correct": true },
+            { "id": "b", "text": "MeeGo", "is_correct": false },
+            { "id": "c", "text": "Series 40", "is_correct": false },
+            { "id": "d", "text": "Windows Mobile", "is_correct": false }
+          ],
+          "explanation": "Nokia adoptó Windows Phone en 2011; hasta entonces Symbian movía sus smartphones."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué tres dispositivos dijo Steve Jobs que combinaba el iPhone al presentarlo en 2007?",
+          "options": [
+            { "id": "a", "text": "Un teléfono, una cámara y un GPS", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un iPod, un teléfono y un comunicador de internet",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una computadora, un busca y un fax", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Un navegador, un reproductor de música y una cámara",
+              "is_correct": false
+            }
+          ],
+          "explanation": "'Un iPod, un teléfono y un comunicador de internet' fue el famoso anuncio del tres en uno."
+        }
+      ]
+    },
+    {
+      "slug": "en-social-media-trivia",
+      "title": "Social Media Trivia: From Facebook to TikTok",
+      "description": "Eight questions on the platforms that shaped social media, from Facebook's Harvard launch to TikTok's global rise.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "trivia", "social media", "internet"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which year did Mark Zuckerberg launch Facebook from his Harvard dorm?",
+          "options": [
+            { "id": "a", "text": "2002", "is_correct": false },
+            { "id": "b", "text": "2004", "is_correct": true },
+            { "id": "c", "text": "2006", "is_correct": false },
+            { "id": "d", "text": "2008", "is_correct": false }
+          ],
+          "explanation": "Thefacebook opened to Harvard students on 4 February 2004."
+        },
+        {
+          "id": "q2",
+          "question": "Which site launched in 2005 with a video titled 'Me at the zoo'?",
+          "options": [
+            { "id": "a", "text": "Vimeo", "is_correct": false },
+            { "id": "b", "text": "Dailymotion", "is_correct": false },
+            { "id": "c", "text": "YouTube", "is_correct": true },
+            { "id": "d", "text": "Twitch", "is_correct": false }
+          ],
+          "explanation": "Co-founder Jawed Karim uploaded the first video in April 2005."
+        },
+        {
+          "id": "q3",
+          "question": "What was the character limit of a tweet when Twitter launched in 2006?",
+          "options": [
+            { "id": "a", "text": "140", "is_correct": true },
+            { "id": "b", "text": "120", "is_correct": false },
+            { "id": "c", "text": "160", "is_correct": false },
+            { "id": "d", "text": "280", "is_correct": false }
+          ],
+          "explanation": "The 140-character limit fit inside an SMS; it doubled to 280 in 2017."
+        },
+        {
+          "id": "q4",
+          "question": "Which photo-sharing app launched on iOS in October 2010?",
+          "options": [
+            { "id": "a", "text": "Snapchat", "is_correct": false },
+            { "id": "b", "text": "Instagram", "is_correct": true },
+            { "id": "c", "text": "Pinterest", "is_correct": false },
+            { "id": "d", "text": "Flickr", "is_correct": false }
+          ],
+          "explanation": "Instagram reached a million registered users in its first two months."
+        },
+        {
+          "id": "q5",
+          "question": "Which professional networking site was founded in 2003, a year before Facebook?",
+          "options": [
+            { "id": "a", "text": "Xing", "is_correct": false },
+            { "id": "b", "text": "Myspace", "is_correct": false },
+            { "id": "c", "text": "LinkedIn", "is_correct": true },
+            { "id": "d", "text": "Friendster", "is_correct": false }
+          ],
+          "explanation": "Reid Hoffman and his team launched LinkedIn in May 2003."
+        },
+        {
+          "id": "q6",
+          "question": "Which app did ByteDance merge into TikTok in 2018?",
+          "options": [
+            { "id": "a", "text": "Vine", "is_correct": false },
+            { "id": "b", "text": "Dubsmash", "is_correct": false },
+            { "id": "c", "text": "Triller", "is_correct": false },
+            { "id": "d", "text": "Musical.ly", "is_correct": true }
+          ],
+          "explanation": "Musical.ly's users and lip-sync format moved into TikTok in August 2018."
+        },
+        {
+          "id": "q7",
+          "question": "Which messaging app did Facebook acquire in 2014?",
+          "options": [
+            { "id": "a", "text": "WhatsApp", "is_correct": true },
+            { "id": "b", "text": "Instagram", "is_correct": false },
+            { "id": "c", "text": "Snapchat", "is_correct": false },
+            { "id": "d", "text": "Telegram", "is_correct": false }
+          ],
+          "explanation": "Facebook bought WhatsApp for about 19 billion dollars; Instagram it had bought in 2012."
+        },
+        {
+          "id": "q8",
+          "question": "Which platform popularized six-second looping videos before shutting down in 2017?",
+          "options": [
+            { "id": "a", "text": "Periscope", "is_correct": false },
+            { "id": "b", "text": "Vine", "is_correct": true },
+            { "id": "c", "text": "Myspace", "is_correct": false },
+            { "id": "d", "text": "Google+", "is_correct": false }
+          ],
+          "explanation": "Vine's looping six-second clips defined a short-video style later carried on by TikTok."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-redes-sociales",
+      "title": "Trivia de redes sociales: de Facebook a TikTok",
+      "description": "Ocho preguntas sobre las plataformas que marcaron las redes sociales, del Facebook de Harvard al auge de TikTok.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnología", "trivia", "redes sociales", "internet"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué año lanzó Mark Zuckerberg Facebook desde su residencia de Harvard?",
+          "options": [
+            { "id": "a", "text": "2002", "is_correct": false },
+            { "id": "b", "text": "2004", "is_correct": true },
+            { "id": "c", "text": "2006", "is_correct": false },
+            { "id": "d", "text": "2008", "is_correct": false }
+          ],
+          "explanation": "Thefacebook se abrió a los estudiantes de Harvard el 4 de febrero de 2004."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué sitio se lanzó en 2005 con un video titulado 'Me at the zoo'?",
+          "options": [
+            { "id": "a", "text": "Vimeo", "is_correct": false },
+            { "id": "b", "text": "Dailymotion", "is_correct": false },
+            { "id": "c", "text": "YouTube", "is_correct": true },
+            { "id": "d", "text": "Twitch", "is_correct": false }
+          ],
+          "explanation": "El cofundador Jawed Karim subió el primer video en abril de 2005."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál era el límite de caracteres de un tuit cuando Twitter se lanzó en 2006?",
+          "options": [
+            { "id": "a", "text": "140", "is_correct": true },
+            { "id": "b", "text": "120", "is_correct": false },
+            { "id": "c", "text": "160", "is_correct": false },
+            { "id": "d", "text": "280", "is_correct": false }
+          ],
+          "explanation": "El límite de 140 caracteres cabía en un SMS; se duplicó a 280 en 2017."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué app para compartir fotos se lanzó en iOS en octubre de 2010?",
+          "options": [
+            { "id": "a", "text": "Snapchat", "is_correct": false },
+            { "id": "b", "text": "Instagram", "is_correct": true },
+            { "id": "c", "text": "Pinterest", "is_correct": false },
+            { "id": "d", "text": "Flickr", "is_correct": false }
+          ],
+          "explanation": "Instagram llegó al millón de usuarios registrados en sus primeros dos meses."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué red profesional se fundó en 2003, un año antes que Facebook?",
+          "options": [
+            { "id": "a", "text": "Xing", "is_correct": false },
+            { "id": "b", "text": "Myspace", "is_correct": false },
+            { "id": "c", "text": "LinkedIn", "is_correct": true },
+            { "id": "d", "text": "Friendster", "is_correct": false }
+          ],
+          "explanation": "Reid Hoffman y su equipo lanzaron LinkedIn en mayo de 2003."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué aplicación fusionó ByteDance con TikTok en 2018?",
+          "options": [
+            { "id": "a", "text": "Vine", "is_correct": false },
+            { "id": "b", "text": "Dubsmash", "is_correct": false },
+            { "id": "c", "text": "Triller", "is_correct": false },
+            { "id": "d", "text": "Musical.ly", "is_correct": true }
+          ],
+          "explanation": "Los usuarios y el formato de Musical.ly pasaron a TikTok en agosto de 2018."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué aplicación de mensajería compró Facebook en 2014?",
+          "options": [
+            { "id": "a", "text": "WhatsApp", "is_correct": true },
+            { "id": "b", "text": "Instagram", "is_correct": false },
+            { "id": "c", "text": "Snapchat", "is_correct": false },
+            { "id": "d", "text": "Telegram", "is_correct": false }
+          ],
+          "explanation": "Facebook pagó unos 19.000 millones de dólares por WhatsApp; a Instagram la había comprado en 2012."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué plataforma popularizó los videos en bucle de seis segundos antes de cerrar en 2017?",
+          "options": [
+            { "id": "a", "text": "Periscope", "is_correct": false },
+            { "id": "b", "text": "Vine", "is_correct": true },
+            { "id": "c", "text": "Myspace", "is_correct": false },
+            { "id": "d", "text": "Google+", "is_correct": false }
+          ],
+          "explanation": "Los clips de seis segundos de Vine definieron un estilo de video corto que luego continuó TikTok."
+        }
+      ]
+    },
+    {
+      "slug": "en-gadgets-that-changed-the-world-trivia",
+      "title": "Gadgets Trivia: The Devices That Changed Everything",
+      "description": "Eight questions on the gadgets that changed daily life: the Walkman, Game Boy, iPod, Kindle, GPS and more.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "technology",
+      "tags": ["technology", "trivia", "gadgets", "devices"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which Sony cassette player, launched in 1979, made music portable?",
+          "options": [
+            { "id": "a", "text": "Discman", "is_correct": false },
+            { "id": "b", "text": "MiniDisc", "is_correct": false },
+            { "id": "c", "text": "Walkman", "is_correct": true },
+            { "id": "d", "text": "Boombox", "is_correct": false }
+          ],
+          "explanation": "The Walkman TPS-L2 let people listen to tapes on headphones anywhere."
+        },
+        {
+          "id": "q2",
+          "question": "Which Nintendo handheld console launched in 1989 bundled with Tetris?",
+          "options": [
+            { "id": "a", "text": "Game Boy", "is_correct": true },
+            { "id": "b", "text": "Game Gear", "is_correct": false },
+            { "id": "c", "text": "Lynx", "is_correct": false },
+            { "id": "d", "text": "Game & Watch", "is_correct": false }
+          ],
+          "explanation": "The Game Boy's battery life and Tetris bundle made it a runaway success."
+        },
+        {
+          "id": "q3",
+          "question": "Which Apple device launched in 2001 promising '1,000 songs in your pocket'?",
+          "options": [
+            { "id": "a", "text": "iPhone", "is_correct": false },
+            { "id": "b", "text": "iPod", "is_correct": true },
+            { "id": "c", "text": "iMac", "is_correct": false },
+            { "id": "d", "text": "iPad", "is_correct": false }
+          ],
+          "explanation": "The first iPod held about 1,000 songs on its 5 GB hard drive."
+        },
+        {
+          "id": "q4",
+          "question": "Which Amazon e-reader launched in 2007?",
+          "options": [
+            { "id": "a", "text": "Nook", "is_correct": false },
+            { "id": "b", "text": "Kobo", "is_correct": false },
+            { "id": "c", "text": "Kindle", "is_correct": true },
+            { "id": "d", "text": "Sony Reader", "is_correct": false }
+          ],
+          "explanation": "The first Kindle sold out within hours and put e-books into the mainstream."
+        },
+        {
+          "id": "q5",
+          "question": "What do the letters GPS stand for?",
+          "options": [
+            { "id": "a", "text": "Global Positioning System", "is_correct": true },
+            { "id": "b", "text": "General Positioning Satellite", "is_correct": false },
+            { "id": "c", "text": "Global Pathfinding Service", "is_correct": false },
+            { "id": "d", "text": "Geographic Position System", "is_correct": false }
+          ],
+          "explanation": "The United States built GPS as a military system and opened it to civilian use."
+        },
+        {
+          "id": "q6",
+          "question": "Which 1983 Motorola handset was the first commercially available handheld cell phone?",
+          "options": [
+            { "id": "a", "text": "MicroTAC", "is_correct": false },
+            { "id": "b", "text": "DynaTAC 8000X", "is_correct": true },
+            { "id": "c", "text": "StarTAC", "is_correct": false },
+            { "id": "d", "text": "Razr", "is_correct": false }
+          ],
+          "explanation": "The DynaTAC 8000X weighed almost 800 grams and offered about 30 minutes of talk time."
+        },
+        {
+          "id": "q7",
+          "question": "In which year did the first Apple Watch go on sale?",
+          "options": [
+            { "id": "a", "text": "2013", "is_correct": false },
+            { "id": "b", "text": "2014", "is_correct": false },
+            { "id": "c", "text": "2015", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "Announced in September 2014, the Apple Watch went on sale in April 2015."
+        },
+        {
+          "id": "q8",
+          "question": "Which company launched the first mass-market consumer drone under the Phantom name in 2013?",
+          "options": [
+            { "id": "a", "text": "Parrot", "is_correct": false },
+            { "id": "b", "text": "GoPro", "is_correct": false },
+            { "id": "c", "text": "3D Robotics", "is_correct": false },
+            { "id": "d", "text": "DJI", "is_correct": true }
+          ],
+          "explanation": "The DJI Phantom brought ready-to-fly camera drones to a general audience."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-gadgets-que-cambiaron-el-mundo",
+      "title": "Trivia de gadgets que cambiaron el mundo: del Walkman al Kindle",
+      "description": "Ocho preguntas sobre los gadgets que cambiaron la vida cotidiana: el Walkman, el Game Boy, el iPod, el Kindle y el GPS.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "technology",
+      "tags": ["tecnología", "trivia", "gadgets", "dispositivos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué reproductor de casetes de Sony, lanzado en 1979, hizo la música portátil?",
+          "options": [
+            { "id": "a", "text": "Discman", "is_correct": false },
+            { "id": "b", "text": "MiniDisc", "is_correct": false },
+            { "id": "c", "text": "Walkman", "is_correct": true },
+            { "id": "d", "text": "Boombox", "is_correct": false }
+          ],
+          "explanation": "El Walkman TPS-L2 permitía escuchar cintas con auriculares en cualquier parte."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué consola portátil de Nintendo se lanzó en 1989 junto con Tetris?",
+          "options": [
+            { "id": "a", "text": "Game Boy", "is_correct": true },
+            { "id": "b", "text": "Game Gear", "is_correct": false },
+            { "id": "c", "text": "Lynx", "is_correct": false },
+            { "id": "d", "text": "Game & Watch", "is_correct": false }
+          ],
+          "explanation": "La duración de su batería y el Tetris incluido hicieron del Game Boy un éxito arrollador."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dispositivo de Apple se lanzó en 2001 prometiendo '1.000 canciones en tu bolsillo'?",
+          "options": [
+            { "id": "a", "text": "iPhone", "is_correct": false },
+            { "id": "b", "text": "iPod", "is_correct": true },
+            { "id": "c", "text": "iMac", "is_correct": false },
+            { "id": "d", "text": "iPad", "is_correct": false }
+          ],
+          "explanation": "El primer iPod guardaba unas 1.000 canciones en su disco duro de 5 GB."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué lector de libros electrónicos lanzó Amazon en 2007?",
+          "options": [
+            { "id": "a", "text": "Nook", "is_correct": false },
+            { "id": "b", "text": "Kobo", "is_correct": false },
+            { "id": "c", "text": "Kindle", "is_correct": true },
+            { "id": "d", "text": "Sony Reader", "is_correct": false }
+          ],
+          "explanation": "El primer Kindle se agotó en horas y llevó el libro electrónico al gran público."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué significan las siglas GPS?",
+          "options": [
+            { "id": "a", "text": "Sistema de Posicionamiento Global", "is_correct": true },
+            { "id": "b", "text": "Servicio General de Posicionamiento", "is_correct": false },
+            { "id": "c", "text": "Sistema Global de Trayectorias", "is_correct": false },
+            { "id": "d", "text": "Posicionamiento Geográfico por Satélite", "is_correct": false }
+          ],
+          "explanation": "Estados Unidos construyó el GPS como sistema militar y luego lo abrió al uso civil."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué teléfono Motorola de 1983 fue el primer celular portátil a la venta?",
+          "options": [
+            { "id": "a", "text": "MicroTAC", "is_correct": false },
+            { "id": "b", "text": "DynaTAC 8000X", "is_correct": true },
+            { "id": "c", "text": "StarTAC", "is_correct": false },
+            { "id": "d", "text": "Razr", "is_correct": false }
+          ],
+          "explanation": "El DynaTAC 8000X pesaba casi 800 gramos y ofrecía unos 30 minutos de conversación."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué año salió a la venta el primer Apple Watch?",
+          "options": [
+            { "id": "a", "text": "2013", "is_correct": false },
+            { "id": "b", "text": "2014", "is_correct": false },
+            { "id": "c", "text": "2015", "is_correct": true },
+            { "id": "d", "text": "2016", "is_correct": false }
+          ],
+          "explanation": "Anunciado en septiembre de 2014, el Apple Watch salió a la venta en abril de 2015."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué empresa lanzó el primer dron de consumo masivo con el nombre Phantom en 2013?",
+          "options": [
+            { "id": "a", "text": "Parrot", "is_correct": false },
+            { "id": "b", "text": "GoPro", "is_correct": false },
+            { "id": "c", "text": "3D Robotics", "is_correct": false },
+            { "id": "d", "text": "DJI", "is_correct": true }
+          ],
+          "explanation": "El DJI Phantom acercó los drones con cámara listos para volar al público general."
+        }
+      ]
+    }
+  ]
+}
