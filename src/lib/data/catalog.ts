@@ -109,7 +109,17 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
     queryBuilder = queryBuilder.eq('category_id', categoryId);
   }
 
-  if (q) queryBuilder = queryBuilder.ilike('title', `%${escapeLike(q)}%`);
+  // `"` y `{}` no tienen escape dentro del `or` de PostgREST: se retiran para
+  // que un término que los traiga no rompa la consulta.
+  const term = q?.trim().replace(/["{}]/g, '');
+  if (term) {
+    // Paridad con el explorador: título, descripción y tags. `cs` sobre text[]
+    // pide un literal de array; las comillas protegen comas y paréntesis.
+    const pattern = `%${escapeLike(term)}%`;
+    queryBuilder = queryBuilder.or(
+      `title.ilike."${pattern}",description.ilike."${pattern}",tags.cs."{${escapeLike(term)}}"`
+    );
+  }
 
   const from = (page - 1) * limit;
   const { data, error, count } = await queryBuilder
