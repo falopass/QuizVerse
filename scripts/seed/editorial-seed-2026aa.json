@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial batch 2026aa (CONT-36): trivia pairs on Disney and Pixar — the largest family-search gap in the catalogue. Five themes: animated classics (Snow White to The Little Mermaid), the 90s Renaissance, Pixar by film, Disney villains, and Disney songs. Every answer is a stable, checkable fact (release years, directors, characters); no box office, rankings or anything in progress. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-disney-classics-trivia",
+      "title": "Disney Classics Trivia: How Well Do You Know Them?",
+      "description": "From Snow White to The Little Mermaid: the films that built the Disney legend. Eight questions on the animated classics everyone grew up with.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["disney", "animated-classics", "movies", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which was Walt Disney's first full-length animated feature film?",
+          "options": [
+            { "id": "a", "text": "Pinocchio", "is_correct": false },
+            { "id": "b", "text": "Snow White and the Seven Dwarfs", "is_correct": true },
+            { "id": "c", "text": "Fantasia", "is_correct": false },
+            { "id": "d", "text": "Cinderella", "is_correct": false }
+          ],
+          "explanation": "It premiered in December 1937 — a huge gamble that paid off and launched Disney's feature animation era."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Snow White and the Seven Dwarfs premiere?",
+          "options": [
+            { "id": "a", "text": "1934", "is_correct": false },
+            { "id": "b", "text": "1940", "is_correct": false },
+            { "id": "c", "text": "1937", "is_correct": true },
+            { "id": "d", "text": "1945", "is_correct": false }
+          ],
+          "explanation": "It premiered on December 21, 1937, at the Carthay Circle Theatre in Los Angeles."
+        },
+        {
+          "id": "q3",
+          "question": "In Pinocchio, what is the name of the cricket who acts as the puppet's conscience?",
+          "options": [
+            { "id": "a", "text": "Jiminy Cricket", "is_correct": true },
+            { "id": "b", "text": "Timothy Q. Mouse", "is_correct": false },
+            { "id": "c", "text": "Archimedes", "is_correct": false },
+            { "id": "d", "text": "Sebastian", "is_correct": false }
+          ],
+          "explanation": "Jiminy Cricket sings 'When You Wish Upon a Star'; Timothy Q. Mouse is Dumbo's friend and Archimedes is Merlin's owl."
+        },
+        {
+          "id": "q4",
+          "question": "What physical feature makes Dumbo the laughingstock of the circus — and later lets him fly?",
+          "options": [
+            { "id": "a", "text": "His extra-long trunk", "is_correct": false },
+            { "id": "b", "text": "His pink skin", "is_correct": false },
+            { "id": "c", "text": "His tiny tail", "is_correct": false },
+            { "id": "d", "text": "His enormous ears", "is_correct": true }
+          ],
+          "explanation": "Dumbo's giant ears become his wings once he stops believing he needs the 'magic feather'."
+        },
+        {
+          "id": "q5",
+          "question": "In Cinderella (1950), what does the Fairy Godmother turn into a carriage?",
+          "options": [
+            { "id": "a", "text": "A pumpkin", "is_correct": true },
+            { "id": "b", "text": "A watermelon", "is_correct": false },
+            { "id": "c", "text": "An apple", "is_correct": false },
+            { "id": "d", "text": "A haystack", "is_correct": false }
+          ],
+          "explanation": "A pumpkin becomes the carriage while the mice turn into the horses that pull it."
+        },
+        {
+          "id": "q6",
+          "question": "Which 1959 film introduced the villain Maleficent?",
+          "options": [
+            { "id": "a", "text": "Snow White and the Seven Dwarfs", "is_correct": false },
+            { "id": "b", "text": "Peter Pan", "is_correct": false },
+            { "id": "c", "text": "Sleeping Beauty", "is_correct": true },
+            { "id": "d", "text": "Cinderella", "is_correct": false }
+          ],
+          "explanation": "Maleficent, the 'Mistress of All Evil', curses baby Aurora at her christening."
+        },
+        {
+          "id": "q7",
+          "question": "Which was the last animated feature Walt Disney personally supervised before his death?",
+          "options": [
+            { "id": "a", "text": "The Aristocats", "is_correct": false },
+            { "id": "b", "text": "Robin Hood", "is_correct": false },
+            { "id": "c", "text": "One Hundred and One Dalmatians", "is_correct": false },
+            { "id": "d", "text": "The Jungle Book", "is_correct": true }
+          ],
+          "explanation": "Walt died in December 1966; The Jungle Book reached cinemas in October 1967."
+        },
+        {
+          "id": "q8",
+          "question": "In One Hundred and One Dalmatians, what does Cruella de Vil want to make out of the puppies?",
+          "options": [
+            { "id": "a", "text": "A fur coat", "is_correct": true },
+            { "id": "b", "text": "A fur hat", "is_correct": false },
+            { "id": "c", "text": "Fur gloves", "is_correct": false },
+            { "id": "d", "text": "A fur rug", "is_correct": false }
+          ],
+          "explanation": "Cruella wants a dalmatian-skin coat and hires Horace and Jasper to steal the litter."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-clasicos-disney",
+      "title": "Trivia de Disney: ¿cuánto sabes de los clásicos?",
+      "description": "De Blancanieves a La sirenita: las películas que construyeron la leyenda Disney. Ocho preguntas sobre los clásicos animados de siempre.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["disney", "clasicos", "peliculas", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál fue el primer largometraje animado de Walt Disney?",
+          "options": [
+            { "id": "a", "text": "Pinocho", "is_correct": false },
+            { "id": "b", "text": "Fantasía", "is_correct": false },
+            { "id": "c", "text": "Blancanieves y los siete enanitos", "is_correct": true },
+            { "id": "d", "text": "La Cenicienta", "is_correct": false }
+          ],
+          "explanation": "Se estrenó en diciembre de 1937: una apuesta enorme que dio inicio a la era de los largometrajes animados de Disney."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se estrenó Blancanieves y los siete enanitos?",
+          "options": [
+            { "id": "a", "text": "1937", "is_correct": true },
+            { "id": "b", "text": "1934", "is_correct": false },
+            { "id": "c", "text": "1941", "is_correct": false },
+            { "id": "d", "text": "1945", "is_correct": false }
+          ],
+          "explanation": "El estreno fue el 21 de diciembre de 1937 en el Carthay Circle Theatre de Los Ángeles."
+        },
+        {
+          "id": "q3",
+          "question": "En Pinocho, ¿cómo se llama el grillo que hace de conciencia del muñeco?",
+          "options": [
+            { "id": "a", "text": "Timoteo", "is_correct": false },
+            { "id": "b", "text": "Pepito Grillo", "is_correct": true },
+            { "id": "c", "text": "Arquímides", "is_correct": false },
+            { "id": "d", "text": "Sebastián", "is_correct": false }
+          ],
+          "explanation": "Pepito Grillo (Jiminy Cricket) canta 'When You Wish Upon a Star'; Timoteo es el ratón amigo de Dumbo y Arquímides, el búho de Merlín."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué rasgo hace que se burlen de Dumbo en el circo y luego le permite volar?",
+          "options": [
+            { "id": "a", "text": "Su trompa extra larga", "is_correct": false },
+            { "id": "b", "text": "Su piel rosada", "is_correct": false },
+            { "id": "c", "text": "Sus orejas enormes", "is_correct": true },
+            { "id": "d", "text": "Su cola diminuta", "is_correct": false }
+          ],
+          "explanation": "Las orejas gigantes de Dumbo se convierten en sus alas cuando deja de creer que necesita la 'pluma mágica'."
+        },
+        {
+          "id": "q5",
+          "question": "En La Cenicienta (1950), ¿en qué convierte el Hada Madrina la carroza?",
+          "options": [
+            { "id": "a", "text": "Una sandía", "is_correct": false },
+            { "id": "b", "text": "Una manzana", "is_correct": false },
+            { "id": "c", "text": "Un pajar", "is_correct": false },
+            { "id": "d", "text": "Una calabaza", "is_correct": true }
+          ],
+          "explanation": "La calabaza se vuelve carroza y los ratones, los caballos que la tiran."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué película de 1959 presentó a la villana Maléfica?",
+          "options": [
+            { "id": "a", "text": "La bella durmiente", "is_correct": true },
+            { "id": "b", "text": "Blancanieves y los siete enanitos", "is_correct": false },
+            { "id": "c", "text": "Peter Pan", "is_correct": false },
+            { "id": "d", "text": "La Cenicienta", "is_correct": false }
+          ],
+          "explanation": "Maléfica, la 'Señora del Mal', maldice a la bebé Aurora en su bautizo."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál fue el último largometraje animado que Walt Disney supervisó personalmente?",
+          "options": [
+            { "id": "a", "text": "Los Aristogatos", "is_correct": false },
+            { "id": "b", "text": "El libro de la selva", "is_correct": true },
+            { "id": "c", "text": "Robin Hood", "is_correct": false },
+            { "id": "d", "text": "101 dálmatas", "is_correct": false }
+          ],
+          "explanation": "Walt murió en diciembre de 1966; El libro de la selva llegó a los cines en octubre de 1967."
+        },
+        {
+          "id": "q8",
+          "question": "En 101 dálmatas, ¿qué quiere fabricar Cruella de Vil con los cachorros?",
+          "options": [
+            { "id": "a", "text": "Un sombrero de piel", "is_correct": false },
+            { "id": "b", "text": "Unos guantes de piel", "is_correct": false },
+            { "id": "c", "text": "Una alfombra de piel", "is_correct": false },
+            { "id": "d", "text": "Un abrigo de piel", "is_correct": true }
+          ],
+          "explanation": "Cruella quiere un abrigo de piel de dálmata y contrata a Horacio y Gaspar para robar la camada."
+        }
+      ]
+    },
+    {
+      "slug": "en-disney-renaissance-trivia",
+      "title": "Disney Renaissance Trivia: The 90s Animated Golden Age",
+      "description": "The Little Mermaid, The Lion King, Aladdin, Mulan: the decade when Disney animation ruled the world. How well do you know the 90s?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["disney", "90s", "animation", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which film kicked off the Disney Renaissance in 1989?",
+          "options": [
+            { "id": "a", "text": "Beauty and the Beast", "is_correct": false },
+            { "id": "b", "text": "The Little Mermaid", "is_correct": true },
+            { "id": "c", "text": "The Lion King", "is_correct": false },
+            { "id": "d", "text": "The Rescuers Down Under", "is_correct": false }
+          ],
+          "explanation": "Ariel's 1989 debut restarted Disney's golden age; The Rescuers Down Under arrived a year later."
+        },
+        {
+          "id": "q2",
+          "question": "Which Disney film was the first animated movie ever nominated for the Best Picture Oscar?",
+          "options": [
+            { "id": "a", "text": "The Lion King", "is_correct": false },
+            { "id": "b", "text": "Aladdin", "is_correct": false },
+            { "id": "c", "text": "Snow White and the Seven Dwarfs", "is_correct": false },
+            { "id": "d", "text": "Beauty and the Beast", "is_correct": true }
+          ],
+          "explanation": "It earned the nomination at the 1992 ceremony, before the Best Animated Feature category existed; it lost to The Silence of the Lambs."
+        },
+        {
+          "id": "q3",
+          "question": "Who voiced the Genie in Aladdin (1992)?",
+          "options": [
+            { "id": "a", "text": "Robin Williams", "is_correct": true },
+            { "id": "b", "text": "Will Smith", "is_correct": false },
+            { "id": "c", "text": "Jim Carrey", "is_correct": false },
+            { "id": "d", "text": "Eddie Murphy", "is_correct": false }
+          ],
+          "explanation": "Robin Williams improvised much of the role; Will Smith played the Genie only in the 2019 live-action remake."
+        },
+        {
+          "id": "q4",
+          "question": "In The Lion King, what is the name of Simba's father?",
+          "options": [
+            { "id": "a", "text": "Scar", "is_correct": false },
+            { "id": "b", "text": "Rafiki", "is_correct": false },
+            { "id": "c", "text": "Mufasa", "is_correct": true },
+            { "id": "d", "text": "Zazu", "is_correct": false }
+          ],
+          "explanation": "Mufasa is the king Scar betrays; Zazu is his hornbill majordomo and Rafiki the wise mandrill."
+        },
+        {
+          "id": "q5",
+          "question": "What does the phrase 'Hakuna Matata' mean?",
+          "options": [
+            { "id": "a", "text": "No worries", "is_correct": true },
+            { "id": "b", "text": "Good night", "is_correct": false },
+            { "id": "c", "text": "Welcome home", "is_correct": false },
+            { "id": "d", "text": "Follow me", "is_correct": false }
+          ],
+          "explanation": "It's a Swahili phrase meaning 'no worries' — Timon and Pumbaa's whole life philosophy."
+        },
+        {
+          "id": "q6",
+          "question": "Which 1998 film follows a young woman who takes her father's place in the Chinese army?",
+          "options": [
+            { "id": "a", "text": "Pocahontas", "is_correct": false },
+            { "id": "b", "text": "Hercules", "is_correct": false },
+            { "id": "c", "text": "Tarzan", "is_correct": false },
+            { "id": "d", "text": "Mulan", "is_correct": true }
+          ],
+          "explanation": "Mulan disguises herself as a soldier to spare her aging father from conscription."
+        },
+        {
+          "id": "q7",
+          "question": "Which pop star wrote and performed the songs in Tarzan (1999)?",
+          "options": [
+            { "id": "a", "text": "Elton John", "is_correct": false },
+            { "id": "b", "text": "Phil Collins", "is_correct": true },
+            { "id": "c", "text": "Sting", "is_correct": false },
+            { "id": "d", "text": "Bryan Adams", "is_correct": false }
+          ],
+          "explanation": "Elton John did The Lion King; Phil Collins won an Oscar for 'You'll Be in My Heart'."
+        },
+        {
+          "id": "q8",
+          "question": "In Beauty and the Beast, which enchanted object is Lumière?",
+          "options": [
+            { "id": "a", "text": "A candelabra", "is_correct": true },
+            { "id": "b", "text": "A teapot", "is_correct": false },
+            { "id": "c", "text": "A clock", "is_correct": false },
+            { "id": "d", "text": "A wardrobe", "is_correct": false }
+          ],
+          "explanation": "Lumière is the candelabra; Cogsworth is the clock and Mrs. Potts the teapot."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-renacimiento-disney",
+      "title": "Trivia del Renacimiento de Disney: la era dorada de los 90",
+      "description": "La sirenita, El rey león, Aladdín, Mulán: la década en que la animación Disney volvió a dominar el mundo. ¿Cuánto sabes de los 90?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["disney", "anios-90", "animacion", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué película abrió el Renacimiento de Disney en 1989?",
+          "options": [
+            { "id": "a", "text": "La bella y la bestia", "is_correct": false },
+            { "id": "b", "text": "El rey león", "is_correct": false },
+            { "id": "c", "text": "La sirenita", "is_correct": true },
+            { "id": "d", "text": "Bernardo y Bianca en Cangurolandia", "is_correct": false }
+          ],
+          "explanation": "El estreno de Ariel en 1989 reinició la edad de oro; Bernardo y Bianca en Cangurolandia llegó un año después."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué película de Disney fue la primera animada nominada al Óscar a mejor película?",
+          "options": [
+            { "id": "a", "text": "La bella y la bestia", "is_correct": true },
+            { "id": "b", "text": "El rey león", "is_correct": false },
+            { "id": "c", "text": "Aladdín", "is_correct": false },
+            { "id": "d", "text": "Blancanieves y los siete enanitos", "is_correct": false }
+          ],
+          "explanation": "Fue nominada en la ceremonia de 1992, antes de que existiera la categoría de mejor película animada; perdió contra El silencio de los inocentes."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién puso la voz al Genio en Aladdín (1992)?",
+          "options": [
+            { "id": "a", "text": "Will Smith", "is_correct": false },
+            { "id": "b", "text": "Robin Williams", "is_correct": true },
+            { "id": "c", "text": "Jim Carrey", "is_correct": false },
+            { "id": "d", "text": "Eddie Murphy", "is_correct": false }
+          ],
+          "explanation": "Robin Williams improvisó buena parte del papel; Will Smith fue el Genio solo en el remake de acción real de 2019."
+        },
+        {
+          "id": "q4",
+          "question": "En El rey león, ¿cómo se llama el padre de Simba?",
+          "options": [
+            { "id": "a", "text": "Scar", "is_correct": false },
+            { "id": "b", "text": "Zazú", "is_correct": false },
+            { "id": "c", "text": "Rafiki", "is_correct": false },
+            { "id": "d", "text": "Mufasa", "is_correct": true }
+          ],
+          "explanation": "Mufasa es el rey al que Scar traiciona; Zazú es su mayordomo bucal y Rafiki el mandril sabio."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué significa la frase 'Hakuna Matata'?",
+          "options": [
+            { "id": "a", "text": "No te preocupes", "is_correct": true },
+            { "id": "b", "text": "Buenas noches", "is_correct": false },
+            { "id": "c", "text": "Bienvenido a casa", "is_correct": false },
+            { "id": "d", "text": "Sígueme", "is_correct": false }
+          ],
+          "explanation": "Es una frase en suajili que significa 'sin preocupaciones': la filosofía de vida de Timón y Pumba."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué película de 1998 sigue a una joven que toma el lugar de su padre en el ejército chino?",
+          "options": [
+            { "id": "a", "text": "Pocahontas", "is_correct": false },
+            { "id": "b", "text": "Mulán", "is_correct": true },
+            { "id": "c", "text": "Hércules", "is_correct": false },
+            { "id": "d", "text": "Tarzán", "is_correct": false }
+          ],
+          "explanation": "Mulán se disfraza de soldado para evitar que su anciano padre sea reclutado."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué estrella del pop escribió e interpretó las canciones de Tarzán (1999)?",
+          "options": [
+            { "id": "a", "text": "Elton John", "is_correct": false },
+            { "id": "b", "text": "Sting", "is_correct": false },
+            { "id": "c", "text": "Phil Collins", "is_correct": true },
+            { "id": "d", "text": "Bryan Adams", "is_correct": false }
+          ],
+          "explanation": "Elton John hizo El rey león; Phil Collins ganó un Óscar por 'You'll Be in My Heart'."
+        },
+        {
+          "id": "q8",
+          "question": "En La bella y la bestia, ¿qué objeto encantado es Lumière?",
+          "options": [
+            { "id": "a", "text": "Una tetera", "is_correct": false },
+            { "id": "b", "text": "Un candelabro", "is_correct": true },
+            { "id": "c", "text": "Un reloj", "is_correct": false },
+            { "id": "d", "text": "Un armario", "is_correct": false }
+          ],
+          "explanation": "Lumière es el candelabro; Din Don es el reloj y la señora Potts, la tetera."
+        }
+      ]
+    },
+    {
+      "slug": "en-pixar-trivia",
+      "title": "Pixar Trivia: How Well Do You Know the Movies?",
+      "description": "Toy Story, Finding Nemo, Up, Coco and more: eight questions on the studio that changed animation forever. Are you a true Pixar fan?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["pixar", "disney", "animation", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What was Pixar's first feature film?",
+          "options": [
+            { "id": "a", "text": "A Bug's Life", "is_correct": false },
+            { "id": "b", "text": "Monsters, Inc.", "is_correct": false },
+            { "id": "c", "text": "Toy Story", "is_correct": true },
+            { "id": "d", "text": "Finding Nemo", "is_correct": false }
+          ],
+          "explanation": "Toy Story (1995) was also the first feature film animated entirely by computer."
+        },
+        {
+          "id": "q2",
+          "question": "Who directed Toy Story (1995)?",
+          "options": [
+            { "id": "a", "text": "Brad Bird", "is_correct": false },
+            { "id": "b", "text": "John Lasseter", "is_correct": true },
+            { "id": "c", "text": "Andrew Stanton", "is_correct": false },
+            { "id": "d", "text": "Pete Docter", "is_correct": false }
+          ],
+          "explanation": "John Lasseter, Pixar's creative chief, directed; Stanton and Docter directed later Pixar films."
+        },
+        {
+          "id": "q3",
+          "question": "In Finding Nemo, what kind of fish are Marlin and Nemo?",
+          "options": [
+            { "id": "a", "text": "Clownfish", "is_correct": true },
+            { "id": "b", "text": "Blue tangs", "is_correct": false },
+            { "id": "c", "text": "Goldfish", "is_correct": false },
+            { "id": "d", "text": "Angelfish", "is_correct": false }
+          ],
+          "explanation": "Marlin and Nemo are clownfish; Dory, their forgetful friend, is the blue tang."
+        },
+        {
+          "id": "q4",
+          "question": "Who voices Dory in Finding Nemo?",
+          "options": [
+            { "id": "a", "text": "Julia Louis-Dreyfus", "is_correct": false },
+            { "id": "b", "text": "Bonnie Hunt", "is_correct": false },
+            { "id": "c", "text": "Kristen Wiig", "is_correct": false },
+            { "id": "d", "text": "Ellen DeGeneres", "is_correct": true }
+          ],
+          "explanation": "Ellen DeGeneres voices Dory; Albert Brooks plays her anxious companion Marlin."
+        },
+        {
+          "id": "q5",
+          "question": "In Up, how does Carl Fredricksen make his house fly?",
+          "options": [
+            { "id": "a", "text": "Thousands of balloons tied to the house", "is_correct": true },
+            { "id": "b", "text": "A giant propeller on the roof", "is_correct": false },
+            { "id": "c", "text": "An airship hidden in the attic", "is_correct": false },
+            { "id": "d", "text": "A rocket engine in the chimney", "is_correct": false }
+          ],
+          "explanation": "Carl is a retired balloon salesman — he lifts the house with a sea of helium balloons."
+        },
+        {
+          "id": "q6",
+          "question": "In Coco, which Mexican celebration takes Miguel to the Land of the Dead?",
+          "options": [
+            { "id": "a", "text": "Cinco de Mayo", "is_correct": false },
+            { "id": "b", "text": "Las Posadas", "is_correct": false },
+            { "id": "c", "text": "Carnival", "is_correct": false },
+            { "id": "d", "text": "Día de los Muertos (Day of the Dead)", "is_correct": true }
+          ],
+          "explanation": "Miguel crosses into the Land of the Dead on Día de los Muertos, when the dead visit the living."
+        },
+        {
+          "id": "q7",
+          "question": "What is Buzz Lightyear's catchphrase?",
+          "options": [
+            { "id": "a", "text": "'To infinity and beyond!'", "is_correct": true },
+            { "id": "b", "text": "'Reach for the sky!'", "is_correct": false },
+            { "id": "c", "text": "'There's a snake in my boot!'", "is_correct": false },
+            { "id": "d", "text": "'You are a toy!'", "is_correct": false }
+          ],
+          "explanation": "'To infinity and beyond!' is Buzz's line — the others are Woody's pull-string phrases."
+        },
+        {
+          "id": "q8",
+          "question": "In Monsters, Inc., what do the monsters collect to power their city?",
+          "options": [
+            { "id": "a", "text": "Children's laughter", "is_correct": false },
+            { "id": "b", "text": "Children's tears", "is_correct": false },
+            { "id": "c", "text": "Children's screams", "is_correct": true },
+            { "id": "d", "text": "Children's dreams", "is_correct": false }
+          ],
+          "explanation": "Monstropolis runs on screams — until they learn laughter is far more powerful."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-pixar",
+      "title": "Trivia de Pixar: ¿cuánto conoces de sus películas?",
+      "description": "Toy Story, Buscando a Nemo, Up, Coco y más: ocho preguntas sobre el estudio que cambió la animación para siempre. ¿Eres fan de Pixar?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["pixar", "disney", "animacion", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál fue la primera película de Pixar?",
+          "options": [
+            { "id": "a", "text": "Bichos: una aventura en miniatura", "is_correct": false },
+            { "id": "b", "text": "Toy Story", "is_correct": true },
+            { "id": "c", "text": "Monsters, Inc.", "is_correct": false },
+            { "id": "d", "text": "Buscando a Nemo", "is_correct": false }
+          ],
+          "explanation": "Toy Story (1995) fue además el primer largometraje animado por completo con computadora."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién dirigió Toy Story (1995)?",
+          "options": [
+            { "id": "a", "text": "Brad Bird", "is_correct": false },
+            { "id": "b", "text": "Andrew Stanton", "is_correct": false },
+            { "id": "c", "text": "John Lasseter", "is_correct": true },
+            { "id": "d", "text": "Pete Docter", "is_correct": false }
+          ],
+          "explanation": "La dirigió John Lasseter, jefe creativo de Pixar; Stanton y Docter dirigieron películas posteriores del estudio."
+        },
+        {
+          "id": "q3",
+          "question": "En Buscando a Nemo, ¿qué especie de pez son Marlin y Nemo?",
+          "options": [
+            { "id": "a", "text": "Peces cirujano", "is_correct": false },
+            { "id": "b", "text": "Peces dorados", "is_correct": false },
+            { "id": "c", "text": "Peces ángel", "is_correct": false },
+            { "id": "d", "text": "Peces payaso", "is_correct": true }
+          ],
+          "explanation": "Marlin y Nemo son peces payaso; Dory, su amiga despistada, es un pez cirujano."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién pone la voz a Dory en la versión original de Buscando a Nemo?",
+          "options": [
+            { "id": "a", "text": "Ellen DeGeneres", "is_correct": true },
+            { "id": "b", "text": "Julia Louis-Dreyfus", "is_correct": false },
+            { "id": "c", "text": "Bonnie Hunt", "is_correct": false },
+            { "id": "d", "text": "Kristen Wiig", "is_correct": false }
+          ],
+          "explanation": "Ellen DeGeneres es Dory; Albert Brooks interpreta a Marlin, su acompañante ansioso."
+        },
+        {
+          "id": "q5",
+          "question": "En Up, ¿cómo consigue Carl Fredricksen que su casa vuele?",
+          "options": [
+            { "id": "a", "text": "Con una hélice gigante en el techo", "is_correct": false },
+            { "id": "b", "text": "Atando miles de globos a la casa", "is_correct": true },
+            { "id": "c", "text": "Con un dirigible escondido en el ático", "is_correct": false },
+            { "id": "d", "text": "Con un motor cohete en la chimenea", "is_correct": false }
+          ],
+          "explanation": "Carl es un vendedor de globos retirado: levanta la casa con un mar de globos de helio."
+        },
+        {
+          "id": "q6",
+          "question": "En Coco, ¿qué celebración mexicana lleva a Miguel a la Tierra de los Muertos?",
+          "options": [
+            { "id": "a", "text": "El Día de Muertos", "is_correct": true },
+            { "id": "b", "text": "El Cinco de Mayo", "is_correct": false },
+            { "id": "c", "text": "Las Posadas", "is_correct": false },
+            { "id": "d", "text": "El Carnaval", "is_correct": false }
+          ],
+          "explanation": "Miguel cruza a la Tierra de los Muertos en el Día de Muertos, cuando los difuntos visitan a los vivos."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es la frase célebre de Buzz Lightyear?",
+          "options": [
+            { "id": "a", "text": "'¡Alcanza el cielo!'", "is_correct": false },
+            { "id": "b", "text": "'¡Hay una serpiente en mi bota!'", "is_correct": false },
+            { "id": "c", "text": "'¡Hasta el infinito y más allá!'", "is_correct": true },
+            { "id": "d", "text": "'¡Tú eres un juguete!'", "is_correct": false }
+          ],
+          "explanation": "'¡Hasta el infinito y más allá!' es la frase de Buzz; las otras son frases de cuerda de Woody."
+        },
+        {
+          "id": "q8",
+          "question": "En Monsters, Inc., ¿qué recolectan los monstruos para alimentar Monstrópolis?",
+          "options": [
+            { "id": "a", "text": "Las risas de los niños", "is_correct": false },
+            { "id": "b", "text": "Las lágrimas de los niños", "is_correct": false },
+            { "id": "c", "text": "Los sueños de los niños", "is_correct": false },
+            { "id": "d", "text": "Los gritos de los niños", "is_correct": true }
+          ],
+          "explanation": "Monstrópolis funciona con gritos, hasta que descubren que la risa es mucho más poderosa."
+        }
+      ]
+    },
+    {
+      "slug": "en-disney-villains-trivia",
+      "title": "Disney Villains Trivia: The Bad Guys We Love to Hate",
+      "description": "Maleficent, Ursula, Scar, Jafar and the Evil Queen: how much do you know about the villains who made Disney heroes shine?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["disney", "villains", "animation", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In Sleeping Beauty, into what does Maleficent transform to fight Prince Phillip?",
+          "options": [
+            { "id": "a", "text": "A giant snake", "is_correct": false },
+            { "id": "b", "text": "A dragon", "is_correct": true },
+            { "id": "c", "text": "A gryphon", "is_correct": false },
+            { "id": "d", "text": "A storm cloud", "is_correct": false }
+          ],
+          "explanation": "Maleficent turns into a black dragon — one of the most famous battles in Disney animation."
+        },
+        {
+          "id": "q2",
+          "question": "What does Ursula take from Ariel in exchange for human legs?",
+          "options": [
+            { "id": "a", "text": "Her memories", "is_correct": false },
+            { "id": "b", "text": "Her pearl necklace", "is_correct": false },
+            { "id": "c", "text": "Her voice", "is_correct": true },
+            { "id": "d", "text": "Her father's trident", "is_correct": false }
+          ],
+          "explanation": "Ariel trades her voice, which Ursula traps inside the seashell around her neck."
+        },
+        {
+          "id": "q3",
+          "question": "Who is Simba's scheming uncle in The Lion King?",
+          "options": [
+            { "id": "a", "text": "Mufasa", "is_correct": false },
+            { "id": "b", "text": "Rafiki", "is_correct": false },
+            { "id": "c", "text": "Banzai", "is_correct": false },
+            { "id": "d", "text": "Scar", "is_correct": true }
+          ],
+          "explanation": "Scar causes Mufasa's death and convinces Simba it's his fault; Banzai is one of his hyenas."
+        },
+        {
+          "id": "q4",
+          "question": "In One Hundred and One Dalmatians, how many puppies do Pongo and Perdita have?",
+          "options": [
+            { "id": "a", "text": "15", "is_correct": true },
+            { "id": "b", "text": "12", "is_correct": false },
+            { "id": "c", "text": "9", "is_correct": false },
+            { "id": "d", "text": "101", "is_correct": false }
+          ],
+          "explanation": "Their litter is fifteen; the famous 101 counts the 84 puppies Cruella kidnapped plus the adults."
+        },
+        {
+          "id": "q5",
+          "question": "In Snow White, who does the Evil Queen ask 'who is the fairest of them all'?",
+          "options": [
+            { "id": "a", "text": "The huntsman", "is_correct": false },
+            { "id": "b", "text": "Her magic mirror", "is_correct": true },
+            { "id": "c", "text": "The seven dwarfs", "is_correct": false },
+            { "id": "d", "text": "Her raven", "is_correct": false }
+          ],
+          "explanation": "'Mirror, mirror on the wall' — the mirror's honest answer is what dooms Snow White."
+        },
+        {
+          "id": "q6",
+          "question": "In Peter Pan, which animal stalks Captain Hook hoping for another taste?",
+          "options": [
+            { "id": "a", "text": "A shark", "is_correct": false },
+            { "id": "b", "text": "A giant octopus", "is_correct": false },
+            { "id": "c", "text": "A crocodile", "is_correct": true },
+            { "id": "d", "text": "A parrot", "is_correct": false }
+          ],
+          "explanation": "The crocodile swallowed Hook's hand — and a ticking clock that announces its arrival."
+        },
+        {
+          "id": "q7",
+          "question": "In Aladdin, what is Jafar's job at the Sultan's court?",
+          "options": [
+            { "id": "a", "text": "The Sultan's grand vizier", "is_correct": true },
+            { "id": "b", "text": "Captain of the palace guards", "is_correct": false },
+            { "id": "c", "text": "The court sorcerer", "is_correct": false },
+            { "id": "d", "text": "The royal merchant", "is_correct": false }
+          ],
+          "explanation": "Jafar is the vizier secretly plotting for the throne; his wisecracking parrot is Iago."
+        },
+        {
+          "id": "q8",
+          "question": "Which Disney villain is the god of the Underworld?",
+          "options": [
+            { "id": "a", "text": "Jafar", "is_correct": false },
+            { "id": "b", "text": "Ursula", "is_correct": false },
+            { "id": "c", "text": "Hades", "is_correct": true },
+            { "id": "d", "text": "Maleficent", "is_correct": false }
+          ],
+          "explanation": "In Hercules (1997), Hades plans to free the Titans and overthrow Zeus."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-villanos-disney",
+      "title": "Trivia de los villanos de Disney: los malos que amamos",
+      "description": "Maléfica, Úrsula, Scar, Jafar y la Reina Malvada: ¿cuánto sabes de los villanos que hicieron brillar a los héroes Disney?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["disney", "villanos", "animacion", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En La bella durmiente, ¿en qué se transforma Maléfica para pelear con el príncipe Felipe?",
+          "options": [
+            { "id": "a", "text": "En una serpiente gigante", "is_correct": false },
+            { "id": "b", "text": "En un grifo", "is_correct": false },
+            { "id": "c", "text": "En un dragón", "is_correct": true },
+            { "id": "d", "text": "En una nube de tormenta", "is_correct": false }
+          ],
+          "explanation": "Maléfica se convierte en un dragón negro: una de las batallas más famosas de la animación Disney."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué le quita Úrsula a Ariel a cambio de piernas humanas?",
+          "options": [
+            { "id": "a", "text": "Sus recuerdos", "is_correct": false },
+            { "id": "b", "text": "Su voz", "is_correct": true },
+            { "id": "c", "text": "Su collar de perlas", "is_correct": false },
+            { "id": "d", "text": "El tridente de su padre", "is_correct": false }
+          ],
+          "explanation": "Ariel entrega su voz, que Úrsula encierra en el caracol que lleva al cuello."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién es el tío traidor de Simba en El rey león?",
+          "options": [
+            { "id": "a", "text": "Mufasa", "is_correct": false },
+            { "id": "b", "text": "Banzai", "is_correct": false },
+            { "id": "c", "text": "Scar", "is_correct": true },
+            { "id": "d", "text": "Rafiki", "is_correct": false }
+          ],
+          "explanation": "Scar provoca la muerte de Mufasa y convence a Simba de que es su culpa; Banzai es una de sus hienas."
+        },
+        {
+          "id": "q4",
+          "question": "En 101 dálmatas, ¿cuántos cachorros tienen Pongo y Perdita?",
+          "options": [
+            { "id": "a", "text": "12", "is_correct": false },
+            { "id": "b", "text": "9", "is_correct": false },
+            { "id": "c", "text": "101", "is_correct": false },
+            { "id": "d", "text": "15", "is_correct": true }
+          ],
+          "explanation": "Su camada es de quince; los 101 famosos suman los 84 cachorros secuestrados por Cruella más los adultos."
+        },
+        {
+          "id": "q5",
+          "question": "En Blancanieves, ¿a quién le pregunta la Reina Malvada quién es la más bella de todas?",
+          "options": [
+            { "id": "a", "text": "A su espejo mágico", "is_correct": true },
+            { "id": "b", "text": "Al cazador", "is_correct": false },
+            { "id": "c", "text": "A los siete enanitos", "is_correct": false },
+            { "id": "d", "text": "A su cuervo", "is_correct": false }
+          ],
+          "explanation": "'Espejito, espejito': la respuesta honesta del espejo es lo que condena a Blancanieves."
+        },
+        {
+          "id": "q6",
+          "question": "En Peter Pan, ¿qué animal persigue al Capitán Garfio esperando repetir el bocado?",
+          "options": [
+            { "id": "a", "text": "Un tiburón", "is_correct": false },
+            { "id": "b", "text": "Un pulpo gigante", "is_correct": false },
+            { "id": "c", "text": "Un loro", "is_correct": false },
+            { "id": "d", "text": "Un cocodrilo", "is_correct": true }
+          ],
+          "explanation": "El cocodrilo se tragó la mano de Garfio y un reloj que hace tic-tac y delata su llegada."
+        },
+        {
+          "id": "q7",
+          "question": "En Aladdín, ¿qué puesto ocupa Jafar en la corte del Sultán?",
+          "options": [
+            { "id": "a", "text": "Capitán de la guardia del palacio", "is_correct": false },
+            { "id": "b", "text": "Gran visir del Sultán", "is_correct": true },
+            { "id": "c", "text": "Hechicero de la corte", "is_correct": false },
+            { "id": "d", "text": "Mercader real", "is_correct": false }
+          ],
+          "explanation": "Jafar es el visir que conspira en secreto por el trono; su loro parlanchín es Iago."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué villano de Disney es el dios del Inframundo?",
+          "options": [
+            { "id": "a", "text": "Jafar", "is_correct": false },
+            { "id": "b", "text": "Hades", "is_correct": true },
+            { "id": "c", "text": "Úrsula", "is_correct": false },
+            { "id": "d", "text": "Maléfica", "is_correct": false }
+          ],
+          "explanation": "En Hércules (1997), Hades planea liberar a los Titanes para destronar a Zeus."
+        }
+      ]
+    },
+    {
+      "slug": "en-disney-songs-trivia",
+      "title": "Disney Songs Trivia: The Soundtracks Everyone Knows",
+      "description": "From 'When You Wish Upon a Star' to 'Let It Go': the Disney songs everyone knows by heart. Can you place each one in its film?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["disney", "music", "soundtracks", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which Pinocchio song won an Oscar and became Disney's signature anthem?",
+          "options": [
+            { "id": "a", "text": "Hi-Diddle-Dee-Dee", "is_correct": false },
+            { "id": "b", "text": "When You Wish Upon a Star", "is_correct": true },
+            { "id": "c", "text": "Give a Little Whistle", "is_correct": false },
+            { "id": "d", "text": "I've Got No Strings", "is_correct": false }
+          ],
+          "explanation": "It won Best Original Song in 1940 and still opens the studio's logo fanfare."
+        },
+        {
+          "id": "q2",
+          "question": "Which Frozen song won the Oscar for Best Original Song?",
+          "options": [
+            { "id": "a", "text": "Do You Want to Build a Snowman?", "is_correct": false },
+            { "id": "b", "text": "For the First Time in Forever", "is_correct": false },
+            { "id": "c", "text": "Love Is an Open Door", "is_correct": false },
+            { "id": "d", "text": "Let It Go", "is_correct": true }
+          ],
+          "explanation": "Idina Menzel sang it; Kristen Anderson-Lopez and Robert Lopez wrote it."
+        },
+        {
+          "id": "q3",
+          "question": "In which film does Sebastian the crab sing 'Under the Sea'?",
+          "options": [
+            { "id": "a", "text": "The Little Mermaid", "is_correct": true },
+            { "id": "b", "text": "Moana", "is_correct": false },
+            { "id": "c", "text": "Finding Nemo", "is_correct": false },
+            { "id": "d", "text": "The Princess and the Frog", "is_correct": false }
+          ],
+          "explanation": "Sebastian's calypso number won the Oscar for Best Original Song in 1990."
+        },
+        {
+          "id": "q4",
+          "question": "Which Aladdin duet won an Oscar and topped the Billboard Hot 100?",
+          "options": [
+            { "id": "a", "text": "Friend Like Me", "is_correct": false },
+            { "id": "b", "text": "Prince Ali", "is_correct": false },
+            { "id": "c", "text": "A Whole New World", "is_correct": true },
+            { "id": "d", "text": "One Jump Ahead", "is_correct": false }
+          ],
+          "explanation": "The pop single by Peabo Bryson and Regina Belle reached #1 on the Billboard Hot 100 in 1993."
+        },
+        {
+          "id": "q5",
+          "question": "Who wrote and performed 'You've Got a Friend in Me' for Toy Story?",
+          "options": [
+            { "id": "a", "text": "Elton John", "is_correct": false },
+            { "id": "b", "text": "Phil Collins", "is_correct": false },
+            { "id": "c", "text": "Billy Joel", "is_correct": false },
+            { "id": "d", "text": "Randy Newman", "is_correct": true }
+          ],
+          "explanation": "Randy Newman's song opens the film and has been a Pixar staple ever since."
+        },
+        {
+          "id": "q6",
+          "question": "Which song opens The Lion King?",
+          "options": [
+            { "id": "a", "text": "Circle of Life", "is_correct": true },
+            { "id": "b", "text": "Hakuna Matata", "is_correct": false },
+            { "id": "c", "text": "Can You Feel the Love Tonight", "is_correct": false },
+            { "id": "d", "text": "I Just Can't Wait to Be King", "is_correct": false }
+          ],
+          "explanation": "The sunrise over the Pride Lands set to 'Circle of Life' is the film's first shot."
+        },
+        {
+          "id": "q7",
+          "question": "Which Coco song won the Oscar for Best Original Song?",
+          "options": [
+            { "id": "a", "text": "Un Poco Loco", "is_correct": false },
+            { "id": "b", "text": "The World Es Mi Familia", "is_correct": false },
+            { "id": "c", "text": "Proud Corazón", "is_correct": false },
+            { "id": "d", "text": "Remember Me", "is_correct": true }
+          ],
+          "explanation": "'Remember Me' was written by Kristen Anderson-Lopez and Robert Lopez — the same team behind 'Let It Go'."
+        },
+        {
+          "id": "q8",
+          "question": "Which Encanto song — about the uncle nobody mentions — became a chart-topping hit?",
+          "options": [
+            { "id": "a", "text": "Surface Pressure", "is_correct": false },
+            { "id": "b", "text": "We Don't Talk About Bruno", "is_correct": true },
+            { "id": "c", "text": "The Family Madrigal", "is_correct": false },
+            { "id": "d", "text": "Dos Oruguitas", "is_correct": false }
+          ],
+          "explanation": "Written by Lin-Manuel Miranda, it reached #1 on the Billboard Hot 100 in 2022."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-canciones-disney",
+      "title": "Trivia de canciones de Disney: las bandas sonoras de siempre",
+      "description": "De «La estrella azul» a «Let It Go»: las canciones Disney que todos saben de memoria. ¿Sabes ubicar cada una en su película?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["disney", "musica", "canciones", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué canción de Pinocho ganó un Óscar y se convirtió en el himno de Disney?",
+          "options": [
+            { "id": "a", "text": "Hi-Diddle-Dee-Dee", "is_correct": false },
+            { "id": "b", "text": "Give a Little Whistle", "is_correct": false },
+            { "id": "c", "text": "When You Wish Upon a Star", "is_correct": true },
+            { "id": "d", "text": "I've Got No Strings", "is_correct": false }
+          ],
+          "explanation": "Ganó el Óscar a mejor canción original en 1940; en español se conoce como 'La estrella azul' y aún abre el logo del estudio."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué canción de Frozen ganó el Óscar a mejor canción original?",
+          "options": [
+            { "id": "a", "text": "Do You Want to Build a Snowman?", "is_correct": false },
+            { "id": "b", "text": "Let It Go", "is_correct": true },
+            { "id": "c", "text": "For the First Time in Forever", "is_correct": false },
+            { "id": "d", "text": "Love Is an Open Door", "is_correct": false }
+          ],
+          "explanation": "La canta Idina Menzel; en Hispanoamérica se conoce como 'Libre soy' y la escribieron Kristen Anderson-Lopez y Robert Lopez."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué película canta Sebastián el cangrejo 'Under the Sea' (Bajo el mar)?",
+          "options": [
+            { "id": "a", "text": "Moana", "is_correct": false },
+            { "id": "b", "text": "Buscando a Nemo", "is_correct": false },
+            { "id": "c", "text": "La princesa y el sapo", "is_correct": false },
+            { "id": "d", "text": "La sirenita", "is_correct": true }
+          ],
+          "explanation": "El número calipso de Sebastián ganó el Óscar a mejor canción original en 1990."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué dueto de Aladdín ganó un Óscar y llegó al número 1 del Billboard Hot 100?",
+          "options": [
+            { "id": "a", "text": "A Whole New World", "is_correct": true },
+            { "id": "b", "text": "Friend Like Me", "is_correct": false },
+            { "id": "c", "text": "Prince Ali", "is_correct": false },
+            { "id": "d", "text": "One Jump Ahead", "is_correct": false }
+          ],
+          "explanation": "'Un mundo ideal' en español; la versión pop de Peabo Bryson y Regina Belle llegó al #1 en 1993."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién compuso e interpreta 'You've Got a Friend in Me' (Hay un amigo en mí) de Toy Story?",
+          "options": [
+            { "id": "a", "text": "Elton John", "is_correct": false },
+            { "id": "b", "text": "Randy Newman", "is_correct": true },
+            { "id": "c", "text": "Phil Collins", "is_correct": false },
+            { "id": "d", "text": "Billy Joel", "is_correct": false }
+          ],
+          "explanation": "La canción de Randy Newman abre la película y desde entonces es un sello de Pixar."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué canción abre El rey león?",
+          "options": [
+            { "id": "a", "text": "Hakuna Matata", "is_correct": false },
+            { "id": "b", "text": "Can You Feel the Love Tonight", "is_correct": false },
+            { "id": "c", "text": "Circle of Life", "is_correct": true },
+            { "id": "d", "text": "I Just Can't Wait to Be King", "is_correct": false }
+          ],
+          "explanation": "El amanecer sobre las Tierras del Reino con 'Circle of Life' (El ciclo de la vida) es el primer plano de la película."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué canción de Coco ganó el Óscar a mejor canción original?",
+          "options": [
+            { "id": "a", "text": "Un Poco Loco", "is_correct": false },
+            { "id": "b", "text": "Remember Me", "is_correct": true },
+            { "id": "c", "text": "The World Es Mi Familia", "is_correct": false },
+            { "id": "d", "text": "Proud Corazón", "is_correct": false }
+          ],
+          "explanation": "'Recuérdame' en español; la escribieron Kristen Anderson-Lopez y Robert Lopez, el mismo equipo de 'Let It Go'."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué canción de Encanto —sobre el tío del que nadie habla— se volvió un éxito mundial?",
+          "options": [
+            { "id": "a", "text": "Surface Pressure", "is_correct": false },
+            { "id": "b", "text": "The Family Madrigal", "is_correct": false },
+            { "id": "c", "text": "Dos Oruguitas", "is_correct": false },
+            { "id": "d", "text": "We Don't Talk About Bruno", "is_correct": true }
+          ],
+          "explanation": "'No se habla de Bruno' en español; la escribió Lin-Manuel Miranda y llegó al #1 del Billboard Hot 100 en 2022."
+        }
+      ]
+    }
+  ]
+}
