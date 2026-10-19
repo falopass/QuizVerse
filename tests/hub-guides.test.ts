@@ -6,7 +6,19 @@ import {
   RELATED_CATEGORIES,
 } from '@/lib/content/hub-guides';
 
-const HUB_SLUGS = ['trivia', 'personality'] as const;
+// The 2 type hubs plus the 8 theme categories with the largest catalogue.
+const GUIDED_SLUGS = [
+  'trivia',
+  'personality',
+  'movies-tv',
+  'anime-manga',
+  'gaming',
+  'music',
+  'lifestyle',
+  'sports',
+  'culture',
+  'technology',
+] as const;
 const LOCALES = ['es', 'en'] as const;
 
 // The 16 theme categories currently populated in the catalogue (see AGENTS.md).
@@ -29,18 +41,30 @@ const POPULATED_SLUGS: string[] = [
   'history',
 ];
 
-const KNOWN_SLUGS = new Set([...POPULATED_SLUGS, ...HUB_SLUGS]);
+const KNOWN_SLUGS = new Set([...POPULATED_SLUGS, 'trivia', 'personality']);
 
 const VOSEO_RE =
   /\b(vos|vosotros|vosotras|tenés|podés|querés|sabés|hacés|decís|venís|salís|andá|mirá|fijate|poné|sacá|elegí|jugá|probá|usá)\b/;
 
 describe('hub guides', () => {
-  for (const slug of HUB_SLUGS) {
+  for (const slug of GUIDED_SLUGS) {
     for (const locale of LOCALES) {
       it(`${slug} (${locale}) tiene una intro editorial suficiente`, () => {
         const guide = getHubGuide(slug, locale);
         expect(guide).not.toBeNull();
         expect(guide!.intro.join(' ').length).toBeGreaterThanOrEqual(700);
+      });
+
+      it(`${slug} (${locale}) cumple la forma de HubGuide`, () => {
+        const guide = getHubGuide(slug, locale)!;
+        expect(guide.title.trim().length).toBeGreaterThan(0);
+        expect(guide.intro.length).toBeGreaterThanOrEqual(2);
+        expect(guide.intro.length).toBeLessThanOrEqual(3);
+        for (const paragraph of guide.intro) {
+          expect(paragraph.trim().length).toBeGreaterThan(0);
+        }
+        expect(guide.howTo).toHaveLength(3);
+        expect(guide.closing.trim().length).toBeGreaterThan(0);
       });
 
       it(`${slug} (${locale}) no usa voseo`, () => {
@@ -51,10 +75,27 @@ describe('hub guides', () => {
     }
   }
 
-  it('solo trivia y personality tienen guía', () => {
-    expect(Object.keys(HUB_GUIDES).sort()).toEqual([...HUB_SLUGS].sort());
-    expect(getHubGuide('movies-tv', 'es')).toBeNull();
-    expect(getHubGuide('music', 'en')).toBeNull();
+  it('HUB_GUIDES cubre los 2 hubs de tipo y las 8 categorías principales', () => {
+    expect(Object.keys(HUB_GUIDES).sort()).toEqual([...GUIDED_SLUGS].sort());
+  });
+
+  it('getHubGuide devuelve null para slugs sin guía', () => {
+    expect(getHubGuide('history', 'es')).toBeNull();
+    expect(getHubGuide('literature', 'en')).toBeNull();
+    expect(getHubGuide('slug-desconocido', 'es')).toBeNull();
+  });
+
+  it('ninguna guía repite textos de otra guía', () => {
+    const seen = new Map<string, string>();
+    for (const locale of LOCALES) {
+      for (const slug of Object.keys(HUB_GUIDES)) {
+        const guide = HUB_GUIDES[slug][locale];
+        for (const text of [guide.title, ...guide.intro, ...guide.howTo, guide.closing]) {
+          expect(seen.has(text), `${slug} (${locale}) repite: ${text.slice(0, 60)}`).toBe(false);
+          seen.set(text, `${slug}:${locale}`);
+        }
+      }
+    }
   });
 
   it('RELATED_CATEGORIES cubre las 16 pobladas y los 2 hubs', () => {
