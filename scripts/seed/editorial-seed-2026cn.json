@@ -578,14 +578,26 @@
         },
         {
           "id": "q2",
-          "question": "En la ciencia del sueño, las siglas REM significan…",
+          "question": "La fase REM del sueño, siglas del inglés rapid eye movement, se caracteriza sobre todo por…",
           "options": [
-            { "id": "a", "text": "modo de energía restauradora", "is_correct": false },
-            { "id": "b", "text": "movimiento ocular rápido", "is_correct": true },
-            { "id": "c", "text": "movimiento eléctrico del descanso", "is_correct": false },
-            { "id": "d", "text": "memoria episódica aleatoria", "is_correct": false }
+            {
+              "id": "a",
+              "text": "los movimientos rápidos de los ojos y los sueños vívidos",
+              "is_correct": true
+            },
+            { "id": "b", "text": "la ausencia de actividad cerebral", "is_correct": false },
+            {
+              "id": "c",
+              "text": "la respiración lenta y regular del sueño profundo",
+              "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "el pico de secreción de la hormona del crecimiento",
+              "is_correct": false
+            }
           ],
-          "explanation": "El sueño REM se llama así por los movimientos rápidos de los ojos bajo los párpados; la mayoría de los sueños vívidos ocurre en esta fase."
+          "explanation": "REM nombra los movimientos oculares rápidos bajo los párpados; es la fase de sueños vívidos y alta actividad cerebral con atonía muscular. La hormona del crecimiento se asocia al sueño de ondas lentas."
         },
         {
           "id": "q3",

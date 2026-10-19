@@ -5,6 +5,7 @@ import { join } from 'node:path';
 
 const SCRIPT = join(__dirname, '..', 'scripts', 'seed', 'emit-editorial-seed.mjs');
 const SEED_PATH = join(__dirname, '..', 'scripts', 'seed', 'editorial-seed-2026cn.json');
+const SQL_PATH = join(__dirname, '..', 'supabase', 'seed', 'editorial-seed-2026cn.sql');
 
 interface SeedOption {
   id: string;
@@ -54,6 +55,16 @@ describe('editorial-seed-2026cn', () => {
     });
     expect(stdout).toContain('insert into public.quizzes');
     expect(stdout).toContain('on conflict (slug) do nothing');
+  });
+
+  it('el SQL versionado coincide con la salida del emisor', () => {
+    const stdout = execFileSync('node', [SCRIPT, '--input', SEED_PATH], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    const normalize = (text: string) => text.replace(/\r\n/g, '\n');
+    const sqlOnDisk = normalize(readFileSync(SQL_PATH, 'utf8'));
+    expect(normalize(stdout).startsWith(sqlOnDisk)).toBe(true);
   });
 
   it('tiene exactamente los 5 pares es/en por tema', () => {
