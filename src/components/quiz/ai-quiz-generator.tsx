@@ -277,7 +277,9 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         source: 'ai_create',
       });
       success(copy.saveSuccess);
-      router.push(localizeHref(locale, `/quiz/${response.quiz.slug}`));
+      router.push(
+        localizeHref(locale, `/create/done?slug=${encodeURIComponent(response.quiz.slug)}`)
+      );
     } catch (err) {
       console.error(err);
       error(err instanceof Error ? err.message : copy.saveError);

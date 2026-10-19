@@ -195,7 +195,9 @@ export function QuizCreatorForm({
         source: 'manual_create',
       });
       success(copy.success);
-      router.push(localizeHref(locale, `/quiz/${response.quiz.slug}`));
+      router.push(
+        localizeHref(locale, `/create/done?slug=${encodeURIComponent(response.quiz.slug)}`)
+      );
     } catch (err) {
       console.error(err);
       error(copy.genericError);
