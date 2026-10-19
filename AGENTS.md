@@ -12,12 +12,12 @@ This project is developed on a single personal machine, and also worked on by Cl
 
 ## Workflow rules
 
-- **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; the owner authorizes the merge.
+- **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; the owner merges.
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (production lives there; its deploy belongs to the owner).
 - Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Vercel PR preview for visual checks.
-- If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge only when the owner asks for it or approves it, with CI green; never on your own initiative. Never deploy.
+- If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Never run `gh pr merge`.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 
 ## Stack
