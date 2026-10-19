@@ -36,7 +36,9 @@ const updateQuizSchema = z.object({
   category_id: z.string().uuid().optional().nullable(),
   tags: z.array(z.string()).optional(),
   estimated_minutes: z.number().optional(),
-  status: z.enum(['draft', 'published', 'pending']).optional(),
+  // `status` stays out on purpose: publishing belongs to the moderation flow
+  // (see `createQuiz`), and RLS cannot restrict columns. Zod strips any
+  // client-sent `status`, so it never reaches `.update()`.
 });
 
 type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
