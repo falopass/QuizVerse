@@ -7,6 +7,8 @@ const ENV_VARS = [
   'NEXT_PUBLIC_SUPABASE_ANON_KEY',
   'NEXT_PHASE',
   'NODE_ENV',
+  'CI',
+  'VERCEL',
 ] as const;
 
 function clearSupabaseEnv() {
@@ -51,14 +53,31 @@ describe('supabaseEnv', () => {
     expect(() => supabaseEnv()).toThrow('NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY');
   });
 
-  it('returns placeholders during next build', () => {
+  it('returns placeholders during a CI-only next build', () => {
     vi.stubEnv('NODE_ENV', 'production');
     vi.stubEnv('NEXT_PHASE', 'phase-production-build');
+    vi.stubEnv('CI', 'true');
 
     expect(supabaseEnv()).toEqual({
       url: 'https://placeholder.supabase.co',
       anonKey: 'placeholder-key',
     });
+  });
+
+  it('throws during a production build outside CI (deployable artifact)', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('NEXT_PHASE', 'phase-production-build');
+
+    expect(() => supabaseEnv()).toThrow('Missing required Supabase environment variables');
+  });
+
+  it('throws during a Vercel build even when CI is set', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    vi.stubEnv('NEXT_PHASE', 'phase-production-build');
+    vi.stubEnv('CI', 'true');
+    vi.stubEnv('VERCEL', '1');
+
+    expect(() => supabaseEnv()).toThrow('Missing required Supabase environment variables');
   });
 
   it.each(['test', 'development'])('returns placeholders when NODE_ENV=%s', (nodeEnv) => {
@@ -68,5 +87,22 @@ describe('supabaseEnv', () => {
       url: 'https://placeholder.supabase.co',
       anonKey: 'placeholder-key',
     });
+  });
+});
+
+describe('next.config Vercel guard', () => {
+  it('fails the build on Vercel without Supabase envs', async () => {
+    vi.stubEnv('VERCEL', '1');
+    vi.resetModules();
+
+    await expect(import('../next.config')).rejects.toThrow(
+      'Missing required Supabase environment variables'
+    );
+  });
+
+  it('loads next.config outside Vercel without Supabase envs', async () => {
+    vi.resetModules();
+
+    await expect(import('../next.config')).resolves.toBeDefined();
   });
 });

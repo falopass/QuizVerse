@@ -4,7 +4,8 @@
  * The client factories used to fall back to placeholder credentials silently,
  * which made a production deploy without env vars look alive while the catalog
  * and auth failed underneath. Placeholders are only allowed where a real
- * backend is never reached: `next build` (NEXT_PHASE), dev and test.
+ * backend is never reached: a CI-only `next build` (NEXT_PHASE + CI, never
+ * Vercel — its builds are deployable artifacts), dev and test.
  *
  * In the browser bundle, `NEXT_PUBLIC_*` and `NODE_ENV` are inlined at build
  * time; `NEXT_PHASE` is always undefined there, so a production client without
@@ -22,8 +23,11 @@ export function supabaseEnv(): { url: string; anonKey: string } {
 
   if (url && anonKey) return { url, anonKey };
 
-  const isBuild = process.env.NEXT_PHASE === 'phase-production-build';
-  if (process.env.NODE_ENV === 'production' && !isBuild) {
+  const isCiBuild =
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.CI === 'true' &&
+    !process.env.VERCEL;
+  if (process.env.NODE_ENV === 'production' && !isCiBuild) {
     const missing = [
       ...(!url ? ['NEXT_PUBLIC_SUPABASE_URL'] : []),
       ...(!anonKey
