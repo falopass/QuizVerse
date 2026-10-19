@@ -64,6 +64,7 @@ export default async function LocalizedLeaderboardPage({
   // a quién sigues, así que ahí se muestra el aviso de login.
   let entries: BoardEntry[] | null;
   let noFollows = false;
+  let friendsFailed = false;
 
   if (!isFriends) {
     entries = (leaderboard ?? []).map((entry) => ({
@@ -78,21 +79,30 @@ export default async function LocalizedLeaderboardPage({
   } else if (!currentUser) {
     entries = null;
   } else {
-    const { data: follows } = await supabase
+    const { data: follows, error: followsError } = await supabase
       .from('user_follows')
       .select('following_id')
       .eq('follower_id', currentUser.id);
 
-    if (!follows?.length) {
-      noFollows = true;
+    if (followsError) {
+      friendsFailed = true;
       entries = [];
     } else {
+      noFollows = follows.length === 0;
       const ids = [currentUser.id, ...follows.map((f) => f.following_id)];
-      const { data: profiles } = await supabase.from('profiles').select('*').in('id', ids);
-      entries = rankFriends(profiles ?? [], currentUser.id).map((entry) => ({
-        ...entry,
-        name: entry.displayName || entry.username,
-      }));
+      const { data: profiles, error: profilesError } = await supabase
+        .from('profiles')
+        .select('*')
+        .in('id', ids);
+      if (profilesError) {
+        friendsFailed = true;
+        entries = [];
+      } else {
+        entries = rankFriends(profiles, currentUser.id).map((entry) => ({
+          ...entry,
+          name: entry.displayName || entry.username,
+        }));
+      }
     }
   }
 
@@ -182,6 +192,27 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
+      {isFriends && friendsFailed && (
+        <section className="surface-card mt-6 p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="eyebrow">{locale === 'es' ? 'Amigos' : 'Friends'}</p>
+              <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                {locale === 'es'
+                  ? 'No pudimos cargar tu ranking de amigos.'
+                  : 'We could not load your friends leaderboard.'}
+              </h2>
+            </div>
+            <Link
+              href={scopeHref('friends')}
+              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+            >
+              {locale === 'es' ? 'Reintentar' : 'Try again'}
+            </Link>
+          </div>
+        </section>
+      )}
+
       {isFriends && noFollows && (
         <section className="surface-card mt-6 p-6">
           <p className="eyebrow">{locale === 'es' ? 'Amigos' : 'Friends'}</p>
@@ -194,7 +225,7 @@ export default async function LocalizedLeaderboardPage({
               : 'Follow other players from their profile and this board fills up with their activity and yours.'}
           </p>
           <Link
-            href={localizeHref(locale, '/explore')}
+            href={localizeHref(locale, '/quiz')}
             className="text-accent-primary mt-4 inline-block text-sm font-semibold"
           >
             {locale === 'es' ? 'Explorar quizzes' : 'Explore quizzes'}
