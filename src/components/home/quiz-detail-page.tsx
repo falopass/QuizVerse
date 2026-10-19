@@ -142,6 +142,19 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               <dt>{dictionary.arcade.language}</dt>
               <dd>{getLocalizedLanguageLabel(quiz.language, locale)}</dd>
             </div>
+            {quiz.category && (
+              <div>
+                <dt>{es ? 'Categoría' : 'Category'}</dt>
+                <dd>
+                  <Link
+                    href={categoryPath(locale, quiz.category.slug)}
+                    className="text-accent-primary underline-offset-2 hover:underline"
+                  >
+                    {quiz.category.name}
+                  </Link>
+                </dd>
+              </div>
+            )}
           </dl>
           <div className="arcade-report">
             <ReportButton quizId={quiz.id} quizSlug={quiz.slug} locale={locale} />
@@ -223,16 +236,28 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
         </section>
       )}
 
-      {related.length > 0 && (
+      {quiz.category && (
         <section className="arcade-related">
-          <div className="arcade-section-head">
-            <h2>{dictionary.arcade.related}</h2>
-          </div>
-          <div className="arcade-grid">
-            {related.slice(0, 3).map((item) => (
-              <EditorialQuizCard key={item.id} quiz={item} locale={locale} />
-            ))}
-          </div>
+          {related.length > 0 && (
+            <>
+              <div className="arcade-section-head">
+                <h2>{dictionary.arcade.related}</h2>
+              </div>
+              <div className="arcade-grid">
+                {related.slice(0, 3).map((item) => (
+                  <EditorialQuizCard key={item.id} quiz={item} locale={locale} />
+                ))}
+              </div>
+            </>
+          )}
+          <Link
+            href={categoryPath(locale, quiz.category.slug)}
+            className="arcade-back mt-6 inline-block"
+          >
+            {es
+              ? `Ver todos los quizzes de ${quiz.category.name} ↗`
+              : `See all ${quiz.category.name} quizzes ↗`}
+          </Link>
         </section>
       )}
 
