@@ -303,9 +303,11 @@ export async function incrementShares(quizId: string): Promise<ActionResult> {
   if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
 
   // A throttled share skips the counter but reports success: the player's
-  // share flow must never break over telemetry.
-  const { allowed } = await shareLimiter.check(await clientIp());
-  if (!allowed) return { success: true };
+  // share flow must never break over telemetry. When the limiter itself fails
+  // (Redis down) we still count — better unbounded counts during an outage
+  // than silently lost metrics.
+  const { allowed, errored } = await shareLimiter.check(await clientIp());
+  if (!allowed && !errored) return { success: true };
 
   const supabase = await createClient();
   const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });

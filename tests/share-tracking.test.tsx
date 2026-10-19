@@ -55,6 +55,20 @@ describe('incrementShares', () => {
     expect(mocks.rpc).not.toHaveBeenCalled();
   });
 
+  it('cuenta igual cuando el limiter falla (Redis caído)', async () => {
+    mocks.rateLimitCheck.mockResolvedValue({
+      allowed: false,
+      remaining: 0,
+      reset: 60,
+      errored: true,
+    });
+
+    const result = await incrementShares(QUIZ_ID);
+
+    expect(result).toEqual({ success: true });
+    expect(mocks.rpc).toHaveBeenCalledWith('increment_shares', { quiz_uuid: QUIZ_ID });
+  });
+
   it('rechaza un id inválido sin tocar la base', async () => {
     const result = await incrementShares('no-es-un-uuid');
 
