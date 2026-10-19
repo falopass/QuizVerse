@@ -93,6 +93,17 @@ describe('editorial-seed-2026ci', () => {
     }
   });
 
+  it('la opción correcta no se concentra en una sola posición', () => {
+    for (const quiz of quizzes) {
+      const positions = new Set(
+        quiz.questions.map((question) =>
+          question.options.findIndex((option) => option.is_correct === true)
+        )
+      );
+      expect(positions.size, quiz.slug).toBeGreaterThanOrEqual(3);
+    }
+  });
+
   it('cada pregunta lleva una explanation no vacía', () => {
     for (const quiz of quizzes) {
       for (const question of quiz.questions) {

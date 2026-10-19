@@ -9,7 +9,12 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": ["zodiac", "astrology", "elements", "trivia"],
+      "tags": [
+        "zodiac",
+        "astrology",
+        "elements",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -50,13 +55,13 @@
             },
             {
               "id": "b",
-              "text": "Fixed",
-              "is_correct": true
+              "text": "Mutable",
+              "is_correct": false
             },
             {
               "id": "c",
-              "text": "Mutable",
-              "is_correct": false
+              "text": "Fixed",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -72,18 +77,18 @@
           "options": [
             {
               "id": "a",
+              "text": "Mutable",
+              "is_correct": true
+            },
+            {
+              "id": "b",
               "text": "Cardinal",
               "is_correct": false
             },
             {
-              "id": "b",
+              "id": "c",
               "text": "Fixed",
               "is_correct": false
-            },
-            {
-              "id": "c",
-              "text": "Mutable",
-              "is_correct": true
             },
             {
               "id": "d",
@@ -99,23 +104,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Masculine or active",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Feminine or passive",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Nocturnal",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Neutral",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Masculine or active",
+              "is_correct": true
             }
           ],
           "explanation": "Traditional astrology divides the signs into two polarities: fire and air as masculine or active, earth and water as feminine or receptive."
@@ -126,13 +131,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Triplicity",
-              "is_correct": true
+              "text": "Quadruplicity",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Quadruplicity",
-              "is_correct": false
+              "text": "Triplicity",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -153,13 +158,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Aries",
-              "is_correct": false
+              "text": "Leo",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "Leo",
-              "is_correct": true
+              "text": "Aries",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -180,18 +185,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Empedocles",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Pythagoras",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Aristotle",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Empedocles",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -207,23 +212,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Cancer",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Scorpio",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Pisces",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Aquarius",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cancer",
+              "is_correct": true
             }
           ],
           "explanation": "Cancer is cardinal water, Scorpio fixed water and Pisces mutable water; Aquarius is an air sign despite its water-bearer symbol."
@@ -238,7 +243,12 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": ["zodiaco", "astrología", "elementos", "trivia"],
+      "tags": [
+        "zodiaco",
+        "astrología",
+        "elementos",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -279,13 +289,13 @@
             },
             {
               "id": "b",
-              "text": "Fija",
-              "is_correct": true
+              "text": "Mutable",
+              "is_correct": false
             },
             {
               "id": "c",
-              "text": "Mutable",
-              "is_correct": false
+              "text": "Fija",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -301,18 +311,18 @@
           "options": [
             {
               "id": "a",
+              "text": "Mutable",
+              "is_correct": true
+            },
+            {
+              "id": "b",
               "text": "Cardinal",
               "is_correct": false
             },
             {
-              "id": "b",
+              "id": "c",
               "text": "Fija",
               "is_correct": false
-            },
-            {
-              "id": "c",
-              "text": "Mutable",
-              "is_correct": true
             },
             {
               "id": "d",
@@ -328,23 +338,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Masculina o activa",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Femenina o pasiva",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Nocturna",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Neutral",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Masculina o activa",
+              "is_correct": true
             }
           ],
           "explanation": "La astrología tradicional divide los signos en dos polaridades: fuego y aire como masculinos o activos, tierra y agua como femeninos o receptivos."
@@ -355,13 +365,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Triplicidad",
-              "is_correct": true
+              "text": "Cuadruplicidad",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Cuadruplicidad",
-              "is_correct": false
+              "text": "Triplicidad",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -382,13 +392,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Aries",
-              "is_correct": false
+              "text": "Leo",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "Leo",
-              "is_correct": true
+              "text": "Aries",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -409,18 +419,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Empédocles",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Pitágoras",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Aristóteles",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Empédocles",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -436,23 +446,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Cáncer",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Escorpio",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Piscis",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Acuario",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Cáncer",
+              "is_correct": true
             }
           ],
           "explanation": "Cáncer es agua cardinal, Escorpio agua fija y Piscis agua mutable; Acuario es un signo de aire pese a su símbolo del aguador."
@@ -467,7 +477,12 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": ["astrology", "history", "babylon", "trivia"],
+      "tags": [
+        "astrology",
+        "history",
+        "babylon",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -481,13 +496,13 @@
             },
             {
               "id": "b",
-              "text": "Babylonia",
-              "is_correct": true
+              "text": "Greece",
+              "is_correct": false
             },
             {
               "id": "c",
-              "text": "Greece",
-              "is_correct": false
+              "text": "Babylonia",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -503,13 +518,13 @@
           "options": [
             {
               "id": "a",
-              "text": "15th century BC",
-              "is_correct": false
+              "text": "5th century BC",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "5th century BC",
-              "is_correct": true
+              "text": "15th century BC",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -530,23 +545,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Circle of little animals",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Wheel of the stars",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Path of the gods",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Ring of light",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Circle of little animals",
+              "is_correct": true
             }
           ],
           "explanation": "Zōidiakos kyklos means 'circle of little figures' — most of them animals — which is why the word zodiac shares a root with zoo."
@@ -557,13 +572,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Claudius Ptolemy",
-              "is_correct": true
+              "text": "Aristotle",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Aristotle",
-              "is_correct": false
+              "text": "Claudius Ptolemy",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -584,13 +599,13 @@
           "options": [
             {
               "id": "a",
-              "text": "The Bronze Age",
-              "is_correct": false
+              "text": "The Hellenistic period",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "The Hellenistic period",
-              "is_correct": true
+              "text": "The Bronze Age",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -611,18 +626,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Alexandria",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Thebes",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Memphis",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Alexandria",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -638,13 +653,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Enūma Anu Enlil",
-              "is_correct": true
+              "text": "Epic of Gilgamesh",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Epic of Gilgamesh",
-              "is_correct": false
+              "text": "Enūma Anu Enlil",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -665,23 +680,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Date, time and place of birth",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Name and date of birth",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Place and name of birth",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Date of birth only",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Date, time and place of birth",
+              "is_correct": true
             }
           ],
           "explanation": "The chart maps the sky for an exact date, time and place; the hour matters because the rising sign changes roughly every two hours."
@@ -696,7 +711,12 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": ["astrología", "historia", "babilonia", "trivia"],
+      "tags": [
+        "astrología",
+        "historia",
+        "babilonia",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -710,13 +730,13 @@
             },
             {
               "id": "b",
-              "text": "Babilonia",
-              "is_correct": true
+              "text": "Grecia",
+              "is_correct": false
             },
             {
               "id": "c",
-              "text": "Grecia",
-              "is_correct": false
+              "text": "Babilonia",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -732,13 +752,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Siglo XV a. C.",
-              "is_correct": false
+              "text": "Siglo V a. C.",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "Siglo V a. C.",
-              "is_correct": true
+              "text": "Siglo XV a. C.",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -759,23 +779,23 @@
           "options": [
             {
               "id": "a",
-              "text": "«círculo de animalitos»",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "«rueda de las estrellas»",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "«camino de los dioses»",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "«anillo de luz»",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "«círculo de animalitos»",
+              "is_correct": true
             }
           ],
           "explanation": "Zōidiakos kyklos quiere decir «círculo de figuritas» — casi todas animales — y por eso zodiaco comparte raíz con zoológico."
@@ -786,13 +806,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Claudio Ptolomeo",
-              "is_correct": true
+              "text": "Aristóteles",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Aristóteles",
-              "is_correct": false
+              "text": "Claudio Ptolomeo",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -813,13 +833,13 @@
           "options": [
             {
               "id": "a",
-              "text": "La Edad del Bronce",
-              "is_correct": false
+              "text": "El período helenístico",
+              "is_correct": true
             },
             {
               "id": "b",
-              "text": "El período helenístico",
-              "is_correct": true
+              "text": "La Edad del Bronce",
+              "is_correct": false
             },
             {
               "id": "c",
@@ -840,18 +860,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Alejandría",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Tebas",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Menfis",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Alejandría",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -867,13 +887,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Enūma Anu Enlil",
-              "is_correct": true
+              "text": "Epopeya de Gilgamesh",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Epopeya de Gilgamesh",
-              "is_correct": false
+              "text": "Enūma Anu Enlil",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -894,23 +914,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Fecha, hora y lugar de nacimiento",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Nombre y fecha de nacimiento",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Lugar y nombre de nacimiento",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Solo la fecha de nacimiento",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Fecha, hora y lugar de nacimiento",
+              "is_correct": true
             }
           ],
           "explanation": "La carta dibuja el cielo para una fecha, hora y lugar exactos; la hora importa porque el signo ascendente cambia más o menos cada dos horas."
@@ -925,7 +945,12 @@
       "difficulty": "medium",
       "language": "en",
       "category": "lifestyle",
-      "tags": ["astrology", "planets", "zodiac", "trivia"],
+      "tags": [
+        "astrology",
+        "planets",
+        "zodiac",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -961,18 +986,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Virgo",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Libra",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Aquarius",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Virgo",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -988,23 +1013,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Sagittarius",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Capricorn",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Aquarius",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Leo",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Sagittarius",
+              "is_correct": true
             }
           ],
           "explanation": "Jupiter rules Sagittarius in the classical scheme; it also held Pisces before Neptune was discovered."
@@ -1015,13 +1040,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Capricorn",
-              "is_correct": true
+              "text": "Taurus",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Taurus",
-              "is_correct": false
+              "text": "Capricorn",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -1042,23 +1067,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Pluto",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Mars",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Neptune",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Saturn",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Pluto",
+              "is_correct": true
             }
           ],
           "explanation": "Scorpio kept Mars as its classical ruler, and modern astrologers added Pluto after its discovery in 1930."
@@ -1069,13 +1094,13 @@
           "options": [
             {
               "id": "a",
-              "text": "The Moon",
-              "is_correct": true
+              "text": "Venus",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Venus",
-              "is_correct": false
+              "text": "The Moon",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -1123,18 +1148,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Pisces",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Scorpio",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Cancer",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Pisces",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -1154,7 +1179,12 @@
       "difficulty": "medium",
       "language": "es",
       "category": "lifestyle",
-      "tags": ["astrología", "planetas", "zodiaco", "trivia"],
+      "tags": [
+        "astrología",
+        "planetas",
+        "zodiaco",
+        "trivia"
+      ],
       "estimated_minutes": 3,
       "questions": [
         {
@@ -1190,18 +1220,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Virgo",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Libra",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Acuario",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Virgo",
+              "is_correct": true
             },
             {
               "id": "d",
@@ -1217,23 +1247,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Sagitario",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Capricornio",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Acuario",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Leo",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Sagitario",
+              "is_correct": true
             }
           ],
           "explanation": "Júpiter rige a Sagitario en el esquema clásico; también tenía a Piscis antes de que se descubriera Neptuno."
@@ -1244,13 +1274,13 @@
           "options": [
             {
               "id": "a",
-              "text": "Capricornio",
-              "is_correct": true
+              "text": "Tauro",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Tauro",
-              "is_correct": false
+              "text": "Capricornio",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -1271,23 +1301,23 @@
           "options": [
             {
               "id": "a",
-              "text": "Plutón",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Marte",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Neptuno",
               "is_correct": false
             },
             {
-              "id": "d",
+              "id": "c",
               "text": "Saturno",
               "is_correct": false
+            },
+            {
+              "id": "d",
+              "text": "Plutón",
+              "is_correct": true
             }
           ],
           "explanation": "Escorpio conservó a Marte como regente clásico, y los astrólogos modernos le añadieron Plutón tras su descubrimiento en 1930."
@@ -1298,13 +1328,13 @@
           "options": [
             {
               "id": "a",
-              "text": "La Luna",
-              "is_correct": true
+              "text": "Venus",
+              "is_correct": false
             },
             {
               "id": "b",
-              "text": "Venus",
-              "is_correct": false
+              "text": "La Luna",
+              "is_correct": true
             },
             {
               "id": "c",
@@ -1352,18 +1382,18 @@
           "options": [
             {
               "id": "a",
-              "text": "Piscis",
-              "is_correct": true
-            },
-            {
-              "id": "b",
               "text": "Escorpio",
               "is_correct": false
             },
             {
-              "id": "c",
+              "id": "b",
               "text": "Cáncer",
               "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Piscis",
+              "is_correct": true
             },
             {
               "id": "d",
