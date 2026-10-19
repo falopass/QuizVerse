@@ -4,7 +4,7 @@ import { ResultScreen } from '@/components/quiz/result-screen';
 import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { buildMetadata } from '@/lib/seo/metadata';
-import { resultOgImage } from '@/lib/seo/site';
+import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { buildReview, toClientQuiz } from '@/lib/quiz/answer-key';
 
@@ -118,7 +118,7 @@ export default async function LocalizedQuizResultPage({
       review={buildReview(quiz, session?.answers ?? [])}
       shareUrl={
         s
-          ? `/${locale}/quiz/${quiz.slug}/result?s=${s}${challenge ? `&challenge=${challenge.token}` : ''}`
+          ? `${SITE_URL}/${locale}/quiz/${quiz.slug}/result?s=${s}${challenge ? `&challenge=${challenge.token}` : ''}`
           : undefined
       }
       challenge={challenge}

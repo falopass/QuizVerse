@@ -9,10 +9,11 @@
  */
 
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { toJson } from '@/lib/supabase/json';
-import { apiLimiter, quizLimiter } from '@/lib/utils/rate-limit';
+import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { QuizCreateSchema } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
@@ -282,6 +283,17 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 // SHARES
 // ============================================
 
+/** Generous: five share buttons per dialog, not scripted counter inflation. */
+const shareLimiter = createRateLimiter('quiz-share', 30, 60);
+
+/** Falls back to `x-real-ip` when the proxy chain is missing. */
+async function clientIp(): Promise<string> {
+  const headerList = await headers();
+  const forwarded = headerList.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return headerList.get('x-real-ip') ?? 'unknown';
+}
+
 /**
  * Counts a share. Fire-and-forget from the share buttons: a failure must never
  * reach the player, and anonymous visitors share results too.
@@ -289,6 +301,11 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 export async function incrementShares(quizId: string): Promise<ActionResult> {
   const parsed = z.string().uuid().safeParse(quizId);
   if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
+
+  // A throttled share skips the counter but reports success: the player's
+  // share flow must never break over telemetry.
+  const { allowed } = await shareLimiter.check(await clientIp());
+  if (!allowed) return { success: true };
 
   const supabase = await createClient();
   const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });
