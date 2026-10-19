@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ResultScreen } from '@/components/quiz/result-screen';
-import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
+import { getQuizBySlug, getQuizSessionByShareToken, getRelatedQuizzes } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
+import { localizeQuizList } from '@/lib/i18n/catalog';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
@@ -107,6 +108,13 @@ export default async function LocalizedQuizResultPage({
         }
       : undefined;
 
+  // Misma fuente que el detalle; van al cliente, así que cada uno pasa por
+  // toClientQuiz para no filtrar su clave de respuestas.
+  const related = localizeQuizList(
+    await getRelatedQuizzes(quiz.slug, quiz.category?.slug, locale),
+    locale
+  ).map(toClientQuiz);
+
   return (
     <ResultScreen
       locale={locale}
@@ -125,6 +133,7 @@ export default async function LocalizedQuizResultPage({
       challengeHref={
         sessionIsForQuiz ? `/${locale}/quiz/${quiz.slug}/play?challenge=${s}` : undefined
       }
+      related={related}
     />
   );
 }

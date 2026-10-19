@@ -7,6 +7,7 @@ import confetti from 'canvas-confetti';
 import { cn } from '@/lib/utils/cn';
 import { ShareButtons } from '@/components/shared/share-buttons';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
+import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { challengeOutcome, type ChallengeScore } from '@/lib/quiz/challenge';
@@ -33,6 +34,8 @@ interface ResultScreenProps {
   challenge?: ChallengeScore | null;
   /** Enlace para aceptar el reto desde un resultado compartido (`/play?challenge=`). */
   challengeHref?: string;
+  /** Relacionados ya saneados con `toClientQuiz` en el servidor; se muestran hasta 3. */
+  related?: Quiz[];
 }
 
 export function ResultScreen({
@@ -48,6 +51,7 @@ export function ResultScreen({
   onPlayAgain,
   challenge = null,
   challengeHref,
+  related,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [showShare, setShowShare] = React.useState(false);
@@ -79,6 +83,7 @@ export function ResultScreen({
           challengeDiff: 'Resultados distintos',
           rematch: 'Revancha',
           acceptChallenge: 'Aceptar el reto',
+          keepPlaying: 'Sigue jugando',
         }
       : {
           eyebrow: 'Result',
@@ -106,6 +111,7 @@ export function ResultScreen({
           challengeDiff: 'Different results',
           rematch: 'Rematch',
           acceptChallenge: 'Take the challenge',
+          keepPlaying: 'Keep playing',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -342,6 +348,22 @@ export function ResultScreen({
           </section>
         </div>
       </div>
+
+      {related && related.length > 0 && (
+        <section
+          className="arcade-related relative z-10 mx-auto max-w-6xl"
+          aria-labelledby="related-quizzes"
+        >
+          <div className="arcade-section-head">
+            <h2 id="related-quizzes">{copy.keepPlaying}</h2>
+          </div>
+          <div className="arcade-grid">
+            {related.slice(0, 3).map((item) => (
+              <EditorialQuizCard key={item.id} quiz={item} locale={uiLocale} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <AnimatePresence>
         {showShare && (
