@@ -33,7 +33,7 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
   const title = lang === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions';
 
   return (
-    <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
       <JsonLd
         data={buildGraph([
           webPageNode(`/${lang}/faq`, lang, title),
@@ -115,6 +115,6 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
           )}
         </p>
       </div>
-    </main>
+    </div>
   );
 }
