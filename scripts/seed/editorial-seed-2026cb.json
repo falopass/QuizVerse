@@ -758,7 +758,7 @@
         },
         {
           "id": "q7",
-          "question": "Which street photographer worked as a nanny and became famous only after her negatives were auctioned posthumously?",
+          "question": "Which street photographer worked as a nanny and became famous only when her negatives surfaced at a 2007 auction?",
           "options": [
             { "id": "a", "text": "Helen Levitt", "is_correct": false },
             { "id": "b", "text": "Vivian Maier", "is_correct": true },
@@ -859,7 +859,7 @@
         },
         {
           "id": "q7",
-          "question": "¿Qué fotógrafa callejera trabajó como niñera y se hizo famosa cuando sus negativos se subastaron tras su muerte?",
+          "question": "¿Qué fotógrafa callejera trabajó como niñera y se hizo famosa cuando sus negativos aparecieron en una subasta de 2007?",
           "options": [
             { "id": "a", "text": "Helen Levitt", "is_correct": false },
             { "id": "b", "text": "Vivian Maier", "is_correct": true },
