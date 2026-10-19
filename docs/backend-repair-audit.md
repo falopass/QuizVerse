@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+> **Nota de mantenimiento.** Revisado el 2026-10-19 contra `origin/main` (`5327ef0`); este documento se poda contra `main`: lo que no tenga estado explícito es no verificado.
+
 **Goal:** Reparar el backend de QuizVerse con cambios mínimos, verificables y seguros, dejando claras las causas de cada problema antes de tocar código.
 
 **Architecture:** QuizVerse usa Next.js App Router con Server Components, Server Actions, API Routes y Supabase como base de datos/autenticación. La reparación debe mantener Supabase como fuente de verdad para datos persistentes, RLS como primera barrera de seguridad y Server Actions/API Routes como capa de validación y orquestación.
@@ -55,6 +57,8 @@ Sin una línea base no se sabe qué falla hoy y qué rompe cada cambio. La repar
 ---
 
 ## 3. Mapa de archivos críticos
+
+**Estado (2026-10-19):** Obsoleto en parte — `src/actions/report.actions.ts`, `src/actions/admin.actions.ts` y `src/lib/data/db-fetchers.ts` ya no existen; `src/actions/` contiene `auth.actions.ts`, `profile.actions.ts`, `quiz.actions.ts` y `social.actions.ts` (`ls src/actions`).
 
 ### Supabase/env
 
@@ -110,6 +114,8 @@ Sin una línea base no se sabe qué falla hoy y qué rompe cada cambio. La repar
 
 ## 4. Supabase usa placeholders peligrosos
 
+**Estado (2026-10-19):** Resuelto — `src/lib/supabase/env.ts` centraliza la lectura y lanza error explícito en producción (`env.ts:30-38`); los placeholders solo se permiten en dev/test y en `next build` de CI (`env.ts:26-29`).
+
 ### Archivos afectados
 
 - `src/lib/supabase/server.ts`
@@ -153,6 +159,8 @@ También puede generar una falsa sensación de que la app funciona cuando en rea
 
 ## 5. `createAdminClient()` usa non-null assertions inseguras
 
+**Estado (2026-10-19):** Obsoleto — `src/lib/supabase/admin.ts` no existe y no hay cliente service-role en la app: `grep -rn "SERVICE_ROLE" src` devuelve 0 resultados.
+
 ### Archivo afectado
 
 - `src/lib/supabase/admin.ts`
@@ -187,6 +195,8 @@ La service role key es crítica: solo debe usarse server-side y con validación 
 ---
 
 ## 6. Tipos `Database` desactualizados
+
+**Estado (2026-10-19):** Obsoleto — `src/types/database.ts` ya tipa `quiz_comments` (`:450`), `user_follows` (`:503`), `notifications`, `quiz_reports` (`:391`) y los RPC `increment_plays`, `increment_shares` y `toggle_like` (`:593`).
 
 ### Archivo afectado
 
@@ -229,6 +239,8 @@ Si los tipos no coinciden con la DB real, el código termina usando casts forzad
 
 ## 7. Casts inseguros en Server Actions
 
+**Estado (2026-10-19):** Resuelto — `grep -rn "as never\|@ts-expect-error" src` devuelve 0 resultados. `as unknown as` solo queda fuera de writes Supabase: `normalizers.ts` (narrowing de JSON), `api/sitemap/route.ts:54`, `api/locale/route.ts:37` y `rate-limit.ts:56` (este último cubierto en §20).
+
 ### Archivos afectados
 
 - `src/actions/quiz.actions.ts`
@@ -268,6 +280,8 @@ Estos casts esconden errores reales de contrato entre la app y Supabase. Si una 
 
 ## 8. `likeQuiz()` usa un método RPC inexistente
 
+**Estado (2026-10-19):** Obsoleto — `rpcLike` ya no existe y `likeQuiz` llama `supabase.rpc('toggle_like', …)` (`src/actions/quiz.actions.ts:273`); la función existe en `supabase/migrations/003_functions.sql:32`. Lo que falta es la UI de like (encargo LIKE-01, bloqueado).
+
 ### Archivo afectado
 
 - `src/actions/quiz.actions.ts`
@@ -300,6 +314,8 @@ const { data, error } = await supabase.rpc('toggle_like', {
 ---
 
 ## 9. `submitQuizResult()` confía en `is_correct` enviado por cliente
+
+**Estado (2026-10-19):** Resuelto — el envío pasa por `QuizSubmissionSchema` + `scoreSubmission` server-side (`src/actions/quiz.actions.ts:19,216`; `src/lib/quiz/submission.ts`), que recalcula cada `is_correct` ignorando el dato del cliente.
 
 ### Archivo afectado
 
@@ -340,6 +356,8 @@ El cliente no es confiable. Un usuario podría enviar todas las respuestas como 
 
 ## 10. Puntos y achievements tienen doble fuente de verdad
 
+**Estado (2026-10-19):** En revisión — `checkAchievements` ya lee el premio desde `achievements.points_reward` (`src/lib/quiz/achievements.ts:104`) e inserta con `ignoreDuplicates` (`:98-99`), pero la app sigue actualizando `profiles.points` además del trigger `award_quiz_points` (`supabase/migrations/003_functions.sql`): falta decidir si esa doble escritura es intencional.
+
 ### Archivos afectados
 
 - `src/actions/quiz.actions.ts`
@@ -379,6 +397,8 @@ Recomendación:
 
 ## 11. `checkAchievements()` consulta columna inexistente
 
+**Estado (2026-10-19):** Resuelto — la consulta selecciona `achievement_id` (`src/lib/quiz/achievements.ts:80`).
+
 ### Archivo afectado
 
 - `src/lib/quiz/achievements.ts`
@@ -416,6 +436,8 @@ Cambiar la consulta para seleccionar `achievement_id`.
 ---
 
 ## 12. Trigger `increment_creator_quizzes()` puede fallar en INSERT
+
+**Estado (2026-10-19):** Sin verificar — el código señalado sigue igual en `supabase/migrations/003_functions.sql:194-208` y ninguna migración posterior lo redefine. Nota: en un INSERT `OLD` es NULL y `NULL IS DISTINCT FROM 'published'` es verdadero, así que el contador probablemente sí suma; queda pendiente confirmar si el bug descrito existe de verdad antes de tocar la función.
 
 ### Archivo original
 
@@ -460,6 +482,8 @@ Crear migración nueva que redefina la función diferenciando:
 
 ## 13. `handle_new_user()` puede generar usernames duplicados
 
+**Estado (2026-10-19):** Resuelto — `supabase/migrations/009_fix_signup_username.sql` redefine `handle_new_user()` normalizando el username (misma regla que `src/lib/auth/identity.ts`) y resolviendo colisiones con sufijo del UUID.
+
 ### Archivo original
 
 - `supabase/migrations/003_functions.sql`
@@ -496,6 +520,8 @@ Dos usuarios con el mismo nombre pueden producir el mismo username y romper el s
 ---
 
 ## 14. RLS admin incompleto para aprobar/rechazar quizzes
+
+**Estado (2026-10-19):** Pendiente — no existe aún la policy admin de update de quizzes en `supabase/migrations/` (`grep -rn "is_admin" supabase/migrations/002_rls_policies.sql` no muestra policy de quizzes). `010_moderation_guards.sql` añade guardias de publicación e `is_admin`, pero el flujo de aprobar/rechazar depende de la decisión ADM-01 (`decision/adm-01.md`).
 
 ### Archivos afectados
 
@@ -538,6 +564,8 @@ EXISTS (
 
 ## 15. Lectura de reports demasiado amplia
 
+**Estado (2026-10-19):** Pendiente — la policy sigue siendo `quiz_reports_read_authenticated` con `USING (auth.role() = 'authenticated')` en `supabase/migrations/002_rls_policies.sql:105`; ninguna migración posterior la restringe. Canalizado a la decisión ADM-01.
+
 ### Archivo afectado
 
 - `supabase/migrations/002_rls_policies.sql`
@@ -567,6 +595,8 @@ Crear migración nueva que reemplace esa policy por una de admin-only.
 ---
 
 ## 16. `getPendingQuizzes()` y `getReports()` no verifican admin
+
+**Estado (2026-10-19):** Pendiente — `src/actions/admin.actions.ts` no existe (`ls src/actions` → auth, profile, quiz, social), por lo que las funciones citadas tampoco. El modelo de moderación/admin completo queda en la decisión ADM-01.
 
 ### Archivo afectado
 
@@ -601,6 +631,8 @@ if ('error' in adminCheck) return { error: adminCheck.error };
 ---
 
 ## 17. Endpoint de reportes duplica lógica con Server Action
+
+**Estado (2026-10-19):** Obsoleto — ya hay un solo camino: `src/actions/report.actions.ts` no existe y `/api/quiz/report` valida con Zod (`quiz_id` uuid, enum de reasons, `details` ≤ 1000) y tiene rate limit propio de 8/600s (`src/app/api/quiz/report/route.ts:20-30`), con errores 400/429/500.
 
 ### Archivos afectados
 
@@ -649,6 +681,8 @@ Recomendación mínima:
 
 ## 18. Reportes anónimos deben definirse explícitamente
 
+**Estado (2026-10-19):** Pendiente — la route sigue insertando `reporter_id: user?.id ?? null` (`src/app/api/quiz/report/route.ts:57`) y la RLS admite anónimos; la decisión explícita forma parte de ADM-01.
+
 ### Archivos afectados
 
 - `src/app/api/quiz/report/route.ts`
@@ -688,6 +722,8 @@ Si se prefiere menos abuso, exigir login.
 
 ## 19. Rate limit debe distinguir endpoints críticos y no críticos
 
+**Estado (2026-10-19):** En revisión — el helper ahora reporta `errored` y falla abierto cuando Redis no está configurado (`src/lib/utils/rate-limit.ts:40-42,71`); la política por endpoint está en vuelo con PR #56 (`fix/rate-limit-reset`) y el encargo FIX-04.
+
 ### Archivo afectado
 
 - `src/lib/utils/rate-limit.ts`
@@ -723,6 +759,8 @@ No todos los endpoints tienen el mismo riesgo.
 
 ## 20. Cálculo de `reset` en rate limit puede estar mal
 
+**Estado (2026-10-19):** En revisión — el cast ciego del score sigue en `src/lib/utils/rate-limit.ts:56`; lo corrige PR #56 (`fix/rate-limit-reset`).
+
 ### Archivo afectado
 
 - `src/lib/utils/rate-limit.ts`
@@ -754,6 +792,8 @@ Si Upstash devuelve `[member, score]` o una estructura distinta, `reset` se calc
 ---
 
 ## 21. AI generation valida poco la respuesta de DeepSeek
+
+**Estado (2026-10-19):** En revisión — el request ya valida con Zod (`src/app/api/quiz/generate/route.ts:6-11,21`); la validación estructural completa de la respuesta del modelo está en el encargo FIX-05, en vuelo.
 
 ### Archivos afectados
 
@@ -796,6 +836,8 @@ Un modelo puede devolver JSON válido pero semánticamente inválido:
 
 ## 22. Soporte de `poll` es ambiguo
 
+**Estado (2026-10-19):** Resuelto — el proyecto rechaza `poll` en las entradas: el request de generate usa `z.enum(['trivia', 'personality'])` (`src/app/api/quiz/generate/route.ts:8`) y `src/lib/quiz/validator.ts:43` documenta que `poll` vuelve solo cuando tenga implementación completa (rama `chore/poll-enums`, PR #21).
+
 ### Archivos afectados
 
 - `src/app/api/quiz/generate/route.ts`
@@ -833,6 +875,8 @@ Recomendación mínima: deshabilitar `poll` hasta que tenga flujo propio.
 ---
 
 ## 23. Revalidación usa rutas no localizadas
+
+**Estado (2026-10-19):** En revisión — `revalidatePath('/quiz')` y `revalidatePath('/')` siguen en `src/actions/quiz.actions.ts:131-170`; forma parte del encargo FIX-05 en vuelo.
 
 ### Archivos afectados
 
@@ -876,6 +920,8 @@ La cache puede no invalidarse donde el usuario realmente ve el contenido.
 
 ## 24. `db-fetchers.ts` duplica lógica de `public.ts`
 
+**Estado (2026-10-19):** Obsoleto — `src/lib/data/db-fetchers.ts` no existe (`ls src/lib/data` → catalog, challenge, launch-catalog, normalizers, public, quiz-locale-map, stock-cover-manifest); cada query vive en `public.ts`.
+
 ### Archivos afectados
 
 - `src/lib/data/public.ts`
@@ -911,6 +957,8 @@ Recomendación mínima: si `db-fetchers.ts` no se usa, eliminarlo en una tarea s
 ---
 
 ## 25. Migración `008_backend_repairs.sql` requerida
+
+**Estado (2026-10-19):** Resuelto — existe `supabase/migrations/008_fix_trigger_search_path.sql` (fija `search_path` en todas las funciones de trigger; distinto contenido al planeado aquí, aplicada en producción el 2026-09-27). Las piezas pendientes de esta lista viven en migraciones separadas (`009_fix_signup_username.sql`, `010_moderation_guards.sql`) y en ADM-01.
 
 ### Archivo a crear
 
