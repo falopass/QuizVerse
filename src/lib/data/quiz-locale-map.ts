@@ -374,6 +374,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-seven-wonders-trivia': 'es-trivia-siete-maravillas-del-mundo',
   'en-empires-that-reshaped-the-world-trivia': 'es-trivia-imperios-que-cambiaron-el-mundo',
   'en-natural-wonders-trivia': 'es-trivia-maravillas-naturales',
+  // Pares del lote editorial 2026ae (scripts/seed/editorial-seed-2026ae.json): historia universal.
+  'en-world-war-1-trivia': 'es-trivia-primera-guerra-mundial',
+  'en-french-revolution-trivia': 'es-trivia-revolucion-francesa',
+  'en-industrial-revolution-trivia': 'es-trivia-revolucion-industrial',
+  'en-cold-war-trivia': 'es-trivia-guerra-fria',
+  'en-renaissance-trivia': 'es-trivia-renacimiento',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));

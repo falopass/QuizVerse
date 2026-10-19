@@ -1,0 +1,1031 @@
+{
+  "$comment": "Editorial batch 2026ae: five es/en trivia pairs on world history — World War I, the French Revolution, the Industrial Revolution, the Cold War and the Renaissance — all in the history category. Every answer is a stable, checkable fact: dates, treaties, inventions and well-documented events. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-world-war-1-trivia",
+      "title": "World War I Trivia: Trenches, Alliances and Armistice",
+      "description": "Eight questions on World War I: the spark in Sarajevo, trench warfare on the Western Front, the Central Powers and the Treaty of Versailles.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["world war 1", "history", "war", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which event triggered the outbreak of World War I in 1914?",
+          "options": [
+            { "id": "a", "text": "The invasion of Poland", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The assassination of Archduke Franz Ferdinand",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The sinking of the Titanic", "is_correct": false },
+            { "id": "d", "text": "The Russian Revolution", "is_correct": false }
+          ],
+          "explanation": "Archduke Franz Ferdinand, heir to the Austro-Hungarian throne, was shot in Sarajevo on 28 June 1914 by Gavrilo Princip."
+        },
+        {
+          "id": "q2",
+          "question": "In which years was World War I fought?",
+          "options": [
+            { "id": "a", "text": "1910-1914", "is_correct": false },
+            { "id": "b", "text": "1912-1918", "is_correct": false },
+            { "id": "c", "text": "1914-1918", "is_correct": true },
+            { "id": "d", "text": "1939-1945", "is_correct": false }
+          ],
+          "explanation": "The war began on 28 July 1914 and ended with the armistice of 11 November 1918."
+        },
+        {
+          "id": "q3",
+          "question": "What defensive feature dominated the fighting on the Western Front?",
+          "options": [
+            { "id": "a", "text": "Castle walls", "is_correct": false },
+            { "id": "b", "text": "Trenches", "is_correct": true },
+            { "id": "c", "text": "Bunkers", "is_correct": false },
+            { "id": "d", "text": "Fortified bridges", "is_correct": false }
+          ],
+          "explanation": "Both sides dug hundreds of kilometres of trenches, producing the stalemate that defined the Western Front."
+        },
+        {
+          "id": "q4",
+          "question": "Which alliance fought against the Allied Powers in World War I?",
+          "options": [
+            { "id": "a", "text": "The Axis Powers", "is_correct": false },
+            { "id": "b", "text": "The Triple Entente", "is_correct": false },
+            { "id": "c", "text": "The Warsaw Pact", "is_correct": false },
+            { "id": "d", "text": "The Central Powers", "is_correct": true }
+          ],
+          "explanation": "The Central Powers were Germany, Austria-Hungary, the Ottoman Empire and Bulgaria."
+        },
+        {
+          "id": "q5",
+          "question": "Which British ocean liner was sunk by a German U-boat in 1915, killing nearly 1,200 people?",
+          "options": [
+            { "id": "a", "text": "RMS Titanic", "is_correct": false },
+            { "id": "b", "text": "RMS Lusitania", "is_correct": true },
+            { "id": "c", "text": "RMS Britannic", "is_correct": false },
+            { "id": "d", "text": "SS Queen Mary", "is_correct": false }
+          ],
+          "explanation": "The Lusitania sank off Ireland in May 1915; the death of 128 American passengers turned US opinion against Germany."
+        },
+        {
+          "id": "q6",
+          "question": "Which treaty, signed in 1919, formally ended the war between Germany and the Allied Powers?",
+          "options": [
+            { "id": "a", "text": "The Treaty of Versailles", "is_correct": true },
+            { "id": "b", "text": "The Treaty of Utrecht", "is_correct": false },
+            { "id": "c", "text": "The Treaty of Westphalia", "is_correct": false },
+            { "id": "d", "text": "The Treaty of Rome", "is_correct": false }
+          ],
+          "explanation": "The Treaty of Versailles was signed on 28 June 1919, exactly five years after the Sarajevo assassination."
+        },
+        {
+          "id": "q7",
+          "question": "Following the Schlieffen Plan, which neutral country did Germany invade on its way to France in August 1914?",
+          "options": [
+            { "id": "a", "text": "Switzerland", "is_correct": false },
+            { "id": "b", "text": "The Netherlands", "is_correct": false },
+            { "id": "c", "text": "Denmark", "is_correct": false },
+            { "id": "d", "text": "Belgium", "is_correct": true }
+          ],
+          "explanation": "Germany crossed Belgium to outflank the French armies; Britain had guaranteed Belgian neutrality and entered the war."
+        },
+        {
+          "id": "q8",
+          "question": "On what date was the armistice that ended the fighting signed?",
+          "options": [
+            { "id": "a", "text": "11 November 1918", "is_correct": true },
+            { "id": "b", "text": "4 July 1918", "is_correct": false },
+            { "id": "c", "text": "25 December 1918", "is_correct": false },
+            { "id": "d", "text": "1 January 1919", "is_correct": false }
+          ],
+          "explanation": "The armistice took effect at the eleventh hour of the eleventh day of the eleventh month of 1918, now marked as Armistice or Remembrance Day."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-primera-guerra-mundial",
+      "title": "Trivia de la Primera Guerra Mundial: trincheras, alianzas y armisticio",
+      "description": "Ocho preguntas sobre la Primera Guerra Mundial: la chispa de Sarajevo, la guerra de trincheras, las Potencias Centrales y el Tratado de Versalles.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["primera guerra mundial", "historia", "guerra", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué suceso desencadenó el estallido de la Primera Guerra Mundial en 1914?",
+          "options": [
+            { "id": "a", "text": "La invasión de Polonia", "is_correct": false },
+            {
+              "id": "b",
+              "text": "El asesinato del archiduque Francisco Fernando",
+              "is_correct": true
+            },
+            { "id": "c", "text": "El hundimiento del Titanic", "is_correct": false },
+            { "id": "d", "text": "La Revolución rusa", "is_correct": false }
+          ],
+          "explanation": "El archiduque Francisco Fernando, heredero del trono austrohúngaro, fue asesinado en Sarajevo el 28 de junio de 1914 por Gavrilo Princip."
+        },
+        {
+          "id": "q2",
+          "question": "¿Entre qué años se libró la Primera Guerra Mundial?",
+          "options": [
+            { "id": "a", "text": "1910-1914", "is_correct": false },
+            { "id": "b", "text": "1912-1918", "is_correct": false },
+            { "id": "c", "text": "1914-1918", "is_correct": true },
+            { "id": "d", "text": "1939-1945", "is_correct": false }
+          ],
+          "explanation": "La guerra comenzó el 28 de julio de 1914 y terminó con el armisticio del 11 de noviembre de 1918."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué rasgo defensivo dominó los combates del Frente Occidental?",
+          "options": [
+            { "id": "a", "text": "Las murallas de castillos", "is_correct": false },
+            { "id": "b", "text": "Las trincheras", "is_correct": true },
+            { "id": "c", "text": "Los búnkeres", "is_correct": false },
+            { "id": "d", "text": "Los puentes fortificados", "is_correct": false }
+          ],
+          "explanation": "Ambos bandos cavaron cientos de kilómetros de trincheras, lo que produjo el estancamiento que definió el Frente Occidental."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué alianza combatió contra las Potencias Aliadas en la Primera Guerra Mundial?",
+          "options": [
+            { "id": "a", "text": "Las Potencias del Eje", "is_correct": false },
+            { "id": "b", "text": "La Triple Entente", "is_correct": false },
+            { "id": "c", "text": "El Pacto de Varsovia", "is_correct": false },
+            { "id": "d", "text": "Las Potencias Centrales", "is_correct": true }
+          ],
+          "explanation": "Las Potencias Centrales fueron Alemania, Austria-Hungría, el Imperio otomano y Bulgaria."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué transatlántico británico hundió un submarino alemán en 1915, con casi 1.200 muertos?",
+          "options": [
+            { "id": "a", "text": "El RMS Titanic", "is_correct": false },
+            { "id": "b", "text": "El RMS Lusitania", "is_correct": true },
+            { "id": "c", "text": "El RMS Britannic", "is_correct": false },
+            { "id": "d", "text": "El SS Queen Mary", "is_correct": false }
+          ],
+          "explanation": "El Lusitania se hundió frente a Irlanda en mayo de 1915; la muerte de 128 pasajeros estadounidenses volvió la opinión pública de EE. UU. contra Alemania."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué tratado, firmado en 1919, puso fin formal a la guerra entre Alemania y las Potencias Aliadas?",
+          "options": [
+            { "id": "a", "text": "El Tratado de Versalles", "is_correct": true },
+            { "id": "b", "text": "El Tratado de Utrecht", "is_correct": false },
+            { "id": "c", "text": "El Tratado de Westfalia", "is_correct": false },
+            { "id": "d", "text": "El Tratado de Roma", "is_correct": false }
+          ],
+          "explanation": "El Tratado de Versalles se firmó el 28 de junio de 1919, exactamente cinco años después del atentado de Sarajevo."
+        },
+        {
+          "id": "q7",
+          "question": "Siguiendo el Plan Schlieffen, ¿qué país neutral invadió Alemania camino a Francia en agosto de 1914?",
+          "options": [
+            { "id": "a", "text": "Suiza", "is_correct": false },
+            { "id": "b", "text": "Los Países Bajos", "is_correct": false },
+            { "id": "c", "text": "Dinamarca", "is_correct": false },
+            { "id": "d", "text": "Bélgica", "is_correct": true }
+          ],
+          "explanation": "Alemania cruzó Bélgica para flanquear a los ejércitos franceses; Reino Unido había garantizado la neutralidad belga y entró en la guerra."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué fecha se firmó el armisticio que puso fin a los combates?",
+          "options": [
+            { "id": "a", "text": "El 11 de noviembre de 1918", "is_correct": true },
+            { "id": "b", "text": "El 4 de julio de 1918", "is_correct": false },
+            { "id": "c", "text": "El 25 de diciembre de 1918", "is_correct": false },
+            { "id": "d", "text": "El 1 de enero de 1919", "is_correct": false }
+          ],
+          "explanation": "El armisticio entró en vigor a la hora once del día once del mes once de 1918, hoy conmemorado como Día del Armisticio o del Recuerdo."
+        }
+      ]
+    },
+    {
+      "slug": "en-french-revolution-trivia",
+      "title": "French Revolution Trivia: Bastille, Rights and Terror",
+      "description": "Eight questions on the French Revolution: the storming of the Bastille, the Declaration of Rights, the Reign of Terror and Napoleon's rise.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["french revolution", "history", "france", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which fortress-prison in Paris was stormed by revolutionaries on 14 July 1789?",
+          "options": [
+            { "id": "a", "text": "The Conciergerie", "is_correct": false },
+            { "id": "b", "text": "The Bastille", "is_correct": true },
+            { "id": "c", "text": "The Louvre", "is_correct": false },
+            { "id": "d", "text": "The Château de Vincennes", "is_correct": false }
+          ],
+          "explanation": "The fall of the Bastille became the symbolic start of the Revolution; 14 July is still France's national holiday."
+        },
+        {
+          "id": "q2",
+          "question": "Which document, adopted in August 1789, proclaimed that men are born free and equal in rights?",
+          "options": [
+            { "id": "a", "text": "The Civil Constitution of the Clergy", "is_correct": false },
+            { "id": "b", "text": "The Napoleonic Code", "is_correct": false },
+            {
+              "id": "c",
+              "text": "The Declaration of the Rights of Man and of the Citizen",
+              "is_correct": true
+            },
+            { "id": "d", "text": "The Edict of Nantes", "is_correct": false }
+          ],
+          "explanation": "The Declaration of the Rights of Man and of the Citizen set out liberty, property, security and resistance to oppression as natural rights."
+        },
+        {
+          "id": "q3",
+          "question": "Who was king of France when the Revolution began?",
+          "options": [
+            { "id": "a", "text": "Louis XIV", "is_correct": false },
+            { "id": "b", "text": "Louis XV", "is_correct": false },
+            { "id": "c", "text": "Charles X", "is_correct": false },
+            { "id": "d", "text": "Louis XVI", "is_correct": true }
+          ],
+          "explanation": "Louis XVI was executed by guillotine in January 1793; his wife Marie Antoinette followed in October."
+        },
+        {
+          "id": "q4",
+          "question": "Which execution device became the symbol of the revolutionary tribunals?",
+          "options": [
+            { "id": "a", "text": "The gallows", "is_correct": false },
+            { "id": "b", "text": "The guillotine", "is_correct": true },
+            { "id": "c", "text": "The breaking wheel", "is_correct": false },
+            { "id": "d", "text": "The firing squad", "is_correct": false }
+          ],
+          "explanation": "The guillotine was promoted as a quick, egalitarian method of execution and was used for thousands of death sentences."
+        },
+        {
+          "id": "q5",
+          "question": "What name is given to the period of mass arrests and executions of 1793-1794?",
+          "options": [
+            { "id": "a", "text": "The Directory", "is_correct": false },
+            { "id": "b", "text": "The Consulate", "is_correct": false },
+            { "id": "c", "text": "The Reign of Terror", "is_correct": true },
+            { "id": "d", "text": "The Thermidorian Reaction", "is_correct": false }
+          ],
+          "explanation": "During the Terror, the Committee of Public Safety sent tens of thousands to prison and around 17,000 to execution."
+        },
+        {
+          "id": "q6",
+          "question": "Which revolutionary leader dominated the Committee of Public Safety during the Terror?",
+          "options": [
+            { "id": "a", "text": "Georges Danton", "is_correct": false },
+            { "id": "b", "text": "Jean-Paul Marat", "is_correct": false },
+            { "id": "c", "text": "Lafayette", "is_correct": false },
+            { "id": "d", "text": "Maximilien Robespierre", "is_correct": true }
+          ],
+          "explanation": "Robespierre, nicknamed 'the Incorruptible', was the face of the Terror until his own execution in July 1794."
+        },
+        {
+          "id": "q7",
+          "question": "Which general seized power in the coup of 1799, ending the revolutionary decade?",
+          "options": [
+            { "id": "a", "text": "Napoleon Bonaparte", "is_correct": true },
+            { "id": "b", "text": "Lazare Hoche", "is_correct": false },
+            { "id": "c", "text": "Joachim Murat", "is_correct": false },
+            { "id": "d", "text": "Jean Moreau", "is_correct": false }
+          ],
+          "explanation": "Napoleon's coup of 18 Brumaire (9 November 1799) made him First Consul; he crowned himself Emperor in 1804."
+        },
+        {
+          "id": "q8",
+          "question": "Into how many orders, or Estates, was French society formally divided before 1789?",
+          "options": [
+            { "id": "a", "text": "Two", "is_correct": false },
+            { "id": "b", "text": "Three", "is_correct": true },
+            { "id": "c", "text": "Four", "is_correct": false },
+            { "id": "d", "text": "Five", "is_correct": false }
+          ],
+          "explanation": "The First Estate was the clergy, the Second the nobility, and the Third everyone else — about 97% of the population."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-revolucion-francesa",
+      "title": "Trivia de la Revolución francesa: la Bastilla, los derechos y el Terror",
+      "description": "Ocho preguntas sobre la Revolución francesa: la toma de la Bastilla, la Declaración de Derechos, el Terror y el ascenso de Napoleón.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["revolución francesa", "historia", "francia", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué fortaleza-prisión de París fue tomada por los revolucionarios el 14 de julio de 1789?",
+          "options": [
+            { "id": "a", "text": "La Conciergerie", "is_correct": false },
+            { "id": "b", "text": "La Bastilla", "is_correct": true },
+            { "id": "c", "text": "El Louvre", "is_correct": false },
+            { "id": "d", "text": "El Castillo de Vincennes", "is_correct": false }
+          ],
+          "explanation": "La caída de la Bastilla se convirtió en el inicio simbólico de la Revolución; el 14 de julio sigue siendo la fiesta nacional de Francia."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué documento, aprobado en agosto de 1789, proclamó que los hombres nacen libres e iguales en derechos?",
+          "options": [
+            { "id": "a", "text": "La Constitución Civil del Clero", "is_correct": false },
+            { "id": "b", "text": "El Código Napoleónico", "is_correct": false },
+            {
+              "id": "c",
+              "text": "La Declaración de los Derechos del Hombre y del Ciudadano",
+              "is_correct": true
+            },
+            { "id": "d", "text": "El Edicto de Nantes", "is_correct": false }
+          ],
+          "explanation": "La Declaración de los Derechos del Hombre y del Ciudadano fijó la libertad, la propiedad, la seguridad y la resistencia a la opresión como derechos naturales."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién era el rey de Francia cuando comenzó la Revolución?",
+          "options": [
+            { "id": "a", "text": "Luis XIV", "is_correct": false },
+            { "id": "b", "text": "Luis XV", "is_correct": false },
+            { "id": "c", "text": "Carlos X", "is_correct": false },
+            { "id": "d", "text": "Luis XVI", "is_correct": true }
+          ],
+          "explanation": "Luis XVI fue ejecutado en la guillotina en enero de 1793; su esposa María Antonieta lo siguió en octubre."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué instrumento de ejecución se convirtió en el símbolo de los tribunales revolucionarios?",
+          "options": [
+            { "id": "a", "text": "La horca", "is_correct": false },
+            { "id": "b", "text": "La guillotina", "is_correct": true },
+            { "id": "c", "text": "La rueda", "is_correct": false },
+            { "id": "d", "text": "El pelotón de fusilamiento", "is_correct": false }
+          ],
+          "explanation": "La guillotina se promovió como un método de ejecución rápido e igualitario y se usó en miles de condenas a muerte."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el período de detenciones y ejecuciones masivas de 1793-1794?",
+          "options": [
+            { "id": "a", "text": "El Directorio", "is_correct": false },
+            { "id": "b", "text": "El Consulado", "is_correct": false },
+            { "id": "c", "text": "El Reinado del Terror", "is_correct": true },
+            { "id": "d", "text": "La Reacción de Termidor", "is_correct": false }
+          ],
+          "explanation": "Durante el Terror, el Comité de Salvación Pública envió a decenas de miles de personas a prisión y a unas 17.000 a la ejecución."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué líder revolucionario dominó el Comité de Salvación Pública durante el Terror?",
+          "options": [
+            { "id": "a", "text": "Georges Danton", "is_correct": false },
+            { "id": "b", "text": "Jean-Paul Marat", "is_correct": false },
+            { "id": "c", "text": "Lafayette", "is_correct": false },
+            { "id": "d", "text": "Maximilien Robespierre", "is_correct": true }
+          ],
+          "explanation": "Robespierre, apodado 'el Incorruptible', fue la cara del Terror hasta su propia ejecución en julio de 1794."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué general tomó el poder con el golpe de 1799, cerrando la década revolucionaria?",
+          "options": [
+            { "id": "a", "text": "Napoleón Bonaparte", "is_correct": true },
+            { "id": "b", "text": "Lazare Hoche", "is_correct": false },
+            { "id": "c", "text": "Joachim Murat", "is_correct": false },
+            { "id": "d", "text": "Jean Moreau", "is_correct": false }
+          ],
+          "explanation": "El golpe de 18 Brumario (9 de noviembre de 1799) convirtió a Napoleón en primer cónsul; se coronó emperador en 1804."
+        },
+        {
+          "id": "q8",
+          "question": "¿En cuántos órdenes, o Estados, estaba dividida formalmente la sociedad francesa antes de 1789?",
+          "options": [
+            { "id": "a", "text": "Dos", "is_correct": false },
+            { "id": "b", "text": "Tres", "is_correct": true },
+            { "id": "c", "text": "Cuatro", "is_correct": false },
+            { "id": "d", "text": "Cinco", "is_correct": false }
+          ],
+          "explanation": "El Primer Estado era el clero, el Segundo la nobleza y el Tercero el resto, cerca del 97% de la población."
+        }
+      ]
+    },
+    {
+      "slug": "en-industrial-revolution-trivia",
+      "title": "Industrial Revolution Trivia: Steam, Coal and Factories",
+      "description": "Eight questions on the Industrial Revolution: the steam engine, the textile mills, railways and the inventions that transformed work.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["industrial revolution", "history", "inventions", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which country did the Industrial Revolution begin?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Germany", "is_correct": false },
+            { "id": "c", "text": "Great Britain", "is_correct": true },
+            { "id": "d", "text": "The United States", "is_correct": false }
+          ],
+          "explanation": "Industrialisation began in Britain in the late 18th century, driven by coal, iron, canals and a booming textile trade."
+        },
+        {
+          "id": "q2",
+          "question": "What power source drove the first generation of industrial machinery?",
+          "options": [
+            { "id": "a", "text": "Electricity", "is_correct": false },
+            { "id": "b", "text": "Steam", "is_correct": true },
+            { "id": "c", "text": "Petroleum", "is_correct": false },
+            { "id": "d", "text": "Nuclear power", "is_correct": false }
+          ],
+          "explanation": "Steam engines freed factories from riversides; electricity and the internal combustion engine came later."
+        },
+        {
+          "id": "q3",
+          "question": "Which engineer's improvements made the steam engine practical for factories and transport?",
+          "options": [
+            { "id": "a", "text": "Thomas Newcomen", "is_correct": false },
+            { "id": "b", "text": "Isambard Kingdom Brunel", "is_correct": false },
+            { "id": "c", "text": "Richard Trevithick", "is_correct": false },
+            { "id": "d", "text": "James Watt", "is_correct": true }
+          ],
+          "explanation": "James Watt's separate condenser (1765-1776) made steam engines far more efficient; the watt unit of power is named after him."
+        },
+        {
+          "id": "q4",
+          "question": "Which industry led the early Industrial Revolution?",
+          "options": [
+            { "id": "a", "text": "Shipbuilding", "is_correct": false },
+            { "id": "b", "text": "Steel", "is_correct": false },
+            { "id": "c", "text": "Cotton textiles", "is_correct": true },
+            { "id": "d", "text": "Automobiles", "is_correct": false }
+          ],
+          "explanation": "Mechanised spinning and weaving of cotton in northern England was the first great factory industry."
+        },
+        {
+          "id": "q5",
+          "question": "What spinning machine did James Hargreaves patent in 1770?",
+          "options": [
+            { "id": "a", "text": "The spinning jenny", "is_correct": true },
+            { "id": "b", "text": "The power loom", "is_correct": false },
+            { "id": "c", "text": "The water frame", "is_correct": false },
+            { "id": "d", "text": "The flying shuttle", "is_correct": false }
+          ],
+          "explanation": "The spinning jenny let one worker spin several threads at once; the water frame and power loom followed in weaving."
+        },
+        {
+          "id": "q6",
+          "question": "Which engineer built the pioneering steam locomotive 'Rocket' for the Liverpool and Manchester Railway?",
+          "options": [
+            { "id": "a", "text": "James Watt", "is_correct": false },
+            { "id": "b", "text": "Thomas Telford", "is_correct": false },
+            { "id": "c", "text": "John Smeaton", "is_correct": false },
+            { "id": "d", "text": "George Stephenson", "is_correct": true }
+          ],
+          "explanation": "Stephenson's Rocket won the Rainhill Trials of 1829 and the line opened in 1830, launching the railway age."
+        },
+        {
+          "id": "q7",
+          "question": "Which fuel powered the steam engines of the Industrial Revolution?",
+          "options": [
+            { "id": "a", "text": "Firewood", "is_correct": false },
+            { "id": "b", "text": "Coal", "is_correct": true },
+            { "id": "c", "text": "Petrol", "is_correct": false },
+            { "id": "d", "text": "Natural gas", "is_correct": false }
+          ],
+          "explanation": "Coal fuelled boilers, steam engines and ironworks; Britain's coalfields shaped where its industrial cities grew."
+        },
+        {
+          "id": "q8",
+          "question": "In which century did the Industrial Revolution take off?",
+          "options": [
+            { "id": "a", "text": "The 16th century", "is_correct": false },
+            { "id": "b", "text": "The 17th century", "is_correct": false },
+            { "id": "c", "text": "The 18th century", "is_correct": true },
+            { "id": "d", "text": "The 20th century", "is_correct": false }
+          ],
+          "explanation": "The decisive acceleration came in the second half of the 18th century, continuing through the 19th."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-revolucion-industrial",
+      "title": "Trivia de la Revolución Industrial: vapor, carbón y fábricas",
+      "description": "Ocho preguntas sobre la Revolución Industrial: la máquina de vapor, las fábricas textiles, los ferrocarriles y los inventos que transformaron el trabajo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["revolución industrial", "historia", "inventos", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué país comenzó la Revolución Industrial?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Alemania", "is_correct": false },
+            { "id": "c", "text": "Gran Bretaña", "is_correct": true },
+            { "id": "d", "text": "Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "La industrialización comenzó en Gran Bretaña a finales del siglo XVIII, impulsada por el carbón, el hierro, los canales y el auge textil."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué fuente de energía movió la primera generación de maquinaria industrial?",
+          "options": [
+            { "id": "a", "text": "La electricidad", "is_correct": false },
+            { "id": "b", "text": "El vapor", "is_correct": true },
+            { "id": "c", "text": "El petróleo", "is_correct": false },
+            { "id": "d", "text": "La energía nuclear", "is_correct": false }
+          ],
+          "explanation": "Las máquinas de vapor liberaron a las fábricas de las riberas de los ríos; la electricidad y el motor de combustión llegaron después."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué ingeniero mejoró la máquina de vapor hasta hacerla práctica para fábricas y transporte?",
+          "options": [
+            { "id": "a", "text": "Thomas Newcomen", "is_correct": false },
+            { "id": "b", "text": "Isambard Kingdom Brunel", "is_correct": false },
+            { "id": "c", "text": "Richard Trevithick", "is_correct": false },
+            { "id": "d", "text": "James Watt", "is_correct": true }
+          ],
+          "explanation": "El condensador separado de James Watt (1765-1776) hizo las máquinas mucho más eficientes; la unidad de potencia watt lleva su nombre."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué industria encabezó la primera etapa de la Revolución Industrial?",
+          "options": [
+            { "id": "a", "text": "La construcción naval", "is_correct": false },
+            { "id": "b", "text": "El acero", "is_correct": false },
+            { "id": "c", "text": "Los textiles de algodón", "is_correct": true },
+            { "id": "d", "text": "El automóvil", "is_correct": false }
+          ],
+          "explanation": "El hilado y tejido mecanizado del algodón en el norte de Inglaterra fue la primera gran industria fabril."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué máquina de hilar patentó James Hargreaves en 1770?",
+          "options": [
+            { "id": "a", "text": "La spinning jenny", "is_correct": true },
+            { "id": "b", "text": "El telar mecánico", "is_correct": false },
+            { "id": "c", "text": "La water frame", "is_correct": false },
+            { "id": "d", "text": "La lanzadera volante", "is_correct": false }
+          ],
+          "explanation": "La spinning jenny permitía a un solo operario hilar varios hilos a la vez; la water frame y el telar mecánico siguieron en el tejido."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué ingeniero construyó la pionera locomotora de vapor 'Rocket' para el ferrocarril Liverpool-Mánchester?",
+          "options": [
+            { "id": "a", "text": "James Watt", "is_correct": false },
+            { "id": "b", "text": "Thomas Telford", "is_correct": false },
+            { "id": "c", "text": "John Smeaton", "is_correct": false },
+            { "id": "d", "text": "George Stephenson", "is_correct": true }
+          ],
+          "explanation": "La Rocket de Stephenson ganó las pruebas de Rainhill en 1829 y la línea abrió en 1830, inaugurando la era del ferrocarril."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué combustible alimentó las máquinas de vapor de la Revolución Industrial?",
+          "options": [
+            { "id": "a", "text": "La leña", "is_correct": false },
+            { "id": "b", "text": "El carbón", "is_correct": true },
+            { "id": "c", "text": "La gasolina", "is_correct": false },
+            { "id": "d", "text": "El gas natural", "is_correct": false }
+          ],
+          "explanation": "El carbón alimentó calderas, máquinas de vapor y siderurgias; las cuencas carboníferas británicas marcaron dónde crecieron las ciudades industriales."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué siglo despegó la Revolución Industrial?",
+          "options": [
+            { "id": "a", "text": "El siglo XVI", "is_correct": false },
+            { "id": "b", "text": "El siglo XVII", "is_correct": false },
+            { "id": "c", "text": "El siglo XVIII", "is_correct": true },
+            { "id": "d", "text": "El siglo XX", "is_correct": false }
+          ],
+          "explanation": "La aceleración decisiva llegó en la segunda mitad del siglo XVIII y se prolongó durante el XIX."
+        }
+      ]
+    },
+    {
+      "slug": "en-cold-war-trivia",
+      "title": "Cold War Trivia: The Iron Curtain, Berlin and the Space Race",
+      "description": "Eight questions on the Cold War: the Iron Curtain, the Berlin Wall and airlift, the Cuban Missile Crisis and the end of the Soviet Union.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["cold war", "history", "20th century", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which two superpowers faced off during the Cold War?",
+          "options": [
+            { "id": "a", "text": "The United States and China", "is_correct": false },
+            { "id": "b", "text": "The United States and the Soviet Union", "is_correct": true },
+            { "id": "c", "text": "Britain and the Soviet Union", "is_correct": false },
+            { "id": "d", "text": "France and the United States", "is_correct": false }
+          ],
+          "explanation": "The rivalry between Washington and Moscow shaped world politics from 1947 to 1991 without direct war between them."
+        },
+        {
+          "id": "q2",
+          "question": "What term did Winston Churchill popularise for the ideological barrier dividing Europe?",
+          "options": [
+            { "id": "a", "text": "The Bamboo Curtain", "is_correct": false },
+            { "id": "b", "text": "The Berlin Line", "is_correct": false },
+            { "id": "c", "text": "The Iron Curtain", "is_correct": true },
+            { "id": "d", "text": "The Great Divide", "is_correct": false }
+          ],
+          "explanation": "Churchill's 1946 'Iron Curtain' speech described the line splitting Soviet-controlled Eastern Europe from the West."
+        },
+        {
+          "id": "q3",
+          "question": "How did the Western allies supply West Berlin during the Soviet blockade of 1948-1949?",
+          "options": [
+            { "id": "a", "text": "By air, in the Berlin Airlift", "is_correct": true },
+            { "id": "b", "text": "By sea convoys", "is_correct": false },
+            { "id": "c", "text": "By armoured road columns", "is_correct": false },
+            { "id": "d", "text": "By underground rail", "is_correct": false }
+          ],
+          "explanation": "For nearly a year, British and American aircraft flew food and coal into West Berlin, up to a landing every 90 seconds at peak."
+        },
+        {
+          "id": "q4",
+          "question": "Which 1962 crisis brought the superpowers closest to nuclear war?",
+          "options": [
+            { "id": "a", "text": "The Korean War", "is_correct": false },
+            { "id": "b", "text": "The Suez Crisis", "is_correct": false },
+            { "id": "c", "text": "The Cuban Missile Crisis", "is_correct": true },
+            { "id": "d", "text": "The Prague Spring", "is_correct": false }
+          ],
+          "explanation": "The discovery of Soviet missiles in Cuba led to a 13-day standoff in October 1962, resolved when the USSR withdrew them."
+        },
+        {
+          "id": "q5",
+          "question": "Which wall divided a European capital from 1961 to 1989?",
+          "options": [
+            { "id": "a", "text": "The Warsaw Wall", "is_correct": false },
+            { "id": "b", "text": "The Berlin Wall", "is_correct": true },
+            { "id": "c", "text": "The Vienna Wall", "is_correct": false },
+            { "id": "d", "text": "The Prague Wall", "is_correct": false }
+          ],
+          "explanation": "East Germany built the Berlin Wall in August 1961 to stop emigration; it fell on 9 November 1989."
+        },
+        {
+          "id": "q6",
+          "question": "Which military alliance did the Western powers form in 1949?",
+          "options": [
+            { "id": "a", "text": "The Warsaw Pact", "is_correct": false },
+            { "id": "b", "text": "SEATO", "is_correct": false },
+            { "id": "c", "text": "NATO", "is_correct": true },
+            { "id": "d", "text": "The League of Nations", "is_correct": false }
+          ],
+          "explanation": "NATO (the North Atlantic Treaty Organization) bound its members to mutual defence; the USSR answered with the Warsaw Pact in 1955."
+        },
+        {
+          "id": "q7",
+          "question": "Who was the first human in space, launching the space race's most famous milestone in 1961?",
+          "options": [
+            { "id": "a", "text": "Neil Armstrong", "is_correct": false },
+            { "id": "b", "text": "Alan Shepard", "is_correct": false },
+            { "id": "c", "text": "Buzz Aldrin", "is_correct": false },
+            { "id": "d", "text": "Yuri Gagarin", "is_correct": true }
+          ],
+          "explanation": "Soviet cosmonaut Yuri Gagarin orbited Earth aboard Vostok 1 on 12 April 1961, eight years before Apollo 11."
+        },
+        {
+          "id": "q8",
+          "question": "Which event of 1991 is generally taken as the end of the Cold War?",
+          "options": [
+            { "id": "a", "text": "The fall of the Berlin Wall", "is_correct": false },
+            { "id": "b", "text": "The dissolution of the Soviet Union", "is_correct": true },
+            { "id": "c", "text": "The end of the Vietnam War", "is_correct": false },
+            { "id": "d", "text": "German reunification", "is_correct": false }
+          ],
+          "explanation": "The USSR dissolved in December 1991, replacing the superpower with fifteen independent states and closing the era."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-guerra-fria",
+      "title": "Trivia de la Guerra Fría: el Telón de Acero, Berlín y la carrera espacial",
+      "description": "Ocho preguntas sobre la Guerra Fría: el Telón de Acero, el Muro y el puente aéreo de Berlín, la crisis de los misiles y el fin de la URSS.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["guerra fría", "historia", "siglo XX", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dos superpotencias se enfrentaron durante la Guerra Fría?",
+          "options": [
+            { "id": "a", "text": "Estados Unidos y China", "is_correct": false },
+            { "id": "b", "text": "Estados Unidos y la Unión Soviética", "is_correct": true },
+            { "id": "c", "text": "Reino Unido y la Unión Soviética", "is_correct": false },
+            { "id": "d", "text": "Francia y Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "La rivalidad entre Washington y Moscú marcó la política mundial de 1947 a 1991 sin una guerra directa entre ambas."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué término popularizó Winston Churchill para la barrera ideológica que dividía Europa?",
+          "options": [
+            { "id": "a", "text": "La Cortina de Bambú", "is_correct": false },
+            { "id": "b", "text": "La Línea de Berlín", "is_correct": false },
+            { "id": "c", "text": "El Telón de Acero", "is_correct": true },
+            { "id": "d", "text": "La Gran División", "is_correct": false }
+          ],
+          "explanation": "El discurso del 'Telón de Acero' de 1946 describió la línea que separaba la Europa oriental bajo control soviético de Occidente."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo abastecieron los aliados occidentales a Berlín Oeste durante el bloqueo soviético de 1948-1949?",
+          "options": [
+            { "id": "a", "text": "Por aire, con el puente aéreo de Berlín", "is_correct": true },
+            { "id": "b", "text": "Con convoyes marítimos", "is_correct": false },
+            { "id": "c", "text": "Con columnas blindadas por carretera", "is_correct": false },
+            { "id": "d", "text": "Por un ferrocarril subterráneo", "is_correct": false }
+          ],
+          "explanation": "Durante casi un año, aviones británicos y estadounidenses llevaron comida y carbón a Berlín Oeste, con un aterrizaje cada 90 segundos en el punto álgido."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué crisis de 1962 acercó a las superpotencias a la guerra nuclear?",
+          "options": [
+            { "id": "a", "text": "La Guerra de Corea", "is_correct": false },
+            { "id": "b", "text": "La Crisis de Suez", "is_correct": false },
+            { "id": "c", "text": "La Crisis de los Misiles de Cuba", "is_correct": true },
+            { "id": "d", "text": "La Primavera de Praga", "is_correct": false }
+          ],
+          "explanation": "El descubrimiento de misiles soviéticos en Cuba provocó 13 días de tensión en octubre de 1962, resueltos cuando la URSS los retiró."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué muro dividió una capital europea entre 1961 y 1989?",
+          "options": [
+            { "id": "a", "text": "El Muro de Varsovia", "is_correct": false },
+            { "id": "b", "text": "El Muro de Berlín", "is_correct": true },
+            { "id": "c", "text": "El Muro de Viena", "is_correct": false },
+            { "id": "d", "text": "El Muro de Praga", "is_correct": false }
+          ],
+          "explanation": "Alemania Oriental levantó el Muro de Berlín en agosto de 1961 para frenar la emigración; cayó el 9 de noviembre de 1989."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué alianza militar formaron las potencias occidentales en 1949?",
+          "options": [
+            { "id": "a", "text": "El Pacto de Varsovia", "is_correct": false },
+            { "id": "b", "text": "La SEATO", "is_correct": false },
+            { "id": "c", "text": "La OTAN", "is_correct": true },
+            { "id": "d", "text": "La Sociedad de Naciones", "is_correct": false }
+          ],
+          "explanation": "La OTAN comprometió a sus miembros a la defensa mutua; la URSS respondió con el Pacto de Varsovia en 1955."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién fue el primer ser humano en el espacio, el hito más famoso de la carrera espacial en 1961?",
+          "options": [
+            { "id": "a", "text": "Neil Armstrong", "is_correct": false },
+            { "id": "b", "text": "Alan Shepard", "is_correct": false },
+            { "id": "c", "text": "Buzz Aldrin", "is_correct": false },
+            { "id": "d", "text": "Yuri Gagarin", "is_correct": true }
+          ],
+          "explanation": "El cosmonauta soviético Yuri Gagarin orbitó la Tierra a bordo del Vostok 1 el 12 de abril de 1961, ocho años antes del Apollo 11."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué suceso de 1991 se toma generalmente como el fin de la Guerra Fría?",
+          "options": [
+            { "id": "a", "text": "La caída del Muro de Berlín", "is_correct": false },
+            { "id": "b", "text": "La disolución de la Unión Soviética", "is_correct": true },
+            { "id": "c", "text": "El fin de la Guerra de Vietnam", "is_correct": false },
+            { "id": "d", "text": "La reunificación alemana", "is_correct": false }
+          ],
+          "explanation": "La URSS se disolvió en diciembre de 1991, reemplazando a la superpotencia por quince estados independientes y cerrando la época."
+        }
+      ]
+    },
+    {
+      "slug": "en-renaissance-trivia",
+      "title": "Renaissance Trivia: Florence, Masters and the Printing Press",
+      "description": "Eight questions on the Renaissance: Florence and the Medici, Leonardo and Michelangelo, Gutenberg's press and the meaning of 'rebirth'.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["renaissance", "history", "art", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which country did the Renaissance begin?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Spain", "is_correct": false },
+            { "id": "c", "text": "Italy", "is_correct": true },
+            { "id": "d", "text": "England", "is_correct": false }
+          ],
+          "explanation": "The movement started in Italian city-states in the 14th-15th centuries before spreading across Europe."
+        },
+        {
+          "id": "q2",
+          "question": "Which Italian city is regarded as the cradle of the Renaissance?",
+          "options": [
+            { "id": "a", "text": "Venice", "is_correct": false },
+            { "id": "b", "text": "Florence", "is_correct": true },
+            { "id": "c", "text": "Rome", "is_correct": false },
+            { "id": "d", "text": "Milan", "is_correct": false }
+          ],
+          "explanation": "Florence's wealth, guilds and patrons like the Medici made it the first centre of Renaissance art and thought."
+        },
+        {
+          "id": "q3",
+          "question": "Who painted the Mona Lisa?",
+          "options": [
+            { "id": "a", "text": "Raphael", "is_correct": false },
+            { "id": "b", "text": "Titian", "is_correct": false },
+            { "id": "c", "text": "Michelangelo", "is_correct": false },
+            { "id": "d", "text": "Leonardo da Vinci", "is_correct": true }
+          ],
+          "explanation": "Leonardo painted the Mona Lisa in the early 1500s; today it hangs in the Louvre in Paris."
+        },
+        {
+          "id": "q4",
+          "question": "Who painted the ceiling of the Sistine Chapel in the Vatican?",
+          "options": [
+            { "id": "a", "text": "Michelangelo", "is_correct": true },
+            { "id": "b", "text": "Leonardo da Vinci", "is_correct": false },
+            { "id": "c", "text": "Botticelli", "is_correct": false },
+            { "id": "d", "text": "Donatello", "is_correct": false }
+          ],
+          "explanation": "Michelangelo spent four years (1508-1512) painting the chapel ceiling, including 'The Creation of Adam'."
+        },
+        {
+          "id": "q5",
+          "question": "Which invention by Johannes Gutenberg spread Renaissance ideas across Europe?",
+          "options": [
+            { "id": "a", "text": "The telescope", "is_correct": false },
+            { "id": "b", "text": "The printing press with movable type", "is_correct": true },
+            { "id": "c", "text": "The compass", "is_correct": false },
+            { "id": "d", "text": "The mechanical clock", "is_correct": false }
+          ],
+          "explanation": "Gutenberg's press (around 1440) made books cheap enough for mass circulation, accelerating literacy and the spread of ideas."
+        },
+        {
+          "id": "q6",
+          "question": "Which Florentine banking family were the greatest patrons of Renaissance art?",
+          "options": [
+            { "id": "a", "text": "The Borgia", "is_correct": false },
+            { "id": "b", "text": "The Sforza", "is_correct": false },
+            { "id": "c", "text": "The Medici", "is_correct": true },
+            { "id": "d", "text": "The Este", "is_correct": false }
+          ],
+          "explanation": "The Medici bankrolled artists including Michelangelo, Botticelli and Leonardo across three centuries of rule in Florence."
+        },
+        {
+          "id": "q7",
+          "question": "Which Florentine diplomat wrote the political treatise 'The Prince'?",
+          "options": [
+            { "id": "a", "text": "Niccolò Machiavelli", "is_correct": true },
+            { "id": "b", "text": "Thomas More", "is_correct": false },
+            { "id": "c", "text": "Erasmus of Rotterdam", "is_correct": false },
+            { "id": "d", "text": "Dante Alighieri", "is_correct": false }
+          ],
+          "explanation": "Machiavelli's 'The Prince' (1513) advised rulers on holding power, giving English the word 'Machiavellian'."
+        },
+        {
+          "id": "q8",
+          "question": "What does the word 'Renaissance' mean in French?",
+          "options": [
+            { "id": "a", "text": "Revolution", "is_correct": false },
+            { "id": "b", "text": "Rebirth", "is_correct": true },
+            { "id": "c", "text": "Awakening", "is_correct": false },
+            { "id": "d", "text": "Enlightenment", "is_correct": false }
+          ],
+          "explanation": "Renaissance means 'rebirth', referring to the revival of classical Greek and Roman art and learning."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-renacimiento",
+      "title": "Trivia del Renacimiento: Florencia, los maestros y la imprenta",
+      "description": "Ocho preguntas sobre el Renacimiento: Florencia y los Médici, Leonardo y Miguel Ángel, la imprenta de Gutenberg y el 'renacer' de lo clásico.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["renacimiento", "historia", "arte", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué país comenzó el Renacimiento?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "España", "is_correct": false },
+            { "id": "c", "text": "Italia", "is_correct": true },
+            { "id": "d", "text": "Inglaterra", "is_correct": false }
+          ],
+          "explanation": "El movimiento nació en las ciudades-estado italianas en los siglos XIV y XV antes de extenderse por Europa."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué ciudad italiana es considerada la cuna del Renacimiento?",
+          "options": [
+            { "id": "a", "text": "Venecia", "is_correct": false },
+            { "id": "b", "text": "Florencia", "is_correct": true },
+            { "id": "c", "text": "Roma", "is_correct": false },
+            { "id": "d", "text": "Milán", "is_correct": false }
+          ],
+          "explanation": "La riqueza de Florencia, sus gremios y mecenas como los Médici la convirtieron en el primer centro del arte y el pensamiento renacentistas."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién pintó la Mona Lisa?",
+          "options": [
+            { "id": "a", "text": "Rafael", "is_correct": false },
+            { "id": "b", "text": "Tiziano", "is_correct": false },
+            { "id": "c", "text": "Miguel Ángel", "is_correct": false },
+            { "id": "d", "text": "Leonardo da Vinci", "is_correct": true }
+          ],
+          "explanation": "Leonardo pintó la Mona Lisa a comienzos del siglo XVI; hoy cuelga en el Louvre de París."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién pintó el techo de la Capilla Sixtina en el Vaticano?",
+          "options": [
+            { "id": "a", "text": "Miguel Ángel", "is_correct": true },
+            { "id": "b", "text": "Leonardo da Vinci", "is_correct": false },
+            { "id": "c", "text": "Botticelli", "is_correct": false },
+            { "id": "d", "text": "Donatello", "is_correct": false }
+          ],
+          "explanation": "Miguel Ángel tardó cuatro años (1508-1512) en pintar el techo de la capilla, incluida 'La creación de Adán'."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué invento de Johannes Gutenberg difundió las ideas renacentistas por Europa?",
+          "options": [
+            { "id": "a", "text": "El telescopio", "is_correct": false },
+            { "id": "b", "text": "La imprenta de tipos móviles", "is_correct": true },
+            { "id": "c", "text": "La brújula", "is_correct": false },
+            { "id": "d", "text": "El reloj mecánico", "is_correct": false }
+          ],
+          "explanation": "La imprenta de Gutenberg (hacia 1440) abarató los libros lo suficiente para su circulación masiva, acelerando la alfabetización y el intercambio de ideas."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué familia de banqueros florentinos fue la mayor mecenas del arte renacentista?",
+          "options": [
+            { "id": "a", "text": "Los Borgia", "is_correct": false },
+            { "id": "b", "text": "Los Sforza", "is_correct": false },
+            { "id": "c", "text": "Los Médici", "is_correct": true },
+            { "id": "d", "text": "Los Este", "is_correct": false }
+          ],
+          "explanation": "Los Médici financiaron a artistas como Miguel Ángel, Botticelli y Leonardo durante tres siglos de influencia en Florencia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué diplomático florentino escribió el tratado político 'El príncipe'?",
+          "options": [
+            { "id": "a", "text": "Nicolás Maquiavelo", "is_correct": true },
+            { "id": "b", "text": "Tomás Moro", "is_correct": false },
+            { "id": "c", "text": "Erasmo de Róterdam", "is_correct": false },
+            { "id": "d", "text": "Dante Alighieri", "is_correct": false }
+          ],
+          "explanation": "El príncipe de Maquiavelo (1513) aconsejaba a los gobernantes cómo conservar el poder y dio origen al término 'maquiavélico'."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué significa la palabra 'Renacimiento' en francés?",
+          "options": [
+            { "id": "a", "text": "Revolución", "is_correct": false },
+            { "id": "b", "text": "Renacimiento, volver a nacer", "is_correct": true },
+            { "id": "c", "text": "Despertar", "is_correct": false },
+            { "id": "d", "text": "Ilustración", "is_correct": false }
+          ],
+          "explanation": "Renaissance significa 'renacimiento', aludiendo al resurgir del arte y el saber de la Grecia y la Roma clásicas."
+        }
+      ]
+    }
+  ]
+}
