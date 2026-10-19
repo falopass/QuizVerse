@@ -10,6 +10,7 @@
 
 import * as React from 'react';
 import type { Locale } from '@/lib/i18n/dictionaries';
+import { buildEmbedSnippet } from '@/lib/seo/embed';
 
 export interface InviteBarProps {
   url: string;
@@ -25,7 +26,9 @@ export interface InviteBarProps {
 
 export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
   const [copied, setCopied] = React.useState(false);
+  const [embedCopied, setEmbedCopied] = React.useState(false);
   const es = locale === 'es';
+  const embed = buildEmbedSnippet(url, locale, quizTitle);
 
   const challengeText = es
     ? `Reto: ¿puedes superar "${quizTitle}" en QuizVerse?`
@@ -43,6 +46,17 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+    }
+  };
+
+  const handleCopyEmbed = async () => {
+    if (!embed) return;
+    try {
+      await navigator.clipboard.writeText(embed.snippet);
+      setEmbedCopied(true);
+      window.setTimeout(() => setEmbedCopied(false), 2000);
+    } catch {
+      setEmbedCopied(false);
     }
   };
 
@@ -76,6 +90,15 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
         >
           {copied ? labels.copied : labels.copyInvite}
         </button>
+        {embed ? (
+          <button
+            type="button"
+            onClick={handleCopyEmbed}
+            className="rounded-full border border-[#474558] px-4 py-2 text-xs font-bold tracking-[0.08em] text-[var(--text-primary)] uppercase transition-colors hover:border-[var(--accent-primary)]"
+          >
+            {embedCopied ? labels.copied : es ? 'Insertar' : 'Embed'}
+          </button>
+        ) : null}
       </div>
     </div>
   );

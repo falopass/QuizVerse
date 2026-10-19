@@ -57,7 +57,8 @@ const copy = {
 
 export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
-  const locale = usePathname()?.startsWith('/es') ? 'es' : 'en';
+  const pathname = usePathname();
+  const locale = pathname?.startsWith('/es') ? 'es' : 'en';
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -79,6 +80,16 @@ export function CookieConsentBanner() {
     storeConsent('essential');
     setVisible(false);
   }, []);
+
+  // Dentro de un iframe ajeno el banner taparía el quiz; una visita directa a
+  // /embed sí conserva el flujo normal de consentimiento.
+  if (
+    pathname?.startsWith('/embed') &&
+    typeof window !== 'undefined' &&
+    window.self !== window.top
+  ) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
