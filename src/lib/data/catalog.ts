@@ -13,6 +13,25 @@ import type { QuizQuery } from '@/lib/api/query';
 
 type QuizRow = Database['public']['Tables']['quizzes']['Row'];
 
+/** Columnas que `toCard` necesita: `questions`, `correct_answers` y `results` no viajan por el API. */
+const CARD_COLUMNS =
+  'id, slug, title, description, quiz_type, difficulty, language, question_count, estimated_minutes, plays_count, cover_image_url';
+
+type CardRow = Pick<
+  QuizRow,
+  | 'id'
+  | 'slug'
+  | 'title'
+  | 'description'
+  | 'quiz_type'
+  | 'difficulty'
+  | 'language'
+  | 'question_count'
+  | 'estimated_minutes'
+  | 'plays_count'
+  | 'cover_image_url'
+>;
+
 export interface CatalogCard {
   id: string;
   slug: string;
@@ -40,7 +59,7 @@ function escapeLike(value: string): string {
   return value.replace(/[\\%_]/g, (match) => `\\${match}`);
 }
 
-function toCard(row: QuizRow): CatalogCard {
+function toCard(row: CardRow): CatalogCard {
   return {
     id: row.id,
     slug: row.slug,
@@ -68,7 +87,7 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
 
   let queryBuilder = supabase
     .from('quizzes')
-    .select('*', { count: 'exact' })
+    .select(CARD_COLUMNS, { count: 'exact' })
     .eq('status', 'published');
 
   if (locale) queryBuilder = queryBuilder.eq('language', locale);
@@ -78,7 +97,7 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
   } else if (category) {
     const { data: categoryRows } = await supabase
       .from('categories')
-      .select('*')
+      .select('id')
       .eq('slug', category)
       .limit(1);
 
@@ -104,7 +123,7 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
 
   const total = count ?? data.length;
   return {
-    items: (data as QuizRow[]).map(toCard),
+    items: (data as CardRow[]).map(toCard),
     total,
     page,
     limit,
