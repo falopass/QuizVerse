@@ -32,54 +32,58 @@ export const LLMS_MAX_NEW = 30;
 
 /** One line per item: llms.txt items must not contain raw newlines. */
 function clean(text: string): string {
-  return text.replace(/[\r\n]+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+  return text
+    .replace(/[\r\n]+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }
 
-const PAGES: Array<{ path: string; label: Record<Locale, string>; note: Record<Locale, string> }> = [
-  {
-    path: '',
-    label: { en: 'Home', es: 'Portada' },
-    note: {
-      en: 'Featured quizzes, categories and discovery.',
-      es: 'Quizzes destacados, categorías y descubrimiento.',
+const PAGES: Array<{ path: string; label: Record<Locale, string>; note: Record<Locale, string> }> =
+  [
+    {
+      path: '',
+      label: { en: 'Home', es: 'Portada' },
+      note: {
+        en: 'Featured quizzes, categories and discovery.',
+        es: 'Quizzes destacados, categorías y descubrimiento.',
+      },
     },
-  },
-  {
-    path: '/quiz',
-    label: { en: 'Quiz catalog', es: 'Catálogo de quizzes' },
-    note: { en: 'Browse every published quiz.', es: 'Explora todos los quizzes publicados.' },
-  },
-  {
-    path: '/leaderboard',
-    label: { en: 'Leaderboard', es: 'Tabla de posiciones' },
-    note: { en: 'Top players and rankings.', es: 'Mejores jugadores y clasificaciones.' },
-  },
-  {
-    path: '/about',
-    label: { en: 'About QuizVerse', es: 'Acerca de QuizVerse' },
-    note: { en: 'What the site is and how it works.', es: 'Qué es el sitio y cómo funciona.' },
-  },
-  {
-    path: '/faq',
-    label: { en: 'FAQ', es: 'Preguntas frecuentes' },
-    note: { en: 'Frequently asked questions.', es: 'Preguntas frecuentes.' },
-  },
-  {
-    path: '/contact',
-    label: { en: 'Contact', es: 'Contacto' },
-    note: { en: 'Contact page.', es: 'Página de contacto.' },
-  },
-  {
-    path: '/privacy',
-    label: { en: 'Privacy policy', es: 'Política de privacidad' },
-    note: { en: 'Data handling and cookies.', es: 'Tratamiento de datos y cookies.' },
-  },
-  {
-    path: '/terms',
-    label: { en: 'Terms of service', es: 'Términos de servicio' },
-    note: { en: 'Usage terms.', es: 'Condiciones de uso.' },
-  },
-];
+    {
+      path: '/quiz',
+      label: { en: 'Quiz catalog', es: 'Catálogo de quizzes' },
+      note: { en: 'Browse every published quiz.', es: 'Explora todos los quizzes publicados.' },
+    },
+    {
+      path: '/leaderboard',
+      label: { en: 'Leaderboard', es: 'Tabla de posiciones' },
+      note: { en: 'Top players and rankings.', es: 'Mejores jugadores y clasificaciones.' },
+    },
+    {
+      path: '/about',
+      label: { en: 'About QuizVerse', es: 'Acerca de QuizVerse' },
+      note: { en: 'What the site is and how it works.', es: 'Qué es el sitio y cómo funciona.' },
+    },
+    {
+      path: '/faq',
+      label: { en: 'FAQ', es: 'Preguntas frecuentes' },
+      note: { en: 'Frequently asked questions.', es: 'Preguntas frecuentes.' },
+    },
+    {
+      path: '/contact',
+      label: { en: 'Contact', es: 'Contacto' },
+      note: { en: 'Contact page.', es: 'Página de contacto.' },
+    },
+    {
+      path: '/privacy',
+      label: { en: 'Privacy policy', es: 'Política de privacidad' },
+      note: { en: 'Data handling and cookies.', es: 'Tratamiento de datos y cookies.' },
+    },
+    {
+      path: '/terms',
+      label: { en: 'Terms of service', es: 'Términos de servicio' },
+      note: { en: 'Usage terms.', es: 'Condiciones de uso.' },
+    },
+  ];
 
 /** Renders one locale block: `## <heading>` + Hubs / New quizzes / Pages. */
 export function renderLlmsTxt(section: LlmsLocaleSection): string {
@@ -110,11 +114,13 @@ export function renderLlmsTxt(section: LlmsLocaleSection): string {
     const url = absoluteUrl(`/${locale}${page.path}`);
     lines.push(`- [${page.label[locale]}](${url}): ${page.note[locale]}`);
   }
-  lines.push(`- [Sitemap](${absoluteUrl('/sitemap.xml')}): ${
-    locale === 'es'
-      ? 'Índice exhaustivo de todos los quizzes y hubs publicados.'
-      : 'Exhaustive index of every published quiz and hub.'
-  }`);
+  lines.push(
+    `- [Sitemap](${absoluteUrl('/sitemap.xml')}): ${
+      locale === 'es'
+        ? 'Índice exhaustivo de todos los quizzes y hubs publicados.'
+        : 'Exhaustive index of every published quiz and hub.'
+    }`
+  );
 
   return lines.join('\n');
 }

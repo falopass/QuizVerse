@@ -41,9 +41,7 @@ describe('renderLlmsTxt', () => {
   });
 
   it('usa URLs absolutas para hubs, quizzes y páginas', () => {
-    const out = renderLlmsTxt(
-      section({ hubs, newest: [{ title: 'Nuevo', slug: 'nuevo' }] })
-    );
+    const out = renderLlmsTxt(section({ hubs, newest: [{ title: 'Nuevo', slug: 'nuevo' }] }));
     expect(out).toContain(`${SITE_URL}/es/category/movies-tv`);
     expect(out).toContain(`${SITE_URL}/es/quiz/nuevo`);
     expect(out).toContain(`${SITE_URL}/es/about`);
