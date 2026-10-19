@@ -1,4 +1,6 @@
 import { expect, it } from 'vitest';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 
 it('routes published seed pairs both ways and leaves unknown quizzes without an equivalent', () => {
@@ -155,5 +157,42 @@ it('routes the editorial 2026cq pairs both ways', () => {
   for (const [en, es] of pairs) {
     expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
+
+it('covers every es/en pair declared by the editorial seeds in the repo', () => {
+  const seedDir = join(__dirname, '..', 'scripts', 'seed');
+  const seedFiles = readdirSync(seedDir).filter((file) => /^editorial-seed.*\.json$/.test(file));
+  expect(seedFiles.length).toBeGreaterThan(0);
+  // Each seed stores its pairs consecutively, one quiz per language, in either order;
+  // and a few slugs serve as the equivalent of more than one quiz, so assertions run
+  // against the whole declared set instead of a single counterpart.
+  const enToEs = new Map<string, Set<string>>();
+  const esToEn = new Map<string, Set<string>>();
+  const add = (map: Map<string, Set<string>>, key: string, value: string) => {
+    const set = map.get(key) ?? new Set<string>();
+    set.add(value);
+    map.set(key, set);
+  };
+  for (const file of seedFiles) {
+    const { quizzes } = JSON.parse(readFileSync(join(seedDir, file), 'utf8')) as {
+      quizzes: Array<{ slug: string; language: string }>;
+    };
+    expect(quizzes.length % 2, file).toBe(0);
+    for (let i = 0; i < quizzes.length; i += 2) {
+      const [a, b] = [quizzes[i], quizzes[i + 1]];
+      const en = a.language === 'en' ? a : b;
+      const es = a.language === 'es' ? a : b;
+      expect(en.language, `${file}: ${a.slug}/${b.slug}`).toBe('en');
+      expect(es.language, `${file}: ${a.slug}/${b.slug}`).toBe('es');
+      add(enToEs, en.slug, es.slug);
+      add(esToEn, es.slug, en.slug);
+    }
+  }
+  for (const [en, esSet] of enToEs) {
+    expect(esSet, en).toContain(getEquivalentQuizSlug(en, 'es'));
+  }
+  for (const [es, enSet] of esToEn) {
+    expect(enSet, es).toContain(getEquivalentQuizSlug(es, 'en'));
   }
 });
