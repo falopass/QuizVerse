@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils/cn';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -14,6 +14,16 @@ export interface ModalProps {
   showCloseButton?: boolean;
   closeOnOverlayClick?: boolean;
   closeOnEsc?: boolean;
+  closeLabel?: string;
+}
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function isTabbable(el: HTMLElement): boolean {
+  if (el.closest('[hidden], fieldset[disabled]')) return false;
+  const style = getComputedStyle(el);
+  return style.display !== 'none' && style.visibility !== 'hidden';
 }
 
 export function Modal({
@@ -26,21 +36,61 @@ export function Modal({
   showCloseButton = true,
   closeOnOverlayClick = true,
   closeOnEsc = true,
+  closeLabel = 'Close',
 }: ModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
-    const handleEsc = (e: KeyboardEvent) => {
+    const previousFocus = document.activeElement;
+    dialogRef.current?.focus();
+
+    return () => {
+      if (previousFocus instanceof HTMLElement) previousFocus.focus();
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (closeOnEsc && e.key === 'Escape') {
         onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+
+      const focusables = Array.from(
+        dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      ).filter(isTabbable);
+      if (focusables.length === 0) {
+        e.preventDefault();
+        return;
+      }
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      const outside = active === dialog || !dialog.contains(active);
+
+      if (!e.shiftKey && (active === last || outside)) {
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && (active === first || outside)) {
+        e.preventDefault();
+        last.focus();
       }
     };
 
-    document.addEventListener('keydown', handleEsc);
+    document.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener('keydown', handleEsc);
+      document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
   }, [isOpen, onClose, closeOnEsc]);
@@ -78,6 +128,8 @@ export function Modal({
           sizes[size],
           'animate-slide-up'
         )}
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
@@ -95,7 +147,7 @@ export function Modal({
               <button
                 onClick={onClose}
                 className="text-text-muted hover:text-text-primary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
-                aria-label="Close modal"
+                aria-label={closeLabel}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
@@ -111,7 +163,14 @@ export function Modal({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">{children}</div>
+        <div className="flex-1 overflow-y-auto px-6 py-4">
+          {description && (
+            <p id="modal-description" className="text-text-secondary text-sm leading-6">
+              {description}
+            </p>
+          )}
+          {children}
+        </div>
       </div>
     </div>
   );
