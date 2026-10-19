@@ -1,15 +1,21 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { QuizDetailPage, generateQuizDetailStaticParams } from '@/components/home/quiz-detail-page';
+import { QuizDetailPage } from '@/components/home/quiz-detail-page';
 import { hasLocale } from '@/lib/i18n/dictionaries';
-import { getQuizBySlug } from '@/lib/data/public';
+import { getPublishedQuizzes, getQuizBySlug } from '@/lib/data/public';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage } from '@/lib/seo/site';
 
 export async function generateStaticParams() {
-  const slugs = await generateQuizDetailStaticParams();
-  return ['en', 'es'].flatMap((locale) => slugs.map((entry) => ({ locale, ...entry })));
+  const locales = ['en', 'es'] as const;
+  const perLocale = await Promise.all(
+    locales.map(async (locale) => {
+      const quizzes = await getPublishedQuizzes(80, locale);
+      return quizzes.map((quiz) => ({ locale, slug: quiz.slug }));
+    })
+  );
+  return perLocale.flat();
 }
 
 export async function generateMetadata({
