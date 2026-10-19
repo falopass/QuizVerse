@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial seed 2026av: five es/en trivia pairs on history and geography (ancient Greece, Mesopotamia, seven wonders, world empires, natural wonders). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-ancient-greece-trivia",
+      "title": "Ancient Greece Trivia: Polis, Philosophers and Wars",
+      "description": "Eight questions on the city-states, thinkers and wars of ancient Greece, from the first Olympics to the Peloponnesian War.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "trivia", "ancient greece", "antiquity"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What did the ancient Greeks call their independent city-states?",
+          "options": [
+            { "id": "a", "text": "Agoras", "is_correct": false },
+            { "id": "b", "text": "Polis", "is_correct": true },
+            { "id": "c", "text": "Acropolis", "is_correct": false },
+            { "id": "d", "text": "Demos", "is_correct": false }
+          ],
+          "explanation": "From Athens to Sparta, each polis was a self-governing city-state with its own laws and army."
+        },
+        {
+          "id": "q2",
+          "question": "Which Greek city-state is considered the birthplace of democracy?",
+          "options": [
+            { "id": "a", "text": "Sparta", "is_correct": false },
+            { "id": "b", "text": "Corinth", "is_correct": false },
+            { "id": "c", "text": "Athens", "is_correct": true },
+            { "id": "d", "text": "Thebes", "is_correct": false }
+          ],
+          "explanation": "After Cleisthenes' reforms around 508 BC, the male citizens of Athens voted directly on laws in the assembly."
+        },
+        {
+          "id": "q3",
+          "question": "Which war (431-404 BC) pitted Athens and its allies against Sparta's league?",
+          "options": [
+            { "id": "a", "text": "The Trojan War", "is_correct": false },
+            { "id": "b", "text": "The Greco-Persian Wars", "is_correct": false },
+            { "id": "c", "text": "The Corinthian War", "is_correct": false },
+            { "id": "d", "text": "The Peloponnesian War", "is_correct": true }
+          ],
+          "explanation": "Thucydides chronicled the 27-year struggle that ended with Athens' surrender to Sparta in 404 BC."
+        },
+        {
+          "id": "q4",
+          "question": "Which philosopher was sentenced to death by drinking hemlock in 399 BC?",
+          "options": [
+            { "id": "a", "text": "Socrates", "is_correct": true },
+            { "id": "b", "text": "Plato", "is_correct": false },
+            { "id": "c", "text": "Aristotle", "is_correct": false },
+            { "id": "d", "text": "Diogenes", "is_correct": false }
+          ],
+          "explanation": "An Athenian jury convicted Socrates of impiety and corrupting the youth; Plato recorded his trial in the Apology."
+        },
+        {
+          "id": "q5",
+          "question": "Who is credited with composing the epic poems the Iliad and the Odyssey?",
+          "options": [
+            { "id": "a", "text": "Hesiod", "is_correct": false },
+            { "id": "b", "text": "Sophocles", "is_correct": false },
+            { "id": "c", "text": "Homer", "is_correct": true },
+            { "id": "d", "text": "Aeschylus", "is_correct": false }
+          ],
+          "explanation": "Tradition attributes both epics to Homer, a poet believed to have lived around the 8th century BC."
+        },
+        {
+          "id": "q6",
+          "question": "Where were the ancient Olympic Games held every four years from 776 BC?",
+          "options": [
+            { "id": "a", "text": "Delphi", "is_correct": false },
+            { "id": "b", "text": "Olympia", "is_correct": true },
+            { "id": "c", "text": "Nemea", "is_correct": false },
+            { "id": "d", "text": "Corinth", "is_correct": false }
+          ],
+          "explanation": "The games honoured Zeus at Olympia; winners received an olive wreath, not medals."
+        },
+        {
+          "id": "q7",
+          "question": "At which 480 BC battle did a small Greek force led by 300 Spartans hold a pass against the Persians?",
+          "options": [
+            { "id": "a", "text": "Marathon", "is_correct": false },
+            { "id": "b", "text": "Salamis", "is_correct": false },
+            { "id": "c", "text": "Thermopylae", "is_correct": true },
+            { "id": "d", "text": "Plataea", "is_correct": false }
+          ],
+          "explanation": "King Leonidas and his Spartans delayed Xerxes' army at Thermopylae until a local revealed a flanking path."
+        },
+        {
+          "id": "q8",
+          "question": "Which Athenian statesman led the city during its Golden Age in the 5th century BC?",
+          "options": [
+            { "id": "a", "text": "Solon", "is_correct": false },
+            { "id": "b", "text": "Pericles", "is_correct": true },
+            { "id": "c", "text": "Themistocles", "is_correct": false },
+            { "id": "d", "text": "Cleisthenes", "is_correct": false }
+          ],
+          "explanation": "Under Pericles, Athens rebuilt the Acropolis with the Parthenon and expanded its citizen-led democracy."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-antigua-grecia",
+      "title": "Trivia de la Antigua Grecia: polis, filósofos y guerras",
+      "description": "Ocho preguntas sobre las polis, los filósofos y las guerras de la Antigua Grecia, de las primeras Olimpiadas a la guerra del Peloponeso.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["historia", "trivia", "antigua grecia", "antigüedad"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo llamaban los antiguos griegos a sus ciudades-Estado independientes?",
+          "options": [
+            { "id": "a", "text": "Ágoras", "is_correct": false },
+            { "id": "b", "text": "Acrópolis", "is_correct": false },
+            { "id": "c", "text": "Polis", "is_correct": true },
+            { "id": "d", "text": "Demos", "is_correct": false }
+          ],
+          "explanation": "De Atenas a Esparta, cada polis era una ciudad-Estado autónoma con sus propias leyes y ejército."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué ciudad-Estado griega es considerada la cuna de la democracia?",
+          "options": [
+            { "id": "a", "text": "Esparta", "is_correct": false },
+            { "id": "b", "text": "Corinto", "is_correct": false },
+            { "id": "c", "text": "Tebas", "is_correct": false },
+            { "id": "d", "text": "Atenas", "is_correct": true }
+          ],
+          "explanation": "Tras las reformas de Clístenes hacia 508 a. C., los ciudadanos de Atenas votaban las leyes en la asamblea."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué guerra (431-404 a. C.) enfrentó a Atenas y sus aliados con la liga de Esparta?",
+          "options": [
+            { "id": "a", "text": "La guerra de Troya", "is_correct": false },
+            { "id": "b", "text": "Las guerras médicas", "is_correct": false },
+            { "id": "c", "text": "La guerra del Peloponeso", "is_correct": true },
+            { "id": "d", "text": "La guerra de Corinto", "is_correct": false }
+          ],
+          "explanation": "Tucídides narró el conflicto de 27 años que terminó con la rendición de Atenas ante Esparta en 404 a. C."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué filósofo fue condenado a muerte bebiendo cicuta en 399 a. C.?",
+          "options": [
+            { "id": "a", "text": "Platón", "is_correct": false },
+            { "id": "b", "text": "Sócrates", "is_correct": true },
+            { "id": "c", "text": "Aristóteles", "is_correct": false },
+            { "id": "d", "text": "Diógenes", "is_correct": false }
+          ],
+          "explanation": "Un jurado ateniense condenó a Sócrates por impiedad y corromper a la juventud; Platón recogió su juicio en la Apología."
+        },
+        {
+          "id": "q5",
+          "question": "¿A quién se atribuye la composición de los poemas épicos Ilíada y Odisea?",
+          "options": [
+            { "id": "a", "text": "Hesíodo", "is_correct": false },
+            { "id": "b", "text": "Sófocles", "is_correct": false },
+            { "id": "c", "text": "Esquilo", "is_correct": false },
+            { "id": "d", "text": "Homero", "is_correct": true }
+          ],
+          "explanation": "La tradición atribuye ambas epopeyas a Homero, un poeta que habría vivido hacia el siglo VIII a. C."
+        },
+        {
+          "id": "q6",
+          "question": "¿Dónde se celebraban los Juegos Olímpicos antiguos cada cuatro años desde 776 a. C.?",
+          "options": [
+            { "id": "a", "text": "Olimpia", "is_correct": true },
+            { "id": "b", "text": "Delfos", "is_correct": false },
+            { "id": "c", "text": "Nemea", "is_correct": false },
+            { "id": "d", "text": "Corinto", "is_correct": false }
+          ],
+          "explanation": "Los juegos honraban a Zeus en Olimpia; los vencedores recibían una corona de olivo, no medallas."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué batalla de 480 a. C. una pequeña fuerza griega liderada por 300 espartanos resistió a los persas en un desfiladero?",
+          "options": [
+            { "id": "a", "text": "Maratón", "is_correct": false },
+            { "id": "b", "text": "Salamina", "is_correct": false },
+            { "id": "c", "text": "Platea", "is_correct": false },
+            { "id": "d", "text": "Termópilas", "is_correct": true }
+          ],
+          "explanation": "El rey Leónidas y sus espartanos frenaron al ejército de Jerjes en las Termópilas hasta que un lugareño reveló un sendero para rodearlos."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué estadista ateniense dirigió la ciudad durante su Siglo de Oro en el siglo V a. C.?",
+          "options": [
+            { "id": "a", "text": "Solón", "is_correct": false },
+            { "id": "b", "text": "Temístocles", "is_correct": false },
+            { "id": "c", "text": "Pericles", "is_correct": true },
+            { "id": "d", "text": "Clístenes", "is_correct": false }
+          ],
+          "explanation": "Bajo Pericles, Atenas reconstruyó la Acrópolis con el Partenón y amplió su democracia ciudadana."
+        }
+      ]
+    },
+    {
+      "slug": "en-mesopotamia-trivia",
+      "title": "Mesopotamia Trivia: The Cradle of Civilization",
+      "description": "Eight questions on Sumer, Babylon and the empires of Mesopotamia: cuneiform writing, law codes and the first cities.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "trivia", "mesopotamia", "antiquity"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Mesopotamia means 'land between rivers'. Which two rivers does the name refer to?",
+          "options": [
+            { "id": "a", "text": "The Nile and the Tigris", "is_correct": false },
+            { "id": "b", "text": "The Tigris and the Euphrates", "is_correct": true },
+            { "id": "c", "text": "The Euphrates and the Indus", "is_correct": false },
+            { "id": "d", "text": "The Jordan and the Euphrates", "is_correct": false }
+          ],
+          "explanation": "The Greek name describes the plain between the Tigris and the Euphrates, mostly within present-day Iraq."
+        },
+        {
+          "id": "q2",
+          "question": "Which people built Mesopotamia's first great cities, such as Uruk and Ur?",
+          "options": [
+            { "id": "a", "text": "The Akkadians", "is_correct": false },
+            { "id": "b", "text": "The Babylonians", "is_correct": false },
+            { "id": "c", "text": "The Sumerians", "is_correct": true },
+            { "id": "d", "text": "The Hittites", "is_correct": false }
+          ],
+          "explanation": "By around 3500 BC the Sumerians had turned southern Mesopotamia into a land of walled city-states."
+        },
+        {
+          "id": "q3",
+          "question": "What writing system did Mesopotamian scribes press into clay tablets with reeds?",
+          "options": [
+            { "id": "a", "text": "Hieroglyphics", "is_correct": false },
+            { "id": "b", "text": "Cuneiform", "is_correct": true },
+            { "id": "c", "text": "Linear B", "is_correct": false },
+            { "id": "d", "text": "The Phoenician alphabet", "is_correct": false }
+          ],
+          "explanation": "Cuneiform's wedge-shaped marks recorded everything from grain accounts to royal decrees for three millennia."
+        },
+        {
+          "id": "q4",
+          "question": "Which Babylonian king issued a famous law code carved on a stone stele around 1750 BC?",
+          "options": [
+            { "id": "a", "text": "Sargon of Akkad", "is_correct": false },
+            { "id": "b", "text": "Hammurabi", "is_correct": true },
+            { "id": "c", "text": "Nebuchadnezzar II", "is_correct": false },
+            { "id": "d", "text": "Ashurbanipal", "is_correct": false }
+          ],
+          "explanation": "The Code of Hammurabi's 282 laws spelled out penalties like 'an eye for an eye' and were displayed publicly."
+        },
+        {
+          "id": "q5",
+          "question": "Which epic follows King Gilgamesh of Uruk on his search for immortality?",
+          "options": [
+            { "id": "a", "text": "The Epic of Gilgamesh", "is_correct": true },
+            { "id": "b", "text": "Enuma Elish", "is_correct": false },
+            { "id": "c", "text": "The Atrahasis", "is_correct": false },
+            { "id": "d", "text": "The Descent of Inanna", "is_correct": false }
+          ],
+          "explanation": "Written in Akkadian cuneiform, it is one of the oldest works of literature known."
+        },
+        {
+          "id": "q6",
+          "question": "Who created history's first empire by uniting Sumer and Akkad around 2330 BC?",
+          "options": [
+            { "id": "a", "text": "Hammurabi", "is_correct": false },
+            { "id": "b", "text": "Ur-Nammu", "is_correct": false },
+            { "id": "c", "text": "Sargon of Akkad", "is_correct": true },
+            { "id": "d", "text": "Tiglath-Pileser I", "is_correct": false }
+          ],
+          "explanation": "Sargon's conquests bound northern and southern Mesopotamia into one state ruled from Akkad."
+        },
+        {
+          "id": "q7",
+          "question": "Which king rebuilt Babylon in the 6th century BC and is traditionally linked to the Hanging Gardens?",
+          "options": [
+            { "id": "a", "text": "Hammurabi", "is_correct": false },
+            { "id": "b", "text": "Sargon II", "is_correct": false },
+            { "id": "c", "text": "Nebuchadnezzar II", "is_correct": true },
+            { "id": "d", "text": "Cyrus the Great", "is_correct": false }
+          ],
+          "explanation": "Nebuchadnezzar II rebuilt Babylon's walls and the Ishtar Gate; Greek authors credited him with the gardens."
+        },
+        {
+          "id": "q8",
+          "question": "In which Assyrian capital did Ashurbanipal assemble a great library of clay tablets?",
+          "options": [
+            { "id": "a", "text": "Babylon", "is_correct": false },
+            { "id": "b", "text": "Nineveh", "is_correct": true },
+            { "id": "c", "text": "Uruk", "is_correct": false },
+            { "id": "d", "text": "Eridu", "is_correct": false }
+          ],
+          "explanation": "The library of Nineveh held tens of thousands of tablets, including a copy of the Epic of Gilgamesh."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mesopotamia",
+      "title": "Trivia de Mesopotamia: la cuna de la civilización",
+      "description": "Ocho preguntas sobre Sumer, Babilonia y los imperios de Mesopotamia: escritura cuneiforme, códigos de leyes y las primeras ciudades.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["historia", "trivia", "mesopotamia", "antigüedad"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Mesopotamia significa «tierra entre ríos». ¿A qué dos ríos se refiere el nombre?",
+          "options": [
+            { "id": "a", "text": "El Nilo y el Tigris", "is_correct": false },
+            { "id": "b", "text": "El Tigris y el Éufrates", "is_correct": true },
+            { "id": "c", "text": "El Éufrates y el Indo", "is_correct": false },
+            { "id": "d", "text": "El Jordán y el Éufrates", "is_correct": false }
+          ],
+          "explanation": "El nombre griego describe la llanura entre el Tigris y el Éufrates, hoy mayoritariamente en Irak."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué pueblo levantó las primeras grandes ciudades de Mesopotamia, como Uruk y Ur?",
+          "options": [
+            { "id": "a", "text": "Los acadios", "is_correct": false },
+            { "id": "b", "text": "Los babilonios", "is_correct": false },
+            { "id": "c", "text": "Los hititas", "is_correct": false },
+            { "id": "d", "text": "Los sumerios", "is_correct": true }
+          ],
+          "explanation": "Hacia 3500 a. C. los sumerios convirtieron el sur de Mesopotamia en un paisaje de ciudades-Estado amuralladas."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué escritura marcaban los escribas mesopotámicos con cañas sobre tablillas de arcilla?",
+          "options": [
+            { "id": "a", "text": "Los jeroglíficos", "is_correct": false },
+            { "id": "b", "text": "El lineal B", "is_correct": false },
+            { "id": "c", "text": "La cuneiforme", "is_correct": true },
+            { "id": "d", "text": "El alfabeto fenicio", "is_correct": false }
+          ],
+          "explanation": "Los trazos en cuña del cuneiforme registraron desde cuentas de grano hasta decretos reales durante tres milenios."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué rey de Babilonia promulgó un célebre código de leyes grabado en una estela hacia 1750 a. C.?",
+          "options": [
+            { "id": "a", "text": "Sargón de Acad", "is_correct": false },
+            { "id": "b", "text": "Nabucodonosor II", "is_correct": false },
+            { "id": "c", "text": "Hammurabi", "is_correct": true },
+            { "id": "d", "text": "Asurbanipal", "is_correct": false }
+          ],
+          "explanation": "Las 282 leyes del código de Hammurabi fijaban castigos como el «ojo por ojo» y se exhibían en público."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué epopeya sigue al rey Gilgamesh de Uruk en su búsqueda de la inmortalidad?",
+          "options": [
+            { "id": "a", "text": "Enuma Elish", "is_correct": false },
+            { "id": "b", "text": "La Epopeya de Gilgamesh", "is_correct": true },
+            { "id": "c", "text": "El Poema de Atrajasis", "is_correct": false },
+            { "id": "d", "text": "El descenso de Inanna", "is_correct": false }
+          ],
+          "explanation": "Escrita en cuneiforme acadio, es una de las obras literarias más antiguas que se conocen."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién creó el primer imperio de la historia al unir Sumer y Acad hacia 2330 a. C.?",
+          "options": [
+            { "id": "a", "text": "Hammurabi", "is_correct": false },
+            { "id": "b", "text": "Ur-Nammu", "is_correct": false },
+            { "id": "c", "text": "Tiglat-Pileser I", "is_correct": false },
+            { "id": "d", "text": "Sargón de Acad", "is_correct": true }
+          ],
+          "explanation": "Las conquistas de Sargón unieron el norte y el sur de Mesopotamia en un solo Estado gobernado desde Acad."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué rey reconstruyó Babilonia en el siglo VI a. C. y se asocia tradicionalmente a los Jardines Colgantes?",
+          "options": [
+            { "id": "a", "text": "Hammurabi", "is_correct": false },
+            { "id": "b", "text": "Sargón II", "is_correct": false },
+            { "id": "c", "text": "Nabucodonosor II", "is_correct": true },
+            { "id": "d", "text": "Ciro el Grande", "is_correct": false }
+          ],
+          "explanation": "Nabucodonosor II reconstruyó las murallas y la puerta de Istar; los autores griegos le atribuyeron los jardines."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué capital asiria reunió Asurbanipal una gran biblioteca de tablillas de arcilla?",
+          "options": [
+            { "id": "a", "text": "Babilonia", "is_correct": false },
+            { "id": "b", "text": "Uruk", "is_correct": false },
+            { "id": "c", "text": "Éridu", "is_correct": false },
+            { "id": "d", "text": "Nínive", "is_correct": true }
+          ],
+          "explanation": "La biblioteca de Nínive guardaba decenas de miles de tablillas, incluida una copia de la Epopeya de Gilgamesh."
+        }
+      ]
+    },
+    {
+      "slug": "en-seven-wonders-trivia",
+      "title": "Seven Wonders Trivia: Marvels of the Ancient World",
+      "description": "Eight questions on the Seven Wonders of the Ancient World: what they were, where they stood and what survives today.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "trivia", "seven wonders", "antiquity"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which of the Seven Wonders of the Ancient World is the only one still standing?",
+          "options": [
+            { "id": "a", "text": "The Colossus of Rhodes", "is_correct": false },
+            { "id": "b", "text": "The Great Pyramid of Giza", "is_correct": true },
+            { "id": "c", "text": "The Lighthouse of Alexandria", "is_correct": false },
+            { "id": "d", "text": "The Statue of Zeus at Olympia", "is_correct": false }
+          ],
+          "explanation": "Built around 2560 BC for Pharaoh Khufu, the Great Pyramid is nearly 4,600 years old."
+        },
+        {
+          "id": "q2",
+          "question": "The Colossus was a giant bronze statue of the sun god Helios in which harbour city?",
+          "options": [
+            { "id": "a", "text": "Ephesus", "is_correct": false },
+            { "id": "b", "text": "Rhodes", "is_correct": true },
+            { "id": "c", "text": "Alexandria", "is_correct": false },
+            { "id": "d", "text": "Halicarnassus", "is_correct": false }
+          ],
+          "explanation": "Raised to celebrate Rhodes' defence against a siege, the Colossus stood for only 54 years before an earthquake."
+        },
+        {
+          "id": "q3",
+          "question": "Which wonder was a marble temple in Ephesus dedicated to a goddess of the hunt?",
+          "options": [
+            { "id": "a", "text": "The Temple of Artemis", "is_correct": true },
+            { "id": "b", "text": "The Parthenon", "is_correct": false },
+            { "id": "c", "text": "The Mausoleum", "is_correct": false },
+            { "id": "d", "text": "The Pharos", "is_correct": false }
+          ],
+          "explanation": "The Temple of Artemis was rebuilt after an arsonist burned it in 356 BC, the night legend says Alexander the Great was born."
+        },
+        {
+          "id": "q4",
+          "question": "Which wonder was a towering lighthouse that guided ships into an Egyptian harbour?",
+          "options": [
+            { "id": "a", "text": "The Pharos of Alexandria", "is_correct": true },
+            { "id": "b", "text": "The Tower of Babel", "is_correct": false },
+            { "id": "c", "text": "The Colossus of Rhodes", "is_correct": false },
+            { "id": "d", "text": "The Temple of Artemis", "is_correct": false }
+          ],
+          "explanation": "Built under Ptolemy II around 280 BC, the Pharos stood on an island off Alexandria until earthquakes toppled it."
+        },
+        {
+          "id": "q5",
+          "question": "The Mausoleum at Halicarnassus was the tomb of which ruler, whose name gave us the word 'mausoleum'?",
+          "options": [
+            { "id": "a", "text": "Alexander the Great", "is_correct": false },
+            { "id": "b", "text": "Darius I", "is_correct": false },
+            { "id": "c", "text": "Croesus", "is_correct": false },
+            { "id": "d", "text": "Mausolus", "is_correct": true }
+          ],
+          "explanation": "Mausolus ruled Caria in the 4th century BC; his widow Artemisia finished the monument after his death."
+        },
+        {
+          "id": "q6",
+          "question": "In which city were the Hanging Gardens said to have been built for a homesick queen?",
+          "options": [
+            { "id": "a", "text": "Babylon", "is_correct": true },
+            { "id": "b", "text": "Nineveh", "is_correct": false },
+            { "id": "c", "text": "Persepolis", "is_correct": false },
+            { "id": "d", "text": "Memphis", "is_correct": false }
+          ],
+          "explanation": "Tradition credits Nebuchadnezzar II with the gardens for Queen Amytis, though some scholars place them in Nineveh."
+        },
+        {
+          "id": "q7",
+          "question": "Which sculptor, also behind the Parthenon's statue of Athena, made the Statue of Zeus at Olympia?",
+          "options": [
+            { "id": "a", "text": "Praxiteles", "is_correct": false },
+            { "id": "b", "text": "Phidias", "is_correct": true },
+            { "id": "c", "text": "Myron", "is_correct": false },
+            { "id": "d", "text": "Polykleitos", "is_correct": false }
+          ],
+          "explanation": "Phidias' seated Zeus, made of ivory and gold, was about 12 metres tall; visitors said it seemed ready to stand."
+        },
+        {
+          "id": "q8",
+          "question": "Which of the Seven Wonders stood furthest east?",
+          "options": [
+            { "id": "a", "text": "The Statue of Zeus at Olympia", "is_correct": false },
+            { "id": "b", "text": "The Temple of Artemis at Ephesus", "is_correct": false },
+            { "id": "c", "text": "The Hanging Gardens of Babylon", "is_correct": true },
+            { "id": "d", "text": "The Lighthouse of Alexandria", "is_correct": false }
+          ],
+          "explanation": "Babylon, in present-day Iraq, lay far inland on the Euphrates, much further east than the wonders of Greece, Anatolia and Egypt."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-siete-maravillas-del-mundo",
+      "title": "Trivia de las siete maravillas: de Guiza a Alejandría",
+      "description": "Ocho preguntas sobre las siete maravillas del mundo antiguo: qué eran, dónde estaban y qué queda de ellas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["historia", "trivia", "siete maravillas", "antigüedad"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál de las siete maravillas del mundo antiguo es la única que sigue en pie?",
+          "options": [
+            { "id": "a", "text": "El Coloso de Rodas", "is_correct": false },
+            { "id": "b", "text": "El Faro de Alejandría", "is_correct": false },
+            { "id": "c", "text": "La Gran Pirámide de Guiza", "is_correct": true },
+            { "id": "d", "text": "La estatua de Zeus en Olimpia", "is_correct": false }
+          ],
+          "explanation": "Construida hacia 2560 a. C. para el faraón Keops, la Gran Pirámide tiene casi 4.600 años."
+        },
+        {
+          "id": "q2",
+          "question": "El Coloso era una gigantesca estatua de bronce del dios Helios. ¿En qué ciudad portuaria estaba?",
+          "options": [
+            { "id": "a", "text": "Éfeso", "is_correct": false },
+            { "id": "b", "text": "Rodas", "is_correct": true },
+            { "id": "c", "text": "Alejandría", "is_correct": false },
+            { "id": "d", "text": "Halicarnaso", "is_correct": false }
+          ],
+          "explanation": "Erigido para celebrar la defensa de Rodas contra un asedio, el Coloso solo duró 54 años antes de un terremoto."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué maravilla era un templo de mármol en Éfeso dedicado a la diosa de la caza?",
+          "options": [
+            { "id": "a", "text": "El Partenón", "is_correct": false },
+            { "id": "b", "text": "El Templo de Artemisa", "is_correct": true },
+            { "id": "c", "text": "El Mausoleo", "is_correct": false },
+            { "id": "d", "text": "El Faro", "is_correct": false }
+          ],
+          "explanation": "El Templo de Artemisa ardió en 356 a. C., la noche en que la leyenda dice que nació Alejandro Magno, y fue reconstruido."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué maravilla era un faro gigantesco que guiaba los barcos hacia un puerto egipcio?",
+          "options": [
+            { "id": "a", "text": "La torre de Babel", "is_correct": false },
+            { "id": "b", "text": "El Coloso de Rodas", "is_correct": false },
+            { "id": "c", "text": "El Faro de Alejandría", "is_correct": true },
+            { "id": "d", "text": "El Templo de Artemisa", "is_correct": false }
+          ],
+          "explanation": "Construido bajo Ptolomeo II hacia 280 a. C., el Faro se alzó en una isla frente a Alejandría hasta que los terremotos lo derribaron."
+        },
+        {
+          "id": "q5",
+          "question": "El Mausoleo de Halicarnaso era la tumba de qué gobernante, cuyo nombre dio origen a la palabra «mausoleo»?",
+          "options": [
+            { "id": "a", "text": "Alejandro Magno", "is_correct": false },
+            { "id": "b", "text": "Darío I", "is_correct": false },
+            { "id": "c", "text": "Creso", "is_correct": false },
+            { "id": "d", "text": "Mausolo", "is_correct": true }
+          ],
+          "explanation": "Mausolo gobernó Caria en el siglo IV a. C.; su viuda Artemisia terminó el monumento tras su muerte."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué ciudad se decía que estaban los Jardines Colgantes, construidos para una reina nostálgica?",
+          "options": [
+            { "id": "a", "text": "Nínive", "is_correct": false },
+            { "id": "b", "text": "Persépolis", "is_correct": false },
+            { "id": "c", "text": "Babilonia", "is_correct": true },
+            { "id": "d", "text": "Menfis", "is_correct": false }
+          ],
+          "explanation": "La tradición atribuye los jardines a Nabucodonosor II para la reina Amytis, aunque algunos estudiosos los sitúan en Nínive."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué escultor, autor también de la estatua de Atenea del Partenón, hizo la estatua de Zeus en Olimpia?",
+          "options": [
+            { "id": "a", "text": "Praxíteles", "is_correct": false },
+            { "id": "b", "text": "Mirón", "is_correct": false },
+            { "id": "c", "text": "Policleto", "is_correct": false },
+            { "id": "d", "text": "Fidias", "is_correct": true }
+          ],
+          "explanation": "El Zeus sentado de Fidias, de marfil y oro, medía unos 12 metros; quienes lo veían decían que parecía a punto de levantarse."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué maravilla se ubicaba más al este de las siete?",
+          "options": [
+            { "id": "a", "text": "La estatua de Zeus en Olimpia", "is_correct": false },
+            { "id": "b", "text": "El Templo de Artemisa en Éfeso", "is_correct": false },
+            { "id": "c", "text": "El Faro de Alejandría", "is_correct": false },
+            { "id": "d", "text": "Los Jardines Colgantes de Babilonia", "is_correct": true }
+          ],
+          "explanation": "Babilonia, en el actual Irak, estaba tierra adentro sobre el Éufrates, mucho más al este que las maravillas de Grecia, Anatolia y Egipto."
+        }
+      ]
+    },
+    {
+      "slug": "en-empires-that-reshaped-the-world-trivia",
+      "title": "World Empires Trivia: Conquests That Reshaped History",
+      "description": "Eight questions on the Persian, Macedonian, Mongol, Ottoman and British empires: conquests, rulers and legacies.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "history",
+      "tags": ["history", "trivia", "empires", "world history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Cyrus the Great founded which empire, which by 500 BC stretched from Anatolia to the Indus?",
+          "options": [
+            { "id": "a", "text": "The Ottoman Empire", "is_correct": false },
+            { "id": "b", "text": "The Assyrian Empire", "is_correct": false },
+            { "id": "c", "text": "The Persian Empire", "is_correct": true },
+            { "id": "d", "text": "The Seleucid Empire", "is_correct": false }
+          ],
+          "explanation": "The Achaemenid Persians ruled satrapies linked by the Royal Road; Cyrus' cylinder is famous for its decree on exiles."
+        },
+        {
+          "id": "q2",
+          "question": "Which king of Macedon conquered an empire from Greece to India before dying at 32 in 323 BC?",
+          "options": [
+            { "id": "a", "text": "Philip II", "is_correct": false },
+            { "id": "b", "text": "Alexander the Great", "is_correct": true },
+            { "id": "c", "text": "Pyrrhus", "is_correct": false },
+            { "id": "d", "text": "Darius III", "is_correct": false }
+          ],
+          "explanation": "In thirteen years Alexander toppled Persia, reached the Indus and founded cities like Alexandria."
+        },
+        {
+          "id": "q3",
+          "question": "Founded by Genghis Khan in 1206, which empire became the largest contiguous land empire in history?",
+          "options": [
+            { "id": "a", "text": "The Mongol Empire", "is_correct": true },
+            { "id": "b", "text": "The Ottoman Empire", "is_correct": false },
+            { "id": "c", "text": "The Russian Empire", "is_correct": false },
+            { "id": "d", "text": "The Qing Empire", "is_correct": false }
+          ],
+          "explanation": "At its peak the Mongol Empire ran from Korea to Hungary, united under one legal code and a relay-post system."
+        },
+        {
+          "id": "q4",
+          "question": "Which city's fall to Mehmed II in 1453 ended the Byzantine Empire and crowned Ottoman power?",
+          "options": [
+            { "id": "a", "text": "Rome", "is_correct": false },
+            { "id": "b", "text": "Baghdad", "is_correct": false },
+            { "id": "c", "text": "Constantinople", "is_correct": true },
+            { "id": "d", "text": "Cairo", "is_correct": false }
+          ],
+          "explanation": "After a 53-day siege, Ottoman cannons breached the Theodosian Walls and Constantinople became Istanbul."
+        },
+        {
+          "id": "q5",
+          "question": "Around 1920, at its peak, the British Empire covered roughly what share of Earth's land surface?",
+          "options": [
+            { "id": "a", "text": "One tenth", "is_correct": false },
+            { "id": "b", "text": "One quarter", "is_correct": true },
+            { "id": "c", "text": "One half", "is_correct": false },
+            { "id": "d", "text": "One third", "is_correct": false }
+          ],
+          "explanation": "About a quarter of the world's land and a similar share of its population were under British rule at the empire's height."
+        },
+        {
+          "id": "q6",
+          "question": "Which Roman emperor's reign from 27 BC began the two centuries of stability called the Pax Romana?",
+          "options": [
+            { "id": "a", "text": "Nero", "is_correct": false },
+            { "id": "b", "text": "Augustus", "is_correct": true },
+            { "id": "c", "text": "Trajan", "is_correct": false },
+            { "id": "d", "text": "Constantine", "is_correct": false }
+          ],
+          "explanation": "Octavian, renamed Augustus, ended the civil wars and set the frontiers that defined the empire for generations."
+        },
+        {
+          "id": "q7",
+          "question": "Kublai Khan, grandson of Genghis Khan, founded which dynasty that ruled China?",
+          "options": [
+            { "id": "a", "text": "Ming", "is_correct": false },
+            { "id": "b", "text": "Han", "is_correct": false },
+            { "id": "c", "text": "Yuan", "is_correct": true },
+            { "id": "d", "text": "Qing", "is_correct": false }
+          ],
+          "explanation": "Kublai moved his capital to Dadu (today's Beijing) and ruled China in imperial style as the Yuan dynasty."
+        },
+        {
+          "id": "q8",
+          "question": "Which 732 battle is traditionally credited with stopping the Umayyad advance into Frankish Europe?",
+          "options": [
+            { "id": "a", "text": "The Battle of Tours", "is_correct": true },
+            { "id": "b", "text": "The Battle of Hastings", "is_correct": false },
+            { "id": "c", "text": "The Battle of Lepanto", "is_correct": false },
+            { "id": "d", "text": "The Battle of Manzikert", "is_correct": false }
+          ],
+          "explanation": "Charles Martel's infantry repelled the Umayyad force between Tours and Poitiers, halting its expansion into Francia."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-imperios-que-cambiaron-el-mundo",
+      "title": "Trivia de imperios: conquistas que cambiaron el mundo",
+      "description": "Ocho preguntas sobre los imperios persa, macedonio, mongol, otomano y británico: conquistas, gobernantes y legados.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "history",
+      "tags": ["historia", "trivia", "imperios", "historia universal"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Ciro el Grande fundó qué imperio, que hacia 500 a. C. se extendía de Anatolia al Indo?",
+          "options": [
+            { "id": "a", "text": "El Imperio otomano", "is_correct": false },
+            { "id": "b", "text": "El Imperio asirio", "is_correct": false },
+            { "id": "c", "text": "El Imperio seléucida", "is_correct": false },
+            { "id": "d", "text": "El Imperio persa", "is_correct": true }
+          ],
+          "explanation": "Los persas aqueménidas gobernaban satrapías unidas por el Camino Real; el cilindro de Ciro es famoso por su decreto sobre los exiliados."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué rey de Macedonia conquistó un imperio de Grecia a la India antes de morir a los 32 años en 323 a. C.?",
+          "options": [
+            { "id": "a", "text": "Filipo II", "is_correct": false },
+            { "id": "b", "text": "Pirro", "is_correct": false },
+            { "id": "c", "text": "Alejandro Magno", "is_correct": true },
+            { "id": "d", "text": "Darío III", "is_correct": false }
+          ],
+          "explanation": "En trece años, Alejandro derrocó a Persia, llegó al Indo y fundó ciudades como Alejandría."
+        },
+        {
+          "id": "q3",
+          "question": "Fundado por Gengis Kan en 1206, ¿qué imperio llegó a ser el mayor imperio terrestre continuo de la historia?",
+          "options": [
+            { "id": "a", "text": "El Imperio otomano", "is_correct": false },
+            { "id": "b", "text": "El Imperio mongol", "is_correct": true },
+            { "id": "c", "text": "El Imperio ruso", "is_correct": false },
+            { "id": "d", "text": "El Imperio Qing", "is_correct": false }
+          ],
+          "explanation": "En su apogeo, el Imperio mongol iba de Corea a Hungría, unido por un mismo código legal y un sistema de postas."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué ciudad cayó en 1453 ante Mehmed II, poniendo fin al Imperio bizantino y coronando el poder otomano?",
+          "options": [
+            { "id": "a", "text": "Roma", "is_correct": false },
+            { "id": "b", "text": "Bagdad", "is_correct": false },
+            { "id": "c", "text": "El Cairo", "is_correct": false },
+            { "id": "d", "text": "Constantinopla", "is_correct": true }
+          ],
+          "explanation": "Tras un asedio de 53 días, los cañones otomanos abrieron brecha en las murallas de Teodosio y Constantinopla pasó a ser Estambul."
+        },
+        {
+          "id": "q5",
+          "question": "Hacia 1920, en su apogeo, ¿qué parte de la tierra emergida cubría aproximadamente el Imperio británico?",
+          "options": [
+            { "id": "a", "text": "Una décima parte", "is_correct": false },
+            { "id": "b", "text": "Una cuarta parte", "is_correct": true },
+            { "id": "c", "text": "La mitad", "is_correct": false },
+            { "id": "d", "text": "Un tercio", "is_correct": false }
+          ],
+          "explanation": "Cerca de una cuarta parte de las tierras del mundo y una proporción similar de su población estaban bajo dominio británico."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué emperador romano inició con su reinado desde 27 a. C. los dos siglos de estabilidad llamados Pax Romana?",
+          "options": [
+            { "id": "a", "text": "Nerón", "is_correct": false },
+            { "id": "b", "text": "Trajano", "is_correct": false },
+            { "id": "c", "text": "Augusto", "is_correct": true },
+            { "id": "d", "text": "Constantino", "is_correct": false }
+          ],
+          "explanation": "Octavio, rebautizado como Augusto, acabó con las guerras civiles y fijó las fronteras que marcaron al imperio por generaciones."
+        },
+        {
+          "id": "q7",
+          "question": "Kublai Kan, nieto de Gengis Kan, fundó qué dinastía que gobernó China?",
+          "options": [
+            { "id": "a", "text": "Ming", "is_correct": false },
+            { "id": "b", "text": "Han", "is_correct": false },
+            { "id": "c", "text": "Qing", "is_correct": false },
+            { "id": "d", "text": "Yuan", "is_correct": true }
+          ],
+          "explanation": "Kublai trasladó su capital a Dadu (la actual Pekín) y gobernó China con estilo imperial como dinastía Yuan."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué batalla de 732 se considera tradicionalmente la que detuvo el avance omeya en la Europa franca?",
+          "options": [
+            { "id": "a", "text": "La batalla de Hastings", "is_correct": false },
+            { "id": "b", "text": "La batalla de Poitiers", "is_correct": true },
+            { "id": "c", "text": "La batalla de Lepanto", "is_correct": false },
+            { "id": "d", "text": "La batalla de Manzikert", "is_correct": false }
+          ],
+          "explanation": "La infantería de Carlos Martel rechazó a la fuerza omeya entre Tours y Poitiers, frenando su expansión hacia la Galia."
+        }
+      ]
+    },
+    {
+      "slug": "en-natural-wonders-trivia",
+      "title": "Natural Wonders Trivia: Earth's Record-Breaking Places",
+      "description": "Eight questions on Earth's most extreme natural wonders: the highest falls, the deepest lake, the largest reef and more.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": ["geography", "trivia", "natural wonders", "world records"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which is the largest coral reef system on Earth, stretching about 2,300 km off Queensland?",
+          "options": [
+            { "id": "a", "text": "The Mesoamerican Reef", "is_correct": false },
+            { "id": "b", "text": "The Great Barrier Reef", "is_correct": true },
+            { "id": "c", "text": "The Red Sea reefs", "is_correct": false },
+            { "id": "d", "text": "The New Caledonia barrier reef", "is_correct": false }
+          ],
+          "explanation": "The Great Barrier Reef joins nearly 3,000 individual reefs, the largest structure ever built by living organisms."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the world's highest uninterrupted waterfall?",
+          "options": [
+            { "id": "a", "text": "Iguazú Falls", "is_correct": false },
+            { "id": "b", "text": "Niagara Falls", "is_correct": false },
+            { "id": "c", "text": "Angel Falls", "is_correct": true },
+            { "id": "d", "text": "Victoria Falls", "is_correct": false }
+          ],
+          "explanation": "Angel Falls drops 979 metres from the Auyán-tepui plateau in Venezuela's Canaima National Park."
+        },
+        {
+          "id": "q3",
+          "question": "Which canyon, carved by the Colorado River, runs about 446 km through Arizona?",
+          "options": [
+            { "id": "a", "text": "The Grand Canyon", "is_correct": true },
+            { "id": "b", "text": "Colca Canyon", "is_correct": false },
+            { "id": "c", "text": "Copper Canyon", "is_correct": false },
+            { "id": "d", "text": "Fish River Canyon", "is_correct": false }
+          ],
+          "explanation": "The Grand Canyon's rock layers record nearly two billion years of Earth's history."
+        },
+        {
+          "id": "q4",
+          "question": "Which is the largest hot desert on Earth?",
+          "options": [
+            { "id": "a", "text": "The Gobi Desert", "is_correct": false },
+            { "id": "b", "text": "The Atacama Desert", "is_correct": false },
+            { "id": "c", "text": "The Arabian Desert", "is_correct": false },
+            { "id": "d", "text": "The Sahara", "is_correct": true }
+          ],
+          "explanation": "The Sahara covers about 9.2 million square kilometres; only the polar deserts of Antarctica and the Arctic are larger."
+        },
+        {
+          "id": "q5",
+          "question": "Which is the highest volcano on Earth above sea level?",
+          "options": [
+            { "id": "a", "text": "Cotopaxi", "is_correct": false },
+            { "id": "b", "text": "Ojos del Salado", "is_correct": true },
+            { "id": "c", "text": "Popocatépetl", "is_correct": false },
+            { "id": "d", "text": "Mount Etna", "is_correct": false }
+          ],
+          "explanation": "Ojos del Salado rises 6,893 metres on the Chile-Argentina border, making it the world's highest volcano."
+        },
+        {
+          "id": "q6",
+          "question": "Which lake is the deepest on Earth, holding about a fifth of the world's unfrozen fresh water?",
+          "options": [
+            { "id": "a", "text": "Lake Tanganyika", "is_correct": false },
+            { "id": "b", "text": "Lake Baikal", "is_correct": true },
+            { "id": "c", "text": "The Caspian Sea", "is_correct": false },
+            { "id": "d", "text": "Great Slave Lake", "is_correct": false }
+          ],
+          "explanation": "Lake Baikal in Siberia reaches 1,642 metres deep and holds around a fifth of Earth's surface fresh water."
+        },
+        {
+          "id": "q7",
+          "question": "Which falls on the Argentina-Brazil border form the largest waterfall system in the world?",
+          "options": [
+            { "id": "a", "text": "Niagara Falls", "is_correct": false },
+            { "id": "b", "text": "Victoria Falls", "is_correct": false },
+            { "id": "c", "text": "Iguazú Falls", "is_correct": true },
+            { "id": "d", "text": "Angel Falls", "is_correct": false }
+          ],
+          "explanation": "Iguazú's roughly 275 individual falls stretch nearly three kilometres, crowned by the Devil's Throat chasm."
+        },
+        {
+          "id": "q8",
+          "question": "Which ocean trench contains the deepest known point on Earth, the Challenger Deep?",
+          "options": [
+            { "id": "a", "text": "The Tonga Trench", "is_correct": false },
+            { "id": "b", "text": "The Peru-Chile Trench", "is_correct": false },
+            { "id": "c", "text": "The Puerto Rico Trench", "is_correct": false },
+            { "id": "d", "text": "The Mariana Trench", "is_correct": true }
+          ],
+          "explanation": "The Challenger Deep lies about 10,935 metres down in the Mariana Trench, deeper than Everest is tall."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-maravillas-naturales",
+      "title": "Trivia de maravillas naturales: récords del planeta",
+      "description": "Ocho preguntas sobre las maravillas naturales más extremas del planeta: la catarata más alta, el lago más profundo y más récords.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": ["geografía", "trivia", "maravillas naturales", "récords mundiales"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es el mayor sistema de arrecifes de coral de la Tierra, con unos 2.300 km frente a Queensland?",
+          "options": [
+            { "id": "a", "text": "El Arrecife Mesoamericano", "is_correct": false },
+            { "id": "b", "text": "La Gran Barrera de Coral", "is_correct": true },
+            { "id": "c", "text": "Los arrecifes del mar Rojo", "is_correct": false },
+            { "id": "d", "text": "La barrera de Nueva Caledonia", "is_correct": false }
+          ],
+          "explanation": "La Gran Barrera de Coral reúne casi 3.000 arrecifes: es la mayor estructura creada por organismos vivos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la cascada ininterrumpida más alta del mundo?",
+          "options": [
+            { "id": "a", "text": "Las cataratas del Iguazú", "is_correct": false },
+            { "id": "b", "text": "Las cataratas del Niágara", "is_correct": false },
+            { "id": "c", "text": "El Salto Ángel", "is_correct": true },
+            { "id": "d", "text": "Las cataratas Victoria", "is_correct": false }
+          ],
+          "explanation": "El Salto Ángel cae 979 metros desde el tepuy Auyán, en el parque nacional Canaima de Venezuela."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué cañón, excavado por el río Colorado, recorre unos 446 km por Arizona?",
+          "options": [
+            { "id": "a", "text": "El Gran Cañón", "is_correct": true },
+            { "id": "b", "text": "El Cañón del Colca", "is_correct": false },
+            { "id": "c", "text": "Las Barrancas del Cobre", "is_correct": false },
+            { "id": "d", "text": "El Cañón del río Fish", "is_correct": false }
+          ],
+          "explanation": "Las capas de roca del Gran Cañón registran casi dos mil millones de años de historia de la Tierra."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el desierto cálido más grande de la Tierra?",
+          "options": [
+            { "id": "a", "text": "El desierto de Gobi", "is_correct": false },
+            { "id": "b", "text": "El desierto de Atacama", "is_correct": false },
+            { "id": "c", "text": "El desierto Arábigo", "is_correct": false },
+            { "id": "d", "text": "El Sáhara", "is_correct": true }
+          ],
+          "explanation": "El Sáhara cubre unos 9,2 millones de kilómetros cuadrados; solo los desiertos polares de la Antártida y el Ártico son más extensos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es el volcán más alto del planeta sobre el nivel del mar?",
+          "options": [
+            { "id": "a", "text": "Cotopaxi", "is_correct": false },
+            { "id": "b", "text": "Popocatépetl", "is_correct": false },
+            { "id": "c", "text": "Ojos del Salado", "is_correct": true },
+            { "id": "d", "text": "Etna", "is_correct": false }
+          ],
+          "explanation": "El Ojos del Salado se alza 6.893 metros en la frontera entre Chile y Argentina: es el volcán más alto del mundo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué lago es el más profundo de la Tierra y guarda cerca de una quinta parte del agua dulce no congelada?",
+          "options": [
+            { "id": "a", "text": "El lago Tanganica", "is_correct": false },
+            { "id": "b", "text": "El mar Caspio", "is_correct": false },
+            { "id": "c", "text": "El lago Baikal", "is_correct": true },
+            { "id": "d", "text": "El Gran Lago del Esclavo", "is_correct": false }
+          ],
+          "explanation": "El lago Baikal, en Siberia, alcanza 1.642 metros de profundidad y contiene alrededor del 20 % del agua dulce superficial del planeta."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué cataratas en la frontera entre Argentina y Brasil forman el mayor sistema de saltos de agua del mundo?",
+          "options": [
+            { "id": "a", "text": "Las cataratas del Niágara", "is_correct": false },
+            { "id": "b", "text": "Las cataratas Victoria", "is_correct": false },
+            { "id": "c", "text": "El Salto Ángel", "is_correct": false },
+            { "id": "d", "text": "Las cataratas del Iguazú", "is_correct": true }
+          ],
+          "explanation": "Los cerca de 275 saltos del Iguazú se extienden por casi tres kilómetros, coronados por la garganta del Diablo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué fosa oceánica contiene el punto conocido más profundo de la Tierra, el abismo de Challenger?",
+          "options": [
+            { "id": "a", "text": "La fosa de Tonga", "is_correct": false },
+            { "id": "b", "text": "La fosa Perú-Chile", "is_correct": false },
+            { "id": "c", "text": "La fosa de Puerto Rico", "is_correct": false },
+            { "id": "d", "text": "La fosa de las Marianas", "is_correct": true }
+          ],
+          "explanation": "El abismo de Challenger está a unos 10.935 metros en la fosa de las Marianas, más profundo que lo que mide el Everest."
+        }
+      ]
+    }
+  ]
+}
