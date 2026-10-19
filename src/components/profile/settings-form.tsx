@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateProfileAction } from '@/actions/profile.actions';
+import { normalizeUsername } from '@/lib/auth/identity';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 const DISPLAY_NAME_MAX = 60;
@@ -13,6 +14,7 @@ const COPY = {
     displayName: 'Nombre visible',
     username: 'Usuario',
     usernameHint: 'De 3 a 24 caracteres: minúsculas, números y _.',
+    usernamePreview: 'Se guardará como',
     bio: 'Bio',
     submit: 'Guardar cambios',
     submitting: 'Guardando…',
@@ -29,6 +31,7 @@ const COPY = {
     displayName: 'Display name',
     username: 'Username',
     usernameHint: '3 to 24 characters: lowercase letters, numbers and _.',
+    usernamePreview: 'Will be saved as',
     bio: 'Bio',
     submit: 'Save changes',
     submitting: 'Saving…',
@@ -52,10 +55,12 @@ const FIELD_CLASS =
 /**
  * Edición del perfil propio: nombre visible, usuario y bio.
  *
- * Solo manda a `updateProfileAction` los campos que cambiaron, para que el
- * servidor pueda responder `empty` cuando no hay nada que guardar. Los errores
- * de Zod llegan como códigos estables y se traducen aquí, nunca se muestran
- * crudos.
+ * Solo manda a `updateProfileAction` los campos que cambiaron respecto al
+ * `baseline` canónico (lo que el servidor realmente guardó), para que `empty`
+ * responda cuando no hay nada que guardar. El servidor recorta y normaliza; el
+ * baseline se actualiza con las mismas transformaciones puras tras cada éxito,
+ * así el segundo "Guardar" sin cambios no resubmite. Los errores de Zod llegan
+ * como códigos estables y se traducen aquí, nunca se muestran crudos.
  */
 export function SettingsForm({
   locale,
@@ -70,6 +75,11 @@ export function SettingsForm({
 }) {
   const copy = COPY[locale];
   const router = useRouter();
+  const [baseline, setBaseline] = useState({
+    displayName: initialDisplayName,
+    username: initialUsername,
+    bio: initialBio,
+  });
   const [displayName, setDisplayName] = useState(initialDisplayName);
   const [username, setUsername] = useState(initialUsername);
   const [bio, setBio] = useState(initialBio);
@@ -86,9 +96,9 @@ export function SettingsForm({
     setLoading(true);
 
     const input: { displayName?: string; username?: string; bio?: string } = {};
-    if (displayName !== initialDisplayName) input.displayName = displayName;
-    if (username !== initialUsername) input.username = username;
-    if (bio !== initialBio) input.bio = bio;
+    if (displayName !== baseline.displayName) input.displayName = displayName;
+    if (username !== baseline.username) input.username = username;
+    if (bio !== baseline.bio) input.bio = bio;
 
     let result;
     try {
@@ -99,6 +109,18 @@ export function SettingsForm({
     setLoading(false);
 
     if (result.ok) {
+      // El servidor guarda `trim()` y `normalizeUsername()` del input: réplica
+      // exacta de `ProfileUpdateSchema`/`toProfileUpdate` para quedarnos con el
+      // valor canónico sin esperar a que `router.refresh()` traiga las props.
+      const saved = {
+        displayName: displayName.trim(),
+        username: normalizeUsername(username),
+        bio: bio.trim(),
+      };
+      setBaseline(saved);
+      setDisplayName(saved.displayName);
+      setUsername(saved.username);
+      setBio(saved.bio);
       setNotice({ tone: 'success', text: copy.saved });
       router.refresh();
       return;
@@ -180,6 +202,11 @@ export function SettingsForm({
         <p id="settings-username-hint" className="text-text-muted mt-1 text-xs">
           {copy.usernameHint}
         </p>
+        {normalizeUsername(username) !== username ? (
+          <p className="text-accent-primary mt-1 text-xs font-semibold">
+            {copy.usernamePreview} @{normalizeUsername(username)}
+          </p>
+        ) : null}
         {fieldErrors.username ? (
           <p className="mt-1 text-xs font-semibold text-red-400">{fieldErrors.username}</p>
         ) : null}

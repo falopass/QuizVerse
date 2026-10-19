@@ -50,13 +50,16 @@ export default async function LocalizedSettingsPage({
     );
   }
 
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('username, display_name, bio')
     .eq('id', user.id)
     .maybeSingle();
 
   const es = locale === 'es';
+  // Fila inexistente o error de lectura: el formulario vacío sería insalvable
+  // (update de 0 filas no falla en el action) y `required` bloquearía el envío.
+  const profileFailed = profileError !== null || !profile;
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
@@ -78,12 +81,28 @@ export default async function LocalizedSettingsPage({
       </section>
 
       <div className="surface-card mt-8 p-6 md:p-8">
-        <SettingsForm
-          locale={locale}
-          initialDisplayName={profile?.display_name ?? ''}
-          initialUsername={profile?.username ?? ''}
-          initialBio={profile?.bio ?? ''}
-        />
+        {profileFailed ? (
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="text-text-secondary text-sm">
+              {es
+                ? 'No pudimos cargar tu perfil. Inténtalo de nuevo en unos minutos.'
+                : 'We could not load your profile. Try again in a few minutes.'}
+            </p>
+            <Link
+              href={localizeHref(locale, '/settings')}
+              className="text-accent-primary text-sm font-semibold hover:underline"
+            >
+              {es ? 'Reintentar' : 'Retry'}
+            </Link>
+          </div>
+        ) : (
+          <SettingsForm
+            locale={locale}
+            initialDisplayName={profile.display_name ?? ''}
+            initialUsername={profile.username}
+            initialBio={profile.bio ?? ''}
+          />
+        )}
       </div>
     </main>
   );

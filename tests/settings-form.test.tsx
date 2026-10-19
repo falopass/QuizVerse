@@ -80,6 +80,41 @@ describe('SettingsForm', () => {
     expect(mocks.refresh).not.toHaveBeenCalled();
   });
 
+  it('anuncia el usuario normalizado y lo muestra tras guardar', async () => {
+    mocks.updateProfile.mockResolvedValue({ ok: true });
+    render(<SettingsForm {...PROPS} />);
+
+    fireEvent.change(screen.getByLabelText('Usuario'), { target: { value: 'Otro Usuario' } });
+    expect(screen.getByText(/@otro_usuario/)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar cambios' }));
+
+    await waitFor(() => expect(screen.getByText('Perfil actualizado.')).toBeInTheDocument());
+    expect(screen.getByLabelText('Usuario')).toHaveValue('otro_usuario');
+  });
+
+  it('no resubmite cuando un segundo guardado no tiene cambios', async () => {
+    mocks.updateProfile
+      .mockResolvedValueOnce({ ok: true })
+      .mockResolvedValue({ ok: false, code: 'empty' });
+    render(<SettingsForm {...PROPS} />);
+
+    fireEvent.change(screen.getByLabelText('Nombre visible'), {
+      target: { value: ' Diego ' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar cambios' }));
+
+    await waitFor(() => expect(screen.getByText('Perfil actualizado.')).toBeInTheDocument());
+    expect(screen.getByLabelText('Nombre visible')).toHaveValue('Diego');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar cambios' }));
+
+    await waitFor(() =>
+      expect(screen.getByText('No hay cambios que guardar.')).toBeInTheDocument()
+    );
+    expect(mocks.updateProfile).toHaveBeenNthCalledWith(2, {});
+  });
+
   it('avisa cuando no hay cambios que guardar', async () => {
     mocks.updateProfile.mockResolvedValue({ ok: false, code: 'empty' });
     render(<SettingsForm {...PROPS} />);
