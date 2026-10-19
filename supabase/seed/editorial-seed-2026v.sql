@@ -151,52 +151,6 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-insects-trivia',
-  'Insects Trivia: Six Legs, Superpowers',
-  'A million described species, record-breaking strength and dances that give directions: eight questions about the most successful animals on Earth.',
-  'trivia',
-  'easy',
-  'en',
-  (select id from public.categories where slug = 'animals'),
-  '[{"id":"q1","question":"How many legs does an insect have?","options":[{"id":"a","text":"Four","is_correct":false},{"id":"b","text":"Six","is_correct":true},{"id":"c","text":"Eight","is_correct":false},{"id":"d","text":"It depends on the species","is_correct":false}],"explanation":"Six legs is the defining trait: spiders have eight and are arachnids, not insects."},{"id":"q2","question":"Instead of an internal skeleton, what supports an insect''s body?","options":[{"id":"a","text":"A cartilage frame","is_correct":false},{"id":"b","text":"Fluid pressure alone","is_correct":false},{"id":"c","text":"An external skeleton — the exoskeleton","is_correct":true},{"id":"d","text":"Small bones under the skin","is_correct":false}],"explanation":"The exoskeleton, made largely of chitin, works like armour — which is why insects must moult to grow."},{"id":"q3","question":"What is the process called when a caterpillar transforms into a butterfly?","options":[{"id":"a","text":"Photosynthesis","is_correct":false},{"id":"b","text":"Hibernation","is_correct":false},{"id":"c","text":"Pollination","is_correct":false},{"id":"d","text":"Metamorphosis","is_correct":true}],"explanation":"Inside the chrysalis the caterpillar''s body reorganises almost completely — one of the most radical makeovers in nature."},{"id":"q4","question":"How do honeybees tell their nestmates where to find food?","options":[{"id":"a","text":"With a waggle dance","is_correct":true},{"id":"b","text":"With high-pitched songs","is_correct":false},{"id":"c","text":"By leaving scent marks on the hive walls","is_correct":false},{"id":"d","text":"By flashing their wings","is_correct":false}],"explanation":"The angle and duration of the waggle dance encode the direction and distance of the food source relative to the sun."},{"id":"q5","question":"Which insect can taste its food with sensors on its feet?","options":[{"id":"a","text":"The ant","is_correct":false},{"id":"b","text":"The butterfly","is_correct":true},{"id":"c","text":"The beetle","is_correct":false},{"id":"d","text":"The grasshopper","is_correct":false}],"explanation":"Butterflies carry taste receptors on their feet, so landing on a plant already tells them whether it is a good spot to lay eggs."},{"id":"q6","question":"Roughly what share of all described animal species are insects?","options":[{"id":"a","text":"About one tenth","is_correct":false},{"id":"b","text":"About a quarter","is_correct":false},{"id":"c","text":"More than half","is_correct":true},{"id":"d","text":"Almost none — they are a tiny group","is_correct":false}],"explanation":"Around a million insect species have been described — more than half of all known animal species — and many more remain unnamed."},{"id":"q7","question":"Which insect can survive for weeks even after losing its head?","options":[{"id":"a","text":"The cockroach","is_correct":true},{"id":"b","text":"The mosquito","is_correct":false},{"id":"c","text":"The moth","is_correct":false},{"id":"d","text":"The bee","is_correct":false}],"explanation":"Cockroaches breathe through pores in their body segments, not through the head; they eventually die of dehydration, not the wound."},{"id":"q8","question":"Which insects were already flying long before the dinosaurs appeared?","options":[{"id":"a","text":"Butterflies","is_correct":false},{"id":"b","text":"Termites","is_correct":false},{"id":"c","text":"Wasps","is_correct":false},{"id":"d","text":"Dragonflies","is_correct":true}],"explanation":"Dragonfly ancestors took to the air around 300 million years ago — some had wingspans wider than a hawk''s."}]'::jsonb,
-  null,
-  array['insects', 'bugs', 'animals', 'nature', 'trivia']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
-  'es-trivia-insectos',
-  'Trivia de insectos: seis patas y superpoderes',
-  'Un millón de especies descritas, fuerza de récord y danzas que indican direcciones: ocho preguntas sobre los animales más exitosos del planeta.',
-  'trivia',
-  'easy',
-  'es',
-  (select id from public.categories where slug = 'animals'),
-  '[{"id":"q1","question":"¿Cuántas patas tiene un insecto?","options":[{"id":"a","text":"Cuatro","is_correct":false},{"id":"b","text":"Seis","is_correct":true},{"id":"c","text":"Ocho","is_correct":false},{"id":"d","text":"Depende de la especie","is_correct":false}],"explanation":"Seis patas es el rasgo que los define: las arañas tienen ocho y son arácnidos, no insectos."},{"id":"q2","question":"En lugar de un esqueleto interno, ¿qué sostiene el cuerpo de un insecto?","options":[{"id":"a","text":"Una armazón de cartílago","is_correct":false},{"id":"b","text":"Solo la presión de los fluidos","is_correct":false},{"id":"c","text":"Un esqueleto externo: el exoesqueleto","is_correct":true},{"id":"d","text":"Huesos pequeños bajo la piel","is_correct":false}],"explanation":"El exoesqueleto, hecho en gran parte de quitina, funciona como una armadura; por eso los insectos deben mudar para crecer."},{"id":"q3","question":"¿Cómo se llama el proceso por el que una oruga se transforma en mariposa?","options":[{"id":"a","text":"Fotosíntesis","is_correct":false},{"id":"b","text":"Hibernación","is_correct":false},{"id":"c","text":"Polinización","is_correct":false},{"id":"d","text":"Metamorfosis","is_correct":true}],"explanation":"Dentro de la crisálida el cuerpo de la oruga se reorganiza casi por completo: uno de los cambios más radicales de la naturaleza."},{"id":"q4","question":"¿Cómo le indican las abejas a sus compañeras dónde encontrar comida?","options":[{"id":"a","text":"Con la danza de la meneo o danza en ocho","is_correct":true},{"id":"b","text":"Con cantos agudos","is_correct":false},{"id":"c","text":"Dejando marcas de olor en las paredes de la colmena","is_correct":false},{"id":"d","text":"Haciendo brillar sus alas","is_correct":false}],"explanation":"El ángulo y la duración de la danza codifican la dirección y la distancia del alimento en relación con el Sol."},{"id":"q5","question":"¿Qué insecto puede saborear su comida con sensores en las patas?","options":[{"id":"a","text":"La hormiga","is_correct":false},{"id":"b","text":"La mariposa","is_correct":true},{"id":"c","text":"El escarabajo","is_correct":false},{"id":"d","text":"El saltamontes","is_correct":false}],"explanation":"Las mariposas tienen receptores de sabor en las patas: al posarse en una planta ya saben si es un buen lugar para poner huevos."},{"id":"q6","question":"¿Qué parte de todas las especies animales descritas son insectos, aproximadamente?","options":[{"id":"a","text":"Una décima parte","is_correct":false},{"id":"b","text":"Una cuarta parte","is_correct":false},{"id":"c","text":"Más de la mitad","is_correct":true},{"id":"d","text":"Casi ninguna: son un grupo minúsculo","is_correct":false}],"explanation":"Se han descrito alrededor de un millón de especies de insectos —más de la mitad de las especies animales conocidas— y quedan muchas sin nombrar."},{"id":"q7","question":"¿Qué insecto puede sobrevivir semanas incluso después de perder la cabeza?","options":[{"id":"a","text":"La cucaracha","is_correct":true},{"id":"b","text":"El mosquito","is_correct":false},{"id":"c","text":"La polilla","is_correct":false},{"id":"d","text":"La abeja","is_correct":false}],"explanation":"Las cucarachas respiran por poros en los segmentos del cuerpo, no por la cabeza; al final mueren de deshidratación, no por la herida."},{"id":"q8","question":"¿Qué insectos ya volaban mucho antes de que aparecieran los dinosaurios?","options":[{"id":"a","text":"Las mariposas","is_correct":false},{"id":"b","text":"Las termitas","is_correct":false},{"id":"c","text":"Las avispas","is_correct":false},{"id":"d","text":"Las libélulas","is_correct":true}],"explanation":"Los ancestros de las libélulas volaban hace unos 300 millones de años; algunos tenían una envergadura mayor que la de un halcón."}]'::jsonb,
-  null,
-  array['insectos', 'bichos', 'animales', 'naturaleza', 'trivia']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
   'en-ecosystems-trivia',
   'Ecosystems Trivia: Food Webs and Balance',
   'Producers, predators, decomposers and the quiet arithmetic that keeps nature balanced: eight questions about how ecosystems work.',

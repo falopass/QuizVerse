@@ -151,52 +151,6 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-world-desserts-trivia',
-  'World Desserts Trivia: Cakes, Pastries and Classics',
-  'Eight questions on the world''s great desserts, from tiramisu and crème brûlée to baklava, pavlova and gelato.',
-  'trivia',
-  'easy',
-  'en',
-  (select id from public.categories where slug = 'food-drink'),
-  '[{"id":"q1","question":"What does the name ''tiramisu'' mean in Italian?","options":[{"id":"a","text":"Coffee dream","is_correct":false},{"id":"b","text":"Sweet layers","is_correct":false},{"id":"c","text":"Pick me up","is_correct":true},{"id":"d","text":"Little cake","is_correct":false}],"explanation":"Tiramisù literally means ''pick me up'' or ''cheer me up'', a nod to its coffee and cocoa."},{"id":"q2","question":"How is a crème brûlée finished just before serving?","options":[{"id":"a","text":"By caramelising sugar on top into a brittle crust","is_correct":true},{"id":"b","text":"By glazing it with warm honey","is_correct":false},{"id":"c","text":"By covering it with meringue","is_correct":false},{"id":"d","text":"By dusting it with flour","is_correct":false}],"explanation":"A thin layer of sugar is burned with a torch or iron to form the glassy crust diners crack with a spoon."},{"id":"q3","question":"Baklava is built from many thin layers of which dough?","options":[{"id":"a","text":"Puff pastry","is_correct":false},{"id":"b","text":"Choux pastry","is_correct":false},{"id":"c","text":"Filo pastry","is_correct":true},{"id":"d","text":"Shortcrust pastry","is_correct":false}],"explanation":"Baklava stacks paper-thin filo sheets with chopped nuts, then soaks them in syrup or honey."},{"id":"q4","question":"The pavlova meringue dessert was named in honour of whom?","options":[{"id":"a","text":"A Russian ballerina","is_correct":true},{"id":"b","text":"A New Zealand queen","is_correct":false},{"id":"c","text":"A French pastry chef","is_correct":false},{"id":"d","text":"An Australian opera singer","is_correct":false}],"explanation":"The dessert honours ballerina Anna Pavlova''s 1920s tours of Australia and New Zealand, which both claim its creation."},{"id":"q5","question":"How does Italian gelato differ from standard ice cream?","options":[{"id":"a","text":"It is made without milk","is_correct":false},{"id":"b","text":"It is churned with less air and less fat, so it is denser","is_correct":true},{"id":"c","text":"It always contains eggs","is_correct":false},{"id":"d","text":"It is frozen with liquid nitrogen","is_correct":false}],"explanation":"Gelato uses more milk than cream and is churned slowly, leaving less fat and air for a denser texture."},{"id":"q6","question":"The Sachertorte, a chocolate cake layered with apricot jam, was created in which city?","options":[{"id":"a","text":"Paris","is_correct":false},{"id":"b","text":"Vienna","is_correct":true},{"id":"c","text":"Zurich","is_correct":false},{"id":"d","text":"Brussels","is_correct":false}],"explanation":"Franz Sacher created the cake in Vienna in 1832; the Hotel Sacher still guards the recipe."},{"id":"q7","question":"Brigadeiros, fudgy chocolate balls rolled in sprinkles, are a classic sweet of which country?","options":[{"id":"a","text":"Portugal","is_correct":false},{"id":"b","text":"Argentina","is_correct":false},{"id":"c","text":"Brazil","is_correct":true},{"id":"d","text":"Mexico","is_correct":false}],"explanation":"Brigadeiros are made with condensed milk and cocoa, and are a fixture of Brazilian birthday parties."},{"id":"q8","question":"A tres leches cake is soaked in which three dairy products?","options":[{"id":"a","text":"Evaporated milk, condensed milk and cream","is_correct":true},{"id":"b","text":"Cow''s, goat''s and sheep''s milk","is_correct":false},{"id":"c","text":"Skimmed, whole and raw milk","is_correct":false},{"id":"d","text":"Coconut, almond and soy milk","is_correct":false}],"explanation":"The sponge is drenched in evaporated milk, condensed milk and cream until soft but still holding its shape."}]'::jsonb,
-  null,
-  array['food', 'trivia', 'desserts', 'sweets']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
-  'es-trivia-postres-del-mundo',
-  'Trivia de postres del mundo: dulces clásicos',
-  'Ocho preguntas sobre los postres clásicos del mundo, del tiramisú y la crème brûlée al baklava, la pavlova y el gelato.',
-  'trivia',
-  'easy',
-  'es',
-  (select id from public.categories where slug = 'food-drink'),
-  '[{"id":"q1","question":"¿Qué significa el nombre «tiramisú» en italiano?","options":[{"id":"a","text":"«Sueño de café»","is_correct":false},{"id":"b","text":"«Capas dulces»","is_correct":false},{"id":"c","text":"«Anímame»","is_correct":true},{"id":"d","text":"«Pastelito»","is_correct":false}],"explanation":"Tiramisù significa literalmente ''anímame'' o ''levántame'', un guiño a su café y su cacao."},{"id":"q2","question":"¿Cómo se termina una crème brûlée justo antes de servirla?","options":[{"id":"a","text":"Caramelizando el azúcar de la superficie hasta formar una costra","is_correct":true},{"id":"b","text":"Bañándola con miel tibia","is_correct":false},{"id":"c","text":"Cubriéndola con merengue","is_correct":false},{"id":"d","text":"Espolvoreándola con harina","is_correct":false}],"explanation":"Una capa fina de azúcar se quema con soplete o hierro hasta formar la costra vítrea que se rompe con la cuchara."},{"id":"q3","question":"¿De qué masa son las finas capas con que se arma el baklava?","options":[{"id":"a","text":"Hojaldre","is_correct":false},{"id":"b","text":"Masa choux","is_correct":false},{"id":"c","text":"Masa filo","is_correct":true},{"id":"d","text":"Masa quebrada","is_correct":false}],"explanation":"El baklava apila láminas finísimas de masa filo con frutos secos picados y luego se baña en almíbar o miel."},{"id":"q4","question":"¿En honor a quién se bautizó la pavlova, el postre de merengue?","options":[{"id":"a","text":"Una bailarina rusa","is_correct":true},{"id":"b","text":"Una reina neozelandesa","is_correct":false},{"id":"c","text":"Un repostero francés","is_correct":false},{"id":"d","text":"Una cantante de ópera australiana","is_correct":false}],"explanation":"El postre honra a la bailarina Anna Pávlova tras sus giras por Australia y Nueva Zelanda en los años 20; ambos países reclaman su creación."},{"id":"q5","question":"¿En qué se diferencia el gelato italiano del helado común?","options":[{"id":"a","text":"Se hace sin leche","is_correct":false},{"id":"b","text":"Se bate con menos aire y menos grasa, por eso es más denso","is_correct":true},{"id":"c","text":"Siempre lleva huevo","is_correct":false},{"id":"d","text":"Se congela con nitrógeno líquido","is_correct":false}],"explanation":"El gelato usa más leche que crema y se bate despacio, con menos grasa y menos aire: una textura más densa."},{"id":"q6","question":"¿En qué ciudad se creó la Sachertorte, el pastel de chocolate con mermelada de albaricoque?","options":[{"id":"a","text":"París","is_correct":false},{"id":"b","text":"Viena","is_correct":true},{"id":"c","text":"Zúrich","is_correct":false},{"id":"d","text":"Bruselas","is_correct":false}],"explanation":"Franz Sacher creó el pastel en Viena en 1832; el Hotel Sacher todavía guarda la receta."},{"id":"q7","question":"¿De qué país son los brigadeiros, las bolitas de chocolate cubiertas de grageas?","options":[{"id":"a","text":"Portugal","is_correct":false},{"id":"b","text":"Argentina","is_correct":false},{"id":"c","text":"Brasil","is_correct":true},{"id":"d","text":"México","is_correct":false}],"explanation":"Los brigadeiros se hacen con leche condensada y cacao, y no faltan en los cumpleaños brasileños."},{"id":"q8","question":"¿Con qué tres lácteos se empapa el pastel tres leches?","options":[{"id":"a","text":"Leche evaporada, leche condensada y crema","is_correct":true},{"id":"b","text":"Leche de vaca, de cabra y de oveja","is_correct":false},{"id":"c","text":"Leche descremada, entera y cruda","is_correct":false},{"id":"d","text":"Leche de coco, de almendras y de soya","is_correct":false}],"explanation":"La esponja se empapa en leche evaporada, leche condensada y crema hasta quedar suave sin deshacerse."}]'::jsonb,
-  null,
-  array['comida', 'trivia', 'postres', 'dulces']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
   'en-spanish-food-trivia',
   'Spanish Food Trivia: Paella, Tapas and More',
   'Eight questions on the dishes of Spain: paella and its socarrat, tapas, jamón ibérico, tortilla and churros.',

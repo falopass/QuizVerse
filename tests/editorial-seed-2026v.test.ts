@@ -33,14 +33,14 @@ interface SeedQuiz {
   questions: SeedQuestion[];
 }
 
-// Los cinco temas del lote 2026v como (slug en, slug es, categoría).
+// Los cuatro temas del lote 2026v como (slug en, slug es, categoría).
 // El par marino usa es-trivia-animales-del-mar: es-trivia-animales-marinos ya
 // existe en el lote 2026f y el ON CONFLICT DO NOTHING lo haría no-op.
+// El par de insectos ya existía en el lote 2026ag y aquí se deduplicó.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-everyday-physics-trivia', 'es-trivia-fisica-cotidiana', 'science'],
   ['en-cell-biology-trivia', 'es-trivia-biologia-celular', 'science'],
   ['en-marine-animals-trivia', 'es-trivia-animales-del-mar', 'animals'],
-  ['en-insects-trivia', 'es-trivia-insectos', 'animals'],
   ['en-ecosystems-trivia', 'es-trivia-ecosistemas', 'science'],
 ];
 
@@ -68,8 +68,8 @@ describe('editorial-seed-2026v', () => {
     expect(stdout).toContain('Validated:');
   });
 
-  it('tiene exactamente los 5 pares en/es pedidos', () => {
-    expect(quizzes).toHaveLength(10);
+  it('tiene exactamente los 4 pares en/es pedidos', () => {
+    expect(quizzes).toHaveLength(8);
     const bySlug = new Map(quizzes.map((quiz) => [quiz.slug, quiz]));
     for (const [enSlug, esSlug, category] of EXPECTED_PAIRS) {
       const en = bySlug.get(enSlug);

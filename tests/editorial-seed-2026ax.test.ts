@@ -29,12 +29,12 @@ interface SeedQuiz {
   questions: SeedQuestion[];
 }
 
-// The five food and drink topics as (en slug, es slug, category) pairs.
+// The four food and drink topics as (en slug, es slug, category) pairs.
+// El par de postres del mundo ya existía en el lote 2026aq y aquí se deduplicó.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-italian-food-trivia', 'es-trivia-comida-italiana', 'food-drink'],
   ['en-mexican-food-trivia', 'es-trivia-comida-mexicana', 'food-drink'],
   ['en-japanese-food-trivia', 'es-trivia-comida-japonesa', 'food-drink'],
-  ['en-world-desserts-trivia', 'es-trivia-postres-del-mundo', 'food-drink'],
   ['en-spanish-food-trivia', 'es-trivia-comida-espanola', 'food-drink'],
 ];
 
@@ -53,8 +53,8 @@ describe('editorial-seed-2026ax', () => {
     expect(stdout).toContain('on conflict (slug) do nothing');
   });
 
-  it('tiene exactamente los 5 pares es/en por tema', () => {
-    expect(quizzes).toHaveLength(10);
+  it('tiene exactamente los 4 pares es/en por tema', () => {
+    expect(quizzes).toHaveLength(8);
     const bySlug = new Map(quizzes.map((quiz) => [quiz.slug, quiz]));
     for (const [enSlug, esSlug, category] of EXPECTED_PAIRS) {
       const en = bySlug.get(enSlug);
@@ -66,8 +66,8 @@ describe('editorial-seed-2026ax', () => {
       expect(en!.category).toBe(category);
       expect(es!.category).toBe(category);
     }
-    expect(quizzes.filter((quiz) => quiz.language === 'en')).toHaveLength(5);
-    expect(quizzes.filter((quiz) => quiz.language === 'es')).toHaveLength(5);
+    expect(quizzes.filter((quiz) => quiz.language === 'en')).toHaveLength(4);
+    expect(quizzes.filter((quiz) => quiz.language === 'es')).toHaveLength(4);
   });
 
   it('cada slug lleva el prefijo de su idioma', () => {

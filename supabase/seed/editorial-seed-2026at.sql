@@ -174,29 +174,6 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-tabla-periodica',
-  'Trivia de la tabla periódica: elementos, grupos y símbolos',
-  'Ocho preguntas sobre la tabla de Mendeléyev: números atómicos, gases nobles, metales alcalinos y los símbolos de cada elemento.',
-  'trivia',
-  'medium',
-  'es',
-  (select id from public.categories where slug = 'science'),
-  '[{"id":"q1","question":"¿Qué químico publicó en 1869 la primera tabla periódica de los elementos ampliamente reconocida?","options":[{"id":"a","text":"Antoine Lavoisier","is_correct":false},{"id":"b","text":"John Dalton","is_correct":false},{"id":"c","text":"Dmitri Mendeléyev","is_correct":true},{"id":"d","text":"Henry Moseley","is_correct":false}],"explanation":"Mendeléyev ordenó los elementos por peso atómico y dejó huecos para los aún no descubiertos."},{"id":"q2","question":"¿Qué representa el número atómico de un elemento?","options":[{"id":"a","text":"Su número de neutrones","is_correct":false},{"id":"b","text":"Su número de protones","is_correct":true},{"id":"c","text":"Su número total de nucleones","is_correct":false},{"id":"d","text":"Sus electrones de la capa externa","is_correct":false}],"explanation":"El número atómico cuenta los protones del núcleo y define la identidad del elemento."},{"id":"q3","question":"¿Cuál es el símbolo químico del oro?","options":[{"id":"a","text":"Ag","is_correct":false},{"id":"b","text":"Go","is_correct":false},{"id":"c","text":"Gd","is_correct":false},{"id":"d","text":"Au","is_correct":true}],"explanation":"Au viene de aurum, el nombre latino del oro; Ag (plata) viene de argentum."},{"id":"q4","question":"¿Cómo se llaman las columnas verticales de la tabla periódica?","options":[{"id":"a","text":"Grupos","is_correct":true},{"id":"b","text":"Periodos","is_correct":false},{"id":"c","text":"Bloques","is_correct":false},{"id":"d","text":"Series","is_correct":false}],"explanation":"Las columnas son grupos de elementos con propiedades similares; las filas se llaman periodos."},{"id":"q5","question":"¿Qué grupo de la tabla periódica contiene los gases nobles como el helio, el neón y el argón?","options":[{"id":"a","text":"El grupo 1","is_correct":false},{"id":"b","text":"El grupo 2","is_correct":false},{"id":"c","text":"El grupo 17","is_correct":false},{"id":"d","text":"El grupo 18","is_correct":true}],"explanation":"El grupo 18, la columna del extremo derecho, reúne los gases nobles, que casi no reaccionan con otros elementos."},{"id":"q6","question":"¿Cuál es el elemento más ligero y el más abundante del universo?","options":[{"id":"a","text":"El helio","is_correct":false},{"id":"b","text":"El hidrógeno","is_correct":true},{"id":"c","text":"El oxígeno","is_correct":false},{"id":"d","text":"El carbono","is_correct":false}],"explanation":"El hidrógeno, con un solo protón, forma cerca de tres cuartas partes de la materia normal del universo."},{"id":"q7","question":"El sodio y el potasio son metales blandos y muy reactivos que pertenecen a qué grupo?","options":[{"id":"a","text":"A los halógenos","is_correct":false},{"id":"b","text":"A los metales alcalinotérreos","is_correct":false},{"id":"c","text":"A los metales alcalinos","is_correct":true},{"id":"d","text":"A los metales de transición","is_correct":false}],"explanation":"Los metales del grupo 1 (salvo el hidrógeno) son los alcalinos, que reaccionan con violencia con el agua."},{"id":"q8","question":"¿Cuál es el único metal que es líquido a temperatura ambiente?","options":[{"id":"a","text":"El mercurio","is_correct":true},{"id":"b","text":"El plomo","is_correct":false},{"id":"c","text":"El aluminio","is_correct":false},{"id":"d","text":"El estaño","is_correct":false}],"explanation":"El mercurio funde a unos 39 °C bajo cero; el único otro elemento líquido a temperatura ambiente es el bromo, un no metal."}]'::jsonb,
-  null,
-  array['ciencia', 'trivia', 'tabla periódica', 'química', 'elementos']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
   'en-deep-sea-trivia',
   'Deep Sea Trivia: Life in the Ocean''s Dark Zones',
   'Eight questions on trenches, abyssal zones, bioluminescence and the strange creatures of the deep ocean.',
