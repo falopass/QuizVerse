@@ -12,6 +12,22 @@ import {
 
 const OG_LOCALE: Record<Locale, string> = { en: 'en_US', es: 'es_ES' };
 
+/** Google truncates titles around 60 characters; the template suffix is 12. */
+const SERP_TITLE_MAX = 60;
+const TITLE_SUFFIX = ` | ${SITE_NAME}`;
+
+/**
+ * Keeps the `| QuizVerse` template suffix only when the full title still fits
+ * in the SERP. Long titles drop the suffix instead of losing their tail; the
+ * title itself is never truncated.
+ */
+export function resolveTitle(title: string, absoluteTitle: boolean): string | { absolute: string } {
+  if (absoluteTitle || title.length + TITLE_SUFFIX.length > SERP_TITLE_MAX) {
+    return { absolute: title };
+  }
+  return title;
+}
+
 /** Google truncates around 155–160 characters. Keep descriptions honest and short. */
 const DESCRIPTION_MAX = 158;
 
@@ -115,10 +131,8 @@ export function buildMetadata({
   languages['x-default'] = xDefault;
 
   const ogImage = image ?? (locale === 'es' ? DEFAULT_OG_IMAGE_ES : DEFAULT_OG_IMAGE);
-  const withSuffix = !absoluteTitle;
-
   return {
-    title: withSuffix ? title : { absolute: title },
+    title: resolveTitle(title, absoluteTitle),
     description: resolvedDescription,
     ...(keywords && keywords.length > 0 ? { keywords } : {}),
     alternates: { canonical, languages },
