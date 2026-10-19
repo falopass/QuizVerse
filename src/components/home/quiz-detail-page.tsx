@@ -4,6 +4,7 @@ import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { ReportButton } from '@/components/shared/report-button';
+import { QuizComments } from '@/components/quiz/quiz-comments';
 import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getPublishedQuizzes, getQuizBySlug, getRelatedQuizzes } from '@/lib/data/public';
@@ -233,6 +234,8 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           </div>
         </section>
       )}
+
+      <QuizComments quizId={quiz.id} locale={locale} />
     </div>
   );
 }
