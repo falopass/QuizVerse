@@ -2,6 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
 import { googleVerificationResponse } from '@/lib/seo/google-verification';
+import { supabaseEnv } from '@/lib/supabase/env';
 
 function pathnameHasLocale(pathname: string) {
   return /^\/(en|es)(\/|$)/.test(pathname);
@@ -45,11 +46,7 @@ export async function proxy(request: NextRequest) {
   const verification = googleVerificationResponse(pathname);
   if (verification) return verification;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-  const anonKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    'placeholder-key';
+  const { url, anonKey } = supabaseEnv();
 
   request.headers.set('x-quizverse-locale', pathname.startsWith('/es') ? 'es' : 'en');
   let response = NextResponse.next({ request });
