@@ -158,9 +158,11 @@ function main() {
   const outputPath = outArg ? resolve(ROOT, outArg) : OUTPUT_PATH;
   const inputPath = inputArg ? resolve(inputArg) : SEED_PATH;
   const seed = JSON.parse(readFileSync(inputPath, 'utf8'));
-  const quizzes = seed.quizzes ?? [];
+  const quizzes = Array.isArray(seed.quizzes) ? seed.quizzes : [];
 
-  const errors = validate(quizzes);
+  // An empty or missing quiz list must not silently overwrite the generated SQL.
+  const errors =
+    quizzes.length > 0 ? validate(quizzes) : [`${inputPath}: "quizzes" must be a nonempty array`];
   if (errors.length > 0) {
     if (asJson) {
       console.error(JSON.stringify({ errors }));

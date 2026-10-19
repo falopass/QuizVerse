@@ -48,10 +48,10 @@ function validQuiz(slug: string, language: 'en' | 'es'): Quiz {
   };
 }
 
-function runSeed(quizzes: Quiz[], extraArgs: string[] = []) {
+function runSeed(payload: { quizzes?: Quiz[] }, extraArgs: string[] = []) {
   const dir = mkdtempSync(join(tmpdir(), 'seed-emit-'));
   const fixture = join(dir, 'seed.json');
-  writeFileSync(fixture, JSON.stringify({ quizzes }));
+  writeFileSync(fixture, JSON.stringify(payload));
   try {
     const stdout = execFileSync('node', [SCRIPT, '--input', fixture, ...extraArgs], {
       encoding: 'utf8',
@@ -70,10 +70,9 @@ function runSeed(quizzes: Quiz[], extraArgs: string[] = []) {
 
 describe('emit-editorial-seed', () => {
   it('emite INSERT ... ON CONFLICT con un seed válido', () => {
-    const { status, stdout } = runSeed([
-      validQuiz('en-valid-history-quiz', 'en'),
-      validQuiz('es-valid-history-quiz', 'es'),
-    ]);
+    const { status, stdout } = runSeed({
+      quizzes: [validQuiz('en-valid-history-quiz', 'en'), validQuiz('es-valid-history-quiz', 'es')],
+    });
     expect(status).toBe(0);
     expect(stdout).toContain('insert into public.quizzes');
     expect(stdout).toContain('on conflict (slug) do nothing');
@@ -82,7 +81,7 @@ describe('emit-editorial-seed', () => {
   it('falla si una pregunta trivia tiene dos respuestas correctas', () => {
     const quiz = validQuiz('en-two-correct-quiz', 'en');
     quiz.questions[0] = question(2);
-    const { status, stderr } = runSeed([quiz]);
+    const { status, stderr } = runSeed({ quizzes: [quiz] });
     expect(status).toBe(1);
     expect(stderr).toContain('en-two-correct-quiz');
     expect(stderr).toContain('trivia needs exactly one correct option');
@@ -90,22 +89,28 @@ describe('emit-editorial-seed', () => {
 
   it('falla con una categoría inexistente', () => {
     const quiz = { ...validQuiz('en-bad-category-quiz', 'en'), category: 'not-a-category' };
-    const { status, stderr } = runSeed([quiz]);
+    const { status, stderr } = runSeed({ quizzes: [quiz] });
     expect(status).toBe(1);
     expect(stderr).toContain('unknown category');
   });
 
   it('falla si el slug no lleva el prefijo de idioma', () => {
     const quiz = validQuiz('es-mismatched-prefix', 'en');
-    const { status, stderr } = runSeed([quiz]);
+    const { status, stderr } = runSeed({ quizzes: [quiz] });
     expect(status).toBe(1);
     expect(stderr).toContain('slug must start with the language prefix');
   });
 
   it('falla con una descripción de menos de 40 caracteres', () => {
     const quiz = { ...validQuiz('en-short-description', 'en'), description: 'Too short.' };
-    const { status, stderr } = runSeed([quiz]);
+    const { status, stderr } = runSeed({ quizzes: [quiz] });
     expect(status).toBe(1);
     expect(stderr).toContain('description too short');
+  });
+
+  it('falla si el JSON no trae una lista "quizzes" con contenido', () => {
+    const { status, stderr } = runSeed({});
+    expect(status).toBe(1);
+    expect(stderr).toContain('"quizzes" must be a nonempty array');
   });
 });
