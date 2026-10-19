@@ -2,13 +2,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   getQuizBySlug: vi.fn(),
-  getCategoryPayload: vi.fn(),
+  categoryHasQuizzes: vi.fn(),
   getEquivalentQuizSlug: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
   getQuizBySlug: mocks.getQuizBySlug,
-  getCategoryPayload: mocks.getCategoryPayload,
+  categoryHasQuizzes: mocks.categoryHasQuizzes,
 }));
 
 vi.mock('@/lib/data/quiz-locale-map', () => ({
@@ -29,7 +29,7 @@ const sourceQuiz = {
 
 beforeEach(() => {
   mocks.getQuizBySlug.mockReset();
-  mocks.getCategoryPayload.mockReset();
+  mocks.categoryHasQuizzes.mockReset();
   mocks.getEquivalentQuizSlug.mockReset();
 });
 
@@ -49,19 +49,19 @@ describe('GET /api/quiz/locale — degradación sin pareja', () => {
   it('sin pareja pero con categoría poblada responde la categoría en el idioma destino', async () => {
     mocks.getQuizBySlug.mockResolvedValueOnce(sourceQuiz);
     mocks.getEquivalentQuizSlug.mockReturnValue(null);
-    mocks.getCategoryPayload.mockResolvedValue({ category: {}, quizzes: [{}] });
+    mocks.categoryHasQuizzes.mockResolvedValue(true);
 
     const response = await GET(request('slug=en-solo-quiz&from=en&to=es'));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({ href: '/es/category/movies-tv' });
-    expect(mocks.getCategoryPayload).toHaveBeenCalledWith('movies-tv', 'es');
+    expect(mocks.categoryHasQuizzes).toHaveBeenCalledWith('movies-tv', 'es');
   });
 
   it('sin pareja y con categoría vacía en destino responde la home del idioma destino', async () => {
     mocks.getQuizBySlug.mockResolvedValueOnce(sourceQuiz);
     mocks.getEquivalentQuizSlug.mockReturnValue(null);
-    mocks.getCategoryPayload.mockResolvedValue({ category: {}, quizzes: [] });
+    mocks.categoryHasQuizzes.mockResolvedValue(false);
 
     const response = await GET(request('slug=en-solo-quiz&from=en&to=es'));
 

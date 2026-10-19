@@ -330,6 +330,29 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
   };
 });
 
+// Comprobación barata para /api/quiz/locale: mira si la categoría tiene ≥1
+// quiz publicado en el idioma sin traer questions/results ni recorrer páginas.
+export async function categoryHasQuizzes(slug: string, locale?: Locale): Promise<boolean> {
+  const category = (await getPublicCategories()).find((item) => item.slug === slug);
+  if (!category) return false;
+  try {
+    const supabase = await createClient();
+    let query = supabase
+      .from('quizzes')
+      .select('id')
+      .eq('status', 'published')
+      .eq('category_id', category.id);
+    if (locale) query = query.eq('language', locale);
+    const { data, error } = await query.limit(1);
+    if (error || !data) throw error ?? new Error('Could not check category quizzes');
+    return data.length > 0;
+  } catch {
+    return LAUNCH_QUIZZES.some(
+      (quiz) => quiz.category?.slug === slug && (!locale || quiz.language === locale)
+    );
+  }
+}
+
 export interface HomeCardGroups {
   trending: QuizCardViewModel[];
   featured: QuizCardViewModel[];
