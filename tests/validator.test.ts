@@ -132,8 +132,8 @@ describe('validateQuiz', () => {
     expect(result.valid).toBe(false);
   });
 
-  it('debería aceptar poll sin resultados', () => {
-    const validPoll = {
+  it('debería rechazar poll mientras no esté implementado', () => {
+    const pollQuiz = {
       title: 'Poll Quiz',
       quiz_type: 'poll',
       difficulty: 'easy',
@@ -149,8 +149,8 @@ describe('validateQuiz', () => {
         },
       ],
     };
-    const result = validateQuiz(validPoll);
-    expect(result.valid).toBe(true);
+    const result = validateQuiz(pollQuiz);
+    expect(result.valid).toBe(false);
   });
 
   it('debería rechazar objetos mal formados', () => {

@@ -30,7 +30,7 @@ const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend
 const updateQuizSchema = z.object({
   title: z.string().min(5).max(120).optional(),
   description: z.string().max(300).optional(),
-  quiz_type: z.enum(['trivia', 'personality', 'poll']).optional(),
+  quiz_type: z.enum(['trivia', 'personality']).optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
   language: z.string().optional(),
   category_id: z.string().uuid().optional().nullable(),

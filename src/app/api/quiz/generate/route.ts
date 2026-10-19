@@ -5,7 +5,7 @@ import { inferVisualProfile } from '@/lib/design/visual-profile';
 
 const generateQuizSchema = z.object({
   topic: z.string().trim().min(3).max(120),
-  quiz_type: z.enum(['trivia', 'personality', 'poll']),
+  quiz_type: z.enum(['trivia', 'personality']),
   difficulty: z.enum(['easy', 'medium', 'hard']),
   num_questions: z.number().int().min(3).max(20),
   language: z.string().trim().min(2).max(10).default('en'),
@@ -96,19 +96,16 @@ export async function POST(request: NextRequest) {
     validationWarnings.push('The personality quiz did not return any results.');
   }
 
-  const normalizedQuizType =
-    parsed.data.quiz_type === 'poll' ? 'personality' : parsed.data.quiz_type;
-
   return NextResponse.json({
     quiz: {
       ...result.data,
-      quiz_type: normalizedQuizType,
+      quiz_type: parsed.data.quiz_type,
       difficulty: parsed.data.difficulty,
       language: parsed.data.language,
       visual_profile: inferVisualProfile({
         title: result.data.title,
         description: result.data.description,
-        quiz_type: normalizedQuizType,
+        quiz_type: parsed.data.quiz_type,
         tags: result.data.tags ?? [],
         category: null,
         language: parsed.data.language,
