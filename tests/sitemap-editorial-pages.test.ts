@@ -37,19 +37,29 @@ vi.mock('@/lib/data/quiz-locale-map', () => ({
   getEquivalentQuizSlug: () => null,
 }));
 
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { GET } from '@/app/api/sitemap/route';
 
-const EDITORIAL_PATHS = [
-  '',
-  '/quiz',
-  '/indice',
-  '/leaderboard',
-  '/about',
-  '/faq',
-  '/contact',
-  '/privacy',
-  '/terms',
-];
+// El conjunto esperado se deriva del filesystem, no de una lista fija: así una
+// página editorial nueva omitida del sitemap hace fallar este test aunque
+// nadie la añada aquí (cubre el blind spot de la lista hardcodeada).
+const LOCALE_DIR = join(__dirname, '../src/app/[locale]');
+
+function expectedEditorialPaths(): string[] {
+  const paths = [''];
+  for (const entry of readdirSync(LOCALE_DIR, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name.includes('[')) continue;
+    const pageFile = join(LOCALE_DIR, entry.name, 'page.tsx');
+    if (!existsSync(pageFile)) continue;
+    if (readFileSync(pageFile, 'utf8').includes('noindex')) continue;
+    paths.push(`/${entry.name}`);
+  }
+  return paths.sort();
+}
+
+const EDITORIAL_PATHS = expectedEditorialPaths();
 
 function urlBlock(xml: string, loc: string): string | undefined {
   const match = xml.match(
@@ -86,9 +96,7 @@ describe('GET /api/sitemap — páginas editoriales', () => {
       const block = urlBlock(xml, `https://quizverse.org/${locale}/indice`);
       expect(block).toBeDefined();
       expect(block).toContain('xhtml:link');
-      expect(block).toContain(
-        `hreflang="${other}" href="https://quizverse.org/${other}/indice"`
-      );
+      expect(block).toContain(`hreflang="${other}" href="https://quizverse.org/${other}/indice"`);
     }
   });
 });
