@@ -28,6 +28,8 @@ export interface RateLimitConfig {
   key: string;
   limit: number;
   window: number; // seconds
+  /** 'closed' (default) bloquea si Redis falla; 'open' deja pasar (limiters no críticos). */
+  onError?: 'closed' | 'open';
 }
 
 export async function checkRateLimit(config: RateLimitConfig): Promise<{
@@ -52,9 +54,14 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
     const count = await redis.zcard(key);
 
     if (count >= config.limit) {
-      const oldestEntry = await redis.zrange<number[]>(key, 0, 0, { withScores: true });
-      const oldestScore = oldestEntry?.[0] as unknown as number | undefined;
-      const reset = Math.ceil(oldestScore ?? now + config.window) - now + config.window;
+      const oldestEntry = await redis.zrange<(string | number)[]>(key, 0, 0, {
+        withScores: true,
+      });
+      // zrange con withScores devuelve una lista plana [member, score, ...]: el score va en [1].
+      const oldestScore = Number(oldestEntry?.[1]);
+      const reset = Number.isFinite(oldestScore)
+        ? Math.min(config.window, Math.max(1, Math.ceil(oldestScore) + config.window - now))
+        : config.window;
 
       return {
         allowed: false,
@@ -72,18 +79,28 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
       reset: config.window,
     };
   } catch (error) {
+    if (config.onError === 'open') {
+      console.error('[rate-limit] Redis error, failing open:', error);
+      return { allowed: true, remaining: config.limit, reset: config.window, errored: true };
+    }
     console.error('[rate-limit] Redis error, failing closed:', error);
     return { allowed: false, remaining: 0, reset: config.window, errored: true };
   }
 }
 
-export function createRateLimiter(baseKey: string, limit: number, window: number) {
+export function createRateLimiter(
+  baseKey: string,
+  limit: number,
+  window: number,
+  onError?: 'closed' | 'open'
+) {
   return {
     check: (identifier: string) =>
       checkRateLimit({
         key: `${baseKey}:${identifier}`,
         limit,
         window,
+        onError,
       }),
   };
 }
