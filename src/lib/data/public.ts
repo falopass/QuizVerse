@@ -299,9 +299,19 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
   // Las tarjetas no leen preguntas ni resultados: se recortan antes de
   // serializar el payload a la página (mismo criterio que /quiz).
   const lightQuizzes = quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
-  // Las categorías pobladas salen de un conteo ligero por slug; si la consulta
-  // falla (mapa vacío) se muestran todas, como antes.
-  const populated = locale ? await getCategoryCounts(locale) : new Map<string, number>();
+  // Las categorías pobladas salen de un conteo ligero por slug. Si la consulta
+  // falla (mapa vacío) se cae al conjunto de antes — las del catálogo de
+  // lanzamiento más las de los quizzes ya cargados — para no enlazar
+  // categorías que 404ean.
+  const counts = locale ? await getCategoryCounts(locale) : new Map<string, number>();
+  const populated =
+    counts.size > 0
+      ? new Set(counts.keys())
+      : new Set(
+          [...quizzes, ...LAUNCH_QUIZZES.filter((quiz) => !locale || quiz.language === locale)]
+            .map((quiz) => quiz.category?.slug)
+            .filter((slug): slug is string => Boolean(slug))
+        );
   return {
     category: category ?? {
       id: slug,
@@ -315,8 +325,7 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
       quiz_count: lightQuizzes.length,
       sort_order: 0,
     },
-    categories:
-      populated.size > 0 ? categories.filter((item) => populated.has(item.slug)) : categories,
+    categories: categories.filter((item) => populated.has(item.slug)),
     quizzes: lightQuizzes,
   };
 });

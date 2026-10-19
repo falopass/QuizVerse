@@ -17,6 +17,7 @@ const quizRows = [
 ];
 
 const selects: string[] = [];
+let failCounts = false;
 
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/supabase/server', () => ({
@@ -35,13 +36,20 @@ vi.mock('@/lib/supabase/server', () => ({
               const query = {
                 eq: () => query,
                 order: () => query,
-                range: async (from: number, to: number) => ({
-                  data:
-                    cols === '*'
-                      ? quizRows.slice(from, to + 1)
-                      : quizRows.map(() => ({ category: { slug: 'culture' } })).slice(from, to + 1),
-                  error: null,
-                }),
+                range: async (from: number, to: number) => {
+                  if (cols !== '*' && failCounts) {
+                    return { data: null, error: { message: 'counts failed' } };
+                  }
+                  return {
+                    data:
+                      cols === '*'
+                        ? quizRows.slice(from, to + 1)
+                        : quizRows
+                            .map(() => ({ category: { slug: 'culture' } }))
+                            .slice(from, to + 1),
+                    error: null,
+                  };
+                },
               };
               return query;
             },
@@ -78,5 +86,17 @@ describe('category payload light', () => {
     selects.length = 0;
     await getCategoryPayload('personality', 'en');
     expect(selects).toContain('quizzes:category:categories(slug)');
+  });
+
+  it('never links empty categories when the counts query fails', async () => {
+    failCounts = true;
+    try {
+      const payload = await getCategoryPayload('trivia', 'en');
+      // Con el conteo caído solo se enlazan categorías con quizzes ya
+      // cargados o del launch catalog; `movies-tv` (sin quizzes) no aparece.
+      expect(payload?.categories.map((item) => item.slug)).toEqual(['culture']);
+    } finally {
+      failCounts = false;
+    }
   });
 });
