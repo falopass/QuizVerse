@@ -1,0 +1,1019 @@
+{
+  "$comment": "Editorial batch 2026p (CONT-25): trivia pairs for high-search anime franchises the catalogue does not cover — My Hero Academia, Death Note, Neon Genesis Evangelion, Sailor Moon and Fullmetal Alchemist. Every answer is a stable, checkable fact; no events in progress, recent sales figures or live-service content. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-my-hero-academia-trivia",
+      "title": "My Hero Academia Fan Trivia Challenge",
+      "description": "U.A. High, Quirks and the road to becoming the next Symbol of Peace. Go beyond — how much do you know about Midoriya's world?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["my hero academia", "boku no hero", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which high school do the young heroes of Class 1-A attend?",
+          "options": [
+            { "id": "a", "text": "Shiketsu High School", "is_correct": false },
+            { "id": "b", "text": "U.A. High School", "is_correct": true },
+            { "id": "c", "text": "Ketsubutsu Academy", "is_correct": false },
+            { "id": "d", "text": "Hero Academy Tokyo", "is_correct": false }
+          ],
+          "explanation": "U.A. High School is Japan's top hero academy; Shiketsu and Ketsubutsu are rival schools seen in the license exam."
+        },
+        {
+          "id": "q2",
+          "question": "Which Quirk does Izuku Midoriya inherit from All Might?",
+          "options": [
+            { "id": "a", "text": "All For One", "is_correct": false },
+            { "id": "b", "text": "Superpower", "is_correct": false },
+            { "id": "c", "text": "One For All", "is_correct": true },
+            { "id": "d", "text": "Muscle Form", "is_correct": false }
+          ],
+          "explanation": "One For All stockpiles power and passes between users; All For One is the villain's Quirk that steals others."
+        },
+        {
+          "id": "q3",
+          "question": "What is Katsuki Bakugo's Quirk?",
+          "options": [
+            { "id": "a", "text": "Explosion", "is_correct": true },
+            { "id": "b", "text": "Fire Blast", "is_correct": false },
+            { "id": "c", "text": "Nitro Boost", "is_correct": false },
+            { "id": "d", "text": "Shockwave", "is_correct": false }
+          ],
+          "explanation": "Bakugo sweats nitroglycerin and detonates it from his palms — the Quirk is literally called Explosion."
+        },
+        {
+          "id": "q4",
+          "question": "What is Shoto Todoroki's Quirk?",
+          "options": [
+            { "id": "a", "text": "Ice Wall", "is_correct": false },
+            { "id": "b", "text": "Frost Breath", "is_correct": false },
+            { "id": "c", "text": "Flame Body", "is_correct": false },
+            { "id": "d", "text": "Half-Cold Half-Hot", "is_correct": true }
+          ],
+          "explanation": "His right side generates ice and his left side fire — a combination of his parents' Quirks."
+        },
+        {
+          "id": "q5",
+          "question": "Who is the homeroom teacher of Class 1-A?",
+          "options": [
+            { "id": "a", "text": "Shota Aizawa (Eraser Head)", "is_correct": true },
+            { "id": "b", "text": "All Might", "is_correct": false },
+            { "id": "c", "text": "Present Mic", "is_correct": false },
+            { "id": "d", "text": "Midnight", "is_correct": false }
+          ],
+          "explanation": "Eraser Head teaches homeroom; All Might teaches hero training and Present Mic teaches English."
+        },
+        {
+          "id": "q6",
+          "question": "Who created the My Hero Academia manga?",
+          "options": [
+            { "id": "a", "text": "Eiichiro Oda", "is_correct": false },
+            { "id": "b", "text": "Kohei Horikoshi", "is_correct": true },
+            { "id": "c", "text": "Tite Kubo", "is_correct": false },
+            { "id": "d", "text": "Masashi Kishimoto", "is_correct": false }
+          ],
+          "explanation": "Kohei Horikoshi launched the manga in Weekly Shōnen Jump in 2014."
+        },
+        {
+          "id": "q7",
+          "question": "Which villain leads the League of Villains?",
+          "options": [
+            { "id": "a", "text": "Stain", "is_correct": false },
+            { "id": "b", "text": "Overhaul", "is_correct": false },
+            { "id": "c", "text": "Tomura Shigaraki", "is_correct": true },
+            { "id": "d", "text": "Gentle Criminal", "is_correct": false }
+          ],
+          "explanation": "Shigaraki leads the League under All For One's mentorship; Stain and Overhaul have their own agendas."
+        },
+        {
+          "id": "q8",
+          "question": "What was Midoriya born as, before receiving a Quirk?",
+          "options": [
+            { "id": "a", "text": "Quirkless", "is_correct": true },
+            { "id": "b", "text": "Latent Quirk", "is_correct": false },
+            { "id": "c", "text": "Weak Quirk carrier", "is_correct": false },
+            { "id": "d", "text": "Quirk blocked", "is_correct": false }
+          ],
+          "explanation": "He was one of the rare people born without a Quirk — until All Might chose him as a successor."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-my-hero-academia",
+      "title": "Trivia fan de My Hero Academia",
+      "description": "La academia U.A., los Dones y el camino para ser el nuevo Símbolo de la Paz. ¿Qué tanto conoces el mundo de Midoriya?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["my hero academia", "boku no hero", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿A qué preparatoria asisten Midoriya y sus compañeros de la clase 1-A?",
+          "options": [
+            { "id": "a", "text": "Shiketsu", "is_correct": false },
+            { "id": "b", "text": "Ketsubutsu", "is_correct": false },
+            { "id": "c", "text": "U.A.", "is_correct": true },
+            { "id": "d", "text": "Seiai", "is_correct": false }
+          ],
+          "explanation": "La U.A. es la academia de héroes más prestigiosa de Japón; Shiketsu y Ketsubutsu son escuelas rivales."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el nombre de héroe de Izuku Midoriya?",
+          "options": [
+            { "id": "a", "text": "Dynamo", "is_correct": false },
+            { "id": "b", "text": "Deku", "is_correct": true },
+            { "id": "c", "text": "Mighty", "is_correct": false },
+            { "id": "d", "text": "Spark", "is_correct": false }
+          ],
+          "explanation": "Deku era el apodo burlón de Bakugo, pero Uraraka lo resignificó como alguien que 'puede lograrlo'."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué Don hereda Midoriya de All Might?",
+          "options": [
+            { "id": "a", "text": "All For One", "is_correct": false },
+            { "id": "b", "text": "Super Fuerza", "is_correct": false },
+            { "id": "c", "text": "Plus Ultra", "is_correct": false },
+            { "id": "d", "text": "One For All", "is_correct": true }
+          ],
+          "explanation": "One For All acumula poder y se traspasa entre portadores; All For One es el Don del villano que roba otros."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el héroe número uno, apodado Símbolo de la Paz?",
+          "options": [
+            { "id": "a", "text": "All Might", "is_correct": true },
+            { "id": "b", "text": "Endeavor", "is_correct": false },
+            { "id": "c", "text": "Hawks", "is_correct": false },
+            { "id": "d", "text": "Best Jeanist", "is_correct": false }
+          ],
+          "explanation": "All Might ocupa el puesto uno al inicio de la serie; Endeavor es el número dos obsesionado con superarlo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es el Don de Shoto Todoroki?",
+          "options": [
+            { "id": "a", "text": "Solo hielo", "is_correct": false },
+            { "id": "b", "text": "Medio frío, medio caliente", "is_correct": true },
+            { "id": "c", "text": "Vapor", "is_correct": false },
+            { "id": "d", "text": "Solo fuego", "is_correct": false }
+          ],
+          "explanation": "Su lado derecho genera hielo y el izquierdo fuego: la combinación de los Dones de sus padres."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué villano lidera la Liga de Villanos?",
+          "options": [
+            { "id": "a", "text": "Stain", "is_correct": false },
+            { "id": "b", "text": "Twice", "is_correct": false },
+            { "id": "c", "text": "Overhaul", "is_correct": false },
+            { "id": "d", "text": "Tomura Shigaraki", "is_correct": true }
+          ],
+          "explanation": "Shigaraki lidera la Liga bajo la tutela de All For One; Twice es un miembro y Overhaul un rival."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién es el profesor titular de la clase 1-A?",
+          "options": [
+            { "id": "a", "text": "Shota Aizawa (Eraser Head)", "is_correct": true },
+            { "id": "b", "text": "All Might", "is_correct": false },
+            { "id": "c", "text": "Present Mic", "is_correct": false },
+            { "id": "d", "text": "Vlad King", "is_correct": false }
+          ],
+          "explanation": "Eraser Head es el titular de 1-A; Vlad King dirige la clase 1-B."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es el Don de Ochaco Uraraka?",
+          "options": [
+            { "id": "a", "text": "Telequinesis", "is_correct": false },
+            { "id": "b", "text": "Vuelo", "is_correct": false },
+            { "id": "c", "text": "Gravedad cero", "is_correct": true },
+            { "id": "d", "text": "Magnetismo", "is_correct": false }
+          ],
+          "explanation": "Con la yema de los dedos anula la gravedad de lo que toca: el Don se llama Zero Gravity."
+        }
+      ]
+    },
+    {
+      "slug": "en-death-note-trivia",
+      "title": "Death Note Fan Trivia Challenge",
+      "description": "A notebook that kills, a genius detective and a shinigami who loves apples. Prove you know the rules of the Death Note.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["death note", "anime", "kira", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which shinigami drops the Death Note into the human world?",
+          "options": [
+            { "id": "a", "text": "Rem", "is_correct": false },
+            { "id": "b", "text": "Ryuk", "is_correct": true },
+            { "id": "c", "text": "Sidoh", "is_correct": false },
+            { "id": "d", "text": "Gelus", "is_correct": false }
+          ],
+          "explanation": "Ryuk drops it out of boredom; Rem and Gelus are Misa's shinigami and Sidoh is the notebook's original owner."
+        },
+        {
+          "id": "q2",
+          "question": "Who finds the Death Note on school grounds?",
+          "options": [
+            { "id": "a", "text": "Teru Mikami", "is_correct": false },
+            { "id": "b", "text": "L", "is_correct": false },
+            { "id": "c", "text": "Light Yagami", "is_correct": true },
+            { "id": "d", "text": "Near", "is_correct": false }
+          ],
+          "explanation": "Light Yagami, a top student bored with the world, picks it up outside his school."
+        },
+        {
+          "id": "q3",
+          "question": "Besides the victim's name, what must the writer picture to kill someone?",
+          "options": [
+            { "id": "a", "text": "Their birthdate", "is_correct": false },
+            { "id": "b", "text": "Their face", "is_correct": true },
+            { "id": "c", "text": "Their address", "is_correct": false },
+            { "id": "d", "text": "Their voice", "is_correct": false }
+          ],
+          "explanation": "The rule is name plus face — that's why hiding his face becomes L's first defense."
+        },
+        {
+          "id": "q4",
+          "question": "If no cause of death is written, how does the victim die?",
+          "options": [
+            { "id": "a", "text": "In an accident", "is_correct": false },
+            { "id": "b", "text": "Of a stroke", "is_correct": false },
+            { "id": "c", "text": "Nothing happens", "is_correct": false },
+            { "id": "d", "text": "Of a heart attack after 40 seconds", "is_correct": true }
+          ],
+          "explanation": "Forty seconds, heart attack — the default the notebook spells out in its own rules."
+        },
+        {
+          "id": "q5",
+          "question": "What alias do the media give to the killer using the notebook?",
+          "options": [
+            { "id": "a", "text": "Kira", "is_correct": true },
+            { "id": "b", "text": "Zero", "is_correct": false },
+            { "id": "c", "text": "Shinigami", "is_correct": false },
+            { "id": "d", "text": "Judge", "is_correct": false }
+          ],
+          "explanation": "Kira comes from the English word 'killer' pronounced the Japanese way."
+        },
+        {
+          "id": "q6",
+          "question": "What is the name of the detective who hunts Kira?",
+          "options": [
+            { "id": "a", "text": "Near", "is_correct": false },
+            { "id": "b", "text": "Mello", "is_correct": false },
+            { "id": "c", "text": "L", "is_correct": true },
+            { "id": "d", "text": "Watari", "is_correct": false }
+          ],
+          "explanation": "L is the world's greatest detective; Near and Mello appear later as his successors."
+        },
+        {
+          "id": "q7",
+          "question": "What does Ryuk love to eat?",
+          "options": [
+            { "id": "a", "text": "Oranges", "is_correct": false },
+            { "id": "b", "text": "Chocolate", "is_correct": false },
+            { "id": "c", "text": "Strawberries", "is_correct": false },
+            { "id": "d", "text": "Apples", "is_correct": true }
+          ],
+          "explanation": "Ryuk is addicted to apples and gets withdrawal symptoms without them."
+        },
+        {
+          "id": "q8",
+          "question": "What does a human trade for the shinigami eyes?",
+          "options": [
+            { "id": "a", "text": "Half of their remaining lifespan", "is_correct": true },
+            { "id": "b", "text": "Their memories", "is_correct": false },
+            { "id": "c", "text": "Ten years of life", "is_correct": false },
+            { "id": "d", "text": "Their soul after death", "is_correct": false }
+          ],
+          "explanation": "The eyes deal costs exactly half of whatever lifespan the human has left."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-death-note",
+      "title": "Trivia fan de Death Note",
+      "description": "Un cuaderno que mata, un detective genial y un shinigami adicto a las manzanas. ¿Conoces de verdad las reglas de la Death Note?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["death note", "anime", "kira", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué shinigami deja caer el cuaderno al mundo humano?",
+          "options": [
+            { "id": "a", "text": "Ryuk", "is_correct": true },
+            { "id": "b", "text": "Rem", "is_correct": false },
+            { "id": "c", "text": "Sidoh", "is_correct": false },
+            { "id": "d", "text": "Gelus", "is_correct": false }
+          ],
+          "explanation": "Ryuk lo tira por aburrimiento; Rem y Gelus son los shinigami de Misa y Sidoh el dueño original del cuaderno."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién encuentra la Death Note en el patio de su escuela?",
+          "options": [
+            { "id": "a", "text": "L", "is_correct": false },
+            { "id": "b", "text": "Near", "is_correct": false },
+            { "id": "c", "text": "Teru Mikami", "is_correct": false },
+            { "id": "d", "text": "Light Yagami", "is_correct": true }
+          ],
+          "explanation": "Light Yagami, un estudiante brillante y aburrido del mundo, la recoge a la salida de su escuela."
+        },
+        {
+          "id": "q3",
+          "question": "Si no se escribe la causa de la muerte, ¿qué le ocurre a la víctima?",
+          "options": [
+            { "id": "a", "text": "Muere de un infarto a los 40 segundos", "is_correct": true },
+            { "id": "b", "text": "No le pasa nada", "is_correct": false },
+            { "id": "c", "text": "Muere en un accidente", "is_correct": false },
+            { "id": "d", "text": "Vive un año menos", "is_correct": false }
+          ],
+          "explanation": "Cuarenta segundos e infarto: es la regla por defecto escrita en el propio cuaderno."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué apodo le dan los medios al asesino del cuaderno?",
+          "options": [
+            { "id": "a", "text": "Justiciero", "is_correct": false },
+            { "id": "b", "text": "Kira", "is_correct": true },
+            { "id": "c", "text": "Shinigami", "is_correct": false },
+            { "id": "d", "text": "Zero", "is_correct": false }
+          ],
+          "explanation": "Kira viene de la pronunciación japonesa de la palabra inglesa 'killer'."
+        },
+        {
+          "id": "q5",
+          "question": "Además del nombre, ¿qué debe tener en mente quien escribe en el cuaderno?",
+          "options": [
+            { "id": "a", "text": "La fecha de nacimiento de la víctima", "is_correct": false },
+            { "id": "b", "text": "La dirección de la víctima", "is_correct": false },
+            { "id": "c", "text": "El rostro de la víctima", "is_correct": true },
+            { "id": "d", "text": "La huella digital de la víctima", "is_correct": false }
+          ],
+          "explanation": "La regla es nombre más rostro: por eso ocultar su cara es la primera defensa de L."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué fruta le encanta a Ryuk?",
+          "options": [
+            { "id": "a", "text": "Las naranjas", "is_correct": false },
+            { "id": "b", "text": "Las fresas", "is_correct": false },
+            { "id": "c", "text": "Las uvas", "is_correct": false },
+            { "id": "d", "text": "Las manzanas", "is_correct": true }
+          ],
+          "explanation": "Ryuk es adicto a las manzanas y sin ellas le da el síndrome de abstinencia."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué sacrifica un humano para obtener los ojos de shinigami?",
+          "options": [
+            { "id": "a", "text": "Sus recuerdos", "is_correct": false },
+            { "id": "b", "text": "Diez años de vida", "is_correct": false },
+            { "id": "c", "text": "La mitad de su vida restante", "is_correct": true },
+            { "id": "d", "text": "Su alma al morir", "is_correct": false }
+          ],
+          "explanation": "El trato por los ojos cuesta exactamente la mitad de la vida que le quede al humano."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién se convierte en la segunda Kira?",
+          "options": [
+            { "id": "a", "text": "Kiyomi Takada", "is_correct": false },
+            { "id": "b", "text": "Naomi Misora", "is_correct": false },
+            { "id": "c", "text": "Sayu Yagami", "is_correct": false },
+            { "id": "d", "text": "Misa Amane", "is_correct": true }
+          ],
+          "explanation": "Misa Amane, modelo y actriz, recibe otro cuaderno de la shinigami Rem."
+        }
+      ]
+    },
+    {
+      "slug": "en-evangelion-trivia",
+      "title": "Neon Genesis Evangelion Fan Trivia Challenge",
+      "description": "EVAs, Angels and NERV: the 1995 classic that changed anime forever. Do you know what really happens inside Tokyo-3?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["evangelion", "neon genesis evangelion", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who directed Neon Genesis Evangelion?",
+          "options": [
+            { "id": "a", "text": "Hayao Miyazaki", "is_correct": false },
+            { "id": "b", "text": "Satoshi Kon", "is_correct": false },
+            { "id": "c", "text": "Hideaki Anno", "is_correct": true },
+            { "id": "d", "text": "Mamoru Oshii", "is_correct": false }
+          ],
+          "explanation": "Hideaki Anno directed the series at studio Gainax and later helmed the Rebuild film series."
+        },
+        {
+          "id": "q2",
+          "question": "Which organization deploys the Evangelions against the Angels?",
+          "options": [
+            { "id": "a", "text": "SEELE", "is_correct": false },
+            { "id": "b", "text": "NERV", "is_correct": true },
+            { "id": "c", "text": "WILLE", "is_correct": false },
+            { "id": "d", "text": "GEHIRN", "is_correct": false }
+          ],
+          "explanation": "NERV fights the Angels; SEELE is the secret committee above it and GEHIRN its predecessor."
+        },
+        {
+          "id": "q3",
+          "question": "Who pilots Evangelion Unit-01?",
+          "options": [
+            { "id": "a", "text": "Rei Ayanami", "is_correct": false },
+            { "id": "b", "text": "Asuka Langley", "is_correct": false },
+            { "id": "c", "text": "Toji Suzuhara", "is_correct": false },
+            { "id": "d", "text": "Shinji Ikari", "is_correct": true }
+          ],
+          "explanation": "Shinji, the Third Child, pilots Unit-01; Toji pilots Unit-03 in the test that goes wrong."
+        },
+        {
+          "id": "q4",
+          "question": "Who pilots the red Evangelion Unit-02?",
+          "options": [
+            { "id": "a", "text": "Asuka Langley", "is_correct": true },
+            { "id": "b", "text": "Rei Ayanami", "is_correct": false },
+            { "id": "c", "text": "Misato Katsuragi", "is_correct": false },
+            { "id": "d", "text": "Mari Makinami", "is_correct": false }
+          ],
+          "explanation": "Asuka, the Second Child, pilots Unit-02; Mari debuts later in the Rebuild films."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of Shinji's father, commander of NERV?",
+          "options": [
+            { "id": "a", "text": "Kozo Fuyutsuki", "is_correct": false },
+            { "id": "b", "text": "Gendo Ikari", "is_correct": true },
+            { "id": "c", "text": "Ryoji Kaji", "is_correct": false },
+            { "id": "d", "text": "Keel Lorenz", "is_correct": false }
+          ],
+          "explanation": "Gendo commands NERV; Fuyutsuki is his deputy and Keel leads SEELE."
+        },
+        {
+          "id": "q6",
+          "question": "What catastrophe struck Antarctica in the year 2000 in the series' backstory?",
+          "options": [
+            { "id": "a", "text": "The First Impact", "is_correct": false },
+            { "id": "b", "text": "The Third Impact", "is_correct": false },
+            { "id": "c", "text": "The Great Impact", "is_correct": false },
+            { "id": "d", "text": "The Second Impact", "is_correct": true }
+          ],
+          "explanation": "Second Impact melted the Antarctic ice cap and wiped out half of humanity before the series begins."
+        },
+        {
+          "id": "q7",
+          "question": "Which 1997 film offers an alternate ending to the TV series?",
+          "options": [
+            { "id": "a", "text": "The End of Evangelion", "is_correct": true },
+            { "id": "b", "text": "Evangelion: Death and Rebirth", "is_correct": false },
+            { "id": "c", "text": "Evangelion: 1.0 You Are (Not) Alone", "is_correct": false },
+            { "id": "d", "text": "Thrice Upon a Time", "is_correct": false }
+          ],
+          "explanation": "The End of Evangelion replaces the last two episodes; Death and Rebirth is a recap plus a preview of it."
+        },
+        {
+          "id": "q8",
+          "question": "What color scheme is Evangelion Unit-01 known for?",
+          "options": [
+            { "id": "a", "text": "Red and black", "is_correct": false },
+            { "id": "b", "text": "Blue and white", "is_correct": false },
+            { "id": "c", "text": "Purple and green", "is_correct": true },
+            { "id": "d", "text": "Orange and gray", "is_correct": false }
+          ],
+          "explanation": "The purple-and-green Unit-01 is the franchise's signature image; Unit-00 is orange and Unit-02 is red."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-evangelion",
+      "title": "Trivia fan de Evangelion",
+      "description": "EVA, Ángeles y NERV: el clásico de 1995 que cambió el anime para siempre. ¿Qué sabes de verdad de lo que pasa en Tokyo-3?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["evangelion", "neon genesis evangelion", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién dirigió Neon Genesis Evangelion?",
+          "options": [
+            { "id": "a", "text": "Mamoru Oshii", "is_correct": false },
+            { "id": "b", "text": "Satoshi Kon", "is_correct": false },
+            { "id": "c", "text": "Hayao Miyazaki", "is_correct": false },
+            { "id": "d", "text": "Hideaki Anno", "is_correct": true }
+          ],
+          "explanation": "Hideaki Anno dirigió la serie en el estudio Gainax y después encabezó la saga cinematográfica Rebuild."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué organización combate a los Ángeles con los Evangelion?",
+          "options": [
+            { "id": "a", "text": "NERV", "is_correct": true },
+            { "id": "b", "text": "SEELE", "is_correct": false },
+            { "id": "c", "text": "WILLE", "is_correct": false },
+            { "id": "d", "text": "GEHIRN", "is_correct": false }
+          ],
+          "explanation": "NERV combate a los Ángeles; SEELE es el comité secreto por encima y GEHIRN su predecesora."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién pilotea la unidad EVA-01?",
+          "options": [
+            { "id": "a", "text": "Rei Ayanami", "is_correct": false },
+            { "id": "b", "text": "Toji Suzuhara", "is_correct": false },
+            { "id": "c", "text": "Shinji Ikari", "is_correct": true },
+            { "id": "d", "text": "Asuka Langley", "is_correct": false }
+          ],
+          "explanation": "Shinji, el Tercer Niño, pilotea la unidad 01; Toji es elegido para la unidad 03."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama la piloto de la unidad roja EVA-02?",
+          "options": [
+            { "id": "a", "text": "Misato Katsuragi", "is_correct": false },
+            { "id": "b", "text": "Asuka Langley", "is_correct": true },
+            { "id": "c", "text": "Rei Ayanami", "is_correct": false },
+            { "id": "d", "text": "Mari Makinami", "is_correct": false }
+          ],
+          "explanation": "Asuka, la Segunda Niña, pilotea la unidad 02; Mari aparece después en las películas de Rebuild."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué catástrofe azotó la Antártida en el año 2000 dentro de la historia?",
+          "options": [
+            { "id": "a", "text": "El Primer Impacto", "is_correct": false },
+            { "id": "b", "text": "El Tercer Impacto", "is_correct": false },
+            { "id": "c", "text": "El Gran Impacto", "is_correct": false },
+            { "id": "d", "text": "El Segundo Impacto", "is_correct": true }
+          ],
+          "explanation": "El Segundo Impacto derritió la Antártida y acabó con la mitad de la humanidad antes del inicio de la serie."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama el padre de Shinji, comandante de NERV?",
+          "options": [
+            { "id": "a", "text": "Gendo Ikari", "is_correct": true },
+            { "id": "b", "text": "Kozo Fuyutsuki", "is_correct": false },
+            { "id": "c", "text": "Ryoji Kaji", "is_correct": false },
+            { "id": "d", "text": "Kaworu Nagisa", "is_correct": false }
+          ],
+          "explanation": "Gendo comanda NERV; Fuyutsuki es su segundo y Kaworu el Último Mensajero."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué película de 1997 ofrece un final alternativo a la serie?",
+          "options": [
+            { "id": "a", "text": "Evangelion: Death and Rebirth", "is_correct": false },
+            { "id": "b", "text": "Evangelion: 1.0 You Are (Not) Alone", "is_correct": false },
+            { "id": "c", "text": "The End of Evangelion", "is_correct": true },
+            { "id": "d", "text": "Thrice Upon a Time", "is_correct": false }
+          ],
+          "explanation": "The End of Evangelion sustituye a los dos últimos episodios; Death and Rebirth es un resumen más un adelanto."
+        },
+        {
+          "id": "q8",
+          "question": "¿De qué color es la armadura del EVA-01?",
+          "options": [
+            { "id": "a", "text": "Rojo con negro", "is_correct": false },
+            { "id": "b", "text": "Violeta con verde", "is_correct": true },
+            { "id": "c", "text": "Azul con blanco", "is_correct": false },
+            { "id": "d", "text": "Naranja con gris", "is_correct": false }
+          ],
+          "explanation": "La unidad 01 violeta y verde es la imagen emblemática de la franquicia; la 00 es naranja y la 02 roja."
+        }
+      ]
+    },
+    {
+      "slug": "en-sailor-moon-trivia",
+      "title": "Sailor Moon Fan Trivia Challenge",
+      "description": "Moon Tiara Action! The magical girl classic that defined a generation. How well do you know the Sailor Guardians?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["sailor moon", "magical girls", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who created the Sailor Moon manga?",
+          "options": [
+            { "id": "a", "text": "Rumiko Takahashi", "is_correct": false },
+            { "id": "b", "text": "CLAMP", "is_correct": false },
+            { "id": "c", "text": "Naoko Takeuchi", "is_correct": true },
+            { "id": "d", "text": "Akira Toriyama", "is_correct": false }
+          ],
+          "explanation": "Naoko Takeuchi launched the manga in Nakayoshi magazine in 1991."
+        },
+        {
+          "id": "q2",
+          "question": "What is Sailor Moon's civilian name in the Japanese original?",
+          "options": [
+            { "id": "a", "text": "Ami Mizuno", "is_correct": false },
+            { "id": "b", "text": "Usagi Tsukino", "is_correct": true },
+            { "id": "c", "text": "Rei Hino", "is_correct": false },
+            { "id": "d", "text": "Minako Aino", "is_correct": false }
+          ],
+          "explanation": "Usagi means 'rabbit' — a nod to the moon-rabbit legend. The early English dub called her Serena."
+        },
+        {
+          "id": "q3",
+          "question": "Which talking cat guides Usagi and gives her the transformation brooch?",
+          "options": [
+            { "id": "a", "text": "Artemis", "is_correct": false },
+            { "id": "b", "text": "Diana", "is_correct": false },
+            { "id": "c", "text": "Phobos", "is_correct": false },
+            { "id": "d", "text": "Luna", "is_correct": true }
+          ],
+          "explanation": "Luna mentors Usagi; Artemis guides Sailor Venus and Diana is their future daughter."
+        },
+        {
+          "id": "q4",
+          "question": "What is Sailor Moon's transformation phrase in the first season?",
+          "options": [
+            { "id": "a", "text": "'Moon Prism Power, Make Up!'", "is_correct": true },
+            { "id": "b", "text": "'Moon Healing Escalation!'", "is_correct": false },
+            { "id": "c", "text": "'Moon Tiara Action!'", "is_correct": false },
+            {
+              "id": "d",
+              "text": "'In the name of the Moon, I will punish you!'",
+              "is_correct": false
+            }
+          ],
+          "explanation": "'Moon Prism Power, Make Up!' transforms her; the other three are attacks and her catchphrase."
+        },
+        {
+          "id": "q5",
+          "question": "Sailor Moon is the reincarnation of which moon princess?",
+          "options": [
+            { "id": "a", "text": "Queen Serenity", "is_correct": false },
+            { "id": "b", "text": "Sailor Cosmos", "is_correct": false },
+            { "id": "c", "text": "Princess Serenity", "is_correct": true },
+            { "id": "d", "text": "Princess Kakyuu", "is_correct": false }
+          ],
+          "explanation": "Princess Serenity of the Silver Millennium; Queen Serenity is her mother, not the same person."
+        },
+        {
+          "id": "q6",
+          "question": "What is Tuxedo Mask's civilian name?",
+          "options": [
+            { "id": "a", "text": "Motoki Furuhata", "is_correct": false },
+            { "id": "b", "text": "Mamoru Chiba", "is_correct": true },
+            { "id": "c", "text": "Kenji Tsukino", "is_correct": false },
+            { "id": "d", "text": "Helios", "is_correct": false }
+          ],
+          "explanation": "Mamoru Chiba is Tuxedo Mask, the reincarnation of Prince Endymion."
+        },
+        {
+          "id": "q7",
+          "question": "Which villain rules the Dark Kingdom in the first arc?",
+          "options": [
+            { "id": "a", "text": "Queen Nehellenia", "is_correct": false },
+            { "id": "b", "text": "Mistress 9", "is_correct": false },
+            { "id": "c", "text": "Sailor Galaxia", "is_correct": false },
+            { "id": "d", "text": "Queen Beryl", "is_correct": true }
+          ],
+          "explanation": "Queen Beryl leads the Dark Kingdom under Queen Metalia; the others belong to later arcs."
+        },
+        {
+          "id": "q8",
+          "question": "In which year did the Sailor Moon anime premiere in Japan?",
+          "options": [
+            { "id": "a", "text": "1992", "is_correct": true },
+            { "id": "b", "text": "1989", "is_correct": false },
+            { "id": "c", "text": "1995", "is_correct": false },
+            { "id": "d", "text": "1998", "is_correct": false }
+          ],
+          "explanation": "The anime debuted in March 1992 and ran for five seasons, until 1997."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sailor-moon",
+      "title": "Trivia fan de Sailor Moon",
+      "description": "¡Por el poder del prisma lunar! El clásico de las chicas mágicas que marcó a una generación. ¿Qué tan bien conoces a las guerreras sailor?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["sailor moon", "chicas mágicas", "anime", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién creó el manga de Sailor Moon?",
+          "options": [
+            { "id": "a", "text": "Naoko Takeuchi", "is_correct": true },
+            { "id": "b", "text": "Rumiko Takahashi", "is_correct": false },
+            { "id": "c", "text": "CLAMP", "is_correct": false },
+            { "id": "d", "text": "Akira Toriyama", "is_correct": false }
+          ],
+          "explanation": "Naoko Takeuchi lanzó el manga en la revista Nakayoshi en 1991."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama Sailor Moon en su vida civil en la versión japonesa?",
+          "options": [
+            { "id": "a", "text": "Ami Mizuno", "is_correct": false },
+            { "id": "b", "text": "Rei Hino", "is_correct": false },
+            { "id": "c", "text": "Usagi Tsukino", "is_correct": true },
+            { "id": "d", "text": "Minako Aino", "is_correct": false }
+          ],
+          "explanation": "Usagi significa 'conejo', guiño a la leyenda del conejo lunar; el doblaje en inglés la llamó Serena."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué gata parlante guía a Usagi?",
+          "options": [
+            { "id": "a", "text": "Artemis", "is_correct": false },
+            { "id": "b", "text": "Luna", "is_correct": true },
+            { "id": "c", "text": "Diana", "is_correct": false },
+            { "id": "d", "text": "Perla", "is_correct": false }
+          ],
+          "explanation": "Luna guía a Usagi; Artemis acompaña a Sailor Venus y Diana es la hija futura de ambas."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama la identidad civil de Tuxedo Mask?",
+          "options": [
+            { "id": "a", "text": "Motoki Furuhata", "is_correct": false },
+            { "id": "b", "text": "Helios", "is_correct": false },
+            { "id": "c", "text": "Umino Gurio", "is_correct": false },
+            { "id": "d", "text": "Mamoru Chiba", "is_correct": true }
+          ],
+          "explanation": "Mamoru Chiba es Tuxedo Mask, la reencarnación del Príncipe Endymion."
+        },
+        {
+          "id": "q5",
+          "question": "¿De quién es la reencarnación Usagi?",
+          "options": [
+            { "id": "a", "text": "De la Reina Serenity", "is_correct": false },
+            { "id": "b", "text": "De Sailor Cosmos", "is_correct": false },
+            { "id": "c", "text": "De la Princesa Kakyuu", "is_correct": false },
+            { "id": "d", "text": "De la Princesa Serenity", "is_correct": true }
+          ],
+          "explanation": "De la Princesa Serenity del Milenio de Plata; la Reina Serenity es su madre, no la misma persona."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es el nombre civil de Sailor Mercury?",
+          "options": [
+            { "id": "a", "text": "Ami Mizuno", "is_correct": true },
+            { "id": "b", "text": "Rei Hino", "is_correct": false },
+            { "id": "c", "text": "Makoto Kino", "is_correct": false },
+            { "id": "d", "text": "Minako Aino", "is_correct": false }
+          ],
+          "explanation": "Ami Mizuno es la genio del grupo; Rei es Mars, Makoto es Jupiter y Minako es Venus."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué villana gobierna el Reino Oscuro en el primer arco?",
+          "options": [
+            { "id": "a", "text": "La Reina Neherenia", "is_correct": false },
+            { "id": "b", "text": "Mistress 9", "is_correct": false },
+            { "id": "c", "text": "La Reina Beryl", "is_correct": true },
+            { "id": "d", "text": "Sailor Galaxia", "is_correct": false }
+          ],
+          "explanation": "La Reina Beryl comanda el Reino Oscuro bajo la Reina Metalia; las demás son de arcos posteriores."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué año se estrenó el anime de Sailor Moon en Japón?",
+          "options": [
+            { "id": "a", "text": "1988", "is_correct": false },
+            { "id": "b", "text": "1995", "is_correct": false },
+            { "id": "c", "text": "1999", "is_correct": false },
+            { "id": "d", "text": "1992", "is_correct": true }
+          ],
+          "explanation": "Se estrenó en marzo de 1992 y tuvo cinco temporadas, hasta 1997."
+        }
+      ]
+    },
+    {
+      "slug": "en-fullmetal-alchemist-trivia",
+      "title": "Fullmetal Alchemist Fan Trivia Challenge",
+      "description": "Equivalent exchange, the Elric brothers and the Philosopher's Stone. Prove you know the laws of alchemy in Amestris.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["fullmetal alchemist", "anime", "manga", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who created the Fullmetal Alchemist manga?",
+          "options": [
+            { "id": "a", "text": "Akira Toriyama", "is_correct": false },
+            { "id": "b", "text": "Hiromu Arakawa", "is_correct": true },
+            { "id": "c", "text": "Masashi Kishimoto", "is_correct": false },
+            { "id": "d", "text": "Rumiko Takahashi", "is_correct": false }
+          ],
+          "explanation": "Hiromu Arakawa wrote and drew the manga, published between 2001 and 2010."
+        },
+        {
+          "id": "q2",
+          "question": "What forbidden act did the Elric brothers attempt?",
+          "options": [
+            { "id": "a", "text": "Creating gold", "is_correct": false },
+            { "id": "b", "text": "Building a chimera", "is_correct": false },
+            { "id": "c", "text": "Human transmutation", "is_correct": true },
+            { "id": "d", "text": "Time travel", "is_correct": false }
+          ],
+          "explanation": "They tried to bring their mother back through human transmutation — alchemy's greatest taboo."
+        },
+        {
+          "id": "q3",
+          "question": "What did Alphonse lose in the failed transmutation?",
+          "options": [
+            { "id": "a", "text": "His arm", "is_correct": false },
+            { "id": "b", "text": "His entire body", "is_correct": true },
+            { "id": "c", "text": "His leg", "is_correct": false },
+            { "id": "d", "text": "His memories", "is_correct": false }
+          ],
+          "explanation": "Al lost his whole body; Edward sacrificed an arm to bind his soul to a suit of armor."
+        },
+        {
+          "id": "q4",
+          "question": "What is the fundamental law of alchemy in the series?",
+          "options": [
+            { "id": "a", "text": "Equivalent exchange", "is_correct": true },
+            { "id": "b", "text": "Conservation of mana", "is_correct": false },
+            { "id": "c", "text": "The golden ratio", "is_correct": false },
+            { "id": "d", "text": "Transmutation without loss", "is_correct": false }
+          ],
+          "explanation": "To obtain something, something of equal value must be given — equivalent exchange."
+        },
+        {
+          "id": "q5",
+          "question": "What is Edward Elric's official title as a state alchemist?",
+          "options": [
+            { "id": "a", "text": "The Flame Alchemist", "is_correct": false },
+            { "id": "b", "text": "The Silver Alchemist", "is_correct": false },
+            { "id": "c", "text": "The Steel Alchemist", "is_correct": false },
+            { "id": "d", "text": "The Fullmetal Alchemist", "is_correct": true }
+          ],
+          "explanation": "He is the youngest state alchemist ever, certified at twelve as the Fullmetal Alchemist."
+        },
+        {
+          "id": "q6",
+          "question": "What kind of alchemy does Roy Mustang use?",
+          "options": [
+            { "id": "a", "text": "Flame alchemy", "is_correct": true },
+            { "id": "b", "text": "Ice alchemy", "is_correct": false },
+            { "id": "c", "text": "Lightning alchemy", "is_correct": false },
+            { "id": "d", "text": "Metal alchemy", "is_correct": false }
+          ],
+          "explanation": "Mustang sparks flames with a snap of his ignition-glove fingers."
+        },
+        {
+          "id": "q7",
+          "question": "What are the Homunculi named after?",
+          "options": [
+            { "id": "a", "text": "The four elements", "is_correct": false },
+            { "id": "b", "text": "The planets", "is_correct": false },
+            { "id": "c", "text": "The seven deadly sins", "is_correct": true },
+            { "id": "d", "text": "The cardinal virtues", "is_correct": false }
+          ],
+          "explanation": "Lust, Gluttony, Envy, Greed, Wrath, Sloth and Pride — Father's extracted sins."
+        },
+        {
+          "id": "q8",
+          "question": "In which fictional country does the story take place?",
+          "options": [
+            { "id": "a", "text": "Xing", "is_correct": false },
+            { "id": "b", "text": "Amestris", "is_correct": true },
+            { "id": "c", "text": "Drachma", "is_correct": false },
+            { "id": "d", "text": "Creta", "is_correct": false }
+          ],
+          "explanation": "Amestris is the military state at the center of the story; Xing, Drachma and Creta are its neighbors."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-fullmetal-alchemist",
+      "title": "Trivia fan de Fullmetal Alchemist",
+      "description": "Intercambio equivalente, los hermanos Elric y la Piedra Filosofal. ¿Cuánto sabes de la alquimia de Amestris?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["fullmetal alchemist", "anime", "manga", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién dibujó el manga de Fullmetal Alchemist?",
+          "options": [
+            { "id": "a", "text": "Akira Toriyama", "is_correct": false },
+            { "id": "b", "text": "Masashi Kishimoto", "is_correct": false },
+            { "id": "c", "text": "Hiromu Arakawa", "is_correct": true },
+            { "id": "d", "text": "Rumiko Takahashi", "is_correct": false }
+          ],
+          "explanation": "Hiromu Arakawa escribió y dibujó el manga, publicado entre 2001 y 2010."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué acto prohibido cometen los hermanos Elric?",
+          "options": [
+            { "id": "a", "text": "Crear oro", "is_correct": false },
+            { "id": "b", "text": "La transmutación humana", "is_correct": true },
+            { "id": "c", "text": "Hacer una quimera", "is_correct": false },
+            { "id": "d", "text": "Viajar en el tiempo", "is_correct": false }
+          ],
+          "explanation": "Intentaron revivir a su madre con una transmutación humana, el mayor tabú de la alquimia."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué pierde Alphonse en la transmutación fallida?",
+          "options": [
+            { "id": "a", "text": "Un brazo", "is_correct": false },
+            { "id": "b", "text": "Una pierna", "is_correct": false },
+            { "id": "c", "text": "Sus recuerdos", "is_correct": false },
+            { "id": "d", "text": "Todo su cuerpo", "is_correct": true }
+          ],
+          "explanation": "Al pierde el cuerpo entero; Edward sacrifica un brazo para sellar su alma en una armadura."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es la ley fundamental de la alquimia en la serie?",
+          "options": [
+            { "id": "a", "text": "El intercambio equivalente", "is_correct": true },
+            { "id": "b", "text": "La conservación del mana", "is_correct": false },
+            { "id": "c", "text": "La proporción áurea", "is_correct": false },
+            { "id": "d", "text": "La transmutación sin pérdida", "is_correct": false }
+          ],
+          "explanation": "Para obtener algo hay que dar algo de igual valor: el intercambio equivalente."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué queda sellada el alma de Alphonse?",
+          "options": [
+            { "id": "a", "text": "En un autómata", "is_correct": false },
+            { "id": "b", "text": "En un reloj", "is_correct": false },
+            { "id": "c", "text": "En una armadura", "is_correct": true },
+            { "id": "d", "text": "En una estatua", "is_correct": false }
+          ],
+          "explanation": "Edward fija el alma de su hermano a una armadura vacía a costa de su propio brazo."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué tipo de alquimia usa Roy Mustang?",
+          "options": [
+            { "id": "a", "text": "La alquimia de hielo", "is_correct": false },
+            { "id": "b", "text": "La alquimia de fuego", "is_correct": true },
+            { "id": "c", "text": "La alquimia de rayos", "is_correct": false },
+            { "id": "d", "text": "La alquimia de metal", "is_correct": false }
+          ],
+          "explanation": "Mustang enciende llamas con un chasquido de sus guantes de ignición."
+        },
+        {
+          "id": "q7",
+          "question": "¿De qué toman sus nombres los Homúnculos?",
+          "options": [
+            { "id": "a", "text": "De los cuatro elementos", "is_correct": false },
+            { "id": "b", "text": "De los planetas", "is_correct": false },
+            { "id": "c", "text": "De las virtudes cardinales", "is_correct": false },
+            { "id": "d", "text": "De los siete pecados capitales", "is_correct": true }
+          ],
+          "explanation": "Lujuria, Gula, Envidia, Avaricia, Ira, Pereza y Orgullo: los pecados que Padre extrajo de sí."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién repara el automail de Edward?",
+          "options": [
+            { "id": "a", "text": "Winry Rockbell", "is_correct": true },
+            { "id": "b", "text": "Riza Hawkeye", "is_correct": false },
+            { "id": "c", "text": "Izumi Curtis", "is_correct": false },
+            { "id": "d", "text": "Maria Ross", "is_correct": false }
+          ],
+          "explanation": "Winry, amiga de la infancia y mecánica de automail, le ajusta el brazo y la pierna."
+        }
+      ]
+    }
+  ]
+}
