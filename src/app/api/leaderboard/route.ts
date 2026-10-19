@@ -67,5 +67,8 @@ export async function GET(request: Request) {
     quizzesPlayed: row.quizzes_played,
   }));
 
-  return jsonOk({ scope, entries, total: entries.length, limit });
+  return jsonOk(
+    { scope, entries, total: entries.length, limit },
+    { headers: { 'Cache-Control': 'private, no-store' } }
+  );
 }
