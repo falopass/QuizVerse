@@ -3,6 +3,8 @@
 // editorial pairs are added by hand alongside each editorial-seed batch.
 const EN_TO_ES: Record<string, string> = {
   'en-80s-movies-trivia': 'es-trivia-peliculas-de-los-80',
+  'en-ancient-egypt-trivia': 'es-trivia-antiguo-egipto',
+  'en-ancient-rome-trivia': 'es-trivia-antigua-roma',
   'en-attack-on-titan-fan-trivia-challenge': 'es-trivia-fan-de-attack-on-titan',
   'en-avatar-fan-trivia-challenge': 'es-trivia-fan-de-avatar',
   'en-barbie-fan-trivia-challenge': 'es-trivia-fan-de-barbie',
@@ -129,10 +131,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-motorcycles-trivia': 'es-trivia-motos',
   'en-movie-quotes-trivia': 'es-trivia-frases-de-peliculas',
   'en-naruto-fan-trivia-challenge': 'es-trivia-fan-de-naruto',
+  'en-nba-trivia': 'es-trivia-nba',
   'en-norse-mythology-trivia': 'es-trivia-mitologia-nordica',
   'en-olympics-trivia': 'es-trivia-juegos-olimpicos',
   'en-one-piece-fan-trivia-challenge': 'es-trivia-fan-de-one-piece',
   'en-oppenheimer-fan-trivia-challenge': 'es-trivia-fan-de-oppenheimer',
+  'en-oscars-trivia': 'es-trivia-premios-oscar',
   'en-pokemon-fan-trivia-challenge': 'es-trivia-fan-de-pokemon',
   'en-pre-columbian-civilizations-trivia': 'es-trivia-civilizaciones-precolombinas',
   'en-project-hail-mary-fan-trivia-challenge': 'es-trivia-fan-de-project-hail-mary',
@@ -301,6 +305,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-wildlife-records-trivia': 'es-trivia-records-animales',
   'en-witch-hat-atelier-fan-trivia-challenge': 'es-trivia-fan-de-witch-hat-atelier',
   'en-world-flags-trivia': 'es-trivia-banderas-del-mundo',
+  'en-world-war-2-trivia': 'es-trivia-segunda-guerra-mundial',
   'en-your-intelligence-type': 'es-cual-es-tu-tipo-de-inteligencia',
   'en-your-mental-age': 'es-cual-es-tu-edad-mental',
   // Pares del lote editorial 2026j (scripts/seed/editorial-seed-2026j.json), mantenidos a mano.
