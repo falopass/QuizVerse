@@ -1,0 +1,1031 @@
+{
+  "$comment": "Editorial seed 2026bn: five es/en trivia pairs on mathematics and logic (mental math, logic puzzles, math history, probability, everyday math). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-mental-math-trivia",
+      "title": "Mental Math Trivia: Fast Calculation Tricks",
+      "description": "Eight questions on doubling, percentages, squares and the clever shortcuts that make everyday arithmetic faster.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["math", "trivia", "mental math", "arithmetic", "numbers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is 15% of 200?",
+          "options": [
+            { "id": "a", "text": "15", "is_correct": false },
+            { "id": "b", "text": "20", "is_correct": false },
+            { "id": "c", "text": "30", "is_correct": true },
+            { "id": "d", "text": "45", "is_correct": false }
+          ],
+          "explanation": "10% of 200 is 20 and 5% is 10, so 15% is 20 + 10 = 30."
+        },
+        {
+          "id": "q2",
+          "question": "What is 17 × 6?",
+          "options": [
+            { "id": "a", "text": "92", "is_correct": false },
+            { "id": "b", "text": "96", "is_correct": false },
+            { "id": "c", "text": "102", "is_correct": true },
+            { "id": "d", "text": "112", "is_correct": false }
+          ],
+          "explanation": "Split it: 10 × 6 = 60 and 7 × 6 = 42, so 60 + 42 = 102."
+        },
+        {
+          "id": "q3",
+          "question": "What is 12 squared?",
+          "options": [
+            { "id": "a", "text": "124", "is_correct": false },
+            { "id": "b", "text": "144", "is_correct": true },
+            { "id": "c", "text": "128", "is_correct": false },
+            { "id": "d", "text": "164", "is_correct": false }
+          ],
+          "explanation": "12 × 12 = 144, one of the most useful squares to memorize."
+        },
+        {
+          "id": "q4",
+          "question": "A whole number is divisible by 3 if...",
+          "options": [
+            { "id": "a", "text": "it ends in a 3", "is_correct": false },
+            { "id": "b", "text": "it ends in an even digit", "is_correct": false },
+            { "id": "c", "text": "it is also divisible by 9", "is_correct": false },
+            { "id": "d", "text": "the sum of its digits is divisible by 3", "is_correct": true }
+          ],
+          "explanation": "123 works because 1 + 2 + 3 = 6, and 6 is divisible by 3."
+        },
+        {
+          "id": "q5",
+          "question": "Using the doubling trick (25 × 16 = 50 × 8), what is 25 × 16?",
+          "options": [
+            { "id": "a", "text": "350", "is_correct": false },
+            { "id": "b", "text": "400", "is_correct": true },
+            { "id": "c", "text": "425", "is_correct": false },
+            { "id": "d", "text": "450", "is_correct": false }
+          ],
+          "explanation": "Doubling 25 to 50 halves 16 to 8, and 50 × 8 = 400."
+        },
+        {
+          "id": "q6",
+          "question": "What is 99 + 99 + 99?",
+          "options": [
+            { "id": "a", "text": "277", "is_correct": false },
+            { "id": "b", "text": "287", "is_correct": false },
+            { "id": "c", "text": "297", "is_correct": true },
+            { "id": "d", "text": "307", "is_correct": false }
+          ],
+          "explanation": "3 × 99 = 3 × 100 − 3 = 300 − 3 = 297."
+        },
+        {
+          "id": "q7",
+          "question": "In the expression 4 + 3 × 2, which operation does the order of operations say to do first?",
+          "options": [
+            { "id": "a", "text": "The addition, working left to right", "is_correct": false },
+            { "id": "b", "text": "The multiplication", "is_correct": true },
+            { "id": "c", "text": "Whichever uses the largest number", "is_correct": false },
+            { "id": "d", "text": "Either one; the result is the same", "is_correct": false }
+          ],
+          "explanation": "Multiplication comes before addition: 4 + 6 = 10, not 14."
+        },
+        {
+          "id": "q8",
+          "question": "What is the fraction 1/4 as a percentage?",
+          "options": [
+            { "id": "a", "text": "15%", "is_correct": false },
+            { "id": "b", "text": "20%", "is_correct": false },
+            { "id": "c", "text": "40%", "is_correct": false },
+            { "id": "d", "text": "25%", "is_correct": true }
+          ],
+          "explanation": "1/4 = 0.25, and multiplying by 100 gives 25%."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-calculo-mental",
+      "title": "Trivia de cálculo mental: trucos para calcular rápido",
+      "description": "Ocho preguntas sobre doblar, porcentajes, cuadrados y los atajos que hacen más rápida la aritmética de cada día.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["matemáticas", "trivia", "cálculo mental", "aritmética", "números"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuánto es el 15 % de 200?",
+          "options": [
+            { "id": "a", "text": "15", "is_correct": false },
+            { "id": "b", "text": "20", "is_correct": false },
+            { "id": "c", "text": "30", "is_correct": true },
+            { "id": "d", "text": "45", "is_correct": false }
+          ],
+          "explanation": "El 10 % de 200 es 20 y el 5 % es 10, así que el 15 % es 20 + 10 = 30."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuánto es 17 × 6?",
+          "options": [
+            { "id": "a", "text": "92", "is_correct": false },
+            { "id": "b", "text": "96", "is_correct": false },
+            { "id": "c", "text": "102", "is_correct": true },
+            { "id": "d", "text": "112", "is_correct": false }
+          ],
+          "explanation": "Se descompone: 10 × 6 = 60 y 7 × 6 = 42, así que 60 + 42 = 102."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuánto es 12 al cuadrado?",
+          "options": [
+            { "id": "a", "text": "124", "is_correct": false },
+            { "id": "b", "text": "144", "is_correct": true },
+            { "id": "c", "text": "128", "is_correct": false },
+            { "id": "d", "text": "164", "is_correct": false }
+          ],
+          "explanation": "12 × 12 = 144, uno de los cuadrados más útiles de memorizar."
+        },
+        {
+          "id": "q4",
+          "question": "Un número entero es divisible por 3 si...",
+          "options": [
+            { "id": "a", "text": "termina en 3", "is_correct": false },
+            { "id": "b", "text": "termina en un dígito par", "is_correct": false },
+            { "id": "c", "text": "también es divisible por 9", "is_correct": false },
+            { "id": "d", "text": "la suma de sus dígitos es divisible por 3", "is_correct": true }
+          ],
+          "explanation": "El 123 funciona porque 1 + 2 + 3 = 6, y 6 es divisible por 3."
+        },
+        {
+          "id": "q5",
+          "question": "Con el truco de doblar (25 × 16 = 50 × 8), ¿cuánto es 25 × 16?",
+          "options": [
+            { "id": "a", "text": "350", "is_correct": false },
+            { "id": "b", "text": "400", "is_correct": true },
+            { "id": "c", "text": "425", "is_correct": false },
+            { "id": "d", "text": "450", "is_correct": false }
+          ],
+          "explanation": "Al doblar 25 a 50, el 16 baja a 8, y 50 × 8 = 400."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuánto es 99 + 99 + 99?",
+          "options": [
+            { "id": "a", "text": "277", "is_correct": false },
+            { "id": "b", "text": "287", "is_correct": false },
+            { "id": "c", "text": "297", "is_correct": true },
+            { "id": "d", "text": "307", "is_correct": false }
+          ],
+          "explanation": "3 × 99 = 3 × 100 − 3 = 300 − 3 = 297."
+        },
+        {
+          "id": "q7",
+          "question": "En la expresión 4 + 3 × 2, ¿qué operación indica el orden de las operaciones que se hace primero?",
+          "options": [
+            { "id": "a", "text": "La suma, de izquierda a derecha", "is_correct": false },
+            { "id": "b", "text": "La multiplicación", "is_correct": true },
+            { "id": "c", "text": "La que usa el número más grande", "is_correct": false },
+            { "id": "d", "text": "Cualquiera; el resultado es el mismo", "is_correct": false }
+          ],
+          "explanation": "La multiplicación va antes que la suma: 4 + 6 = 10, no 14."
+        },
+        {
+          "id": "q8",
+          "question": "¿A qué porcentaje equivale la fracción 1/4?",
+          "options": [
+            { "id": "a", "text": "15 %", "is_correct": false },
+            { "id": "b", "text": "20 %", "is_correct": false },
+            { "id": "c", "text": "40 %", "is_correct": false },
+            { "id": "d", "text": "25 %", "is_correct": true }
+          ],
+          "explanation": "1/4 = 0,25, y al multiplicar por 100 da el 25 %."
+        }
+      ]
+    },
+    {
+      "slug": "en-logic-puzzles-trivia",
+      "title": "Logic Puzzles Trivia: Riddles and Deduction",
+      "description": "Eight questions on classic logic riddles, from knights and knaves to river crossings and sneaky paradoxes.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["logic", "trivia", "puzzles", "riddles", "reasoning"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "On an island where knights always tell the truth and knaves always lie, an inhabitant says 'I am a knave.' What is going on?",
+          "options": [
+            { "id": "a", "text": "He is a knight", "is_correct": false },
+            { "id": "b", "text": "He is a knave", "is_correct": false },
+            { "id": "c", "text": "He could be either", "is_correct": false },
+            { "id": "d", "text": "No inhabitant could say that", "is_correct": true }
+          ],
+          "explanation": "A knight saying it would be lying, and a knave saying it would be telling the truth: a paradox."
+        },
+        {
+          "id": "q2",
+          "question": "A farmer must carry a wolf, a goat and a cabbage across a river one at a time, and the wolf eats the goat while the goat eats the cabbage. What does he take across first?",
+          "options": [
+            { "id": "a", "text": "The wolf", "is_correct": false },
+            { "id": "b", "text": "The goat", "is_correct": true },
+            { "id": "c", "text": "The cabbage", "is_correct": false },
+            { "id": "d", "text": "Any of them works", "is_correct": false }
+          ],
+          "explanation": "Taking the goat leaves wolf and cabbage together, which harm neither; then he shuttles the goat back once."
+        },
+        {
+          "id": "q3",
+          "question": "Three boxes are labeled 'apples', 'oranges' and 'apples and oranges', but every label is wrong. You may draw one fruit from one box. Which box do you pick from?",
+          "options": [
+            { "id": "a", "text": "The one labeled 'apples'", "is_correct": false },
+            { "id": "b", "text": "The one labeled 'oranges'", "is_correct": false },
+            { "id": "c", "text": "The one labeled 'apples and oranges'", "is_correct": true },
+            { "id": "d", "text": "It makes no difference", "is_correct": false }
+          ],
+          "explanation": "Since the mixed label is also wrong, that box holds only one fruit, and the draw reveals all three boxes."
+        },
+        {
+          "id": "q4",
+          "question": "If all bloops are razzies and all razzies are lazzies, then all bloops are...",
+          "options": [
+            { "id": "a", "text": "Definitely lazzies", "is_correct": true },
+            { "id": "b", "text": "Probably lazzies", "is_correct": false },
+            { "id": "c", "text": "Never lazzies", "is_correct": false },
+            { "id": "d", "text": "Impossible to know", "is_correct": false }
+          ],
+          "explanation": "A classic syllogism: membership passes through the chain from bloops to razzies to lazzies."
+        },
+        {
+          "id": "q5",
+          "question": "A bat and a ball cost $1.10 in total, and the bat costs $1.00 more than the ball. How much does the ball cost?",
+          "options": [
+            { "id": "a", "text": "10 cents", "is_correct": false },
+            { "id": "b", "text": "5 cents", "is_correct": true },
+            { "id": "c", "text": "1 cent", "is_correct": false },
+            { "id": "d", "text": "15 cents", "is_correct": false }
+          ],
+          "explanation": "If the ball costs 5 cents, the bat costs $1.05, and $1.05 + $0.05 = $1.10."
+        },
+        {
+          "id": "q6",
+          "question": "Two fathers and two sons go fishing. Each catches one fish and they bring home three fish in total. How is that possible?",
+          "options": [
+            { "id": "a", "text": "They shared one fish", "is_correct": false },
+            { "id": "b", "text": "One of them lied", "is_correct": false },
+            { "id": "c", "text": "They are a grandfather, a father and a son", "is_correct": true },
+            { "id": "d", "text": "One caught two fish", "is_correct": false }
+          ],
+          "explanation": "Three people cover the roles: the father is both a son and a father."
+        },
+        {
+          "id": "q7",
+          "question": "Two doors hide safety and doom, guarded by one truth-teller and one liar. Which single question finds the safe door?",
+          "options": [
+            { "id": "a", "text": "Ask a guard if he is the liar", "is_correct": false },
+            { "id": "b", "text": "Ask a guard which door is safe", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Ask a guard which door the other guard would call safe, then pick the opposite",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Ask a guard if two plus two is four", "is_correct": false }
+          ],
+          "explanation": "The liar and the truth-teller both point to the doomed door, so choosing the other door always works."
+        },
+        {
+          "id": "q8",
+          "question": "A man looks at a portrait and says: 'Brothers and sisters I have none, but that man's father is my father's son.' Who is in the portrait?",
+          "options": [
+            { "id": "a", "text": "The man himself", "is_correct": false },
+            { "id": "b", "text": "His father", "is_correct": false },
+            { "id": "c", "text": "His nephew", "is_correct": false },
+            { "id": "d", "text": "His son", "is_correct": true }
+          ],
+          "explanation": "With no siblings, 'my father's son' is himself, so the portrait shows his own son."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-logica",
+      "title": "Trivia de lógica: acertijos y deducción",
+      "description": "Ocho preguntas sobre acertijos de lógica clásicos, de caballeros y mentirosos a cruces de río y paradojas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["lógica", "trivia", "acertijos", "enigmas", "razonamiento"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En una isla donde los caballeros siempre dicen la verdad y los mentirosos siempre mienten, un habitante dice «soy mentiroso». ¿Qué ocurre?",
+          "options": [
+            { "id": "a", "text": "Es un caballero", "is_correct": false },
+            { "id": "b", "text": "Es un mentiroso", "is_correct": false },
+            { "id": "c", "text": "Podría ser cualquiera", "is_correct": false },
+            { "id": "d", "text": "Ningún habitante podría decir eso", "is_correct": true }
+          ],
+          "explanation": "Un caballero que lo dice estaría mintiendo y un mentiroso estaría diciendo la verdad: es una paradoja."
+        },
+        {
+          "id": "q2",
+          "question": "Un granjero debe cruzar un río con un lobo, una cabra y una col de a uno por vez, sabiendo que el lobo se come a la cabra y la cabra se come la col. ¿Qué lleva primero?",
+          "options": [
+            { "id": "a", "text": "El lobo", "is_correct": false },
+            { "id": "b", "text": "La cabra", "is_correct": true },
+            { "id": "c", "text": "La col", "is_correct": false },
+            { "id": "d", "text": "Cualquiera sirve", "is_correct": false }
+          ],
+          "explanation": "Llevar la cabra deja juntos al lobo y la col, que no se hacen daño; luego regresa una vez con la cabra."
+        },
+        {
+          "id": "q3",
+          "question": "Tres cajas dicen «manzanas», «naranjas» y «manzanas y naranjas», pero todas las etiquetas están mal. Puedes sacar una fruta de una sola caja. ¿De cuál?",
+          "options": [
+            { "id": "a", "text": "La que dice «manzanas»", "is_correct": false },
+            { "id": "b", "text": "La que dice «naranjas»", "is_correct": false },
+            { "id": "c", "text": "La que dice «manzanas y naranjas»", "is_correct": true },
+            { "id": "d", "text": "Da igual cuál", "is_correct": false }
+          ],
+          "explanation": "Como la etiqueta mixta también está mal, esa caja tiene una sola fruta y lo que saques revela las tres."
+        },
+        {
+          "id": "q4",
+          "question": "Si todos los bloops son razzies y todos los razzies son lazzies, entonces todos los bloops son...",
+          "options": [
+            { "id": "a", "text": "Definitivamente lazzies", "is_correct": true },
+            { "id": "b", "text": "Probablemente lazzies", "is_correct": false },
+            { "id": "c", "text": "Nunca lazzies", "is_correct": false },
+            { "id": "d", "text": "Imposible de saber", "is_correct": false }
+          ],
+          "explanation": "Un silogismo clásico: la pertenencia pasa en cadena de bloops a razzies y de razzies a lazzies."
+        },
+        {
+          "id": "q5",
+          "question": "Un bate y una pelota cuestan 1,10 dólares en total, y el bate cuesta 1 dólar más que la pelota. ¿Cuánto cuesta la pelota?",
+          "options": [
+            { "id": "a", "text": "10 centavos", "is_correct": false },
+            { "id": "b", "text": "5 centavos", "is_correct": true },
+            { "id": "c", "text": "1 centavo", "is_correct": false },
+            { "id": "d", "text": "15 centavos", "is_correct": false }
+          ],
+          "explanation": "Si la pelota cuesta 5 centavos, el bate cuesta 1,05 dólares, y 1,05 + 0,05 = 1,10."
+        },
+        {
+          "id": "q6",
+          "question": "Dos padres y dos hijos van a pescar. Cada uno pesca un pez y vuelven con tres peces en total. ¿Cómo es posible?",
+          "options": [
+            { "id": "a", "text": "Compartieron un pez", "is_correct": false },
+            { "id": "b", "text": "Uno de ellos mintió", "is_correct": false },
+            { "id": "c", "text": "Son un abuelo, un padre y un hijo", "is_correct": true },
+            { "id": "d", "text": "Uno pescó dos peces", "is_correct": false }
+          ],
+          "explanation": "Tres personas cubren los roles: el padre es a la vez hijo y padre."
+        },
+        {
+          "id": "q7",
+          "question": "Dos puertas esconden la salvación y la perdición, custodiadas por un guardia que dice la verdad y otro que miente. ¿Qué única pregunta revela la puerta segura?",
+          "options": [
+            { "id": "a", "text": "Preguntar a un guardia si es el mentiroso", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Preguntar a un guardia cuál puerta es segura",
+              "is_correct": false
+            },
+            {
+              "id": "c",
+              "text": "Preguntar a un guardia qué puerta diría el otro y elegir la contraria",
+              "is_correct": true
+            },
+            {
+              "id": "d",
+              "text": "Preguntar a un guardia si dos más dos son cuatro",
+              "is_correct": false
+            }
+          ],
+          "explanation": "El mentiroso y el sincero señalan la puerta mala, así que elegir la otra siempre funciona."
+        },
+        {
+          "id": "q8",
+          "question": "Un hombre mira un retrato y dice: «Hermanos y hermanas no tengo, pero el padre de ese hombre es el hijo de mi padre». ¿Quién está en el retrato?",
+          "options": [
+            { "id": "a", "text": "El propio hombre", "is_correct": false },
+            { "id": "b", "text": "Su padre", "is_correct": false },
+            { "id": "c", "text": "Su sobrino", "is_correct": false },
+            { "id": "d", "text": "Su hijo", "is_correct": true }
+          ],
+          "explanation": "Sin hermanos, «el hijo de mi padre» es él mismo, así que el retrato muestra a su hijo."
+        }
+      ]
+    },
+    {
+      "slug": "en-math-history-trivia",
+      "title": "Math History Trivia: From Euclid to Euler",
+      "description": "Eight questions on the people and ideas that shaped mathematics, from ancient geometry to the birth of computing.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["math", "trivia", "history", "mathematicians", "science"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which ancient Greek mathematician wrote 'Elements', the geometry textbook used for over 2,000 years?",
+          "options": [
+            { "id": "a", "text": "Pythagoras", "is_correct": false },
+            { "id": "b", "text": "Euclid", "is_correct": true },
+            { "id": "c", "text": "Archimedes", "is_correct": false },
+            { "id": "d", "text": "Thales", "is_correct": false }
+          ],
+          "explanation": "Euclid compiled 'Elements' in Alexandria around 300 BCE, and it stayed in classrooms for millennia."
+        },
+        {
+          "id": "q2",
+          "question": "The Pythagorean theorem, a² + b² = c², relates the sides of which figure?",
+          "options": [
+            { "id": "a", "text": "A right triangle", "is_correct": true },
+            { "id": "b", "text": "A circle", "is_correct": false },
+            { "id": "c", "text": "A rectangle", "is_correct": false },
+            { "id": "d", "text": "Any triangle", "is_correct": false }
+          ],
+          "explanation": "The theorem links the two legs of a right triangle to its hypotenuse."
+        },
+        {
+          "id": "q3",
+          "question": "Which mathematician allegedly shouted 'Eureka!' after grasping the principle of buoyancy in his bath?",
+          "options": [
+            { "id": "a", "text": "Euclid", "is_correct": false },
+            { "id": "b", "text": "Pythagoras", "is_correct": false },
+            { "id": "c", "text": "Archimedes", "is_correct": true },
+            { "id": "d", "text": "Aristotle", "is_correct": false }
+          ],
+          "explanation": "The story says Archimedes ran through Syracuse shouting 'Eureka!' ('I found it')."
+        },
+        {
+          "id": "q4",
+          "question": "Where was zero first treated as a number in its own right, with rules for arithmetic?",
+          "options": [
+            { "id": "a", "text": "Egypt", "is_correct": false },
+            { "id": "b", "text": "Greece", "is_correct": false },
+            { "id": "c", "text": "China", "is_correct": false },
+            { "id": "d", "text": "India", "is_correct": true }
+          ],
+          "explanation": "Indian mathematicians such as Brahmagupta gave rules for zero in the 7th century."
+        },
+        {
+          "id": "q5",
+          "question": "Which sequence, where each term is the sum of the two before it (1, 1, 2, 3, 5, 8...), is named after a medieval Italian mathematician?",
+          "options": [
+            { "id": "a", "text": "The Pascal sequence", "is_correct": false },
+            { "id": "b", "text": "The Fibonacci sequence", "is_correct": true },
+            { "id": "c", "text": "The Euclid sequence", "is_correct": false },
+            { "id": "d", "text": "The Gauss sequence", "is_correct": false }
+          ],
+          "explanation": "Fibonacci introduced the sequence to Europe in 1202 in his book Liber Abaci."
+        },
+        {
+          "id": "q6",
+          "question": "Euler's identity, e^(iπ) + 1 = 0, connects how many fundamental constants of mathematics?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Four", "is_correct": false },
+            { "id": "c", "text": "Five", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "It links e, i, π, 1 and 0 in a single equation."
+        },
+        {
+          "id": "q7",
+          "question": "Who is often called the first computer programmer, thanks to her notes on Babbage's Analytical Engine?",
+          "options": [
+            { "id": "a", "text": "Ada Lovelace", "is_correct": true },
+            { "id": "b", "text": "Marie Curie", "is_correct": false },
+            { "id": "c", "text": "Charles Babbage", "is_correct": false },
+            { "id": "d", "text": "Alan Turing", "is_correct": false }
+          ],
+          "explanation": "Lovelace's 1843 notes included an algorithm for the machine that was never built."
+        },
+        {
+          "id": "q8",
+          "question": "Which two mathematicians developed calculus independently in the 17th century, sparking a famous priority dispute?",
+          "options": [
+            { "id": "a", "text": "Descartes and Fermat", "is_correct": false },
+            { "id": "b", "text": "Euler and Lagrange", "is_correct": false },
+            { "id": "c", "text": "Gauss and Riemann", "is_correct": false },
+            { "id": "d", "text": "Newton and Leibniz", "is_correct": true }
+          ],
+          "explanation": "Newton and Leibniz reached calculus separately, and their followers argued over priority for decades."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-de-las-matematicas",
+      "title": "Trivia de historia de las matemáticas: de Euclides a Euler",
+      "description": "Ocho preguntas sobre las personas y las ideas que dieron forma a las matemáticas, de la geometría antigua al nacimiento de la computación.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["matemáticas", "trivia", "historia", "matemáticos", "ciencia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué matemático griego escribió «Elementos», el manual de geometría que se usó durante más de 2000 años?",
+          "options": [
+            { "id": "a", "text": "Pitágoras", "is_correct": false },
+            { "id": "b", "text": "Euclides", "is_correct": true },
+            { "id": "c", "text": "Arquímedes", "is_correct": false },
+            { "id": "d", "text": "Tales", "is_correct": false }
+          ],
+          "explanation": "Euclides compiló «Elementos» en Alejandría hacia el año 300 a. C., y siguió en las aulas por milenios."
+        },
+        {
+          "id": "q2",
+          "question": "El teorema de Pitágoras, a² + b² = c², relaciona los lados de qué figura?",
+          "options": [
+            { "id": "a", "text": "Un triángulo rectángulo", "is_correct": true },
+            { "id": "b", "text": "Un círculo", "is_correct": false },
+            { "id": "c", "text": "Un rectángulo", "is_correct": false },
+            { "id": "d", "text": "Cualquier triángulo", "is_correct": false }
+          ],
+          "explanation": "El teorema une los dos catetos de un triángulo rectángulo con su hipotenusa."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué matemático, según la leyenda, gritó «¡Eureka!» al comprender el principio de la flotación en la bañera?",
+          "options": [
+            { "id": "a", "text": "Euclides", "is_correct": false },
+            { "id": "b", "text": "Pitágoras", "is_correct": false },
+            { "id": "c", "text": "Arquímedes", "is_correct": true },
+            { "id": "d", "text": "Aristóteles", "is_correct": false }
+          ],
+          "explanation": "La historia cuenta que Arquímedes corrió por Siracusa gritando «¡Eureka!» («lo encontré»)."
+        },
+        {
+          "id": "q4",
+          "question": "¿Dónde se trató primero al cero como un número con reglas propias para operar?",
+          "options": [
+            { "id": "a", "text": "En Egipto", "is_correct": false },
+            { "id": "b", "text": "En Grecia", "is_correct": false },
+            { "id": "c", "text": "En China", "is_correct": false },
+            { "id": "d", "text": "En la India", "is_correct": true }
+          ],
+          "explanation": "Matemáticos indios como Brahmagupta dieron reglas para el cero en el siglo VII."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué sucesión, donde cada término es la suma de los dos anteriores (1, 1, 2, 3, 5, 8...), lleva el nombre de un matemático italiano medieval?",
+          "options": [
+            { "id": "a", "text": "La sucesión de Pascal", "is_correct": false },
+            { "id": "b", "text": "La sucesión de Fibonacci", "is_correct": true },
+            { "id": "c", "text": "La sucesión de Euclides", "is_correct": false },
+            { "id": "d", "text": "La sucesión de Gauss", "is_correct": false }
+          ],
+          "explanation": "Fibonacci presentó la sucesión en Europa en 1202, en su libro Liber Abaci."
+        },
+        {
+          "id": "q6",
+          "question": "La identidad de Euler, e^(iπ) + 1 = 0, conecta cuántas constantes fundamentales de las matemáticas?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "Une e, i, π, 1 y 0 en una sola ecuación."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién es considerada la primera programadora de la historia, por sus notas sobre la Máquina Analítica de Babbage?",
+          "options": [
+            { "id": "a", "text": "Ada Lovelace", "is_correct": true },
+            { "id": "b", "text": "Marie Curie", "is_correct": false },
+            { "id": "c", "text": "Charles Babbage", "is_correct": false },
+            { "id": "d", "text": "Alan Turing", "is_correct": false }
+          ],
+          "explanation": "Las notas de Lovelace de 1843 incluían un algoritmo para una máquina que nunca se construyó."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué dos matemáticos desarrollaron el cálculo por separado en el siglo XVII, lo que desató una famosa disputa por la prioridad?",
+          "options": [
+            { "id": "a", "text": "Descartes y Fermat", "is_correct": false },
+            { "id": "b", "text": "Euler y Lagrange", "is_correct": false },
+            { "id": "c", "text": "Gauss y Riemann", "is_correct": false },
+            { "id": "d", "text": "Newton y Leibniz", "is_correct": true }
+          ],
+          "explanation": "Newton y Leibniz llegaron al cálculo por caminos separados, y sus seguidores discutieron la prioridad por décadas."
+        }
+      ]
+    },
+    {
+      "slug": "en-probability-trivia",
+      "title": "Probability Trivia: Chance, Odds and Paradoxes",
+      "description": "Eight questions on coins, dice, cards and the counterintuitive results that make probability so surprising.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["math", "trivia", "probability", "statistics", "chance"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the probability of getting heads on a fair coin toss?",
+          "options": [
+            { "id": "a", "text": "1/4", "is_correct": false },
+            { "id": "b", "text": "1/2", "is_correct": true },
+            { "id": "c", "text": "1/3", "is_correct": false },
+            { "id": "d", "text": "1", "is_correct": false }
+          ],
+          "explanation": "A fair coin has two equally likely outcomes, so each gets 1/2 or 50%."
+        },
+        {
+          "id": "q2",
+          "question": "When rolling one fair six-sided die, what is the probability of rolling a 6?",
+          "options": [
+            { "id": "a", "text": "1/3", "is_correct": false },
+            { "id": "b", "text": "1/2", "is_correct": false },
+            { "id": "c", "text": "1/6", "is_correct": true },
+            { "id": "d", "text": "1/12", "is_correct": false }
+          ],
+          "explanation": "One favorable face out of six gives 1/6, about 16.7%."
+        },
+        {
+          "id": "q3",
+          "question": "When rolling two dice, which total is the most likely?",
+          "options": [
+            { "id": "a", "text": "2", "is_correct": false },
+            { "id": "b", "text": "6", "is_correct": false },
+            { "id": "c", "text": "12", "is_correct": false },
+            { "id": "d", "text": "7", "is_correct": true }
+          ],
+          "explanation": "Seven can be made in six ways (1-6, 2-5, 3-4, 4-3, 5-2, 6-1), more than any other total."
+        },
+        {
+          "id": "q4",
+          "question": "In the famous birthday paradox, how many people must be in a room for a greater than 50% chance that two share a birthday?",
+          "options": [
+            { "id": "a", "text": "23", "is_correct": true },
+            { "id": "b", "text": "50", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": false },
+            { "id": "d", "text": "183", "is_correct": false }
+          ],
+          "explanation": "With just 23 people the chance of a shared birthday already passes 50%."
+        },
+        {
+          "id": "q5",
+          "question": "In the Monty Hall problem, after the host reveals a goat, switching your door changes your winning chance to...",
+          "options": [
+            { "id": "a", "text": "1/3, the same as before", "is_correct": false },
+            { "id": "b", "text": "2/3, double the original", "is_correct": true },
+            { "id": "c", "text": "1/2, a coin flip", "is_correct": false },
+            { "id": "d", "text": "1/4, lower than before", "is_correct": false }
+          ],
+          "explanation": "Your first pick had a 1/3 chance; the other unopened door keeps the remaining 2/3."
+        },
+        {
+          "id": "q6",
+          "question": "What is the probability of getting heads twice in a row with a fair coin?",
+          "options": [
+            { "id": "a", "text": "1/2", "is_correct": false },
+            { "id": "b", "text": "1/3", "is_correct": false },
+            { "id": "c", "text": "1/8", "is_correct": false },
+            { "id": "d", "text": "1/4", "is_correct": true }
+          ],
+          "explanation": "Independent events multiply: 1/2 × 1/2 = 1/4."
+        },
+        {
+          "id": "q7",
+          "question": "Drawing one card from a standard 52-card deck, what is the probability of getting an ace?",
+          "options": [
+            { "id": "a", "text": "1/13", "is_correct": true },
+            { "id": "b", "text": "1/26", "is_correct": false },
+            { "id": "c", "text": "1/4", "is_correct": false },
+            { "id": "d", "text": "1/52", "is_correct": false }
+          ],
+          "explanation": "Four aces in 52 cards gives 4/52, which simplifies to 1/13."
+        },
+        {
+          "id": "q8",
+          "question": "What is the probability of an event that can never happen?",
+          "options": [
+            { "id": "a", "text": "1/2", "is_correct": false },
+            { "id": "b", "text": "1", "is_correct": false },
+            { "id": "c", "text": "0", "is_correct": true },
+            { "id": "d", "text": "-1", "is_correct": false }
+          ],
+          "explanation": "Probability runs from 0 (impossible) to 1 (certain)."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-probabilidad",
+      "title": "Trivia de probabilidad: azar, dados y paradojas",
+      "description": "Ocho preguntas sobre monedas, dados, cartas y los resultados contraintuitivos que hacen tan sorprendente a la probabilidad.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["matemáticas", "trivia", "probabilidad", "estadística", "azar"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la probabilidad de que salga cara al lanzar una moneda justa?",
+          "options": [
+            { "id": "a", "text": "1/4", "is_correct": false },
+            { "id": "b", "text": "1/2", "is_correct": true },
+            { "id": "c", "text": "1/3", "is_correct": false },
+            { "id": "d", "text": "1", "is_correct": false }
+          ],
+          "explanation": "Una moneda justa tiene dos resultados igual de probables, así que cada uno tiene 1/2 o 50 %."
+        },
+        {
+          "id": "q2",
+          "question": "Al lanzar un dado justo de seis caras, ¿cuál es la probabilidad de sacar un 6?",
+          "options": [
+            { "id": "a", "text": "1/3", "is_correct": false },
+            { "id": "b", "text": "1/2", "is_correct": false },
+            { "id": "c", "text": "1/6", "is_correct": true },
+            { "id": "d", "text": "1/12", "is_correct": false }
+          ],
+          "explanation": "Una cara favorable entre seis da 1/6, cerca del 16,7 %."
+        },
+        {
+          "id": "q3",
+          "question": "Al lanzar dos dados, ¿qué suma es la más probable?",
+          "options": [
+            { "id": "a", "text": "2", "is_correct": false },
+            { "id": "b", "text": "6", "is_correct": false },
+            { "id": "c", "text": "12", "is_correct": false },
+            { "id": "d", "text": "7", "is_correct": true }
+          ],
+          "explanation": "El 7 se puede formar de seis maneras (1-6, 2-5, 3-4, 4-3, 5-2, 6-1), más que cualquier otra suma."
+        },
+        {
+          "id": "q4",
+          "question": "En la famosa paradoja del cumpleaños, ¿cuántas personas hacen falta en una sala para que la probabilidad de que dos cumplan el mismo día supere el 50 %?",
+          "options": [
+            { "id": "a", "text": "23", "is_correct": true },
+            { "id": "b", "text": "50", "is_correct": false },
+            { "id": "c", "text": "100", "is_correct": false },
+            { "id": "d", "text": "183", "is_correct": false }
+          ],
+          "explanation": "Con solo 23 personas la probabilidad de un cumpleaños compartido ya supera el 50 %."
+        },
+        {
+          "id": "q5",
+          "question": "En el problema de Monty Hall, después de que el presentador revela una cabra, cambiar de puerta deja tu probabilidad de ganar en...",
+          "options": [
+            { "id": "a", "text": "1/3, igual que antes", "is_correct": false },
+            { "id": "b", "text": "2/3, el doble de la original", "is_correct": true },
+            { "id": "c", "text": "1/2, como lanzar una moneda", "is_correct": false },
+            { "id": "d", "text": "1/4, menos que antes", "is_correct": false }
+          ],
+          "explanation": "Tu primera elección tenía 1/3; la otra puerta cerrada conserva el 2/3 restante."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la probabilidad de sacar cara dos veces seguidas con una moneda justa?",
+          "options": [
+            { "id": "a", "text": "1/2", "is_correct": false },
+            { "id": "b", "text": "1/3", "is_correct": false },
+            { "id": "c", "text": "1/8", "is_correct": false },
+            { "id": "d", "text": "1/4", "is_correct": true }
+          ],
+          "explanation": "Los eventos independientes se multiplican: 1/2 × 1/2 = 1/4."
+        },
+        {
+          "id": "q7",
+          "question": "Al sacar una carta de una baraja estándar de 52 cartas, ¿cuál es la probabilidad de que sea un as?",
+          "options": [
+            { "id": "a", "text": "1/13", "is_correct": true },
+            { "id": "b", "text": "1/26", "is_correct": false },
+            { "id": "c", "text": "1/4", "is_correct": false },
+            { "id": "d", "text": "1/52", "is_correct": false }
+          ],
+          "explanation": "Cuatro ases entre 52 cartas dan 4/52, que se simplifica a 1/13."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es la probabilidad de un evento que nunca puede ocurrir?",
+          "options": [
+            { "id": "a", "text": "1/2", "is_correct": false },
+            { "id": "b", "text": "1", "is_correct": false },
+            { "id": "c", "text": "0", "is_correct": true },
+            { "id": "d", "text": "-1", "is_correct": false }
+          ],
+          "explanation": "La probabilidad va de 0 (imposible) a 1 (seguro)."
+        }
+      ]
+    },
+    {
+      "slug": "en-math-in-everyday-life-trivia",
+      "title": "Math in Everyday Life Trivia: Numbers You Use",
+      "description": "Eight questions on tips, discounts, unit conversions, recipes and the arithmetic behind daily decisions.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["math", "trivia", "everyday math", "arithmetic", "money"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "An item costs $80 and is on sale for 25% off. How much do you pay?",
+          "options": [
+            { "id": "a", "text": "$55", "is_correct": false },
+            { "id": "b", "text": "$60", "is_correct": true },
+            { "id": "c", "text": "$65", "is_correct": false },
+            { "id": "d", "text": "$70", "is_correct": false }
+          ],
+          "explanation": "25% of $80 is $20, so you pay $80 − $20 = $60."
+        },
+        {
+          "id": "q2",
+          "question": "To leave a 20% tip on a $45 bill, the tip should be...",
+          "options": [
+            { "id": "a", "text": "$7", "is_correct": false },
+            { "id": "b", "text": "$8", "is_correct": false },
+            { "id": "c", "text": "$9", "is_correct": true },
+            { "id": "d", "text": "$10", "is_correct": false }
+          ],
+          "explanation": "10% of $45 is $4.50, so 20% is double: $9."
+        },
+        {
+          "id": "q3",
+          "question": "A recipe for 4 people calls for 2 cups of flour. How much flour do you need for 6 people?",
+          "options": [
+            { "id": "a", "text": "2.5 cups", "is_correct": false },
+            { "id": "b", "text": "3 cups", "is_correct": true },
+            { "id": "c", "text": "3.5 cups", "is_correct": false },
+            { "id": "d", "text": "4 cups", "is_correct": false }
+          ],
+          "explanation": "Scaling by 6/4 = 1.5 turns 2 cups into 3 cups."
+        },
+        {
+          "id": "q4",
+          "question": "Driving at 60 miles per hour for 90 minutes, how far do you travel?",
+          "options": [
+            { "id": "a", "text": "60 miles", "is_correct": false },
+            { "id": "b", "text": "80 miles", "is_correct": false },
+            { "id": "c", "text": "90 miles", "is_correct": true },
+            { "id": "d", "text": "120 miles", "is_correct": false }
+          ],
+          "explanation": "90 minutes is 1.5 hours, and 60 × 1.5 = 90 miles."
+        },
+        {
+          "id": "q5",
+          "question": "A pizza is cut into 8 equal slices. What fraction of the pizza is one slice?",
+          "options": [
+            { "id": "a", "text": "1/6", "is_correct": false },
+            { "id": "b", "text": "1/8", "is_correct": true },
+            { "id": "c", "text": "1/10", "is_correct": false },
+            { "id": "d", "text": "1/12", "is_correct": false }
+          ],
+          "explanation": "Eight equal parts means each slice is 1/8, or 12.5%."
+        },
+        {
+          "id": "q6",
+          "question": "Which formula converts degrees Celsius to Fahrenheit?",
+          "options": [
+            { "id": "a", "text": "F = C × 5/9 + 32", "is_correct": false },
+            { "id": "b", "text": "F = C + 32", "is_correct": false },
+            { "id": "c", "text": "F = C × 9/5 + 32", "is_correct": true },
+            { "id": "d", "text": "F = C × 2 + 30", "is_correct": false }
+          ],
+          "explanation": "Check it: 0 °C becomes 0 × 9/5 + 32 = 32 °F, the freezing point of water."
+        },
+        {
+          "id": "q7",
+          "question": "Three friends split a $90 bill evenly. How much does each pay?",
+          "options": [
+            { "id": "a", "text": "$25", "is_correct": false },
+            { "id": "b", "text": "$27", "is_correct": false },
+            { "id": "c", "text": "$30", "is_correct": true },
+            { "id": "d", "text": "$33", "is_correct": false }
+          ],
+          "explanation": "$90 ÷ 3 = $30 per person."
+        },
+        {
+          "id": "q8",
+          "question": "You spend $2.50 on coffee every workday. How much do you spend in a 5-day week?",
+          "options": [
+            { "id": "a", "text": "$10.00", "is_correct": false },
+            { "id": "b", "text": "$12.50", "is_correct": true },
+            { "id": "c", "text": "$15.00", "is_correct": false },
+            { "id": "d", "text": "$17.50", "is_correct": false }
+          ],
+          "explanation": "$2.50 × 5 = $12.50 per week."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-matematicas-en-la-vida-diaria",
+      "title": "Trivia de matemáticas en la vida diaria: números de cada día",
+      "description": "Ocho preguntas sobre propinas, descuentos, conversiones, recetas y la aritmética detrás de las decisiones de cada día.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["matemáticas", "trivia", "vida diaria", "aritmética", "dinero"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un artículo cuesta 80 dólares y tiene un 25 % de descuento. ¿Cuánto pagas?",
+          "options": [
+            { "id": "a", "text": "55 dólares", "is_correct": false },
+            { "id": "b", "text": "60 dólares", "is_correct": true },
+            { "id": "c", "text": "65 dólares", "is_correct": false },
+            { "id": "d", "text": "70 dólares", "is_correct": false }
+          ],
+          "explanation": "El 25 % de 80 son 20 dólares, así que pagas 80 − 20 = 60."
+        },
+        {
+          "id": "q2",
+          "question": "Para dejar una propina del 20 % en una cuenta de 45 dólares, la propina debe ser...",
+          "options": [
+            { "id": "a", "text": "7 dólares", "is_correct": false },
+            { "id": "b", "text": "8 dólares", "is_correct": false },
+            { "id": "c", "text": "9 dólares", "is_correct": true },
+            { "id": "d", "text": "10 dólares", "is_correct": false }
+          ],
+          "explanation": "El 10 % de 45 son 4,50 dólares, así que el 20 % es el doble: 9."
+        },
+        {
+          "id": "q3",
+          "question": "Una receta para 4 personas lleva 2 tazas de harina. ¿Cuánta harina necesitas para 6 personas?",
+          "options": [
+            { "id": "a", "text": "2,5 tazas", "is_correct": false },
+            { "id": "b", "text": "3 tazas", "is_correct": true },
+            { "id": "c", "text": "3,5 tazas", "is_correct": false },
+            { "id": "d", "text": "4 tazas", "is_correct": false }
+          ],
+          "explanation": "Al escalar por 6/4 = 1,5, las 2 tazas se convierten en 3."
+        },
+        {
+          "id": "q4",
+          "question": "Viajando a 60 km/h durante 90 minutos, ¿qué distancia recorres?",
+          "options": [
+            { "id": "a", "text": "60 km", "is_correct": false },
+            { "id": "b", "text": "80 km", "is_correct": false },
+            { "id": "c", "text": "90 km", "is_correct": true },
+            { "id": "d", "text": "120 km", "is_correct": false }
+          ],
+          "explanation": "90 minutos son 1,5 horas, y 60 × 1,5 = 90 km."
+        },
+        {
+          "id": "q5",
+          "question": "Una pizza se corta en 8 porciones iguales. ¿Qué fracción de la pizza es una porción?",
+          "options": [
+            { "id": "a", "text": "1/6", "is_correct": false },
+            { "id": "b", "text": "1/8", "is_correct": true },
+            { "id": "c", "text": "1/10", "is_correct": false },
+            { "id": "d", "text": "1/12", "is_correct": false }
+          ],
+          "explanation": "Ocho partes iguales significan que cada porción es 1/8, es decir, el 12,5 %."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué fórmula convierte grados Celsius a Fahrenheit?",
+          "options": [
+            { "id": "a", "text": "F = C × 5/9 + 32", "is_correct": false },
+            { "id": "b", "text": "F = C + 32", "is_correct": false },
+            { "id": "c", "text": "F = C × 9/5 + 32", "is_correct": true },
+            { "id": "d", "text": "F = C × 2 + 30", "is_correct": false }
+          ],
+          "explanation": "Comprobación: 0 °C se convierte en 0 × 9/5 + 32 = 32 °F, el punto de congelación del agua."
+        },
+        {
+          "id": "q7",
+          "question": "Tres amigos dividen una cuenta de 90 dólares en partes iguales. ¿Cuánto paga cada uno?",
+          "options": [
+            { "id": "a", "text": "25 dólares", "is_correct": false },
+            { "id": "b", "text": "27 dólares", "is_correct": false },
+            { "id": "c", "text": "30 dólares", "is_correct": true },
+            { "id": "d", "text": "33 dólares", "is_correct": false }
+          ],
+          "explanation": "90 ÷ 3 = 30 dólares por persona."
+        },
+        {
+          "id": "q8",
+          "question": "Si gastas 2,50 dólares en café cada día laboral, ¿cuánto gastas en una semana de 5 días?",
+          "options": [
+            { "id": "a", "text": "10 dólares", "is_correct": false },
+            { "id": "b", "text": "12,50 dólares", "is_correct": true },
+            { "id": "c", "text": "15 dólares", "is_correct": false },
+            { "id": "d", "text": "17,50 dólares", "is_correct": false }
+          ],
+          "explanation": "2,50 × 5 = 12,50 dólares por semana."
+        }
+      ]
+    }
+  ]
+}
