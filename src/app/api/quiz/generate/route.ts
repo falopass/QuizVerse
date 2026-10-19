@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { generateQuizWithAI } from '@/lib/quiz/generator';
+import { validateAIQuizResponse } from '@/lib/quiz/validator';
 import { inferVisualProfile } from '@/lib/design/visual-profile';
 
 const generateQuizSchema = z.object({
@@ -74,26 +75,23 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const aiValidation = validateAIQuizResponse(result.data, parsed.data.quiz_type);
+
+  if (!aiValidation.valid) {
+    console.error('[quiz/generate] AI returned an invalid quiz', {
+      topic: parsed.data.topic,
+      quizType: parsed.data.quiz_type,
+      errors: aiValidation.errors,
+    });
+    const error =
+      parsed.data.language === 'es' ? 'El quiz generado no es válido' : 'Generated quiz is invalid';
+    return NextResponse.json({ error, rateLimit }, { status: 502 });
+  }
+
   const validationWarnings: string[] = [];
 
   if (result.data.questions.length !== parsed.data.num_questions) {
     validationWarnings.push('The generated question count differs from the requested count.');
-  }
-
-  if (parsed.data.quiz_type === 'trivia') {
-    const invalidTriviaQuestion = result.data.questions.find(
-      (question) => question.options.filter((option) => option.is_correct).length !== 1
-    );
-
-    if (invalidTriviaQuestion) {
-      validationWarnings.push(
-        'At least one trivia question does not have exactly one correct answer.'
-      );
-    }
-  }
-
-  if (parsed.data.quiz_type === 'personality' && !result.data.results?.length) {
-    validationWarnings.push('The personality quiz did not return any results.');
   }
 
   return NextResponse.json({

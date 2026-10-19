@@ -32,7 +32,7 @@ const PersonalityResultSchema = z.object({
   image_url: z.string().url().optional().nullable(),
   min_score: z.number().optional(),
   max_score: z.number().optional(),
-  personality_tag: z.string().optional(),
+  personality_tag: z.string().optional().nullable(),
   background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
 });
 
@@ -49,6 +49,46 @@ export const QuizCreateSchema = z.object({
   results: z.array(PersonalityResultSchema).optional().nullable(),
   tags: z.array(z.string()).max(10).optional().default([]),
   estimated_minutes: z.number().min(1).max(30).optional().default(3),
+});
+
+// Respuesta cruda del generador AI (DeepSeek): mismo contrato que pide el prompt
+// en src/lib/quiz/generator.ts. No incluye quiz_type/difficulty/language porque
+// esos los fija la request, no el modelo.
+const AIOptionSchema = z.object({
+  id: z.string().min(1),
+  text: z.string().min(1).max(500),
+  is_correct: z.boolean().optional(),
+  personality_tags: z.array(z.string()).optional(),
+  image_url: z.string().url().optional().nullable(),
+});
+
+const AIQuestionSchema = z.object({
+  id: z.string().min(1),
+  question: z.string().min(1).max(1000),
+  options: z.array(AIOptionSchema).min(2).max(6),
+  explanation: z.string().max(500).optional().nullable(),
+  image_url: z.string().url().optional().nullable(),
+  time_limit_seconds: z.number().min(5).max(300).optional().nullable(),
+});
+
+const AIResultSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1).max(100),
+  description: z.string().min(1).max(1000),
+  personality_tag: z.string().optional().nullable(),
+  background_theme: z.enum(['fire', 'ice', 'stars', 'ocean', 'forest', 'mystic']).optional(),
+  image_url: z.string().url().optional().nullable(),
+  min_score: z.number().optional(),
+  max_score: z.number().optional(),
+});
+
+export const AIQuizResponseSchema = z.object({
+  title: z.string().min(5).max(120),
+  description: z.string().max(300),
+  questions: z.array(AIQuestionSchema).min(3).max(20),
+  results: z.array(AIResultSchema).min(3).max(8).optional().nullable(),
+  tags: z.array(z.string().min(1).max(30)).max(10),
+  estimated_minutes: z.number().min(1).max(30),
 });
 
 // ============================================
@@ -149,6 +189,49 @@ export function validatePersonalityResult(data: unknown): ValidationResult {
   if (!result.success) {
     const errors = result.error.flatten().formErrors;
     return { valid: false, errors };
+  }
+
+  return { valid: true, errors: [] };
+}
+
+/**
+ * Valida la respuesta cruda del generador AI antes de servirla al cliente.
+ * Aplica el schema estructural y encima las reglas semánticas del tipo de quiz.
+ */
+export function validateAIQuizResponse(
+  data: unknown,
+  quizType: 'trivia' | 'personality'
+): ValidationResult {
+  const result = AIQuizResponseSchema.safeParse(data);
+
+  if (!result.success) {
+    const errors = result.error.issues.map(
+      (issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`
+    );
+    return { valid: false, errors };
+  }
+
+  const additionalErrors: string[] = [];
+
+  // Para trivia: cada pregunta debe tener exactamente una respuesta correcta
+  if (quizType === 'trivia') {
+    result.data.questions.forEach((q, index) => {
+      const correctOptions = q.options.filter((o) => o.is_correct === true);
+      if (correctOptions.length !== 1) {
+        additionalErrors.push(
+          `Pregunta ${index + 1}: debe tener exactamente una respuesta correcta (tiene ${correctOptions.length})`
+        );
+      }
+    });
+  }
+
+  // Para personality: el schema exige 3-8 resultados cuando existen; aquí se exige que existan
+  if (quizType === 'personality' && !result.data.results?.length) {
+    additionalErrors.push('Los quizzes de personalidad deben tener resultados definidos');
+  }
+
+  if (additionalErrors.length > 0) {
+    return { valid: false, errors: additionalErrors };
   }
 
   return { valid: true, errors: [] };
