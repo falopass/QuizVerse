@@ -26,8 +26,16 @@ export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="focus:border-border focus:bg-background focus:text-foreground sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:border focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg focus:outline-none"
+      >
+        {locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+      </a>
       {!isFullscreen && <FloatingNav locale={locale} dictionary={dictionary} />}
-      <main id="main-content">{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       {!isFullscreen && <Footer dictionary={dictionary} locale={locale} />}
     </>
   );
