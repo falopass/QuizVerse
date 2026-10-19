@@ -12,6 +12,7 @@ import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { leaderboardOgImage } from '@/lib/seo/site';
 import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
 const LEADERBOARD_TITLE: Record<Locale, string> = {
@@ -38,6 +39,7 @@ export async function generateMetadata({
     path: `/${locale}/leaderboard`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/leaderboard`,
     locale,
+    image: leaderboardOgImage(locale),
   });
 }
 
