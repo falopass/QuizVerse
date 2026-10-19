@@ -30,6 +30,8 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
 interface QuizRow {
   slug: string;
+  title: string | null;
+  cover_image_url: string | null;
   language: string | null;
   published_at: string | null;
   updated_at: string | null;
@@ -44,7 +46,7 @@ async function fetchPublishedQuizzes(): Promise<QuizRow[]> {
     const { data, error } = await supabase
       .from('quizzes')
       .select(
-        'slug, language, published_at, updated_at, quiz_type, category_id, category:categories(slug)'
+        'slug, title, cover_image_url, language, published_at, updated_at, quiz_type, category_id, category:categories(slug)'
       )
       .eq('status', 'published')
       .order('published_at', { ascending: false })
@@ -74,6 +76,18 @@ const EDITORIAL_PAGES: Array<{
 
 /** Quiz types that are exposed as their own hub page. */
 const TYPE_HUBS = ['trivia', 'personality'];
+
+/**
+ * URL absoluta de la portada de un quiz, para `image:image` del sitemap.
+ * Las stock covers ya tienen su ruta servible; el resto cae en la portada
+ * procedural `/covers/[slug]`, que siempre existe.
+ */
+export function quizCoverImageUrl(quiz: Pick<QuizRow, 'slug' | 'cover_image_url'>): string {
+  const path = quiz.cover_image_url?.startsWith('/stock-covers/')
+    ? quiz.cover_image_url
+    : `/covers/${encodeURIComponent(quiz.slug)}`;
+  return `${SITE_URL}${path}`;
+}
 
 export async function GET() {
   const quizzes = await fetchPublishedQuizzes();
@@ -158,6 +172,7 @@ export async function GET() {
         lastModified: newestIso([quiz.published_at, quiz.updated_at]),
         changeFrequency: 'weekly',
         priority: 0.7,
+        images: [{ url: quizCoverImageUrl(quiz), title: quiz.title ?? undefined }],
         alternates: quizAlternates(
           locale,
           quiz.slug,
