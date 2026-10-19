@@ -14,8 +14,8 @@ insert into public.quizzes
    is_featured, is_ai_generated, published_at)
 values (
   'en-betty-la-fea-trivia',
-  'Betty la Fea Trivia: Ecomoda, Don Armando and the Telenovela That Conquered the World',
-  'Eight questions on the plot, characters and legacy of Yo soy Betty, la fea. From Ecomoda and Don Armando to Ugly Betty, test what you know about the Colombian telenovela that conquered the world.',
+  'Betty la Fea Trivia: The Colombian Telenovela',
+  'Eight questions on Yo soy Betty, la fea: Ecomoda, Don Armando, Marcela, Nicolás and the adaptations like Ugly Betty it inspired. How much do you remember?',
   'trivia',
   'easy',
   'en',
@@ -37,8 +37,8 @@ insert into public.quizzes
    is_featured, is_ai_generated, published_at)
 values (
   'es-trivia-betty-la-fea',
-  'Trivia de Betty la fea: Ecomoda, Don Armando y la telenovela que conquistó el mundo',
-  'Ocho preguntas sobre la trama, los personajes y el legado de Yo soy Betty, la fea. De Ecomoda y Don Armando a Ugly Betty, mide cuánto sabes de la telenovela colombiana que conquistó el mundo.',
+  'Trivia de Betty la fea: la telenovela colombiana',
+  'Ocho preguntas sobre Yo soy Betty, la fea: Ecomoda, Don Armando, Marcela, Nicolás y adaptaciones como Ugly Betty. ¿Cuánto recuerdas?',
   'trivia',
   'easy',
   'es',

@@ -78,6 +78,8 @@ describe('editorial-seed-2026bd', () => {
     for (const quiz of quizzes) {
       expect(quiz.quiz_type, quiz.slug).toBe('trivia');
       expect(quiz.description.length, quiz.slug).toBeGreaterThanOrEqual(40);
+      // DESCRIPTION_MAX en src/lib/seo/metadata.ts: más largo y el SERP la corta.
+      expect(quiz.description.length, quiz.slug).toBeLessThanOrEqual(158);
       expect(quiz.questions.length, quiz.slug).toBeGreaterThanOrEqual(6);
       expect(quiz.questions.length, quiz.slug).toBeLessThanOrEqual(8);
       for (const question of quiz.questions) {
