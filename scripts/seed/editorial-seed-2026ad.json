@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial batch 2026ad (CONT-39): trivia pairs about The Lord of the Rings and Tolkien — Peter Jackson's trilogy (cast, places, general) plus the books (lore and The Hobbit). Only stable facts from the published books and released films; nothing from the Prime Video series, announced spin-offs or box office. Emitted by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-lord-of-the-rings-trivia",
+      "title": "Lord of the Rings trivia: how well do you know Middle-earth?",
+      "description": "Nine walkers, one Ring and three films that changed fantasy cinema. How well do you know Peter Jackson's Lord of the Rings trilogy?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["lord of the rings", "tolkien", "fantasy", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who directed the Lord of the Rings film trilogy?",
+          "options": [
+            { "id": "a", "text": "Steven Spielberg", "is_correct": false },
+            { "id": "b", "text": "Peter Jackson", "is_correct": true },
+            { "id": "c", "text": "Ridley Scott", "is_correct": false },
+            { "id": "d", "text": "Guillermo del Toro", "is_correct": false }
+          ],
+          "explanation": "New Zealander Peter Jackson directed all three, co-writing them with Fran Walsh and Philippa Boyens."
+        },
+        {
+          "id": "q2",
+          "question": "In which country was the whole trilogy shot?",
+          "options": [
+            { "id": "a", "text": "Scotland", "is_correct": false },
+            { "id": "b", "text": "Ireland", "is_correct": false },
+            { "id": "c", "text": "Canada", "is_correct": false },
+            { "id": "d", "text": "New Zealand", "is_correct": true }
+          ],
+          "explanation": "Every scene was filmed in New Zealand; the Hobbiton set still stands near Matamata."
+        },
+        {
+          "id": "q3",
+          "question": "Which film opens the trilogy?",
+          "options": [
+            { "id": "a", "text": "The Fellowship of the Ring", "is_correct": true },
+            { "id": "b", "text": "The Two Towers", "is_correct": false },
+            { "id": "c", "text": "The Return of the King", "is_correct": false },
+            { "id": "d", "text": "An Unexpected Journey", "is_correct": false }
+          ],
+          "explanation": "The Fellowship of the Ring premiered in 2001; The Two Towers (2002) and The Return of the King (2003) followed."
+        },
+        {
+          "id": "q4",
+          "question": "Who shouts 'You shall not pass!' on the Bridge of Khazad-dûm?",
+          "options": [
+            { "id": "a", "text": "Aragorn", "is_correct": false },
+            { "id": "b", "text": "Boromir", "is_correct": false },
+            { "id": "c", "text": "Gandalf", "is_correct": true },
+            { "id": "d", "text": "Legolas", "is_correct": false }
+          ],
+          "explanation": "Gandalf faces the Balrog so the Fellowship can escape Moria."
+        },
+        {
+          "id": "q5",
+          "question": "What is the name of Frodo's gardener and most loyal companion?",
+          "options": [
+            { "id": "a", "text": "Samwise Gamgee", "is_correct": true },
+            { "id": "b", "text": "Meriadoc Brandybuck", "is_correct": false },
+            { "id": "c", "text": "Peregrin Took", "is_correct": false },
+            { "id": "d", "text": "Fredegar Bolger", "is_correct": false }
+          ],
+          "explanation": "Sam leaves the Shire with Frodo and ends up carrying him up the slopes of Mount Doom."
+        },
+        {
+          "id": "q6",
+          "question": "How many members does the Fellowship of the Ring have?",
+          "options": [
+            { "id": "a", "text": "Seven", "is_correct": false },
+            { "id": "b", "text": "Nine", "is_correct": true },
+            { "id": "c", "text": "Ten", "is_correct": false },
+            { "id": "d", "text": "Thirteen", "is_correct": false }
+          ],
+          "explanation": "Four hobbits, two men, one elf, one dwarf and one wizard: nine walkers against the nine Ringwraiths."
+        },
+        {
+          "id": "q7",
+          "question": "What does Gollum call 'my precious'?",
+          "options": [
+            { "id": "a", "text": "The Arkenstone", "is_correct": false },
+            { "id": "b", "text": "Sting", "is_correct": false },
+            { "id": "c", "text": "The One Ring", "is_correct": true },
+            { "id": "d", "text": "A palantír", "is_correct": false }
+          ],
+          "explanation": "The Ring corrupted Sméagol over the five centuries he kept it under the Misty Mountains."
+        },
+        {
+          "id": "q8",
+          "question": "In which city is Aragorn crowned at the end of The Return of the King?",
+          "options": [
+            { "id": "a", "text": "Edoras", "is_correct": false },
+            { "id": "b", "text": "Minas Tirith", "is_correct": true },
+            { "id": "c", "text": "Osgiliath", "is_correct": false },
+            { "id": "d", "text": "Minas Morgul", "is_correct": false }
+          ],
+          "explanation": "The coronation takes place in Minas Tirith, the capital of Gondor."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-el-senor-de-los-anillos",
+      "title": "Trivia de El Señor de los Anillos: ¿cuánto sabes de la Tierra Media?",
+      "description": "Nueve caminantes, un Anillo y tres películas que cambiaron el cine de fantasía. ¿Cuánto sabes de la trilogía de Peter Jackson?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["el señor de los anillos", "tolkien", "fantasía", "cine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién dirigió la trilogía de películas de El Señor de los Anillos?",
+          "options": [
+            { "id": "a", "text": "Peter Jackson", "is_correct": true },
+            { "id": "b", "text": "Steven Spielberg", "is_correct": false },
+            { "id": "c", "text": "Ridley Scott", "is_correct": false },
+            { "id": "d", "text": "Guillermo del Toro", "is_correct": false }
+          ],
+          "explanation": "El neozelandés Peter Jackson dirigió las tres, coescritas junto a Fran Walsh y Philippa Boyens."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué país se rodó toda la trilogía?",
+          "options": [
+            { "id": "a", "text": "Escocia", "is_correct": false },
+            { "id": "b", "text": "Irlanda", "is_correct": false },
+            { "id": "c", "text": "Nueva Zelanda", "is_correct": true },
+            { "id": "d", "text": "Canadá", "is_correct": false }
+          ],
+          "explanation": "Todo se filmó en Nueva Zelanda; el set de Hobbiton sigue en pie cerca de Matamata."
+        },
+        {
+          "id": "q3",
+          "question": "¿Con qué película abre la trilogía?",
+          "options": [
+            { "id": "a", "text": "Las dos torres", "is_correct": false },
+            { "id": "b", "text": "La Comunidad del Anillo", "is_correct": true },
+            { "id": "c", "text": "El retorno del Rey", "is_correct": false },
+            { "id": "d", "text": "Un viaje inesperado", "is_correct": false }
+          ],
+          "explanation": "La Comunidad del Anillo se estrenó en 2001; Las dos torres (2002) y El retorno del Rey (2003) llegaron después."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién grita «¡No puedes pasar!» en el puente de Khazad-dûm?",
+          "options": [
+            { "id": "a", "text": "Aragorn", "is_correct": false },
+            { "id": "b", "text": "Boromir", "is_correct": false },
+            { "id": "c", "text": "Legolas", "is_correct": false },
+            { "id": "d", "text": "Gandalf", "is_correct": true }
+          ],
+          "explanation": "Gandalf se enfrenta al Balrog para que la Comunidad pueda escapar de Moria."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama el jardinero que acompaña a Frodo hasta el final?",
+          "options": [
+            { "id": "a", "text": "Merry", "is_correct": false },
+            { "id": "b", "text": "Pippin", "is_correct": false },
+            { "id": "c", "text": "Samsagaz Gamyi", "is_correct": true },
+            { "id": "d", "text": "Bolsón", "is_correct": false }
+          ],
+          "explanation": "Sam sale de la Comarca con Frodo y termina cargándolo por las laderas del Monte del Destino."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántos miembros tiene la Comunidad del Anillo?",
+          "options": [
+            { "id": "a", "text": "Siete", "is_correct": false },
+            { "id": "b", "text": "Diez", "is_correct": false },
+            { "id": "c", "text": "Nueve", "is_correct": true },
+            { "id": "d", "text": "Trece", "is_correct": false }
+          ],
+          "explanation": "Cuatro hobbits, dos hombres, un elfo, un enano y un mago: nueve caminantes contra los nueve Nazgûl."
+        },
+        {
+          "id": "q7",
+          "question": "¿A qué llama Gollum «mi tesoro»?",
+          "options": [
+            { "id": "a", "text": "Al Anillo Único", "is_correct": true },
+            { "id": "b", "text": "A la Piedra del Arca", "is_correct": false },
+            { "id": "c", "text": "A Dardo", "is_correct": false },
+            { "id": "d", "text": "A un palantír", "is_correct": false }
+          ],
+          "explanation": "El Anillo corrompió a Sméagol durante los cinco siglos que lo guardó bajo las Montañas Nubladas."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué ciudad se corona a Aragorn al final de El retorno del Rey?",
+          "options": [
+            { "id": "a", "text": "Edoras", "is_correct": false },
+            { "id": "b", "text": "Osgiliath", "is_correct": false },
+            { "id": "c", "text": "Minas Morgul", "is_correct": false },
+            { "id": "d", "text": "Minas Tirith", "is_correct": true }
+          ],
+          "explanation": "La coronación tiene lugar en Minas Tirith, la capital de Gondor."
+        }
+      ]
+    },
+    {
+      "slug": "en-lord-of-the-rings-cast-trivia",
+      "title": "Lord of the Rings cast trivia: the actors of Middle-earth",
+      "description": "Elijah Wood, Viggo Mortensen, Ian McKellen and Andy Serkis: can you match every Fellowship actor to their role?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["lord of the rings", "cast", "actors", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who plays Frodo Baggins?",
+          "options": [
+            { "id": "a", "text": "Sean Astin", "is_correct": false },
+            { "id": "b", "text": "Elijah Wood", "is_correct": true },
+            { "id": "c", "text": "Dominic Monaghan", "is_correct": false },
+            { "id": "d", "text": "Billy Boyd", "is_correct": false }
+          ],
+          "explanation": "Elijah Wood leads the trilogy as the Ring-bearer; Astin, Monaghan and Boyd play Sam, Merry and Pippin."
+        },
+        {
+          "id": "q2",
+          "question": "Who plays Gandalf?",
+          "options": [
+            { "id": "a", "text": "Christopher Lee", "is_correct": false },
+            { "id": "b", "text": "Ian Holm", "is_correct": false },
+            { "id": "c", "text": "Ian McKellen", "is_correct": true },
+            { "id": "d", "text": "Bernard Hill", "is_correct": false }
+          ],
+          "explanation": "Ian McKellen plays Gandalf; Lee is Saruman, Holm is Bilbo and Hill is King Théoden."
+        },
+        {
+          "id": "q3",
+          "question": "Who plays Aragorn?",
+          "options": [
+            { "id": "a", "text": "Viggo Mortensen", "is_correct": true },
+            { "id": "b", "text": "Orlando Bloom", "is_correct": false },
+            { "id": "c", "text": "Sean Bean", "is_correct": false },
+            { "id": "d", "text": "Karl Urban", "is_correct": false }
+          ],
+          "explanation": "Viggo Mortensen replaced Stuart Townsend days into filming; Bloom is Legolas, Bean is Boromir and Urban is Éomer."
+        },
+        {
+          "id": "q4",
+          "question": "Which actor performs Gollum through motion capture?",
+          "options": [
+            { "id": "a", "text": "Doug Jones", "is_correct": false },
+            { "id": "b", "text": "Andy Serkis", "is_correct": true },
+            { "id": "c", "text": "Mark Rylance", "is_correct": false },
+            { "id": "d", "text": "Alan Tudyk", "is_correct": false }
+          ],
+          "explanation": "Andy Serkis voiced and performed Gollum, a landmark motion-capture role; he later repeated it in the Hobbit films."
+        },
+        {
+          "id": "q5",
+          "question": "Who plays the elf Legolas?",
+          "options": [
+            { "id": "a", "text": "Orlando Bloom", "is_correct": true },
+            { "id": "b", "text": "Hugo Weaving", "is_correct": false },
+            { "id": "c", "text": "Karl Urban", "is_correct": false },
+            { "id": "d", "text": "Craig Parker", "is_correct": false }
+          ],
+          "explanation": "Orlando Bloom is Legolas; Weaving is Elrond and Parker is the elf Haldir."
+        },
+        {
+          "id": "q6",
+          "question": "Which actress plays Galadriel?",
+          "options": [
+            { "id": "a", "text": "Liv Tyler", "is_correct": false },
+            { "id": "b", "text": "Miranda Otto", "is_correct": false },
+            { "id": "c", "text": "Cate Blanchett", "is_correct": true },
+            { "id": "d", "text": "Tilda Swinton", "is_correct": false }
+          ],
+          "explanation": "Cate Blanchett is the Lady of Lórien; Liv Tyler plays Arwen and Miranda Otto plays Éowyn."
+        },
+        {
+          "id": "q7",
+          "question": "Who plays Saruman the White?",
+          "options": [
+            { "id": "a", "text": "Ian Holm", "is_correct": false },
+            { "id": "b", "text": "Christopher Lee", "is_correct": true },
+            { "id": "c", "text": "Ian McKellen", "is_correct": false },
+            { "id": "d", "text": "Brad Dourif", "is_correct": false }
+          ],
+          "explanation": "Christopher Lee, who had met Tolkien himself, plays Saruman; Brad Dourif is Gríma Wormtongue."
+        },
+        {
+          "id": "q8",
+          "question": "Who plays Samwise Gamgee?",
+          "options": [
+            { "id": "a", "text": "Dominic Monaghan", "is_correct": false },
+            { "id": "b", "text": "Billy Boyd", "is_correct": false },
+            { "id": "c", "text": "Sean Astin", "is_correct": true },
+            { "id": "d", "text": "Elijah Wood", "is_correct": false }
+          ],
+          "explanation": "Sean Astin is Sam; Monaghan and Boyd play the cousins Merry and Pippin."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-reparto-el-senor-de-los-anillos",
+      "title": "Trivia del reparto de El Señor de los Anillos: ¿quién es quién?",
+      "description": "Elijah Wood, Viggo Mortensen, Ian McKellen y Andy Serkis: ¿puedes nombrar al actor detrás de cada personaje de la Comunidad?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["el señor de los anillos", "reparto", "actores", "cine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién interpreta a Frodo Bolsón?",
+          "options": [
+            { "id": "a", "text": "Elijah Wood", "is_correct": true },
+            { "id": "b", "text": "Sean Astin", "is_correct": false },
+            { "id": "c", "text": "Dominic Monaghan", "is_correct": false },
+            { "id": "d", "text": "Billy Boyd", "is_correct": false }
+          ],
+          "explanation": "Elijah Wood encabeza la trilogía como el Portador del Anillo; Astin, Monaghan y Boyd son Sam, Merry y Pippin."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién da vida a Gandalf?",
+          "options": [
+            { "id": "a", "text": "Christopher Lee", "is_correct": false },
+            { "id": "b", "text": "Ian McKellen", "is_correct": true },
+            { "id": "c", "text": "Ian Holm", "is_correct": false },
+            { "id": "d", "text": "Bernard Hill", "is_correct": false }
+          ],
+          "explanation": "Ian McKellen es Gandalf; Lee es Saruman, Holm es Bilbo y Hill es el rey Théoden."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué actor interpreta a Aragorn?",
+          "options": [
+            { "id": "a", "text": "Orlando Bloom", "is_correct": false },
+            { "id": "b", "text": "Sean Bean", "is_correct": false },
+            { "id": "c", "text": "Viggo Mortensen", "is_correct": true },
+            { "id": "d", "text": "Karl Urban", "is_correct": false }
+          ],
+          "explanation": "Viggo Mortensen sustituyó a Stuart Townsend a los pocos días de rodaje; Bloom es Legolas, Bean es Boromir y Urban es Éomer."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué actor interpreta a Gollum con captura de movimiento?",
+          "options": [
+            { "id": "a", "text": "Doug Jones", "is_correct": false },
+            { "id": "b", "text": "Mark Rylance", "is_correct": false },
+            { "id": "c", "text": "Alan Tudyk", "is_correct": false },
+            { "id": "d", "text": "Andy Serkis", "is_correct": true }
+          ],
+          "explanation": "Andy Serkis dio voz y cuerpo a Gollum, un papel pionero de la captura de movimiento, y lo repitió en las películas de El Hobbit."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién interpreta al elfo Legolas?",
+          "options": [
+            { "id": "a", "text": "Orlando Bloom", "is_correct": true },
+            { "id": "b", "text": "Hugo Weaving", "is_correct": false },
+            { "id": "c", "text": "Karl Urban", "is_correct": false },
+            { "id": "d", "text": "Craig Parker", "is_correct": false }
+          ],
+          "explanation": "Orlando Bloom es Legolas; Weaving es Elrond y Parker es el elfo Haldir."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué actriz interpreta a Galadriel?",
+          "options": [
+            { "id": "a", "text": "Liv Tyler", "is_correct": false },
+            { "id": "b", "text": "Cate Blanchett", "is_correct": true },
+            { "id": "c", "text": "Miranda Otto", "is_correct": false },
+            { "id": "d", "text": "Tilda Swinton", "is_correct": false }
+          ],
+          "explanation": "Cate Blanchett es la Dama de Lórien; Liv Tyler es Arwen y Miranda Otto es Éowyn."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién interpreta a Saruman el Blanco?",
+          "options": [
+            { "id": "a", "text": "Ian Holm", "is_correct": false },
+            { "id": "b", "text": "Ian McKellen", "is_correct": false },
+            { "id": "c", "text": "Brad Dourif", "is_correct": false },
+            { "id": "d", "text": "Christopher Lee", "is_correct": true }
+          ],
+          "explanation": "Christopher Lee, que llegó a conocer al propio Tolkien, es Saruman; Brad Dourif es Gríma Lengua de Serpiente."
+        },
+        {
+          "id": "q8",
+          "question": "¿Quién interpreta a Samsagaz Gamyi?",
+          "options": [
+            { "id": "a", "text": "Sean Astin", "is_correct": true },
+            { "id": "b", "text": "Dominic Monaghan", "is_correct": false },
+            { "id": "c", "text": "Billy Boyd", "is_correct": false },
+            { "id": "d", "text": "Elijah Wood", "is_correct": false }
+          ],
+          "explanation": "Sean Astin es Sam; Monaghan y Boyd interpretan a los primos Merry y Pippin."
+        }
+      ]
+    },
+    {
+      "slug": "en-middle-earth-places-trivia",
+      "title": "Middle-earth places trivia: from the Shire to Mordor",
+      "description": "From the Shire to Mount Doom, through Moria and Helm's Deep: test how well you know the places of the film trilogy.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "movies-tv",
+      "tags": ["middle-earth", "lord of the rings", "tolkien", "movies"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which region do the hobbits live?",
+          "options": [
+            { "id": "a", "text": "Bree", "is_correct": false },
+            { "id": "b", "text": "The Shire", "is_correct": true },
+            { "id": "c", "text": "Rohan", "is_correct": false },
+            { "id": "d", "text": "Dale", "is_correct": false }
+          ],
+          "explanation": "The Shire is the green homeland of the hobbits; Bree is a village of Men and hobbits further east."
+        },
+        {
+          "id": "q2",
+          "question": "What is the elven refuge where the Fellowship is formed?",
+          "options": [
+            { "id": "a", "text": "Lothlórien", "is_correct": false },
+            { "id": "b", "text": "Mirkwood", "is_correct": false },
+            { "id": "c", "text": "Rivendell", "is_correct": true },
+            { "id": "d", "text": "The Grey Havens", "is_correct": false }
+          ],
+          "explanation": "At Elrond's council in Rivendell the nine walkers volunteer to take the Ring south."
+        },
+        {
+          "id": "q3",
+          "question": "Which dwarf mines does the Fellowship cross under the Misty Mountains?",
+          "options": [
+            { "id": "a", "text": "Erebor", "is_correct": false },
+            { "id": "b", "text": "Moria", "is_correct": true },
+            { "id": "c", "text": "The Iron Hills", "is_correct": false },
+            { "id": "d", "text": "The Blue Mountains", "is_correct": false }
+          ],
+          "explanation": "Moria — Khazad-dûm, Balin's lost colony — is where the Fellowship meets the Balrog."
+        },
+        {
+          "id": "q4",
+          "question": "Which fortress does King Théoden's people defend in The Two Towers?",
+          "options": [
+            { "id": "a", "text": "Edoras", "is_correct": false },
+            { "id": "b", "text": "Isengard", "is_correct": false },
+            { "id": "c", "text": "Minas Tirith", "is_correct": false },
+            { "id": "d", "text": "Helm's Deep", "is_correct": true }
+          ],
+          "explanation": "The Rohirrim hold the Hornburg at Helm's Deep; Edoras is the capital they evacuate."
+        },
+        {
+          "id": "q5",
+          "question": "What is the capital of Gondor, besieged in The Return of the King?",
+          "options": [
+            { "id": "a", "text": "Minas Tirith", "is_correct": true },
+            { "id": "b", "text": "Osgiliath", "is_correct": false },
+            { "id": "c", "text": "Dol Amroth", "is_correct": false },
+            { "id": "d", "text": "Pelargir", "is_correct": false }
+          ],
+          "explanation": "Minas Tirith, the White City, withstands Sauron's assault until the Rohirrim arrive."
+        },
+        {
+          "id": "q6",
+          "question": "Where must the One Ring be destroyed?",
+          "options": [
+            { "id": "a", "text": "In the fires of Mount Doom", "is_correct": true },
+            { "id": "b", "text": "In the river Anduin", "is_correct": false },
+            { "id": "c", "text": "In Barad-dûr's forge", "is_correct": false },
+            { "id": "d", "text": "At the Grey Havens", "is_correct": false }
+          ],
+          "explanation": "Only the fires of Mount Doom, where it was made, can unmake the Ring."
+        },
+        {
+          "id": "q7",
+          "question": "What is Saruman's tower in Isengard called?",
+          "options": [
+            { "id": "a", "text": "Barad-dûr", "is_correct": false },
+            { "id": "b", "text": "Minas Morgul", "is_correct": false },
+            { "id": "c", "text": "Dol Guldur", "is_correct": false },
+            { "id": "d", "text": "Orthanc", "is_correct": true }
+          ],
+          "explanation": "Orthanc is Saruman's tower; Barad-dûr is Sauron's and Minas Morgul is the Witch-king's."
+        },
+        {
+          "id": "q8",
+          "question": "Which kingdom of riders does King Théoden rule?",
+          "options": [
+            { "id": "a", "text": "Gondor", "is_correct": false },
+            { "id": "b", "text": "Rohan", "is_correct": true },
+            { "id": "c", "text": "Arnor", "is_correct": false },
+            { "id": "d", "text": "Dale", "is_correct": false }
+          ],
+          "explanation": "Théoden rules Rohan, the land of the horse-lords, from the golden hall of Meduseld."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-lugares-tierra-media",
+      "title": "Trivia de lugares de la Tierra Media: de la Comarca a Mordor",
+      "description": "De la Comarca al Monte del Destino, pasando por Moria y el Abismo de Helm: ¿cuánto conoces los lugares de la trilogía?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "movies-tv",
+      "tags": ["tierra media", "el señor de los anillos", "tolkien", "cine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué región viven los hobbits?",
+          "options": [
+            { "id": "a", "text": "Bree", "is_correct": false },
+            { "id": "b", "text": "Rohan", "is_correct": false },
+            { "id": "c", "text": "La Comarca", "is_correct": true },
+            { "id": "d", "text": "Valle", "is_correct": false }
+          ],
+          "explanation": "La Comarca es la verde patria de los hobbits; Bree es una aldea de hombres y hobbits más al este."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo se llama el refugio élfico donde se forma la Comunidad?",
+          "options": [
+            { "id": "a", "text": "Rivendel", "is_correct": true },
+            { "id": "b", "text": "Lothlórien", "is_correct": false },
+            { "id": "c", "text": "El Bosque Negro", "is_correct": false },
+            { "id": "d", "text": "Los Puertos Grises", "is_correct": false }
+          ],
+          "explanation": "En el concilio de Elrond, en Rivendel, los nueve caminantes se ofrecen a llevar el Anillo al sur."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué minas enanas cruza la Comunidad bajo las Montañas Nubladas?",
+          "options": [
+            { "id": "a", "text": "Erebor", "is_correct": false },
+            { "id": "b", "text": "Las Colinas de Hierro", "is_correct": false },
+            { "id": "c", "text": "Moria", "is_correct": true },
+            { "id": "d", "text": "Las Montañas Azules", "is_correct": false }
+          ],
+          "explanation": "Moria, la Khazad-dûm de la colonia perdida de Balin, es donde la Comunidad se topa con el Balrog."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué fortaleza defiende el pueblo de Théoden en Las dos torres?",
+          "options": [
+            { "id": "a", "text": "Edoras", "is_correct": false },
+            { "id": "b", "text": "El Abismo de Helm", "is_correct": true },
+            { "id": "c", "text": "Isengard", "is_correct": false },
+            { "id": "d", "text": "Minas Tirith", "is_correct": false }
+          ],
+          "explanation": "Los rohirrim resisten en el Hornburg, en el Abismo de Helm; Edoras es la capital que evacúan."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la capital de Gondor, sitiada en El retorno del Rey?",
+          "options": [
+            { "id": "a", "text": "Osgiliath", "is_correct": false },
+            { "id": "b", "text": "Dol Amroth", "is_correct": false },
+            { "id": "c", "text": "Minas Tirith", "is_correct": true },
+            { "id": "d", "text": "Pelargir", "is_correct": false }
+          ],
+          "explanation": "Minas Tirith, la Ciudad Blanca, aguanta el asedio de Sauron hasta que llegan los rohirrim."
+        },
+        {
+          "id": "q6",
+          "question": "¿Dónde debe destruirse el Anillo Único?",
+          "options": [
+            { "id": "a", "text": "En el río Anduin", "is_correct": false },
+            { "id": "b", "text": "En los fuegos del Monte del Destino", "is_correct": true },
+            { "id": "c", "text": "En la forja de Barad-dûr", "is_correct": false },
+            { "id": "d", "text": "En los Puertos Grises", "is_correct": false }
+          ],
+          "explanation": "Solo los fuegos del Monte del Destino, donde fue forjado, pueden destruir el Anillo."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama la torre de Saruman en Isengard?",
+          "options": [
+            { "id": "a", "text": "Orthanc", "is_correct": true },
+            { "id": "b", "text": "Barad-dûr", "is_correct": false },
+            { "id": "c", "text": "Minas Morgul", "is_correct": false },
+            { "id": "d", "text": "Dol Guldur", "is_correct": false }
+          ],
+          "explanation": "Orthanc es la torre de Saruman; Barad-dûr es la de Sauron y Minas Morgul la del Rey Brujo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué reino de jinetes gobierna el rey Théoden?",
+          "options": [
+            { "id": "a", "text": "Gondor", "is_correct": false },
+            { "id": "b", "text": "Arnor", "is_correct": false },
+            { "id": "c", "text": "Valle", "is_correct": false },
+            { "id": "d", "text": "Rohan", "is_correct": true }
+          ],
+          "explanation": "Théoden gobierna Rohan, la tierra de los señores de los caballos, desde el salón dorado de Meduseld."
+        }
+      ]
+    },
+    {
+      "slug": "en-tolkien-lore-trivia",
+      "title": "Tolkien trivia: rings, races and relics of Middle-earth",
+      "description": "Hobbits, ents, palantíri and mithril: a trivia about the lore of J.R.R. Tolkien's books, not the films.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["tolkien", "middle-earth", "books", "fantasy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote The Lord of the Rings?",
+          "options": [
+            { "id": "a", "text": "C.S. Lewis", "is_correct": false },
+            { "id": "b", "text": "J.R.R. Tolkien", "is_correct": true },
+            { "id": "c", "text": "Ursula K. Le Guin", "is_correct": false },
+            { "id": "d", "text": "George R.R. Martin", "is_correct": false }
+          ],
+          "explanation": "Oxford professor J.R.R. Tolkien published it in 1954-1955; C.S. Lewis was a close friend and fellow Inkling."
+        },
+        {
+          "id": "q2",
+          "question": "How many Rings of Power were given to the race of Men?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Seven", "is_correct": false },
+            { "id": "c", "text": "Nine", "is_correct": true },
+            { "id": "d", "text": "Twenty", "is_correct": false }
+          ],
+          "explanation": "Three for the Elves, seven for the Dwarves and nine for Men, who became the Nazgûl."
+        },
+        {
+          "id": "q3",
+          "question": "Which small, barefoot people live in holes in the Shire?",
+          "options": [
+            { "id": "a", "text": "Dwarves", "is_correct": false },
+            { "id": "b", "text": "Hobbits", "is_correct": true },
+            { "id": "c", "text": "Gnomes", "is_correct": false },
+            { "id": "d", "text": "Goblins", "is_correct": false }
+          ],
+          "explanation": "Hobbits are about half the height of Men, with hairy feet and a love of comfort."
+        },
+        {
+          "id": "q4",
+          "question": "What is the name of the blade that glows blue when orcs are near?",
+          "options": [
+            { "id": "a", "text": "Glamdring", "is_correct": false },
+            { "id": "b", "text": "Orcrist", "is_correct": false },
+            { "id": "c", "text": "Andúril", "is_correct": false },
+            { "id": "d", "text": "Sting", "is_correct": true }
+          ],
+          "explanation": "Sting, found in a troll hoard, passes from Bilbo to Frodo; Glamdring is Gandalf's and Orcrist is Thorin's."
+        },
+        {
+          "id": "q5",
+          "question": "What are the tree-shepherds Merry and Pippin meet in Fangorn called?",
+          "options": [
+            { "id": "a", "text": "Ents", "is_correct": true },
+            { "id": "b", "text": "Trolls", "is_correct": false },
+            { "id": "c", "text": "Wargs", "is_correct": false },
+            { "id": "d", "text": "Giants", "is_correct": false }
+          ],
+          "explanation": "The Ents, led by Treebeard, eventually march on Isengard."
+        },
+        {
+          "id": "q6",
+          "question": "What metal is Frodo's mail shirt made of, light and harder than steel?",
+          "options": [
+            { "id": "a", "text": "Adamant", "is_correct": false },
+            { "id": "b", "text": "Mithril", "is_correct": true },
+            { "id": "c", "text": "Elven steel", "is_correct": false },
+            { "id": "d", "text": "Valyrian steel", "is_correct": false }
+          ],
+          "explanation": "The mithril shirt, a gift from Bilbo, saves Frodo in Moria; Valyrian steel belongs to another saga."
+        },
+        {
+          "id": "q7",
+          "question": "What are the seeing-stones like the one Saruman uses called?",
+          "options": [
+            { "id": "a", "text": "Silmarils", "is_correct": false },
+            { "id": "b", "text": "Palantíri", "is_correct": true },
+            { "id": "c", "text": "Arkenstones", "is_correct": false },
+            { "id": "d", "text": "Phials", "is_correct": false }
+          ],
+          "explanation": "The seven palantíri let their users see afar and speak to each other; Saruman's led him to Sauron."
+        },
+        {
+          "id": "q8",
+          "question": "What is the name of Aragorn's reforged sword, the Flame of the West?",
+          "options": [
+            { "id": "a", "text": "Narsil", "is_correct": false },
+            { "id": "b", "text": "Glamdring", "is_correct": false },
+            { "id": "c", "text": "Andúril", "is_correct": true },
+            { "id": "d", "text": "Gúthwinë", "is_correct": false }
+          ],
+          "explanation": "The shards of Elendil's sword Narsil are reforged into Andúril; Gúthwinë is Théoden's blade."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tolkien",
+      "title": "Trivia de Tolkien: anillos, razas y reliquias de la Tierra Media",
+      "description": "Hobbits, ents, palantíri y mithril: una trivia sobre el mundo de los libros de J.R.R. Tolkien, no sobre las películas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["tolkien", "tierra media", "libros", "fantasía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién escribió El Señor de los Anillos?",
+          "options": [
+            { "id": "a", "text": "J.R.R. Tolkien", "is_correct": true },
+            { "id": "b", "text": "C.S. Lewis", "is_correct": false },
+            { "id": "c", "text": "Ursula K. Le Guin", "is_correct": false },
+            { "id": "d", "text": "George R.R. Martin", "is_correct": false }
+          ],
+          "explanation": "El profesor de Oxford J.R.R. Tolkien lo publicó en 1954-1955; C.S. Lewis era un amigo cercano."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos Anillos de Poder recibieron los hombres?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Nueve", "is_correct": true },
+            { "id": "c", "text": "Siete", "is_correct": false },
+            { "id": "d", "text": "Veinte", "is_correct": false }
+          ],
+          "explanation": "Tres para los elfos, siete para los enanos y nueve para los hombres, que se convirtieron en los Nazgûl."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué pueblo de pies velludos vive en agujeros de la Comarca?",
+          "options": [
+            { "id": "a", "text": "Los enanos", "is_correct": false },
+            { "id": "b", "text": "Los gnomos", "is_correct": false },
+            { "id": "c", "text": "Los hobbits", "is_correct": true },
+            { "id": "d", "text": "Los trasgos", "is_correct": false }
+          ],
+          "explanation": "Los hobbits miden la mitad que un hombre, tienen los pies velludos y aman la comodidad."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama la hoja que brilla en azul cuando hay orcos cerca?",
+          "options": [
+            { "id": "a", "text": "Glamdring", "is_correct": false },
+            { "id": "b", "text": "Orcrist", "is_correct": false },
+            { "id": "c", "text": "Dardo", "is_correct": true },
+            { "id": "d", "text": "Andúril", "is_correct": false }
+          ],
+          "explanation": "Dardo, hallada en un tesoro de trolls, pasa de Bilbo a Frodo; Glamdring es de Gandalf y Orcrist de Thorin."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llaman los pastores de árboles que conocen Merry y Pippin en Fangorn?",
+          "options": [
+            { "id": "a", "text": "Los ents", "is_correct": true },
+            { "id": "b", "text": "Los trolls", "is_correct": false },
+            { "id": "c", "text": "Los huargos", "is_correct": false },
+            { "id": "d", "text": "Los gigantes", "is_correct": false }
+          ],
+          "explanation": "Los ents, liderados por Bárbol, acaban marchando sobre Isengard."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué metal es la cota de malla de Frodo, ligera y más dura que el acero?",
+          "options": [
+            { "id": "a", "text": "Adamant", "is_correct": false },
+            { "id": "b", "text": "Acero valyrio", "is_correct": false },
+            { "id": "c", "text": "Mithril", "is_correct": true },
+            { "id": "d", "text": "Plata élfica", "is_correct": false }
+          ],
+          "explanation": "La cota de mithril, regalo de Bilbo, salva a Frodo en Moria; el acero valyrio es de otra saga."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llaman las piedras videntes, como la que usa Saruman?",
+          "options": [
+            { "id": "a", "text": "Los silmarils", "is_correct": false },
+            { "id": "b", "text": "Las piedras del arca", "is_correct": false },
+            { "id": "c", "text": "Los frascos élficos", "is_correct": false },
+            { "id": "d", "text": "Los palantíri", "is_correct": true }
+          ],
+          "explanation": "Los siete palantíri permiten ver a distancia y hablar entre sí; el de Saruman lo llevó hasta Sauron."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama la espada reforjada de Aragorn, la Llama del Oeste?",
+          "options": [
+            { "id": "a", "text": "Narsil", "is_correct": false },
+            { "id": "b", "text": "Glamdring", "is_correct": false },
+            { "id": "c", "text": "Gúthwinë", "is_correct": false },
+            { "id": "d", "text": "Andúril", "is_correct": true }
+          ],
+          "explanation": "Las esquirlas de Narsil, la espada de Elendil, se reforjan en Andúril; Gúthwinë es la hoja de Théoden."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-hobbit-book-trivia",
+      "title": "The Hobbit trivia: Bilbo's journey to the Lonely Mountain",
+      "description": "Bilbo, thirteen dwarves, one dragon and a very precious ring: how much do you remember of Tolkien's The Hobbit?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["the hobbit", "tolkien", "books", "fantasy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which hobbit does Thorin's company hire as its burglar?",
+          "options": [
+            { "id": "a", "text": "Frodo Baggins", "is_correct": false },
+            { "id": "b", "text": "Bilbo Baggins", "is_correct": true },
+            { "id": "c", "text": "Bungo Baggins", "is_correct": false },
+            { "id": "d", "text": "Drogo Baggins", "is_correct": false }
+          ],
+          "explanation": "Bilbo is Frodo's uncle and guardian; Bungo is his father and Drogo is Frodo's father."
+        },
+        {
+          "id": "q2",
+          "question": "How many dwarves travel with Thorin to the Lonely Mountain?",
+          "options": [
+            { "id": "a", "text": "Seven", "is_correct": false },
+            { "id": "b", "text": "Twelve", "is_correct": false },
+            { "id": "c", "text": "Thirteen", "is_correct": true },
+            { "id": "d", "text": "Fifteen", "is_correct": false }
+          ],
+          "explanation": "Thirteen dwarves plus Bilbo, the lucky fourteenth member of the company."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of the dragon sleeping on the treasure?",
+          "options": [
+            { "id": "a", "text": "Glaurung", "is_correct": false },
+            { "id": "b", "text": "Smaug", "is_correct": true },
+            { "id": "c", "text": "Ancalagon", "is_correct": false },
+            { "id": "d", "text": "Scatha", "is_correct": false }
+          ],
+          "explanation": "Smaug the Golden drove the dwarves out of Erebor; Glaurung, Ancalagon and Scatha are other dragons of the legendarium."
+        },
+        {
+          "id": "q4",
+          "question": "In the caves under the Misty Mountains, who does Bilbo beat at a riddle contest?",
+          "options": [
+            { "id": "a", "text": "Gollum", "is_correct": true },
+            { "id": "b", "text": "The Great Goblin", "is_correct": false },
+            { "id": "c", "text": "A cave troll", "is_correct": false },
+            { "id": "d", "text": "Tom Bombadil", "is_correct": false }
+          ],
+          "explanation": "Bilbo wins with 'What have I got in my pocket?' — which Gollum never accepts as a fair riddle."
+        },
+        {
+          "id": "q5",
+          "question": "What does Bilbo find that makes him invisible?",
+          "options": [
+            { "id": "a", "text": "An elven cloak", "is_correct": false },
+            { "id": "b", "text": "A magic ring", "is_correct": true },
+            { "id": "c", "text": "A dwarf-made hood", "is_correct": false },
+            { "id": "d", "text": "Galadriel's phial", "is_correct": false }
+          ],
+          "explanation": "He picks up the ring Gollum lost; only decades later is it revealed as the One Ring."
+        },
+        {
+          "id": "q6",
+          "question": "In which year was The Hobbit first published?",
+          "options": [
+            { "id": "a", "text": "1927", "is_correct": false },
+            { "id": "b", "text": "1937", "is_correct": true },
+            { "id": "c", "text": "1949", "is_correct": false },
+            { "id": "d", "text": "1954", "is_correct": false }
+          ],
+          "explanation": "It came out in September 1937; The Lord of the Rings followed in 1954-1955."
+        },
+        {
+          "id": "q7",
+          "question": "What is the white gem Thorin seeks above all else?",
+          "options": [
+            { "id": "a", "text": "A silmaril", "is_correct": false },
+            { "id": "b", "text": "A palantír", "is_correct": false },
+            { "id": "c", "text": "The Arkenstone", "is_correct": true },
+            { "id": "d", "text": "The Evenstar", "is_correct": false }
+          ],
+          "explanation": "The Arkenstone, the Heart of the Mountain, is the heirloom Thorin covets; Bilbo secretly pockets it."
+        },
+        {
+          "id": "q8",
+          "question": "What is the final battle of The Hobbit called?",
+          "options": [
+            { "id": "a", "text": "The Battle of the Five Armies", "is_correct": true },
+            { "id": "b", "text": "The Battle of Dale", "is_correct": false },
+            { "id": "c", "text": "The Battle of the Misty Mountains", "is_correct": false },
+            { "id": "d", "text": "The Battle Under the Trees", "is_correct": false }
+          ],
+          "explanation": "Men, elves and dwarves face goblins and wargs at the Battle of the Five Armies."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-el-hobbit",
+      "title": "Trivia de El Hobbit: el viaje de Bilbo a la Montaña Solitaria",
+      "description": "Bilbo, trece enanos, un dragón y un anillo muy preciado: ¿cuánto recuerdas de El Hobbit de Tolkien?",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["el hobbit", "tolkien", "libros", "fantasía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿A qué hobbit contrata la compañía de Thorin como saqueador?",
+          "options": [
+            { "id": "a", "text": "Frodo Bolsón", "is_correct": false },
+            { "id": "b", "text": "Bilbo Bolsón", "is_correct": true },
+            { "id": "c", "text": "Bungo Bolsón", "is_correct": false },
+            { "id": "d", "text": "Drogo Bolsón", "is_correct": false }
+          ],
+          "explanation": "Bilbo es el tío y tutor de Frodo; Bungo es su padre y Drogo es el padre de Frodo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos enanos viajan con Thorin a la Montaña Solitaria?",
+          "options": [
+            { "id": "a", "text": "Siete", "is_correct": false },
+            { "id": "b", "text": "Doce", "is_correct": false },
+            { "id": "c", "text": "Quince", "is_correct": false },
+            { "id": "d", "text": "Trece", "is_correct": true }
+          ],
+          "explanation": "Trece enanos más Bilbo, el afortunado decimocuarto miembro de la compañía."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el dragón que duerme sobre el tesoro?",
+          "options": [
+            { "id": "a", "text": "Glaurung", "is_correct": false },
+            { "id": "b", "text": "Ancalagon", "is_correct": false },
+            { "id": "c", "text": "Smaug", "is_correct": true },
+            { "id": "d", "text": "Scatha", "is_correct": false }
+          ],
+          "explanation": "Smaug el Dorado expulsó a los enanos de Erebor; Glaurung, Ancalagon y Scatha son otros dragones del legendarium."
+        },
+        {
+          "id": "q4",
+          "question": "¿A quién vence Bilbo en un concurso de acertijos bajo las Montañas Nubladas?",
+          "options": [
+            { "id": "a", "text": "Gollum", "is_correct": true },
+            { "id": "b", "text": "Al Gran Trasgo", "is_correct": false },
+            { "id": "c", "text": "A un trol de las cavernas", "is_correct": false },
+            { "id": "d", "text": "A Tom Bombadil", "is_correct": false }
+          ],
+          "explanation": "Bilbo gana con «¿qué tengo en el bolsillo?», que Gollum nunca acepta como acertijo justo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué encuentra Bilbo que lo vuelve invisible?",
+          "options": [
+            { "id": "a", "text": "Una capa élfica", "is_correct": false },
+            { "id": "b", "text": "Un anillo mágico", "is_correct": true },
+            { "id": "c", "text": "Una capucha enana", "is_correct": false },
+            { "id": "d", "text": "El frasco de Galadriel", "is_correct": false }
+          ],
+          "explanation": "Recoge el anillo que Gollum perdió; solo décadas después se revela como el Anillo Único."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año se publicó El Hobbit por primera vez?",
+          "options": [
+            { "id": "a", "text": "1927", "is_correct": false },
+            { "id": "b", "text": "1949", "is_correct": false },
+            { "id": "c", "text": "1937", "is_correct": true },
+            { "id": "d", "text": "1954", "is_correct": false }
+          ],
+          "explanation": "Salió en septiembre de 1937; El Señor de los Anillos llegó en 1954-1955."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama la gema blanca que Thorin busca por encima de todo?",
+          "options": [
+            { "id": "a", "text": "Un silmaril", "is_correct": false },
+            { "id": "b", "text": "La Piedra del Arca", "is_correct": true },
+            { "id": "c", "text": "Un palantír", "is_correct": false },
+            { "id": "d", "text": "La Estrella Vespertina", "is_correct": false }
+          ],
+          "explanation": "La Piedra del Arca, el Corazón de la Montaña, es la reliquia que Thorin codicia; Bilbo la guarda en secreto."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se llama la batalla final de El Hobbit?",
+          "options": [
+            { "id": "a", "text": "La Batalla de Valle", "is_correct": false },
+            { "id": "b", "text": "La Batalla de los Cinco Ejércitos", "is_correct": true },
+            { "id": "c", "text": "La Batalla de las Montañas Nubladas", "is_correct": false },
+            { "id": "d", "text": "La Batalla Bajo los Árboles", "is_correct": false }
+          ],
+          "explanation": "Hombres, elfos y enanos se enfrentan a trasgos y huargos en la Batalla de los Cinco Ejércitos."
+        }
+      ]
+    }
+  ]
+}
