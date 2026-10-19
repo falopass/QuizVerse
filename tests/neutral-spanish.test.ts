@@ -15,8 +15,9 @@ const SEED_PATHS = [
 // Same marker list used to flag the catalogue: corrected prose must stay clean.
 // Character-class boundaries instead of \b (which treats accented letters as
 // non-word): "Poné a prueba" matches, "mostrándoles" or "nuevos" do not.
+// "estás"/"elegí" se excluyen igual que en el emisor: son español neutro válido.
 const VOSEO_RE =
-  /(?<![a-záéíóúñü])(poné|sos|tenés|querés|elegí|mirá|sabés|podés|debés|usás|vivís|jugás|sentís|decís|vení|hacé|andá|creés|pensás|estás|vos)(?![a-záéíóúñü])/i;
+  /(?<![a-záéíóúñü])(poné|sos|tenés|querés|mirá|sabés|podés|debés|usás|vivís|jugás|sentís|decís|vení|hacé|andá|creés|pensás|vos)(?![a-záéíóúñü])/i;
 
 interface Option {
   id?: string;
@@ -181,5 +182,39 @@ describe('neutral-spanish overrides', () => {
     expect(status).toBe(1);
     expect(stderr).toContain('duplicate slugs');
     expect(stderr).toContain('es-trivia-fan-de-hacks');
+  });
+
+  it('emite texto con «tú estás» / «yo elegí», español neutro válido', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'neutral-spanish-'));
+    const fixture = join(dir, 'overrides.json');
+    writeFileSync(
+      fixture,
+      JSON.stringify({
+        'es-trivia-fan-de-hacks': {
+          description:
+            'Cuando tú estás frente a la pantalla y yo elegí otro capítulo, ¿quién manda?',
+        },
+      })
+    );
+    const { status, stdout, stderr } = runEmitter(['--input', fixture]);
+    expect(stderr).toBe('');
+    expect(status).toBe(0);
+    expect(stdout).toContain("where slug = 'es-trivia-fan-de-hacks'");
+  });
+
+  it('sigue rechazando voseo real como «tenés que»', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'neutral-spanish-'));
+    const fixture = join(dir, 'overrides.json');
+    writeFileSync(
+      fixture,
+      JSON.stringify({
+        'es-trivia-fan-de-hacks': {
+          description: 'Tenés que ver esta serie para entender cada referencia.',
+        },
+      })
+    );
+    const { status, stderr } = runEmitter(['--input', fixture]);
+    expect(status).toBe(1);
+    expect(stderr).toContain('voseo regex');
   });
 });
