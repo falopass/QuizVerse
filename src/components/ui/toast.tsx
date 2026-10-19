@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
@@ -53,7 +54,15 @@ function ToastIcon({ type }: { type: Toast['type'] }) {
   }
 }
 
-function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => void }) {
+function ToastItem({
+  toast,
+  onClose,
+  closeLabel,
+}: {
+  toast: Toast;
+  onClose: (id: string) => void;
+  closeLabel: string;
+}) {
   return (
     <motion.div
       layout
@@ -77,9 +86,16 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
       </div>
       <button
         onClick={() => onClose(toast.id)}
+        aria-label={closeLabel}
         className="text-text-muted hover:text-text-primary flex-shrink-0 transition-colors"
       >
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className="h-4 w-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -115,12 +131,19 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: string) => 
 
 export function ToastViewport() {
   const { toasts, removeToast } = useToast();
+  const pathname = usePathname();
+  const es = pathname === '/es' || pathname?.startsWith('/es/');
+  const closeLabel = es ? 'Cerrar aviso' : 'Dismiss notification';
 
   return (
-    <div className="fixed top-4 right-4 z-50 flex flex-col gap-2">
+    <div
+      className="fixed top-4 right-4 z-50 flex flex-col gap-2"
+      aria-live="polite"
+      aria-atomic="false"
+    >
       <AnimatePresence>
         {toasts.map((toast) => (
-          <ToastItem key={toast.id} toast={toast} onClose={removeToast} />
+          <ToastItem key={toast.id} toast={toast} onClose={removeToast} closeLabel={closeLabel} />
         ))}
       </AnimatePresence>
     </div>
