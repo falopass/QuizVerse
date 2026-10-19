@@ -658,7 +658,11 @@
             { "id": "a", "text": "'Moon Prism Power, Make Up!'", "is_correct": true },
             { "id": "b", "text": "'Moon Healing Escalation!'", "is_correct": false },
             { "id": "c", "text": "'Moon Tiara Action!'", "is_correct": false },
-            { "id": "d", "text": "'In the name of the Moon, I will punish you!'", "is_correct": false }
+            {
+              "id": "d",
+              "text": "'In the name of the Moon, I will punish you!'",
+              "is_correct": false
+            }
           ],
           "explanation": "'Moon Prism Power, Make Up!' transforms her; the other three are attacks and her catchphrase."
         },
