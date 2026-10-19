@@ -17,5 +17,7 @@ export async function GET(request: Request) {
   if (!source) return NextResponse.json({ href: `/${to}` });
   const equivalentSlug = getEquivalentQuizSlug(slug, to);
   const counterpart = equivalentSlug ? await getQuizBySlug(equivalentSlug, to) : null;
-  return NextResponse.json({ href: counterpart ? `/${to}/quiz/${counterpart.slug}` : `/${to}` });
+  if (counterpart) return NextResponse.json({ href: `/${to}/quiz/${counterpart.slug}` });
+  const categorySlug = source.category?.slug;
+  return NextResponse.json({ href: categorySlug ? `/${to}/category/${categorySlug}` : `/${to}` });
 }
