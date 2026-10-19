@@ -66,6 +66,11 @@ export function quizOgImage(locale: string, slug: string): string {
   return `${SITE_URL}/${locale}/quiz/${encodeURIComponent(slug)}/opengraph-image`;
 }
 
+/** Per-category dynamic OG image route (app/[locale]/category/[slug]/opengraph-image.tsx). */
+export function categoryOgImage(locale: string, slug: string): string {
+  return `${SITE_URL}/${locale}/category/${encodeURIComponent(slug)}/opengraph-image`;
+}
+
 /**
  * Per-result dynamic OG card (app/api/og/result/[locale]/[slug]).
  *

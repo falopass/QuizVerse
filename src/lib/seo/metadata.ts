@@ -169,6 +169,7 @@ export interface GenerateCategoryMetadataOptions {
   name: string;
   slug: string;
   description?: string | null;
+  image?: string;
   locale?: Locale;
   quizCount?: number;
 }
@@ -177,6 +178,7 @@ export function generateCategoryMetadata({
   name,
   slug,
   description,
+  image,
   locale = 'en',
   quizCount,
 }: GenerateCategoryMetadataOptions): Metadata {
@@ -195,6 +197,7 @@ export function generateCategoryMetadata({
     // Type hubs (personality/trivia) and categories both exist in EN and ES.
     alternatePath: localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`),
     locale,
+    image,
   });
 }
 
