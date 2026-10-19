@@ -42,7 +42,22 @@ describe('emit-title-overrides-4', () => {
     const { status, stdout } = runEmitter();
     expect(status).toBe(0);
     expect(stdout.match(/UPDATE public\.quizzes/g)).toHaveLength(98);
+    // stdout stays pure SQL so it can be piped into psql; the summary goes to stderr.
+    expect(stdout).not.toContain('Validated');
+  });
+
+  it('imprime el resumen de validación con --check', () => {
+    const { status, stdout } = runEmitter(['--check']);
+    expect(status).toBe(0);
     expect(stdout).toContain('Validated: 98 title overrides');
+  });
+
+  it('condiciona cada UPDATE al título viejo del molde', () => {
+    const { status, stdout } = runEmitter();
+    expect(status).toBe(0);
+    expect(stdout).toContain(
+      "WHERE slug = 'en-what-role-would-you-play-inside-the-boys' AND title = 'What role would you play inside The Boys?'"
+    );
   });
 
   it('falla con un título de menos de 30 caracteres', () => {
