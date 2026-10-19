@@ -76,6 +76,7 @@ vi.mock('@/lib/data/launch-catalog', () => ({
       title: 'Launch A',
       language: 'en',
       plays_count: 10,
+      is_featured: true,
       category: { id: 'cat-launch', slug: 'culture' },
     },
     {
@@ -84,6 +85,7 @@ vi.mock('@/lib/data/launch-catalog', () => ({
       title: 'Launch B',
       language: 'en',
       plays_count: 5,
+      is_featured: false,
       category: { id: 'cat-launch', slug: 'culture' },
     },
     {
@@ -92,6 +94,7 @@ vi.mock('@/lib/data/launch-catalog', () => ({
       title: 'Launch C',
       language: 'es',
       plays_count: 7,
+      is_featured: true,
       category: { id: 'cat-launch', slug: 'culture' },
     },
   ],
@@ -109,6 +112,7 @@ vi.mock('@/lib/data/normalizers', () => ({
 
 import {
   categoryHasQuizzes,
+  getFeaturedQuizzes,
   getHomePayload,
   getProfileByUsername,
   getPublicCategories,
@@ -219,6 +223,30 @@ describe('getPublishedQuizzes', () => {
   });
 });
 
+describe('getFeaturedQuizzes', () => {
+  it('queries published featured rows with the locale filter', async () => {
+    db.handler = (table, _select, filters) => {
+      if (table === 'categories') return { data: [catRow], error: null };
+      if (filters.includes('eq:is_featured=true')) {
+        return { data: [quizRow({ is_featured: true })], error: null };
+      }
+      return { data: [], error: null };
+    };
+
+    const quizzes = await getFeaturedQuizzes(4, 'es');
+    expect(quizzes).toHaveLength(1);
+    expect(db.calls).toContain(
+      'quizzes(*) eq:status=published eq:is_featured=true eq:language=es'
+    );
+  });
+
+  it('falls back to featured launch quizzes filtered by locale on error', async () => {
+    db.handler = () => ({ data: null, error: { message: 'boom' } });
+    const quizzes = await getFeaturedQuizzes(4, 'en');
+    expect(quizzes.map((quiz) => quiz.slug)).toEqual(['launch-a']);
+  });
+});
+
 describe('getHomePayload', () => {
   it('slices sections and reads totals from the db', async () => {
     db.handler = (table, select) => {
@@ -239,6 +267,30 @@ describe('getHomePayload', () => {
     expect(payload.freshlyPublished[0].created_at).toBe('2026-01-08T00:00:00Z');
     expect(payload.totalQuizzes).toBe(42);
     expect(payload.totalPlays).toBe(50);
+  });
+
+  it('surfaces featured quizzes that fall outside the top-24 window', async () => {
+    const topRows = Array.from({ length: 24 }, (_, i) =>
+      quizRow({ id: `q-${i}`, slug: `quiz-${i}`, plays_count: 500 - i })
+    );
+    const featuredRow = quizRow({
+      id: 'q-featured',
+      slug: 'featured-outside-top24',
+      is_featured: true,
+      plays_count: 1,
+    });
+    db.handler = (table, select, filters) => {
+      if (table === 'categories') return { data: [catRow], error: null };
+      if (select === 'plays_count') return { data: [], error: null, count: 0 };
+      if (filters.includes('eq:is_featured=true')) {
+        return { data: [featuredRow], error: null };
+      }
+      return { data: topRows, error: null };
+    };
+
+    const payload = await getHomePayload('en');
+    expect(payload.featured.map((quiz) => quiz.slug)).toEqual(['featured-outside-top24']);
+    expect(payload.trending.some((quiz) => quiz.slug === 'featured-outside-top24')).toBe(false);
   });
 
   it('computes totals from the launch catalog when the totals query fails', async () => {
