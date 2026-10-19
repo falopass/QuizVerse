@@ -24,6 +24,28 @@ const IS_PREVIEW_DEPLOY = process.env.VERCEL_ENV
   ? process.env.VERCEL_ENV !== 'production'
   : process.env.NODE_ENV === 'development';
 
+/**
+ * Un build de Vercel produce un artefacto desplegable: nunca puede salir con
+ * placeholders de Supabase congelados en el bundle del navegador. Si faltan
+ * las envs, el build (y por tanto el deploy) falla aquí, antes de empaquetar.
+ * GitHub Actions y las máquinas de desarrollo no definen `VERCEL`, así que sus
+ * builds de verificación siguen pasando sin variables.
+ */
+if (process.env.VERCEL) {
+  const missingSupabaseEnv = [
+    ...(!process.env.NEXT_PUBLIC_SUPABASE_URL ? ['NEXT_PUBLIC_SUPABASE_URL'] : []),
+    ...(!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY &&
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      ? ['NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY']
+      : []),
+  ];
+  if (missingSupabaseEnv.length > 0) {
+    throw new Error(
+      `Missing required Supabase environment variables: ${missingSupabaseEnv.join(', ')}`
+    );
+  }
+}
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
