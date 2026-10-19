@@ -236,39 +236,6 @@ export interface UserAchievement {
 // API REQUEST/RESPONSE TYPES
 // ============================================
 
-export interface GenerateQuizRequest {
-  topic: string;
-  quiz_type: QuizType;
-  difficulty: Difficulty;
-  num_questions: number;
-  language: string;
-}
-
-export interface GenerateQuizResponse {
-  quiz: Omit<Quiz, 'id' | 'created_at' | 'updated_at'>;
-  success: boolean;
-  error?: string;
-}
-
-export interface SearchQuizzesResponse {
-  quizzes: Quiz[];
-  total: number;
-  has_more: boolean;
-}
-
-export interface SubmitSessionRequest {
-  quiz_id: string;
-  answers: Answer[];
-  time_taken_seconds: number;
-}
-
-export interface SubmitSessionResponse {
-  session: GameSession;
-  result: PersonalityResult | null;
-  points_earned: number;
-  achievements_unlocked: Achievement[];
-}
-
 export interface QuizSessionResult {
   id: string;
   quiz_id: string;
