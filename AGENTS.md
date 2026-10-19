@@ -260,12 +260,13 @@ regenerarla, o las peticiones devuelven 403.
 
 Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 
-## Catalog Stats (≥ 524; audit DB 2026-10-18 + lotes posteriores)
+## Catalog Stats (≥ 524; audit DB 2026-10-18; lotes pendientes de importar aparte)
 
-- ≥ 524 quizzes published: el último audit contra la DB
+- 524 quizzes published confirmados: el último audit contra la DB
   (`generated/audit/content-audit.json`, 2026-10-18) contó 524 quizzes y 4192
-  preguntas (262 en, 262 es; 246 trivia, 278 personality), y desde entonces se
-  mergearon lotes editoriales nuevos.
+  preguntas (262 en, 262 es; 246 trivia, 278 personality). Desde entonces se
+  mergearon lotes nuevos, pero **mergeado ≠ publicado**: importar el SQL es
+  decisión del dueño, así que el total real es 524 + lo que ya se haya aplicado.
 - Los seeds editoriales versionados suman 314 quizzes
   (`grep -c 'insert into public.quizzes' supabase/seed/*.sql`: 157 en + 157 es;
   284 trivia + 30 personality, según `scripts/seed/editorial-seed*.json`).

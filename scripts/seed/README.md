@@ -82,8 +82,8 @@ The emitter refuses to emit when:
   (`en-` / `es-`),
 - the title is shorter than 10 chars or the description shorter than 40,
 - the category or language is not in the allowed sets,
-- a quiz has fewer than 5 questions, or a question fewer than 2 options or
-  duplicated option ids,
+- a quiz has fewer than 5 questions, a question has no text, fewer than
+  2 options or duplicated option ids,
 - a trivia question does not have exactly one correct option.
 
 ## 3. Quality gate: `audit-content.mjs`
