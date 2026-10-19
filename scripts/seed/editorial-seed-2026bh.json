@@ -497,7 +497,11 @@
           "id": "q8",
           "question": "In poker, what is the 'kicker'?",
           "options": [
-            { "id": "a", "text": "The card that breaks ties between identical hands", "is_correct": true },
+            {
+              "id": "a",
+              "text": "The card that breaks ties between identical hands",
+              "is_correct": true
+            },
             { "id": "b", "text": "The first community card dealt", "is_correct": false },
             { "id": "c", "text": "The card discarded before the flop", "is_correct": false },
             { "id": "d", "text": "The player who opens the betting", "is_correct": false }
@@ -599,7 +603,11 @@
           "question": "En el póker, ¿qué es el 'kicker'?",
           "options": [
             { "id": "a", "text": "La carta que desempata entre manos iguales", "is_correct": true },
-            { "id": "b", "text": "La primera carta comunitaria que se reparte", "is_correct": false },
+            {
+              "id": "b",
+              "text": "La primera carta comunitaria que se reparte",
+              "is_correct": false
+            },
             { "id": "c", "text": "La carta que se descarta antes del flop", "is_correct": false },
             { "id": "d", "text": "El jugador que abre las apuestas", "is_correct": false }
           ],
