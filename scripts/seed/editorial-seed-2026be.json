@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial seed 2026be: five es/en trivia pairs on the human body and health (digestion, heart, bones, brain, immune system). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-human-digestive-system-trivia",
+      "title": "Human Digestive System Trivia: From Mouth to Gut",
+      "description": "Eight questions on how your body digests food: the organs, enzymes and the journey from the first bite to nutrient absorption.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "digestion", "anatomy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which organ produces the bile that helps digest fats?",
+          "options": [
+            { "id": "a", "text": "The pancreas", "is_correct": false },
+            { "id": "b", "text": "The liver", "is_correct": true },
+            { "id": "c", "text": "The gallbladder", "is_correct": false },
+            { "id": "d", "text": "The stomach", "is_correct": false }
+          ],
+          "explanation": "The liver produces bile continuously; the gallbladder only stores and concentrates it."
+        },
+        {
+          "id": "q2",
+          "question": "Where does most nutrient absorption take place?",
+          "options": [
+            { "id": "a", "text": "The stomach", "is_correct": false },
+            { "id": "b", "text": "The large intestine", "is_correct": false },
+            { "id": "c", "text": "The small intestine", "is_correct": true },
+            { "id": "d", "text": "The esophagus", "is_correct": false }
+          ],
+          "explanation": "The small intestine's villi and microvilli give it a huge surface area to absorb nutrients."
+        },
+        {
+          "id": "q3",
+          "question": "About how long is an adult's small intestine?",
+          "options": [
+            { "id": "a", "text": "About 1 metre", "is_correct": false },
+            { "id": "b", "text": "About 3 metres", "is_correct": false },
+            { "id": "c", "text": "About 6 metres", "is_correct": true },
+            { "id": "d", "text": "About 12 metres", "is_correct": false }
+          ],
+          "explanation": "Despite its name, the small intestine measures roughly 6 metres, far longer than the 1.5-metre large intestine."
+        },
+        {
+          "id": "q4",
+          "question": "Which enzyme in saliva begins breaking down starch?",
+          "options": [
+            { "id": "a", "text": "Amylase", "is_correct": true },
+            { "id": "b", "text": "Pepsin", "is_correct": false },
+            { "id": "c", "text": "Lipase", "is_correct": false },
+            { "id": "d", "text": "Trypsin", "is_correct": false }
+          ],
+          "explanation": "Salivary amylase starts digesting starch in the mouth, before food even reaches the stomach."
+        },
+        {
+          "id": "q5",
+          "question": "What does the large intestine mainly absorb?",
+          "options": [
+            { "id": "a", "text": "Proteins", "is_correct": false },
+            { "id": "b", "text": "Water and electrolytes", "is_correct": true },
+            { "id": "c", "text": "Sugars", "is_correct": false },
+            { "id": "d", "text": "Fats", "is_correct": false }
+          ],
+          "explanation": "The colon absorbs water and salts from the leftover material, turning it into solid waste."
+        },
+        {
+          "id": "q6",
+          "question": "What is the wave-like muscle movement that pushes food through the digestive tract?",
+          "options": [
+            { "id": "a", "text": "Segmentation", "is_correct": false },
+            { "id": "b", "text": "Osmosis", "is_correct": false },
+            { "id": "c", "text": "Reflux", "is_correct": false },
+            { "id": "d", "text": "Peristalsis", "is_correct": true }
+          ],
+          "explanation": "Peristalsis is the coordinated contraction of the tract's muscles that moves food along."
+        },
+        {
+          "id": "q7",
+          "question": "Where does protein digestion begin, driven by the enzyme pepsin?",
+          "options": [
+            { "id": "a", "text": "The mouth", "is_correct": false },
+            { "id": "b", "text": "The stomach", "is_correct": true },
+            { "id": "c", "text": "The small intestine", "is_correct": false },
+            { "id": "d", "text": "The large intestine", "is_correct": false }
+          ],
+          "explanation": "Pepsin and hydrochloric acid start breaking proteins down in the stomach."
+        },
+        {
+          "id": "q8",
+          "question": "Which organ stores bile until it is needed for digestion?",
+          "options": [
+            { "id": "a", "text": "The gallbladder", "is_correct": true },
+            { "id": "b", "text": "The liver", "is_correct": false },
+            { "id": "c", "text": "The appendix", "is_correct": false },
+            { "id": "d", "text": "The spleen", "is_correct": false }
+          ],
+          "explanation": "The gallbladder concentrates bile and releases it into the small intestine after fatty meals."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sistema-digestivo",
+      "title": "Trivia del sistema digestivo: de la boca al intestino",
+      "description": "Ocho preguntas sobre cómo digiere tu cuerpo: los órganos, las enzimas y el recorrido de los alimentos hasta su absorción.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "digestión", "anatomía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué órgano produce la bilis que ayuda a digerir las grasas?",
+          "options": [
+            { "id": "a", "text": "El páncreas", "is_correct": false },
+            { "id": "b", "text": "El hígado", "is_correct": true },
+            { "id": "c", "text": "La vesícula biliar", "is_correct": false },
+            { "id": "d", "text": "El estómago", "is_correct": false }
+          ],
+          "explanation": "El hígado produce bilis de forma continua; la vesícula biliar solo la almacena y la concentra."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde se absorbe la mayoría de los nutrientes?",
+          "options": [
+            { "id": "a", "text": "El estómago", "is_correct": false },
+            { "id": "b", "text": "El intestino grueso", "is_correct": false },
+            { "id": "c", "text": "El intestino delgado", "is_correct": true },
+            { "id": "d", "text": "El esófago", "is_correct": false }
+          ],
+          "explanation": "Las vellosidades del intestino delgado le dan una superficie enorme para absorber nutrientes."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuánto mide aproximadamente el intestino delgado de un adulto?",
+          "options": [
+            { "id": "a", "text": "Aproximadamente 1 metro", "is_correct": false },
+            { "id": "b", "text": "Aproximadamente 3 metros", "is_correct": false },
+            { "id": "c", "text": "Aproximadamente 6 metros", "is_correct": true },
+            { "id": "d", "text": "Aproximadamente 12 metros", "is_correct": false }
+          ],
+          "explanation": "A pesar de su nombre, el intestino delgado mide unos 6 metros, mucho más que el grueso, que ronda 1,5 metros."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué enzima de la saliva empieza a descomponer el almidón?",
+          "options": [
+            { "id": "a", "text": "La amilasa", "is_correct": true },
+            { "id": "b", "text": "La pepsina", "is_correct": false },
+            { "id": "c", "text": "La lipasa", "is_correct": false },
+            { "id": "d", "text": "La tripsina", "is_correct": false }
+          ],
+          "explanation": "La amilasa salival comienza a digerir el almidón en la boca, antes de que la comida llegue al estómago."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué absorbe principalmente el intestino grueso?",
+          "options": [
+            { "id": "a", "text": "Proteínas", "is_correct": false },
+            { "id": "b", "text": "Agua y electrolitos", "is_correct": true },
+            { "id": "c", "text": "Azúcares", "is_correct": false },
+            { "id": "d", "text": "Grasas", "is_correct": false }
+          ],
+          "explanation": "El colon absorbe agua y sales del material restante y lo convierte en residuos sólidos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cómo se llama el movimiento muscular en forma de ola que empuja los alimentos por el tracto digestivo?",
+          "options": [
+            { "id": "a", "text": "La segmentación", "is_correct": false },
+            { "id": "b", "text": "La ósmosis", "is_correct": false },
+            { "id": "c", "text": "El reflujo", "is_correct": false },
+            { "id": "d", "text": "La peristalsis", "is_correct": true }
+          ],
+          "explanation": "La peristalsis es la contracción coordinada de los músculos del tracto que hace avanzar los alimentos."
+        },
+        {
+          "id": "q7",
+          "question": "¿Dónde comienza la digestión de las proteínas, impulsada por la enzima pepsina?",
+          "options": [
+            { "id": "a", "text": "La boca", "is_correct": false },
+            { "id": "b", "text": "El estómago", "is_correct": true },
+            { "id": "c", "text": "El intestino delgado", "is_correct": false },
+            { "id": "d", "text": "El intestino grueso", "is_correct": false }
+          ],
+          "explanation": "La pepsina y el ácido clorhídrico empiezan a descomponer las proteínas en el estómago."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué órgano almacena la bilis hasta que se necesita para la digestión?",
+          "options": [
+            { "id": "a", "text": "La vesícula biliar", "is_correct": true },
+            { "id": "b", "text": "El hígado", "is_correct": false },
+            { "id": "c", "text": "El apéndice", "is_correct": false },
+            { "id": "d", "text": "El bazo", "is_correct": false }
+          ],
+          "explanation": "La vesícula biliar concentra la bilis y la libera en el intestino delgado tras las comidas grasas."
+        }
+      ]
+    },
+    {
+      "slug": "en-heart-and-circulation-trivia",
+      "title": "Heart and Circulation Trivia: How Your Blood Flows",
+      "description": "Eight questions on the heart, arteries, veins and blood cells that keep your circulation running every second.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "heart", "anatomy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many chambers does the human heart have?",
+          "options": [
+            { "id": "a", "text": "Two", "is_correct": false },
+            { "id": "b", "text": "Three", "is_correct": false },
+            { "id": "c", "text": "Four", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "The heart has two atria on top and two ventricles below: four chambers in total."
+        },
+        {
+          "id": "q2",
+          "question": "Which is the largest artery in the human body?",
+          "options": [
+            { "id": "a", "text": "The aorta", "is_correct": true },
+            { "id": "b", "text": "The carotid artery", "is_correct": false },
+            { "id": "c", "text": "The pulmonary artery", "is_correct": false },
+            { "id": "d", "text": "The femoral artery", "is_correct": false }
+          ],
+          "explanation": "The aorta carries oxygen-rich blood out of the left ventricle to the whole body."
+        },
+        {
+          "id": "q3",
+          "question": "Which blood cells carry oxygen around the body?",
+          "options": [
+            { "id": "a", "text": "White blood cells", "is_correct": false },
+            { "id": "b", "text": "Platelets", "is_correct": false },
+            { "id": "c", "text": "Plasma cells", "is_correct": false },
+            { "id": "d", "text": "Red blood cells", "is_correct": true }
+          ],
+          "explanation": "Haemoglobin inside red blood cells binds oxygen in the lungs and releases it to the tissues."
+        },
+        {
+          "id": "q4",
+          "question": "Which vessels carry blood back to the heart?",
+          "options": [
+            { "id": "a", "text": "Arteries", "is_correct": false },
+            { "id": "b", "text": "Veins", "is_correct": true },
+            { "id": "c", "text": "Capillaries", "is_correct": false },
+            { "id": "d", "text": "Arterioles", "is_correct": false }
+          ],
+          "explanation": "Veins return blood to the heart; arteries carry it away from it."
+        },
+        {
+          "id": "q5",
+          "question": "Where does the exchange of oxygen and carbon dioxide take place?",
+          "options": [
+            { "id": "a", "text": "In the capillaries", "is_correct": true },
+            { "id": "b", "text": "In the arteries", "is_correct": false },
+            { "id": "c", "text": "In the veins", "is_correct": false },
+            { "id": "d", "text": "In the heart valves", "is_correct": false }
+          ],
+          "explanation": "Capillary walls are one cell thick, letting gases pass between the blood and the tissues or the lungs' alveoli."
+        },
+        {
+          "id": "q6",
+          "question": "What is a typical resting heart rate for an adult?",
+          "options": [
+            { "id": "a", "text": "30 to 40 beats per minute", "is_correct": false },
+            { "id": "b", "text": "60 to 100 beats per minute", "is_correct": true },
+            { "id": "c", "text": "120 to 140 beats per minute", "is_correct": false },
+            { "id": "d", "text": "160 to 180 beats per minute", "is_correct": false }
+          ],
+          "explanation": "A normal resting adult heart rate is 60-100 beats per minute, often lower in trained athletes."
+        },
+        {
+          "id": "q7",
+          "question": "Which chamber pumps oxygenated blood to the entire body?",
+          "options": [
+            { "id": "a", "text": "The right atrium", "is_correct": false },
+            { "id": "b", "text": "The right ventricle", "is_correct": false },
+            { "id": "c", "text": "The left atrium", "is_correct": false },
+            { "id": "d", "text": "The left ventricle", "is_correct": true }
+          ],
+          "explanation": "The left ventricle has the thickest wall because it pushes blood into the aorta for the whole body."
+        },
+        {
+          "id": "q8",
+          "question": "What do platelets do?",
+          "options": [
+            { "id": "a", "text": "Carry oxygen", "is_correct": false },
+            { "id": "b", "text": "Fight infections", "is_correct": false },
+            { "id": "c", "text": "Help blood clot", "is_correct": true },
+            { "id": "d", "text": "Carry hormones", "is_correct": false }
+          ],
+          "explanation": "Platelets gather at a wound and trigger clotting to stop the bleeding."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-corazon-y-circulacion",
+      "title": "Trivia del corazón y la circulación: cómo fluye tu sangre",
+      "description": "Ocho preguntas sobre el corazón, las arterias, las venas y las células de la sangre que mantienen tu circulación.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "corazón", "anatomía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas cavidades tiene el corazón humano?",
+          "options": [
+            { "id": "a", "text": "Dos", "is_correct": false },
+            { "id": "b", "text": "Tres", "is_correct": false },
+            { "id": "c", "text": "Cuatro", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "El corazón tiene dos aurículas arriba y dos ventrículos abajo: cuatro cavidades en total."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la arteria más grande del cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "La aorta", "is_correct": true },
+            { "id": "b", "text": "La carótida", "is_correct": false },
+            { "id": "c", "text": "La arteria pulmonar", "is_correct": false },
+            { "id": "d", "text": "La arteria femoral", "is_correct": false }
+          ],
+          "explanation": "La aorta saca la sangre rica en oxígeno del ventrículo izquierdo hacia todo el cuerpo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué células de la sangre transportan el oxígeno por el cuerpo?",
+          "options": [
+            { "id": "a", "text": "Los glóbulos blancos", "is_correct": false },
+            { "id": "b", "text": "Las plaquetas", "is_correct": false },
+            { "id": "c", "text": "Las células plasmáticas", "is_correct": false },
+            { "id": "d", "text": "Los glóbulos rojos", "is_correct": true }
+          ],
+          "explanation": "La hemoglobina de los glóbulos rojos captura el oxígeno en los pulmones y lo entrega a los tejidos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué vasos llevan la sangre de vuelta al corazón?",
+          "options": [
+            { "id": "a", "text": "Las arterias", "is_correct": false },
+            { "id": "b", "text": "Las venas", "is_correct": true },
+            { "id": "c", "text": "Los capilares", "is_correct": false },
+            { "id": "d", "text": "Las arteriolas", "is_correct": false }
+          ],
+          "explanation": "Las venas devuelven la sangre al corazón; las arterias la sacan de él."
+        },
+        {
+          "id": "q5",
+          "question": "¿Dónde ocurre el intercambio de oxígeno y dióxido de carbono?",
+          "options": [
+            { "id": "a", "text": "En los capilares", "is_correct": true },
+            { "id": "b", "text": "En las arterias", "is_correct": false },
+            { "id": "c", "text": "En las venas", "is_correct": false },
+            { "id": "d", "text": "En las válvulas del corazón", "is_correct": false }
+          ],
+          "explanation": "Las paredes de los capilares tienen una célula de grosor y dejan pasar los gases entre la sangre y los tejidos o los alvéolos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es la frecuencia cardíaca típica de un adulto en reposo?",
+          "options": [
+            { "id": "a", "text": "De 30 a 40 latidos por minuto", "is_correct": false },
+            { "id": "b", "text": "De 60 a 100 latidos por minuto", "is_correct": true },
+            { "id": "c", "text": "De 120 a 140 latidos por minuto", "is_correct": false },
+            { "id": "d", "text": "De 160 a 180 latidos por minuto", "is_correct": false }
+          ],
+          "explanation": "La frecuencia normal en reposo es de 60 a 100 latidos por minuto, y suele ser menor en deportistas entrenados."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué cavidad bombea la sangre oxigenada hacia todo el cuerpo?",
+          "options": [
+            { "id": "a", "text": "La aurícula derecha", "is_correct": false },
+            { "id": "b", "text": "El ventrículo derecho", "is_correct": false },
+            { "id": "c", "text": "La aurícula izquierda", "is_correct": false },
+            { "id": "d", "text": "El ventrículo izquierdo", "is_correct": true }
+          ],
+          "explanation": "El ventrículo izquierdo tiene la pared más gruesa porque empuja la sangre hacia la aorta para todo el cuerpo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué hacen las plaquetas?",
+          "options": [
+            { "id": "a", "text": "Transportan oxígeno", "is_correct": false },
+            { "id": "b", "text": "Combaten infecciones", "is_correct": false },
+            { "id": "c", "text": "Ayudan a coagular la sangre", "is_correct": true },
+            { "id": "d", "text": "Transportan hormonas", "is_correct": false }
+          ],
+          "explanation": "Las plaquetas se acumulan en una herida y activan la coagulación para detener el sangrado."
+        }
+      ]
+    },
+    {
+      "slug": "en-bones-and-muscles-trivia",
+      "title": "Bones and Muscles Trivia: The Body's Framework",
+      "description": "Eight questions on the human skeleton and muscles: the longest bone, the smallest one and the tissues that move you.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "bones", "muscles"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many bones does an adult human skeleton have?",
+          "options": [
+            { "id": "a", "text": "106", "is_correct": false },
+            { "id": "b", "text": "206", "is_correct": true },
+            { "id": "c", "text": "306", "is_correct": false },
+            { "id": "d", "text": "406", "is_correct": false }
+          ],
+          "explanation": "Babies are born with around 300 bones that fuse into 206 by adulthood."
+        },
+        {
+          "id": "q2",
+          "question": "What is the longest bone in the human body?",
+          "options": [
+            { "id": "a", "text": "The tibia", "is_correct": false },
+            { "id": "b", "text": "The humerus", "is_correct": false },
+            { "id": "c", "text": "The femur", "is_correct": true },
+            { "id": "d", "text": "The fibula", "is_correct": false }
+          ],
+          "explanation": "The femur, or thigh bone, is the longest and strongest bone in the skeleton."
+        },
+        {
+          "id": "q3",
+          "question": "What is the smallest bone in the human body?",
+          "options": [
+            { "id": "a", "text": "The kneecap", "is_correct": false },
+            { "id": "b", "text": "The coccyx", "is_correct": false },
+            { "id": "c", "text": "A finger bone", "is_correct": false },
+            { "id": "d", "text": "The stapes", "is_correct": true }
+          ],
+          "explanation": "The stapes, one of the three middle-ear ossicles, is barely 3 millimetres long."
+        },
+        {
+          "id": "q4",
+          "question": "What is the largest muscle in the human body?",
+          "options": [
+            { "id": "a", "text": "The biceps", "is_correct": false },
+            { "id": "b", "text": "The gluteus maximus", "is_correct": true },
+            { "id": "c", "text": "The masseter", "is_correct": false },
+            { "id": "d", "text": "The trapezius", "is_correct": false }
+          ],
+          "explanation": "The gluteus maximus is the body's largest muscle; it powers standing up, climbing and running."
+        },
+        {
+          "id": "q5",
+          "question": "Where in the body is the patella located?",
+          "options": [
+            { "id": "a", "text": "The elbow", "is_correct": false },
+            { "id": "b", "text": "The shoulder", "is_correct": false },
+            { "id": "c", "text": "The knee", "is_correct": true },
+            { "id": "d", "text": "The wrist", "is_correct": false }
+          ],
+          "explanation": "The patella is the kneecap, a sesamoid bone that protects the knee joint."
+        },
+        {
+          "id": "q6",
+          "question": "Which tissue connects muscle to bone?",
+          "options": [
+            { "id": "a", "text": "Tendons", "is_correct": true },
+            { "id": "b", "text": "Ligaments", "is_correct": false },
+            { "id": "c", "text": "Cartilage", "is_correct": false },
+            { "id": "d", "text": "Nerves", "is_correct": false }
+          ],
+          "explanation": "Tendons attach muscles to bones, while ligaments connect bones to other bones."
+        },
+        {
+          "id": "q7",
+          "question": "What type of muscle makes up the heart?",
+          "options": [
+            { "id": "a", "text": "Skeletal muscle", "is_correct": false },
+            { "id": "b", "text": "Smooth muscle", "is_correct": false },
+            { "id": "c", "text": "Cardiac muscle", "is_correct": true },
+            { "id": "d", "text": "Voluntary muscle", "is_correct": false }
+          ],
+          "explanation": "Cardiac muscle is involuntary and contracts rhythmically without tiring for a lifetime."
+        },
+        {
+          "id": "q8",
+          "question": "What does red bone marrow produce?",
+          "options": [
+            { "id": "a", "text": "Hormones", "is_correct": false },
+            { "id": "b", "text": "Blood cells", "is_correct": true },
+            { "id": "c", "text": "Calcium", "is_correct": false },
+            { "id": "d", "text": "Synovial fluid", "is_correct": false }
+          ],
+          "explanation": "Red marrow makes red and white blood cells and platelets, mostly inside flat bones like the pelvis."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-huesos-y-musculos",
+      "title": "Trivia de huesos y músculos: la estructura de tu cuerpo",
+      "description": "Ocho preguntas sobre el esqueleto y los músculos humanos: el hueso más largo, el más pequeño y los tejidos que te mueven.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "huesos", "músculos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos huesos tiene el esqueleto de un adulto?",
+          "options": [
+            { "id": "a", "text": "106", "is_correct": false },
+            { "id": "b", "text": "206", "is_correct": true },
+            { "id": "c", "text": "306", "is_correct": false },
+            { "id": "d", "text": "406", "is_correct": false }
+          ],
+          "explanation": "Los bebés nacen con unos 300 huesos que se fusionan hasta los 206 en la adultez."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es el hueso más largo del cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "La tibia", "is_correct": false },
+            { "id": "b", "text": "El húmero", "is_correct": false },
+            { "id": "c", "text": "El fémur", "is_correct": true },
+            { "id": "d", "text": "El peroné", "is_correct": false }
+          ],
+          "explanation": "El fémur, el hueso del muslo, es el más largo y el más resistente del esqueleto."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el hueso más pequeño del cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "La rótula", "is_correct": false },
+            { "id": "b", "text": "El cóccix", "is_correct": false },
+            { "id": "c", "text": "Un hueso de los dedos", "is_correct": false },
+            { "id": "d", "text": "El estribo", "is_correct": true }
+          ],
+          "explanation": "El estribo, uno de los tres huesecillos del oído medio, mide apenas 3 milímetros."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el músculo más grande del cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "El bíceps", "is_correct": false },
+            { "id": "b", "text": "El glúteo mayor", "is_correct": true },
+            { "id": "c", "text": "El masetero", "is_correct": false },
+            { "id": "d", "text": "El trapecio", "is_correct": false }
+          ],
+          "explanation": "El glúteo mayor es el músculo más grande del cuerpo; impulsa al ponerte de pie, subir escaleras y correr."
+        },
+        {
+          "id": "q5",
+          "question": "¿Dónde está la rótula?",
+          "options": [
+            { "id": "a", "text": "El codo", "is_correct": false },
+            { "id": "b", "text": "El hombro", "is_correct": false },
+            { "id": "c", "text": "La rodilla", "is_correct": true },
+            { "id": "d", "text": "La muñeca", "is_correct": false }
+          ],
+          "explanation": "La rótula es el hueso que protege la articulación de la rodilla."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué tejido une los músculos con los huesos?",
+          "options": [
+            { "id": "a", "text": "Los tendones", "is_correct": true },
+            { "id": "b", "text": "Los ligamentos", "is_correct": false },
+            { "id": "c", "text": "El cartílago", "is_correct": false },
+            { "id": "d", "text": "Los nervios", "is_correct": false }
+          ],
+          "explanation": "Los tendones unen músculos a huesos; los ligamentos conectan unos huesos con otros."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué tipo de músculo forma el corazón?",
+          "options": [
+            { "id": "a", "text": "El músculo esquelético", "is_correct": false },
+            { "id": "b", "text": "El músculo liso", "is_correct": false },
+            { "id": "c", "text": "El músculo cardíaco", "is_correct": true },
+            { "id": "d", "text": "El músculo voluntario", "is_correct": false }
+          ],
+          "explanation": "El músculo cardíaco es involuntario y se contrae de forma rítmica sin cansarse durante toda la vida."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué produce la médula ósea roja?",
+          "options": [
+            { "id": "a", "text": "Hormonas", "is_correct": false },
+            { "id": "b", "text": "Células de la sangre", "is_correct": true },
+            { "id": "c", "text": "Calcio", "is_correct": false },
+            { "id": "d", "text": "Líquido sinovial", "is_correct": false }
+          ],
+          "explanation": "La médula roja fabrica glóbulos rojos, glóbulos blancos y plaquetas, sobre todo en huesos planos como la pelvis."
+        }
+      ]
+    },
+    {
+      "slug": "en-human-brain-trivia",
+      "title": "Human Brain Trivia: Neurons and the Control Center",
+      "description": "Eight questions on the brain and nervous system: neurons, the cerebellum, cranial nerves and the signals that run you.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "brain", "nervous system"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Roughly how many neurons does the human brain contain?",
+          "options": [
+            { "id": "a", "text": "About 86 million", "is_correct": false },
+            { "id": "b", "text": "About 860 million", "is_correct": false },
+            { "id": "c", "text": "About 8.6 billion", "is_correct": false },
+            { "id": "d", "text": "About 86 billion", "is_correct": true }
+          ],
+          "explanation": "The accepted estimate is about 86 billion neurons, plus a similar number of glial cells."
+        },
+        {
+          "id": "q2",
+          "question": "Which part of the brain controls balance and coordination?",
+          "options": [
+            { "id": "a", "text": "The cerebrum", "is_correct": false },
+            { "id": "b", "text": "The cerebellum", "is_correct": true },
+            { "id": "c", "text": "The hypothalamus", "is_correct": false },
+            { "id": "d", "text": "The brainstem", "is_correct": false }
+          ],
+          "explanation": "The cerebellum, at the back of the skull, fine-tunes movement, posture and balance."
+        },
+        {
+          "id": "q3",
+          "question": "Which is the largest part of the human brain?",
+          "options": [
+            { "id": "a", "text": "The cerebellum", "is_correct": false },
+            { "id": "b", "text": "The brainstem", "is_correct": false },
+            { "id": "c", "text": "The cerebrum", "is_correct": true },
+            { "id": "d", "text": "The thalamus", "is_correct": false }
+          ],
+          "explanation": "The cerebrum makes up about 85% of the brain's mass and handles thought, senses and voluntary movement."
+        },
+        {
+          "id": "q4",
+          "question": "Which cells transmit electrical signals through the nervous system?",
+          "options": [
+            { "id": "a", "text": "Neurons", "is_correct": true },
+            { "id": "b", "text": "Glial cells", "is_correct": false },
+            { "id": "c", "text": "Stem cells", "is_correct": false },
+            { "id": "d", "text": "Red blood cells", "is_correct": false }
+          ],
+          "explanation": "Neurons fire electrochemical impulses; glial cells support and insulate them."
+        },
+        {
+          "id": "q5",
+          "question": "What is the longest nerve in the human body?",
+          "options": [
+            { "id": "a", "text": "The optic nerve", "is_correct": false },
+            { "id": "b", "text": "The vagus nerve", "is_correct": false },
+            { "id": "c", "text": "The femoral nerve", "is_correct": false },
+            { "id": "d", "text": "The sciatic nerve", "is_correct": true }
+          ],
+          "explanation": "The sciatic nerve runs from the lower back down each leg to the foot."
+        },
+        {
+          "id": "q6",
+          "question": "Which small brain region regulates hunger, thirst and body temperature?",
+          "options": [
+            { "id": "a", "text": "The amygdala", "is_correct": false },
+            { "id": "b", "text": "The hypothalamus", "is_correct": true },
+            { "id": "c", "text": "The hippocampus", "is_correct": false },
+            { "id": "d", "text": "The medulla oblongata", "is_correct": false }
+          ],
+          "explanation": "The hypothalamus keeps the body's internal balance and links the nervous and endocrine systems."
+        },
+        {
+          "id": "q7",
+          "question": "Which structure carries signals between the brain and the rest of the body?",
+          "options": [
+            { "id": "a", "text": "The spinal cord", "is_correct": true },
+            { "id": "b", "text": "The vagus nerve", "is_correct": false },
+            { "id": "c", "text": "The carotid artery", "is_correct": false },
+            { "id": "d", "text": "The cerebellum", "is_correct": false }
+          ],
+          "explanation": "The spinal cord runs inside the vertebral column and relays messages between brain and body."
+        },
+        {
+          "id": "q8",
+          "question": "How many pairs of cranial nerves does the human body have?",
+          "options": [
+            { "id": "a", "text": "7", "is_correct": false },
+            { "id": "b", "text": "10", "is_correct": false },
+            { "id": "c", "text": "12", "is_correct": true },
+            { "id": "d", "text": "31", "is_correct": false }
+          ],
+          "explanation": "Twelve pairs of cranial nerves leave the brain; the 31 pairs of spinal nerves branch from the spinal cord."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cerebro",
+      "title": "Trivia del cerebro humano: neuronas y el centro de control",
+      "description": "Ocho preguntas sobre el cerebro y el sistema nervioso: neuronas, cerebelo, nervios craneales y las señales que te controlan.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "cerebro", "sistema nervioso"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas neuronas tiene aproximadamente el cerebro humano?",
+          "options": [
+            { "id": "a", "text": "Unos 86 millones", "is_correct": false },
+            { "id": "b", "text": "Unos 860 millones", "is_correct": false },
+            { "id": "c", "text": "Unos 8.600 millones", "is_correct": false },
+            { "id": "d", "text": "Unos 86.000 millones", "is_correct": true }
+          ],
+          "explanation": "La estimación aceptada es de unos 86.000 millones de neuronas, más una cifra parecida de células gliales."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué parte del cerebro controla el equilibrio y la coordinación?",
+          "options": [
+            { "id": "a", "text": "El cerebro", "is_correct": false },
+            { "id": "b", "text": "El cerebelo", "is_correct": true },
+            { "id": "c", "text": "El hipotálamo", "is_correct": false },
+            { "id": "d", "text": "El tronco encefálico", "is_correct": false }
+          ],
+          "explanation": "El cerebelo, en la parte posterior del cráneo, ajusta el movimiento, la postura y el equilibrio."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es la parte más grande del cerebro humano?",
+          "options": [
+            { "id": "a", "text": "El cerebelo", "is_correct": false },
+            { "id": "b", "text": "El tronco encefálico", "is_correct": false },
+            { "id": "c", "text": "El cerebro", "is_correct": true },
+            { "id": "d", "text": "El tálamo", "is_correct": false }
+          ],
+          "explanation": "El cerebro supone alrededor del 85 % de la masa encefálica y se encarga del pensamiento, los sentidos y el movimiento voluntario."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué células transmiten señales eléctricas por el sistema nervioso?",
+          "options": [
+            { "id": "a", "text": "Las neuronas", "is_correct": true },
+            { "id": "b", "text": "Las células gliales", "is_correct": false },
+            { "id": "c", "text": "Las células madre", "is_correct": false },
+            { "id": "d", "text": "Los glóbulos rojos", "is_correct": false }
+          ],
+          "explanation": "Las neuronas emiten impulsos electroquímicos; las células gliales las sostienen y las aíslan."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es el nervio más largo del cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "El nervio óptico", "is_correct": false },
+            { "id": "b", "text": "El nervio vago", "is_correct": false },
+            { "id": "c", "text": "El nervio femoral", "is_correct": false },
+            { "id": "d", "text": "El nervio ciático", "is_correct": true }
+          ],
+          "explanation": "El nervio ciático recorre la pierna desde la parte baja de la espalda hasta el pie."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué pequeña región del cerebro regula el hambre, la sed y la temperatura corporal?",
+          "options": [
+            { "id": "a", "text": "La amígdala", "is_correct": false },
+            { "id": "b", "text": "El hipotálamo", "is_correct": true },
+            { "id": "c", "text": "El hipocampo", "is_correct": false },
+            { "id": "d", "text": "El bulbo raquídeo", "is_correct": false }
+          ],
+          "explanation": "El hipotálamo mantiene el equilibrio interno del cuerpo y conecta los sistemas nervioso y endocrino."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué estructura lleva las señales entre el cerebro y el resto del cuerpo?",
+          "options": [
+            { "id": "a", "text": "La médula espinal", "is_correct": true },
+            { "id": "b", "text": "El nervio vago", "is_correct": false },
+            { "id": "c", "text": "La arteria carótida", "is_correct": false },
+            { "id": "d", "text": "El cerebelo", "is_correct": false }
+          ],
+          "explanation": "La médula espinal recorre el interior de la columna vertebral y transmite mensajes entre el cerebro y el cuerpo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántos pares de nervios craneales tiene el cuerpo humano?",
+          "options": [
+            { "id": "a", "text": "7", "is_correct": false },
+            { "id": "b", "text": "10", "is_correct": false },
+            { "id": "c", "text": "12", "is_correct": true },
+            { "id": "d", "text": "31", "is_correct": false }
+          ],
+          "explanation": "Doce pares de nervios craneales salen del cerebro; los 31 pares de nervios espinales parten de la médula espinal."
+        }
+      ]
+    },
+    {
+      "slug": "en-immune-system-trivia",
+      "title": "Immune System Trivia: Defenses, Antibodies and Vaccines",
+      "description": "Eight questions on how your body fights infection: white blood cells, antibodies, lymph nodes and the power of vaccines.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "science",
+      "tags": ["science", "human body", "immune system", "vaccines", "health"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the body's first line of defense against pathogens?",
+          "options": [
+            { "id": "a", "text": "Antibodies", "is_correct": false },
+            { "id": "b", "text": "The skin", "is_correct": true },
+            { "id": "c", "text": "White blood cells", "is_correct": false },
+            { "id": "d", "text": "Lymph nodes", "is_correct": false }
+          ],
+          "explanation": "Skin and mucous membranes are physical barriers that block most invaders before they get in."
+        },
+        {
+          "id": "q2",
+          "question": "Which blood cells defend the body against infection?",
+          "options": [
+            { "id": "a", "text": "Red blood cells", "is_correct": false },
+            { "id": "b", "text": "Platelets", "is_correct": false },
+            { "id": "c", "text": "White blood cells", "is_correct": true },
+            { "id": "d", "text": "Stem cells", "is_correct": false }
+          ],
+          "explanation": "Leukocytes — white blood cells — hunt down and destroy invading microbes."
+        },
+        {
+          "id": "q3",
+          "question": "What do antibodies recognise on a pathogen?",
+          "options": [
+            { "id": "a", "text": "Antigens", "is_correct": true },
+            { "id": "b", "text": "Hormones", "is_correct": false },
+            { "id": "c", "text": "Platelets", "is_correct": false },
+            { "id": "d", "text": "Enzymes", "is_correct": false }
+          ],
+          "explanation": "Each antibody fits a specific antigen on the surface of a bacterium or virus."
+        },
+        {
+          "id": "q4",
+          "question": "Where do T lymphocytes mature?",
+          "options": [
+            { "id": "a", "text": "The bone marrow", "is_correct": false },
+            { "id": "b", "text": "The spleen", "is_correct": false },
+            { "id": "c", "text": "The lymph nodes", "is_correct": false },
+            { "id": "d", "text": "The thymus", "is_correct": true }
+          ],
+          "explanation": "The 'T' in T cell stands for thymus, the gland where they finish their training."
+        },
+        {
+          "id": "q5",
+          "question": "What does a vaccine give the immune system?",
+          "options": [
+            { "id": "a", "text": "A full-strength infection", "is_correct": false },
+            { "id": "b", "text": "Antibiotics", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A harmless version or fragment of the pathogen",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Donated blood cells", "is_correct": false }
+          ],
+          "explanation": "Vaccines expose the immune system to a weakened, killed or partial pathogen so it builds memory without the disease."
+        },
+        {
+          "id": "q6",
+          "question": "Who developed the first successful smallpox vaccine?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Alexander Fleming", "is_correct": false },
+            { "id": "c", "text": "Robert Koch", "is_correct": false },
+            { "id": "d", "text": "Edward Jenner", "is_correct": true }
+          ],
+          "explanation": "In 1796 Jenner used cowpox material to protect against smallpox; 'vaccine' comes from vacca, Latin for cow."
+        },
+        {
+          "id": "q7",
+          "question": "Which structures filter lymph and trap pathogens?",
+          "options": [
+            { "id": "a", "text": "The kidneys", "is_correct": false },
+            { "id": "b", "text": "The lymph nodes", "is_correct": true },
+            { "id": "c", "text": "The alveoli", "is_correct": false },
+            { "id": "d", "text": "The adrenal glands", "is_correct": false }
+          ],
+          "explanation": "Lymph nodes are checkpoints packed with immune cells that scan lymph for invaders."
+        },
+        {
+          "id": "q8",
+          "question": "Which was the first human disease eradicated worldwide thanks to vaccination?",
+          "options": [
+            { "id": "a", "text": "Smallpox", "is_correct": true },
+            { "id": "b", "text": "Polio", "is_correct": false },
+            { "id": "c", "text": "Measles", "is_correct": false },
+            { "id": "d", "text": "Tuberculosis", "is_correct": false }
+          ],
+          "explanation": "The WHO declared smallpox eradicated in 1980, after a global vaccination campaign."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sistema-inmune",
+      "title": "Trivia del sistema inmune: defensas, anticuerpos y vacunas",
+      "description": "Ocho preguntas sobre cómo te defiende tu cuerpo: glóbulos blancos, anticuerpos, ganglios linfáticos y el poder de las vacunas.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "science",
+      "tags": ["ciencia", "cuerpo humano", "sistema inmune", "vacunas", "salud"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la primera línea de defensa del cuerpo contra los patógenos?",
+          "options": [
+            { "id": "a", "text": "Los anticuerpos", "is_correct": false },
+            { "id": "b", "text": "La piel", "is_correct": true },
+            { "id": "c", "text": "Los glóbulos blancos", "is_correct": false },
+            { "id": "d", "text": "Los ganglios linfáticos", "is_correct": false }
+          ],
+          "explanation": "La piel y las mucosas son barreras físicas que bloquean a la mayoría de los invasores antes de que entren."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué células de la sangre defienden el cuerpo de las infecciones?",
+          "options": [
+            { "id": "a", "text": "Los glóbulos rojos", "is_correct": false },
+            { "id": "b", "text": "Las plaquetas", "is_correct": false },
+            { "id": "c", "text": "Los glóbulos blancos", "is_correct": true },
+            { "id": "d", "text": "Las células madre", "is_correct": false }
+          ],
+          "explanation": "Los leucocitos, o glóbulos blancos, persiguen y destruyen los microbios invasores."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué reconocen los anticuerpos en un patógeno?",
+          "options": [
+            { "id": "a", "text": "Los antígenos", "is_correct": true },
+            { "id": "b", "text": "Las hormonas", "is_correct": false },
+            { "id": "c", "text": "Las plaquetas", "is_correct": false },
+            { "id": "d", "text": "Las enzimas", "is_correct": false }
+          ],
+          "explanation": "Cada anticuerpo encaja con un antígeno específico de la superficie de una bacteria o un virus."
+        },
+        {
+          "id": "q4",
+          "question": "¿Dónde maduran los linfocitos T?",
+          "options": [
+            { "id": "a", "text": "La médula ósea", "is_correct": false },
+            { "id": "b", "text": "El bazo", "is_correct": false },
+            { "id": "c", "text": "Los ganglios linfáticos", "is_correct": false },
+            { "id": "d", "text": "El timo", "is_correct": true }
+          ],
+          "explanation": "La «T» de linfocito T viene de timo, la glándula donde completan su formación."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué le proporciona una vacuna al sistema inmune?",
+          "options": [
+            { "id": "a", "text": "Una infección a máxima potencia", "is_correct": false },
+            { "id": "b", "text": "Antibióticos", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Una versión o fragmento inofensivo del patógeno",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Células de sangre donada", "is_correct": false }
+          ],
+          "explanation": "Las vacunas exponen al sistema inmune a un patógeno debilitado, inactivado o parcial para que cree memoria sin pasar la enfermedad."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién desarrolló la primera vacuna exitosa contra la viruela?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Alexander Fleming", "is_correct": false },
+            { "id": "c", "text": "Robert Koch", "is_correct": false },
+            { "id": "d", "text": "Edward Jenner", "is_correct": true }
+          ],
+          "explanation": "En 1796, Jenner usó material de la viruela bovina para proteger de la viruela; la palabra «vacuna» viene de vaca."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué estructuras filtran la linfa y atrapan patógenos?",
+          "options": [
+            { "id": "a", "text": "Los riñones", "is_correct": false },
+            { "id": "b", "text": "Los ganglios linfáticos", "is_correct": true },
+            { "id": "c", "text": "Los alvéolos", "is_correct": false },
+            { "id": "d", "text": "Las glándulas suprarrenales", "is_correct": false }
+          ],
+          "explanation": "Los ganglios linfáticos son puntos de control llenos de células inmunes que inspeccionan la linfa en busca de invasores."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál fue la primera enfermedad humana erradicada en el mundo gracias a la vacunación?",
+          "options": [
+            { "id": "a", "text": "La viruela", "is_correct": true },
+            { "id": "b", "text": "La poliomielitis", "is_correct": false },
+            { "id": "c", "text": "El sarampión", "is_correct": false },
+            { "id": "d", "text": "La tuberculosis", "is_correct": false }
+          ],
+          "explanation": "La OMS declaró la viruela erradicada en 1980, tras una campaña mundial de vacunación."
+        }
+      ]
+    }
+  ]
+}
