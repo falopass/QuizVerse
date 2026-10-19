@@ -16,6 +16,8 @@ const NON_LOCALE_PREFIXES = [
   '/api',
   '/covers',
   '/stock-covers',
+  // El reproductor embebible lleva su propio /{locale} en la ruta (/embed/es/x).
+  '/embed',
   '/icons',
   '/images',
   '/ronda-diseno',
@@ -48,7 +50,11 @@ export async function proxy(request: NextRequest) {
 
   const { url, anonKey } = supabaseEnv();
 
-  request.headers.set('x-quizverse-locale', pathname.startsWith('/es') ? 'es' : 'en');
+  // El header alimenta <html lang>: /embed/{locale} también lleva el idioma en la ruta.
+  request.headers.set(
+    'x-quizverse-locale',
+    pathname.startsWith('/es') || pathname.startsWith('/embed/es') ? 'es' : 'en'
+  );
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient<Database>(url, anonKey, {
