@@ -169,9 +169,7 @@ describe('listPublishedQuizzes — no answer key leaks', () => {
       {
         data: [
           quizRow({
-            questions: [
-              { question: 'x', options: [{ text: 'a', is_correct: true }] },
-            ],
+            questions: [{ question: 'x', options: [{ text: 'a', is_correct: true }] }],
             correct_answers: [0],
           }),
         ],
