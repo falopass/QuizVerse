@@ -51,7 +51,7 @@
           "options": [
             { "id": "a", "text": "it ends in a 3", "is_correct": false },
             { "id": "b", "text": "it ends in an even digit", "is_correct": false },
-            { "id": "c", "text": "it is also divisible by 9", "is_correct": false },
+            { "id": "c", "text": "it ends in a 6", "is_correct": false },
             { "id": "d", "text": "the sum of its digits is divisible by 3", "is_correct": true }
           ],
           "explanation": "123 works because 1 + 2 + 3 = 6, and 6 is divisible by 3."
@@ -152,7 +152,7 @@
           "options": [
             { "id": "a", "text": "termina en 3", "is_correct": false },
             { "id": "b", "text": "termina en un dígito par", "is_correct": false },
-            { "id": "c", "text": "también es divisible por 9", "is_correct": false },
+            { "id": "c", "text": "termina en 6", "is_correct": false },
             { "id": "d", "text": "la suma de sus dígitos es divisible por 3", "is_correct": true }
           ],
           "explanation": "El 123 funciona porque 1 + 2 + 3 = 6, y 6 es divisible por 3."
@@ -234,7 +234,7 @@
             { "id": "c", "text": "The cabbage", "is_correct": false },
             { "id": "d", "text": "Any of them works", "is_correct": false }
           ],
-          "explanation": "Taking the goat leaves wolf and cabbage together, which harm neither; then he shuttles the goat back once."
+          "explanation": "He takes the goat first (wolf and cabbage are safe together), then crosses with the wolf, returns with the goat, leaves it to take the cabbage over, and finally goes back for the goat."
         },
         {
           "id": "q3",
@@ -339,7 +339,7 @@
             { "id": "c", "text": "La col", "is_correct": false },
             { "id": "d", "text": "Cualquiera sirve", "is_correct": false }
           ],
-          "explanation": "Llevar la cabra deja juntos al lobo y la col, que no se hacen daño; luego regresa una vez con la cabra."
+          "explanation": "Primero cruza la cabra (el lobo y la col quedan seguros juntos), luego cruza el lobo, regresa con la cabra, la deja para cruzar la col, y al final vuelve por la cabra."
         },
         {
           "id": "q3",
