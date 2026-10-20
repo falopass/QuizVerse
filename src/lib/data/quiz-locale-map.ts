@@ -374,6 +374,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-seven-wonders-trivia': 'es-trivia-siete-maravillas-del-mundo',
   'en-empires-that-reshaped-the-world-trivia': 'es-trivia-imperios-que-cambiaron-el-mundo',
   'en-natural-wonders-trivia': 'es-trivia-maravillas-naturales',
+  // Pares del lote editorial 2026bf (scripts/seed/editorial-seed-2026bf.json), mantenidos a mano.
+  'en-money-trivia': 'es-trivia-dinero',
+  'en-saving-and-budgeting-trivia': 'es-trivia-ahorro-y-presupuesto',
+  'en-investing-basics-trivia': 'es-trivia-inversiones',
+  'en-history-of-money-trivia': 'es-trivia-historia-del-dinero',
+  'en-everyday-economics-trivia': 'es-trivia-economia-cotidiana',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
