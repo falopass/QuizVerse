@@ -1,6 +1,13 @@
-import type { Quiz } from '@/types/quiz';
+import type { Category, Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { getLocalizedTypeLabel, localizeCategory } from '@/lib/i18n/catalog';
+
+// Mínimo que el índice lee de cada quiz: lo cumple tanto CatalogCard (la
+// fila ligera de /indice) como un Quiz completo, cuyo `category` ya es una
+// Category válida.
+type CatalogIndexItem = Pick<Quiz, 'slug' | 'title' | 'quiz_type'> & {
+  category?: Pick<Category, 'slug' | 'name'> | null;
+};
 
 export interface CatalogIndexQuiz {
   slug: string;
@@ -37,12 +44,30 @@ const UNCATEGORIZED_NAME: Record<Locale, string> = {
   en: 'Uncategorized',
 };
 
+// localizeCategory exige una Category completa; con la fila ligera solo hay
+// slug+name, así que el resto se rellena con neutros. Del resultado solo se
+// leen slug y name: el HTML no cambia.
+function toCategory(category: Pick<Category, 'slug' | 'name'>): Category {
+  return {
+    id: category.slug,
+    slug: category.slug,
+    name: category.name,
+    description: null,
+    icon: null,
+    color: null,
+    gradient_from: null,
+    gradient_to: null,
+    quiz_count: 0,
+    sort_order: 0,
+  };
+}
+
 /**
  * Agrupa el catálogo publicado para la página /{locale}/indice. Todo quiz
  * publicado queda enlazado una sola vez: bajo su categoría o, si no tiene, en
  * el grupo sintético final `uncategorized`.
  */
-export function buildCatalogIndex(quizzes: Quiz[], locale: Locale): CatalogIndex {
+export function buildCatalogIndex(quizzes: CatalogIndexItem[], locale: Locale): CatalogIndex {
   const seen = new Set<string>();
   const byCategory = new Map<string, { name: string; quizzes: CatalogIndexQuiz[] }>();
   const typeCounts = new Map<string, number>();
@@ -55,7 +80,7 @@ export function buildCatalogIndex(quizzes: Quiz[], locale: Locale): CatalogIndex
     total += 1;
     typeCounts.set(quiz.quiz_type, (typeCounts.get(quiz.quiz_type) ?? 0) + 1);
 
-    const category = localizeCategory(quiz.category, locale);
+    const category = localizeCategory(quiz.category ? toCategory(quiz.category) : null, locale);
     if (!category) {
       uncategorized.push({ slug: quiz.slug, title: quiz.title });
       continue;

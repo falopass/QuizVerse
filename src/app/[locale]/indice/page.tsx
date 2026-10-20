@@ -3,8 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildCatalogIndex, UNCATEGORIZED_GROUP_SLUG } from '@/lib/content/catalog-index';
-import { getPublishedQuizzes } from '@/lib/data/public';
-import { QUIZ_MAX_ROWS } from '@/lib/data/quiz-pagination';
+import { getCatalogCards } from '@/lib/data/catalog-cards';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -65,7 +64,7 @@ export default async function CatalogIndexPage({
   if (!hasLocale(locale)) notFound();
 
   const copy = COPY[locale];
-  const quizzes = await getPublishedQuizzes(QUIZ_MAX_ROWS, locale);
+  const quizzes = await getCatalogCards(locale);
   const index = buildCatalogIndex(quizzes, locale);
   const path = `/${locale}/indice`;
 

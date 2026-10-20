@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildCatalogIndex, UNCATEGORIZED_GROUP_SLUG } from '@/lib/content/catalog-index';
+import type { CatalogCard } from '@/lib/data/catalog-cards';
 import type { Category, Quiz } from '@/types/quiz';
 
 const category = (slug: string, name: string): Category => ({
@@ -126,5 +127,20 @@ describe('buildCatalogIndex', () => {
     expect(index.hubs.map((hub) => hub.slug)).not.toContain(UNCATEGORIZED_GROUP_SLUG);
     const allCategorized = buildCatalogIndex([quiz('x', 'X', 'trivia', MOVIES)], 'en');
     expect(allCategorized.groups.map((group) => group.slug)).toEqual(['movies-tv']);
+  });
+
+  it('produce el mismo índice con el catálogo completo que con tarjetas ligeras', () => {
+    // Misma proyección que getCatalogCards: /indice pinta idéntico HTML con
+    // CatalogCard[] que con Quiz[] (PERF-07).
+    const cards: CatalogCard[] = FIXTURE.map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      quiz_type: item.quiz_type,
+      category: item.category ? { slug: item.category.slug, name: item.category.name } : null,
+    }));
+
+    for (const locale of ['en', 'es'] as const) {
+      expect(buildCatalogIndex(cards, locale)).toEqual(buildCatalogIndex(FIXTURE, locale));
+    }
   });
 });
