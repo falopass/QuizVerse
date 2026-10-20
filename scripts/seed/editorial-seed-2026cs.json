@@ -857,14 +857,14 @@
         },
         {
           "id": "q2",
-          "question": "Under PDO rules, Parmigiano-Reggiano may only be made in which Italian region?",
+          "question": "Parmigiano-Reggiano takes its name from which two Italian provinces?",
           "options": [
-            { "id": "a", "text": "Tuscany", "is_correct": false },
-            { "id": "b", "text": "Emilia-Romagna", "is_correct": true },
-            { "id": "c", "text": "Sicily", "is_correct": false },
-            { "id": "d", "text": "Veneto", "is_correct": false }
+            { "id": "a", "text": "Parma and Reggio Emilia", "is_correct": true },
+            { "id": "b", "text": "Milan and Turin", "is_correct": false },
+            { "id": "c", "text": "Rome and Naples", "is_correct": false },
+            { "id": "d", "text": "Bologna and Florence", "is_correct": false }
           ],
-          "explanation": "Protected Parmigiano-Reggiano comes only from the provinces of Parma, Reggio Emilia, Modena, Bologna and Mantua."
+          "explanation": "The name joins Parma and Reggio Emilia, the provinces at the heart of a protected zone that also covers Modena and parts of Bologna and Mantua."
         },
         {
           "id": "q3",
@@ -958,14 +958,14 @@
         },
         {
           "id": "q2",
-          "question": "Según la DOP, ¿el Parmigiano-Reggiano solo puede elaborarse en qué región italiana?",
+          "question": "¿El Parmigiano-Reggiano toma su nombre de qué dos provincias italianas?",
           "options": [
-            { "id": "a", "text": "Toscana", "is_correct": false },
-            { "id": "b", "text": "Emilia-Romaña", "is_correct": true },
-            { "id": "c", "text": "Sicilia", "is_correct": false },
-            { "id": "d", "text": "Véneto", "is_correct": false }
+            { "id": "a", "text": "Parma y Reggio Emilia", "is_correct": true },
+            { "id": "b", "text": "Milán y Turín", "is_correct": false },
+            { "id": "c", "text": "Roma y Nápoles", "is_correct": false },
+            { "id": "d", "text": "Bolonia y Florencia", "is_correct": false }
           ],
-          "explanation": "El Parmigiano-Reggiano protegido solo sale de las provincias de Parma, Reggio Emilia, Módena, Bolonia y Mantua."
+          "explanation": "El nombre une Parma y Reggio Emilia, las provincias en el corazón de una zona protegida que también cubre Módena y partes de Bolonia y Mantua."
         },
         {
           "id": "q3",
