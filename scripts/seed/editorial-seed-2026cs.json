@@ -1,0 +1,1047 @@
+{
+  "$comment": "Editorial seed 2026cs: five es/en trivia pairs on food and drink products with no coverage yet — beer, fast food, chocolate, ice cream and cheese — all in the food-drink category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-beer-trivia",
+      "title": "Beer Trivia: Styles, Brewing and Beer History",
+      "description": "Eight questions on the world's most popular brewed drink: lagers, IPAs, stouts, hops, fermentation and the history behind beer culture.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["beer", "brewing", "drinks", "food history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which family of beers is fermented with top-fermenting yeast at relatively warm temperatures?",
+          "options": [
+            { "id": "a", "text": "Lagers", "is_correct": false },
+            { "id": "b", "text": "Ales", "is_correct": true },
+            { "id": "c", "text": "Pilsners", "is_correct": false },
+            { "id": "d", "text": "Bocks", "is_correct": false }
+          ],
+          "explanation": "Ales use top-fermenting Saccharomyces cerevisiae yeast at 15-24 °C; lagers ferment cold from the bottom."
+        },
+        {
+          "id": "q2",
+          "question": "What does the acronym IPA stand for in beer?",
+          "options": [
+            { "id": "a", "text": "Imperial Pale Ale", "is_correct": false },
+            { "id": "b", "text": "India Pale Ale", "is_correct": true },
+            { "id": "c", "text": "Irish Pale Ale", "is_correct": false },
+            { "id": "d", "text": "International Pale Ale", "is_correct": false }
+          ],
+          "explanation": "India Pale Ale was a hoppy export ale that English brewers sold to the market in British India."
+        },
+        {
+          "id": "q3",
+          "question": "Why were early India Pale Ales brewed with so many hops?",
+          "options": [
+            { "id": "a", "text": "To make the beer sweeter", "is_correct": false },
+            {
+              "id": "b",
+              "text": "To preserve the beer on the long sea voyage to India",
+              "is_correct": true
+            },
+            { "id": "c", "text": "To raise the alcohol level", "is_correct": false },
+            { "id": "d", "text": "To imitate German lagers", "is_correct": false }
+          ],
+          "explanation": "Hops work as a natural preservative, so an extra dose helped the ale survive the months-long voyage to India."
+        },
+        {
+          "id": "q4",
+          "question": "Stout originally developed as a stronger, darker version of which style?",
+          "options": [
+            { "id": "a", "text": "Porter", "is_correct": true },
+            { "id": "b", "text": "Wheat beer", "is_correct": false },
+            { "id": "c", "text": "Pilsner", "is_correct": false },
+            { "id": "d", "text": "Barleywine", "is_correct": false }
+          ],
+          "explanation": "In 18th-century London 'stout porter' meant the strongest porter; over time the name shrank to just stout."
+        },
+        {
+          "id": "q5",
+          "question": "In which city was the first pilsner brewed in 1842?",
+          "options": [
+            { "id": "a", "text": "Munich", "is_correct": false },
+            { "id": "b", "text": "Plzeň", "is_correct": true },
+            { "id": "c", "text": "Vienna", "is_correct": false },
+            { "id": "d", "text": "Copenhagen", "is_correct": false }
+          ],
+          "explanation": "Brewer Josef Groll made the first golden lager in Plzeň, Bohemia — today in the Czech Republic."
+        },
+        {
+          "id": "q6",
+          "question": "What did the German Reinheitsgebot of 1516 regulate?",
+          "options": [
+            { "id": "a", "text": "The permitted ingredients in beer", "is_correct": true },
+            { "id": "b", "text": "The legal drinking age", "is_correct": false },
+            { "id": "c", "text": "The price of bread", "is_correct": false },
+            { "id": "d", "text": "Beer taxes", "is_correct": false }
+          ],
+          "explanation": "The Bavarian purity law limited beer to water, barley and hops; yeast was still unknown at the time."
+        },
+        {
+          "id": "q7",
+          "question": "The word 'lager' comes from the German verb lagern, which means…",
+          "options": [
+            { "id": "a", "text": "to drink", "is_correct": false },
+            { "id": "b", "text": "to ferment", "is_correct": false },
+            { "id": "c", "text": "to store", "is_correct": true },
+            { "id": "d", "text": "to brew", "is_correct": false }
+          ],
+          "explanation": "Lagers were 'stored' in cold caves for months of slow conditioning, which is where the style gets its name."
+        },
+        {
+          "id": "q8",
+          "question": "Which Belgian beer family ferments spontaneously with wild yeasts?",
+          "options": [
+            { "id": "a", "text": "Lambic", "is_correct": true },
+            { "id": "b", "text": "Märzen", "is_correct": false },
+            { "id": "c", "text": "Cream ale", "is_correct": false },
+            { "id": "d", "text": "Hefeweizen", "is_correct": false }
+          ],
+          "explanation": "Lambics are left open to the wild yeasts of the Pajottenland air instead of receiving added yeast."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cerveza",
+      "title": "Trivia de cerveza: estilos, elaboración e historia",
+      "description": "Ocho preguntas sobre la bebida fermentada más popular del mundo: lagers, IPA, stouts, lúpulo, fermentación e historia cervecera.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["cerveza", "bebidas", "elaboración", "historia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué familia de cervezas fermenta con levadura de alta fermentación a temperaturas cálidas?",
+          "options": [
+            { "id": "a", "text": "Las lagers", "is_correct": false },
+            { "id": "b", "text": "Las ales", "is_correct": true },
+            { "id": "c", "text": "Las pilsners", "is_correct": false },
+            { "id": "d", "text": "Las bocks", "is_correct": false }
+          ],
+          "explanation": "Las ales usan levadura Saccharomyces cerevisiae de fermentación alta a 15-24 °C; las lagers fermentan en frío desde el fondo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué significan las siglas IPA en el mundo cervecero?",
+          "options": [
+            { "id": "a", "text": "Imperial Pale Ale", "is_correct": false },
+            { "id": "b", "text": "India Pale Ale", "is_correct": true },
+            { "id": "c", "text": "Irish Pale Ale", "is_correct": false },
+            { "id": "d", "text": "International Pale Ale", "is_correct": false }
+          ],
+          "explanation": "India Pale Ale era una ale cargada de lúpulo que los cerveceros ingleses vendían a la India británica."
+        },
+        {
+          "id": "q3",
+          "question": "¿Por qué las primeras India Pale Ale llevaban tanto lúpulo?",
+          "options": [
+            { "id": "a", "text": "Para endulzar la cerveza", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Para conservar la cerveza en el largo viaje marítimo a la India",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Para subir el nivel de alcohol", "is_correct": false },
+            { "id": "d", "text": "Para imitar a las lagers alemanas", "is_correct": false }
+          ],
+          "explanation": "El lúpulo actúa como conservante natural, así que una dosis extra ayudaba a que la ale sobreviviera el viaje de meses a la India."
+        },
+        {
+          "id": "q4",
+          "question": "La stout nació como una versión más fuerte y oscura de qué estilo?",
+          "options": [
+            { "id": "a", "text": "La porter", "is_correct": true },
+            { "id": "b", "text": "La cerveza de trigo", "is_correct": false },
+            { "id": "c", "text": "La pilsner", "is_correct": false },
+            { "id": "d", "text": "La barleywine", "is_correct": false }
+          ],
+          "explanation": "En el Londres del siglo XVIII «stout porter» era la porter más fuerte; con el tiempo el nombre quedó en simplemente stout."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué ciudad se elaboró la primera pilsner en 1842?",
+          "options": [
+            { "id": "a", "text": "Múnich", "is_correct": false },
+            { "id": "b", "text": "Plzeň", "is_correct": true },
+            { "id": "c", "text": "Viena", "is_correct": false },
+            { "id": "d", "text": "Copenhague", "is_correct": false }
+          ],
+          "explanation": "El maestro cervecero Josef Groll creó la primera lager dorada en Plzeň, Bohemia, hoy en la República Checa."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué regulaba la Reinheitsgebot alemana de 1516?",
+          "options": [
+            { "id": "a", "text": "Los ingredientes permitidos de la cerveza", "is_correct": true },
+            { "id": "b", "text": "La edad legal para beber", "is_correct": false },
+            { "id": "c", "text": "El precio del pan", "is_correct": false },
+            { "id": "d", "text": "Los impuestos de la cerveza", "is_correct": false }
+          ],
+          "explanation": "La ley de pureza bávara limitaba la cerveza a agua, cebada y lúpulo; la levadura aún era desconocida."
+        },
+        {
+          "id": "q7",
+          "question": "La palabra «lager» viene del verbo alemán lagern, que significa…",
+          "options": [
+            { "id": "a", "text": "beber", "is_correct": false },
+            { "id": "b", "text": "fermentar", "is_correct": false },
+            { "id": "c", "text": "almacenar", "is_correct": true },
+            { "id": "d", "text": "cocer", "is_correct": false }
+          ],
+          "explanation": "Las lagers se «almacenaban» en cuevas frías durante meses de maduración lenta, de ahí el nombre del estilo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué familia cervecera belga fermenta de forma espontánea con levaduras salvajes?",
+          "options": [
+            { "id": "a", "text": "La lambic", "is_correct": true },
+            { "id": "b", "text": "La märzen", "is_correct": false },
+            { "id": "c", "text": "La cream ale", "is_correct": false },
+            { "id": "d", "text": "La hefeweizen", "is_correct": false }
+          ],
+          "explanation": "Las lambic se exponen a las levaduras salvajes del aire del Pajottenland, sin levadura añadida."
+        }
+      ]
+    },
+    {
+      "slug": "en-fast-food-trivia",
+      "title": "Fast Food Trivia: Origins, Inventions and Chains",
+      "description": "Eight questions on fast-food history: who started the big chains, where the hamburger and the chicken nugget came from, and famous firsts.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["fast food", "hamburgers", "food history", "restaurants"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The hamburger gets its name from which German city?",
+          "options": [
+            { "id": "a", "text": "Berlin", "is_correct": false },
+            { "id": "b", "text": "Hamburg", "is_correct": true },
+            { "id": "c", "text": "Frankfurt", "is_correct": false },
+            { "id": "d", "text": "Nuremberg", "is_correct": false }
+          ],
+          "explanation": "Sailors and immigrants brought the 'Hamburg steak' to the United States, where it eventually became the hamburger sandwich."
+        },
+        {
+          "id": "q2",
+          "question": "In which California city did the McDonald brothers open their 1948 Speedee Service System restaurant?",
+          "options": [
+            { "id": "a", "text": "Los Angeles", "is_correct": false },
+            { "id": "b", "text": "San Francisco", "is_correct": false },
+            { "id": "c", "text": "San Bernardino", "is_correct": true },
+            { "id": "d", "text": "Sacramento", "is_correct": false }
+          ],
+          "explanation": "Dick and Mac McDonald rebuilt their San Bernardino stand as an assembly-line kitchen in 1948."
+        },
+        {
+          "id": "q3",
+          "question": "Who is credited with inventing the chicken nugget in the 1950s?",
+          "options": [
+            { "id": "a", "text": "Ray Kroc", "is_correct": false },
+            { "id": "b", "text": "Robert C. Baker", "is_correct": true },
+            { "id": "c", "text": "Colonel Sanders", "is_correct": false },
+            { "id": "d", "text": "Dave Thomas", "is_correct": false }
+          ],
+          "explanation": "Cornell poultry scientist Robert C. Baker developed the breaded, freezable chicken nugget as a food-science experiment, not as a chain product."
+        },
+        {
+          "id": "q4",
+          "question": "Colonel Harland Sanders began franchising his fried-chicken recipe at about what age?",
+          "options": [
+            { "id": "a", "text": "25", "is_correct": false },
+            { "id": "b", "text": "40", "is_correct": false },
+            { "id": "c", "text": "62", "is_correct": true },
+            { "id": "d", "text": "35", "is_correct": false }
+          ],
+          "explanation": "Sanders was 62 when he started traveling the country licensing his pressure-fried chicken recipe — the seed of KFC."
+        },
+        {
+          "id": "q5",
+          "question": "Which is often cited as the first fast-food hamburger chain in the United States, founded in 1921?",
+          "options": [
+            { "id": "a", "text": "White Castle", "is_correct": true },
+            { "id": "b", "text": "McDonald's", "is_correct": false },
+            { "id": "c", "text": "Burger King", "is_correct": false },
+            { "id": "d", "text": "Wendy's", "is_correct": false }
+          ],
+          "explanation": "White Castle opened in Wichita, Kansas, in 1921 and pioneered the standardized slider-style hamburger."
+        },
+        {
+          "id": "q6",
+          "question": "The Margherita pizza is said to be named after which queen?",
+          "options": [
+            { "id": "a", "text": "Queen Victoria", "is_correct": false },
+            { "id": "b", "text": "Margherita of Savoy, queen of Italy", "is_correct": true },
+            { "id": "c", "text": "Catherine de' Medici", "is_correct": false },
+            { "id": "d", "text": "Queen Isabella of Spain", "is_correct": false }
+          ],
+          "explanation": "In 1889 the Neapolitan pizzaiolo Raffaele Esposito presented a tomato, mozzarella and basil pizza — the colors of the Italian flag — to Queen Margherita."
+        },
+        {
+          "id": "q7",
+          "question": "McDonald's Filet-O-Fish was created in 1962 for which customers?",
+          "options": [
+            { "id": "a", "text": "Children", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Catholic customers who skipped meat on Fridays",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Sailors", "is_correct": false },
+            { "id": "d", "text": "Vegetarians", "is_correct": false }
+          ],
+          "explanation": "Franchisee Lou Groen in Cincinnati added the sandwich for Catholic customers who avoided meat on Fridays and during Lent."
+        },
+        {
+          "id": "q8",
+          "question": "Fish and chips became the iconic working-class fast food of which country in the 19th century?",
+          "options": [
+            { "id": "a", "text": "United States", "is_correct": false },
+            { "id": "b", "text": "England", "is_correct": true },
+            { "id": "c", "text": "Australia", "is_correct": false },
+            { "id": "d", "text": "Canada", "is_correct": false }
+          ],
+          "explanation": "Fried-fish shops and 'chippies' spread across industrial England, feeding factory workers long before hamburgers existed."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-rapida",
+      "title": "Trivia de comida rápida: orígenes, inventos y cadenas",
+      "description": "Ocho preguntas sobre la historia de la comida rápida: quién fundó las grandes cadenas, de dónde vienen la hamburguesa y el nugget, y primeros hitos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida rápida", "hamburguesas", "historia", "restaurantes"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿La hamburguesa debe su nombre a qué ciudad alemana?",
+          "options": [
+            { "id": "a", "text": "Berlín", "is_correct": false },
+            { "id": "b", "text": "Hamburgo", "is_correct": true },
+            { "id": "c", "text": "Fráncfort", "is_correct": false },
+            { "id": "d", "text": "Núremberg", "is_correct": false }
+          ],
+          "explanation": "Marineros e inmigrantes llevaron el «filete de Hamburgo» a Estados Unidos, donde terminó convertido en el sándwich de hamburguesa."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué ciudad de California abrieron los hermanos McDonald su restaurante del Speedee Service System en 1948?",
+          "options": [
+            { "id": "a", "text": "Los Ángeles", "is_correct": false },
+            { "id": "b", "text": "San Francisco", "is_correct": false },
+            { "id": "c", "text": "San Bernardino", "is_correct": true },
+            { "id": "d", "text": "Sacramento", "is_correct": false }
+          ],
+          "explanation": "Dick y Mac McDonald convirtieron su local de San Bernardino en una cocina de cadena de montaje en 1948."
+        },
+        {
+          "id": "q3",
+          "question": "¿A quién se atribuye la invención del nugget de pollo en los años cincuenta?",
+          "options": [
+            { "id": "a", "text": "A Ray Kroc", "is_correct": false },
+            { "id": "b", "text": "A Robert C. Baker", "is_correct": true },
+            { "id": "c", "text": "Al coronel Sanders", "is_correct": false },
+            { "id": "d", "text": "A Dave Thomas", "is_correct": false }
+          ],
+          "explanation": "Robert C. Baker, científico avícola de Cornell, creó el nugget empanizado y congelable como experimento de ciencia alimentaria, no como producto de una cadena."
+        },
+        {
+          "id": "q4",
+          "question": "¿El coronel Harland Sanders empezó a franquiciar su receta de pollo frito aproximadamente a qué edad?",
+          "options": [
+            { "id": "a", "text": "A los 25", "is_correct": false },
+            { "id": "b", "text": "A los 40", "is_correct": false },
+            { "id": "c", "text": "A los 62", "is_correct": true },
+            { "id": "d", "text": "A los 35", "is_correct": false }
+          ],
+          "explanation": "Sanders tenía 62 años cuando empezó a recorrer el país licenciando su pollo frito a presión: la semilla de KFC."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál suele citarse como la primera cadena de hamburguesas de Estados Unidos, fundada en 1921?",
+          "options": [
+            { "id": "a", "text": "White Castle", "is_correct": true },
+            { "id": "b", "text": "McDonald's", "is_correct": false },
+            { "id": "c", "text": "Burger King", "is_correct": false },
+            { "id": "d", "text": "Wendy's", "is_correct": false }
+          ],
+          "explanation": "White Castle abrió en Wichita, Kansas, en 1921 e inventó la hamburguesa pequeña y estandarizada."
+        },
+        {
+          "id": "q6",
+          "question": "¿Se dice que la pizza margarita lleva el nombre de qué reina?",
+          "options": [
+            { "id": "a", "text": "La reina Victoria", "is_correct": false },
+            { "id": "b", "text": "Margarita de Saboya, reina de Italia", "is_correct": true },
+            { "id": "c", "text": "Catalina de Médici", "is_correct": false },
+            { "id": "d", "text": "La reina Isabel de España", "is_correct": false }
+          ],
+          "explanation": "En 1889 el pizzero napolitano Raffaele Esposito presentó a la reina Margarita una pizza con tomate, mozzarella y albahaca: los colores de la bandera italiana."
+        },
+        {
+          "id": "q7",
+          "question": "¿Para qué clientes se creó el Filet-O-Fish de McDonald's en 1962?",
+          "options": [
+            { "id": "a", "text": "Para niños", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Para clientes católicos que no comían carne los viernes",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Para marineros", "is_correct": false },
+            { "id": "d", "text": "Para vegetarianos", "is_correct": false }
+          ],
+          "explanation": "El franquiciado Lou Groen, en Cincinnati, añadió el sándwich para los católicos que evitaban la carne los viernes y en Cuaresma."
+        },
+        {
+          "id": "q8",
+          "question": "¿El pescado con papas fritas se convirtió en la comida rápida obrera por excelencia de qué país en el siglo XIX?",
+          "options": [
+            { "id": "a", "text": "Estados Unidos", "is_correct": false },
+            { "id": "b", "text": "Inglaterra", "is_correct": true },
+            { "id": "c", "text": "Australia", "is_correct": false },
+            { "id": "d", "text": "Canadá", "is_correct": false }
+          ],
+          "explanation": "Las freidurías de pescado y las «chippies» se extendieron por la Inglaterra industrial mucho antes de que existieran las hamburguesas."
+        }
+      ]
+    },
+    {
+      "slug": "en-chocolate-trivia",
+      "title": "Chocolate Trivia: From Cacao Beans to Chocolate Bars",
+      "description": "Eight questions on chocolate: its Mesoamerican origins, cacao as currency, the first chocolate bar and the inventors of milk and smooth chocolate.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["chocolate", "cacao", "desserts", "food history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which civilization used cacao beans as currency?",
+          "options": [
+            { "id": "a", "text": "The Inca", "is_correct": false },
+            { "id": "b", "text": "The Aztecs", "is_correct": true },
+            { "id": "c", "text": "The Egyptians", "is_correct": false },
+            { "id": "d", "text": "The Romans", "is_correct": false }
+          ],
+          "explanation": "In Aztec markets cacao beans were money: a turkey hen could cost around a hundred beans."
+        },
+        {
+          "id": "q2",
+          "question": "What does the scientific name Theobroma cacao mean?",
+          "options": [
+            { "id": "a", "text": "\"Bitter water\"", "is_correct": false },
+            { "id": "b", "text": "\"Food of the gods\"", "is_correct": true },
+            { "id": "c", "text": "\"Sacred tree\"", "is_correct": false },
+            { "id": "d", "text": "\"Black gold\"", "is_correct": false }
+          ],
+          "explanation": "Linnaeus named the cacao tree Theobroma — Greek for 'food of the gods'."
+        },
+        {
+          "id": "q3",
+          "question": "Who produced the first solid eating-chocolate bar in 1847?",
+          "options": [
+            { "id": "a", "text": "Joseph Fry", "is_correct": true },
+            { "id": "b", "text": "Daniel Peter", "is_correct": false },
+            { "id": "c", "text": "Rodolphe Lindt", "is_correct": false },
+            { "id": "d", "text": "Milton Hershey", "is_correct": false }
+          ],
+          "explanation": "J.S. Fry & Sons of Bristol mixed cocoa powder with cocoa butter to make the first bar meant for eating."
+        },
+        {
+          "id": "q4",
+          "question": "In which country was milk chocolate invented in 1875?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Belgium", "is_correct": false },
+            { "id": "c", "text": "Switzerland", "is_correct": true },
+            { "id": "d", "text": "Germany", "is_correct": false }
+          ],
+          "explanation": "Daniel Peter created milk chocolate in Vevey, Switzerland, using his neighbor Henri Nestlé's condensed milk."
+        },
+        {
+          "id": "q5",
+          "question": "What does white chocolate lack compared with dark chocolate?",
+          "options": [
+            { "id": "a", "text": "Cocoa butter", "is_correct": false },
+            { "id": "b", "text": "Cocoa solids", "is_correct": true },
+            { "id": "c", "text": "Sugar", "is_correct": false },
+            { "id": "d", "text": "Vanilla", "is_correct": false }
+          ],
+          "explanation": "White chocolate contains cocoa butter, sugar and milk but no cocoa solids — the part that gives dark chocolate its color and flavor."
+        },
+        {
+          "id": "q6",
+          "question": "Which process, invented by Rodolphe Lindt in 1879, gives chocolate its smooth texture?",
+          "options": [
+            { "id": "a", "text": "Conching", "is_correct": true },
+            { "id": "b", "text": "Fermenting", "is_correct": false },
+            { "id": "c", "text": "Tempering", "is_correct": false },
+            { "id": "d", "text": "Roasting", "is_correct": false }
+          ],
+          "explanation": "Conching kneads liquid chocolate for hours or days, smoothing its texture and mellowing its acidity."
+        },
+        {
+          "id": "q7",
+          "question": "Which West African country is the world's largest cacao producer?",
+          "options": [
+            { "id": "a", "text": "Nigeria", "is_correct": false },
+            { "id": "b", "text": "Côte d'Ivoire", "is_correct": true },
+            { "id": "c", "text": "Ghana", "is_correct": false },
+            { "id": "d", "text": "Cameroon", "is_correct": false }
+          ],
+          "explanation": "Côte d'Ivoire and Ghana together grow more than half of the world's cacao, and Côte d'Ivoire leads the ranking."
+        },
+        {
+          "id": "q8",
+          "question": "For its first centuries in Europe, chocolate was consumed mainly as what?",
+          "options": [
+            { "id": "a", "text": "A drink", "is_correct": true },
+            { "id": "b", "text": "A candy bar", "is_correct": false },
+            { "id": "c", "text": "A dessert sauce", "is_correct": false },
+            { "id": "d", "text": "A bread spread", "is_correct": false }
+          ],
+          "explanation": "Chocolate arrived from Mexico as a bitter spiced drink; solid eating chocolate only appeared in the 19th century."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-chocolate",
+      "title": "Trivia de chocolate: del grano de cacao a la tableta",
+      "description": "Ocho preguntas sobre el chocolate: su origen mesoamericano, el cacao como moneda, la primera tableta y los inventores del chocolate con leche.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["chocolate", "cacao", "postres", "historia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué civilización usaba los granos de cacao como moneda?",
+          "options": [
+            { "id": "a", "text": "Los incas", "is_correct": false },
+            { "id": "b", "text": "Los aztecas", "is_correct": true },
+            { "id": "c", "text": "Los egipcios", "is_correct": false },
+            { "id": "d", "text": "Los romanos", "is_correct": false }
+          ],
+          "explanation": "En los mercados aztecas el cacao era dinero: una pava podía costar unos cien granos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué significa el nombre científico Theobroma cacao?",
+          "options": [
+            { "id": "a", "text": "«Agua amarga»", "is_correct": false },
+            { "id": "b", "text": "«Alimento de los dioses»", "is_correct": true },
+            { "id": "c", "text": "«Árbol sagrado»", "is_correct": false },
+            { "id": "d", "text": "«Oro negro»", "is_correct": false }
+          ],
+          "explanation": "Linneo llamó al árbol del cacao Theobroma, que en griego significa «alimento de los dioses»."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién produjo la primera tableta de chocolate para comer en 1847?",
+          "options": [
+            { "id": "a", "text": "Joseph Fry", "is_correct": true },
+            { "id": "b", "text": "Daniel Peter", "is_correct": false },
+            { "id": "c", "text": "Rodolphe Lindt", "is_correct": false },
+            { "id": "d", "text": "Milton Hershey", "is_correct": false }
+          ],
+          "explanation": "La fábrica J.S. Fry & Sons de Bristol mezcló cacao en polvo con manteca de cacao para crear la primera tableta de consumo."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué país se inventó el chocolate con leche en 1875?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Bélgica", "is_correct": false },
+            { "id": "c", "text": "Suiza", "is_correct": true },
+            { "id": "d", "text": "Alemania", "is_correct": false }
+          ],
+          "explanation": "Daniel Peter creó el chocolate con leche en Vevey, Suiza, con la leche condensada de su vecino Henri Nestlé."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué le falta al chocolate blanco comparado con el negro?",
+          "options": [
+            { "id": "a", "text": "Manteca de cacao", "is_correct": false },
+            { "id": "b", "text": "Sólidos de cacao", "is_correct": true },
+            { "id": "c", "text": "Azúcar", "is_correct": false },
+            { "id": "d", "text": "Vainilla", "is_correct": false }
+          ],
+          "explanation": "El chocolate blanco lleva manteca de cacao, azúcar y leche, pero no los sólidos de cacao que dan color y sabor al chocolate negro."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué proceso, inventado por Rodolphe Lindt en 1879, da al chocolate su textura suave?",
+          "options": [
+            { "id": "a", "text": "El conchado", "is_correct": true },
+            { "id": "b", "text": "La fermentación", "is_correct": false },
+            { "id": "c", "text": "El temperado", "is_correct": false },
+            { "id": "d", "text": "El tostado", "is_correct": false }
+          ],
+          "explanation": "El conchado amasa el chocolate líquido durante horas o días, alisando su textura y suavizando su acidez."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué país de África occidental es el mayor productor mundial de cacao?",
+          "options": [
+            { "id": "a", "text": "Nigeria", "is_correct": false },
+            { "id": "b", "text": "Costa de Marfil", "is_correct": true },
+            { "id": "c", "text": "Ghana", "is_correct": false },
+            { "id": "d", "text": "Camerún", "is_correct": false }
+          ],
+          "explanation": "Costa de Marfil y Ghana producen juntos más de la mitad del cacao mundial, y Costa de Marfil encabeza la lista."
+        },
+        {
+          "id": "q8",
+          "question": "¿Durante sus primeros siglos en Europa, el chocolate se consumía sobre todo como…",
+          "options": [
+            { "id": "a", "text": "una bebida", "is_correct": true },
+            { "id": "b", "text": "una tableta de dulce", "is_correct": false },
+            { "id": "c", "text": "una salsa para postres", "is_correct": false },
+            { "id": "d", "text": "un untable para pan", "is_correct": false }
+          ],
+          "explanation": "El chocolate llegó de México como una bebida amarga y especiada; el chocolate sólido para comer solo apareció en el siglo XIX."
+        }
+      ]
+    },
+    {
+      "slug": "en-ice-cream-trivia",
+      "title": "Ice Cream Trivia: History, Inventions and Styles",
+      "description": "Eight questions on ice cream and frozen desserts: the cone, the popsicle, gelato, kulfi and the world's great ice-cream traditions.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["ice cream", "desserts", "food history", "gelato"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The ice-cream cone became famous at which 1904 event?",
+          "options": [
+            { "id": "a", "text": "The Chicago World's Fair", "is_correct": false },
+            { "id": "b", "text": "The St. Louis World's Fair", "is_correct": true },
+            { "id": "c", "text": "The Paris Exposition", "is_correct": false },
+            { "id": "d", "text": "The London Olympics", "is_correct": false }
+          ],
+          "explanation": "At the 1904 St. Louis World's Fair, a waffle vendor rolled his wafers to help an ice-cream seller who had run out of dishes."
+        },
+        {
+          "id": "q2",
+          "question": "Who invented the popsicle in 1905 at the age of eleven?",
+          "options": [
+            { "id": "a", "text": "Frank Epperson", "is_correct": true },
+            { "id": "b", "text": "Milton Hershey", "is_correct": false },
+            { "id": "c", "text": "Jacob Fussell", "is_correct": false },
+            { "id": "d", "text": "Tom Carvel", "is_correct": false }
+          ],
+          "explanation": "Frank Epperson left a cup of soda with a stirring stick out in the cold overnight — the next morning it was frozen solid."
+        },
+        {
+          "id": "q3",
+          "question": "Kulfi, the traditional frozen dessert scented with cardamom or mango, comes from which country?",
+          "options": [
+            { "id": "a", "text": "Thailand", "is_correct": false },
+            { "id": "b", "text": "India", "is_correct": true },
+            { "id": "c", "text": "Egypt", "is_correct": false },
+            { "id": "d", "text": "Brazil", "is_correct": false }
+          ],
+          "explanation": "Kulfi is India's dense, slow-frozen milk dessert, served on sticks and perfumed with cardamom, pistachio or mango."
+        },
+        {
+          "id": "q4",
+          "question": "Dondurma, the famously stretchy ice cream made with salep, comes from which country?",
+          "options": [
+            { "id": "a", "text": "Greece", "is_correct": false },
+            { "id": "b", "text": "Italy", "is_correct": false },
+            { "id": "c", "text": "Turkey", "is_correct": true },
+            { "id": "d", "text": "Lebanon", "is_correct": false }
+          ],
+          "explanation": "Turkish dondurma gets its elastic chew from salep, a flour ground from wild orchid roots, together with mastic resin."
+        },
+        {
+          "id": "q5",
+          "question": "How does gelato differ from regular ice cream?",
+          "options": [
+            { "id": "a", "text": "It has more fat and more air", "is_correct": false },
+            {
+              "id": "b",
+              "text": "It has less fat and less air, so it is denser",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It contains no milk", "is_correct": false },
+            { "id": "d", "text": "It is served frozen solid", "is_correct": false }
+          ],
+          "explanation": "Gelato uses more milk than cream and is churned slowly, packing in less air, so it turns out denser and softer."
+        },
+        {
+          "id": "q6",
+          "question": "Who opened the first large-scale American ice-cream factory in Baltimore in 1851?",
+          "options": [
+            { "id": "a", "text": "Jacob Fussell", "is_correct": true },
+            { "id": "b", "text": "Burt Baskin", "is_correct": false },
+            { "id": "c", "text": "Christian Nelson", "is_correct": false },
+            { "id": "d", "text": "Reuben Mattus", "is_correct": false }
+          ],
+          "explanation": "Milk dealer Jacob Fussell industrialized ice cream in 1851 and made it affordable for the public — a first for the industry."
+        },
+        {
+          "id": "q7",
+          "question": "Mochi ice cream wraps ice cream in a soft dough made from what?",
+          "options": [
+            { "id": "a", "text": "Wheat flour", "is_correct": false },
+            { "id": "b", "text": "Glutinous rice", "is_correct": true },
+            { "id": "c", "text": "Almond paste", "is_correct": false },
+            { "id": "d", "text": "Corn flour", "is_correct": false }
+          ],
+          "explanation": "Mochi is a chewy cake pounded from glutinous rice; in mochi ice cream it becomes a wrapper for small balls of ice cream."
+        },
+        {
+          "id": "q8",
+          "question": "Which frozen dessert contains no dairy at all?",
+          "options": [
+            { "id": "a", "text": "Gelato", "is_correct": false },
+            { "id": "b", "text": "Frozen yogurt", "is_correct": false },
+            { "id": "c", "text": "Sorbet", "is_correct": true },
+            { "id": "d", "text": "Kulfi", "is_correct": false }
+          ],
+          "explanation": "Sorbet is just fruit, sugar and water — which is why it is the traditional choice for anyone avoiding milk."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-helados",
+      "title": "Trivia de helados: historia, inventos y variedades",
+      "description": "Ocho preguntas sobre el helado y los postres congelados: el cono, la paleta, el gelato, el kulfi y las grandes tradiciones heladeras del mundo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["helados", "postres", "historia", "gelato"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿El cono de helado se hizo famoso en qué evento de 1904?",
+          "options": [
+            { "id": "a", "text": "La feria mundial de Chicago", "is_correct": false },
+            { "id": "b", "text": "La feria mundial de San Luis", "is_correct": true },
+            { "id": "c", "text": "La exposición de París", "is_correct": false },
+            { "id": "d", "text": "Las Olimpiadas de Londres", "is_correct": false }
+          ],
+          "explanation": "En la Feria Mundial de San Luis de 1904, un vendedor de barquillos enrolló sus obleas para ayudar a un heladero que se había quedado sin platos."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién inventó la paleta helada en 1905, a los once años?",
+          "options": [
+            { "id": "a", "text": "Frank Epperson", "is_correct": true },
+            { "id": "b", "text": "Milton Hershey", "is_correct": false },
+            { "id": "c", "text": "Jacob Fussell", "is_correct": false },
+            { "id": "d", "text": "Tom Carvel", "is_correct": false }
+          ],
+          "explanation": "Frank Epperson dejó un vaso de soda con su cucharilla al frío durante toda la noche: a la mañana siguiente estaba congelado."
+        },
+        {
+          "id": "q3",
+          "question": "¿El kulfi, postre helado tradicional perfumado con cardamomo o mango, viene de qué país?",
+          "options": [
+            { "id": "a", "text": "Tailandia", "is_correct": false },
+            { "id": "b", "text": "India", "is_correct": true },
+            { "id": "c", "text": "Egipto", "is_correct": false },
+            { "id": "d", "text": "Brasil", "is_correct": false }
+          ],
+          "explanation": "El kulfi es el denso helado de leche de la India, servido en palitos y perfumado con cardamomo, pistacho o mango."
+        },
+        {
+          "id": "q4",
+          "question": "¿La dondurma, el famoso helado elástico hecho con salep, viene de qué país?",
+          "options": [
+            { "id": "a", "text": "Grecia", "is_correct": false },
+            { "id": "b", "text": "Italia", "is_correct": false },
+            { "id": "c", "text": "Turquía", "is_correct": true },
+            { "id": "d", "text": "Líbano", "is_correct": false }
+          ],
+          "explanation": "La dondurma turca toma su textura elástica del salep, una harina de raíces de orquídea salvaje, junto con la resina de mástic."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué se diferencia el gelato del helado común?",
+          "options": [
+            { "id": "a", "text": "Tiene más grasa y más aire", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Tiene menos grasa y menos aire, así que es más denso",
+              "is_correct": true
+            },
+            { "id": "c", "text": "No lleva leche", "is_correct": false },
+            { "id": "d", "text": "Se sirve congelado en bloque", "is_correct": false }
+          ],
+          "explanation": "El gelato usa más leche que nata y se bate despacio, incorporando menos aire; por eso sale más denso y cremoso."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién abrió la primera fábrica estadounidense de helados a gran escala, en Baltimore en 1851?",
+          "options": [
+            { "id": "a", "text": "Jacob Fussell", "is_correct": true },
+            { "id": "b", "text": "Burt Baskin", "is_correct": false },
+            { "id": "c", "text": "Christian Nelson", "is_correct": false },
+            { "id": "d", "text": "Reuben Mattus", "is_correct": false }
+          ],
+          "explanation": "El lechero Jacob Fussell industrializó el helado en 1851 y lo volvió asequible para el público: un hito para la industria."
+        },
+        {
+          "id": "q7",
+          "question": "¿El mochi de helado envuelve la bola en una masa suave hecha de qué?",
+          "options": [
+            { "id": "a", "text": "Harina de trigo", "is_correct": false },
+            { "id": "b", "text": "Arroz glutinoso", "is_correct": true },
+            { "id": "c", "text": "Pasta de almendra", "is_correct": false },
+            { "id": "d", "text": "Harina de maíz", "is_correct": false }
+          ],
+          "explanation": "El mochi es una pasta elástica machacada de arroz glutinoso; en el mochi de helado sirve de envoltorio para pequeñas bolas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué postre helado no lleva nada de lácteos?",
+          "options": [
+            { "id": "a", "text": "El gelato", "is_correct": false },
+            { "id": "b", "text": "El yogur helado", "is_correct": false },
+            { "id": "c", "text": "El sorbete", "is_correct": true },
+            { "id": "d", "text": "El kulfi", "is_correct": false }
+          ],
+          "explanation": "El sorbete es solo fruta, azúcar y agua: por eso es la opción tradicional para quienes evitan la leche."
+        }
+      ]
+    },
+    {
+      "slug": "en-cheese-trivia",
+      "title": "Cheese Trivia: Families, Origins and Cheesemaking",
+      "description": "Eight questions on cheese: fresh and aged families, blue veining, protected names, rennet and the world's most famous varieties.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["cheese", "dairy", "food history", "cooking"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which mold creates the blue-green veins in cheeses like Roquefort?",
+          "options": [
+            { "id": "a", "text": "Penicillium", "is_correct": true },
+            { "id": "b", "text": "Botrytis", "is_correct": false },
+            { "id": "c", "text": "Aspergillus", "is_correct": false },
+            { "id": "d", "text": "Lactobacillus", "is_correct": false }
+          ],
+          "explanation": "Penicillium roqueforti is seeded into the curd and blooms along the needle holes where air enters the wheel."
+        },
+        {
+          "id": "q2",
+          "question": "Parmigiano-Reggiano takes its name from which two Italian provinces?",
+          "options": [
+            { "id": "a", "text": "Parma and Reggio Emilia", "is_correct": true },
+            { "id": "b", "text": "Milan and Turin", "is_correct": false },
+            { "id": "c", "text": "Rome and Naples", "is_correct": false },
+            { "id": "d", "text": "Bologna and Florence", "is_correct": false }
+          ],
+          "explanation": "The name joins Parma and Reggio Emilia, the provinces at the heart of a protected zone that also covers Modena and parts of Bologna and Mantua."
+        },
+        {
+          "id": "q3",
+          "question": "Manchego, Spain's most famous cheese, is made from which milk?",
+          "options": [
+            { "id": "a", "text": "Cow's milk", "is_correct": false },
+            { "id": "b", "text": "Sheep's milk", "is_correct": true },
+            { "id": "c", "text": "Goat's milk", "is_correct": false },
+            { "id": "d", "text": "Buffalo milk", "is_correct": false }
+          ],
+          "explanation": "True Manchego comes from the milk of Manchega sheep raised on the plains of La Mancha."
+        },
+        {
+          "id": "q4",
+          "question": "What causes the holes, or 'eyes', in Swiss-style cheeses like Emmental?",
+          "options": [
+            { "id": "a", "text": "Aging cracks", "is_correct": false },
+            { "id": "b", "text": "Carbon dioxide released by bacteria", "is_correct": true },
+            { "id": "c", "text": "Added seeds", "is_correct": false },
+            { "id": "d", "text": "Melted fat pockets", "is_correct": false }
+          ],
+          "explanation": "Propionibacterium freudenreichii ferments lactic acid and releases CO₂ bubbles that become the famous holes."
+        },
+        {
+          "id": "q5",
+          "question": "Which soft French cheese with an edible white rind is known as the 'queen of cheeses'?",
+          "options": [
+            { "id": "a", "text": "Brie", "is_correct": true },
+            { "id": "b", "text": "Gruyère", "is_correct": false },
+            { "id": "c", "text": "Manchego", "is_correct": false },
+            { "id": "d", "text": "Feta", "is_correct": false }
+          ],
+          "explanation": "Brie's bloomy rind is a white Penicillium camemberti mold — soft, mild and entirely edible."
+        },
+        {
+          "id": "q6",
+          "question": "Authentic mozzarella di bufala is traditionally made from the milk of which animal?",
+          "options": [
+            { "id": "a", "text": "Cow", "is_correct": false },
+            { "id": "b", "text": "Water buffalo", "is_correct": true },
+            { "id": "c", "text": "Goat", "is_correct": false },
+            { "id": "d", "text": "Sheep", "is_correct": false }
+          ],
+          "explanation": "Mozzarella di bufala campana comes from water-buffalo milk in Campania; the cow's-milk version is called fior di latte."
+        },
+        {
+          "id": "q7",
+          "question": "What is rennet, used at the start of cheesemaking?",
+          "options": [
+            { "id": "a", "text": "A coloring agent", "is_correct": false },
+            { "id": "b", "text": "Enzymes that coagulate milk into curds", "is_correct": true },
+            { "id": "c", "text": "A type of mold", "is_correct": false },
+            { "id": "d", "text": "Salt for the rind", "is_correct": false }
+          ],
+          "explanation": "Rennet's enzymes curdle milk into solid curds and liquid whey — the first separation of cheesemaking."
+        },
+        {
+          "id": "q8",
+          "question": "How is feta traditionally preserved and sold?",
+          "options": [
+            { "id": "a", "text": "Wrapped in wax", "is_correct": false },
+            { "id": "b", "text": "Stored in brine", "is_correct": true },
+            { "id": "c", "text": "Smoked over wood", "is_correct": false },
+            { "id": "d", "text": "Dried in caves", "is_correct": false }
+          ],
+          "explanation": "Feta matures in salty brine, which keeps the white curd moist and gives the Greek cheese its tangy bite."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-quesos",
+      "title": "Trivia de quesos: familias, orígenes y elaboración",
+      "description": "Ocho preguntas sobre el queso: familias frescas y curadas, vetas azules, denominaciones protegidas, cuajo y variedades famosas del mundo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["quesos", "lácteos", "historia", "cocina"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué moho crea las vetas verdeazuladas de quesos como el roquefort?",
+          "options": [
+            { "id": "a", "text": "El Penicillium", "is_correct": true },
+            { "id": "b", "text": "El Botrytis", "is_correct": false },
+            { "id": "c", "text": "El Aspergillus", "is_correct": false },
+            { "id": "d", "text": "El Lactobacillus", "is_correct": false }
+          ],
+          "explanation": "El Penicillium roqueforti se siembra en la cuajada y crece por los orificios de las agujas por donde entra el aire."
+        },
+        {
+          "id": "q2",
+          "question": "¿El Parmigiano-Reggiano toma su nombre de qué dos provincias italianas?",
+          "options": [
+            { "id": "a", "text": "Parma y Reggio Emilia", "is_correct": true },
+            { "id": "b", "text": "Milán y Turín", "is_correct": false },
+            { "id": "c", "text": "Roma y Nápoles", "is_correct": false },
+            { "id": "d", "text": "Bolonia y Florencia", "is_correct": false }
+          ],
+          "explanation": "El nombre une Parma y Reggio Emilia, las provincias en el corazón de una zona protegida que también cubre Módena y partes de Bolonia y Mantua."
+        },
+        {
+          "id": "q3",
+          "question": "¿El manchego, el queso más famoso de España, se hace con leche de qué animal?",
+          "options": [
+            { "id": "a", "text": "Vaca", "is_correct": false },
+            { "id": "b", "text": "Oveja", "is_correct": true },
+            { "id": "c", "text": "Cabra", "is_correct": false },
+            { "id": "d", "text": "Búfala", "is_correct": false }
+          ],
+          "explanation": "El manchego auténtico sale de la leche de ovejas de raza manchega criadas en las llanuras de La Mancha."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué causa los agujeros u «ojos» de los quesos suizos como el emmental?",
+          "options": [
+            { "id": "a", "text": "Grietas del curado", "is_correct": false },
+            {
+              "id": "b",
+              "text": "El dióxido de carbono que liberan las bacterias",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Semillas añadidas", "is_correct": false },
+            { "id": "d", "text": "Bolsas de grasa fundida", "is_correct": false }
+          ],
+          "explanation": "La bacteria Propionibacterium freudenreichii fermenta el ácido láctico y suelta burbujas de CO₂ que se convierten en los famosos agujeros."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué queso francés blando de corteza blanca comestible se conoce como «la reina de los quesos»?",
+          "options": [
+            { "id": "a", "text": "El brie", "is_correct": true },
+            { "id": "b", "text": "El gruyère", "is_correct": false },
+            { "id": "c", "text": "El manchego", "is_correct": false },
+            { "id": "d", "text": "La feta", "is_correct": false }
+          ],
+          "explanation": "La corteza florida del brie es el moho blanco Penicillium camemberti: tierna, suave y totalmente comestible."
+        },
+        {
+          "id": "q6",
+          "question": "¿La auténtica mozzarella di bufala se hace tradicionalmente con leche de qué animal?",
+          "options": [
+            { "id": "a", "text": "Vaca", "is_correct": false },
+            { "id": "b", "text": "Búfala", "is_correct": true },
+            { "id": "c", "text": "Cabra", "is_correct": false },
+            { "id": "d", "text": "Oveja", "is_correct": false }
+          ],
+          "explanation": "La mozzarella di bufala campana sale de la leche de búfala de Campania; la versión de vaca se llama fior di latte."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué es el cuajo, que se usa al inicio de la elaboración del queso?",
+          "options": [
+            { "id": "a", "text": "Un colorante", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Las enzimas que coagulan la leche en cuajada",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un tipo de moho", "is_correct": false },
+            { "id": "d", "text": "Sal para la corteza", "is_correct": false }
+          ],
+          "explanation": "Las enzimas del cuajo cuajan la leche en cuajada sólida y suero líquido: la primera separación de la quesería."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo se conserva y vende tradicionalmente la feta?",
+          "options": [
+            { "id": "a", "text": "Envuelta en cera", "is_correct": false },
+            { "id": "b", "text": "Guardada en salmuera", "is_correct": true },
+            { "id": "c", "text": "Ahumada sobre leña", "is_correct": false },
+            { "id": "d", "text": "Secada en cuevas", "is_correct": false }
+          ],
+          "explanation": "La feta madura en salmuera, que mantiene húmeda la cuajada blanca y le da su punzante sabor griego."
+        }
+      ]
+    }
+  ]
+}
