@@ -93,6 +93,44 @@ async function fetchPublishedQuizzesFromDb(limit = 40, locale?: Locale): Promise
   return quizRows.map((quiz) => normalizeQuiz(quiz, categoryMap));
 }
 
+async function fetchFeaturedQuizzesFromDb(limit = 4, locale?: Locale): Promise<Quiz[]> {
+  const supabase = await createClient();
+  const target = Math.min(Math.max(Math.trunc(limit), 0), QUIZ_MAX_ROWS);
+
+  let quizQuery = supabase
+    .from('quizzes')
+    .select('*')
+    .eq('status', 'published')
+    .eq('is_featured', true);
+  if (locale) {
+    quizQuery = quizQuery.eq('language', locale);
+  }
+
+  const [quizRows, { data: categories, error: categoryError }] = await Promise.all([
+    (async (): Promise<QuizRow[]> => {
+      if (target === 0) return [];
+      const { data, error } = await quizQuery
+        .order('plays_count', { ascending: false })
+        .order('id', { ascending: true })
+        .limit(target);
+      if (error || !data) {
+        throw error ?? new Error('Could not fetch featured quizzes');
+      }
+      return data as QuizRow[];
+    })(),
+    supabase.from('categories').select('*').order('sort_order'),
+  ]);
+
+  if (categoryError || !categories) {
+    throw categoryError ?? new Error('Could not fetch categories');
+  }
+
+  const categoryMap = new Map(
+    (categories as CategoryRow[]).map((item) => [item.id, normalizeCategory(item)])
+  );
+  return quizRows.map((quiz) => normalizeQuiz(quiz, categoryMap));
+}
+
 async function fetchPublishedQuizTotalsFromDb(locale?: Locale): Promise<{
   totalQuizzes: number;
   totalPlays: number;
@@ -173,6 +211,16 @@ export const getPublishedQuizzes = cache(async (limit = 40, locale?: Locale): Pr
   }
 });
 
+export const getFeaturedQuizzes = cache(async (limit = 4, locale?: Locale): Promise<Quiz[]> => {
+  try {
+    return await fetchFeaturedQuizzesFromDb(limit, locale);
+  } catch {
+    return LAUNCH_QUIZZES.filter(
+      (quiz) => quiz.is_featured && (!locale || quiz.language === locale)
+    ).slice(0, limit);
+  }
+});
+
 export const getQuizBySlug = cache(async (slug: string, locale?: Locale): Promise<Quiz | null> => {
   try {
     return await fetchQuizBySlugFromDb(slug, locale);
@@ -222,8 +270,9 @@ export async function getExplorePayload(
 }
 
 export async function getHomePayload(locale?: Locale) {
-  const [quizzes, categories, totals] = await Promise.all([
+  const [quizzes, featuredRows, categories, totals] = await Promise.all([
     getPublishedQuizzes(24, locale),
+    getFeaturedQuizzes(4, locale),
     getPublicCategories(),
     (async () => {
       try {
@@ -242,7 +291,7 @@ export async function getHomePayload(locale?: Locale) {
   ]);
 
   const trending = [...quizzes].sort((a, b) => b.plays_count - a.plays_count).slice(0, 6);
-  const featured = quizzes.filter((quiz) => quiz.is_featured).slice(0, 4);
+  const featured = featuredRows.filter((quiz) => quiz.is_featured).slice(0, 4);
   const quickPlays = [...quizzes]
     .sort((a, b) => a.estimated_minutes - b.estimated_minutes)
     .slice(0, 4);
