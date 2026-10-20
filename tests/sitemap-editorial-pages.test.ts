@@ -37,7 +37,7 @@ vi.mock('@/lib/data/quiz-locale-map', () => ({
   getEquivalentQuizSlug: () => null,
 }));
 
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { GET } from '@/app/api/sitemap/route';
@@ -46,17 +46,20 @@ import { GET } from '@/app/api/sitemap/route';
 // página editorial nueva omitida del sitemap hace fallar este test aunque
 // nadie la añada aquí (cubre el blind spot de la lista hardcodeada).
 const LOCALE_DIR = join(__dirname, '../src/app/[locale]');
+const NOINDEX = /noindex|index:\s*false/;
 
 function expectedEditorialPaths(): string[] {
-  const paths = [''];
-  for (const entry of readdirSync(LOCALE_DIR, { withFileTypes: true })) {
-    if (!entry.isDirectory() || entry.name.includes('[')) continue;
-    const pageFile = join(LOCALE_DIR, entry.name, 'page.tsx');
-    if (!existsSync(pageFile)) continue;
-    if (readFileSync(pageFile, 'utf8').includes('noindex')) continue;
-    paths.push(`/${entry.name}`);
+  const paths = new Set<string>(['']);
+  // Recursivo para no perder páginas editoriales anidadas (p. ej. `foo/bar`).
+  const entries = readdirSync(LOCALE_DIR, { withFileTypes: true, recursive: true });
+  for (const entry of entries) {
+    if (!entry.isFile() || entry.name !== 'page.tsx') continue;
+    const rel = entry.parentPath.slice(LOCALE_DIR.length);
+    if (rel.includes('[')) continue;
+    if (NOINDEX.test(readFileSync(join(entry.parentPath, 'page.tsx'), 'utf8'))) continue;
+    paths.add(rel);
   }
-  return paths.sort();
+  return [...paths].sort();
 }
 
 const EDITORIAL_PATHS = expectedEditorialPaths();
