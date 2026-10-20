@@ -1,0 +1,1155 @@
+{
+  "$comment": "Editorial seed 2026cd: five es/en trivia pairs on world cuisines still missing from the catalogue (Peruvian, Chinese, Thai, Indian and Argentine food). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-peruvian-food-trivia",
+      "title": "Peruvian Food Trivia: Ceviche, Pisco and the Chifa",
+      "description": "Eight questions on ceviche, ají peppers, Andean potatoes, chifa fusion and the pisco sour — the staples of Peruvian cooking.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "peru", "peruvian cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What 'cooks' the raw fish in a ceviche?",
+          "options": [
+            { "id": "a", "text": "Vinegar", "is_correct": false },
+            { "id": "b", "text": "Lime juice", "is_correct": true },
+            { "id": "c", "text": "Soy sauce", "is_correct": false },
+            { "id": "d", "text": "Olive oil", "is_correct": false }
+          ],
+          "explanation": "In ceviche, the acidity of lime juice denatures the fish proteins, giving it a cooked texture without heat."
+        },
+        {
+          "id": "q2",
+          "question": "Which yellow chili pepper is a pillar of Peruvian cooking, present in dishes like ají de gallina?",
+          "options": [
+            { "id": "a", "text": "The jalapeño", "is_correct": false },
+            { "id": "b", "text": "The habanero", "is_correct": false },
+            { "id": "c", "text": "The ají amarillo", "is_correct": true },
+            { "id": "d", "text": "The poblano", "is_correct": false }
+          ],
+          "explanation": "Ají amarillo is a fruity, medium-heat yellow pepper that flavors many classic Peruvian sauces."
+        },
+        {
+          "id": "q3",
+          "question": "Ají panca, the deep-red dried pepper used in anticucho and adobo marinades, is known for what flavor?",
+          "options": [
+            { "id": "a", "text": "Extremely hot and citrusy", "is_correct": false },
+            { "id": "b", "text": "Smoky and mild, with fruity notes", "is_correct": true },
+            { "id": "c", "text": "Sweet and floral", "is_correct": false },
+            { "id": "d", "text": "Bitter and earthy", "is_correct": false }
+          ],
+          "explanation": "Ají panca tastes smoky and fruity with gentle heat; it colors and flavors marinades and stews."
+        },
+        {
+          "id": "q4",
+          "question": "Where was the potato first domesticated, thousands of years ago?",
+          "options": [
+            { "id": "a", "text": "In the Irish lowlands", "is_correct": false },
+            { "id": "b", "text": "In the Andes of South America", "is_correct": true },
+            { "id": "c", "text": "On the Mediterranean coast", "is_correct": false },
+            { "id": "d", "text": "On the Himalayan plateau", "is_correct": false }
+          ],
+          "explanation": "Potatoes were domesticated in the Andes; Peru still grows thousands of native varieties in many colors."
+        },
+        {
+          "id": "q5",
+          "question": "What is 'chifa' in Peruvian gastronomy?",
+          "options": [
+            { "id": "a", "text": "A fermented corn drink", "is_correct": false },
+            { "id": "b", "text": "A type of grilled skewer", "is_correct": false },
+            { "id": "c", "text": "The Peruvian-Chinese fusion cuisine", "is_correct": true },
+            { "id": "d", "text": "A corn and cheese tamale", "is_correct": false }
+          ],
+          "explanation": "Chifa blends the techniques and ingredients brought by Cantonese immigrants with Peruvian flavors."
+        },
+        {
+          "id": "q6",
+          "question": "What is causa limeña made of?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Layers of mashed yellow potato seasoned with lime and ají amarillo",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Fried plantains with cheese", "is_correct": false },
+            { "id": "c", "text": "Rice pudding with cinnamon", "is_correct": false },
+            { "id": "d", "text": "Corn dough stuffed with beef", "is_correct": false }
+          ],
+          "explanation": "Causa limeña stacks mashed yellow potato with lime and chili around fillings like chicken, tuna or avocado."
+        },
+        {
+          "id": "q7",
+          "question": "Which grape brandy is the base of Peru's national cocktail, the pisco sour?",
+          "options": [
+            { "id": "a", "text": "Grappa", "is_correct": false },
+            { "id": "b", "text": "Pisco", "is_correct": true },
+            { "id": "c", "text": "Cachaça", "is_correct": false },
+            { "id": "d", "text": "Ouzo", "is_correct": false }
+          ],
+          "explanation": "Pisco is distilled from fermented grape juice; the pisco sour mixes it with lime, egg white and bitters."
+        },
+        {
+          "id": "q8",
+          "question": "Lomo saltado, a beef stir-fry with onions, tomatoes and fries, shows the influence of which cuisine?",
+          "options": [
+            { "id": "a", "text": "Japanese", "is_correct": false },
+            { "id": "b", "text": "Italian", "is_correct": false },
+            { "id": "c", "text": "Chinese", "is_correct": true },
+            { "id": "d", "text": "Spanish", "is_correct": false }
+          ],
+          "explanation": "Lomo saltado is cooked wok-style, a technique brought by Chinese immigrants in the 19th century."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-peruana",
+      "title": "Trivia de comida peruana: ceviche, pisco y el chifa",
+      "description": "Ocho preguntas sobre el ceviche, los ajíes, la papa andina, la fusión chifa y el pisco sour, pilares de la cocina del Perú.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "perú", "cocina peruana"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué «cocina» al pescado crudo en el ceviche?",
+          "options": [
+            { "id": "a", "text": "El vinagre", "is_correct": false },
+            { "id": "b", "text": "El jugo de lima", "is_correct": true },
+            { "id": "c", "text": "La salsa de soja", "is_correct": false },
+            { "id": "d", "text": "El aceite de oliva", "is_correct": false }
+          ],
+          "explanation": "En el ceviche, la acidez de la lima desnaturaliza las proteínas del pescado y le da textura de cocido sin calor."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué chile amarillo es un pilar de la cocina peruana, presente en platos como el ají de gallina?",
+          "options": [
+            { "id": "a", "text": "El jalapeño", "is_correct": false },
+            { "id": "b", "text": "El habanero", "is_correct": false },
+            { "id": "c", "text": "El ají amarillo", "is_correct": true },
+            { "id": "d", "text": "El poblano", "is_correct": false }
+          ],
+          "explanation": "El ají amarillo es un chile amarillo frutado y de picor medio que da sabor a muchas salsas clásicas del Perú."
+        },
+        {
+          "id": "q3",
+          "question": "El ají panca, el chile seco rojo oscuro de los adobos de anticuchos, se conoce por qué sabor?",
+          "options": [
+            { "id": "a", "text": "Por ser extremadamente picante y cítrico", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Por ser ahumado y suave, con notas frutales",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Por ser dulce y floral", "is_correct": false },
+            { "id": "d", "text": "Por ser amargo y terroso", "is_correct": false }
+          ],
+          "explanation": "El ají panca sabe ahumado y frutal, con un picor suave; da color y sabor a adobos y guisos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Dónde se domesticó la papa por primera vez, hace miles de años?",
+          "options": [
+            { "id": "a", "text": "En las llanuras de Irlanda", "is_correct": false },
+            { "id": "b", "text": "En los Andes de Sudamérica", "is_correct": true },
+            { "id": "c", "text": "En la costa del Mediterráneo", "is_correct": false },
+            { "id": "d", "text": "En la meseta del Himalaya", "is_correct": false }
+          ],
+          "explanation": "La papa se domesticó en los Andes; el Perú aún cultiva miles de variedades nativas de muchos colores."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es el «chifa» en la gastronomía peruana?",
+          "options": [
+            { "id": "a", "text": "Una bebida de maíz fermentado", "is_correct": false },
+            { "id": "b", "text": "Un tipo de brocheta a la parrilla", "is_correct": false },
+            { "id": "c", "text": "La cocina fusión peruano-china", "is_correct": true },
+            { "id": "d", "text": "Un tamal de maíz y queso", "is_correct": false }
+          ],
+          "explanation": "El chifa mezcla las técnicas e ingredientes que trajeron los inmigrantes cantoneses con los sabores peruanos."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué está hecha la causa limeña?",
+          "options": [
+            {
+              "id": "a",
+              "text": "De capas de puré de papa amarilla sazonado con lima y ají amarillo",
+              "is_correct": true
+            },
+            { "id": "b", "text": "De plátanos fritos con queso", "is_correct": false },
+            { "id": "c", "text": "De arroz con leche y canela", "is_correct": false },
+            { "id": "d", "text": "De masa de maíz rellena de carne", "is_correct": false }
+          ],
+          "explanation": "La causa limeña apila puré de papa amarilla con lima y ají alrededor de rellenos como pollo, atún o palta."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué aguardiente de uva es la base del cóctel nacional del Perú, el pisco sour?",
+          "options": [
+            { "id": "a", "text": "La grappa", "is_correct": false },
+            { "id": "b", "text": "El pisco", "is_correct": true },
+            { "id": "c", "text": "La cachaza", "is_correct": false },
+            { "id": "d", "text": "El ouzo", "is_correct": false }
+          ],
+          "explanation": "El pisco se destila de jugo de uva fermentado; el pisco sour lo mezcla con lima, clara de huevo y amargo."
+        },
+        {
+          "id": "q8",
+          "question": "El lomo saltado, salteado de carne con cebolla, tomate y papas fritas, muestra la influencia de qué cocina?",
+          "options": [
+            { "id": "a", "text": "De la japonesa", "is_correct": false },
+            { "id": "b", "text": "De la italiana", "is_correct": false },
+            { "id": "c", "text": "De la china", "is_correct": true },
+            { "id": "d", "text": "De la española", "is_correct": false }
+          ],
+          "explanation": "El lomo saltado se cocina al estilo wok, técnica que trajeron los inmigrantes chinos en el siglo XIX."
+        }
+      ]
+    },
+    {
+      "slug": "en-chinese-food-trivia",
+      "title": "Chinese Food Trivia: Eight Cuisines, Dim Sum and the Wok",
+      "description": "Eight questions on the great regional cuisines, dim sum, wok hei, Peking duck, tea and the tingle of Sichuan pepper.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "china", "chinese cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many 'great' regional cuisines are traditionally recognized in China?",
+          "options": [
+            { "id": "a", "text": "Four", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": false },
+            { "id": "c", "text": "Eight", "is_correct": true },
+            { "id": "d", "text": "Twelve", "is_correct": false }
+          ],
+          "explanation": "The Eight Great Cuisines include those of Shandong, Sichuan, Canton and Hunan, each with its own techniques and flavors."
+        },
+        {
+          "id": "q2",
+          "question": "Which southern Chinese tradition serves small bites like dumplings and steamed buns with tea?",
+          "options": [
+            { "id": "a", "text": "Hot pot", "is_correct": false },
+            { "id": "b", "text": "Dim sum", "is_correct": true },
+            { "id": "c", "text": "Peking duck", "is_correct": false },
+            { "id": "d", "text": "Congee", "is_correct": false }
+          ],
+          "explanation": "Dim sum is a Cantonese custom of bite-sized dishes enjoyed with tea, called yum cha ('drinking tea')."
+        },
+        {
+          "id": "q3",
+          "question": "What is 'wok hei', the quality prized in Cantonese stir-frying?",
+          "options": [
+            { "id": "a", "text": "The smoky aroma left by a very hot wok", "is_correct": true },
+            { "id": "b", "text": "A sauce made from fermented beans", "is_correct": false },
+            { "id": "c", "text": "A steaming technique for dumplings", "is_correct": false },
+            { "id": "d", "text": "The spice mix of Sichuan cooking", "is_correct": false }
+          ],
+          "explanation": "Wok hei, the 'breath of the wok', is the seared aroma that intense heat and constant tossing leave on food."
+        },
+        {
+          "id": "q4",
+          "question": "Peking duck is famous for which feature?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Its crisp, lacquered skin served with thin pancakes",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Its coconut curry sauce", "is_correct": false },
+            { "id": "c", "text": "Its raw preparation", "is_correct": false },
+            { "id": "d", "text": "Its sweet plum stuffing", "is_correct": false }
+          ],
+          "explanation": "Peking duck is roasted until the skin turns crisp and amber; it is carved and wrapped in pancakes with scallion and hoisin."
+        },
+        {
+          "id": "q5",
+          "question": "Where was tea first cultivated as a drink?",
+          "options": [
+            { "id": "a", "text": "In India", "is_correct": false },
+            { "id": "b", "text": "In Japan", "is_correct": false },
+            { "id": "c", "text": "In China", "is_correct": true },
+            { "id": "d", "text": "In Sri Lanka", "is_correct": false }
+          ],
+          "explanation": "Tea was first cultivated in China; the Tang-dynasty scholar Lu Yu wrote the earliest known treatise on it."
+        },
+        {
+          "id": "q6",
+          "question": "Which ingredient causes the tingling, numbing sensation typical of Sichuan food?",
+          "options": [
+            { "id": "a", "text": "Sichuan pepper", "is_correct": true },
+            { "id": "b", "text": "Black pepper", "is_correct": false },
+            { "id": "c", "text": "Ginger", "is_correct": false },
+            { "id": "d", "text": "Star anise", "is_correct": false }
+          ],
+          "explanation": "Sichuan pepper is not a true pepper but the husk of a berry related to citrus; it causes a buzz called 'má'."
+        },
+        {
+          "id": "q7",
+          "question": "Mapo tofu, soft tofu in a spicy sauce with ground meat, comes from which region?",
+          "options": [
+            { "id": "a", "text": "Canton", "is_correct": false },
+            { "id": "b", "text": "Shanghai", "is_correct": false },
+            { "id": "c", "text": "Sichuan", "is_correct": true },
+            { "id": "d", "text": "Beijing", "is_correct": false }
+          ],
+          "explanation": "Mapo tofu is a Sichuan classic flavored with doubanjiang (fermented bean paste) and Sichuan pepper."
+        },
+        {
+          "id": "q8",
+          "question": "Which of the Eight Great Cuisines is known for deep, direct chili heat, without the numbing effect of Sichuan food?",
+          "options": [
+            { "id": "a", "text": "Hunan cuisine", "is_correct": true },
+            { "id": "b", "text": "Cantonese cuisine", "is_correct": false },
+            { "id": "c", "text": "Shandong cuisine", "is_correct": false },
+            { "id": "d", "text": "Fujian cuisine", "is_correct": false }
+          ],
+          "explanation": "Hunan cooking uses fresh and dried chilies with smoked meats for a pure, fierce heat."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-china",
+      "title": "Trivia de comida china: ocho cocinas, dim sum y el wok",
+      "description": "Ocho preguntas sobre las grandes cocinas regionales, el dim sum, el wok hei, el pato laqueado, el té y la pimienta de Sichuan.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "china", "cocina china"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas «grandes» cocinas regionales se reconocen tradicionalmente en China?",
+          "options": [
+            { "id": "a", "text": "Cuatro", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": false },
+            { "id": "c", "text": "Ocho", "is_correct": true },
+            { "id": "d", "text": "Doce", "is_correct": false }
+          ],
+          "explanation": "Las ocho grandes cocinas incluyen las de Shandong, Sichuan, Cantón y Hunan, cada una con técnicas y sabores propios."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué tradición del sur de China sirve bocados como dumplings y bollos al vapor acompañados de té?",
+          "options": [
+            { "id": "a", "text": "El hot pot", "is_correct": false },
+            { "id": "b", "text": "El dim sum", "is_correct": true },
+            { "id": "c", "text": "El pato laqueado", "is_correct": false },
+            { "id": "d", "text": "El congee", "is_correct": false }
+          ],
+          "explanation": "El dim sum es una costumbre cantonesa de platillos pequeños que se disfrutan con té, llamada yum cha («beber té»)."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué es el «wok hei», tan apreciado en los salteados cantoneses?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El aroma ahumado que deja un wok muy caliente",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una salsa de frijoles fermentados", "is_correct": false },
+            { "id": "c", "text": "Una técnica para cocer dumplings al vapor", "is_correct": false },
+            { "id": "d", "text": "La mezcla de especias de Sichuan", "is_correct": false }
+          ],
+          "explanation": "El wok hei, «aliento del wok», es el aroma tostado que el calor intenso y el salteado constante dejan en la comida."
+        },
+        {
+          "id": "q4",
+          "question": "¿Por qué es famoso el pato laqueado de Pekín?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Por su piel crujiente y lacada, servida con panqueques finos",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Por su salsa de curry con coco", "is_correct": false },
+            { "id": "c", "text": "Por prepararse crudo", "is_correct": false },
+            { "id": "d", "text": "Por su relleno dulce de ciruela", "is_correct": false }
+          ],
+          "explanation": "El pato laqueado se asa hasta que la piel queda crujiente y ambarina; luego se rebana y se envuelve en panqueques con cebollín y hoisin."
+        },
+        {
+          "id": "q5",
+          "question": "¿Dónde se cultivó el té por primera vez como bebida?",
+          "options": [
+            { "id": "a", "text": "En India", "is_correct": false },
+            { "id": "b", "text": "En Japón", "is_correct": false },
+            { "id": "c", "text": "En China", "is_correct": true },
+            { "id": "d", "text": "En Sri Lanka", "is_correct": false }
+          ],
+          "explanation": "El té se cultivó primero en China; el erudito Lu Yu, de la dinastía Tang, escribió el tratado conocido más antiguo sobre él."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué ingrediente causa el cosquilleo y el adormecimiento típicos de la comida de Sichuan?",
+          "options": [
+            { "id": "a", "text": "La pimienta de Sichuan", "is_correct": true },
+            { "id": "b", "text": "La pimienta negra", "is_correct": false },
+            { "id": "c", "text": "El jengibre", "is_correct": false },
+            { "id": "d", "text": "El anís estrellado", "is_correct": false }
+          ],
+          "explanation": "La pimienta de Sichuan no es una pimienta verdadera, sino la cáscara de una baya emparentada con los cítricos; provoca el hormigueo llamado «má»."
+        },
+        {
+          "id": "q7",
+          "question": "El mapo tofu, tofu suave en salsa picante con carne molida, proviene de qué región?",
+          "options": [
+            { "id": "a", "text": "De Cantón", "is_correct": false },
+            { "id": "b", "text": "De Shanghái", "is_correct": false },
+            { "id": "c", "text": "De Sichuan", "is_correct": true },
+            { "id": "d", "text": "De Pekín", "is_correct": false }
+          ],
+          "explanation": "El mapo tofu es un clásico de Sichuan que lleva doubanjiang (pasta de habas fermentada) y pimienta de Sichuan."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál de las ocho grandes cocinas destaca por un picor intenso y directo, sin el adormecimiento de la comida de Sichuan?",
+          "options": [
+            { "id": "a", "text": "La de Hunan", "is_correct": true },
+            { "id": "b", "text": "La cantonesa", "is_correct": false },
+            { "id": "c", "text": "La de Shandong", "is_correct": false },
+            { "id": "d", "text": "La de Fujian", "is_correct": false }
+          ],
+          "explanation": "La cocina de Hunan usa chiles frescos y secos junto con carnes ahumadas para lograr un picor puro y profundo."
+        }
+      ]
+    },
+    {
+      "slug": "en-thai-food-trivia",
+      "title": "Thai Food Trivia: Pad Thai, Curries and the Balance of Flavors",
+      "description": "Eight questions on pad thai, tom yum, green and red curries, coconut milk, fish sauce and Thailand's four-way flavor balance.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "thailand", "thai cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Pad thai is a stir-fry of which kind of noodle?",
+          "options": [
+            { "id": "a", "text": "Wheat noodles", "is_correct": false },
+            { "id": "b", "text": "Rice noodles", "is_correct": true },
+            { "id": "c", "text": "Glass noodles", "is_correct": false },
+            { "id": "d", "text": "Soba noodles", "is_correct": false }
+          ],
+          "explanation": "Pad thai uses thin rice noodles stir-fried with tamarind, fish sauce, egg, peanuts and bean sprouts."
+        },
+        {
+          "id": "q2",
+          "question": "Tom yum is a Thai soup best described as…",
+          "options": [
+            { "id": "a", "text": "Creamy and mild", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Hot and sour, with lemongrass, galangal and lime leaves",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Sweet, with coconut and banana", "is_correct": false },
+            { "id": "d", "text": "Tomato-based", "is_correct": false }
+          ],
+          "explanation": "Tom yum is a hot-and-sour broth perfumed with lemongrass, galangal, makrut lime leaves and chili."
+        },
+        {
+          "id": "q3",
+          "question": "What gives Thai green curry its color?",
+          "options": [
+            { "id": "a", "text": "Turmeric", "is_correct": false },
+            { "id": "b", "text": "Fresh green chilies and herbs", "is_correct": true },
+            { "id": "c", "text": "Spinach", "is_correct": false },
+            { "id": "d", "text": "Food coloring", "is_correct": false }
+          ],
+          "explanation": "Green curry paste blends fresh green chilies with herbs like lemongrass and basil; red curry uses dried red chilies."
+        },
+        {
+          "id": "q4",
+          "question": "Which ingredient makes many Thai curries rich and creamy?",
+          "options": [
+            { "id": "a", "text": "Coconut milk", "is_correct": true },
+            { "id": "b", "text": "Yogurt", "is_correct": false },
+            { "id": "c", "text": "Heavy cream", "is_correct": false },
+            { "id": "d", "text": "Condensed milk", "is_correct": false }
+          ],
+          "explanation": "Thai curries simmer their paste in coconut milk, which softens and balances the chili heat."
+        },
+        {
+          "id": "q5",
+          "question": "Nam pla, the salty condiment at the heart of Thai seasoning, is…",
+          "options": [
+            { "id": "a", "text": "Shrimp paste", "is_correct": false },
+            { "id": "b", "text": "Fish sauce", "is_correct": true },
+            { "id": "c", "text": "Soy sauce", "is_correct": false },
+            { "id": "d", "text": "Oyster sauce", "is_correct": false }
+          ],
+          "explanation": "Nam pla is fish sauce, made by fermenting small fish with salt; it adds salty umami depth to dishes."
+        },
+        {
+          "id": "q6",
+          "question": "Thai dishes famously balance which four tastes?",
+          "options": [
+            { "id": "a", "text": "Sweet, sour, salty and spicy", "is_correct": true },
+            { "id": "b", "text": "Bitter, sweet, nutty and herbal", "is_correct": false },
+            { "id": "c", "text": "Sweet, smoky, bitter and sour", "is_correct": false },
+            { "id": "d", "text": "Salty, creamy, hot and crisp", "is_correct": false }
+          ],
+          "explanation": "A well-made Thai dish juggles sweet (palm sugar), sour (lime or tamarind), salty (fish sauce) and spicy (chili)."
+        },
+        {
+          "id": "q7",
+          "question": "Which fragrant rice is Thailand's signature grain?",
+          "options": [
+            { "id": "a", "text": "Basmati", "is_correct": false },
+            { "id": "b", "text": "Arborio", "is_correct": false },
+            { "id": "c", "text": "Jasmine rice", "is_correct": true },
+            { "id": "d", "text": "Black rice", "is_correct": false }
+          ],
+          "explanation": "Jasmine rice, slightly sticky and floral-scented, accompanies most Thai meals; the north also loves sticky rice."
+        },
+        {
+          "id": "q8",
+          "question": "Galangal, the aromatic root used in tom kha and tom yum, is most closely related to…",
+          "options": [
+            { "id": "a", "text": "Ginger", "is_correct": true },
+            { "id": "b", "text": "Garlic", "is_correct": false },
+            { "id": "c", "text": "Horseradish", "is_correct": false },
+            { "id": "d", "text": "Lemongrass", "is_correct": false }
+          ],
+          "explanation": "Galangal looks like a paler, harder ginger but tastes piney and citrusy rather than sweet and hot."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-tailandesa",
+      "title": "Trivia de comida tailandesa: pad thai, curris y equilibrio",
+      "description": "Ocho preguntas sobre el pad thai, el tom yum, los curris verde y rojo, la leche de coco y el equilibrio de sabores tailandés.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "tailandia", "cocina tailandesa"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué tipo de fideo se hace el pad thai?",
+          "options": [
+            { "id": "a", "text": "De fideos de trigo", "is_correct": false },
+            { "id": "b", "text": "De fideos de arroz", "is_correct": true },
+            { "id": "c", "text": "De fideos de cristal", "is_correct": false },
+            { "id": "d", "text": "De fideos soba", "is_correct": false }
+          ],
+          "explanation": "El pad thai usa fideos finos de arroz salteados con tamarindo, salsa de pescado, huevo, maní y brotes de soja."
+        },
+        {
+          "id": "q2",
+          "question": "La sopa tom yum se describe mejor como…",
+          "options": [
+            { "id": "a", "text": "Cremosa y suave", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Picante y agria, con limoncillo, galanga y hojas de lima",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Dulce, con coco y plátano", "is_correct": false },
+            { "id": "d", "text": "A base de tomate", "is_correct": false }
+          ],
+          "explanation": "El tom yum es un caldo picante y agrio perfumado con limoncillo, galanga, hojas de lima makrut y chile."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué le da su color al curry verde tailandés?",
+          "options": [
+            { "id": "a", "text": "La cúrcuma", "is_correct": false },
+            { "id": "b", "text": "Los chiles verdes frescos y las hierbas", "is_correct": true },
+            { "id": "c", "text": "La espinaca", "is_correct": false },
+            { "id": "d", "text": "El colorante alimentario", "is_correct": false }
+          ],
+          "explanation": "La pasta de curry verde mezcla chiles verdes frescos con hierbas como el limoncillo y la albahaca; el curry rojo usa chiles rojos secos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué ingrediente hace ricos y cremosos a muchos curris tailandeses?",
+          "options": [
+            { "id": "a", "text": "La leche de coco", "is_correct": true },
+            { "id": "b", "text": "El yogur", "is_correct": false },
+            { "id": "c", "text": "La crema de leche", "is_correct": false },
+            { "id": "d", "text": "La leche condensada", "is_correct": false }
+          ],
+          "explanation": "Los curris tailandeses cuecen su pasta en leche de coco, que suaviza y equilibra el picor del chile."
+        },
+        {
+          "id": "q5",
+          "question": "El nam pla, el condimento salado del corazón de la sazón tailandesa, es…",
+          "options": [
+            { "id": "a", "text": "Una pasta de camarón", "is_correct": false },
+            { "id": "b", "text": "La salsa de pescado", "is_correct": true },
+            { "id": "c", "text": "La salsa de soja", "is_correct": false },
+            { "id": "d", "text": "La salsa de ostión", "is_correct": false }
+          ],
+          "explanation": "El nam pla es salsa de pescado, elaborada fermentando pescado pequeño con sal; aporta profundidad umami a los platos."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué cuatro sabores equilibra la cocina tailandesa?",
+          "options": [
+            { "id": "a", "text": "Dulce, agrio, salado y picante", "is_correct": true },
+            { "id": "b", "text": "Amargo, dulce, a nuez y herbal", "is_correct": false },
+            { "id": "c", "text": "Dulce, ahumado, amargo y agrio", "is_correct": false },
+            { "id": "d", "text": "Salado, cremoso, picante y crocante", "is_correct": false }
+          ],
+          "explanation": "Un buen plato tailandés juega con lo dulce (azúcar de palma), lo agrio (lima o tamarindo), lo salado (salsa de pescado) y lo picante (chile)."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el arroz insignia de Tailandia, levemente pegajoso y perfumado?",
+          "options": [
+            { "id": "a", "text": "El basmati", "is_correct": false },
+            { "id": "b", "text": "El arborio", "is_correct": false },
+            { "id": "c", "text": "El arroz jazmín", "is_correct": true },
+            { "id": "d", "text": "El arroz negro", "is_correct": false }
+          ],
+          "explanation": "El arroz jazmín acompaña la mayoría de las comidas tailandesas; en el norte también se ama el arroz glutinoso."
+        },
+        {
+          "id": "q8",
+          "question": "La galanga, raíz aromática del tom kha y el tom yum, está emparentada sobre todo con…",
+          "options": [
+            { "id": "a", "text": "El jengibre", "is_correct": true },
+            { "id": "b", "text": "El ajo", "is_correct": false },
+            { "id": "c", "text": "El rábano picante", "is_correct": false },
+            { "id": "d", "text": "El limoncillo", "is_correct": false }
+          ],
+          "explanation": "La galanga parece un jengibre más pálido y duro, pero sabe a pino y cítrico en lugar de dulce y picante."
+        }
+      ]
+    },
+    {
+      "slug": "en-indian-food-trivia",
+      "title": "Indian Food Trivia: Spices, the Tandoor and Biryani",
+      "description": "Eight questions on garam masala, the clay tandoor, biryani, ghee, naan and the differences between northern and southern cooking.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "india", "indian cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Garam masala is…",
+          "options": [
+            { "id": "a", "text": "A single dried chili", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A warm blend of ground spices like cardamom, cumin and cinnamon",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A clarified butter", "is_correct": false },
+            { "id": "d", "text": "A fermented rice batter", "is_correct": false }
+          ],
+          "explanation": "Garam masala ('hot spice mix') combines toasted ground spices and is often added near the end of cooking."
+        },
+        {
+          "id": "q2",
+          "question": "What is a tandoor?",
+          "options": [
+            { "id": "a", "text": "A clay oven that reaches very high heat", "is_correct": true },
+            { "id": "b", "text": "A copper pot for curries", "is_correct": false },
+            { "id": "c", "text": "A flat griddle for dosa", "is_correct": false },
+            { "id": "d", "text": "A steaming basket", "is_correct": false }
+          ],
+          "explanation": "The cylindrical clay tandoor bakes naan against its walls and chars tandoori meats at intense heat."
+        },
+        {
+          "id": "q3",
+          "question": "Biryani is…",
+          "options": [
+            { "id": "a", "text": "A lentil soup", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A layered rice dish cooked with spices and meat or vegetables",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A deep-fried snack", "is_correct": false },
+            { "id": "d", "text": "A sweet milk pudding", "is_correct": false }
+          ],
+          "explanation": "Biryani layers par-cooked basmati rice with spiced meat or vegetables; the Hyderabadi version is especially famous."
+        },
+        {
+          "id": "q4",
+          "question": "Ghee, a staple fat in Indian cooking, is…",
+          "options": [
+            { "id": "a", "text": "Clarified butter", "is_correct": true },
+            { "id": "b", "text": "Coconut oil", "is_correct": false },
+            { "id": "c", "text": "Mustard oil", "is_correct": false },
+            { "id": "d", "text": "Rendered beef fat", "is_correct": false }
+          ],
+          "explanation": "Ghee is butter simmered until the milk solids brown and separate, giving it a nutty flavor and a high smoke point."
+        },
+        {
+          "id": "q5",
+          "question": "In broad terms, how do northern and southern Indian cooking differ?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The north favors wheat breads and dairy; the south favors rice, lentils and coconut",
+              "is_correct": true
+            },
+            { "id": "b", "text": "They are identical", "is_correct": false },
+            { "id": "c", "text": "The south eats only meat", "is_correct": false },
+            { "id": "d", "text": "The north uses no spices", "is_correct": false }
+          ],
+          "explanation": "Northern plates lean on naan, roti and creamy curries; southern ones on rice, dosa, idli and coconut."
+        },
+        {
+          "id": "q6",
+          "question": "Naan is…",
+          "options": [
+            { "id": "a", "text": "A fermented rice pancake", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A leavened flatbread baked against the wall of a tandoor",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A steamed wheat dumpling", "is_correct": false },
+            { "id": "d", "text": "A crisp lentil cracker", "is_correct": false }
+          ],
+          "explanation": "Naan is a soft, leavened bread slapped onto the hot clay walls of the tandoor until it blisters."
+        },
+        {
+          "id": "q7",
+          "question": "Masala dosa, a South Indian breakfast favorite, is…",
+          "options": [
+            {
+              "id": "a",
+              "text": "A crisp fermented crepe of rice and lentils filled with spiced potato",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A stuffed paratha", "is_correct": false },
+            { "id": "c", "text": "A rice pilaf", "is_correct": false },
+            { "id": "d", "text": "A fried dough ball in syrup", "is_correct": false }
+          ],
+          "explanation": "The dosa batter ferments overnight, giving the crepe its signature tang and crunch."
+        },
+        {
+          "id": "q8",
+          "question": "Paneer is…",
+          "options": [
+            {
+              "id": "a",
+              "text": "A fresh, non-melting cheese used in vegetarian dishes",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A yogurt drink", "is_correct": false },
+            { "id": "c", "text": "A type of pickle", "is_correct": false },
+            { "id": "d", "text": "A wheat flour", "is_correct": false }
+          ],
+          "explanation": "Paneer is a firm fresh cheese that keeps its shape in curries like palak paneer and paneer tikka."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-india",
+      "title": "Trivia de comida india: especias, el tandoor y el biryani",
+      "description": "Ocho preguntas sobre el garam masala, el horno de barro, el biryani, el ghee, el naan y las diferencias entre el norte y el sur.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "india", "cocina india"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El garam masala es…",
+          "options": [
+            { "id": "a", "text": "Un solo chile seco", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Una mezcla cálida de especias molidas como cardamomo, comino y canela",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una mantequilla clarificada", "is_correct": false },
+            { "id": "d", "text": "Una masa de arroz fermentada", "is_correct": false }
+          ],
+          "explanation": "El garam masala («mezcla caliente de especias») combina especias tostadas y se suele añadir cerca del final de la cocción."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es un tandoor?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un horno de barro que alcanza temperaturas muy altas",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una olla de cobre para curris", "is_correct": false },
+            { "id": "c", "text": "Una plancha para dosas", "is_correct": false },
+            { "id": "d", "text": "Una canasta para cocer al vapor", "is_correct": false }
+          ],
+          "explanation": "El tandoor cilíndrico de barro hornea el naan pegado a sus paredes y tuesta las carnes tandoori a calor intenso."
+        },
+        {
+          "id": "q3",
+          "question": "El biryani es…",
+          "options": [
+            { "id": "a", "text": "Una sopa de lentejas", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un plato de arroz en capas cocido con especias y carne o verduras",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un bocado frito", "is_correct": false },
+            { "id": "d", "text": "Un pudín de leche dulce", "is_correct": false }
+          ],
+          "explanation": "El biryani alterna capas de arroz basmati semicocido con carne o verduras especiadas; la versión de Hyderabad es especialmente famosa."
+        },
+        {
+          "id": "q4",
+          "question": "El ghee, grasa básica de la cocina india, es…",
+          "options": [
+            { "id": "a", "text": "Mantequilla clarificada", "is_correct": true },
+            { "id": "b", "text": "Aceite de coco", "is_correct": false },
+            { "id": "c", "text": "Aceite de mostaza", "is_correct": false },
+            { "id": "d", "text": "Grasa de res fundida", "is_correct": false }
+          ],
+          "explanation": "El ghee es mantequilla cocida hasta que los sólidos lácteos se doran y se separan, lo que le da sabor a nuez y un alto punto de humo."
+        },
+        {
+          "id": "q5",
+          "question": "En términos generales, ¿en qué difieren las cocinas del norte y del sur de India?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El norte favorece los panes de trigo y los lácteos; el sur, el arroz, las lentejas y el coco",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Son idénticas", "is_correct": false },
+            { "id": "c", "text": "El sur solo come carne", "is_correct": false },
+            { "id": "d", "text": "El norte no usa especias", "is_correct": false }
+          ],
+          "explanation": "En el norte abundan el naan, el roti y los curris cremosos; en el sur, el arroz, la dosa, el idli y el coco."
+        },
+        {
+          "id": "q6",
+          "question": "El naan es…",
+          "options": [
+            { "id": "a", "text": "Un panqueque de arroz fermentado", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un pan plano con levadura horneado en la pared de un tandoor",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un dumpling de trigo al vapor", "is_correct": false },
+            { "id": "d", "text": "Una galleta crujiente de lenteja", "is_correct": false }
+          ],
+          "explanation": "El naan es un pan suave y levado que se pega a las paredes calientes del tandoor hasta que se ampolla."
+        },
+        {
+          "id": "q7",
+          "question": "La masala dosa, desayuno favorito del sur de India, es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una crepa crujiente fermentada de arroz y lentejas rellena de papa especiada",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una paratha rellena", "is_correct": false },
+            { "id": "c", "text": "Un pilaf de arroz", "is_correct": false },
+            { "id": "d", "text": "Una bola de masa frita en almíbar", "is_correct": false }
+          ],
+          "explanation": "La masa de la dosa fermenta una noche, lo que le da a la crepa su toque agrio y su crocancia."
+        },
+        {
+          "id": "q8",
+          "question": "El paneer es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un queso fresco que no se funde, usado en platos vegetarianos",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Una bebida de yogur", "is_correct": false },
+            { "id": "c", "text": "Un tipo de encurtido", "is_correct": false },
+            { "id": "d", "text": "Una harina de trigo", "is_correct": false }
+          ],
+          "explanation": "El paneer es un queso fresco firme que mantiene su forma en curris como el palak paneer y el paneer tikka."
+        }
+      ]
+    },
+    {
+      "slug": "en-argentine-food-trivia",
+      "title": "Argentine Food Trivia: Asado, Mate and Dulce de Leche",
+      "description": "Eight questions on the asado ritual, yerba mate, empanadas, dulce de leche, alfajores, provoleta and chimichurri.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "food-drink",
+      "tags": ["food", "trivia", "argentina", "argentine cuisine"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is an asado?",
+          "options": [
+            { "id": "a", "text": "A fish stew", "is_correct": false },
+            { "id": "b", "text": "A corn soup", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A social barbecue ritual of meats grilled slowly over coals or wood",
+              "is_correct": true
+            },
+            { "id": "d", "text": "A sweet custard", "is_correct": false }
+          ],
+          "explanation": "The asado is Argentina's grilling tradition: beef, sausages and offal cooked slowly on a parrilla, shared with family and friends."
+        },
+        {
+          "id": "q2",
+          "question": "Mate is…",
+          "options": [
+            {
+              "id": "a",
+              "text": "A caffeinated infusion of yerba mate leaves, sipped from a gourd through a metal straw",
+              "is_correct": true
+            },
+            { "id": "b", "text": "A coffee liqueur", "is_correct": false },
+            { "id": "c", "text": "A bread roll", "is_correct": false },
+            { "id": "d", "text": "A chocolate drink", "is_correct": false }
+          ],
+          "explanation": "Mate is shared from a hollowed gourd with a bombilla; brewing and passing it around is a social ritual."
+        },
+        {
+          "id": "q3",
+          "question": "Argentine empanadas are…",
+          "options": [
+            { "id": "a", "text": "Sweet rolls", "is_correct": false },
+            { "id": "b", "text": "Grilled skewers", "is_correct": false },
+            { "id": "c", "text": "Rice cakes", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Savory pastries filled with beef, chicken or ham and cheese, baked or fried",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Each province has its own style; the empanada salteña with beef, potato and egg is among the best known."
+        },
+        {
+          "id": "q4",
+          "question": "Dulce de leche is…",
+          "options": [
+            { "id": "a", "text": "A meringue dessert", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A caramel spread made by slowly simmering milk and sugar",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A cheese sauce", "is_correct": false },
+            { "id": "d", "text": "A fruit preserve", "is_correct": false }
+          ],
+          "explanation": "Dulce de leche is milk cooked with sugar until thick and golden, used in cakes, flan and alfajores."
+        },
+        {
+          "id": "q5",
+          "question": "An alfajor is…",
+          "options": [
+            { "id": "a", "text": "A beef sandwich", "is_correct": false },
+            { "id": "b", "text": "A fried pastry dusted with sugar", "is_correct": false },
+            { "id": "c", "text": "A corn pudding", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Two soft cookies sandwiching dulce de leche, often coated in chocolate or rolled in coconut",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Alfajores are Argentina's beloved cookie sandwich; the chocolate-coated style from Mar del Plata is iconic."
+        },
+        {
+          "id": "q6",
+          "question": "Provoleta, the classic asado starter, is…",
+          "options": [
+            { "id": "a", "text": "A blood sausage", "is_correct": false },
+            {
+              "id": "b",
+              "text": "A disc of provolone cheese grilled until bubbling and golden",
+              "is_correct": true
+            },
+            { "id": "c", "text": "A stuffed pepper", "is_correct": false },
+            { "id": "d", "text": "A garlic bread", "is_correct": false }
+          ],
+          "explanation": "Provoleta is a thick slice of provolone grilled or baked until it melts inside and crisps outside, often sprinkled with oregano."
+        },
+        {
+          "id": "q7",
+          "question": "Chimichurri is…",
+          "options": [
+            { "id": "a", "text": "A spicy red salsa", "is_correct": false },
+            { "id": "b", "text": "A mayonnaise dip", "is_correct": false },
+            {
+              "id": "c",
+              "text": "A green sauce of parsley, garlic, oil, vinegar and oregano served with grilled meat",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Only a beef marinade", "is_correct": false }
+          ],
+          "explanation": "Chimichurri dresses asado meats; adding red bell pepper or paprika turns it into chimichurri rojo."
+        },
+        {
+          "id": "q8",
+          "question": "The milanesa, a breaded beef or chicken cutlet, reflects the influence of which immigration?",
+          "options": [
+            { "id": "a", "text": "Italian", "is_correct": true },
+            { "id": "b", "text": "German", "is_correct": false },
+            { "id": "c", "text": "Welsh", "is_correct": false },
+            { "id": "d", "text": "Basque", "is_correct": false }
+          ],
+          "explanation": "The milanesa descends from the Italian cotoletta, brought by the huge wave of Italian immigration to Argentina."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-argentina",
+      "title": "Trivia de comida argentina: asado, mate y dulce de leche",
+      "description": "Ocho preguntas sobre el asado, el mate, las empanadas, el dulce de leche, los alfajores, la provoleta y el chimichurri.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "food-drink",
+      "tags": ["comida", "trivia", "argentina", "cocina argentina"],
+      "estimated_minutes": 4,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué es un asado?",
+          "options": [
+            { "id": "a", "text": "Un guiso de pescado", "is_correct": false },
+            { "id": "b", "text": "Una sopa de maíz", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Un ritual social de carnes a la parrilla cocidas lentamente sobre brasas o leña",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Un flan dulce", "is_correct": false }
+          ],
+          "explanation": "El asado es la tradición parrillera argentina: carne, embutidos y achuras a cocción lenta, compartidos en familia y con amigos."
+        },
+        {
+          "id": "q2",
+          "question": "El mate es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una infusión con cafeína de hojas de yerba mate que se toma en una calabaza con bombilla",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Un licor de café", "is_correct": false },
+            { "id": "c", "text": "Un panecillo", "is_correct": false },
+            { "id": "d", "text": "Una bebida de chocolate", "is_correct": false }
+          ],
+          "explanation": "El mate se comparte en una calabaza curada con bombilla; cebarlo y pasarlo es un ritual social."
+        },
+        {
+          "id": "q3",
+          "question": "Las empanadas argentinas son…",
+          "options": [
+            { "id": "a", "text": "Panecillos dulces", "is_correct": false },
+            { "id": "b", "text": "Brochetas a la parrilla", "is_correct": false },
+            { "id": "c", "text": "Tortas de arroz", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Empanadillas saladas rellenas de carne, pollo o jamón y queso, al horno o fritas",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Cada provincia tiene su estilo; la empanada salteña de carne, papa y huevo es de las más conocidas."
+        },
+        {
+          "id": "q4",
+          "question": "El dulce de leche es…",
+          "options": [
+            { "id": "a", "text": "Un postre de merengue", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Una pasta de caramelo que se obtiene cociendo leche y azúcar a fuego lento",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una salsa de queso", "is_correct": false },
+            { "id": "d", "text": "Una conserva de fruta", "is_correct": false }
+          ],
+          "explanation": "El dulce de leche es leche cocida con azúcar hasta espesar y dorarse, usada en tortas, flan y alfajores."
+        },
+        {
+          "id": "q5",
+          "question": "Un alfajor es…",
+          "options": [
+            { "id": "a", "text": "Un sándwich de carne", "is_correct": false },
+            { "id": "b", "text": "Una masa frita espolvoreada con azúcar", "is_correct": false },
+            { "id": "c", "text": "Un pudín de maíz", "is_correct": false },
+            {
+              "id": "d",
+              "text": "Dos galletas suaves unidas con dulce de leche, muchas veces bañadas en chocolate o con coco",
+              "is_correct": true
+            }
+          ],
+          "explanation": "Los alfajores son el sándwich dulce más querido de Argentina; el estilo marplatense bañado en chocolate es un ícono."
+        },
+        {
+          "id": "q6",
+          "question": "La provoleta, entrada clásica del asado, es…",
+          "options": [
+            { "id": "a", "text": "Una morcilla", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un disco de queso provolone a la parrilla hasta que burbujea y se dora",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Un pimiento relleno", "is_correct": false },
+            { "id": "d", "text": "Un pan de ajo", "is_correct": false }
+          ],
+          "explanation": "La provoleta es una tajada gruesa de provolone grillada u horneada hasta fundirse por dentro y tostarse por fuera, a menudo con orégano."
+        },
+        {
+          "id": "q7",
+          "question": "El chimichurri es…",
+          "options": [
+            { "id": "a", "text": "Una salsa roja picante", "is_correct": false },
+            { "id": "b", "text": "Un dip de mayonesa", "is_correct": false },
+            {
+              "id": "c",
+              "text": "Una salsa verde de perejil, ajo, aceite, vinagre y orégano que acompaña las carnes a la parrilla",
+              "is_correct": true
+            },
+            { "id": "d", "text": "Solo un adobo para carne", "is_correct": false }
+          ],
+          "explanation": "El chimichurri sazona las carnes del asado; al añadirle pimentón o ají molido se convierte en chimichurri rojo."
+        },
+        {
+          "id": "q8",
+          "question": "La milanesa, filete de carne o pollo empanizado frito u horneado, refleja la influencia de qué inmigración?",
+          "options": [
+            { "id": "a", "text": "De la italiana", "is_correct": true },
+            { "id": "b", "text": "De la alemana", "is_correct": false },
+            { "id": "c", "text": "De la galesa", "is_correct": false },
+            { "id": "d", "text": "De la vasca", "is_correct": false }
+          ],
+          "explanation": "La milanesa desciende de la cotoletta italiana, traída por la gran ola de inmigración italiana a la Argentina."
+        }
+      ]
+    }
+  ]
+}
