@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial seed 2026cg: five es/en trivia pairs on companion and farm animals (dogs, cats, pet birds, farm animals, pet care), all in the animals category. The requested dog-breeds pair already ships in editorial-seed-2026au (en-dog-breeds-trivia/es-trivia-razas-de-perros), so the dog pair here is a general dog trivia with free slugs. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-dog-trivia",
+      "title": "Dog Trivia: Senses, Instincts and Life With Humans",
+      "description": "Eight questions on the dog beyond breeds: wolf ancestry, a nose with hundreds of millions of receptors, and how dogs hear, sweat and communicate.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["dogs", "pets", "animals", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "From which wild animal are all domestic dogs descended?",
+          "options": [
+            { "id": "a", "text": "The coyote", "is_correct": false },
+            { "id": "b", "text": "The gray wolf", "is_correct": true },
+            { "id": "c", "text": "The red fox", "is_correct": false },
+            { "id": "d", "text": "The golden jackal", "is_correct": false }
+          ],
+          "explanation": "Genetics places the ancestry of every dog in an extinct population of gray wolves; the exact time and place of domestication is still debated."
+        },
+        {
+          "id": "q2",
+          "question": "A dog's nose holds roughly how many scent receptors, compared with about 6 million in humans?",
+          "options": [
+            { "id": "a", "text": "10 million", "is_correct": false },
+            { "id": "b", "text": "60 million", "is_correct": false },
+            { "id": "c", "text": "300 million", "is_correct": true },
+            { "id": "d", "text": "1 billion", "is_correct": false }
+          ],
+          "explanation": "Depending on the breed, a dog carries up to about 300 million olfactory receptors — around 50 times ours."
+        },
+        {
+          "id": "q3",
+          "question": "How do dogs mainly cool their bodies down?",
+          "options": [
+            { "id": "a", "text": "By panting", "is_correct": true },
+            { "id": "b", "text": "By sweating through the skin", "is_correct": false },
+            { "id": "c", "text": "By shedding their fur", "is_correct": false },
+            { "id": "d", "text": "By drinking cold water", "is_correct": false }
+          ],
+          "explanation": "Dogs sweat only through their paw pads; panting evaporates moisture from the tongue and airways to release heat."
+        },
+        {
+          "id": "q4",
+          "question": "Newborn puppies are deaf and have closed eyes. About when do their eyes open?",
+          "options": [
+            { "id": "a", "text": "At birth", "is_correct": false },
+            { "id": "b", "text": "Around two weeks of age", "is_correct": true },
+            { "id": "c", "text": "At two months of age", "is_correct": false },
+            { "id": "d", "text": "At six months of age", "is_correct": false }
+          ],
+          "explanation": "Puppies' eyes open at about 10 to 14 days, and the ear canals open around the same time."
+        },
+        {
+          "id": "q5",
+          "question": "Which part of a dog has a pattern as unique as a human fingerprint?",
+          "options": [
+            { "id": "a", "text": "The ear tip", "is_correct": false },
+            { "id": "b", "text": "The nose", "is_correct": true },
+            { "id": "c", "text": "The paw pad", "is_correct": false },
+            { "id": "d", "text": "The tail", "is_correct": false }
+          ],
+          "explanation": "The ridges on a dog's nose form a unique print; some kennel registries have used it to identify animals."
+        },
+        {
+          "id": "q6",
+          "question": "Dogs hear sounds up to roughly which frequency, well above the human limit of 20,000 Hz?",
+          "options": [
+            { "id": "a", "text": "25,000 Hz", "is_correct": false },
+            { "id": "b", "text": "45,000 Hz", "is_correct": true },
+            { "id": "c", "text": "100,000 Hz", "is_correct": false },
+            { "id": "d", "text": "500,000 Hz", "is_correct": false }
+          ],
+          "explanation": "Dogs hear up to about 45,000–65,000 Hz, which is why they react to whistles we cannot hear."
+        },
+        {
+          "id": "q7",
+          "question": "What is a dog's 'third eyelid' called?",
+          "options": [
+            { "id": "a", "text": "The optic disc", "is_correct": false },
+            { "id": "b", "text": "The lacrimal gland", "is_correct": false },
+            { "id": "c", "text": "The nictitating membrane", "is_correct": true },
+            { "id": "d", "text": "The vitreous layer", "is_correct": false }
+          ],
+          "explanation": "The nictitating membrane, or haw, sweeps sideways across the eye to protect and moisten it."
+        },
+        {
+          "id": "q8",
+          "question": "Dogs are considered the first domesticated animal. Roughly how long ago did that process begin?",
+          "options": [
+            { "id": "a", "text": "About 2,000 years ago", "is_correct": false },
+            { "id": "b", "text": "About 5,000 years ago", "is_correct": false },
+            { "id": "c", "text": "At least 15,000 years ago", "is_correct": true },
+            { "id": "d", "text": "About 500 years ago", "is_correct": false }
+          ],
+          "explanation": "The oldest confirmed dog remains are some 14,000–15,000 years old, and genetic estimates push the split from wolves even earlier."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-perros",
+      "title": "Trivia de perros: sentidos, instintos y vida con humanos",
+      "description": "Ocho preguntas sobre el perro más allá de las razas: su origen en el lobo, una nariz con cientos de millones de receptores y cómo oyen y sudan.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["perros", "mascotas", "animales", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿De qué animal salvaje descienden todos los perros domésticos?",
+          "options": [
+            { "id": "a", "text": "Del coyote", "is_correct": false },
+            { "id": "b", "text": "Del lobo gris", "is_correct": true },
+            { "id": "c", "text": "Del zorro rojo", "is_correct": false },
+            { "id": "d", "text": "Del chacal dorado", "is_correct": false }
+          ],
+          "explanation": "La genética sitúa el origen de todos los perros en una población extinta de lobos grises; cuándo y dónde ocurrió sigue en debate."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos receptores olfativos tiene aproximadamente la nariz de un perro, frente a unos 6 millones en humanos?",
+          "options": [
+            { "id": "a", "text": "10 millones", "is_correct": false },
+            { "id": "b", "text": "60 millones", "is_correct": false },
+            { "id": "c", "text": "300 millones", "is_correct": true },
+            { "id": "d", "text": "1.000 millones", "is_correct": false }
+          ],
+          "explanation": "Según la raza, un perro puede tener hasta unos 300 millones de receptores olfativos, unas 50 veces más que nosotros."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se refrescan principalmente los perros?",
+          "options": [
+            { "id": "a", "text": "Jadeando", "is_correct": true },
+            { "id": "b", "text": "Sudando por toda la piel", "is_correct": false },
+            { "id": "c", "text": "Mudando el pelaje", "is_correct": false },
+            { "id": "d", "text": "Bebiendo agua fría", "is_correct": false }
+          ],
+          "explanation": "Los perros solo sudan por las almohadillas; el jadeo evapora humedad de la lengua y las vías respiratorias para soltar calor."
+        },
+        {
+          "id": "q4",
+          "question": "Los cachorros nacen sordos y con los ojos cerrados. ¿Cuándo abren los ojos?",
+          "options": [
+            { "id": "a", "text": "Al nacer", "is_correct": false },
+            { "id": "b", "text": "Alrededor de las dos semanas", "is_correct": true },
+            { "id": "c", "text": "A los dos meses", "is_correct": false },
+            { "id": "d", "text": "A los seis meses", "is_correct": false }
+          ],
+          "explanation": "Los ojos del cachorro se abren entre los 10 y los 14 días, y el canal auditivo se abre por las mismas fechas."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué parte del perro tiene un patrón tan único como una huella dactilar humana?",
+          "options": [
+            { "id": "a", "text": "La punta de la oreja", "is_correct": false },
+            { "id": "b", "text": "La nariz", "is_correct": true },
+            { "id": "c", "text": "La almohadilla de la pata", "is_correct": false },
+            { "id": "d", "text": "La cola", "is_correct": false }
+          ],
+          "explanation": "Los surcos de la trufa forman una huella única que algunos registros caninos han usado para identificar ejemplares."
+        },
+        {
+          "id": "q6",
+          "question": "Los perros oyen sonidos de hasta qué frecuencia aproximada, muy por encima del límite humano de 20.000 Hz?",
+          "options": [
+            { "id": "a", "text": "25.000 Hz", "is_correct": false },
+            { "id": "b", "text": "45.000 Hz", "is_correct": true },
+            { "id": "c", "text": "100.000 Hz", "is_correct": false },
+            { "id": "d", "text": "500.000 Hz", "is_correct": false }
+          ],
+          "explanation": "Los perros oyen hasta unos 45.000–65.000 Hz, por eso reaccionan a silbatos que nosotros no podemos escuchar."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llama el 'tercer párpado' del perro?",
+          "options": [
+            { "id": "a", "text": "Disco óptico", "is_correct": false },
+            { "id": "b", "text": "Glándula lagrimal", "is_correct": false },
+            { "id": "c", "text": "Membrana nictitante", "is_correct": true },
+            { "id": "d", "text": "Capa vítrea", "is_correct": false }
+          ],
+          "explanation": "La membrana nictitante se desliza de lado sobre el ojo para protegerlo y humedecerlo."
+        },
+        {
+          "id": "q8",
+          "question": "El perro se considera el primer animal domesticado. ¿Hace cuánto tiempo empezó ese proceso?",
+          "options": [
+            { "id": "a", "text": "Hace unos 2.000 años", "is_correct": false },
+            { "id": "b", "text": "Hace unos 5.000 años", "is_correct": false },
+            { "id": "c", "text": "Hace al menos 15.000 años", "is_correct": true },
+            { "id": "d", "text": "Hace unos 500 años", "is_correct": false }
+          ],
+          "explanation": "Los restos de perro confirmados más antiguos tienen entre 14.000 y 15.000 años, y las estimaciones genéticas remontan la separación del lobo aún más."
+        }
+      ]
+    },
+    {
+      "slug": "en-cat-trivia",
+      "title": "Cat Trivia: Whiskers, Senses and Feline Origins",
+      "description": "Eight questions on domestic cats: why they cannot taste sweetness, what whiskers really do and where cats first lived alongside humans.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["cats", "pets", "animals", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Cats are 'obligate carnivores', which means they…",
+          "options": [
+            { "id": "a", "text": "Need meat to stay healthy", "is_correct": true },
+            { "id": "b", "text": "Can live on plants alone", "is_correct": false },
+            { "id": "c", "text": "Only eat fish", "is_correct": false },
+            { "id": "d", "text": "Do not need protein", "is_correct": false }
+          ],
+          "explanation": "Cats cannot synthesize several key nutrients found only in animal tissue, so meat is a biological need, not a preference."
+        },
+        {
+          "id": "q2",
+          "question": "What is the main job of a cat's whiskers?",
+          "options": [
+            { "id": "a", "text": "Keeping the face warm", "is_correct": false },
+            { "id": "b", "text": "Sensing nearby objects and measuring gaps", "is_correct": true },
+            { "id": "c", "text": "Attracting mates", "is_correct": false },
+            { "id": "d", "text": "Cleaning the fur", "is_correct": false }
+          ],
+          "explanation": "Whiskers are touch receptors rooted in nerves; they pick up air currents and tell the cat whether a gap is wide enough to pass."
+        },
+        {
+          "id": "q3",
+          "question": "Which taste are cats unable to detect?",
+          "options": [
+            { "id": "a", "text": "Salty", "is_correct": false },
+            { "id": "b", "text": "Bitter", "is_correct": false },
+            { "id": "c", "text": "Sweet", "is_correct": true },
+            { "id": "d", "text": "Sour", "is_correct": false }
+          ],
+          "explanation": "Cats lost a working gene for the sweet receptor, so sugar simply does not register for them."
+        },
+        {
+          "id": "q4",
+          "question": "How many toes does a cat normally have on each front paw — and on each back paw?",
+          "options": [
+            { "id": "a", "text": "Four on all four paws", "is_correct": false },
+            { "id": "b", "text": "Five in front, four behind", "is_correct": true },
+            { "id": "c", "text": "Five on all four paws", "is_correct": false },
+            { "id": "d", "text": "Six in front, five behind", "is_correct": false }
+          ],
+          "explanation": "That makes 18 toes in total; cats born with extras show a harmless trait called polydactyly."
+        },
+        {
+          "id": "q5",
+          "question": "Roughly what share of the day do cats spend asleep?",
+          "options": [
+            { "id": "a", "text": "A quarter", "is_correct": false },
+            { "id": "b", "text": "A third", "is_correct": false },
+            { "id": "c", "text": "About two-thirds", "is_correct": true },
+            { "id": "d", "text": "Almost none", "is_correct": false }
+          ],
+          "explanation": "A domestic cat sleeps 12 to 16 hours a day — a predator's habit of saving energy for the hunt."
+        },
+        {
+          "id": "q6",
+          "question": "The earliest evidence of cats living alongside people — a burial about 9,500 years old — was found on which island?",
+          "options": [
+            { "id": "a", "text": "Cyprus", "is_correct": true },
+            { "id": "b", "text": "Crete", "is_correct": false },
+            { "id": "c", "text": "Sicily", "is_correct": false },
+            { "id": "d", "text": "Madagascar", "is_correct": false }
+          ],
+          "explanation": "A human buried with a cat in Cyprus suggests domestication began in the Near East, long before ancient Egypt."
+        },
+        {
+          "id": "q7",
+          "question": "A cat's 'righting reflex' lets it…",
+          "options": [
+            { "id": "a", "text": "See in total darkness", "is_correct": false },
+            { "id": "b", "text": "Twist in mid-air to land on its feet", "is_correct": true },
+            { "id": "c", "text": "Run at 100 km/h", "is_correct": false },
+            { "id": "d", "text": "Breathe through its skin", "is_correct": false }
+          ],
+          "explanation": "A flexible spine and a sharp sense of balance let cats rotate mid-fall; kittens develop the reflex at about 3–4 weeks."
+        },
+        {
+          "id": "q8",
+          "question": "Which essential amino acid must cats get from food because their bodies cannot make enough of it?",
+          "options": [
+            { "id": "a", "text": "Vitamin C", "is_correct": false },
+            { "id": "b", "text": "Calcium", "is_correct": false },
+            { "id": "c", "text": "Fiber", "is_correct": false },
+            { "id": "d", "text": "Taurine", "is_correct": true }
+          ],
+          "explanation": "Taurine deficiency damages cats' hearts and retinas; it occurs naturally only in animal tissue."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-gatos",
+      "title": "Trivia de gatos: bigotes, sentidos y origen felino",
+      "description": "Ocho preguntas sobre el gato doméstico: por qué no percibe lo dulce, para qué sirven de verdad los bigotes y dónde empezó a vivir con humanos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["gatos", "mascotas", "animales", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Los gatos son 'carnívoros estrictos', lo que significa que…",
+          "options": [
+            { "id": "a", "text": "Necesitan carne para estar sanos", "is_correct": true },
+            { "id": "b", "text": "Pueden vivir solo de plantas", "is_correct": false },
+            { "id": "c", "text": "Comen únicamente pescado", "is_correct": false },
+            { "id": "d", "text": "No necesitan proteínas", "is_correct": false }
+          ],
+          "explanation": "El gato no sintetiza varios nutrientes clave que solo aporta el tejido animal; la carne es una necesidad biológica, no un capricho."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuál es la función principal de los bigotes del gato?",
+          "options": [
+            { "id": "a", "text": "Abrigar el hocico", "is_correct": false },
+            { "id": "b", "text": "Percibir objetos cercanos y medir espacios", "is_correct": true },
+            { "id": "c", "text": "Atraer parejas", "is_correct": false },
+            { "id": "d", "text": "Limpiarse el pelaje", "is_correct": false }
+          ],
+          "explanation": "Los bigotes son receptores táctiles llenos de terminaciones nerviosas que detectan corrientes de aire y el ancho de los huecos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué sabor no pueden percibir los gatos?",
+          "options": [
+            { "id": "a", "text": "El salado", "is_correct": false },
+            { "id": "b", "text": "El amargo", "is_correct": false },
+            { "id": "c", "text": "El dulce", "is_correct": true },
+            { "id": "d", "text": "El ácido", "is_correct": false }
+          ],
+          "explanation": "El gato perdió el gen funcional del receptor de lo dulce: el azúcar sencillamente no registra."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuántos dedos tiene un gato en cada pata delantera y en cada trasera?",
+          "options": [
+            { "id": "a", "text": "Cuatro en las cuatro", "is_correct": false },
+            { "id": "b", "text": "Cinco adelante y cuatro atrás", "is_correct": true },
+            { "id": "c", "text": "Cinco en las cuatro", "is_correct": false },
+            { "id": "d", "text": "Seis adelante y cinco atrás", "is_correct": false }
+          ],
+          "explanation": "Suman 18 dedos en total; los gatos con dedos de más presentan un rasgo inofensivo llamado polidactilia."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué parte del día pasan los gatos durmiendo, aproximadamente?",
+          "options": [
+            { "id": "a", "text": "Una cuarta parte", "is_correct": false },
+            { "id": "b", "text": "Una tercera parte", "is_correct": false },
+            { "id": "c", "text": "Unas dos terceras partes", "is_correct": true },
+            { "id": "d", "text": "Casi nada", "is_correct": false }
+          ],
+          "explanation": "Un gato doméstico duerme de 12 a 16 horas diarias, herencia de un depredador que guarda energía para cazar."
+        },
+        {
+          "id": "q6",
+          "question": "La evidencia más antigua de gatos junto a humanos, un entierro de hace unos 9.500 años, se halló en qué isla?",
+          "options": [
+            { "id": "a", "text": "Chipre", "is_correct": true },
+            { "id": "b", "text": "Creta", "is_correct": false },
+            { "id": "c", "text": "Sicilia", "is_correct": false },
+            { "id": "d", "text": "Madagascar", "is_correct": false }
+          ],
+          "explanation": "Un humano enterrado con un gato en Chipre sugiere que la domesticación empezó en el Próximo Oriente, antes del Egipto faraónico."
+        },
+        {
+          "id": "q7",
+          "question": "El 'reflejo de enderezamiento' del gato le permite…",
+          "options": [
+            { "id": "a", "text": "Ver en oscuridad total", "is_correct": false },
+            { "id": "b", "text": "Girarse en el aire para caer de pie", "is_correct": true },
+            { "id": "c", "text": "Correr a 100 km/h", "is_correct": false },
+            { "id": "d", "text": "Respirar por la piel", "is_correct": false }
+          ],
+          "explanation": "Una columna flexible y un gran sentido del equilibrio le permiten rotar en la caída; los gatitos lo desarrollan a las 3–4 semanas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué aminoácido esencial debe obtener el gato de la comida porque su cuerpo no fabrica suficiente?",
+          "options": [
+            { "id": "a", "text": "Vitamina C", "is_correct": false },
+            { "id": "b", "text": "Calcio", "is_correct": false },
+            { "id": "c", "text": "Fibra", "is_correct": false },
+            { "id": "d", "text": "Taurina", "is_correct": true }
+          ],
+          "explanation": "La falta de taurina daña el corazón y la retina del gato; solo se da de forma natural en tejido animal."
+        }
+      ]
+    },
+    {
+      "slug": "en-pet-birds-trivia",
+      "title": "Pet Birds Trivia: Parakeets, Parrots and Canaries",
+      "description": "Eight questions on companion birds: the budgie's Australian roots, why parrot feet grip so well, talking African greys and the canary's mining past.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["birds", "parrots", "pets", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "The budgerigar, the world's most popular pet parrot, is native to which country?",
+          "options": [
+            { "id": "a", "text": "Brazil", "is_correct": false },
+            { "id": "b", "text": "Australia", "is_correct": true },
+            { "id": "c", "text": "India", "is_correct": false },
+            { "id": "d", "text": "Mexico", "is_correct": false }
+          ],
+          "explanation": "Wild budgies still fly in huge flocks across Australia's dry interior; the name comes from an Aboriginal word."
+        },
+        {
+          "id": "q2",
+          "question": "Which parrot species is famous for the clearest imitation of human speech?",
+          "options": [
+            { "id": "a", "text": "The scarlet macaw", "is_correct": false },
+            { "id": "b", "text": "The cockatiel", "is_correct": false },
+            { "id": "c", "text": "The lovebird", "is_correct": false },
+            { "id": "d", "text": "The African grey parrot", "is_correct": true }
+          ],
+          "explanation": "African greys do more than mimic: the research parrot Alex showed they can link words to meaning."
+        },
+        {
+          "id": "q3",
+          "question": "Parrots' feet are 'zygodactyl'. What does that mean?",
+          "options": [
+            { "id": "a", "text": "Two toes point forward and two backward", "is_correct": true },
+            { "id": "b", "text": "All four toes point forward", "is_correct": false },
+            { "id": "c", "text": "The toes are webbed", "is_correct": false },
+            { "id": "d", "text": "The feet have no claws", "is_correct": false }
+          ],
+          "explanation": "That grip lets parrots climb and hold food like hands; woodpeckers and cuckoos share the trait."
+        },
+        {
+          "id": "q4",
+          "question": "Canaries were taken into coal mines because they warned miners about which danger?",
+          "options": [
+            { "id": "a", "text": "Earthquakes", "is_correct": false },
+            { "id": "b", "text": "Carbon monoxide and other toxic gases", "is_correct": true },
+            { "id": "c", "text": "Flooding", "is_correct": false },
+            { "id": "d", "text": "Cave-ins", "is_correct": false }
+          ],
+          "explanation": "Canaries react to carbon monoxide faster than people do; miners carried them until electronic detectors took over."
+        },
+        {
+          "id": "q5",
+          "question": "What protein are bird feathers made of — the same one found in your fingernails?",
+          "options": [
+            { "id": "a", "text": "Collagen", "is_correct": false },
+            { "id": "b", "text": "Calcium", "is_correct": false },
+            { "id": "c", "text": "Chitin", "is_correct": false },
+            { "id": "d", "text": "Keratin", "is_correct": true }
+          ],
+          "explanation": "Keratin makes feathers light, strong and replaceable — birds grow a fresh set at each molt."
+        },
+        {
+          "id": "q6",
+          "question": "Which small parrots owe their name to the strong lifelong bonds they form in pairs?",
+          "options": [
+            { "id": "a", "text": "Lovebirds", "is_correct": true },
+            { "id": "b", "text": "Lories", "is_correct": false },
+            { "id": "c", "text": "Conures", "is_correct": false },
+            { "id": "d", "text": "Parrotlets", "is_correct": false }
+          ],
+          "explanation": "Lovebirds perch pressed against each other for hours, and wild pairs stay together for years."
+        },
+        {
+          "id": "q7",
+          "question": "Parrots and many other birds can see a type of light invisible to humans. Which one?",
+          "options": [
+            { "id": "a", "text": "Infrared", "is_correct": false },
+            { "id": "b", "text": "Ultraviolet", "is_correct": true },
+            { "id": "c", "text": "X-rays", "is_correct": false },
+            { "id": "d", "text": "Microwaves", "is_correct": false }
+          ],
+          "explanation": "UV vision helps birds spot ripe fruit and read plumage signals we cannot see."
+        },
+        {
+          "id": "q8",
+          "question": "The wild ancestor of the pet canary comes from which Atlantic islands?",
+          "options": [
+            { "id": "a", "text": "The Balearic Islands", "is_correct": false },
+            { "id": "b", "text": "The Falkland Islands", "is_correct": false },
+            { "id": "c", "text": "The Canary Islands, Azores and Madeira", "is_correct": true },
+            { "id": "d", "text": "The Bahamas", "is_correct": false }
+          ],
+          "explanation": "The Atlantic canary is native to the Canaries, Azores and Madeira — the bird took its name from the islands, not the other way around."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-aves-de-compania",
+      "title": "Trivia de aves de compañía: pericos, loros y canarios",
+      "description": "Ocho preguntas sobre aves de compañía: el origen australiano del periquito, las patas prensiles de los loros y el pasado minero del canario.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["aves", "loros", "mascotas", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "El periquito, el ave de compañía más popular del mundo, es originario de qué país?",
+          "options": [
+            { "id": "a", "text": "Brasil", "is_correct": false },
+            { "id": "b", "text": "Australia", "is_correct": true },
+            { "id": "c", "text": "India", "is_correct": false },
+            { "id": "d", "text": "México", "is_correct": false }
+          ],
+          "explanation": "Los periquitos salvajes aún vuelan en enormes bandadas por el interior seco de Australia."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué especie de loro es famosa por imitar el habla humana con mayor claridad?",
+          "options": [
+            { "id": "a", "text": "La guacamaya escarlata", "is_correct": false },
+            { "id": "b", "text": "La ninfa o cacatúa ninfa", "is_correct": false },
+            { "id": "c", "text": "El inseparable", "is_correct": false },
+            { "id": "d", "text": "El yaco o loro gris africano", "is_correct": true }
+          ],
+          "explanation": "El yaco hace algo más que imitar: ejemplares de investigación han demostrado que puede asociar palabras con su significado."
+        },
+        {
+          "id": "q3",
+          "question": "Las patas de los loros son 'zigodáctilas'. ¿Qué significa?",
+          "options": [
+            { "id": "a", "text": "Dos dedos apuntan adelante y dos atrás", "is_correct": true },
+            { "id": "b", "text": "Los cuatro dedos miran adelante", "is_correct": false },
+            { "id": "c", "text": "Tienen membranas entre los dedos", "is_correct": false },
+            { "id": "d", "text": "Carecen de garras", "is_correct": false }
+          ],
+          "explanation": "Ese agarre les permite trepar y sostener la comida como si fueran manos; lo comparten con pájaros carpinteros y cucos."
+        },
+        {
+          "id": "q4",
+          "question": "Los mineros llevaban canarios a las minas de carbón porque avisaban de qué peligro?",
+          "options": [
+            { "id": "a", "text": "Terremotos", "is_correct": false },
+            { "id": "b", "text": "Monóxido de carbono y otros gases tóxicos", "is_correct": true },
+            { "id": "c", "text": "Inundaciones", "is_correct": false },
+            { "id": "d", "text": "Derrumbes", "is_correct": false }
+          ],
+          "explanation": "El canario reacciona al monóxido de carbono antes que las personas; se usó hasta que llegaron los detectores electrónicos."
+        },
+        {
+          "id": "q5",
+          "question": "¿De qué proteína están hechas las plumas de las aves, la misma de tus uñas?",
+          "options": [
+            { "id": "a", "text": "Colágeno", "is_correct": false },
+            { "id": "b", "text": "Calcio", "is_correct": false },
+            { "id": "c", "text": "Quitina", "is_correct": false },
+            { "id": "d", "text": "Queratina", "is_correct": true }
+          ],
+          "explanation": "La queratina hace las plumas ligeras, fuertes y reemplazables: el ave renueva el plumaje en cada muda."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué pequeños loros deben su nombre a los fuertes lazos de pareja que forman para toda la vida?",
+          "options": [
+            { "id": "a", "text": "Los inseparables", "is_correct": true },
+            { "id": "b", "text": "Las ninfas", "is_correct": false },
+            { "id": "c", "text": "Los cotorrones", "is_correct": false },
+            { "id": "d", "text": "Los pericos monjes", "is_correct": false }
+          ],
+          "explanation": "Los inseparables o agapornis permanecen pegados durante horas; en libertad las parejas duran años."
+        },
+        {
+          "id": "q7",
+          "question": "Los loros y muchas otras aves ven un tipo de luz invisible para nosotros. ¿Cuál?",
+          "options": [
+            { "id": "a", "text": "Infrarroja", "is_correct": false },
+            { "id": "b", "text": "Ultravioleta", "is_correct": true },
+            { "id": "c", "text": "Rayos X", "is_correct": false },
+            { "id": "d", "text": "Microondas", "is_correct": false }
+          ],
+          "explanation": "La visión ultravioleta les ayuda a reconocer fruta madura y señales del plumaje que no podemos ver."
+        },
+        {
+          "id": "q8",
+          "question": "El antepasado salvaje del canario doméstico procede de qué islas del Atlántico?",
+          "options": [
+            { "id": "a", "text": "Las Baleares", "is_correct": false },
+            { "id": "b", "text": "Las Malvinas", "is_correct": false },
+            { "id": "c", "text": "Canarias, Azores y Madeira", "is_correct": true },
+            { "id": "d", "text": "Las Bahamas", "is_correct": false }
+          ],
+          "explanation": "El canario silvestre es nativo de Canarias, Azores y Madeira; el ave tomó el nombre de las islas, no al revés."
+        }
+      ]
+    },
+    {
+      "slug": "en-farm-animals-trivia",
+      "title": "Farm Animals Trivia: Cows, Horses, Pigs and Goats",
+      "description": "Eight questions on barnyard basics: the cow's four-part stomach, why sheep need shearing, what a mule really is and which farm animal cannot vomit.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["farm animals", "animals", "nature", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many chambers does a cow's stomach have?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Two", "is_correct": false },
+            { "id": "c", "text": "Four", "is_correct": true },
+            { "id": "d", "text": "Seven", "is_correct": false }
+          ],
+          "explanation": "Rumen, reticulum, omasum and abomasum — the four-chamber system that lets cattle digest grass."
+        },
+        {
+          "id": "q2",
+          "question": "Domestic chickens descend from which wild bird of Southeast Asia?",
+          "options": [
+            { "id": "a", "text": "The red junglefowl", "is_correct": true },
+            { "id": "b", "text": "The golden pheasant", "is_correct": false },
+            { "id": "c", "text": "The wild turkey", "is_correct": false },
+            { "id": "d", "text": "The guinea fowl", "is_correct": false }
+          ],
+          "explanation": "The red junglefowl still lives in Asian forests and looks like a slim, long-tailed rooster."
+        },
+        {
+          "id": "q3",
+          "question": "Which of these farm animals physically cannot vomit?",
+          "options": [
+            { "id": "a", "text": "The pig", "is_correct": false },
+            { "id": "b", "text": "The goat", "is_correct": false },
+            { "id": "c", "text": "The horse", "is_correct": true },
+            { "id": "d", "text": "The duck", "is_correct": false }
+          ],
+          "explanation": "A horse's esophagus meets the stomach at a sharp angle with a one-way valve — one reason colic is so dangerous for them."
+        },
+        {
+          "id": "q4",
+          "question": "What is a female goat called?",
+          "options": [
+            { "id": "a", "text": "A ewe", "is_correct": false },
+            { "id": "b", "text": "A doe", "is_correct": true },
+            { "id": "c", "text": "A sow", "is_correct": false },
+            { "id": "d", "text": "A mare", "is_correct": false }
+          ],
+          "explanation": "Doe (or nanny) for females and buck (or billy) for males; ewe and sow belong to sheep and pigs."
+        },
+        {
+          "id": "q5",
+          "question": "Why do domestic sheep need regular shearing?",
+          "options": [
+            { "id": "a", "text": "Their wool never stops growing", "is_correct": true },
+            { "id": "b", "text": "Wool soaks up rainwater", "is_correct": false },
+            { "id": "c", "text": "Shearing makes them run faster", "is_correct": false },
+            { "id": "d", "text": "It prevents sunburn", "is_correct": false }
+          ],
+          "explanation": "Humans bred sheep that no longer shed their fleece naturally; left unshorn, the wool just keeps growing."
+        },
+        {
+          "id": "q6",
+          "question": "A mule is the offspring of which two animals?",
+          "options": [
+            { "id": "a", "text": "Two donkeys", "is_correct": false },
+            { "id": "b", "text": "A female donkey and a male horse", "is_correct": false },
+            { "id": "c", "text": "A male donkey and a female horse", "is_correct": true },
+            { "id": "d", "text": "A horse and a zebra", "is_correct": false }
+          ],
+          "explanation": "Reverse the cross — female donkey and male horse — and you get the much rarer hinny."
+        },
+        {
+          "id": "q7",
+          "question": "What is unusual about a goat's pupils?",
+          "options": [
+            { "id": "a", "text": "They are vertical slits", "is_correct": false },
+            { "id": "b", "text": "They are horizontal rectangles", "is_correct": true },
+            { "id": "c", "text": "They are perfectly round", "is_correct": false },
+            { "id": "d", "text": "Goats have no pupils", "is_correct": false }
+          ],
+          "explanation": "Wide horizontal pupils give grazing animals panoramic vision to keep watch for predators."
+        },
+        {
+          "id": "q8",
+          "question": "Horses were first domesticated about 5,500 years ago in which region?",
+          "options": [
+            { "id": "a", "text": "The Eurasian steppes", "is_correct": true },
+            { "id": "b", "text": "Ancient Egypt", "is_correct": false },
+            { "id": "c", "text": "North America", "is_correct": false },
+            { "id": "d", "text": "The Iberian Peninsula", "is_correct": false }
+          ],
+          "explanation": "The earliest evidence comes from Botai culture sites in what is now Kazakhstan."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-animales-de-granja",
+      "title": "Trivia de animales de granja: vacas, caballos, cerdos y cabras",
+      "description": "Ocho preguntas sobre la granja: las cuatro cavidades del estómago de la vaca, por qué se esquila a la oveja y qué animal no puede vomitar.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["animales de granja", "animales", "naturaleza", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántas cavidades tiene el estómago de la vaca?",
+          "options": [
+            { "id": "a", "text": "Una", "is_correct": false },
+            { "id": "b", "text": "Dos", "is_correct": false },
+            { "id": "c", "text": "Cuatro", "is_correct": true },
+            { "id": "d", "text": "Siete", "is_correct": false }
+          ],
+          "explanation": "Rumen, retículo, omaso y abomaso: el sistema de cuatro cavidades que le permite digerir la hierba."
+        },
+        {
+          "id": "q2",
+          "question": "¿De qué ave salvaje del sudeste asiático desciende la gallina doméstica?",
+          "options": [
+            { "id": "a", "text": "Del gallo rojo de la jungla", "is_correct": true },
+            { "id": "b", "text": "Del faisán dorado", "is_correct": false },
+            { "id": "c", "text": "Del pavo salvaje", "is_correct": false },
+            { "id": "d", "text": "De la pintada", "is_correct": false }
+          ],
+          "explanation": "El gallo rojo bankiva aún vive en los bosques asiáticos y se parece a un gallo estilizado de cola larga."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál de estos animales de granja no puede vomitar físicamente?",
+          "options": [
+            { "id": "a", "text": "El cerdo", "is_correct": false },
+            { "id": "b", "text": "La cabra", "is_correct": false },
+            { "id": "c", "text": "El caballo", "is_correct": true },
+            { "id": "d", "text": "El pato", "is_correct": false }
+          ],
+          "explanation": "El esófago del caballo llega al estómago con una válvula que solo abre en un sentido; por eso el cólico es tan grave en esta especie."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el macho de la cabra?",
+          "options": [
+            { "id": "a", "text": "Carnero", "is_correct": false },
+            { "id": "b", "text": "Macho cabrío", "is_correct": true },
+            { "id": "c", "text": "Verraco", "is_correct": false },
+            { "id": "d", "text": "Semental", "is_correct": false }
+          ],
+          "explanation": "El macho cabrío; 'carnero' es el macho de la oveja y 'verraco' el del cerdo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Por qué hay que esquilar a las ovejas domésticas?",
+          "options": [
+            { "id": "a", "text": "Porque su lana no deja de crecer", "is_correct": true },
+            { "id": "b", "text": "Porque la lana absorbe la lluvia", "is_correct": false },
+            { "id": "c", "text": "Para que corran más rápido", "is_correct": false },
+            { "id": "d", "text": "Para evitar quemaduras de sol", "is_correct": false }
+          ],
+          "explanation": "Seleccionamos ovejas que ya no mudan el vellón de forma natural; sin esquila, la lana crece indefinidamente."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué cruce nace la mula?",
+          "options": [
+            { "id": "a", "text": "De dos burros", "is_correct": false },
+            { "id": "b", "text": "De una burra y un caballo", "is_correct": false },
+            { "id": "c", "text": "De un burro macho y una yegua", "is_correct": true },
+            { "id": "d", "text": "De un caballo y una cebra", "is_correct": false }
+          ],
+          "explanation": "El cruce inverso —burra y caballo— da el mucho menos común bardoto."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué tienen de particular las pupilas de la cabra?",
+          "options": [
+            { "id": "a", "text": "Son rendijas verticales", "is_correct": false },
+            { "id": "b", "text": "Son rectángulos horizontales", "is_correct": true },
+            { "id": "c", "text": "Son perfectamente redondas", "is_correct": false },
+            { "id": "d", "text": "Las cabras no tienen pupilas", "is_correct": false }
+          ],
+          "explanation": "Las pupilas horizontales dan a los animales de pastoreo una visión panorámica para vigilar depredadores."
+        },
+        {
+          "id": "q8",
+          "question": "El caballo se domesticó por primera vez hace unos 5.500 años en qué región?",
+          "options": [
+            { "id": "a", "text": "Las estepas de Eurasia", "is_correct": true },
+            { "id": "b", "text": "El antiguo Egipto", "is_correct": false },
+            { "id": "c", "text": "América del Norte", "is_correct": false },
+            { "id": "d", "text": "La península ibérica", "is_correct": false }
+          ],
+          "explanation": "La evidencia más antigua procede de yacimientos de la cultura Botai, en el actual Kazajistán."
+        }
+      ]
+    },
+    {
+      "slug": "en-pet-care-trivia",
+      "title": "Pet Care Trivia: Everyday Health Basics for Owners",
+      "description": "Eight questions on responsible pet care: foods that poison dogs, why rabbits need hay all day, guinea pigs and vitamin C, and vet checkup basics.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "animals",
+      "tags": ["pet care", "dogs", "cats", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which common treat is toxic to dogs because of a compound called theobromine?",
+          "options": [
+            { "id": "a", "text": "Peanut butter", "is_correct": false },
+            { "id": "b", "text": "Chocolate", "is_correct": true },
+            { "id": "c", "text": "Cheese", "is_correct": false },
+            { "id": "d", "text": "Carrots", "is_correct": false }
+          ],
+          "explanation": "Dogs metabolize theobromine slowly; dark chocolate carries the highest dose."
+        },
+        {
+          "id": "q2",
+          "question": "Which sweetener, used in sugar-free gum and candy, is dangerous to dogs even in tiny amounts?",
+          "options": [
+            { "id": "a", "text": "Sucrose", "is_correct": false },
+            { "id": "b", "text": "Honey", "is_correct": false },
+            { "id": "c", "text": "Xylitol", "is_correct": true },
+            { "id": "d", "text": "Molasses", "is_correct": false }
+          ],
+          "explanation": "Xylitol triggers a massive insulin release in dogs and can cause severe hypoglycemia within minutes."
+        },
+        {
+          "id": "q3",
+          "question": "Why do rabbits need hay available all day?",
+          "options": [
+            { "id": "a", "text": "They like to sleep on it", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Their teeth never stop growing and its fiber keeps digestion moving",
+              "is_correct": true
+            },
+            { "id": "c", "text": "It replaces drinking water", "is_correct": false },
+            { "id": "d", "text": "It cleans their ears", "is_correct": false }
+          ],
+          "explanation": "Rabbit teeth grow continuously and hay's fiber keeps the gut working — it is food, not bedding."
+        },
+        {
+          "id": "q4",
+          "question": "Guinea pigs, like humans, cannot produce which vitamin on their own?",
+          "options": [
+            { "id": "a", "text": "Vitamin C", "is_correct": true },
+            { "id": "b", "text": "Vitamin B12", "is_correct": false },
+            { "id": "c", "text": "Vitamin K", "is_correct": false },
+            { "id": "d", "text": "Vitamin A", "is_correct": false }
+          ],
+          "explanation": "Without enough vitamin C guinea pigs develop scurvy — one reason they need fresh vegetables every day."
+        },
+        {
+          "id": "q5",
+          "question": "Why shouldn't dogs be given cooked bones?",
+          "options": [
+            { "id": "a", "text": "Dogs cannot chew them", "is_correct": false },
+            { "id": "b", "text": "They have no flavor", "is_correct": false },
+            { "id": "c", "text": "Cooked bones splinter into sharp pieces", "is_correct": true },
+            { "id": "d", "text": "They cause instant allergies", "is_correct": false }
+          ],
+          "explanation": "Cooking makes bones brittle; the shards can cut or block the digestive tract."
+        },
+        {
+          "id": "q6",
+          "question": "Cats must get the amino acid taurine from food. A long-term deficiency mainly damages which organs?",
+          "options": [
+            { "id": "a", "text": "Liver and skin", "is_correct": false },
+            { "id": "b", "text": "Heart and eyes", "is_correct": true },
+            { "id": "c", "text": "Kidneys and lungs", "is_correct": false },
+            { "id": "d", "text": "Teeth and claws", "is_correct": false }
+          ],
+          "explanation": "Taurine deficiency causes heart disease and retinal degeneration; cats cannot synthesize enough themselves."
+        },
+        {
+          "id": "q7",
+          "question": "For a healthy adult dog or cat, how often do vets generally recommend a routine checkup?",
+          "options": [
+            { "id": "a", "text": "Only when the animal looks sick", "is_correct": false },
+            { "id": "b", "text": "Every five years", "is_correct": false },
+            { "id": "c", "text": "Every month", "is_correct": false },
+            { "id": "d", "text": "Once a year", "is_correct": true }
+          ],
+          "explanation": "Pets age faster than we do; an annual exam catches problems before they show symptoms."
+        },
+        {
+          "id": "q8",
+          "question": "What is the safest everyday rule for a pet's drinking water?",
+          "options": [
+            { "id": "a", "text": "Fresh, clean water available at all times", "is_correct": true },
+            { "id": "b", "text": "Water only at mealtimes", "is_correct": false },
+            { "id": "c", "text": "Water only after walks", "is_correct": false },
+            { "id": "d", "text": "Milk twice a day", "is_correct": false }
+          ],
+          "explanation": "A healthy pet's water should never be rationed — and milk gives many cats an upset stomach."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cuidado-de-mascotas",
+      "title": "Trivia de cuidado de mascotas: salud básica de perros y gatos",
+      "description": "Ocho preguntas sobre cuidado responsable: alimentos que intoxican al perro, por qué el conejo necesita heno todo el día y la vitamina C del cobayo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "animals",
+      "tags": ["cuidado de mascotas", "perros", "gatos", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué alimento común es tóxico para el perro por un compuesto llamado teobromina?",
+          "options": [
+            { "id": "a", "text": "La mantequilla de maní", "is_correct": false },
+            { "id": "b", "text": "El chocolate", "is_correct": true },
+            { "id": "c", "text": "El queso", "is_correct": false },
+            { "id": "d", "text": "La zanahoria", "is_correct": false }
+          ],
+          "explanation": "El perro metaboliza la teobromina muy despacio; el chocolate negro es el más concentrado."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué edulcorante de los chicles sin azúcar es peligroso para el perro incluso en dosis mínimas?",
+          "options": [
+            { "id": "a", "text": "La sacarosa", "is_correct": false },
+            { "id": "b", "text": "La miel", "is_correct": false },
+            { "id": "c", "text": "El xilitol", "is_correct": true },
+            { "id": "d", "text": "La melaza", "is_correct": false }
+          ],
+          "explanation": "El xilitol dispara la insulina del perro y puede causar una hipoglucemia grave en cuestión de minutos."
+        },
+        {
+          "id": "q3",
+          "question": "¿Por qué el conejo necesita heno disponible todo el día?",
+          "options": [
+            { "id": "a", "text": "Porque le gusta dormir sobre él", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Porque sus dientes no dejan de crecer y la fibra mantiene la digestión",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Porque sustituye al agua", "is_correct": false },
+            { "id": "d", "text": "Porque le limpia los oídos", "is_correct": false }
+          ],
+          "explanation": "Los dientes del conejo crecen de forma continua y la fibra del heno mantiene el intestino en marcha: es comida, no cama."
+        },
+        {
+          "id": "q4",
+          "question": "El cobayo o conejillo de Indias, como los humanos, no fabrica qué vitamina?",
+          "options": [
+            { "id": "a", "text": "La vitamina C", "is_correct": true },
+            { "id": "b", "text": "La vitamina B12", "is_correct": false },
+            { "id": "c", "text": "La vitamina K", "is_correct": false },
+            { "id": "d", "text": "La vitamina A", "is_correct": false }
+          ],
+          "explanation": "Sin suficiente vitamina C el cobayo desarrolla escorbuto; por eso necesita verduras frescas a diario."
+        },
+        {
+          "id": "q5",
+          "question": "¿Por qué no hay que darle huesos cocidos al perro?",
+          "options": [
+            { "id": "a", "text": "Porque no puede masticarlos", "is_correct": false },
+            { "id": "b", "text": "Porque no tienen sabor", "is_correct": false },
+            { "id": "c", "text": "Porque se astillan en fragmentos cortantes", "is_correct": true },
+            { "id": "d", "text": "Porque causan alergia inmediata", "is_correct": false }
+          ],
+          "explanation": "La cocción vuelve el hueso quebradizo; las astillas pueden cortar o bloquear el tracto digestivo."
+        },
+        {
+          "id": "q6",
+          "question": "El gato debe obtener el aminoácido taurina de la comida. Una carencia prolongada daña sobre todo qué órganos?",
+          "options": [
+            { "id": "a", "text": "El hígado y la piel", "is_correct": false },
+            { "id": "b", "text": "El corazón y los ojos", "is_correct": true },
+            { "id": "c", "text": "Los riñones y los pulmones", "is_correct": false },
+            { "id": "d", "text": "Los dientes y las garras", "is_correct": false }
+          ],
+          "explanation": "La falta de taurina provoca cardiopatías y degeneración de la retina; el gato no fabrica suficiente por sí mismo."
+        },
+        {
+          "id": "q7",
+          "question": "Para un perro o gato adulto sano, ¿cada cuánto recomiendan los veterinarios un control de rutina?",
+          "options": [
+            { "id": "a", "text": "Solo cuando el animal se ve enfermo", "is_correct": false },
+            { "id": "b", "text": "Cada cinco años", "is_correct": false },
+            { "id": "c", "text": "Cada mes", "is_correct": false },
+            { "id": "d", "text": "Una vez al año", "is_correct": true }
+          ],
+          "explanation": "Las mascotas envejecen más rápido que nosotros; el examen anual detecta problemas antes de que den síntomas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es la regla más segura para el agua de una mascota?",
+          "options": [
+            { "id": "a", "text": "Agua fresca y limpia disponible siempre", "is_correct": true },
+            { "id": "b", "text": "Agua solo a la hora de comer", "is_correct": false },
+            { "id": "c", "text": "Agua solo después de pasear", "is_correct": false },
+            { "id": "d", "text": "Leche dos veces al día", "is_correct": false }
+          ],
+          "explanation": "A una mascota sana nunca se le raciona el agua; además, la leche da malestar estomacal a muchos gatos."
+        }
+      ]
+    }
+  ]
+}
