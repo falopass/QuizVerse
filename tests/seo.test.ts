@@ -362,13 +362,30 @@ describe('generateCategoryMetadata', () => {
   });
 
   it('emits canonical and hreflang in both directions with x-default to English', () => {
-    const metadata = generateCategoryMetadata({ name: 'Movies', slug: 'movies', locale: 'es' });
+    const metadata = generateCategoryMetadata({
+      name: 'Movies',
+      slug: 'movies',
+      locale: 'es',
+      translatedHubExists: true,
+    });
 
     expect(metadata.alternates?.canonical).toBe(`${SITE_URL}/es/category/movies`);
     expect(metadata.alternates?.languages).toEqual({
       es: `${SITE_URL}/es/category/movies`,
       en: `${SITE_URL}/en/category/movies`,
       'x-default': `${SITE_URL}/en/category/movies`,
+    });
+  });
+
+  it('omits hreflang when the hub has no page in the other locale', () => {
+    // /en/category/history would be a 404: an alternate pointing there is
+    // worse than no alternate at all.
+    const metadata = generateCategoryMetadata({ name: 'Historia', slug: 'history', locale: 'es' });
+
+    expect(metadata.alternates?.canonical).toBe(`${SITE_URL}/es/category/history`);
+    expect(metadata.alternates?.languages).toEqual({
+      es: `${SITE_URL}/es/category/history`,
+      'x-default': `${SITE_URL}/es/category/history`,
     });
   });
 });

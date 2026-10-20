@@ -108,6 +108,7 @@ vi.mock('@/lib/data/normalizers', () => ({
 }));
 
 import {
+  categoryHasQuizzes,
   getHomePayload,
   getProfileByUsername,
   getPublicCategories,
@@ -263,6 +264,38 @@ describe('getPublicCategories', () => {
     expect(await getPublicCategories()).toEqual([
       { id: 'cat-launch', slug: 'culture', name: 'Culture' },
     ]);
+  });
+});
+
+describe('categoryHasQuizzes', () => {
+  it('checks a real category by category_id', async () => {
+    db.handler = (table) =>
+      table === 'quizzes' ? { data: [quizRow()], error: null } : { data: [catRow], error: null };
+
+    expect(await categoryHasQuizzes('culture', 'es')).toBe(true);
+    expect(db.calls).toContain(
+      'quizzes(id) eq:status=published eq:category_id=cat-1 eq:language=es'
+    );
+  });
+
+  it('checks type hubs by quiz_type (they have no categories row)', async () => {
+    db.handler = () => ({ data: [quizRow()], error: null });
+
+    expect(await categoryHasQuizzes('personality', 'en')).toBe(true);
+    expect(db.calls).toContain(
+      'quizzes(id) eq:status=published eq:quiz_type=personality eq:language=en'
+    );
+  });
+
+  it('returns false when a type hub has no published quiz in the locale', async () => {
+    db.handler = () => ({ data: [], error: null });
+    expect(await categoryHasQuizzes('trivia', 'es')).toBe(false);
+  });
+
+  it('returns false for unknown slugs without querying quizzes', async () => {
+    db.handler = () => ({ data: [], error: null });
+    expect(await categoryHasQuizzes('nope', 'en')).toBe(false);
+    expect(db.calls.filter((call) => call.startsWith('quizzes'))).toEqual([]);
   });
 });
 

@@ -330,25 +330,27 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
   };
 });
 
-// Comprobación barata para /api/quiz/locale: mira si la categoría tiene ≥1
-// quiz publicado en el idioma sin traer questions/results ni recorrer páginas.
+// Comprobación barata para /api/quiz/locale y el hreflang de /category: mira
+// si el hub (categoría o tipo de quiz) tiene ≥1 quiz publicado en el idioma
+// sin traer questions/results ni recorrer páginas. Replica la condición de
+// notFound() de getCategoryPayload: los hubs de tipo se filtran por quiz_type.
 export async function categoryHasQuizzes(slug: string, locale?: Locale): Promise<boolean> {
-  const category = (await getPublicCategories()).find((item) => item.slug === slug);
-  if (!category) return false;
+  const category = (await getPublicCategories()).find((item) => item.slug === slug) ?? null;
+  const isType = slug === 'personality' || slug === 'trivia';
+  if (!category && !isType) return false;
   try {
     const supabase = await createClient();
-    let query = supabase
-      .from('quizzes')
-      .select('id')
-      .eq('status', 'published')
-      .eq('category_id', category.id);
+    let query = supabase.from('quizzes').select('id').eq('status', 'published');
+    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
     if (locale) query = query.eq('language', locale);
     const { data, error } = await query.limit(1);
     if (error || !data) throw error ?? new Error('Could not check category quizzes');
     return data.length > 0;
   } catch {
     return LAUNCH_QUIZZES.some(
-      (quiz) => quiz.category?.slug === slug && (!locale || quiz.language === locale)
+      (quiz) =>
+        (isType ? quiz.quiz_type === slug : quiz.category?.slug === slug) &&
+        (!locale || quiz.language === locale)
     );
   }
 }
