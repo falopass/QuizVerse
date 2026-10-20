@@ -35,7 +35,7 @@ interface SeedQuiz {
 // The five film franchises as (en slug, es slug, category) pairs.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-fast-and-furious-trivia', 'es-trivia-rapido-y-furioso', 'movies-tv'],
-  ['en-jurassic-park-trivia', 'es-trivia-jurassic-park', 'movies-tv'],
+  ['en-jurassic-park-trivia-2', 'es-trivia-jurassic-park-2', 'movies-tv'],
   ['en-pirates-of-the-caribbean-trivia', 'es-trivia-piratas-del-caribe', 'movies-tv'],
   ['en-the-matrix-trivia', 'es-trivia-matrix', 'movies-tv'],
   ['en-back-to-the-future-trivia', 'es-trivia-regreso-al-futuro', 'movies-tv'],

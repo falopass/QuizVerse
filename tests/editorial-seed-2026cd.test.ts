@@ -35,7 +35,7 @@ const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-peruvian-food-trivia', 'es-trivia-comida-peruana', 'food-drink'],
   ['en-chinese-food-trivia', 'es-trivia-comida-china', 'food-drink'],
   ['en-thai-food-trivia', 'es-trivia-comida-tailandesa', 'food-drink'],
-  ['en-indian-food-trivia', 'es-trivia-comida-india', 'food-drink'],
+  ['en-indian-food-trivia-2', 'es-trivia-comida-india', 'food-drink'],
   ['en-argentine-food-trivia', 'es-trivia-comida-argentina', 'food-drink'],
 ];
 

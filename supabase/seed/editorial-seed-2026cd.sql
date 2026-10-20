@@ -151,7 +151,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-indian-food-trivia',
+  'en-indian-food-trivia-2',
   'Indian Food Trivia: Spices, the Tandoor and Biryani',
   'Eight questions on garam masala, the clay tandoor, biryani, ghee, naan and the differences between northern and southern cooking.',
   'trivia',

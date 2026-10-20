@@ -59,7 +59,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-jurassic-park-trivia',
+  'en-jurassic-park-trivia-2',
   'Jurassic Park Trivia: Dinosaurs and the Park',
   'Eight questions on Jurassic Park: the dinosaurs, the park''s science and the characters of the original films.',
   'trivia',
@@ -82,7 +82,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-jurassic-park',
+  'es-trivia-jurassic-park-2',
   'Trivia de Jurassic Park: dinosaurios y el parque',
   'Ocho preguntas sobre Jurassic Park: los dinosaurios, la ciencia del parque y los personajes de las películas originales.',
   'trivia',
