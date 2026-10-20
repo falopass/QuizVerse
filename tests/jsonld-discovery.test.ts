@@ -15,8 +15,8 @@ vi.mock('@/lib/supabase/server', () => ({
 vi.mock('@/lib/data/public', () => ({
   getExplorePayload: async () => ({
     quizzes: [
-      // Va primero en el payload pero sin tracción: el orden editorial la
-      // recoloca. El ItemList debe seguir el orden visible, no este.
+      // Va primera en el payload aunque no sea la selección editorial del
+      // grid: el ItemList sigue el orden del catálogo, no el visible.
       {
         id: 'q-first',
         slug: 'primera-del-payload',
@@ -86,7 +86,7 @@ const nodeOfType = (graph: JsonLdGraph, type: string) =>
   graph['@graph'].find((node) => node['@type'] === type);
 
 describe('JSON-LD de /{locale}/quiz (explorador)', () => {
-  it('emite WebPage + ItemList con los 18 quizzes visibles, en el orden renderizado', async () => {
+  it('emite WebPage + ItemList con los primeros 24 quizzes del catálogo', async () => {
     const tree = await ExplorerPage({ params: Promise.resolve({ locale: 'es' }) });
     const graph = findJsonLd(tree);
 
@@ -109,18 +109,20 @@ describe('JSON-LD de /{locale}/quiz (explorador)', () => {
       name: string;
       url: string;
     }>;
-    // El explorador muestra lead + pulse + 4 lanes + 12 grid = 18 como
-    // máximo: los otros 12 del payload no pueden anunciarse.
+    // El ItemList anuncia hasta 24 quizzes del catálogo en el orden del
+    // payload, igual que la página de categoría: de los 30 del fixture
+    // quedan fuera quiz-23 a quiz-28.
     const expectedSlugs = [
+      'primera-del-payload',
       'portada-destacada',
-      ...Array.from({ length: 17 }, (_, index) => `quiz-${index + 1}`),
+      ...Array.from({ length: 22 }, (_, index) => `quiz-${index + 1}`),
     ];
-    expect(itemList?.numberOfItems).toBe(18);
+    expect(itemList?.numberOfItems).toBe(24);
     expect(items.map((item) => item.url)).toEqual(
       expectedSlugs.map((slug) => `${SITE_URL}/es/quiz/${slug}`)
     );
     expect(items.map((item) => item.position)).toEqual(
-      Array.from({ length: 18 }, (_, index) => index + 1)
+      Array.from({ length: 24 }, (_, index) => index + 1)
     );
   });
 });
