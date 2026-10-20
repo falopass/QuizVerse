@@ -103,6 +103,19 @@ describe('GET /api/sitemap', () => {
     expect(xml).toContain('<loc>https://quizverse.org/es</loc>');
   });
 
+  it('lista el índice del catálogo en ambos locales con sus alternates', () => {
+    for (const locale of ['en', 'es']) {
+      const block = urlBlock(xml, `https://quizverse.org/${locale}/indice`);
+      expect(block).toBeDefined();
+      expect(block).toContain('<priority>0.6</priority>');
+      expect(block).toContain('<changefreq>weekly</changefreq>');
+      expect(block).toContain('xhtml:link');
+      expect(block).toContain('hreflang="en" href="https://quizverse.org/en/indice"');
+      expect(block).toContain('hreflang="es" href="https://quizverse.org/es/indice"');
+      expect(block).toContain('hreflang="x-default" href="https://quizverse.org/en/indice"');
+    }
+  });
+
   it('lista cada quiz publicado solo en su propio idioma', () => {
     expect(xml).toContain('<loc>https://quizverse.org/es/quiz/es-quiz-solo</loc>');
     expect(xml).toContain('<loc>https://quizverse.org/en/quiz/en-pair</loc>');
