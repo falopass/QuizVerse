@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { entrance } from '@/lib/ui/motion';
 import { cn } from '@/lib/utils/cn';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Quiz } from '@/types/quiz';
@@ -61,6 +62,7 @@ const GAME_MODES: GameModeInfo[] = [
 
 export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameModeSelectorProps) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
+  const reduceMotion = useReducedMotion() ?? false;
   const modes = React.useMemo(
     () => GAME_MODES.filter((mode) => quiz.quiz_type === 'trivia' || mode.id !== 'survival'),
     [quiz.quiz_type]
@@ -111,7 +113,13 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
 
   return (
     <div className="arcade-play-page arcade-wrap">
-      <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="w-full">
+      <motion.div
+        {...entrance(reduceMotion, {
+          initial: { y: 20, opacity: 0 },
+          animate: { y: 0, opacity: 1 },
+        })}
+        className="w-full"
+      >
         <div className="arcade-mode-intro">
           <h1>{copy.title}</h1>
           <p className="arcade-mode-quiz">{quiz.title}</p>
@@ -125,9 +133,11 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
           {modes.map((mode, index) => (
             <motion.button
               key={mode.id}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: index * 0.1 }}
+              {...entrance(reduceMotion, {
+                initial: { y: 20, opacity: 0 },
+                animate: { y: 0, opacity: 1 },
+                transition: { delay: index * 0.1 },
+              })}
               onClick={() => handleModeSelect(mode.id)}
               disabled={selectedMode !== null}
               className={cn(

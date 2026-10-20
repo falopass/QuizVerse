@@ -1,7 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { entrance } from '@/lib/ui/motion';
 import { submitQuizResult } from '@/actions/quiz.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
@@ -122,6 +123,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
   const { success: toastSuccess } = useToast();
+  const reduceMotion = useReducedMotion() ?? false;
 
   const {
     gameMode,
@@ -394,8 +396,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
       <div className="arcade-play-page arcade-wrap">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center justify-center">
           <motion.div
-            initial={{ scale: 0.96, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            {...entrance(reduceMotion, {
+              initial: { scale: 0.96, opacity: 0 },
+              animate: { scale: 1, opacity: 1 },
+            })}
             className="arcade-pause w-full max-w-xl p-10 text-center"
           >
             <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
@@ -484,8 +488,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     <div className="arcade-play-screen">
       <div className="flex min-h-screen flex-col">
         <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
+          {...entrance(reduceMotion, {
+            initial: { y: -20, opacity: 0 },
+            animate: { y: 0, opacity: 1 },
+          })}
           className="arcade-play-top"
         >
           <div className="px-4 py-4">
@@ -584,10 +590,12 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentQuestionIndex}
-                initial={{ x: 50, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -50, opacity: 0 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                {...entrance(reduceMotion, {
+                  initial: { x: 50, opacity: 0 },
+                  animate: { x: 0, opacity: 1 },
+                  exit: { x: -50, opacity: 0 },
+                  transition: { type: 'spring', damping: 25, stiffness: 300 },
+                })}
                 className="w-full max-w-5xl"
               >
                 <QuestionCard
