@@ -1,4 +1,4 @@
-// Runs under vitest: vitest.config.ts includes tests/**/*.test.mjs.
+// Runs under vitest: vitest.config.ts includes tests/emit-title-overrides*.test.mjs.
 import { describe, it } from 'vitest';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
