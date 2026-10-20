@@ -35,8 +35,12 @@ function identifierFor(email: string): string {
 async function revokeOtherSessions(
   supabase: Awaited<ReturnType<typeof createClient>>
 ): Promise<boolean> {
-  const { error } = await supabase.auth.signOut({ scope: 'others' });
-  return !error;
+  try {
+    const { error } = await supabase.auth.signOut({ scope: 'others' });
+    return !error;
+  } catch {
+    return false;
+  }
 }
 
 /**

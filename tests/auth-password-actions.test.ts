@@ -96,4 +96,12 @@ describe('changePasswordAction', () => {
 
     expect(result).toEqual({ ok: true, userId: 'u1', revokedOtherSessions: false });
   });
+
+  it('reporta revokedOtherSessions=false si el cierre rechaza, sin propagar el error', async () => {
+    mocks.signOut.mockRejectedValue(new Error('network down'));
+
+    const result = await resetPasswordAction({ password: 'claveNueva1' });
+
+    expect(result).toEqual({ ok: true, userId: 'u1', revokedOtherSessions: false });
+  });
 });
