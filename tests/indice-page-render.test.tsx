@@ -11,11 +11,11 @@ import { render, screen } from '@testing-library/react';
 import type { Category, Quiz } from '@/types/quiz';
 
 const dbMocks = vi.hoisted(() => ({
-  getPublishedQuizzes: vi.fn(),
+  getCatalogCards: vi.fn(),
 }));
 
-vi.mock('@/lib/data/public', () => ({
-  getPublishedQuizzes: dbMocks.getPublishedQuizzes,
+vi.mock('@/lib/data/catalog-cards', () => ({
+  getCatalogCards: dbMocks.getCatalogCards,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -91,7 +91,7 @@ const CATALOG: Quiz[] = [
 ];
 
 // Un quiz en inglés dentro del origen: si la página dejara de pasar `locale` a
-// getPublishedQuizzes, se colaría en /es/indice y los tests lo detectarían.
+// getCatalogCards, se colaría en /es/indice y los tests lo detectarían.
 const EN_QUIZ = makeQuiz({ id: 'q6', slug: 'en-movies', title: 'Movies quiz', language: 'en' });
 const DB = [...CATALOG, EN_QUIZ];
 
@@ -105,10 +105,10 @@ function jsonLd(container: HTMLElement) {
 }
 
 beforeEach(() => {
-  dbMocks.getPublishedQuizzes.mockReset();
+  dbMocks.getCatalogCards.mockReset();
   // El mock respeta el `locale` que recibe, como hace la capa real: así un
   // índice que mezcle idiomas queda detectado por los tests.
-  dbMocks.getPublishedQuizzes.mockImplementation((_limit: number, locale?: string) =>
+  dbMocks.getCatalogCards.mockImplementation((locale?: string) =>
     Promise.resolve(DB.filter((quiz) => quiz.language === locale))
   );
 });
@@ -148,7 +148,7 @@ describe('CatalogIndexPage · render', () => {
     }
     // El quiz en inglés del origen no se cuela en el índice en español.
     expect(screen.queryByRole('link', { name: EN_QUIZ.title })).not.toBeInTheDocument();
-    expect(dbMocks.getPublishedQuizzes).toHaveBeenCalledWith(expect.any(Number), 'es');
+    expect(dbMocks.getCatalogCards).toHaveBeenCalledWith('es');
   });
 
   it('emite JSON-LD con WebPage, BreadcrumbList e ItemList de hubs', async () => {
