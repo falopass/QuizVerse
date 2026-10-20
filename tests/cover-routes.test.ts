@@ -8,7 +8,11 @@
  * regression here silently breaks every card and OG image.
  */
 
+import React from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { render } from '@testing-library/react';
+
+import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 
 const mocks = vi.hoisted(() => ({
   getQuizBySlug: vi.fn(),
@@ -179,5 +183,35 @@ describe('GET /stock-covers/[slug]', () => {
 
     expect(response.status).toBe(404);
     expect(mocks.getStockCoverEntry).not.toHaveBeenCalled();
+  });
+
+  // Une las dos mitades del contrato: la URL exacta que QuizCoverArt pinta en
+  // la tarjeta, pedida a la ruta con el proveedor caído, devuelve un SVG que
+  // el navegador sí renderiza en <img> (el optimizador lo rechazaba con 400).
+  it('serves the SVG fallback at the exact URL the card renders when the provider is down', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
+
+    const { container } = render(
+      React.createElement(QuizCoverArt, {
+        quiz: {
+          slug: 'space-trivia',
+          title: 'Space Trivia',
+          quiz_type: 'trivia',
+          category: null,
+          cover_image_url: '/stock-covers/space-trivia',
+        },
+        locale: 'es',
+        decorative: true,
+      })
+    );
+    const src = container.querySelector('img.arcade-cover-photo')?.getAttribute('src');
+    expect(src).toBe('/stock-covers/space-trivia');
+
+    const response = await stockCoverGet(new Request(`http://test${src}`), params('space-trivia'));
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(await response.text()).toContain('<svg');
   });
 });
