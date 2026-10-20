@@ -10,6 +10,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { buildGraph, itemListNode, quizPath, webPageNode } from '@/lib/seo/structured-data';
 import { explorerVisibleQuizzes } from '@/lib/quiz/editorial-order';
+import type { Quiz } from '@/types/quiz';
 
 const EXPLORER_TITLE: Record<Locale, string> = {
   es: 'Explora todos los quizzes — trivia, personalidad y fandom',
@@ -51,8 +52,16 @@ export default async function LocalizedQuizExplorerPage({
 
   // This catalogue is a client component, so every object crosses into the RSC
   // payload. Questions and results are the heavy part of a quiz (they were
-  // ~1.7 MB of HTML for 259 cards) and the grid never reads them.
-  const quizzes = payload.quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
+  // ~1.7 MB of HTML for 259 cards) and the grid never reads them. The row can
+  // also carry `correct_answers` (not in the Quiz type): it is the answer key
+  // and must never reach the browser either.
+  const quizzes = payload.quizzes.map((quiz) => {
+    const trimmed = { ...quiz, questions: [], results: null } as Quiz & {
+      correct_answers?: unknown;
+    };
+    delete trimmed.correct_answers;
+    return trimmed;
+  });
 
   return (
     <>
