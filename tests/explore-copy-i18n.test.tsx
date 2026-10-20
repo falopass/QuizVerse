@@ -56,7 +56,6 @@ const QUIZZES = Array.from({ length: 30 }, (_, index) =>
 );
 
 function renderPage(locale: Locale) {
-  const exploreCopy = getExploreCopy(locale);
   return render(
     <ExploreEditorialPage
       locale={locale}
@@ -65,7 +64,7 @@ function renderPage(locale: Locale) {
       copy={{
         title: 'title',
         subtitle: 'subtitle',
-        searchPlaceholder: exploreCopy.search,
+        searchPlaceholder: locale === 'es' ? 'Busca un quiz' : 'Find a quiz',
         emptyTitle: 'empty',
         emptyBody: 'empty body',
         allCategories: locale === 'es' ? 'Todas' : 'All',
@@ -94,7 +93,10 @@ describe('getExploreCopy', () => {
     const copy = getExploreCopy(locale);
     renderPage(locale);
 
-    expect(screen.getByPlaceholderText(copy.search)).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(locale === 'es' ? 'Busca un quiz' : 'Find a quiz')
+    ).toBeInTheDocument();
+    expect(screen.getByText(copy.search)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: copy.showMore(12) })).toBeInTheDocument();
   });
 });
