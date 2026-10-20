@@ -402,6 +402,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-how-jealous-are-you': 'es-que-tan-celoso-eres',
   'en-are-you-compatible-quiz': 'es-test-de-compatibilidad-de-pareja',
   'en-what-kind-of-first-date-are-you': 'es-que-tipo-de-primera-cita-eres',
+  // Pares del lote editorial 2026bk (scripts/seed/editorial-seed-2026bk.json), mantenidos a mano.
+  'en-famous-quotes-trivia': 'es-trivia-citas-famosas',
+  'en-good-luck-charms-trivia': 'es-trivia-amuletos-y-cabalas',
+  'en-idioms-trivia': 'es-trivia-frases-hechas',
+  'en-proverbs-and-sayings-trivia': 'es-trivia-refranes-y-dichos',
+  'en-superstitions-trivia': 'es-trivia-supersticiones',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
