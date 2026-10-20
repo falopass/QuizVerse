@@ -12,6 +12,7 @@ interface RecordedQuery {
   selects: Array<{ columns: string; options: unknown }>;
   eqs: Array<[string, unknown]>;
   ilikes: Array<[string, string]>;
+  ors: string[];
   limits: number[];
 }
 
@@ -33,7 +34,7 @@ function takeResult(table: string): StubResult {
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     from: (table: string) => {
-      const log: RecordedQuery = { selects: [], eqs: [], ilikes: [], limits: [] };
+      const log: RecordedQuery = { selects: [], eqs: [], ilikes: [], ors: [], limits: [] };
       const perTable = recorded.get(table) ?? [];
       perTable.push(log);
       recorded.set(table, perTable);
@@ -49,6 +50,10 @@ vi.mock('@/lib/supabase/server', () => ({
         },
         ilike: (column: string, value: string) => {
           log.ilikes.push([column, value]);
+          return builder;
+        },
+        or: (expression: string) => {
+          log.ors.push(expression);
           return builder;
         },
         order: () => builder,
@@ -128,13 +133,17 @@ describe('listPublishedQuizzes — category', () => {
 });
 
 describe('listPublishedQuizzes — search', () => {
-  it('escapes % and _ wildcards so ilike stays literal', async () => {
+  it('escapes % and _ wildcards so the or filters stay literal', async () => {
     queued.set('quizzes', [{ data: [], error: null, count: 0 }]);
 
     await listPublishedQuizzes({ ...BASE, q: '100%_off' });
 
-    const ilikes = recorded.get('quizzes')?.[0].ilikes ?? [];
-    expect(ilikes).toEqual([['title', '%100\\%\\_off%']]);
+    // Doble escape: dentro del `or` PostgREST consume `\x`→`x`, así que el
+    // `\` de escapeLike viaja como `\\` para llegar literal a SQL.
+    const ors = recorded.get('quizzes')?.[0].ors ?? [];
+    expect(ors).toEqual([
+      'title.ilike."%100\\\\%\\\\_off%",description.ilike."%100\\\\%\\\\_off%",tags.cs."{\\"100%_off\\"}"',
+    ]);
   });
 });
 

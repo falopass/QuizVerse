@@ -109,7 +109,22 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
     queryBuilder = queryBuilder.eq('category_id', categoryId);
   }
 
-  if (q) queryBuilder = queryBuilder.ilike('title', `%${escapeLike(q)}%`);
+  const term = q?.trim();
+  if (term) {
+    // Dentro del `or` los valores van entrecomillados y ahí PostgREST usa `\`
+    // como escape (`\"`→`"`, `\\`→`\`): lo ya escapado para SQL se vuelve a
+    // escapar para el quoting. Misma transformación en las dos capas.
+    const escapeQuoted = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const pattern = `%${escapeLike(term)}%`;
+    // tags es text[]: `cs` pide un literal de array y las comillas internas
+    // mantienen el término como un solo elemento (comas incluidas).
+    // shortcut: `cs` es match exacto del elemento — ni substring ni
+    // case-insensitive como el explorador; upgrade = columna computada.
+    const tagLiteral = `{"${escapeQuoted(term)}"}`;
+    queryBuilder = queryBuilder.or(
+      `title.ilike."${escapeQuoted(pattern)}",description.ilike."${escapeQuoted(pattern)}",tags.cs."${escapeQuoted(tagLiteral)}"`
+    );
+  }
 
   const from = (page - 1) * limit;
   const { data, error, count } = await queryBuilder
