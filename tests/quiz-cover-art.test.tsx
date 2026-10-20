@@ -61,13 +61,13 @@ describe('QuizCoverArt · foto', () => {
     expect(container.querySelector('img')).toBeNull();
   });
 
-  it('sirve la foto vía /_next/image con srcset de varios anchos', () => {
+  it('sirve la foto directo desde /stock-covers/ sin pasar por el optimizador', () => {
     const { container } = render(<QuizCoverArt quiz={quizConFoto} locale="es" decorative />);
     const img = container.querySelector('img.arcade-cover-photo');
     expect(img).not.toBeNull();
-    expect(img!.getAttribute('src')).toMatch(/^\/_next\/image\?url=%2Fstock-covers%2F/);
-    const widths = (img!.getAttribute('srcset') ?? '').match(/\d+w/g) ?? [];
-    expect(widths.length).toBeGreaterThanOrEqual(2);
+    expect(img).toHaveAttribute('src', '/stock-covers/test-quiz');
+    expect(img).not.toHaveAttribute('srcset');
+    expect(container.innerHTML).not.toContain('/_next/image');
     expect(container.innerHTML).not.toContain('images.pexels.com');
   });
 });
