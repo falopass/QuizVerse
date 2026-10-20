@@ -15,6 +15,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
         </div>
         <nav aria-label={dictionary.arcade.footerNavigation}>
           <Link href={localizeHref(locale, '/quiz')}>{dictionary.common.explore}</Link>
+          <Link href={localizeHref(locale, '/indice')}>
+            {locale === 'es' ? 'Índice del catálogo' : 'Catalog index'}
+          </Link>
           <Link href={localizeHref(locale, '/create')}>{dictionary.common.create}</Link>
           <Link href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</Link>
           <Link href={localizeHref(locale, '/login')}>{dictionary.common.login}</Link>
