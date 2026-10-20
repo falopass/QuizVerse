@@ -15,7 +15,11 @@ import { QuizProgress } from './quiz-progress';
 import { ResultScreen } from './result-screen';
 import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
+import {
+  getLocalizedLanguageLabel,
+  getLocalizedTypeLabel,
+  localizeCategory,
+} from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
 import { achievementToastMessage } from '@/lib/quiz/achievement-toast';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
@@ -261,7 +265,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
               slug: quiz.slug,
               title: quiz.title,
               quizType: quiz.quiz_type,
-              categoryName: quiz.category?.name ?? null,
+              locale: uiLocale,
+              categoryName: quiz.category
+                ? (localizeCategory(quiz.category, uiLocale)?.name ?? quiz.category.name)
+                : null,
               coverImageUrl: quiz.cover_image_url,
               minutes: quiz.estimated_minutes,
               score:
@@ -297,7 +304,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     answers,
     isCompleted,
     isSubmittingResult,
-    quiz.category?.name,
+    quiz.category,
     quiz.cover_image_url,
     quiz.estimated_minutes,
     quiz.id,

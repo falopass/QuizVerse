@@ -55,7 +55,7 @@ export function RecentlyPlayed({ locale }: RecentlyPlayedProps) {
         {entries.map((entry) => (
           <Link
             key={entry.slug}
-            href={localizeHref(locale, `/quiz/${entry.slug}`)}
+            href={localizeHref(entry.locale, `/quiz/${entry.slug}`)}
             className="arcade-card"
           >
             <QuizCoverArt

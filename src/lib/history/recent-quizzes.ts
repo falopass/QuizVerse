@@ -4,6 +4,8 @@
  * parámetro para testearlas sin navegador.
  */
 
+import type { Locale } from '@/lib/i18n/dictionaries';
+
 export const RECENT_LIMIT = 6;
 export const STORAGE_KEY = 'quizverse:recent';
 
@@ -11,6 +13,8 @@ export interface RecentQuiz {
   slug: string;
   title: string;
   quizType: 'trivia' | 'personality';
+  /** Locale donde se jugó: el slug solo existe ahí, así que el enlace lo usa. */
+  locale: Locale;
   categoryName: string | null;
   coverImageUrl: string | null;
   minutes: number;
@@ -42,6 +46,7 @@ function isRecentQuiz(value: unknown): value is RecentQuiz {
     typeof entry.title === 'string' &&
     entry.title.trim().length > 0 &&
     (entry.quizType === 'trivia' || entry.quizType === 'personality') &&
+    (entry.locale === 'en' || entry.locale === 'es') &&
     (entry.categoryName === null || typeof entry.categoryName === 'string') &&
     (entry.coverImageUrl === null || typeof entry.coverImageUrl === 'string') &&
     typeof entry.minutes === 'number' &&
