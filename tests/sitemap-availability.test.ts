@@ -92,8 +92,8 @@ describe('GET /api/sitemap — disponibilidad', () => {
     const xml = await response.text();
 
     expect(response.status).toBe(200);
-    // 10 páginas editoriales × 2 idiomas, sin quizzes ni hubs.
-    expect(xml.match(/<loc>/g)).toHaveLength(20);
+    // 11 páginas editoriales × 2 idiomas + 6 colecciones × 2, sin quizzes ni hubs.
+    expect(xml.match(/<loc>/g)).toHaveLength(34);
     expect(xml).toContain('<loc>https://quizverse.org/en</loc>');
     expect(xml).toContain('<loc>https://quizverse.org/es/terms</loc>');
   });

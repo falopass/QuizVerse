@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { getHomePayload } from '@/lib/data/public';
+import { COLLECTIONS_HOME_COPY, collectionPath, getCollections } from '@/lib/content/collections';
 import { dailyPickCopy, pickDailyQuiz } from '@/lib/content/daily-pick';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
@@ -85,6 +86,8 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     name: localizeCategory(category, locale)?.name ?? category.name,
     path: categoryPath(locale, category.slug),
   }));
+  const collectionsCopy = COLLECTIONS_HOME_COPY[locale];
+  const homeCollections = getCollections().slice(0, 3);
 
   return (
     <div className="arcade-wrap arcade-page">
@@ -183,6 +186,20 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
         </div>
       </section>
       <CategoryStrip categories={homeCategories} locale={locale} />
+      <section className="arcade-related">
+        <div className="arcade-section-head">
+          <h2>{collectionsCopy.heading}</h2>
+          <p>{collectionsCopy.blurb}</p>
+        </div>
+        <nav className="arcade-filters" aria-label={collectionsCopy.heading}>
+          <Link href={localizeHref(locale, '/collections')}>{collectionsCopy.viewAll}</Link>
+          {homeCollections.map((collection) => (
+            <Link key={collection.id} href={collectionPath(locale, collection)}>
+              {collection.copy[locale].title}
+            </Link>
+          ))}
+        </nav>
+      </section>
     </div>
   );
 }

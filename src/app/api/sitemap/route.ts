@@ -10,6 +10,7 @@ import {
 import { newestIso } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
+import { getCollections } from '@/lib/content/collections';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
 /**
@@ -66,6 +67,7 @@ const EDITORIAL_PAGES: Array<{
 }> = [
   { path: '', priority: 1.0, changeFrequency: 'daily' },
   { path: '/quiz', priority: 0.9, changeFrequency: 'daily' },
+  { path: '/collections', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/novedades', priority: 0.6, changeFrequency: 'daily' },
   { path: '/leaderboard', priority: 0.4, changeFrequency: 'daily' },
   { path: '/indice', priority: 0.6, changeFrequency: 'weekly' },
@@ -151,6 +153,23 @@ export async function GET() {
         changeFrequency: page.changeFrequency,
         priority: page.priority,
         alternates: sharedPathAlternates(page.path),
+      });
+    }
+
+    // Colecciones: existen en los dos idiomas por construcción (cada una tiene
+    // su par de slugs), así que los alternates se emiten siempre.
+    for (const collection of getCollections()) {
+      const en = `/en/collections/${collection.slugs.en}`;
+      const es = `/es/collections/${collection.slugs.es}`;
+      entries.push({
+        url: `/${locale}/collections/${collection.slugs[locale]}`,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+        alternates: [
+          { hreflang: 'en', href: en },
+          { hreflang: 'es', href: es },
+          { hreflang: 'x-default', href: en },
+        ],
       });
     }
 
