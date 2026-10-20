@@ -42,6 +42,146 @@ const CATEGORY_COPY = {
       description: 'Gusto, rutinas, rituales y estilo de todos los días.',
     },
   },
+  'movies-tv': {
+    en: {
+      name: 'Movies & TV',
+      description: 'Films, series, iconic scenes and the quotes everyone remembers.',
+    },
+    es: {
+      name: 'Cine y televisión',
+      description: 'Películas, series, escenas icónicas y frases que todos recuerdan.',
+    },
+  },
+  'anime-manga': {
+    en: {
+      name: 'Anime & Manga',
+      description: 'Shonen battles, beloved studios and characters fans never forget.',
+    },
+    es: {
+      name: 'Anime y manga',
+      description: 'Batallas shonen, estudios clásicos y personajes que nadie olvida.',
+    },
+  },
+  gaming: {
+    en: {
+      name: 'Gaming',
+      description: 'Consoles, sagas, final bosses and the lore behind every world.',
+    },
+    es: {
+      name: 'Videojuegos',
+      description: 'Consolas, sagas, jefes finales y el lore de cada mundo.',
+    },
+  },
+  music: {
+    en: {
+      name: 'Music',
+      description: 'Artists, anthems, genres and the stories behind the hits.',
+    },
+    es: {
+      name: 'Música',
+      description: 'Artistas, himnos, géneros y las historias detrás de los éxitos.',
+    },
+  },
+  literature: {
+    en: {
+      name: 'Literature',
+      description: 'Authors, classics, plot twists and lines worth underlining.',
+    },
+    es: {
+      name: 'Literatura',
+      description: 'Autores, clásicos, giros de trama y frases para subrayar.',
+    },
+  },
+  'pop-culture': {
+    en: {
+      name: 'Pop Culture',
+      description: 'Memes, trends, fandoms and the moments everyone talks about.',
+    },
+    es: {
+      name: 'Cultura pop',
+      description: 'Memes, tendencias, fandoms y momentos de los que todos hablan.',
+    },
+  },
+  technology: {
+    en: {
+      name: 'Technology',
+      description: 'Gadgets, apps, breakthroughs and the ideas reshaping daily life.',
+    },
+    es: {
+      name: 'Tecnología',
+      description: 'Gadgets, apps, avances y las ideas que cambian la vida diaria.',
+    },
+  },
+  relationships: {
+    en: {
+      name: 'Relationships',
+      description: 'Dating, friendship, red flags and how people really connect.',
+    },
+    es: {
+      name: 'Relaciones',
+      description: 'Parejas, amistad, banderas rojas y cómo conectamos de verdad.',
+    },
+  },
+  'food-drink': {
+    en: {
+      name: 'Food & Drink',
+      description: 'Dishes, drinks, cravings and flavors from every corner.',
+    },
+    es: {
+      name: 'Comida y bebida',
+      description: 'Platos, bebidas, antojos y sabores de cada rincón.',
+    },
+  },
+  science: {
+    en: {
+      name: 'Science',
+      description: 'Experiments, discoveries, odd facts and how the universe works.',
+    },
+    es: {
+      name: 'Ciencia',
+      description: 'Experimentos, descubrimientos, datos curiosos y cómo funciona el universo.',
+    },
+  },
+  animals: {
+    en: {
+      name: 'Animals',
+      description: 'Species, instincts, habitats and creatures stranger than fiction.',
+    },
+    es: {
+      name: 'Animales',
+      description: 'Especies, instintos, hábitats y criaturas más raras que la ficción.',
+    },
+  },
+  sports: {
+    en: {
+      name: 'Sports',
+      description: 'Teams, legends, records and plays that made history.',
+    },
+    es: {
+      name: 'Deportes',
+      description: 'Equipos, leyendas, récords y jugadas que hicieron historia.',
+    },
+  },
+  geography: {
+    en: {
+      name: 'Geography',
+      description: 'Countries, capitals, maps and the places worth knowing.',
+    },
+    es: {
+      name: 'Geografía',
+      description: 'Países, capitales, mapas y los lugares que vale conocer.',
+    },
+  },
+  history: {
+    en: {
+      name: 'History',
+      description: 'Empires, turning points, figures and events that shaped us.',
+    },
+    es: {
+      name: 'Historia',
+      description: 'Imperios, batallas, figuras y eventos que cambiaron el mundo.',
+    },
+  },
 } as const;
 
 const CATEGORY_ES_NAMES: Record<string, string> = {
