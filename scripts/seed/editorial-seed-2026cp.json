@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial seed 2026cp: five es/en trivia pairs on the FIFA World Cup — the 2026 edition (hosts, 48-team format, slots), historic finals, all-time top scorers, champion nations and tournament symbols — all in the sports category. Questions avoid overlapping the existing es-trivia-historia-mundiales-futbol and en-world-cup-history-trivia. Every answer is a stable, checkable fact; nothing from the qualification phase that could change. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-world-cup-2026-trivia",
+      "title": "World Cup 2026 Trivia: Hosts, Format and Firsts",
+      "description": "Eight questions on the 2026 FIFA World Cup: the three North American hosts, the new 48-team format, the stadiums and the records it set.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["world cup 2026", "football", "fifa", "trivia", "north america"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which three countries hosted the 2026 FIFA World Cup?",
+          "options": [
+            { "id": "a", "text": "United States, Mexico and Costa Rica", "is_correct": false },
+            { "id": "b", "text": "United States, Canada and Mexico", "is_correct": true },
+            { "id": "c", "text": "United States and Canada", "is_correct": false },
+            { "id": "d", "text": "Mexico and the United States", "is_correct": false }
+          ],
+          "explanation": "The 2026 edition was the first men's World Cup shared by three countries, with matches in 16 cities across North America."
+        },
+        {
+          "id": "q2",
+          "question": "How many national teams took part in the 2026 World Cup?",
+          "options": [
+            { "id": "a", "text": "32", "is_correct": false },
+            { "id": "b", "text": "40", "is_correct": false },
+            { "id": "c", "text": "48", "is_correct": true },
+            { "id": "d", "text": "64", "is_correct": false }
+          ],
+          "explanation": "The tournament grew from 32 to 48 teams, the first expansion of the field since France 1998 went from 24 to 32."
+        },
+        {
+          "id": "q3",
+          "question": "How many matches were on the 2026 World Cup schedule?",
+          "options": [
+            { "id": "a", "text": "64", "is_correct": false },
+            { "id": "b", "text": "80", "is_correct": false },
+            { "id": "c", "text": "96", "is_correct": false },
+            { "id": "d", "text": "104", "is_correct": true }
+          ],
+          "explanation": "The expanded format lifted the total from 64 to 104 matches over 39 days, from 11 June to 19 July."
+        },
+        {
+          "id": "q4",
+          "question": "How was the 2026 group stage organized?",
+          "options": [
+            { "id": "a", "text": "8 groups of 6 teams", "is_correct": false },
+            { "id": "b", "text": "12 groups of 4 teams", "is_correct": true },
+            { "id": "c", "text": "16 groups of 3 teams", "is_correct": false },
+            { "id": "d", "text": "6 groups of 8 teams", "is_correct": false }
+          ],
+          "explanation": "Twelve groups of four sent their top two teams plus the eight best third-placed sides into a new round of 32."
+        },
+        {
+          "id": "q5",
+          "question": "Which stadium hosted the 2026 World Cup final?",
+          "options": [
+            { "id": "a", "text": "AT&T Stadium, Dallas", "is_correct": false },
+            { "id": "b", "text": "SoFi Stadium, Los Angeles", "is_correct": false },
+            { "id": "c", "text": "Estadio Azteca, Mexico City", "is_correct": false },
+            { "id": "d", "text": "MetLife Stadium, New York/New Jersey", "is_correct": true }
+          ],
+          "explanation": "The final was played at MetLife Stadium in East Rutherford, New Jersey, on 19 July 2026."
+        },
+        {
+          "id": "q6",
+          "question": "Which stadium staged the opening match, becoming the first to host World Cup games in three editions?",
+          "options": [
+            { "id": "a", "text": "Maracanã, Rio de Janeiro", "is_correct": false },
+            { "id": "b", "text": "Estadio Azteca, Mexico City", "is_correct": true },
+            { "id": "c", "text": "Wembley Stadium, London", "is_correct": false },
+            { "id": "d", "text": "MetLife Stadium, New York/New Jersey", "is_correct": false }
+          ],
+          "explanation": "Estadio Azteca, which hosted the 1970 and 1986 finals, opened the 2026 tournament on 11 June."
+        },
+        {
+          "id": "q7",
+          "question": "How many host cities did the 2026 World Cup use?",
+          "options": [
+            { "id": "a", "text": "10", "is_correct": false },
+            { "id": "b", "text": "12", "is_correct": false },
+            { "id": "c", "text": "16", "is_correct": true },
+            { "id": "d", "text": "23", "is_correct": false }
+          ],
+          "explanation": "Sixteen cities hosted matches: eleven in the United States, three in Mexico and two in Canada."
+        },
+        {
+          "id": "q8",
+          "question": "Which confederation received the most slots in the expanded 48-team field?",
+          "options": [
+            { "id": "a", "text": "UEFA (Europe), with 16", "is_correct": true },
+            { "id": "b", "text": "CONMEBOL (South America), with 6", "is_correct": false },
+            { "id": "c", "text": "CAF (Africa), with 9", "is_correct": false },
+            { "id": "d", "text": "AFC (Asia), with 8", "is_correct": false }
+          ],
+          "explanation": "Europe kept the largest share with 16 berths, while Oceania received its first guaranteed slot in history."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-mundial-2026",
+      "title": "Trivia del Mundial 2026: sedes, formato y estrenos",
+      "description": "Ocho preguntas sobre el Mundial 2026: las tres sedes de Norteamérica, el nuevo formato de 48 selecciones, los estadios y los récords.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["mundial 2026", "fútbol", "copa del mundo", "trivia", "norteamérica"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué tres países fueron sede del Mundial 2026?",
+          "options": [
+            { "id": "a", "text": "Estados Unidos, México y Costa Rica", "is_correct": false },
+            { "id": "b", "text": "Estados Unidos, Canadá y México", "is_correct": true },
+            { "id": "c", "text": "Estados Unidos y Canadá", "is_correct": false },
+            { "id": "d", "text": "México y Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "La edición 2026 fue el primer Mundial masculino compartido por tres países, con partidos en 16 ciudades de Norteamérica."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántas selecciones participaron en el Mundial 2026?",
+          "options": [
+            { "id": "a", "text": "32", "is_correct": false },
+            { "id": "b", "text": "40", "is_correct": false },
+            { "id": "c", "text": "48", "is_correct": true },
+            { "id": "d", "text": "64", "is_correct": false }
+          ],
+          "explanation": "El torneo creció de 32 a 48 selecciones, la primera ampliación del campo desde que Francia 1998 pasó de 24 a 32."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuántos partidos tuvo el calendario del Mundial 2026?",
+          "options": [
+            { "id": "a", "text": "64", "is_correct": false },
+            { "id": "b", "text": "80", "is_correct": false },
+            { "id": "c", "text": "96", "is_correct": false },
+            { "id": "d", "text": "104", "is_correct": true }
+          ],
+          "explanation": "El nuevo formato subió el total de 64 a 104 partidos en 39 días, del 11 de junio al 19 de julio."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se organizó la fase de grupos de 2026?",
+          "options": [
+            { "id": "a", "text": "8 grupos de 6 equipos", "is_correct": false },
+            { "id": "b", "text": "12 grupos de 4 equipos", "is_correct": true },
+            { "id": "c", "text": "16 grupos de 3 equipos", "is_correct": false },
+            { "id": "d", "text": "6 grupos de 8 equipos", "is_correct": false }
+          ],
+          "explanation": "Doce grupos de cuatro clasificaron a los dos primeros y a los ocho mejores terceros a una nueva ronda de dieciseisavos."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué estadio fue sede de la final del Mundial 2026?",
+          "options": [
+            { "id": "a", "text": "AT&T Stadium, Dallas", "is_correct": false },
+            { "id": "b", "text": "SoFi Stadium, Los Ángeles", "is_correct": false },
+            { "id": "c", "text": "Estadio Azteca, Ciudad de México", "is_correct": false },
+            { "id": "d", "text": "MetLife Stadium, Nueva York/Nueva Jersey", "is_correct": true }
+          ],
+          "explanation": "La final se jugó en el MetLife Stadium de East Rutherford, Nueva Jersey, el 19 de julio de 2026."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué estadio abrió el torneo y se convirtió en el primero en recibir partidos de Mundial en tres ediciones?",
+          "options": [
+            { "id": "a", "text": "Maracaná, Río de Janeiro", "is_correct": false },
+            { "id": "b", "text": "Estadio Azteca, Ciudad de México", "is_correct": true },
+            { "id": "c", "text": "Wembley, Londres", "is_correct": false },
+            { "id": "d", "text": "MetLife Stadium, Nueva York/Nueva Jersey", "is_correct": false }
+          ],
+          "explanation": "El Estadio Azteca, sede de las finales de 1970 y 1986, inauguró el torneo 2026 el 11 de junio."
+        },
+        {
+          "id": "q7",
+          "question": "¿En cuántas ciudades se jugó el Mundial 2026?",
+          "options": [
+            { "id": "a", "text": "10", "is_correct": false },
+            { "id": "b", "text": "12", "is_correct": false },
+            { "id": "c", "text": "16", "is_correct": true },
+            { "id": "d", "text": "23", "is_correct": false }
+          ],
+          "explanation": "Dieciséis ciudades recibieron partidos: once en Estados Unidos, tres en México y dos en Canadá."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué confederación recibió más cupos en el campo ampliado de 48 selecciones?",
+          "options": [
+            { "id": "a", "text": "UEFA (Europa), con 16", "is_correct": true },
+            { "id": "b", "text": "CONMEBOL (Sudamérica), con 6", "is_correct": false },
+            { "id": "c", "text": "CAF (África), con 9", "is_correct": false },
+            { "id": "d", "text": "AFC (Asia), con 8", "is_correct": false }
+          ],
+          "explanation": "Europa conservó la mayor parte con 16 cupos, mientras Oceanía recibió su primera plaza garantizada en la historia."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-cup-finals-trivia",
+      "title": "World Cup Finals Trivia: Goals, Drama and Shootouts",
+      "description": "Eight questions on the most memorable World Cup finals: the 1966 Wembley goal, Brazil 1970, the first shootout in 1994 and the 2022 classic.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["world cup", "football", "world cup finals", "trivia", "fifa"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What was the score of the 1970 final between Brazil and Italy?",
+          "options": [
+            { "id": "a", "text": "2-0", "is_correct": false },
+            { "id": "b", "text": "3-1", "is_correct": false },
+            { "id": "c", "text": "4-1", "is_correct": true },
+            { "id": "d", "text": "5-2", "is_correct": false }
+          ],
+          "explanation": "Brazil won 4-1 at Estadio Azteca, with Pelé, Gérson, Jairzinho and captain Carlos Alberto scoring."
+        },
+        {
+          "id": "q2",
+          "question": "Who scored twice in France's 3-0 win over Brazil in the 1998 final?",
+          "options": [
+            { "id": "a", "text": "Thierry Henry", "is_correct": false },
+            { "id": "b", "text": "Zinedine Zidane", "is_correct": true },
+            { "id": "c", "text": "Emmanuel Petit", "is_correct": false },
+            { "id": "d", "text": "Youri Djorkaeff", "is_correct": false }
+          ],
+          "explanation": "Zidane headed in two first-half corners before Emmanuel Petit completed the 3-0 in stoppage time."
+        },
+        {
+          "id": "q3",
+          "question": "What made England's third goal in the 1966 final against West Germany so controversial?",
+          "options": [
+            { "id": "a", "text": "It was scored with the hand", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The shot hit the crossbar and was judged to have crossed the line",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The scorer was offside", "is_correct": false },
+            { "id": "d", "text": "It came after the final whistle", "is_correct": false }
+          ],
+          "explanation": "Geoff Hurst's shot bounced down off the bar; the Soviet linesman awarded the goal, still debated today."
+        },
+        {
+          "id": "q4",
+          "question": "Which World Cup final was the first decided by a penalty shootout?",
+          "options": [
+            { "id": "a", "text": "1986, Argentina–West Germany", "is_correct": false },
+            { "id": "b", "text": "1990, West Germany–Argentina", "is_correct": false },
+            { "id": "c", "text": "1994, Brazil–Italy", "is_correct": true },
+            { "id": "d", "text": "2006, Italy–France", "is_correct": false }
+          ],
+          "explanation": "Brazil and Italy drew 0-0 in Pasadena and Roberto Baggio missed the decisive kick in the shootout."
+        },
+        {
+          "id": "q5",
+          "question": "Who scored Germany's winning goal in the 2014 final against Argentina?",
+          "options": [
+            { "id": "a", "text": "Thomas Müller", "is_correct": false },
+            { "id": "b", "text": "Toni Kroos", "is_correct": false },
+            { "id": "c", "text": "Mario Götze", "is_correct": true },
+            { "id": "d", "text": "Miroslav Klose", "is_correct": false }
+          ],
+          "explanation": "Götze volleyed the winner in the 113th minute — Germany became the first European team to win a World Cup in the Americas."
+        },
+        {
+          "id": "q6",
+          "question": "What was the final score of the 1986 final between Argentina and West Germany?",
+          "options": [
+            { "id": "a", "text": "1-0", "is_correct": false },
+            { "id": "b", "text": "2-1", "is_correct": false },
+            { "id": "c", "text": "3-2", "is_correct": true },
+            { "id": "d", "text": "4-2", "is_correct": false }
+          ],
+          "explanation": "Argentina led 2-0, West Germany equalized and Jorge Burruchaga scored the 3-2 winner in the 84th minute."
+        },
+        {
+          "id": "q7",
+          "question": "Who scored a hat-trick in the 2022 final but still finished on the losing side?",
+          "options": [
+            { "id": "a", "text": "Olivier Giroud", "is_correct": false },
+            { "id": "b", "text": "Lionel Messi", "is_correct": false },
+            { "id": "c", "text": "Kylian Mbappé", "is_correct": true },
+            { "id": "d", "text": "Antoine Griezmann", "is_correct": false }
+          ],
+          "explanation": "Mbappé scored all three French goals in the 3-3 draw — only the second hat-trick in a men's World Cup final, after Hurst in 1966."
+        },
+        {
+          "id": "q8",
+          "question": "In which stadium was the 2022 World Cup final played?",
+          "options": [
+            { "id": "a", "text": "Al Bayt Stadium", "is_correct": false },
+            { "id": "b", "text": "Lusail Stadium", "is_correct": true },
+            { "id": "c", "text": "Khalifa International Stadium", "is_correct": false },
+            { "id": "d", "text": "Stadium 974", "is_correct": false }
+          ],
+          "explanation": "Lusail Stadium hosted the final on 18 December 2022 in front of nearly 89,000 fans."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-finales-del-mundial",
+      "title": "Trivia de las finales del Mundial: goles y penales",
+      "description": "Ocho preguntas sobre las finales del Mundial más recordadas: el gol de Wembley de 1966, Brasil 1970, la primera tanda de penales en 1994 y el clásico de 2022.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["mundial", "fútbol", "finales del mundial", "trivia", "historia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál fue el marcador de la final de 1970 entre Brasil e Italia?",
+          "options": [
+            { "id": "a", "text": "2-0", "is_correct": false },
+            { "id": "b", "text": "3-1", "is_correct": false },
+            { "id": "c", "text": "4-1", "is_correct": true },
+            { "id": "d", "text": "5-2", "is_correct": false }
+          ],
+          "explanation": "Brasil ganó 4-1 en el Estadio Azteca, con goles de Pelé, Gérson, Jairzinho y el capitán Carlos Alberto."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién anotó dos goles en la victoria de Francia 3-0 sobre Brasil en la final de 1998?",
+          "options": [
+            { "id": "a", "text": "Thierry Henry", "is_correct": false },
+            { "id": "b", "text": "Zinedine Zidane", "is_correct": true },
+            { "id": "c", "text": "Emmanuel Petit", "is_correct": false },
+            { "id": "d", "text": "Youri Djorkaeff", "is_correct": false }
+          ],
+          "explanation": "Zidane cabeceó dos córners en el primer tiempo y Emmanuel Petit cerró el 3-0 en el descuento."
+        },
+        {
+          "id": "q3",
+          "question": "¿Por qué fue tan polémico el tercer gol de Inglaterra en la final de 1966 contra Alemania Federal?",
+          "options": [
+            { "id": "a", "text": "Se marcó con la mano", "is_correct": false },
+            {
+              "id": "b",
+              "text": "El tiro pegó en el travesaño y se juzgó que cruzó la línea",
+              "is_correct": true
+            },
+            { "id": "c", "text": "El goleador estaba en fuera de juego", "is_correct": false },
+            { "id": "d", "text": "Llegó después del pitazo final", "is_correct": false }
+          ],
+          "explanation": "El disparo de Geoff Hurst picó bajo el travesaño; el juez de línea soviético concedió el gol, aún debatido hoy."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué final del Mundial fue la primera en definirse por penales?",
+          "options": [
+            { "id": "a", "text": "1986, Argentina–Alemania Federal", "is_correct": false },
+            { "id": "b", "text": "1990, Alemania Federal–Argentina", "is_correct": false },
+            { "id": "c", "text": "1994, Brasil–Italia", "is_correct": true },
+            { "id": "d", "text": "2006, Italia–Francia", "is_correct": false }
+          ],
+          "explanation": "Brasil e Italia empataron 0-0 en Pasadena y Roberto Baggio falló el tiro decisivo de la tanda."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién marcó el gol del triunfo de Alemania en la final de 2014 contra Argentina?",
+          "options": [
+            { "id": "a", "text": "Thomas Müller", "is_correct": false },
+            { "id": "b", "text": "Toni Kroos", "is_correct": false },
+            { "id": "c", "text": "Mario Götze", "is_correct": true },
+            { "id": "d", "text": "Miroslav Klose", "is_correct": false }
+          ],
+          "explanation": "Götze definió de volea el gol del título en el minuto 113: Alemania fue el primer europeo campeón en suelo americano."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál fue el marcador de la final de 1986 entre Argentina y Alemania Federal?",
+          "options": [
+            { "id": "a", "text": "1-0", "is_correct": false },
+            { "id": "b", "text": "2-1", "is_correct": false },
+            { "id": "c", "text": "3-2", "is_correct": true },
+            { "id": "d", "text": "4-2", "is_correct": false }
+          ],
+          "explanation": "Argentina ganaba 2-0, Alemania empató y Jorge Burruchaga marcó el 3-2 definitivo en el minuto 84."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién anotó un triplete en la final de 2022 y aun así terminó del lado perdedor?",
+          "options": [
+            { "id": "a", "text": "Olivier Giroud", "is_correct": false },
+            { "id": "b", "text": "Lionel Messi", "is_correct": false },
+            { "id": "c", "text": "Kylian Mbappé", "is_correct": true },
+            { "id": "d", "text": "Antoine Griezmann", "is_correct": false }
+          ],
+          "explanation": "Mbappé marcó los tres goles de Francia en el 3-3: apenas el segundo triplete en una final masculina, tras Hurst en 1966."
+        },
+        {
+          "id": "q8",
+          "question": "¿En qué estadio se jugó la final del Mundial 2022?",
+          "options": [
+            { "id": "a", "text": "Estadio Al Bayt", "is_correct": false },
+            { "id": "b", "text": "Estadio Lusail", "is_correct": true },
+            { "id": "c", "text": "Estadio Internacional Khalifa", "is_correct": false },
+            { "id": "d", "text": "Estadio 974", "is_correct": false }
+          ],
+          "explanation": "El estadio Lusail recibió la final el 18 de diciembre de 2022 ante casi 89.000 espectadores."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-cup-top-scorers-trivia",
+      "title": "World Cup Top Scorers Trivia: Records and Golden Boots",
+      "description": "Eight questions on the World Cup's greatest scorers: Klose's 16, Fontaine's 13 in one edition, Golden Boots and single-match records.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["world cup", "football", "goalscorers", "records", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How many World Cup goals did Miroslav Klose score across four tournaments (2002–2014)?",
+          "options": [
+            { "id": "a", "text": "14", "is_correct": false },
+            { "id": "b", "text": "15", "is_correct": false },
+            { "id": "c", "text": "16", "is_correct": true },
+            { "id": "d", "text": "18", "is_correct": false }
+          ],
+          "explanation": "Klose's 16 goals over four editions made him the all-time top scorer in men's World Cup history."
+        },
+        {
+          "id": "q2",
+          "question": "How many goals did Just Fontaine score at the 1958 World Cup, still the single-edition record?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "11", "is_correct": false },
+            { "id": "c", "text": "13", "is_correct": true },
+            { "id": "d", "text": "15", "is_correct": false }
+          ],
+          "explanation": "The Frenchman scored 13 goals in Sweden 1958, including four in the third-place match."
+        },
+        {
+          "id": "q3",
+          "question": "Which German striker held the all-time record with 14 World Cup goals until Ronaldo passed him in 2006?",
+          "options": [
+            { "id": "a", "text": "Gerd Müller", "is_correct": true },
+            { "id": "b", "text": "Jürgen Klinsmann", "is_correct": false },
+            { "id": "c", "text": "Karl-Heinz Rummenigge", "is_correct": false },
+            { "id": "d", "text": "Uwe Seeler", "is_correct": false }
+          ],
+          "explanation": "Gerd Müller scored 14 goals in just two tournaments (1970 and 1974); Ronaldo passed him in 2006 and Klose in 2014."
+        },
+        {
+          "id": "q4",
+          "question": "Who won the Golden Boot at Qatar 2022 with eight goals?",
+          "options": [
+            { "id": "a", "text": "Lionel Messi", "is_correct": false },
+            { "id": "b", "text": "Kylian Mbappé", "is_correct": true },
+            { "id": "c", "text": "Julián Álvarez", "is_correct": false },
+            { "id": "d", "text": "Olivier Giroud", "is_correct": false }
+          ],
+          "explanation": "Mbappé's eight goals, including three in the final, edged Messi's seven for the Golden Boot."
+        },
+        {
+          "id": "q5",
+          "question": "Who was the top scorer at Russia 2018 with six goals?",
+          "options": [
+            { "id": "a", "text": "Kylian Mbappé", "is_correct": false },
+            { "id": "b", "text": "Romelu Lukaku", "is_correct": false },
+            { "id": "c", "text": "Cristiano Ronaldo", "is_correct": false },
+            { "id": "d", "text": "Harry Kane", "is_correct": true }
+          ],
+          "explanation": "England's Harry Kane won the Golden Boot with six goals, five of them in the group stage."
+        },
+        {
+          "id": "q6",
+          "question": "At Qatar 2022, who became the first man to score at five different World Cups?",
+          "options": [
+            { "id": "a", "text": "Lionel Messi", "is_correct": false },
+            { "id": "b", "text": "Cristiano Ronaldo", "is_correct": true },
+            { "id": "c", "text": "Luka Modrić", "is_correct": false },
+            { "id": "d", "text": "Neymar", "is_correct": false }
+          ],
+          "explanation": "Cristiano Ronaldo scored at every edition from 2006 to 2022 — eight World Cup goals in total."
+        },
+        {
+          "id": "q7",
+          "question": "How many goals did Oleg Salenko score against Cameroon in 1994, a single-match record?",
+          "options": [
+            { "id": "a", "text": "3", "is_correct": false },
+            { "id": "b", "text": "4", "is_correct": false },
+            { "id": "c", "text": "5", "is_correct": true },
+            { "id": "d", "text": "6", "is_correct": false }
+          ],
+          "explanation": "Salenko scored five in a 6-1 win at USA 1994 — no one has ever scored more in a World Cup match."
+        },
+        {
+          "id": "q8",
+          "question": "How old was Pelé when he scored his first World Cup goal in 1958?",
+          "options": [
+            { "id": "a", "text": "15 years old", "is_correct": false },
+            { "id": "b", "text": "17 years old", "is_correct": true },
+            { "id": "c", "text": "19 years old", "is_correct": false },
+            { "id": "d", "text": "21 years old", "is_correct": false }
+          ],
+          "explanation": "Pelé was 17 years and 239 days old when he scored against Wales, still the youngest scorer in World Cup history."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-goleadores-mundiales",
+      "title": "Trivia de goleadores del Mundial: récords y Botas de Oro",
+      "description": "Ocho preguntas sobre los máximos goleadores del Mundial: los 16 de Klose, los 13 de Fontaine en una sola edición, Botas de Oro y récords por partido.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["mundial", "fútbol", "goleadores", "récords", "trivia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuántos goles marcó Miroslav Klose en Mundiales a lo largo de cuatro ediciones (2002-2014)?",
+          "options": [
+            { "id": "a", "text": "14", "is_correct": false },
+            { "id": "b", "text": "15", "is_correct": false },
+            { "id": "c", "text": "16", "is_correct": true },
+            { "id": "d", "text": "18", "is_correct": false }
+          ],
+          "explanation": "Los 16 goles de Klose en cuatro ediciones lo convirtieron en el máximo goleador histórico de los Mundiales."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos goles anotó Just Fontaine en el Mundial de 1958, aún récord para una sola edición?",
+          "options": [
+            { "id": "a", "text": "9", "is_correct": false },
+            { "id": "b", "text": "11", "is_correct": false },
+            { "id": "c", "text": "13", "is_correct": true },
+            { "id": "d", "text": "15", "is_correct": false }
+          ],
+          "explanation": "El francés marcó 13 goles en Suecia 1958, incluidos cuatro en el partido por el tercer puesto."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué delantero alemán mantuvo el récord histórico con 14 goles en Mundiales hasta que Ronaldo lo superó en 2006?",
+          "options": [
+            { "id": "a", "text": "Gerd Müller", "is_correct": true },
+            { "id": "b", "text": "Jürgen Klinsmann", "is_correct": false },
+            { "id": "c", "text": "Karl-Heinz Rummenigge", "is_correct": false },
+            { "id": "d", "text": "Uwe Seeler", "is_correct": false }
+          ],
+          "explanation": "Gerd Müller marcó 14 goles en solo dos torneos (1970 y 1974); Ronaldo lo pasó en 2006 y Klose en 2014."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién ganó la Bota de Oro de Catar 2022 con ocho goles?",
+          "options": [
+            { "id": "a", "text": "Lionel Messi", "is_correct": false },
+            { "id": "b", "text": "Kylian Mbappé", "is_correct": true },
+            { "id": "c", "text": "Julián Álvarez", "is_correct": false },
+            { "id": "d", "text": "Olivier Giroud", "is_correct": false }
+          ],
+          "explanation": "Los ocho goles de Mbappé, tres de ellos en la final, superaron los siete de Messi para la Bota de Oro."
+        },
+        {
+          "id": "q5",
+          "question": "¿Quién fue el máximo goleador de Rusia 2018 con seis tantos?",
+          "options": [
+            { "id": "a", "text": "Kylian Mbappé", "is_correct": false },
+            { "id": "b", "text": "Romelu Lukaku", "is_correct": false },
+            { "id": "c", "text": "Cristiano Ronaldo", "is_correct": false },
+            { "id": "d", "text": "Harry Kane", "is_correct": true }
+          ],
+          "explanation": "El inglés Harry Kane ganó la Bota de Oro con seis goles, cinco de ellos en la fase de grupos."
+        },
+        {
+          "id": "q6",
+          "question": "En Catar 2022, ¿quién se convirtió en el primer hombre en marcar en cinco Mundiales distintos?",
+          "options": [
+            { "id": "a", "text": "Lionel Messi", "is_correct": false },
+            { "id": "b", "text": "Cristiano Ronaldo", "is_correct": true },
+            { "id": "c", "text": "Luka Modrić", "is_correct": false },
+            { "id": "d", "text": "Neymar", "is_correct": false }
+          ],
+          "explanation": "Cristiano Ronaldo marcó en todas las ediciones de 2006 a 2022: ocho goles mundialistas en total."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos goles le marcó Oleg Salenko a Camerún en 1994, récord para un solo partido?",
+          "options": [
+            { "id": "a", "text": "3", "is_correct": false },
+            { "id": "b", "text": "4", "is_correct": false },
+            { "id": "c", "text": "5", "is_correct": true },
+            { "id": "d", "text": "6", "is_correct": false }
+          ],
+          "explanation": "Salenko marcó cinco en la victoria 6-1 de Estados Unidos 1994; nadie ha anotado más en un partido de Mundial."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué edad tenía Pelé cuando marcó su primer gol en Mundiales, en 1958?",
+          "options": [
+            { "id": "a", "text": "15 años", "is_correct": false },
+            { "id": "b", "text": "17 años", "is_correct": true },
+            { "id": "c", "text": "19 años", "is_correct": false },
+            { "id": "d", "text": "21 años", "is_correct": false }
+          ],
+          "explanation": "Pelé tenía 17 años y 239 días cuando le anotó a Gales: sigue siendo el goleador más joven de la historia del Mundial."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-cup-champions-trivia",
+      "title": "World Cup Champions Trivia: Titles, Dynasties and Years",
+      "description": "Eight questions on the nations that lifted the World Cup: Brazil's five titles, Italy's early double, Argentina's third crown and the champions' roll call.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["world cup", "football", "champions", "trivia", "fifa"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which team did Uruguay beat 4-2 in the first World Cup final, in 1930?",
+          "options": [
+            { "id": "a", "text": "Brazil", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": true },
+            { "id": "c", "text": "Yugoslavia", "is_correct": false },
+            { "id": "d", "text": "United States", "is_correct": false }
+          ],
+          "explanation": "Uruguay came from behind to beat Argentina 4-2 at the Estadio Centenario in Montevideo."
+        },
+        {
+          "id": "q2",
+          "question": "Which country won back-to-back World Cups in 1934 and 1938?",
+          "options": [
+            { "id": "a", "text": "Uruguay", "is_correct": false },
+            { "id": "b", "text": "Italy", "is_correct": true },
+            { "id": "c", "text": "Hungary", "is_correct": false },
+            { "id": "d", "text": "Brazil", "is_correct": false }
+          ],
+          "explanation": "Vittorio Pozzo's Italy won at home in 1934 and in France in 1938 — the first nation to retain the title."
+        },
+        {
+          "id": "q3",
+          "question": "After Pelé was injured early in the 1962 tournament, who led Brazil to the title in Chile?",
+          "options": [
+            { "id": "a", "text": "Didi", "is_correct": false },
+            { "id": "b", "text": "Garrincha", "is_correct": true },
+            { "id": "c", "text": "Vavá", "is_correct": false },
+            { "id": "d", "text": "Zagallo", "is_correct": false }
+          ],
+          "explanation": "Garrincha was the star of Chile 1962 and shared the top scorer award — Brazil won most of the run without Pelé."
+        },
+        {
+          "id": "q4",
+          "question": "How many World Cups had Brazil won after its 2002 triumph in Japan and South Korea?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Four", "is_correct": false },
+            { "id": "c", "text": "Five", "is_correct": true },
+            { "id": "d", "text": "Six", "is_correct": false }
+          ],
+          "explanation": "Titles in 1958, 1962, 1970, 1994 and 2002 make Brazil the most successful nation in World Cup history."
+        },
+        {
+          "id": "q5",
+          "question": "Which nation lifted its third World Cup at Qatar 2022?",
+          "options": [
+            { "id": "a", "text": "France", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": true },
+            { "id": "c", "text": "Germany", "is_correct": false },
+            { "id": "d", "text": "Brazil", "is_correct": false }
+          ],
+          "explanation": "Argentina's 2022 title joined 1978 and 1986 — its first World Cup in 36 years."
+        },
+        {
+          "id": "q6",
+          "question": "Which country won its second World Cup at Russia 2018?",
+          "options": [
+            { "id": "a", "text": "Spain", "is_correct": false },
+            { "id": "b", "text": "France", "is_correct": true },
+            { "id": "c", "text": "England", "is_correct": false },
+            { "id": "d", "text": "Germany", "is_correct": false }
+          ],
+          "explanation": "Twenty years after 1998, France beat Croatia 4-2 in Moscow for its second star."
+        },
+        {
+          "id": "q7",
+          "question": "How many different countries had won the men's World Cup by the end of 2022?",
+          "options": [
+            { "id": "a", "text": "Six", "is_correct": false },
+            { "id": "b", "text": "Eight", "is_correct": true },
+            { "id": "c", "text": "Ten", "is_correct": false },
+            { "id": "d", "text": "Twelve", "is_correct": false }
+          ],
+          "explanation": "Uruguay, Italy, Germany, Brazil, England, Argentina, France and Spain — just eight champions in 22 editions."
+        },
+        {
+          "id": "q8",
+          "question": "Which team lost the finals of 1974, 1978 and 2010 without ever lifting the trophy?",
+          "options": [
+            { "id": "a", "text": "Hungary", "is_correct": false },
+            { "id": "b", "text": "Netherlands", "is_correct": true },
+            { "id": "c", "text": "Sweden", "is_correct": false },
+            { "id": "d", "text": "Portugal", "is_correct": false }
+          ],
+          "explanation": "The Netherlands reached three finals — in 1974, 1978 and 2010 — and lost all three, two of them to the hosts."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-selecciones-campeonas",
+      "title": "Trivia de selecciones campeonas: títulos y dinastías",
+      "description": "Ocho preguntas sobre las selecciones campeonas del Mundial: los cinco títulos de Brasil, el doblete italiano y la tercera corona de Argentina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["mundial", "fútbol", "campeones", "trivia", "selecciones"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿A qué selección le ganó Uruguay 4-2 en la primera final del Mundial, en 1930?",
+          "options": [
+            { "id": "a", "text": "Brasil", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": true },
+            { "id": "c", "text": "Yugoslavia", "is_correct": false },
+            { "id": "d", "text": "Estados Unidos", "is_correct": false }
+          ],
+          "explanation": "Uruguay remontó y venció 4-2 a Argentina en el Estadio Centenario de Montevideo."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué país ganó dos Mundiales seguidos, en 1934 y 1938?",
+          "options": [
+            { "id": "a", "text": "Uruguay", "is_correct": false },
+            { "id": "b", "text": "Italia", "is_correct": true },
+            { "id": "c", "text": "Hungría", "is_correct": false },
+            { "id": "d", "text": "Brasil", "is_correct": false }
+          ],
+          "explanation": "La Italia de Vittorio Pozzo ganó en casa en 1934 y en Francia en 1938: la primera selección en retener el título."
+        },
+        {
+          "id": "q3",
+          "question": "Tras la lesión de Pelé al inicio del torneo de 1962, ¿quién lideró a Brasil al título en Chile?",
+          "options": [
+            { "id": "a", "text": "Didi", "is_correct": false },
+            { "id": "b", "text": "Garrincha", "is_correct": true },
+            { "id": "c", "text": "Vavá", "is_correct": false },
+            { "id": "d", "text": "Zagallo", "is_correct": false }
+          ],
+          "explanation": "Garrincha fue la figura de Chile 1962 y compartió el premio de goleador: Brasil ganó casi todo el torneo sin Pelé."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuántos Mundiales había ganado Brasil tras su título de 2002 en Japón y Corea del Sur?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cuatro", "is_correct": false },
+            { "id": "c", "text": "Cinco", "is_correct": true },
+            { "id": "d", "text": "Seis", "is_correct": false }
+          ],
+          "explanation": "Los títulos de 1958, 1962, 1970, 1994 y 2002 convierten a Brasil en la selección más ganadora de la historia."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué selección levantó su tercer Mundial en Catar 2022?",
+          "options": [
+            { "id": "a", "text": "Francia", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": true },
+            { "id": "c", "text": "Alemania", "is_correct": false },
+            { "id": "d", "text": "Brasil", "is_correct": false }
+          ],
+          "explanation": "El título de 2022 se sumó a los de 1978 y 1986: el primer Mundial de Argentina en 36 años."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué país ganó su segundo Mundial en Rusia 2018?",
+          "options": [
+            { "id": "a", "text": "España", "is_correct": false },
+            { "id": "b", "text": "Francia", "is_correct": true },
+            { "id": "c", "text": "Inglaterra", "is_correct": false },
+            { "id": "d", "text": "Alemania", "is_correct": false }
+          ],
+          "explanation": "Veinte años después de 1998, Francia venció 4-2 a Croacia en Moscú y sumó su segunda estrella."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos países distintos habían ganado el Mundial masculino hasta finales de 2022?",
+          "options": [
+            { "id": "a", "text": "Seis", "is_correct": false },
+            { "id": "b", "text": "Ocho", "is_correct": true },
+            { "id": "c", "text": "Diez", "is_correct": false },
+            { "id": "d", "text": "Doce", "is_correct": false }
+          ],
+          "explanation": "Uruguay, Italia, Alemania, Brasil, Inglaterra, Argentina, Francia y España: solo ocho campeones en 22 ediciones."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué selección perdió las finales de 1974, 1978 y 2010 sin levantar nunca el trofeo?",
+          "options": [
+            { "id": "a", "text": "Hungría", "is_correct": false },
+            { "id": "b", "text": "Países Bajos", "is_correct": true },
+            { "id": "c", "text": "Suecia", "is_correct": false },
+            { "id": "d", "text": "Portugal", "is_correct": false }
+          ],
+          "explanation": "Países Bajos llegó a tres finales (1974, 1978 y 2010) y las perdió todas, dos de ellas contra el anfitrión."
+        }
+      ]
+    },
+    {
+      "slug": "en-world-cup-symbols-trivia",
+      "title": "World Cup Symbols Trivia: Mascots, Balls and Trophies",
+      "description": "Eight questions on the World Cup's icons: the stolen Jules Rimet trophy, the first mascot in 1966, the Telstar ball and the record Maracanã crowd.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "sports",
+      "tags": ["world cup", "football", "trivia", "mascots", "history"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What was the name of the original World Cup trophy, awarded from 1930 to 1970?",
+          "options": [
+            { "id": "a", "text": "The FIFA World Cup Trophy", "is_correct": false },
+            { "id": "b", "text": "The Jules Rimet Trophy", "is_correct": true },
+            { "id": "c", "text": "The Victory Cup", "is_correct": false },
+            { "id": "d", "text": "The Centenario Trophy", "is_correct": false }
+          ],
+          "explanation": "The trophy was named after FIFA president Jules Rimet, who pushed for the first World Cup in 1930."
+        },
+        {
+          "id": "q2",
+          "question": "What happened to the Jules Rimet Trophy after Brazil earned it outright in 1970?",
+          "options": [
+            { "id": "a", "text": "It sits in FIFA's Zurich museum", "is_correct": false },
+            { "id": "b", "text": "It was stolen in 1983 and never recovered", "is_correct": true },
+            { "id": "c", "text": "FIFA melted it down", "is_correct": false },
+            { "id": "d", "text": "It was lost in a shipwreck", "is_correct": false }
+          ],
+          "explanation": "Thieves stole the cup from the Brazilian confederation's headquarters in Rio in 1983; it was never found."
+        },
+        {
+          "id": "q3",
+          "question": "Who designed the FIFA World Cup Trophy used since 1974?",
+          "options": [
+            { "id": "a", "text": "Abel Lafleur", "is_correct": false },
+            { "id": "b", "text": "Silvio Gazzaniga", "is_correct": true },
+            { "id": "c", "text": "Giovanni Bertoni", "is_correct": false },
+            { "id": "d", "text": "Aldo Rossi", "is_correct": false }
+          ],
+          "explanation": "Italian sculptor Silvio Gazzaniga designed the 18-karat gold trophy; Lafleur had created the original Jules Rimet cup."
+        },
+        {
+          "id": "q4",
+          "question": "Which World Cup introduced the first official mascot?",
+          "options": [
+            { "id": "a", "text": "Chile 1962", "is_correct": false },
+            { "id": "b", "text": "England 1966", "is_correct": true },
+            { "id": "c", "text": "Mexico 1970", "is_correct": false },
+            { "id": "d", "text": "West Germany 1974", "is_correct": false }
+          ],
+          "explanation": "World Cup Willie, a lion in a Union Jack shirt, was the first mascot in World Cup history."
+        },
+        {
+          "id": "q5",
+          "question": "What animal was Zabivaka, the official mascot of Russia 2018?",
+          "options": [
+            { "id": "a", "text": "A bear", "is_correct": false },
+            { "id": "b", "text": "A wolf", "is_correct": true },
+            { "id": "c", "text": "A tiger", "is_correct": false },
+            { "id": "d", "text": "A fox", "is_correct": false }
+          ],
+          "explanation": "Zabivaka was an anthropomorphic wolf whose name means 'the one who scores' in Russian."
+        },
+        {
+          "id": "q6",
+          "question": "Which ball debuted at Mexico 1970 as the first with the now-iconic black-and-white panels?",
+          "options": [
+            { "id": "a", "text": "Adidas Telstar", "is_correct": true },
+            { "id": "b", "text": "Adidas Tango", "is_correct": false },
+            { "id": "c", "text": "Adidas Jabulani", "is_correct": false },
+            { "id": "d", "text": "Adidas Teamgeist", "is_correct": false }
+          ],
+          "explanation": "The 32-panel Telstar's black-and-white pattern was designed to stand out on black-and-white televisions."
+        },
+        {
+          "id": "q7",
+          "question": "Which official match ball drew player complaints for its unpredictable flight at South Africa 2010?",
+          "options": [
+            { "id": "a", "text": "Brazuca", "is_correct": false },
+            { "id": "b", "text": "Fevernova", "is_correct": false },
+            { "id": "c", "text": "Jabulani", "is_correct": true },
+            { "id": "d", "text": "Al Rihla", "is_correct": false }
+          ],
+          "explanation": "The Jabulani's flight was so erratic that NASA engineers tested it in a wind tunnel."
+        },
+        {
+          "id": "q8",
+          "question": "About how many fans watched the Uruguay–Brazil decider at the Maracanã in 1950, the biggest crowd in World Cup history?",
+          "options": [
+            { "id": "a", "text": "Around 85,000", "is_correct": false },
+            { "id": "b", "text": "Around 120,000", "is_correct": false },
+            { "id": "c", "text": "Around 150,000", "is_correct": false },
+            { "id": "d", "text": "Around 200,000", "is_correct": true }
+          ],
+          "explanation": "The official count was 173,850 and estimates reach nearly 200,000 — still the largest attendance at a World Cup match."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-simbolos-del-mundial",
+      "title": "Trivia de símbolos del Mundial: mascotas, balones y trofeos",
+      "description": "Ocho preguntas sobre los símbolos del Mundial: el trofeo Jules Rimet robado, la primera mascota de 1966, el balón Telstar y la hinchada récord del Maracanã.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "sports",
+      "tags": ["mundial", "fútbol", "trivia", "mascotas", "historia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo se llamaba el trofeo original del Mundial, entregado de 1930 a 1970?",
+          "options": [
+            { "id": "a", "text": "El Trofeo de la Copa Mundial de la FIFA", "is_correct": false },
+            { "id": "b", "text": "El Trofeo Jules Rimet", "is_correct": true },
+            { "id": "c", "text": "La Copa de la Victoria", "is_correct": false },
+            { "id": "d", "text": "El Trofeo del Centenario", "is_correct": false }
+          ],
+          "explanation": "El trofeo llevaba el nombre del presidente de la FIFA Jules Rimet, impulsor del primer Mundial en 1930."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué pasó con el Trofeo Jules Rimet después de que Brasil lo ganara en propiedad en 1970?",
+          "options": [
+            { "id": "a", "text": "Está en el museo de la FIFA en Zúrich", "is_correct": false },
+            { "id": "b", "text": "Fue robado en 1983 y nunca se recuperó", "is_correct": true },
+            { "id": "c", "text": "La FIFA lo fundió", "is_correct": false },
+            { "id": "d", "text": "Se perdió en un naufragio", "is_correct": false }
+          ],
+          "explanation": "Unos ladrones robaron la copa de la sede de la federación brasileña en Río en 1983; nunca apareció."
+        },
+        {
+          "id": "q3",
+          "question": "¿Quién diseñó el Trofeo de la Copa Mundial de la FIFA que se usa desde 1974?",
+          "options": [
+            { "id": "a", "text": "Abel Lafleur", "is_correct": false },
+            { "id": "b", "text": "Silvio Gazzaniga", "is_correct": true },
+            { "id": "c", "text": "Giovanni Bertoni", "is_correct": false },
+            { "id": "d", "text": "Aldo Rossi", "is_correct": false }
+          ],
+          "explanation": "El escultor italiano Silvio Gazzaniga diseñó el trofeo de oro de 18 quilates; Lafleur había creado la copa Jules Rimet original."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué Mundial presentó a la primera mascota oficial?",
+          "options": [
+            { "id": "a", "text": "Chile 1962", "is_correct": false },
+            { "id": "b", "text": "Inglaterra 1966", "is_correct": true },
+            { "id": "c", "text": "México 1970", "is_correct": false },
+            { "id": "d", "text": "Alemania Federal 1974", "is_correct": false }
+          ],
+          "explanation": "World Cup Willie, un león con camiseta de la Union Jack, fue la primera mascota de la historia del Mundial."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué animal era Zabivaka, la mascota oficial de Rusia 2018?",
+          "options": [
+            { "id": "a", "text": "Un oso", "is_correct": false },
+            { "id": "b", "text": "Un lobo", "is_correct": true },
+            { "id": "c", "text": "Un tigre", "is_correct": false },
+            { "id": "d", "text": "Un zorro", "is_correct": false }
+          ],
+          "explanation": "Zabivaka era un lobo antropomórfico cuyo nombre significa «el que marca goles» en ruso."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué balón debutó en México 1970 como el primero con los ya icónicos paneles en blanco y negro?",
+          "options": [
+            { "id": "a", "text": "Adidas Telstar", "is_correct": true },
+            { "id": "b", "text": "Adidas Tango", "is_correct": false },
+            { "id": "c", "text": "Adidas Jabulani", "is_correct": false },
+            { "id": "d", "text": "Adidas Teamgeist", "is_correct": false }
+          ],
+          "explanation": "El patrón en blanco y negro del Telstar de 32 paneles se diseñó para destacar en las televisiones monocromas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué balón oficial provocó quejas de los jugadores por su vuelo impredecible en Sudáfrica 2010?",
+          "options": [
+            { "id": "a", "text": "Brazuca", "is_correct": false },
+            { "id": "b", "text": "Fevernova", "is_correct": false },
+            { "id": "c", "text": "Jabulani", "is_correct": true },
+            { "id": "d", "text": "Al Rihla", "is_correct": false }
+          ],
+          "explanation": "El vuelo del Jabulani era tan errático que ingenieros de la NASA lo probaron en un túnel de viento."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuánta gente aproximadamente vio el decisivo Uruguay–Brasil en el Maracaná en 1950, la mayor multitud en un partido de Mundial?",
+          "options": [
+            { "id": "a", "text": "Unos 85.000", "is_correct": false },
+            { "id": "b", "text": "Unos 120.000", "is_correct": false },
+            { "id": "c", "text": "Unos 150.000", "is_correct": false },
+            { "id": "d", "text": "Unos 200.000", "is_correct": true }
+          ],
+          "explanation": "La cifra oficial fue de 173.850 y las estimaciones llegan a casi 200.000: aún la mayor asistencia en un partido de Mundial."
+        }
+      ]
+    }
+  ]
+}
