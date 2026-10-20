@@ -18,6 +18,7 @@ const analyticsSchema = z.object({
     'create_start',
     'create_complete',
     'client_error',
+    'web_vitals',
   ]),
   locale: z.enum(['en', 'es']).optional(),
   path: z.string().max(300).optional(),
