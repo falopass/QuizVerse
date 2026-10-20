@@ -170,12 +170,17 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
             <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />
           ))}
         </div>
-        <Link
-          href={localizeHref(locale, '/quiz')}
-          className="arcade-button arcade-button-lime arcade-more"
-        >
-          {dictionary.common.explore} ↗
-        </Link>
+        <div className="arcade-more flex flex-wrap items-center gap-4">
+          <Link href={localizeHref(locale, '/quiz')} className="arcade-button arcade-button-lime">
+            {dictionary.common.explore} ↗
+          </Link>
+          <Link
+            href={localizeHref(locale, '/novedades')}
+            className="text-accent-primary text-xs font-bold tracking-[0.08em] uppercase"
+          >
+            {locale === 'es' ? 'Ver novedades' : "What's new"} ↗
+          </Link>
+        </div>
       </section>
       <CategoryStrip categories={homeCategories} locale={locale} />
     </div>
