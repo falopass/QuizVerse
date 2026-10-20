@@ -17,7 +17,7 @@ import {
   quizPath,
   webPageNode,
 } from '@/lib/seo/structured-data';
-import { SITE_URL } from '@/lib/seo/site';
+import { aboutOgImage, contactOgImage, leaderboardOgImage, SITE_URL } from '@/lib/seo/site';
 import type { Quiz } from '@/types/quiz';
 
 const quiz: Quiz = {
@@ -144,6 +144,14 @@ describe('buildMetadata', () => {
 
     expect(typeof metadata.description).toBe('string');
     expect((metadata.description as string).length).toBeGreaterThan(40);
+  });
+});
+
+describe('static page OG image helpers', () => {
+  it('builds the per-page opengraph-image URL with SITE_URL and locale', () => {
+    expect(aboutOgImage('es')).toBe(`${SITE_URL}/es/about/opengraph-image`);
+    expect(contactOgImage('en')).toBe(`${SITE_URL}/en/contact/opengraph-image`);
+    expect(leaderboardOgImage('es')).toBe(`${SITE_URL}/es/leaderboard/opengraph-image`);
   });
 });
 

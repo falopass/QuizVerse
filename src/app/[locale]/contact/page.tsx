@@ -1,6 +1,7 @@
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { contactOgImage } from '@/lib/seo/site';
 import { JsonLd } from '@/components/seo/json-ld';
 import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
@@ -20,6 +21,7 @@ export async function generateMetadata({
     path: `/${lang}/contact`,
     alternatePath: `/${lang === 'es' ? 'en' : 'es'}/contact`,
     locale: lang,
+    image: contactOgImage(lang),
   });
 }
 

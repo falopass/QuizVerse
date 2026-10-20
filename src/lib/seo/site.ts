@@ -76,6 +76,21 @@ export function categoryOgImage(locale: string, slug: string): string {
   return `${SITE_URL}/${locale}/category/${encodeURIComponent(slug)}/opengraph-image`;
 }
 
+/** About page dynamic OG image route (app/[locale]/about/opengraph-image.tsx). */
+export function aboutOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/about/opengraph-image`;
+}
+
+/** Contact page dynamic OG image route (app/[locale]/contact/opengraph-image.tsx). */
+export function contactOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/contact/opengraph-image`;
+}
+
+/** Leaderboard page dynamic OG image route (app/[locale]/leaderboard/opengraph-image.tsx). */
+export function leaderboardOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/leaderboard/opengraph-image`;
+}
+
 /**
  * Per-result dynamic OG card (app/api/og/result/[locale]/[slug]).
  *

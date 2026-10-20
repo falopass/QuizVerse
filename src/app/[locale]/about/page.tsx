@@ -3,6 +3,7 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { aboutOgImage } from '@/lib/seo/site';
 import { JsonLd } from '@/components/seo/json-ld';
 import { breadcrumbNode, buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
@@ -24,6 +25,7 @@ export async function generateMetadata({
     path: `/${lang}/about`,
     alternatePath: `/${lang === 'es' ? 'en' : 'es'}/about`,
     locale: lang,
+    image: aboutOgImage(lang),
   });
 }
 
