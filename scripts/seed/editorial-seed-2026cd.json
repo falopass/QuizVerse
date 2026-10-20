@@ -130,7 +130,7 @@
         },
         {
           "id": "q2",
-          "question": "¿Qué ají amarillo es un pilar de la cocina peruana, presente en platos como el ají de gallina?",
+          "question": "¿Qué chile amarillo es un pilar de la cocina peruana, presente en platos como el ají de gallina?",
           "options": [
             { "id": "a", "text": "El jalapeño", "is_correct": false },
             { "id": "b", "text": "El habanero", "is_correct": false },
@@ -908,14 +908,14 @@
           "id": "q1",
           "question": "What is an asado?",
           "options": [
+            { "id": "a", "text": "A fish stew", "is_correct": false },
+            { "id": "b", "text": "A corn soup", "is_correct": false },
             {
-              "id": "a",
+              "id": "c",
               "text": "A social barbecue ritual of meats grilled slowly over coals or wood",
               "is_correct": true
             },
-            { "id": "b", "text": "A fish stew", "is_correct": false },
-            { "id": "c", "text": "A sweet custard", "is_correct": false },
-            { "id": "d", "text": "A corn soup", "is_correct": false }
+            { "id": "d", "text": "A sweet custard", "is_correct": false }
           ],
           "explanation": "The asado is Argentina's grilling tradition: beef, sausages and offal cooked slowly on a parrilla, shared with family and friends."
         },
@@ -938,14 +938,14 @@
           "id": "q3",
           "question": "Argentine empanadas are…",
           "options": [
+            { "id": "a", "text": "Sweet rolls", "is_correct": false },
+            { "id": "b", "text": "Grilled skewers", "is_correct": false },
+            { "id": "c", "text": "Rice cakes", "is_correct": false },
             {
-              "id": "a",
+              "id": "d",
               "text": "Savory pastries filled with beef, chicken or ham and cheese, baked or fried",
               "is_correct": true
-            },
-            { "id": "b", "text": "Sweet rolls", "is_correct": false },
-            { "id": "c", "text": "Grilled skewers", "is_correct": false },
-            { "id": "d", "text": "Rice cakes", "is_correct": false }
+            }
           ],
           "explanation": "Each province has its own style; the empanada salteña with beef, potato and egg is among the best known."
         },
@@ -953,12 +953,12 @@
           "id": "q4",
           "question": "Dulce de leche is…",
           "options": [
+            { "id": "a", "text": "A meringue dessert", "is_correct": false },
             {
-              "id": "a",
+              "id": "b",
               "text": "A caramel spread made by slowly simmering milk and sugar",
               "is_correct": true
             },
-            { "id": "b", "text": "A meringue dessert", "is_correct": false },
             { "id": "c", "text": "A cheese sauce", "is_correct": false },
             { "id": "d", "text": "A fruit preserve", "is_correct": false }
           ],
@@ -968,14 +968,14 @@
           "id": "q5",
           "question": "An alfajor is…",
           "options": [
+            { "id": "a", "text": "A beef sandwich", "is_correct": false },
+            { "id": "b", "text": "A fried pastry dusted with sugar", "is_correct": false },
+            { "id": "c", "text": "A corn pudding", "is_correct": false },
             {
-              "id": "a",
+              "id": "d",
               "text": "Two soft cookies sandwiching dulce de leche, often coated in chocolate or rolled in coconut",
               "is_correct": true
-            },
-            { "id": "b", "text": "A beef sandwich", "is_correct": false },
-            { "id": "c", "text": "A fried pastry dusted with sugar", "is_correct": false },
-            { "id": "d", "text": "A corn pudding", "is_correct": false }
+            }
           ],
           "explanation": "Alfajores are Argentina's beloved cookie sandwich; the chocolate-coated style from Mar del Plata is iconic."
         },
@@ -983,12 +983,12 @@
           "id": "q6",
           "question": "Provoleta, the classic asado starter, is…",
           "options": [
+            { "id": "a", "text": "A blood sausage", "is_correct": false },
             {
-              "id": "a",
+              "id": "b",
               "text": "A disc of provolone cheese grilled until bubbling and golden",
               "is_correct": true
             },
-            { "id": "b", "text": "A blood sausage", "is_correct": false },
             { "id": "c", "text": "A stuffed pepper", "is_correct": false },
             { "id": "d", "text": "A garlic bread", "is_correct": false }
           ],
@@ -998,13 +998,13 @@
           "id": "q7",
           "question": "Chimichurri is…",
           "options": [
+            { "id": "a", "text": "A spicy red salsa", "is_correct": false },
+            { "id": "b", "text": "A mayonnaise dip", "is_correct": false },
             {
-              "id": "a",
+              "id": "c",
               "text": "A green sauce of parsley, garlic, oil, vinegar and oregano served with grilled meat",
               "is_correct": true
             },
-            { "id": "b", "text": "A spicy red salsa", "is_correct": false },
-            { "id": "c", "text": "A mayonnaise dip", "is_correct": false },
             { "id": "d", "text": "Only a beef marinade", "is_correct": false }
           ],
           "explanation": "Chimichurri dresses asado meats; adding red bell pepper or paprika turns it into chimichurri rojo."
@@ -1037,14 +1037,14 @@
           "id": "q1",
           "question": "¿Qué es un asado?",
           "options": [
+            { "id": "a", "text": "Un guiso de pescado", "is_correct": false },
+            { "id": "b", "text": "Una sopa de maíz", "is_correct": false },
             {
-              "id": "a",
+              "id": "c",
               "text": "Un ritual social de carnes a la parrilla cocidas lentamente sobre brasas o leña",
               "is_correct": true
             },
-            { "id": "b", "text": "Un guiso de pescado", "is_correct": false },
-            { "id": "c", "text": "Un flan dulce", "is_correct": false },
-            { "id": "d", "text": "Una sopa de maíz", "is_correct": false }
+            { "id": "d", "text": "Un flan dulce", "is_correct": false }
           ],
           "explanation": "El asado es la tradición parrillera argentina: carne, embutidos y achuras a cocción lenta, compartidos en familia y con amigos."
         },
@@ -1067,14 +1067,14 @@
           "id": "q3",
           "question": "Las empanadas argentinas son…",
           "options": [
+            { "id": "a", "text": "Panecillos dulces", "is_correct": false },
+            { "id": "b", "text": "Brochetas a la parrilla", "is_correct": false },
+            { "id": "c", "text": "Tortas de arroz", "is_correct": false },
             {
-              "id": "a",
+              "id": "d",
               "text": "Empanadillas saladas rellenas de carne, pollo o jamón y queso, al horno o fritas",
               "is_correct": true
-            },
-            { "id": "b", "text": "Panecillos dulces", "is_correct": false },
-            { "id": "c", "text": "Brochetas a la parrilla", "is_correct": false },
-            { "id": "d", "text": "Tortas de arroz", "is_correct": false }
+            }
           ],
           "explanation": "Cada provincia tiene su estilo; la empanada salteña de carne, papa y huevo es de las más conocidas."
         },
@@ -1082,12 +1082,12 @@
           "id": "q4",
           "question": "El dulce de leche es…",
           "options": [
+            { "id": "a", "text": "Un postre de merengue", "is_correct": false },
             {
-              "id": "a",
+              "id": "b",
               "text": "Una pasta de caramelo que se obtiene cociendo leche y azúcar a fuego lento",
               "is_correct": true
             },
-            { "id": "b", "text": "Un postre de merengue", "is_correct": false },
             { "id": "c", "text": "Una salsa de queso", "is_correct": false },
             { "id": "d", "text": "Una conserva de fruta", "is_correct": false }
           ],
@@ -1097,14 +1097,14 @@
           "id": "q5",
           "question": "Un alfajor es…",
           "options": [
+            { "id": "a", "text": "Un sándwich de carne", "is_correct": false },
+            { "id": "b", "text": "Una masa frita espolvoreada con azúcar", "is_correct": false },
+            { "id": "c", "text": "Un pudín de maíz", "is_correct": false },
             {
-              "id": "a",
+              "id": "d",
               "text": "Dos galletas suaves unidas con dulce de leche, muchas veces bañadas en chocolate o con coco",
               "is_correct": true
-            },
-            { "id": "b", "text": "Un sándwich de carne", "is_correct": false },
-            { "id": "c", "text": "Una masa frita espolvoreada con azúcar", "is_correct": false },
-            { "id": "d", "text": "Un pudín de maíz", "is_correct": false }
+            }
           ],
           "explanation": "Los alfajores son el sándwich dulce más querido de Argentina; el estilo marplatense bañado en chocolate es un ícono."
         },
@@ -1112,12 +1112,12 @@
           "id": "q6",
           "question": "La provoleta, entrada clásica del asado, es…",
           "options": [
+            { "id": "a", "text": "Una morcilla", "is_correct": false },
             {
-              "id": "a",
+              "id": "b",
               "text": "Un disco de queso provolone a la parrilla hasta que burbujea y se dora",
               "is_correct": true
             },
-            { "id": "b", "text": "Una morcilla", "is_correct": false },
             { "id": "c", "text": "Un pimiento relleno", "is_correct": false },
             { "id": "d", "text": "Un pan de ajo", "is_correct": false }
           ],
@@ -1127,13 +1127,13 @@
           "id": "q7",
           "question": "El chimichurri es…",
           "options": [
+            { "id": "a", "text": "Una salsa roja picante", "is_correct": false },
+            { "id": "b", "text": "Un dip de mayonesa", "is_correct": false },
             {
-              "id": "a",
+              "id": "c",
               "text": "Una salsa verde de perejil, ajo, aceite, vinagre y orégano que acompaña las carnes a la parrilla",
               "is_correct": true
             },
-            { "id": "b", "text": "Una salsa roja picante", "is_correct": false },
-            { "id": "c", "text": "Un dip de mayonesa", "is_correct": false },
             { "id": "d", "text": "Solo un adobo para carne", "is_correct": false }
           ],
           "explanation": "El chimichurri sazona las carnes del asado; al añadirle pimentón o ají molido se convierte en chimichurri rojo."
