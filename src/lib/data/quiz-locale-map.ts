@@ -380,6 +380,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-investing-basics-trivia': 'es-trivia-inversiones',
   'en-history-of-money-trivia': 'es-trivia-historia-del-dinero',
   'en-everyday-economics-trivia': 'es-trivia-economia-cotidiana',
+  // Pares del lote editorial 2026cq (scripts/seed/editorial-seed-2026cq.json), mantenidos a mano.
+  'en-f1-champions-trivia': 'es-trivia-campeones-de-f1',
+  'en-f1-circuits-trivia': 'es-trivia-circuitos-de-f1',
+  'en-f1-teams-trivia': 'es-trivia-escuderias-de-f1',
+  'en-f1-2026-rules-trivia': 'es-trivia-reglamento-f1-2026',
+  'en-f1-legends-trivia': 'es-trivia-leyendas-de-la-f1',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
