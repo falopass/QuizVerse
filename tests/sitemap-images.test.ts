@@ -111,9 +111,7 @@ describe('quizCoverImageUrl', () => {
     expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: null })).toBe(
       `${SITE_URL}/covers/foo`
     );
-    expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: '' })).toBe(
-      `${SITE_URL}/covers/foo`
-    );
+    expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: '' })).toBe(`${SITE_URL}/covers/foo`);
     expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: 'https://otro.example/x.png' })).toBe(
       `${SITE_URL}/covers/foo`
     );

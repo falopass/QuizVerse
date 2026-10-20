@@ -71,7 +71,8 @@ export function generateSitemapXml(entries: SitemapEntry[], baseUrl: string): st
       for (const image of entry.images ?? []) {
         const imageParts = [`<image:loc>${escapeXml(image.url)}</image:loc>`];
         if (image.title) imageParts.push(`<image:title>${escapeXml(image.title)}</image:title>`);
-        if (image.caption) imageParts.push(`<image:caption>${escapeXml(image.caption)}</image:caption>`);
+        if (image.caption)
+          imageParts.push(`<image:caption>${escapeXml(image.caption)}</image:caption>`);
         parts.push(`<image:image>${imageParts.join('')}</image:image>`);
       }
       for (const alternate of entry.alternates ?? []) {
