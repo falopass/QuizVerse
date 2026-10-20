@@ -116,6 +116,7 @@ import {
   getQuizBySlug,
   getQuizzesByCreatorId,
   getUnlockedAchievements,
+  translatedHubExists,
 } from '@/lib/data/public';
 
 const catRow = { id: 'cat-1', slug: 'culture', name: 'Culture' };
@@ -296,6 +297,37 @@ describe('categoryHasQuizzes', () => {
     db.handler = () => ({ data: [], error: null });
     expect(await categoryHasQuizzes('nope', 'en')).toBe(false);
     expect(db.calls.filter((call) => call.startsWith('quizzes'))).toEqual([]);
+  });
+
+  it('falls back to the launch catalog when the probe errors', async () => {
+    db.handler = () => ({ data: null, error: { message: 'boom' } });
+    // launch-c es un quiz es de la categoría culture del catálogo de lanzamiento.
+    expect(await categoryHasQuizzes('culture', 'es')).toBe(true);
+  });
+});
+
+describe('translatedHubExists', () => {
+  it('confirms a hub that has a published quiz in the locale', async () => {
+    db.handler = (table) =>
+      table === 'quizzes' ? { data: [quizRow()], error: null } : { data: [catRow], error: null };
+
+    expect(await translatedHubExists('culture', 'es')).toBe(true);
+    expect(db.calls).toContain(
+      'quizzes(id) eq:status=published eq:category_id=cat-1 eq:language=es'
+    );
+  });
+
+  it('returns false when the hub is empty in the locale', async () => {
+    db.handler = (table) =>
+      table === 'quizzes' ? { data: [], error: null } : { data: [catRow], error: null };
+    expect(await translatedHubExists('culture', 'es')).toBe(false);
+  });
+
+  it('returns false when the probe errors, even if the launch catalog would match', async () => {
+    // La página hermana hace su propio fetch: si éste llega con 0 filas 404ea
+    // aunque LAUNCH_QUIZZES tenga contenido, así que el error no puede anunciarse.
+    db.handler = () => ({ data: null, error: { message: 'boom' } });
+    expect(await translatedHubExists('culture', 'es')).toBe(false);
   });
 });
 
