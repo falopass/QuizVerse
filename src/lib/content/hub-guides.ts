@@ -288,6 +288,230 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
       closing: 'Using technology is easy; understanding it gets tested here.',
     },
   },
+  literature: {
+    es: {
+      title: 'Literatura: entre libros y lectores',
+      intro: [
+        'Es el rincón de los libros: el espacio donde se mide lo que quedó de las lecturas —obras, autores, géneros y los mundos que solo existen en papel— y donde los tests leen al lector del otro lado de la página. Project Hail Mary ya tiene presencia en el catálogo con dos tests: qué rol jugarías dentro de la novela y qué energía suya combina mejor contigo. La literatura del sitio se recorre así: por lo que leíste y por lo que eres leyendo.',
+        'En los tests no hay errores posibles: cada respuesta empuja hacia un perfil y el patrón completo se vuelve el resultado, escrito para compararse. Todo se juega gratis, como invitado y en pocos minutos, con el enlace del resultado listo para mandarse como reto al que presume de haber leído más.',
+      ],
+      howTo: [
+        'Entra por la lectura que te interese de la lista.',
+        'Responde con tu primera opción; en los tests no hay errores.',
+        'Comparte el perfil y reta al lector del grupo.',
+      ],
+      closing: 'El que presume de biblioteca aquí la pone a prueba.',
+    },
+    en: {
+      title: 'Literature: between books and readers',
+      intro: [
+        'This is the corner for books: the place that measures what stayed from your reading — works, authors, genres and the worlds that only exist on paper — and where tests read the reader on the other side of the page. Project Hail Mary already sits in the catalogue: how deep your knowledge of the novel goes, which role you would play inside it and which of its energies matches you best, next to a test that uncovers your true reading personality.',
+        'The trivia side rewards memory with one correct answer and an instant verdict; the tests have no possible mistakes and hand back a profile written to be compared. Everything plays free, as a guest and in a few minutes, with the result link ready to send as a challenge to whoever brags about reading more.',
+      ],
+      howTo: [
+        'Enter through the reading that calls you from the list.',
+        'Play at your pace; the tests read patterns, not mistakes.',
+        'Share the profile or the score with the reader of the group.',
+      ],
+      closing: 'Whoever boasts about their library puts it to the test here.',
+    },
+  },
+  'pop-culture': {
+    es: {
+      title: 'Cultura pop: la memoria compartida',
+      intro: [
+        'La sección mide lo que quedó de la conversación colectiva: memes, épocas, referencias y todo lo que un grupo asume que todo el mundo vio. Lo publicado va de la nostalgia —qué era te define de verdad— a la trivia esencial de cultura de internet, pasando por qué tan profundo llega tu conocimiento de Avatar.',
+        'Es territorio de actualidad y archivo a la vez: hay trivia de respuesta única con veredicto inmediato y tests que devuelven un perfil pensado para el «¿a ti cuál te salió?». Jugar no pide cuenta ni pago, así que la ronda funciona igual para probarse a uno mismo que para dirimir quién del chat estaba más metido en un tema. Y como cada fenómeno tiene su nicho, la sección va sumando rondas al ritmo de la conversación.',
+      ],
+      howTo: [
+        'Elige una época o un fenómeno y entra a su ronda.',
+        'Responde la trivia o deja que el test lea tu perfil de fan.',
+        'Manda tu resultado al chat donde el tema nunca muere.',
+      ],
+      closing: 'El que sabe un poco de todo aquí encuentra su ronda.',
+    },
+    en: {
+      title: 'Pop culture: the shared memory',
+      intro: [
+        'The section measures what stayed from the collective conversation: memes, eras, references and everything a group assumes everybody saw. The published side runs from the nostalgia test — which era actually defines you — to reading which social media alter ego you carry, with internet culture as the beat the whole section is built on.',
+        'It is present-tense territory and archive at once: single-answer trivia with an instant verdict sits next to tests that return a profile built for the "which one did you get?" exchange. Playing needs no account and no payment, so a round works just as well for testing yourself as for settling who in the chat was deepest into a topic. The section keeps adding rounds at the pace of that conversation.',
+      ],
+      howTo: [
+        'Pick an era or a phenomenon and enter its round.',
+        'Answer the trivia or let the test read your fan profile.',
+        'Send your result to the chat where the topic never dies.',
+      ],
+      closing: 'The friend who knows a bit of everything finds their round here.',
+    },
+  },
+  relationships: {
+    es: {
+      title: 'Relaciones: tests sobre cómo te vinculas',
+      intro: [
+        'La sección más personal del sitio: tests que leen cómo te vinculas —con amigos, con parejas, con la gente que comparte tu mesa— donde ninguna opción es correcta ni incorrecta. Entre lo publicado están qué arquetipo de amigo eres en tu grupo y qué energía de app de citas estás trayendo.',
+        'El test lee el patrón completo de tus respuestas y devuelve un perfil escrito para compararse: responder lo primero que se te ocurre da un resultado más parecido a ti que cualquier estrategia. Se completa como invitado, en minutos y gratis, y el enlace del resultado está hecho justamente para mandarlo a quien quieres que se mida después. Y como la forma de vincularse cambia según el vínculo, la sección va sumando tests para cada lado de la vida afectiva.',
+      ],
+      howTo: [
+        'Elige el vínculo que quieres mirar: amigos, citas o costumbres.',
+        'Responde con tu primera opción; aquí no hay errores posibles.',
+        'Compara tu perfil con el de la otra persona: ahí empieza la charla.',
+      ],
+      closing: 'Conocerse es un deporte de equipo; estos tests son la cancha.',
+    },
+    en: {
+      title: 'Relationships: tests on how you bond',
+      intro: [
+        'The most personal section on the site: tests that read how you bond — with friends, with partners, with the people at your table — where no option is right or wrong. Among the published ones are which friend archetype you are in your group, what dating-app energy you are bringing and what your relationship with technology looks like.',
+        'Each test reads the full pattern of your answers and returns a profile written to be compared: answering with your first instinct gives a result closer to you than any strategy. It plays as a guest, in minutes and for free, and the result link exists precisely to send to whoever you want measured next. New tests keep joining the section, one for each kind of bond worth measuring.',
+      ],
+      howTo: [
+        'Pick the bond you want to look at: friends, dating or habits.',
+        'Answer with your first option; there are no possible mistakes here.',
+        "Compare your profile with the other person's: that is where the talk starts.",
+      ],
+      closing: 'Knowing each other is a team sport; these tests are the field.',
+    },
+  },
+  'food-drink': {
+    es: {
+      title: 'Comida y bebida: el territorio del paladar',
+      intro: [
+        'La sección del paladar: el espacio donde se junta todo lo que se come y se bebe —cocinas, bebidas, orígenes y costumbres de la mesa— medido en preguntas de una sola respuesta correcta. La trivia de comida alrededor del mundo ya está publicada y recorre platos e ingredientes de varios países.',
+        'Toda la trivia se contesta por escrito y trae veredicto al instante, así que la ronda funciona igual en la sobremesa que en la fila del almuerzo; solo procura no jugar con hambre. Es gratis, no pide registro y el resultado se comparte con un enlace que muestra tu puntaje antes de que el otro empiece. Como toda sección del sitio, ésta va sumando rondas por tema: la página es la puerta de entrada a lo que el paladar vaya agregando.',
+      ],
+      howTo: [
+        'Entra a la ronda de comida alrededor del mundo.',
+        'Responde plato por plato; el veredicto llega al instante.',
+        'Compara el puntaje en la próxima sobremesa.',
+      ],
+      closing: 'Aquí el gusto se mide en aciertos, no en opiniones.',
+    },
+    en: {
+      title: 'Food & drink: the territory of the palate',
+      intro: [
+        'The palate section: the place where everything eaten and drunk comes together — cuisines, beverages, origins and table customs — measured in single-answer questions and in tests that read your flavour. Already published: the food-around-the-world trivia and the test revealing what your coffee order says about you.',
+        'All the trivia is answered in writing with an instant verdict, so a round works as well at the table as in the lunch line; just try not to play hungry. It is free, needs no signup and the result is shared through a link that shows your score before the other person begins. Like every section on the site, this one keeps adding themed rounds: the page is the front door to whatever the palate brings next.',
+      ],
+      howTo: [
+        'Enter the food-around-the-world round or the coffee test.',
+        'Answer dish by dish; the verdict lands instantly.',
+        'Compare the score at the next meal.',
+      ],
+      closing: 'Here taste is measured in right answers, not opinions.',
+    },
+  },
+  science: {
+    es: {
+      title: 'Ciencia: del laboratorio a la órbita',
+      intro: [
+        'La sección del laboratorio: el espacio dedicado a medir cuánto sabes del cuerpo, la materia, el cosmos y los inventos que lo cambiaron todo. La ronda de exploración espacial 2020-2026 ya está en el catálogo, con las misiones y los hitos que la década dejó en órbita. Es terreno de dato duro, así que cada respuesta se juega a una sola correcta.',
+        'La ciencia aquí se juega como en el resto del sitio: trivia de una sola respuesta correcta, veredicto inmediato tras cada pregunta y explicación en modo Práctica cuando la pregunta la incluye. Gratis, como invitado y con resultado compartible: ideal para el amigo que asegura saber de ciencia y nunca lo ha puesto a prueba. La sección va sumando rondas por tema, igual que el resto del catálogo.',
+      ],
+      howTo: [
+        'Entra a la ronda del tema que domines —o quieras aprender.',
+        'En Práctica, cada explicación convierte el error en un dato nuevo.',
+        'Comparte el puntaje y cierra la apuesta científica pendiente.',
+      ],
+      closing: 'La curiosidad no necesita laboratorio: necesita una ronda.',
+    },
+    en: {
+      title: 'Science: from the lab to orbit',
+      intro: [
+        'The lab section: the place dedicated to measuring how much you know about the body, matter, the cosmos and the inventions that changed everything. The space-exploration 2020–2026 round is already in the catalogue, with the missions and milestones the decade left in orbit, alongside a test on how you cope with climate anxiety. It is hard-fact ground, so every question plays to a single correct answer.',
+        'Science plays here like everywhere else on the site: single-answer trivia with an immediate verdict — and an explanation in Practice mode when the question carries one — free and without signup. Ideal for the friend who insists they know science and never put it to the test. The section keeps adding themed rounds, like the rest of the catalogue.',
+      ],
+      howTo: [
+        'Enter the round on the topic you master — or want to learn.',
+        'In Practice mode, every explanation turns a miss into a new fact.',
+        'Share the score and close the pending science bet.',
+      ],
+      closing: 'Curiosity needs no lab coat: it needs a round.',
+    },
+  },
+  animals: {
+    es: {
+      title: 'Animales: el mundo salvaje y el de casa',
+      intro: [
+        'La esquina del reino animal: la sección dedicada a las especies, su comportamiento, sus récords y la relación que llevamos con ellas —del lado salvaje al sofá de casa. Su primer habitante es un test que lee qué clase de dueño de mascota eres, disponible en español e inglés, y funciona como la puerta de entrada a una sección que crece por tema igual que el resto del catálogo.',
+        'En los tests no hay respuestas incorrectas: cada opción empuja hacia un perfil y el patrón completo de tus respuestas se vuelve el resultado, escrito para compararse en el grupo. Se juega gratis, como invitado y en pocos minutos; el enlace del resultado muestra tu perfil antes de que la otra persona empiece, así que medirse con otros dueños sale solo.',
+      ],
+      howTo: [
+        'Entra al test de qué clase de dueño de mascota eres.',
+        'Responde con tu primera opción; no hay errores posibles.',
+        'Comparte tu perfil y compara con los dueños del grupo.',
+      ],
+      closing: 'La cadena alimentaria también tiene tabla de posiciones.',
+    },
+    en: {
+      title: 'Animals: the wild world and the one at home',
+      intro: [
+        'The animal kingdom corner: the section dedicated to species, their behaviour, their records and the relationship we keep with them — from the wild side to the sofa at home. Its first resident is a test that reads what kind of pet owner you are, available in English and Spanish, and it works as the front door to a section that grows by theme like the rest of the catalogue.',
+        'In the tests there are no wrong answers: every option pushes toward a profile and the full pattern of your answers becomes the result, written to be compared in the group. It plays free, as a guest and in a few minutes; the result link shows your profile before the other person starts, so measuring yourself against other owners takes no effort.',
+      ],
+      howTo: [
+        'Start with the what-kind-of-pet-owner test.',
+        'Answer with your first option; mistakes are impossible.',
+        'Share your profile and compare with the owners in the group.',
+      ],
+      closing: 'The food chain has a leaderboard too.',
+    },
+  },
+  geography: {
+    es: {
+      title: 'Geografía: capitales, océanos y extremos',
+      intro: [
+        'La sección del mapa: el territorio de países, capitales, océanos y los extremos del planeta, medido en preguntas de una sola respuesta correcta. Su ronda publicada es la trivia de geografía mundial —capitales, océanos y extremos—, una vuelta rápida por lo que el mapa debería dejar en la cabeza de quien lo recorre.',
+        'Es trivia de memoria pura, de las que más se discuten en grupo: todo el mundo cree ubicar bien un país hasta que la octava pregunta dice otra cosa. El veredicto llega tras cada respuesta, jugar es gratis y no pide registro, y el resultado se comparte como prueba antes de que el otro intente superarlo. La sección va sumando rondas por tema igual que el resto del catálogo: el mapa castiga la confianza, y eso es lo que entretiene.',
+      ],
+      howTo: [
+        'Entra a la ronda de geografía mundial.',
+        'Responde país por país; el veredicto llega al instante.',
+        'Reta al viajero del grupo a superar tu puntaje.',
+      ],
+      closing: 'Viajar está bien; ubicar cada país sin mapa está mejor.',
+    },
+    en: {
+      title: 'Geography: capitals, oceans and extremes',
+      intro: [
+        "The map section: the territory of countries, capitals, oceans and the planet's extremes, measured in single-answer questions. Its published round is the world-geography trivia — capitals, oceans and extremes — a quick pass over what the map should leave in the head of whoever travels it.",
+        'This is pure memory trivia, the kind most argued in a group: everyone believes they can place a country until question eight says otherwise. The verdict lands after each answer, playing is free with no signup, and the result is shared as proof before the other person tries to beat it. The section keeps adding themed rounds like the rest of the catalogue: the map punishes confidence, which is exactly what makes it fun.',
+      ],
+      howTo: [
+        'Enter the world-geography round.',
+        'Answer country by country; the verdict lands instantly.',
+        'Challenge the traveller of the group to beat your score.',
+      ],
+      closing: 'Travelling is fine; placing every country without a map is better.',
+    },
+  },
+  history: {
+    es: {
+      title: 'Historia: las fechas que ordenan el mundo',
+      intro: [
+        'La sección del pasado: el territorio de civilizaciones, batallas, imperios y fechas que ordenaron el mundo, medido en preguntas de una sola respuesta correcta. Su ronda publicada es la trivia de historia universal —ocho fechas que cambiaron todo—, un repaso directo por los giros que cualquier conversación histórica termina tocando. Fechas, nombres y lugares: la materia de la que está hecho el debate de sobremesa.',
+        'Es la trivia clásica en su forma más pura: memoria, una correcta por pregunta y corrección al instante. Jugar no pide registro ni pago y el resultado se manda como enlace que muestra el puntaje antes de que el otro juegue, así que el debate de fechas queda cerrado con evidencia. Cada ronda nueva que se suma hace más completo el repaso del pasado.',
+      ],
+      howTo: [
+        'Entra a la ronda de historia universal.',
+        'Responde las ocho fechas con veredicto inmediato.',
+        'Comparte tu puntaje: el debate de fechas queda cerrado.',
+      ],
+      closing: 'La historia no se repite, pero las preguntas sí conviene repetirlas.',
+    },
+    en: {
+      title: 'History: the dates that ordered the world',
+      intro: [
+        'The past section: the territory of civilizations, battles, empires and the dates that ordered the world, measured in single-answer questions. Its published round is the world-history trivia — eight dates that changed everything — a straight run through the turns every historical conversation ends up touching. Dates, names and places: the raw material of every table argument about the past.',
+        'This is classic trivia in its purest form: memory, one correct answer per question and an instant verdict. Playing needs no signup or payment and the result travels as a link showing the score before the other person plays, so the argument over dates closes with evidence. Like every section on the site, this one keeps adding themed rounds.',
+      ],
+      howTo: [
+        'Enter the world-history round.',
+        'Answer the eight dates with an immediate verdict.',
+        'Share your score: the date debate ends there.',
+      ],
+      closing: 'History may not repeat itself, but these questions are worth retaking.',
+    },
+  },
 };
 
 export const RELATED_HEADING: Record<Locale, string> = {

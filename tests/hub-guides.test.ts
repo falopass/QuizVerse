@@ -6,7 +6,7 @@ import {
   RELATED_CATEGORIES,
 } from '@/lib/content/hub-guides';
 
-// The 2 type hubs plus the 8 theme categories with the largest catalogue.
+// The 2 type hubs plus the 16 populated theme categories (see AGENTS.md).
 const GUIDED_SLUGS = [
   'trivia',
   'personality',
@@ -18,6 +18,14 @@ const GUIDED_SLUGS = [
   'sports',
   'culture',
   'technology',
+  'literature',
+  'pop-culture',
+  'relationships',
+  'food-drink',
+  'science',
+  'animals',
+  'geography',
+  'history',
 ] as const;
 const LOCALES = ['es', 'en'] as const;
 
@@ -75,14 +83,13 @@ describe('hub guides', () => {
     }
   }
 
-  it('HUB_GUIDES cubre los 2 hubs de tipo y las 8 categorías principales', () => {
+  it('HUB_GUIDES cubre los 2 hubs de tipo y las 16 categorías pobladas', () => {
     expect(Object.keys(HUB_GUIDES).sort()).toEqual([...GUIDED_SLUGS].sort());
   });
 
   it('getHubGuide devuelve null para slugs sin guía', () => {
-    expect(getHubGuide('history', 'es')).toBeNull();
-    expect(getHubGuide('literature', 'en')).toBeNull();
     expect(getHubGuide('slug-desconocido', 'es')).toBeNull();
+    expect(getHubGuide('otro-slug-inexistente', 'en')).toBeNull();
   });
 
   it('ninguna guía repite textos de otra guía', () => {
