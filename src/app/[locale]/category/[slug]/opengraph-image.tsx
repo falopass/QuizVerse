@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getCategoryPayload } from '@/lib/data/public';
 import { getLocalizedTypeLabel, localizeCategory } from '@/lib/i18n/catalog';
@@ -136,6 +137,6 @@ export default async function CategoryOpenGraphImage({
         {category.name.charAt(0).toUpperCase()}
       </div>
     </div>,
-    await arcadeOgOptions()
+    { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
   );
 }
