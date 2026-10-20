@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { cn } from '@/lib/utils/cn';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -61,19 +60,16 @@ export function QuizCoverArt({
       aria-hidden={decorative || undefined}
     >
       {photo && (
-        <Image
+        // /stock-covers/ puede responder un SVG de fallback si el proveedor
+        // falla y next/image rechaza SVG (400): se sirve sin el optimizador.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
           src={quiz.cover_image_url!}
           alt=""
-          fill
-          sizes={
-            isAboveFold
-              ? '(max-width: 699px) 100vw, 50vw'
-              : '(max-width: 699px) 100vw, (max-width: 900px) 50vw, 33vw'
-          }
           className="arcade-cover-photo"
-          priority={isHero}
           loading={isAboveFold ? 'eager' : 'lazy'}
           fetchPriority={isAboveFold ? 'high' : undefined}
+          decoding="async"
         />
       )}
       {priorityLabel !== '' && (
