@@ -1,0 +1,1015 @@
+{
+  "$comment": "Editorial seed 2026cm: five es/en trivia pairs on Latin music roots — salsa, cumbia, tango, flamenco and bachata/merengue — all in the music category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-salsa-music-trivia",
+      "title": "Salsa Music Trivia: From New York to the World",
+      "description": "Eight questions on salsa: its birth in New York's Latino barrios, Fania Records, the great soneros and the classics everyone still dances to.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["salsa", "latin music", "fania records", "celia cruz"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which city did salsa take shape as a distinct genre in the late 1960s?",
+          "options": [
+            { "id": "a", "text": "Havana", "is_correct": false },
+            { "id": "b", "text": "San Juan", "is_correct": false },
+            { "id": "c", "text": "New York City", "is_correct": true },
+            { "id": "d", "text": "Miami", "is_correct": false }
+          ],
+          "explanation": "Cuban and Puerto Rican musicians in New York's barrios fused son cubano, mambo and jazz; Fania Records turned that sound into a genre."
+        },
+        {
+          "id": "q2",
+          "question": "Which label, founded by Johnny Pacheco and Jerry Masucci in 1964, drove the salsa boom?",
+          "options": [
+            { "id": "a", "text": "Alegre Records", "is_correct": false },
+            { "id": "b", "text": "Fania Records", "is_correct": true },
+            { "id": "c", "text": "Motown", "is_correct": false },
+            { "id": "d", "text": "Discos Fuentes", "is_correct": false }
+          ],
+          "explanation": "Fania was nicknamed \"the Motown of salsa\"; its All-Stars famously packed Yankee Stadium in 1973."
+        },
+        {
+          "id": "q3",
+          "question": "The two-bar rhythmic figure that organizes every salsa arrangement is called…",
+          "options": [
+            { "id": "a", "text": "el montuno", "is_correct": false },
+            { "id": "b", "text": "el tumbao", "is_correct": false },
+            { "id": "c", "text": "el soneo", "is_correct": false },
+            { "id": "d", "text": "la clave", "is_correct": true }
+          ],
+          "explanation": "The son clave, in its 3-2 or 2-3 forms, is the grid on which percussion, piano and brass are built."
+        },
+        {
+          "id": "q4",
+          "question": "Who sang \"Pedro Navaja,\" the 1978 storytelling classic about a street criminal?",
+          "options": [
+            { "id": "a", "text": "Héctor Lavoe", "is_correct": false },
+            { "id": "b", "text": "Cheo Feliciano", "is_correct": false },
+            { "id": "c", "text": "Rubén Blades", "is_correct": true },
+            { "id": "d", "text": "Ismael Miranda", "is_correct": false }
+          ],
+          "explanation": "\"Pedro Navaja\" opens Siembra (1978), the landmark album Blades recorded with Willie Colón; its story nods to \"Mack the Knife.\""
+        },
+        {
+          "id": "q5",
+          "question": "Celia Cruz was known all over the world as…",
+          "options": [
+            { "id": "a", "text": "the Queen of Bolero", "is_correct": false },
+            { "id": "b", "text": "the Queen of Salsa", "is_correct": true },
+            { "id": "c", "text": "the Queen of Rumba", "is_correct": false },
+            { "id": "d", "text": "the Queen of Mambo", "is_correct": false }
+          ],
+          "explanation": "The Cuban singer earned the title over decades with Fania, and her shout of \"¡Azúcar!\" became her trademark."
+        },
+        {
+          "id": "q6",
+          "question": "Which instrument did bandleader Willie Colón play?",
+          "options": [
+            { "id": "a", "text": "Trumpet", "is_correct": false },
+            { "id": "b", "text": "Piano", "is_correct": false },
+            { "id": "c", "text": "Congas", "is_correct": false },
+            { "id": "d", "text": "Trombone", "is_correct": true }
+          ],
+          "explanation": "His raw trombone front line defined early hits like \"El Malo\" (1967), recorded with a teenage Héctor Lavoe."
+        },
+        {
+          "id": "q7",
+          "question": "Héctor Lavoe's signature song \"El Cantante\" was written by…",
+          "options": [
+            { "id": "a", "text": "Rubén Blades", "is_correct": true },
+            { "id": "b", "text": "Willie Colón", "is_correct": false },
+            { "id": "c", "text": "Tito Curet Alonso", "is_correct": false },
+            { "id": "d", "text": "Johnny Pacheco", "is_correct": false }
+          ],
+          "explanation": "Blades wrote the song and Lavoe recorded it for his 1978 album Comedia; it became the anthem of his career."
+        },
+        {
+          "id": "q8",
+          "question": "Which Puerto Rican singer earned the nickname \"El Sonero Mayor\"?",
+          "options": [
+            { "id": "a", "text": "Ismael Quintana", "is_correct": false },
+            { "id": "b", "text": "Ismael Miranda", "is_correct": false },
+            { "id": "c", "text": "Ismael Rivera", "is_correct": true },
+            { "id": "d", "text": "Rafael Cortijo", "is_correct": false }
+          ],
+          "explanation": "Ismael \"Maelo\" Rivera, longtime voice of Cortijo y su Combo, was famed for improvised soneos like \"Las caras lindas.\""
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-salsa",
+      "title": "Trivia de salsa: la música que nació en Nueva York",
+      "description": "Ocho preguntas sobre la salsa: su nacimiento en los barrios latinos de Nueva York, Fania Records, los grandes soneros y los clásicos que aún se bailan.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["salsa", "música latina", "fania records", "celia cruz"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué ciudad se consolidó la salsa como género a finales de los años sesenta?",
+          "options": [
+            { "id": "a", "text": "La Habana", "is_correct": false },
+            { "id": "b", "text": "San Juan", "is_correct": false },
+            { "id": "c", "text": "Nueva York", "is_correct": true },
+            { "id": "d", "text": "Miami", "is_correct": false }
+          ],
+          "explanation": "Los músicos cubanos y puertorriqueños de los barrios neoyorquinos fusionaron el son cubano, el mambo y el jazz; Fania Records convirtió ese sonido en género."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué sello, fundado por Johnny Pacheco y Jerry Masucci en 1964, impulsó el auge salsero?",
+          "options": [
+            { "id": "a", "text": "Alegre Records", "is_correct": false },
+            { "id": "b", "text": "Fania Records", "is_correct": true },
+            { "id": "c", "text": "Motown", "is_correct": false },
+            { "id": "d", "text": "Discos Fuentes", "is_correct": false }
+          ],
+          "explanation": "A Fania la apodaron «el Motown de la salsa»; sus All-Stars llenaron el Yankee Stadium en 1973."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama la figura rítmica de dos compases que organiza todo arreglo de salsa?",
+          "options": [
+            { "id": "a", "text": "El montuno", "is_correct": false },
+            { "id": "b", "text": "El tumbao", "is_correct": false },
+            { "id": "c", "text": "El soneo", "is_correct": false },
+            { "id": "d", "text": "La clave", "is_correct": true }
+          ],
+          "explanation": "La clave de son, en sus formas 3-2 o 2-3, es la rejilla sobre la que se construyen percusión, piano y metales."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién canta «Pedro Navaja», el clásico narrativo de 1978 sobre un maleante?",
+          "options": [
+            { "id": "a", "text": "Héctor Lavoe", "is_correct": false },
+            { "id": "b", "text": "Cheo Feliciano", "is_correct": false },
+            { "id": "c", "text": "Rubén Blades", "is_correct": true },
+            { "id": "d", "text": "Ismael Miranda", "is_correct": false }
+          ],
+          "explanation": "«Pedro Navaja» abre Siembra (1978), el álbum emblemático que Blades grabó con Willie Colón; su historia dialoga con «Mack the Knife»."
+        },
+        {
+          "id": "q5",
+          "question": "¿Con qué apodo se conoció a Celia Cruz en todo el mundo?",
+          "options": [
+            { "id": "a", "text": "La Reina del Bolero", "is_correct": false },
+            { "id": "b", "text": "La Reina de la Salsa", "is_correct": true },
+            { "id": "c", "text": "La Reina de la Rumba", "is_correct": false },
+            { "id": "d", "text": "La Reina del Mambo", "is_correct": false }
+          ],
+          "explanation": "La cantante cubana se ganó el título a lo largo de décadas con Fania, y su grito de «¡Azúcar!» se volvió su marca."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué instrumento tocaba el director de orquesta Willie Colón?",
+          "options": [
+            { "id": "a", "text": "La trompeta", "is_correct": false },
+            { "id": "b", "text": "El piano", "is_correct": false },
+            { "id": "c", "text": "Las congas", "is_correct": false },
+            { "id": "d", "text": "El trombón", "is_correct": true }
+          ],
+          "explanation": "Su cruda línea de trombones definió éxitos tempranos como «El Malo» (1967), grabado con un adolescente Héctor Lavoe."
+        },
+        {
+          "id": "q7",
+          "question": "«El Cantante», la canción insignia de Héctor Lavoe, fue escrita por…",
+          "options": [
+            { "id": "a", "text": "Rubén Blades", "is_correct": true },
+            { "id": "b", "text": "Willie Colón", "is_correct": false },
+            { "id": "c", "text": "Tito Curet Alonso", "is_correct": false },
+            { "id": "d", "text": "Johnny Pacheco", "is_correct": false }
+          ],
+          "explanation": "Blades escribió la canción y Lavoe la grabó para su álbum Comedia (1978); se convirtió en el himno de su carrera."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué cantante puertorriqueño se ganó el apodo de «el Sonero Mayor»?",
+          "options": [
+            { "id": "a", "text": "Ismael Quintana", "is_correct": false },
+            { "id": "b", "text": "Ismael Miranda", "is_correct": false },
+            { "id": "c", "text": "Ismael Rivera", "is_correct": true },
+            { "id": "d", "text": "Rafael Cortijo", "is_correct": false }
+          ],
+          "explanation": "Ismael «Maelo» Rivera, voz histórica de Cortijo y su Combo, era famoso por soneos improvisados como «Las caras lindas»."
+        }
+      ]
+    },
+    {
+      "slug": "en-cumbia-trivia",
+      "title": "Cumbia Trivia: From Colombia to the Continent",
+      "description": "Eight questions on cumbia: its Afro-Indigenous roots on Colombia's Caribbean coast, the gaita flutes and the styles it spawned from Mexico to Argentina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["cumbia", "colombia", "latin music", "chicha"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "On which coast of Colombia was cumbia born?",
+          "options": [
+            { "id": "a", "text": "The Pacific coast", "is_correct": false },
+            { "id": "b", "text": "The Caribbean coast", "is_correct": true },
+            { "id": "c", "text": "The Orinoquía plains", "is_correct": false },
+            { "id": "d", "text": "The Amazon rainforest", "is_correct": false }
+          ],
+          "explanation": "Cumbia grew out of African and Indigenous musical traditions along the Caribbean coast and the Magdalena River."
+        },
+        {
+          "id": "q2",
+          "question": "Which Indigenous flute leads the traditional cumbia ensemble alongside the drums?",
+          "options": [
+            { "id": "a", "text": "The quena", "is_correct": false },
+            { "id": "b", "text": "The zampoña", "is_correct": false },
+            { "id": "c", "text": "The gaita", "is_correct": true },
+            { "id": "d", "text": "The ocarina", "is_correct": false }
+          ],
+          "explanation": "Gaitas hembra and macho carry the melody while the tambora, alegre and llamador drums hold the rhythm."
+        },
+        {
+          "id": "q3",
+          "question": "Which clarinetist and bandleader carried cumbia to ballrooms across Latin America in the 1940s?",
+          "options": [
+            { "id": "a", "text": "Lucho Bermúdez", "is_correct": true },
+            { "id": "b", "text": "Pacho Galán", "is_correct": false },
+            { "id": "c", "text": "Andrés Landero", "is_correct": false },
+            { "id": "d", "text": "Alfredo Gutiérrez", "is_correct": false }
+          ],
+          "explanation": "The Lucho Bermúdez orchestra dressed cumbia in big-band attire; \"Colombia tierra querida\" is his best-known song."
+        },
+        {
+          "id": "q4",
+          "question": "The Peruvian style that mixes cumbia with surf guitar and Andean melodies is called…",
+          "options": [
+            { "id": "a", "text": "cumbia rebajada", "is_correct": false },
+            { "id": "b", "text": "chicha", "is_correct": true },
+            { "id": "c", "text": "cumbia sonidera", "is_correct": false },
+            { "id": "d", "text": "tecnocumbia", "is_correct": false }
+          ],
+          "explanation": "Named after the Andean corn drink, chicha flowered in 1970s Lima and the Amazon with groups like Los Shapis and Los Mirlos."
+        },
+        {
+          "id": "q5",
+          "question": "In which country did sonidero DJs create a street-party cumbia culture with shouted dedications?",
+          "options": [
+            { "id": "a", "text": "Peru", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": false },
+            { "id": "c", "text": "Chile", "is_correct": false },
+            { "id": "d", "text": "Mexico", "is_correct": true }
+          ],
+          "explanation": "Mexico City's sonideros greet the barrios by name over slowed-down cumbias; the style is known as cumbia sonidera."
+        },
+        {
+          "id": "q6",
+          "question": "Which urban cumbia style emerged from the working-class neighborhoods of Buenos Aires in the late 1990s?",
+          "options": [
+            { "id": "a", "text": "Cumbia villera", "is_correct": true },
+            { "id": "b", "text": "Cumbia norteña", "is_correct": false },
+            { "id": "c", "text": "Cumbia pop", "is_correct": false },
+            { "id": "d", "text": "Chicha", "is_correct": false }
+          ],
+          "explanation": "Cumbia villera, with raw lyrics and cheap keyboards, defined the sound of turn-of-the-century Buenos Aires."
+        },
+        {
+          "id": "q7",
+          "question": "Which Mexican family band from Iztapalapa scored a huge hit with \"Cómo te voy a olvidar\"?",
+          "options": [
+            { "id": "a", "text": "Los Bukis", "is_correct": false },
+            { "id": "b", "text": "Bronco", "is_correct": false },
+            { "id": "c", "text": "Los Tigres del Norte", "is_correct": false },
+            { "id": "d", "text": "Los Ángeles Azules", "is_correct": true }
+          ],
+          "explanation": "Los Ángeles Azules, brothers from Iztapalapa, made it one of the most sung cumbias of the late 1990s."
+        },
+        {
+          "id": "q8",
+          "question": "Which trio of drums anchors the traditional cumbia rhythm?",
+          "options": [
+            { "id": "a", "text": "Tambora, tambor alegre and llamador", "is_correct": true },
+            { "id": "b", "text": "Conga, bongo and timbales", "is_correct": false },
+            { "id": "c", "text": "Bombo, snare and caja", "is_correct": false },
+            { "id": "d", "text": "Djembe, talking drum and bougarabou", "is_correct": false }
+          ],
+          "explanation": "The llamador keeps the steady pulse, the alegre improvises and the deep tambora marks the beat — the African core of cumbia."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cumbia",
+      "title": "Trivia de cumbia: de Colombia a todo el continente",
+      "description": "Ocho preguntas sobre la cumbia: sus raíces afroindígenas en la costa Caribe de Colombia, las gaitas y los estilos que engendró de México a la Argentina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["cumbia", "colombia", "música latina", "chicha"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué costa de Colombia nació la cumbia?",
+          "options": [
+            { "id": "a", "text": "En la costa Pacífica", "is_correct": false },
+            { "id": "b", "text": "En la costa Caribe", "is_correct": true },
+            { "id": "c", "text": "En los llanos de la Orinoquía", "is_correct": false },
+            { "id": "d", "text": "En la selva amazónica", "is_correct": false }
+          ],
+          "explanation": "La cumbia surgió de las tradiciones musicales africanas e indígenas de la costa Caribe y del río Magdalena."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué flauta indígena encabeza el conjunto tradicional de cumbia junto a los tambores?",
+          "options": [
+            { "id": "a", "text": "La quena", "is_correct": false },
+            { "id": "b", "text": "La zampoña", "is_correct": false },
+            { "id": "c", "text": "La gaita", "is_correct": true },
+            { "id": "d", "text": "La ocarina", "is_correct": false }
+          ],
+          "explanation": "Las gaitas hembra y macho llevan la melodía mientras la tambora, el tambor alegre y el llamador sostienen el ritmo."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué clarinetista y director de orquesta llevó la cumbia a los salones de baile de América Latina en los años cuarenta?",
+          "options": [
+            { "id": "a", "text": "Lucho Bermúdez", "is_correct": true },
+            { "id": "b", "text": "Pacho Galán", "is_correct": false },
+            { "id": "c", "text": "Andrés Landero", "is_correct": false },
+            { "id": "d", "text": "Alfredo Gutiérrez", "is_correct": false }
+          ],
+          "explanation": "La orquesta de Lucho Bermúdez vistió a la cumbia de orquesta de salón; «Colombia tierra querida» es su tema más conocido."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cómo se llama el estilo peruano que mezcla cumbia con guitarra surf y melodías andinas?",
+          "options": [
+            { "id": "a", "text": "Cumbia rebajada", "is_correct": false },
+            { "id": "b", "text": "Chicha", "is_correct": true },
+            { "id": "c", "text": "Cumbia sonidera", "is_correct": false },
+            { "id": "d", "text": "Tecnocumbia", "is_correct": false }
+          ],
+          "explanation": "Bautizada como la bebida andina de maíz, la chicha floreció en la Lima y la Amazonía de los setenta con grupos como Los Shapis y Los Mirlos."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué país crearon los DJ sonideros una cultura callejera de cumbia con saludos gritados?",
+          "options": [
+            { "id": "a", "text": "Perú", "is_correct": false },
+            { "id": "b", "text": "Argentina", "is_correct": false },
+            { "id": "c", "text": "Chile", "is_correct": false },
+            { "id": "d", "text": "México", "is_correct": true }
+          ],
+          "explanation": "Los sonideros de Ciudad de México mandan saludos a los barrios sobre cumbias ralentizadas; el estilo se conoce como cumbia sonidera."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué estilo urbano de cumbia surgió de los barrios humildes de Buenos Aires a finales de los noventa?",
+          "options": [
+            { "id": "a", "text": "La cumbia villera", "is_correct": true },
+            { "id": "b", "text": "La cumbia norteña", "is_correct": false },
+            { "id": "c", "text": "La cumbia pop", "is_correct": false },
+            { "id": "d", "text": "La chicha", "is_correct": false }
+          ],
+          "explanation": "La cumbia villera, de letras crudas y teclados baratos, definió el sonido del Buenos Aires de fin de siglo."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué banda familiar mexicana de Iztapalapa hizo un enorme éxito con «Cómo te voy a olvidar»?",
+          "options": [
+            { "id": "a", "text": "Los Bukis", "is_correct": false },
+            { "id": "b", "text": "Bronco", "is_correct": false },
+            { "id": "c", "text": "Los Tigres del Norte", "is_correct": false },
+            { "id": "d", "text": "Los Ángeles Azules", "is_correct": true }
+          ],
+          "explanation": "Los Ángeles Azules, hermanos de Iztapalapa, la convirtieron en una de las cumbias más cantadas de finales de los noventa."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué trío de tambores sostiene el ritmo tradicional de la cumbia?",
+          "options": [
+            { "id": "a", "text": "Tambora, tambor alegre y llamador", "is_correct": true },
+            { "id": "b", "text": "Conga, bongó y timbales", "is_correct": false },
+            { "id": "c", "text": "Bombo, redoblante y caja", "is_correct": false },
+            { "id": "d", "text": "Djembé, tambor parlante y bugarabu", "is_correct": false }
+          ],
+          "explanation": "El llamador marca el pulso constante, el alegre improvisa y la grave tambora señala el compás: el núcleo africano de la cumbia."
+        }
+      ]
+    },
+    {
+      "slug": "en-tango-trivia",
+      "title": "Tango Trivia: Gardel, Piazzolla and the Bandoneon",
+      "description": "Eight questions on tango: its birth on the Río de la Plata, Carlos Gardel, the great orchestras and Astor Piazzolla's nuevo tango.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["tango", "argentina", "carlos gardel", "piazzolla"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tango was born at the end of the 19th century in which region?",
+          "options": [
+            { "id": "a", "text": "Andalusia", "is_correct": false },
+            { "id": "b", "text": "Havana", "is_correct": false },
+            { "id": "c", "text": "The Río de la Plata", "is_correct": true },
+            { "id": "d", "text": "Rio de Janeiro", "is_correct": false }
+          ],
+          "explanation": "Tango grew in the port neighborhoods of Buenos Aires and Montevideo, the cities on both banks of the Río de la Plata."
+        },
+        {
+          "id": "q2",
+          "question": "Which singer became tango's first international star before dying in a plane crash in 1935?",
+          "options": [
+            { "id": "a", "text": "Carlos Gardel", "is_correct": true },
+            { "id": "b", "text": "Aníbal Troilo", "is_correct": false },
+            { "id": "c", "text": "Juan D'Arienzo", "is_correct": false },
+            { "id": "d", "text": "Francisco Canaro", "is_correct": false }
+          ],
+          "explanation": "Carlos Gardel died in Medellín, Colombia, in June 1935; his baritone made tango a world phenomenon."
+        },
+        {
+          "id": "q3",
+          "question": "Which instrument gives tango its signature melancholic sound?",
+          "options": [
+            { "id": "a", "text": "The accordion", "is_correct": false },
+            { "id": "b", "text": "The violin", "is_correct": false },
+            { "id": "c", "text": "The saxophone", "is_correct": false },
+            { "id": "d", "text": "The bandoneon", "is_correct": true }
+          ],
+          "explanation": "The German-born bandoneon arrived in the Río de la Plata around 1900 and became the soul of the orquesta típica."
+        },
+        {
+          "id": "q4",
+          "question": "Who revolutionized the genre with the nuevo tango of \"Libertango\" and \"Adiós Nonino\"?",
+          "options": [
+            { "id": "a", "text": "Osvaldo Pugliese", "is_correct": false },
+            { "id": "b", "text": "Astor Piazzolla", "is_correct": true },
+            { "id": "c", "text": "Horacio Salgán", "is_correct": false },
+            { "id": "d", "text": "Mariano Mores", "is_correct": false }
+          ],
+          "explanation": "Piazzolla fused tango with jazz and classical counterpoint; purists objected, but he carried tango to concert halls worldwide."
+        },
+        {
+          "id": "q5",
+          "question": "In 2009 UNESCO declared tango Intangible Cultural Heritage for which two countries?",
+          "options": [
+            { "id": "a", "text": "Argentina and Chile", "is_correct": false },
+            { "id": "b", "text": "Argentina and Uruguay", "is_correct": true },
+            { "id": "c", "text": "Uruguay and Brazil", "is_correct": false },
+            { "id": "d", "text": "Argentina and Paraguay", "is_correct": false }
+          ],
+          "explanation": "Argentina and Uruguay filed the bid together, since tango belongs to both shores of the Río de la Plata."
+        },
+        {
+          "id": "q6",
+          "question": "\"La cumparsita,\" perhaps the most famous tango ever, was composed in 1917 by which Uruguayan?",
+          "options": [
+            { "id": "a", "text": "Julio Sosa", "is_correct": false },
+            { "id": "b", "text": "Alfredo Zitarrosa", "is_correct": false },
+            { "id": "c", "text": "Gerardo Matos Rodríguez", "is_correct": true },
+            { "id": "d", "text": "Francisco Canaro", "is_correct": false }
+          ],
+          "explanation": "Matos Rodríguez wrote it as a carnival march in Montevideo; in 1924 Contursi and Maroni added the lyrics everyone knows."
+        },
+        {
+          "id": "q7",
+          "question": "Which bandleader was nicknamed \"El Rey del Compás\" for his driving dance beat?",
+          "options": [
+            { "id": "a", "text": "Juan D'Arienzo", "is_correct": true },
+            { "id": "b", "text": "Carlos Di Sarli", "is_correct": false },
+            { "id": "c", "text": "Aníbal Troilo", "is_correct": false },
+            { "id": "d", "text": "Osvaldo Pugliese", "is_correct": false }
+          ],
+          "explanation": "D'Arienzo's fast, accented rhythm filled the milongas from 1935 onward and relaunched tango as dance music."
+        },
+        {
+          "id": "q8",
+          "question": "Which 1935 Gardel film lent its title to one of his most beloved songs?",
+          "options": [
+            { "id": "a", "text": "Tango Bar", "is_correct": false },
+            { "id": "b", "text": "Cuesta abajo", "is_correct": false },
+            { "id": "c", "text": "El día que me quieras", "is_correct": true },
+            { "id": "d", "text": "El tango en Broadway", "is_correct": false }
+          ],
+          "explanation": "Gardel and Alfredo Le Pera wrote the title song for the Paramount film released months before the singer's death."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-tango",
+      "title": "Trivia de tango: Gardel, Piazzolla y el bandoneón",
+      "description": "Ocho preguntas sobre el tango: su nacimiento en el Río de la Plata, Carlos Gardel, las grandes orquestas y el nuevo tango de Astor Piazzolla.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["tango", "argentina", "carlos gardel", "piazzolla"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué región nació el tango a fines del siglo XIX?",
+          "options": [
+            { "id": "a", "text": "Andalucía", "is_correct": false },
+            { "id": "b", "text": "La Habana", "is_correct": false },
+            { "id": "c", "text": "El Río de la Plata", "is_correct": true },
+            { "id": "d", "text": "Río de Janeiro", "is_correct": false }
+          ],
+          "explanation": "El tango creció en los barrios portuarios de Buenos Aires y Montevideo, las dos orillas del Río de la Plata."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué cantante se convirtió en la primera estrella internacional del tango antes de morir en un accidente aéreo en 1935?",
+          "options": [
+            { "id": "a", "text": "Carlos Gardel", "is_correct": true },
+            { "id": "b", "text": "Aníbal Troilo", "is_correct": false },
+            { "id": "c", "text": "Juan D'Arienzo", "is_correct": false },
+            { "id": "d", "text": "Francisco Canaro", "is_correct": false }
+          ],
+          "explanation": "Carlos Gardel murió en Medellín, Colombia, en junio de 1935; su barítono convirtió al tango en un fenómeno mundial."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué instrumento le da al tango su sonido melancólico característico?",
+          "options": [
+            { "id": "a", "text": "El acordeón", "is_correct": false },
+            { "id": "b", "text": "El violín", "is_correct": false },
+            { "id": "c", "text": "El saxofón", "is_correct": false },
+            { "id": "d", "text": "El bandoneón", "is_correct": true }
+          ],
+          "explanation": "El bandoneón, nacido en Alemania, llegó al Río de la Plata hacia 1900 y se volvió el alma de la orquesta típica."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién revolucionó el género con el nuevo tango de «Libertango» y «Adiós Nonino»?",
+          "options": [
+            { "id": "a", "text": "Osvaldo Pugliese", "is_correct": false },
+            { "id": "b", "text": "Astor Piazzolla", "is_correct": true },
+            { "id": "c", "text": "Horacio Salgán", "is_correct": false },
+            { "id": "d", "text": "Mariano Mores", "is_correct": false }
+          ],
+          "explanation": "Piazzolla fusionó el tango con el jazz y el contrapunto clásico; los puristas protestaron, pero llevó el tango a las salas de concierto del mundo."
+        },
+        {
+          "id": "q5",
+          "question": "En 2009 la UNESCO declaró al tango Patrimonio Cultural Inmaterial de qué dos países?",
+          "options": [
+            { "id": "a", "text": "Argentina y Chile", "is_correct": false },
+            { "id": "b", "text": "Argentina y Uruguay", "is_correct": true },
+            { "id": "c", "text": "Uruguay y Brasil", "is_correct": false },
+            { "id": "d", "text": "Argentina y Paraguay", "is_correct": false }
+          ],
+          "explanation": "Argentina y Uruguay presentaron la candidatura juntos, porque el tango pertenece a las dos orillas del Río de la Plata."
+        },
+        {
+          "id": "q6",
+          "question": "«La cumparsita», quizá el tango más famoso, la compuso en 1917 qué uruguayo?",
+          "options": [
+            { "id": "a", "text": "Julio Sosa", "is_correct": false },
+            { "id": "b", "text": "Alfredo Zitarrosa", "is_correct": false },
+            { "id": "c", "text": "Gerardo Matos Rodríguez", "is_correct": true },
+            { "id": "d", "text": "Francisco Canaro", "is_correct": false }
+          ],
+          "explanation": "Matos Rodríguez la escribió como marcha de carnaval en Montevideo; en 1924 Contursi y Maroni le añadieron la letra que todos conocen."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué director de orquesta fue apodado «el Rey del Compás» por su ritmo bailable e incisivo?",
+          "options": [
+            { "id": "a", "text": "Juan D'Arienzo", "is_correct": true },
+            { "id": "b", "text": "Carlos Di Sarli", "is_correct": false },
+            { "id": "c", "text": "Aníbal Troilo", "is_correct": false },
+            { "id": "d", "text": "Osvaldo Pugliese", "is_correct": false }
+          ],
+          "explanation": "El ritmo rápido y marcado de D'Arienzo llenó las milongas desde 1935 y devolvió al tango su vocación de baile."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué película de Gardel de 1935 le dio título a una de sus canciones más queridas?",
+          "options": [
+            { "id": "a", "text": "Tango Bar", "is_correct": false },
+            { "id": "b", "text": "Cuesta abajo", "is_correct": false },
+            { "id": "c", "text": "El día que me quieras", "is_correct": true },
+            { "id": "d", "text": "El tango en Broadway", "is_correct": false }
+          ],
+          "explanation": "Gardel y Alfredo Le Pera escribieron el tema principal de la película de Paramount, estrenada meses antes de la muerte del cantante."
+        }
+      ]
+    },
+    {
+      "slug": "en-flamenco-trivia",
+      "title": "Flamenco Trivia: Cante, Guitar and the Great Palos",
+      "description": "Eight questions on flamenco: its Andalusian and gitano roots, the main palos, the guitar of Paco de Lucía and the voice of Camarón de la Isla.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["flamenco", "spain", "paco de lucía", "camarón"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In which region of Spain did flamenco take shape?",
+          "options": [
+            { "id": "a", "text": "Catalonia", "is_correct": false },
+            { "id": "b", "text": "Galicia", "is_correct": false },
+            { "id": "c", "text": "Castile", "is_correct": false },
+            { "id": "d", "text": "Andalusia", "is_correct": true }
+          ],
+          "explanation": "Flamenco crystallized in 19th-century Andalusia, in the triangle between Cádiz, Jerez and Seville's Triana."
+        },
+        {
+          "id": "q2",
+          "question": "Flamenco rests on three pillars: cante (singing), baile (dance) and…",
+          "options": [
+            { "id": "a", "text": "toque, the guitar", "is_correct": true },
+            { "id": "b", "text": "the violin", "is_correct": false },
+            { "id": "c", "text": "the accordion", "is_correct": false },
+            { "id": "d", "text": "the bandurria", "is_correct": false }
+          ],
+          "explanation": "Cante, toque and baile are the canonical trio; palmas hand-clapping supports them but is an accompaniment."
+        },
+        {
+          "id": "q3",
+          "question": "Which of these is NOT a flamenco palo (song form)?",
+          "options": [
+            { "id": "a", "text": "Soleá", "is_correct": false },
+            { "id": "b", "text": "Bulería", "is_correct": false },
+            { "id": "c", "text": "Seguiriya", "is_correct": false },
+            { "id": "d", "text": "Ranchera", "is_correct": true }
+          ],
+          "explanation": "The ranchera is a Mexican genre; soleá, bulería and seguiriya are core palos of flamenco."
+        },
+        {
+          "id": "q4",
+          "question": "Which guitarist from Algeciras modernized flamenco with albums like \"Almoraima\" (1976)?",
+          "options": [
+            { "id": "a", "text": "Sabicas", "is_correct": false },
+            { "id": "b", "text": "Tomatito", "is_correct": false },
+            { "id": "c", "text": "Paco de Lucía", "is_correct": true },
+            { "id": "d", "text": "Vicente Amigo", "is_correct": false }
+          ],
+          "explanation": "Paco de Lucía expanded flamenco guitar with new harmonies and techniques, and carried it to jazz and classical stages."
+        },
+        {
+          "id": "q5",
+          "question": "Camarón de la Isla, the most revered cantaor of his era, was born in which town nicknamed \"La Isla\"?",
+          "options": [
+            { "id": "a", "text": "San Fernando, Cádiz", "is_correct": true },
+            { "id": "b", "text": "Jerez de la Frontera", "is_correct": false },
+            { "id": "c", "text": "Triana, Seville", "is_correct": false },
+            { "id": "d", "text": "Granada", "is_correct": false }
+          ],
+          "explanation": "Born José Monje Cruz in San Fernando, he took his stage name from the town's nickname; his duo with Paco de Lucía is legendary."
+        },
+        {
+          "id": "q6",
+          "question": "In which year did UNESCO inscribe flamenco on its Intangible Cultural Heritage list?",
+          "options": [
+            { "id": "a", "text": "2003", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": false },
+            { "id": "c", "text": "2010", "is_correct": true },
+            { "id": "d", "text": "2015", "is_correct": false }
+          ],
+          "explanation": "UNESCO listed flamenco in 2010, one year after tango earned the same recognition."
+        },
+        {
+          "id": "q7",
+          "question": "What are the shouted encouragements — \"¡Olé!\", \"¡Vamos!\" — that audiences throw at performers called?",
+          "options": [
+            { "id": "a", "text": "Duende", "is_correct": false },
+            { "id": "b", "text": "Jaleo", "is_correct": true },
+            { "id": "c", "text": "Compás", "is_correct": false },
+            { "id": "d", "text": "Desplante", "is_correct": false }
+          ],
+          "explanation": "Jaleo is the web of shouts, palmas and finger-snapping that spurs on the artists; duende is the spirit it calls up."
+        },
+        {
+          "id": "q8",
+          "question": "Which poet co-organized the 1922 Concurso de Cante Jondo in Granada with composer Manuel de Falla?",
+          "options": [
+            { "id": "a", "text": "Antonio Machado", "is_correct": false },
+            { "id": "b", "text": "Rafael Alberti", "is_correct": false },
+            { "id": "c", "text": "Miguel Hernández", "is_correct": false },
+            { "id": "d", "text": "Federico García Lorca", "is_correct": true }
+          ],
+          "explanation": "García Lorca, who lectured on duende and cante jondo, helped stage the Granada contest to defend the deepest flamenco singing."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-flamenco",
+      "title": "Trivia de flamenco: cante, guitarra y grandes palos",
+      "description": "Ocho preguntas sobre el flamenco: sus raíces andaluzas y gitanas, los palos principales, la guitarra de Paco de Lucía y la voz de Camarón.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["flamenco", "españa", "paco de lucía", "camarón"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿En qué región de España tomó forma el flamenco?",
+          "options": [
+            { "id": "a", "text": "Cataluña", "is_correct": false },
+            { "id": "b", "text": "Galicia", "is_correct": false },
+            { "id": "c", "text": "Castilla", "is_correct": false },
+            { "id": "d", "text": "Andalucía", "is_correct": true }
+          ],
+          "explanation": "El flamenco se consolidó en la Andalucía del siglo XIX, en el triángulo entre Cádiz, Jerez y el barrio sevillano de Triana."
+        },
+        {
+          "id": "q2",
+          "question": "El flamenco descansa sobre tres pilares: el cante, el baile y…",
+          "options": [
+            { "id": "a", "text": "el toque, la guitarra", "is_correct": true },
+            { "id": "b", "text": "el violín", "is_correct": false },
+            { "id": "c", "text": "el acordeón", "is_correct": false },
+            { "id": "d", "text": "la bandurria", "is_correct": false }
+          ],
+          "explanation": "Cante, toque y baile son el trío canónico; las palmas los sostienen, pero son un acompañamiento."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál de estos NO es un palo flamenco?",
+          "options": [
+            { "id": "a", "text": "La soleá", "is_correct": false },
+            { "id": "b", "text": "La bulería", "is_correct": false },
+            { "id": "c", "text": "La seguiriya", "is_correct": false },
+            { "id": "d", "text": "La ranchera", "is_correct": true }
+          ],
+          "explanation": "La ranchera es un género mexicano; la soleá, la bulería y la seguiriya son palos centrales del flamenco."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué guitarrista de Algeciras modernizó el flamenco con discos como «Almoraima» (1976)?",
+          "options": [
+            { "id": "a", "text": "Sabicas", "is_correct": false },
+            { "id": "b", "text": "Tomatito", "is_correct": false },
+            { "id": "c", "text": "Paco de Lucía", "is_correct": true },
+            { "id": "d", "text": "Vicente Amigo", "is_correct": false }
+          ],
+          "explanation": "Paco de Lucía amplió la guitarra flamenca con nuevas armonías y técnicas, y la llevó a los escenarios del jazz y la música clásica."
+        },
+        {
+          "id": "q5",
+          "question": "Camarón de la Isla, el cantaor más reverenciado de su época, nació en qué localidad apodada «La Isla»?",
+          "options": [
+            { "id": "a", "text": "San Fernando, Cádiz", "is_correct": true },
+            { "id": "b", "text": "Jerez de la Frontera", "is_correct": false },
+            { "id": "c", "text": "Triana, Sevilla", "is_correct": false },
+            { "id": "d", "text": "Granada", "is_correct": false }
+          ],
+          "explanation": "Nacido José Monje Cruz en San Fernando, tomó su nombre artístico del apodo de su pueblo; su dupla con Paco de Lucía es legendaria."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué año inscribió la UNESCO el flamenco en su lista de Patrimonio Cultural Inmaterial?",
+          "options": [
+            { "id": "a", "text": "2003", "is_correct": false },
+            { "id": "b", "text": "2008", "is_correct": false },
+            { "id": "c", "text": "2010", "is_correct": true },
+            { "id": "d", "text": "2015", "is_correct": false }
+          ],
+          "explanation": "La UNESCO incluyó el flamenco en 2010, un año después de que el tango obtuviera el mismo reconocimiento."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se llaman los gritos de ánimo —«¡olé!», «¡vamos!»— que el público lanza a los artistas?",
+          "options": [
+            { "id": "a", "text": "Duende", "is_correct": false },
+            { "id": "b", "text": "Jaleo", "is_correct": true },
+            { "id": "c", "text": "Compás", "is_correct": false },
+            { "id": "d", "text": "Desplante", "is_correct": false }
+          ],
+          "explanation": "El jaleo es la red de gritos, palmas y piteos que empuja a los artistas; el duende es el espíritu que invoca."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué poeta coorganizó el Concurso de Cante Jondo de Granada de 1922 junto al compositor Manuel de Falla?",
+          "options": [
+            { "id": "a", "text": "Antonio Machado", "is_correct": false },
+            { "id": "b", "text": "Rafael Alberti", "is_correct": false },
+            { "id": "c", "text": "Miguel Hernández", "is_correct": false },
+            { "id": "d", "text": "Federico García Lorca", "is_correct": true }
+          ],
+          "explanation": "García Lorca, que dio conferencias sobre el duende y el cante jondo, ayudó a montar el concurso granadino para defender el cante más hondo."
+        }
+      ]
+    },
+    {
+      "slug": "en-bachata-and-merengue-trivia",
+      "title": "Bachata and Merengue Trivia: Dominican Sounds",
+      "description": "Eight questions on the Dominican Republic's two signature genres: the güira and tambora of merengue, and the guitars and amargue of bachata.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "music",
+      "tags": ["bachata", "merengue", "dominican republic", "latin music"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Bachata and merengue are the two signature genres of which Caribbean country?",
+          "options": [
+            { "id": "a", "text": "Puerto Rico", "is_correct": false },
+            { "id": "b", "text": "Cuba", "is_correct": false },
+            { "id": "c", "text": "The Dominican Republic", "is_correct": true },
+            { "id": "d", "text": "Colombia", "is_correct": false }
+          ],
+          "explanation": "Both genres are Dominican; UNESCO even listed traditional merengue as Intangible Cultural Heritage in 2016."
+        },
+        {
+          "id": "q2",
+          "question": "Which metal scraper gives merengue its relentless driving sizzle?",
+          "options": [
+            { "id": "a", "text": "The maracas", "is_correct": false },
+            { "id": "b", "text": "The güira", "is_correct": true },
+            { "id": "c", "text": "The claves", "is_correct": false },
+            { "id": "d", "text": "The cajón", "is_correct": false }
+          ],
+          "explanation": "The güira, a tin cylinder played with a stiff brush, partners with the two-headed tambora drum in every merengue group."
+        },
+        {
+          "id": "q3",
+          "question": "The lead melodic voice of traditional merengue típico is…",
+          "options": [
+            { "id": "a", "text": "the saxophone", "is_correct": false },
+            { "id": "b", "text": "the guitar", "is_correct": false },
+            { "id": "c", "text": "the trumpet", "is_correct": false },
+            { "id": "d", "text": "the button accordion", "is_correct": true }
+          ],
+          "explanation": "Merengue típico is built around the two-row diatonic accordion, answered by güira and tambora."
+        },
+        {
+          "id": "q4",
+          "question": "Which singer-songwriter won international fame with the 1990 album \"Bachata Rosa\"?",
+          "options": [
+            { "id": "a", "text": "Wilfrido Vargas", "is_correct": false },
+            { "id": "b", "text": "Johnny Ventura", "is_correct": false },
+            { "id": "c", "text": "Juan Luis Guerra", "is_correct": true },
+            { "id": "d", "text": "Fernando Villalona", "is_correct": false }
+          ],
+          "explanation": "Juan Luis Guerra and his 4.40 made bachata and merengue respectable worldwide; the album won him his first Grammy."
+        },
+        {
+          "id": "q5",
+          "question": "Which dictator turned merengue into a propaganda tool during his long rule?",
+          "options": [
+            { "id": "a", "text": "Rafael Trujillo", "is_correct": true },
+            { "id": "b", "text": "Joaquín Balaguer", "is_correct": false },
+            { "id": "c", "text": "Fulgencio Batista", "is_correct": false },
+            { "id": "d", "text": "Anastasio Somoza", "is_correct": false }
+          ],
+          "explanation": "Trujillo promoted merengue through state radio and his brother Petán's band during his 1930–1961 regime."
+        },
+        {
+          "id": "q6",
+          "question": "Before it was called bachata, the guitar style was dismissed as \"música de…\"",
+          "options": [
+            { "id": "a", "text": "amargue", "is_correct": true },
+            { "id": "b", "text": "despecho", "is_correct": false },
+            { "id": "c", "text": "campo", "is_correct": false },
+            { "id": "d", "text": "duelo", "is_correct": false }
+          ],
+          "explanation": "\"Amargue\" (bitterness) described its heartbreak lyrics; \"bachata,\" a word for a backyard party, was first used as an insult."
+        },
+        {
+          "id": "q7",
+          "question": "Who made the first commercial bachata recordings in 1962?",
+          "options": [
+            { "id": "a", "text": "Luis Segura", "is_correct": false },
+            { "id": "b", "text": "Anthony Santos", "is_correct": false },
+            { "id": "c", "text": "Raulín Rodríguez", "is_correct": false },
+            { "id": "d", "text": "José Manuel Calderón", "is_correct": true }
+          ],
+          "explanation": "Calderón's 1962 singles, including \"Borracho de amor,\" are considered the first recorded bachatas."
+        },
+        {
+          "id": "q8",
+          "question": "Which Bronx group's 2002 hit \"Obsesión\" carried bachata to the top of charts across Europe?",
+          "options": [
+            { "id": "a", "text": "Monchy y Alexandra", "is_correct": false },
+            { "id": "b", "text": "Aventura", "is_correct": true },
+            { "id": "c", "text": "Xtreme", "is_correct": false },
+            { "id": "d", "text": "Los Toros Band", "is_correct": false }
+          ],
+          "explanation": "Aventura, fronted by Romeo Santos, took \"Obsesión\" to number one in several European countries."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-bachata-y-merengue",
+      "title": "Trivia de bachata y merengue: ritmos dominicanos",
+      "description": "Ocho preguntas sobre los dos géneros insignia de la República Dominicana: la güira y la tambora del merengue, y las guitarras y el amargue de la bachata.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "music",
+      "tags": ["bachata", "merengue", "república dominicana", "música latina"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "La bachata y el merengue son los dos géneros insignia de qué país caribeño?",
+          "options": [
+            { "id": "a", "text": "Puerto Rico", "is_correct": false },
+            { "id": "b", "text": "Cuba", "is_correct": false },
+            { "id": "c", "text": "La República Dominicana", "is_correct": true },
+            { "id": "d", "text": "Colombia", "is_correct": false }
+          ],
+          "explanation": "Ambos géneros son dominicanos; la UNESCO incluso inscribió el merengue tradicional como Patrimonio Cultural Inmaterial en 2016."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué raspador metálico le da al merengue su siseo incesante?",
+          "options": [
+            { "id": "a", "text": "Las maracas", "is_correct": false },
+            { "id": "b", "text": "La güira", "is_correct": true },
+            { "id": "c", "text": "Las claves", "is_correct": false },
+            { "id": "d", "text": "El cajón", "is_correct": false }
+          ],
+          "explanation": "La güira, un cilindro de hojalata que se raspa con un peine, acompaña en cada conjunto a la tambora de dos parches."
+        },
+        {
+          "id": "q3",
+          "question": "La voz melódica principal del merengue típico tradicional es…",
+          "options": [
+            { "id": "a", "text": "el saxofón", "is_correct": false },
+            { "id": "b", "text": "la guitarra", "is_correct": false },
+            { "id": "c", "text": "la trompeta", "is_correct": false },
+            { "id": "d", "text": "el acordeón de botones", "is_correct": true }
+          ],
+          "explanation": "El merengue típico se arma alrededor del acordeón diatónico de dos hileras, respondido por güira y tambora."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué cantautor ganó fama internacional con el álbum «Bachata Rosa» de 1990?",
+          "options": [
+            { "id": "a", "text": "Wilfrido Vargas", "is_correct": false },
+            { "id": "b", "text": "Johnny Ventura", "is_correct": false },
+            { "id": "c", "text": "Juan Luis Guerra", "is_correct": true },
+            { "id": "d", "text": "Fernando Villalona", "is_correct": false }
+          ],
+          "explanation": "Juan Luis Guerra y su 4.40 hicieron respetables a la bachata y el merengue en todo el mundo; el disco le dio su primer Grammy."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué dictador convirtió al merengue en herramienta de propaganda durante su largo régimen?",
+          "options": [
+            { "id": "a", "text": "Rafael Trujillo", "is_correct": true },
+            { "id": "b", "text": "Joaquín Balaguer", "is_correct": false },
+            { "id": "c", "text": "Fulgencio Batista", "is_correct": false },
+            { "id": "d", "text": "Anastasio Somoza", "is_correct": false }
+          ],
+          "explanation": "Trujillo promovió el merengue por la radio estatal y con la orquesta de su hermano Petán durante su régimen de 1930 a 1961."
+        },
+        {
+          "id": "q6",
+          "question": "Antes de llamarse bachata, al estilo de guitarra se lo despreciaba como «música de…»",
+          "options": [
+            { "id": "a", "text": "amargue", "is_correct": true },
+            { "id": "b", "text": "despecho", "is_correct": false },
+            { "id": "c", "text": "campo", "is_correct": false },
+            { "id": "d", "text": "duelo", "is_correct": false }
+          ],
+          "explanation": "El «amargue» (amargura) describía sus letras de desamor; «bachata», palabra para una fiesta de patio, se usó primero como insulto."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién hizo las primeras grabaciones comerciales de bachata en 1962?",
+          "options": [
+            { "id": "a", "text": "Luis Segura", "is_correct": false },
+            { "id": "b", "text": "Anthony Santos", "is_correct": false },
+            { "id": "c", "text": "Raulín Rodríguez", "is_correct": false },
+            { "id": "d", "text": "José Manuel Calderón", "is_correct": true }
+          ],
+          "explanation": "Los sencillos que Calderón grabó en 1962, entre ellos «Borracho de amor», se consideran las primeras bachatas registradas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué grupo del Bronx llevó la bachata a lo más alto de las listas europeas con «Obsesión» en 2002?",
+          "options": [
+            { "id": "a", "text": "Monchy y Alexandra", "is_correct": false },
+            { "id": "b", "text": "Aventura", "is_correct": true },
+            { "id": "c", "text": "Xtreme", "is_correct": false },
+            { "id": "d", "text": "Los Toros Band", "is_correct": false }
+          ],
+          "explanation": "Aventura, liderado por Romeo Santos, colocó «Obsesión» en el número uno de varios países europeos."
+        }
+      ]
+    }
+  ]
+}
