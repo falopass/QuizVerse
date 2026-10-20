@@ -30,12 +30,12 @@ interface SeedQuiz {
   questions: SeedQuestion[];
 }
 
-// The five cuisines as (en slug, es slug, category) pairs.
+// The four cuisines as (en slug, es slug, category) pairs. The Indian pair
+// shipped earlier in batch 2026bz and was dropped here as a duplicate.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-peruvian-food-trivia', 'es-trivia-comida-peruana', 'food-drink'],
   ['en-chinese-food-trivia', 'es-trivia-comida-china', 'food-drink'],
   ['en-thai-food-trivia', 'es-trivia-comida-tailandesa', 'food-drink'],
-  ['en-indian-food-trivia', 'es-trivia-comida-india', 'food-drink'],
   ['en-argentine-food-trivia', 'es-trivia-comida-argentina', 'food-drink'],
 ];
 
@@ -64,8 +64,8 @@ describe('editorial-seed-2026cd', () => {
     expect(emitted).toBe(committed);
   });
 
-  it('tiene exactamente los 5 pares es/en por tema', () => {
-    expect(quizzes).toHaveLength(10);
+  it('tiene exactamente los 4 pares es/en por tema', () => {
+    expect(quizzes).toHaveLength(8);
     const bySlug = new Map(quizzes.map((quiz) => [quiz.slug, quiz]));
     for (const [enSlug, esSlug, category] of EXPECTED_PAIRS) {
       const en = bySlug.get(enSlug);
@@ -77,8 +77,8 @@ describe('editorial-seed-2026cd', () => {
       expect(en!.category).toBe(category);
       expect(es!.category).toBe(category);
     }
-    expect(quizzes.filter((quiz) => quiz.language === 'en')).toHaveLength(5);
-    expect(quizzes.filter((quiz) => quiz.language === 'es')).toHaveLength(5);
+    expect(quizzes.filter((quiz) => quiz.language === 'en')).toHaveLength(4);
+    expect(quizzes.filter((quiz) => quiz.language === 'es')).toHaveLength(4);
   });
 
   it('cada slug lleva el prefijo de su idioma', () => {

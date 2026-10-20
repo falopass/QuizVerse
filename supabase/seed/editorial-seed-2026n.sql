@@ -197,52 +197,6 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-jurassic-park-trivia',
-  'Jurassic Park Fan Trivia Challenge',
-  'Amber, DNA and a T. rex in the rain: the film that brought dinosaurs back to life. How much do you know about Jurassic Park?',
-  'trivia',
-  'medium',
-  'en',
-  (select id from public.categories where slug = 'movies-tv'),
-  '[{"id":"q1","question":"In which year was Jurassic Park released?","options":[{"id":"a","text":"1990","is_correct":false},{"id":"b","text":"1993","is_correct":true},{"id":"c","text":"1996","is_correct":false},{"id":"d","text":"1999","is_correct":false}],"explanation":"Spielberg''s film opened in June 1993 and became the highest-grossing film ever at the time."},{"id":"q2","question":"Who directed Jurassic Park?","options":[{"id":"a","text":"George Lucas","is_correct":false},{"id":"b","text":"James Cameron","is_correct":false},{"id":"c","text":"Steven Spielberg","is_correct":true},{"id":"d","text":"Ridley Scott","is_correct":false}],"explanation":"Steven Spielberg directed it the same year he made Schindler''s List."},{"id":"q3","question":"Who wrote the novel the film is based on?","options":[{"id":"a","text":"Stephen King","is_correct":false},{"id":"b","text":"Isaac Asimov","is_correct":false},{"id":"c","text":"Arthur C. Clarke","is_correct":false},{"id":"d","text":"Michael Crichton","is_correct":true}],"explanation":"Michael Crichton published the novel in 1990 and co-wrote the screenplay."},{"id":"q4","question":"Which dinosaur attacks the tour vehicles in the rain?","options":[{"id":"a","text":"The Tyrannosaurus rex","is_correct":true},{"id":"b","text":"The Velociraptor","is_correct":false},{"id":"c","text":"The Triceratops","is_correct":false},{"id":"d","text":"The Dilophosaurus","is_correct":false}],"explanation":"The T. rex breaks out during the storm in the film''s most famous scene; the raptors hunt in the kitchen later."},{"id":"q5","question":"What is the name of the island where the park is built?","options":[{"id":"a","text":"Isla Sorna","is_correct":false},{"id":"b","text":"Isla Nublar","is_correct":true},{"id":"c","text":"Isla Muerta","is_correct":false},{"id":"d","text":"Isla Matanceros","is_correct":false}],"explanation":"The park sits on Isla Nublar; Isla Sorna is Site B, the breeding island of The Lost World."},{"id":"q6","question":"From where do the scientists extract dinosaur DNA?","options":[{"id":"a","text":"Fossilized bones","is_correct":false},{"id":"b","text":"Frozen eggs","is_correct":false},{"id":"c","text":"Mosquitoes preserved in amber","is_correct":true},{"id":"d","text":"Ancient plants","is_correct":false}],"explanation":"Mosquitoes trapped in amber carry the dinosaur blood they feed the DNA sequencer."},{"id":"q7","question":"Who plays chaos theorist Ian Malcolm?","options":[{"id":"a","text":"Sam Neill","is_correct":false},{"id":"b","text":"Jeff Goldblum","is_correct":true},{"id":"c","text":"Richard Attenborough","is_correct":false},{"id":"d","text":"Wayne Knight","is_correct":false}],"explanation":"Jeff Goldblum is Ian Malcolm; Sam Neill is Grant, Richard Attenborough is Hammond and Wayne Knight is Nedry."},{"id":"q8","question":"What is the name of the park''s founder?","options":[{"id":"a","text":"Henry Wu","is_correct":false},{"id":"b","text":"Robert Muldoon","is_correct":false},{"id":"c","text":"Dennis Nedry","is_correct":false},{"id":"d","text":"John Hammond","is_correct":true}],"explanation":"John Hammond, InGen''s founder, ''spared no expense''; Wu is the geneticist, Muldoon the game warden and Nedry the saboteur."}]'::jsonb,
-  null,
-  array['jurassic-park', 'dinosaurs', 'movies', 'trivia']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
-  'es-trivia-jurassic-park',
-  'Trivia fan de Jurassic Park',
-  'Ámbar, ADN y un T. rex bajo la lluvia: la película que devolvió la vida a los dinosaurios. ¿Cuánto sabes de Jurassic Park?',
-  'trivia',
-  'medium',
-  'es',
-  (select id from public.categories where slug = 'movies-tv'),
-  '[{"id":"q1","question":"¿En qué año se estrenó Jurassic Park?","options":[{"id":"a","text":"1993","is_correct":true},{"id":"b","text":"1989","is_correct":false},{"id":"c","text":"1997","is_correct":false},{"id":"d","text":"2001","is_correct":false}],"explanation":"La película de Spielberg se estrenó en junio de 1993 y fue la más taquillera de la historia en su momento."},{"id":"q2","question":"¿Quién dirigió Jurassic Park?","options":[{"id":"a","text":"Steven Spielberg","is_correct":true},{"id":"b","text":"George Lucas","is_correct":false},{"id":"c","text":"James Cameron","is_correct":false},{"id":"d","text":"Ridley Scott","is_correct":false}],"explanation":"Steven Spielberg la dirigió el mismo año en que rodó La lista de Schindler."},{"id":"q3","question":"¿Quién escribió la novela en la que se basa la película?","options":[{"id":"a","text":"Michael Crichton","is_correct":true},{"id":"b","text":"Stephen King","is_correct":false},{"id":"c","text":"Isaac Asimov","is_correct":false},{"id":"d","text":"Arthur C. Clarke","is_correct":false}],"explanation":"Michael Crichton publicó la novela en 1990 y coescribió el guion de la película."},{"id":"q4","question":"¿Qué dinosaurio ataca los vehículos del recorrido bajo la lluvia?","options":[{"id":"a","text":"El velociraptor","is_correct":false},{"id":"b","text":"El triceratops","is_correct":false},{"id":"c","text":"El Tyrannosaurus rex","is_correct":true},{"id":"d","text":"El dilofosaurio","is_correct":false}],"explanation":"El T. rex escapa durante la tormenta en la escena más famosa; los raptores cazan en la cocina más tarde."},{"id":"q5","question":"¿Cómo se llama la isla donde se construye el parque?","options":[{"id":"a","text":"Isla Nublar","is_correct":true},{"id":"b","text":"Isla Sorna","is_correct":false},{"id":"c","text":"Isla Muerta","is_correct":false},{"id":"d","text":"Isla Matanceros","is_correct":false}],"explanation":"El parque está en Isla Nublar; Isla Sorna es el Sitio B, la isla de cría de El mundo perdido."},{"id":"q6","question":"¿De dónde extraen los científicos el ADN de dinosaurio?","options":[{"id":"a","text":"De huesos fosilizados","is_correct":false},{"id":"b","text":"De mosquitos conservados en ámbar","is_correct":true},{"id":"c","text":"De huevos congelados","is_correct":false},{"id":"d","text":"De plantas antiguas","is_correct":false}],"explanation":"Los mosquitos atrapados en ámbar conservan la sangre de dinosaurio que alimenta el secuenciador de ADN."},{"id":"q7","question":"¿Quién interpreta al teórico del caos Ian Malcolm?","options":[{"id":"a","text":"Sam Neill","is_correct":false},{"id":"b","text":"Richard Attenborough","is_correct":false},{"id":"c","text":"Wayne Knight","is_correct":false},{"id":"d","text":"Jeff Goldblum","is_correct":true}],"explanation":"Jeff Goldblum es Ian Malcolm; Sam Neill es Grant, Richard Attenborough es Hammond y Wayne Knight es Nedry."},{"id":"q8","question":"¿Cómo se llama el fundador del parque?","options":[{"id":"a","text":"John Hammond","is_correct":true},{"id":"b","text":"Henry Wu","is_correct":false},{"id":"c","text":"Robert Muldoon","is_correct":false},{"id":"d","text":"Dennis Nedry","is_correct":false}],"explanation":"John Hammond, fundador de InGen, ''no escatimó en gastos''; Wu es el genetista, Muldoon el guarda y Nedry el saboteador."}]'::jsonb,
-  null,
-  array['jurassic-park', 'dinosaurios', 'películas', 'trivia']::text[],
-  3,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
   'en-lego-trivia',
   'LEGO Fan Trivia Challenge',
   'Studs, minifigures and a Danish word for ''play well'': the brick that built a universe of toys, parks and films. How much do you know?',

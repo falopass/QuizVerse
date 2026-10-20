@@ -8,14 +8,15 @@
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import type { Category, Quiz } from '@/types/quiz';
+import type { CatalogCard } from '@/lib/data/catalog-cards';
+import type { Quiz } from '@/types/quiz';
 
 const dbMocks = vi.hoisted(() => ({
-  getPublishedQuizzes: vi.fn(),
+  getCatalogCards: vi.fn(),
 }));
 
-vi.mock('@/lib/data/public', () => ({
-  getPublishedQuizzes: dbMocks.getPublishedQuizzes,
+vi.mock('@/lib/data/catalog-cards', () => ({
+  getCatalogCards: dbMocks.getCatalogCards,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -26,63 +27,34 @@ vi.mock('next/navigation', () => ({
 
 import CatalogIndexPage from '@/app/[locale]/indice/page';
 
-const category = (slug: string, name: string): Category => ({
-  id: `cat-${slug}`,
-  name,
-  slug,
-  description: null,
-  icon: null,
-  color: null,
-  gradient_from: null,
-  gradient_to: null,
-  quiz_count: 0,
-  sort_order: 0,
-});
+const MOVIES = { slug: 'movies-tv', name: 'Movies & TV' };
+const GAMING = { slug: 'gaming', name: 'Gaming' };
 
-const MOVIES = category('movies-tv', 'Movies & TV');
-const GAMING = category('gaming', 'Gaming');
+// La página pide filas ligeras (CatalogCard); `language` solo existe en el
+// fixture para que el mock filtre por locale como hace la capa real.
+type FixtureCard = CatalogCard & { language: Quiz['language'] };
 
-function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
+function makeCard(overrides: Partial<FixtureCard> = {}): FixtureCard {
   return {
-    id: 'quiz-1',
     slug: 'quiz-1',
     title: 'Quiz de prueba',
-    description: null,
-    cover_image_url: null,
     quiz_type: 'trivia',
-    difficulty: 'medium',
     language: 'es',
-    questions: [],
-    results: null,
-    tags: [],
-    estimated_minutes: 4,
-    plays_count: 0,
-    shares_count: 0,
-    avg_score: null,
-    likes_count: 0,
-    status: 'published',
-    is_featured: false,
-    is_ai_generated: false,
-    published_at: '2026-05-21T00:00:00.000Z',
-    updated_at: null,
-    created_at: '2026-05-21T00:00:00.000Z',
     category: MOVIES,
     ...overrides,
   };
 }
 
-const CATALOG: Quiz[] = [
-  makeQuiz({ id: 'q1', slug: 'trivia-cine', title: 'Trivia de cine' }),
-  makeQuiz({ id: 'q2', slug: 'oscar-trivia', title: 'Trivia de los Óscar' }),
-  makeQuiz({
-    id: 'q3',
+const CATALOG: FixtureCard[] = [
+  makeCard({ slug: 'trivia-cine', title: 'Trivia de cine' }),
+  makeCard({ slug: 'oscar-trivia', title: 'Trivia de los Óscar' }),
+  makeCard({
     slug: 'que-personaje-eres',
     title: '¿Qué personaje eres?',
     quiz_type: 'personality',
   }),
-  makeQuiz({ id: 'q4', slug: 'trivia-gaming', title: 'Trivia de videojuegos', category: GAMING }),
-  makeQuiz({
-    id: 'q5',
+  makeCard({ slug: 'trivia-gaming', title: 'Trivia de videojuegos', category: GAMING }),
+  makeCard({
     slug: 'que-clase-eres',
     title: '¿Qué clase eres?',
     quiz_type: 'personality',
@@ -91,8 +63,8 @@ const CATALOG: Quiz[] = [
 ];
 
 // Un quiz en inglés dentro del origen: si la página dejara de pasar `locale` a
-// getPublishedQuizzes, se colaría en /es/indice y los tests lo detectarían.
-const EN_QUIZ = makeQuiz({ id: 'q6', slug: 'en-movies', title: 'Movies quiz', language: 'en' });
+// getCatalogCards, se colaría en /es/indice y los tests lo detectarían.
+const EN_QUIZ = makeCard({ slug: 'en-movies', title: 'Movies quiz', language: 'en' });
 const DB = [...CATALOG, EN_QUIZ];
 
 function jsonLd(container: HTMLElement) {
@@ -105,10 +77,10 @@ function jsonLd(container: HTMLElement) {
 }
 
 beforeEach(() => {
-  dbMocks.getPublishedQuizzes.mockReset();
+  dbMocks.getCatalogCards.mockReset();
   // El mock respeta el `locale` que recibe, como hace la capa real: así un
   // índice que mezcle idiomas queda detectado por los tests.
-  dbMocks.getPublishedQuizzes.mockImplementation((_limit: number, locale?: string) =>
+  dbMocks.getCatalogCards.mockImplementation((locale: string) =>
     Promise.resolve(DB.filter((quiz) => quiz.language === locale))
   );
 });
@@ -148,7 +120,7 @@ describe('CatalogIndexPage · render', () => {
     }
     // El quiz en inglés del origen no se cuela en el índice en español.
     expect(screen.queryByRole('link', { name: EN_QUIZ.title })).not.toBeInTheDocument();
-    expect(dbMocks.getPublishedQuizzes).toHaveBeenCalledWith(expect.any(Number), 'es');
+    expect(dbMocks.getCatalogCards).toHaveBeenCalledWith('es');
   });
 
   it('emite JSON-LD con WebPage, BreadcrumbList e ItemList de hubs', async () => {
