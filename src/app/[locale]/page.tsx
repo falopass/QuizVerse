@@ -12,6 +12,7 @@ import { homeOgImage } from '@/lib/seo/site';
 import { buildGraph, categoryPath, itemListNode, webPageNode } from '@/lib/seo/structured-data';
 import { CategoryStrip } from '@/components/home/category-strip';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { RecentlyPlayed } from '@/components/home/recently-played';
 import { JsonLd } from '@/components/seo/json-ld';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 
@@ -158,6 +159,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </Link>
         </section>
       ) : null}
+      <RecentlyPlayed locale={locale} />
       <section id="games" className="arcade-games">
         <div className="arcade-section-head">
           <h2>{dictionary.arcade.chooseGame}</h2>

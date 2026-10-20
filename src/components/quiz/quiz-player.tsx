@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { submitQuizResult } from '@/actions/quiz.actions';
+import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
 import type { PersonalityResult, Quiz } from '@/types/quiz';
@@ -14,7 +15,11 @@ import { QuizProgress } from './quiz-progress';
 import { ResultScreen } from './result-screen';
 import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import { getLocalizedLanguageLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
+import {
+  getLocalizedLanguageLabel,
+  getLocalizedTypeLabel,
+  localizeCategory,
+} from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
 import { achievementToastMessage } from '@/lib/quiz/achievement-toast';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
@@ -255,6 +260,24 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             score: result.score ?? 0,
             maxScore: result.max_score ?? quiz.questions.length,
           });
+          if (quiz.quiz_type === 'trivia' || quiz.quiz_type === 'personality') {
+            recordRecent({
+              slug: quiz.slug,
+              title: quiz.title,
+              quizType: quiz.quiz_type,
+              locale: uiLocale,
+              categoryName: quiz.category
+                ? (localizeCategory(quiz.category, uiLocale)?.name ?? quiz.category.name)
+                : null,
+              coverImageUrl: quiz.cover_image_url,
+              minutes: quiz.estimated_minutes,
+              score:
+                quiz.quiz_type === 'trivia'
+                  ? `${result.score ?? 0}/${result.max_score ?? quiz.questions.length}`
+                  : (result.result?.title ?? null),
+              playedAt: new Date().toISOString(),
+            });
+          }
           void trackEvent({
             name: 'quiz_complete',
             locale: uiLocale,
@@ -281,10 +304,14 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     answers,
     isCompleted,
     isSubmittingResult,
+    quiz.category,
+    quiz.cover_image_url,
+    quiz.estimated_minutes,
     quiz.id,
     quiz.questions.length,
     quiz.quiz_type,
     quiz.slug,
+    quiz.title,
     toastSuccess,
     uiLocale,
   ]);
