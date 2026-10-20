@@ -1,0 +1,1075 @@
+{
+  "$comment": "Editorial seed 2026cf: five es/en trivia pairs on universal literature (Shakespeare, Don Quixote, One Hundred Years of Solitude, The Little Prince, dystopian novels). Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-shakespeare-trivia",
+      "title": "Shakespeare Trivia: Hamlet, Macbeth and the Globe",
+      "description": "Eight questions on the Bard of Avon: his great tragedies, the sonnets, the Globe Theatre and the Elizabethan stage.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "trivia", "shakespeare", "theatre", "classics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Where was William Shakespeare born in 1564?",
+          "options": [
+            { "id": "a", "text": "Stratford-upon-Avon", "is_correct": true },
+            { "id": "b", "text": "London", "is_correct": false },
+            { "id": "c", "text": "Oxford", "is_correct": false },
+            { "id": "d", "text": "Edinburgh", "is_correct": false }
+          ],
+          "explanation": "Shakespeare was born and raised in Stratford-upon-Avon, in Warwickshire, and later retired there."
+        },
+        {
+          "id": "q2",
+          "question": "Which acting company did Shakespeare write for during most of his career?",
+          "options": [
+            { "id": "a", "text": "The Admiral's Men", "is_correct": false },
+            { "id": "b", "text": "The Queen's Men", "is_correct": false },
+            { "id": "c", "text": "The Lord Chamberlain's Men", "is_correct": true },
+            { "id": "d", "text": "The Children of the Chapel", "is_correct": false }
+          ],
+          "explanation": "The company was renamed the King's Men when James I took the throne in 1603."
+        },
+        {
+          "id": "q3",
+          "question": "Which open-air theatre on London's South Bank, opened in 1599, premiered many of his plays?",
+          "options": [
+            { "id": "a", "text": "The Rose", "is_correct": false },
+            { "id": "b", "text": "The Globe", "is_correct": true },
+            { "id": "c", "text": "The Swan", "is_correct": false },
+            { "id": "d", "text": "The Curtain", "is_correct": false }
+          ],
+          "explanation": "The Globe was built in 1599 using timber from another playhouse called The Theatre."
+        },
+        {
+          "id": "q4",
+          "question": "In which Italian city is Romeo and Juliet set?",
+          "options": [
+            { "id": "a", "text": "Venice", "is_correct": false },
+            { "id": "b", "text": "Florence", "is_correct": false },
+            { "id": "c", "text": "Rome", "is_correct": false },
+            { "id": "d", "text": "Verona", "is_correct": true }
+          ],
+          "explanation": "The 'star-crossed lovers' belong to two feuding Verona families, the Montagues and the Capulets."
+        },
+        {
+          "id": "q5",
+          "question": "Which play opens with sentries on the battlements of Elsinore and a ghost demanding revenge?",
+          "options": [
+            { "id": "a", "text": "Hamlet", "is_correct": true },
+            { "id": "b", "text": "Macbeth", "is_correct": false },
+            { "id": "c", "text": "Othello", "is_correct": false },
+            { "id": "d", "text": "King Lear", "is_correct": false }
+          ],
+          "explanation": "The ghost of Hamlet's father asks the prince of Denmark to avenge his murder."
+        },
+        {
+          "id": "q6",
+          "question": "In Macbeth, what do the three witches prophesy to Macbeth?",
+          "options": [
+            { "id": "a", "text": "That he will live forever", "is_correct": false },
+            { "id": "b", "text": "That he will conquer England", "is_correct": false },
+            { "id": "c", "text": "That he will become king of Scotland", "is_correct": true },
+            { "id": "d", "text": "That he will have a hundred children", "is_correct": false }
+          ],
+          "explanation": "The prophecy pushes Macbeth and Lady Macbeth to murder King Duncan."
+        },
+        {
+          "id": "q7",
+          "question": "Which play, written around 1603-1604, shows the villain Iago manipulating a Moorish general?",
+          "options": [
+            { "id": "a", "text": "Julius Caesar", "is_correct": false },
+            { "id": "b", "text": "Coriolanus", "is_correct": false },
+            { "id": "c", "text": "Timon of Athens", "is_correct": false },
+            { "id": "d", "text": "Othello", "is_correct": true }
+          ],
+          "explanation": "Iago convinces Othello that his wife Desdemona is unfaithful, driving him to kill her."
+        },
+        {
+          "id": "q8",
+          "question": "How many sonnets did the collection Shakespeare published in 1609 contain?",
+          "options": [
+            { "id": "a", "text": "100", "is_correct": false },
+            { "id": "b", "text": "154", "is_correct": true },
+            { "id": "c", "text": "88", "is_correct": false },
+            { "id": "d", "text": "365", "is_correct": false }
+          ],
+          "explanation": "The 1609 quarto holds 154 sonnets, many addressed to a 'fair youth' and a 'dark lady'."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-shakespeare",
+      "title": "Trivia de Shakespeare: Hamlet, Macbeth y el Globe",
+      "description": "Ocho preguntas sobre el Bardo de Avon: sus grandes tragedias, los sonetos, el teatro Globe y la escena isabelina.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "trivia", "shakespeare", "teatro", "clásicos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Dónde nació William Shakespeare en 1564?",
+          "options": [
+            { "id": "a", "text": "Stratford-upon-Avon", "is_correct": true },
+            { "id": "b", "text": "Londres", "is_correct": false },
+            { "id": "c", "text": "Oxford", "is_correct": false },
+            { "id": "d", "text": "Edimburgo", "is_correct": false }
+          ],
+          "explanation": "Shakespeare nació y creció en Stratford-upon-Avon, en Warwickshire, y allí se retiró al final de su vida."
+        },
+        {
+          "id": "q2",
+          "question": "¿Para qué compañía de actores escribió Shakespeare durante la mayor parte de su carrera?",
+          "options": [
+            { "id": "a", "text": "Admiral's Men", "is_correct": false },
+            { "id": "b", "text": "Queen's Men", "is_correct": false },
+            { "id": "c", "text": "Lord Chamberlain's Men", "is_correct": true },
+            { "id": "d", "text": "Children of the Chapel", "is_correct": false }
+          ],
+          "explanation": "La compañía pasó a llamarse King's Men cuando Jacobo I subió al trono en 1603."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué teatro al aire libre de la orilla sur del Támesis, inaugurado en 1599, estrenó muchas de sus obras?",
+          "options": [
+            { "id": "a", "text": "El Rose", "is_correct": false },
+            { "id": "b", "text": "El Globe", "is_correct": true },
+            { "id": "c", "text": "El Swan", "is_correct": false },
+            { "id": "d", "text": "El Curtain", "is_correct": false }
+          ],
+          "explanation": "El Globe se levantó en 1599 con la madera de otro teatro llamado The Theatre."
+        },
+        {
+          "id": "q4",
+          "question": "¿En qué ciudad italiana transcurre Romeo y Julieta?",
+          "options": [
+            { "id": "a", "text": "Venecia", "is_correct": false },
+            { "id": "b", "text": "Florencia", "is_correct": false },
+            { "id": "c", "text": "Roma", "is_correct": false },
+            { "id": "d", "text": "Verona", "is_correct": true }
+          ],
+          "explanation": "Los «amantes desventurados» pertenecen a dos familias enfrentadas de Verona, los Montesco y los Capuleto."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué obra comienza con centinelas en las almenas de Elsinor y un fantasma que exige venganza?",
+          "options": [
+            { "id": "a", "text": "Hamlet", "is_correct": true },
+            { "id": "b", "text": "Macbeth", "is_correct": false },
+            { "id": "c", "text": "Otelo", "is_correct": false },
+            { "id": "d", "text": "El rey Lear", "is_correct": false }
+          ],
+          "explanation": "El fantasma del padre de Hamlet pide al príncipe de Dinamarca que vengue su asesinato."
+        },
+        {
+          "id": "q6",
+          "question": "En Macbeth, ¿qué profetizan las tres brujas a Macbeth?",
+          "options": [
+            { "id": "a", "text": "Que será inmortal", "is_correct": false },
+            { "id": "b", "text": "Que conquistará Inglaterra", "is_correct": false },
+            { "id": "c", "text": "Que llegará a ser rey de Escocia", "is_correct": true },
+            { "id": "d", "text": "Que tendrá cien hijos", "is_correct": false }
+          ],
+          "explanation": "La profecía empuja a Macbeth y a Lady Macbeth a asesinar al rey Duncan."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué obra, escrita hacia 1603-1604, muestra al villano Yago manipulando a un general moro?",
+          "options": [
+            { "id": "a", "text": "Julio César", "is_correct": false },
+            { "id": "b", "text": "Coriolano", "is_correct": false },
+            { "id": "c", "text": "Timón de Atenas", "is_correct": false },
+            { "id": "d", "text": "Otelo", "is_correct": true }
+          ],
+          "explanation": "Yago convence a Otelo de que su esposa Desdémona le es infiel, hasta llevarlo a asesinarla."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuántos sonetos reunía la colección que Shakespeare publicó en 1609?",
+          "options": [
+            { "id": "a", "text": "100", "is_correct": false },
+            { "id": "b", "text": "154", "is_correct": true },
+            { "id": "c", "text": "88", "is_correct": false },
+            { "id": "d", "text": "365", "is_correct": false }
+          ],
+          "explanation": "El volumen de 1609 contiene 154 sonetos, muchos dedicados a un «joven hermoso» y a una «dama morena»."
+        }
+      ]
+    },
+    {
+      "slug": "en-don-quixote-trivia",
+      "title": "Don Quixote Trivia: The Knight of La Mancha",
+      "description": "Eight questions on Cervantes' masterpiece: windmills, Sancho Panza, Dulcinea and the two parts that invented the modern novel.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "trivia", "don quixote", "cervantes", "classics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote Don Quixote, often called the first modern novel?",
+          "options": [
+            { "id": "a", "text": "Lope de Vega", "is_correct": false },
+            { "id": "b", "text": "Miguel de Cervantes Saavedra", "is_correct": true },
+            { "id": "c", "text": "Garcilaso de la Vega", "is_correct": false },
+            { "id": "d", "text": "Francisco de Quevedo", "is_correct": false }
+          ],
+          "explanation": "Cervantes published the first part at age 58, after a life as a soldier and civil servant."
+        },
+        {
+          "id": "q2",
+          "question": "In which years were the two parts of Don Quixote published?",
+          "options": [
+            { "id": "a", "text": "1505 and 1515", "is_correct": false },
+            { "id": "b", "text": "1605 and 1625", "is_correct": false },
+            { "id": "c", "text": "1605 and 1615", "is_correct": true },
+            { "id": "d", "text": "1595 and 1605", "is_correct": false }
+          ],
+          "explanation": "The second part came out in 1615, a year after a spurious sequel signed 'Avellaneda'."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of Don Quixote's skinny horse?",
+          "options": [
+            { "id": "a", "text": "Babieca", "is_correct": false },
+            { "id": "b", "text": "Clavileño", "is_correct": false },
+            { "id": "c", "text": "Rucio", "is_correct": false },
+            { "id": "d", "text": "Rocinante", "is_correct": true }
+          ],
+          "explanation": "He names his old nag Rocinante, from 'rocín' (workhorse); Babieca was El Cid's horse and Clavileño a wooden one."
+        },
+        {
+          "id": "q4",
+          "question": "Who is the stout farmer who becomes Don Quixote's squire?",
+          "options": [
+            { "id": "a", "text": "Sancho Panza", "is_correct": true },
+            { "id": "b", "text": "Pedro Páramo", "is_correct": false },
+            { "id": "c", "text": "Juan Palomo", "is_correct": false },
+            { "id": "d", "text": "Sansón Carrasco", "is_correct": false }
+          ],
+          "explanation": "Sancho follows him on his donkey, lured by the promise of governing an island."
+        },
+        {
+          "id": "q5",
+          "question": "What does Don Quixote famously charge at, believing they are giants?",
+          "options": [
+            { "id": "a", "text": "Flocks of sheep", "is_correct": false },
+            { "id": "b", "text": "Windmills", "is_correct": true },
+            { "id": "c", "text": "Watermills", "is_correct": false },
+            { "id": "d", "text": "Inn towers", "is_correct": false }
+          ],
+          "explanation": "He tilts at windmills with his lance and the sails knock him to the ground."
+        },
+        {
+          "id": "q6",
+          "question": "Who is the real woman behind the lady Don Quixote calls Dulcinea del Toboso?",
+          "options": [
+            { "id": "a", "text": "His daughter Maritornes", "is_correct": false },
+            { "id": "b", "text": "Princess Micomicona", "is_correct": false },
+            { "id": "c", "text": "A peasant named Aldonza Lorenzo", "is_correct": true },
+            { "id": "d", "text": "The duchess herself", "is_correct": false }
+          ],
+          "explanation": "Aldonza Lorenzo, a farm girl from El Toboso, never learns she has been turned into a lady."
+        },
+        {
+          "id": "q7",
+          "question": "From which Spanish region does Don Quixote set out, as his full title announces?",
+          "options": [
+            { "id": "a", "text": "Andalusia", "is_correct": false },
+            { "id": "b", "text": "Castile", "is_correct": false },
+            { "id": "c", "text": "Aragon", "is_correct": false },
+            { "id": "d", "text": "La Mancha", "is_correct": true }
+          ],
+          "explanation": "The full title is 'The Ingenious Gentleman Don Quixote of La Mancha'."
+        },
+        {
+          "id": "q8",
+          "question": "What unusual narrative device appears in Part Two (1615)?",
+          "options": [
+            { "id": "a", "text": "The narrator switches to first person", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Characters recognize Don Quixote because they have read Part One",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The story starts over from the beginning", "is_correct": false },
+            { "id": "d", "text": "Sancho writes his own memoirs", "is_correct": false }
+          ],
+          "explanation": "Cervantes makes the novel self-aware: Part One exists inside Part Two, which even mentions the fake sequel."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-don-quijote",
+      "title": "Trivia de Don Quijote: el caballero de la Mancha",
+      "description": "Ocho preguntas sobre la obra maestra de Cervantes: molinos, Sancho Panza, Dulcinea y las dos partes que inventaron la novela moderna.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "trivia", "don quijote", "cervantes", "clásicos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién escribió el Quijote, considerado a menudo la primera novela moderna?",
+          "options": [
+            { "id": "a", "text": "Lope de Vega", "is_correct": false },
+            { "id": "b", "text": "Miguel de Cervantes Saavedra", "is_correct": true },
+            { "id": "c", "text": "Garcilaso de la Vega", "is_correct": false },
+            { "id": "d", "text": "Francisco de Quevedo", "is_correct": false }
+          ],
+          "explanation": "Cervantes publicó la primera parte a los 58 años, tras una vida de soldado y funcionario."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué años se publicaron las dos partes del Quijote?",
+          "options": [
+            { "id": "a", "text": "1505 y 1515", "is_correct": false },
+            { "id": "b", "text": "1605 y 1625", "is_correct": false },
+            { "id": "c", "text": "1605 y 1615", "is_correct": true },
+            { "id": "d", "text": "1595 y 1605", "is_correct": false }
+          ],
+          "explanation": "La segunda parte salió en 1615, un año después de una continuación apócrifa firmada por «Avellaneda»."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el flaco caballo de Don Quijote?",
+          "options": [
+            { "id": "a", "text": "Babieca", "is_correct": false },
+            { "id": "b", "text": "Clavileño", "is_correct": false },
+            { "id": "c", "text": "Rucio", "is_correct": false },
+            { "id": "d", "text": "Rocinante", "is_correct": true }
+          ],
+          "explanation": "Le pone de nombre Rocinante, por «rocín»; Babieca era el caballo del Cid y Clavileño uno de madera."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién es el labrador panzudo que se convierte en escudero de Don Quijote?",
+          "options": [
+            { "id": "a", "text": "Sancho Panza", "is_correct": true },
+            { "id": "b", "text": "Pedro Páramo", "is_correct": false },
+            { "id": "c", "text": "Juan Palomo", "is_correct": false },
+            { "id": "d", "text": "Sansón Carrasco", "is_correct": false }
+          ],
+          "explanation": "Sancho lo sigue a lomos de su rucio, tentado por la promesa de gobernar una ínsula."
+        },
+        {
+          "id": "q5",
+          "question": "¿Contra qué embiste Don Quijote creyendo que son gigantes?",
+          "options": [
+            { "id": "a", "text": "Los rebaños de ovejas", "is_correct": false },
+            { "id": "b", "text": "Los molinos de viento", "is_correct": true },
+            { "id": "c", "text": "Los molinos de agua", "is_correct": false },
+            { "id": "d", "text": "Las torres de las ventas", "is_correct": false }
+          ],
+          "explanation": "Arremete con la lanza contra los molinos de viento y las aspas lo derriban."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién es la mujer real detrás de la dama que Don Quijote llama Dulcinea del Toboso?",
+          "options": [
+            { "id": "a", "text": "Su hija Maritornes", "is_correct": false },
+            { "id": "b", "text": "La princesa Micomicona", "is_correct": false },
+            { "id": "c", "text": "Una aldeana llamada Aldonza Lorenzo", "is_correct": true },
+            { "id": "d", "text": "La duquesa", "is_correct": false }
+          ],
+          "explanation": "Aldonza Lorenzo, una moza labradora de El Toboso, ni siquiera sabe que la han convertido en dama."
+        },
+        {
+          "id": "q7",
+          "question": "¿De qué región española sale Don Quijote, como anuncia el título completo?",
+          "options": [
+            { "id": "a", "text": "Andalucía", "is_correct": false },
+            { "id": "b", "text": "Castilla", "is_correct": false },
+            { "id": "c", "text": "Aragón", "is_correct": false },
+            { "id": "d", "text": "La Mancha", "is_correct": true }
+          ],
+          "explanation": "El título completo es «El ingenioso hidalgo don Quijote de la Mancha»."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué recurso narrativo insólito aparece en la segunda parte (1615)?",
+          "options": [
+            { "id": "a", "text": "El narrador pasa a primera persona", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Los personajes reconocen a Don Quijote porque han leído la primera parte",
+              "is_correct": true
+            },
+            { "id": "c", "text": "La historia vuelve a empezar desde cero", "is_correct": false },
+            { "id": "d", "text": "Sancho escribe sus propias memorias", "is_correct": false }
+          ],
+          "explanation": "Cervantes vuelve consciente a la novela: la primera parte existe dentro de la segunda, que hasta menciona la continuación apócrifa."
+        }
+      ]
+    },
+    {
+      "slug": "en-one-hundred-years-of-solitude-trivia",
+      "title": "One Hundred Years of Solitude Trivia: Macondo and the Buendías",
+      "description": "Eight questions on García Márquez's masterpiece: seven generations of Buendías, magical realism and the town of Macondo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "trivia", "garcia marquez", "magical realism", "classics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote One Hundred Years of Solitude?",
+          "options": [
+            { "id": "a", "text": "Mario Vargas Llosa", "is_correct": false },
+            { "id": "b", "text": "Julio Cortázar", "is_correct": false },
+            { "id": "c", "text": "Gabriel García Márquez", "is_correct": true },
+            { "id": "d", "text": "Jorge Luis Borges", "is_correct": false }
+          ],
+          "explanation": "García Márquez wrote it in Mexico City, and it appeared in Buenos Aires in 1967."
+        },
+        {
+          "id": "q2",
+          "question": "In what year was the novel first published?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1977", "is_correct": false },
+            { "id": "c", "text": "1982", "is_correct": false },
+            { "id": "d", "text": "1967", "is_correct": true }
+          ],
+          "explanation": "Editorial Sudamericana of Buenos Aires released it in June 1967."
+        },
+        {
+          "id": "q3",
+          "question": "What is the name of the fictional town founded by José Arcadio Buendía?",
+          "options": [
+            { "id": "a", "text": "Macondo", "is_correct": true },
+            { "id": "b", "text": "Comala", "is_correct": false },
+            { "id": "c", "text": "Aracataca", "is_correct": false },
+            { "id": "d", "text": "Santa Marta", "is_correct": false }
+          ],
+          "explanation": "Macondo was inspired by Aracataca, García Márquez's hometown in Colombia; Comala belongs to Rulfo's Pedro Páramo."
+        },
+        {
+          "id": "q4",
+          "question": "How many generations of the Buendía family does the novel span?",
+          "options": [
+            { "id": "a", "text": "Three", "is_correct": false },
+            { "id": "b", "text": "Five", "is_correct": false },
+            { "id": "c", "text": "Seven", "is_correct": true },
+            { "id": "d", "text": "Ten", "is_correct": false }
+          ],
+          "explanation": "The saga covers seven generations, from founder José Arcadio to the last Aureliano."
+        },
+        {
+          "id": "q5",
+          "question": "What does Colonel Aureliano Buendía remember while facing the firing squad in the famous opening line?",
+          "options": [
+            { "id": "a", "text": "The day the rain began", "is_correct": false },
+            {
+              "id": "b",
+              "text": "The afternoon his father took him to discover ice",
+              "is_correct": true
+            },
+            { "id": "c", "text": "The gypsies' last visit", "is_correct": false },
+            { "id": "d", "text": "His wedding to Remedios", "is_correct": false }
+          ],
+          "explanation": "The novel opens with the firing squad and the memory of ice, when 'the world was so recent that many things lacked names'."
+        },
+        {
+          "id": "q6",
+          "question": "Which literary movement does the novel's blend of the marvellous and the everyday exemplify?",
+          "options": [
+            { "id": "a", "text": "Surrealism", "is_correct": false },
+            { "id": "b", "text": "Naturalism", "is_correct": false },
+            { "id": "c", "text": "Romanticism", "is_correct": false },
+            { "id": "d", "text": "Magical realism", "is_correct": true }
+          ],
+          "explanation": "Ascensions to heaven and insomnia plagues told as routine made it the flagship of magical realism."
+        },
+        {
+          "id": "q7",
+          "question": "What happens to Macondo's people during the insomnia plague?",
+          "options": [
+            {
+              "id": "a",
+              "text": "They lose their memory and must label objects",
+              "is_correct": true
+            },
+            { "id": "b", "text": "They sleep for a hundred years", "is_correct": false },
+            { "id": "c", "text": "They turn invisible", "is_correct": false },
+            { "id": "d", "text": "They stop aging", "is_correct": false }
+          ],
+          "explanation": "To fight the amnesia they label everything, ending with a sign that reads 'God exists'."
+        },
+        {
+          "id": "q8",
+          "question": "Which prize did García Márquez receive in 1982, fifteen years after the novel?",
+          "options": [
+            { "id": "a", "text": "The Pulitzer Prize", "is_correct": false },
+            { "id": "b", "text": "The Nobel Prize in Literature", "is_correct": true },
+            { "id": "c", "text": "The Cervantes Prize", "is_correct": false },
+            { "id": "d", "text": "The Booker Prize", "is_correct": false }
+          ],
+          "explanation": "The Swedish Academy awarded him the Nobel, with One Hundred Years of Solitude as his central work."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cien-anos-de-soledad",
+      "title": "Trivia de Cien años de soledad: Macondo y los Buendía",
+      "description": "Ocho preguntas sobre la obra maestra de García Márquez: siete generaciones de Buendía, realismo mágico y el pueblo de Macondo.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "trivia", "garcía márquez", "realismo mágico", "clásicos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién escribió Cien años de soledad?",
+          "options": [
+            { "id": "a", "text": "Mario Vargas Llosa", "is_correct": false },
+            { "id": "b", "text": "Julio Cortázar", "is_correct": false },
+            { "id": "c", "text": "Gabriel García Márquez", "is_correct": true },
+            { "id": "d", "text": "Jorge Luis Borges", "is_correct": false }
+          ],
+          "explanation": "García Márquez la escribió en Ciudad de México y se publicó en Buenos Aires en 1967."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año se publicó por primera vez la novela?",
+          "options": [
+            { "id": "a", "text": "1957", "is_correct": false },
+            { "id": "b", "text": "1977", "is_correct": false },
+            { "id": "c", "text": "1982", "is_correct": false },
+            { "id": "d", "text": "1967", "is_correct": true }
+          ],
+          "explanation": "La Editorial Sudamericana de Buenos Aires la lanzó en junio de 1967."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo se llama el pueblo ficticio fundado por José Arcadio Buendía?",
+          "options": [
+            { "id": "a", "text": "Macondo", "is_correct": true },
+            { "id": "b", "text": "Comala", "is_correct": false },
+            { "id": "c", "text": "Aracataca", "is_correct": false },
+            { "id": "d", "text": "Santa Marta", "is_correct": false }
+          ],
+          "explanation": "Macondo está inspirado en Aracataca, el pueblo natal de García Márquez en Colombia; Comala pertenece a Pedro Páramo, de Rulfo."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuántas generaciones de la familia Buendía recorre la novela?",
+          "options": [
+            { "id": "a", "text": "Tres", "is_correct": false },
+            { "id": "b", "text": "Cinco", "is_correct": false },
+            { "id": "c", "text": "Siete", "is_correct": true },
+            { "id": "d", "text": "Diez", "is_correct": false }
+          ],
+          "explanation": "La saga abarca siete generaciones, desde el fundador José Arcadio hasta el último Aureliano."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué recuerda el coronel Aureliano Buendía frente al pelotón de fusilamiento en la primera línea de la novela?",
+          "options": [
+            { "id": "a", "text": "El día en que empezó la lluvia", "is_correct": false },
+            {
+              "id": "b",
+              "text": "La tarde en que su padre lo llevó a conocer el hielo",
+              "is_correct": true
+            },
+            { "id": "c", "text": "La última visita de los gitanos", "is_correct": false },
+            { "id": "d", "text": "Su boda con Remedios", "is_correct": false }
+          ],
+          "explanation": "La novela abre con el pelotón y el recuerdo del hielo, cuando «el mundo era tan reciente que muchas cosas carecían de nombre»."
+        },
+        {
+          "id": "q6",
+          "question": "¿De qué movimiento literario es emblema la mezcla de lo maravilloso y lo cotidiano de la novela?",
+          "options": [
+            { "id": "a", "text": "El surrealismo", "is_correct": false },
+            { "id": "b", "text": "El naturalismo", "is_correct": false },
+            { "id": "c", "text": "El romanticismo", "is_correct": false },
+            { "id": "d", "text": "El realismo mágico", "is_correct": true }
+          ],
+          "explanation": "Ascensiones al cielo y plagas de insomnio contadas como rutina la convirtieron en buque insignia del realismo mágico."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué les ocurre a los habitantes de Macondo durante la plaga del insomnio?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pierden la memoria y deben rotular los objetos",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Duermen durante cien años", "is_correct": false },
+            { "id": "c", "text": "Se vuelven invisibles", "is_correct": false },
+            { "id": "d", "text": "Dejan de envejecer", "is_correct": false }
+          ],
+          "explanation": "Para combatir el olvido lo rotulan todo, hasta un cartel que dice: «Dios existe»."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué premio recibió García Márquez en 1982, quince años después de la novela?",
+          "options": [
+            { "id": "a", "text": "El Premio Pulitzer", "is_correct": false },
+            { "id": "b", "text": "El Premio Nobel de Literatura", "is_correct": true },
+            { "id": "c", "text": "El Premio Cervantes", "is_correct": false },
+            { "id": "d", "text": "El Premio Booker", "is_correct": false }
+          ],
+          "explanation": "La Academia Sueca le otorgó el Nobel, con Cien años de soledad como obra central del fallo."
+        }
+      ]
+    },
+    {
+      "slug": "en-the-little-prince-trivia",
+      "title": "The Little Prince Trivia: B-612, the Rose and the Fox",
+      "description": "Eight questions on Saint-Exupéry's fable: asteroid B-612, the rose, the fox's secret and the aviator stranded in the desert.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "trivia", "the little prince", "french literature", "classics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote The Little Prince?",
+          "options": [
+            { "id": "a", "text": "Marcel Proust", "is_correct": false },
+            { "id": "b", "text": "Victor Hugo", "is_correct": false },
+            { "id": "c", "text": "Jean-Paul Sartre", "is_correct": false },
+            { "id": "d", "text": "Antoine de Saint-Exupéry", "is_correct": true }
+          ],
+          "explanation": "Saint-Exupéry was a pioneer aviator; the book grew out of his years flying over the desert."
+        },
+        {
+          "id": "q2",
+          "question": "Where and when was The Little Prince first published?",
+          "options": [
+            { "id": "a", "text": "Paris, 1943", "is_correct": false },
+            { "id": "b", "text": "New York, 1943", "is_correct": true },
+            { "id": "c", "text": "London, 1944", "is_correct": false },
+            { "id": "d", "text": "Buenos Aires, 1945", "is_correct": false }
+          ],
+          "explanation": "It appeared in New York while France was occupied; the French edition came after liberation, in 1946."
+        },
+        {
+          "id": "q3",
+          "question": "On which asteroid does the little prince live?",
+          "options": [
+            { "id": "a", "text": "B-612", "is_correct": true },
+            { "id": "b", "text": "A-113", "is_correct": false },
+            { "id": "c", "text": "C-418", "is_correct": false },
+            { "id": "d", "text": "X-9", "is_correct": false }
+          ],
+          "explanation": "B-612 is scarcely larger than a house, with three volcanoes and a single rose."
+        },
+        {
+          "id": "q4",
+          "question": "Which flower does the little prince love and long to protect back on his planet?",
+          "options": [
+            { "id": "a", "text": "A lily", "is_correct": false },
+            { "id": "b", "text": "A sunflower", "is_correct": false },
+            { "id": "c", "text": "A rose", "is_correct": true },
+            { "id": "d", "text": "A tulip", "is_correct": false }
+          ],
+          "explanation": "His rose is vain and fragile, with four thorns — and unique to him because of the time he gave her."
+        },
+        {
+          "id": "q5",
+          "question": "What secret does the fox reveal to the little prince?",
+          "options": [
+            { "id": "a", "text": "What is essential is invisible to the eye", "is_correct": true },
+            { "id": "b", "text": "Stars exist to be counted", "is_correct": false },
+            { "id": "c", "text": "The desert is the end of the world", "is_correct": false },
+            { "id": "d", "text": "Kings rule over everything", "is_correct": false }
+          ],
+          "explanation": "The full line: 'It is only with the heart that one can see rightly; what is essential is invisible to the eye.'"
+        },
+        {
+          "id": "q6",
+          "question": "Why does the little prince pull up baobab sprouts every morning?",
+          "options": [
+            { "id": "a", "text": "They scare away the birds", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Left alone, they would split his tiny planet apart",
+              "is_correct": true
+            },
+            { "id": "c", "text": "They poison the well water", "is_correct": false },
+            { "id": "d", "text": "They attract the snake", "is_correct": false }
+          ],
+          "explanation": "Baobabs grow until they crack the asteroid open — the book's warning against neglected problems."
+        },
+        {
+          "id": "q7",
+          "question": "Who narrates the story?",
+          "options": [
+            { "id": "a", "text": "A lighthouse keeper", "is_correct": false },
+            { "id": "b", "text": "The geographer of the sixth planet", "is_correct": false },
+            { "id": "c", "text": "The Turkish astronomer", "is_correct": false },
+            { "id": "d", "text": "An aviator stranded in the Sahara", "is_correct": true }
+          ],
+          "explanation": "The pilot, crash-landed in the desert, meets the little prince while repairing his engine."
+        },
+        {
+          "id": "q8",
+          "question": "How does the little prince try to return to his planet at the end?",
+          "options": [
+            {
+              "id": "a",
+              "text": "He lets the snake bite him, leaving his body behind",
+              "is_correct": true
+            },
+            { "id": "b", "text": "The fox flies him back", "is_correct": false },
+            { "id": "c", "text": "The pilot takes him in his plane", "is_correct": false },
+            { "id": "d", "text": "A flock of birds carries him", "is_correct": false }
+          ],
+          "explanation": "The ending stays deliberately open: his body vanishes and the narrator asks us to listen to the laughing stars."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-el-principito",
+      "title": "Trivia de El principito: el B-612, la rosa y el zorro",
+      "description": "Ocho preguntas sobre la fábula de Saint-Exupéry: el asteroide B-612, la rosa, el secreto del zorro y el aviador varado.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "trivia", "el principito", "literatura francesa", "clásicos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién escribió El principito?",
+          "options": [
+            { "id": "a", "text": "Marcel Proust", "is_correct": false },
+            { "id": "b", "text": "Victor Hugo", "is_correct": false },
+            { "id": "c", "text": "Jean-Paul Sartre", "is_correct": false },
+            { "id": "d", "text": "Antoine de Saint-Exupéry", "is_correct": true }
+          ],
+          "explanation": "Saint-Exupéry fue aviador pionero; el libro nació de sus años volando sobre el desierto."
+        },
+        {
+          "id": "q2",
+          "question": "¿Dónde y cuándo se publicó por primera vez El principito?",
+          "options": [
+            { "id": "a", "text": "París, 1943", "is_correct": false },
+            { "id": "b", "text": "Nueva York, 1943", "is_correct": true },
+            { "id": "c", "text": "Londres, 1944", "is_correct": false },
+            { "id": "d", "text": "Buenos Aires, 1945", "is_correct": false }
+          ],
+          "explanation": "Apareció en Nueva York con Francia ocupada; la edición francesa llegó tras la liberación, en 1946."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué asteroide vive el principito?",
+          "options": [
+            { "id": "a", "text": "B-612", "is_correct": true },
+            { "id": "b", "text": "A-113", "is_correct": false },
+            { "id": "c", "text": "C-418", "is_correct": false },
+            { "id": "d", "text": "X-9", "is_correct": false }
+          ],
+          "explanation": "El B-612 es apenas más grande que una casa, con tres volcanes y una sola rosa."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué flor ama el principito y desea proteger en su planeta?",
+          "options": [
+            { "id": "a", "text": "Un lirio", "is_correct": false },
+            { "id": "b", "text": "Un girasol", "is_correct": false },
+            { "id": "c", "text": "Una rosa", "is_correct": true },
+            { "id": "d", "text": "Un tulipán", "is_correct": false }
+          ],
+          "explanation": "Su rosa es vanidosa y frágil, con cuatro espinas, y única para él por el tiempo que le dedicó."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué secreto le revela el zorro al principito?",
+          "options": [
+            { "id": "a", "text": "Lo esencial es invisible a los ojos", "is_correct": true },
+            { "id": "b", "text": "Las estrellas existen para contarlas", "is_correct": false },
+            { "id": "c", "text": "El desierto es el fin del mundo", "is_correct": false },
+            { "id": "d", "text": "Los reyes gobiernan sobre todo", "is_correct": false }
+          ],
+          "explanation": "La frase completa: «Solo se ve bien con el corazón; lo esencial es invisible a los ojos»."
+        },
+        {
+          "id": "q6",
+          "question": "¿Por qué el principito arranca cada mañana los brotes de baobab?",
+          "options": [
+            { "id": "a", "text": "Ahuyentan a los pájaros", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Si los deja, llegan a partir su pequeño planeta",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Envenenan el agua del pozo", "is_correct": false },
+            { "id": "d", "text": "Atraen a la serpiente", "is_correct": false }
+          ],
+          "explanation": "Los baobabs crecen hasta rajar el asteroide: la advertencia del libro contra los problemas descuidados."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién narra la historia?",
+          "options": [
+            { "id": "a", "text": "Un farero", "is_correct": false },
+            { "id": "b", "text": "El geógrafo del sexto planeta", "is_correct": false },
+            { "id": "c", "text": "El astrónomo turco", "is_correct": false },
+            { "id": "d", "text": "Un aviador varado en el Sáhara", "is_correct": true }
+          ],
+          "explanation": "El piloto, accidentado en el desierto, conoce al principito mientras repara su motor."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cómo intenta el principito volver a su planeta al final?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Deja que la serpiente lo muerda y abandona su cuerpo",
+              "is_correct": true
+            },
+            { "id": "b", "text": "El zorro lo lleva volando", "is_correct": false },
+            { "id": "c", "text": "El piloto lo lleva en su avión", "is_correct": false },
+            { "id": "d", "text": "Una bandada de pájaros lo transporta", "is_correct": false }
+          ],
+          "explanation": "El final queda deliberadamente abierto: su cuerpo desaparece y el narrador pide escuchar las estrellas que ríen."
+        }
+      ]
+    },
+    {
+      "slug": "en-dystopian-novels-trivia",
+      "title": "Dystopian Novels Trivia: Big Brother, Soma and Gilead",
+      "description": "Eight questions on the great dystopias: Orwell's 1984, Brave New World, Fahrenheit 451, The Handmaid's Tale and more.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "literature",
+      "tags": ["literature", "trivia", "dystopia", "science fiction", "classics"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who wrote the novel 1984, published in 1949?",
+          "options": [
+            { "id": "a", "text": "Aldous Huxley", "is_correct": false },
+            { "id": "b", "text": "Ray Bradbury", "is_correct": false },
+            { "id": "c", "text": "George Orwell", "is_correct": true },
+            { "id": "d", "text": "Anthony Burgess", "is_correct": false }
+          ],
+          "explanation": "Eric Blair wrote it under the pen name George Orwell on the Scottish island of Jura."
+        },
+        {
+          "id": "q2",
+          "question": "In 1984, what is the name of the Party's all-seeing leader?",
+          "options": [
+            { "id": "a", "text": "Emmanuel Goldstein", "is_correct": false },
+            { "id": "b", "text": "Big Brother", "is_correct": true },
+            { "id": "c", "text": "O'Brien", "is_correct": false },
+            { "id": "d", "text": "Comrade Napoleon", "is_correct": false }
+          ],
+          "explanation": "'Big Brother is watching you': Goldstein is his supposed enemy and O'Brien tortures Winston."
+        },
+        {
+          "id": "q3",
+          "question": "Which 1932 Aldous Huxley novel imagines a society stabilized by the drug soma?",
+          "options": [
+            { "id": "a", "text": "Island", "is_correct": false },
+            { "id": "b", "text": "The Doors of Perception", "is_correct": false },
+            { "id": "c", "text": "Point Counter Point", "is_correct": false },
+            { "id": "d", "text": "Brave New World", "is_correct": true }
+          ],
+          "explanation": "Brave New World breeds humans in hatcheries and ranks them from Alphas to Epsilons."
+        },
+        {
+          "id": "q4",
+          "question": "What does the title Fahrenheit 451 refer to?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The temperature at which book paper ignites",
+              "is_correct": true
+            },
+            { "id": "b", "text": "The protagonist's badge number", "is_correct": false },
+            { "id": "c", "text": "The year the story is set in", "is_correct": false },
+            { "id": "d", "text": "The city's postal code", "is_correct": false }
+          ],
+          "explanation": "451 °F (about 233 °C) is the autoignition temperature of paper."
+        },
+        {
+          "id": "q5",
+          "question": "In Fahrenheit 451, what is Guy Montag's job?",
+          "options": [
+            { "id": "a", "text": "Police censor", "is_correct": false },
+            { "id": "b", "text": "Book smuggler", "is_correct": false },
+            { "id": "c", "text": "Fireman who burns books", "is_correct": true },
+            { "id": "d", "text": "Television host", "is_correct": false }
+          ],
+          "explanation": "In Ray Bradbury's future, firemen start fires instead of putting them out."
+        },
+        {
+          "id": "q6",
+          "question": "Margaret Atwood's The Handmaid's Tale (1985) is set in which theocratic republic?",
+          "options": [
+            { "id": "a", "text": "Oceania", "is_correct": false },
+            { "id": "b", "text": "The World State", "is_correct": false },
+            { "id": "c", "text": "Panem", "is_correct": false },
+            { "id": "d", "text": "Gilead", "is_correct": true }
+          ],
+          "explanation": "The Republic of Gilead replaces the United States; Offred narrates her life as a handmaid."
+        },
+        {
+          "id": "q7",
+          "question": "Which 1968 Philip K. Dick novel inspired the film Blade Runner?",
+          "options": [
+            { "id": "a", "text": "Do Androids Dream of Electric Sheep?", "is_correct": true },
+            { "id": "b", "text": "Ubik", "is_correct": false },
+            { "id": "c", "text": "The Man in the High Castle", "is_correct": false },
+            { "id": "d", "text": "A Scanner Darkly", "is_correct": false }
+          ],
+          "explanation": "Rick Deckard hunts Nexus-6 androids in a decaying San Francisco."
+        },
+        {
+          "id": "q8",
+          "question": "In 1984, what is Newspeak?",
+          "options": [
+            { "id": "a", "text": "The telescreen broadcast", "is_correct": false },
+            { "id": "b", "text": "The secret code of Winston's diary", "is_correct": false },
+            {
+              "id": "c",
+              "text": "The Party's shrinking official language, designed to make rebellious thought impossible",
+              "is_correct": true
+            },
+            { "id": "d", "text": "The name of the rebel army", "is_correct": false }
+          ],
+          "explanation": "Each edition of the Newspeak dictionary deletes words: if 'freedom' disappears, so does the idea."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-novelas-distopicas",
+      "title": "Trivia de novelas distópicas: Gran Hermano, soma y Gilead",
+      "description": "Ocho preguntas sobre las grandes distopías: 1984 de Orwell, Un mundo feliz, Fahrenheit 451, El cuento de la criada y más.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "literature",
+      "tags": ["literatura", "trivia", "distopía", "ciencia ficción", "clásicos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién escribió la novela 1984, publicada en 1949?",
+          "options": [
+            { "id": "a", "text": "Aldous Huxley", "is_correct": false },
+            { "id": "b", "text": "Ray Bradbury", "is_correct": false },
+            { "id": "c", "text": "George Orwell", "is_correct": true },
+            { "id": "d", "text": "Anthony Burgess", "is_correct": false }
+          ],
+          "explanation": "Eric Blair la escribió con el seudónimo George Orwell en la isla escocesa de Jura."
+        },
+        {
+          "id": "q2",
+          "question": "En 1984, ¿cómo se llama el líder omnipresente del Partido?",
+          "options": [
+            { "id": "a", "text": "Emmanuel Goldstein", "is_correct": false },
+            { "id": "b", "text": "Gran Hermano", "is_correct": true },
+            { "id": "c", "text": "O'Brien", "is_correct": false },
+            { "id": "d", "text": "Camarada Napoleón", "is_correct": false }
+          ],
+          "explanation": "«El Gran Hermano te vigila»: Goldstein es su supuesto enemigo y O'Brien tortura a Winston."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué novela de Aldous Huxley de 1932 imagina una sociedad estabilizada por la droga soma?",
+          "options": [
+            { "id": "a", "text": "La isla", "is_correct": false },
+            { "id": "b", "text": "Las puertas de la percepción", "is_correct": false },
+            { "id": "c", "text": "Contrapunto", "is_correct": false },
+            { "id": "d", "text": "Un mundo feliz", "is_correct": true }
+          ],
+          "explanation": "Un mundo feliz cría seres humanos en criaderos y los clasifica de alfas a epsilones."
+        },
+        {
+          "id": "q4",
+          "question": "¿A qué se refiere el título Fahrenheit 451?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A la temperatura a la que arde el papel de los libros",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Al número de placa del protagonista", "is_correct": false },
+            { "id": "c", "text": "Al año en que transcurre la historia", "is_correct": false },
+            { "id": "d", "text": "Al código postal de la ciudad", "is_correct": false }
+          ],
+          "explanation": "451 °F (unos 233 °C) es la temperatura de autoignición del papel."
+        },
+        {
+          "id": "q5",
+          "question": "En Fahrenheit 451, ¿cuál es el oficio de Guy Montag?",
+          "options": [
+            { "id": "a", "text": "Censor policial", "is_correct": false },
+            { "id": "b", "text": "Contrabandista de libros", "is_correct": false },
+            { "id": "c", "text": "Bombero encargado de quemar libros", "is_correct": true },
+            { "id": "d", "text": "Presentador de televisión", "is_correct": false }
+          ],
+          "explanation": "En el futuro de Ray Bradbury los bomberos inician incendios en vez de apagarlos."
+        },
+        {
+          "id": "q6",
+          "question": "¿En qué república teocrática transcurre El cuento de la criada (1985) de Margaret Atwood?",
+          "options": [
+            { "id": "a", "text": "Oceanía", "is_correct": false },
+            { "id": "b", "text": "El Estado Mundial", "is_correct": false },
+            { "id": "c", "text": "Panem", "is_correct": false },
+            { "id": "d", "text": "Gilead", "is_correct": true }
+          ],
+          "explanation": "La República de Gilead ocupa el antiguo territorio de Estados Unidos; Offred narra su vida como criada."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué novela de 1968 de Philip K. Dick inspiró la película Blade Runner?",
+          "options": [
+            {
+              "id": "a",
+              "text": "¿Sueñan los androides con ovejas eléctricas?",
+              "is_correct": true
+            },
+            { "id": "b", "text": "Ubik", "is_correct": false },
+            { "id": "c", "text": "El hombre en el castillo", "is_correct": false },
+            { "id": "d", "text": "Una mirada a la oscuridad", "is_correct": false }
+          ],
+          "explanation": "Rick Deckard caza androides Nexus-6 en una San Francisco en decadencia."
+        },
+        {
+          "id": "q8",
+          "question": "En 1984, ¿qué es el neolengua?",
+          "options": [
+            { "id": "a", "text": "La emisión de la telepantalla", "is_correct": false },
+            { "id": "b", "text": "El código secreto del diario de Winston", "is_correct": false },
+            {
+              "id": "c",
+              "text": "La lengua oficial menguante del Partido, diseñada para hacer imposible el pensamiento rebelde",
+              "is_correct": true
+            },
+            { "id": "d", "text": "El nombre del ejército rebelde", "is_correct": false }
+          ],
+          "explanation": "Cada edición del diccionario de neolengua elimina palabras: si desaparece «libertad», también desaparece la idea."
+        }
+      ]
+    }
+  ]
+}
