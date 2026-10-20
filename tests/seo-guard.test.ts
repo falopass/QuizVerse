@@ -84,6 +84,16 @@ describe('seo:guard — check-page-metadata', () => {
     expect(stdout).toContain('RESULTADO: 1 páginas revisadas, 0 problemas');
   });
 
+  it.each(['settings', 'notifications', 'forgot-password', 'reset-password'])(
+    '%s sin noindex falla',
+    (prefix) => {
+      const root = buildFixture({ [`[locale]/${prefix}/page.tsx`]: WITH_METADATA });
+      const { status, stdout } = run(root);
+      expect(status).toBe(1);
+      expect(stdout).toContain(`src/app/[locale]/${prefix}/page.tsx: ruta privada sin noindex`);
+    }
+  );
+
   it('el repo real pasa el guard (nace verde)', () => {
     const { status, stdout } = run(REPO_ROOT);
     expect(stdout).toContain('RESULTADO:');

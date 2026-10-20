@@ -21,6 +21,9 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
           <Link href={localizeHref(locale, '/create')}>{dictionary.common.create}</Link>
           <Link href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</Link>
           <Link href={localizeHref(locale, '/login')}>{dictionary.common.login}</Link>
+          <Link href={localizeHref(locale, '/notifications')}>
+            {locale === 'es' ? 'Notificaciones' : 'Notifications'}
+          </Link>
           <Link href={localizeHref(locale, '/about')}>{dictionary.arcade.about}</Link>
           <Link href={localizeHref(locale, '/privacy')}>{dictionary.arcade.privacy}</Link>
           <Link href={localizeHref(locale, '/terms')}>{dictionary.arcade.terms}</Link>

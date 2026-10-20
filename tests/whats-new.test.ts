@@ -202,7 +202,22 @@ describe('generateMetadata de /novedades', () => {
 
 describe('sitemap — /novedades', () => {
   it('declara /novedades en ambos idiomas con xhtml:link mutuos', async () => {
-    db.result = { data: [], error: null };
+    // Un `data: []` haría responder 503 a la ruta (REV-16): hace falta al
+    // menos una fila publicada para que el sitemap salga.
+    db.result = {
+      data: [
+        {
+          slug: 'quiz-uno',
+          language: 'es',
+          published_at: '2026-10-01T00:00:00Z',
+          updated_at: null,
+          quiz_type: 'trivia',
+          category_id: 'gaming',
+          category: { slug: 'gaming' },
+        },
+      ],
+      error: null,
+    };
     const xml = await (await GET()).text();
 
     const block = (loc: string) =>

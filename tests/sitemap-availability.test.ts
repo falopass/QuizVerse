@@ -1,8 +1,9 @@
 /**
- * SEO-40: un fallo de Supabase no debe publicar un sitemap de 14 URLs con
- * 200 (Google lo tomaría como el catálogo real y desindexaría). La ruta
- * responde 503 + Retry-After; un catálogo legítimamente vacío sigue siendo
- * un 200 normal.
+ * SEO-40/REV-16: un fallo de Supabase no debe publicar un sitemap con solo
+ * las páginas editoriales y 200 (Google lo tomaría como el catálogo real y
+ * desindexaría). La ruta responde 503 + Retry-After también cuando la
+ * respuesta llega sin error pero con `data: []`: con cientos de quizzes
+ * publicados, cero filas es un fallo silencioso, no un catálogo real.
  */
 
 import { describe, expect, it, vi } from 'vitest';
@@ -71,7 +72,7 @@ describe('GET /api/sitemap — disponibilidad', () => {
   it('responde 503 cuando Supabase devuelve error', async () => {
     state.result = { data: null, error: { message: 'boom' } };
     const response = await GET();
-    state.result = { data: [], error: null };
+    state.result = { data: quizRows, error: null };
 
     expect(response.status).toBe(503);
     expect(response.headers.get('Retry-After')).toBe('300');
@@ -80,29 +81,26 @@ describe('GET /api/sitemap — disponibilidad', () => {
   it('responde 503 cuando Supabase devuelve data: null sin error', async () => {
     state.result = { data: null, error: null };
     const response = await GET();
-    state.result = { data: [], error: null };
+    state.result = { data: quizRows, error: null };
 
     expect(response.status).toBe(503);
     expect(response.headers.get('Retry-After')).toBe('300');
   });
 
-  it('un catálogo vacío legítimo sigue siendo 200 con las páginas editoriales', async () => {
+  it('responde 503 cuando Supabase devuelve data: [] sin error', async () => {
     state.result = { data: [], error: null };
     const response = await GET();
-    const xml = await response.text();
 
-    expect(response.status).toBe(200);
-    // 10 páginas editoriales × 2 idiomas, sin quizzes ni hubs.
-    expect(xml.match(/<loc>/g)).toHaveLength(20);
-    expect(xml).toContain('<loc>https://quizverse.org/en</loc>');
-    expect(xml).toContain('<loc>https://quizverse.org/es/terms</loc>');
+    expect(response.status).toBe(503);
+    expect(response.headers.get('Retry-After')).toBe('300');
+    expect(response.headers.get('Cache-Control')).toBe('no-store');
+    expect(await response.text()).not.toContain('<urlset');
   });
 
   it('con filas publicadas el XML incluye los <loc> de esos quizzes', async () => {
     state.result = { data: quizRows, error: null };
     const response = await GET();
     const xml = await response.text();
-    state.result = { data: [], error: null };
 
     expect(response.status).toBe(200);
     expect(xml).toContain('<loc>https://quizverse.org/en/quiz/en-one</loc>');

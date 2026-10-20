@@ -9,7 +9,8 @@
  * Rules (blocking, exit 1):
  *   - every src/app/[locale]/page.tsx must mention `generateMetadata`
  *     or `export const metadata`
- *   - private routes (login, register, create, play, result, profile) must
+ *   - private routes (login, register, create, play, result, profile,
+ *     settings, notifications, forgot-password, reset-password) must
  *     declare `noindex` or delegate to a whitelisted helper
  *     (`generateProfileMetadata`)
  *
@@ -31,6 +32,10 @@ const PRIVATE_PREFIXES = [
   'src/app/[locale]/quiz/[slug]/play/',
   'src/app/[locale]/quiz/[slug]/result/',
   'src/app/[locale]/profile/',
+  'src/app/[locale]/settings/',
+  'src/app/[locale]/notifications/',
+  'src/app/[locale]/forgot-password/',
+  'src/app/[locale]/reset-password/',
 ];
 
 const NOINDEX_HELPERS = ['generateProfileMetadata'];
