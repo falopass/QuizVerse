@@ -143,3 +143,17 @@ it('routes the editorial 2026az pairs both ways', () => {
     expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
   }
 });
+
+it('routes the editorial 2026cq pairs both ways', () => {
+  const pairs: Array<[string, string]> = [
+    ['en-f1-champions-trivia', 'es-trivia-campeones-de-f1'],
+    ['en-f1-circuits-trivia', 'es-trivia-circuitos-de-f1'],
+    ['en-f1-teams-trivia', 'es-trivia-escuderias-de-f1'],
+    ['en-f1-2026-rules-trivia', 'es-trivia-reglamento-f1-2026'],
+    ['en-f1-legends-trivia', 'es-trivia-leyendas-de-la-f1'],
+  ];
+  for (const [en, es] of pairs) {
+    expect(getEquivalentQuizSlug(en, 'es')).toBe(es);
+    expect(getEquivalentQuizSlug(es, 'en')).toBe(en);
+  }
+});
