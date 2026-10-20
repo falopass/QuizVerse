@@ -330,27 +330,47 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
   };
 });
 
-// Comprobación barata para /api/quiz/locale: mira si la categoría tiene ≥1
-// quiz publicado en el idioma sin traer questions/results ni recorrer páginas.
-export async function categoryHasQuizzes(slug: string, locale?: Locale): Promise<boolean> {
-  const category = (await getPublicCategories()).find((item) => item.slug === slug);
-  if (!category) return false;
+// Sonda ligera compartida: replica la condición de notFound() de
+// getCategoryPayload (los hubs de tipo se filtran por quiz_type, sin fila en
+// categories) y devuelve null cuando la consulta falla, para que cada caller
+// decida su fallback.
+async function probeHubQuizzes(slug: string, locale?: Locale): Promise<boolean | null> {
+  const category = (await getPublicCategories()).find((item) => item.slug === slug) ?? null;
+  const isType = slug === 'personality' || slug === 'trivia';
+  if (!category && !isType) return false;
   try {
     const supabase = await createClient();
-    let query = supabase
-      .from('quizzes')
-      .select('id')
-      .eq('status', 'published')
-      .eq('category_id', category.id);
+    let query = supabase.from('quizzes').select('id').eq('status', 'published');
+    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
     if (locale) query = query.eq('language', locale);
     const { data, error } = await query.limit(1);
     if (error || !data) throw error ?? new Error('Could not check category quizzes');
     return data.length > 0;
   } catch {
-    return LAUNCH_QUIZZES.some(
-      (quiz) => quiz.category?.slug === slug && (!locale || quiz.language === locale)
-    );
+    return null;
   }
+}
+
+// Comprobación barata para /api/quiz/locale: mira si el hub (categoría o tipo
+// de quiz) tiene ≥1 quiz publicado en el idioma sin traer questions/results
+// ni recorrer páginas. Si la sonda falla cae al catálogo de lanzamiento, que
+// es lo mismo que la página de categoría renderiza en ese caso.
+export async function categoryHasQuizzes(slug: string, locale?: Locale): Promise<boolean> {
+  const found = await probeHubQuizzes(slug, locale);
+  if (found !== null) return found;
+  const isType = slug === 'personality' || slug === 'trivia';
+  return LAUNCH_QUIZZES.some(
+    (quiz) =>
+      (isType ? quiz.quiz_type === slug : quiz.category?.slug === slug) &&
+      (!locale || quiz.language === locale)
+  );
+}
+
+// Versión estricta para el hreflang de /category: la página hermana hace
+// notFound() si su propio fetch devuelve 0 filas, así que una sonda caída no
+// puede anunciar una traducción apoyándose en el catálogo de lanzamiento.
+export async function translatedHubExists(slug: string, locale: Locale): Promise<boolean> {
+  return (await probeHubQuizzes(slug, locale)) === true;
 }
 
 export interface HomeCardGroups {

@@ -187,6 +187,13 @@ export interface GenerateCategoryMetadataOptions {
   image?: string;
   locale?: Locale;
   quizCount?: number;
+  /**
+   * Whether `/{otherLocale}/category/{slug}` actually renders, i.e. the hub has
+   * at least one published quiz in that locale. Without it the page is a 404
+   * (`notFound()`), so no hreflang may be emitted — a 404 alternate is worse
+   * than none.
+   */
+  translatedHubExists?: boolean;
 }
 
 export function generateCategoryMetadata({
@@ -196,6 +203,7 @@ export function generateCategoryMetadata({
   image,
   locale = 'en',
   quizCount,
+  translatedHubExists = false,
 }: GenerateCategoryMetadataOptions): Metadata {
   const title = quizCount
     ? locale === 'es'
@@ -209,8 +217,9 @@ export function generateCategoryMetadata({
     title,
     description,
     path: localizedPath(locale, `/category/${slug}`),
-    // Type hubs (personality/trivia) and categories both exist in EN and ES.
-    alternatePath: localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`),
+    alternatePath: translatedHubExists
+      ? localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`)
+      : null,
     locale,
     image,
   });

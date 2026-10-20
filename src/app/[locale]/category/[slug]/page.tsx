@@ -6,7 +6,7 @@ import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { getHubGuide, getRelatedCategories, RELATED_HEADING } from '@/lib/content/hub-guides';
-import { getCategoryPayload } from '@/lib/data/public';
+import { getCategoryPayload, translatedHubExists } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { categoryDescription, visibleGamesLabel } from '@/lib/i18n/counts';
@@ -32,7 +32,11 @@ const ITEM_LIST_LIMIT = 24;
 export async function generateMetadata({ params }: CategoryProps): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!hasLocale(locale)) return {};
-  const payload = await getCategoryPayload(slug, locale);
+  const other = locale === 'es' ? 'en' : 'es';
+  const [payload, siblingExists] = await Promise.all([
+    getCategoryPayload(slug, locale),
+    translatedHubExists(slug, other),
+  ]);
   if (!payload || payload.quizzes.length === 0) notFound();
   const category = localizeCategory(payload.category, locale)!;
   const count = payload.quizzes.length;
@@ -53,6 +57,7 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
     image: categoryOgImage(locale, slug),
     locale,
     quizCount: count,
+    translatedHubExists: siblingExists,
   });
 }
 
