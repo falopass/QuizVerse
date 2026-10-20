@@ -26,6 +26,31 @@ export default function Page() {
 }
 `;
 
+const PRIVATE_NOINDEX_TRUE = `export function generateMetadata() {
+  return buildMetadata({ title: 'x', noindex: true });
+}
+export default function Page() {
+  return null;
+}
+`;
+
+const PRIVATE_NOINDEX_FALSE = `export function generateMetadata() {
+  return buildMetadata({ title: 'x', noindex: false });
+}
+export default function Page() {
+  return null;
+}
+`;
+
+const PRIVATE_COMMENT_ONLY = `// Esta página es noindex, no hace falta declararlo.
+export function generateMetadata() {
+  return { title: 'x' };
+}
+export default function Page() {
+  return null;
+}
+`;
+
 function run(root: string): { status: number; stdout: string } {
   try {
     const stdout = execFileSync('node', [SCRIPT, '--root', root], {
@@ -83,6 +108,36 @@ describe('seo:guard — check-page-metadata', () => {
     expect(status).toBe(0);
     expect(stdout).toContain('RESULTADO: 1 páginas revisadas, 0 problemas');
   });
+
+  it('login con noindex: true pasa', () => {
+    const root = buildFixture({ '[locale]/login/page.tsx': PRIVATE_NOINDEX_TRUE });
+    const { status } = run(root);
+    expect(status).toBe(0);
+  });
+
+  it('login con noindex: false falla', () => {
+    const root = buildFixture({ '[locale]/login/page.tsx': PRIVATE_NOINDEX_FALSE });
+    const { status, stdout } = run(root);
+    expect(status).toBe(1);
+    expect(stdout).toContain('ruta privada sin noindex');
+  });
+
+  it('un comentario que menciona noindex no cuenta como declaración', () => {
+    const root = buildFixture({ '[locale]/login/page.tsx': PRIVATE_COMMENT_ONLY });
+    const { status, stdout } = run(root);
+    expect(status).toBe(1);
+    expect(stdout).toContain('ruta privada sin noindex');
+  });
+
+  it.each(['settings', 'notifications', 'forgot-password', 'reset-password'])(
+    '%s sin noindex falla',
+    (prefix) => {
+      const root = buildFixture({ [`[locale]/${prefix}/page.tsx`]: WITH_METADATA });
+      const { status, stdout } = run(root);
+      expect(status).toBe(1);
+      expect(stdout).toContain(`src/app/[locale]/${prefix}/page.tsx: ruta privada sin noindex`);
+    }
+  );
 
   it('el repo real pasa el guard (nace verde)', () => {
     const { status, stdout } = run(REPO_ROOT);

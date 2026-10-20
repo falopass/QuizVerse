@@ -52,7 +52,9 @@ async function fetchPublishedQuizzes(): Promise<{ quizzes: QuizRow[]; failed: bo
       .order('published_at', { ascending: false })
       .limit(50000);
 
-    if (error || !data) return { quizzes: [], failed: true };
+    // Con cientos de quizzes publicados, `data: []` es un fallo silencioso
+    // (select roto, RLS, filtro mal escrito), no un catálogo real.
+    if (error || !data || data.length === 0) return { quizzes: [], failed: true };
     return { quizzes: data as unknown as QuizRow[], failed: false };
   } catch {
     return { quizzes: [], failed: true };

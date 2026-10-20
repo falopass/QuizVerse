@@ -9,9 +9,11 @@
  * Rules (blocking, exit 1):
  *   - every src/app/[locale]/page.tsx must mention `generateMetadata`
  *     or `export const metadata`
- *   - private routes (login, register, create, play, result, profile) must
- *     declare `noindex` or delegate to a whitelisted helper
- *     (`generateProfileMetadata`)
+ *   - private routes (login, register, create, play, result, profile,
+ *     settings, notifications, forgot-password, reset-password) must
+ *     declare `noindex: true` (o `robots: { index: false }`) — el texto
+ *     suelto `noindex` o un `noindex: false` no valen — o delegar en un
+ *     helper de la lista blanca (`generateProfileMetadata`)
  *
  * Excluded: src/app/api/**, opengraph-image.tsx, sitemap.ts, robots.ts.
  * Node stdlib only.
@@ -31,9 +33,17 @@ const PRIVATE_PREFIXES = [
   'src/app/[locale]/quiz/[slug]/play/',
   'src/app/[locale]/quiz/[slug]/result/',
   'src/app/[locale]/profile/',
+  'src/app/[locale]/settings/',
+  'src/app/[locale]/notifications/',
+  'src/app/[locale]/forgot-password/',
+  'src/app/[locale]/reset-password/',
 ];
 
 const NOINDEX_HELPERS = ['generateProfileMetadata'];
+
+// Una mención suelta de `noindex` (un comentario) o `noindex: false` no
+// protege la página: hace falta la asignación afirmativa.
+const NOINDEX_DECLARATION = /\bnoindex\s*:\s*true|\bindex\s*:\s*false/;
 
 function parseArgs(argv) {
   const args = { root: REPO_ROOT, json: false };
@@ -86,7 +96,7 @@ export function findProblems(root) {
       }
     }
     if (PRIVATE_PREFIXES.some((p) => rel.startsWith(p))) {
-      if (!src.includes('noindex') && !NOINDEX_HELPERS.some((h) => src.includes(h))) {
+      if (!NOINDEX_DECLARATION.test(src) && !NOINDEX_HELPERS.some((h) => src.includes(h))) {
         problems.push({
           file: rel,
           reason: 'ruta privada sin noindex ni helper de la lista blanca',
