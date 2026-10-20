@@ -1,0 +1,570 @@
+{
+  "generatedAt": "2026-10-19T22:20:57.605Z",
+  "totals": {
+    "seeds": 970,
+    "live": 832,
+    "pending": 290
+  },
+  "byLot": [
+    {
+      "lot": "editorial-seed-2026aa",
+      "pending": [
+        "en-disney-classics-trivia",
+        "es-trivia-clasicos-disney",
+        "en-disney-renaissance-trivia",
+        "es-trivia-renacimiento-disney",
+        "en-pixar-trivia",
+        "es-trivia-pixar",
+        "en-disney-villains-trivia",
+        "es-trivia-villanos-disney",
+        "en-disney-songs-trivia",
+        "es-trivia-canciones-disney"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ab",
+      "pending": [
+        "en-batman-trivia",
+        "es-trivia-batman",
+        "en-superman-trivia",
+        "es-trivia-superman",
+        "en-wonder-woman-trivia",
+        "es-trivia-wonder-woman",
+        "en-flash-trivia",
+        "es-trivia-flash",
+        "en-justice-league-trivia",
+        "es-trivia-liga-de-la-justicia"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ac",
+      "pending": [
+        "en-tennis-grand-slams-trivia",
+        "es-trivia-tenis-grand-slams",
+        "en-federer-nadal-trivia",
+        "es-trivia-federer-nadal",
+        "en-djokovic-serena-trivia",
+        "es-trivia-djokovic-serena",
+        "en-tennis-surfaces-rules-trivia",
+        "es-trivia-tenis-superficies-reglas",
+        "en-tennis-history-trivia",
+        "es-trivia-tenis-momentos-historicos"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ad",
+      "pending": [
+        "en-lord-of-the-rings-trivia",
+        "es-trivia-el-senor-de-los-anillos",
+        "en-lord-of-the-rings-cast-trivia",
+        "es-trivia-reparto-el-senor-de-los-anillos",
+        "en-middle-earth-places-trivia",
+        "es-trivia-lugares-tierra-media",
+        "en-tolkien-lore-trivia",
+        "es-trivia-tolkien",
+        "en-the-hobbit-book-trivia",
+        "es-trivia-el-hobbit"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026af",
+      "pending": [
+        "en-programming-trivia",
+        "es-trivia-programacion",
+        "en-cryptocurrency-trivia",
+        "es-trivia-criptomonedas",
+        "en-excel-trivia",
+        "es-trivia-excel",
+        "en-cybersecurity-trivia",
+        "es-trivia-ciberseguridad",
+        "en-how-internet-works-trivia",
+        "es-trivia-como-funciona-internet"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ag",
+      "pending": [
+        "en-big-cats-trivia",
+        "es-trivia-grandes-felinos",
+        "en-birds-trivia",
+        "es-trivia-aves",
+        "en-insects-trivia-2",
+        "es-trivia-insectos-2",
+        "en-reptiles-trivia",
+        "es-trivia-reptiles",
+        "en-african-mammals-trivia",
+        "es-trivia-mamiferos-africanos"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ah",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026ai",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026aj",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026ak",
+      "pending": [
+        "en-world-spices-trivia",
+        "es-que-especie-eres",
+        "es-trivia-tabla-periodica",
+        "en-which-element-are-you",
+        "en-animal-superpowers-trivia",
+        "es-que-superpoder-animal-tendrias",
+        "es-trivia-lugares-extremos-del-mundo",
+        "en-which-extreme-place-are-you",
+        "en-ancient-sports-trivia",
+        "es-que-deporte-de-la-antiguedad-eres"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026al",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026ao",
+      "pending": [
+        "en-dinosaur-myths-trivia",
+        "es-trivia-mitos-de-dinosaurios",
+        "en-birds-of-prey-and-migration-trivia",
+        "es-trivia-aves-rapaces-y-migracion",
+        "en-apex-predators-trivia",
+        "es-trivia-superdepredadores",
+        "en-which-bird-are-you",
+        "es-que-ave-eres",
+        "en-which-predator-would-you-be",
+        "es-que-depredador-serias"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ap",
+      "pending": [
+        "en-solar-system-moons-trivia",
+        "es-trivia-lunas-del-sistema-solar",
+        "en-great-inventions-trivia",
+        "es-trivia-grandes-inventos",
+        "en-brain-and-senses-trivia",
+        "es-trivia-cerebro-y-sentidos",
+        "en-which-planet-are-you",
+        "es-que-planeta-eres",
+        "en-which-scientist-are-you",
+        "es-que-cientifico-serias"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026aq",
+      "pending": [
+        "en-world-desserts-trivia",
+        "es-trivia-postres-del-mundo",
+        "en-coffee-trivia",
+        "es-trivia-cafe",
+        "en-wine-trivia",
+        "es-trivia-vino",
+        "en-which-dessert-are-you",
+        "es-que-postre-eres",
+        "en-which-coffee-are-you",
+        "es-que-cafe-eres"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ar",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026as",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026at",
+      "pending": [
+        "en-black-holes-trivia",
+        "es-trivia-agujeros-negros",
+        "en-dna-and-genetics-trivia",
+        "es-trivia-adn-y-genetica",
+        "en-volcanoes-and-earthquakes-trivia",
+        "es-trivia-volcanes-y-terremotos",
+        "en-periodic-table-trivia",
+        "es-trivia-tabla-periodica-2",
+        "en-deep-sea-trivia",
+        "es-trivia-fondo-del-mar"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026au",
+      "pending": [
+        "en-dog-breeds-trivia",
+        "es-trivia-razas-de-perros",
+        "en-cat-breeds-trivia",
+        "es-trivia-razas-de-gatos",
+        "en-birds-trivia-2",
+        "es-trivia-aves-2",
+        "en-big-cats-trivia-2",
+        "es-trivia-grandes-felinos-2",
+        "en-venomous-animals-trivia",
+        "es-trivia-animales-venenosos"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026av",
+      "pending": [
+        "en-ancient-greece-trivia",
+        "es-trivia-antigua-grecia",
+        "en-mesopotamia-trivia",
+        "es-trivia-mesopotamia",
+        "en-seven-wonders-trivia",
+        "es-trivia-siete-maravillas-del-mundo",
+        "en-empires-that-reshaped-the-world-trivia",
+        "es-trivia-imperios-que-cambiaron-el-mundo",
+        "en-natural-wonders-trivia",
+        "es-trivia-maravillas-naturales"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026aw",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026ax",
+      "pending": [
+        "en-italian-food-trivia",
+        "es-trivia-comida-italiana",
+        "en-mexican-food-trivia",
+        "es-trivia-comida-mexicana",
+        "en-japanese-food-trivia",
+        "es-trivia-comida-japonesa",
+        "en-world-desserts-trivia-2",
+        "es-trivia-postres-del-mundo-2",
+        "en-spanish-food-trivia",
+        "es-trivia-comida-espanola"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026ay",
+      "pending": [
+        "en-classic-novels-trivia",
+        "es-trivia-novelas-clasicas",
+        "en-books-that-became-movies-trivia",
+        "es-trivia-libros-que-se-volvieron-peliculas",
+        "en-science-fiction-books-trivia",
+        "es-trivia-libros-de-ciencia-ficcion",
+        "en-poetry-trivia",
+        "es-trivia-poesia",
+        "en-nobel-literature-trivia",
+        "es-trivia-premios-nobel-de-literatura"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026az",
+      "pending": [
+        "en-everyday-inventions-trivia",
+        "es-trivia-inventos-cotidianos",
+        "en-world-currencies-trivia",
+        "es-trivia-monedas-del-mundo",
+        "en-world-languages-trivia",
+        "es-trivia-idiomas-del-mundo",
+        "en-international-organizations-trivia",
+        "es-trivia-organismos-internacionales",
+        "en-world-awards-trivia",
+        "es-trivia-premios-del-mundo"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026b",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026ba",
+      "pending": [
+        "en-film-festivals-trivia",
+        "es-trivia-festivales-de-cine",
+        "en-grammy-awards-trivia",
+        "es-trivia-premios-grammy",
+        "en-emmy-awards-trivia",
+        "es-trivia-premios-emmy",
+        "en-golden-globes-trivia",
+        "es-trivia-globos-de-oro",
+        "en-award-show-moments-trivia",
+        "es-trivia-momentos-historicos-de-premios"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bb",
+      "pending": [
+        "en-love-language-test",
+        "es-test-lenguaje-del-amor",
+        "en-communication-style-test",
+        "es-test-estilo-de-comunicacion",
+        "en-attachment-style-test",
+        "es-test-estilo-de-apego",
+        "en-family-role-test",
+        "es-test-rol-en-la-familia",
+        "en-what-kind-of-partner-are-you",
+        "es-que-tipo-de-pareja-eres"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bc",
+      "pending": [
+        "en-zodiac-signs-trivia",
+        "es-trivia-signos-del-zodiaco",
+        "en-zodiac-elements-and-rulers-trivia",
+        "es-trivia-elementos-y-regentes-del-zodiaco",
+        "en-zodiac-mythology-trivia",
+        "es-trivia-mitologia-del-zodiaco",
+        "en-chinese-zodiac-trivia",
+        "es-trivia-zodiaco-chino",
+        "en-astrology-vs-astronomy-trivia",
+        "es-trivia-astrologia-vs-astronomia"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bd",
+      "pending": [
+        "en-betty-la-fea-trivia",
+        "es-trivia-betty-la-fea"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026be",
+      "pending": [
+        "en-human-digestive-system-trivia",
+        "es-trivia-sistema-digestivo",
+        "en-heart-and-circulation-trivia",
+        "es-trivia-corazon-y-circulacion",
+        "en-bones-and-muscles-trivia",
+        "es-trivia-huesos-y-musculos",
+        "en-human-brain-trivia",
+        "es-trivia-cerebro",
+        "en-immune-system-trivia",
+        "es-trivia-sistema-inmune"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bg",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026bh",
+      "pending": [
+        "en-chess-champions-trivia",
+        "es-trivia-campeones-de-ajedrez",
+        "en-chess-openings-trivia",
+        "es-trivia-aperturas-ajedrez",
+        "en-poker-trivia",
+        "es-trivia-poker",
+        "en-board-games-trivia",
+        "es-trivia-juegos-de-mesa"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bi",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026bq",
+      "pending": [
+        "en-solar-eclipse-2026-trivia",
+        "es-trivia-eclipse-solar-2026",
+        "en-generative-ai-trivia",
+        "es-trivia-ia-generativa",
+        "en-artemis-program-trivia",
+        "es-trivia-programa-artemis",
+        "en-space-telescopes-trivia",
+        "es-trivia-telescopios-espaciales",
+        "en-mars-missions-trivia",
+        "es-trivia-misiones-a-marte"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bu",
+      "pending": [
+        "en-mozart-trivia",
+        "es-trivia-mozart",
+        "en-beethoven-trivia",
+        "es-trivia-beethoven",
+        "en-bach-trivia",
+        "es-trivia-bach",
+        "en-chopin-trivia",
+        "es-trivia-chopin",
+        "en-vivaldi-trivia",
+        "es-trivia-vivaldi"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026bv",
+      "pending": [
+        "en-champions-league-trivia",
+        "es-trivia-champions-league",
+        "en-premier-league-trivia",
+        "es-trivia-premier-league",
+        "en-liga-mx-trivia",
+        "es-trivia-liga-mx",
+        "en-copa-america-trivia",
+        "es-trivia-copa-america",
+        "en-eurocopa-trivia",
+        "es-trivia-eurocopa"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026c",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026d",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026e",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026f",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026g",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026h",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026i",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026j",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026k",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026l",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026m",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026p",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026q",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026r",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026s",
+      "pending": [
+        "en-the-beatles-trivia",
+        "es-trivia-the-beatles",
+        "en-elvis-presley-trivia",
+        "es-trivia-elvis-presley",
+        "en-madonna-trivia",
+        "es-trivia-madonna",
+        "en-the-rolling-stones-trivia",
+        "es-trivia-the-rolling-stones",
+        "en-coldplay-trivia",
+        "es-trivia-coldplay"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026t",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026u",
+      "pending": [
+        "en-chile-trivia",
+        "es-trivia-de-chile",
+        "en-mexico-trivia",
+        "es-trivia-de-mexico",
+        "en-argentina-trivia",
+        "es-trivia-de-argentina",
+        "en-peru-trivia",
+        "es-trivia-de-peru",
+        "en-colombia-trivia",
+        "es-trivia-de-colombia"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026v",
+      "pending": [
+        "en-everyday-physics-trivia",
+        "es-trivia-fisica-cotidiana",
+        "en-cell-biology-trivia",
+        "es-trivia-biologia-celular",
+        "en-marine-animals-trivia",
+        "es-trivia-animales-del-mar",
+        "en-insects-trivia",
+        "es-trivia-insectos",
+        "en-ecosystems-trivia",
+        "es-trivia-ecosistemas"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026w",
+      "pending": [
+        "en-bleach-trivia",
+        "es-trivia-bleach",
+        "en-haikyuu-trivia",
+        "es-trivia-haikyuu",
+        "en-blue-lock-trivia",
+        "es-trivia-blue-lock",
+        "en-tokyo-revengers-trivia",
+        "es-trivia-tokyo-revengers",
+        "en-dandadan-trivia",
+        "es-trivia-dandadan"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026x",
+      "pending": [
+        "en-bts-trivia",
+        "es-trivia-bts",
+        "en-blackpink-trivia",
+        "es-trivia-blackpink",
+        "en-j-balvin-trivia",
+        "es-trivia-j-balvin",
+        "en-peso-pluma-trivia",
+        "es-trivia-peso-pluma",
+        "en-rosalia-trivia",
+        "es-trivia-rosalia"
+      ]
+    },
+    {
+      "lot": "editorial-seed-2026y",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-2026z",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed-personality",
+      "pending": []
+    },
+    {
+      "lot": "editorial-seed",
+      "pending": []
+    },
+    {
+      "lot": "trending-seed.normalized",
+      "pending": []
+    }
+  ]
+}
