@@ -391,6 +391,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-f1-teams-trivia': 'es-trivia-escuderias-de-f1',
   'en-f1-2026-rules-trivia': 'es-trivia-reglamento-f1-2026',
   'en-f1-legends-trivia': 'es-trivia-leyendas-de-la-f1',
+  // Pares del lote editorial 2026cr (scripts/seed/editorial-seed-2026cr.json), mantenidos a mano.
+  'en-what-is-your-love-language': 'es-cual-es-tu-lenguaje-del-amor',
+  'en-what-is-your-friendship-style': 'es-cual-es-tu-estilo-de-amistad',
+  'en-how-jealous-are-you': 'es-que-tan-celoso-eres',
+  'en-are-you-compatible-quiz': 'es-test-de-compatibilidad-de-pareja',
+  'en-what-kind-of-first-date-are-you': 'es-que-tipo-de-primera-cita-eres',
 };
 
 const ES_TO_EN = Object.fromEntries(Object.entries(EN_TO_ES).map(([en, es]) => [es, en]));
