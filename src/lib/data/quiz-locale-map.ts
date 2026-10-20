@@ -360,7 +360,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-black-holes-trivia': 'es-trivia-agujeros-negros',
   'en-deep-sea-trivia': 'es-trivia-fondo-del-mar',
   'en-dna-and-genetics-trivia': 'es-trivia-adn-y-genetica',
-  'en-periodic-table-trivia': 'es-trivia-tabla-periodica',
+  'en-periodic-table-trivia': 'es-trivia-elementos-quimicos',
   'en-volcanoes-and-earthquakes-trivia': 'es-trivia-volcanes-y-terremotos',
   // Pares del lote editorial 2026az (scripts/seed/editorial-seed-2026az.json), mantenidos a mano.
   'en-everyday-inventions-trivia': 'es-trivia-inventos-cotidianos',

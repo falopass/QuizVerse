@@ -151,7 +151,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-insects-trivia',
+  'en-insect-world-trivia',
   'Insects Trivia: Six Legs, Superpowers',
   'A million described species, record-breaking strength and dances that give directions: eight questions about the most successful animals on Earth.',
   'trivia',
@@ -174,7 +174,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-insectos',
+  'es-trivia-mundo-de-los-insectos',
   'Trivia de insectos: seis patas y superpoderes',
   'Un millón de especies descritas, fuerza de récord y danzas que indican direcciones: ocho preguntas sobre los animales más exitosos del planeta.',
   'trivia',

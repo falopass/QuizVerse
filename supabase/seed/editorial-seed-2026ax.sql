@@ -151,7 +151,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-world-desserts-trivia-2',
+  'en-dessert-classics-trivia',
   'World Desserts Trivia: Cakes, Pastries and Classics',
   'Eight questions on the world''s great desserts, from tiramisu and crème brûlée to baklava, pavlova and gelato.',
   'trivia',
@@ -174,7 +174,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-postres-del-mundo-2',
+  'es-trivia-postres-clasicos',
   'Trivia de postres del mundo: dulces clásicos',
   'Ocho preguntas sobre los postres clásicos del mundo, del tiramisú y la crème brûlée al baklava, la pavlova y el gelato.',
   'trivia',

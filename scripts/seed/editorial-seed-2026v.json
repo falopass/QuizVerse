@@ -708,7 +708,7 @@
       ]
     },
     {
-      "slug": "en-insects-trivia",
+      "slug": "en-insect-world-trivia",
       "title": "Insects Trivia: Six Legs, Superpowers",
       "description": "A million described species, record-breaking strength and dances that give directions: eight questions about the most successful animals on Earth.",
       "quiz_type": "trivia",
@@ -809,7 +809,7 @@
       ]
     },
     {
-      "slug": "es-trivia-insectos",
+      "slug": "es-trivia-mundo-de-los-insectos",
       "title": "Trivia de insectos: seis patas y superpoderes",
       "description": "Un millón de especies descritas, fuerza de récord y danzas que indican direcciones: ocho preguntas sobre los animales más exitosos del planeta.",
       "quiz_type": "trivia",

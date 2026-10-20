@@ -34,8 +34,8 @@ interface SeedQuiz {
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-dog-breeds-trivia', 'es-trivia-razas-de-perros', 'animals'],
   ['en-cat-breeds-trivia', 'es-trivia-razas-de-gatos', 'animals'],
-  ['en-birds-trivia-2', 'es-trivia-aves-2', 'animals'],
-  ['en-big-cats-trivia-2', 'es-trivia-grandes-felinos-2', 'animals'],
+  ['en-bird-record-holders-trivia', 'es-trivia-aves-recordistas', 'animals'],
+  ['en-great-felines-trivia', 'es-trivia-felinos-salvajes', 'animals'],
   ['en-venomous-animals-trivia', 'es-trivia-animales-venenosos', 'animals'],
 ];
 
