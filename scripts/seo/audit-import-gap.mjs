@@ -99,6 +99,12 @@ async function main() {
   }
 
   const live = parseSitemapSlugs(xml);
+  // Un sitemap 200 sin URLs /quiz/ no prueba que no haya quizzes publicados
+  // (la query puede devolver cero filas): sin evidencia, no medimos.
+  if (live.size === 0) {
+    console.error(`El sitemap (${sitemapSource}) no contiene URLs /quiz/; no se puede medir la brecha.`);
+    process.exit(2);
+  }
   const seeded = await collectSeedSlugs(SEEDS_DIR);
   if (existsSync(TRENDING_SEED)) {
     const trending = JSON.parse(await readFile(TRENDING_SEED, 'utf8'));
