@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial seed 2026cj: five es/en trivia pairs of general knowledge for the culture category — an easy and a hard round, trick questions, famous inventions and a primary-school quiz. Every answer is a stable, checkable fact; trick questions rely on wording, not on dubious data. The inventions pair uses new slugs because en-great-inventions-trivia / es-trivia-grandes-inventos already exist in editorial-seed-2026ap.json. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-general-knowledge-easy-trivia",
+      "title": "General Knowledge Trivia: Easy Warm-Up Round",
+      "description": "Eight friendly general knowledge questions on capitals, planets, oceans and famous books that everyone should be able to answer.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "culture",
+      "tags": ["general knowledge", "trivia", "easy", "beginner", "culture"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the capital of France?",
+          "options": [
+            { "id": "a", "text": "London", "is_correct": false },
+            { "id": "b", "text": "Paris", "is_correct": true },
+            { "id": "c", "text": "Rome", "is_correct": false },
+            { "id": "d", "text": "Madrid", "is_correct": false }
+          ],
+          "explanation": "Paris has been the capital of France for centuries and is its largest city."
+        },
+        {
+          "id": "q2",
+          "question": "How many days does a leap year have?",
+          "options": [
+            { "id": "a", "text": "364", "is_correct": false },
+            { "id": "b", "text": "365", "is_correct": false },
+            { "id": "c", "text": "366", "is_correct": true },
+            { "id": "d", "text": "367", "is_correct": false }
+          ],
+          "explanation": "A leap year adds a 29th day to February, so it has 366 days instead of 365."
+        },
+        {
+          "id": "q3",
+          "question": "Which is the largest planet in the solar system?",
+          "options": [
+            { "id": "a", "text": "Saturn", "is_correct": false },
+            { "id": "b", "text": "Neptune", "is_correct": false },
+            { "id": "c", "text": "Earth", "is_correct": false },
+            { "id": "d", "text": "Jupiter", "is_correct": true }
+          ],
+          "explanation": "Jupiter is about 11 times wider than Earth and heavier than all the other planets combined."
+        },
+        {
+          "id": "q4",
+          "question": "Who wrote the play Romeo and Juliet?",
+          "options": [
+            { "id": "a", "text": "Charles Dickens", "is_correct": false },
+            { "id": "b", "text": "Oscar Wilde", "is_correct": false },
+            { "id": "c", "text": "William Shakespeare", "is_correct": true },
+            { "id": "d", "text": "Jane Austen", "is_correct": false }
+          ],
+          "explanation": "Shakespeare wrote the tragedy of the two young lovers of Verona in the 1590s."
+        },
+        {
+          "id": "q5",
+          "question": "What is the chemical formula for water?",
+          "options": [
+            { "id": "a", "text": "CO2", "is_correct": false },
+            { "id": "b", "text": "O2", "is_correct": false },
+            { "id": "c", "text": "NaCl", "is_correct": false },
+            { "id": "d", "text": "H2O", "is_correct": true }
+          ],
+          "explanation": "Each water molecule is made of two hydrogen atoms and one oxygen atom: H2O."
+        },
+        {
+          "id": "q6",
+          "question": "How many continents are there on Earth?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": false },
+            { "id": "c", "text": "Seven", "is_correct": true },
+            { "id": "d", "text": "Eight", "is_correct": false }
+          ],
+          "explanation": "Africa, Antarctica, Asia, Europe, North America, Oceania and South America: seven."
+        },
+        {
+          "id": "q7",
+          "question": "Which is the largest ocean on Earth?",
+          "options": [
+            { "id": "a", "text": "Atlantic Ocean", "is_correct": false },
+            { "id": "b", "text": "Pacific Ocean", "is_correct": true },
+            { "id": "c", "text": "Indian Ocean", "is_correct": false },
+            { "id": "d", "text": "Arctic Ocean", "is_correct": false }
+          ],
+          "explanation": "The Pacific covers about a third of the Earth's surface, more than all land combined."
+        },
+        {
+          "id": "q8",
+          "question": "What is the official currency of Japan?",
+          "options": [
+            { "id": "a", "text": "Won", "is_correct": false },
+            { "id": "b", "text": "Yuan", "is_correct": false },
+            { "id": "c", "text": "Ringgit", "is_correct": false },
+            { "id": "d", "text": "Yen", "is_correct": true }
+          ],
+          "explanation": "The yen has been Japan's currency since 1871; the won is Korean and the yuan is Chinese."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cultura-general-facil",
+      "title": "Trivia de cultura general fácil: preguntas para todos",
+      "description": "Ocho preguntas amables de cultura general sobre capitales, planetas, océanos y libros famosos que casi todos deberían responder.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "culture",
+      "tags": ["cultura general", "trivia", "fácil", "principiante", "conocimiento"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la capital de Francia?",
+          "options": [
+            { "id": "a", "text": "Londres", "is_correct": false },
+            { "id": "b", "text": "París", "is_correct": true },
+            { "id": "c", "text": "Roma", "is_correct": false },
+            { "id": "d", "text": "Madrid", "is_correct": false }
+          ],
+          "explanation": "París es la capital de Francia desde hace siglos y también su ciudad más poblada."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos días tiene un año bisiesto?",
+          "options": [
+            { "id": "a", "text": "364", "is_correct": false },
+            { "id": "b", "text": "365", "is_correct": false },
+            { "id": "c", "text": "366", "is_correct": true },
+            { "id": "d", "text": "367", "is_correct": false }
+          ],
+          "explanation": "El año bisiesto agrega el 29 de febrero, así que tiene 366 días en lugar de 365."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el planeta más grande del sistema solar?",
+          "options": [
+            { "id": "a", "text": "Saturno", "is_correct": false },
+            { "id": "b", "text": "Neptuno", "is_correct": false },
+            { "id": "c", "text": "La Tierra", "is_correct": false },
+            { "id": "d", "text": "Júpiter", "is_correct": true }
+          ],
+          "explanation": "Júpiter mide unas 11 veces el ancho de la Tierra y pesa más que todos los demás planetas juntos."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién escribió la obra «Romeo y Julieta»?",
+          "options": [
+            { "id": "a", "text": "Charles Dickens", "is_correct": false },
+            { "id": "b", "text": "Oscar Wilde", "is_correct": false },
+            { "id": "c", "text": "William Shakespeare", "is_correct": true },
+            { "id": "d", "text": "Jane Austen", "is_correct": false }
+          ],
+          "explanation": "Shakespeare escribió la tragedia de los jóvenes amantes de Verona en la década de 1590."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es la fórmula química del agua?",
+          "options": [
+            { "id": "a", "text": "CO2", "is_correct": false },
+            { "id": "b", "text": "O2", "is_correct": false },
+            { "id": "c", "text": "NaCl", "is_correct": false },
+            { "id": "d", "text": "H2O", "is_correct": true }
+          ],
+          "explanation": "Cada molécula de agua tiene dos átomos de hidrógeno y uno de oxígeno: H2O."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuántos continentes hay en la Tierra?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": false },
+            { "id": "c", "text": "Siete", "is_correct": true },
+            { "id": "d", "text": "Ocho", "is_correct": false }
+          ],
+          "explanation": "África, Antártida, Asia, Europa, América del Norte, Oceanía y América del Sur: siete."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el océano más grande del mundo?",
+          "options": [
+            { "id": "a", "text": "Océano Atlántico", "is_correct": false },
+            { "id": "b", "text": "Océano Pacífico", "is_correct": true },
+            { "id": "c", "text": "Océano Índico", "is_correct": false },
+            { "id": "d", "text": "Océano Ártico", "is_correct": false }
+          ],
+          "explanation": "El Pacífico cubre cerca de un tercio de la superficie terrestre, más que todas las tierras juntas."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál es la moneda oficial de Japón?",
+          "options": [
+            { "id": "a", "text": "El won", "is_correct": false },
+            { "id": "b", "text": "El yuan", "is_correct": false },
+            { "id": "c", "text": "El ringgit", "is_correct": false },
+            { "id": "d", "text": "El yen", "is_correct": true }
+          ],
+          "explanation": "El yen es la moneda de Japón desde 1871; el won es de Corea del Sur y el yuan de China."
+        }
+      ]
+    },
+    {
+      "slug": "en-general-knowledge-hard-trivia",
+      "title": "General Knowledge Trivia: A Hard Round for Experts",
+      "description": "Eight tough general knowledge questions on history, geography, science and literature that only seasoned trivia players get right.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["general knowledge", "trivia", "hard", "expert", "culture"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Counting overseas territories, how many standard time zones does France span, more than any other country?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Eight", "is_correct": false },
+            { "id": "c", "text": "Twelve", "is_correct": true },
+            { "id": "d", "text": "Fifteen", "is_correct": false }
+          ],
+          "explanation": "From Polynesia to the Caribbean, French territories spread across 12 standard time zones, 13 during daylight saving time."
+        },
+        {
+          "id": "q2",
+          "question": "In which year did Constantinople fall to the Ottoman Empire?",
+          "options": [
+            { "id": "a", "text": "1389", "is_correct": false },
+            { "id": "b", "text": "1492", "is_correct": false },
+            { "id": "c", "text": "1526", "is_correct": false },
+            { "id": "d", "text": "1453", "is_correct": true }
+          ],
+          "explanation": "Constantinople fell on 29 May 1453, ending the Byzantine Empire after more than a thousand years."
+        },
+        {
+          "id": "q3",
+          "question": "Which is the only country crossed by both the Equator and the Tropic of Capricorn?",
+          "options": [
+            { "id": "a", "text": "Colombia", "is_correct": false },
+            { "id": "b", "text": "Brazil", "is_correct": true },
+            { "id": "c", "text": "Peru", "is_correct": false },
+            { "id": "d", "text": "Indonesia", "is_correct": false }
+          ],
+          "explanation": "The Equator crosses northern Brazil and the Tropic of Capricorn its south, near São Paulo."
+        },
+        {
+          "id": "q4",
+          "question": "Marie Curie won Nobel Prizes in two different sciences. Which two?",
+          "options": [
+            { "id": "a", "text": "Physics and Medicine", "is_correct": false },
+            { "id": "b", "text": "Chemistry and Medicine", "is_correct": false },
+            { "id": "c", "text": "Physics and Chemistry", "is_correct": true },
+            { "id": "d", "text": "Chemistry and Peace", "is_correct": false }
+          ],
+          "explanation": "She won the Nobel Prize in Physics in 1903 and in Chemistry in 1911, a unique double."
+        },
+        {
+          "id": "q5",
+          "question": "Which element has the chemical symbol W?",
+          "options": [
+            { "id": "a", "text": "Tin", "is_correct": false },
+            { "id": "b", "text": "Titanium", "is_correct": false },
+            { "id": "c", "text": "Tantalum", "is_correct": false },
+            { "id": "d", "text": "Tungsten", "is_correct": true }
+          ],
+          "explanation": "W comes from wolfram, the old name for tungsten; tin is Sn, titanium Ti and tantalum Ta."
+        },
+        {
+          "id": "q6",
+          "question": "Who wrote the novel One Hundred Years of Solitude?",
+          "options": [
+            { "id": "a", "text": "Jorge Luis Borges", "is_correct": false },
+            { "id": "b", "text": "Gabriel García Márquez", "is_correct": true },
+            { "id": "c", "text": "Pablo Neruda", "is_correct": false },
+            { "id": "d", "text": "Mario Vargas Llosa", "is_correct": false }
+          ],
+          "explanation": "García Márquez published it in 1967; it made him the emblem of magical realism and a Nobel laureate."
+        },
+        {
+          "id": "q7",
+          "question": "Which is the smallest country in the world by area?",
+          "options": [
+            { "id": "a", "text": "Monaco", "is_correct": false },
+            { "id": "b", "text": "San Marino", "is_correct": false },
+            { "id": "c", "text": "Vatican City", "is_correct": true },
+            { "id": "d", "text": "Liechtenstein", "is_correct": false }
+          ],
+          "explanation": "Vatican City covers about 0.49 km², a quarter of the size of Monaco."
+        },
+        {
+          "id": "q8",
+          "question": "Which language has the most native speakers in the world?",
+          "options": [
+            { "id": "a", "text": "English", "is_correct": false },
+            { "id": "b", "text": "Spanish", "is_correct": false },
+            { "id": "c", "text": "Hindi", "is_correct": false },
+            { "id": "d", "text": "Mandarin Chinese", "is_correct": true }
+          ],
+          "explanation": "Mandarin has around 900 million native speakers, almost twice as many as Spanish."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-cultura-general-dificil",
+      "title": "Trivia de cultura general difícil: nivel experto",
+      "description": "Ocho preguntas difíciles de cultura general sobre historia, geografía, ciencia y literatura que solo responden los jugadores expertos.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["cultura general", "trivia", "difícil", "experto", "conocimiento"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Contando sus territorios de ultramar, ¿por cuántos husos horarios estándar se extiende Francia, más que ningún otro país?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Ocho", "is_correct": false },
+            { "id": "c", "text": "Doce", "is_correct": true },
+            { "id": "d", "text": "Quince", "is_correct": false }
+          ],
+          "explanation": "De la Polinesia al Caribe, los territorios franceses se reparten en 12 husos horarios estándar, 13 durante el horario de verano."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué año cayó Constantinopla en manos del Imperio otomano?",
+          "options": [
+            { "id": "a", "text": "1389", "is_correct": false },
+            { "id": "b", "text": "1492", "is_correct": false },
+            { "id": "c", "text": "1526", "is_correct": false },
+            { "id": "d", "text": "1453", "is_correct": true }
+          ],
+          "explanation": "Constantinopla cayó el 29 de mayo de 1453, poniendo fin al Imperio bizantino tras más de mil años."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es el único país atravesado tanto por la línea del ecuador como por el Trópico de Capricornio?",
+          "options": [
+            { "id": "a", "text": "Colombia", "is_correct": false },
+            { "id": "b", "text": "Brasil", "is_correct": true },
+            { "id": "c", "text": "Perú", "is_correct": false },
+            { "id": "d", "text": "Indonesia", "is_correct": false }
+          ],
+          "explanation": "El ecuador cruza el norte de Brasil y el Trópico de Capricornio su sur, cerca de São Paulo."
+        },
+        {
+          "id": "q4",
+          "question": "Marie Curie ganó el premio Nobel en dos ciencias distintas. ¿En cuáles?",
+          "options": [
+            { "id": "a", "text": "Física y Medicina", "is_correct": false },
+            { "id": "b", "text": "Química y Medicina", "is_correct": false },
+            { "id": "c", "text": "Física y Química", "is_correct": true },
+            { "id": "d", "text": "Química y Paz", "is_correct": false }
+          ],
+          "explanation": "Ganó el Nobel de Física en 1903 y el de Química en 1911, un doblete que nadie más ha logrado."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué elemento químico tiene el símbolo W?",
+          "options": [
+            { "id": "a", "text": "Estaño", "is_correct": false },
+            { "id": "b", "text": "Titanio", "is_correct": false },
+            { "id": "c", "text": "Tántalo", "is_correct": false },
+            { "id": "d", "text": "Wolframio", "is_correct": true }
+          ],
+          "explanation": "La W viene de wolfram, el otro nombre del wolframio o tungsteno; el estaño es Sn y el titanio Ti."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién escribió la novela «Cien años de soledad»?",
+          "options": [
+            { "id": "a", "text": "Jorge Luis Borges", "is_correct": false },
+            { "id": "b", "text": "Gabriel García Márquez", "is_correct": true },
+            { "id": "c", "text": "Pablo Neruda", "is_correct": false },
+            { "id": "d", "text": "Mario Vargas Llosa", "is_correct": false }
+          ],
+          "explanation": "García Márquez la publicó en 1967 y se convirtió en el emblema del realismo mágico y en Nobel."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuál es el país más pequeño del mundo por superficie?",
+          "options": [
+            { "id": "a", "text": "Mónaco", "is_correct": false },
+            { "id": "b", "text": "San Marino", "is_correct": false },
+            { "id": "c", "text": "Ciudad del Vaticano", "is_correct": true },
+            { "id": "d", "text": "Liechtenstein", "is_correct": false }
+          ],
+          "explanation": "La Ciudad del Vaticano ocupa unos 0,49 km², la cuarta parte de Mónaco."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué idioma tiene más hablantes nativos en el mundo?",
+          "options": [
+            { "id": "a", "text": "Inglés", "is_correct": false },
+            { "id": "b", "text": "Español", "is_correct": false },
+            { "id": "c", "text": "Hindi", "is_correct": false },
+            { "id": "d", "text": "Chino mandarín", "is_correct": true }
+          ],
+          "explanation": "El mandarín tiene unos 900 millones de hablantes nativos, casi el doble que el español."
+        }
+      ]
+    },
+    {
+      "slug": "en-trick-questions-trivia",
+      "title": "Trick Questions Trivia: Read Carefully or Fail",
+      "description": "Eight classic trick questions where the obvious answer is wrong: read each statement twice before you pick your option.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["trick questions", "trivia", "riddles", "wordplay", "brain teasers"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+          "options": [
+            { "id": "a", "text": "0", "is_correct": false },
+            { "id": "b", "text": "8", "is_correct": false },
+            { "id": "c", "text": "9", "is_correct": true },
+            { "id": "d", "text": "17", "is_correct": false }
+          ],
+          "explanation": "\"All but 9\" means nine survive; the trick is doing 17 minus 9 instead of reading the phrase."
+        },
+        {
+          "id": "q2",
+          "question": "How many months of the year have 28 days?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Two", "is_correct": false },
+            { "id": "c", "text": "Six", "is_correct": false },
+            { "id": "d", "text": "All twelve", "is_correct": true }
+          ],
+          "explanation": "Every month has at least 28 days; only February stops exactly at 28."
+        },
+        {
+          "id": "q3",
+          "question": "A rooster lays an egg right on the ridge of a slanted roof. Which way does it roll?",
+          "options": [
+            { "id": "a", "text": "To the left side", "is_correct": false },
+            { "id": "b", "text": "To the right side", "is_correct": false },
+            { "id": "c", "text": "It stays on the ridge", "is_correct": false },
+            { "id": "d", "text": "Roosters do not lay eggs", "is_correct": true }
+          ],
+          "explanation": "Only hens lay eggs; the roof debate is a distraction."
+        },
+        {
+          "id": "q4",
+          "question": "If a plane crashes exactly on the border between two countries, where are the survivors buried?",
+          "options": [
+            { "id": "a", "text": "In the country with most of the wreckage", "is_correct": false },
+            { "id": "b", "text": "Half in each country", "is_correct": false },
+            { "id": "c", "text": "Survivors are not buried", "is_correct": true },
+            { "id": "d", "text": "In their country of origin", "is_correct": false }
+          ],
+          "explanation": "Survivors stay alive, so nobody buries them; the question only tests whether you read 'survivors'."
+        },
+        {
+          "id": "q5",
+          "question": "What weighs more: a kilogram of feathers or a kilogram of steel?",
+          "options": [
+            { "id": "a", "text": "The steel", "is_correct": false },
+            { "id": "b", "text": "The feathers", "is_correct": false },
+            { "id": "c", "text": "They weigh the same", "is_correct": true },
+            { "id": "d", "text": "The steel, because it is denser", "is_correct": false }
+          ],
+          "explanation": "A kilogram is a kilogram; density changes the volume, not the weight."
+        },
+        {
+          "id": "q6",
+          "question": "Before Mount Everest was discovered, what was the highest mountain in the world?",
+          "options": [
+            { "id": "a", "text": "K2", "is_correct": false },
+            { "id": "b", "text": "Kangchenjunga", "is_correct": false },
+            { "id": "c", "text": "Mont Blanc", "is_correct": false },
+            { "id": "d", "text": "Mount Everest", "is_correct": true }
+          ],
+          "explanation": "Everest was still the highest; it just had not been measured yet."
+        },
+        {
+          "id": "q7",
+          "question": "How many animals of each kind did Moses take on the ark?",
+          "options": [
+            { "id": "a", "text": "Two", "is_correct": false },
+            { "id": "b", "text": "Seven pairs", "is_correct": false },
+            { "id": "c", "text": "None: it was Noah's ark", "is_correct": true },
+            { "id": "d", "text": "One of each", "is_correct": false }
+          ],
+          "explanation": "The ark belonged to Noah, not Moses; the name swap is the whole trap."
+        },
+        {
+          "id": "q8",
+          "question": "There are 3 apples on a table and you take 2. How many apples do you have?",
+          "options": [
+            { "id": "a", "text": "One", "is_correct": false },
+            { "id": "b", "text": "Three", "is_correct": false },
+            { "id": "c", "text": "Zero", "is_correct": false },
+            { "id": "d", "text": "Two", "is_correct": true }
+          ],
+          "explanation": "You have the 2 you took; the one left on the table stays behind."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-preguntas-capciosas",
+      "title": "Trivia de preguntas capciosas: lee con atención",
+      "description": "Ocho preguntas capciosas clásicas en las que la respuesta obvia es la incorrecta: lee cada enunciado dos veces antes de elegir.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["preguntas capciosas", "trivia", "adivinanzas", "juegos de palabras", "trampa"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un pastor tiene 17 ovejas y mueren todas menos 9. ¿Cuántas ovejas quedan?",
+          "options": [
+            { "id": "a", "text": "0", "is_correct": false },
+            { "id": "b", "text": "8", "is_correct": false },
+            { "id": "c", "text": "9", "is_correct": true },
+            { "id": "d", "text": "17", "is_correct": false }
+          ],
+          "explanation": "«Todas menos 9» significa que nueve sobreviven; la trampa es restar 17 menos 9 sin leer bien."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos meses del año tienen 28 días?",
+          "options": [
+            { "id": "a", "text": "Uno", "is_correct": false },
+            { "id": "b", "text": "Dos", "is_correct": false },
+            { "id": "c", "text": "Seis", "is_correct": false },
+            { "id": "d", "text": "Los doce", "is_correct": true }
+          ],
+          "explanation": "Todos los meses tienen al menos 28 días; solo febrero se detiene justo en 28."
+        },
+        {
+          "id": "q3",
+          "question": "Un gallo pone un huevo justo en la cumbre de un tejado inclinado. ¿Hacia dónde rueda el huevo?",
+          "options": [
+            { "id": "a", "text": "Hacia el lado izquierdo", "is_correct": false },
+            { "id": "b", "text": "Hacia el lado derecho", "is_correct": false },
+            { "id": "c", "text": "Se queda en la cumbre", "is_correct": false },
+            { "id": "d", "text": "Los gallos no ponen huevos", "is_correct": true }
+          ],
+          "explanation": "Solo las gallinas ponen huevos; la discusión sobre el tejado es la distracción."
+        },
+        {
+          "id": "q4",
+          "question": "Si un avión se estrella justo en la frontera entre dos países, ¿dónde se entierra a los sobrevivientes?",
+          "options": [
+            { "id": "a", "text": "En el país con más restos del avión", "is_correct": false },
+            { "id": "b", "text": "La mitad en cada país", "is_correct": false },
+            { "id": "c", "text": "A los sobrevivientes no se les entierra", "is_correct": true },
+            { "id": "d", "text": "En su país de origen", "is_correct": false }
+          ],
+          "explanation": "Los sobrevivientes siguen vivos, así que nadie los entierra; solo hay que leer la palabra «sobrevivientes»."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué pesa más: un kilo de plumas o un kilo de acero?",
+          "options": [
+            { "id": "a", "text": "El acero", "is_correct": false },
+            { "id": "b", "text": "Las plumas", "is_correct": false },
+            { "id": "c", "text": "Pesan lo mismo", "is_correct": true },
+            { "id": "d", "text": "El acero, porque es más denso", "is_correct": false }
+          ],
+          "explanation": "Un kilo es un kilo; la densidad cambia el volumen, no el peso."
+        },
+        {
+          "id": "q6",
+          "question": "Antes de que se descubriera el Everest, ¿cuál era la montaña más alta del mundo?",
+          "options": [
+            { "id": "a", "text": "El K2", "is_correct": false },
+            { "id": "b", "text": "El Kangchenjunga", "is_correct": false },
+            { "id": "c", "text": "El Mont Blanc", "is_correct": false },
+            { "id": "d", "text": "El Everest", "is_correct": true }
+          ],
+          "explanation": "El Everest ya era la más alta; simplemente aún no se había medido."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cuántos animales de cada especie llevó Moisés en el arca?",
+          "options": [
+            { "id": "a", "text": "Dos", "is_correct": false },
+            { "id": "b", "text": "Siete parejas", "is_correct": false },
+            { "id": "c", "text": "Ninguno: el arca era de Noé", "is_correct": true },
+            { "id": "d", "text": "Uno de cada", "is_correct": false }
+          ],
+          "explanation": "El arca era de Noé, no de Moisés; el cambio de nombre es toda la trampa."
+        },
+        {
+          "id": "q8",
+          "question": "Hay 3 manzanas sobre la mesa y tomas 2. ¿Cuántas manzanas tienes?",
+          "options": [
+            { "id": "a", "text": "Una", "is_correct": false },
+            { "id": "b", "text": "Tres", "is_correct": false },
+            { "id": "c", "text": "Cero", "is_correct": false },
+            { "id": "d", "text": "Dos", "is_correct": true }
+          ],
+          "explanation": "Tienes las 2 que tomaste; la que queda sobre la mesa no es tuya."
+        }
+      ]
+    },
+    {
+      "slug": "en-famous-inventions-trivia",
+      "title": "Famous Inventions Trivia: Breakthroughs That Changed the World",
+      "description": "Eight questions about the inventions that shaped modern life, from the printing press and the telephone to radio and cinema.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "culture",
+      "tags": ["inventions", "trivia", "technology", "history", "discoveries"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Who patented the telephone in 1876?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "c", "text": "Alexander Graham Bell", "is_correct": true },
+            { "id": "d", "text": "Samuel Morse", "is_correct": false }
+          ],
+          "explanation": "Bell received the telephone patent on 7 March 1876, beating Elisha Gray by hours."
+        },
+        {
+          "id": "q2",
+          "question": "Who developed the movable-type printing press in Europe around 1440?",
+          "options": [
+            { "id": "a", "text": "Johannes Gutenberg", "is_correct": true },
+            { "id": "b", "text": "William Caxton", "is_correct": false },
+            { "id": "c", "text": "Aldus Manutius", "is_correct": false },
+            { "id": "d", "text": "Leonardo da Vinci", "is_correct": false }
+          ],
+          "explanation": "Gutenberg's Mainz workshop printed the famous 42-line Bible around 1455."
+        },
+        {
+          "id": "q3",
+          "question": "In which year did the Wright brothers make the first powered, controlled flight?",
+          "options": [
+            { "id": "a", "text": "1889", "is_correct": false },
+            { "id": "b", "text": "1910", "is_correct": false },
+            { "id": "c", "text": "1918", "is_correct": false },
+            { "id": "d", "text": "1903", "is_correct": true }
+          ],
+          "explanation": "On 17 December 1903 the Flyer stayed in the air for 12 seconds at Kitty Hawk."
+        },
+        {
+          "id": "q4",
+          "question": "Who discovered penicillin in 1928?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Robert Koch", "is_correct": false },
+            { "id": "c", "text": "Alexander Fleming", "is_correct": true },
+            { "id": "d", "text": "Joseph Lister", "is_correct": false }
+          ],
+          "explanation": "Fleming noticed a mold killing bacteria in his London lab; the drug arrived in the 1940s."
+        },
+        {
+          "id": "q5",
+          "question": "In which year did Tim Berners-Lee propose the World Wide Web?",
+          "options": [
+            { "id": "a", "text": "1979", "is_correct": false },
+            { "id": "b", "text": "1989", "is_correct": true },
+            { "id": "c", "text": "1995", "is_correct": false },
+            { "id": "d", "text": "2001", "is_correct": false }
+          ],
+          "explanation": "He wrote the proposal at CERN in March 1989 and built the first website in 1990."
+        },
+        {
+          "id": "q6",
+          "question": "Who sent the first radio signal across the Atlantic in 1901?",
+          "options": [
+            { "id": "a", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "b", "text": "Guglielmo Marconi", "is_correct": true },
+            { "id": "c", "text": "Heinrich Hertz", "is_correct": false },
+            { "id": "d", "text": "Thomas Edison", "is_correct": false }
+          ],
+          "explanation": "Marconi's letter 'S' traveled from Cornwall to Newfoundland on 12 December 1901."
+        },
+        {
+          "id": "q7",
+          "question": "What did the Lumière brothers show to a paying audience in Paris in 1895?",
+          "options": [
+            { "id": "a", "text": "The phonograph", "is_correct": false },
+            { "id": "b", "text": "The kinetoscope", "is_correct": false },
+            {
+              "id": "c",
+              "text": "The cinematograph, the first public film screening",
+              "is_correct": true
+            },
+            { "id": "d", "text": "The telephone", "is_correct": false }
+          ],
+          "explanation": "On 28 December 1895 they projected Workers Leaving the Factory, the birth of cinema."
+        },
+        {
+          "id": "q8",
+          "question": "Which sound-recording device did Thomas Edison present in 1877?",
+          "options": [
+            { "id": "a", "text": "The gramophone", "is_correct": false },
+            { "id": "b", "text": "The telephone", "is_correct": false },
+            { "id": "c", "text": "The telegraph", "is_correct": false },
+            { "id": "d", "text": "The phonograph", "is_correct": true }
+          ],
+          "explanation": "Edison's phonograph was the first machine to record and play back sound, on tinfoil."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-inventos-famosos",
+      "title": "Trivia de inventos famosos que cambiaron el mundo",
+      "description": "Ocho preguntas sobre los inventos que transformaron la vida moderna, de la imprenta y el teléfono a la radio y el cine.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "culture",
+      "tags": ["inventos", "trivia", "tecnología", "historia", "descubrimientos"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Quién patentó el teléfono en 1876?",
+          "options": [
+            { "id": "a", "text": "Thomas Edison", "is_correct": false },
+            { "id": "b", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "c", "text": "Alexander Graham Bell", "is_correct": true },
+            { "id": "d", "text": "Samuel Morse", "is_correct": false }
+          ],
+          "explanation": "Bell obtuvo la patente del teléfono el 7 de marzo de 1876, horas antes que Elisha Gray."
+        },
+        {
+          "id": "q2",
+          "question": "¿Quién desarrolló en Europa la imprenta de tipos móviles hacia 1440?",
+          "options": [
+            { "id": "a", "text": "Johannes Gutenberg", "is_correct": true },
+            { "id": "b", "text": "William Caxton", "is_correct": false },
+            { "id": "c", "text": "Aldo Manucio", "is_correct": false },
+            { "id": "d", "text": "Leonardo da Vinci", "is_correct": false }
+          ],
+          "explanation": "El taller de Gutenberg en Maguncia imprimió la famosa Biblia de 42 líneas hacia 1455."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué año realizaron los hermanos Wright el primer vuelo motorizado y controlado?",
+          "options": [
+            { "id": "a", "text": "1889", "is_correct": false },
+            { "id": "b", "text": "1910", "is_correct": false },
+            { "id": "c", "text": "1918", "is_correct": false },
+            { "id": "d", "text": "1903", "is_correct": true }
+          ],
+          "explanation": "El 17 de diciembre de 1903 el Flyer se mantuvo 12 segundos en el aire en Kitty Hawk."
+        },
+        {
+          "id": "q4",
+          "question": "¿Quién descubrió la penicilina en 1928?",
+          "options": [
+            { "id": "a", "text": "Louis Pasteur", "is_correct": false },
+            { "id": "b", "text": "Robert Koch", "is_correct": false },
+            { "id": "c", "text": "Alexander Fleming", "is_correct": true },
+            { "id": "d", "text": "Joseph Lister", "is_correct": false }
+          ],
+          "explanation": "Fleming notó que un moho eliminaba bacterias en su laboratorio de Londres; el fármaco llegó en los años 40."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué año propuso Tim Berners-Lee la World Wide Web?",
+          "options": [
+            { "id": "a", "text": "1979", "is_correct": false },
+            { "id": "b", "text": "1989", "is_correct": true },
+            { "id": "c", "text": "1995", "is_correct": false },
+            { "id": "d", "text": "2001", "is_correct": false }
+          ],
+          "explanation": "Escribió la propuesta en el CERN en marzo de 1989 y construyó el primer sitio web en 1990."
+        },
+        {
+          "id": "q6",
+          "question": "¿Quién transmitió la primera señal de radio a través del Atlántico en 1901?",
+          "options": [
+            { "id": "a", "text": "Nikola Tesla", "is_correct": false },
+            { "id": "b", "text": "Guglielmo Marconi", "is_correct": true },
+            { "id": "c", "text": "Heinrich Hertz", "is_correct": false },
+            { "id": "d", "text": "Thomas Edison", "is_correct": false }
+          ],
+          "explanation": "La letra «S» de Marconi viajó de Cornualles a Terranova el 12 de diciembre de 1901."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué mostraron los hermanos Lumière a un público pagado en París en 1895?",
+          "options": [
+            { "id": "a", "text": "El fonógrafo", "is_correct": false },
+            { "id": "b", "text": "El kinetoscopio", "is_correct": false },
+            {
+              "id": "c",
+              "text": "El cinematógrafo, la primera proyección pública de cine",
+              "is_correct": true
+            },
+            { "id": "d", "text": "El teléfono", "is_correct": false }
+          ],
+          "explanation": "El 28 de diciembre de 1895 proyectaron «La salida de la fábrica»: el nacimiento del cine."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué aparato de grabación de sonido presentó Thomas Edison en 1877?",
+          "options": [
+            { "id": "a", "text": "El gramófono", "is_correct": false },
+            { "id": "b", "text": "El teléfono", "is_correct": false },
+            { "id": "c", "text": "El telégrafo", "is_correct": false },
+            { "id": "d", "text": "El fonógrafo", "is_correct": true }
+          ],
+          "explanation": "El fonógrafo de Edison fue la primera máquina capaz de grabar y reproducir sonido, sobre papel de estaño."
+        }
+      ]
+    },
+    {
+      "slug": "en-school-knowledge-trivia",
+      "title": "School Knowledge Trivia: Smarter Than a Fifth Grader?",
+      "description": "Eight primary-school questions on math, geometry, nature and geography that most adults should still remember. Do you?",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "culture",
+      "tags": ["school", "trivia", "primary school", "kids", "easy"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "How much is 7 × 8?",
+          "options": [
+            { "id": "a", "text": "48", "is_correct": false },
+            { "id": "b", "text": "54", "is_correct": false },
+            { "id": "c", "text": "56", "is_correct": true },
+            { "id": "d", "text": "63", "is_correct": false }
+          ],
+          "explanation": "Seven times eight is fifty-six, the multiplication-table result many adults forget."
+        },
+        {
+          "id": "q2",
+          "question": "How many sides does a hexagon have?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": true },
+            { "id": "c", "text": "Seven", "is_correct": false },
+            { "id": "d", "text": "Eight", "is_correct": false }
+          ],
+          "explanation": "Hexa means six in Greek; honeycomb cells are the most famous hexagons in nature."
+        },
+        {
+          "id": "q3",
+          "question": "Which planet is known as the Red Planet?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": false },
+            { "id": "b", "text": "Mercury", "is_correct": false },
+            { "id": "c", "text": "Jupiter", "is_correct": false },
+            { "id": "d", "text": "Mars", "is_correct": true }
+          ],
+          "explanation": "Iron oxide dust gives Mars its reddish color, visible even to the naked eye."
+        },
+        {
+          "id": "q4",
+          "question": "Which gas do plants absorb from the air for photosynthesis?",
+          "options": [
+            { "id": "a", "text": "Oxygen", "is_correct": false },
+            { "id": "b", "text": "Carbon dioxide", "is_correct": true },
+            { "id": "c", "text": "Nitrogen", "is_correct": false },
+            { "id": "d", "text": "Hydrogen", "is_correct": false }
+          ],
+          "explanation": "Plants take in carbon dioxide and release oxygen, the reverse of what we breathe."
+        },
+        {
+          "id": "q5",
+          "question": "What is the largest mammal in the world?",
+          "options": [
+            { "id": "a", "text": "The African elephant", "is_correct": false },
+            { "id": "b", "text": "The giraffe", "is_correct": false },
+            { "id": "c", "text": "The hippopotamus", "is_correct": false },
+            { "id": "d", "text": "The blue whale", "is_correct": true }
+          ],
+          "explanation": "The blue whale can exceed 30 meters and is the largest animal that has ever lived."
+        },
+        {
+          "id": "q6",
+          "question": "At sea level, at what temperature does water boil?",
+          "options": [
+            { "id": "a", "text": "90 °C", "is_correct": false },
+            { "id": "b", "text": "95 °C", "is_correct": false },
+            { "id": "c", "text": "100 °C", "is_correct": true },
+            { "id": "d", "text": "120 °C", "is_correct": false }
+          ],
+          "explanation": "Pure water boils at 100 °C at sea level; at higher altitude it boils at a lower temperature."
+        },
+        {
+          "id": "q7",
+          "question": "In which continent is most of Egypt located?",
+          "options": [
+            { "id": "a", "text": "Asia", "is_correct": false },
+            { "id": "b", "text": "Africa", "is_correct": true },
+            { "id": "c", "text": "Europe", "is_correct": false },
+            { "id": "d", "text": "Oceania", "is_correct": false }
+          ],
+          "explanation": "Most of Egypt lies in northeastern Africa; only the Sinai peninsula is in Asia."
+        },
+        {
+          "id": "q8",
+          "question": "What are the three primary colors of pigment taught in school?",
+          "options": [
+            { "id": "a", "text": "Green, orange and purple", "is_correct": false },
+            { "id": "b", "text": "Red, green and blue", "is_correct": false },
+            { "id": "c", "text": "Black, white and gray", "is_correct": false },
+            { "id": "d", "text": "Red, blue and yellow", "is_correct": true }
+          ],
+          "explanation": "In the classic school model, red, blue and yellow mix to form all other colors."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-sabes-mas-que-un-nino-de-primaria",
+      "title": "Trivia: ¿sabes más que un niño de primaria?",
+      "description": "Ocho preguntas de primaria sobre matemáticas, geometría, naturaleza y geografía que todo adulto debería recordar. ¿Las recuerdas?",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "culture",
+      "tags": ["primaria", "trivia", "escuela", "niños", "fácil"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuánto es 7 × 8?",
+          "options": [
+            { "id": "a", "text": "48", "is_correct": false },
+            { "id": "b", "text": "54", "is_correct": false },
+            { "id": "c", "text": "56", "is_correct": true },
+            { "id": "d", "text": "63", "is_correct": false }
+          ],
+          "explanation": "Siete por ocho es cincuenta y seis, la tabla que muchos adultos olvidan."
+        },
+        {
+          "id": "q2",
+          "question": "¿Cuántos lados tiene un hexágono?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": true },
+            { "id": "c", "text": "Siete", "is_correct": false },
+            { "id": "d", "text": "Ocho", "is_correct": false }
+          ],
+          "explanation": "Hexa significa seis en griego; los panales de abejas son los hexágonos más famosos de la naturaleza."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué planeta es conocido como el planeta rojo?",
+          "options": [
+            { "id": "a", "text": "Venus", "is_correct": false },
+            { "id": "b", "text": "Mercurio", "is_correct": false },
+            { "id": "c", "text": "Júpiter", "is_correct": false },
+            { "id": "d", "text": "Marte", "is_correct": true }
+          ],
+          "explanation": "El polvo con óxido de hierro le da a Marte su color rojizo, visible incluso a simple vista."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué gas absorben las plantas del aire para realizar la fotosíntesis?",
+          "options": [
+            { "id": "a", "text": "Oxígeno", "is_correct": false },
+            { "id": "b", "text": "Dióxido de carbono", "is_correct": true },
+            { "id": "c", "text": "Nitrógeno", "is_correct": false },
+            { "id": "d", "text": "Hidrógeno", "is_correct": false }
+          ],
+          "explanation": "Las plantas toman dióxido de carbono y liberan oxígeno, al revés de nuestra respiración."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cuál es el mamífero más grande del mundo?",
+          "options": [
+            { "id": "a", "text": "El elefante africano", "is_correct": false },
+            { "id": "b", "text": "La jirafa", "is_correct": false },
+            { "id": "c", "text": "El hipopótamo", "is_correct": false },
+            { "id": "d", "text": "La ballena azul", "is_correct": true }
+          ],
+          "explanation": "La ballena azul puede superar los 30 metros y es el animal más grande que ha existido."
+        },
+        {
+          "id": "q6",
+          "question": "Al nivel del mar, ¿a qué temperatura hierve el agua?",
+          "options": [
+            { "id": "a", "text": "90 °C", "is_correct": false },
+            { "id": "b", "text": "95 °C", "is_correct": false },
+            { "id": "c", "text": "100 °C", "is_correct": true },
+            { "id": "d", "text": "120 °C", "is_correct": false }
+          ],
+          "explanation": "El agua pura hierve a 100 °C al nivel del mar; a mayor altitud hierve a menor temperatura."
+        },
+        {
+          "id": "q7",
+          "question": "¿En qué continente se encuentra la mayor parte de Egipto?",
+          "options": [
+            { "id": "a", "text": "Asia", "is_correct": false },
+            { "id": "b", "text": "África", "is_correct": true },
+            { "id": "c", "text": "Europa", "is_correct": false },
+            { "id": "d", "text": "Oceanía", "is_correct": false }
+          ],
+          "explanation": "Casi todo Egipto está en el noreste de África; solo la península del Sinaí está en Asia."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuáles son los tres colores primarios que se enseñan en la escuela?",
+          "options": [
+            { "id": "a", "text": "Verde, naranja y morado", "is_correct": false },
+            { "id": "b", "text": "Rojo, verde y azul", "is_correct": false },
+            { "id": "c", "text": "Negro, blanco y gris", "is_correct": false },
+            { "id": "d", "text": "Rojo, azul y amarillo", "is_correct": true }
+          ],
+          "explanation": "En el modelo escolar clásico, el rojo, el azul y el amarillo se mezclan para formar los demás colores."
+        }
+      ]
+    }
+  ]
+}
