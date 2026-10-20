@@ -1,0 +1,1023 @@
+{
+  "$comment": "Editorial seed 2026bz: five es/en trivia pairs on India — general knowledge, history, food, Bollywood and geography — all in the geography category. Every answer is a stable, checkable fact. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-india-trivia",
+      "title": "India Trivia: Culture, Landmarks and Everyday Life",
+      "description": "Eight questions on India: the capital, the Taj Mahal, the flag, Diwali, the rupee and the sports and religions that shape daily life.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["india", "trivia", "asia", "culture", "travel"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the capital of India?",
+          "options": [
+            { "id": "a", "text": "Mumbai", "is_correct": false },
+            { "id": "b", "text": "New Delhi", "is_correct": true },
+            { "id": "c", "text": "Kolkata", "is_correct": false },
+            { "id": "d", "text": "Bengaluru", "is_correct": false }
+          ],
+          "explanation": "New Delhi was inaugurated as the capital in 1931, replacing Calcutta, now called Kolkata."
+        },
+        {
+          "id": "q2",
+          "question": "Which white marble mausoleum in Agra did emperor Shah Jahan build for his wife?",
+          "options": [
+            { "id": "a", "text": "The Taj Mahal", "is_correct": true },
+            { "id": "b", "text": "The Red Fort", "is_correct": false },
+            { "id": "c", "text": "The Amber Palace", "is_correct": false },
+            { "id": "d", "text": "The Hawa Mahal", "is_correct": false }
+          ],
+          "explanation": "Shah Jahan built the Taj Mahal as the tomb of Mumtaz Mahal; construction ran from 1632 to 1653."
+        },
+        {
+          "id": "q3",
+          "question": "What is the currency of India?",
+          "options": [
+            { "id": "a", "text": "The taka", "is_correct": false },
+            { "id": "b", "text": "The rupee", "is_correct": true },
+            { "id": "c", "text": "The baht", "is_correct": false },
+            { "id": "d", "text": "The ringgit", "is_correct": false }
+          ],
+          "explanation": "The Indian rupee is issued by the Reserve Bank of India; its ₹ symbol was adopted in 2010."
+        },
+        {
+          "id": "q4",
+          "question": "Which Indian festival is known as the Festival of Lights?",
+          "options": [
+            { "id": "a", "text": "Holi", "is_correct": false },
+            { "id": "b", "text": "Diwali", "is_correct": true },
+            { "id": "c", "text": "Navratri", "is_correct": false },
+            { "id": "d", "text": "Raksha Bandhan", "is_correct": false }
+          ],
+          "explanation": "Diwali celebrates the victory of light over darkness; homes glow with oil lamps called diyas."
+        },
+        {
+          "id": "q5",
+          "question": "What is the blue 24-spoke wheel in the center of India's flag called?",
+          "options": [
+            { "id": "a", "text": "The Ashoka Chakra", "is_correct": true },
+            { "id": "b", "text": "The Lotus Wheel", "is_correct": false },
+            { "id": "c", "text": "The Sun of India", "is_correct": false },
+            { "id": "d", "text": "The Wheel of Karma", "is_correct": false }
+          ],
+          "explanation": "The Ashoka Chakra is the wheel of dharma taken from the Lion Capital of emperor Ashoka."
+        },
+        {
+          "id": "q6",
+          "question": "Which is the national animal of India?",
+          "options": [
+            { "id": "a", "text": "The Asian elephant", "is_correct": false },
+            { "id": "b", "text": "The lion", "is_correct": false },
+            { "id": "c", "text": "The Bengal tiger", "is_correct": true },
+            { "id": "d", "text": "The peacock", "is_correct": false }
+          ],
+          "explanation": "The Bengal tiger was declared the national animal in 1973; the peacock is the national bird."
+        },
+        {
+          "id": "q7",
+          "question": "Which sport draws by far the biggest audiences in India?",
+          "options": [
+            { "id": "a", "text": "Field hockey", "is_correct": false },
+            { "id": "b", "text": "Cricket", "is_correct": true },
+            { "id": "c", "text": "Football", "is_correct": false },
+            { "id": "d", "text": "Kabaddi", "is_correct": false }
+          ],
+          "explanation": "Cricket is the most followed sport in the country; India won the World Cup in 1983 and 2011."
+        },
+        {
+          "id": "q8",
+          "question": "Which of these religions did NOT originate in India?",
+          "options": [
+            { "id": "a", "text": "Hinduism", "is_correct": false },
+            { "id": "b", "text": "Buddhism", "is_correct": false },
+            { "id": "c", "text": "Sikhism", "is_correct": false },
+            { "id": "d", "text": "Christianity", "is_correct": true }
+          ],
+          "explanation": "Hinduism, Buddhism, Jainism and Sikhism were all born in India; Christianity began in the Middle East."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-de-india",
+      "title": "Trivia de India: cultura, monumentos y vida cotidiana",
+      "description": "Ocho preguntas sobre India: la capital, el Taj Mahal, la bandera, el Diwali, la rupia y los deportes y religiones que marcan la vida diaria.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "geography",
+      "tags": ["india", "trivia", "asia", "cultura", "viajes"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cuál es la capital de India?",
+          "options": [
+            { "id": "a", "text": "Bombay", "is_correct": false },
+            { "id": "b", "text": "Nueva Delhi", "is_correct": true },
+            { "id": "c", "text": "Calcuta", "is_correct": false },
+            { "id": "d", "text": "Bangalore", "is_correct": false }
+          ],
+          "explanation": "Nueva Delhi fue inaugurada como capital en 1931, en reemplazo de Calcuta."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué mausoleo de mármol blanco construyó el emperador Shah Jahan en Agra para su esposa?",
+          "options": [
+            { "id": "a", "text": "El Taj Mahal", "is_correct": true },
+            { "id": "b", "text": "El Fuerte Rojo", "is_correct": false },
+            { "id": "c", "text": "El Palacio de Amber", "is_correct": false },
+            { "id": "d", "text": "El Hawa Mahal", "is_correct": false }
+          ],
+          "explanation": "Shah Jahan levantó el Taj Mahal como tumba de Mumtaz Mahal; las obras duraron de 1632 a 1653."
+        },
+        {
+          "id": "q3",
+          "question": "¿Cuál es la moneda de India?",
+          "options": [
+            { "id": "a", "text": "El taka", "is_correct": false },
+            { "id": "b", "text": "La rupia", "is_correct": true },
+            { "id": "c", "text": "El baht", "is_correct": false },
+            { "id": "d", "text": "El ringgit", "is_correct": false }
+          ],
+          "explanation": "La rupia india la emite el Banco de la Reserva de la India; su símbolo ₹ se adoptó en 2010."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué fiesta india se conoce como el Festival de las Luces?",
+          "options": [
+            { "id": "a", "text": "Holi", "is_correct": false },
+            { "id": "b", "text": "Diwali", "is_correct": true },
+            { "id": "c", "text": "Navratri", "is_correct": false },
+            { "id": "d", "text": "Raksha Bandhan", "is_correct": false }
+          ],
+          "explanation": "Diwali celebra el triunfo de la luz sobre la oscuridad; las casas se iluminan con lámparas de aceite llamadas diyas."
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo se llama la rueda azul de 24 radios en el centro de la bandera de India?",
+          "options": [
+            { "id": "a", "text": "El Ashoka Chakra", "is_correct": true },
+            { "id": "b", "text": "La Rueda del Loto", "is_correct": false },
+            { "id": "c", "text": "El Sol de India", "is_correct": false },
+            { "id": "d", "text": "La Rueda del Karma", "is_correct": false }
+          ],
+          "explanation": "El Ashoka Chakra es la rueda del dharma tomada del Capitel de los Leones del emperador Ashoka."
+        },
+        {
+          "id": "q6",
+          "question": "¿Cuál es el animal nacional de India?",
+          "options": [
+            { "id": "a", "text": "El elefante asiático", "is_correct": false },
+            { "id": "b", "text": "El león", "is_correct": false },
+            { "id": "c", "text": "El tigre de Bengala", "is_correct": true },
+            { "id": "d", "text": "El pavo real", "is_correct": false }
+          ],
+          "explanation": "El tigre de Bengala fue declarado animal nacional en 1973; el pavo real es el ave nacional."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué deporte mueve, con diferencia, las mayores audiencias en India?",
+          "options": [
+            { "id": "a", "text": "El hockey sobre césped", "is_correct": false },
+            { "id": "b", "text": "El críquet", "is_correct": true },
+            { "id": "c", "text": "El fútbol", "is_correct": false },
+            { "id": "d", "text": "El kabaddi", "is_correct": false }
+          ],
+          "explanation": "El críquet es el deporte más seguido del país; India ganó la Copa del Mundo en 1983 y 2011."
+        },
+        {
+          "id": "q8",
+          "question": "¿Cuál de estas religiones NO nació en India?",
+          "options": [
+            { "id": "a", "text": "El hinduismo", "is_correct": false },
+            { "id": "b", "text": "El budismo", "is_correct": false },
+            { "id": "c", "text": "El sijismo", "is_correct": false },
+            { "id": "d", "text": "El cristianismo", "is_correct": true }
+          ],
+          "explanation": "El hinduismo, el budismo, el jainismo y el sijismo nacieron en India; el cristianismo surgió en Oriente Medio."
+        }
+      ]
+    },
+    {
+      "slug": "en-india-history-trivia",
+      "title": "India History Trivia: Empires, Gandhi and Independence",
+      "description": "Eight questions on the history of India, from the Indus Valley and emperor Ashoka to the British Raj, Gandhi and independence in 1947.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": ["india", "history", "trivia", "independence", "gandhi"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which Bronze Age civilization built the cities of Harappa and Mohenjo-daro?",
+          "options": [
+            { "id": "a", "text": "The Indus Valley Civilization", "is_correct": true },
+            { "id": "b", "text": "The Persian Empire", "is_correct": false },
+            { "id": "c", "text": "The Shang dynasty", "is_correct": false },
+            { "id": "d", "text": "The Babylonian Empire", "is_correct": false }
+          ],
+          "explanation": "The Indus Valley Civilization flourished around 2500 BCE with planned cities like Harappa and Mohenjo-daro."
+        },
+        {
+          "id": "q2",
+          "question": "Which Mauryan emperor embraced Buddhism after the bloody Kalinga war?",
+          "options": [
+            { "id": "a", "text": "Chandragupta", "is_correct": false },
+            { "id": "b", "text": "Ashoka", "is_correct": true },
+            { "id": "c", "text": "Harsha", "is_correct": false },
+            { "id": "d", "text": "Akbar", "is_correct": false }
+          ],
+          "explanation": "Ashoka renounced conquest after Kalinga around 261 BCE and spread Buddhist edicts carved on pillars."
+        },
+        {
+          "id": "q3",
+          "question": "Which dynasty ruled northern India from the 4th to the 6th century, a period called a golden age?",
+          "options": [
+            { "id": "a", "text": "The Gupta dynasty", "is_correct": true },
+            { "id": "b", "text": "The Chola dynasty", "is_correct": false },
+            { "id": "c", "text": "The Mughal Empire", "is_correct": false },
+            { "id": "d", "text": "The Maratha Empire", "is_correct": false }
+          ],
+          "explanation": "Under the Guptas, Sanskrit literature, mathematics and astronomy flourished; the concept of zero spread."
+        },
+        {
+          "id": "q4",
+          "question": "Which European trading company controlled much of India before the British Crown took over?",
+          "options": [
+            { "id": "a", "text": "The Dutch East India Company", "is_correct": false },
+            { "id": "b", "text": "The East India Company", "is_correct": true },
+            { "id": "c", "text": "The Hudson's Bay Company", "is_correct": false },
+            { "id": "d", "text": "The Portuguese Crown", "is_correct": false }
+          ],
+          "explanation": "The English East India Company ruled much of India from 1757 until the Crown assumed control in 1858."
+        },
+        {
+          "id": "q5",
+          "question": "In which year did India gain independence from Britain?",
+          "options": [
+            { "id": "a", "text": "1937", "is_correct": false },
+            { "id": "b", "text": "1942", "is_correct": false },
+            { "id": "c", "text": "1947", "is_correct": true },
+            { "id": "d", "text": "1950", "is_correct": false }
+          ],
+          "explanation": "Independence came on 15 August 1947 with the partition into India and Pakistan; the republic was proclaimed in 1950."
+        },
+        {
+          "id": "q6",
+          "question": "What did Gandhi's Salt March of 1930 protest against?",
+          "options": [
+            { "id": "a", "text": "A tax on tea", "is_correct": false },
+            { "id": "b", "text": "The British tax on salt", "is_correct": true },
+            { "id": "c", "text": "Forced military service", "is_correct": false },
+            { "id": "d", "text": "A ban on weaving cotton", "is_correct": false }
+          ],
+          "explanation": "Gandhi walked about 390 km to the coastal village of Dandi to make salt illegally, defying the British salt tax."
+        },
+        {
+          "id": "q7",
+          "question": "Who was the first prime minister of independent India?",
+          "options": [
+            { "id": "a", "text": "Mahatma Gandhi", "is_correct": false },
+            { "id": "b", "text": "Jawaharlal Nehru", "is_correct": true },
+            { "id": "c", "text": "Vallabhbhai Patel", "is_correct": false },
+            { "id": "d", "text": "Indira Gandhi", "is_correct": false }
+          ],
+          "explanation": "Nehru led the country from independence in 1947 until his death in 1964."
+        },
+        {
+          "id": "q8",
+          "question": "Which movement did Gandhi launch in 1942 demanding an end to British rule?",
+          "options": [
+            { "id": "a", "text": "The Quit India movement", "is_correct": true },
+            { "id": "b", "text": "The Swadeshi movement", "is_correct": false },
+            { "id": "c", "text": "The Non-Cooperation movement", "is_correct": false },
+            { "id": "d", "text": "The Khilafat movement", "is_correct": false }
+          ],
+          "explanation": "In August 1942 Gandhi called on the British to quit India; the leaders were jailed and the struggle went on."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-historia-de-india",
+      "title": "Trivia de historia de India: imperios, Gandhi e independencia",
+      "description": "Ocho preguntas sobre la historia de India, del valle del Indo y el emperador Ashoka al Raj británico, Gandhi y la independencia de 1947.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": ["india", "historia", "trivia", "independencia", "gandhi"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué civilización de la Edad de Bronce levantó las ciudades de Harappa y Mohenjo-Daro?",
+          "options": [
+            { "id": "a", "text": "La civilización del valle del Indo", "is_correct": true },
+            { "id": "b", "text": "El Imperio persa", "is_correct": false },
+            { "id": "c", "text": "La dinastía Shang", "is_correct": false },
+            { "id": "d", "text": "El Imperio babilónico", "is_correct": false }
+          ],
+          "explanation": "La civilización del valle del Indo floreció hacia el 2500 a. C. con ciudades planificadas como Harappa y Mohenjo-Daro."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué emperador mauria abrazó el budismo tras la sangrienta guerra de Kalinga?",
+          "options": [
+            { "id": "a", "text": "Chandragupta", "is_correct": false },
+            { "id": "b", "text": "Ashoka", "is_correct": true },
+            { "id": "c", "text": "Harsha", "is_correct": false },
+            { "id": "d", "text": "Akbar", "is_correct": false }
+          ],
+          "explanation": "Ashoka renunció a la conquista tras Kalinga, hacia el 261 a. C., y difundió edictos budistas grabados en pilares."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué dinastía gobernó el norte de India entre los siglos IV y VI, época llamada edad de oro?",
+          "options": [
+            { "id": "a", "text": "La dinastía Gupta", "is_correct": true },
+            { "id": "b", "text": "La dinastía Chola", "is_correct": false },
+            { "id": "c", "text": "El Imperio mogol", "is_correct": false },
+            { "id": "d", "text": "El Imperio maratha", "is_correct": false }
+          ],
+          "explanation": "Bajo los Gupta florecieron la literatura sánscrita, las matemáticas y la astronomía; el concepto del cero se difundió."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué compañía comercial europea controló gran parte de India antes de la Corona británica?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La Compañía Neerlandesa de las Indias Orientales",
+              "is_correct": false
+            },
+            { "id": "b", "text": "La Compañía de las Indias Orientales", "is_correct": true },
+            { "id": "c", "text": "La Compañía de la Bahía de Hudson", "is_correct": false },
+            { "id": "d", "text": "La Corona portuguesa", "is_correct": false }
+          ],
+          "explanation": "La Compañía inglesa de las Indias Orientales gobernó gran parte de India desde 1757 hasta que la Corona asumió el mando en 1858."
+        },
+        {
+          "id": "q5",
+          "question": "¿En qué año se independizó India del Reino Unido?",
+          "options": [
+            { "id": "a", "text": "1937", "is_correct": false },
+            { "id": "b", "text": "1942", "is_correct": false },
+            { "id": "c", "text": "1947", "is_correct": true },
+            { "id": "d", "text": "1950", "is_correct": false }
+          ],
+          "explanation": "La independencia llegó el 15 de agosto de 1947 con la partición en India y Pakistán; la república se proclamó en 1950."
+        },
+        {
+          "id": "q6",
+          "question": "¿Contra qué protestó la Marcha de la Sal de Gandhi en 1930?",
+          "options": [
+            { "id": "a", "text": "Un impuesto al té", "is_correct": false },
+            { "id": "b", "text": "El impuesto británico a la sal", "is_correct": true },
+            { "id": "c", "text": "El servicio militar obligatorio", "is_correct": false },
+            { "id": "d", "text": "La prohibición de tejer algodón", "is_correct": false }
+          ],
+          "explanation": "Gandhi caminó unos 390 km hasta la aldea costera de Dandi para fabricar sal ilegalmente, desafiando el impuesto británico."
+        },
+        {
+          "id": "q7",
+          "question": "¿Quién fue el primer primer ministro de la India independiente?",
+          "options": [
+            { "id": "a", "text": "Mahatma Gandhi", "is_correct": false },
+            { "id": "b", "text": "Jawaharlal Nehru", "is_correct": true },
+            { "id": "c", "text": "Vallabhbhai Patel", "is_correct": false },
+            { "id": "d", "text": "Indira Gandhi", "is_correct": false }
+          ],
+          "explanation": "Nehru gobernó desde la independencia en 1947 hasta su muerte en 1964."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué movimiento lanzó Gandhi en 1942 exigiendo el fin del dominio británico?",
+          "options": [
+            { "id": "a", "text": "El movimiento Quit India", "is_correct": true },
+            { "id": "b", "text": "El movimiento Swadeshi", "is_correct": false },
+            { "id": "c", "text": "El movimiento de No Cooperación", "is_correct": false },
+            { "id": "d", "text": "El movimiento Khilafat", "is_correct": false }
+          ],
+          "explanation": "En agosto de 1942 Gandhi pidió a los británicos que abandonaran India; los líderes fueron encarcelados y la lucha siguió."
+        }
+      ]
+    },
+    {
+      "slug": "en-indian-food-trivia",
+      "title": "Indian Food Trivia: Spices, Curry and Regional Dishes",
+      "description": "Eight questions on Indian food: naan, biryani, dosa, masala chai, ghee, butter chicken and the spices behind the world's favorite curries.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["india", "food", "trivia", "curry", "cuisine"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the leavened flatbread baked on the walls of a tandoor clay oven?",
+          "options": [
+            { "id": "a", "text": "Naan", "is_correct": true },
+            { "id": "b", "text": "Dosa", "is_correct": false },
+            { "id": "c", "text": "Papadum", "is_correct": false },
+            { "id": "d", "text": "Biryani", "is_correct": false }
+          ],
+          "explanation": "Naan is a soft leavened bread slapped against the hot inner walls of a tandoor."
+        },
+        {
+          "id": "q2",
+          "question": "What is biryani?",
+          "options": [
+            { "id": "a", "text": "A fried pastry", "is_correct": false },
+            { "id": "b", "text": "A spiced rice dish with meat or vegetables", "is_correct": true },
+            { "id": "c", "text": "A lentil soup", "is_correct": false },
+            { "id": "d", "text": "A yogurt dessert", "is_correct": false }
+          ],
+          "explanation": "Biryani layers basmati rice with spices, saffron and meat or vegetables; every region has its own version."
+        },
+        {
+          "id": "q3",
+          "question": "Which thin fermented crepe made of rice and lentils is a South Indian staple?",
+          "options": [
+            { "id": "a", "text": "Samosa", "is_correct": false },
+            { "id": "b", "text": "Dosa", "is_correct": true },
+            { "id": "c", "text": "Korma", "is_correct": false },
+            { "id": "d", "text": "Vindaloo", "is_correct": false }
+          ],
+          "explanation": "Dosa is a crisp fermented crepe from South India, served with sambar and coconut chutney."
+        },
+        {
+          "id": "q4",
+          "question": "What does the word 'masala' mean in Indian cooking?",
+          "options": [
+            { "id": "a", "text": "A type of rice", "is_correct": false },
+            { "id": "b", "text": "A blend of spices", "is_correct": true },
+            { "id": "c", "text": "A clay cooking pot", "is_correct": false },
+            { "id": "d", "text": "A cooking oil", "is_correct": false }
+          ],
+          "explanation": "Masala is a spice mix; garam masala combines warming spices like cardamom, cinnamon and cloves."
+        },
+        {
+          "id": "q5",
+          "question": "What is masala chai?",
+          "options": [
+            { "id": "a", "text": "A mango smoothie", "is_correct": false },
+            { "id": "b", "text": "Black tea brewed with milk and spices", "is_correct": true },
+            { "id": "c", "text": "A cold coffee drink", "is_correct": false },
+            { "id": "d", "text": "A rose-flavored syrup", "is_correct": false }
+          ],
+          "explanation": "Masala chai simmers black tea with milk, ginger and spices such as cardamom and cinnamon."
+        },
+        {
+          "id": "q6",
+          "question": "What is ghee, a staple fat in Indian kitchens?",
+          "options": [
+            { "id": "a", "text": "Clarified butter", "is_correct": true },
+            { "id": "b", "text": "Coconut oil", "is_correct": false },
+            { "id": "c", "text": "Mustard seed oil", "is_correct": false },
+            { "id": "d", "text": "A fermented dough", "is_correct": false }
+          ],
+          "explanation": "Ghee is butter simmered until the milk solids separate; it keeps well and handles high heat."
+        },
+        {
+          "id": "q7",
+          "question": "Murgh makhani, a creamy tomato-sauce chicken dish from Delhi, is known worldwide as what?",
+          "options": [
+            { "id": "a", "text": "Chicken tikka", "is_correct": false },
+            { "id": "b", "text": "Tandoori chicken", "is_correct": false },
+            { "id": "c", "text": "Butter chicken", "is_correct": true },
+            { "id": "d", "text": "Chicken korma", "is_correct": false }
+          ],
+          "explanation": "Murgh makhani, butter chicken, became famous in Delhi restaurants in the 1950s and spread worldwide."
+        },
+        {
+          "id": "q8",
+          "question": "Which crispy triangular pastry is filled with spiced potatoes and peas?",
+          "options": [
+            { "id": "a", "text": "Pakora", "is_correct": false },
+            { "id": "b", "text": "Samosa", "is_correct": true },
+            { "id": "c", "text": "Idli", "is_correct": false },
+            { "id": "d", "text": "Naan", "is_correct": false }
+          ],
+          "explanation": "The samosa arrived from Central Asia centuries ago and became India's most popular fried snack."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-comida-de-india",
+      "title": "Trivia de comida india: especias, curry y platos regionales",
+      "description": "Ocho preguntas sobre la cocina india: naan, biryani, dosa, masala chai, ghee, butter chicken y las especias detrás del curry.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "geography",
+      "tags": ["india", "comida", "trivia", "curry", "gastronomía"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Cómo se llama el pan plano fermentado que se hornea en las paredes del horno de barro tandoor?",
+          "options": [
+            { "id": "a", "text": "Naan", "is_correct": true },
+            { "id": "b", "text": "Dosa", "is_correct": false },
+            { "id": "c", "text": "Papadum", "is_correct": false },
+            { "id": "d", "text": "Biryani", "is_correct": false }
+          ],
+          "explanation": "El naan es un pan suave y fermentado que se pega a las paredes calientes del tandoor."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué es el biryani?",
+          "options": [
+            { "id": "a", "text": "Una masa frita", "is_correct": false },
+            {
+              "id": "b",
+              "text": "Un plato de arroz especiado con carne o verduras",
+              "is_correct": true
+            },
+            { "id": "c", "text": "Una sopa de lentejas", "is_correct": false },
+            { "id": "d", "text": "Un postre de yogur", "is_correct": false }
+          ],
+          "explanation": "El biryani alterna arroz basmati con especias, azafrán y carne o verduras; cada región tiene su versión."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué crepa fina fermentada de arroz y lentejas es un clásico del sur de India?",
+          "options": [
+            { "id": "a", "text": "La samosa", "is_correct": false },
+            { "id": "b", "text": "El dosa", "is_correct": true },
+            { "id": "c", "text": "El korma", "is_correct": false },
+            { "id": "d", "text": "El vindaloo", "is_correct": false }
+          ],
+          "explanation": "El dosa es una crepa crujiente y fermentada del sur de India, servida con sambar y chutney de coco."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué significa la palabra «masala» en la cocina india?",
+          "options": [
+            { "id": "a", "text": "Un tipo de arroz", "is_correct": false },
+            { "id": "b", "text": "Una mezcla de especias", "is_correct": true },
+            { "id": "c", "text": "Una olla de barro", "is_correct": false },
+            { "id": "d", "text": "Un aceite de cocina", "is_correct": false }
+          ],
+          "explanation": "Masala es una mezcla de especias; el garam masala combina especias cálidas como cardamomo, canela y clavo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué es el masala chai?",
+          "options": [
+            { "id": "a", "text": "Un batido de mango", "is_correct": false },
+            { "id": "b", "text": "Té negro hervido con leche y especias", "is_correct": true },
+            { "id": "c", "text": "Un café frío", "is_correct": false },
+            { "id": "d", "text": "Un jarabe de rosas", "is_correct": false }
+          ],
+          "explanation": "El masala chai hierve té negro con leche, jengibre y especias como cardamomo y canela."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué es el ghee, una grasa básica en las cocinas de India?",
+          "options": [
+            { "id": "a", "text": "Mantequilla clarificada", "is_correct": true },
+            { "id": "b", "text": "Aceite de coco", "is_correct": false },
+            { "id": "c", "text": "Aceite de mostaza", "is_correct": false },
+            { "id": "d", "text": "Una masa fermentada", "is_correct": false }
+          ],
+          "explanation": "El ghee es mantequilla cocida hasta separar los sólidos lácteos; se conserva bien y aguanta altas temperaturas."
+        },
+        {
+          "id": "q7",
+          "question": "¿Cómo se conoce en el mundo al murgh makhani, el pollo en salsa cremosa de tomate nacido en Delhi?",
+          "options": [
+            { "id": "a", "text": "Pollo tikka", "is_correct": false },
+            { "id": "b", "text": "Pollo tandoori", "is_correct": false },
+            { "id": "c", "text": "Pollo a la mantequilla (butter chicken)", "is_correct": true },
+            { "id": "d", "text": "Pollo korma", "is_correct": false }
+          ],
+          "explanation": "El murgh makhani, butter chicken, se hizo famoso en restaurantes de Delhi en los años 50 y se extendió por el mundo."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué masa crujiente triangular se rellena con papas y arvejas especiadas?",
+          "options": [
+            { "id": "a", "text": "El pakora", "is_correct": false },
+            { "id": "b", "text": "La samosa", "is_correct": true },
+            { "id": "c", "text": "El idli", "is_correct": false },
+            { "id": "d", "text": "El naan", "is_correct": false }
+          ],
+          "explanation": "La samosa llegó desde Asia Central hace siglos y se volvió el bocado frito más popular de India."
+        }
+      ]
+    },
+    {
+      "slug": "en-bollywood-trivia",
+      "title": "Bollywood Trivia: Stars, Songs and Classic Films",
+      "description": "Eight questions on Bollywood: the Bombay-Hollywood name, Hindi cinema milestones, song-and-dance classics like Sholay and its biggest stars.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "geography",
+      "tags": ["bollywood", "india", "movies", "trivia", "cinema"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What two words does the name 'Bollywood' combine?",
+          "options": [
+            { "id": "a", "text": "Bombay and Hollywood", "is_correct": true },
+            { "id": "b", "text": "Bombay and Broadway", "is_correct": false },
+            { "id": "c", "text": "Bengal and Hollywood", "is_correct": false },
+            { "id": "d", "text": "Bali and Hollywood", "is_correct": false }
+          ],
+          "explanation": "Bollywood blends Bombay, the former name of Mumbai, with Hollywood."
+        },
+        {
+          "id": "q2",
+          "question": "In which city is the Bollywood film industry based?",
+          "options": [
+            { "id": "a", "text": "New Delhi", "is_correct": false },
+            { "id": "b", "text": "Mumbai", "is_correct": true },
+            { "id": "c", "text": "Chennai", "is_correct": false },
+            { "id": "d", "text": "Kolkata", "is_correct": false }
+          ],
+          "explanation": "Bollywood films are produced in Mumbai, formerly Bombay, the country's film capital."
+        },
+        {
+          "id": "q3",
+          "question": "In which language are most Bollywood films made?",
+          "options": [
+            { "id": "a", "text": "Tamil", "is_correct": false },
+            { "id": "b", "text": "Hindi", "is_correct": true },
+            { "id": "c", "text": "Bengali", "is_correct": false },
+            { "id": "d", "text": "English", "is_correct": false }
+          ],
+          "explanation": "Bollywood refers specifically to Hindi-language cinema; India has other industries like Tamil Kollywood."
+        },
+        {
+          "id": "q4",
+          "question": "What did Dadasaheb Phalke's 1913 film Raja Harishchandra mark?",
+          "options": [
+            { "id": "a", "text": "The first Indian talkie", "is_correct": false },
+            { "id": "b", "text": "The first Indian feature film", "is_correct": true },
+            { "id": "c", "text": "The first color film in India", "is_correct": false },
+            { "id": "d", "text": "The first Bollywood musical", "is_correct": false }
+          ],
+          "explanation": "Raja Harishchandra (1913) was India's first full-length feature; Phalke is called the father of Indian cinema."
+        },
+        {
+          "id": "q5",
+          "question": "Which 1931 film was India's first sound film, or 'talkie'?",
+          "options": [
+            { "id": "a", "text": "Raja Harishchandra", "is_correct": false },
+            { "id": "b", "text": "Alam Ara", "is_correct": true },
+            { "id": "c", "text": "Mother India", "is_correct": false },
+            { "id": "d", "text": "Pather Panchali", "is_correct": false }
+          ],
+          "explanation": "Alam Ara (1931) introduced sound and songs; Indian cinema has loved musical numbers ever since."
+        },
+        {
+          "id": "q6",
+          "question": "What do classic Bollywood films almost always feature?",
+          "options": [
+            { "id": "a", "text": "Silent scenes only", "is_correct": false },
+            { "id": "b", "text": "Song-and-dance sequences", "is_correct": true },
+            { "id": "c", "text": "Dialogue in English", "is_correct": false },
+            { "id": "d", "text": "Documentary footage", "is_correct": false }
+          ],
+          "explanation": "Song-and-dance numbers are Bollywood's signature; the songs often become hits before the film opens."
+        },
+        {
+          "id": "q7",
+          "question": "Which 1975 film starring Amitabh Bachchan is considered Bollywood's landmark blockbuster?",
+          "options": [
+            { "id": "a", "text": "Mother India", "is_correct": false },
+            { "id": "b", "text": "Sholay", "is_correct": true },
+            { "id": "c", "text": "Lagaan", "is_correct": false },
+            { "id": "d", "text": "Mughal-e-Azam", "is_correct": false }
+          ],
+          "explanation": "Sholay ran for five straight years in a Mumbai cinema and its dialogues entered popular culture."
+        },
+        {
+          "id": "q8",
+          "question": "Which Bollywood superstar is nicknamed 'King Khan'?",
+          "options": [
+            { "id": "a", "text": "Aamir Khan", "is_correct": false },
+            { "id": "b", "text": "Salman Khan", "is_correct": false },
+            { "id": "c", "text": "Shah Rukh Khan", "is_correct": true },
+            { "id": "d", "text": "Saif Ali Khan", "is_correct": false }
+          ],
+          "explanation": "Shah Rukh Khan has led romantic hits since the 1990s, including Dilwale Dulhania Le Jayenge."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-bollywood",
+      "title": "Trivia de Bollywood: estrellas, canciones y clásicos",
+      "description": "Ocho preguntas sobre Bollywood: el nombre Bombay-Hollywood, hitos del cine en hindi, clásicos como Sholay y sus grandes estrellas.",
+      "quiz_type": "trivia",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "geography",
+      "tags": ["bollywood", "india", "cine", "trivia", "películas"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué dos palabras combina el nombre «Bollywood»?",
+          "options": [
+            { "id": "a", "text": "Bombay y Hollywood", "is_correct": true },
+            { "id": "b", "text": "Bombay y Broadway", "is_correct": false },
+            { "id": "c", "text": "Bengala y Hollywood", "is_correct": false },
+            { "id": "d", "text": "Bali y Hollywood", "is_correct": false }
+          ],
+          "explanation": "Bollywood mezcla Bombay, el antiguo nombre de Mumbai, con Hollywood."
+        },
+        {
+          "id": "q2",
+          "question": "¿En qué ciudad tiene su base la industria cinematográfica de Bollywood?",
+          "options": [
+            { "id": "a", "text": "Nueva Delhi", "is_correct": false },
+            { "id": "b", "text": "Mumbai", "is_correct": true },
+            { "id": "c", "text": "Chennai", "is_correct": false },
+            { "id": "d", "text": "Calcuta", "is_correct": false }
+          ],
+          "explanation": "Las películas de Bollywood se producen en Mumbai, antes llamada Bombay, la capital del cine del país."
+        },
+        {
+          "id": "q3",
+          "question": "¿En qué idioma se filma la mayoría de las películas de Bollywood?",
+          "options": [
+            { "id": "a", "text": "En tamil", "is_correct": false },
+            { "id": "b", "text": "En hindi", "is_correct": true },
+            { "id": "c", "text": "En bengalí", "is_correct": false },
+            { "id": "d", "text": "En inglés", "is_correct": false }
+          ],
+          "explanation": "Bollywood se refiere al cine en hindi; India tiene otras industrias como Kollywood, en tamil."
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué marcó Raja Harishchandra, la película de Dadasaheb Phalke de 1913?",
+          "options": [
+            { "id": "a", "text": "La primera película sonora india", "is_correct": false },
+            { "id": "b", "text": "El primer largometraje indio", "is_correct": true },
+            { "id": "c", "text": "La primera película en color de India", "is_correct": false },
+            { "id": "d", "text": "El primer musical de Bollywood", "is_correct": false }
+          ],
+          "explanation": "Raja Harishchandra (1913) fue el primer largometraje de India; Phalke es considerado el padre del cine indio."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué película de 1931 fue la primera cinta sonora de India?",
+          "options": [
+            { "id": "a", "text": "Raja Harishchandra", "is_correct": false },
+            { "id": "b", "text": "Alam Ara", "is_correct": true },
+            { "id": "c", "text": "Mother India", "is_correct": false },
+            { "id": "d", "text": "Pather Panchali", "is_correct": false }
+          ],
+          "explanation": "Alam Ara (1931) introdujo el sonido y las canciones; desde entonces el cine indio vive de los números musicales."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué incluyen casi siempre las películas clásicas de Bollywood?",
+          "options": [
+            { "id": "a", "text": "Solo escenas mudas", "is_correct": false },
+            { "id": "b", "text": "Números de canciones y baile", "is_correct": true },
+            { "id": "c", "text": "Diálogos en inglés", "is_correct": false },
+            { "id": "d", "text": "Escenas documentales", "is_correct": false }
+          ],
+          "explanation": "Los números musicales son la firma de Bollywood: las canciones suelen ser éxitos antes del estreno."
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué película de 1975 con Amitabh Bachchan es el gran clásico taquillero de Bollywood?",
+          "options": [
+            { "id": "a", "text": "Mother India", "is_correct": false },
+            { "id": "b", "text": "Sholay", "is_correct": true },
+            { "id": "c", "text": "Lagaan", "is_correct": false },
+            { "id": "d", "text": "Mughal-e-Azam", "is_correct": false }
+          ],
+          "explanation": "Sholay se proyectó cinco años seguidos en un cine de Mumbai y sus diálogos entraron en la cultura popular."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué superestrella de Bollywood es apodada «King Khan»?",
+          "options": [
+            { "id": "a", "text": "Aamir Khan", "is_correct": false },
+            { "id": "b", "text": "Salman Khan", "is_correct": false },
+            { "id": "c", "text": "Shah Rukh Khan", "is_correct": true },
+            { "id": "d", "text": "Saif Ali Khan", "is_correct": false }
+          ],
+          "explanation": "Shah Rukh Khan encabeza los romances de Bollywood desde los años 90, como Dilwale Dulhania Le Jayenge."
+        }
+      ]
+    },
+    {
+      "slug": "en-india-geography-trivia",
+      "title": "India Geography Trivia: Rivers, Mountains and Borders",
+      "description": "Eight questions on India's geography: the Himalayas, the Ganges, the Thar Desert, neighboring countries and the monsoon rains.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "en",
+      "category": "geography",
+      "tags": ["india", "geography", "trivia", "rivers", "asia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which mountain range separates India from the rest of Asia in the north?",
+          "options": [
+            { "id": "a", "text": "The Ural Mountains", "is_correct": false },
+            { "id": "b", "text": "The Himalayas", "is_correct": true },
+            { "id": "c", "text": "The Alps", "is_correct": false },
+            { "id": "d", "text": "The Western Ghats", "is_correct": false }
+          ],
+          "explanation": "The Himalayas form India's northern wall and hold some of the highest peaks on the planet."
+        },
+        {
+          "id": "q2",
+          "question": "Which river is considered the holiest in Hinduism?",
+          "options": [
+            { "id": "a", "text": "The Indus", "is_correct": false },
+            { "id": "b", "text": "The Ganges", "is_correct": true },
+            { "id": "c", "text": "The Brahmaputra", "is_correct": false },
+            { "id": "d", "text": "The Yamuna", "is_correct": false }
+          ],
+          "explanation": "The Ganges, or Ganga, is revered as a goddess; holy cities like Varanasi stand on its banks."
+        },
+        {
+          "id": "q3",
+          "question": "Which body of water lies off India's west coast?",
+          "options": [
+            { "id": "a", "text": "The Arabian Sea", "is_correct": true },
+            { "id": "b", "text": "The Bay of Bengal", "is_correct": false },
+            { "id": "c", "text": "The Red Sea", "is_correct": false },
+            { "id": "d", "text": "The Persian Gulf", "is_correct": false }
+          ],
+          "explanation": "The Arabian Sea bathes the west coast, the Bay of Bengal the east and the Indian Ocean the south."
+        },
+        {
+          "id": "q4",
+          "question": "Which is the most populous state in India?",
+          "options": [
+            { "id": "a", "text": "Maharashtra", "is_correct": false },
+            { "id": "b", "text": "Uttar Pradesh", "is_correct": true },
+            { "id": "c", "text": "Bihar", "is_correct": false },
+            { "id": "d", "text": "West Bengal", "is_correct": false }
+          ],
+          "explanation": "Uttar Pradesh is home to around 200 million people, more than most countries in the world."
+        },
+        {
+          "id": "q5",
+          "question": "Which desert covers much of the state of Rajasthan?",
+          "options": [
+            { "id": "a", "text": "The Gobi Desert", "is_correct": false },
+            { "id": "b", "text": "The Sahara", "is_correct": false },
+            { "id": "c", "text": "The Thar Desert", "is_correct": true },
+            { "id": "d", "text": "The Atacama Desert", "is_correct": false }
+          ],
+          "explanation": "The Thar, or Great Indian Desert, covers western Rajasthan and continues into Pakistan."
+        },
+        {
+          "id": "q6",
+          "question": "Which island country lies southeast of India across the Palk Strait?",
+          "options": [
+            { "id": "a", "text": "The Maldives", "is_correct": false },
+            { "id": "b", "text": "Sri Lanka", "is_correct": true },
+            { "id": "c", "text": "Indonesia", "is_correct": false },
+            { "id": "d", "text": "Madagascar", "is_correct": false }
+          ],
+          "explanation": "Sri Lanka sits off India's southeastern tip, separated only by the shallow Palk Strait."
+        },
+        {
+          "id": "q7",
+          "question": "How many countries share a land border with India?",
+          "options": [
+            { "id": "a", "text": "Five", "is_correct": false },
+            { "id": "b", "text": "Six", "is_correct": false },
+            { "id": "c", "text": "Seven", "is_correct": true },
+            { "id": "d", "text": "Nine", "is_correct": false }
+          ],
+          "explanation": "India borders Pakistan, Afghanistan, China, Nepal, Bhutan, Bangladesh and Myanmar."
+        },
+        {
+          "id": "q8",
+          "question": "What seasonal phenomenon brings most of India's rainfall?",
+          "options": [
+            { "id": "a", "text": "El Niño", "is_correct": false },
+            { "id": "b", "text": "The monsoon", "is_correct": true },
+            { "id": "c", "text": "Typhoons", "is_correct": false },
+            { "id": "d", "text": "The trade winds", "is_correct": false }
+          ],
+          "explanation": "The southwest monsoon concentrates most of the year's rain between June and September."
+        }
+      ]
+    },
+    {
+      "slug": "es-trivia-geografia-de-india",
+      "title": "Trivia de geografía de India: ríos, montañas y fronteras",
+      "description": "Ocho preguntas sobre la geografía de India: el Himalaya, el Ganges, el desierto de Thar, los países vecinos y el monzón.",
+      "quiz_type": "trivia",
+      "difficulty": "medium",
+      "language": "es",
+      "category": "geography",
+      "tags": ["india", "geografía", "trivia", "ríos", "asia"],
+      "estimated_minutes": 3,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "¿Qué cordillera separa a India del resto de Asia por el norte?",
+          "options": [
+            { "id": "a", "text": "Los Urales", "is_correct": false },
+            { "id": "b", "text": "El Himalaya", "is_correct": true },
+            { "id": "c", "text": "Los Alpes", "is_correct": false },
+            { "id": "d", "text": "Los Ghats occidentales", "is_correct": false }
+          ],
+          "explanation": "El Himalaya forma la muralla norte de India y alberga algunas de las cumbres más altas del planeta."
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué río se considera el más sagrado del hinduismo?",
+          "options": [
+            { "id": "a", "text": "El Indo", "is_correct": false },
+            { "id": "b", "text": "El Ganges", "is_correct": true },
+            { "id": "c", "text": "El Brahmaputra", "is_correct": false },
+            { "id": "d", "text": "El Yamuna", "is_correct": false }
+          ],
+          "explanation": "El Ganges, o Ganga, se venera como una diosa; ciudades sagradas como Benarés se levantan a su orilla."
+        },
+        {
+          "id": "q3",
+          "question": "¿Qué mar baña la costa oeste de India?",
+          "options": [
+            { "id": "a", "text": "El mar Arábigo", "is_correct": true },
+            { "id": "b", "text": "El golfo de Bengala", "is_correct": false },
+            { "id": "c", "text": "El mar Rojo", "is_correct": false },
+            { "id": "d", "text": "El golfo Pérsico", "is_correct": false }
+          ],
+          "explanation": "El mar Arábigo baña la costa oeste, el golfo de Bengala la este y el océano Índico el sur."
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es el estado más poblado de India?",
+          "options": [
+            { "id": "a", "text": "Maharashtra", "is_correct": false },
+            { "id": "b", "text": "Uttar Pradesh", "is_correct": true },
+            { "id": "c", "text": "Bihar", "is_correct": false },
+            { "id": "d", "text": "Bengala Occidental", "is_correct": false }
+          ],
+          "explanation": "Uttar Pradesh alberga a unos 200 millones de personas, más que la mayoría de los países del mundo."
+        },
+        {
+          "id": "q5",
+          "question": "¿Qué desierto cubre gran parte del estado de Rayastán?",
+          "options": [
+            { "id": "a", "text": "El desierto de Gobi", "is_correct": false },
+            { "id": "b", "text": "El Sahara", "is_correct": false },
+            { "id": "c", "text": "El desierto de Thar", "is_correct": true },
+            { "id": "d", "text": "El desierto de Atacama", "is_correct": false }
+          ],
+          "explanation": "El Thar, o Gran Desierto Indio, cubre el oeste de Rayastán y se extiende hasta Pakistán."
+        },
+        {
+          "id": "q6",
+          "question": "¿Qué país insular queda al sureste de India, al otro lado del estrecho de Palk?",
+          "options": [
+            { "id": "a", "text": "Maldivas", "is_correct": false },
+            { "id": "b", "text": "Sri Lanka", "is_correct": true },
+            { "id": "c", "text": "Indonesia", "is_correct": false },
+            { "id": "d", "text": "Madagascar", "is_correct": false }
+          ],
+          "explanation": "Sri Lanka está justo frente a la punta sureste de India, separada solo por el somero estrecho de Palk."
+        },
+        {
+          "id": "q7",
+          "question": "¿Con cuántos países comparte India frontera terrestre?",
+          "options": [
+            { "id": "a", "text": "Cinco", "is_correct": false },
+            { "id": "b", "text": "Seis", "is_correct": false },
+            { "id": "c", "text": "Siete", "is_correct": true },
+            { "id": "d", "text": "Nueve", "is_correct": false }
+          ],
+          "explanation": "India limita con Pakistán, Afganistán, China, Nepal, Bután, Bangladés y Birmania."
+        },
+        {
+          "id": "q8",
+          "question": "¿Qué fenómeno estacional trae la mayor parte de la lluvia de India?",
+          "options": [
+            { "id": "a", "text": "El Niño", "is_correct": false },
+            { "id": "b", "text": "El monzón", "is_correct": true },
+            { "id": "c", "text": "Los tifones", "is_correct": false },
+            { "id": "d", "text": "Los vientos alisios", "is_correct": false }
+          ],
+          "explanation": "El monzón del suroeste concentra casi toda la lluvia del año entre junio y septiembre."
+        }
+      ]
+    }
+  ]
+}
