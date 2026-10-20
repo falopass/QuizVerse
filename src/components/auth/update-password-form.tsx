@@ -21,8 +21,11 @@ const COPY = {
     linkExpired: 'El enlace ya no sirve. Pide uno nuevo.',
     sessionExpired: 'Tu sesión caducó; inicia sesión de nuevo.',
     saved: 'Contraseña actualizada.',
+    savedRevoked: 'Contraseña actualizada. Cerramos las sesiones de los otros dispositivos.',
     savedRecoveryTitle: 'Contraseña actualizada',
     savedRecoveryBody: 'Ya quedó lista tu contraseña nueva. Tu sesión sigue activa.',
+    savedRecoveryBodyRevoked:
+      'Ya quedó lista tu contraseña nueva. Tu sesión sigue activa y cerramos las de los otros dispositivos.',
     continueHome: 'Ir a QuizVerse',
   },
   en: {
@@ -38,8 +41,11 @@ const COPY = {
     linkExpired: 'That link no longer works. Request a new one.',
     sessionExpired: 'Your session expired; sign in again.',
     saved: 'Password updated.',
+    savedRevoked: 'Password updated. We signed out the sessions on your other devices.',
     savedRecoveryTitle: 'Password updated',
     savedRecoveryBody: 'Your new password is set. Your session is still active.',
+    savedRecoveryBodyRevoked:
+      'Your new password is set. Your session is still active and we signed out the ones on other devices.',
     continueHome: 'Go to QuizVerse',
   },
 } as const;
@@ -76,6 +82,7 @@ export function UpdatePasswordForm({
   const [confirm, setConfirm] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [notice, setNotice] = useState<{ tone: 'success' | 'error'; text: string } | null>(null);
+  const [revoked, setRevoked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -106,10 +113,14 @@ export function UpdatePasswordForm({
       setCurrentPassword('');
       setPassword('');
       setConfirm('');
+      setRevoked(result.revokedOtherSessions === true);
       if (mode === 'recovery') {
         setSaved(true);
       } else {
-        setNotice({ tone: 'success', text: copy.saved });
+        setNotice({
+          tone: 'success',
+          text: result.revokedOtherSessions ? copy.savedRevoked : copy.saved,
+        });
       }
       return;
     }
@@ -151,7 +162,9 @@ export function UpdatePasswordForm({
       <div className="space-y-4">
         <div className="rounded-3xl border border-green-500/30 bg-green-500/10 px-5 py-5">
           <p className="text-sm font-semibold text-green-400">{copy.savedRecoveryTitle}</p>
-          <p className="text-text-secondary mt-2 text-sm leading-6">{copy.savedRecoveryBody}</p>
+          <p className="text-text-secondary mt-2 text-sm leading-6">
+            {revoked ? copy.savedRecoveryBodyRevoked : copy.savedRecoveryBody}
+          </p>
         </div>
         <Link
           href={localizeHref(locale, '/')}

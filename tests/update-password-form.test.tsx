@@ -50,6 +50,18 @@ describe('UpdatePasswordForm · recovery', () => {
     expect(screen.getByRole('link', { name: 'Ir a QuizVerse' })).toHaveAttribute('href', '/es');
   });
 
+  it('avisa que se cerraron las otras sesiones cuando el servidor lo confirma', async () => {
+    mocks.resetPassword.mockResolvedValue({ ok: true, userId: 'u1', revokedOtherSessions: true });
+    render(<UpdatePasswordForm locale="es" mode="recovery" />);
+
+    fillNewPasswords('claveNueva1', 'claveNueva1');
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar contraseña' }));
+
+    await waitFor(() =>
+      expect(screen.getByText(/cerramos las de los otros dispositivos/i)).toBeInTheDocument()
+    );
+  });
+
   it('avisa que el enlace venció cuando no hay sesión de recuperación', async () => {
     mocks.resetPassword.mockResolvedValue({ ok: false, code: 'unauthorized' });
     render(<UpdatePasswordForm locale="es" mode="recovery" />);
@@ -91,6 +103,20 @@ describe('UpdatePasswordForm · settings', () => {
 
     await waitFor(() =>
       expect(mocks.changePassword).toHaveBeenCalledWith({ password: 'claveNueva1' })
+    );
+  });
+
+  it('avisa que se cerraron las otras sesiones cuando el servidor lo confirma', async () => {
+    mocks.changePassword.mockResolvedValue({ ok: true, userId: 'u1', revokedOtherSessions: true });
+    render(<UpdatePasswordForm locale="es" mode="settings" />);
+
+    fillNewPasswords('claveNueva1', 'claveNueva1');
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar contraseña' }));
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Contraseña actualizada. Cerramos las sesiones de los otros dispositivos.')
+      ).toBeInTheDocument()
     );
   });
 

@@ -116,7 +116,12 @@ export const AUTH_ERROR_CODES = [
 export type AuthErrorCode = (typeof AUTH_ERROR_CODES)[number];
 
 export type AuthResult =
-  | { ok: true; userId: string | null }
+  | {
+      ok: true;
+      userId: string | null;
+      /** `true` cuando la acción además cerró las demás sesiones del usuario. */
+      revokedOtherSessions?: boolean;
+    }
   | {
       ok: false;
       code: AuthErrorCode;
