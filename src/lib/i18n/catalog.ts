@@ -70,6 +70,14 @@ export const CATEGORY_SLUG_NAMES: Record<string, string> = {
   culture: 'Culture',
   literature: 'Literature',
   'pop-culture': 'Pop Culture',
+  technology: 'Technology',
+  relationships: 'Relationships',
+  'food-drink': 'Food & Drink',
+  science: 'Science',
+  animals: 'Animals',
+  sports: 'Sports',
+  geography: 'Geography',
+  history: 'History',
 };
 
 const TYPE_COPY = {
