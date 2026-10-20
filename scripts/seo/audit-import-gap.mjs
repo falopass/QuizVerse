@@ -41,9 +41,7 @@ export function parseSitemapSlugs(xml) {
  * Returns [{ lot, slugs: string[] }] sorted by lot name.
  */
 export async function collectSeedSlugs(dir) {
-  const files = (await readdir(dir))
-    .filter((name) => /^editorial-seed.*\.json$/.test(name))
-    .sort();
+  const files = (await readdir(dir)).filter((name) => /^editorial-seed.*\.json$/.test(name)).sort();
   const lots = [];
   for (const file of files) {
     const seed = JSON.parse(await readFile(path.join(dir, file), 'utf8'));
@@ -102,7 +100,9 @@ async function main() {
   // Un sitemap 200 sin URLs /quiz/ no prueba que no haya quizzes publicados
   // (la query puede devolver cero filas): sin evidencia, no medimos.
   if (live.size === 0) {
-    console.error(`El sitemap (${sitemapSource}) no contiene URLs /quiz/; no se puede medir la brecha.`);
+    console.error(
+      `El sitemap (${sitemapSource}) no contiene URLs /quiz/; no se puede medir la brecha.`
+    );
     process.exit(2);
   }
   const seeded = await collectSeedSlugs(SEEDS_DIR);
