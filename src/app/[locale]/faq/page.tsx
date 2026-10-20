@@ -4,6 +4,7 @@ import { getFaq } from '@/lib/i18n/faq';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { Metadata } from 'next';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { absoluteUrl } from '@/lib/seo/site';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildGraph, webPageNode } from '@/lib/seo/structured-data';
 
@@ -23,6 +24,7 @@ export async function generateMetadata({
     path: `/${lang}/faq`,
     alternatePath: `/${lang === 'es' ? 'en' : 'es'}/faq`,
     locale: lang,
+    image: absoluteUrl(`/${lang}/faq/opengraph-image`),
   });
 }
 
