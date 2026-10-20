@@ -28,6 +28,18 @@ function identifierFor(email: string): string {
 }
 
 /**
+ * Tras un cambio de clave revoca las demás sesiones; `scope: 'others'` conserva
+ * la actual. Si falla, la clave igualmente quedó cambiada: no se reintenta, se
+ * reporta en el resultado para que la UI no prometa un cierre que no hubo.
+ */
+async function revokeOtherSessions(
+  supabase: Awaited<ReturnType<typeof createClient>>
+): Promise<boolean> {
+  const { error } = await supabase.auth.signOut({ scope: 'others' });
+  return !error;
+}
+
+/**
  * Crea la cuenta. Manda al trigger `handle_new_user` el nombre y un username ya
  * normalizado; el trigger vuelve a sanear y resuelve colisiones con el UUID.
  */
@@ -137,14 +149,15 @@ export async function resetPasswordAction(input: unknown): Promise<AuthResult> {
 
   const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
   if (error) return { ok: false, code: mapAuthError(error) };
-  return { ok: true, userId: user.id };
+  return { ok: true, userId: user.id, revokedOtherSessions: await revokeOtherSessions(supabase) };
 }
 
 /**
  * Cambio de contraseña con sesión normal (/settings). Si la cuenta ya tiene
  * identidad por email se revalida la clave vigente antes de reemplazarla: una
- * sesión abierta en un equipo ajeno no basta para tomar la cuenta. Quien entró
- * solo por OAuth no tiene clave que revalidar y define la primera aquí.
+ * sesión abierta en un equipo ajeno no basta para tomar la cuenta, y al cambiar
+ * la clave esa sesión además queda revocada. Quien entró solo por OAuth no
+ * tiene clave que revalidar y define la primera aquí.
  */
 export async function changePasswordAction(input: unknown): Promise<AuthResult> {
   const parsed = PasswordUpdateSchema.safeParse(input);
@@ -181,5 +194,5 @@ export async function changePasswordAction(input: unknown): Promise<AuthResult> 
 
   const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
   if (error) return { ok: false, code: mapAuthError(error) };
-  return { ok: true, userId: user.id };
+  return { ok: true, userId: user.id, revokedOtherSessions: await revokeOtherSessions(supabase) };
 }
