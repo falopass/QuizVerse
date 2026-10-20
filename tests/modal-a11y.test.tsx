@@ -38,10 +38,51 @@ describe('Modal accesible', () => {
 
   it('expone los ids referenciados por aria-labelledby y aria-describedby', () => {
     const { dialog } = renderOpen();
-    expect(dialog).toHaveAttribute('aria-labelledby', 'modal-title');
-    expect(document.getElementById('modal-title')).toHaveTextContent('Título de prueba');
-    expect(dialog).toHaveAttribute('aria-describedby', 'modal-description');
-    expect(document.getElementById('modal-description')).toHaveTextContent('Descripción de prueba');
+    const titleId = dialog.getAttribute('aria-labelledby');
+    const descriptionId = dialog.getAttribute('aria-describedby');
+    expect(titleId).toBeTruthy();
+    expect(descriptionId).toBeTruthy();
+    expect(document.getElementById(titleId!)).toHaveTextContent('Título de prueba');
+    expect(document.getElementById(descriptionId!)).toHaveTextContent('Descripción de prueba');
+  });
+
+  it('genera ids únicos por instancia cuando hay dos modales abiertos', () => {
+    render(
+      <>
+        <Modal isOpen onClose={() => {}} title="Modal A" description="Descripción A">
+          <p>Contenido A</p>
+        </Modal>
+        <Modal isOpen onClose={() => {}} title="Modal B" description="Descripción B">
+          <p>Contenido B</p>
+        </Modal>
+      </>
+    );
+    const dialogs = screen.getAllByRole('dialog');
+    expect(dialogs).toHaveLength(2);
+
+    const ids = dialogs.flatMap((d) => [
+      d.getAttribute('aria-labelledby'),
+      d.getAttribute('aria-describedby'),
+    ]);
+    expect(new Set(ids).size).toBe(4);
+
+    for (const dialog of dialogs) {
+      const titleId = dialog.getAttribute('aria-labelledby')!;
+      const descriptionId = dialog.getAttribute('aria-describedby')!;
+      const titleEl = document.getElementById(titleId);
+      const descriptionEl = document.getElementById(descriptionId);
+      expect(dialog.contains(titleEl)).toBe(true);
+      expect(dialog.contains(descriptionEl)).toBe(true);
+      expect(dialog).toHaveAttribute('aria-modal', 'true');
+    }
+
+    const [dialogA, dialogB] = dialogs;
+    expect(document.getElementById(dialogA.getAttribute('aria-labelledby')!)).toHaveTextContent(
+      'Modal A'
+    );
+    expect(document.getElementById(dialogB.getAttribute('aria-labelledby')!)).toHaveTextContent(
+      'Modal B'
+    );
   });
 
   it('cicla Tab del último focusable al primero', () => {
