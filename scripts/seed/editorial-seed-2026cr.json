@@ -1,0 +1,2689 @@
+{
+  "$comment": "Editorial seed 2026cr: evergreen personality quizzes about bonds (love languages, friendship style, jealousy, compatibility, first dates), es/en pairs. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-what-is-your-love-language",
+      "title": "What Is Your Love Language? The Classic Five",
+      "description": "Words, time, gifts, favors or hugs — everyone feels loved in a different dialect. Eight questions to find yours.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "relationships",
+      "tags": ["personality quiz", "love language", "relationships", "couples", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Words of Affirmation",
+          "description": "A well-timed 'I'm proud of you' stays with you for weeks. You feel most loved when someone says it out loud.",
+          "personality_tag": "words",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Quality Time",
+          "description": "Presence is your present. Phone down, eyes up, nowhere else to be — that's when you feel closest.",
+          "personality_tag": "time",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Receiving Gifts",
+          "description": "It was never about the price tag. A small, thoughtful object says 'I was thinking of you' louder than any speech.",
+          "personality_tag": "gifts",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Acts of Service",
+          "description": "Love, for you, is a filled tank, a handled chore, a meal on a hard day. 'I took care of it' is your favorite sentence.",
+          "personality_tag": "acts",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r5",
+          "title": "Physical Touch",
+          "description": "A hug says what a paragraph can't. You connect through closeness: the hand on the shoulder, the long goodbye.",
+          "personality_tag": "touch",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Think of the last time you felt really loved. What was happening?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Someone said exactly the right thing.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "An unhurried afternoon, just the two of us.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "They handled the task I'd been dreading.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "A hug that went on a little longer than usual.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Which small gesture would brighten your week the most?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A note that says what they appreciate about me.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A whole evening with phones off and no plans.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "My favorite snack showing up out of nowhere.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "A long hug at the door, no reason needed.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Long-distance love stays alive through:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Messages that say the real things out loud.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Video calls that stretch past midnight.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Parcels with inside jokes tucked inside.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Knowing they'll handle things from afar.",
+              "personality_tags": ["acts"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your perfect Saturday with your person looks like:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Breakfast that quietly turns into the whole day together.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "b",
+              "text": "Bringing each other silly souvenirs from the market.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "c",
+              "text": "Tackling the to-do list as a team, then a movie.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Blanket, couch and zero personal space.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "After a brutal day, what actually helps?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hearing 'I'm proud of how you handled it'.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Finding a little treat waiting for me.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "c",
+              "text": "Dinner already made when I walk in.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Being held for a minute without talking.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "The love story you'd actually want:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Letters I still keep in a drawer.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Thousands of hours of nothing special, together.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Someone who fixes things before I ask.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "A person who always reaches for my hand.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "What makes you feel forgotten?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Days without a single kind word.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A week where nobody makes time for me.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Birthdays with no thought behind them.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Greetings and goodbyes without a hug.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Choose the 'I love you' you'd rather receive:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Said out loud, often and with specifics.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "A whole Sunday with my name on it.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "The book I mentioned once, wrapped.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "My coffee made exactly how I like it.",
+              "personality_tags": ["acts"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-cual-es-tu-lenguaje-del-amor",
+      "title": "¿Cuál es tu lenguaje del amor? Los cinco clásicos",
+      "description": "Palabras, tiempo, regalos, favores o abrazos: cada quien se siente amado en un dialecto distinto. Ocho preguntas para hallar el tuyo.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "relationships",
+      "tags": ["test de personalidad", "lenguaje del amor", "relaciones", "pareja", "perenne"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Palabras de afirmación",
+          "description": "Un 'estoy orgulloso de ti' dicho a tiempo te dura semanas. Te sientes en casa cuando lo dicen en voz alta.",
+          "personality_tag": "words",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Tiempo de calidad",
+          "description": "La presencia es tu regalo. Teléfono abajo, mirada arriba, sin prisa: ahí es cuando más cerca te sientes.",
+          "personality_tag": "time",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Recibir regalos",
+          "description": "Nunca fue cuestión de precio. Un detalle pensado dice 'pensé en ti' más fuerte que cualquier discurso.",
+          "personality_tag": "gifts",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Actos de servicio",
+          "description": "Para ti el amor es un tanque lleno, un pendiente resuelto, la cena lista en un día duro. 'Ya me encargué' es tu frase favorita.",
+          "personality_tag": "acts",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r5",
+          "title": "Contacto físico",
+          "description": "Un abrazo dice lo que un párrafo no puede. Conectas por la cercanía: la mano en el hombro, la despedida larga.",
+          "personality_tag": "touch",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Piensa en la última vez que sentiste cariño de verdad. ¿Qué estaba pasando?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alguien dijo justo las palabras correctas.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Una tarde sin prisa, solo nosotros dos.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Resolvieron el pendiente que yo venía esquivando.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Un abrazo que duró un poco más de lo normal.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "¿Qué gesto pequeño te alegraría más la semana?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una nota que diga qué aprecian de mí.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Una noche entera sin celular ni planes.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Mi snack favorito apareciendo de la nada.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Un abrazo largo en la puerta, sin motivo.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "El amor a distancia se mantiene vivo con:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mensajes que dicen las cosas de verdad.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Videollamadas que pasan de medianoche.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Paquetes con chistes internos escondidos.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Saber que resuelven cosas desde lejos.",
+              "personality_tags": ["acts"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu sábado perfecto con tu persona se ve así:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un desayuno que se estira hasta el día completo.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "b",
+              "text": "Traernos recuerdos tontos del mercado.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "c",
+              "text": "Tachar pendientes en equipo y luego una peli.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Manta, sofá y cero espacio personal.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Después de un día brutal, ¿qué ayuda de verdad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Escuchar 'me enorgullece cómo lo manejaste'.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Encontrar un detalle pequeño esperándome.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "c",
+              "text": "Llegar y que la cena ya esté lista.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Un minuto de abrazo sin hablar.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "La historia de amor que sí querrías:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cartas que todavía guardo en un cajón.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Miles de horas de nada especial, juntos.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Alguien que arregla las cosas antes de pedirlo.",
+              "personality_tags": ["acts"]
+            },
+            {
+              "id": "d",
+              "text": "Una persona que siempre busca mi mano.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "¿Qué te hace sentir que no te tienen presente?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Días sin una sola palabra amable.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Una semana en la que nadie me hace un hueco.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "Cumpleaños sin ningún detalle pensado.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Saludos y despedidas sin abrazo.",
+              "personality_tags": ["touch"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Elige el 'te quiero' que preferirías recibir:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dicho en voz alta, seguido y con detalles.",
+              "personality_tags": ["words"]
+            },
+            {
+              "id": "b",
+              "text": "Un domingo entero con mi nombre.",
+              "personality_tags": ["time"]
+            },
+            {
+              "id": "c",
+              "text": "El libro que mencioné una vez, envuelto.",
+              "personality_tags": ["gifts"]
+            },
+            {
+              "id": "d",
+              "text": "Mi café preparado justo como me gusta.",
+              "personality_tags": ["acts"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-what-is-your-friendship-style",
+      "title": "What Is Your Friendship Style?",
+      "description": "Every group needs a planner, a listener, a loyal anchor and a spark. Answer honestly and find out which one is you.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "relationships",
+      "tags": ["personality quiz", "friendship", "friends", "relationships", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Loyal Anchor",
+          "description": "Years, moves and bad haircuts don't shake you. Your people know you'll still be there in twenty years.",
+          "personality_tag": "loyal",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "The Group Planner",
+          "description": "Without you, 'we should hang out' would stay a rumor forever. You turn vague plans into actual memories.",
+          "personality_tag": "planner",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "The Trusted Ear",
+          "description": "You're the 2 a.m. call, the keeper of secrets, the one who remembers what everyone said last month.",
+          "personality_tag": "listener",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "The Spark",
+          "description": "You bring the energy that turns a normal night into a story. Groups feel brighter when you walk in.",
+          "personality_tag": "spark",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "It's Friday and the group chat is quiet. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Send the 'same place as always?' message.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "b",
+              "text": "Check in on the friend who had a rough week.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "c",
+              "text": "Propose something unexpected — karaoke, road trip.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "d",
+              "text": "Wait; my people know I'm around either way.",
+              "personality_tags": ["loyal"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Your best friend gets huge news. Your first move:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Celebrate loudly — this calls for confetti.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "b",
+              "text": "A quiet 'I always knew' — you never doubted it.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "c",
+              "text": "Ask for every detail and actually listen.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "Start organizing the celebration dinner.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "A friend is going through a breakup. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Bring ice cream and let them talk for hours.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "b",
+              "text": "Drag them out — distraction is medicine.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "c",
+              "text": "Fill their week with plans so they're not alone.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "d",
+              "text": "Say little, stay close — months if needed.",
+              "personality_tags": ["loyal"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What's your role in the group photo of your life?",
+          "options": [
+            {
+              "id": "a",
+              "text": "The one who's in every version since year one.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "b",
+              "text": "The one who gathered everyone for the shot.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "c",
+              "text": "The one everyone leans toward.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "The one making the face that breaks the pose.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "A friend moves to another city. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Show up with a send-off they won't forget.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "b",
+              "text": "Schedule long calls and actually keep them.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "c",
+              "text": "Stay exactly as close — distance changes nothing.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "d",
+              "text": "Book the first visit before they've unpacked.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your friends would describe you as:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The calendar — nothing happens without me.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "b",
+              "text": "The chaos coordinator, in a good way.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "c",
+              "text": "The constant — same seat, same support, always.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "d",
+              "text": "The vault — every secret is safe with me.",
+              "personality_tags": ["listener"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Friendship, at its best, is:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Being heard without having to explain.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "b",
+              "text": "Someone who stays when it stops being fun.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "c",
+              "text": "The stories you can't retell without laughing.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "d",
+              "text": "A calendar full of things to look forward to.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Pick the compliment that lands best:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'You've always been there.'",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "b",
+              "text": "'You make things actually happen.'",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "c",
+              "text": "'Talking to you fixes my head.'",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "'Nothing's boring when you're around.'",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-cual-es-tu-estilo-de-amistad",
+      "title": "¿Cuál es tu estilo de amistad?",
+      "description": "Todo grupo necesita quien organiza, quien escucha, un ancla leal y una chispa. Responde con honestidad y descubre cuál eres tú.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "relationships",
+      "tags": ["test de personalidad", "amistad", "amigos", "relaciones", "perenne"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El ancla leal",
+          "description": "Ni los años, ni las mudanzas ni los malos cortes de pelo te mueven. Tu gente sabe que seguirás ahí en veinte años.",
+          "personality_tag": "loyal",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "El organizador del grupo",
+          "description": "Sin ti, 'hay que juntarse' sería un rumor eterno. Conviertes planes vagos en recuerdos reales.",
+          "personality_tag": "planner",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "El oído de confianza",
+          "description": "Eres la llamada de las 2 a.m., la caja fuerte de secretos, quien recuerda lo que cada quien dijo el mes pasado.",
+          "personality_tag": "listener",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "La chispa",
+          "description": "Traes la energía que convierte una noche normal en anécdota. Los grupos se iluminan cuando llegas.",
+          "personality_tag": "spark",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Es viernes y el chat del grupo está en silencio. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mandas el '¿mismo lugar de siempre?'.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "b",
+              "text": "Escribes al amigo que tuvo una mala semana.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "c",
+              "text": "Propones algo inesperado: karaoke, viaje exprés.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "d",
+              "text": "Esperas; tu gente sabe que estás pase lo que pase.",
+              "personality_tags": ["loyal"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tu mejor amigo recibe una gran noticia. Tu primer movimiento:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Celebrar en grande: esto merece confeti.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "b",
+              "text": "Un tranquilo 'siempre lo supe': nunca dudaste.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "c",
+              "text": "Pedir cada detalle y escuchar de verdad.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "Empezar a organizar la cena de celebración.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Un amigo está pasando por una ruptura. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Llegas con helado y lo escuchas por horas.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "b",
+              "text": "Lo sacas de casa: la distracción es medicina.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "c",
+              "text": "Le llenas la semana de planes para que no esté solo.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "d",
+              "text": "Dices poco, te quedas cerca, meses si hace falta.",
+              "personality_tags": ["loyal"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Cuál es tu lugar en la foto grupal de tu vida?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El que sale en todas las versiones desde el año uno.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "b",
+              "text": "El que reunió a todos para la toma.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "c",
+              "text": "Hacia quien todos se inclinan.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "El que hace la mueca que arruina la pose.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Un amigo se muda a otra ciudad. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Apareces en su puerta con una despedida inolvidable.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "b",
+              "text": "Agendas llamadas largas y sí las cumples.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "c",
+              "text": "Sigues igual de cerca: la distancia no cambia nada.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "d",
+              "text": "Reservas la primera visita antes de que desempaque.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tus amigos te describirían como:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La agenda: sin mí no pasa nada.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "b",
+              "text": "El caos coordinado, en el buen sentido.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "c",
+              "text": "La constante: mismo lugar, mismo apoyo, siempre.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "d",
+              "text": "La bóveda: cada secreto está seguro conmigo.",
+              "personality_tags": ["listener"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "La amistad, en su mejor versión, es:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Que te escuchen sin tener que explicar.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "b",
+              "text": "Alguien que se queda cuando deja de ser divertido.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "c",
+              "text": "Las anécdotas que no puedes contar sin reír.",
+              "personality_tags": ["spark"]
+            },
+            {
+              "id": "d",
+              "text": "Un calendario lleno de planes que esperar.",
+              "personality_tags": ["planner"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Elige el cumplido que más te llega:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Siempre has estado ahí'.",
+              "personality_tags": ["loyal"]
+            },
+            {
+              "id": "b",
+              "text": "'Contigo las cosas sí pasan'.",
+              "personality_tags": ["planner"]
+            },
+            {
+              "id": "c",
+              "text": "'Hablar contigo me ordena la cabeza'.",
+              "personality_tags": ["listener"]
+            },
+            {
+              "id": "d",
+              "text": "'Nada es aburrido cuando andas cerca'.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-how-jealous-are-you",
+      "title": "How Jealous Are You Really? Find Out",
+      "description": "A little jealousy is human; the question is how loud it gets. Eight everyday situations, four possible versions of you.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "relationships",
+      "tags": ["personality quiz", "jealousy", "relationships", "couples", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Cool Waters",
+          "description": "Jealousy barely visits you. You trust easily and you'd rather ask than spiral — the calmest version of love.",
+          "personality_tag": "calm",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Warmly Attentive",
+          "description": "You notice things, but you talk about them. Your jealousy shows up as care, not control — mostly.",
+          "personality_tag": "attentive",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Loudly Attached",
+          "description": "Your feelings arrive at full volume. A late reply can start a whole movie in your head — and you're working on the ending.",
+          "personality_tag": "intense",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "The Guardrail",
+          "description": "You hold on tight — sometimes tight enough to squeeze. Worth remembering that love breathes better with room.",
+          "personality_tag": "possessive",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your partner laughs at their phone and doesn't share the joke. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Keep doing your thing — it's probably a meme.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Ask later, casually, out of curiosity.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Feel the itch and ask within the hour.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Need to know who that was, now.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Their ex likes their photo. Your reaction:",
+          "options": [
+            {
+              "id": "a",
+              "text": "None — exes exist.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Notice it, file it away, mention it lightly.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "It replays in your head all afternoon.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Bring it up tonight: boundaries talk.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "A coworker is very friendly with your partner. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Good — everyone should like them.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Watch once, then decide it's fine.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Ask a few questions, pretending to be chill.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Want a full briefing on this coworker.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "They go out without you and reply late. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hope they're having fun — you'll hear about it tomorrow.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Send one 'having fun?' text, then sleep.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Check the chat more times than you'd admit.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Call until someone picks up.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Jealousy, in a couple, is:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mostly noise — trust does the work.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "A signal worth listening to calmly.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Proof that I care — sometimes too loudly.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "What happens when something is mine to protect.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your partner wants a solo trip with friends. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Help them pack — they'll come back with stories.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Say yes, then negotiate one goodnight call.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Say yes but quietly count the days.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Struggle — solo trips feel like a threat.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Someone flirts with your partner in front of you. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Feel almost flattered — yes, they're great.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Stay amused; we'll laugh about it in the car.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Step closer and make it obvious.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Cold stare until the moment ends.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Honestly, jealousy in your life is:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rare background static.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Occasional weather — it passes.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "A frequent guest I didn't invite.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "A full-time job I'm trying to quit.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-tan-celoso-eres",
+      "title": "¿Qué tan celoso eres en realidad?",
+      "description": "Un poco de celos es humano; la pregunta es a qué volumen llegan. Ocho situaciones cotidianas, cuatro versiones de ti.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "relationships",
+      "tags": ["test de personalidad", "celos", "relaciones", "pareja", "perenne"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Aguas tranquilas",
+          "description": "Los celos apenas te visitan. Confías con facilidad y prefieres preguntar antes que imaginarte cosas: la versión más serena del amor.",
+          "personality_tag": "calm",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Atento de corazón",
+          "description": "Te fijas en todo, pero lo hablas. Tus celos se presentan como cuidado, no como control. Casi siempre.",
+          "personality_tag": "attentive",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Intenso declarado",
+          "description": "Tus emociones llegan a todo volumen. Una respuesta tardía puede montar una película completa en tu cabeza.",
+          "personality_tag": "intense",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r4",
+          "title": "El guardián",
+          "description": "Aprietas fuerte, a veces tanto que sofoca. Vale recordar que el amor respira mejor con espacio.",
+          "personality_tag": "possessive",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu pareja se ríe con el celular y no cuenta el chiste. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sigues en lo tuyo: seguro es un meme.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Preguntas luego, casual, por curiosidad.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Sientes la comezón y preguntas antes de una hora.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Necesitas saber quién era, ya.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Su ex le da like a su foto. Tu reacción:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ninguna: los ex existen.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Lo notas, lo archivas, lo mencionas ligero.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Se repite en tu cabeza toda la tarde.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Se habla esta noche: conversación de límites.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Un colega es muy amable con tu pareja. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Perfecto: que le caiga bien a todos.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Observas una vez y decides que está bien.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Haces preguntas fingiendo tranquilidad.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Quieres el informe completo de ese colega.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Sale sin ti y tarda en responder. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Esperas que la pase bien: mañana contará.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Mandas un '¿cómo va?' y a dormir.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Miras el chat más veces de las que admitirías.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Llamas hasta que alguien contesta.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Los celos, en pareja, son:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ruido de fondo: la confianza hace el trabajo.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Una señal que vale escuchar con calma.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Prueba de que me importa, a veces muy alto.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Lo que pasa cuando algo es mío y lo protejo.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu pareja quiere un viaje por su cuenta con amistades. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Le ayudas con la maleta: volverá con historias.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Dices que sí y negocias una llamada de buenas noches.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Dices que sí pero cuentas los días en silencio.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Te cuesta: un viaje por su cuenta suena a amenaza.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Alguien coquetea con tu pareja frente a ti. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Te da casi orgullo: sí, es increíble.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Te divierte: se reirán de esto en el auto.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Te acercas y dejas la señal clara.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Mirada helada hasta que pase el momento.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "Sinceramente, los celos en tu vida son:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Estática rara de fondo.",
+              "personality_tags": ["calm"]
+            },
+            {
+              "id": "b",
+              "text": "Clima ocasional: pasa.",
+              "personality_tags": ["attentive"]
+            },
+            {
+              "id": "c",
+              "text": "Un invitado frecuente que nadie llamó.",
+              "personality_tags": ["intense"]
+            },
+            {
+              "id": "d",
+              "text": "Un empleo de tiempo completo que quiero dejar.",
+              "personality_tags": ["possessive"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-are-you-compatible-quiz",
+      "title": "Are You Two Compatible? The Honest Quiz",
+      "description": "Compatibility isn't about liking the same movies. Eight questions about how you two actually work together.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "relationships",
+      "tags": ["personality quiz", "compatibility", "couples", "relationships", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "In Perfect Sync",
+          "description": "Same rhythm, same direction, same jokes. You two read each other like a shared language.",
+          "personality_tag": "sync",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Better Together",
+          "description": "You're different where it counts. One plans, one improvises; one talks, one listens — and it fits.",
+          "personality_tag": "complement",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Growing Together",
+          "description": "Not frictionless, but honest. You push each other, sometimes clumsily — and you're both still here, still learning.",
+          "personality_tag": "growth",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Sparks and Static",
+          "description": "The chemistry is real and so is the chaos. You have the electricity — the question is whether you build with it.",
+          "personality_tag": "spark",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "You disagree about plans. Usually it ends with:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A quick alignment — you wanted the same thing anyway.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Splitting the difference — your differences do the work.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "A real talk that leaves you both a bit better.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Volume first, resolution later.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Their habits that are not yours:",
+          "options": [
+            {
+              "id": "a",
+              "text": "What habits — we're basically the same person.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Annoying but oddly balancing.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "We talk about them; some have changed.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "An endless negotiation, honestly.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "How do you two fight?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rarely — and briefly.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "One cools down while the other talks it out.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Messy, but we always come back to fix it.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Loud, dramatic, unforgettable.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Planning the future together feels like:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Finishing each other's sentences.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Dividing roles and trusting the other half.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "A project we revise every few months.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Exciting and slightly terrifying.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your friends would say you two are:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The couple that's basically one person.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Opposites that somehow make sense.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Always working on it, admirably.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "A soap opera we can't stop watching.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Boredom inside the relationship:",
+          "options": [
+            {
+              "id": "a",
+              "text": "What boredom — silence with them is full.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "We each bring something the other lacks.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "We notice it and try something new together.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "It's fireworks or a fight — rarely boring.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "The strongest thing you share:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The same values, word for word.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "A balance — my weakness is their strength.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Patience — we keep choosing each other.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Chemistry nobody could fake.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "In ten years, you picture you two:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Same wavelength, deeper.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Still different, still fitting.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Better than today — that's the pattern.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Interesting, whatever shape it takes.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-test-de-compatibilidad-de-pareja",
+      "title": "Test de compatibilidad de pareja: la versión honesta",
+      "description": "La compatibilidad no es coincidir en películas. Ocho preguntas sobre cómo funcionan ustedes dos en la vida real.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "relationships",
+      "tags": ["test de personalidad", "compatibilidad", "pareja", "relaciones", "perenne"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "En sintonía total",
+          "description": "Mismo ritmo, misma dirección, mismos chistes. Se leen el uno al otro como un idioma compartido.",
+          "personality_tag": "sync",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "Mejores juntos",
+          "description": "Son distintos donde importa. Uno planea, el otro improvisa; uno habla, el otro escucha: y encaja.",
+          "personality_tag": "complement",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r3",
+          "title": "Creciendo juntos",
+          "description": "No es sin fricción, pero es honesto. Se empujan mutuamente, a veces torpemente: y siguen aquí, aprendiendo.",
+          "personality_tag": "growth",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r4",
+          "title": "Chispas y estática",
+          "description": "La química es real y el caos también. Tienen la electricidad: la pregunta es si construyen con ella.",
+          "personality_tag": "spark",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "No se ponen de acuerdo en los planes. Normalmente termina en:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alineación rápida: querían lo mismo de todas formas.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Cada uno cede un poco: la diferencia hace el trabajo.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Una conversación real que los deja un poco mejor.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Primero volumen, resolución después.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Las costumbres de tu pareja que no son las tuyas:",
+          "options": [
+            {
+              "id": "a",
+              "text": "¿Cuáles costumbres? Somos casi la misma persona.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Molestas pero curiosamente equilibrantes.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Las hablamos; algunas han cambiado.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Una negociación eterna, honestamente.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "¿Cómo pelean?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rara vez, y breve.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Uno se enfría mientras el otro lo habla.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Desordenado, pero siempre volvemos a arreglarlo.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Fuerte, dramático, inolvidable.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Planear el futuro juntos se siente como:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Terminar las frases del otro.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Repartir roles y confiar en la otra mitad.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Un proyecto que revisamos cada pocos meses.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Emocionante y ligeramente aterrador.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Sus amigos dirían que ustedes dos son:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La pareja que es básicamente una sola persona.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Opuestos que de algún modo tienen sentido.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Siempre trabajando en ello, admirablemente.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Una telenovela que no podemos dejar de ver.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "El aburrimiento dentro de la relación:",
+          "options": [
+            {
+              "id": "a",
+              "text": "¿Qué aburrimiento? Su silencio está lleno.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Cada uno trae lo que le falta al otro.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Lo notamos y probamos algo nuevo juntos.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Es fuegos artificiales o pelea: rara vez aburre.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Lo más fuerte que comparten:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Los mismos valores, palabra por palabra.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Un equilibrio: mi debilidad es su fortaleza.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Paciencia: seguimos eligiéndonos.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Una química que nadie podría fingir.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "En diez años, se imaginan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "En la misma onda, más profundo.",
+              "personality_tags": ["sync"]
+            },
+            {
+              "id": "b",
+              "text": "Igual de distintos, igual de encajados.",
+              "personality_tags": ["complement"]
+            },
+            {
+              "id": "c",
+              "text": "Mejor que hoy: ese es el patrón.",
+              "personality_tags": ["growth"]
+            },
+            {
+              "id": "d",
+              "text": "Interesantes, sea cual sea la forma.",
+              "personality_tags": ["spark"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-what-kind-of-first-date-are-you",
+      "title": "What Kind of First Date Are You?",
+      "description": "Coffee or karaoke, picnic or escape room — your first-date instinct says a lot about how you open your heart.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "relationships",
+      "tags": ["personality quiz", "first date", "dating", "relationships", "evergreen"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "The Classic",
+          "description": "Dinner, good conversation, a walk after. You trust the format because what matters is who's across the table.",
+          "personality_tag": "classic",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "The Adventurer",
+          "description": "Why sit when you could climb something? Your dates are stories first, interviews never.",
+          "personality_tag": "adventurer",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r3",
+          "title": "The Cozy One",
+          "description": "Bookstores, blankets, long coffee. You skip the performance and go straight to comfortable.",
+          "personality_tag": "cozy",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "The Wildcard",
+          "description": "Escape rooms, pottery class, a night market. If it's been done a thousand times, you're not interested.",
+          "personality_tag": "original",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your ideal first-date plan:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A good restaurant and time to actually talk.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Something with movement — bikes, hiking, exploring.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Coffee somewhere quiet that turns into three hours.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "The weird thing I saw on a flyer last week.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Small talk on a first date is:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Necessary — and it can actually be nice.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "The warm-up before the real adventure.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Skippable — let's get to the real stuff.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "What I avoid by doing something instead.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "The best sign a first date is going well:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The conversation flows like we've met before.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "We're laughing and slightly out of breath.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "It stops feeling like a date at all.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "One of us says 'I've never done this before'.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your first-date outfit strategy:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sharp and classic — effort shows respect.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Whatever I can move in.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Comfortable — if I can't relax, what's the point?",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Something they'll remember.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "A first date ends and you want a second. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Say it clearly: 'I'd love to do this again'.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Suggest the next adventure before this one ends.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Text that same night, no games.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Send them something odd and perfect, no explanation.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Awkward silence mid-date. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Rescue it gracefully — it's part of the ritual.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Suggest we walk, move, do anything.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Let it sit — comfortable silence is a good sign.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Name it and laugh — awkwardness is data.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Your date suggests a plan you'd never choose. You:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Go along — the company matters more.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Perfect — new things are the point.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Suggest a quieter version of the same idea.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Counter-propose something even stranger.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "The perfect first-date ending:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A walk and an honest 'see you soon'.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Planning round two while still out of breath.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Realizing hours passed without noticing.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "A story neither of us will forget.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-tipo-de-primera-cita-eres",
+      "title": "¿Qué tipo de primera cita eres?",
+      "description": "Café o karaoke, picnic o escape room: tu instinto de primera cita dice mucho de cómo abres el corazón.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "relationships",
+      "tags": ["test de personalidad", "primera cita", "citas", "relaciones", "perenne"],
+      "estimated_minutes": 4,
+      "results": [
+        {
+          "id": "r1",
+          "title": "El clásico",
+          "description": "Cena, buena conversación, un paseo después. Confías en el formato porque lo que importa es quien está enfrente.",
+          "personality_tag": "classic",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r2",
+          "title": "El aventurero",
+          "description": "¿Para qué sentarse si pueden escalar algo? Tus citas son primero anécdota, jamás entrevista.",
+          "personality_tag": "adventurer",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r3",
+          "title": "El acogedor",
+          "description": "Librerías, mantas, café largo. Saltas la actuación y vas directo a lo cómodo.",
+          "personality_tag": "cozy",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "El impredecible",
+          "description": "Escape rooms, clase de cerámica, mercado nocturno. Si ya se hizo mil veces, no te interesa.",
+          "personality_tag": "original",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu plan ideal de primera cita:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un buen restaurante y tiempo para hablar de verdad.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Algo con movimiento: bici, caminata, explorar.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Un café tranquilo que se vuelve tres horas.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Lo raro que vi en un volante la semana pasada.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "La charla trivial en una primera cita es:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Necesaria, y puede ser agradable de verdad.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "El calentamiento antes de la aventura real.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Prescindible: vamos a lo importante.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Lo que evito proponiendo otra cosa.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "La mejor señal de que la cita va bien:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La conversación fluye como si ya nos conociéramos.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Nos reímos y andamos medio sin aliento.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Deja de sentirse como una cita.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Alguien dice 'nunca había hecho esto'.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu estrategia de outfit para la primera cita:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Impecable y clásico: el esfuerzo demuestra respeto.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Lo que me permita moverme.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Cómodo: si no puedo relajarme, ¿para qué?",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Algo que no van a olvidar.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "La cita termina y quieres una segunda. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo dices claro: 'me encantaría repetir'.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Propones la próxima aventura antes de que acabe esta.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Escribes esa misma noche, sin juegos.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Mandas algo raro y perfecto, sin explicación.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Silencio incómodo a mitad de la cita. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo rescatas con gracia: es parte del ritual.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Propones caminar, movernos, lo que sea.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Lo dejas estar: el silencio cómodo es buena señal.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Lo nombras y te ríes: la incomodidad es información.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Tu cita propone un plan que jamás elegirías. Tú:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Vas igual: la compañía importa más.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Perfecto: las cosas nuevas son el punto.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Sugieres una versión más tranquila de la idea.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Contrapropone algo todavía más raro.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q8",
+          "question": "El final perfecto de una primera cita:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un paseo y un 'nos vemos pronto' honesto.",
+              "personality_tags": ["classic"]
+            },
+            {
+              "id": "b",
+              "text": "Planear la segunda ronda aún sin aliento.",
+              "personality_tags": ["adventurer"]
+            },
+            {
+              "id": "c",
+              "text": "Darte cuenta de que pasaron horas sin notarlo.",
+              "personality_tags": ["cozy"]
+            },
+            {
+              "id": "d",
+              "text": "Una historia que ninguno de los dos olvidará.",
+              "personality_tags": ["original"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    }
+  ]
+}
