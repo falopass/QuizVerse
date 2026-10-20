@@ -151,52 +151,6 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-indian-food-trivia',
-  'Indian Food Trivia: Spices, the Tandoor and Biryani',
-  'Eight questions on garam masala, the clay tandoor, biryani, ghee, naan and the differences between northern and southern cooking.',
-  'trivia',
-  'easy',
-  'en',
-  (select id from public.categories where slug = 'food-drink'),
-  '[{"id":"q1","question":"Garam masala is…","options":[{"id":"a","text":"A single dried chili","is_correct":false},{"id":"b","text":"A warm blend of ground spices like cardamom, cumin and cinnamon","is_correct":true},{"id":"c","text":"A clarified butter","is_correct":false},{"id":"d","text":"A fermented rice batter","is_correct":false}],"explanation":"Garam masala (''hot spice mix'') combines toasted ground spices and is often added near the end of cooking."},{"id":"q2","question":"What is a tandoor?","options":[{"id":"a","text":"A clay oven that reaches very high heat","is_correct":true},{"id":"b","text":"A copper pot for curries","is_correct":false},{"id":"c","text":"A flat griddle for dosa","is_correct":false},{"id":"d","text":"A steaming basket","is_correct":false}],"explanation":"The cylindrical clay tandoor bakes naan against its walls and chars tandoori meats at intense heat."},{"id":"q3","question":"Biryani is…","options":[{"id":"a","text":"A lentil soup","is_correct":false},{"id":"b","text":"A layered rice dish cooked with spices and meat or vegetables","is_correct":true},{"id":"c","text":"A deep-fried snack","is_correct":false},{"id":"d","text":"A sweet milk pudding","is_correct":false}],"explanation":"Biryani layers par-cooked basmati rice with spiced meat or vegetables; the Hyderabadi version is especially famous."},{"id":"q4","question":"Ghee, a staple fat in Indian cooking, is…","options":[{"id":"a","text":"Clarified butter","is_correct":true},{"id":"b","text":"Coconut oil","is_correct":false},{"id":"c","text":"Mustard oil","is_correct":false},{"id":"d","text":"Rendered beef fat","is_correct":false}],"explanation":"Ghee is butter simmered until the milk solids brown and separate, giving it a nutty flavor and a high smoke point."},{"id":"q5","question":"In broad terms, how do northern and southern Indian cooking differ?","options":[{"id":"a","text":"The north favors wheat breads and dairy; the south favors rice, lentils and coconut","is_correct":true},{"id":"b","text":"They are identical","is_correct":false},{"id":"c","text":"The south eats only meat","is_correct":false},{"id":"d","text":"The north uses no spices","is_correct":false}],"explanation":"Northern plates lean on naan, roti and creamy curries; southern ones on rice, dosa, idli and coconut."},{"id":"q6","question":"Naan is…","options":[{"id":"a","text":"A fermented rice pancake","is_correct":false},{"id":"b","text":"A leavened flatbread baked against the wall of a tandoor","is_correct":true},{"id":"c","text":"A steamed wheat dumpling","is_correct":false},{"id":"d","text":"A crisp lentil cracker","is_correct":false}],"explanation":"Naan is a soft, leavened bread slapped onto the hot clay walls of the tandoor until it blisters."},{"id":"q7","question":"Masala dosa, a South Indian breakfast favorite, is…","options":[{"id":"a","text":"A crisp fermented crepe of rice and lentils filled with spiced potato","is_correct":true},{"id":"b","text":"A stuffed paratha","is_correct":false},{"id":"c","text":"A rice pilaf","is_correct":false},{"id":"d","text":"A fried dough ball in syrup","is_correct":false}],"explanation":"The dosa batter ferments overnight, giving the crepe its signature tang and crunch."},{"id":"q8","question":"Paneer is…","options":[{"id":"a","text":"A fresh, non-melting cheese used in vegetarian dishes","is_correct":true},{"id":"b","text":"A yogurt drink","is_correct":false},{"id":"c","text":"A type of pickle","is_correct":false},{"id":"d","text":"A wheat flour","is_correct":false}],"explanation":"Paneer is a firm fresh cheese that keeps its shape in curries like palak paneer and paneer tikka."}]'::jsonb,
-  null,
-  array['food', 'trivia', 'india', 'indian cuisine']::text[],
-  4,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
-  'es-trivia-comida-india',
-  'Trivia de comida india: especias, el tandoor y el biryani',
-  'Ocho preguntas sobre el garam masala, el horno de barro, el biryani, el ghee, el naan y las diferencias entre el norte y el sur.',
-  'trivia',
-  'easy',
-  'es',
-  (select id from public.categories where slug = 'food-drink'),
-  '[{"id":"q1","question":"El garam masala es…","options":[{"id":"a","text":"Un solo chile seco","is_correct":false},{"id":"b","text":"Una mezcla cálida de especias molidas como cardamomo, comino y canela","is_correct":true},{"id":"c","text":"Una mantequilla clarificada","is_correct":false},{"id":"d","text":"Una masa de arroz fermentada","is_correct":false}],"explanation":"El garam masala («mezcla caliente de especias») combina especias tostadas y se suele añadir cerca del final de la cocción."},{"id":"q2","question":"¿Qué es un tandoor?","options":[{"id":"a","text":"Un horno de barro que alcanza temperaturas muy altas","is_correct":true},{"id":"b","text":"Una olla de cobre para curris","is_correct":false},{"id":"c","text":"Una plancha para dosas","is_correct":false},{"id":"d","text":"Una canasta para cocer al vapor","is_correct":false}],"explanation":"El tandoor cilíndrico de barro hornea el naan pegado a sus paredes y tuesta las carnes tandoori a calor intenso."},{"id":"q3","question":"El biryani es…","options":[{"id":"a","text":"Una sopa de lentejas","is_correct":false},{"id":"b","text":"Un plato de arroz en capas cocido con especias y carne o verduras","is_correct":true},{"id":"c","text":"Un bocado frito","is_correct":false},{"id":"d","text":"Un pudín de leche dulce","is_correct":false}],"explanation":"El biryani alterna capas de arroz basmati semicocido con carne o verduras especiadas; la versión de Hyderabad es especialmente famosa."},{"id":"q4","question":"El ghee, grasa básica de la cocina india, es…","options":[{"id":"a","text":"Mantequilla clarificada","is_correct":true},{"id":"b","text":"Aceite de coco","is_correct":false},{"id":"c","text":"Aceite de mostaza","is_correct":false},{"id":"d","text":"Grasa de res fundida","is_correct":false}],"explanation":"El ghee es mantequilla cocida hasta que los sólidos lácteos se doran y se separan, lo que le da sabor a nuez y un alto punto de humo."},{"id":"q5","question":"En términos generales, ¿en qué difieren las cocinas del norte y del sur de India?","options":[{"id":"a","text":"El norte favorece los panes de trigo y los lácteos; el sur, el arroz, las lentejas y el coco","is_correct":true},{"id":"b","text":"Son idénticas","is_correct":false},{"id":"c","text":"El sur solo come carne","is_correct":false},{"id":"d","text":"El norte no usa especias","is_correct":false}],"explanation":"En el norte abundan el naan, el roti y los curris cremosos; en el sur, el arroz, la dosa, el idli y el coco."},{"id":"q6","question":"El naan es…","options":[{"id":"a","text":"Un panqueque de arroz fermentado","is_correct":false},{"id":"b","text":"Un pan plano con levadura horneado en la pared de un tandoor","is_correct":true},{"id":"c","text":"Un dumpling de trigo al vapor","is_correct":false},{"id":"d","text":"Una galleta crujiente de lenteja","is_correct":false}],"explanation":"El naan es un pan suave y levado que se pega a las paredes calientes del tandoor hasta que se ampolla."},{"id":"q7","question":"La masala dosa, desayuno favorito del sur de India, es…","options":[{"id":"a","text":"Una crepa crujiente fermentada de arroz y lentejas rellena de papa especiada","is_correct":true},{"id":"b","text":"Una paratha rellena","is_correct":false},{"id":"c","text":"Un pilaf de arroz","is_correct":false},{"id":"d","text":"Una bola de masa frita en almíbar","is_correct":false}],"explanation":"La masa de la dosa fermenta una noche, lo que le da a la crepa su toque agrio y su crocancia."},{"id":"q8","question":"El paneer es…","options":[{"id":"a","text":"Un queso fresco que no se funde, usado en platos vegetarianos","is_correct":true},{"id":"b","text":"Una bebida de yogur","is_correct":false},{"id":"c","text":"Un tipo de encurtido","is_correct":false},{"id":"d","text":"Una harina de trigo","is_correct":false}],"explanation":"El paneer es un queso fresco firme que mantiene su forma en curris como el palak paneer y el paneer tikka."}]'::jsonb,
-  null,
-  array['comida', 'trivia', 'india', 'cocina india']::text[],
-  4,
-  'published',
-  false,
-  false,
-  now()
-)
-on conflict (slug) do nothing;
-
-insert into public.quizzes
-  (slug, title, description, quiz_type, difficulty, language, category_id,
-   questions, results, tags, estimated_minutes, status,
-   is_featured, is_ai_generated, published_at)
-values (
   'en-argentine-food-trivia',
   'Argentine Food Trivia: Asado, Mate and Dulce de Leche',
   'Eight questions on the asado ritual, yerba mate, empanadas, dulce de leche, alfajores, provoleta and chimichurri.',

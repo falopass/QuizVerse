@@ -33,18 +33,18 @@ interface SeedQuiz {
   questions: SeedQuestion[];
 }
 
-// Los seis fandoms del lote 2026n como (slug en, slug es, categoría).
+// Los cinco fandoms del lote 2026n como (slug en, slug es, categoría).
 // Del encargo original sobreviven Spider-Man (el catálogo solo cubre
 // Spider-Verse) y Bob Esponja; Minecraft, clásicos Disney, universo DC y
 // El Señor de los Anillos ya quedaron cubiertos por el catálogo importado
 // y los lotes 2026aa/2026ab/2026ad (+2026ch en revisión), así que el lote
-// se completó con Shrek, Star Trek, Jurassic Park y LEGO.
+// se completó con Shrek, Star Trek, Jurassic Park y LEGO. El par de
+// Jurassic Park resultó duplicar al de 2026bs y se eliminó.
 const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-spider-man-trivia', 'es-trivia-spider-man', 'movies-tv'],
   ['en-spongebob-trivia', 'es-trivia-bob-esponja', 'movies-tv'],
   ['en-shrek-trivia', 'es-trivia-shrek', 'movies-tv'],
   ['en-star-trek-trivia', 'es-trivia-star-trek', 'movies-tv'],
-  ['en-jurassic-park-trivia', 'es-trivia-jurassic-park', 'movies-tv'],
   ['en-lego-trivia', 'es-trivia-lego', 'pop-culture'],
 ];
 
@@ -72,8 +72,8 @@ describe('editorial-seed-2026n', () => {
     expect(stdout).toContain('Validated:');
   });
 
-  it('tiene exactamente los 6 pares en/es pedidos', () => {
-    expect(quizzes).toHaveLength(12);
+  it('tiene exactamente los 5 pares en/es pedidos', () => {
+    expect(quizzes).toHaveLength(10);
     const bySlug = new Map(quizzes.map((quiz) => [quiz.slug, quiz]));
     for (const [enSlug, esSlug, category] of EXPECTED_PAIRS) {
       const en = bySlug.get(enSlug);
