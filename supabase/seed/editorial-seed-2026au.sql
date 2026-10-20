@@ -105,7 +105,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-birds-trivia-2',
+  'en-bird-record-holders-trivia',
   'Birds Trivia: Record Holders and Remarkable Species',
   'Eight questions on the most remarkable birds on Earth: the biggest, the fastest and the farthest-flying species and how they do it.',
   'trivia',
@@ -128,7 +128,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-aves-2',
+  'es-trivia-aves-recordistas',
   'Trivia de aves: récords y especies extraordinarias',
   'Ocho preguntas sobre las aves más extraordinarias del planeta: las más grandes, las más rápidas y las que vuelan más lejos.',
   'trivia',
@@ -151,7 +151,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'en-big-cats-trivia-2',
+  'en-great-felines-trivia',
   'Big Cats Trivia: Lions, Tigers and Other Great Felines',
   'Eight questions on the great cats of the world: where they live, how they hunt and what sets lions, tigers, leopards and jaguars apart.',
   'trivia',
@@ -174,7 +174,7 @@ insert into public.quizzes
    questions, results, tags, estimated_minutes, status,
    is_featured, is_ai_generated, published_at)
 values (
-  'es-trivia-grandes-felinos-2',
+  'es-trivia-felinos-salvajes',
   'Trivia de grandes felinos: leones, tigres y otros depredadores',
   'Ocho preguntas sobre los grandes felinos del mundo: dónde viven, cómo cazan y qué distingue a leones, tigres, leopardos y jaguares.',
   'trivia',

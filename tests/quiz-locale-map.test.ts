@@ -121,7 +121,7 @@ it('routes the editorial 2026at pairs both ways', () => {
     ['en-black-holes-trivia', 'es-trivia-agujeros-negros'],
     ['en-dna-and-genetics-trivia', 'es-trivia-adn-y-genetica'],
     ['en-volcanoes-and-earthquakes-trivia', 'es-trivia-volcanes-y-terremotos'],
-    ['en-periodic-table-trivia', 'es-trivia-tabla-periodica'],
+    ['en-periodic-table-trivia', 'es-trivia-elementos-quimicos'],
     ['en-deep-sea-trivia', 'es-trivia-fondo-del-mar'],
   ];
   for (const [en, es] of pairs) {

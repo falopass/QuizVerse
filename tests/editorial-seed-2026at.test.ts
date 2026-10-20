@@ -35,7 +35,7 @@ const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-black-holes-trivia', 'es-trivia-agujeros-negros', 'science'],
   ['en-dna-and-genetics-trivia', 'es-trivia-adn-y-genetica', 'science'],
   ['en-volcanoes-and-earthquakes-trivia', 'es-trivia-volcanes-y-terremotos', 'science'],
-  ['en-periodic-table-trivia', 'es-trivia-tabla-periodica-2', 'science'],
+  ['en-periodic-table-trivia', 'es-trivia-elementos-quimicos', 'science'],
   ['en-deep-sea-trivia', 'es-trivia-fondo-del-mar', 'science'],
 ];
 

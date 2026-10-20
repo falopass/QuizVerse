@@ -40,7 +40,7 @@ const EXPECTED_PAIRS: Array<[string, string, string]> = [
   ['en-everyday-physics-trivia', 'es-trivia-fisica-cotidiana', 'science'],
   ['en-cell-biology-trivia', 'es-trivia-biologia-celular', 'science'],
   ['en-marine-animals-trivia', 'es-trivia-animales-del-mar', 'animals'],
-  ['en-insects-trivia', 'es-trivia-insectos', 'animals'],
+  ['en-insect-world-trivia', 'es-trivia-mundo-de-los-insectos', 'animals'],
   ['en-ecosystems-trivia', 'es-trivia-ecosistemas', 'science'],
 ];
 
