@@ -204,11 +204,11 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     setPrevQuizId(quiz.id);
     setSubmission(null);
     setIsSubmittingResult(false);
-    hasSubmittedRef.current = false;
     setShowModeSelector(true);
   }
 
   React.useEffect(() => {
+    hasSubmittedRef.current = false;
     startGame(quiz, 'normal');
   }, [quiz, startGame]);
 
