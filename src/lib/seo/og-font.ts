@@ -10,6 +10,7 @@ async function loadFont(): Promise<ArrayBuffer> {
     const response = await env.ASSETS.fetch(
       new URL('/fonts/ArchivoBlack-Regular.ttf', 'https://assets.local')
     );
+    if (!response.ok) throw new Error(`asset ArchivoBlack: ${response.status}`);
     return response.arrayBuffer();
   } catch {
     const bytes = await readFile(

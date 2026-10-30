@@ -15,7 +15,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; the owner authorizes the merge.
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
-- Do not touch `deploy/` or the VPS infrastructure (production lives there; its deploy belongs to the owner).
+- Do not touch `deploy/` or the VPS infrastructure (it is no longer production; it belongs to the owner).
 - Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
 - If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge only when the owner asks for it or approves it, with CI green; never on your own initiative. Never deploy.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
@@ -23,7 +23,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 
 ## Stack
 
-- **Framework**: Next.js 16.2.1 (App Router + Server Components + Server Actions)
+- **Framework**: Next.js 16.4.2 (App Router + Server Components + Server Actions)
 - **UI**: React 19.2.4 + TypeScript 5.x + Tailwind CSS 4.x
 - **State**: Zustand (client state management)
 - **Animations**: Framer Motion
