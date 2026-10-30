@@ -15,6 +15,7 @@ import { hasLocale, locales } from '@/lib/i18n/dictionaries';
 import { createClient } from '@/lib/supabase/server';
 import { toJson } from '@/lib/supabase/json';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { QuizCreateSchema } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
@@ -319,12 +320,8 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 /** Generous: five share buttons per dialog, not scripted counter inflation. */
 const shareLimiter = createRateLimiter('quiz-share', 30, 60);
 
-/** Falls back to `x-real-ip` when the proxy chain is missing. */
 async function clientIp(): Promise<string> {
-  const headerList = await headers();
-  const forwarded = headerList.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
-  return headerList.get('x-real-ip') ?? 'unknown';
+  return clientIpFromHeaders(await headers());
 }
 
 /**

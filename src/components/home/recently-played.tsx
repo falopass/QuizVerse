@@ -36,7 +36,7 @@ export function RecentlyPlayed({ locale }: RecentlyPlayedProps) {
   const [entries, setEntries] = React.useState<RecentQuiz[] | null>(null);
 
   React.useEffect(() => {
-    setEntries(readRecent());
+    queueMicrotask(() => setEntries(readRecent()));
   }, []);
 
   if (!entries || entries.length === 0) return null;

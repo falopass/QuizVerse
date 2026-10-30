@@ -24,7 +24,7 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
   const isEs = locale === 'es';
 
   React.useEffect(() => {
-    setSupportsWebShare('share' in navigator);
+    queueMicrotask(() => setSupportsWebShare('share' in navigator));
   }, []);
 
   // Best effort: sharing must never break the UI.

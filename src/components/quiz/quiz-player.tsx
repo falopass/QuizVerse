@@ -196,12 +196,20 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     submitAnswer,
   ]);
 
-  React.useEffect(() => {
-    startGame(quiz, 'normal');
+  // Cuando cambia el quiz, la partida anterior se descarta durante el propio
+  // render (patrón "adjust state during render"): los estados locales vuelven a
+  // sus valores iniciales y el store se reinicia en el efecto de abajo.
+  const [prevQuizId, setPrevQuizId] = React.useState(quiz.id);
+  if (prevQuizId !== quiz.id) {
+    setPrevQuizId(quiz.id);
     setSubmission(null);
     setIsSubmittingResult(false);
-    hasSubmittedRef.current = false;
     setShowModeSelector(true);
+  }
+
+  React.useEffect(() => {
+    hasSubmittedRef.current = false;
+    startGame(quiz, 'normal');
   }, [quiz, startGame]);
 
   React.useEffect(() => {

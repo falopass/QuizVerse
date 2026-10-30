@@ -52,3 +52,8 @@ next-env.d.ts
 generated/audit/*-export.json
 generated/audit/*.sql
 generated/indexnow-state.json
+
+# OpenNext Cloudflare
+.open-next/
+.dev.vars
+cloudflare-env.d.ts
