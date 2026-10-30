@@ -1,7 +1,6 @@
 import 'server-only';
 
-import fs from 'node:fs';
-import path from 'node:path';
+import manifestJson from './stock-cover-manifest.json';
 
 export interface StockCoverEntry {
   slug: string;
@@ -19,18 +18,12 @@ export interface StockCoverEntry {
   score?: number;
 }
 
-const manifestPath = path.join(process.cwd(), 'src', 'lib', 'data', 'stock-cover-manifest.json');
+const manifest = manifestJson as unknown as Record<string, StockCoverEntry>;
 
 export function readStockCoverManifest(): Record<string, StockCoverEntry> {
-  try {
-    const raw = fs.readFileSync(manifestPath, 'utf8');
-    return JSON.parse(raw) as Record<string, StockCoverEntry>;
-  } catch {
-    return {};
-  }
+  return manifest ?? {};
 }
 
 export function getStockCoverEntry(slug: string): StockCoverEntry | null {
-  const manifest = readStockCoverManifest();
-  return manifest[slug] ?? null;
+  return readStockCoverManifest()[slug] ?? null;
 }

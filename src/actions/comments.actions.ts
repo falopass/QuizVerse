@@ -16,6 +16,7 @@ import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
 
 export interface QuizCommentAuthor {
@@ -46,12 +47,8 @@ const commentSchema = z.object({
 /** Comentar es barato pero spam-able: 5 por IP cada 10 minutos. */
 const commentLimiter = createRateLimiter('quiz-comment', 5, 600);
 
-/** Falls back to `x-real-ip` when the proxy chain is missing. */
 async function clientIp(): Promise<string> {
-  const headerList = await headers();
-  const forwarded = headerList.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
-  return headerList.get('x-real-ip') ?? 'unknown';
+  return clientIpFromHeaders(await headers());
 }
 
 const EMPTY_PAGE: QuizCommentsPage = { comments: [], total: 0 };

@@ -16,7 +16,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (production lives there; its deploy belongs to the owner).
-- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Vercel PR preview for visual checks.
+- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
 - If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge only when the owner asks for it or approves it, with CI green; never on your own initiative. Never deploy.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 - There is no `CHANGELOG.md`. Changes are documented in each PR description; do not create the file or ask for one.
@@ -33,7 +33,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - **AI Generation**: DeepSeek (runtime + offline seed pipeline)
 - **OG Images**: Satori + @resvg/resvg-js
 - **Covers**: Procedural fallback + Stock (Pexels/Pixabay) + Generated/Curated types
-- **Deploy**: owner's VPS (production) + Vercel (PR previews)
+- **Deploy**: Cloudflare Workers (OpenNext, production via Workers Builds from `main`) + Vercel (temporary fallback during the migration)
 - **Domain**: quizverse.org
 
 ## Commands
@@ -42,7 +42,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 # App lifecycle — BLOCKED on the work machine
 # npm run dev and npm run build are denied in the owner's machine config.
 # The build runs in CI per PR (.github/workflows/ci.yml) and in Cloud sessions;
-# use the Vercel PR preview for visual checks instead of a local dev server.
+# use the Workers Builds branch preview for visual checks instead of a local dev server.
 npm start          # Production server
 npm run lint       # ESLint
 
@@ -280,8 +280,9 @@ Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 
 ## Deployment
 
-- Production runs on the owner's VPS (`deploy/`: Docker + Caddy). Do not touch it or deploy it; that belongs to the owner.
-- Vercel builds a preview per PR for visual review.
+- Production runs on Cloudflare Workers via OpenNext: Workers Builds builds and deploys `main`, and creates preview deployments for other branches and PRs.
+- Vercel stays only as a temporary fallback during the migration.
+- `deploy/` (owner's VPS: Docker + Caddy) is no longer production; leave it untouched.
 - Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). The app also reads `SUPABASE_SERVICE_ROLE_KEY` (server and import scripts only), `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` (rate limiting), `PEXELS_API_KEY`/`PIXABAY_API_KEY` (stock covers) and the optional `NEXT_PUBLIC_ADSENSE_*_SLOT`. Never commit real values.
 
 Product direction: editorial, bilingual, discovery-oriented, ad-supported. NOT a generic quiz template grid.

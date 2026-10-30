@@ -14,6 +14,7 @@ import { z } from 'zod';
 import { eliminateWrongOptions, evaluateAnswer } from '@/lib/quiz/answer-key';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 
 const RevealSchema = z.object({
   quizId: z.string().uuid(),
@@ -25,11 +26,8 @@ const RevealSchema = z.object({
 /** Generous: one call per question answered, plus a few 50/50 uses. */
 const revealLimiter = createRateLimiter('quiz-reveal', 120, 60);
 
-/** Falls back to the forwarded address when the proxy header is missing. */
 function clientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
-  return request.headers.get('x-real-ip') ?? 'unknown';
+  return clientIpFromHeaders(request.headers);
 }
 
 const NO_STORE = { 'Cache-Control': 'no-store' } as const;

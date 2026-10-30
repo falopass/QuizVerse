@@ -20,9 +20,11 @@ const CRAWLER_USER_AGENTS =
  * por el propio producto. Los previews del VPS ya lo hacen en Caddy; esto cubre
  * el otro camino.
  */
-const IS_PREVIEW_DEPLOY = process.env.VERCEL_ENV
-  ? process.env.VERCEL_ENV !== 'production'
-  : process.env.NODE_ENV === 'development';
+const IS_PREVIEW_DEPLOY =
+  (process.env.WORKERS_CI_BRANCH !== undefined && process.env.WORKERS_CI_BRANCH !== 'main') ||
+  (process.env.VERCEL_ENV
+    ? process.env.VERCEL_ENV !== 'production'
+    : process.env.NODE_ENV === 'development');
 
 /**
  * Un build de Vercel produce un artefacto desplegable: nunca puede salir con
@@ -31,7 +33,7 @@ const IS_PREVIEW_DEPLOY = process.env.VERCEL_ENV
  * GitHub Actions y las máquinas de desarrollo no definen `VERCEL`, así que sus
  * builds de verificación siguen pasando sin variables.
  */
-if (process.env.VERCEL) {
+if (process.env.VERCEL || process.env.WORKERS_CI) {
   const missingSupabaseEnv = [
     ...(!process.env.NEXT_PUBLIC_SUPABASE_URL ? ['NEXT_PUBLIC_SUPABASE_URL'] : []),
     ...(!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY &&

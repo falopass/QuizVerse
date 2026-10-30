@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 
 // No crítico: si Redis cae, degradamos abierto en vez de tumbar analytics.
 const analyticsLimiter = createRateLimiter('api', 100, 60, 'open');
@@ -32,8 +33,7 @@ const analyticsSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  const { headers } = request;
-  const ip = headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = clientIpFromHeaders(request.headers);
   const { allowed } = await analyticsLimiter.check(`analytics:${ip}`);
   if (!allowed) {
     return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });

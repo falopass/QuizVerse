@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { generateQuizWithAI } from '@/lib/quiz/generator';
 import { validateAIQuizResponse } from '@/lib/quiz/validator';
 import { inferVisualProfile } from '@/lib/design/visual-profile';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 
 const generateQuizSchema = z.object({
   topic: z.string().trim().min(3).max(120),
@@ -13,8 +14,7 @@ const generateQuizSchema = z.object({
 });
 
 function getRequestIdentifier(request: NextRequest) {
-  const forwardedFor = request.headers.get('x-forwarded-for');
-  return forwardedFor?.split(',')[0]?.trim() || 'anonymous';
+  return clientIpFromHeaders(request.headers, 'anonymous');
 }
 
 export async function POST(request: NextRequest) {

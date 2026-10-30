@@ -15,6 +15,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 
 const ReportSchema = z.object({
   quiz_id: z.string().uuid(),
@@ -27,9 +28,7 @@ const ReportSchema = z.object({
 const reportLimiter = createRateLimiter('quiz-report', 8, 600);
 
 function clientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
-  return request.headers.get('x-real-ip') ?? 'unknown';
+  return clientIpFromHeaders(request.headers);
 }
 
 export async function POST(request: Request) {
