@@ -19,6 +19,6 @@ Verifica una sola vez, al final, desde el agente principal y de a un comando pes
    - Metadata solo con `buildMetadata()`; nada de `canonical` en `src/app/layout.tsx`.
    - Migraciones nuevas, nunca editar una existente.
 5. Contenido o seeds: `npm run seed:audit` debe pasar.
-6. Revisión visual: la preview de Vercel del PR, no un dev server local.
+6. Revisión visual: la preview de Workers Builds (Cloudflare) del PR, no un dev server local.
 
 En el PR, reporta qué corriste y su resultado. Si algo no lo corriste, dilo; no lo inventes.

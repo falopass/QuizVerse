@@ -81,7 +81,7 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 | **Language**        | TypeScript 5.x                       |
 | **Database & Auth** | Supabase                             |
 | **AI**              | LLM-powered quiz generation pipeline |
-| **Deploy**          | Vercel                               |
+| **Deploy**          | Cloudflare Workers (OpenNext)        |
 | **Analytics**       | Analytics hooks (provider-agnostic)  |
 | **Monitoring**      | Monitoring hooks (provider-agnostic) |
 
@@ -148,7 +148,7 @@ npm run build
 
 ## 🚀 Deployment
 
-Deployed to **Vercel**. Supabase provides the backend (database, auth, storage). LLM provider is configurable through environment variables.
+Deployed to **Cloudflare Workers** via OpenNext: Workers Builds builds and deploys `main` to [quizverse.org](https://quizverse.org). Supabase provides the backend (database, auth, storage). LLM provider is configurable through environment variables.
 
 ---
 
@@ -205,7 +205,7 @@ QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado 
 - TypeScript 5.x
 - Supabase (backend + auth)
 - Pipelines de IA para generación de quizzes
-- Vercel (deploy)
+- Cloudflare Workers (deploy)
 
 **Construido por:** Diego Bravo Opazo — [Portfolio](https://github.com/falopass)
 

@@ -33,7 +33,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 - **AI Generation**: DeepSeek (runtime + offline seed pipeline)
 - **OG Images**: Satori + @resvg/resvg-js
 - **Covers**: Procedural fallback + Stock (Pexels/Pixabay) + Generated/Curated types
-- **Deploy**: Cloudflare Workers (OpenNext, production via Workers Builds from `main`) + Vercel (temporary fallback during the migration)
+- **Deploy**: Cloudflare Workers (OpenNext, production via Workers Builds from `main`)
 - **Domain**: quizverse.org
 
 ## Commands
@@ -255,10 +255,10 @@ regenerarla, o las peticiones devuelven 403.
 
 | Motor         | Cómo                                                                                                                                     |
 | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
-| Google        | Meta tag (`GOOGLE_SITE_VERIFICATION` en `deploy/.env`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
-| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION`                                                                                    |
+| Google        | Meta tag (`GOOGLE_SITE_VERIFICATION`, variable del Worker; plantilla en `deploy/env.example`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
+| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION`                                                                                                                         |
 
-Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
+Las variables de SEO se leen en runtime del Worker: se configuran como variables o secretos del Worker en Cloudflare.
 
 ## Catalog Stats (≥ 524; audit DB 2026-10-18; lotes pendientes de importar aparte)
 
@@ -281,7 +281,8 @@ Los `.env` de SEO se leen en runtime: basta `docker compose up -d app`.
 ## Deployment
 
 - Production runs on Cloudflare Workers via OpenNext: Workers Builds builds and deploys `main`, and creates preview deployments for other branches and PRs.
-- Vercel stays only as a temporary fallback during the migration.
+- Cache: R2 for the incremental cache (`NEXT_INC_CACHE_R2_BUCKET`) and D1 for the tag cache (`NEXT_TAG_CACHE_D1`); bindings live in `wrangler.jsonc`.
+- Domain: `quizverse.org` serves the app; `www.quizverse.org` redirects to apex and `/` redirects to `/en`.
 - `deploy/` (owner's VPS: Docker + Caddy) is no longer production; leave it untouched.
 - Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). The app also reads `SUPABASE_SERVICE_ROLE_KEY` (server and import scripts only), `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` (rate limiting), `PEXELS_API_KEY`/`PIXABAY_API_KEY` (stock covers) and the optional `NEXT_PUBLIC_ADSENSE_*_SLOT`. Never commit real values.
 
