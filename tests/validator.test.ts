@@ -54,6 +54,7 @@ describe('validateQuiz', () => {
   it('debería rechazar título muy corto', () => {
     const result = validateQuiz({ ...validTrivia, title: 'AB' });
     expect(result.valid).toBe(false);
+    expect(result.errors.some((error) => error.includes('title'))).toBe(true);
   });
 
   it('debería rechazar título muy largo', () => {
@@ -120,6 +121,21 @@ describe('validateQuiz', () => {
   it('debería rechazar personality sin resultados', () => {
     const result = validateQuiz({ ...validPersonality, results: [] });
     expect(result.valid).toBe(false);
+  });
+
+  it('rechaza tags sin resultado y resultados sin tag', () => {
+    expect(
+      validateQuiz({ ...validPersonality, results: [validPersonality.results[0]] }).valid
+    ).toBe(false);
+    expect(
+      validateQuiz({
+        ...validPersonality,
+        results: validPersonality.results.map((result) => ({
+          ...result,
+          personality_tag: undefined,
+        })),
+      }).valid
+    ).toBe(false);
   });
 
   it('debería rechazar difficulty inválido', () => {

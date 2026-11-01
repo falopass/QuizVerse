@@ -9,7 +9,7 @@ import { z } from 'zod';
 // ============================================
 
 const OptionSchema = z.object({
-  id: z.string(),
+  id: z.string().min(1).max(64),
   text: z.string().min(1).max(500),
   is_correct: z.boolean().optional(),
   personality_tags: z.array(z.string()).optional(),
@@ -17,7 +17,7 @@ const OptionSchema = z.object({
 });
 
 const QuestionSchema = z.object({
-  id: z.string(),
+  id: z.string().min(1).max(64),
   question: z.string().min(1).max(1000),
   image_url: z.string().url().optional().nullable(),
   options: z.array(OptionSchema).min(2).max(10),
@@ -116,12 +116,25 @@ export function validateQuiz(data: unknown): ValidationResult {
   const result = QuizCreateSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 
   // Validaciones adicionales específicas
   const additionalErrors: string[] = [];
+  if (
+    new Set(result.data.questions.map((question) => question.id)).size !==
+    result.data.questions.length
+  ) {
+    additionalErrors.push('Las preguntas deben tener identificadores únicos');
+  }
+  result.data.questions.forEach((question, index) => {
+    if (new Set(question.options.map((option) => option.id)).size !== question.options.length) {
+      additionalErrors.push(
+        `Pregunta ${index + 1}: las opciones deben tener identificadores únicos`
+      );
+    }
+  });
 
   // Para trivia: cada pregunta debe tener exactamente una respuesta correcta
   if (result.data.quiz_type === 'trivia') {
@@ -140,10 +153,28 @@ export function validateQuiz(data: unknown): ValidationResult {
     if (!result.data.results || result.data.results.length === 0) {
       additionalErrors.push('Los quizzes de personalidad deben tener resultados definidos');
     } else {
+      const resultTags = new Set(result.data.results.map((item) => item.personality_tag));
+      if (
+        resultTags.has(null) ||
+        resultTags.has(undefined) ||
+        resultTags.has('') ||
+        resultTags.size !== result.data.results.length
+      ) {
+        additionalErrors.push('Cada resultado debe tener un tag de personalidad único y no vacío');
+      }
+      if (new Set(result.data.results.map((item) => item.id)).size !== result.data.results.length) {
+        additionalErrors.push('Los resultados deben tener identificadores únicos');
+      }
       // Recopilar todos los tags de las opciones
       const allTags = new Set<string>();
       result.data.questions.forEach((q) => {
         q.options.forEach((o) => {
+          if (
+            !o.personality_tags?.length ||
+            o.personality_tags.some((tag) => !resultTags.has(tag))
+          ) {
+            additionalErrors.push('Cada opción debe usar tags de resultados existentes');
+          }
           o.personality_tags?.forEach((tag) => allTags.add(tag));
         });
       });
@@ -173,7 +204,7 @@ export function validateQuestion(data: unknown): ValidationResult {
   const result = QuestionSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 
@@ -187,7 +218,7 @@ export function validatePersonalityResult(data: unknown): ValidationResult {
   const result = PersonalityResultSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 

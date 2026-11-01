@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 vi.mock('@/actions/quiz.actions', () => ({
   submitQuizResult: vi.fn().mockResolvedValue({ success: false }),
@@ -20,6 +20,7 @@ vi.mock('@/providers/toast-provider', () => ({
 import { requestAnswerVerdict } from '@/lib/quiz/reveal-client';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import type { Quiz } from '@/types/quiz';
+import { useQuizStore } from '@/stores/quiz-store';
 
 function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   return {
@@ -128,10 +129,31 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     // Mientras el servidor decide, la selección no debe cambiar: de lo
     // contrario la tarjeta marcaría incorrecta una opción que no se envió.
     fireEvent.keyDown(window, { key: '2' });
+    expect(screen.getByRole('button', { name: 'Skip' })).toBeDisabled();
     resolveReveal({ isCorrect: false, correctOptionId: 'q1b', explanation: null });
 
     await screen.findByText('Miss');
     expect(screen.getByRole('button', { name: /INCORRECT/ })).toHaveAccessibleName(/Saturn/);
+  });
+
+  it('descarta un veredicto de una partida anterior tras cambiar de modo', async () => {
+    let resolveReveal!: (value: null) => void;
+    vi.mocked(requestAnswerVerdict).mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveReveal = resolve;
+        })
+    );
+    await startPlaying('en');
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Pause game' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Change mode' }));
+    fireEvent.click(screen.getByRole('button', { name: /Classic/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /Mars/ }));
+    await act(async () => resolveReveal(null));
+    expect(useQuizStore.getState().answers).toEqual([]);
+    expect(useQuizStore.getState().selectedOptionId).toBe('q1b');
   });
 });
 

@@ -58,3 +58,39 @@ it('records the answer and advances even when the reveal failed', () => {
   vi.advanceTimersByTime(400);
   expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
 });
+
+it('records each question once, including when reveal fails', () => {
+  vi.useFakeTimers();
+  useQuizStore.getState().startGame(quiz);
+  useQuizStore.getState().selectOption('right');
+  useQuizStore.getState().submitAnswer();
+  useQuizStore.getState().submitAnswer();
+  useQuizStore.getState().skipQuestion();
+  expect(useQuizStore.getState().answers).toHaveLength(1);
+  vi.advanceTimersByTime(350);
+  expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
+});
+
+it('ignores auto-advance from an earlier run of the same quiz', () => {
+  vi.useFakeTimers();
+  useQuizStore.getState().startGame(quiz);
+  useQuizStore.getState().selectOption('right');
+  useQuizStore.getState().submitAnswer({ isCorrect: true });
+  vi.advanceTimersByTime(1000);
+  useQuizStore.getState().resetGame();
+  useQuizStore.getState().selectOption('right');
+  useQuizStore.getState().submitAnswer({ isCorrect: true });
+  vi.advanceTimersByTime(500);
+  expect(useQuizStore.getState().currentQuestionIndex).toBe(0);
+  vi.advanceTimersByTime(1000);
+  expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
+});
+
+it('does not record late answers after the timer completes the game', () => {
+  useQuizStore.getState().startGame(quiz, 'timed');
+  useQuizStore.getState().selectOption('right');
+  useQuizStore.setState({ isCompleted: true });
+  useQuizStore.getState().submitAnswer({ isCorrect: true });
+  useQuizStore.getState().skipQuestion();
+  expect(useQuizStore.getState().answers).toEqual([]);
+});

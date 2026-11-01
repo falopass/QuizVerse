@@ -173,13 +173,17 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     if (!question || !selectedOptionId) return;
 
     const answeredIndex = currentQuestionIndex;
+    const gameId = useQuizStore.getState().gameId;
     setIsCheckingAnswer(true);
     const revealed = await requestAnswerVerdict({
       quizId: quiz.id,
       questionId: question.id,
       selectedOptionId,
     });
+    const current = useQuizStore.getState();
+    if (current.gameId !== gameId) return;
     setIsCheckingAnswer(false);
+    if (current.isCompleted || current.currentQuestionIndex !== answeredIndex) return;
 
     setVerdict({
       questionIndex: answeredIndex,
@@ -204,6 +208,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     setPrevQuizId(quiz.id);
     setSubmission(null);
     setIsSubmittingResult(false);
+    setIsCheckingAnswer(false);
     setShowModeSelector(true);
   }
 
@@ -247,6 +252,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     if (!isCompleted || hasSubmittedRef.current || isSubmittingResult) return;
     hasSubmittedRef.current = true;
     setIsSubmittingResult(true);
+    const gameId = useQuizStore.getState().gameId;
 
     const persistSession = async () => {
       try {
@@ -261,6 +267,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           time_ms,
         }));
         const result = await submitQuizResult(quiz.id, payload, totalTimeSeconds);
+        if (useQuizStore.getState().gameId !== gameId) return;
         if (result.success) {
           setSubmission({
             result: (result.result as PersonalityResult | null) ?? null,
@@ -305,7 +312,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
       } catch (error) {
         console.error('Failed to submit quiz result', error);
       } finally {
-        setIsSubmittingResult(false);
+        if (useQuizStore.getState().gameId === gameId) setIsSubmittingResult(false);
       }
     };
 
@@ -390,6 +397,11 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
 
   const handleStartGame = (mode: GameMode) => {
     startGame(quiz, mode);
+    setSubmission(null);
+    setIsSubmittingResult(false);
+    setIsCheckingAnswer(false);
+    setVerdict(null);
+    hasSubmittedRef.current = false;
     setShowModeSelector(false);
     setHiddenOptions({ questionIndex: -1, ids: [] });
     playSound('click');
@@ -545,7 +557,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
               </button>
             </div>
           </div>
-          {!showFeedback && (
+          {!showFeedback && !isCheckingAnswer && (
             <PowerUpBar
               locale={uiLocale}
               powerUps={powerUps.filter(
@@ -556,14 +568,23 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
               onUsePowerUp={(id) => {
                 if (id === 'fifty-fifty') {
                   void (async () => {
+                    const gameId = useQuizStore.getState().gameId;
                     const eliminated = await requestEliminatedOptions({
                       quizId: quiz.id,
                       questionId: currentQuestion.id,
                     });
                     // Without an answer from the server the power-up is not spent.
                     if (!eliminated) return;
+                    const current = useQuizStore.getState();
+                    if (
+                      current.gameId !== gameId ||
+                      current.isCompleted ||
+                      current.currentQuestionIndex !== currentQuestionIndex ||
+                      current.answers.some((answer) => answer.question_id === currentQuestion.id)
+                    )
+                      return;
                     setHiddenOptions({ questionIndex: currentQuestionIndex, ids: eliminated });
-                    if (selectedOptionId && eliminated.includes(selectedOptionId)) {
+                    if (current.selectedOptionId && eliminated.includes(current.selectedOptionId)) {
                       useQuizStore.setState({ selectedOptionId: null });
                     }
                     activatePowerUp(id);
@@ -644,7 +665,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                 skipQuestion();
                 playSound('click');
               }}
-              disabled={showFeedback}
+              disabled={showFeedback || isCheckingAnswer}
               className="arcade-play-skip"
             >
               {copy.skip}
