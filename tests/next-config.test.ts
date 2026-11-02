@@ -44,6 +44,43 @@ describe('next.config headers()', () => {
     );
   });
 
+  it('keeps AdSense origins out of the CSP while no publisher is configured', async () => {
+    vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUBLISHER_ID', '');
+    vi.stubEnv('ADSENSE_PUBLISHER_ID', '');
+    const { rules } = await loadConfig();
+    const csp = headerValue(rules[0], 'Content-Security-Policy-Report-Only')!;
+
+    expect(csp).not.toContain('googlesyndication');
+    expect(csp).not.toContain('doubleclick');
+    expect(csp).not.toContain('frame-src');
+  });
+
+  it('adds AdSense origins to the CSP when a publisher is configured', async () => {
+    vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUBLISHER_ID', 'ca-pub-123');
+    vi.stubEnv('ADSENSE_PUBLISHER_ID', '');
+    const { rules } = await loadConfig();
+    const csp = headerValue(rules[0], 'Content-Security-Policy-Report-Only')!;
+
+    expect(csp).toContain(
+      "script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com"
+    );
+    expect(csp).toContain('https://pixabay.com https://*.googlesyndication.com');
+    expect(csp).toContain(
+      'frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com'
+    );
+    expect(csp).toContain('https://*.googlesyndication.com https://*.doubleclick.net');
+  });
+
+  it('also opens AdSense origins when only the server publisher is set', async () => {
+    vi.stubEnv('NEXT_PUBLIC_ADSENSE_PUBLISHER_ID', '');
+    vi.stubEnv('ADSENSE_PUBLISHER_ID', 'ca-pub-123');
+    const { rules } = await loadConfig();
+    const csp = headerValue(rules[0], 'Content-Security-Policy-Report-Only')!;
+
+    expect(csp).toContain('https://pagead2.googlesyndication.com');
+    expect(csp).toContain('frame-src');
+  });
+
   it('keeps /embed framable: CSP without frame-ancestors, no X-Frame-Options', async () => {
     const { rules } = await loadConfig();
     const embedRules = rules.filter((r) => r.source.startsWith('/embed/'));

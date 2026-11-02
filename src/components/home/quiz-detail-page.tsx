@@ -6,6 +6,7 @@ import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { ReportButton } from '@/components/shared/report-button';
 import { LikeButton } from '@/components/shared/like-button';
+import { AdSlot } from '@/components/shared/ad-slot';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
@@ -185,6 +186,8 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           />
         </div>
       </section>
+
+      <AdSlot placement="detail" locale={locale} />
 
       {questions.length > 0 && (
         <section className="arcade-related" aria-labelledby="inside-quiz">

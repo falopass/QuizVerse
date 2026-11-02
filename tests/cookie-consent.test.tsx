@@ -61,6 +61,20 @@ describe('CookieConsentBanner con transiciones CSS', () => {
   it('no aparece si ya hay consentimiento guardado', () => {
     localStorage.setItem(
       CONSENT_KEY,
+      JSON.stringify({ level: 'essential', version: 2, timestamp: Date.now() })
+    );
+
+    const { container } = render(<CookieConsentBanner />);
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('conserva el «solo esenciales» de la v1 y no vuelve a preguntar', () => {
+    localStorage.setItem(
+      CONSENT_KEY,
       JSON.stringify({ level: 'essential', version: 1, timestamp: Date.now() })
     );
 
@@ -70,6 +84,17 @@ describe('CookieConsentBanner con transiciones CSS', () => {
     });
 
     expect(container).toBeEmptyDOMElement();
+  });
+
+  it('descarta el «aceptar todo» de la v1 y vuelve a preguntar por la publicidad', () => {
+    localStorage.setItem(
+      CONSENT_KEY,
+      JSON.stringify({ level: 'all', version: 1, timestamp: Date.now() })
+    );
+
+    const { container } = showBanner();
+
+    expect(container.querySelector('.cookie-consent-banner')).toBeInTheDocument();
   });
 
   it('aceptar todo guarda el consentimiento, avisa y desmonta al terminar la salida', () => {
@@ -114,7 +139,7 @@ describe('CookieConsentBanner con transiciones CSS', () => {
   it('reabre el banner con consentimiento guardado al pedir preferencias', () => {
     localStorage.setItem(
       CONSENT_KEY,
-      JSON.stringify({ level: 'essential', version: 1, timestamp: Date.now() })
+      JSON.stringify({ level: 'essential', version: 2, timestamp: Date.now() })
     );
 
     const { container } = render(<CookieConsentBanner />);
