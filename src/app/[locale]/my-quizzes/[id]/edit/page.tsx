@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { QuizEditForm } from '@/components/quiz/quiz-edit-form';
@@ -77,6 +78,12 @@ export default async function LocalizedQuizEditPage({
             ? `Corrige los datos de «${quiz.title}». Las preguntas no se editan aquí.`
             : `Fix the details of "${quiz.title}". Questions cannot be edited here.`}
         </p>
+        <Link
+          href={localizeHref(locale, `/my-quizzes/${id}/preview`)}
+          className="text-accent-primary mt-4 inline-block text-sm font-medium underline-offset-2 hover:underline"
+        >
+          {es ? 'Ver la vista previa' : 'Open the preview'}
+        </Link>
       </section>
       <QuizEditForm quiz={quiz} categories={categories ?? []} locale={locale} />
     </div>

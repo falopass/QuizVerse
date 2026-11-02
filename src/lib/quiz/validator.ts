@@ -149,6 +149,75 @@ const semantic = {
   }),
 };
 
+// Errores estructurales (fallos del schema Zod), también bilingües y con el
+// prefijo `ruta:` que creatorErrorTarget usa para ubicar el mensaje en su
+// campo. Lo que Zod no sepa nombrar cae a un genérico localizado: nunca sale
+// inglés crudo a la UI.
+const structural = {
+  es: {
+    minChars: (n: number) => `debe tener al menos ${n} ${n === 1 ? 'carácter' : 'caracteres'}`,
+    maxChars: (n: number) => `debe tener como máximo ${n} ${n === 1 ? 'carácter' : 'caracteres'}`,
+    minItems: (n: number) => `debe tener al menos ${n} ${n === 1 ? 'elemento' : 'elementos'}`,
+    maxItems: (n: number) => `debe tener como máximo ${n} ${n === 1 ? 'elemento' : 'elementos'}`,
+    minNumber: (n: number) => `debe ser al menos ${n}`,
+    maxNumber: (n: number) => `debe ser como máximo ${n}`,
+    wrongType: 'falta o no tiene el tipo esperado',
+    invalid: 'no es válido',
+  },
+  en: {
+    minChars: (n: number) => `must have at least ${n} characters`,
+    maxChars: (n: number) => `must have at most ${n} characters`,
+    minItems: (n: number) => `must have at least ${n} items`,
+    maxItems: (n: number) => `must have at most ${n} items`,
+    minNumber: (n: number) => `must be at least ${n}`,
+    maxNumber: (n: number) => `must be at most ${n}`,
+    wrongType: 'is missing or has the wrong type',
+    invalid: 'is not valid',
+  },
+} as const;
+
+interface StructuralIssue {
+  code: string;
+  path: PropertyKey[];
+  message: string;
+  origin?: string;
+  minimum?: number | bigint;
+  maximum?: number | bigint;
+  inclusive?: boolean;
+}
+
+function structuralMessage(issue: StructuralIssue, lang: 'es' | 'en'): string {
+  const copy = structural[lang];
+  const inclusive = issue.inclusive !== false;
+  if (issue.code === 'too_small' && issue.minimum !== undefined && inclusive) {
+    const minimum = Number(issue.minimum);
+    if (issue.origin === 'string') return copy.minChars(minimum);
+    if (issue.origin === 'array') return copy.minItems(minimum);
+    return copy.minNumber(minimum);
+  }
+  if (issue.code === 'too_big' && issue.maximum !== undefined && inclusive) {
+    const maximum = Number(issue.maximum);
+    if (issue.origin === 'string') return copy.maxChars(maximum);
+    if (issue.origin === 'array') return copy.maxItems(maximum);
+    return copy.maxNumber(maximum);
+  }
+  if (issue.code === 'invalid_type') return copy.wrongType;
+  return copy.invalid;
+}
+
+/**
+ * Mensajes `ruta: error` localizados para un fallo de schema. Lo comparten
+ * `validateQuiz` y `createQuiz`, cuyo schema extendido puede fallar antes de
+ * llegar a la validación semántica.
+ */
+export function localizedIssueMessages(
+  error: { issues: StructuralIssue[] },
+  locale: string
+): string[] {
+  const lang = locale === 'es' ? 'es' : 'en';
+  return error.issues.map((issue) => `${issue.path.join('.')}: ${structuralMessage(issue, lang)}`);
+}
+
 /**
  * Valida un quiz completo. `locale` decide el idioma de los errores semánticos
  * porque el caller los muestra al usuario final.
@@ -158,8 +227,7 @@ export function validateQuiz(data: unknown, locale: string = 'es'): ValidationRe
   const result = QuizCreateSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
-    return { valid: false, errors };
+    return { valid: false, errors: localizedIssueMessages(result.error, locale) };
   }
 
   // Validaciones adicionales específicas

@@ -7,7 +7,13 @@
  */
 
 import { describe, expect, it, vi } from 'vitest';
-import { MAX_SLUG_LENGTH, generateUniqueSlug, slugifyTitle } from '@/lib/quiz/quiz-slug';
+import {
+  MAX_SLUG_LENGTH,
+  generateUniqueSlug,
+  isProvisionalSlug,
+  provisionalSlug,
+  slugifyTitle,
+} from '@/lib/quiz/quiz-slug';
 
 describe('slugifyTitle', () => {
   it('strips accents, ñ and ü to plain ASCII', () => {
@@ -101,5 +107,46 @@ describe('generateUniqueSlug', () => {
     expect(exists).toHaveBeenCalledTimes(3);
     expect(slug).toMatch(/^quiz-\d+$/);
     expect(slug.length).toBeLessThanOrEqual(MAX_SLUG_LENGTH);
+  });
+});
+
+describe('provisionalSlug', () => {
+  it('appends a six-character random suffix to the title base', () => {
+    expect(provisionalSlug('Quiz de prueba', 'es')).toMatch(/^es-quiz-de-prueba--[a-z0-9]{6}$/);
+  });
+
+  it('never returns the clean base: the suffix is always present', () => {
+    for (let i = 0; i < 20; i += 1) {
+      const slug = provisionalSlug('Quiz', 'en');
+      expect(slug).not.toBe('en-quiz');
+      expect(slug.startsWith('en-quiz--')).toBe(true);
+    }
+  });
+
+  it('does not follow a sequential counter: two calls differ', () => {
+    // Con sufijo secuencial el segundo borrador del mismo título diría "hay
+    // uno más"; el aleatorio no filtra cuántos existen.
+    expect(provisionalSlug('Quiz', 'en')).not.toBe(provisionalSlug('Quiz', 'en'));
+  });
+
+  it('keeps the random suffix inside MAX_SLUG_LENGTH on long titles', () => {
+    const slug = provisionalSlug(`a${'b'.repeat(100)}`, 'en');
+    expect(slug.length).toBeLessThanOrEqual(MAX_SLUG_LENGTH);
+    expect(slug).toMatch(/--[a-z0-9]{6}$/);
+  });
+});
+
+describe('isProvisionalSlug', () => {
+  it('detects the double-hyphen mark that provisional slugs carry', () => {
+    expect(isProvisionalSlug(provisionalSlug('Quiz', 'es'))).toBe(true);
+    expect(isProvisionalSlug('es-quiz--a1b2c3')).toBe(true);
+  });
+
+  it('never matches a definitive slug: slugifyTitle collapses double hyphens', () => {
+    expect(isProvisionalSlug('es-quiz')).toBe(false);
+    expect(isProvisionalSlug('es-quiz-2')).toBe(false);
+    // Un título real no puede producir `--` porque el slugify los colapsa.
+    expect(slugifyTitle('Quiz -- de prueba', 'es')).toBe('es-quiz-de-prueba');
+    expect(isProvisionalSlug(slugifyTitle('Quiz -- de prueba', 'es'))).toBe(false);
   });
 });

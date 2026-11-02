@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { deleteQuiz } from '@/actions/quiz.actions';
+import { deleteQuiz, setQuizStatus } from '@/actions/quiz.actions';
 import { Button } from '@/components/ui/button';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale, type Locale } from '@/lib/i18n/dictionaries';
+import { STATUS_LABEL, STATUS_TONE } from '@/lib/quiz/quiz-status';
 import type { ActionErrorCode } from '@/lib/actions/types';
 import type { QuizStatus, QuizType } from '@/types/database';
 
@@ -23,27 +24,11 @@ export interface MyQuizRow {
   created_at: string;
 }
 
-const STATUS_LABEL: Record<QuizStatus, { es: string; en: string }> = {
-  draft: { es: 'Borrador', en: 'Draft' },
-  pending: { es: 'En revisión', en: 'In review' },
-  published: { es: 'Publicado', en: 'Published' },
-  rejected: { es: 'Rechazado', en: 'Rejected' },
-  archived: { es: 'Archivado', en: 'Archived' },
-};
-
-const STATUS_TONE: Record<QuizStatus, string> = {
-  draft: 'border-border-subtle text-text-secondary',
-  pending: 'border-warning/50 text-warning',
-  published: 'border-success/50 text-success',
-  rejected: 'border-error/50 text-error',
-  archived: 'border-border-subtle text-text-muted',
-};
-
 /** Server actions reply in English; map the code to the page locale. */
 const ERROR_LABEL: Partial<Record<ActionErrorCode, { es: string; en: string }>> = {
   unauthorized: {
-    es: 'Inicia sesión de nuevo para borrar.',
-    en: 'Sign in again to delete.',
+    es: 'Inicia sesión de nuevo para continuar.',
+    en: 'Sign in again to continue.',
   },
   forbidden: {
     es: 'Ese quiz no es tuyo.',
@@ -53,11 +38,28 @@ const ERROR_LABEL: Partial<Record<ActionErrorCode, { es: string; en: string }>> 
     es: 'No encontramos ese quiz.',
     en: 'We could not find that quiz.',
   },
+  conflict: {
+    es: 'Ese quiz no está en un estado que permita ese cambio.',
+    en: 'That quiz is not in a state that allows that change.',
+  },
   rate_limited: {
     es: 'Demasiados intentos. Espera un momento.',
     en: 'Too many attempts. Please wait a moment.',
   },
 };
+
+/** Botón de transición que ofrece cada estado, si lo hay. */
+function statusMove(
+  status: QuizStatus
+): { target: 'draft' | 'pending' | 'archived'; label: { es: string; en: string } } | null {
+  if (status === 'draft')
+    return { target: 'pending', label: { es: 'Enviar a revisión', en: 'Send to review' } };
+  if (status === 'pending')
+    return { target: 'draft', label: { es: 'Retirar a borrador', en: 'Back to draft' } };
+  if (status === 'published')
+    return { target: 'archived', label: { es: 'Despublicar', en: 'Unpublish' } };
+  return null;
+}
 
 export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; locale: Locale }) {
   const router = useRouter();
@@ -72,8 +74,10 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         delete: 'Borrar',
         confirm: (title: string) =>
           `¿Borrar «${title}»? Se eliminará para siempre, junto con sus partidas.`,
+        confirmArchive: (title: string) =>
+          `¿Despublicar «${title}»? Saldrá del catálogo, pero conservará sus partidas y comentarios.`,
         archivedNotice: 'Tiene reportes abiertos en moderación: lo archivamos en vez de borrarlo.',
-        genericError: 'No pudimos borrar el quiz ahora mismo.',
+        genericError: 'No pudimos completar la acción ahora mismo.',
         emptyTitle: 'Todavía no has creado ningún quiz.',
         emptyBody: 'Tu primer quiz puede estar en revisión en cuestión de minutos.',
         emptyCta: 'Crear un quiz',
@@ -87,34 +91,55 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         delete: 'Delete',
         confirm: (title: string) =>
           `Delete "${title}"? It will be gone forever, along with its play sessions.`,
+        confirmArchive: (title: string) =>
+          `Unpublish "${title}"? It will leave the catalogue, but its plays and comments are kept.`,
         archivedNotice: 'It has open moderation reports, so we archived it instead of deleting it.',
-        genericError: 'We could not delete the quiz right now.',
+        genericError: 'We could not complete that action right now.',
         emptyTitle: 'You have not created any quizzes yet.',
         emptyBody: 'Your first quiz could be in review within minutes.',
         emptyCta: 'Create a quiz',
       };
 
-  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [busyId, setBusyId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
+  const failWith = (code: ActionErrorCode) =>
+    setErrorMessage(ERROR_LABEL[code]?.[es ? 'es' : 'en'] ?? copy.genericError);
+
   const remove = async (quiz: MyQuizRow) => {
     if (!window.confirm(copy.confirm(quiz.title))) return;
-    setDeletingId(quiz.id);
+    setBusyId(quiz.id);
     setErrorMessage(null);
     setNotice(null);
     try {
       const result = await deleteQuiz(quiz.id);
-      if (!result.success) {
-        setErrorMessage(ERROR_LABEL[result.code]?.[es ? 'es' : 'en'] ?? copy.genericError);
-        return;
-      }
+      if (!result.success) return failWith(result.code);
       if (result.archived) setNotice(copy.archivedNotice);
       router.refresh();
     } catch {
       setErrorMessage(copy.genericError);
     } finally {
-      setDeletingId(null);
+      setBusyId(null);
+    }
+  };
+
+  const move = async (
+    quiz: MyQuizRow,
+    target: 'draft' | 'pending' | 'archived',
+    needsConfirm: boolean
+  ) => {
+    if (needsConfirm && !window.confirm(copy.confirmArchive(quiz.title))) return;
+    setBusyId(quiz.id);
+    setErrorMessage(null);
+    try {
+      const result = await setQuizStatus(quiz.id, target);
+      if (!result.success) return failWith(result.code);
+      router.refresh();
+    } catch {
+      setErrorMessage(copy.genericError);
+    } finally {
+      setBusyId(null);
     }
   };
 
@@ -165,8 +190,14 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                 {quiz.title}
               </Link>
             ) : (
-              <span className="text-text-primary font-semibold">{quiz.title}</span>
+              <Link
+                href={localizeHref(locale, `/my-quizzes/${quiz.id}/preview`)}
+                className="text-text-primary hover:text-accent-primary font-semibold transition-colors"
+              >
+                {quiz.title}
+              </Link>
             );
+          const action = statusMove(quiz.status);
           const date = new Date(quiz.created_at).toLocaleDateString(es ? 'es' : 'en-US', {
             day: 'numeric',
             month: 'short',
@@ -196,7 +227,18 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                   {date}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                {action ? (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    isLoading={busyId === quiz.id}
+                    disabled={busyId !== null}
+                    onClick={() => move(quiz, action.target, action.target === 'archived')}
+                  >
+                    {action.label[es ? 'es' : 'en']}
+                  </Button>
+                ) : null}
                 {quiz.status !== 'published' ? (
                   <Link
                     href={localizeHref(locale, `/my-quizzes/${quiz.id}/edit`)}
@@ -208,8 +250,8 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                 <Button
                   variant="danger"
                   size="sm"
-                  isLoading={deletingId === quiz.id}
-                  disabled={deletingId !== null}
+                  isLoading={busyId === quiz.id}
+                  disabled={busyId !== null}
                   onClick={() => remove(quiz)}
                 >
                   {copy.delete}

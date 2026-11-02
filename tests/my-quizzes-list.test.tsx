@@ -4,11 +4,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 const mocks = vi.hoisted(() => ({
   deleteQuiz: vi.fn(),
+  setQuizStatus: vi.fn(),
   refresh: vi.fn(),
 }));
 
 vi.mock('@/actions/quiz.actions', () => ({
   deleteQuiz: mocks.deleteQuiz,
+  setQuizStatus: mocks.setQuizStatus,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -64,6 +66,8 @@ const QUIZZES: MyQuizRow[] = [
 beforeEach(() => {
   mocks.deleteQuiz.mockReset();
   mocks.deleteQuiz.mockResolvedValue({ success: true });
+  mocks.setQuizStatus.mockReset();
+  mocks.setQuizStatus.mockResolvedValue({ success: true });
   mocks.refresh.mockReset();
   vi.stubGlobal(
     'confirm',
@@ -82,7 +86,72 @@ describe('MyQuizzesList', () => {
     // El enlace usa el idioma del quiz, no el de la página.
     const published = screen.getByRole('link', { name: 'Quiz publicado' });
     expect(published).toHaveAttribute('href', '/en/quiz/quiz-publicado');
-    expect(screen.queryByRole('link', { name: 'Quiz en borrador' })).not.toBeInTheDocument();
+  });
+
+  it('enlaza los títulos no publicados a la vista previa privada', () => {
+    render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
+
+    expect(screen.getByRole('link', { name: 'Quiz en borrador' })).toHaveAttribute(
+      'href',
+      '/es/my-quizzes/11111111-1111-4111-8111-111111111111/preview'
+    );
+    expect(screen.getByRole('link', { name: 'Quiz en revisión' })).toHaveAttribute(
+      'href',
+      '/es/my-quizzes/22222222-2222-4222-8222-222222222222/preview'
+    );
+  });
+
+  it('envía un borrador a revisión con setQuizStatus', async () => {
+    render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Enviar a revisión' }));
+
+    await waitFor(() =>
+      expect(mocks.setQuizStatus).toHaveBeenCalledWith(
+        '11111111-1111-4111-8111-111111111111',
+        'pending'
+      )
+    );
+    await waitFor(() => expect(mocks.refresh).toHaveBeenCalledTimes(1));
+  });
+
+  it('retira un quiz en revisión a borrador sin confirmación', async () => {
+    render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Retirar a borrador' }));
+
+    await waitFor(() =>
+      expect(mocks.setQuizStatus).toHaveBeenCalledWith(
+        '22222222-2222-4222-8222-222222222222',
+        'draft'
+      )
+    );
+  });
+
+  it('despublica un quiz publicado tras confirmación', async () => {
+    render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Despublicar' }));
+
+    await waitFor(() =>
+      expect(mocks.setQuizStatus).toHaveBeenCalledWith(
+        '33333333-3333-4333-8333-333333333333',
+        'archived'
+      )
+    );
+  });
+
+  it('no despublica si se cancela la confirmación', async () => {
+    vi.stubGlobal(
+      'confirm',
+      vi.fn(() => false)
+    );
+    render(<MyQuizzesList quizzes={QUIZZES} locale="es" />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Despublicar' }));
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    expect(mocks.setQuizStatus).not.toHaveBeenCalled();
   });
 
   it('borra un quiz llamando a la action con su id y refresca', async () => {
@@ -135,7 +204,7 @@ describe('MyQuizzesList', () => {
     fireEvent.click(screen.getAllByRole('button', { name: 'Delete' })[0]);
 
     const alert = await screen.findByRole('alert');
-    expect(alert).toHaveTextContent('We could not delete the quiz right now.');
+    expect(alert).toHaveTextContent('We could not complete that action right now.');
     expect(alert).not.toHaveTextContent('relation');
   });
 

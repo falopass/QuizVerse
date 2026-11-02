@@ -15,7 +15,14 @@ const mocks = vi.hoisted(() => ({
       likes_count?: number;
     } | null,
   },
-  insertResult: { data: { id: 'quiz-1', slug: 'quiz-de-prueba' } as unknown, error: null },
+  insertResult: {
+    data: { id: 'quiz-1', slug: 'quiz-de-prueba' } as unknown,
+    error: null as { code?: string; message: string } | null,
+  },
+  insertQueue: [] as Array<{ data: unknown; error: { code?: string; message: string } | null }>,
+  slugLookup: { data: null as { id: string } | null },
+  /** Sondas de existencia de slug: solo debe usarlas el camino publicado. */
+  slugProbe: vi.fn(),
   sessionInsertResult: {
     data: { id: 'session-1', share_token: 'tok-1' } as unknown,
     error: null,
@@ -71,10 +78,26 @@ vi.mock('@/lib/supabase/server', () => ({
       }
       if (table !== 'quizzes') throw new Error(`unexpected table ${table}`);
       return {
-        select: () => ({ eq: () => ({ maybeSingle: async () => mocks.quizRow }) }),
+        select: (columns?: string) => ({
+          eq: () => ({
+            // La sonda de slugs pide solo 'id'; el resto de lecturas usa quizRow.
+            maybeSingle: async () => {
+              if (columns === 'id') {
+                mocks.slugProbe();
+                return mocks.slugLookup;
+              }
+              return mocks.quizRow;
+            },
+          }),
+        }),
         insert: (payload: unknown) => {
           mocks.insert(payload);
-          return { select: () => ({ single: async () => mocks.insertResult }) };
+          return {
+            select: () => ({
+              single: async () =>
+                mocks.insertQueue.length ? mocks.insertQueue.shift() : mocks.insertResult,
+            }),
+          };
         },
         update: () => ({ eq: async () => mocks.updateResult }),
         delete: () => ({ eq: async () => mocks.deleteResult }),
@@ -84,8 +107,19 @@ vi.mock('@/lib/supabase/server', () => ({
   }),
 }));
 
-vi.mock('@/lib/quiz/quiz-slug', () => ({
-  generateUniqueSlug: async () => 'quiz-de-prueba',
+vi.mock('@/lib/quiz/quiz-slug', async (importOriginal) => ({
+  // `provisionalSlug` queda real: los tests comprueban su forma aleatoria.
+  ...(await importOriginal<typeof import('@/lib/quiz/quiz-slug')>()),
+  generateUniqueSlug: async (
+    _title: string,
+    { exists }: { exists: (c: string) => Promise<boolean> }
+  ) => {
+    for (let i = 0; i < 10; i += 1) {
+      const candidate = i === 0 ? 'quiz-de-prueba' : `quiz-de-prueba-${i + 1}`;
+      if (!(await exists(candidate))) return candidate;
+    }
+    return 'quiz-de-prueba-ts';
+  },
 }));
 
 vi.mock('@/lib/quiz/quiz-repository', () => ({ loadAnswerKeyByQuizId: vi.fn() }));
@@ -146,6 +180,9 @@ beforeEach(() => {
   mocks.profileResult = { data: { is_admin: true } };
   mocks.quizRow = { data: { creator_id: 'user-1', slug: 'quiz-de-prueba', language: 'en' } };
   mocks.insertResult = { data: { id: 'quiz-1', slug: 'quiz-de-prueba' }, error: null };
+  mocks.insertQueue = [];
+  mocks.slugLookup = { data: null };
+  mocks.slugProbe.mockClear();
   mocks.sessionInsertResult = { data: { id: 'session-1', share_token: 'tok-1' }, error: null };
   vi.mocked(loadAnswerKeyByQuizId).mockReset();
   mocks.updateResult = { error: null };
@@ -208,6 +245,105 @@ describe('createQuiz', () => {
     expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
+  });
+
+  it('guarda como draft cuando no hay intent (el estado seguro por defecto)', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+
+    const result = await createQuiz(createInput('es'));
+
+    expect(result.success).toBe(true);
+    expect(mocks.insert.mock.calls[0][0]).toMatchObject({ status: 'draft' });
+  });
+
+  it('manda a pending con intent review para un creador normal', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+
+    const result = await createQuiz({ ...createInput('es'), intent: 'review' });
+
+    expect(result.success).toBe(true);
+    expect(mocks.insert.mock.calls[0][0]).toMatchObject({ status: 'pending' });
+  });
+
+  it('publica directo con intent review cuando el autor es admin', async () => {
+    const result = await createQuiz({ ...createInput('en'), intent: 'review' });
+
+    expect(result.success).toBe(true);
+    expect(mocks.insert.mock.calls[0][0]).toMatchObject({ status: 'published' });
+    // El admin ve todo el catálogo: su slug nace limpio, sin sufijo aleatorio.
+    expect(mocks.insert.mock.calls[0][0].slug).toBe('quiz-de-prueba');
+  });
+
+  it('un borrador no sondea slugs: el resultado no distingue si existe uno privado ajeno', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+    const provisional = /^es-quiz-de-prueba--[a-z0-9]{6}$/;
+
+    // Caso A: nada ocupa el slug base. Caso B: existe un quiz invisible para
+    // el creador (borrador o pendiente ajeno). La respuesta debe ser la misma
+    // forma en ambos: si naciera del slug limpio, el sufijo de colisión sería
+    // el oráculo de existencia.
+    mocks.slugLookup = { data: null };
+    const free = await createQuiz(createInput('es'));
+    mocks.slugLookup = { data: { id: 'quiz-ajeno' } };
+    const hidden = await createQuiz(createInput('es'));
+
+    expect(free.success).toBe(true);
+    expect(hidden.success).toBe(true);
+    const freeSlug = mocks.insert.mock.calls[0][0].slug as string;
+    const hiddenSlug = mocks.insert.mock.calls[1][0].slug as string;
+    expect(freeSlug).toMatch(provisional);
+    expect(hiddenSlug).toMatch(provisional);
+    expect(freeSlug).not.toBe('quiz-de-prueba');
+    expect(hiddenSlug).not.toBe('quiz-de-prueba');
+    // Ni siquiera se consulta la existencia: no hay observable que comparar.
+    expect(mocks.slugProbe).not.toHaveBeenCalled();
+  });
+
+  it('reintenta con otro sufijo aleatorio cuando el INSERT choca (23505)', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+    mocks.insertQueue = [
+      { data: null, error: { code: '23505', message: 'duplicate key value violates unique' } },
+    ];
+
+    const result = await createQuiz({ ...createInput('es'), intent: 'review' });
+
+    expect(result.success).toBe(true);
+    expect(mocks.insert).toHaveBeenCalledTimes(2);
+    const first = mocks.insert.mock.calls[0][0].slug as string;
+    const second = mocks.insert.mock.calls[1][0].slug as string;
+    // Ambos provisionales: el reintento no revela ni el número de colisiones.
+    expect(first).toMatch(/^es-quiz-de-prueba--[a-z0-9]{6}$/);
+    expect(second).toMatch(/^es-quiz-de-prueba--[a-z0-9]{6}$/);
+    expect(second).not.toBe(first);
+  });
+
+  it('nunca devuelve el mensaje crudo de Postgres al formulario', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+    mocks.insertResult = {
+      data: null,
+      error: { code: '23503', message: 'relation "quizzes" does not exist' },
+    };
+
+    const result = await createQuiz(createInput('es'));
+
+    expect(result).toMatchObject({ success: false, code: 'unexpected' });
+    if (!result.success) {
+      expect(result.error).not.toContain('relation');
+      expect(result.error).toBe('Something went wrong. Please try again.');
+    }
+  });
+
+  it('localiza los errores del schema según el language del quiz', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+    const tooShort = { ...createInput('es'), title: 'AB' };
+
+    const result = await createQuiz(tooShort);
+
+    expect(result).toMatchObject({ success: false, code: 'invalid_input' });
+    if (!result.success) {
+      expect(result.error).toContain('title: debe tener al menos 5 caracteres');
+    }
+    expect(mocks.insert).not.toHaveBeenCalled();
   });
 
   it('revalida ambos locales cuando el language no es en/es', async () => {

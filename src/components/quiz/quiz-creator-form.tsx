@@ -48,7 +48,8 @@ export function QuizCreatorForm({
     locale === 'es'
       ? {
           questionsError: 'Completa al menos 3 preguntas completas.',
-          success: 'Quiz creado correctamente.',
+          success: 'Quiz enviado a revisión.',
+          draftSuccess: 'Borrador guardado.',
           genericError: 'No pudimos crear el quiz ahora mismo.',
           eyebrow: 'Compositor manual',
           heading: 'Construye un quiz que se lea como una pieza terminada.',
@@ -96,9 +97,11 @@ export function QuizCreatorForm({
           imageUrl: 'URL de imagen opcional',
           min: 'Mín',
           max: 'Máx',
-          publishing: 'Publicando quiz...',
-          publish: 'Publicar quiz',
-          fixErrors: 'Revisa estos puntos antes de publicar.',
+          saveDraft: 'Guardar borrador',
+          savingDraft: 'Guardando borrador...',
+          submitReview: 'Enviar a revisión',
+          submittingReview: 'Enviando a revisión...',
+          fixErrors: 'Revisa estos puntos antes de guardar.',
           previewEyebrow: 'Vista del estudio',
           futureCover: 'Tu próximo gran titular',
           futureSummary: 'Tu resumen aparecerá aquí cuando definas el gancho.',
@@ -114,7 +117,8 @@ export function QuizCreatorForm({
         }
       : {
           questionsError: 'Complete at least 3 full questions.',
-          success: 'Quiz created successfully.',
+          success: 'Quiz sent to review.',
+          draftSuccess: 'Draft saved.',
           genericError: 'We could not create the quiz right now.',
           eyebrow: 'Manual Composer',
           heading: 'Build a quiz that reads like a finished feature.',
@@ -162,9 +166,11 @@ export function QuizCreatorForm({
           imageUrl: 'Optional image URL',
           min: 'Min',
           max: 'Max',
-          publishing: 'Publishing quiz...',
-          publish: 'Publish quiz',
-          fixErrors: 'Review these points before publishing.',
+          saveDraft: 'Save draft',
+          savingDraft: 'Saving draft...',
+          submitReview: 'Send to review',
+          submittingReview: 'Sending to review...',
+          fixErrors: 'Review these points before saving.',
           previewEyebrow: 'Studio Preview',
           futureCover: 'Your future cover line',
           futureSummary: 'Your summary will appear here once you frame the hook.',
@@ -191,10 +197,13 @@ export function QuizCreatorForm({
   const [results, setResults] = useState<PersonalityResult[]>([result(), result()]);
   const [assignments, setAssignments] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeIntent, setActiveIntent] = useState<'draft' | 'review' | null>(null);
   const [showErrors, setShowErrors] = useState(false);
   const [submitCount, setSubmitCount] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
   const focusedSubmit = useRef(0);
+  // Qué botón disparó el submit: "Guardar borrador" o "Enviar a revisión".
+  const intentRef = useRef<'draft' | 'review'>('review');
 
   const draftInput: CreatorDraftInput = useMemo(
     () => ({
@@ -248,6 +257,8 @@ export function QuizCreatorForm({
       setSubmitCount((count) => count + 1);
       return;
     }
+    const intent = intentRef.current;
+    setActiveIntent(intent);
     setIsSubmitting(true);
     try {
       await trackEvent({
@@ -256,7 +267,7 @@ export function QuizCreatorForm({
         quizType,
         source: 'manual_create',
       });
-      const response = await createQuiz(normalizeCreatorDraft(draftInput));
+      const response = await createQuiz({ ...normalizeCreatorDraft(draftInput), intent });
       if (!response.success) return error(response.error);
       await trackEvent({
         name: 'create_complete',
@@ -266,15 +277,14 @@ export function QuizCreatorForm({
         quizType,
         source: 'manual_create',
       });
-      success(copy.success);
-      router.push(
-        localizeHref(locale, `/create/done?slug=${encodeURIComponent(response.quiz.slug)}`)
-      );
+      success(intent === 'draft' ? copy.draftSuccess : copy.success);
+      router.push(localizeHref(locale, `/create/done?id=${encodeURIComponent(response.quiz.id)}`));
     } catch (err) {
       console.error(err);
       error(copy.genericError);
     } finally {
       setIsSubmitting(false);
+      setActiveIntent(null);
     }
   };
 
@@ -332,6 +342,7 @@ export function QuizCreatorForm({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
+                  maxLength={300}
                   className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
                   placeholder={copy.descriptionPlaceholder}
                 />
@@ -450,6 +461,7 @@ export function QuizCreatorForm({
                         patchQuestion(setQuestions, index, { question: e.target.value })
                       }
                       placeholder={copy.questionPrompt}
+                      maxLength={1000}
                     />
                   </div>
                   <div className="mt-4 grid gap-3 sm:grid-cols-2">
@@ -533,6 +545,7 @@ export function QuizCreatorForm({
                               )
                             }
                             placeholder={copy.answerCopy}
+                            maxLength={500}
                           />
                           {quizType === 'personality' ? (
                             <div className="mt-3">
@@ -581,6 +594,7 @@ export function QuizCreatorForm({
                           patchQuestion(setQuestions, index, { explanation: e.target.value })
                         }
                         rows={3}
+                        maxLength={500}
                         className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
                         placeholder={copy.explanation}
                       />
@@ -660,6 +674,7 @@ export function QuizCreatorForm({
                         value={item.title}
                         onChange={(e) => patchResultTitle(setResults, index, e.target.value)}
                         placeholder={copy.outcomeTitle}
+                        maxLength={100}
                       />
                       <Field id={`creator-result-${index}-image`} label={copy.imageUrl}>
                         {(props) => (
@@ -714,6 +729,7 @@ export function QuizCreatorForm({
                             patchResult(setResults, index, { description: e.target.value })
                           }
                           rows={3}
+                          maxLength={1000}
                           className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
                           placeholder={copy.outcomeDescription}
                         />
@@ -777,11 +793,29 @@ export function QuizCreatorForm({
           <Button
             type="submit"
             size="lg"
-            isLoading={isSubmitting}
+            variant="secondary"
+            isLoading={isSubmitting && activeIntent === 'draft'}
+            disabled={isSubmitting}
             aria-describedby={formErrors.length ? 'creator-form-errors' : undefined}
+            onClick={() => {
+              intentRef.current = 'draft';
+            }}
             className="rounded-full px-7"
           >
-            {isSubmitting ? copy.publishing : copy.publish}
+            {isSubmitting && activeIntent === 'draft' ? copy.savingDraft : copy.saveDraft}
+          </Button>
+          <Button
+            type="submit"
+            size="lg"
+            isLoading={isSubmitting && activeIntent === 'review'}
+            disabled={isSubmitting}
+            aria-describedby={formErrors.length ? 'creator-form-errors' : undefined}
+            onClick={() => {
+              intentRef.current = 'review';
+            }}
+            className="rounded-full px-7"
+          >
+            {isSubmitting && activeIntent === 'review' ? copy.submittingReview : copy.submitReview}
           </Button>
         </div>
       </div>

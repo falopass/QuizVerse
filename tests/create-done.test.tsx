@@ -37,12 +37,17 @@ vi.mock('next/link', () => ({
 import CreateDonePage from '@/app/[locale]/create/done/page';
 
 const USER = { id: 'user-1' };
-const PENDING_QUIZ = { slug: 'mi-quiz', title: 'Mi quiz', status: 'pending' };
+const PENDING_QUIZ = {
+  id: 'quiz-id-1',
+  slug: 'mi-quiz',
+  title: 'Mi quiz',
+  status: 'pending',
+};
 
-function props(slug = 'mi-quiz', locale = 'es') {
+function props(search: { slug?: string; id?: string } = { slug: 'mi-quiz' }, locale = 'es') {
   return {
     params: Promise.resolve({ locale }),
-    searchParams: Promise.resolve({ slug }),
+    searchParams: Promise.resolve(search),
   };
 }
 
@@ -56,6 +61,24 @@ beforeEach(() => {
 });
 
 describe('página /create/done', () => {
+  it('resuelve la confirmación por id, que sobrevive a la publicación del quiz', async () => {
+    render(await CreateDonePage(props({ id: 'quiz-id-1' })));
+
+    expect(mocks.eq).toHaveBeenCalledWith('id', 'quiz-id-1');
+    expect(mocks.eq).toHaveBeenCalledWith('creator_id', USER.id);
+    expect(screen.getByRole('heading', { name: 'En revisión' })).toBeInTheDocument();
+  });
+
+  it('mantiene ?slug= como compatibilidad (estudio AI)', async () => {
+    render(await CreateDonePage(props({ slug: 'mi-quiz' })));
+
+    expect(mocks.eq).toHaveBeenCalledWith('slug', 'mi-quiz');
+  });
+
+  it('404 sin id ni slug', async () => {
+    await expect(CreateDonePage(props({}))).rejects.toThrow('NEXT_NOT_FOUND');
+  });
+
   it('muestra «En revisión» para un quiz pendiente del dueño', async () => {
     render(await CreateDonePage(props()));
 
@@ -65,13 +88,32 @@ describe('página /create/done', () => {
       'href',
       '/es/my-quizzes'
     );
+    expect(screen.getByRole('link', { name: 'Vista previa' })).toHaveAttribute(
+      'href',
+      '/es/my-quizzes/quiz-id-1/preview'
+    );
     expect(screen.getByRole('link', { name: 'Volver al inicio' })).toHaveAttribute('href', '/es');
     expect(mocks.eq).toHaveBeenCalledWith('slug', 'mi-quiz');
     expect(mocks.eq).toHaveBeenCalledWith('creator_id', USER.id);
   });
 
+  it('muestra «Borrador guardado» para un draft y enlaza la vista previa', async () => {
+    mocks.maybeSingle.mockResolvedValue({
+      data: { ...PENDING_QUIZ, status: 'draft' },
+      error: null,
+    });
+
+    render(await CreateDonePage(props()));
+
+    expect(screen.getByRole('heading', { name: 'Borrador guardado' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Vista previa' })).toHaveAttribute(
+      'href',
+      '/es/my-quizzes/quiz-id-1/preview'
+    );
+  });
+
   it('muestra «In review» en inglés', async () => {
-    render(await CreateDonePage(props('mi-quiz', 'en')));
+    render(await CreateDonePage(props({ slug: 'mi-quiz' }, 'en')));
 
     expect(screen.getByRole('heading', { name: 'In review' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'My quizzes' })).toHaveAttribute(
@@ -98,7 +140,7 @@ describe('página /create/done', () => {
   it('devuelve 404 cuando el quiz no existe o no es del usuario', async () => {
     mocks.maybeSingle.mockResolvedValue({ data: null, error: null });
 
-    await expect(CreateDonePage(props('quiz-ajeno'))).rejects.toThrow('NEXT_NOT_FOUND');
+    await expect(CreateDonePage(props({ slug: 'quiz-ajeno' }))).rejects.toThrow('NEXT_NOT_FOUND');
   });
 
   it('devuelve 404 sin slug', async () => {

@@ -28,6 +28,7 @@ const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 const PRIVATE_PREFIXES = [
   'src/app/[locale]/login/',
+  'src/app/[locale]/my-quizzes/',
   'src/app/[locale]/register/',
   'src/app/[locale]/create/',
   'src/app/[locale]/quiz/[slug]/play/',

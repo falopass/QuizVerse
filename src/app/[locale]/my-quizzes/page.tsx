@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { MyQuizzesList } from '@/components/quiz/my-quizzes-list';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+
+const PAGE_SIZE = 20;
 
 /** Creator's own submissions, private and login-gated: never indexed. */
 export async function generateMetadata({
@@ -18,8 +21,8 @@ export async function generateMetadata({
   return buildMetadata({
     title: es ? 'Mis quizzes' : 'My quizzes',
     description: es
-      ? 'Revisa el estado de tus quizzes y borra los que ya no quieras.'
-      : 'Check the status of your quizzes and delete the ones you no longer want.',
+      ? 'Borradores, revisiones y publicados: revisa el estado de tus quizzes.'
+      : 'Drafts, submissions and published quizzes: check the status of yours.',
     path: `/${lang}/my-quizzes`,
     locale: lang,
     noindex: true,
@@ -28,10 +31,12 @@ export async function generateMetadata({
 
 export default async function LocalizedMyQuizzesPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const { locale } = await params;
+  const [{ locale }, { page: rawPage }] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) notFound();
 
   const supabase = await createClient();
@@ -48,14 +53,33 @@ export default async function LocalizedMyQuizzesPage({
     );
   }
 
-  const { data: quizzes } = await supabase
+  const requested = Number.parseInt(rawPage ?? '1', 10);
+  const page = Number.isSafeInteger(requested) && requested >= 1 ? requested : 1;
+
+  // El recuento va antes que el rango: un `?page` que quedó fuera de rango
+  // (p.ej. tras borrar el último quiz de la última página) hace que PostgREST
+  // responda 416 al pedir el rango, y eso no debe confundirse con una caída.
+  const { count, error: countError } = await supabase
+    .from('quizzes')
+    .select('id', { count: 'exact', head: true })
+    .eq('creator_id', user.id);
+
+  const total = count ?? 0;
+  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (!countError && page > pageCount) {
+    redirect(localizeHref(locale, pageCount > 1 ? `/my-quizzes?page=${pageCount}` : '/my-quizzes'));
+  }
+
+  const from = (page - 1) * PAGE_SIZE;
+  const { data: quizzes, error: rowsError } = await supabase
     .from('quizzes')
     .select('id, slug, title, status, quiz_type, language, plays_count, likes_count, created_at')
     .eq('creator_id', user.id)
     .order('created_at', { ascending: false })
-    .limit(100);
+    .range(from, from + PAGE_SIZE - 1);
 
   const es = locale === 'es';
+  const error = countError ?? rowsError;
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
@@ -66,11 +90,56 @@ export default async function LocalizedMyQuizzesPage({
         </h1>
         <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
           {es
-            ? 'Todo lo que has enviado, con su estado de revisión. Borra lo que ya no te represente.'
-            : 'Everything you have submitted, with its review status. Delete what no longer represents you.'}
+            ? 'Borradores, revisiones y publicados: edita, previsualiza, despublica o borra lo que necesites.'
+            : 'Drafts, submissions and published quizzes: edit, preview, unpublish or delete what you need.'}
         </p>
       </section>
-      <MyQuizzesList quizzes={quizzes ?? []} locale={locale} />
+      {error ? (
+        <section className="surface-card mt-8 p-10 text-center">
+          <h2 className="text-text-primary text-2xl font-semibold">
+            {es ? 'No pudimos cargar tus quizzes.' : 'We could not load your quizzes.'}
+          </h2>
+          <p className="text-text-secondary mt-2">
+            {es ? 'Inténtalo de nuevo en un momento.' : 'Please try again in a moment.'}
+          </p>
+          <Link
+            href={localizeHref(locale, '/my-quizzes')}
+            className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium transition-colors"
+          >
+            {es ? 'Reintentar' : 'Retry'}
+          </Link>
+        </section>
+      ) : (
+        <>
+          <MyQuizzesList quizzes={quizzes ?? []} locale={locale} />
+          {pageCount > 1 ? (
+            <nav
+              aria-label={es ? 'Paginación' : 'Pagination'}
+              className="mt-8 flex items-center justify-center gap-4"
+            >
+              {page > 1 ? (
+                <Link
+                  href={localizeHref(locale, `/my-quizzes?page=${page - 1}`)}
+                  className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-10 items-center justify-center rounded-lg border px-4 text-sm font-medium transition-all duration-200"
+                >
+                  {es ? 'Anterior' : 'Previous'}
+                </Link>
+              ) : null}
+              <span className="text-text-muted text-sm">
+                {es ? `Página ${page} de ${pageCount}` : `Page ${page} of ${pageCount}`}
+              </span>
+              {page < pageCount ? (
+                <Link
+                  href={localizeHref(locale, `/my-quizzes?page=${page + 1}`)}
+                  className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-10 items-center justify-center rounded-lg border px-4 text-sm font-medium transition-all duration-200"
+                >
+                  {es ? 'Siguiente' : 'Next'}
+                </Link>
+              ) : null}
+            </nav>
+          ) : null}
+        </>
+      )}
     </div>
   );
 }
