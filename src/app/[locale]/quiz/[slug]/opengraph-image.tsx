@@ -124,7 +124,6 @@ export default async function QuizOpenGraphImage({
           transform: 'rotate(3deg)',
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cover}
           alt=""
