@@ -93,6 +93,21 @@ describe('LocalizedLeaderboardPage — tablero vacío', () => {
   });
 });
 
+describe('LocalizedLeaderboardPage — consulta caída', () => {
+  it('un error de la consulta no se disfraza de tablero vacío', async () => {
+    mocks.getLeaderboard.mockRejectedValue(new Error('supabase down'));
+
+    await renderPage('en');
+
+    expect(screen.getByText('We could not load the leaderboard.')).toBeInTheDocument();
+    expect(screen.queryByText('The board is empty.')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Try again' })).toHaveAttribute(
+      'href',
+      '/en/leaderboard'
+    );
+  });
+});
+
 describe('LocalizedLeaderboardPage — con jugadores', () => {
   it('pinta las filas del ranking y no el estado vacío', async () => {
     mocks.getLeaderboard.mockResolvedValue([

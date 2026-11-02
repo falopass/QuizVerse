@@ -66,9 +66,10 @@ export default async function LocalizedLeaderboardPage({
   const isFriends = scope === 'friends';
   const isWeekly = !isFriends && tab === 'semanal';
   const supabase = await createClient();
-  // `null` en el board semanal = la consulta falló: se muestra aviso con
-  // reintento, no el estado vacío (igual que `friendsFailed`).
+  // `null` en el board = la consulta falló: se muestra aviso con reintento, no
+  // el estado vacío (igual que `friendsFailed`).
   let weeklyFailed = false;
+  let globalFailed = false;
   const [{ data: auth }, leaderboard] = await Promise.all([
     supabase.auth.getUser(),
     isFriends
@@ -78,7 +79,10 @@ export default async function LocalizedLeaderboardPage({
             weeklyFailed = true;
             return null;
           })
-        : getLeaderboard(50),
+        : getLeaderboard(50).catch(() => {
+            globalFailed = true;
+            return null;
+          }),
   ]);
   const currentUser = auth.user;
 
@@ -89,17 +93,18 @@ export default async function LocalizedLeaderboardPage({
   let friendsFailed = false;
 
   if (!isFriends) {
-    entries = weeklyFailed
-      ? null
-      : (leaderboard ?? []).map((entry) => ({
-          rank: entry.rank,
-          id: entry.user.id,
-          username: entry.user.username,
-          name: entry.user.display_name || entry.user.username,
-          points: entry.points,
-          quizzesPlayed: entry.quizzesPlayed,
-          isMe: entry.user.id === currentUser?.id,
-        }));
+    entries =
+      weeklyFailed || globalFailed
+        ? null
+        : (leaderboard ?? []).map((entry) => ({
+            rank: entry.rank,
+            id: entry.user.id,
+            username: entry.user.username,
+            name: entry.user.display_name || entry.user.username,
+            points: entry.points,
+            quizzesPlayed: entry.quizzesPlayed,
+            isMe: entry.user.id === currentUser?.id,
+          }));
   } else if (!currentUser) {
     entries = null;
   } else {
@@ -234,6 +239,27 @@ export default async function LocalizedLeaderboardPage({
           >
             {locale === 'es' ? 'Sé el primero del ranking' : 'Be the first on the board'}
           </Link>
+        </section>
+      )}
+
+      {!isFriends && !isWeekly && entries === null && (
+        <section className="surface-card mt-6 p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="eyebrow">Global</p>
+              <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                {locale === 'es'
+                  ? 'No pudimos cargar el ranking.'
+                  : 'We could not load the leaderboard.'}
+              </h2>
+            </div>
+            <Link
+              href={tabHref('global')}
+              className="bg-accent-primary text-bg-primary inline-flex min-h-11 items-center rounded-full px-5 py-3 text-sm font-semibold"
+            >
+              {locale === 'es' ? 'Reintentar' : 'Try again'}
+            </Link>
+          </div>
         </section>
       )}
 
