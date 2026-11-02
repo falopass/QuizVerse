@@ -203,6 +203,27 @@ describe('LocalizedCategoryPage · render', () => {
     expect(itemList.itemListElement[0].url).toContain('/es/quiz/trivia-cine');
   });
 
+  it('emite el FAQPage solo en la página 1', async () => {
+    const manyQuizzes = Array.from({ length: 36 }, (_, index) =>
+      makeQuiz({ id: `q${index}`, slug: `quiz-${index}`, title: `Quiz ${index}` })
+    );
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ quizzes: manyQuizzes, totalQuizzes: 100, page: 2, pageCount: 3 })
+    );
+
+    const { container } = await renderPage('movies-tv', 'es', { page: '2' });
+
+    const types = jsonLd(container).map((node) => node['@type']);
+    expect(types).not.toContain('FAQPage');
+    expect(types).toEqual(expect.arrayContaining(['WebPage', 'BreadcrumbList', 'ItemList']));
+
+    // La FAQ visible no depende de la página: solo se retira el rich result.
+    const guide = getCategoryGuide('movies-tv', 'es', 'Cine y televisión', 100);
+    for (const item of guide.faq) {
+      expect(screen.getByRole('heading', { level: 3, name: item.question })).toBeInTheDocument();
+    }
+  });
+
   it('el ItemList del JSON-LD se recorta a 24 aunque la categoría tenga más', async () => {
     dbMocks.getCategoryPayload.mockResolvedValue(
       payload({
