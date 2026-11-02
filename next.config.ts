@@ -14,24 +14,20 @@ const CRAWLER_USER_AGENTS =
 /**
  * Ningún despliegue que no sea producción debe entrar en el índice.
  *
- * Vercel publica cada rama y cada PR en una URL propia. Sin esta cabecera,
- * Google acaba indexando `quizverse-git-rama-equipo.vercel.app` y compite
- * contra `quizverse.org` por las mismas consultas: contenido duplicado servido
- * por el propio producto. Los previews del VPS ya lo hacen en Caddy; esto cubre
- * el otro camino.
+ * Workers Builds publica cada rama de PR en una preview propia. Sin esta
+ * cabecera, Google acabaría indexando la preview y compitiendo contra
+ * `quizverse.org` por las mismas consultas: contenido duplicado servido por
+ * el propio producto.
  */
 const IS_PREVIEW_DEPLOY =
-  (process.env.WORKERS_CI_BRANCH !== undefined && process.env.WORKERS_CI_BRANCH !== 'main') ||
-  (process.env.VERCEL_ENV
-    ? process.env.VERCEL_ENV !== 'production'
-    : process.env.NODE_ENV === 'development');
+  process.env.WORKERS_CI_BRANCH !== undefined && process.env.WORKERS_CI_BRANCH !== 'main';
 
 /**
- * Un build de Vercel produce un artefacto desplegable: nunca puede salir con
- * placeholders de Supabase congelados en el bundle del navegador. Si faltan
- * las envs, el build (y por tanto el deploy) falla aquí, antes de empaquetar.
- * GitHub Actions y las máquinas de desarrollo no definen `VERCEL`, así que sus
- * builds de verificación siguen pasando sin variables.
+ * Un build desplegable (Workers Builds; `VERCEL` queda como guardarraíl) nunca
+ * puede salir con placeholders de Supabase congelados en el bundle del
+ * navegador. Si faltan las envs, el build (y por tanto el deploy) falla aquí,
+ * antes de empaquetar. GitHub Actions y las máquinas de desarrollo no definen
+ * esas variables, así que sus builds de verificación siguen pasando sin ellas.
  */
 if (process.env.VERCEL || process.env.WORKERS_CI) {
   const missingSupabaseEnv = [
@@ -60,6 +56,64 @@ const SECURITY_HEADERS = [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ];
 
+/**
+ * Origen real de Supabase para `connect-src`, leído de la config pública
+ * (`NEXT_PUBLIC_SUPABASE_URL`). Si el build corre sin envs (CI de solo
+ * verificación), se cae al wildcard de `images.remotePatterns`.
+ */
+function supabaseConnectSrc(): string {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!url) return 'https://*.supabase.co';
+  try {
+    return new URL(url).origin;
+  } catch {
+    return 'https://*.supabase.co';
+  }
+}
+
+/**
+ * Content-Security-Policy en modo *report-only*: se emite como
+ * `Content-Security-Policy-Report-Only`, así que el navegador solo informa
+ * violaciones en consola sin bloquear nada. Sirve para medir el ruido real
+ * antes de endurecerla.
+ *
+ * Para pasarla a enforce: cambiar el `key` a `Content-Security-Policy`,
+ * desplegar y vigilar la consola/errores del preview una temporada; si hace
+ * falta telemetría de violaciones, añadir `report-uri`/`report-to` apuntando
+ * a un endpoint colector.
+ *
+ * Hueco preparado para AdSense (descomentar al activarlo):
+ *   script-src: https://pagead2.googlesyndication.com
+ *   img-src:    https://*.googlesyndication.com
+ *   frame-src:  https://googleads.g.doubleclick.net https://tpc.googlesyndication.com
+ *   connect-src: https://*.googlesyndication.com https://*.doubleclick.net
+ *
+ * `frameAncestors`: `"'none'"` reproduce el X-Frame-Options: DENY de las rutas
+ * normales; las rutas `/embed/{en,es}/*` lo omiten para seguir siendo
+ * embebibles desde cualquier origen.
+ */
+function contentSecurityPolicy(frameAncestors: string | null): string {
+  return [
+    "default-src 'self'",
+    // Next.js serializa el payload RSC con <script> inline; sin un nonce por
+    // request (middleware) no hay alternativa a 'unsafe-inline' aquí.
+    "script-src 'self' 'unsafe-inline'",
+    // Tailwind y los estilos en línea de Framer Motion los necesitan.
+    "style-src 'self' 'unsafe-inline'",
+    // Mismos hosts que images.remotePatterns; las covers stock se sirven
+    // same-origin vía /stock-covers/ y las procedurales vía /covers/.
+    "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://images.pexels.com https://pixabay.com",
+    // next/font auto-aloja las fuentes en build.
+    "font-src 'self'",
+    `connect-src 'self' ${supabaseConnectSrc()}`,
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    'upgrade-insecure-requests',
+    ...(frameAncestors ? [`frame-ancestors ${frameAncestors}`] : []),
+  ].join('; ');
+}
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
@@ -84,30 +138,38 @@ const nextConfig: NextConfig = {
         // (/embed/{en|es}/<slug>): those must render inside iframes. Other
         // /embed/* URLs — the shared 404 included — keep frame protection.
         source: '/((?!embed/en/|embed/es/).*)',
-        headers: [...SECURITY_HEADERS, { key: 'X-Frame-Options', value: 'DENY' }],
+        headers: [
+          ...SECURITY_HEADERS,
+          { key: 'X-Frame-Options', value: 'DENY' },
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: contentSecurityPolicy("'none'"),
+          },
+        ],
       },
       {
         source: '/embed/en/:path*',
-        headers: SECURITY_HEADERS,
+        headers: [
+          ...SECURITY_HEADERS,
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: contentSecurityPolicy(null),
+          },
+        ],
       },
       {
         source: '/embed/es/:path*',
-        headers: SECURITY_HEADERS,
+        headers: [
+          ...SECURITY_HEADERS,
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: contentSecurityPolicy(null),
+          },
+        ],
       },
-      {
-        // Brand assets are content-hashed by nothing, so pin a sane TTL instead
-        // of the default no-cache that makes every tab re-download the favicon.
-        source: '/icons/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, immutable' }],
-      },
-      {
-        source: '/og/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800, immutable' }],
-      },
-      {
-        source: '/favicon.ico',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=604800' }],
-      },
+      // Las reglas de caché de los assets de marca (/icons, /og, /favicon.ico)
+      // viven en public/_headers: en Cloudflare Workers la capa de assets sirve
+      // public/ sin pasar por el Worker, así que headers() nunca las alcanza.
       // Va al final a propósito: si otra regla toca la misma cabecera, esta gana.
       ...(!IS_PREVIEW_DEPLOY
         ? []
@@ -121,7 +183,11 @@ const nextConfig: NextConfig = {
   },
 
   async redirects() {
-    return [];
+    // URLs antiguas de explorar: el catálogo vive en /{locale}/quiz.
+    return [
+      { source: '/en/explore', destination: '/en/quiz', permanent: true },
+      { source: '/es/explore', destination: '/es/quiz', permanent: true },
+    ];
   },
 
   async rewrites() {
