@@ -81,7 +81,7 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
 
     return {
       allowed: true,
-      remaining: config.limit - count - 1,
+      remaining: config.limit - count - (config.record === false ? 0 : 1),
       reset: config.window,
     };
   } catch (error) {
