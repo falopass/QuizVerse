@@ -4,6 +4,8 @@ import { generateQuizWithAI } from '@/lib/quiz/generator';
 import { validateAIQuizResponse } from '@/lib/quiz/validator';
 import { inferVisualProfile } from '@/lib/design/visual-profile';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
+import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { createClient } from '@/lib/supabase/server';
 
 const generateQuizSchema = z.object({
   topic: z.string().trim().min(3).max(120),
@@ -17,7 +19,20 @@ function getRequestIdentifier(request: NextRequest) {
   return clientIpFromHeaders(request.headers, 'anonymous');
 }
 
+/** Each call burns paid DeepSeek tokens: 10/min per IP and 10/min per user, fail closed. */
+const generateIpLimiter = createRateLimiter('quiz-generate-ip', 10, 60, 'closed');
+const generateUserLimiter = createRateLimiter('quiz-generate-user', 10, 60, 'closed');
+
 export async function POST(request: NextRequest) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: 'authentication_required' }, { status: 401 });
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = generateQuizSchema.safeParse(body);
 
@@ -36,24 +51,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let rateLimit = {
-    allowed: true,
-    remaining: 10,
-    reset: 60,
-  };
+  const [ipLimit, userLimit] = await Promise.all([
+    generateIpLimiter.check(getRequestIdentifier(request)),
+    generateUserLimiter.check(user.id),
+  ]);
+  const rateLimit = ipLimit.remaining <= userLimit.remaining ? ipLimit : userLimit;
 
-  try {
-    const { quizLimiter } = await import('@/lib/utils/rate-limit');
-    rateLimit = await quizLimiter.check(getRequestIdentifier(request));
-  } catch {
-    rateLimit = {
-      allowed: true,
-      remaining: 10,
-      reset: 60,
-    };
+  if (ipLimit.errored || userLimit.errored) {
+    return NextResponse.json({ error: 'Rate limiter unavailable', rateLimit }, { status: 503 });
   }
 
-  if (!rateLimit.allowed) {
+  if (!ipLimit.allowed || !userLimit.allowed) {
     return NextResponse.json(
       {
         error: 'Rate limit exceeded',

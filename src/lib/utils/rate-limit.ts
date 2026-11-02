@@ -41,7 +41,9 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
 }> {
   const redis = getRedis();
   if (!redis) {
-    return { allowed: true, remaining: config.limit, reset: config.window };
+    // shortcut: sin Redis el chequeo no ocurrió; se marca errored para que los
+    // callers críticos (p. ej. /api/quiz/generate) puedan fallar cerrado.
+    return { allowed: true, remaining: config.limit, reset: config.window, errored: true };
   }
 
   const now = Math.floor(Date.now() / 1000);
