@@ -68,8 +68,10 @@ export function ModerationActions({
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<string | null>(null);
 
-  const canPublish = status !== 'published';
-  const canReject = status !== 'rejected';
+  // Mismo criterio que el servidor: publicar solo desde pending/rejected;
+  // rechazar también sobre published (takedown) y archived (cierra reportes).
+  const canPublish = status === 'pending' || status === 'rejected';
+  const canReject = status === 'pending' || status === 'published' || status === 'archived';
   if (!canPublish && !canReject) return null;
 
   async function handlePublish() {

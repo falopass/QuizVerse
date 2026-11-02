@@ -20,7 +20,7 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
     } | null,
     moderateResult: { data: null, error: null } as {
       data: { id: string }[] | null;
-      error: { message: string } | null;
+      error: { message: string; code?: string } | null;
     },
     writeError: null as { message: string } | null,
     calls: [] as Call[],
@@ -161,6 +161,18 @@ describe('publishQuiz', () => {
     expect(callsTo('quizzes', 'update')).toHaveLength(0);
   });
 
+  it('can republish a rejected quiz (appeal)', async () => {
+    state.quizRow = { ...PENDING_QUIZ, status: 'rejected' };
+    expect(await publishQuiz(QUIZ_ID)).toEqual({ success: true });
+    expect(callsTo('quizzes', 'update')[0].filters).toContainEqual(['status', 'rejected']);
+  });
+
+  it.each(['archived', 'draft'])('refuses to publish a %s quiz', async (status) => {
+    state.quizRow = { ...PENDING_QUIZ, status };
+    expect(await publishQuiz(QUIZ_ID)).toMatchObject({ success: false, code: 'conflict' });
+    expect(callsTo('quizzes', 'update')).toHaveLength(0);
+  });
+
   it('publishes a pending quiz with audit fields and CAS on the prior status', async () => {
     const result = await publishQuiz(QUIZ_ID);
     expect(result).toEqual({ success: true });
@@ -203,6 +215,14 @@ describe('publishQuiz', () => {
     state.moderateResult = { data: null, error: { message: 'boom' } };
     expect(await publishQuiz(QUIZ_ID)).toMatchObject({ success: false, code: 'unexpected' });
   });
+
+  it('returns conflict on PGRST204 (moderation columns missing, migration 016 not applied)', async () => {
+    state.moderateResult = {
+      data: null,
+      error: { code: 'PGRST204', message: "Could not find the 'moderated_by' column" },
+    };
+    expect(await publishQuiz(QUIZ_ID)).toMatchObject({ success: false, code: 'conflict' });
+  });
 });
 
 describe('rejectQuiz', () => {
@@ -243,5 +263,23 @@ describe('rejectQuiz', () => {
     expect(result).toEqual({ success: true });
     const [update] = callsTo('quizzes', 'update');
     expect(update.filters).toContainEqual(['status', 'published']);
+  });
+
+  it('can reject an archived quiz — resolves its reports without republishing', async () => {
+    state.quizRow = { ...PENDING_QUIZ, status: 'archived' };
+    const result = await rejectQuiz(QUIZ_ID, 'retiro confirmado');
+    expect(result).toEqual({ success: true });
+    const [update] = callsTo('quizzes', 'update');
+    expect(update.filters).toContainEqual(['status', 'archived']);
+    expect(update.payload).toMatchObject({ status: 'rejected' });
+  });
+
+  it('refuses to reject a draft (it never reached the queue)', async () => {
+    state.quizRow = { ...PENDING_QUIZ, status: 'draft' };
+    expect(await rejectQuiz(QUIZ_ID, 'motivo válido')).toMatchObject({
+      success: false,
+      code: 'conflict',
+    });
+    expect(callsTo('quizzes', 'update')).toHaveLength(0);
   });
 });

@@ -15,9 +15,9 @@ import type { PersonalityResult, Question } from '@/types/quiz';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, id } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
   const es = lang === 'es';
   return buildMetadata({
@@ -25,7 +25,7 @@ export async function generateMetadata({
     description: es
       ? 'Vista completa de un quiz para moderación, con la clave de respuestas.'
       : 'Full quiz view for moderation, answer key included.',
-    path: `/${lang}/admin/quizzes`,
+    path: `/${lang}/admin/quizzes/${id}`,
     locale: lang,
     noindex: true,
   });
@@ -184,13 +184,14 @@ export default async function AdminQuizReviewPage({
     );
   }
 
+  // Sin límite: el veredicto resuelve TODOS los reportes abiertos, así que la
+  // ficha tiene que mostrarlos todos (los que no se ven se cerrarían a ciegas).
   const { data: reportRows } = await supabase
     .from('quiz_reports')
     .select('id, reason, details, reporter_id, created_at')
     .eq('quiz_id', quiz.id)
     .eq('resolved', false)
-    .order('created_at', { ascending: false })
-    .limit(50);
+    .order('created_at', { ascending: false });
 
   const questions: Question[] = parseQuestions(quiz.questions);
   const results: PersonalityResult[] | null = parseResults(quiz.results);

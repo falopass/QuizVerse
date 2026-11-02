@@ -75,18 +75,27 @@ LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public, pg_temp
 AS $$
+DECLARE
+  v_lang TEXT;
 BEGIN
   IF NEW.creator_id IS NULL OR NEW.status IS NOT DISTINCT FROM OLD.status THEN
     RETURN NEW;
   END IF;
+
+  -- El aviso va en el idioma del creador: notification-list lo muestra literal.
+  SELECT preferred_language INTO v_lang
+  FROM public.profiles
+  WHERE id = NEW.creator_id;
 
   IF NEW.status = 'published' THEN
     INSERT INTO public.notifications (user_id, type, title, body, data)
     VALUES (
       NEW.creator_id,
       'quiz_approved',
-      'Your quiz was published',
-      'Your quiz "' || NEW.title || '" is now live.',
+      CASE WHEN v_lang = 'es' THEN 'Tu quiz fue publicado' ELSE 'Your quiz was published' END,
+      CASE WHEN v_lang = 'es'
+           THEN 'Tu quiz "' || NEW.title || '" ya está en el catálogo.'
+           ELSE 'Your quiz "' || NEW.title || '" is now live.' END,
       jsonb_build_object('quiz_id', NEW.id, 'slug', NEW.slug, 'language', NEW.language)
     );
   ELSIF NEW.status = 'rejected' THEN
@@ -94,10 +103,13 @@ BEGIN
     VALUES (
       NEW.creator_id,
       'quiz_rejected',
-      'Your quiz was rejected',
-      'Your quiz "' || NEW.title || '" was rejected.' ||
+      CASE WHEN v_lang = 'es' THEN 'Tu quiz fue rechazado' ELSE 'Your quiz was rejected' END,
+      CASE WHEN v_lang = 'es'
+           THEN 'Tu quiz "' || NEW.title || '" fue rechazado.' ELSE
+                'Your quiz "' || NEW.title || '" was rejected.' END ||
         CASE WHEN NEW.moderation_note IS NOT NULL AND NEW.moderation_note <> ''
-             THEN ' Reason: ' || NEW.moderation_note ELSE '' END,
+             THEN CASE WHEN v_lang = 'es' THEN ' Motivo: ' ELSE ' Reason: ' END ||
+                  NEW.moderation_note ELSE '' END,
       jsonb_build_object('quiz_id', NEW.id, 'slug', NEW.slug,
                          'moderation_note', NEW.moderation_note)
     );
@@ -200,3 +212,55 @@ CREATE TRIGGER trg_guard_quiz_delete_with_reports
   BEFORE DELETE ON public.quizzes
   FOR EACH ROW
   EXECUTE FUNCTION public.guard_quiz_delete_with_reports();
+
+-- ============================================
+-- Los campos de auditoría solo los escribe un admin
+-- ============================================
+-- `quizzes_update_own` no puede restringir columnas: sin este guard un creador
+-- podría firmar él mismo una moderación (moderated_by/at/note) o mentir el
+-- published_at por PostgREST directo. Mismo patrón que guard_quiz_publication
+-- (010): service role pasa libre y el check de admin va por profiles.
+
+CREATE OR REPLACE FUNCTION public.guard_quiz_moderation_fields()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  IF auth.uid() IS NULL THEN
+    RETURN NEW;
+  END IF;
+
+  IF EXISTS (
+    SELECT 1 FROM public.profiles
+    WHERE id = auth.uid() AND is_admin = true
+  ) THEN
+    RETURN NEW;
+  END IF;
+
+  IF (TG_OP = 'INSERT' AND (
+        NEW.moderated_by IS NOT NULL OR NEW.moderated_at IS NOT NULL OR
+        NEW.moderation_note IS NOT NULL OR NEW.published_at IS NOT NULL))
+     OR (TG_OP = 'UPDATE' AND (
+        NEW.moderated_by IS DISTINCT FROM OLD.moderated_by OR
+        NEW.moderated_at IS DISTINCT FROM OLD.moderated_at OR
+        NEW.moderation_note IS DISTINCT FROM OLD.moderation_note OR
+        NEW.published_at IS DISTINCT FROM OLD.published_at))
+  THEN
+    RAISE EXCEPTION 'Solo un administrador puede escribir los campos de moderación'
+      USING ERRCODE = '42501';
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+COMMENT ON FUNCTION public.guard_quiz_moderation_fields() IS
+  'Impide que un no-admin escriba moderated_*/published_at por PostgREST (RLS no restringe columnas). Service role pasa libre.';
+
+DROP TRIGGER IF EXISTS trg_guard_quiz_moderation_fields ON public.quizzes;
+CREATE TRIGGER trg_guard_quiz_moderation_fields
+  BEFORE INSERT OR UPDATE ON public.quizzes
+  FOR EACH ROW
+  EXECUTE FUNCTION public.guard_quiz_moderation_fields();

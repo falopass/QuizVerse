@@ -32,6 +32,15 @@ const ResolveSchema = z.object({ reportId: z.string().uuid() });
 const ModerateSchema = z.object({ quizId: z.string().uuid() });
 const RejectSchema = ModerateSchema.extend({ reason: z.string().trim().min(3).max(500) });
 
+/** Publicar solo alcanza lo que espera veredicto (pending) o lo apela (rejected). */
+const PUBLISHABLE: readonly QuizStatus[] = ['pending', 'rejected'];
+/**
+ * Rechazar también sirve de takedown sobre lo publicado y confirma el retiro
+ * de lo archivado (resuelve sus reportes sin republicarlo). Un draft nunca
+ * llegó a la cola y un published no puede "re-publicarse" por aquí.
+ */
+const REJECTABLE: readonly QuizStatus[] = ['pending', 'published', 'archived'];
+
 /** Marca un reporte como revisado. El `.eq('resolved', false)` lo hace idempotente. */
 export async function resolveQuizReport(reportId: string): Promise<ActionResult> {
   const parsed = ResolveSchema.safeParse({ reportId });
@@ -79,6 +88,10 @@ async function moderateQuiz(
     .maybeSingle();
   if (!quiz) return actionFailure('not_found', 'Quiz not found.');
   if (quiz.status === next) return { success: true };
+  const allowed = next === 'published' ? PUBLISHABLE : REJECTABLE;
+  if (!allowed.includes(quiz.status)) {
+    return actionFailure('conflict', `A ${quiz.status} quiz cannot be ${next} from here.`);
+  }
 
   const now = new Date().toISOString();
   const { data: updated, error } = await supabase
@@ -94,7 +107,11 @@ async function moderateQuiz(
     .eq('status', quiz.status)
     .select('id');
 
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) {
+    // PGRST204: las columnas moderated_* no existen — migración 016 sin aplicar.
+    const code = error.code === 'PGRST204' ? 'conflict' : 'unexpected';
+    return actionFailure(code, error.message);
+  }
   if (!updated || updated.length === 0) {
     return actionFailure(
       'conflict',

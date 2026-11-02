@@ -43,6 +43,9 @@ const COPY = {
     anonymous: 'autor desconocido',
     questions: (n: number) => `${n} preguntas`,
     review: 'Revisar',
+    prev: '← Anterior',
+    next: 'Siguiente →',
+    pageOf: (page: number, total: number) => `Página ${page} de ${total}`,
     status: {
       pending: 'Pendiente',
       rejected: 'Rechazado',
@@ -67,6 +70,9 @@ const COPY = {
     anonymous: 'unknown author',
     questions: (n: number) => `${n} questions`,
     review: 'Review',
+    prev: '← Previous',
+    next: 'Next →',
+    pageOf: (page: number, total: number) => `Page ${page} of ${total}`,
     status: {
       pending: 'Pending',
       rejected: 'Rejected',
@@ -94,6 +100,9 @@ interface QueueRow {
 
 type QueueFilter = 'pending' | 'rejected';
 
+/** La cola se recorre entera: sin páginas, lo que pasa del centenar queda invisible. */
+const PAGE_SIZE = 50;
+
 function one<T>(value: T | T[] | null): T | null {
   return Array.isArray(value) ? (value[0] ?? null) : value;
 }
@@ -103,7 +112,7 @@ export default async function AdminModerationPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ estado?: string }>;
+  searchParams: Promise<{ estado?: string; pagina?: string }>;
 }) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
@@ -119,19 +128,22 @@ export default async function AdminModerationPage({
   }
   if (!isAdmin) notFound();
 
-  const { estado } = await searchParams;
+  const { estado, pagina } = await searchParams;
   const filter: QueueFilter = estado === 'rejected' ? 'rejected' : 'pending';
+  const page = Math.max(1, Number.parseInt(pagina ?? '1', 10) || 1);
+  const from = (page - 1) * PAGE_SIZE;
 
-  const { data, error } = await supabase
+  const { data, error, count } = await supabase
     .from('quizzes')
     .select(
       `id, slug, title, status, quiz_type, language, question_count, created_at,
        category:categories(name, slug),
-       creator:profiles!quizzes_creator_id_fkey(username, display_name)`
+       creator:profiles!quizzes_creator_id_fkey(username, display_name)`,
+      { count: 'exact' }
     )
     .eq('status', filter)
     .order('created_at', { ascending: true })
-    .limit(100);
+    .range(from, from + PAGE_SIZE - 1);
 
   const quizzes: QueueRow[] = (data ?? []).map((row) => ({
     id: row.id,
@@ -147,6 +159,15 @@ export default async function AdminModerationPage({
   }));
 
   const copy = COPY[locale as Locale] ?? COPY.en;
+  const total = count ?? 0;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const pageHref = (target: number) => {
+    const query = new URLSearchParams({
+      ...(filter === 'rejected' ? { estado: 'rejected' } : {}),
+      ...(target > 1 ? { pagina: String(target) } : {}),
+    }).toString();
+    return localizeHref(locale, `/admin/moderacion${query ? `?${query}` : ''}`);
+  };
   const tabHref = (tab: QueueFilter) =>
     localizeHref(
       locale,
@@ -204,55 +225,81 @@ export default async function AdminModerationPage({
           <p className="text-text-secondary">{copy.empty}</p>
         </section>
       ) : (
-        <ul className="mt-6 space-y-3">
-          {quizzes.map((quiz) => {
-            const author = quiz.creator?.display_name ?? quiz.creator?.username ?? copy.anonymous;
-            return (
-              <li key={quiz.id} className="surface-panel p-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Link
-                        href={localizeHref(locale, `/admin/quizzes/${quiz.id}`)}
-                        className="text-text-primary hover:text-accent-primary font-semibold transition-colors"
-                      >
-                        {quiz.title}
-                      </Link>
-                      <span
-                        className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${
-                          quiz.status === 'rejected'
-                            ? 'border-error/50 text-error'
-                            : 'border-warning/50 text-warning'
-                        }`}
-                      >
-                        {copy.status[quiz.status as 'pending' | 'rejected'] ?? quiz.status}
-                      </span>
+        <>
+          <ul className="mt-6 space-y-3">
+            {quizzes.map((quiz) => {
+              const author = quiz.creator?.display_name ?? quiz.creator?.username ?? copy.anonymous;
+              return (
+                <li key={quiz.id} className="surface-panel p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Link
+                          href={localizeHref(locale, `/admin/quizzes/${quiz.id}`)}
+                          className="text-text-primary hover:text-accent-primary font-semibold transition-colors"
+                        >
+                          {quiz.title}
+                        </Link>
+                        <span
+                          className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${
+                            quiz.status === 'rejected'
+                              ? 'border-error/50 text-error'
+                              : 'border-warning/50 text-warning'
+                          }`}
+                        >
+                          {copy.status[quiz.status as 'pending' | 'rejected'] ?? quiz.status}
+                        </span>
+                      </div>
+                      <p className="text-text-muted mt-2 text-sm">
+                        {copy.type[quiz.quiz_type] ?? quiz.quiz_type}
+                        {' · '}
+                        {quiz.language}
+                        {' · '}
+                        {quiz.category?.name ?? copy.uncategorized}
+                        {' · '}
+                        {copy.questions(quiz.question_count)}
+                        {' · '}
+                        {copy.by} {author}
+                        {' · '}
+                        {formatRelativeDate(quiz.created_at, locale)}
+                      </p>
                     </div>
-                    <p className="text-text-muted mt-2 text-sm">
-                      {copy.type[quiz.quiz_type] ?? quiz.quiz_type}
-                      {' · '}
-                      {quiz.language}
-                      {' · '}
-                      {quiz.category?.name ?? copy.uncategorized}
-                      {' · '}
-                      {copy.questions(quiz.question_count)}
-                      {' · '}
-                      {copy.by} {author}
-                      {' · '}
-                      {formatRelativeDate(quiz.created_at, locale)}
-                    </p>
+                    <Link
+                      href={localizeHref(locale, `/admin/quizzes/${quiz.id}`)}
+                      className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex min-h-11 items-center justify-center rounded-lg border px-4 text-sm font-medium transition-colors"
+                    >
+                      {copy.review}
+                    </Link>
                   </div>
-                  <Link
-                    href={localizeHref(locale, `/admin/quizzes/${quiz.id}`)}
-                    className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex min-h-11 items-center justify-center rounded-lg border px-4 text-sm font-medium transition-colors"
-                  >
-                    {copy.review}
-                  </Link>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+          {totalPages > 1 ? (
+            <nav
+              aria-label={copy.title}
+              className="mt-6 flex flex-wrap items-center justify-center gap-3"
+            >
+              {page > 1 ? (
+                <Link
+                  href={pageHref(page - 1)}
+                  className="border-border-subtle text-text-secondary hover:text-text-primary inline-flex min-h-11 items-center rounded-lg border px-4 text-sm font-medium transition-colors"
+                >
+                  {copy.prev}
+                </Link>
+              ) : null}
+              <span className="text-text-muted text-sm">{copy.pageOf(page, totalPages)}</span>
+              {page < totalPages ? (
+                <Link
+                  href={pageHref(page + 1)}
+                  className="border-border-subtle text-text-secondary hover:text-text-primary inline-flex min-h-11 items-center rounded-lg border px-4 text-sm font-medium transition-colors"
+                >
+                  {copy.next}
+                </Link>
+              ) : null}
+            </nav>
+          ) : null}
+        </>
       )}
     </div>
   );

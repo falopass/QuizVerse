@@ -6,10 +6,12 @@ const mocks = vi.hoisted(() => ({
   user: null as { id: string } | null,
   isAdmin: false,
   queueRows: [] as unknown[],
+  queueCount: 0 as number,
   queueError: null as { message: string } | null,
   quizRow: null as unknown,
   reportRows: [] as unknown[],
   statusFilter: vi.fn(),
+  rangeFilter: vi.fn(),
 }));
 
 vi.mock('next/navigation', () => ({
@@ -37,7 +39,7 @@ const supabaseStub = {
         select: () => ({
           eq: () => ({
             eq: () => ({
-              order: () => ({ limit: async () => ({ data: mocks.reportRows, error: null }) }),
+              order: async () => ({ data: mocks.reportRows, error: null }),
             }),
           }),
         }),
@@ -49,7 +51,10 @@ const supabaseStub = {
           mocks.statusFilter(value);
           return {
             order: () => ({
-              limit: async () => ({ data: mocks.queueRows, error: mocks.queueError }),
+              range: async (from: number, to: number) => {
+                mocks.rangeFilter(from, to);
+                return { data: mocks.queueRows, error: mocks.queueError, count: mocks.queueCount };
+              },
             }),
             maybeSingle: async () => ({ data: mocks.quizRow, error: null }),
           };
@@ -117,6 +122,7 @@ beforeEach(() => {
   mocks.user = { id: 'admin-1' };
   mocks.isAdmin = true;
   mocks.queueRows = [QUEUE_ROW];
+  mocks.queueCount = 1;
   mocks.queueError = null;
   mocks.quizRow = FULL_QUIZ;
   mocks.reportRows = [];
@@ -185,6 +191,41 @@ describe('página /admin/moderacion', () => {
       })
     );
     expect(screen.getByRole('alert')).toHaveTextContent('No pudimos cargar la cola');
+  });
+
+  it('pagina la cola: pide el rango correcto y enlaza Anterior/Siguiente', async () => {
+    mocks.queueCount = 120; // 3 páginas de 50
+    render(
+      await AdminModerationPage({
+        params: Promise.resolve({ locale: 'es' }),
+        searchParams: Promise.resolve({ pagina: '2' }),
+      })
+    );
+    expect(mocks.rangeFilter).toHaveBeenCalledWith(50, 99);
+    expect(screen.getByText('Página 2 de 3')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '← Anterior' })).toHaveAttribute(
+      'href',
+      '/es/admin/moderacion'
+    );
+    expect(screen.getByRole('link', { name: 'Siguiente →' })).toHaveAttribute(
+      'href',
+      '/es/admin/moderacion?pagina=3'
+    );
+  });
+
+  it('la paginación conserva el filtro de rechazados', async () => {
+    mocks.queueCount = 60;
+    mocks.queueRows = [{ ...QUEUE_ROW, status: 'rejected' }];
+    render(
+      await AdminModerationPage({
+        params: Promise.resolve({ locale: 'en' }),
+        searchParams: Promise.resolve({ estado: 'rejected' }),
+      })
+    );
+    expect(screen.getByRole('link', { name: 'Next →' })).toHaveAttribute(
+      'href',
+      '/en/admin/moderacion?estado=rejected&pagina=2'
+    );
   });
 });
 
