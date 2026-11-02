@@ -51,7 +51,7 @@ const CATEGORY: Category = {
   sort_order: 0,
 };
 
-const QUIZZES = Array.from({ length: 30 }, (_, index) =>
+const QUIZZES = Array.from({ length: 60 }, (_, index) =>
   makeQuiz({ id: `q${index}`, slug: `quiz-${index}`, title: `Quiz ${index}` })
 );
 
@@ -97,7 +97,7 @@ describe('getExploreCopy', () => {
       screen.getByPlaceholderText(locale === 'es' ? 'Busca un quiz' : 'Find a quiz')
     ).toBeInTheDocument();
     expect(screen.getByText(copy.search)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: copy.showMore(12) })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: copy.showMore(24) })).toBeInTheDocument();
   });
 });
 

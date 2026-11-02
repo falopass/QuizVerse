@@ -1,10 +1,12 @@
 import { cn } from '@/lib/utils/cn';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import type { Quiz } from '@/types/quiz';
+import type { Category, Quiz } from '@/types/quiz';
 
 interface QuizCoverArtProps {
-  quiz: Pick<Quiz, 'slug' | 'title' | 'quiz_type' | 'category' | 'cover_image_url'>;
+  quiz: Pick<Quiz, 'slug' | 'title' | 'quiz_type' | 'cover_image_url'> & {
+    category?: Pick<Category, 'name'> | null;
+  };
   locale: Locale;
   className?: string;
   ratioClassName?: string;
