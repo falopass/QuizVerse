@@ -65,7 +65,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
   }, [open]);
 
   const itemClass =
-    'text-text-primary hover:bg-bg-tertiary hover:text-accent-primary block w-full px-4 py-2.5 text-left text-sm';
+    'text-text-primary hover:bg-bg-tertiary hover:text-accent-primary flex min-h-11 w-full items-center px-4 text-left text-sm';
 
   if (loading) {
     return (
@@ -112,6 +112,22 @@ export function UserMenu({ locale }: { locale: Locale }) {
           aria-label={isEs ? 'Menú de usuario' : 'User menu'}
           className="border-border-subtle bg-bg-secondary absolute top-full right-0 z-50 mt-2 w-44 rounded-xl border py-1 shadow-xl"
         >
+          <Link
+            role="menuitem"
+            href={localizeHref(locale, '/me')}
+            className={itemClass}
+            onClick={() => setOpen(false)}
+          >
+            {isEs ? 'Mi actividad' : 'My activity'}
+          </Link>
+          <Link
+            role="menuitem"
+            href={localizeHref(locale, '/profile')}
+            className={itemClass}
+            onClick={() => setOpen(false)}
+          >
+            {isEs ? 'Mi perfil' : 'My profile'}
+          </Link>
           <Link
             role="menuitem"
             href={localizeHref(locale, '/my-quizzes')}
@@ -162,6 +178,12 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
 
   return (
     <>
+      <Link href={localizeHref(locale, '/me')} onClick={onSelect}>
+        {isEs ? 'Mi actividad' : 'My activity'}
+      </Link>
+      <Link href={localizeHref(locale, '/profile')} onClick={onSelect}>
+        {isEs ? 'Mi perfil' : 'My profile'}
+      </Link>
       <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
         {isEs ? 'Mis quizzes' : 'My quizzes'}
       </Link>
