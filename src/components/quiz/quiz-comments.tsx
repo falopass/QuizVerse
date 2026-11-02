@@ -4,8 +4,9 @@
  * Sección de comentarios de la ficha del quiz.
  *
  * La ficha es estática: la lista se pide al montar con `getQuizComments` y el
- * alta va a `createComment` (server action). Si la lectura falla se muestra el
- * estado vacío — la página nunca se rompe por esta sección.
+ * alta va a `createComment` (server action). Si la lectura falla se muestra un
+ * aviso con reintento, distinto del vacío real — la página nunca se rompe por
+ * esta sección.
  */
 
 import { useEffect, useState } from 'react';
@@ -26,6 +27,8 @@ const COPY = {
     title: 'Comentarios',
     empty: 'Sé la primera persona en comentar.',
     loading: 'Cargando comentarios…',
+    loadError: 'No pudimos cargar los comentarios.',
+    retry: 'Reintentar',
     placeholder: 'Escribe un comentario…',
     submit: 'Comentar',
     submitting: 'Publicando…',
@@ -39,6 +42,8 @@ const COPY = {
     title: 'Comments',
     empty: 'Be the first to comment.',
     loading: 'Loading comments…',
+    loadError: 'We could not load the comments.',
+    retry: 'Try again',
     placeholder: 'Write a comment…',
     submit: 'Comment',
     submitting: 'Posting…',
@@ -94,9 +99,14 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
   const { user, loading: authLoading } = useSupabase();
   // `loaded` se etiqueta con su quizId: al navegar entre fichas el componente
   // se reutiliza y no puede mostrar comentarios del quiz anterior ni aceptar
-  // un alta que resuelva ya en la ficha nueva.
-  const [loaded, setLoaded] = useState<{ quizId: string; page: QuizCommentsPage } | null>(null);
-  const page = loaded?.quizId === quizId ? loaded.page : null;
+  // un alta que resuelva ya en la ficha nueva. `status: 'error'` distingue un
+  // fallo de carga del vacío real (sin él, una caída pintaba "0 comentarios").
+  const [loaded, setLoaded] = useState<
+    | { quizId: string; status: 'ok'; page: QuizCommentsPage }
+    | { quizId: string; status: 'error' }
+    | null
+  >(null);
+  const state = loaded?.quizId === quizId ? loaded : null;
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -105,15 +115,22 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
     let cancelled = false;
     getQuizComments(quizId)
       .then((page) => {
-        if (!cancelled) setLoaded({ quizId, page });
+        if (!cancelled) setLoaded({ quizId, status: 'ok', page });
       })
       .catch(() => {
-        if (!cancelled) setLoaded({ quizId, page: { comments: [], total: 0 } });
+        if (!cancelled) setLoaded({ quizId, status: 'error' });
       });
     return () => {
       cancelled = true;
     };
   }, [quizId]);
+
+  function handleRetry() {
+    setLoaded(null);
+    getQuizComments(quizId)
+      .then((page) => setLoaded({ quizId, status: 'ok', page }))
+      .catch(() => setLoaded({ quizId, status: 'error' }));
+  }
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -129,9 +146,10 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
             ? prev
             : {
                 quizId,
+                status: 'ok',
                 page: {
-                  comments: [result.comment, ...(prev?.page.comments ?? [])],
-                  total: (prev?.page.total ?? 0) + 1,
+                  comments: [result.comment, ...(prev?.status === 'ok' ? prev.page.comments : [])],
+                  total: (prev?.status === 'ok' ? prev.page.total : 0) + 1,
                 },
               }
         );
@@ -153,9 +171,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
       <div className="arcade-section-head">
         <h2 id="quiz-comments">{copy.title}</h2>
         <p aria-live="polite">
-          {page === null
+          {state === null
             ? copy.loading
-            : `${copy.count(page.total)}${page.total > page.comments.length ? ` · ${copy.latestOnly}` : ''}`}
+            : state.status === 'error'
+              ? copy.loadError
+              : `${copy.count(state.page.total)}${state.page.total > state.page.comments.length ? ` · ${copy.latestOnly}` : ''}`}
         </p>
       </div>
 
@@ -191,11 +211,20 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
         </div>
       </form>
 
-      {page === null ? null : page.comments.length === 0 ? (
+      {state === null ? null : state.status === 'error' ? (
+        <div className="border-border-subtle bg-bg-secondary flex flex-col gap-4 rounded-[4px] border p-4 sm:flex-row sm:items-center sm:justify-between">
+          <p role="alert" className="text-text-secondary text-sm">
+            {copy.loadError}
+          </p>
+          <button type="button" onClick={handleRetry} className="arcade-button arcade-button-lime">
+            {copy.retry}
+          </button>
+        </div>
+      ) : state.page.comments.length === 0 ? (
         <p className="text-text-muted text-sm">{copy.empty}</p>
       ) : (
         <ul className="space-y-3">
-          {page.comments.map((comment) => (
+          {state.page.comments.map((comment) => (
             <li
               key={comment.id}
               className="border-border-subtle bg-bg-secondary flex gap-3 rounded-[4px] border p-4"

@@ -71,7 +71,7 @@ export function EditorialEmptyState({
         {primaryHref && primaryLabel ? (
           <Link
             href={primaryHref}
-            className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+            className="bg-accent-primary hover:bg-accent-hover text-bg-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors"
           >
             {primaryLabel}
           </Link>
@@ -90,6 +90,7 @@ export function EditorialEmptyState({
 }
 
 export function EditorialErrorState({
+  eyebrow = 'Error',
   title = 'Something interrupted the flow.',
   body = 'The page could not finish loading. Try again, or jump back into the catalog.',
   onRetry,
@@ -100,6 +101,7 @@ export function EditorialErrorState({
   browseHref = '/quiz',
   browseLabel = 'Browse quizzes',
 }: {
+  eyebrow?: string;
   title?: string;
   body?: string;
   onRetry?: () => void;
@@ -117,14 +119,14 @@ export function EditorialErrorState({
           <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
             !
           </div>
-          <p className="eyebrow mt-6">Error</p>
+          <p className="eyebrow mt-6">{eyebrow}</p>
           <h1 className="text-text-primary mt-3 text-4xl font-semibold tracking-tight">{title}</h1>
           <p className="text-text-secondary mx-auto mt-4 max-w-2xl text-base leading-7">{body}</p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             {showRetry && onRetry ? (
               <button
                 onClick={onRetry}
-                className="bg-accent-primary hover:bg-accent-hover inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition-colors"
+                className="bg-accent-primary hover:bg-accent-hover text-bg-primary inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-colors"
               >
                 {retryLabel}
               </button>

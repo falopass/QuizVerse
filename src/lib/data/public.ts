@@ -240,6 +240,22 @@ export const getPublishedQuizCount = cache(async (locale?: Locale): Promise<numb
   }
 });
 
+function launchQuizzes(locale?: Locale): Quiz[] {
+  return locale ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale) : LAUNCH_QUIZZES;
+}
+
+// Fallback de página, mismo patrón que la ficha de quiz: si el payload real
+// falla entero, home y /quiz sirven el catálogo de lanzamiento con la misma
+// forma en vez de propagar el error a la página de error.
+export function getLaunchExplorePayload(locale?: Locale) {
+  const quizzes = launchQuizzes(locale);
+  const populated = new Set(quizzes.map((quiz) => quiz.category?.slug));
+  return {
+    quizzes,
+    categories: LAUNCH_CATEGORIES.filter((item) => populated.has(item.slug)),
+  };
+}
+
 export async function getExplorePayload(
   localeOrSearch?: Locale | string,
   searchOrCategory?: string,
@@ -269,27 +285,12 @@ export async function getExplorePayload(
   return { quizzes: filtered, categories: categories.filter((item) => populated.has(item.slug)) };
 }
 
-export async function getHomePayload(locale?: Locale) {
-  const [quizzes, featuredRows, categories, totals] = await Promise.all([
-    getPublishedQuizzes(24, locale),
-    getFeaturedQuizzes(4, locale),
-    getPublicCategories(),
-    (async () => {
-      try {
-        return await fetchPublishedQuizTotalsFromDb(locale);
-      } catch {
-        const launch = locale
-          ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale)
-          : LAUNCH_QUIZZES;
-
-        return {
-          totalQuizzes: launch.length,
-          totalPlays: launch.reduce((total, quiz) => total + quiz.plays_count, 0),
-        };
-      }
-    })(),
-  ]);
-
+function homeSections(
+  quizzes: Quiz[],
+  featuredRows: Quiz[],
+  categories: Category[],
+  totals: { totalQuizzes: number; totalPlays: number }
+) {
   const trending = [...quizzes].sort((a, b) => b.plays_count - a.plays_count).slice(0, 6);
   const featured = featuredRows.filter((quiz) => quiz.is_featured).slice(0, 4);
   const quickPlays = [...quizzes]
@@ -312,6 +313,41 @@ export async function getHomePayload(locale?: Locale) {
     totalQuizzes: totals.totalQuizzes,
     totalPlays: totals.totalPlays,
   };
+}
+
+export async function getHomePayload(locale?: Locale) {
+  const [quizzes, featuredRows, categories, totals] = await Promise.all([
+    getPublishedQuizzes(24, locale),
+    getFeaturedQuizzes(4, locale),
+    getPublicCategories(),
+    (async () => {
+      try {
+        return await fetchPublishedQuizTotalsFromDb(locale);
+      } catch {
+        const launch = launchQuizzes(locale);
+
+        return {
+          totalQuizzes: launch.length,
+          totalPlays: launch.reduce((total, quiz) => total + quiz.plays_count, 0),
+        };
+      }
+    })(),
+  ]);
+
+  return homeSections(quizzes, featuredRows, categories, totals);
+}
+
+export function getLaunchHomePayload(locale?: Locale) {
+  const quizzes = launchQuizzes(locale);
+  return homeSections(
+    quizzes,
+    quizzes.filter((quiz) => quiz.is_featured),
+    LAUNCH_CATEGORIES,
+    {
+      totalQuizzes: quizzes.length,
+      totalPlays: quizzes.reduce((total, quiz) => total + quiz.plays_count, 0),
+    }
+  );
 }
 
 export const getCategoryPayload = cache(async (slug: string, locale?: Locale) => {

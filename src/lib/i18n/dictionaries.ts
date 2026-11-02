@@ -133,6 +133,14 @@ export interface Dictionary {
     copyInvite: string;
     copied: string;
   };
+  error: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    retry: string;
+    home: string;
+    browse: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {
@@ -268,6 +276,14 @@ const dictionaries: Record<Locale, Dictionary> = {
       copyInvite: 'Copy link',
       copied: 'Copied!',
     },
+    error: {
+      eyebrow: 'Error',
+      title: 'Something interrupted the flow.',
+      body: 'The page could not finish loading. Try again, or jump back into the catalog.',
+      retry: 'Try again',
+      home: 'Go home',
+      browse: 'Browse quizzes',
+    },
   },
   es: {
     localeLabel: 'Español',
@@ -402,6 +418,14 @@ const dictionaries: Record<Locale, Dictionary> = {
       copyInvite: 'Copiar enlace',
       copied: '¡Copiado!',
     },
+    error: {
+      eyebrow: 'Error',
+      title: 'Algo interrumpió el flujo.',
+      body: 'La página no pudo terminar de cargar. Intenta de nuevo o vuelve al catálogo.',
+      retry: 'Reintentar',
+      home: 'Ir al inicio',
+      browse: 'Explorar quizzes',
+    },
   },
 };
 
@@ -415,4 +439,10 @@ export async function getDictionary(locale: string): Promise<Dictionary> {
 
 export function getArcadeCopy(locale: Locale): Dictionary['arcade'] {
   return dictionaries[locale].arcade;
+}
+
+// Síncrono, para las error pages (componentes cliente que no pueden
+// `await getDictionary`).
+export function getErrorCopy(locale: string): Dictionary['error'] {
+  return dictionaries[hasLocale(locale) ? locale : defaultLocale].error;
 }

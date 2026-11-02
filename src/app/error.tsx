@@ -2,27 +2,28 @@
 
 import { usePathname } from 'next/navigation';
 import { EditorialErrorState } from '@/components/home/app-placeholders';
+import { getErrorCopy } from '@/lib/i18n/dictionaries';
 
+// Último recurso: cubre errores fuera de /[locale] (incluido el propio layout
+// localizado), donde el pathname puede no llevar prefijo de idioma.
 export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
   const pathname = usePathname();
   const es = pathname === '/es' || pathname.startsWith('/es/');
   const locale = es ? 'es' : 'en';
+  const copy = getErrorCopy(locale);
 
   return (
     <>
       <EditorialErrorState
-        title={es ? 'Algo interrumpió el flujo.' : 'Something interrupted the flow.'}
-        body={
-          es
-            ? 'La página no pudo terminar de cargar. Intenta de nuevo o vuelve al catálogo.'
-            : 'The page could not finish loading. Try again, or jump back into the catalog.'
-        }
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        body={copy.body}
         onRetry={reset}
-        retryLabel={es ? 'Reintentar' : 'Try again'}
+        retryLabel={copy.retry}
         homeHref={`/${locale}`}
-        homeLabel={es ? 'Ir al inicio' : 'Go home'}
+        homeLabel={copy.home}
         browseHref={`/${locale}/quiz`}
-        browseLabel={es ? 'Explorar quizzes' : 'Browse quizzes'}
+        browseLabel={copy.browse}
       />
       {process.env.NODE_ENV === 'development' ? (
         <div className="mx-auto -mt-10 mb-16 max-w-3xl px-4">

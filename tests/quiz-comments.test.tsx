@@ -65,12 +65,27 @@ describe('QuizComments', () => {
     expect(await screen.findByText('Sé la primera persona en comentar.')).toBeInTheDocument();
   });
 
-  it('si la carga falla cae al estado vacío sin romper la página', async () => {
+  it('si la carga falla muestra aviso con reintento, no el estado vacío', async () => {
     mocks.getQuizComments.mockRejectedValue(new Error('boom'));
 
     render(<QuizComments quizId={QUIZ_ID} locale="es" />);
 
-    expect(await screen.findByText('Sé la primera persona en comentar.')).toBeInTheDocument();
+    expect(await screen.findAllByText('No pudimos cargar los comentarios.')).not.toHaveLength(0);
+    expect(screen.getByRole('button', { name: 'Reintentar' })).toBeInTheDocument();
+    expect(screen.queryByText('Sé la primera persona en comentar.')).not.toBeInTheDocument();
+  });
+
+  it('el reintento vuelve a pedir los comentarios y pinta la lista', async () => {
+    mocks.getQuizComments
+      .mockRejectedValueOnce(new Error('boom'))
+      .mockResolvedValue({ comments: [COMMENT], total: 1 });
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Reintentar' }));
+
+    expect(await screen.findByText('Buenísimo quiz')).toBeInTheDocument();
+    expect(screen.getByText('1 comentario')).toBeInTheDocument();
+    expect(mocks.getQuizComments).toHaveBeenCalledTimes(2);
   });
 
   it('al cambiar de quiz no muestra los comentarios del anterior', async () => {
