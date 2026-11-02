@@ -419,6 +419,9 @@ function normalizeCategoryCard(row: CategoryCardRow, categories: Map<string, Cat
       is_ai_generated: false,
       featured_at: null,
       creator_id: null,
+      moderated_by: null,
+      moderated_at: null,
+      moderation_note: null,
       updated_at: row.created_at,
     } as QuizRow,
     categories

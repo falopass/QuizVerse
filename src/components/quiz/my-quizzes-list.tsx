@@ -72,6 +72,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         delete: 'Borrar',
         confirm: (title: string) =>
           `¿Borrar «${title}»? Se eliminará para siempre, junto con sus partidas.`,
+        archivedNotice: 'Tiene reportes abiertos en moderación: lo archivamos en vez de borrarlo.',
         genericError: 'No pudimos borrar el quiz ahora mismo.',
         emptyTitle: 'Todavía no has creado ningún quiz.',
         emptyBody: 'Tu primer quiz puede estar en revisión en cuestión de minutos.',
@@ -86,6 +87,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         delete: 'Delete',
         confirm: (title: string) =>
           `Delete "${title}"? It will be gone forever, along with its play sessions.`,
+        archivedNotice: 'It has open moderation reports, so we archived it instead of deleting it.',
         genericError: 'We could not delete the quiz right now.',
         emptyTitle: 'You have not created any quizzes yet.',
         emptyBody: 'Your first quiz could be in review within minutes.',
@@ -94,17 +96,20 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
 
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const remove = async (quiz: MyQuizRow) => {
     if (!window.confirm(copy.confirm(quiz.title))) return;
     setDeletingId(quiz.id);
     setErrorMessage(null);
+    setNotice(null);
     try {
       const result = await deleteQuiz(quiz.id);
       if (!result.success) {
         setErrorMessage(ERROR_LABEL[result.code]?.[es ? 'es' : 'en'] ?? copy.genericError);
         return;
       }
+      if (result.archived) setNotice(copy.archivedNotice);
       router.refresh();
     } catch {
       setErrorMessage(copy.genericError);
@@ -136,6 +141,14 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
           className="border-error/40 bg-error/10 text-error mb-4 rounded-xl border px-4 py-3 text-sm"
         >
           {errorMessage}
+        </p>
+      ) : null}
+      {notice ? (
+        <p
+          role="status"
+          className="border-warning/40 bg-warning/10 text-warning mb-4 rounded-xl border px-4 py-3 text-sm"
+        >
+          {notice}
         </p>
       ) : null}
       <ul className="space-y-4">

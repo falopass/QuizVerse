@@ -150,6 +150,9 @@ export interface Database {
           is_ai_generated: boolean;
           featured_at: string | null;
           published_at: string | null;
+          moderated_by: string | null;
+          moderated_at: string | null;
+          moderation_note: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -178,6 +181,9 @@ export interface Database {
           is_ai_generated?: boolean;
           featured_at?: string | null;
           published_at?: string | null;
+          moderated_by?: string | null;
+          moderated_at?: string | null;
+          moderation_note?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -206,6 +212,9 @@ export interface Database {
           is_ai_generated?: boolean;
           featured_at?: string | null;
           published_at?: string | null;
+          moderated_by?: string | null;
+          moderated_at?: string | null;
+          moderation_note?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -418,7 +427,9 @@ export interface Database {
       quiz_reports: {
         Row: {
           id: string;
-          quiz_id: string;
+          quiz_id: string | null;
+          quiz_title: string | null;
+          quiz_slug: string | null;
           reporter_id: string | null;
           reason: ReportReason;
           details: string | null;
@@ -429,7 +440,9 @@ export interface Database {
         };
         Insert: {
           id?: string;
-          quiz_id: string;
+          quiz_id?: string | null;
+          quiz_title?: string | null;
+          quiz_slug?: string | null;
           reporter_id?: string | null;
           reason: ReportReason;
           details?: string | null;
@@ -440,7 +453,9 @@ export interface Database {
         };
         Update: {
           id?: string;
-          quiz_id?: string;
+          quiz_id?: string | null;
+          quiz_title?: string | null;
+          quiz_slug?: string | null;
           reporter_id?: string | null;
           reason?: ReportReason;
           details?: string | null;

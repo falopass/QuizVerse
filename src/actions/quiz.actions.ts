@@ -11,7 +11,6 @@
 import { revalidatePath } from 'next/cache';
 import { headers } from 'next/headers';
 import { z } from 'zod';
-import { hasLocale, locales } from '@/lib/i18n/dictionaries';
 import { createClient } from '@/lib/supabase/server';
 import { toJson } from '@/lib/supabase/json';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
@@ -28,6 +27,8 @@ import {
   zodMessage,
   type ActionResult,
 } from '@/lib/actions/types';
+import { quizLocales, revalidateQuizPages } from '@/lib/quiz/revalidate';
+import { locales } from '@/lib/i18n/dictionaries';
 import type { Database } from '@/types/database';
 import type { QuizReviewItem } from '@/types/quiz';
 
@@ -77,23 +78,8 @@ async function ownedQuiz(
   return { slug: data.slug, language: data.language, status: data.status };
 }
 
-/** Locales where a quiz is listed: its own, or every one for unknown values. */
-function quizLocales(language: string): readonly string[] {
-  return hasLocale(language) ? [language] : locales;
-}
-
-/** Revalidates the localized home, explore and detail pages of a quiz. */
-function revalidateQuizPages(language: string, slug: string) {
-  for (const locale of quizLocales(language)) {
-    revalidatePath(`/${locale}`);
-    revalidatePath(`/${locale}/quiz`);
-    revalidatePath(`/${locale}/quiz/${slug}`);
-  }
-  // Category hubs and creator profiles list quizzes too. Their slug/username
-  // aren't at hand without a join, so the dynamic routes go out wholesale.
-  revalidatePath('/[locale]/category/[slug]', 'page');
-  revalidatePath('/[locale]/profile/[username]', 'page');
-}
+/** Código SQLSTATE con que la DB rechaza borrar un quiz con reportes abiertos. */
+const DELETE_BLOCKED_ERRCODE = 'QVM03';
 
 // ============================================
 // CREATE
@@ -204,7 +190,16 @@ export async function updateQuiz(id: string, input: unknown): Promise<ActionResu
   return { success: true };
 }
 
-export async function deleteQuiz(id: string): Promise<ActionResult> {
+/**
+ * Deletes a quiz, or archives it when the database says it has open reports.
+ *
+ * Migration 016 installs `guard_quiz_delete_with_reports`: a DELETE from the
+ * owner (app or raw PostgREST) raises QVM03 while unresolved reports exist, so
+ * the accused cannot destroy the evidence. On that error we archive instead —
+ * the quiz and its reports survive for the admin. Without the migration the
+ * delete simply succeeds, as before.
+ */
+export async function deleteQuiz(id: string): Promise<ActionResult<{ archived: boolean }>> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to delete a quiz.');
 
@@ -215,10 +210,21 @@ export async function deleteQuiz(id: string): Promise<ActionResult> {
   if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
 
   const { error } = await supabase.from('quizzes').delete().eq('id', id);
-  if (error) return unexpectedFailure('quiz.delete', error);
+  if (error) {
+    if (error.code === DELETE_BLOCKED_ERRCODE) {
+      const { error: archiveError } = await supabase
+        .from('quizzes')
+        .update({ status: 'archived' })
+        .eq('id', id);
+      if (archiveError) return unexpectedFailure('quiz.delete', archiveError);
+      revalidateQuizPages(quiz.language, quiz.slug);
+      return { success: true, archived: true };
+    }
+    return unexpectedFailure('quiz.delete', error);
+  }
 
   revalidateQuizPages(quiz.language, quiz.slug);
-  return { success: true };
+  return { success: true, archived: false };
 }
 
 // ============================================

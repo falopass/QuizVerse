@@ -25,6 +25,9 @@ export interface AdminReport {
   details: string | null;
   reporter_id: string | null;
   created_at: string;
+  /** Snapshot que la DB guarda al crear el reporte (migración 016). */
+  quiz_title: string | null;
+  quiz_slug: string | null;
   quiz: {
     id: string;
     slug: string;
@@ -40,7 +43,7 @@ const COPY = {
     anonymous: 'Anónimo',
     registered: 'Registrado',
     reportedBy: 'Reportado por',
-    viewQuiz: 'Ver quiz',
+    publicQuiz: 'Ver pública',
     deletedQuiz: 'Quiz eliminado o no visible',
     resolve: 'Marcar revisado',
     resolving: 'Marcando…',
@@ -59,7 +62,7 @@ const COPY = {
     anonymous: 'Anonymous',
     registered: 'Signed in',
     reportedBy: 'Reported by',
-    viewQuiz: 'View quiz',
+    publicQuiz: 'View public page',
     deletedQuiz: 'Quiz deleted or not visible',
     resolve: 'Mark reviewed',
     resolving: 'Marking…',
@@ -75,7 +78,7 @@ const COPY = {
   },
 } as const;
 
-function reportQuizHref(quiz: NonNullable<AdminReport['quiz']>): string {
+function reportPublicHref(quiz: NonNullable<AdminReport['quiz']>): string {
   const quizLocale = quiz.language === 'es' ? 'es' : 'en';
   return localizeHref(quizLocale, `/quiz/${quiz.slug}`);
 }
@@ -122,14 +125,27 @@ export function ReportList({ reports, locale }: { reports: AdminReport[]; locale
                 {copy.reasons[report.reason] ?? report.reason}
               </p>
               {report.quiz ? (
-                <Link
-                  href={reportQuizHref(report.quiz)}
-                  className="text-accent-primary hover:text-accent-hover mt-1 inline-block text-sm transition-colors"
-                >
-                  {report.quiz.title}
-                </Link>
+                <span className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <Link
+                    href={localizeHref(locale, `/admin/quizzes/${report.quiz.id}`)}
+                    className="text-accent-primary hover:text-accent-hover text-sm font-medium transition-colors"
+                  >
+                    {report.quiz.title}
+                  </Link>
+                  {report.quiz.status === 'published' ? (
+                    <Link
+                      href={reportPublicHref(report.quiz)}
+                      className="text-text-muted hover:text-text-primary text-xs transition-colors"
+                    >
+                      {copy.publicQuiz} →
+                    </Link>
+                  ) : null}
+                </span>
               ) : (
-                <p className="text-text-muted mt-1 text-sm">{copy.deletedQuiz}</p>
+                <p className="text-text-muted mt-1 text-sm">
+                  {report.quiz_title ? `«${report.quiz_title}» · ` : ''}
+                  {copy.deletedQuiz}
+                </p>
               )}
               {report.details ? (
                 <p className="text-text-secondary mt-2 text-sm leading-6">{report.details}</p>
