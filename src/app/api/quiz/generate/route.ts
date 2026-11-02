@@ -38,17 +38,15 @@ export async function POST(request: NextRequest) {
 
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Invalid generation request', details: parsed.error.flatten() },
+      { error: 'invalid_request', details: parsed.error.flatten() },
       { status: 400 }
     );
   }
 
   const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
   if (!deepseekApiKey) {
-    return NextResponse.json(
-      { error: 'Missing DEEPSEEK_API_KEY server configuration' },
-      { status: 500 }
-    );
+    console.error('[quiz/generate] missing DEEPSEEK_API_KEY server configuration');
+    return NextResponse.json({ error: 'provider_misconfigured' }, { status: 500 });
   }
 
   const ip = getRequestIdentifier(request);
@@ -61,13 +59,13 @@ export async function POST(request: NextRequest) {
 
   if (ipPeek.errored || userPeek.errored) {
     return NextResponse.json(
-      { error: 'Rate limiter unavailable', rateLimit: peek },
+      { error: 'rate_limiter_unavailable', rateLimit: peek },
       { status: 503 }
     );
   }
 
   if (!ipPeek.allowed || !userPeek.allowed) {
-    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit: peek }, { status: 429 });
+    return NextResponse.json({ error: 'rate_limited', rateLimit: peek }, { status: 429 });
   }
 
   // Ambas cuotas pasaron: ahora sí se registra el consumo en las dos.
@@ -78,23 +76,23 @@ export async function POST(request: NextRequest) {
   const rateLimit = ipLimit.remaining <= userLimit.remaining ? ipLimit : userLimit;
 
   if (ipLimit.errored || userLimit.errored) {
-    return NextResponse.json({ error: 'Rate limiter unavailable', rateLimit }, { status: 503 });
+    return NextResponse.json({ error: 'rate_limiter_unavailable', rateLimit }, { status: 503 });
   }
 
   if (!ipLimit.allowed || !userLimit.allowed) {
-    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit }, { status: 429 });
+    return NextResponse.json({ error: 'rate_limited', rateLimit }, { status: 429 });
   }
 
   const result = await generateQuizWithAI(parsed.data, deepseekApiKey);
 
   if (!result.success || !result.data) {
-    return NextResponse.json(
-      {
-        error: result.error || 'Failed to generate quiz',
-        rateLimit,
-      },
-      { status: 502 }
-    );
+    // El texto del proveedor (DeepSeek) es diagnóstico interno: al cliente va
+    // un código estable que la UI traduce a un mensaje accionable.
+    console.error('[quiz/generate] provider failed', {
+      topic: parsed.data.topic,
+      error: result.error,
+    });
+    return NextResponse.json({ error: 'generation_failed', rateLimit }, { status: 502 });
   }
 
   const aiValidation = validateAIQuizResponse(result.data, parsed.data.quiz_type);
@@ -105,9 +103,7 @@ export async function POST(request: NextRequest) {
       quizType: parsed.data.quiz_type,
       errors: aiValidation.errors,
     });
-    const error =
-      parsed.data.language === 'es' ? 'El quiz generado no es válido' : 'Generated quiz is invalid';
-    return NextResponse.json({ error, rateLimit }, { status: 502 });
+    return NextResponse.json({ error: 'invalid_generated_quiz', rateLimit }, { status: 502 });
   }
 
   const validationWarnings: string[] = [];

@@ -247,7 +247,19 @@ describe('POST /api/quiz/generate', () => {
     const body = await response.json();
 
     expect(response.status).toBe(503);
-    expect(body.error).toBe('Rate limiter unavailable');
+    expect(body.error).toBe('rate_limiter_unavailable');
+    expect(generateSpy).not.toHaveBeenCalled();
+  });
+
+  it('responde 500 provider_misconfigured sin DEEPSEEK_API_KEY y no genera', async () => {
+    delete process.env.DEEPSEEK_API_KEY;
+
+    const response = await POST(makeRequest(requestBody));
+    const body = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(body.error).toBe('provider_misconfigured');
+    expect(JSON.stringify(body)).not.toContain('DEEPSEEK');
     expect(generateSpy).not.toHaveBeenCalled();
   });
 
@@ -283,11 +295,11 @@ describe('POST /api/quiz/generate', () => {
     const body = await response.json();
 
     expect(response.status).toBe(502);
-    expect(body.error).toBe('Generated quiz is invalid');
+    expect(body.error).toBe('invalid_generated_quiz');
     expect(body.details).toBeUndefined();
   });
 
-  it('responde el 502 en español cuando la request pide language es', async () => {
+  it('el código del 502 no depende del idioma de la request', async () => {
     process.env.DEEPSEEK_API_KEY = 'test-key';
     const broken = validTrivia();
     broken.questions[0] = triviaQuestion('q1', [
@@ -300,7 +312,38 @@ describe('POST /api/quiz/generate', () => {
     const body = await response.json();
 
     expect(response.status).toBe(502);
-    expect(body.error).toBe('El quiz generado no es válido');
+    expect(body.error).toBe('invalid_generated_quiz');
+  });
+
+  it('responde 502 generation_failed sin exponer el mensaje del proveedor', async () => {
+    generateSpy.mockResolvedValueOnce({ success: false, error: 'DeepSeek API error: 502' });
+
+    const response = await POST(makeRequest(requestBody));
+    const body = await response.json();
+
+    expect(response.status).toBe(502);
+    expect(body.error).toBe('generation_failed');
+    expect(JSON.stringify(body)).not.toContain('DeepSeek');
+  });
+
+  it('localiza el aviso de conteo de preguntas según language', async () => {
+    generateSpy.mockResolvedValue({ success: true, data: validTrivia() });
+
+    const esResponse = await POST(
+      makeRequest({ ...requestBody, num_questions: 5, language: 'es' })
+    );
+    const esBody = await esResponse.json();
+    expect(esBody.validationWarnings).toEqual([
+      'La IA generó una cantidad de preguntas distinta de la pedida.',
+    ]);
+
+    const enResponse = await POST(
+      makeRequest({ ...requestBody, num_questions: 5, language: 'en' })
+    );
+    const enBody = await enResponse.json();
+    expect(enBody.validationWarnings).toEqual([
+      'The AI generated a different number of questions than requested.',
+    ]);
   });
 
   it('responde 200 con la forma habitual cuando el quiz es válido', async () => {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { QuizCreatorForm } from '@/components/quiz/quiz-creator-form';
@@ -59,6 +60,23 @@ export default async function LocalizedCreatePage({
           <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
             {dictionary.create.subtitle}
           </p>
+        </div>
+        <div className="surface-panel flex flex-col justify-between p-8">
+          <div>
+            <p className="eyebrow">{locale === 'es' ? 'Estudio AI' : 'AI Studio'}</p>
+            <h2 className="text-text-primary mt-4 max-w-xl text-3xl font-semibold tracking-tight">
+              {dictionary.create.aiTitle}
+            </h2>
+            <p className="balanced-copy text-text-secondary mt-4 max-w-xl">
+              {dictionary.create.aiSubtitle}
+            </p>
+          </div>
+          <Link
+            href={localizeHref(locale, '/create/ai')}
+            className="bg-accent-primary text-bg-primary mt-6 inline-flex w-fit items-center rounded-full px-5 py-3 text-sm font-semibold"
+          >
+            {dictionary.create.aiCta}
+          </Link>
         </div>
       </div>
       <QuizCreatorForm categories={categories || []} locale={locale} />

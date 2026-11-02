@@ -46,6 +46,7 @@ export interface Dictionary {
     subtitle: string;
     aiTitle: string;
     aiSubtitle: string;
+    aiCta: string;
   };
   footer: {
     tagline: string;
@@ -101,6 +102,7 @@ export interface Dictionary {
     activity: string;
     profile: string;
     quizzes: string;
+    createWithAi: string;
     achievements: string;
     settings: string;
     signOut: string;
@@ -179,6 +181,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       subtitle: 'Shape the story, pacing and payoff before you publish.',
       aiTitle: 'Generate a first draft with AI',
       aiSubtitle: 'Start from a prompt, then edit the result into something worth sharing.',
+      aiCta: 'Create with AI',
     },
     footer: {
       tagline: 'Pick a game. Play your pop culture. Share the result.',
@@ -234,6 +237,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       activity: 'My activity',
       profile: 'My profile',
       quizzes: 'My quizzes',
+      createWithAi: 'Create with AI',
       achievements: 'My achievements',
       settings: 'Settings',
       signOut: 'Sign out',
@@ -313,6 +317,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       subtitle: 'Define historia, ritmo y payoff antes de publicar.',
       aiTitle: 'Genera un primer borrador con IA',
       aiSubtitle: 'Parte desde un prompt y edita el resultado hasta que valga la pena compartirlo.',
+      aiCta: 'Crear con AI',
     },
     footer: {
       tagline: 'Elige un juego. Juega tu cultura pop. Comparte el resultado.',
@@ -368,6 +373,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       activity: 'Mi actividad',
       profile: 'Mi perfil',
       quizzes: 'Mis quizzes',
+      createWithAi: 'Crear con AI',
       achievements: 'Mis logros',
       settings: 'Ajustes',
       signOut: 'Cerrar sesión',

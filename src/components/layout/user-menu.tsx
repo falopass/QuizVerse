@@ -139,6 +139,14 @@ export function UserMenu({ locale }: { locale: Locale }) {
           </Link>
           <Link
             role="menuitem"
+            href={localizeHref(locale, '/create/ai')}
+            className={itemClass}
+            onClick={() => setOpen(false)}
+          >
+            {copy.createWithAi}
+          </Link>
+          <Link
+            role="menuitem"
             href={localizeHref(locale, '/achievements')}
             className={itemClass}
             onClick={() => setOpen(false)}
@@ -187,6 +195,9 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
       </Link>
       <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
         {copy.quizzes}
+      </Link>
+      <Link href={localizeHref(locale, '/create/ai')} onClick={onSelect}>
+        {copy.createWithAi}
       </Link>
       <Link href={localizeHref(locale, '/achievements')} onClick={onSelect}>
         {copy.achievements}
