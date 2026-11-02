@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
@@ -95,7 +96,8 @@ describe('signUpAction', () => {
 
     expect(result).toEqual({ ok: false, code: 'rate_limited' });
     const key = mocks.limitCheck.mock.calls[0][0] as string;
-    expect(key).toMatch(/^signup:[0-9a-f]{32}$/);
+    const expected = createHash('sha256').update('a@x.com').digest('hex').slice(0, 32);
+    expect(key).toBe(`signup:${expected}`);
     expect(key).not.toContain('a@x.com');
     expect(mocks.signUp).not.toHaveBeenCalled();
   });
