@@ -76,7 +76,7 @@ export default async function NovedadesPage({ params }: NovedadesPageProps) {
   ];
 
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-4 pt-28 pb-20">
+    <div className="mx-auto min-h-screen max-w-6xl px-4 pt-28 pb-20">
       <JsonLd
         data={buildGraph([
           webPageNode(`/${locale}/novedades`, locale, copy.title),
@@ -118,7 +118,7 @@ export default async function NovedadesPage({ params }: NovedadesPageProps) {
           ) : null}
         </>
       )}
-    </main>
+    </div>
   );
 }
 

@@ -27,7 +27,7 @@ export async function CategoryStrip({
         <h2>{dictionary.home.sections.categories}</h2>
         <p>{dictionary.arcade.allCategories}</p>
       </div>
-      <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
+      <nav className="arcade-filters" aria-label={dictionary.arcade.categoryNavigation}>
         {visible.map((category) => (
           <Link key={category.id} href={localizeHref(locale, `/category/${category.slug}`)}>
             {localizeCategory(category, locale)?.name ?? category.name} · {category.quiz_count}

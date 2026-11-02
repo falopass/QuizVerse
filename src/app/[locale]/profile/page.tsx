@@ -57,7 +57,7 @@ export default async function LocalizedProfileIndexPage({
     // Un error de lectura no es un perfil inexistente: se avisa y se reintenta,
     // igual que en /settings.
     return (
-      <main className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
+      <div className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
         <section className="surface-card p-10 text-center">
           <h1 className="text-text-primary text-2xl font-semibold">
             {es ? 'No pudimos cargar tu perfil' : 'We could not load your profile'}
@@ -72,7 +72,7 @@ export default async function LocalizedProfileIndexPage({
             {es ? 'Reintentar' : 'Retry'}
           </Link>
         </section>
-      </main>
+      </div>
     );
   }
 

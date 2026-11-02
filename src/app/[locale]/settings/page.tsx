@@ -66,7 +66,7 @@ export default async function LocalizedSettingsPage({
     user.identities?.some((identity) => identity.provider === 'email') ?? false;
 
   return (
-    <main className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
+    <div className="mx-auto min-h-screen max-w-3xl px-4 pt-28 pb-20">
       <section className="surface-panel p-8 md:p-10">
         <p className="eyebrow">{es ? 'Cuenta' : 'Account'}</p>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
@@ -126,6 +126,6 @@ export default async function LocalizedSettingsPage({
           <UpdatePasswordForm locale={locale} mode="settings" requireCurrent={hasEmailIdentity} />
         </div>
       </div>
-    </main>
+    </div>
   );
 }

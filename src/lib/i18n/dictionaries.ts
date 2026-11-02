@@ -79,6 +79,7 @@ export interface Dictionary {
     contact: string;
     mainNavigation: string;
     footerNavigation: string;
+    categoryNavigation: string;
     startPlaying: string;
     invite: string;
     inviteBody: string;
@@ -211,6 +212,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       contact: 'Contact',
       mainNavigation: 'Main navigation',
       footerNavigation: 'Footer links',
+      categoryNavigation: 'Category shortcuts',
       startPlaying: 'Start playing',
       invite: 'Share this quiz',
       inviteBody: 'Send the link to a friend and see what they score.',
@@ -344,6 +346,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       contact: 'Contacto',
       mainNavigation: 'Navegación principal',
       footerNavigation: 'Enlaces del pie',
+      categoryNavigation: 'Atajos de categorías',
       startPlaying: 'Empezar a jugar',
       invite: 'Comparte este quiz',
       inviteBody: 'Manda el enlace a un amigo y mira qué puntaje saca.',
