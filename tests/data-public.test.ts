@@ -18,59 +18,65 @@ const db = vi.hoisted(() => ({
   })) as Handler,
 }));
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
-    from: (table: string) => {
-      const filters: string[] = [];
-      let selectCols = '*';
-      const resolve = (): DbResult => {
-        db.calls.push(`${table}(${selectCols})${filters.length ? ` ${filters.join(' ')}` : ''}`);
-        return db.handler(table, selectCols, filters);
-      };
-      const query = {
-        select: (cols?: string) => {
-          selectCols = cols ?? '*';
-          return query;
-        },
-        eq: (col: string, val: string) => {
-          filters.push(`eq:${col}=${val}`);
-          return query;
-        },
-        neq: (col: string, val: string) => {
-          filters.push(`neq:${col}=${val}`);
-          return query;
-        },
-        order: () => query,
-        range: () => query,
-        limit: () => query,
-        single: async () => {
-          const res = resolve();
-          const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
-          return { data: res.error ? null : data, error: res.error ?? null };
-        },
-        maybeSingle: async () => {
-          const res = resolve();
-          const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
-          return { data: res.error ? null : data, error: res.error ?? null };
-        },
-        then: (
-          onFulfilled?: null | ((value: DbResult) => unknown),
-          onRejected?: null | ((reason: unknown) => unknown)
-        ) => {
-          const pending = new Promise<DbResult>((res, rej) => {
-            try {
-              res(resolve());
-            } catch (error) {
-              rej(error);
-            }
-          });
-          return pending.then(onFulfilled ?? undefined, onRejected ?? undefined);
-        },
-      };
-      return query;
-    },
-  }),
+// El catálogo público va por el cliente sin cookies (`public.ts`); perfiles,
+// creador y logros siguen con el de sesión. Ambos comparten el mismo stub.
+const fakeClient = vi.hoisted(() => () => ({
+  from: (table: string) => {
+    const filters: string[] = [];
+    let selectCols = '*';
+    const resolve = (): DbResult => {
+      db.calls.push(`${table}(${selectCols})${filters.length ? ` ${filters.join(' ')}` : ''}`);
+      return db.handler(table, selectCols, filters);
+    };
+    const query = {
+      select: (cols?: string) => {
+        selectCols = cols ?? '*';
+        return query;
+      },
+      eq: (col: string, val: string) => {
+        filters.push(`eq:${col}=${val}`);
+        return query;
+      },
+      neq: (col: string, val: string) => {
+        filters.push(`neq:${col}=${val}`);
+        return query;
+      },
+      order: () => query,
+      range: () => query,
+      limit: () => query,
+      single: async () => {
+        const res = resolve();
+        const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
+        return { data: res.error ? null : data, error: res.error ?? null };
+      },
+      maybeSingle: async () => {
+        const res = resolve();
+        const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
+        return { data: res.error ? null : data, error: res.error ?? null };
+      },
+      then: (
+        onFulfilled?: null | ((value: DbResult) => unknown),
+        onRejected?: null | ((reason: unknown) => unknown)
+      ) => {
+        const pending = new Promise<DbResult>((res, rej) => {
+          try {
+            res(resolve());
+          } catch (error) {
+            rej(error);
+          }
+        });
+        return pending.then(onFulfilled ?? undefined, onRejected ?? undefined);
+      },
+    };
+    return query;
+  },
 }));
+
+vi.mock('@/lib/supabase/server', () => ({ createClient: async () => fakeClient() }));
+vi.mock('@/lib/supabase/public', () => ({ createPublicClient: fakeClient }));
+// unstable_cache necesita el incremental cache de Next, que en vitest no
+// existe: passthrough. Los tags se comprueban en catalog-cache.test.ts.
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
 
 vi.mock('@/lib/data/launch-catalog', () => ({
   LAUNCH_CATEGORIES: [{ id: 'cat-launch', slug: 'culture', name: 'Culture' }],

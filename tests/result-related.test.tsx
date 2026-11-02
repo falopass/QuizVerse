@@ -11,8 +11,9 @@ const dbMocks = vi.hoisted(() => ({
   quizzes: [] as Array<{ id: string; slug: string; category_id: string }>,
 }));
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => {
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => {
     dbMocks.createClientCalls += 1;
     return {
       from: (table: string) =>

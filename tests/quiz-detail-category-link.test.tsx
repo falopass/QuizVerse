@@ -20,7 +20,9 @@ const dbMocks = vi.hoisted(() => ({
 vi.mock('@/lib/data/public', () => ({
   getPublishedQuizzes: vi.fn(),
   getQuizBySlug: dbMocks.getQuizBySlug,
-  getRelatedQuizzes: dbMocks.getRelatedQuizzes,
+  // La ficha resuelve los relacionados en paralelo con una sonda de categoría
+  // (PERF-10); para el render el resultado es el mismo mock.
+  getRelatedQuizzesBySlug: dbMocks.getRelatedQuizzes,
 }));
 
 vi.mock('next/navigation', () => ({

@@ -15,7 +15,7 @@ const mocks = vi.hoisted(() => ({
   updateResult: { error: null as { message: string } | null },
 }));
 
-vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
+vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }));
 
 vi.mock('@/lib/utils/rate-limit', () => ({
   quizLimiter: { check: mocks.limitCheck },

@@ -22,8 +22,9 @@ const db = vi.hoisted(() => ({
   })) as Handler,
 }));
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => ({
     from: (table: string) => {
       const filters: string[] = [];
       let selectCols = '*';

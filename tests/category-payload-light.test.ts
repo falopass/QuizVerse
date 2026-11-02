@@ -21,8 +21,9 @@ const selects: string[] = [];
 let failCounts = false;
 
 vi.mock('server-only', () => ({}));
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => ({
     from: (table: string) =>
       table === 'categories'
         ? {

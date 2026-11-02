@@ -8,7 +8,7 @@ interface Call {
   filters: Filter[];
 }
 
-const { state, supabaseStub, revalidate } = vi.hoisted(() => {
+const { state, supabaseStub, revalidate, revalidateTag } = vi.hoisted(() => {
   const state = {
     user: null as { id: string } | null,
     isAdmin: false,
@@ -34,6 +34,7 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
     calls: [] as Call[],
   };
   const revalidate = vi.fn();
+  const revalidateTag = vi.fn();
 
   // Builders de la cadena PostgREST que usan las acciones de moderación:
   // update().eq().eq() (awaitable) y update().eq().eq().select() (returning).
@@ -94,10 +95,10 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
     }),
   };
 
-  return { state, supabaseStub, revalidate };
+  return { state, supabaseStub, revalidate, revalidateTag };
 });
 
-vi.mock('next/cache', () => ({ revalidatePath: revalidate }));
+vi.mock('next/cache', () => ({ revalidatePath: revalidate, revalidateTag }));
 
 vi.mock('@/lib/auth/require-admin', () => ({
   requireAdmin: async () => ({
@@ -137,6 +138,7 @@ beforeEach(() => {
   state.writeError = null;
   state.calls = [];
   revalidate.mockClear();
+  revalidateTag.mockClear();
 });
 
 describe('resolveQuizReport', () => {
@@ -360,6 +362,9 @@ describe('publishQuiz', () => {
     expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
     expect(revalidate).toHaveBeenCalledWith('/en/feed.xml');
     expect(revalidate).toHaveBeenCalledWith('/api/sitemap');
+    // La caché de datos del catálogo va por tags, no por rutas.
+    expect(revalidateTag).toHaveBeenCalledWith('quizzes', { expire: 0 });
+    expect(revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', { expire: 0 });
   });
 
   it('returns conflict when the update touches zero rows (state moved or policy missing)', async () => {

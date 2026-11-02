@@ -1,8 +1,9 @@
 /**
  * SEO-I18N-06, lado de datos: `getPopulatedCategorySlugs` entrega al footer el
  * mismo conjunto que anuncia el sitemap (categorías con ≥1 quiz publicado en
- * el locale), cae al catálogo de lanzamiento si el conteo falla y memoiza por
- * isolate para no pagar la consulta en cada request.
+ * el locale), cae al catálogo de lanzamiento si el conteo falla y se cachea
+ * entre requests con `unstable_cache` (tag `quizzes`) en vez de pagar la
+ * consulta en cada request.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -11,9 +12,22 @@ vi.mock('server-only', () => ({}));
 
 const rangeMock = vi.fn();
 const createClientMock = vi.fn();
+const cacheCalls = vi.hoisted(
+  () => [] as Array<{ keyParts: string[]; options: { tags?: string[]; revalidate?: number } }>
+);
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: () => createClientMock(),
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => createClientMock(),
+}));
+vi.mock('next/cache', () => ({
+  unstable_cache: (
+    fn: unknown,
+    keyParts: string[],
+    options: { tags?: string[]; revalidate?: number }
+  ) => {
+    cacheCalls.push({ keyParts, options });
+    return fn;
+  },
 }));
 
 vi.mock('@/lib/data/launch-catalog', () => ({
@@ -26,7 +40,7 @@ vi.mock('@/lib/data/launch-catalog', () => ({
   ],
 }));
 
-// La memoización vive en el módulo: cada test importa una instancia limpia.
+// Cada test importa una instancia limpia del módulo (y de su wrapper de caché).
 async function load() {
   vi.resetModules();
   return (await import('@/lib/data/category-counts')).getPopulatedCategorySlugs;
@@ -34,7 +48,8 @@ async function load() {
 
 beforeEach(() => {
   rangeMock.mockReset();
-  createClientMock.mockReset().mockResolvedValue({
+  cacheCalls.length = 0;
+  createClientMock.mockReset().mockReturnValue({
     from: () => {
       const query = {
         eq: () => query,
@@ -84,7 +99,7 @@ describe('getPopulatedCategorySlugs', () => {
     expect([...slugs].sort()).toEqual(['culture', 'gaming']);
   });
 
-  it('un fallo no se memoiza: el siguiente request reintenta', async () => {
+  it('un fallo no se cachea: el siguiente request reintenta', async () => {
     const getPopulatedCategorySlugs = await load();
     rangeMock
       .mockResolvedValueOnce({ data: null, error: { message: 'down' } })
@@ -97,16 +112,12 @@ describe('getPopulatedCategorySlugs', () => {
     expect([...slugs]).toEqual(['gaming']);
   });
 
-  it('memoiza por locale: el segundo request no consulta la base', async () => {
-    const getPopulatedCategorySlugs = await load();
-    rangeMock.mockResolvedValue({
-      data: [{ category: { slug: 'gaming' } }],
-      error: null,
-    });
+  it('se envuelve en unstable_cache con el tag quizzes y la ventana del catálogo', async () => {
+    await load();
 
-    await getPopulatedCategorySlugs('en');
-    await getPopulatedCategorySlugs('en');
-
-    expect(rangeMock).toHaveBeenCalledTimes(1);
+    const wrapper = cacheCalls.find((call) => call.keyParts.includes('published-quiz-counts'));
+    expect(wrapper).toBeDefined();
+    expect(wrapper?.options.tags).toEqual(expect.arrayContaining(['quizzes', 'categories']));
+    expect(wrapper?.options.revalidate).toBe(300);
   });
 });

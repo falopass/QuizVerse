@@ -5,9 +5,13 @@ const mocks = vi.hoisted(() => ({
   updateSpy: vi.fn(),
   updateResult: { error: null as { message: string } | null },
   revalidate: vi.fn(),
+  revalidateTag: vi.fn(),
 }));
 
-vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidate }));
+vi.mock('next/cache', () => ({
+  revalidatePath: mocks.revalidate,
+  revalidateTag: mocks.revalidateTag,
+}));
 vi.mock('next/headers', () => ({ headers: async () => new Headers() }));
 vi.mock('@/lib/utils/rate-limit', () => ({
   quizLimiter: { check: async () => ({ allowed: true }) },

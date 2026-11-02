@@ -10,7 +10,7 @@ import { AdSlot } from '@/components/shared/ad-slot';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
-import { getPublishedQuizzes, getQuizBySlug, getRelatedQuizzes } from '@/lib/data/public';
+import { getPublishedQuizzes, getQuizBySlug, getRelatedQuizzesBySlug } from '@/lib/data/public';
 import { getStockCoverEntry } from '@/lib/data/stock-cover-manifest';
 import { LAUNCH_QUIZZES } from '@/lib/data/launch-catalog';
 import { getDictionary } from '@/lib/i18n/dictionaries';
@@ -53,12 +53,17 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
   const { slug, locale: localeParam } = await params;
   const locale = getLocaleFromParam(localeParam);
   const dictionary = await getDictionary(locale);
-  const stored = await getQuizBySlug(slug, locale);
+  // PERF-10: los relacionados se resuelven en paralelo con la ficha, con una
+  // sonda de una columna que solo necesita el slug (la ficha espera a
+  // normalizar el quiz completo). Así la segunda consulta no suma al TTFB.
+  const [stored, related] = await Promise.all([
+    getQuizBySlug(slug, locale),
+    getRelatedQuizzesBySlug(slug, locale),
+  ]);
   if (!stored) notFound();
 
   // Category names are localized for display, breadcrumbs and JSON-LD.
   const quiz = localizeQuizCategory(stored, locale);
-  const related = await getRelatedQuizzes(quiz.slug, quiz.category?.slug, locale);
   const stockCover = getStockCoverEntry(quiz.slug);
 
   const es = locale === 'es';
