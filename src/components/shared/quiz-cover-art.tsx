@@ -69,6 +69,10 @@ export function QuizCoverArt({
           src={quiz.cover_image_url!}
           alt=""
           className="arcade-cover-photo"
+          // La ruta sirve la variante 960×640 (3:2, la caja más grande a 2x);
+          // el CSS lo estira a object-fit: cover sobre esa proporción.
+          width={960}
+          height={640}
           loading={isAboveFold ? 'eager' : 'lazy'}
           fetchPriority={isAboveFold ? 'high' : undefined}
           decoding="async"

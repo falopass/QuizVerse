@@ -10,6 +10,7 @@ import {
 import { newestIso } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
+import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
 
 /**
@@ -88,7 +89,7 @@ const TYPE_HUBS = ['trivia', 'personality'];
  */
 export function quizCoverImageUrl(quiz: Pick<QuizRow, 'slug' | 'cover_image_url'>): string {
   const path = quiz.cover_image_url?.startsWith('/stock-covers/')
-    ? quiz.cover_image_url
+    ? versionedStockCoverUrl(quiz.cover_image_url)
     : `/covers/${encodeURIComponent(quiz.slug)}`;
   return `${SITE_URL}${path}`;
 }
