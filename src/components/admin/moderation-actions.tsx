@@ -56,10 +56,13 @@ export function ModerationActions({
   quizId,
   status,
   locale,
+  reportIds,
 }: {
   quizId: string;
   status: QuizStatus;
   locale: Locale;
+  /** Reportes abiertos que la ficha mostró: solo esos se cierran con el veredicto. */
+  reportIds: string[];
 }) {
   const copy = COPY[locale];
   const router = useRouter();
@@ -80,7 +83,7 @@ export function ModerationActions({
     setError(null);
     setDone(null);
     try {
-      const result = await publishQuiz(quizId);
+      const result = await publishQuiz(quizId, reportIds);
       if (result.success) {
         setDone(copy.published);
         router.refresh();
@@ -105,7 +108,7 @@ export function ModerationActions({
     setError(null);
     setDone(null);
     try {
-      const result = await rejectQuiz(quizId, trimmed);
+      const result = await rejectQuiz(quizId, trimmed, reportIds);
       if (result.success) {
         setDone(copy.rejected);
         router.refresh();

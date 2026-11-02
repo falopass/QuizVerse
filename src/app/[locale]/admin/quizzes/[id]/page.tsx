@@ -47,7 +47,8 @@ const COPY = {
     reportedBy: 'Reportado por',
     anonymousReporter: 'anónimo',
     registeredReporter: 'cuenta registrada',
-    autoResolveNote: 'Publicar o rechazar este quiz también marca sus reportes como revisados.',
+    autoResolveNote:
+      'Publicar o rechazar este quiz marca como revisados los reportes abiertos que ves aquí.',
     questionsTitle: 'Preguntas y clave',
     answerKeyNote:
       'La respuesta correcta solo se marca aquí, en servidor: nunca sale a un componente de cliente.',
@@ -92,7 +93,8 @@ const COPY = {
     reportedBy: 'Reported by',
     anonymousReporter: 'anonymous',
     registeredReporter: 'signed-in account',
-    autoResolveNote: 'Publishing or rejecting this quiz also marks its reports as reviewed.',
+    autoResolveNote:
+      'Publishing or rejecting this quiz marks the open reports shown here as reviewed.',
     questionsTitle: 'Questions and answer key',
     answerKeyNote:
       'The correct answer is only marked here, on the server: it never reaches a client component.',
@@ -278,7 +280,12 @@ export default async function AdminQuizReviewPage({
         ) : null}
       </section>
 
-      <ModerationActions quizId={quiz.id} status={quiz.status} locale={locale} />
+      <ModerationActions
+        quizId={quiz.id}
+        status={quiz.status}
+        locale={locale}
+        reportIds={reports.map((report) => report.id)}
+      />
 
       <section className="surface-panel mt-6 p-8 md:p-10">
         <h2 className="text-text-primary text-xl font-semibold">

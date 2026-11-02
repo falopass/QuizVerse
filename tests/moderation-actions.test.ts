@@ -37,6 +37,10 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
         call.filters.push([column, value]);
         return node;
       },
+      in(column: string, values: unknown) {
+        call.filters.push([column, values]);
+        return node;
+      },
       select: async () =>
         table === 'quizzes' ? state.moderateResult : { data: [], error: state.writeError },
       then(
@@ -83,6 +87,9 @@ import { publishQuiz, rejectQuiz, resolveQuizReport } from '@/actions/moderation
 
 const REPORT_ID = 'a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d';
 const QUIZ_ID = '3f8a2c5e-9b1d-4e7f-a2c3-d5e6f7a8b9c0';
+/** UUIDs válidos para el caso de más de 50 reportes. */
+const manyReportIds = (count: number) =>
+  Array.from({ length: count }, (_, i) => `3f8a2c5e-9b1d-4e7f-a2c3-${String(i).padStart(12, '0')}`);
 const PENDING_QUIZ = { id: QUIZ_ID, slug: 'quiz-de-prueba', language: 'en', status: 'pending' };
 
 const callsTo = (table: string, op: Call['op']) =>
@@ -189,12 +196,36 @@ describe('publishQuiz', () => {
     expect(update.filters).toContainEqual(['status', 'pending']);
   });
 
-  it('resolves the open reports of the quiz as part of the verdict', async () => {
-    await publishQuiz(QUIZ_ID);
+  it('resolves only the reports the ficha showed, validated against the quiz', async () => {
+    await publishQuiz(QUIZ_ID, [REPORT_ID]);
     const [update] = callsTo('quiz_reports', 'update');
     expect(update.payload).toMatchObject({ resolved: true, resolved_by: 'admin-1' });
+    expect(update.filters).toContainEqual(['id', [REPORT_ID]]);
     expect(update.filters).toContainEqual(['quiz_id', QUIZ_ID]);
     expect(update.filters).toContainEqual(['resolved', false]);
+  });
+
+  it('touches no reports when the ficha showed none', async () => {
+    await publishQuiz(QUIZ_ID);
+    expect(callsTo('quiz_reports', 'update')).toHaveLength(0);
+  });
+
+  it('closes all 60 shown reports when there are more than 50 (no cap, no extras)', async () => {
+    const ids = manyReportIds(60);
+    await publishQuiz(QUIZ_ID, ids);
+    const [update] = callsTo('quiz_reports', 'update');
+    expect(update.filters).toContainEqual(['id', ids]);
+    expect(update.filters).toContainEqual(['quiz_id', QUIZ_ID]);
+    // Sin filtro global por quiz_id suelto: solo los IDs mostrados.
+    expect(update.filters.filter(([column]) => column === 'id')).toHaveLength(1);
+  });
+
+  it('rejects invalid report ids before touching the database', async () => {
+    expect(await publishQuiz(QUIZ_ID, ['no-es-uuid'])).toMatchObject({
+      success: false,
+      code: 'invalid_input',
+    });
+    expect(state.calls).toHaveLength(0);
   });
 
   it('revalidates the catalog pages and feeds of the quiz locale', async () => {
@@ -272,6 +303,13 @@ describe('rejectQuiz', () => {
     const [update] = callsTo('quizzes', 'update');
     expect(update.filters).toContainEqual(['status', 'archived']);
     expect(update.payload).toMatchObject({ status: 'rejected' });
+  });
+
+  it('resolves only the reports the ficha showed on rejection', async () => {
+    await rejectQuiz(QUIZ_ID, 'spam confirmado', [REPORT_ID]);
+    const [update] = callsTo('quiz_reports', 'update');
+    expect(update.filters).toContainEqual(['id', [REPORT_ID]]);
+    expect(update.filters).toContainEqual(['quiz_id', QUIZ_ID]);
   });
 
   it('refuses to reject a draft (it never reached the queue)', async () => {

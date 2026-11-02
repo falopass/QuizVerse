@@ -29,7 +29,9 @@ import { revalidateCatalogFeeds, revalidateQuizPages } from '@/lib/quiz/revalida
 import type { QuizStatus } from '@/types/database';
 
 const ResolveSchema = z.object({ reportId: z.string().uuid() });
-const ModerateSchema = z.object({ quizId: z.string().uuid() });
+/** IDs de los reportes que la ficha mostró: solo esos se cierran con el veredicto. */
+const ReportIdsSchema = z.array(z.string().uuid()).max(500).default([]);
+const ModerateSchema = z.object({ quizId: z.string().uuid(), reportIds: ReportIdsSchema });
 const RejectSchema = ModerateSchema.extend({ reason: z.string().trim().min(3).max(500) });
 
 /** Publicar solo alcanza lo que espera veredicto (pending) o lo apela (rejected). */
@@ -69,13 +71,15 @@ export async function resolveQuizReport(reportId: string): Promise<ActionResult>
  * que la migración 016 no está aplicada: sin `quizzes_update_admin` la policy
  * filtra la fila y PostgREST devuelve 0 filas sin error.
  *
- * Los reportes abiertos del quiz quedan resueltos por el mismo veredicto —
- * revisar el contenido y actuar sobre él ES la resolución del reporte.
+ * Solo se resuelven los reportes que el admin vio: la ficha manda sus IDs y
+ * aquí se cierran con el veredicto. Un reporte creado después de cargar la
+ * ficha, o que no se mostró, sigue abierto para revisión.
  */
 async function moderateQuiz(
   quizId: string,
   next: Extract<QuizStatus, 'published' | 'rejected'>,
-  note: string | null
+  note: string | null,
+  reportIds: string[]
 ): Promise<ActionResult> {
   const { supabase, user, isAdmin } = await requireAdmin();
   if (!user) return actionFailure('unauthorized', 'Sign in to moderate quizzes.');
@@ -125,11 +129,16 @@ async function moderateQuiz(
   }
 
   // Best effort: el veredicto ya quedó; un fallo aquí solo deja reportes abiertos.
-  await supabase
-    .from('quiz_reports')
-    .update({ resolved: true, resolved_by: user.id, resolved_at: new Date().toISOString() })
-    .eq('quiz_id', quiz.id)
-    .eq('resolved', false);
+  // El `.eq('quiz_id')` valida en servidor que cada ID pertenece a este quiz:
+  // IDs de otro quiz no cierran nada.
+  if (reportIds.length > 0) {
+    await supabase
+      .from('quiz_reports')
+      .update({ resolved: true, resolved_by: user.id, resolved_at: new Date().toISOString() })
+      .in('id', reportIds)
+      .eq('quiz_id', quiz.id)
+      .eq('resolved', false);
+  }
 
   revalidateQuizPages(quiz.language, quiz.slug);
   revalidateCatalogFeeds(quiz.language);
@@ -137,16 +146,25 @@ async function moderateQuiz(
   return { success: true };
 }
 
-/** Aprueba un quiz pendiente (o rehabilita uno rechazado). */
-export async function publishQuiz(quizId: string): Promise<ActionResult> {
-  const parsed = ModerateSchema.safeParse({ quizId });
+/**
+ * Aprueba un quiz pendiente (o rehabilita uno rechazado).
+ *
+ * `reportIds` son los reportes abiertos que la ficha mostró al admin; solo
+ * esos quedan resueltos con el veredicto.
+ */
+export async function publishQuiz(quizId: string, reportIds: string[] = []): Promise<ActionResult> {
+  const parsed = ModerateSchema.safeParse({ quizId, reportIds });
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
-  return moderateQuiz(parsed.data.quizId, 'published', null);
+  return moderateQuiz(parsed.data.quizId, 'published', null, parsed.data.reportIds);
 }
 
 /** Rechaza un quiz con motivo: lo saca del catálogo y se lo explica al creador. */
-export async function rejectQuiz(quizId: string, reason: string): Promise<ActionResult> {
-  const parsed = RejectSchema.safeParse({ quizId, reason });
+export async function rejectQuiz(
+  quizId: string,
+  reason: string,
+  reportIds: string[] = []
+): Promise<ActionResult> {
+  const parsed = RejectSchema.safeParse({ quizId, reason, reportIds });
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
-  return moderateQuiz(parsed.data.quizId, 'rejected', parsed.data.reason);
+  return moderateQuiz(parsed.data.quizId, 'rejected', parsed.data.reason, parsed.data.reportIds);
 }

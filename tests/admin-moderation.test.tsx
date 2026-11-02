@@ -1,6 +1,13 @@
 import React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+
+const actionMocks = vi.hoisted(() => ({ publishQuiz: vi.fn(), rejectQuiz: vi.fn() }));
+
+vi.mock('@/actions/moderation.actions', () => ({
+  publishQuiz: actionMocks.publishQuiz,
+  rejectQuiz: actionMocks.rejectQuiz,
+}));
 
 const mocks = vi.hoisted(() => ({
   user: null as { id: string } | null,
@@ -126,6 +133,8 @@ beforeEach(() => {
   mocks.queueError = null;
   mocks.quizRow = FULL_QUIZ;
   mocks.reportRows = [];
+  actionMocks.publishQuiz.mockReset();
+  actionMocks.rejectQuiz.mockReset();
 });
 
 describe('página /admin/moderacion', () => {
@@ -274,6 +283,35 @@ describe('página /admin/quizzes/[id]', () => {
     // Acciones de veredicto presentes.
     expect(screen.getByRole('button', { name: 'Publicar' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Rechazar quiz' })).toBeInTheDocument();
+  });
+
+  it('manda al servidor solo los reportes abiertos que mostró la ficha', async () => {
+    mocks.reportRows = [
+      {
+        id: 'r1',
+        reason: 'spam',
+        details: null,
+        reporter_id: null,
+        created_at: '2026-11-01T10:00:00Z',
+      },
+      {
+        id: 'r2',
+        reason: 'other',
+        details: null,
+        reporter_id: null,
+        created_at: '2026-11-01T09:00:00Z',
+      },
+    ];
+    actionMocks.publishQuiz.mockResolvedValue({ success: true });
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+    render(await renderPage());
+    fireEvent.click(screen.getByRole('button', { name: 'Publicar' }));
+
+    await waitFor(() =>
+      expect(actionMocks.publishQuiz).toHaveBeenCalledWith(QUIZ_ID, ['r1', 'r2'])
+    );
+    confirmSpy.mockRestore();
   });
 
   it('muestra los reportes abiertos del quiz', async () => {
