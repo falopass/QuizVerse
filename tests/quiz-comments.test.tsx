@@ -118,7 +118,18 @@ describe('QuizComments', () => {
 
     expect(screen.queryByText('Buenísimo quiz')).not.toBeInTheDocument();
     expect(await screen.findByText('Sé la primera persona en comentar.')).toBeInTheDocument();
-    expect(mocks.getQuizComments).toHaveBeenLastCalledWith(OTHER_QUIZ_ID);
+    expect(mocks.getQuizComments).toHaveBeenLastCalledWith(OTHER_QUIZ_ID, undefined);
+  });
+
+  it('pide el comentario anclado cuando la URL trae #comment-<id>', async () => {
+    window.location.hash = '#comment-c-1';
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+
+    expect(await screen.findByText('Sé la primera persona en comentar.')).toBeInTheDocument();
+    expect(mocks.getQuizComments).toHaveBeenCalledWith(QUIZ_ID, 'c-1');
+
+    window.location.hash = '';
   });
 
   it('envía con sesión y añade el comentario arriba sin recargar', async () => {

@@ -13,7 +13,21 @@ const mocks = vi.hoisted(() => ({
   quizResult: { data: null as { id?: string; creator_id?: string } | null },
   profileResult: { data: null as { is_admin?: boolean } | null },
   commentRow: {
-    data: null as { id: string; user_id: string; quiz_id: string; body: string } | null,
+    data: null,
+  } as {
+    data: {
+      id: string;
+      user_id: string;
+      quiz_id: string;
+      body: string;
+      created_at?: string;
+      author?: {
+        username: string;
+        display_name: string | null;
+        avatar_url: string | null;
+      } | null;
+    } | null;
+    error?: { message: string } | null;
   },
   hiddenRows: { data: [] as { id: string; hidden_at: string }[] | null },
   deleteSpy: vi.fn(),
@@ -257,6 +271,59 @@ describe('getQuizComments', () => {
       viewerCanModerate: false,
       viewerIsAdmin: false,
     });
+  });
+
+  it('añade el comentario anclado aunque no esté entre los últimos 50', async () => {
+    mocks.selectResult = { data: [], count: 60, error: null };
+    mocks.commentRow = {
+      data: {
+        id: COMMENT_ID,
+        quiz_id: QUIZ_ID,
+        body: 'Comentario viejo',
+        created_at: '2026-10-01T00:00:00Z',
+        user_id: 'user-2',
+        author: { username: 'grace', display_name: 'Grace', avatar_url: null },
+      },
+    };
+
+    const page = await getQuizComments(QUIZ_ID, COMMENT_ID);
+
+    expect(page.total).toBe(60);
+    expect(page.comments).toEqual([
+      {
+        id: COMMENT_ID,
+        body: 'Comentario viejo',
+        created_at: '2026-10-01T00:00:00Z',
+        user_id: 'user-2',
+        hidden_at: null,
+        author: { username: 'grace', display_name: 'Grace', avatar_url: null },
+      },
+    ]);
+  });
+
+  it('ignora un comentario anclado que pertenece a otro quiz', async () => {
+    mocks.selectResult = { data: [], count: 1, error: null };
+    mocks.commentRow = {
+      data: { id: COMMENT_ID, quiz_id: 'otro-quiz', body: 'Ajeno', user_id: 'user-2' },
+    };
+
+    expect((await getQuizComments(QUIZ_ID, COMMENT_ID)).comments).toEqual([]);
+  });
+
+  it('rechaza si falla la consulta del comentario anclado, para ofrecer reintento', async () => {
+    mocks.selectResult = { data: [], count: 60, error: null };
+    mocks.commentRow = { data: null, error: { message: 'boom' } };
+
+    await expect(getQuizComments(QUIZ_ID, COMMENT_ID)).rejects.toMatchObject({ message: 'boom' });
+  });
+
+  it('ignora un ancla que no es uuid sin consultarla', async () => {
+    mocks.selectResult = { data: [], count: 1, error: null };
+    mocks.commentRow = {
+      data: { id: COMMENT_ID, quiz_id: QUIZ_ID, body: 'No debería usarse', user_id: 'user-2' },
+    };
+
+    expect((await getQuizComments(QUIZ_ID, 'no-es-uuid')).comments).toEqual([]);
   });
 });
 

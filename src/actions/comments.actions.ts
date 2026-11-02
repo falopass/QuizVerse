@@ -61,7 +61,7 @@ export interface QuizCommentsPage {
 }
 
 const COMMENT_SELECT =
-  'id, body, created_at, user_id, author:profiles(username, display_name, avatar_url)';
+  'id, quiz_id, body, created_at, user_id, author:profiles(username, display_name, avatar_url)';
 
 const commentSchema = z.object({
   quizId: z.string().uuid(),
@@ -135,10 +135,19 @@ async function isAdminUser(supabase: Supabase, userId: string): Promise<boolean>
  * Los fallos de la consulta rechazan para que el componente pueda distinguir
  * el error del vacío real y ofrecer reintento — solo un quizId inválido
  * devuelve página vacía.
+ *
+ * `anchorId` recupera además un comentario concreto fuera de esos 50: los
+ * avisos enlazan a `#comment-<id>` y el ancla tiene que existir aunque el
+ * comentario haya quedado viejo. La RLS manda igual: si ya no es visible
+ * (borrado u oculto para quien mira), no se añade.
  */
-export async function getQuizComments(quizId: string): Promise<QuizCommentsPage> {
+export async function getQuizComments(
+  quizId: string,
+  anchorId?: string
+): Promise<QuizCommentsPage> {
   const parsed = z.string().uuid().safeParse(quizId);
   if (!parsed.success) return EMPTY_PAGE;
+  const anchor = anchorId ? uuidSchema.safeParse(anchorId) : null;
 
   const supabase = await createClient();
   const {
@@ -159,18 +168,31 @@ export async function getQuizComments(quizId: string): Promise<QuizCommentsPage>
 
   if (error || !data) throw error ?? new Error('Could not load comments');
 
+  const comments = [...data];
+  if (anchor?.success && !comments.some((row) => row.id === anchor.data)) {
+    const { data: anchored, error: anchorError } = await supabase
+      .from('quiz_comments')
+      .select(COMMENT_SELECT)
+      .eq('id', anchor.data)
+      .maybeSingle();
+    // `null` sin error es el caso normal (no existe o la RLS no lo muestra);
+    // un fallo real rechaza para que la ficha ofrezca reintento.
+    if (anchorError) throw anchorError;
+    if (anchored?.quiz_id === parsed.data) comments.push(anchored);
+  }
+
   // `hidden_at` nace en la migración 017: si aún no se aplicó, esta consulta
   // falla y todo se pinta visible en vez de romper la sección. La RLS decide
   // qué filas vuelven: al anónimo ninguna, al autor las suyas ocultas y a la
   // moderación todas, así el autor también ve la etiqueta «Oculto» en lo suyo.
   const hiddenById = new Map<string, string>();
-  if (user && data.length > 0) {
+  if (user && comments.length > 0) {
     const { data: hiddenRows } = await supabase
       .from('quiz_comments')
       .select('id, hidden_at')
       .in(
         'id',
-        data.map((row) => row.id)
+        comments.map((row) => row.id)
       )
       .not('hidden_at', 'is', null);
     for (const row of hiddenRows ?? []) {
@@ -179,7 +201,7 @@ export async function getQuizComments(quizId: string): Promise<QuizCommentsPage>
   }
 
   return {
-    comments: data.map((row) => ({
+    comments: comments.map((row) => ({
       id: row.id,
       body: row.body,
       created_at: row.created_at,
@@ -187,7 +209,7 @@ export async function getQuizComments(quizId: string): Promise<QuizCommentsPage>
       hidden_at: hiddenById.get(row.id) ?? null,
       author: row.author ?? null,
     })),
-    total: count ?? data.length,
+    total: count ?? comments.length,
     viewerCanModerate: canModerate,
     viewerIsAdmin: role.isAdmin,
   };
