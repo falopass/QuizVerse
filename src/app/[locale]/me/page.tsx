@@ -42,7 +42,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
     );
   }
 
-  const { sessions, played, points } = await getMyActivity(user.id);
+  const { sessions, played, points, sessionsFailed } = await getMyActivity(user.id);
   const es = locale === 'es';
 
   return (
@@ -73,7 +73,22 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
         </dl>
       </section>
 
-      {sessions.length === 0 ? (
+      {sessionsFailed ? (
+        <section className="surface-card mt-8 p-10 text-center">
+          <h2 className="text-text-primary text-2xl font-semibold">
+            {es ? 'No pudimos cargar tu historial' : 'We could not load your history'}
+          </h2>
+          <p className="text-text-secondary mt-2">
+            {es ? 'Inténtalo de nuevo en unos minutos.' : 'Try again in a few minutes.'}
+          </p>
+          <Link
+            href={localizeHref(locale, '/me')}
+            className="bg-accent-primary hover:bg-accent-hover mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium text-white transition-colors"
+          >
+            {es ? 'Reintentar' : 'Retry'}
+          </Link>
+        </section>
+      ) : sessions.length === 0 ? (
         <section className="surface-card mt-8 p-10 text-center">
           <h2 className="text-text-primary text-2xl font-semibold">
             {es ? 'Aún no has jugado' : "You haven't played yet"}

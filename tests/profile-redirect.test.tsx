@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
 
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
@@ -59,6 +60,17 @@ describe('página /profile', () => {
     mocks.maybeSingle.mockResolvedValue({ data: null, error: null });
 
     await expect(ProfileIndexPage(props('es'))).rejects.toThrow('NEXT_REDIRECT:/es/me');
+  });
+
+  it('un error al leer el perfil muestra aviso con reintento, no /me', async () => {
+    mocks.maybeSingle.mockResolvedValue({ data: null, error: { message: 'db down' } });
+
+    render(await ProfileIndexPage(props('es')));
+
+    expect(
+      screen.getByRole('heading', { name: 'No pudimos cargar tu perfil' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Reintentar' })).toHaveAttribute('href', '/es/profile');
   });
 
   it('un locale desconocido devuelve 404', async () => {

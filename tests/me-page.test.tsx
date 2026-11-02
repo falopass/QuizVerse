@@ -126,13 +126,17 @@ describe('página /me', () => {
     );
   });
 
-  it('un error de Supabase muestra el estado vacío en vez de romper', async () => {
+  it('un fallo de consulta muestra aviso con reintento, no el estado vacío', async () => {
     mocks.sessionLimit.mockResolvedValue({ data: null, error: { message: 'db down' } });
-    mocks.profileMaybeSingle.mockResolvedValue({ data: null, error: { message: 'db down' } });
 
     render(await MePage(props('es')));
 
-    expect(screen.getByRole('heading', { name: 'Aún no has jugado' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'No pudimos cargar tu historial' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Reintentar' })).toHaveAttribute('href', '/es/me');
+    expect(screen.queryByRole('heading', { name: 'Aún no has jugado' })).not.toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
   });
 
   it('un locale desconocido devuelve 404', async () => {
