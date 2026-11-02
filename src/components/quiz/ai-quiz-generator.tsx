@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { normalizeQuizDraft } from '@/lib/quiz/normalize-draft';
 import { trackEvent } from '@/lib/telemetry/client';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { PersonalityResult, Question } from '@/types/quiz';
@@ -261,10 +262,14 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         quizType: draft.quiz_type,
         source: 'ai_create',
       });
+      // El editor no expone los vínculos opción→resultado ni los ids: el
+      // borrador se normaliza para que pase la validación semántica de createQuiz.
+      const normalized = normalizeQuizDraft(draft);
+      setDraft(normalized);
       const response = await createQuiz({
-        ...draft,
+        ...normalized,
         language: locale,
-        estimated_minutes: Math.max(1, draft.questions.length),
+        estimated_minutes: Math.max(1, normalized.questions.length),
         is_ai_generated: true,
       });
       if (!response.success) throw new Error(response.error);

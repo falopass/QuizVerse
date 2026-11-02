@@ -29,6 +29,7 @@ describe('updateQuiz', () => {
     const result = await updateQuiz('quiz-1', {
       title: 'A perfectly valid title',
       status: 'published',
+      quiz_type: 'personality',
     });
 
     expect(result.success).toBe(true);

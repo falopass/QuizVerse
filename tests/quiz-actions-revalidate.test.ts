@@ -4,6 +4,8 @@ const mocks = vi.hoisted(() => ({
   userId: 'user-1' as string | null,
   revalidate: vi.fn(),
   limitCheck: vi.fn(),
+  insert: vi.fn(),
+  ip: '192.0.2.1',
   profileResult: { data: { is_admin: true } as { is_admin: boolean } | null },
   quizRow: {
     data: { creator_id: 'user-1', slug: 'quiz-de-prueba', language: 'en' } as {
@@ -23,7 +25,7 @@ vi.mock('next/cache', () => ({
 }));
 
 vi.mock('next/headers', () => ({
-  headers: async () => new Map(),
+  headers: async () => new Headers({ 'cf-connecting-ip': mocks.ip }),
 }));
 
 vi.mock('@/lib/utils/rate-limit', () => ({
@@ -46,7 +48,10 @@ vi.mock('@/lib/supabase/server', () => ({
       if (table !== 'quizzes') throw new Error(`unexpected table ${table}`);
       return {
         select: () => ({ eq: () => ({ maybeSingle: async () => mocks.quizRow }) }),
-        insert: () => ({ select: () => ({ single: async () => mocks.insertResult }) }),
+        insert: (payload: unknown) => {
+          mocks.insert(payload);
+          return { select: () => ({ single: async () => mocks.insertResult }) };
+        },
         update: () => ({ eq: async () => mocks.updateResult }),
         delete: () => ({ eq: async () => mocks.deleteResult }),
       };
@@ -62,7 +67,13 @@ vi.mock('@/lib/quiz/quiz-slug', () => ({
 vi.mock('@/lib/quiz/quiz-repository', () => ({ loadAnswerKeyByQuizId: vi.fn() }));
 vi.mock('@/lib/quiz/achievements', () => ({ checkAchievements: async () => [] }));
 
-import { createQuiz, deleteQuiz, likeQuiz, updateQuiz } from '@/actions/quiz.actions';
+import {
+  createQuiz,
+  deleteQuiz,
+  likeQuiz,
+  updateQuiz,
+  submitQuizResult,
+} from '@/actions/quiz.actions';
 
 const QUIZ_ID = '3f8a2c5e-9b1d-4e7f-a2c3-d5e6f7a8b9c0';
 
@@ -85,6 +96,8 @@ const createInput = (language: string) => ({
 
 beforeEach(() => {
   mocks.userId = 'user-1';
+  mocks.insert.mockClear();
+  mocks.ip = '192.0.2.1';
   mocks.revalidate.mockClear();
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.profileResult = { data: { is_admin: true } };
@@ -107,6 +120,37 @@ const expectHubs = () => {
 };
 
 describe('createQuiz', () => {
+  it.each(['no-correct-answer', 'duplicate-question', 'duplicate-option', 'no-results'])(
+    'rechaza un quiz no jugable antes de persistir: %s',
+    async (invalid) => {
+      const input = createInput('es');
+      if (invalid === 'no-correct-answer') input.questions[0].options[0].is_correct = false;
+      if (invalid === 'duplicate-question') input.questions.push(input.questions[0]);
+      if (invalid === 'duplicate-option') input.questions[0].options[1].id = 'a';
+      if (invalid === 'no-results') input.quiz_type = 'personality';
+      expect(await createQuiz(input)).toMatchObject({ success: false, code: 'invalid_input' });
+      expect(mocks.insert).not.toHaveBeenCalled();
+    }
+  );
+
+  it('rechaza personality cuyas opciones no votan y traduce el error al language del quiz', async () => {
+    const input = {
+      ...createInput('en'),
+      quiz_type: 'personality',
+      results: [
+        { id: 'r1', title: 'Brave', description: 'You are brave', personality_tag: 'brave' },
+        { id: 'r2', title: 'Calm', description: 'You are calm', personality_tag: 'calm' },
+      ],
+    };
+    const result = await createQuiz(input);
+    expect(result).toMatchObject({ success: false, code: 'invalid_input' });
+    if (!result.success) {
+      expect(result.error).toContain('existing results');
+      expect(result.error).not.toContain('opción');
+    }
+    expect(mocks.insert).not.toHaveBeenCalled();
+  });
+
   it('revalida las rutas localizadas del locale del quiz', async () => {
     const result = await createQuiz(createInput('es'));
 
@@ -131,6 +175,20 @@ describe('createQuiz', () => {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
     }
     expectHubs();
+  });
+});
+
+describe('submitQuizResult rate limiting', () => {
+  it('separa visitantes anónimos por IP y conserva el límite por usuario autenticado', async () => {
+    mocks.userId = null;
+    await submitQuizResult(QUIZ_ID, []);
+    expect(mocks.limitCheck).toHaveBeenLastCalledWith('anonymous:192.0.2.1');
+    mocks.ip = '192.0.2.2';
+    await submitQuizResult(QUIZ_ID, []);
+    expect(mocks.limitCheck).toHaveBeenLastCalledWith('anonymous:192.0.2.2');
+    mocks.userId = 'user-1';
+    await submitQuizResult(QUIZ_ID, []);
+    expect(mocks.limitCheck).toHaveBeenLastCalledWith('user-1');
   });
 });
 

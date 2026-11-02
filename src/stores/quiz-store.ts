@@ -20,6 +20,7 @@ export interface PowerUp {
 export interface QuizGameState {
   // Quiz actual
   quiz: Quiz | null;
+  gameId: number;
 
   // Estado del juego
   gameMode: GameMode;
@@ -101,6 +102,7 @@ const DEFAULT_POWER_UPS: PowerUp[] = [
 export const useQuizStore = create<QuizGameState>((set, get) => ({
   // Estado inicial
   quiz: null,
+  gameId: 0,
   gameMode: 'normal',
   currentQuestionIndex: 0,
   selectedOptionId: null,
@@ -120,6 +122,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   startGame: (quiz: Quiz, mode: GameMode = 'normal') => {
     set({
       quiz,
+      gameId: get().gameId + 1,
       gameMode: mode,
       currentQuestionIndex: 0,
       selectedOptionId: null,
@@ -144,15 +147,23 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   },
 
   selectOption: (optionId: string) => {
+    const state = get();
+    const question = state.quiz?.questions[state.currentQuestionIndex];
+    if (
+      !question ||
+      state.isCompleted ||
+      state.answers.some((answer) => answer.question_id === question.id)
+    )
+      return;
     set({ selectedOptionId: optionId });
   },
 
   submitAnswer: (verdict) => {
     const state = get();
-    if (!state.quiz || !state.selectedOptionId) return;
+    if (!state.quiz || !state.selectedOptionId || state.isCompleted) return;
 
     const question = state.quiz.questions[state.currentQuestionIndex];
-    if (!question) return;
+    if (!question || state.answers.some((answer) => answer.question_id === question.id)) return;
 
     // The browser never holds the answer key: correctness comes from the server.
     const hasVerdict = verdict !== undefined;
@@ -201,6 +212,8 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
         const currentState = get();
         if (
           !currentState.quiz ||
+          currentState.gameId !== state.gameId ||
+          currentState.isCompleted ||
           currentState.quiz.id !== state.quiz?.id ||
           currentState.currentQuestionIndex !== questionIndexAtSubmit
         )
@@ -221,9 +234,13 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
   nextQuestion: () => {
     const state = get();
-    if (!state.quiz) return;
+    if (!state.quiz || state.isCompleted) return;
 
     const nextIndex = state.currentQuestionIndex + 1;
+    if (nextIndex >= state.quiz.questions.length) {
+      set({ isCompleted: true });
+      return;
+    }
     set({
       currentQuestionIndex: nextIndex,
       selectedOptionId: null,
@@ -234,10 +251,11 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
   skipQuestion: () => {
     const state = get();
-    if (!state.quiz) return;
+    if (!state.quiz || state.isCompleted) return;
 
     // Marcar como respondida incorrectamente
     const question = state.quiz.questions[state.currentQuestionIndex];
+    if (!question || state.answers.some((answer) => answer.question_id === question.id)) return;
     const answer: Answer = {
       question_id: question.id,
       selected_option_id: '',
@@ -263,7 +281,13 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
 
   usePowerUp: (powerUpId: string) => {
     const state = get();
-    if (!state.quiz) return;
+    const question = state.quiz?.questions[state.currentQuestionIndex];
+    if (
+      !question ||
+      state.isCompleted ||
+      state.answers.some((answer) => answer.question_id === question.id)
+    )
+      return;
 
     const powerUp = state.powerUps.find((p) => p.id === powerUpId);
     if (!powerUp || powerUp.used || !powerUp.available) return;

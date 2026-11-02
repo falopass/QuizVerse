@@ -9,7 +9,7 @@ import { z } from 'zod';
 // ============================================
 
 const OptionSchema = z.object({
-  id: z.string(),
+  id: z.string().min(1).max(64),
   text: z.string().min(1).max(500),
   is_correct: z.boolean().optional(),
   personality_tags: z.array(z.string()).optional(),
@@ -17,7 +17,7 @@ const OptionSchema = z.object({
 });
 
 const QuestionSchema = z.object({
-  id: z.string(),
+  id: z.string().min(1).max(64),
   question: z.string().min(1).max(1000),
   image_url: z.string().url().optional().nullable(),
   options: z.array(OptionSchema).min(2).max(10),
@@ -109,28 +109,77 @@ export interface ValidationResult {
   errors: string[];
 }
 
+// Errores semánticos, bilingües: `createQuiz` los devuelve al formulario, que
+// los muestra tal cual (ver `ActionFailure.error`). El locale es el `language`
+// del quiz enviado, que los formularios fijan al locale de la UI.
+const semantic = {
+  uniqueQuestionIds: {
+    es: 'Las preguntas deben tener identificadores únicos',
+    en: 'Questions must have unique identifiers',
+  },
+  uniqueOptionIds: (index: number) => ({
+    es: `Pregunta ${index + 1}: las opciones deben tener identificadores únicos`,
+    en: `Question ${index + 1}: options must have unique identifiers`,
+  }),
+  singleCorrectOption: (index: number, count: number) => ({
+    es: `Pregunta ${index + 1}: debe tener exactamente una respuesta correcta (tiene ${count})`,
+    en: `Question ${index + 1}: must have exactly one correct answer (has ${count})`,
+  }),
+  resultsRequired: {
+    es: 'Los quizzes de personalidad deben tener resultados definidos',
+    en: 'Personality quizzes must define results',
+  },
+  uniqueResultTags: {
+    es: 'Cada resultado debe tener un tag de personalidad único y no vacío',
+    en: 'Every result must have a unique, non-empty personality tag',
+  },
+  uniqueResultIds: {
+    es: 'Los resultados deben tener identificadores únicos',
+    en: 'Results must have unique identifiers',
+  },
+  existingResultTags: (index: number) => ({
+    es: `Pregunta ${index + 1}: cada opción debe usar tags de resultados existentes`,
+    en: `Question ${index + 1}: every option must use tags of existing results`,
+  }),
+  unusedResultTag: (index: number, tag: string) => ({
+    es: `Resultado ${index + 1}: el tag "${tag}" no se usa en ninguna opción`,
+    en: `Result ${index + 1}: the tag "${tag}" is not used by any option`,
+  }),
+};
+
 /**
- * Valida un quiz completo
+ * Valida un quiz completo. `locale` decide el idioma de los errores semánticos
+ * porque el caller los muestra al usuario final.
  */
-export function validateQuiz(data: unknown): ValidationResult {
+export function validateQuiz(data: unknown, locale: string = 'es'): ValidationResult {
+  const lang = locale === 'es' ? 'es' : 'en';
   const result = QuizCreateSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 
   // Validaciones adicionales específicas
   const additionalErrors: string[] = [];
+  if (
+    new Set(result.data.questions.map((question) => question.id)).size !==
+    result.data.questions.length
+  ) {
+    additionalErrors.push(semantic.uniqueQuestionIds[lang]);
+  }
+  result.data.questions.forEach((question, index) => {
+    if (new Set(question.options.map((option) => option.id)).size !== question.options.length) {
+      additionalErrors.push(semantic.uniqueOptionIds(index)[lang]);
+    }
+  });
 
   // Para trivia: cada pregunta debe tener exactamente una respuesta correcta
   if (result.data.quiz_type === 'trivia') {
     result.data.questions.forEach((q, index) => {
       const correctOptions = q.options.filter((o) => o.is_correct === true);
       if (correctOptions.length !== 1) {
-        additionalErrors.push(
-          `Pregunta ${index + 1}: debe tener exactamente una respuesta correcta (tiene ${correctOptions.length})`
-        );
+        additionalErrors.push(semantic.singleCorrectOption(index, correctOptions.length)[lang]);
       }
     });
   }
@@ -138,22 +187,35 @@ export function validateQuiz(data: unknown): ValidationResult {
   // Para personality: debe tener resultados y los tags deben coincidir
   if (result.data.quiz_type === 'personality') {
     if (!result.data.results || result.data.results.length === 0) {
-      additionalErrors.push('Los quizzes de personalidad deben tener resultados definidos');
+      additionalErrors.push(semantic.resultsRequired[lang]);
     } else {
+      const resultTags = new Set(result.data.results.map((item) => item.personality_tag));
+      if (
+        resultTags.has(null) ||
+        resultTags.has(undefined) ||
+        resultTags.has('') ||
+        resultTags.size !== result.data.results.length
+      ) {
+        additionalErrors.push(semantic.uniqueResultTags[lang]);
+      }
+      if (new Set(result.data.results.map((item) => item.id)).size !== result.data.results.length) {
+        additionalErrors.push(semantic.uniqueResultIds[lang]);
+      }
       // Recopilar todos los tags de las opciones
       const allTags = new Set<string>();
-      result.data.questions.forEach((q) => {
-        q.options.forEach((o) => {
-          o.personality_tags?.forEach((tag) => allTags.add(tag));
-        });
+      result.data.questions.forEach((q, index) => {
+        const invalid = q.options.some(
+          (o) =>
+            !o.personality_tags?.length || o.personality_tags.some((tag) => !resultTags.has(tag))
+        );
+        if (invalid) additionalErrors.push(semantic.existingResultTags(index)[lang]);
+        q.options.forEach((o) => o.personality_tags?.forEach((tag) => allTags.add(tag)));
       });
 
       // Verificar que cada resultado tenga un tag válido
       result.data.results.forEach((r, index) => {
         if (r.personality_tag && !allTags.has(r.personality_tag)) {
-          additionalErrors.push(
-            `Resultado ${index + 1}: el tag "${r.personality_tag}" no se usa en ninguna opción`
-          );
+          additionalErrors.push(semantic.unusedResultTag(index, r.personality_tag)[lang]);
         }
       });
     }
@@ -173,7 +235,7 @@ export function validateQuestion(data: unknown): ValidationResult {
   const result = QuestionSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 
@@ -187,7 +249,7 @@ export function validatePersonalityResult(data: unknown): ValidationResult {
   const result = PersonalityResultSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.flatten().formErrors;
+    const errors = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`);
     return { valid: false, errors };
   }
 

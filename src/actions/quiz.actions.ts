@@ -17,7 +17,7 @@ import { toJson } from '@/lib/supabase/json';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
-import { QuizCreateSchema } from '@/lib/quiz/validator';
+import { QuizCreateSchema, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
@@ -32,7 +32,6 @@ const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend
 const updateQuizSchema = z.object({
   title: z.string().min(5).max(120).optional(),
   description: z.string().max(300).optional(),
-  quiz_type: z.enum(['trivia', 'personality']).optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
   language: z.string().optional(),
   category_id: z.string().uuid().optional().nullable(),
@@ -102,6 +101,8 @@ export async function createQuiz(
 
   const parsed = createQuizSchema.safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
+  const validation = validateQuiz(parsed.data, parsed.data.language);
+  if (!validation.valid) return actionFailure('invalid_input', validation.errors.join('; '));
 
   const { data: profile } = await supabase
     .from('profiles')
@@ -224,7 +225,7 @@ export async function submitQuizResult(
 ): Promise<ActionResult<SubmitGameResult>> {
   const { supabase, user } = await currentUser();
 
-  const { allowed } = await quizLimiter.check(user?.id ?? 'anonymous');
+  const { allowed } = await quizLimiter.check(user?.id ?? `anonymous:${await clientIp()}`);
   if (!allowed) return actionFailure('rate_limited', 'Too many submissions. Please wait.');
 
   const parsed = QuizSubmissionSchema.safeParse({ quizId, answers, timeTakenSeconds });

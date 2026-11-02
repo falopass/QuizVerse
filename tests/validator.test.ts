@@ -54,6 +54,7 @@ describe('validateQuiz', () => {
   it('debería rechazar título muy corto', () => {
     const result = validateQuiz({ ...validTrivia, title: 'AB' });
     expect(result.valid).toBe(false);
+    expect(result.errors.some((error) => error.includes('title'))).toBe(true);
   });
 
   it('debería rechazar título muy largo', () => {
@@ -120,6 +121,67 @@ describe('validateQuiz', () => {
   it('debería rechazar personality sin resultados', () => {
     const result = validateQuiz({ ...validPersonality, results: [] });
     expect(result.valid).toBe(false);
+  });
+
+  it('rechaza tags sin resultado y resultados sin tag', () => {
+    expect(
+      validateQuiz({ ...validPersonality, results: [validPersonality.results[0]] }).valid
+    ).toBe(false);
+    expect(
+      validateQuiz({
+        ...validPersonality,
+        results: validPersonality.results.map((result) => ({
+          ...result,
+          personality_tag: undefined,
+        })),
+      }).valid
+    ).toBe(false);
+  });
+
+  it('rechaza opciones de personality sin tags o con tags fantasma', () => {
+    const withoutTags = {
+      ...validPersonality,
+      questions: validPersonality.questions.map((question) => ({
+        ...question,
+        options: question.options.map((option) => ({ ...option, personality_tags: undefined })),
+      })),
+    };
+    expect(validateQuiz(withoutTags).valid).toBe(false);
+
+    const ghostTag = {
+      ...validPersonality,
+      questions: [
+        {
+          id: 'q1',
+          question: 'How do you feel?',
+          options: [
+            { id: 'o1', text: 'Happy', personality_tags: ['happy'] },
+            { id: 'o2', text: 'Sad', personality_tags: ['ghost'] },
+          ],
+        },
+      ],
+    };
+    const result = validateQuiz(ghostTag);
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((error) => error.includes('Pregunta 1'))).toBe(true);
+  });
+
+  it('rechaza ids de resultado duplicados', () => {
+    const result = validateQuiz({
+      ...validPersonality,
+      results: validPersonality.results.map((item) => ({ ...item, id: 'r1' })),
+    });
+    expect(result.valid).toBe(false);
+  });
+
+  it('devuelve los errores semánticos en el idioma pedido', () => {
+    const invalid = { ...validTrivia, questions: [{ ...validTrivia.questions[0], id: 'q1' }] };
+    invalid.questions.push({ ...validTrivia.questions[0] });
+    const spanish = validateQuiz(invalid, 'es');
+    expect(spanish.errors.some((error) => error.includes('identificadores únicos'))).toBe(true);
+    const english = validateQuiz(invalid, 'en');
+    expect(english.errors.some((error) => error.includes('unique identifiers'))).toBe(true);
+    expect(english.errors.some((error) => error.includes('identificadores'))).toBe(false);
   });
 
   it('debería rechazar difficulty inválido', () => {
