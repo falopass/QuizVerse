@@ -20,7 +20,7 @@ import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
 import { getLocalizedCategoryLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
-import { challengeOutcome, type ChallengeScore } from '@/lib/quiz/challenge';
+import { challengeOutcome, isChallengeInvite, type ChallengeScore } from '@/lib/quiz/challenge';
 import type { Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -437,7 +437,12 @@ export async function GET(
   const found = token ? await getQuizSessionByShareToken(token) : null;
   // Una sesión de otro quiz no cuenta: ni para el versus ni para la tarjeta.
   const session = found?.quiz_id === quiz.id ? found : null;
-  const challenger = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
+  // `c` igual a `s` es una invitación (el reto apunta a la propia sesión): no
+  // hay dos marcadores, así que la tarjeta sale como resultado personal.
+  const challenger =
+    challengeToken && !isChallengeInvite(token, challengeToken)
+      ? await getChallengeForQuiz(challengeToken, quiz.id)
+      : null;
 
   if (session && challenger) {
     return versusCard(quiz, session, challenger, uiLocale, options, headers);

@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
@@ -19,6 +19,7 @@ const mocks = vi.hoisted(() => ({
   getQuizSessionByShareToken: vi.fn(),
   getRelatedQuizzes: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getUser: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -29,6 +30,10 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/data/challenge', () => ({
   getChallengeForQuiz: mocks.getChallengeForQuiz,
+}));
+
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: vi.fn(async () => ({ auth: { getUser: mocks.getUser } })),
 }));
 
 vi.mock('next/navigation', () => ({
@@ -124,6 +129,7 @@ beforeEach(() => {
   mocks.getQuizSessionByShareToken.mockReset().mockResolvedValue(null);
   mocks.getRelatedQuizzes.mockReset().mockResolvedValue([]);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
+  mocks.getUser.mockReset().mockResolvedValue({ data: { user: null } });
 });
 
 describe('generateMetadata — resultado compartido', () => {
@@ -308,5 +314,118 @@ describe('ResultScreen — texto compartido', () => {
     const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
     expect(shared).toContain('I got The Wolf on "What Animal Are You" — can you beat it?');
     expect(shared).toContain(`s=${SESSION_TOKEN}`);
+  });
+});
+
+describe('LocalizedQuizResultPage — invitación de reto (s == challenge)', () => {
+  it('no pinta la comparativa ni la consulta cuando el reto apunta a la propia sesión', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    await renderPage({ s: SESSION_TOKEN, challenge: SESSION_TOKEN });
+
+    expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
+    expect(screen.queryByText('Challenge showdown')).not.toBeInTheDocument();
+    // «Aceptar el reto» sigue apuntando a la marca del retador.
+    expect(screen.getByRole('link', { name: 'Take the challenge' })).toHaveAttribute(
+      'href',
+      `/en/quiz/space-trivia/play?challenge=${SESSION_TOKEN}`
+    );
+  });
+
+  it('la metadata de una invitación queda como resultado personal, sin versus', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    const metadata = await generateMetadata({
+      params: params(),
+      searchParams: searchParams({ s: SESSION_TOKEN, challenge: SESSION_TOKEN }),
+    });
+
+    expect(metadata.alternates?.canonical).toBe(
+      `${SITE_URL}/en/quiz/space-trivia/result?s=${SESSION_TOKEN}`
+    );
+    const images = (metadata.openGraph as Record<string, unknown>).images as Array<{
+      url: string;
+    }>;
+    expect(images[0].url).not.toContain('c=');
+    expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
+  });
+});
+
+describe('ResultScreen — «Reta a un amigo»', () => {
+  it('abre el diálogo con la URL de invitación', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Challenge a friend' }));
+
+    const dialog = screen.getByRole('dialog', { name: 'Challenge a friend' });
+    const whatsapp = within(dialog).getByRole('link', { name: /whatsapp/i });
+    const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
+    expect(shared).toContain(`s=${SESSION_TOKEN}&challenge=${SESSION_TOKEN}`);
+  });
+
+  it('«Share result» sigue compartiendo la URL limpia', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Share result' }));
+
+    const dialog = screen.getByRole('dialog', { name: 'Share result' });
+    const whatsapp = within(dialog).getByRole('link', { name: /whatsapp/i });
+    const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
+    expect(shared).toContain(`s=${SESSION_TOKEN}`);
+    expect(shared).not.toContain('challenge=');
+  });
+});
+
+describe('ResultScreen — cuenta y puntos honestos', () => {
+  it('ofrece crear cuenta al visitante anónimo con vuelta a su resultado', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    const cta = screen.getByRole('link', { name: 'Create an account' });
+    expect(cta).toHaveAttribute(
+      'href',
+      `/en/register?redirect=${encodeURIComponent(
+        `/en/quiz/space-trivia/result?s=${SESSION_TOKEN}`
+      )}`
+    );
+    // Y se puede descartar sin bloquear nada.
+    fireEvent.click(screen.getByRole('button', { name: 'Dismiss' }));
+    expect(screen.queryByRole('link', { name: 'Create an account' })).not.toBeInTheDocument();
+  });
+
+  it('una partida anónima no muestra puntos: muestra el aviso de cuenta', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession({ player_id: null }));
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    expect(screen.getByText('Points are saved with an account')).toBeInTheDocument();
+    expect(screen.queryByText('+10')).not.toBeInTheDocument();
+  });
+
+  it('a un usuario con sesión no le ofrece registrarse y ve sus puntos', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession({ player_id: 'user-1' }));
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'user-1' } } });
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    expect(screen.queryByRole('link', { name: 'Create an account' })).not.toBeInTheDocument();
+    // 7/8 no es partida perfecta: 10 puntos.
+    expect(screen.getByText('+10')).toBeInTheDocument();
+  });
+
+  it('una partida perfecta de jugador muestra los 35 puntos del trigger', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(
+      makeSession({ player_id: 'user-1', score: 8, max_score: 8 })
+    );
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'user-1' } } });
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    expect(screen.getByText('+35')).toBeInTheDocument();
   });
 });

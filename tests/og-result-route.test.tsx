@@ -169,6 +169,21 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     await expectPng(res);
   });
 
+  it('renders the personal card when the challenge token is the session itself', async () => {
+    // ?s=A&c=A es una invitación abierta: no hay dos marcadores y una tarjeta
+    // versus diría "TIE" sobre un reto que nadie ha jugado todavía.
+    mocks.getQuizSessionByShareToken.mockResolvedValue(session);
+
+    const res = await call(ogUrl('?s=share-token-1&c=share-token-1'));
+    const bytes = await expectPng(res);
+
+    expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
+
+    const plain = await call(ogUrl('?s=share-token-1'));
+    const plainBytes = new Uint8Array(await plain.arrayBuffer());
+    expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(true);
+  });
+
   it('falls back to English for an unknown locale without throwing', async () => {
     const res = await call(ogUrl(), 'fr');
 

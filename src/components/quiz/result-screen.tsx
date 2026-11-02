@@ -32,7 +32,16 @@ interface ResultScreenProps {
   review?: QuizReviewItem[];
   streak?: number;
   bonusPoints?: number;
+  /**
+   * `false` cuando la partida fue anónima y nadie recibió puntos: la métrica
+   * muestra el aviso de cuenta en vez de un `+N` que no existe.
+   */
+  pointsSaved?: boolean;
   shareUrl?: string;
+  /** URL de invitación (`?s=<sesión>&challenge=<sesión>`) para «Reta a un amigo». */
+  challengeShareUrl?: string;
+  /** Registro con vuelta a este resultado; el servidor solo lo pasa a anónimos. */
+  accountCtaHref?: string;
   onPlayAgain?: () => void;
   /** Marcador del retador: pinta la comparativa retador vs retado. */
   challenge?: ChallengeScore | null;
@@ -51,14 +60,18 @@ export function ResultScreen({
   review,
   streak = 0,
   bonusPoints = 0,
+  pointsSaved = true,
   shareUrl,
+  challengeShareUrl,
+  accountCtaHref,
   onPlayAgain,
   challenge = null,
   challengeHref,
   related,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
-  const [showShare, setShowShare] = React.useState(false);
+  const [shareMode, setShareMode] = React.useState<'result' | 'challenge' | null>(null);
+  const [accountCtaDismissed, setAccountCtaDismissed] = React.useState(false);
   const copy =
     uiLocale === 'es'
       ? {
@@ -76,6 +89,11 @@ export function ResultScreen({
           skipped: 'Omitida',
           close: 'Cerrar',
           shareTitle: 'Compartir resultado',
+          challengeFriend: 'Reta a un amigo',
+          pointsAccountHint: 'Los puntos se guardan con una cuenta',
+          accountCtaBody: 'Guarda este resultado y tu racha.',
+          accountCtaAction: 'Crea una cuenta',
+          accountCtaDismiss: 'Descartar',
           challengeEyebrow: 'Comparativa del reto',
           challenger: 'Retador',
           challenged: 'Retado',
@@ -104,6 +122,11 @@ export function ResultScreen({
           skipped: 'Skipped',
           close: 'Close',
           shareTitle: 'Share result',
+          challengeFriend: 'Challenge a friend',
+          pointsAccountHint: 'Points are saved with an account',
+          accountCtaBody: 'Save this result and your streak.',
+          accountCtaAction: 'Create an account',
+          accountCtaDismiss: 'Dismiss',
           challengeEyebrow: 'Challenge showdown',
           challenger: 'Challenger',
           challenged: 'Challenged',
@@ -221,7 +244,11 @@ export function ResultScreen({
                 value={String(triviaScore?.total ?? answers.length)}
               />
               <ResultMetric label={copy.bestStreak} value={String(streak)} />
-              <ResultMetric label={copy.bonus} value={`+${bonusPoints}`} />
+              <ResultMetric
+                label={copy.bonus}
+                value={pointsSaved ? `+${bonusPoints}` : copy.pointsAccountHint}
+                hint={!pointsSaved}
+              />
             </div>
 
             {triviaScore && (
@@ -244,7 +271,7 @@ export function ResultScreen({
               )}
               <button
                 type="button"
-                onClick={() => setShowShare(true)}
+                onClick={() => setShareMode('result')}
                 className={cn(
                   'arcade-button',
                   challengeHref ? 'arcade-result-secondary' : 'arcade-button-pink'
@@ -252,6 +279,15 @@ export function ResultScreen({
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
+              {challengeShareUrl && (
+                <button
+                  type="button"
+                  onClick={() => setShareMode('challenge')}
+                  className="arcade-button arcade-result-secondary"
+                >
+                  {copy.challengeFriend}
+                </button>
+              )}
               <Link
                 href={localizeHref(uiLocale, '/quiz')}
                 className="arcade-button arcade-result-secondary"
@@ -271,6 +307,28 @@ export function ResultScreen({
                 {uiLocale === 'es' ? 'Ver ranking ↗' : 'View ranking ↗'}
               </Link>
             </div>
+
+            {accountCtaHref && !accountCtaDismissed && (
+              <div className="border-border-subtle bg-bg-primary/60 mt-6 flex items-start justify-between gap-4 rounded-2xl border px-5 py-4">
+                <div>
+                  <p className="text-text-primary text-sm font-semibold">{copy.accountCtaBody}</p>
+                  <Link
+                    href={accountCtaHref}
+                    className="text-accent-primary mt-2 inline-flex min-h-11 items-center text-sm font-bold tracking-[0.08em] uppercase"
+                  >
+                    {copy.accountCtaAction}
+                  </Link>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAccountCtaDismissed(true)}
+                  aria-label={copy.accountCtaDismiss}
+                  className="text-text-secondary hover:text-text-primary inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl"
+                >
+                  ×
+                </button>
+              </div>
+            )}
           </section>
 
           <section className="space-y-6">
@@ -397,15 +455,15 @@ export function ResultScreen({
       )}
 
       <AnimatePresence>
-        {showShare && (
+        {shareMode !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
-            onClick={() => setShowShare(false)}
+            onClick={() => setShareMode(null)}
             onKeyDown={(event) => {
-              if (event.key === 'Escape') setShowShare(false);
+              if (event.key === 'Escape') setShareMode(null);
             }}
           >
             <motion.div
@@ -416,13 +474,15 @@ export function ResultScreen({
               className="arcade-share-panel w-full max-w-md p-6 shadow-lg"
               role="dialog"
               aria-modal="true"
-              aria-label={copy.shareTitle}
+              aria-label={shareMode === 'challenge' ? copy.challengeFriend : copy.shareTitle}
             >
               <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-display text-text-primary text-2xl">{copy.shareTitle}</h3>
+                <h3 className="font-display text-text-primary text-2xl">
+                  {shareMode === 'challenge' ? copy.challengeFriend : copy.shareTitle}
+                </h3>
                 <button
                   type="button"
-                  onClick={() => setShowShare(false)}
+                  onClick={() => setShareMode(null)}
                   className="text-text-primary text-sm font-bold"
                   autoFocus
                 >
@@ -433,7 +493,10 @@ export function ResultScreen({
                 locale={uiLocale}
                 quizId={quiz.id}
                 title={shareResultTitle}
-                url={shareUrl || (typeof window !== 'undefined' ? window.location.href : '')}
+                url={
+                  (shareMode === 'challenge' ? challengeShareUrl : shareUrl) ||
+                  (typeof window !== 'undefined' ? window.location.href : '')
+                }
                 // El texto pegado en WhatsApp/X lleva el resultado: la vista
                 // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
                 text={
@@ -450,11 +513,19 @@ export function ResultScreen({
   );
 }
 
-function ResultMetric({ label, value }: { label: string; value: string }) {
+function ResultMetric({
+  label,
+  value,
+  hint = false,
+}: {
+  label: string;
+  value: string;
+  hint?: boolean;
+}) {
   return (
     <div className="arcade-result-metric">
       <span>{label}</span>
-      <p>{value}</p>
+      <p className={hint ? 'arcade-result-metric-hint' : undefined}>{value}</p>
     </div>
   );
 }

@@ -9,7 +9,9 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { buildReview, toClientQuiz } from '@/lib/quiz/answer-key';
-import { isShareToken } from '@/lib/quiz/challenge';
+import { isChallengeInvite, isShareToken } from '@/lib/quiz/challenge';
+import { pointsFor } from '@/lib/quiz/submission';
+import { createClient } from '@/lib/supabase/server';
 
 /**
  * Result URLs carry a per-player share token and render one person's outcome,
@@ -38,8 +40,10 @@ export async function generateMetadata({
   const shareToken = isShareToken(s) ? s : null;
   const found = shareToken ? await getQuizSessionByShareToken(shareToken) : null;
   const session = found?.quiz_id === quiz.id ? found : null;
+  // Un reto que apunta a la propia sesión es una invitación, no un versus:
+  // canonical y tarjeta OG quedan como resultado personal.
   const challenge =
-    session && isShareToken(challengeToken)
+    session && isShareToken(challengeToken) && !isChallengeInvite(shareToken, challengeToken)
       ? await getChallengeForQuiz(challengeToken, quiz.id)
       : null;
 
@@ -113,7 +117,7 @@ export default async function LocalizedQuizResultPage({
   // resultado.
   const session = found?.quiz_id === quiz.id ? found : null;
   const challenge =
-    session && isShareToken(challengeToken)
+    session && isShareToken(challengeToken) && !isChallengeInvite(shareToken, challengeToken)
       ? await getChallengeForQuiz(challengeToken, quiz.id)
       : null;
 
@@ -141,6 +145,15 @@ export default async function LocalizedQuizResultPage({
       </div>
     );
   }
+
+  // La CTA de cuenta va solo a visitantes sin sesión; a quien ya entró no se
+  // le ofrece registrarse (y la sesión mostrada guarda su auth, no la suya).
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const resultPath = `/${locale}/quiz/${quiz.slug}/result?s=${session.share_token}${challenge ? `&challenge=${challenge.token}` : ''}`;
 
   const resolvedResult =
     session.result_id && quiz.results
@@ -174,7 +187,22 @@ export default async function LocalizedQuizResultPage({
       answers={session.answers ?? []}
       // The review is computed here so the answer key never leaves the server.
       review={buildReview(quiz, session.answers ?? [])}
-      shareUrl={`${SITE_URL}/${locale}/quiz/${quiz.slug}/result?s=${session.share_token}${challenge ? `&challenge=${challenge.token}` : ''}`}
+      shareUrl={`${SITE_URL}${resultPath}`}
+      // El reto que se comparte lleva el token de esta sesión como marca a
+      // batir: `?s=<token>&challenge=<token>` se lee como invitación abierta.
+      challengeShareUrl={`${SITE_URL}/${locale}/quiz/${quiz.slug}/result?s=${session.share_token}&challenge=${session.share_token}`}
+      accountCtaHref={
+        user ? undefined : `/${locale}/register?redirect=${encodeURIComponent(resultPath)}`
+      }
+      // Los puntos solo existen si la partida tenía jugador: el trigger
+      // award_quiz_points no corre en sesiones anónimas y pointsFor replica su
+      // misma cuenta para la UI.
+      pointsSaved={session.player_id !== null}
+      bonusPoints={
+        session.player_id !== null
+          ? pointsFor(session.max_score > 0 && session.score === session.max_score)
+          : 0
+      }
       challenge={challenge}
       // Con comparativa activa el reto es contra la marca del retador, no
       // contra la propia sesión.

@@ -217,6 +217,26 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
+      {!isFriends && !isWeekly && entries !== null && entries.length === 0 && (
+        <section className="surface-card mt-6 p-6">
+          <p className="eyebrow">Global</p>
+          <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+            {locale === 'es' ? 'El tablero está vacío.' : 'The board is empty.'}
+          </h2>
+          <p className="text-text-secondary mt-2 max-w-xl text-sm leading-6">
+            {locale === 'es'
+              ? 'Termina un quiz y tu nombre abre el ranking.'
+              : 'Finish a quiz and your name opens the board.'}
+          </p>
+          <Link
+            href={localizeHref(locale, '/quiz')}
+            className="bg-accent-primary text-bg-primary mt-4 inline-flex min-h-11 items-center rounded-full px-5 py-3 text-sm font-semibold"
+          >
+            {locale === 'es' ? 'Sé el primero del ranking' : 'Be the first on the board'}
+          </Link>
+        </section>
+      )}
+
       {isWeekly && entries === null && (
         <section className="surface-card mt-6 p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -325,29 +345,33 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
-      {!isFriends && entries !== null && !currentEntry && (!isWeekly || !currentUser) && (
-        <section className="surface-card mt-10 p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="eyebrow">{locale === 'es' ? 'Tu puesto' : 'Your rank'}</p>
-              <h2 className="text-text-primary mt-2 text-2xl font-semibold">
-                {locale === 'es'
-                  ? 'Inicia sesión para ver dónde caes.'
-                  : 'Sign in to see where you land.'}
-              </h2>
+      {!isFriends &&
+        entries !== null &&
+        entries.length > 0 &&
+        !currentEntry &&
+        (!isWeekly || !currentUser) && (
+          <section className="surface-card mt-10 p-6">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="eyebrow">{locale === 'es' ? 'Tu puesto' : 'Your rank'}</p>
+                <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                  {locale === 'es'
+                    ? 'Inicia sesión para ver dónde caes.'
+                    : 'Sign in to see where you land.'}
+                </h2>
+              </div>
+              <Link
+                href={localizeHref(
+                  locale,
+                  `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
+                )}
+                className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
+              >
+                {locale === 'es' ? 'Entrar' : 'Sign in'}
+              </Link>
             </div>
-            <Link
-              href={localizeHref(
-                locale,
-                `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
-              )}
-              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
-            >
-              {locale === 'es' ? 'Entrar' : 'Sign in'}
-            </Link>
-          </div>
-        </section>
-      )}
+          </section>
+        )}
     </main>
   );
 }

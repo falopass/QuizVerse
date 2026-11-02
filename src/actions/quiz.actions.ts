@@ -282,7 +282,9 @@ export async function submitQuizResult(
       : null,
     score: scored.score,
     max_score: scored.maxScore,
-    points_earned: pointsFor(scored.perfect),
+    // El trigger award_quiz_points solo corre con player_id: una partida
+    // anónima no otorga nada y la respuesta debe decir lo mismo.
+    points_earned: user ? pointsFor(scored.perfect) : 0,
     achievements_unlocked: await checkAchievements(user?.id ?? null, {
       perfectScore: scored.perfect,
     }),
