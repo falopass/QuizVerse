@@ -279,7 +279,9 @@ function collectKnownSlugs(seed) {
   const seedDir = path.join(rootDir, 'scripts', 'seed');
   for (const file of fs.readdirSync(seedDir)) {
     if (!/^editorial-seed.*\.json$/.test(file)) continue;
-    const data = readJson(path.join(seedDir, file), null);
+    // Estricto a propósito: un lote ilegible no puede encoger el universo de
+    // slugs y dejar que la poda borre portadas que sí existen.
+    const data = JSON.parse(fs.readFileSync(path.join(seedDir, file), 'utf8'));
     const items = Array.isArray(data) ? data : (data?.quizzes ?? []);
     for (const quiz of items) {
       if (quiz?.slug) slugs.add(quiz.slug);
@@ -493,8 +495,10 @@ function resetToProcedural(quiz) {
 }
 
 async function main() {
-  const seed = readJson(seedPath, []);
-  const manifest = shouldRefresh ? {} : readJson(manifestPath, {});
+  // El seed alimenta la poda: si no se puede leer, abortar antes de escribir
+  // un manifest mutilado (readJson tragaría el error con []).
+  const seed = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+  const manifest = shouldRefresh && !pruneOnly ? {} : readJson(manifestPath, {});
   const nextSeed = [...seed];
   const knownSlugs = collectKnownSlugs(nextSeed);
   const report = {
