@@ -13,7 +13,9 @@ const mocks = vi.hoisted(() => ({
   quizResult: { data: null as { id?: string; creator_id?: string } | null },
   profileResult: { data: null as { is_admin?: boolean } | null },
   commentRow: {
-    data: null as {
+    data: null,
+  } as {
+    data: {
       id: string;
       user_id: string;
       quiz_id: string;
@@ -24,7 +26,8 @@ const mocks = vi.hoisted(() => ({
         display_name: string | null;
         avatar_url: string | null;
       } | null;
-    } | null,
+    } | null;
+    error?: { message: string } | null;
   },
   hiddenRows: { data: [] as { id: string; hidden_at: string }[] | null },
   deleteSpy: vi.fn(),
@@ -305,6 +308,13 @@ describe('getQuizComments', () => {
     };
 
     expect((await getQuizComments(QUIZ_ID, COMMENT_ID)).comments).toEqual([]);
+  });
+
+  it('rechaza si falla la consulta del comentario anclado, para ofrecer reintento', async () => {
+    mocks.selectResult = { data: [], count: 60, error: null };
+    mocks.commentRow = { data: null, error: { message: 'boom' } };
+
+    await expect(getQuizComments(QUIZ_ID, COMMENT_ID)).rejects.toMatchObject({ message: 'boom' });
   });
 
   it('ignora un ancla que no es uuid sin consultarla', async () => {

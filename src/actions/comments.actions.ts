@@ -170,11 +170,14 @@ export async function getQuizComments(
 
   const comments = [...data];
   if (anchor?.success && !comments.some((row) => row.id === anchor.data)) {
-    const { data: anchored } = await supabase
+    const { data: anchored, error: anchorError } = await supabase
       .from('quiz_comments')
       .select(COMMENT_SELECT)
       .eq('id', anchor.data)
       .maybeSingle();
+    // `null` sin error es el caso normal (no existe o la RLS no lo muestra);
+    // un fallo real rechaza para que la ficha ofrezca reintento.
+    if (anchorError) throw anchorError;
     if (anchored?.quiz_id === parsed.data) comments.push(anchored);
   }
 
