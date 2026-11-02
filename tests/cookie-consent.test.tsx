@@ -8,7 +8,11 @@ vi.mock('next/navigation', () => ({
   usePathname: () => mocks.pathname,
 }));
 
-import { CONSENT_KEY, CookieConsentBanner } from '@/components/shared/cookie-consent';
+import {
+  CONSENT_KEY,
+  COOKIE_PREFERENCES_EVENT,
+  CookieConsentBanner,
+} from '@/components/shared/cookie-consent';
 
 beforeEach(() => {
   localStorage.clear();
@@ -105,6 +109,26 @@ describe('CookieConsentBanner con transiciones CSS', () => {
     fireEvent.animationEnd(container.querySelector('.cookie-consent-banner') as Element);
     expect(container).toBeEmptyDOMElement();
     window.removeEventListener('quizverse:consent', listener);
+  });
+
+  it('reabre el banner con consentimiento guardado al pedir preferencias', () => {
+    localStorage.setItem(
+      CONSENT_KEY,
+      JSON.stringify({ level: 'essential', version: 1, timestamp: Date.now() })
+    );
+
+    const { container } = render(<CookieConsentBanner />);
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+    expect(container).toBeEmptyDOMElement();
+
+    act(() => {
+      window.dispatchEvent(new CustomEvent(COOKIE_PREFERENCES_EVENT));
+    });
+
+    expect(container.querySelector('.cookie-consent-banner')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Aceptar todo' })).toBeInTheDocument();
   });
 
   it('el fin de la animación de entrada no desmonta el banner', () => {

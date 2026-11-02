@@ -300,8 +300,20 @@ select {
   text-transform: uppercase;
 }
 .arcade-nav-link:hover,
-.arcade-footer a:hover {
+.arcade-footer a:hover,
+.arcade-footer nav button:hover {
   color: var(--accent-primary);
+}
+/* El botón de preferencias de cookies se ve como un enlace más del pie. */
+.arcade-footer nav button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
 }
 .arcade-nav label > span {
   position: absolute;
@@ -1604,7 +1616,8 @@ body:has(.arcade-result) .cookie-consent-banner {
 /* Block 3: touch targets, compact mobile play, and unobstructed consent. */
 .arcade-logo,
 .arcade-nav-link,
-.arcade-footer nav a {
+.arcade-footer nav a,
+.arcade-footer nav button {
   display: inline-flex;
   align-items: center;
   min-height: 44px;

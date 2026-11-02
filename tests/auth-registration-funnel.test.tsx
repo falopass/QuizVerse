@@ -126,7 +126,7 @@ describe('email_not_confirmed en el login ofrece reenvío', () => {
     mocks.signInAction.mockResolvedValue({ ok: false, code: 'email_not_confirmed' });
     render(<LoginForm locale="es" redirectTo="/es" />);
 
-    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'a@b.com' } });
+    fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: 'a@b.com' } });
     fireEvent.change(screen.getByLabelText(/contraseña/i), { target: { value: 'x'.repeat(9) } });
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }));
 

@@ -26,7 +26,7 @@ import { RegisterForm } from '@/components/auth/register-form';
 import { ForgotPasswordForm } from '@/components/auth/forgot-password-form';
 
 const REGISTER_LABELS = {
-  email: 'Email',
+  email: 'Correo electrónico',
   password: 'Contraseña',
   name: 'Nombre',
   submit: 'Crear cuenta',
@@ -43,7 +43,7 @@ beforeEach(() => {
 describe('LoginForm', () => {
   function fillAndSubmit(email = 'a@x.com', password = 'clave') {
     render(<LoginForm locale="es" redirectTo="/es/home" />);
-    fireEvent.change(screen.getByLabelText('Email'), { target: { value: email } });
+    fireEvent.change(screen.getByLabelText('Correo electrónico'), { target: { value: email } });
     fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: password } });
     fireEvent.click(screen.getByRole('button', { name: 'Entrar' }));
   }
@@ -63,7 +63,7 @@ describe('LoginForm', () => {
 
     await waitFor(() =>
       expect(screen.getByRole('alert')).toHaveTextContent(
-        'El email o la contraseña no son correctos.'
+        'El correo o la contraseña no son correctos.'
       )
     );
     expect(mocks.push).not.toHaveBeenCalled();
@@ -74,7 +74,7 @@ describe('RegisterForm', () => {
   function fillAndSubmit() {
     render(<RegisterForm labels={REGISTER_LABELS} redirectTo="/es/home" locale="es" />);
     fireEvent.change(screen.getByLabelText('Nombre'), { target: { value: 'Diego' } });
-    fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'a@x.com' } });
+    fireEvent.change(screen.getByLabelText('Correo electrónico'), { target: { value: 'a@x.com' } });
     fireEvent.change(screen.getByLabelText('Contraseña'), {
       target: { value: 'claveSegura1' },
     });
@@ -100,7 +100,7 @@ describe('RegisterForm', () => {
 
     await waitFor(() =>
       expect(screen.getByRole('alert')).toHaveTextContent(
-        'Ese email ya tiene cuenta. Inicia sesión.'
+        'Ese correo ya tiene cuenta. Inicia sesión.'
       )
     );
     expect(mocks.push).not.toHaveBeenCalled();
@@ -130,7 +130,7 @@ describe('ForgotPasswordForm', () => {
     fillAndSubmit('mal');
 
     await waitFor(() =>
-      expect(screen.getByRole('alert')).toHaveTextContent('Ingresa un email válido.')
+      expect(screen.getByRole('alert')).toHaveTextContent('Ingresa un correo válido.')
     );
   });
 

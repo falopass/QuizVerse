@@ -110,12 +110,12 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
       title: 'Anime & manga: from VHS classics to this season',
       intro: [
         'The lineup crosses generations: Dragon Ball, Sailor Moon, Evangelion and Fullmetal Alchemist sit next to My Hero Academia, Jujutsu Kaisen, Solo Leveling, Haikyuu, Blue Lock, Tokyo Revengers and Dandadan, plus Studio Ghibli, Death Note and Bleach. Every series gets its own round, with questions on arcs, characters, techniques and the moments its fandom never stops quoting.',
-        'The appeal is that you only face what you know: go in through your series and nobody quizzes you on an anime you never watched. Rounds run from the obvious to per-season detail, and in Survival mode one wrong answer ends the run, so a perfect score on your favourite show is bragging you can actually back up with a shared link.',
+        'The appeal is that you only face what you know: go in through your series and nobody quizzes you on an anime you never watched. Rounds run from the obvious to per-season detail, and in Survival mode one wrong answer ends the run, so a perfect score on your favorite show is bragging you can actually back up with a shared link.',
       ],
       howTo: [
         'Go in through your series: each anime has rounds dedicated to its story.',
         'Answer with instant verdicts; in Survival, one mistake ends everything.',
-        'Share your result and challenge the friend who memorised the manga.',
+        'Share your result and challenge the friend who memorized the manga.',
       ],
       closing: 'The best-protagonist debate gets won here with right answers.',
     },
@@ -165,7 +165,7 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     en: {
       title: 'Music: by artist, scene and era',
       intro: [
-        'The catalogue is organised by artists and scenes rather than closed decades. There are Latin icons — Luis Miguel, Juan Gabriel, Selena, Shakira, Karol G, J Balvin, Peso Pluma, Rosalía — a rock shelf with Queen, The Beatles, The Rolling Stones, Nirvana, Metallica and Elvis, the pop of Michael Jackson, Madonna, ABBA and Coldplay, K-pop with BTS and BLACKPINK, and stops at classical music and the 90s.',
+        'The catalog is organized by artists and scenes rather than closed decades. There are Latin icons — Luis Miguel, Juan Gabriel, Selena, Shakira, Karol G, J Balvin, Peso Pluma, Rosalía — a rock shelf with Queen, The Beatles, The Rolling Stones, Nirvana, Metallica and Elvis, the pop of Michael Jackson, Madonna, ABBA and Coldplay, K-pop with BTS and BLACKPINK, and stops at classical music and the 90s.',
         'Everything is asked in writing: albums, eras, tours, records and career moments, so you can play silently anywhere. Since each artist has their own round, this is fertile ground for the usual fight over who is the bigger fan, and the challenge link on the result screen settles it by showing your score before the other person plays.',
       ],
       howTo: [
@@ -305,7 +305,7 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     en: {
       title: 'Literature: between books and readers',
       intro: [
-        'This is the corner for books: the place that measures what stayed from your reading — works, authors, genres and the worlds that only exist on paper — and where tests read the reader on the other side of the page. Project Hail Mary already sits in the catalogue: how deep your knowledge of the novel goes, which role you would play inside it and which of its energies matches you best, next to a test that uncovers your true reading personality.',
+        'This is the corner for books: the place that measures what stayed from your reading — works, authors, genres and the worlds that only exist on paper — and where tests read the reader on the other side of the page. Project Hail Mary already sits in the catalog: how deep your knowledge of the novel goes, which role you would play inside it and which of its energies matches you best, next to a test that uncovers your true reading personality.',
         'The trivia side rewards memory with one correct answer and an instant verdict; the tests have no possible mistakes and hand back a profile written to be compared. Everything plays free, as a guest and in a few minutes, with the result link ready to send as a challenge to whoever brags about reading more.',
       ],
       howTo: [
@@ -417,8 +417,8 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     en: {
       title: 'Science: from the lab to orbit',
       intro: [
-        'The lab section: the place dedicated to measuring how much you know about the body, matter, the cosmos and the inventions that changed everything. The space-exploration 2020–2026 round is already in the catalogue, with the missions and milestones the decade left in orbit, alongside a test on how you cope with climate anxiety. It is hard-fact ground, so every question plays to a single correct answer.',
-        'Science plays here like everywhere else on the site: single-answer trivia with an immediate verdict — and an explanation in Practice mode when the question carries one — free and without signup. Ideal for the friend who insists they know science and never put it to the test. The section keeps adding themed rounds, like the rest of the catalogue.',
+        'The lab section: the place dedicated to measuring how much you know about the body, matter, the cosmos and the inventions that changed everything. The space-exploration 2020–2026 round is already in the catalog, with the missions and milestones the decade left in orbit, alongside a test on how you cope with climate anxiety. It is hard-fact ground, so every question plays to a single correct answer.',
+        'Science plays here like everywhere else on the site: single-answer trivia with an immediate verdict — and an explanation in Practice mode when the question carries one — free and without signup. Ideal for the friend who insists they know science and never put it to the test. The section keeps adding themed rounds, like the rest of the catalog.',
       ],
       howTo: [
         'Enter the round on the topic you master — or want to learn.',
@@ -445,7 +445,7 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
     en: {
       title: 'Animals: the wild world and the one at home',
       intro: [
-        'The animal kingdom corner: the section dedicated to species, their behaviour, their records and the relationship we keep with them — from the wild side to the sofa at home. Its first resident is a test that reads what kind of pet owner you are, available in English and Spanish, and it works as the front door to a section that grows by theme like the rest of the catalogue.',
+        'The animal kingdom corner: the section dedicated to species, their behavior, their records and the relationship we keep with them — from the wild side to the sofa at home. Its first resident is a test that reads what kind of pet owner you are, available in English and Spanish, and it works as the front door to a section that grows by theme like the rest of the catalog.',
         'In the tests there are no wrong answers: every option pushes toward a profile and the full pattern of your answers becomes the result, written to be compared in the group. It plays free, as a guest and in a few minutes; the result link shows your profile before the other person starts, so measuring yourself against other owners takes no effort.',
       ],
       howTo: [
@@ -474,7 +474,7 @@ export const HUB_GUIDES: Record<string, Record<Locale, HubGuide>> = {
       title: 'Geography: capitals, oceans and extremes',
       intro: [
         "The map section: the territory of countries, capitals, oceans and the planet's extremes, measured in single-answer questions. Its published round is the world-geography trivia — capitals, oceans and extremes — a quick pass over what the map should leave in the head of whoever travels it.",
-        'This is pure memory trivia, the kind most argued in a group: everyone believes they can place a country until question eight says otherwise. The verdict lands after each answer, playing is free with no signup, and the result is shared as proof before the other person tries to beat it. The section keeps adding themed rounds like the rest of the catalogue: the map punishes confidence, which is exactly what makes it fun.',
+        'This is pure memory trivia, the kind most argued in a group: everyone believes they can place a country until question eight says otherwise. The verdict lands after each answer, playing is free with no signup, and the result is shared as proof before the other person tries to beat it. The section keeps adding themed rounds like the rest of the catalog: the map punishes confidence, which is exactly what makes it fun.',
       ],
       howTo: [
         'Enter the world-geography round.',

@@ -357,7 +357,7 @@ describe('generateCategoryMetadata', () => {
     });
 
     expect(en.title).toBe('Movies: 7 quizzes to play');
-    expect(es.title).toBe('Cine: 7 quizzes online');
+    expect(es.title).toBe('Cine: 7 quizzes para jugar');
   });
 
   it('falls back to a count-less title', () => {

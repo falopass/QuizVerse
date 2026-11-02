@@ -25,7 +25,7 @@ import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/type
 import type { Database } from '@/types/database';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
-  /** Set by the AI assistant so the catalogue can flag generated drafts. */
+  /** Set by the AI assistant so the catalog can flag generated drafts. */
   is_ai_generated: z.boolean().optional().default(false),
 });
 

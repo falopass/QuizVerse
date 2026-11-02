@@ -153,18 +153,35 @@ describe('LocalizedCategoryPage · render', () => {
     expect(screen.queryByText(LIFESTYLE.description!)).not.toBeInTheDocument();
   });
 
-  it('pinta la guía editorial: intro y FAQ salen de getCategoryGuide', async () => {
+  it('con guía de hub no repite la intro genérica y sí pinta la FAQ', async () => {
     dbMocks.getCategoryPayload.mockResolvedValue(payload());
 
     await renderPage();
 
     const guide = getCategoryGuide('movies-tv', 'es', 'Cine y televisión', 2);
     for (const paragraph of guide.intro) {
-      expect(screen.getByText(paragraph)).toBeInTheDocument();
+      expect(screen.queryByText(paragraph)).not.toBeInTheDocument();
     }
     for (const item of guide.faq) {
       expect(screen.getByRole('heading', { level: 3, name: item.question })).toBeInTheDocument();
       expect(screen.getByText(item.answer)).toBeInTheDocument();
+    }
+  });
+
+  it('sin guía de hub pinta la intro genérica de getCategoryGuide', async () => {
+    const other = category('otros', 'Varios');
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ category: other, categories: [other, ANIME, GAMING] })
+    );
+
+    await renderPage('otros', 'es');
+
+    const guide = getCategoryGuide('otros', 'es', 'Varios', 2);
+    for (const paragraph of guide.intro) {
+      expect(screen.getByText(paragraph)).toBeInTheDocument();
+    }
+    for (const item of guide.faq) {
+      expect(screen.getByRole('heading', { level: 3, name: item.question })).toBeInTheDocument();
     }
   });
 

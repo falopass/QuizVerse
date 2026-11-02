@@ -26,13 +26,13 @@ const pages = [
   {
     name: 'privacy',
     component: PrivacyPage,
-    esTitle: 'Política de Privacidad',
+    esTitle: 'Política de privacidad',
     enTitle: 'Privacy Policy',
   },
   {
     name: 'terms',
     component: TermsPage,
-    esTitle: 'Términos de Servicio',
+    esTitle: 'Términos de servicio',
     enTitle: 'Terms of Service',
   },
 ] as const;

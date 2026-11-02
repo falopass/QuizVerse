@@ -7,7 +7,7 @@ const MESSAGES: Record<AuthErrorCode | 'ok', Copy> = {
   ok: { en: 'Done.', es: 'Listo.' },
   invalid_input: {
     en: 'Check the email and the password (8 characters minimum).',
-    es: 'Revisa el email y la contraseña (mínimo 8 caracteres).',
+    es: 'Revisa el correo y la contraseña (mínimo 8 caracteres).',
   },
   rate_limited: {
     en: 'Too many attempts. Wait a minute and try again.',
@@ -15,15 +15,15 @@ const MESSAGES: Record<AuthErrorCode | 'ok', Copy> = {
   },
   email_taken: {
     en: 'That email already has an account. Sign in instead.',
-    es: 'Ese email ya tiene cuenta. Inicia sesión.',
+    es: 'Ese correo ya tiene cuenta. Inicia sesión.',
   },
   invalid_credentials: {
     en: 'Email or password is not correct.',
-    es: 'El email o la contraseña no son correctos.',
+    es: 'El correo o la contraseña no son correctos.',
   },
   email_not_confirmed: {
     en: 'Confirm your email before signing in.',
-    es: 'Confirma tu email antes de entrar.',
+    es: 'Confirma tu correo antes de entrar.',
   },
   weak_password: {
     en: 'Choose a stronger password.',

@@ -62,12 +62,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 Construimos una plataforma bilingüe que prioriza la calidad del catálogo, la
                 experiencia de juego pulida y un sistema de diseño con identidad propia. Cada quiz
                 pasa por un pipeline editorial que incluye generación con IA, curaduría humana,
-                polish de copys, asignación de portadas y validación de estructura.
+                pulido de textos, asignación de portadas y validación de estructura.
               </p>
               <p>
-                Nuestro motor soporta formatos de trivia, personalidad y encuestas, con scoring
-                inteligente, streaks, power-ups y resultados compartibles. Todo corre sobre Next.js,
-                Supabase y DeepSeek, con un stack moderno pensado para escalar.
+                Nuestro motor soporta formatos de trivia, personalidad y encuestas, con puntuación
+                inteligente, rachas, potenciadores y resultados compartibles. Todo corre sobre
+                Next.js, Supabase y DeepSeek, con un stack moderno pensado para escalar.
               </p>
               <p>
                 QuizVerse es un producto editorial bilingüe, orientado al descubrimiento y diseñado

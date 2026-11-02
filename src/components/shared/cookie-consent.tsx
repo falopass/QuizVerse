@@ -40,6 +40,9 @@ export function getConsentLevel(): ConsentLevel {
   return stored?.level ?? 'none';
 }
 
+/** Evento que reabre el banner (enlace «Preferencias de cookies» del footer). */
+export const COOKIE_PREFERENCES_EVENT = 'quizverse:cookie-preferences';
+
 export function hasAnalyticsConsent(): boolean {
   return getConsentLevel() === 'all';
 }
@@ -71,6 +74,15 @@ export function CookieConsentBanner() {
       const timer = setTimeout(() => setVisible(true), 800);
       return () => clearTimeout(timer);
     }
+  }, []);
+
+  useEffect(() => {
+    const reopen = () => {
+      setExiting(false);
+      setVisible(true);
+    };
+    window.addEventListener(COOKIE_PREFERENCES_EVENT, reopen);
+    return () => window.removeEventListener(COOKIE_PREFERENCES_EVENT, reopen);
   }, []);
 
   const dismiss = useCallback(

@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
   return buildMetadata({
-    title: lang === 'es' ? 'Términos de Servicio' : 'Terms of Service',
+    title: lang === 'es' ? 'Términos de servicio' : 'Terms of Service',
     description:
       lang === 'es'
         ? 'Términos y condiciones de uso de la plataforma QuizVerse: cuentas, contenido enviado y uso aceptable.'
@@ -28,14 +28,14 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
   const lang = hasLocale(locale) ? locale : 'en';
 
   const content = {
-    title: { en: 'Terms of Service', es: 'Términos de Servicio' },
+    title: { en: 'Terms of Service', es: 'Términos de servicio' },
     lastUpdated: { en: 'Last updated: May 2026', es: 'Última actualización: mayo 2026' },
     sections: [
       {
         heading: { en: '1. Acceptance of Terms', es: '1. Aceptación de los términos' },
         body: {
           en: 'By accessing or using QuizVerse, you agree to be bound by these Terms of Service. If you do not agree, do not use the platform.',
-          es: 'Al acceder o usar QuizVerse, aceptas estos Términos de Servicio. Si no estás de acuerdo, no uses la plataforma.',
+          es: 'Al acceder o usar QuizVerse, aceptas estos términos de servicio. Si no estás de acuerdo, no uses la plataforma.',
         },
       },
       {
@@ -56,14 +56,14 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
         heading: { en: '4. Prohibited Conduct', es: '4. Conducta prohibida' },
         body: {
           en: 'You may not: upload illegal content, harass or impersonate others, attempt to breach platform security, use automated tools to scrape or overload the platform, or violate any applicable laws.',
-          es: 'No puedes: subir contenido ilegal, acosar o suplantar a otros, intentar vulnerar la seguridad de la plataforma, usar herramientas automatizadas para raspar o sobrecargar la plataforma, o violar leyes aplicables.',
+          es: 'No puedes: subir contenido ilegal, acosar o suplantar a otros, intentar vulnerar la seguridad de la plataforma, usar herramientas automatizadas para extraer contenido o sobrecargar la plataforma, o violar leyes aplicables.',
         },
       },
       {
         heading: { en: '5. Intellectual Property', es: '5. Propiedad intelectual' },
         body: {
           en: 'The QuizVerse brand, design system, and platform code are our intellectual property. Quiz covers may use stock imagery under license from Pexels and Pixabay. AI-generated quiz content is created using DeepSeek.',
-          es: 'La marca QuizVerse, el sistema de diseño y el código de la plataforma son de nuestra propiedad intelectual. Las portadas de quizzes pueden usar imágenes de stock bajo licencia de Pexels y Pixabay. El contenido generado por IA se crea usando DeepSeek.',
+          es: 'La marca QuizVerse, el sistema de diseño y el código de la plataforma son de nuestra propiedad intelectual. Las portadas de quizzes pueden usar imágenes de archivo bajo licencia de Pexels y Pixabay. El contenido generado por IA se crea usando DeepSeek.',
         },
       },
       {

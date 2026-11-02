@@ -77,7 +77,7 @@ export const CATEGORY_GUIDES: Record<string, Record<Locale, CategoryGuide>> = {
     en: {
       intro: [
         'The anime and manga section is built around series with active fandoms: Attack on Titan, Jujutsu Kaisen, Solo Leveling, Witch Hat Atelier and more. Each one usually gets a knowledge test on its story and characters, plus a quiz that matches you with the energy or role of its cast.',
-        'It is the second largest category on the site, and the Spanish catalogue at /es has its own anime quizzes written in Spanish. If you know a series well, Survival mode ends the run at the first wrong answer.',
+        'It is the second largest category on the site, and the Spanish catalog at /es has its own anime quizzes written in Spanish. If you know a series well, Survival mode ends the run at the first wrong answer.',
       ],
       faq: [
         {
@@ -93,7 +93,7 @@ export const CATEGORY_GUIDES: Record<string, Record<Locale, CategoryGuide>> = {
         {
           question: 'Are there anime quizzes in Spanish?',
           answer:
-            'Yes. The /es catalogue has anime quizzes with titles, questions and results written in Spanish.',
+            'Yes. The /es catalog has anime quizzes with titles, questions and results written in Spanish.',
         },
         {
           question: 'What do I get at the end of an anime personality quiz?',
@@ -192,7 +192,7 @@ export const CATEGORY_GUIDES: Record<string, Record<Locale, CategoryGuide>> = {
   music: {
     en: {
       intro: [
-        'The music section is organised by artist and scene rather than by decade. Taylor Swift, Sabrina Carpenter and K-pop each have several quizzes: fan trivia about eras, albums and career moments, and personality quizzes that match you with an era, a role or the energy of the act.',
+        'The music section is organized by artist and scene rather than by decade. Taylor Swift, Sabrina Carpenter and K-pop each have several quizzes: fan trivia about eras, albums and career moments, and personality quizzes that match you with an era, a role or the energy of the act.',
         'There are no song clips. Every question is written, so you can play on mute on the bus. Once you finish a trivia round you can send a challenge link to the friend who claims to be the bigger fan and see who wins.',
       ],
       faq: [
@@ -272,7 +272,7 @@ export const CATEGORY_GUIDES: Record<string, Record<Locale, CategoryGuide>> = {
         {
           question: 'Do I need an account to take these quizzes?',
           answer:
-            'No. You can play as a guest. An account only adds points, streaks and a place to keep your favourite results.',
+            'No. You can play as a guest. An account only adds points and a place to keep your favorite results.',
         },
       ],
     },
@@ -300,7 +300,7 @@ export const CATEGORY_GUIDES: Record<string, Record<Locale, CategoryGuide>> = {
         {
           question: '¿Necesito una cuenta para jugar?',
           answer:
-            'No. Puedes jugar como invitado. La cuenta solo suma puntos, rachas y un lugar para guardar tus resultados favoritos.',
+            'No. Puedes jugar como invitado. La cuenta solo suma puntos y un lugar para guardar tus resultados favoritos.',
         },
       ],
     },
@@ -624,7 +624,7 @@ export function getCategoryGuide(
   return es
     ? {
         intro: [
-          `${name} reúne ${count} ${count === 1 ? 'quiz' : 'quizzes'} en español. ${type} Todos tienen unas ocho preguntas y se juega en pocos minutos, desde el navegador.`,
+          `${name} reúne ${count} ${count === 1 ? 'quiz' : 'quizzes'} en español. ${type} Todos tienen unas ocho preguntas y se juegan en pocos minutos desde el navegador.`,
           'Puedes jugar como invitado, sin registro. Al terminar obtienes un enlace con tu resultado para compartirlo o retar a alguien a superarlo.',
         ],
         faq: [

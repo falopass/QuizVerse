@@ -12,7 +12,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 
 const COPY = {
   es: {
-    email: 'Email',
+    email: 'Correo electrónico',
     password: 'Contraseña',
     submit: 'Entrar',
     submitting: 'Entrando…',
