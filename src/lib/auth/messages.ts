@@ -33,6 +33,10 @@ const MESSAGES: Record<AuthErrorCode | 'ok', Copy> = {
     en: 'Your session expired; sign in again.',
     es: 'Tu sesión caducó; inicia sesión de nuevo.',
   },
+  provider_disabled: {
+    en: 'That sign-in method is not available right now.',
+    es: 'Ese método de acceso no está disponible por ahora.',
+  },
   unexpected: {
     en: 'Something went wrong. Try again in a moment.',
     es: 'Algo salió mal. Inténtalo de nuevo en un momento.',

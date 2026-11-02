@@ -14,6 +14,6 @@ description: Sube el trabajo de QuizVerse en una rama propia y abre o actualiza 
    - Verificación: comandos corridos y resultado; lo no verificado, dicho como tal.
    - Impacto en SEO (`hreflang`, `canonical`, `noindex`, sitemap) o en puntuación, si aplica.
 6. Espera el CI con `gh pr checks --watch` y revisa la preview de Workers Builds (Cloudflare).
-7. No mergees y no ejecutes `gh pr merge`: el merge lo decide el dueño.
+7. Con los checks en verde, mergea tú mismo el PR (`gh pr merge`): ese merge es el deploy a producción. Nunca despliegues a mano.
 
 Cierra tu respuesta con el enlace del PR y una línea `RESULTADO:`.

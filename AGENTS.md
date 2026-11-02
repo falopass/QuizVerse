@@ -12,12 +12,12 @@ This project is developed on a single personal machine, and also worked on by Cl
 
 ## Workflow rules
 
-- **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; the owner authorizes the merge.
+- **Never push directly to `main`.** One branch per feature/fix (`type/short-name`) + Pull Request; you merge it yourself once checks are green — no per-merge owner approval needed.
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (it is no longer production; it belongs to the owner).
 - Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
-- If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge only when the owner asks for it or approves it, with CI green; never on your own initiative. Never deploy.
+- If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge the PR yourself once the checks are green — that merge IS the production deploy; the owner reviews merged work afterwards. Never deploy by hand.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 - There is no `CHANGELOG.md`. Changes are documented in each PR description; do not create the file or ask for one.
 
@@ -137,13 +137,13 @@ El navegador nunca decide una puntuación. Manda **qué eligió**; el servidor
 decide cuánto vale.
 
 | Módulo                             | Responsabilidad                                                                                                    |
-| :--------------------------------- | :----------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| :--------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `src/lib/quiz/answer-key.ts`       | Clave de respuestas: `evaluateAnswer`, `eliminateWrongOptions`, `toClientQuiz` (quita `is_correct`), `buildReview` |
 | `src/lib/quiz/submission.ts`       | Zod del envío + `scoreSubmission` (trivia por aciertos, personality por tag dominante) + `pointsFor`               |
 | `src/lib/quiz/quiz-repository.ts`  | Única puerta a la clave: carga el quiz publicado por id                                                            |
 | `src/app/api/quiz/reveal/route.ts` | `POST` por pregunta: veredicto o pista 50/50. Rate limit por IP                                                    |
 | `src/actions/quiz.actions.ts`      | Orquestación fina: auth → Zod → dominio → persistir → revalidate                                                   |
-| `src/lib/actions/types.ts`         | Contrato `ActionResult` (`{ success: true }                                                                        | { success: false, code, error }`) |
+| `src/lib/actions/types.ts`         | Contrato `ActionResult` (`{ success: true } \| { success: false, code, error }`)                                   |
 | `src/lib/quiz/quiz-slug.ts`        | Slugs ASCII con prefijo de idioma y colisión resuelta por sufijo                                                   |
 
 Reglas:
