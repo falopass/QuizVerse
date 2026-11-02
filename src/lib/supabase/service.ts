@@ -3,12 +3,13 @@
  *
  * La migración 015 mueve la clave de respuestas a `quiz_answer_keys`, tabla
  * que solo service_role puede leer. Este cliente existe para esa lectura y
- * nada más: no se usa para lecturas públicas ni se expone a componentes
- * cliente.
+ * para el borrado de cuentas (`auth.admin`, que no vive en el cliente SSR);
+ * no se usa para lecturas públicas ni se expone a componentes cliente.
  *
  * Devuelve `null` cuando la variable no está configurada (deploys anteriores
- * a la clave): el llamador cae al cliente SSR normal, que es lo correcto en
- * los estados donde la migración aún no se aplica.
+ * a la clave). El lector de claves cae entonces al cliente SSR normal, que es
+ * lo correcto mientras la migración no se aplica; el borrado de cuentas falla
+ * con un código `unavailable`, porque `auth.admin` no existe sin service role.
  */
 
 import 'server-only';

@@ -29,7 +29,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
   const content = {
     title: { en: 'Terms of Service', es: 'Términos de servicio' },
-    lastUpdated: { en: 'Last updated: May 2026', es: 'Última actualización: mayo 2026' },
+    lastUpdated: { en: 'Last updated: November 2026', es: 'Última actualización: noviembre 2026' },
     sections: [
       {
         heading: { en: '1. Acceptance of Terms', es: '1. Aceptación de los términos' },
@@ -69,8 +69,8 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
       {
         heading: { en: '6. Termination', es: '6. Terminación' },
         body: {
-          en: 'We reserve the right to suspend or terminate accounts that violate these terms. You may delete your account at any time through your profile settings or by contacting us.',
-          es: 'Nos reservamos el derecho de suspender o cancelar cuentas que violen estos términos. Puedes eliminar tu cuenta en cualquier momento desde la configuración de perfil o contactándonos.',
+          en: 'We reserve the right to suspend or terminate accounts that violate these terms. You can delete your account at any time from Settings → Delete account. Deletion removes your profile, comments, likes, follows, notifications and achievements, anonymizes your game sessions, and keeps quizzes you published under the author “Deleted account”, because other players may still be playing them. Deletion is immediate and cannot be undone. If you cannot sign in, contact us at hello@quizverse.org.',
+          es: 'Nos reservamos el derecho de suspender o cancelar cuentas que violen estos términos. Puedes eliminar tu cuenta en cualquier momento desde Ajustes → Eliminar mi cuenta. El borrado elimina tu perfil, comentarios, me gusta, seguidores, notificaciones y logros, anonimiza tus partidas y conserva los quizzes que publicaste con el autor «Cuenta eliminada», porque otras personas pueden seguir jugándolos. El borrado es inmediato y no se puede deshacer. Si no puedes iniciar sesión, escríbenos a hello@quizverse.org.',
         },
       },
       {

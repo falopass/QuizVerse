@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { UpdatePasswordForm } from '@/components/auth/update-password-form';
+import { DeleteAccountZone } from '@/components/profile/delete-account-zone';
 import { SettingsForm } from '@/components/profile/settings-form';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -126,6 +127,13 @@ export default async function LocalizedSettingsPage({
           <UpdatePasswordForm locale={locale} mode="settings" requireCurrent={hasEmailIdentity} />
         </div>
       </div>
+
+      <DeleteAccountZone
+        locale={locale}
+        hasEmailIdentity={hasEmailIdentity}
+        confirmationTarget={profile?.username ?? user.email ?? ''}
+        available={Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY)}
+      />
     </div>
   );
 }
