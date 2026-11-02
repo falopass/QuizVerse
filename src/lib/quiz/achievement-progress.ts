@@ -72,3 +72,23 @@ export function achievementProgress(
       return null;
   }
 }
+
+/**
+ * Logros cuyo contador ya cumple la meta pero que el jugador no tiene: los que
+ * alcanzó antes de aplicar la 018 o cuyo desbloqueo no llegó a correr. Sin
+ * esto, la tarjeta diría «50/50» y «Bloqueado» a la vez.
+ *
+ * Solo lectura: quien los concede es la acción `reconcileAchievements`, nunca
+ * el render de la página.
+ */
+export function pendingAchievements(
+  catalog: Achievement[],
+  ownedIds: ReadonlySet<string>,
+  stats: AchievementStats
+): Achievement[] {
+  return catalog.filter((achievement) => {
+    if (HIDDEN_ACHIEVEMENT_IDS.has(achievement.id) || ownedIds.has(achievement.id)) return false;
+    const progress = achievementProgress(achievement, stats);
+    return progress !== null && progress.current >= progress.target;
+  });
+}

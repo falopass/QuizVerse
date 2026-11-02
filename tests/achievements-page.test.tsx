@@ -29,6 +29,10 @@ vi.mock('next/navigation', () => ({
   }),
 }));
 
+vi.mock('@/components/quiz/achievement-reconciler', () => ({
+  AchievementReconciler: () => <div data-testid="achievement-reconciler" />,
+}));
+
 import AchievementsPage from '@/app/[locale]/achievements/page';
 
 const USER = { id: 'user-1' };
@@ -158,7 +162,7 @@ describe('página /achievements', () => {
     expect(screen.getAllByText('Bloqueado')).toHaveLength(6);
   });
 
-  it('concede con el RPC un logro cuyo contador ya cumple la meta', async () => {
+  it('no escribe durante el render: delega en la acción del cliente', async () => {
     mocks.profileMaybeSingle.mockResolvedValue({
       data: {
         points: 0,
@@ -170,15 +174,28 @@ describe('página /achievements', () => {
       error: null,
     });
     mocks.unlockedOrder.mockResolvedValue({ data: [], error: null });
-    mocks.unlockResult = true;
 
     render(await AchievementsPage(props('es')));
 
-    expect(mocks.rpc).toHaveBeenCalledWith('unlock_achievement', {
-      p_achievement_id: 'quiz_master_50',
+    expect(screen.getByTestId('achievement-reconciler')).toBeInTheDocument();
+    expect(mocks.rpc).not.toHaveBeenCalledWith('unlock_achievement', expect.anything());
+  });
+
+  it('sin pendientes no monta el reconciliador', async () => {
+    mocks.profileMaybeSingle.mockResolvedValue({
+      data: {
+        points: 0,
+        quizzes_played: 0,
+        quizzes_created: 0,
+        current_streak: 0,
+        longest_streak: 0,
+      },
+      error: null,
     });
-    expect(screen.getByText('3 de 7 desbloqueados')).toBeInTheDocument();
-    expect(screen.getAllByText('Bloqueado')).toHaveLength(4);
+
+    render(await AchievementsPage(props('es')));
+
+    expect(screen.queryByTestId('achievement-reconciler')).not.toBeInTheDocument();
   });
 
   it('si no hay contadores, no pinta barras en cero', async () => {

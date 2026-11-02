@@ -10,8 +10,10 @@ import {
   achievementProgress,
   ACHIEVEMENT_ICONS,
   HIDDEN_ACHIEVEMENT_IDS,
+  pendingAchievements,
   type AchievementProgress,
 } from '@/lib/quiz/achievement-progress';
+import { AchievementReconciler } from '@/components/quiz/achievement-reconciler';
 import { loadAchievementStats } from '@/lib/quiz/achievements';
 import { buildMetadata } from '@/lib/seo/metadata';
 import type { Achievement } from '@/types/quiz';
@@ -95,30 +97,11 @@ export default async function LocalizedAchievementsPage({
         }))
       : unlocked.map((achievement) => ({ achievement, unlockedAt: achievement.unlocked_at }));
 
-  // Reconciliación: un logro cuyo contador ya cumple la meta pero que nunca se
-  // desbloqueó (lo alcanzó antes de aplicar la 018, o checkAchievements falló
-  // tras su partida) se concede aquí, con el mismo RPC validado en SQL que paga
-  // el premio una sola vez. Sin esto, la barra diría 50/50 y la tarjeta
-  // «Bloqueado» al mismo tiempo.
-  const pending = stats
-    ? cards.filter((card) => {
-        if (card.unlockedAt) return false;
-        const progress = achievementProgress(card.achievement, stats);
-        return progress !== null && progress.current >= progress.target;
-      })
-    : [];
-
-  if (pending.length > 0) {
-    const granted = await Promise.all(
-      pending.map((card) =>
-        supabase.rpc('unlock_achievement', { p_achievement_id: card.achievement.id })
-      )
-    );
-    const now = new Date().toISOString();
-    pending.forEach((card, index) => {
-      if (granted[index].data === true) card.unlockedAt = now;
-    });
-  }
+  // Un logro cuyo contador ya cumple la meta pero que nunca se desbloqueó (lo
+  // alcanzó antes de aplicar la 018, o checkAchievements falló tras su partida)
+  // se quedaría «Bloqueado» con la barra llena. Aquí solo se detecta: quien lo
+  // concede es la acción de servidor que monta el reconciliador.
+  const pending = stats ? pendingAchievements(catalog, new Set(unlockedById.keys()), stats) : [];
 
   cards.sort((a, b) => {
     if (Boolean(a.unlockedAt) !== Boolean(b.unlockedAt)) return a.unlockedAt ? -1 : 1;
@@ -130,6 +113,7 @@ export default async function LocalizedAchievementsPage({
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
+      {pending.length > 0 ? <AchievementReconciler locale={locale} /> : null}
       <section className="surface-panel p-8 md:p-10">
         <p className="eyebrow">{es ? 'Colección' : 'Collection'}</p>
         <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight md:text-6xl">

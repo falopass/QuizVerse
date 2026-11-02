@@ -3,6 +3,7 @@ import {
   achievementProgress,
   ACHIEVEMENT_ICONS,
   HIDDEN_ACHIEVEMENT_IDS,
+  pendingAchievements,
 } from '@/lib/quiz/achievement-progress';
 
 const STATS = {
@@ -59,6 +60,33 @@ describe('achievementProgress', () => {
       target: 1,
       unit: 'plays',
     });
+  });
+});
+
+describe('pendingAchievements', () => {
+  const catalog = [
+    { id: 'first_quiz', condition_type: 'plays', condition_value: 1 },
+    { id: 'quiz_addict_10', condition_type: 'plays', condition_value: 10 },
+    { id: 'creator', condition_type: 'creates', condition_value: 3 },
+    { id: 'going_viral', condition_type: 'shares', condition_value: 100 },
+  ] as Parameters<typeof pendingAchievements>[0];
+
+  it('devuelve solo los cumplidos que no están ganados', () => {
+    const pending = pendingAchievements(catalog, new Set(['first_quiz']), STATS);
+
+    expect(pending.map((item) => item.id)).toEqual(['quiz_addict_10']);
+  });
+
+  it('ignora los ocultos y los que no tienen contador', () => {
+    const pending = pendingAchievements(catalog, new Set(), STATS);
+
+    expect(pending.map((item) => item.id)).not.toContain('going_viral');
+  });
+
+  it('sin nada cumplido no devuelve nada', () => {
+    const pending = pendingAchievements(catalog, new Set(['first_quiz', 'quiz_addict_10']), STATS);
+
+    expect(pending).toEqual([]);
   });
 });
 
