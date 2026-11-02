@@ -92,6 +92,10 @@ describe('migración 014_endurecer_rls', () => {
     expect(sql).toMatch(/from public\.game_sessions s/i);
   });
 
+  it('achievement_condition_met solo responde sobre el propio uid (no es oráculo RPC)', () => {
+    expect(sql).toMatch(/auth\.uid\(\) is null or auth\.uid\(\) <> p_user_id/i);
+  });
+
   it('el premio de logros lo otorga la base (compensa el guard de points)', () => {
     expect(sql).toMatch(/create or replace function public\.award_achievement_points\(\)/i);
     expect(sql).toMatch(/after insert on public\.user_achievements/i);

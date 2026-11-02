@@ -276,6 +276,13 @@ DECLARE
   cond_type text;
   cond_value integer;
 BEGIN
+  -- Como RPC es invocable por cualquiera: solo se responde sobre el propio
+  -- uid, o devuelve false. Sin este corte mediria logros de otros usuarios
+  -- (user_achievements solo es legible por su dueno).
+  IF auth.uid() IS NULL OR auth.uid() <> p_user_id THEN
+    RETURN false;
+  END IF;
+
   SELECT condition_type, condition_value
     INTO cond_type, cond_value
     FROM public.achievements
