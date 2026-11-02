@@ -276,8 +276,13 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
                 <h2>{dictionary.arcade.related}</h2>
               </div>
               <div className="arcade-grid">
-                {related.slice(0, 3).map((item) => (
-                  <EditorialQuizCard key={item.id} quiz={item} locale={locale} />
+                {related.slice(0, 3).map((item, index) => (
+                  <EditorialQuizCard
+                    key={item.id}
+                    quiz={item}
+                    locale={locale}
+                    prefetch={index === 0}
+                  />
                 ))}
               </div>
             </>

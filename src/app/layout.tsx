@@ -22,17 +22,27 @@ import {
   SITE_URL,
 } from '@/lib/seo/site';
 
+// Archivo Black pinta el elemento LCP (título del hero, h1 de ficha). `optional`
+// lo saca del camino crítico del LCP: si no llega dentro del bloqueo (~100 ms)
+// el texto queda con el fallback de métricas ajustadas en vez de repintar tarde
+// (medido con CDP en Slow 4G: el swap solo cuesta ~280 ms de LCP). Sigue
+// precargada, así que conexiones normales y navegaciones siguientes sí la usan.
+// `latin` ya cubre todo el conjunto en/es (ñ, tildes, ¿, ¡); latin-ext sobra.
 const archivo = Archivo_Black({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-archivo',
-  display: 'swap',
+  display: 'optional',
 });
 
+// El texto nunca es el elemento LCP: `swap` garantiza que acaba pintando en
+// Space Grotesk, y quitarle el preload deja ~10 KB de ancho de banda para la
+// fuente display y la portada en la primera carga.
 const space = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space',
   display: 'swap',
+  preload: false,
 });
 
 const SITE_DESCRIPTION =

@@ -20,6 +20,8 @@ interface EditorialQuizCardProps {
   locale: Locale;
   index?: number;
   size?: 'hero' | 'feature' | 'default' | 'compact';
+  /** Pisa la regla por fila para tarjetas que no abren una grilla (p. ej. relacionados). */
+  prefetch?: boolean;
 }
 
 /** Primera fila de la grilla (3 columnas en escritorio): solo esas prefetchean. */
@@ -30,6 +32,7 @@ export function EditorialQuizCard({
   locale,
   index,
   size = 'default',
+  prefetch,
 }: EditorialQuizCardProps) {
   const copy = getArcadeCopy(locale);
   // El lead editorial abre su propia sección sin h2 previo: ahí el titular es h2.
@@ -37,7 +40,7 @@ export function EditorialQuizCard({
   return (
     <Link
       href={localizeHref(locale, `/quiz/${quiz.slug}`)}
-      prefetch={index === undefined || index < PREFETCH_FIRST_ROW}
+      prefetch={prefetch ?? (index === undefined || index < PREFETCH_FIRST_ROW)}
       className="arcade-card"
     >
       <QuizCoverArt quiz={quiz} locale={locale} compact decorative className="arcade-card-art" />
