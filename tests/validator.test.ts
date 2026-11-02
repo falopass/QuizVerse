@@ -230,6 +230,48 @@ describe('validateQuiz', () => {
     expect(english.errors.some((error) => error.includes('caracteres'))).toBe(false);
   });
 
+  it('localiza los topes de strings, arrays y números, y el tipo inválido', () => {
+    const cases: Array<{ input: unknown; expected: string }> = [
+      {
+        input: { ...validTrivia, title: 'A'.repeat(121) },
+        expected: 'title: debe tener como máximo 120 caracteres',
+      },
+      {
+        input: {
+          ...validTrivia,
+          questions: Array.from({ length: 21 }, () => validTrivia.questions[0]),
+        },
+        expected: 'questions: debe tener como máximo 20 elementos',
+      },
+      {
+        input: { ...validTrivia, estimated_minutes: 31 },
+        expected: 'estimated_minutes: debe ser como máximo 30',
+      },
+      {
+        input: { ...validTrivia, questions: [] },
+        expected: 'questions: debe tener al menos 1 elemento',
+      },
+      {
+        input: { ...validTrivia, estimated_minutes: 0 },
+        expected: 'estimated_minutes: debe ser al menos 1',
+      },
+      {
+        input: { ...validTrivia, title: undefined },
+        expected: 'title: falta o no tiene el tipo esperado',
+      },
+      { input: { ...validTrivia, quiz_type: 'survey' }, expected: 'quiz_type: no es válido' },
+    ];
+
+    for (const { input, expected } of cases) {
+      expect(validateQuiz(input, 'es').errors).toContain(expected);
+      // El mismo caso en inglés ejerce la tabla de mensajes en/es completa.
+      expect(validateQuiz(input, 'en').errors.length).toBeGreaterThan(0);
+    }
+    expect(validateQuiz({ ...validTrivia, title: 'A'.repeat(121) }, 'en').errors).toContain(
+      'title: must have at most 120 characters'
+    );
+  });
+
   it('debería rechazar null', () => {
     const result = validateQuiz(null);
     expect(result.valid).toBe(false);
