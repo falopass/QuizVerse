@@ -4,6 +4,13 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
 
+/**
+ * El diccionario viaja entero a <SiteShell> ('use client') desde el layout:
+ * solo admite valores serializables (strings, numbers, booleans, null,
+ * arrays y objetos planos). Nada de funciones ni clases — el copy con
+ * variables va como plantilla "{name} …" y se interpola con formatMessage.
+ * tests/dictionary-serializable.test.tsx lo garantiza.
+ */
 export interface Dictionary {
   common: {
     explore: string;
@@ -113,18 +120,23 @@ export interface Dictionary {
     intro: string;
     markAll: string;
     marking: string;
-    unread: (count: number) => string;
+    unread: string;
     unreadTag: string;
     empty: string;
     markError: string;
     bell: string;
-    bellUnread: (count: number) => string;
+    bellUnreadOne: string;
+    bellUnreadMany: string;
+    someone: string;
+    yourQuiz: string;
     typeLabels: Record<string, string>;
     titles: Record<string, string>;
-    commentBody: (name: string | null, quizTitle: string | null) => string;
-    followBody: (name: string | null) => string;
-    quizApprovedBody: (quizTitle: string | null) => string;
-    quizRejectedBody: (quizTitle: string | null) => string;
+    commentBody: string;
+    followBody: string;
+    quizApprovedBody: string;
+    quizApprovedBodyGeneric: string;
+    quizRejectedBody: string;
+    quizRejectedBodyGeneric: string;
   };
   leaderboard: {
     title: string;
@@ -267,14 +279,16 @@ const dictionaries: Record<Locale, Dictionary> = {
       intro: 'Comments on your quizzes, new followers and account updates.',
       markAll: 'Mark all as read',
       marking: 'Marking…',
-      unread: (count) => (count === 1 ? '1 unread' : `${count} unread`),
+      unread: '{count} unread',
       unreadTag: 'unread',
       empty:
         'No notifications yet. When someone comments on your quizzes or follows you, it will show up here.',
       markError: 'We could not mark them as read. Please try again.',
       bell: 'Notifications',
-      bellUnread: (count) =>
-        count === 1 ? '1 unread notification' : `${count} unread notifications`,
+      bellUnreadOne: '1 unread notification',
+      bellUnreadMany: '{count} unread notifications',
+      someone: 'Someone',
+      yourQuiz: 'your quiz',
       typeLabels: {
         comment: 'Comment',
         follow: 'Follower',
@@ -292,17 +306,12 @@ const dictionaries: Record<Locale, Dictionary> = {
         achievement: 'Achievement unlocked',
         mention: 'New mention',
       },
-      commentBody: (name, quizTitle) =>
-        `${name ?? 'Someone'} commented on ${quizTitle ? `"${quizTitle}"` : 'your quiz'}`,
-      followBody: (name) => `${name ?? 'Someone'} started following you`,
-      quizApprovedBody: (quizTitle) =>
-        quizTitle
-          ? `"${quizTitle}" was approved and is now live.`
-          : 'Your quiz was approved and is now live.',
-      quizRejectedBody: (quizTitle) =>
-        quizTitle
-          ? `"${quizTitle}" was rejected. Review it in My quizzes.`
-          : 'Your quiz was rejected. Review it in My quizzes.',
+      commentBody: '{name} commented on {quiz}',
+      followBody: '{name} started following you',
+      quizApprovedBody: '"{quiz}" was approved and is now live.',
+      quizApprovedBodyGeneric: 'Your quiz was approved and is now live.',
+      quizRejectedBody: '"{quiz}" was rejected. Review it in My quizzes.',
+      quizRejectedBodyGeneric: 'Your quiz was rejected. Review it in My quizzes.',
     },
     leaderboard: {
       title: 'Player leaderboard',
@@ -446,14 +455,16 @@ const dictionaries: Record<Locale, Dictionary> = {
       intro: 'Comentarios en tus quizzes, nuevos seguidores y avisos de tu cuenta.',
       markAll: 'Marcar todas como leídas',
       marking: 'Marcando…',
-      unread: (count) => (count === 1 ? '1 sin leer' : `${count} sin leer`),
+      unread: '{count} sin leer',
       unreadTag: 'sin leer',
       empty:
         'Aún no tienes notificaciones. Cuando alguien comente tus quizzes o te siga, aparecerá aquí.',
       markError: 'No pudimos marcarlas como leídas. Inténtalo otra vez.',
       bell: 'Notificaciones',
-      bellUnread: (count) =>
-        count === 1 ? '1 notificación sin leer' : `${count} notificaciones sin leer`,
+      bellUnreadOne: '1 notificación sin leer',
+      bellUnreadMany: '{count} notificaciones sin leer',
+      someone: 'Alguien',
+      yourQuiz: 'tu quiz',
       typeLabels: {
         comment: 'Comentario',
         follow: 'Seguidor',
@@ -471,17 +482,12 @@ const dictionaries: Record<Locale, Dictionary> = {
         achievement: 'Logro desbloqueado',
         mention: 'Te mencionaron',
       },
-      commentBody: (name, quizTitle) =>
-        `${name ?? 'Alguien'} comentó en ${quizTitle ? `"${quizTitle}"` : 'tu quiz'}`,
-      followBody: (name) => `${name ?? 'Alguien'} empezó a seguirte`,
-      quizApprovedBody: (quizTitle) =>
-        quizTitle
-          ? `"${quizTitle}" fue aprobado y ya está publicado.`
-          : 'Tu quiz fue aprobado y ya está publicado.',
-      quizRejectedBody: (quizTitle) =>
-        quizTitle
-          ? `"${quizTitle}" fue rechazado. Revísalo en Mis quizzes.`
-          : 'Tu quiz fue rechazado. Revísalo en Mis quizzes.',
+      commentBody: '{name} comentó en {quiz}',
+      followBody: '{name} empezó a seguirte',
+      quizApprovedBody: '"{quiz}" fue aprobado y ya está publicado.',
+      quizApprovedBodyGeneric: 'Tu quiz fue aprobado y ya está publicado.',
+      quizRejectedBody: '"{quiz}" fue rechazado. Revísalo en Mis quizzes.',
+      quizRejectedBodyGeneric: 'Tu quiz fue rechazado. Revísalo en Mis quizzes.',
     },
     leaderboard: {
       title: 'Ranking de jugadores',

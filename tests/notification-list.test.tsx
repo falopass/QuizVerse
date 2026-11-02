@@ -52,7 +52,7 @@ describe('NotificationList', () => {
         notifications={[
           item({
             type: 'comment',
-            href: '/es/quiz/hp-trivia#quiz-comments',
+            href: '/es/quiz/hp-trivia#comment-c-1',
             actorName: 'Ada',
             quizTitle: 'HP Trivia',
           }),
@@ -67,7 +67,7 @@ describe('NotificationList', () => {
     );
 
     const commentLink = screen.getByRole('link', { name: /Nuevo comentario en tu quiz/ });
-    expect(commentLink).toHaveAttribute('href', '/es/quiz/hp-trivia#quiz-comments');
+    expect(commentLink).toHaveAttribute('href', '/es/quiz/hp-trivia#comment-c-1');
     expect(commentLink.textContent).toContain('Ada comentó en "HP Trivia"');
 
     fireEvent.click(commentLink);
@@ -148,6 +148,70 @@ describe('NotificationList', () => {
     expect(screen.getByText('A comment was reported')).toBeInTheDocument();
     expect(screen.getByText('Report reason: spam')).toBeInTheDocument();
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+  it('referencia borrada: conserva el cuerpo guardado en vez de valores genéricos', () => {
+    render(
+      <NotificationList
+        locale="es"
+        unreadCount={2}
+        notifications={[
+          item({
+            type: 'follow',
+            body: 'Grace started following you',
+            actorName: null,
+          }),
+          item({
+            id: 'n-2',
+            type: 'comment',
+            body: 'Ada commented on "HP Trivia"',
+            actorName: null,
+            quizTitle: null,
+          }),
+        ]}
+      />
+    );
+
+    expect(screen.getByText('Grace started following you')).toBeInTheDocument();
+    expect(screen.getByText('Ada commented on "HP Trivia"')).toBeInTheDocument();
+    expect(screen.queryByText(/Alguien/)).not.toBeInTheDocument();
+  });
+
+  it('referencia borrada sin cuerpo guardado cae en la plantilla genérica', () => {
+    render(
+      <NotificationList
+        locale="es"
+        unreadCount={1}
+        notifications={[
+          item({
+            type: 'comment',
+            body: null,
+            actorName: 'Ada',
+            quizTitle: null,
+          }),
+        ]}
+      />
+    );
+
+    expect(screen.getByText('Ada comentó en tu quiz')).toBeInTheDocument();
+  });
+
+  it('moderación: el cuerpo guardado manda aunque el quiz resuelva', () => {
+    render(
+      <NotificationList
+        locale="es"
+        unreadCount={1}
+        notifications={[
+          item({
+            type: 'quiz_rejected',
+            body: 'Tu quiz "Nuevo" fue rechazado. Motivo: spam',
+            quizTitle: 'Nuevo',
+          }),
+        ]}
+      />
+    );
+
+    expect(screen.getByText('Tu quiz "Nuevo" fue rechazado. Motivo: spam')).toBeInTheDocument();
   });
 
   it('en inglés el copy sale del diccionario en inglés', () => {

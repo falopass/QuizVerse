@@ -228,6 +228,16 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
     };
   }, [quizId, attempt]);
 
+  // La lista se pide en cliente: una URL con #comment-<id> no encuentra el
+  // ancla en el HTML inicial, así que el scroll espera a que cargue.
+  useEffect(() => {
+    if (loaded?.quizId !== quizId || loaded.status !== 'ok') return;
+    const anchor = window.location.hash.slice(1);
+    if (anchor.startsWith('comment-')) {
+      document.getElementById(anchor)?.scrollIntoView({ block: 'center' });
+    }
+  }, [loaded, quizId]);
+
   function handleRetry() {
     setLoaded(null);
     setAttempt((value) => value + 1);
@@ -426,6 +436,7 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
             return (
               <li
                 key={comment.id}
+                id={`comment-${comment.id}`}
                 className={`border-border-subtle bg-bg-secondary flex gap-3 rounded-[4px] border p-4${hidden ? 'opacity-60' : ''}`}
               >
                 <AuthorAvatar author={comment.author} />

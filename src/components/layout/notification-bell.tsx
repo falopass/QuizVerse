@@ -15,6 +15,7 @@ import { usePathname } from 'next/navigation';
 import { useSupabase } from '@/providers/supabase-provider';
 import { useNotificationBadge } from '@/stores/notification-store';
 import { getCopy } from '@/lib/i18n/dictionaries';
+import { formatMessage } from '@/lib/i18n/format';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 
@@ -80,7 +81,11 @@ export function NotificationBell({ locale }: { locale: Locale }) {
         </span>
       ) : null}
       <span className="sr-only">
-        {unread !== null && unread > 0 ? copy.bellUnread(unread) : copy.bell}
+        {unread !== null && unread > 0
+          ? unread === 1
+            ? copy.bellUnreadOne
+            : formatMessage(copy.bellUnreadMany, { count: unread })
+          : copy.bell}
       </span>
     </Link>
   );

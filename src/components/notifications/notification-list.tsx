@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import { markAllNotificationsRead, markNotificationRead } from '@/actions/notifications.actions';
 import { useNotificationBadge } from '@/stores/notification-store';
 import { getCopy } from '@/lib/i18n/dictionaries';
+import { formatMessage } from '@/lib/i18n/format';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 import { formatRelativeDate } from '@/lib/utils/format';
 import type { ResolvedNotification } from '@/lib/notifications/resolve';
@@ -33,13 +34,40 @@ function notificationBody(
 ): string | null {
   switch (notification.type) {
     case 'comment':
-      return copy.commentBody(notification.actorName, notification.quizTitle);
+      // Referencia borrada (perfil o quiz que ya no resuelve): el cuerpo
+      // guardado conserva el nombre y el título reales; la plantilla solo
+      // los recibiría genéricos.
+      if (notification.actorName && notification.quizTitle) {
+        return formatMessage(copy.commentBody, {
+          name: notification.actorName,
+          quiz: `"${notification.quizTitle}"`,
+        });
+      }
+      return (
+        notification.body ??
+        formatMessage(copy.commentBody, {
+          name: notification.actorName ?? copy.someone,
+          quiz: notification.quizTitle ? `"${notification.quizTitle}"` : copy.yourQuiz,
+        })
+      );
     case 'follow':
-      return copy.followBody(notification.actorName);
+      if (notification.actorName) {
+        return formatMessage(copy.followBody, { name: notification.actorName });
+      }
+      return notification.body ?? formatMessage(copy.followBody, { name: copy.someone });
     case 'quiz_approved':
-      return copy.quizApprovedBody(notification.quizTitle);
-    case 'quiz_rejected':
-      return copy.quizRejectedBody(notification.quizTitle);
+    case 'quiz_rejected': {
+      // El trigger escribe el cuerpo ya localizado y, en el rechazo, con el
+      // motivo: si existe manda él; la plantilla cubre filas sin cuerpo.
+      if (notification.body) return notification.body;
+      const [template, generic] =
+        notification.type === 'quiz_approved'
+          ? [copy.quizApprovedBody, copy.quizApprovedBodyGeneric]
+          : [copy.quizRejectedBody, copy.quizRejectedBodyGeneric];
+      return notification.quizTitle
+        ? formatMessage(template, { quiz: notification.quizTitle })
+        : generic;
+    }
     default:
       // Tipos nuevos o sin plantilla: se pinta el cuerpo guardado tal cual.
       return notification.body;
@@ -106,7 +134,7 @@ export function NotificationList({
     <section className="mt-8" aria-label={copy.title}>
       <div className="mb-4 flex items-center justify-between gap-4">
         <p className="text-text-secondary text-sm" aria-live="polite">
-          {unreadCount > 0 ? copy.unread(unreadCount) : null}
+          {unreadCount > 0 ? formatMessage(copy.unread, { count: unreadCount }) : null}
         </p>
         {unreadCount > 0 ? (
           <button

@@ -62,10 +62,15 @@ function destinationHref(
     quiz && quiz.status === 'published' ? localizeHref(locale, `/quiz/${quiz.slug}`) : null;
   switch (notification.type) {
     case 'comment':
-    case 'mention':
-      if (quizHref) return `${quizHref}#quiz-comments`;
+    case 'mention': {
+      if (quizHref) {
+        // `comment_id` ancla al comentario concreto; sin él, a la sección.
+        const commentId = dataString(notification.data, 'comment_id');
+        return `${quizHref}#${commentId ? `comment-${commentId}` : 'quiz-comments'}`;
+      }
       // The quiz left public view: the creator still finds it in My quizzes.
       return quiz ? localizeHref(locale, '/my-quizzes') : null;
+    }
     case 'follow':
       return profile ? localizeHref(locale, `/profile/${profile.username}`) : null;
     case 'quiz_approved':

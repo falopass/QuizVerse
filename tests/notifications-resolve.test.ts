@@ -40,7 +40,7 @@ function row(overrides: Record<string, unknown>) {
 }
 
 describe('resolveNotificationTargets', () => {
-  it('comentario → ficha del quiz con ancla de comentarios, actor y título', async () => {
+  it('comentario → ficha del quiz con ancla al comentario, actor y título', async () => {
     mocks.quizzes = [{ id: 'q-1', slug: 'hp-trivia', title: 'HP Trivia', status: 'published' }];
     mocks.profiles = [{ id: 'u-1', username: 'ada', display_name: 'Ada' }];
 
@@ -54,9 +54,22 @@ describe('resolveNotificationTargets', () => {
       'es'
     );
 
-    expect(resolved.href).toBe('/es/quiz/hp-trivia#quiz-comments');
+    expect(resolved.href).toBe('/es/quiz/hp-trivia#comment-c-1');
     expect(resolved.actorName).toBe('Ada');
     expect(resolved.quizTitle).toBe('HP Trivia');
+  });
+
+  it('comentario sin comment_id ancla a la sección de comentarios', async () => {
+    mocks.quizzes = [{ id: 'q-1', slug: 'hp-trivia', title: 'HP Trivia', status: 'published' }];
+    mocks.profiles = [];
+
+    const [resolved] = await resolveNotificationTargets(
+      supabase,
+      [row({ data: { quiz_id: 'q-1' } })],
+      'es'
+    );
+
+    expect(resolved.href).toBe('/es/quiz/hp-trivia#quiz-comments');
   });
 
   it('follow → perfil del seguidor por username', async () => {
