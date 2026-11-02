@@ -3,13 +3,20 @@ import { render, screen } from '@testing-library/react';
 
 const mocks = vi.hoisted(() => ({
   locale: 'en',
+  pathname: '/en/definitely-missing',
 }));
 
 vi.mock('next/headers', () => ({
   headers: vi.fn(async () => new Headers({ 'x-quizverse-locale': mocks.locale })),
 }));
 
-import NotFoundPage from '@/app/not-found';
+vi.mock('next/navigation', () => ({
+  usePathname: () => mocks.pathname,
+}));
+
+import RootNotFound from '@/app/not-found';
+import LocaleNotFound from '@/app/[locale]/not-found';
+import EmbedNotFound from '@/app/embed/not-found';
 
 function categoryLinks() {
   return screen
@@ -17,10 +24,10 @@ function categoryLinks() {
     .filter((link) => link.getAttribute('href')?.includes('/category/'));
 }
 
-describe('NotFoundPage', () => {
+describe('RootNotFound (src/app/not-found.tsx)', () => {
   it('muestra copy en inglés y enlaces /en con cabecera en', async () => {
     mocks.locale = 'en';
-    render(await NotFoundPage());
+    render(await RootNotFound());
 
     expect(
       screen.getByRole('heading', { name: 'That page drifted out of orbit.' })
@@ -29,6 +36,8 @@ describe('NotFoundPage', () => {
       'href',
       '/en/quiz'
     );
+    expect(screen.getByRole('link', { name: 'Go home' })).toHaveAttribute('href', '/en');
+    expect(screen.getByRole('link', { name: 'Surprise me' })).toHaveAttribute('href', '/en/random');
 
     const links = categoryLinks();
     expect(links.length).toBeGreaterThanOrEqual(6);
@@ -44,7 +53,7 @@ describe('NotFoundPage', () => {
 
   it('muestra copy en español y enlaces /es con cabecera es', async () => {
     mocks.locale = 'es';
-    render(await NotFoundPage());
+    render(await RootNotFound());
 
     expect(
       screen.getByRole('heading', { name: 'Esta página se salió de órbita.' })
@@ -53,6 +62,8 @@ describe('NotFoundPage', () => {
       'href',
       '/es/quiz'
     );
+    expect(screen.getByRole('link', { name: 'Ir al inicio' })).toHaveAttribute('href', '/es');
+    expect(screen.getByRole('link', { name: 'Sorpréndeme' })).toHaveAttribute('href', '/es/random');
 
     const links = categoryLinks();
     expect(links.length).toBeGreaterThanOrEqual(6);
@@ -64,5 +75,65 @@ describe('NotFoundPage', () => {
       'href',
       '/es/category/movies-tv'
     );
+  });
+});
+
+describe('LocaleNotFound (src/app/[locale]/not-found.tsx)', () => {
+  it('deriva el locale del segmento /es sin leer headers', () => {
+    mocks.pathname = '/es/quiz/es-no-existe';
+    render(<LocaleNotFound />);
+
+    expect(
+      screen.getByRole('heading', { name: 'Esta página se salió de órbita.' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Explorar quizzes' })).toHaveAttribute(
+      'href',
+      '/es/quiz'
+    );
+    expect(screen.getByRole('link', { name: 'Ir al inicio' })).toHaveAttribute('href', '/es');
+    expect(screen.getByRole('link', { name: 'Sorpréndeme' })).toHaveAttribute('href', '/es/random');
+    for (const link of categoryLinks()) {
+      expect(link.getAttribute('href')).toMatch(/^\/es\/category\/[a-z-]+$/);
+    }
+  });
+
+  it('deriva el locale del segmento /en', () => {
+    mocks.pathname = '/en/category/nope';
+    render(<LocaleNotFound />);
+
+    expect(
+      screen.getByRole('heading', { name: 'That page drifted out of orbit.' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Browse quizzes' })).toHaveAttribute(
+      'href',
+      '/en/quiz'
+    );
+    expect(screen.getByRole('link', { name: 'Surprise me' })).toHaveAttribute('href', '/en/random');
+  });
+
+  it('cae a inglés cuando la ruta no empieza por /es', () => {
+    mocks.pathname = '/espanol/quiz/x';
+    render(<LocaleNotFound />);
+
+    expect(
+      screen.getByRole('heading', { name: 'That page drifted out of orbit.' })
+    ).toBeInTheDocument();
+  });
+});
+
+describe('EmbedNotFound (src/app/embed/not-found.tsx)', () => {
+  it('muestra el 404 del embed en español bajo /embed/es', () => {
+    mocks.pathname = '/embed/es/no-existe';
+    render(<EmbedNotFound />);
+
+    expect(screen.getByRole('heading', { name: 'Este quiz no existe.' })).toBeInTheDocument();
+    expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
+  });
+
+  it('muestra el 404 del embed en inglés bajo /embed/en', () => {
+    mocks.pathname = '/embed/en/no-existe';
+    render(<EmbedNotFound />);
+
+    expect(screen.getByRole('heading', { name: 'This quiz does not exist.' })).toBeInTheDocument();
   });
 });

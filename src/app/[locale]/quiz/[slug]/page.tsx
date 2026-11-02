@@ -29,8 +29,11 @@ export async function generateMetadata({
   }
 
   const quiz = await getQuizBySlug(slug, locale);
+  // No notFound() here: thrown inside generateMetadata while metadata is
+  // streaming, it ships the 404 only as a client-side patch (empty SSR body).
+  // The page component throws it instead.
   if (!quiz) {
-    notFound();
+    return {};
   }
 
   const otherLocale = locale === 'es' ? 'en' : 'es';
