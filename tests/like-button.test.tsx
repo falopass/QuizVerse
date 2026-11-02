@@ -35,7 +35,7 @@ function renderButton(locale: 'en' | 'es' = 'es', initialCount = 7) {
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.getQuizLikeState.mockResolvedValue({ authenticated: true, liked: false });
-  mocks.likeQuiz.mockResolvedValue({ success: true, liked: true });
+  mocks.likeQuiz.mockResolvedValue({ success: true, liked: true, likesCount: 8 });
 });
 
 describe('LikeButton', () => {
@@ -105,6 +105,27 @@ describe('LikeButton', () => {
     expect(link).toHaveTextContent('7');
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(mocks.likeQuiz).not.toHaveBeenCalled();
+  });
+
+  it('mantiene el toggle deshabilitado cuando la lectura falla (liked: null)', async () => {
+    mocks.getQuizLikeState.mockResolvedValue({ authenticated: true, liked: null });
+    renderButton('es');
+
+    const button = await screen.findByRole('button', { name: /Me gusta/ });
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(button).toBeDisabled();
+    expect(mocks.likeQuiz).not.toHaveBeenCalled();
+  });
+
+  it('usa el contador real que devuelve la acción', async () => {
+    mocks.likeQuiz.mockResolvedValue({ success: true, liked: true, likesCount: 15 });
+    renderButton('es', 7);
+
+    const button = await screen.findByRole('button', { name: /Me gusta \(7\)/ });
+    await waitFor(() => expect(button).toBeEnabled());
+    fireEvent.click(button);
+
+    await waitFor(() => expect(button).toHaveTextContent('15'));
   });
 
   it('refleja el estado «ya me gusta» leído en el servidor', async () => {

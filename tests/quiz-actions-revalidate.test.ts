@@ -12,13 +12,17 @@ const mocks = vi.hoisted(() => ({
       creator_id: string;
       slug: string;
       language: string;
+      likes_count?: number;
     } | null,
   },
   insertResult: { data: { id: 'quiz-1', slug: 'quiz-de-prueba' } as unknown, error: null },
   updateResult: { error: null as { message: string } | null },
   deleteResult: { error: null as { message: string } | null },
   rpcResult: { data: true as unknown, error: null as { message: string } | null },
-  likeRow: { data: null as { quiz_id: string } | null },
+  likeRow: {
+    data: null as { quiz_id: string } | null,
+    error: null as { message: string } | null,
+  },
 }));
 
 vi.mock('next/cache', () => ({
@@ -115,7 +119,7 @@ beforeEach(() => {
   mocks.updateResult = { error: null };
   mocks.deleteResult = { error: null };
   mocks.rpcResult = { data: true, error: null };
-  mocks.likeRow = { data: null };
+  mocks.likeRow = { data: null, error: null };
 });
 
 const HUB_PATHS = [
@@ -235,11 +239,13 @@ describe('deleteQuiz', () => {
 
 describe('likeQuiz', () => {
   it('revalida detalle y explorar localizados, por slug y no por id', async () => {
-    mocks.quizRow = { data: { creator_id: 'otro', slug: 'quiz-de-prueba', language: 'es' } };
+    mocks.quizRow = {
+      data: { creator_id: 'otro', slug: 'quiz-de-prueba', language: 'es', likes_count: 42 },
+    };
 
     const result = await likeQuiz(QUIZ_ID);
 
-    expect(result).toEqual({ success: true, liked: true });
+    expect(result).toEqual({ success: true, liked: true, likesCount: 42 });
     expect(mocks.revalidate).toHaveBeenCalledTimes(2);
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
@@ -267,13 +273,19 @@ describe('getQuizLikeState', () => {
   });
 
   it('devuelve liked: true cuando el usuario tiene fila en quiz_likes', async () => {
-    mocks.likeRow = { data: { quiz_id: QUIZ_ID } };
+    mocks.likeRow = { data: { quiz_id: QUIZ_ID }, error: null };
 
     expect(await getQuizLikeState(QUIZ_ID)).toEqual({ authenticated: true, liked: true });
   });
 
   it('devuelve liked: false cuando el usuario no ha dado like', async () => {
     expect(await getQuizLikeState(QUIZ_ID)).toEqual({ authenticated: true, liked: false });
+  });
+
+  it('devuelve liked: null cuando la lectura falla', async () => {
+    mocks.likeRow = { data: null, error: { message: 'fallo temporal' } };
+
+    expect(await getQuizLikeState(QUIZ_ID)).toEqual({ authenticated: true, liked: null });
   });
 
   it('devuelve anonymous para ids que no son uuid', async () => {

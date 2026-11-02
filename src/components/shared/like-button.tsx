@@ -72,13 +72,18 @@ export function LikeButton({
     getQuizLikeState(quizId)
       .then((result) => {
         if (!active) return;
-        setState(result.authenticated ? 'authenticated' : 'anonymous');
-        setLiked(result.liked);
+        // `liked: null` = read failed: keep the toggle disabled instead of
+        // guessing — a wrong guess could toggle off an existing like while
+        // the counter suggests it was added.
+        if (!result.authenticated) setState('anonymous');
+        else if (result.liked === null) setState('loading');
+        else {
+          setState('authenticated');
+          setLiked(result.liked);
+        }
       })
       .catch(() => {
-        // If the read fails, show the toggle anyway: `likeQuiz` still
-        // enforces auth server-side and bounces anonymous clicks to login.
-        if (active) setState('authenticated');
+        if (active) setState('loading');
       });
     return () => {
       active = false;
@@ -122,7 +127,7 @@ export function LikeButton({
         return;
       }
       setLiked(result.liked);
-      setCount(prevCount + (result.liked ? 1 : -1));
+      setCount(result.likesCount ?? prevCount + (result.liked ? 1 : -1));
     } catch {
       setLiked(prevLiked);
       setCount(prevCount);

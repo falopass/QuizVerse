@@ -285,11 +285,13 @@ export async function submitQuizResult(
  * Whether the signed-in user already liked the quiz. The detail page is
  * static, so the client asks on mount — same pattern as `getQuizComments`.
  * Never throws: anonymous users and failures resolve to `authenticated:
- * false`, which the button renders as a link to login.
+ * false`, which the button renders as a link to login. `liked: null` means
+ * the read failed — the toggle must stay disabled rather than guess, or an
+ * existing like could be toggled off while the UI shows it being added.
  */
 export async function getQuizLikeState(
   quizId: string
-): Promise<{ authenticated: boolean; liked: boolean }> {
+): Promise<{ authenticated: boolean; liked: boolean | null }> {
   const parsed = z.string().uuid().safeParse(quizId);
   if (!parsed.success) return { authenticated: false, liked: false };
 
@@ -297,20 +299,23 @@ export async function getQuizLikeState(
     const { supabase, user } = await currentUser();
     if (!user) return { authenticated: false, liked: false };
 
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('quiz_likes')
       .select('quiz_id')
       .eq('quiz_id', parsed.data)
       .eq('user_id', user.id)
       .maybeSingle();
 
+    if (error) return { authenticated: true, liked: null };
     return { authenticated: true, liked: Boolean(data) };
   } catch {
     return { authenticated: false, liked: false };
   }
 }
 
-export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: boolean }>> {
+export async function likeQuiz(
+  quizId: string
+): Promise<ActionResult<{ liked: boolean; likesCount: number | null }>> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'Sign in to like a quiz.');
 
@@ -329,7 +334,7 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
 
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('slug, language')
+    .select('slug, language, likes_count')
     .eq('id', parsed.data)
     .maybeSingle();
 
@@ -340,7 +345,8 @@ export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: bo
       revalidatePath(`/${locale}/quiz/${quiz.slug}`);
     }
   }
-  return { success: true, liked: Boolean(data) };
+  // likesCount lets the client show the real total, not just optimistic ±1.
+  return { success: true, liked: Boolean(data), likesCount: quiz?.likes_count ?? null };
 }
 
 // ============================================
