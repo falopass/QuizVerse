@@ -48,7 +48,8 @@ const CF_BINDINGS: Record<string, string> = {
   'quiz-generate-ip': 'RATE_LIMIT_GAME', // 10/60: generación IA por IP
   'quiz-generate-user': 'RATE_LIMIT_GAME', // 10/60: generación IA por usuario
   'quiz-reveal': 'RATE_LIMIT_REVEAL', // 120/60 por IP
-  api: 'RATE_LIMIT_API', // 100/60: monitor, analytics, perfil, follows, likes
+  api: 'RATE_LIMIT_API', // 100/60: monitor, analytics, perfil, likes
+  social: 'RATE_LIMIT_FOLLOW', // 20/60: seguir/dejar de seguir, por usuario
   'quiz-share': 'RATE_LIMIT_SOCIAL', // 30/60 por IP
   'quiz-report': 'RATE_LIMIT_REPORT', // 8/600 ≈ 1/60
   'quiz-comment': 'RATE_LIMIT_REPORT', // 5/600 ≈ 1/60

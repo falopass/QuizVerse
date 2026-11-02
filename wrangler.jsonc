@@ -67,6 +67,12 @@
       "namespace_id": "7106",
       "simple": { "limit": 30, "period": 60 },
     },
+    // Seguir/dejar de seguir, por usuario (frena bucles de notificaciones).
+    {
+      "name": "RATE_LIMIT_FOLLOW",
+      "namespace_id": "7109",
+      "simple": { "limit": 20, "period": 60 },
+    },
     // Reportes y comentarios: el código usa 8/10min y 5/10min; en CF queda ~1/min.
     { "name": "RATE_LIMIT_REPORT", "namespace_id": "7107", "simple": { "limit": 1, "period": 60 } },
     // Beacons de CSP report, por IP.

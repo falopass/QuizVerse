@@ -201,6 +201,17 @@ describe('checkRateLimit con binding de Cloudflare', () => {
     expect(result).toEqual({ allowed: true, remaining: 10, reset: 60, errored: true });
   });
 
+  it('la política social consume su propio namespace (20/min)', async () => {
+    cfMocks.limit.mockResolvedValue({ success: true });
+    stubCfBindings({ RATE_LIMIT_FOLLOW: { limit: cfMocks.limit } });
+
+    const { checkRateLimit } = await loadRateLimitWithoutRedis();
+    const result = await checkRateLimit({ key: 'social:follow:u1', limit: 20, window: 60 });
+
+    expect(result).toEqual({ allowed: true, remaining: 20, reset: 60 });
+    expect(cfMocks.limit).toHaveBeenCalledWith({ key: 'ratelimit:social:follow:u1' });
+  });
+
   it('política sin namespace mapeado permite y marca errored', async () => {
     stubCfBindings({ RATE_LIMIT_AUTH: { limit: cfMocks.limit } });
 
