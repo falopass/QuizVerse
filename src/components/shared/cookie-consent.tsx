@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { entrance } from '@/lib/ui/motion';
 import { usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils/cn';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
 
@@ -58,10 +57,10 @@ const copy = {
 
 export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
+  const [exiting, setExiting] = useState(false);
   const pathname = usePathname();
   const locale = pathname?.startsWith('/es') ? 'es' : 'en';
   const initialized = useRef(false);
-  const reduceMotion = useReducedMotion() ?? false;
 
   useEffect(() => {
     if (initialized.current) return;
@@ -73,15 +72,18 @@ export function CookieConsentBanner() {
     }
   }, []);
 
-  const acceptAll = useCallback(() => {
-    storeConsent('all');
-    setVisible(false);
-  }, []);
+  const dismiss = useCallback(
+    (level: ConsentLevel) => {
+      if (exiting) return;
+      storeConsent(level);
+      setExiting(true);
+    },
+    [exiting]
+  );
 
-  const acceptEssential = useCallback(() => {
-    storeConsent('essential');
-    setVisible(false);
-  }, []);
+  const acceptAll = useCallback(() => dismiss('all'), [dismiss]);
+
+  const acceptEssential = useCallback(() => dismiss('essential'), [dismiss]);
 
   // Dentro de un iframe ajeno el banner taparía el quiz; una visita directa a
   // /embed sí conserva el flujo normal de consentimiento.
@@ -94,35 +96,30 @@ export function CookieConsentBanner() {
   }
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          {...entrance(reduceMotion, {
-            initial: { y: 100, opacity: 0 },
-            animate: { y: 0, opacity: 1 },
-            exit: { y: 100, opacity: 0 },
-            transition: { type: 'spring', stiffness: 300, damping: 30 },
-          })}
-          className="cookie-consent-banner"
-        >
-          <div className="cookie-consent-inner">
-            <div className="text-text-secondary max-w-xl text-sm leading-relaxed">
-              <p>
-                <span className="text-text-primary font-semibold">{copy.title[locale]} </span>
-                {copy.body[locale]}
-              </p>
-            </div>
-            <div className="cookie-consent-actions">
-              <button onClick={acceptEssential} className="cookie-consent-secondary">
-                {copy.essentialButton[locale]}
-              </button>
-              <button onClick={acceptAll} className="arcade-button">
-                {copy.acceptAllButton[locale]}
-              </button>
-            </div>
+    visible && (
+      <div
+        className={cn('cookie-consent-banner', exiting && 'cookie-banner-exit')}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget && exiting) setVisible(false);
+        }}
+      >
+        <div className="cookie-consent-inner">
+          <div className="text-text-secondary max-w-xl text-sm leading-relaxed">
+            <p>
+              <span className="text-text-primary font-semibold">{copy.title[locale]} </span>
+              {copy.body[locale]}
+            </p>
           </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          <div className="cookie-consent-actions">
+            <button onClick={acceptEssential} className="cookie-consent-secondary">
+              {copy.essentialButton[locale]}
+            </button>
+            <button onClick={acceptAll} className="arcade-button">
+              {copy.acceptAllButton[locale]}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   );
 }
