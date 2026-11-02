@@ -15,6 +15,8 @@ const mocks = vi.hoisted(() => ({
   verifyAttempt: vi.fn(),
   claimReveal: vi.fn(),
   claimHint: vi.fn(),
+  attemptsAvailable: true,
+  warnInactive: vi.fn(),
 }));
 
 vi.mock('@/lib/quiz/quiz-repository', () => ({
@@ -27,6 +29,8 @@ vi.mock('@/lib/utils/rate-limit', () => ({
 
 vi.mock('@/lib/quiz/attempt', () => ({
   verifyQuizAttempt: mocks.verifyAttempt,
+  attemptsAvailable: () => mocks.attemptsAvailable,
+  warnAttemptsInactive: mocks.warnInactive,
 }));
 
 vi.mock('@/lib/quiz/attempt-store', () => ({
@@ -103,6 +107,8 @@ beforeEach(() => {
   mocks.claimReveal.mockResolvedValue({ ok: true });
   mocks.claimHint.mockReset();
   mocks.claimHint.mockResolvedValue({ ok: true });
+  mocks.attemptsAvailable = true;
+  mocks.warnInactive.mockClear();
 });
 
 describe('POST /api/quiz/reveal — answer', () => {
@@ -189,6 +195,15 @@ describe('POST /api/quiz/reveal — answer', () => {
     expect(response.status).toBe(409);
     expect(body).toEqual({ error: 'already_revealed' });
     expect(body).not.toHaveProperty('correctOptionId');
+  });
+
+  it('rechaza un attempt mal formado', async () => {
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'malformed' });
+
+    const response = await POST(revealRequest({ ...validAnswer, attempt: 'basura' }));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: 'attempt_malformed' });
   });
 
   it('rechaza una pregunta que retrocede en el orden', async () => {
@@ -285,6 +300,59 @@ describe('POST /api/quiz/reveal — hint', () => {
     expect(response.status).toBe(404);
     expect(await response.json()).toEqual({ error: 'question_not_found' });
     expect(mocks.claimHint).not.toHaveBeenCalled();
+  });
+});
+
+describe('POST /api/quiz/reveal — modo degradado (sin secreto)', () => {
+  beforeEach(() => {
+    mocks.attemptsAvailable = false;
+  });
+
+  it('responde el veredicto sin attempt, como antes del anti-trampa', async () => {
+    const response = await POST(revealRequest({ ...validAnswer, attempt: undefined }));
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body).toEqual({
+      isCorrect: true,
+      correctOptionId: 'q1a',
+      explanation: 'Saturn leads the moon count.',
+    });
+    expect(mocks.verifyAttempt).not.toHaveBeenCalled();
+    expect(mocks.claimReveal).not.toHaveBeenCalled();
+  });
+
+  it('avisó del anti-trampa inactivo', async () => {
+    await POST(revealRequest({ ...validAnswer, attempt: undefined }));
+
+    expect(mocks.warnInactive).toHaveBeenCalled();
+  });
+
+  it('la pista 50/50 también responde sin attempt', async () => {
+    const response = await POST(
+      revealRequest({ ...validHint, attempt: undefined, questionId: 'q1' })
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body.eliminated).toHaveLength(2);
+    expect(body.eliminated).not.toContain('q1a');
+    expect(mocks.claimHint).not.toHaveBeenCalled();
+  });
+
+  it('ignora un token que viaje en la petición (no hay firma que verificar)', async () => {
+    const response = await POST(revealRequest({ ...validAnswer, attempt: 'token-inventado' }));
+
+    expect(response.status).toBe(200);
+    expect(mocks.verifyAttempt).not.toHaveBeenCalled();
+  });
+
+  it('una pregunta repetida responde igual (no hay estado por partida)', async () => {
+    const first = await POST(revealRequest({ ...validAnswer, attempt: undefined }));
+    const second = await POST(revealRequest({ ...validAnswer, attempt: undefined }));
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
   });
 });
 

@@ -359,7 +359,8 @@ const attemptLimiter = createRateLimiter('quiz-attempt', 30, 60, 'open');
  *
  * El reproductor lo pide al arrancar cada partida (incluidos «jugar otra vez» y
  * los cambios de modo) y lo reenvía al reveal y al envío. Sin secreto de
- * servidor devuelve `unavailable`: el juego sigue, sin feedback inmediato.
+ * servidor devuelve `unavailable`: el cliente juega sin token y el reveal
+ * responde en modo degradado (como antes de los attempts).
  */
 export async function startQuizAttempt(
   quizId: string
@@ -381,10 +382,7 @@ export async function startQuizAttempt(
 
   const attempt = await createQuizAttempt(parsed.data);
   if (!attempt) {
-    console.error(
-      '[quiz.attempt] sin QUIZ_ATTEMPT_SECRET ni SUPABASE_SERVICE_ROLE_KEY: ' +
-        'el reveal queda deshabilitado y las partidas se puntúan al enviar.'
-    );
+    warnAttemptsInactive();
     return actionFailure('unavailable', 'Game attempts are not configured.');
   }
 
@@ -441,7 +439,7 @@ function warnMissingAttemptColumn() {
   warnedMissingAttemptColumn = true;
   console.error(
     '[game-sessions] falta la columna attempt_id: aplica ' +
-      'supabase/migrations/019_attempt_idempotencia.sql. El envío sigue funcionando.'
+      'supabase/migrations/020_attempt_idempotencia.sql. El envío sigue funcionando.'
   );
 }
 
@@ -473,7 +471,7 @@ async function findSessionByAttempt(
 /**
  * Busca la sesión por su id determinista.
  *
- * Sin la migración 019 la búsqueda por `attempt_id` falla (columna ausente),
+ * Sin la migración 020 la búsqueda por `attempt_id` falla (columna ausente),
  * pero el id ya existe desde el primer INSERT. La RLS solo deja leer la fila
  * si es del jugador actual, que es exactamente lo necesario para no inventar
  * premios de una partida anónima.
@@ -593,7 +591,9 @@ export async function submitQuizResult(
   // puntos: si no, bastaba con revelar la clave y enviar las respuestas
   // correctas omitiendo el token. Sin secreto (modo degradado) se mantiene el
   // comportamiento anterior para no perder partidas.
-  const pointsEligible = Boolean(attempt) || !attemptsAvailable();
+  const secured = attemptsAvailable();
+  if (!secured) warnAttemptsInactive();
+  const pointsEligible = Boolean(attempt) || !secured;
   if (user && !pointsEligible) {
     console.warn(
       '[quiz.submit] envío autenticado sin attempt: se guarda como anónimo para no otorgar puntos'
@@ -645,7 +645,7 @@ export async function submitQuizResult(
   let { error } = await supabase.from('game_sessions').insert(insert);
 
   if (error && attempt && isMissingAttemptColumn(error)) {
-    // Sin la migración 019 la columna no existe: se guarda como antes. El id
+    // Sin la migración 020 la columna no existe: se guarda como antes. El id
     // determinista sigue evitando que un reintento duplique la sesión.
     warnMissingAttemptColumn();
     const withoutAttempt = { ...insert };

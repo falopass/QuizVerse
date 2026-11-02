@@ -1,4 +1,4 @@
--- 019_attempt_idempotencia.sql
+-- 020_attempt_idempotencia.sql
 --
 -- J06 — El envío de una partida no era idempotente: cada llamada insertaba
 -- una fila nueva en game_sessions y el trigger award_quiz_points volvía a
@@ -19,7 +19,7 @@ ALTER TABLE public.game_sessions
   ADD COLUMN IF NOT EXISTS attempt_id UUID;
 
 COMMENT ON COLUMN public.game_sessions.attempt_id IS
-  'Partida efímera firmada (startQuizAttempt). Única por sesión; NULL en filas anteriores a la 019.';
+  'Partida efímera firmada (startQuizAttempt). Única por sesión; NULL en filas anteriores a la 020.';
 
 CREATE UNIQUE INDEX IF NOT EXISTS game_sessions_attempt_id_unique
   ON public.game_sessions (attempt_id)

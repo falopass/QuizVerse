@@ -12,9 +12,9 @@
  *
  * Secreto: `QUIZ_ATTEMPT_SECRET`; si no está, se deriva de
  * `SUPABASE_SERVICE_ROLE_KEY` para que el juego siga funcionando sin configurar
- * nada nuevo. Sin ninguna de las dos, `createQuizAttempt` devuelve `null` y el
- * reveal falla cerrado (503): la partida sigue jugable y se puntúa al enviar,
- * pero sin feedback inmediato.
+ * nada nuevo. Sin ninguna de las dos el módulo entra en modo degradado:
+ * `createQuizAttempt` devuelve `null` y el reveal responde como antes de los
+ * attempts (sin atar a partida), con un aviso único en logs por instancia.
  */
 
 import 'server-only';
@@ -53,11 +53,28 @@ function secretMaterial(): string | null {
 }
 
 /**
- * Si hay secreto, el envío puede exigir un attempt. Sin secreto el juego queda
- * en modo degradado: sin feedback y sin binding, pero no se pierden partidas.
+ * Si hay secreto, el reveal y el envío exigen attempt. Sin secreto el juego
+ * queda en modo degradado: el reveal responde sin atar a partida (como antes
+ * de los attempts) y el envío conserva el comportamiento anterior.
  */
 export function attemptsAvailable(): boolean {
   return secretMaterial() !== null;
+}
+
+let inactiveWarned = false;
+
+/**
+ * Aviso una sola vez por instancia cuando el anti-trampa está inactivo por
+ * falta de secreto. Lo llaman los puntos de entrada que degradan (reveal,
+ * inicio y envío de partida) para que el modo silencioso no pase desapercibido.
+ */
+export function warnAttemptsInactive(): void {
+  if (inactiveWarned) return;
+  inactiveWarned = true;
+  console.warn(
+    '[quiz] anti-trampa inactivo: falta QUIZ_ATTEMPT_SECRET o ' +
+      'SUPABASE_SERVICE_ROLE_KEY; el reveal y el envío responden en modo degradado'
+  );
 }
 
 let cachedKey: { material: string; key: Promise<CryptoKey> } | null = null;
@@ -209,7 +226,7 @@ export async function verifyQuizAttempt(
  * Un reintento del envío no puede leer su propia fila (la RLS de `game_sessions`
  * no deja ver las anónimas), así que necesita reconstruir la misma sesión sin
  * consultar. Derivarlos del attemptId — que el cliente no puede fabricar —
- * mantiene la idempotencia incluso antes de aplicar la migración 019.
+ * mantiene la idempotencia incluso antes de aplicar la migración 020.
  */
 export async function sessionIdsForAttempt(
   attemptId: string

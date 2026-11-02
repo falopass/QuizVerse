@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ATTEMPT_TTL_SECONDS,
   attemptsAvailable,
@@ -161,6 +161,27 @@ describe('attemptsAvailable', () => {
     delete process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     expect(attemptsAvailable()).toBe(false);
+  });
+});
+
+describe('warnAttemptsInactive', () => {
+  it('avisa una sola vez por instancia y menciona los dos secretos', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    try {
+      // Módulo fresco para que el flag "ya avisado" parta limpio.
+      vi.resetModules();
+      const { warnAttemptsInactive } = await import('@/lib/quiz/attempt');
+
+      warnAttemptsInactive();
+      warnAttemptsInactive();
+      warnAttemptsInactive();
+
+      expect(warnSpy).toHaveBeenCalledTimes(1);
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('QUIZ_ATTEMPT_SECRET'));
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('SUPABASE_SERVICE_ROLE_KEY'));
+    } finally {
+      warnSpy.mockRestore();
+    }
   });
 });
 

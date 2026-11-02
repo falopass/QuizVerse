@@ -139,6 +139,28 @@ describe('QuizPlayer · un toque responde', () => {
       expect.objectContaining({ selectedOptionId: 'q1b' })
     );
   });
+
+  it('sin attempt disponible pide el veredicto igual: el servidor decide el modo', async () => {
+    vi.mocked(startQuizAttempt).mockResolvedValueOnce({
+      success: false,
+      code: 'unavailable',
+      error: 'Game attempts are not configured.',
+    });
+    render(<QuizPlayer quiz={makeQuiz()} locale="en" />);
+    await screen.findByText(/CHOOSE AN ANSWER/);
+
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+
+    // En modo degradado el servidor responde sin token: el jugador conserva
+    // el feedback aunque startQuizAttempt haya devuelto `unavailable`.
+    await screen.findByText('Correct');
+    expect(requestAnswerVerdict).toHaveBeenCalledWith({
+      quizId: makeQuiz().id,
+      questionId: 'q1',
+      selectedOptionId: 'q1a',
+      attempt: undefined,
+    });
+  });
 });
 
 describe('QuizPlayer · Práctica sin prisa', () => {

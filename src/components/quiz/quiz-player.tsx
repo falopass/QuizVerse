@@ -242,7 +242,8 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
   /**
    * Pide al servidor el attempt firmado de la partida que acaba de arrancar.
    * Si falla (sin secreto configurado, red caída), el token queda en `null`:
-   * el reveal no se intenta y la partida se puntúa igual al enviar.
+   * el reveal se intenta igual — el servidor puede responder en modo
+   * degradado — y la partida se puntúa al enviar pase lo que pase.
    */
   const beginAttempt = React.useCallback((quizId: string) => {
     const gameId = useQuizStore.getState().gameId;
@@ -286,14 +287,14 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
       setIsCheckingAnswer(true);
       const attempt =
         useQuizStore.getState().attemptToken ?? (await attemptPromiseRef.current) ?? null;
-      const revealed = attempt
-        ? await requestAnswerVerdict({
-            quizId: quiz.id,
-            questionId: question.id,
-            selectedOptionId: chosenOptionId,
-            attempt,
-          })
-        : null;
+      // Se pide el veredicto aunque no haya attempt: si el servidor no tiene
+      // secreto configurado responde en modo degradado y el feedback sigue.
+      const revealed = await requestAnswerVerdict({
+        quizId: quiz.id,
+        questionId: question.id,
+        selectedOptionId: chosenOptionId,
+        attempt: attempt ?? undefined,
+      });
       const current = useQuizStore.getState();
       if (current.gameId !== gameId) return;
       setIsCheckingAnswer(false);
@@ -884,12 +885,10 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
                       useQuizStore.getState().attemptToken ??
                       (await attemptPromiseRef.current) ??
                       null;
-                    // Sin attempt el servidor no da pista: la ayuda no se gasta.
-                    if (!attempt) return;
                     const eliminated = await requestEliminatedOptions({
                       quizId: quiz.id,
                       questionId: currentQuestion.id,
-                      attempt,
+                      attempt: attempt ?? undefined,
                     });
                     // Without an answer from the server the power-up is not spent.
                     if (!eliminated) return;

@@ -88,6 +88,7 @@ vi.mock('@/lib/quiz/attempt', () => ({
   verifyQuizAttempt: mocks.verifyAttempt,
   sessionIdsForAttempt: async () => mocks.sessionIds,
   attemptsAvailable: () => mocks.attemptsAvailable,
+  warnAttemptsInactive: vi.fn(),
 }));
 
 vi.mock('@/lib/quiz/attempt-store', () => ({
@@ -434,7 +435,7 @@ describe('submitQuizResult · idempotencia por attempt', () => {
     }
   });
 
-  it('sin la migración 019 detecta la columna ausente y guarda sin attempt_id', async () => {
+  it('sin la migración 020 detecta la columna ausente y guarda sin attempt_id', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     mocks.insertErrors = [
       {
