@@ -4,7 +4,7 @@ vi.mock('server-only', () => ({}));
 
 type DbResult = {
   data: unknown;
-  error?: { message: string } | null;
+  error?: { message: string; code?: string } | null;
   count?: number | null;
 };
 
@@ -18,59 +18,65 @@ const db = vi.hoisted(() => ({
   })) as Handler,
 }));
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
-    from: (table: string) => {
-      const filters: string[] = [];
-      let selectCols = '*';
-      const resolve = (): DbResult => {
-        db.calls.push(`${table}(${selectCols})${filters.length ? ` ${filters.join(' ')}` : ''}`);
-        return db.handler(table, selectCols, filters);
-      };
-      const query = {
-        select: (cols?: string) => {
-          selectCols = cols ?? '*';
-          return query;
-        },
-        eq: (col: string, val: string) => {
-          filters.push(`eq:${col}=${val}`);
-          return query;
-        },
-        neq: (col: string, val: string) => {
-          filters.push(`neq:${col}=${val}`);
-          return query;
-        },
-        order: () => query,
-        range: () => query,
-        limit: () => query,
-        single: async () => {
-          const res = resolve();
-          const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
-          return { data: res.error ? null : data, error: res.error ?? null };
-        },
-        maybeSingle: async () => {
-          const res = resolve();
-          const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
-          return { data: res.error ? null : data, error: res.error ?? null };
-        },
-        then: (
-          onFulfilled?: null | ((value: DbResult) => unknown),
-          onRejected?: null | ((reason: unknown) => unknown)
-        ) => {
-          const pending = new Promise<DbResult>((res, rej) => {
-            try {
-              res(resolve());
-            } catch (error) {
-              rej(error);
-            }
-          });
-          return pending.then(onFulfilled ?? undefined, onRejected ?? undefined);
-        },
-      };
-      return query;
-    },
-  }),
+// El catálogo público va por el cliente sin cookies (`public.ts`); perfiles,
+// creador y logros siguen con el de sesión. Ambos comparten el mismo stub.
+const fakeClient = vi.hoisted(() => () => ({
+  from: (table: string) => {
+    const filters: string[] = [];
+    let selectCols = '*';
+    const resolve = (): DbResult => {
+      db.calls.push(`${table}(${selectCols})${filters.length ? ` ${filters.join(' ')}` : ''}`);
+      return db.handler(table, selectCols, filters);
+    };
+    const query = {
+      select: (cols?: string) => {
+        selectCols = cols ?? '*';
+        return query;
+      },
+      eq: (col: string, val: string) => {
+        filters.push(`eq:${col}=${val}`);
+        return query;
+      },
+      neq: (col: string, val: string) => {
+        filters.push(`neq:${col}=${val}`);
+        return query;
+      },
+      order: () => query,
+      range: () => query,
+      limit: () => query,
+      single: async () => {
+        const res = resolve();
+        const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
+        return { data: res.error ? null : data, error: res.error ?? null };
+      },
+      maybeSingle: async () => {
+        const res = resolve();
+        const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
+        return { data: res.error ? null : data, error: res.error ?? null };
+      },
+      then: (
+        onFulfilled?: null | ((value: DbResult) => unknown),
+        onRejected?: null | ((reason: unknown) => unknown)
+      ) => {
+        const pending = new Promise<DbResult>((res, rej) => {
+          try {
+            res(resolve());
+          } catch (error) {
+            rej(error);
+          }
+        });
+        return pending.then(onFulfilled ?? undefined, onRejected ?? undefined);
+      },
+    };
+    return query;
+  },
 }));
+
+vi.mock('@/lib/supabase/server', () => ({ createClient: async () => fakeClient() }));
+vi.mock('@/lib/supabase/public', () => ({ createPublicClient: fakeClient }));
+// unstable_cache necesita el incremental cache de Next, que en vitest no
+// existe: passthrough. Los tags se comprueban en catalog-cache.test.ts.
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
 
 vi.mock('@/lib/data/launch-catalog', () => ({
   LAUNCH_CATEGORIES: [{ id: 'cat-launch', slug: 'culture', name: 'Culture' }],
@@ -233,6 +239,28 @@ describe('getQuizBySlug', () => {
       throw new Error('db down');
     };
     expect(await getQuizBySlug('nope', 'en')).toBeNull();
+  });
+
+  it('no cachea un fallo de consulta como 404: cae al catálogo de lanzamiento', async () => {
+    // Un error de red no es "el quiz no existe". Si se devolviera null, la
+    // caché lo guardaría 300 s y una ficha publicada daría 404 tras un fallo
+    // transitorio.
+    db.handler = (table) =>
+      table === 'quizzes'
+        ? { data: null, error: { message: 'network down' } }
+        : { data: [catRow], error: null };
+
+    const quiz = await getQuizBySlug('launch-a', 'en');
+    expect(quiz?.id).toBe('launch-1');
+  });
+
+  it('un slug inexistente (PGRST116) devuelve null sin tocar el fallback', async () => {
+    db.handler = (table) =>
+      table === 'quizzes'
+        ? { data: null, error: { code: 'PGRST116', message: 'no rows' } }
+        : { data: [catRow], error: null };
+
+    expect(await getQuizBySlug('launch-a', 'en')).toBeNull();
   });
 });
 

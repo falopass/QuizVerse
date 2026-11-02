@@ -8,10 +8,11 @@
  * in `src/lib/quiz/*`, where it can be tested without a database.
  */
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
+import { CATALOG_TAGS } from '@/lib/data/cache-tags';
 import { toJson } from '@/lib/supabase/json';
 import { isMissingRpcFunction } from '@/lib/supabase/rpc';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
@@ -505,6 +506,9 @@ export async function likeQuiz(
       revalidatePath(`/${locale}/quiz`);
       revalidatePath(`/${locale}/quiz/${quiz.slug}`);
     }
+    // Solo la entrada de este quiz: un like no puede tirar el catálogo entero.
+    // `max` sirve la versión anterior mientras revalida en segundo plano.
+    revalidateTag(CATALOG_TAGS.quiz(quiz.slug), 'max');
   }
   // likesCount lets the client show the real total, not just optimistic ±1.
   return { success: true, liked: Boolean(data), likesCount: quiz?.likes_count ?? null };

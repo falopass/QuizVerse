@@ -1,7 +1,10 @@
 import 'server-only';
 
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
+import { CATALOG_REVALIDATE_SECONDS, CATALOG_TAGS } from '@/lib/data/cache-tags';
 import { LAUNCH_CATEGORIES, LAUNCH_QUIZZES } from '@/lib/data/launch-catalog';
 import {
   normalizeCategory,
@@ -37,7 +40,7 @@ import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from('categories').select('*').order('sort_order');
   if (error || !data) {
     throw error ?? new Error('Could not fetch categories');
@@ -45,8 +48,14 @@ async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
   return data.map(normalizeCategory);
 }
 
+const fetchPublicCategoriesCached = unstable_cache(
+  fetchPublicCategoriesFromDb,
+  ['public-categories'],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.categories] }
+);
+
 async function fetchPublishedQuizzesFromDb(limit = 40, locale?: Locale): Promise<Quiz[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const target = Math.min(Math.max(Math.trunc(limit), 0), QUIZ_MAX_ROWS);
 
   const publishedQuery = () => {
@@ -101,8 +110,14 @@ async function fetchPublishedQuizzesFromDb(limit = 40, locale?: Locale): Promise
   return quizRows.map((quiz) => normalizeQuiz(quiz, categoryMap));
 }
 
+const fetchPublishedQuizzesCached = unstable_cache(
+  fetchPublishedQuizzesFromDb,
+  ['published-quizzes'],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.quizzes] }
+);
+
 async function fetchFeaturedQuizzesFromDb(limit = 4, locale?: Locale): Promise<Quiz[]> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const target = Math.min(Math.max(Math.trunc(limit), 0), QUIZ_MAX_ROWS);
 
   let quizQuery = supabase
@@ -139,11 +154,17 @@ async function fetchFeaturedQuizzesFromDb(limit = 4, locale?: Locale): Promise<Q
   return quizRows.map((quiz) => normalizeQuiz(quiz, categoryMap));
 }
 
+const fetchFeaturedQuizzesCached = unstable_cache(
+  fetchFeaturedQuizzesFromDb,
+  ['featured-quizzes'],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.quizzes] }
+);
+
 async function fetchPublishedQuizTotalsFromDb(locale?: Locale): Promise<{
   totalQuizzes: number;
   totalPlays: number;
 }> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase
     .from('quizzes')
     .select('plays_count', { count: 'exact' })
@@ -170,8 +191,14 @@ async function fetchPublishedQuizTotalsFromDb(locale?: Locale): Promise<{
   };
 }
 
+const fetchPublishedQuizTotalsCached = unstable_cache(
+  fetchPublishedQuizTotalsFromDb,
+  ['published-quiz-totals'],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.quizzes] }
+);
+
 async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Quiz | null> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   let query = supabase.from('quizzes').select('*').eq('slug', slug).eq('status', 'published');
 
   if (locale) {
@@ -180,9 +207,15 @@ async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Qui
 
   const { data: quiz, error } = await query.single();
 
-  if (error || !quiz) {
-    return null;
+  if (error) {
+    // PGRST116 = 0 filas: el slug no existe publicado, y ese null sí se cachea.
+    if (error.code === 'PGRST116') return null;
+    // Un fallo de red no puede quedar cacheado como "no existe": serían 404
+    // durante los 300 s de la entrada. Se lanza y `getQuizBySlug` cae al
+    // catálogo de lanzamiento sin cachear el resultado.
+    throw error;
   }
+  if (!quiz) return null;
 
   const quizRow = quiz as QuizRow;
   // El creador se resuelve con el badge mínimo (sin is_admin ni contadores):
@@ -219,9 +252,19 @@ async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Qui
   return normalizeQuiz(quizRow, categoryMap, creatorResponse.data);
 }
 
+// El tag por slug se arma en cada llamada porque depende del argumento: así
+// un like (o cualquier cambio de un solo quiz) invalida su ficha y no todo el
+// catálogo.
+function fetchQuizBySlugCached(slug: string, locale?: Locale): Promise<Quiz | null> {
+  return unstable_cache(fetchQuizBySlugFromDb, ['quiz-by-slug', slug], {
+    revalidate: CATALOG_REVALIDATE_SECONDS,
+    tags: [CATALOG_TAGS.quizzes, CATALOG_TAGS.quiz(slug)],
+  })(slug, locale);
+}
+
 export const getPublicCategories = cache(async (): Promise<Category[]> => {
   try {
-    return await fetchPublicCategoriesFromDb();
+    return await fetchPublicCategoriesCached();
   } catch {
     return LAUNCH_CATEGORIES;
   }
@@ -229,7 +272,7 @@ export const getPublicCategories = cache(async (): Promise<Category[]> => {
 
 export const getPublishedQuizzes = cache(async (limit = 40, locale?: Locale): Promise<Quiz[]> => {
   try {
-    return await fetchPublishedQuizzesFromDb(limit, locale);
+    return await fetchPublishedQuizzesCached(limit, locale);
   } catch {
     const launch = locale
       ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale)
@@ -240,7 +283,7 @@ export const getPublishedQuizzes = cache(async (limit = 40, locale?: Locale): Pr
 
 export const getFeaturedQuizzes = cache(async (limit = 4, locale?: Locale): Promise<Quiz[]> => {
   try {
-    return await fetchFeaturedQuizzesFromDb(limit, locale);
+    return await fetchFeaturedQuizzesCached(limit, locale);
   } catch {
     return LAUNCH_QUIZZES.filter(
       (quiz) => quiz.is_featured && (!locale || quiz.language === locale)
@@ -250,7 +293,7 @@ export const getFeaturedQuizzes = cache(async (limit = 4, locale?: Locale): Prom
 
 export const getQuizBySlug = cache(async (slug: string, locale?: Locale): Promise<Quiz | null> => {
   try {
-    return await fetchQuizBySlugFromDb(slug, locale);
+    return await fetchQuizBySlugCached(slug, locale);
   } catch {
     const launch = LAUNCH_QUIZZES.filter((quiz) => quiz.slug === slug);
     return (locale ? launch.find((quiz) => quiz.language === locale) : launch[0]) ?? null;
@@ -281,7 +324,7 @@ export const getQuizLocaleRedirect = cache(
 
 export const getPublishedQuizCount = cache(async (locale?: Locale): Promise<number> => {
   try {
-    return (await fetchPublishedQuizTotalsFromDb(locale)).totalQuizzes;
+    return (await fetchPublishedQuizTotalsCached(locale)).totalQuizzes;
   } catch {
     return locale
       ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale).length
@@ -371,7 +414,7 @@ export async function getHomePayload(locale?: Locale) {
     getPublicCategories(),
     (async () => {
       try {
-        return await fetchPublishedQuizTotalsFromDb(locale);
+        return await fetchPublishedQuizTotalsCached(locale);
       } catch {
         const launch = launchQuizzes(locale);
 
@@ -452,6 +495,45 @@ function sortByPopularity(quizzes: Quiz[]): Quiz[] {
   return [...quizzes].sort((a, b) => b.plays_count - a.plays_count || (a.id < b.id ? -1 : 1));
 }
 
+interface CategoryPageRows {
+  rows: CategoryCardRow[];
+  total: number;
+}
+
+async function fetchCategoryPageFromDb(
+  slug: string,
+  categoryId: string | null,
+  locale: Locale | undefined,
+  page: number
+): Promise<CategoryPageRows> {
+  const supabase = createPublicClient();
+  const isType = slug === 'personality' || slug === 'trivia';
+  const from = (page - 1) * CATEGORY_PAGE_SIZE;
+  const to = from + CATEGORY_PAGE_SIZE - 1;
+  let query = supabase
+    .from('quizzes')
+    .select(CATEGORY_CARD_COLUMNS, { count: 'exact' })
+    .eq('status', 'published');
+  query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', categoryId!);
+  if (locale) query = query.eq('language', locale);
+  // `plays_count` cambia entre visitas; el id desempata para que una fila no
+  // salte de una página a otra.
+  const { data, error, count } = await query
+    .order('plays_count', { ascending: false })
+    .order('id', { ascending: true })
+    .range(from, to);
+  if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
+  return {
+    rows: data as unknown as CategoryCardRow[],
+    total: count ?? from + data.length,
+  };
+}
+
+const fetchCategoryPageCached = unstable_cache(fetchCategoryPageFromDb, ['category-page'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes],
+});
+
 export const getCategoryPayload = cache(async (slug: string, locale?: Locale, page = 1) => {
   const categories = await getPublicCategories();
   const category = categories.find((item) => item.slug === slug) ?? null;
@@ -466,30 +548,15 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale, pa
   let totalQuizzes: number;
   let counts: Map<string, number>;
   try {
-    const supabase = await createClient();
-    let query = supabase
-      .from('quizzes')
-      .select(CATEGORY_CARD_COLUMNS, { count: 'exact' })
-      .eq('status', 'published');
-    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
-    if (locale) query = query.eq('language', locale);
     // La página y los conteos de los chips no dependen entre sí: en paralelo.
-    // `plays_count` cambia entre visitas; el id desempata para que una fila no
-    // salte de una página a otra.
-    const [{ data, error, count }, fetchedCounts] = await Promise.all([
-      query
-        .order('plays_count', { ascending: false })
-        .order('id', { ascending: true })
-        .range(from, to),
+    const [{ rows, total }, fetchedCounts] = await Promise.all([
+      fetchCategoryPageCached(slug, category?.id ?? null, locale, safePage),
       locale ? getCategoryCounts(locale) : Promise.resolve(new Map<string, number>()),
     ]);
-    if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
     counts = fetchedCounts;
-    totalQuizzes = count ?? from + data.length;
+    totalQuizzes = total;
     const categoryMap = new Map(categories.map((item) => [item.id, item]));
-    quizzes = (data as unknown as CategoryCardRow[]).map((row) =>
-      normalizeCategoryCard(row, categoryMap)
-    );
+    quizzes = rows.map((row) => normalizeCategoryCard(row, categoryMap));
   } catch {
     const launch = sortByPopularity(
       LAUNCH_QUIZZES.filter(
@@ -535,6 +602,26 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale, pa
   };
 });
 
+async function fetchHubQuizProbe(
+  slug: string,
+  categoryId: string | null,
+  locale?: Locale
+): Promise<boolean> {
+  const supabase = createPublicClient();
+  const isType = slug === 'personality' || slug === 'trivia';
+  let query = supabase.from('quizzes').select('id').eq('status', 'published');
+  query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', categoryId!);
+  if (locale) query = query.eq('language', locale);
+  const { data, error } = await query.limit(1);
+  if (error || !data) throw error ?? new Error('Could not check category quizzes');
+  return data.length > 0;
+}
+
+const fetchHubQuizProbeCached = unstable_cache(fetchHubQuizProbe, ['hub-quiz-probe'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes],
+});
+
 // Sonda ligera compartida: replica la condición de notFound() de
 // getCategoryPayload (los hubs de tipo se filtran por quiz_type, sin fila en
 // categories) y devuelve null cuando la consulta falla, para que cada caller
@@ -544,13 +631,7 @@ async function probeHubQuizzes(slug: string, locale?: Locale): Promise<boolean |
   const isType = slug === 'personality' || slug === 'trivia';
   if (!category && !isType) return false;
   try {
-    const supabase = await createClient();
-    let query = supabase.from('quizzes').select('id').eq('status', 'published');
-    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
-    if (locale) query = query.eq('language', locale);
-    const { data, error } = await query.limit(1);
-    if (error || !data) throw error ?? new Error('Could not check category quizzes');
-    return data.length > 0;
+    return await fetchHubQuizProbeCached(slug, category?.id ?? null, locale);
   } catch {
     return null;
   }
@@ -578,6 +659,29 @@ export async function translatedHubExists(slug: string, locale: Locale): Promise
   return (await probeHubQuizzes(slug, locale)) === true;
 }
 
+async function fetchHubQuizTotal(
+  slug: string,
+  categoryId: string | null,
+  locale: Locale
+): Promise<number> {
+  const supabase = createPublicClient();
+  const isType = slug === 'personality' || slug === 'trivia';
+  let query = supabase
+    .from('quizzes')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'published');
+  query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', categoryId!);
+  if (locale) query = query.eq('language', locale);
+  const { count, error } = await query;
+  if (error || count === null) throw error ?? new Error('Could not count hub quizzes');
+  return count;
+}
+
+const fetchHubQuizTotalCached = unstable_cache(fetchHubQuizTotal, ['hub-quiz-total'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes],
+});
+
 // Total publicado por hub e idioma, sin traer filas (HEAD + count). Devuelve
 // null si la sonda falla para que el caller no anuncie una página dudosa.
 async function probeHubQuizTotal(slug: string, locale: Locale): Promise<number | null> {
@@ -585,16 +689,7 @@ async function probeHubQuizTotal(slug: string, locale: Locale): Promise<number |
   const isType = slug === 'personality' || slug === 'trivia';
   if (!category && !isType) return 0;
   try {
-    const supabase = await createClient();
-    let query = supabase
-      .from('quizzes')
-      .select('id', { count: 'exact', head: true })
-      .eq('status', 'published');
-    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
-    if (locale) query = query.eq('language', locale);
-    const { count, error } = await query;
-    if (error || count === null) throw error ?? new Error('Could not count hub quizzes');
-    return count;
+    return await fetchHubQuizTotalCached(slug, category?.id ?? null, locale);
   } catch {
     return null;
   }
@@ -612,6 +707,29 @@ export async function translatedHubPageExists(
   return total !== null && total > (page - 1) * CATEGORY_PAGE_SIZE;
 }
 
+async function fetchCategoryQuizTypes(
+  slug: string,
+  categoryId: string | null,
+  locale: Locale
+): Promise<Array<Quiz['quiz_type']>> {
+  const supabase = createPublicClient();
+  const isType = slug === 'personality' || slug === 'trivia';
+  let query = supabase.from('quizzes').select('quiz_type').eq('status', 'published');
+  query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', categoryId!);
+  if (locale) query = query.eq('language', locale);
+  const { data, error } = await query;
+  if (error || !data) throw error ?? new Error('Could not fetch category quiz types');
+  return [
+    ...new Set((data as Array<{ quiz_type: Quiz['quiz_type'] }>).map((row) => row.quiz_type)),
+  ];
+}
+
+const fetchCategoryQuizTypesCached = unstable_cache(
+  fetchCategoryQuizTypes,
+  ['category-quiz-types'],
+  { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.quizzes] }
+);
+
 // Tipos de quiz de todo el hub, para la tarjeta social: la página 1 sola no
 // representa los tipos de las páginas siguientes. Es una consulta ligera de
 // una columna y la OG se cachea en el edge.
@@ -623,15 +741,7 @@ export async function getCategoryQuizTypes(
   const isType = slug === 'personality' || slug === 'trivia';
   if (!category && !isType) return [];
   try {
-    const supabase = await createClient();
-    let query = supabase.from('quizzes').select('quiz_type').eq('status', 'published');
-    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
-    if (locale) query = query.eq('language', locale);
-    const { data, error } = await query;
-    if (error || !data) throw error ?? new Error('Could not fetch category quiz types');
-    return [
-      ...new Set((data as Array<{ quiz_type: Quiz['quiz_type'] }>).map((row) => row.quiz_type)),
-    ];
+    return await fetchCategoryQuizTypesCached(slug, category?.id ?? null, locale);
   } catch {
     return [];
   }
@@ -644,8 +754,91 @@ export interface HomeCardGroups {
   freshlyPublished: QuizCardViewModel[];
 }
 
+async function fetchRelatedQuizzesFromDb(
+  slug: string,
+  categorySlug: string,
+  locale?: Locale
+): Promise<Quiz[]> {
+  const supabase = createPublicClient();
+  const categories = await getPublicCategories();
+  const category = categories.find((item) => item.slug === categorySlug);
+  if (!category) throw new Error(`Unknown category: ${categorySlug}`);
+
+  let query = supabase
+    .from('quizzes')
+    .select('*')
+    .eq('status', 'published')
+    .eq('category_id', category.id)
+    .neq('slug', slug);
+  if (locale) query = query.eq('language', locale);
+
+  const { data, error } = await query.order('plays_count', { ascending: false }).limit(3);
+  if (error || !data) throw error ?? new Error('Could not fetch related quizzes');
+
+  const rows = [...(data as QuizRow[])];
+  if (rows.length < 3) {
+    let popular = supabase.from('quizzes').select('*').eq('status', 'published').neq('slug', slug);
+    if (locale) popular = popular.eq('language', locale);
+    const { data: extra } = await popular.order('plays_count', { ascending: false }).limit(10);
+    const seen = new Set(rows.map((row) => row.slug));
+    for (const row of (extra ?? []) as QuizRow[]) {
+      if (rows.length >= 3) break;
+      if (!seen.has(row.slug)) {
+        seen.add(row.slug);
+        rows.push(row);
+      }
+    }
+  }
+
+  const categoryMap = new Map(categories.map((item) => [item.id, item]));
+  const related = rows.slice(0, 3).map((row) => normalizeQuiz(row, categoryMap));
+  return locale ? localizeQuizList(related, locale) : related;
+}
+
+type CategorySlugJoin = { slug: string | null } | { slug: string | null }[] | null;
+
+async function fetchQuizCategorySlugFromDb(slug: string, locale?: Locale): Promise<string | null> {
+  const supabase = createPublicClient();
+  let query = supabase
+    .from('quizzes')
+    .select('category:categories(slug)')
+    .eq('slug', slug)
+    .eq('status', 'published');
+  if (locale) query = query.eq('language', locale);
+  const { data, error } = await query.maybeSingle();
+  if (error) throw error;
+  const join = (data as unknown as { category: CategorySlugJoin } | null)?.category ?? null;
+  const row = Array.isArray(join) ? join[0] : join;
+  return row?.slug ?? null;
+}
+
+function fetchQuizCategorySlugCached(slug: string, locale?: Locale): Promise<string | null> {
+  return unstable_cache(fetchQuizCategorySlugFromDb, ['quiz-category', slug], {
+    revalidate: CATALOG_REVALIDATE_SECONDS,
+    tags: [CATALOG_TAGS.quizzes, CATALOG_TAGS.quiz(slug)],
+  })(slug, locale);
+}
+
+/**
+ * Relacionados de la ficha sin esperar al quiz normalizado (PERF-10): resuelve
+ * la categoría con una sonda de una columna, cacheada por slug, y recién
+ * entonces consulta los relacionados. Se llama en paralelo con
+ * `getQuizBySlug`, así la segunda consulta no suma al TTFB.
+ *
+ * Si la sonda falla o el quiz no está en la base, cae al catálogo de
+ * lanzamiento igual que `getRelatedQuizzes`.
+ */
+export async function getRelatedQuizzesBySlug(slug: string, locale?: Locale): Promise<Quiz[]> {
+  const categorySlug =
+    (await fetchQuizCategorySlugCached(slug, locale).catch(() => null)) ??
+    LAUNCH_QUIZZES.find((quiz) => quiz.slug === slug)?.category?.slug ??
+    null;
+  return categorySlug ? getRelatedQuizzes(slug, categorySlug, locale) : [];
+}
+
 // Relacionados de la misma categoría; si no llegan a 3, se completan con los
-// más jugados del mismo idioma.
+// más jugados del mismo idioma. Se cachean por slug: un like o una edición de
+// este quiz invalida solo su entrada.
 export async function getRelatedQuizzes(
   slug: string,
   categorySlug?: string | null,
@@ -653,43 +846,10 @@ export async function getRelatedQuizzes(
 ): Promise<Quiz[]> {
   if (!categorySlug) return [];
   try {
-    const [supabase, categories] = await Promise.all([createClient(), getPublicCategories()]);
-    const category = categories.find((item) => item.slug === categorySlug);
-    if (!category) throw new Error(`Unknown category: ${categorySlug}`);
-
-    let query = supabase
-      .from('quizzes')
-      .select('*')
-      .eq('status', 'published')
-      .eq('category_id', category.id)
-      .neq('slug', slug);
-    if (locale) query = query.eq('language', locale);
-
-    const { data, error } = await query.order('plays_count', { ascending: false }).limit(3);
-    if (error || !data) throw error ?? new Error('Could not fetch related quizzes');
-
-    const rows = [...(data as QuizRow[])];
-    if (rows.length < 3) {
-      let popular = supabase
-        .from('quizzes')
-        .select('*')
-        .eq('status', 'published')
-        .neq('slug', slug);
-      if (locale) popular = popular.eq('language', locale);
-      const { data: extra } = await popular.order('plays_count', { ascending: false }).limit(10);
-      const seen = new Set(rows.map((row) => row.slug));
-      for (const row of (extra ?? []) as QuizRow[]) {
-        if (rows.length >= 3) break;
-        if (!seen.has(row.slug)) {
-          seen.add(row.slug);
-          rows.push(row);
-        }
-      }
-    }
-
-    const categoryMap = new Map(categories.map((item) => [item.id, item]));
-    const related = rows.slice(0, 3).map((row) => normalizeQuiz(row, categoryMap));
-    return locale ? localizeQuizList(related, locale) : related;
+    return await unstable_cache(fetchRelatedQuizzesFromDb, ['related-quizzes', slug], {
+      revalidate: CATALOG_REVALIDATE_SECONDS,
+      tags: [CATALOG_TAGS.quizzes, CATALOG_TAGS.quiz(slug)],
+    })(slug, categorySlug, locale);
   } catch {
     const launch = LAUNCH_QUIZZES.filter(
       (quiz) =>

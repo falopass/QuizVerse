@@ -19,7 +19,9 @@ const dbMocks = vi.hoisted(() => ({
 vi.mock('@/lib/data/public', () => ({
   getPublishedQuizzes: vi.fn(),
   getQuizBySlug: dbMocks.getQuizBySlug,
-  getRelatedQuizzes: dbMocks.getRelatedQuizzes,
+  // La ficha resuelve los relacionados en paralelo con una sonda de categoría
+  // (PERF-10); para el render el resultado es el mismo mock.
+  getRelatedQuizzesBySlug: dbMocks.getRelatedQuizzes,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -188,7 +190,9 @@ describe('QuizDetailPage · render SEO', () => {
       makeQuiz({ id: 'rel-1', slug: 'sequel-trivia', title: 'Sequel Trivia' }),
     ]);
 
-    expect(screen.getByRole('link', { name: /Sequel Trivia/ })).toHaveAttribute(
+    // Los relacionados llegan en su propio límite de Suspense (PERF-10): la
+    // consulta se resuelve después del primer render.
+    expect(await screen.findByRole('link', { name: /Sequel Trivia/ })).toHaveAttribute(
       'href',
       '/es/quiz/sequel-trivia'
     );

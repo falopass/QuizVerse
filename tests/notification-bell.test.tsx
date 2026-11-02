@@ -54,7 +54,7 @@ beforeEach(() => {
   mocks.error = null;
   useNotificationBadge.setState({ unread: null });
   mocks.useSupabase.mockReturnValue({
-    supabase: supabaseStub(),
+    getClient: async () => supabaseStub(),
     user: USER,
     loading: false,
     signOut: vi.fn(),

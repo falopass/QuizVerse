@@ -45,7 +45,7 @@ beforeEach(() => {
   mocks.signOutAction.mockResolvedValue({ ok: true, userId: null });
   mocks.signOut.mockResolvedValue(undefined);
   mocks.useSupabase.mockReturnValue({
-    supabase: supabaseStub,
+    getClient: async () => supabaseStub,
     user: null,
     loading: false,
     signOut: mocks.signOut,
@@ -72,7 +72,7 @@ describe('UserMenu', () => {
 
   it('con sesión muestra el nombre y abre el menú con las dos opciones', () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,
@@ -131,7 +131,7 @@ describe('UserMenu', () => {
 
   it('cierra el menú con Escape y devuelve el foco al botón', () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,
@@ -150,7 +150,7 @@ describe('UserMenu', () => {
 
   it('cierra el menú al hacer clic fuera', () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,
@@ -167,7 +167,7 @@ describe('UserMenu', () => {
 
   it('cerrar sesión llama a la action, limpia el provider y navega a la home localizada', async () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,
@@ -194,7 +194,7 @@ describe('UserMenuMobile', () => {
 
   it('con sesión muestra Ajustes y Cerrar sesión', async () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,
@@ -231,7 +231,7 @@ describe('FloatingNav', () => {
 
   it('con sesión monta el menú de usuario y las entradas del menú móvil', async () => {
     mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
+      getClient: async () => supabaseStub,
       user: USER,
       loading: false,
       signOut: mocks.signOut,

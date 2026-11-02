@@ -7,7 +7,8 @@ import 'server-only';
  * puede exportar funciones async y estas las necesitan varias acciones.
  */
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { CATALOG_TAGS } from '@/lib/data/cache-tags';
 import { hasLocale, locales } from '@/lib/i18n/dictionaries';
 
 /** Locales donde se lista un quiz: el suyo, o todos para idiomas desconocidos. */
@@ -15,7 +16,14 @@ export function quizLocales(language: string): readonly string[] {
   return hasLocale(language) ? [language] : locales;
 }
 
-/** Revalida home, explorar y detalle localizados del quiz, más los hubs. */
+/**
+ * Revalida home, explorar y detalle localizados del quiz, más los hubs.
+ *
+ * `revalidatePath` no purga la caché de datos (`unstable_cache`): los tags van
+ * aparte. `expire: 0` hace que la siguiente lectura espere a la revalidación
+ * en vez de servir la versión vieja, para que quien publica o edita vea el
+ * catálogo ya actualizado.
+ */
 export function revalidateQuizPages(language: string, slug: string) {
   for (const locale of quizLocales(language)) {
     revalidatePath(`/${locale}`);
@@ -26,12 +34,15 @@ export function revalidateQuizPages(language: string, slug: string) {
   // aren't at hand without a join, so the dynamic routes go out wholesale.
   revalidatePath('/[locale]/category/[slug]', 'page');
   revalidatePath('/[locale]/profile/[username]', 'page');
+  revalidateTag(CATALOG_TAGS.quizzes, { expire: 0 });
+  revalidateTag(CATALOG_TAGS.quiz(slug), { expire: 0 });
 }
 
 /**
  * Feeds del catálogo: el sitemap (rewrite /sitemap.xml → /api/sitemap) y el
  * RSS por locale. Solo lo llaman las transiciones de estado — publicar o
  * rechazar mete o saca el quiz del índice — no las ediciones de contenido.
+ * Los datos publicados ya quedan invalidados por `revalidateQuizPages`.
  */
 export function revalidateCatalogFeeds(language: string) {
   revalidatePath('/api/sitemap');

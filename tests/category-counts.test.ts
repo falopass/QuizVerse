@@ -5,16 +5,19 @@ vi.mock('server-only', () => ({}));
 const rangeMock = vi.fn();
 const createClientMock = vi.fn();
 
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: () => createClientMock(),
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => createClientMock(),
 }));
+// unstable_cache necesita el incremental cache de Next, que en vitest no
+// existe: passthrough. Los tags se comprueban en catalog-cache.test.ts.
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
 
 import { getCategoryCounts } from '@/lib/data/category-counts';
 
 describe('getCategoryCounts', () => {
   beforeEach(() => {
     rangeMock.mockReset();
-    createClientMock.mockReset().mockResolvedValue({
+    createClientMock.mockReset().mockReturnValue({
       from: () => {
         const query = {
           eq: () => query,
@@ -64,7 +67,9 @@ describe('getCategoryCounts', () => {
   });
 
   it('returns an empty map when the Supabase client cannot be created', async () => {
-    createClientMock.mockRejectedValueOnce(new Error('missing env'));
+    createClientMock.mockImplementationOnce(() => {
+      throw new Error('missing env');
+    });
     await expect(getCategoryCounts('en')).resolves.toEqual(new Map());
   });
 });

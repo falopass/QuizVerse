@@ -18,7 +18,7 @@ const mocks = vi.hoisted(() => ({
   revalidate: vi.fn(),
 }));
 
-vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidate }));
+vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidate, revalidateTag: vi.fn() }));
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({

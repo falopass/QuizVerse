@@ -10,8 +10,9 @@ let fail = false;
 const calls: string[] = [];
 
 vi.mock('server-only', () => ({}));
-vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({
+vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }));
+vi.mock('@/lib/supabase/public', () => ({
+  createPublicClient: () => ({
     from: (table: string) =>
       table === 'categories'
         ? { select: () => ({ order: async () => ({ data: [category], error: null }) }) }

@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   userId: 'user-1' as string | null,
   revalidate: vi.fn(),
+  revalidateTag: vi.fn(),
   limitCheck: vi.fn(),
   insert: vi.fn(),
   ip: '192.0.2.1',
@@ -38,6 +39,7 @@ const mocks = vi.hoisted(() => ({
 
 vi.mock('next/cache', () => ({
   revalidatePath: mocks.revalidate,
+  revalidateTag: mocks.revalidateTag,
 }));
 
 vi.mock('next/headers', () => ({
@@ -176,6 +178,7 @@ beforeEach(() => {
   mocks.insert.mockClear();
   mocks.ip = '192.0.2.1';
   mocks.revalidate.mockClear();
+  mocks.revalidateTag.mockClear();
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.profileResult = { data: { is_admin: true } };
   mocks.quizRow = { data: { creator_id: 'user-1', slug: 'quiz-de-prueba', language: 'en' } };
@@ -245,6 +248,9 @@ describe('createQuiz', () => {
     expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
+    // La caché de datos no la purga revalidatePath: los tags van aparte.
+    expect(mocks.revalidateTag).toHaveBeenCalledWith('quizzes', { expire: 0 });
+    expect(mocks.revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', { expire: 0 });
   });
 
   it('guarda como draft cuando no hay intent (el estado seguro por defecto)', async () => {
@@ -434,6 +440,8 @@ describe('deleteQuiz', () => {
     expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
+    expect(mocks.revalidateTag).toHaveBeenCalledWith('quizzes', { expire: 0 });
+    expect(mocks.revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', { expire: 0 });
   });
 });
 
@@ -450,6 +458,9 @@ describe('likeQuiz', () => {
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
     expect(mocks.revalidate).not.toHaveBeenCalledWith(`/quiz/${QUIZ_ID}`);
+    // Solo la ficha de este quiz: un like no puede tirar el catálogo entero.
+    expect(mocks.revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', 'max');
+    expect(mocks.revalidateTag).not.toHaveBeenCalledWith('quizzes', expect.anything());
   });
 
   it('no revalida si el quiz no existe', async () => {
@@ -459,6 +470,7 @@ describe('likeQuiz', () => {
 
     expect(result.success).toBe(true);
     expect(mocks.revalidate).not.toHaveBeenCalled();
+    expect(mocks.revalidateTag).not.toHaveBeenCalled();
   });
 });
 
