@@ -77,6 +77,22 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   };
 }
 
+// Texto visible del enlace: cada nodo de texto separado por un espacio, como lo
+// pinta el navegador al unir bloques (textContent los pegaría sin separador).
+function visibleText(element: Element): string {
+  const parts: string[] = [];
+  const walk = (node: Node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent?.trim();
+      if (text) parts.push(text);
+      return;
+    }
+    node.childNodes.forEach(walk);
+  };
+  walk(element);
+  return parts.join(' ').replace(/\s+/g, ' ').toLowerCase();
+}
+
 async function renderHome(locale: 'en' | 'es') {
   const quiz = makeQuiz({ language: locale });
   mocks.getHomePayload.mockResolvedValue({
@@ -106,11 +122,10 @@ describe('hero de la home · nombre accesible (PERF-06)', () => {
   ] as const)('en /%s el aria-label es exactamente el texto visible', async (locale, stamp) => {
     const link = await renderHome(locale);
 
-    // Sello + título, separados por un espacio: lo mismo que se ve.
-    expect(link.getAttribute('aria-label')).toBe(`${stamp} / 001 ${TITLE}`);
-    expect(link.textContent).toContain(`${stamp} / 001`);
-    expect(link.textContent).toContain(TITLE);
-    // El separador que provocaba el mismatch no debe volver.
-    expect(link.getAttribute('aria-label')).not.toContain('·');
+    // Todo el texto visible del enlace es sello + título, y el nombre accesible
+    // es exactamente ese texto: nada de separadores ni añadidos que no se vean.
+    const visible = visibleText(link);
+    expect(visible).toBe(`${stamp} / 001 ${TITLE}`.toLowerCase());
+    expect(link.getAttribute('aria-label')?.toLowerCase()).toBe(visible);
   });
 });
