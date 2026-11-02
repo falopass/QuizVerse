@@ -17,6 +17,8 @@ const mocks = vi.hoisted(() => {
     drafts: [] as { id: string }[],
     resolvedQuizReports: [] as { id: string }[],
     resolvedCommentReports: [] as { id: string }[],
+    quizReportPages: null as { id: string }[][] | null,
+    quizReportPageCalls: 0,
     reportsReadError: null as unknown,
     quizReportsUpdateError: null as unknown,
     commentReportsReadError: null as unknown,
@@ -31,7 +33,17 @@ const mocks = vi.hoisted(() => {
     const entry: Entry = { table, ops: [], args: [] };
     chains.push(entry);
     const chain: Record<string, unknown> = {};
-    for (const method of ['select', 'eq', 'neq', 'in', 'or', 'update', 'delete', 'maybeSingle']) {
+    for (const method of [
+      'select',
+      'eq',
+      'neq',
+      'in',
+      'or',
+      'update',
+      'delete',
+      'range',
+      'maybeSingle',
+    ]) {
       chain[method] = (...args: unknown[]) => {
         entry.ops.push(method);
         entry.args.push(...args);
@@ -66,9 +78,15 @@ const mocks = vi.hoisted(() => {
       makeChain(table, serviceChains, (ops) => {
         if (table === 'quizzes') return { data: state.drafts, error: null };
         if (table === 'quiz_reports') {
-          return ops.includes('select')
-            ? { data: state.resolvedQuizReports, error: state.reportsReadError }
-            : { data: null, error: state.quizReportsUpdateError };
+          if (!ops.includes('select')) {
+            return { data: null, error: state.quizReportsUpdateError };
+          }
+          if (state.quizReportPages) {
+            const page = state.quizReportPages[state.quizReportPageCalls] ?? [];
+            state.quizReportPageCalls += 1;
+            return { data: page, error: state.reportsReadError };
+          }
+          return { data: state.resolvedQuizReports, error: state.reportsReadError };
         }
         if (table === 'comment_reports') {
           return ops.includes('select')
@@ -113,6 +131,8 @@ beforeEach(() => {
   mocks.state.drafts = [{ id: 'draft-1' }];
   mocks.state.resolvedQuizReports = [{ id: 'report-1' }];
   mocks.state.resolvedCommentReports = [{ id: 'comment-report-1' }];
+  mocks.state.quizReportPages = null;
+  mocks.state.quizReportPageCalls = 0;
   mocks.state.reportsReadError = null;
   mocks.state.quizReportsUpdateError = null;
   mocks.state.commentReportsReadError = null;
@@ -191,6 +211,10 @@ describe('deleteAccountAction', () => {
     expect(quizReports).toHaveLength(1);
     expect(quizReports[0].args).toEqual([{ resolved_by: null }, 'id', ['report-1']]);
 
+    const quizReportsRead = serviceChainsFor('quiz_reports', 'select');
+    expect(quizReportsRead[0].ops).toEqual(['select', 'eq', 'range']);
+    expect(quizReportsRead[0].args).toEqual(['id', 'resolved_by', 'u1', 0, 999]);
+
     const commentReports = serviceChainsFor('comment_reports', 'update');
     expect(commentReports).toHaveLength(1);
     expect(commentReports[0].args).toEqual([{ resolved_by: null }, 'id', ['comment-report-1']]);
@@ -252,6 +276,27 @@ describe('deleteAccountAction', () => {
     ]);
     const commentReports = serviceChainsFor('comment_reports', 'update');
     expect(commentReports.map((entry) => entry.args[0])).toEqual([{ resolved_by: null }]);
+  });
+
+  it('pagina la lectura de reportes resueltos y trocea los updates', async () => {
+    const firstPage = Array.from({ length: 1000 }, (_, index) => ({ id: `r${index}` }));
+    mocks.state.quizReportPages = [firstPage, [{ id: 'extra' }]];
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: true });
+    const reads = serviceChainsFor('quiz_reports', 'select');
+    expect(reads).toHaveLength(2);
+    expect(reads[1].args).toEqual(['id', 'resolved_by', 'u1', 1000, 1999]);
+
+    const updates = serviceChainsFor('quiz_reports', 'update');
+    expect(updates.map((entry) => (entry.args[2] as string[]).length)).toEqual([
+      200, 200, 200, 200, 200, 1,
+    ]);
+    const updatedIds = updates.flatMap((entry) => entry.args[2] as string[]);
+    expect(updatedIds).toHaveLength(1001);
+    expect(updatedIds[0]).toBe('r0');
+    expect(updatedIds[1000]).toBe('extra');
   });
 
   it('si comment_reports aún no está desplegada (PGRST205) sigue con el borrado', async () => {

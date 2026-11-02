@@ -26,24 +26,41 @@ function logCleanupError(step: string, error: unknown): void {
 type ServiceClient = NonNullable<ReturnType<typeof createServiceClient>>;
 type ReportTable = 'quiz_reports' | 'comment_reports';
 
+/** PostgREST devuelve como máximo 1000 filas por consulta por defecto. */
+const REPORT_PAGE_SIZE = 1000;
+/** El filtro `in` viaja en la URL: se trocea para no pasarse de largo. */
+const REPORT_UPDATE_CHUNK = 200;
+
 function isMissingTable(error: { code?: string }): boolean {
   return error.code === 'PGRST205' || error.code === '42P01';
 }
 
 /**
  * IDs de reportes resueltos por la cuenta. `comment_reports` nace en la 017:
- * si la tabla aún no está desplegada, no hay nada que anonimizar.
+ * si la tabla aún no está desplegada, no hay nada que anonimizar. Pagina
+ * porque una cuenta de moderación puede superar el límite de PostgREST.
  */
 async function resolvedReportIds(
   service: ServiceClient,
   table: ReportTable,
   userId: string
 ): Promise<{ ok: true; ids: string[] } | { ok: false }> {
-  const { data, error } = await service.from(table).select('id').eq('resolved_by', userId);
-  if (!error) return { ok: true, ids: (data ?? []).map((row) => row.id) };
-  if (isMissingTable(error)) return { ok: true, ids: [] };
-  logCleanupError(`${table}-read`, error);
-  return { ok: false };
+  const ids: string[] = [];
+  for (let from = 0; ; from += REPORT_PAGE_SIZE) {
+    const { data, error } = await service
+      .from(table)
+      .select('id')
+      .eq('resolved_by', userId)
+      .range(from, from + REPORT_PAGE_SIZE - 1);
+    if (error) {
+      if (isMissingTable(error)) return { ok: true, ids: [] };
+      logCleanupError(`${table}-read`, error);
+      return { ok: false };
+    }
+    const page = data ?? [];
+    ids.push(...page.map((row) => row.id));
+    if (page.length < REPORT_PAGE_SIZE) return { ok: true, ids };
+  }
 }
 
 /**
@@ -58,11 +75,15 @@ async function setResolvedBy(
   ids: string[],
   value: string | null
 ): Promise<boolean> {
-  if (ids.length === 0) return true;
-  const { error } = await service.from(table).update({ resolved_by: value }).in('id', ids);
-  if (!error || isMissingTable(error)) return true;
-  logCleanupError(`${table}-${value === null ? 'anonymize' : 'restore'}`, error);
-  return false;
+  for (let index = 0; index < ids.length; index += REPORT_UPDATE_CHUNK) {
+    const chunk = ids.slice(index, index + REPORT_UPDATE_CHUNK);
+    const { error } = await service.from(table).update({ resolved_by: value }).in('id', chunk);
+    if (error && !isMissingTable(error)) {
+      logCleanupError(`${table}-${value === null ? 'anonymize' : 'restore'}`, error);
+      return false;
+    }
+  }
+  return true;
 }
 
 async function restoreResolvedBy(
