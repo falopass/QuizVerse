@@ -34,6 +34,10 @@
 --   * personality_tags quedan públicos en questions: hoy ya viajan al
 --     cliente vía toClientQuiz y no afectan puntos ni logros. Lo que sale de
 --     la columna pública es solo is_correct y explanation.
+--   * Un quiz publicado no se re-edita (decisión de la app, updateQuiz). La
+--     DB la hace cumplir en la sección 5: con JWT de no-admin, cambiar
+--     questions/results de un published lanza excepción en vez de propagar
+--     una clave nueva sin moderación.
 --
 -- ORDEN DE DESPLIEGUE — el Worker necesita SUPABASE_SERVICE_ROLE_KEY para
 -- leer quiz_answer_keys. Aplicar DESPUÉS de configurar el secreto y del
@@ -195,3 +199,63 @@ CREATE TRIGGER trg_split_quiz_answer_key
   BEFORE INSERT OR UPDATE OF questions ON public.quizzes
   FOR EACH ROW
   EXECUTE FUNCTION public.split_quiz_answer_key();
+
+-- ============================================
+-- 5. Un quiz publicado no se edita: la DB hace cumplir la regla de la app
+-- ============================================
+
+-- updateQuiz (src/actions/quiz.actions.ts) ya rechaza editar un quiz
+-- 'published': pasó moderación y los cambios vuelven a revisión. PostgREST
+-- con JWT de creador seguía pudiendo hacer UPDATE directo de questions y
+-- results, y el trigger de la sección 4 copiaba la clave nueva: el creador
+-- elegía las respuestas correctas de futuras partidas sin moderación.
+--
+-- Mismo discriminante que la 014: current_user, no auth.uid(). PostgREST con
+-- JWT de usuario -> 'authenticated' (o 'anon'); service role, seeds,
+-- migraciones y triggers internos DEFINER -> pasan libres. SECURITY INVOKER
+-- a propósito: dentro del trigger current_user debe ser el rol real del
+-- llamador. Los admins conservan la vía que ya les da guard_quiz_editable_columns.
+--
+-- No cubre cambios de status: eso lo sigue gobernando el guard de la 014
+-- (archivar es válido para el creador). La clave en quiz_answer_keys no
+-- necesita guard propio: anon/authenticated no tienen ningún grant sobre la
+-- tabla (sección 1) y su única vía de escritura es este trigger, que jamás
+-- llega a correr cuando el guard lanza.
+CREATE OR REPLACE FUNCTION public.guard_published_quiz_key()
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  IF auth.uid() IS NULL OR current_user NOT IN ('anon', 'authenticated') THEN
+    RETURN NEW;
+  END IF;
+
+  IF OLD.status = 'published'
+     AND (NEW.questions IS DISTINCT FROM OLD.questions
+          OR NEW.results IS DISTINCT FROM OLD.results)
+     AND NOT EXISTS (
+       SELECT 1 FROM public.profiles p
+       WHERE p.id = auth.uid() AND p.is_admin
+     )
+  THEN
+    RAISE EXCEPTION 'Un quiz publicado no se puede editar: los cambios vuelven a moderación'
+      USING ERRCODE = '42501';
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+COMMENT ON FUNCTION public.guard_published_quiz_key() IS
+  'Rechaza UPDATE de questions/results en un quiz published hecho con JWT de no-admin (PostgREST directo); replica la regla de updateQuiz.';
+
+REVOKE EXECUTE ON FUNCTION public.guard_published_quiz_key() FROM PUBLIC;
+
+-- Nombre deliberadamente anterior a trg_split_quiz_answer_key en orden
+-- alfabético: el guard debe lanzar ANTES de que la sección 4 copie la clave.
+DROP TRIGGER IF EXISTS trg_guard_published_quiz_key ON public.quizzes;
+CREATE TRIGGER trg_guard_published_quiz_key
+  BEFORE UPDATE OF questions, results ON public.quizzes
+  FOR EACH ROW
+  EXECUTE FUNCTION public.guard_published_quiz_key();

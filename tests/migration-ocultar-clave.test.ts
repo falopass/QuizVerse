@@ -45,6 +45,31 @@ describe('migración 015_ocultar_clave_respuestas', () => {
     expect(sql).not.toMatch(/create policy .* on public\.quiz_answer_keys/i);
   });
 
+  it('quiz_answer_keys tampoco es escribible por anon/authenticated', () => {
+    // REVOKE ALL cubre SELECT/INSERT/UPDATE/DELETE; el único GRANT es a
+    // service_role, así que PostgREST con JWT de usuario no puede tocar filas.
+    expect(sql).not.toMatch(/grant [^;]* to (anon|authenticated)/i);
+    expect(sql).toMatch(/revoke all on public\.quiz_answer_keys from public, anon, authenticated/i);
+  });
+
+  it('un quiz published no se re-edita con JWT de no-admin: guard antes del split', () => {
+    expect(sql).toMatch(/create or replace function public\.guard_published_quiz_key/i);
+    // Mismo discriminante que la 014: rol real del llamador, invoker.
+    expect(sql).toMatch(/current_user not in \('anon', 'authenticated'\)/i);
+    expect(sql).not.toMatch(
+      /create or replace function public\.guard_published_quiz_key[^$]*security definer/i
+    );
+    expect(sql).toMatch(/OLD\.status = 'published'/i);
+    expect(sql).toMatch(/NEW\.questions IS DISTINCT FROM OLD\.questions/i);
+    expect(sql).toMatch(/NEW\.results IS DISTINCT FROM OLD\.results/i);
+    // Admin conserva la vía, igual que en guard_quiz_editable_columns (014).
+    expect(sql).toMatch(/p\.id = auth\.uid\(\) and p\.is_admin/i);
+    expect(sql).toMatch(/raise exception [^;]*moderaci/i);
+    // El trigger cubre questions y results y ordena antes que el split.
+    expect(sql).toMatch(/before update of questions, results on public\.quizzes/i);
+    expect('trg_guard_published_quiz_key' < 'trg_split_quiz_answer_key').toBe(true);
+  });
+
   it('el saneado quita explanation de la pregunta e is_correct de cada opción', () => {
     expect(sql).toMatch(/create or replace function public\.sanitize_quiz_questions/i);
     expect(sql).toMatch(/q\.value - 'explanation'/i);
