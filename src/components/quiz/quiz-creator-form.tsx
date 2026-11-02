@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createQuiz } from '@/actions/quiz.actions';
 import { Button } from '@/components/ui/button';
@@ -9,8 +9,30 @@ import { useToast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { trackEvent } from '@/lib/telemetry/client';
+import {
+  creatorErrors,
+  normalizeCreatorDraft,
+  tagFromTitle,
+  validateCreatorDraft,
+  type CreatorDraftInput,
+  type CreatorError,
+  type CreatorErrorTarget,
+} from '@/lib/quiz/creator-draft';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Category, PersonalityResult, Question } from '@/types/quiz';
+
+function errorsFor(errors: CreatorError[], target: CreatorErrorTarget): string[] {
+  return errors
+    .filter(({ target: candidate }) => {
+      if (candidate.kind !== target.kind) return false;
+      if (candidate.kind === 'question' && target.kind === 'question')
+        return candidate.index === target.index;
+      if (candidate.kind === 'result' && target.kind === 'result')
+        return candidate.index === target.index;
+      return true;
+    })
+    .map(({ message }) => message);
+}
 
 export function QuizCreatorForm({
   categories,
@@ -24,9 +46,7 @@ export function QuizCreatorForm({
   const copy =
     locale === 'es'
       ? {
-          titleError: 'Primero añade un mejor título.',
           questionsError: 'Completa al menos 3 preguntas completas.',
-          resultsError: 'Añade al menos 2 resultados completos.',
           success: 'Quiz creado correctamente.',
           genericError: 'No pudimos crear el quiz ahora mismo.',
           eyebrow: 'Compositor manual',
@@ -57,17 +77,27 @@ export function QuizCreatorForm({
           questionPrompt: 'Escribe el prompt exacto que verá la persona.',
           answerCopy: 'Texto de respuesta',
           explanation: 'Explicación opcional o nota de revelación.',
+          explanationLabel: 'Explicación',
           outcomes: 'Resultados',
           outcomesHeading: 'Define los finales.',
+          resultsRange: 'Define entre 2 y 6 resultados.',
+          assignHint: 'Cada opción suma al resultado que elijas.',
           addOutcome: 'Añadir resultado',
           outcome: 'Resultado',
           outcomeTitle: 'La Curadora',
-          imageUrl: 'URL de imagen opcional',
           outcomeDescription: 'Describe el arquetipo y por qué la persona cae aquí.',
+          outcomeDescriptionLabel: 'Descripción del resultado',
+          personalityTag: 'Tag de personalidad',
+          tagHint: 'Se genera desde el título; puedes editarlo.',
+          tagPlaceholder: 'la-curadora',
+          assign: 'Suma a',
+          chooseResult: 'Elige un resultado',
+          imageUrl: 'URL de imagen opcional',
           min: 'Mín',
           max: 'Máx',
           publishing: 'Publicando quiz...',
           publish: 'Publicar quiz',
+          fixErrors: 'Revisa estos puntos antes de publicar.',
           previewEyebrow: 'Vista del estudio',
           futureCover: 'Tu próximo gran titular',
           futureSummary: 'Tu resumen aparecerá aquí cuando definas el gancho.',
@@ -82,9 +112,7 @@ export function QuizCreatorForm({
           questionsCount: 'preguntas',
         }
       : {
-          titleError: 'Add a stronger title first.',
           questionsError: 'Complete at least 3 full questions.',
-          resultsError: 'Add at least 2 full outcomes.',
           success: 'Quiz created successfully.',
           genericError: 'We could not create the quiz right now.',
           eyebrow: 'Manual Composer',
@@ -115,17 +143,27 @@ export function QuizCreatorForm({
           questionPrompt: 'Write the exact prompt the player will see.',
           answerCopy: 'Answer copy',
           explanation: 'Optional explanation or reveal note.',
+          explanationLabel: 'Explanation',
           outcomes: 'Outcomes',
           outcomesHeading: 'Define the endings.',
+          resultsRange: 'Define between 2 and 6 outcomes.',
+          assignHint: 'Each option adds to the outcome you pick.',
           addOutcome: 'Add outcome',
           outcome: 'Outcome',
           outcomeTitle: 'The Curator',
-          imageUrl: 'Optional image URL',
           outcomeDescription: 'Describe the archetype and why the player lands here.',
+          outcomeDescriptionLabel: 'Outcome description',
+          personalityTag: 'Personality tag',
+          tagHint: 'Generated from the title; you can edit it.',
+          tagPlaceholder: 'the-curator',
+          assign: 'Adds to',
+          chooseResult: 'Choose an outcome',
+          imageUrl: 'Optional image URL',
           min: 'Min',
           max: 'Max',
           publishing: 'Publishing quiz...',
           publish: 'Publish quiz',
+          fixErrors: 'Review these points before publishing.',
           previewEyebrow: 'Studio Preview',
           futureCover: 'Your future cover line',
           futureSummary: 'Your summary will appear here once you frame the hook.',
@@ -150,22 +188,80 @@ export function QuizCreatorForm({
     question('trivia'),
   ]);
   const [results, setResults] = useState<PersonalityResult[]>([result(), result()]);
+  const [assignments, setAssignments] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
+  const [submitCount, setSubmitCount] = useState(0);
+  const formRef = useRef<HTMLFormElement>(null);
+  const focusedSubmit = useRef(0);
+
+  const draftInput: CreatorDraftInput = useMemo(
+    () => ({
+      title,
+      description,
+      quizType,
+      difficulty,
+      categoryId,
+      language: locale,
+      questions,
+      results,
+      assignments,
+    }),
+    [assignments, categoryId, description, difficulty, locale, questions, quizType, results, title]
+  );
+  const validation = useMemo(() => validateCreatorDraft(draftInput, locale), [draftInput, locale]);
+  const errors = useMemo(() => creatorErrors(validation.errors), [validation.errors]);
+  const visibleErrors = showErrors ? errors : [];
+  const titleError = errorsFor(visibleErrors, { kind: 'title' }).join(' ');
+  const descriptionError = errorsFor(visibleErrors, { kind: 'description' }).join(' ');
+  const formErrors = errorsFor(visibleErrors, { kind: 'form' });
 
   const checks = useMemo(
     () => ({
       title: title.trim().length >= 5,
-      questions: questions.length >= 3 && questions.every(validQuestion),
-      results: quizType === 'trivia' || (results.length >= 2 && results.every(validResult)),
+      questions:
+        questions.length >= 3 &&
+        questions.every(
+          (item) =>
+            Boolean(item.question.trim()) &&
+            item.options.every((option) => Boolean(option.text.trim())) &&
+            (quizType === 'personality' || item.options.some((option) => option.is_correct))
+        ),
+      results:
+        quizType === 'trivia' ||
+        (results.length >= 2 &&
+          results.length <= 6 &&
+          results.every(
+            (item) =>
+              Boolean(item.title.trim()) &&
+              Boolean(item.description.trim()) &&
+              Boolean(item.personality_tag?.trim())
+          )),
     }),
     [questions, quizType, results, title]
   );
 
+  useEffect(() => {
+    if (submitCount === 0 || focusedSubmit.current === submitCount) return;
+    focusedSubmit.current = submitCount;
+    const form = formRef.current;
+    const target =
+      form?.querySelector<HTMLElement>('[aria-invalid="true"]') ??
+      form?.querySelector<HTMLElement>('[data-error]');
+    target?.focus();
+  }, [submitCount, errors]);
+
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!checks.title) return error(copy.titleError);
-    if (!checks.questions) return error(copy.questionsError);
-    if (!checks.results) return error(copy.resultsError);
+    if (questions.length < 3) {
+      setShowErrors(true);
+      return error(copy.questionsError);
+    }
+    setShowErrors(true);
+    if (!validation.valid) {
+      setSubmitCount((count) => count + 1);
+      return;
+    }
     setIsSubmitting(true);
     try {
       await trackEvent({
@@ -174,17 +270,7 @@ export function QuizCreatorForm({
         quizType,
         source: 'manual_create',
       });
-      const response = await createQuiz({
-        title: title.trim(),
-        description: description.trim(),
-        quiz_type: quizType,
-        difficulty,
-        category_id: categoryId || undefined,
-        questions,
-        results: quizType === 'personality' ? results : undefined,
-        language: locale,
-        estimated_minutes: Math.max(1, questions.length),
-      });
+      const response = await createQuiz(normalizeCreatorDraft(draftInput));
       if (!response.success) return error(response.error);
       await trackEvent({
         name: 'create_complete',
@@ -207,7 +293,12 @@ export function QuizCreatorForm({
   };
 
   return (
-    <form onSubmit={submit} className="grid items-start gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+    <form
+      ref={formRef}
+      onSubmit={submit}
+      noValidate
+      className="grid items-start gap-6 lg:grid-cols-[1.3fr_0.7fr]"
+    >
       <div className="space-y-6">
         <section className="surface-panel p-6">
           <p className="eyebrow">{copy.eyebrow}</p>
@@ -215,43 +306,58 @@ export function QuizCreatorForm({
             {copy.heading}
           </h2>
           <div className="mt-6 grid gap-5 lg:grid-cols-2">
-            <Block label={copy.title}>
-              <Input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder={copy.titlePlaceholder}
-                maxLength={120}
-              />
-            </Block>
-            <Block label={copy.category}>
-              <select
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
-              >
-                <option value="">{copy.categoryPlaceholder}</option>
-                {categories.map((c) => (
-                  <option key={c.id} value={c.id}>
-                    {c.name}
-                  </option>
-                ))}
-              </select>
-            </Block>
-            <Block label={copy.description} className="lg:col-span-2">
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={4}
-                className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
-                placeholder={copy.descriptionPlaceholder}
-              />
-            </Block>
+            <Field id="creator-title" label={copy.title} error={titleError}>
+              {(props) => (
+                <Input
+                  {...props}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder={copy.titlePlaceholder}
+                  maxLength={120}
+                />
+              )}
+            </Field>
+            <Field id="creator-category" label={copy.category}>
+              {(props) => (
+                <select
+                  {...props}
+                  value={categoryId}
+                  onChange={(e) => setCategoryId(e.target.value)}
+                  className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+                >
+                  <option value="">{copy.categoryPlaceholder}</option>
+                  {categories.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </Field>
+            <Field
+              id="creator-description"
+              label={copy.description}
+              error={descriptionError}
+              className="lg:col-span-2"
+            >
+              {(props) => (
+                <textarea
+                  {...props}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={4}
+                  className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                  placeholder={copy.descriptionPlaceholder}
+                />
+              )}
+            </Field>
           </div>
         </section>
 
         <section className="surface-panel p-6">
           <div className="grid gap-5 lg:grid-cols-2">
             <Choice
+              id="creator-format"
               label={copy.format}
               value={quizType}
               setValue={(value) => {
@@ -266,6 +372,7 @@ export function QuizCreatorForm({
               ]}
             />
             <Choice
+              id="creator-difficulty"
               label={copy.difficulty}
               value={difficulty}
               setValue={(value) => setDifficulty(value as 'easy' | 'medium' | 'hard')}
@@ -295,212 +402,399 @@ export function QuizCreatorForm({
             </Button>
           </div>
           <div className="space-y-4">
-            {questions.map((item, index) => (
-              <article
-                key={item.id}
-                className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-text-primary text-sm font-semibold">
-                    {copy.question} {index + 1}
-                  </p>
-                  <div className="flex gap-2">
-                    <Mini
-                      onClick={() => move(setQuestions, questions, index, -1)}
-                      disabled={index === 0}
+            {questions.map((item, index) => {
+              const itemErrors = errorsFor(visibleErrors, { kind: 'question', index });
+              const errorId = `creator-question-${index}-error`;
+              const describedBy = itemErrors.length ? errorId : undefined;
+              return (
+                <article
+                  key={item.id}
+                  className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <label
+                      htmlFor={`creator-question-${index}`}
+                      className="text-text-primary text-sm font-semibold"
                     >
-                      {copy.up}
-                    </Mini>
-                    <Mini
-                      onClick={() => move(setQuestions, questions, index, 1)}
-                      disabled={index === questions.length - 1}
-                    >
-                      {copy.down}
-                    </Mini>
-                    <Mini
-                      tone="danger"
-                      onClick={() =>
-                        setQuestions((current) => current.filter((_, i) => i !== index))
-                      }
-                      disabled={questions.length === 1}
-                    >
-                      {copy.remove}
-                    </Mini>
+                      {copy.question} {index + 1}
+                    </label>
+                    <div className="flex gap-2">
+                      <Mini
+                        onClick={() => move(setQuestions, questions, index, -1)}
+                        disabled={index === 0}
+                      >
+                        {copy.up}
+                      </Mini>
+                      <Mini
+                        onClick={() => move(setQuestions, questions, index, 1)}
+                        disabled={index === questions.length - 1}
+                      >
+                        {copy.down}
+                      </Mini>
+                      <Mini
+                        tone="danger"
+                        onClick={() =>
+                          setQuestions((current) => current.filter((_, i) => i !== index))
+                        }
+                        disabled={questions.length === 1}
+                      >
+                        {copy.remove}
+                      </Mini>
+                    </div>
                   </div>
-                </div>
-                <div className="mt-4">
-                  <Input
-                    value={item.question}
-                    onChange={(e) =>
-                      patchQuestion(setQuestions, index, { question: e.target.value })
-                    }
-                    placeholder={copy.questionPrompt}
-                  />
-                </div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {item.options.map((option, optionIndex) => (
-                    <div
-                      key={option.id}
-                      className={cn(
-                        'rounded-2xl border p-4',
-                        option.is_correct
-                          ? 'border-emerald-500/35 bg-emerald-500/8'
-                          : 'border-border-subtle bg-bg-secondary/60'
-                      )}
+                  {itemErrors.length ? (
+                    <ul
+                      id={errorId}
+                      data-error
+                      tabIndex={-1}
+                      className="text-error mt-3 list-disc space-y-1 pl-5 text-sm"
                     >
-                      <div className="mb-3 flex items-center justify-between">
-                        <span className="text-text-muted text-xs font-semibold tracking-[0.2em] uppercase">
-                          {copy.option} {String.fromCharCode(65 + optionIndex)}
-                        </span>
-                        {quizType === 'trivia' ? (
-                          <button
-                            type="button"
-                            onClick={() =>
+                      {itemErrors.map((message, errorIndex) => (
+                        <li key={`${errorIndex}-${message}`}>{message}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <div className="mt-4">
+                    <Input
+                      id={`creator-question-${index}`}
+                      aria-describedby={describedBy}
+                      aria-invalid={itemErrors.length && !item.question.trim() ? true : undefined}
+                      value={item.question}
+                      onChange={(e) =>
+                        patchQuestion(setQuestions, index, { question: e.target.value })
+                      }
+                      placeholder={copy.questionPrompt}
+                    />
+                  </div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {item.options.map((option, optionIndex) => {
+                      const optionId = `creator-question-${index}-option-${optionIndex}`;
+                      const missingResult =
+                        quizType === 'personality' &&
+                        !results.some(
+                          (result) =>
+                            result.id === assignments[option.id] &&
+                            Boolean(result.personality_tag?.trim())
+                        );
+                      return (
+                        <div
+                          key={option.id}
+                          className={cn(
+                            'rounded-2xl border p-4',
+                            option.is_correct
+                              ? 'border-emerald-500/35 bg-emerald-500/8'
+                              : 'border-border-subtle bg-bg-secondary/60'
+                          )}
+                        >
+                          <div className="mb-3 flex items-center justify-between">
+                            <label
+                              htmlFor={optionId}
+                              className="text-text-muted text-xs font-semibold tracking-[0.2em] uppercase"
+                            >
+                              {copy.option} {String.fromCharCode(65 + optionIndex)}
+                            </label>
+                            {quizType === 'trivia' ? (
+                              <button
+                                type="button"
+                                aria-pressed={Boolean(option.is_correct)}
+                                onClick={() =>
+                                  setQuestions((current) =>
+                                    current.map((q, qIndex) =>
+                                      qIndex !== index
+                                        ? q
+                                        : {
+                                            ...q,
+                                            options: q.options.map((o, oIndex) => ({
+                                              ...o,
+                                              is_correct: oIndex === optionIndex,
+                                            })),
+                                          }
+                                    )
+                                  )
+                                }
+                                className={cn(
+                                  'rounded-full px-3 py-1 text-xs font-semibold',
+                                  option.is_correct
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'text-text-secondary ring-border-subtle bg-white ring-1'
+                                )}
+                              >
+                                {option.is_correct ? copy.correct : copy.markCorrect}
+                              </button>
+                            ) : null}
+                          </div>
+                          <Input
+                            id={optionId}
+                            aria-describedby={describedBy}
+                            aria-invalid={
+                              itemErrors.length && !option.text.trim() ? true : undefined
+                            }
+                            value={option.text}
+                            onChange={(e) =>
                               setQuestions((current) =>
                                 current.map((q, qIndex) =>
                                   qIndex !== index
                                     ? q
                                     : {
                                         ...q,
-                                        options: q.options.map((o, oIndex) => ({
-                                          ...o,
-                                          is_correct: oIndex === optionIndex,
-                                        })),
+                                        options: q.options.map((o, oIndex) =>
+                                          oIndex === optionIndex
+                                            ? { ...o, text: e.target.value }
+                                            : o
+                                        ),
                                       }
                                 )
                               )
                             }
-                            className={cn(
-                              'rounded-full px-3 py-1 text-xs font-semibold',
-                              option.is_correct
-                                ? 'bg-emerald-600 text-white'
-                                : 'text-text-secondary ring-border-subtle bg-white ring-1'
-                            )}
-                          >
-                            {option.is_correct ? copy.correct : copy.markCorrect}
-                          </button>
-                        ) : null}
-                      </div>
-                      <Input
-                        value={option.text}
+                            placeholder={copy.answerCopy}
+                          />
+                          {quizType === 'personality' ? (
+                            <div className="mt-3">
+                              <label
+                                htmlFor={`${optionId}-result`}
+                                className="text-text-secondary mb-1.5 block text-xs font-medium"
+                              >
+                                {copy.assign}
+                              </label>
+                              <select
+                                id={`${optionId}-result`}
+                                value={assignments[option.id] ?? ''}
+                                onChange={(e) =>
+                                  setAssignments((current) => ({
+                                    ...current,
+                                    [option.id]: e.target.value,
+                                  }))
+                                }
+                                aria-describedby={describedBy}
+                                aria-invalid={showErrors && missingResult ? true : undefined}
+                                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+                              >
+                                <option value="">{copy.chooseResult}</option>
+                                {results.map((outcome, outcomeIndex) => (
+                                  <option key={outcome.id} value={outcome.id}>
+                                    {outcome.title.trim() || `${copy.outcome} ${outcomeIndex + 1}`}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ) : null}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <Field
+                    id={`creator-question-${index}-explanation`}
+                    label={copy.explanationLabel}
+                    className="mt-4"
+                  >
+                    {(props) => (
+                      <textarea
+                        {...props}
+                        value={item.explanation || ''}
                         onChange={(e) =>
-                          setQuestions((current) =>
-                            current.map((q, qIndex) =>
-                              qIndex !== index
-                                ? q
-                                : {
-                                    ...q,
-                                    options: q.options.map((o, oIndex) =>
-                                      oIndex === optionIndex ? { ...o, text: e.target.value } : o
-                                    ),
-                                  }
-                            )
-                          )
+                          patchQuestion(setQuestions, index, { explanation: e.target.value })
                         }
-                        placeholder={copy.answerCopy}
+                        rows={3}
+                        className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                        placeholder={copy.explanation}
                       />
-                    </div>
-                  ))}
-                </div>
-                <textarea
-                  value={item.explanation || ''}
-                  onChange={(e) =>
-                    patchQuestion(setQuestions, index, { explanation: e.target.value })
-                  }
-                  rows={3}
-                  className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
-                  placeholder={copy.explanation}
-                />
-              </article>
-            ))}
+                    )}
+                  </Field>
+                </article>
+              );
+            })}
           </div>
         </section>
 
         {quizType === 'personality' ? (
           <section className="surface-panel p-6">
-            <div className="mb-4 flex items-center justify-between">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="eyebrow">{copy.outcomes}</p>
                 <h3 className="text-text-primary mt-2 text-2xl font-semibold">
                   {copy.outcomesHeading}
                 </h3>
+                <p className="text-text-secondary mt-2 text-sm">{copy.resultsRange}</p>
               </div>
               <Button
                 type="button"
                 variant="secondary"
+                disabled={results.length >= 6}
                 onClick={() => setResults((current) => [...current, result()])}
               >
                 {copy.addOutcome}
               </Button>
             </div>
+            <p className="text-text-secondary mb-4 text-sm">{copy.assignHint}</p>
             <div className="space-y-4">
-              {results.map((item, index) => (
-                <article
-                  key={item.id}
-                  className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
-                >
-                  <div className="flex items-center justify-between">
-                    <p className="text-text-primary text-sm font-semibold">
-                      {copy.outcome} {index + 1}
-                    </p>
-                    <Mini
-                      tone="danger"
-                      onClick={() => setResults((current) => current.filter((_, i) => i !== index))}
-                      disabled={results.length <= 2}
+              {results.map((item, index) => {
+                const itemErrors = errorsFor(visibleErrors, { kind: 'result', index });
+                const errorId = `creator-result-${index}-error`;
+                const describedBy = itemErrors.length ? errorId : undefined;
+                const tagMissing = !item.personality_tag?.trim();
+                return (
+                  <article
+                    key={item.id}
+                    className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <label
+                        htmlFor={`creator-result-${index}-title`}
+                        className="text-text-primary text-sm font-semibold"
+                      >
+                        {copy.outcome} {index + 1}
+                      </label>
+                      <Mini
+                        tone="danger"
+                        onClick={() =>
+                          setResults((current) => current.filter((_, i) => i !== index))
+                        }
+                        disabled={results.length <= 2}
+                      >
+                        {copy.remove}
+                      </Mini>
+                    </div>
+                    {itemErrors.length ? (
+                      <ul
+                        id={errorId}
+                        data-error
+                        tabIndex={-1}
+                        className="text-error mt-3 list-disc space-y-1 pl-5 text-sm"
+                      >
+                        {itemErrors.map((message, errorIndex) => (
+                          <li key={`${errorIndex}-${message}`}>{message}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                      <Input
+                        id={`creator-result-${index}-title`}
+                        aria-describedby={describedBy}
+                        aria-invalid={showErrors && !item.title.trim() ? true : undefined}
+                        value={item.title}
+                        onChange={(e) => patchResultTitle(setResults, index, e.target.value)}
+                        placeholder={copy.outcomeTitle}
+                      />
+                      <Field id={`creator-result-${index}-image`} label={copy.imageUrl}>
+                        {(props) => (
+                          <Input
+                            {...props}
+                            type="url"
+                            value={item.image_url || ''}
+                            onChange={(e) =>
+                              patchResult(setResults, index, { image_url: e.target.value })
+                            }
+                          />
+                        )}
+                      </Field>
+                    </div>
+                    <Field
+                      id={`creator-result-${index}-tag`}
+                      label={copy.personalityTag}
+                      hint={copy.tagHint}
+                      className="mt-4"
                     >
-                      {copy.remove}
-                    </Mini>
-                  </div>
-                  <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                    <Input
-                      value={item.title}
-                      onChange={(e) => patchResult(setResults, index, { title: e.target.value })}
-                      placeholder={copy.outcomeTitle}
-                    />
-                    <Input
-                      type="url"
-                      value={item.image_url || ''}
-                      onChange={(e) =>
-                        patchResult(setResults, index, { image_url: e.target.value })
-                      }
-                      placeholder={copy.imageUrl}
-                    />
-                  </div>
-                  <textarea
-                    value={item.description}
-                    onChange={(e) =>
-                      patchResult(setResults, index, { description: e.target.value })
-                    }
-                    rows={3}
-                    className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
-                    placeholder={copy.outcomeDescription}
-                  />
-                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                    <Input
-                      type="number"
-                      value={item.min_score ?? 0}
-                      onChange={(e) =>
-                        patchResult(setResults, index, { min_score: Number(e.target.value) || 0 })
-                      }
-                      placeholder={copy.min}
-                    />
-                    <Input
-                      type="number"
-                      value={item.max_score ?? 0}
-                      onChange={(e) =>
-                        patchResult(setResults, index, { max_score: Number(e.target.value) || 0 })
-                      }
-                      placeholder={copy.max}
-                    />
-                  </div>
-                </article>
-              ))}
+                      {(props) => (
+                        <Input
+                          {...props}
+                          aria-describedby={
+                            describedBy ??
+                            (showErrors && tagMissing && formErrors.length
+                              ? 'creator-form-errors'
+                              : undefined)
+                          }
+                          aria-invalid={showErrors && tagMissing ? true : undefined}
+                          value={item.personality_tag || ''}
+                          onChange={(e) =>
+                            patchResult(setResults, index, { personality_tag: e.target.value })
+                          }
+                          placeholder={copy.tagPlaceholder}
+                          maxLength={64}
+                        />
+                      )}
+                    </Field>
+                    <Field
+                      id={`creator-result-${index}-description`}
+                      label={`${copy.outcomeDescriptionLabel} ${index + 1}`}
+                      className="mt-4"
+                    >
+                      {(props) => (
+                        <textarea
+                          {...props}
+                          aria-describedby={describedBy}
+                          aria-invalid={showErrors && !item.description.trim() ? true : undefined}
+                          value={item.description}
+                          onChange={(e) =>
+                            patchResult(setResults, index, { description: e.target.value })
+                          }
+                          rows={3}
+                          className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                          placeholder={copy.outcomeDescription}
+                        />
+                      )}
+                    </Field>
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                      <Field id={`creator-result-${index}-min`} label={copy.min}>
+                        {(props) => (
+                          <Input
+                            {...props}
+                            type="number"
+                            value={item.min_score ?? 0}
+                            onChange={(e) =>
+                              patchResult(setResults, index, {
+                                min_score: Number(e.target.value) || 0,
+                              })
+                            }
+                          />
+                        )}
+                      </Field>
+                      <Field id={`creator-result-${index}-max`} label={copy.max}>
+                        {(props) => (
+                          <Input
+                            {...props}
+                            type="number"
+                            value={item.max_score ?? 0}
+                            onChange={(e) =>
+                              patchResult(setResults, index, {
+                                max_score: Number(e.target.value) || 0,
+                              })
+                            }
+                          />
+                        )}
+                      </Field>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </section>
         ) : null}
 
+        {formErrors.length ? (
+          <section
+            id="creator-form-errors"
+            data-error
+            tabIndex={-1}
+            role="alert"
+            className="border-error/30 bg-error/5 rounded-2xl border p-4"
+          >
+            <p className="text-error text-sm font-semibold">{copy.fixErrors}</p>
+            <ul className="text-error mt-2 list-disc space-y-1 pl-5 text-sm">
+              {formErrors.map((message, index) => (
+                <li key={`${index}-${message}`}>{message}</li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <div className="flex flex-wrap gap-3">
-          <Button type="submit" size="lg" isLoading={isSubmitting} className="rounded-full px-7">
+          <Button
+            type="submit"
+            size="lg"
+            isLoading={isSubmitting}
+            aria-describedby={formErrors.length ? 'creator-form-errors' : undefined}
+            className="rounded-full px-7"
+          >
             {isSubmitting ? copy.publishing : copy.publish}
           </Button>
         </div>
@@ -520,7 +814,7 @@ export function QuizCreatorForm({
           <div className="space-y-4 p-6">
             <div className="flex flex-wrap gap-2">
               <Tag>{difficulty}</Tag>
-              <Tag>{quizType}</Tag>
+              <Tag>{quizType === 'trivia' ? copy.trivia : copy.personality}</Tag>
               <Tag>
                 {questions.length} {copy.questionsCount}
               </Tag>
@@ -562,6 +856,7 @@ const result = (): PersonalityResult => ({
   id: `r-${crypto.randomUUID()}`,
   title: '',
   description: '',
+  personality_tag: '',
   min_score: 0,
   max_score: 0,
   image_url: '',
@@ -578,11 +873,6 @@ const normalize = (item: Question, type: 'trivia' | 'personality'): Question => 
         : false,
   })),
 });
-const validQuestion = (item: Question) =>
-  item.question.trim() &&
-  item.options.every((option) => option.text.trim()) &&
-  item.options.some((option) => option.is_correct);
-const validResult = (item: PersonalityResult) => item.title.trim() && item.description.trim();
 const patchQuestion = (
   setQuestions: React.Dispatch<React.SetStateAction<Question[]>>,
   index: number,
@@ -595,6 +885,19 @@ const patchResult = (
   patch: Partial<PersonalityResult>
 ) =>
   setResults((current) => current.map((item, i) => (i === index ? { ...item, ...patch } : item)));
+const patchResultTitle = (
+  setResults: React.Dispatch<React.SetStateAction<PersonalityResult[]>>,
+  index: number,
+  title: string
+) =>
+  setResults((current) =>
+    current.map((item, i) => {
+      if (i !== index) return item;
+      const auto =
+        !item.personality_tag?.trim() || item.personality_tag === tagFromTitle(item.title);
+      return { ...item, title, personality_tag: auto ? tagFromTitle(title) : item.personality_tag };
+    })
+  );
 const move = <T,>(
   setter: React.Dispatch<React.SetStateAction<T[]>>,
   list: T[],
@@ -609,45 +912,73 @@ const move = <T,>(
     return next;
   });
 };
-function Block({
+type FieldControlProps = {
+  id: string;
+  'aria-describedby'?: string;
+  'aria-invalid'?: true;
+};
+function Field({
+  id,
   label,
-  children,
+  hint,
+  error,
   className,
+  children,
 }: {
+  id: string;
   label: string;
-  children: React.ReactNode;
+  hint?: string;
+  error?: string;
   className?: string;
+  children: (props: FieldControlProps) => React.ReactNode;
 }) {
   return (
     <div className={className}>
-      <label className="text-text-primary mb-2 block text-sm font-medium">{label}</label>
-      {children}
+      <label htmlFor={id} className="text-text-primary mb-2 block text-sm font-medium">
+        {label}
+      </label>
+      {children({
+        id,
+        'aria-describedby': error ? `${id}-error` : undefined,
+        'aria-invalid': error ? true : undefined,
+      })}
+      {hint && !error ? <p className="text-text-muted mt-1.5 text-xs">{hint}</p> : null}
+      {error ? (
+        <p id={`${id}-error`} data-error tabIndex={-1} className="text-error mt-1.5 text-sm">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 }
 function Choice({
+  id,
   label,
   value,
   setValue,
   options,
 }: {
+  id: string;
   label: string;
   value: string;
   setValue: (value: string) => void;
   options: [string, string][];
 }) {
   return (
-    <div>
-      <p className="text-text-primary mb-3 text-sm font-medium">{label}</p>
+    <div role="group" aria-labelledby={`${id}-label`}>
+      <p id={`${id}-label`} className="text-text-primary mb-3 text-sm font-medium">
+        {label}
+      </p>
       <div className="grid gap-3">
-        {options.map(([id, text]) => (
+        {options.map(([optionId, text]) => (
           <button
-            key={id}
+            key={optionId}
             type="button"
-            onClick={() => setValue(id)}
+            aria-pressed={value === optionId}
+            onClick={() => setValue(optionId)}
             className={cn(
               'rounded-[24px] border px-4 py-4 text-left transition',
-              value === id
+              value === optionId
                 ? 'border-accent-primary bg-accent-primary/8'
                 : 'border-border-subtle bg-bg-secondary'
             )}
