@@ -343,6 +343,8 @@ describe('GET /stock-covers/[slug]', () => {
     expect(response.headers.get('content-type')).toBe('image/webp');
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[1][0]).toBe('https://images.pexels.com/photos/999/ok.jpeg');
+    // La cadena comparte un solo presupuesto de timeout, no 8 s por salto.
+    expect(fetchMock.mock.calls[1][1]?.signal).toBe(fetchMock.mock.calls[0][1]?.signal);
   });
 
   it('cae al SVG cuando el 3xx apunta a un host fuera de la allowlist', async () => {

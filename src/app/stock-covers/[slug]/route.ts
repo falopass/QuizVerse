@@ -68,13 +68,16 @@ function isAllowedImageUrl(url: string): boolean {
  */
 async function fetchStockImage(slug: string, initialUrl: string): Promise<Response | null> {
   let url = initialUrl;
+  // Una sola señal para toda la cadena: los saltos comparten el presupuesto
+  // de 8 s en vez de reiniciarlo (peor caso: 3 × 8 s antes del fallback).
+  const signal = AbortSignal.timeout(FETCH_TIMEOUT_MS);
   for (let hop = 0; ; hop++) {
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'QuizVerse/1.0',
       },
       redirect: 'manual',
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      signal,
     });
 
     if (response.status < 300 || response.status >= 400) {
