@@ -150,6 +150,17 @@ npm run build
 
 Deployed to **Cloudflare Workers** via OpenNext: Workers Builds builds and deploys `main` to [quizverse.org](https://quizverse.org). Supabase provides the backend (database, auth, storage). LLM provider is configurable through environment variables.
 
+### Production smoke test
+
+`scripts/smoke-prod.sh` hits the deployed site with `curl` and asserts real HTTP statuses: localized homes, quiz detail, `/play` and `/result`, OG images, category, leaderboard, auth pages, `sitemap.xml`, `robots.txt`, the `/feed.xml` redirect, the old `/en/explore` redirects, real 404s (also with the Googlebot UA) and that the `/play` HTML never leaks `is_correct`. It exits non-zero on any failure and prints a summary.
+
+The `smoke` GitHub workflow runs it every 30 minutes, on `workflow_dispatch`, and after each push to `main` (with retries while Workers Builds publishes). To run it by hand:
+
+```bash
+scripts/smoke-prod.sh                      # against https://quizverse.org
+scripts/smoke-prod.sh https://preview-url  # or any base URL
+```
+
 ---
 
 ## 🗺️ Roadmap Before Public Launch
