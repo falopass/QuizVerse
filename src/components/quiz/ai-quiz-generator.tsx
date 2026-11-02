@@ -9,7 +9,7 @@ import { useToast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { normalizeQuizDraft } from '@/lib/quiz/normalize-draft';
-import { suggestCategory } from '@/lib/quiz/category-suggest';
+import { isTopicCategory, suggestCategory } from '@/lib/quiz/category-suggest';
 import {
   getLocalizedDifficultyLabel,
   getLocalizedLanguageLabel,
@@ -151,6 +151,8 @@ export function AIQuizGenerator({
           language: 'Idioma',
           fixErrors: 'Revisa los puntos marcados antes de guardar.',
           generatingNote: 'La IA puede tardar hasta un minuto en escribir el borrador.',
+          categoriesUnavailable:
+            'No pudimos cargar las categorías. Recarga la página antes de generar.',
         }
       : {
           enterTopic: 'Enter a topic before generating.',
@@ -236,6 +238,8 @@ export function AIQuizGenerator({
           language: 'Language',
           fixErrors: 'Review the flagged items before saving.',
           generatingNote: 'The AI can take up to a minute to write the draft.',
+          categoriesUnavailable:
+            'We could not load the categories. Reload the page before generating.',
         };
   const topics = TOPICS[locale];
   const [topic, setTopic] = useState('');
@@ -249,8 +253,13 @@ export function AIQuizGenerator({
   const [rateNote, setRateNote] = useState<string | null>(null);
   const [categoryId, setCategoryId] = useState('');
   const [suggestedCategoryId, setSuggestedCategoryId] = useState<string | null>(null);
+  // `personality` y `trivia` son hubs de tipo: elegirlos como categoría dejaría
+  // el quiz fuera del hub (filtra por quiz_type), así que no se ofrecen.
   const localizedCategories = useMemo(
-    () => categories.map((category) => localizeCategory(category, locale) ?? category),
+    () =>
+      categories
+        .filter((category) => isTopicCategory(category.slug))
+        .map((category) => localizeCategory(category, locale) ?? category),
     [categories, locale]
   );
 
@@ -460,7 +469,7 @@ export function AIQuizGenerator({
               </Block>
               <Button
                 onClick={generate}
-                disabled={isGenerating || !topic.trim()}
+                disabled={isGenerating || !topic.trim() || localizedCategories.length === 0}
                 isLoading={isGenerating}
                 size="xl"
                 className="w-full rounded-full"
@@ -470,6 +479,11 @@ export function AIQuizGenerator({
               {isGenerating ? (
                 <p role="status" className="text-text-muted text-sm">
                   {copy.generatingNote}
+                </p>
+              ) : null}
+              {localizedCategories.length === 0 ? (
+                <p role="alert" className="text-sm text-rose-700">
+                  {copy.categoriesUnavailable}
                 </p>
               ) : null}
             </div>

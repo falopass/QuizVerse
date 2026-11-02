@@ -8,77 +8,92 @@
  * puede cambiar.
  */
 
-// Orden importa: franquicias/temas específicos primero, buckets amplios al final.
+// Los límites `\b` de JavaScript son ASCII: «café» o «Álbum» no cerrarían
+// palabra. Se quitan los acentos del tema y las reglas se escriben sin ellos.
+const normalize = (text: string) =>
+  text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+// Orden importa: franquicias/temas específicos primero, buckets amplios al
+// final. «Cultura pop» va antes que Música para que su «pop» no la capture.
 const RULES: Array<[slug: string, match: RegExp]> = [
   [
     'anime-manga',
-    /\b(anime|manga|shonen|seinen|otaku|waifu|ghibli|naruto|one piece|demon slayer|jujutsu|dragon ball|pokemon)\b/i,
+    /\b(anime|manga|shonen|seinen|otaku|waifu|ghibli|naruto|one piece|demon slayer|jujutsu|dragon ball|pokemon)\b/,
   ],
   [
     'gaming',
-    /\b(gaming|gamer|videojuegos?|video ?games?|nintendo|playstation|xbox|steam|zelda|mario|minecraft|fortnite|roblox|elden ring|league of legends|valorant|pok[eé]mon|rpg)\b/i,
+    /\b(gaming|gamer|videojuegos?|video ?games?|nintendo|playstation|xbox|steam|zelda|mario|minecraft|fortnite|roblox|elden ring|league of legends|valorant|pokemon|rpg)\b/,
   ],
   [
     'movies-tv',
-    /\b(cine|pel[ií]culas?|movies?|films?|series?|netflix|hbo|hollywood|televisi[oó]n|tv|sitcom|documental|disney|marvel|star wars|harry potter)\b/i,
+    /\b(cine|peliculas?|movies?|films?|series?|netflix|hbo|hollywood|television|tv|sitcom|documental|disney|marvel|star wars|harry potter)\b/,
   ],
   [
     'literature',
-    /\b(libros?|books?|literatura|literature|novelas?|novels?|autores?|authors?|poes[ií]a|poetry|escritores?|shakespeare)\b/i,
-  ],
-  [
-    'music',
-    /\b(m[uú]sica|music|cantantes?|singers?|rock|pop|rap|hip ?hop|k-?pop|reggaet[oó]n|conciertos?|[aá]lbum(?:es)?|banda|band|taylor swift|bad bunny)\b/i,
-  ],
-  [
-    'science',
-    /\b(ciencia|science|espacio|space|f[ií]sica|physics|qu[ií]mica|chemistry|biolog[ií]a|biology|astronom[ií]a|astronomy|universo|universe|experimentos?)\b/i,
-  ],
-  [
-    'sports',
-    /\b(deportes?|sports?|f[uú]tbol|football|soccer|nba|nfl|tenis|tennis|b[eé]isbol|baseball|ol[ií]mpic|olympics?|mundial|world cup)\b/i,
-  ],
-  [
-    'geography',
-    /\b(geograf[ií]a|geography|pa[ií]ses|countries|capitales?|capitals?|ciudades?|cities|mapas?|maps?|banderas?|flags?)\b/i,
-  ],
-  [
-    'history',
-    /\b(historia|history|imperios?|empires?|guerras?|wars?|antig[üu]edad|ancient|medieval|revoluci[oó]n|revolution|egipto|egypt|romanos?|vikingos?)\b/i,
-  ],
-  [
-    'technology',
-    /\b(tecnolog[ií]a|technology|tech|software|hardware|gadgets?|apps?|programaci[oó]n|coding|c[oó]digo|robots?|inteligencia artificial)\b/i,
-  ],
-  [
-    'animals',
-    /\b(animales?|animals?|perros?|dogs?|gatos?|cats?|mascotas?|pets?|vida salvaje|wildlife|dinosaurios?|dinosaurs?|aves|birds?|oc[eé]anos?)\b/i,
-  ],
-  [
-    'food-drink',
-    /\b(comida|food|bebidas?|drinks?|recetas?|recipes?|cocina|cooking|gastronom[ií]a|caf[eé]|coffee|vino|wine|cerveza|beer|restaurantes?|postres?)\b/i,
-  ],
-  [
-    'relationships',
-    /\b(relaciones|relationships?|parejas?|couples?|amor|love|citas?|dating|amistad|friendship|banderas rojas|red flags|crush|rupturas?)\b/i,
-  ],
-  [
-    'lifestyle',
-    /\b(estilo de vida|lifestyle|rutinas?|routines?|h[aá]bitos?|habits?|viajes?|travel|hogar|home|moda|fashion|dise[ñn]o|design|productividad|bienestar|wellness)\b/i,
+    /\b(libros?|books?|literatura|literature|novelas?|novels?|autores?|authors?|poesia|poetry|escritores?|shakespeare)\b/,
   ],
   [
     'pop-culture',
-    /\b(cultura pop|pop culture|memes?|fandoms?|famosos?|celebrities|influencers?|viral|tendencias?|trends?|internet)\b/i,
+    /\b(cultura pop|pop culture|memes?|fandoms?|famosos?|celebrities|influencers?|viral|tendencias?|trends?|internet)\b/,
+  ],
+  [
+    'music',
+    /\b(musica|music|cantantes?|singers?|rock|pop|rap|hip ?hop|k-?pop|reggaeton|conciertos?|album(?:es)?|banda|band|taylor swift|bad bunny)\b/,
+  ],
+  [
+    'science',
+    /\b(ciencia|science|espacio|space|fisica|physics|quimica|chemistry|biologia|biology|astronomia|astronomy|universo|universe|experimentos?)\b/,
+  ],
+  [
+    'sports',
+    /\b(deportes?|sports?|futbol|football|soccer|nba|nfl|tenis|tennis|beisbol|baseball|olimpic(?:os|as)?|olympics?|mundial|world cup)\b/,
+  ],
+  [
+    'geography',
+    /\b(geografia|geography|paises|countries|capitales?|capitals?|ciudades?|cities|mapas?|maps?|banderas?|flags?)\b/,
+  ],
+  [
+    'history',
+    /\b(historia|history|imperios?|empires?|guerras?|wars?|antiguedad|ancient|medieval|revolucion|revolution|egipto|egypt|romanos?|vikingos?)\b/,
+  ],
+  [
+    'technology',
+    /\b(tecnologia|technology|tech|software|hardware|gadgets?|apps?|programacion|coding|codigo|robots?|inteligencia artificial)\b/,
+  ],
+  [
+    'animals',
+    /\b(animales?|animals?|perros?|dogs?|gatos?|cats?|mascotas?|pets?|vida salvaje|wildlife|dinosaurios?|dinosaurs?|aves|birds?|oceanos?)\b/,
+  ],
+  [
+    'food-drink',
+    /\b(comida|food|bebidas?|drinks?|recetas?|recipes?|cocina|cooking|gastronomia|cafe|coffee|vino|wine|cerveza|beer|restaurantes?|postres?)\b/,
+  ],
+  [
+    'relationships',
+    /\b(relaciones|relationships?|parejas?|couples?|amor|love|citas?|dating|amistad|friendship|banderas rojas|red flags|crush|rupturas?)\b/,
+  ],
+  [
+    'lifestyle',
+    /\b(estilo de vida|lifestyle|rutinas?|routines?|habitos?|habits?|viajes?|travel|hogar|home|moda|fashion|diseno|design|productividad|bienestar|wellness)\b/,
   ],
   [
     'culture',
-    /\b(cultura|culture|arte|art|mitolog[ií]a|mythology|idiomas?|languages?|tradiciones?|traditions?|religi[oó]n|filosof[ií]a)\b/i,
+    /\b(cultura|culture|arte|art|mitologia|mythology|idiomas?|languages?|tradiciones?|traditions?|religion|filosofia)\b/,
   ],
 ];
 
+/** Hubs de tipo (no de tema): no sirven como categoría de un quiz. */
+const TYPE_HUB_SLUGS = new Set(['personality', 'trivia']);
+
+export const isTopicCategory = (slug: string) => !TYPE_HUB_SLUGS.has(slug);
+
 /** Slug de la primera regla que coincide con el tema, o `null` si ninguna aplica. */
 export function suggestCategorySlug(topic: string): string | null {
-  return RULES.find(([, match]) => match.test(topic))?.[0] ?? null;
+  const normalized = normalize(topic);
+  return RULES.find(([, match]) => match.test(normalized))?.[0] ?? null;
 }
 
 /** La categoría sugerida para el tema dentro de las categorías disponibles. */

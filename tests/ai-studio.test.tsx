@@ -45,7 +45,7 @@ vi.mock('next/navigation', () => ({
 import { AIQuizGenerator } from '@/components/quiz/ai-quiz-generator';
 import { UserMenu, UserMenuMobile } from '@/components/layout/user-menu';
 import CreatePage from '@/app/[locale]/create/page';
-import { suggestCategorySlug } from '@/lib/quiz/category-suggest';
+import { isTopicCategory, suggestCategorySlug } from '@/lib/quiz/category-suggest';
 
 const USER = { id: 'user-1', email: 'ada@example.com', user_metadata: { name: 'Ada' } };
 
@@ -63,6 +63,7 @@ const category = (id: string, slug: string, name: string, sort_order: number): C
 });
 
 const CATEGORIES = [
+  category('cat-0', 'personality', 'Personality', 0),
   category('cat-1', 'gaming', 'Gaming', 1),
   category('cat-2', 'music', 'Music', 2),
 ];
@@ -162,8 +163,20 @@ describe('suggestCategorySlug', () => {
     expect(suggestCategorySlug('Trivia de cine moderno')).toBe('movies-tv');
   });
 
+  it('«cultura pop» gana a Música y las palabras acentuadas cuentan', () => {
+    expect(suggestCategorySlug('Trivia de cultura pop')).toBe('pop-culture');
+    expect(suggestCategorySlug('Cultura del café')).toBe('food-drink');
+    expect(suggestCategorySlug('Álbum de estudio')).toBe('music');
+  });
+
   it('devuelve null cuando ningún tema encaja', () => {
     expect(suggestCategorySlug('zzz qqq')).toBeNull();
+  });
+
+  it('los hubs de tipo no son categorías de tema', () => {
+    expect(isTopicCategory('personality')).toBe(false);
+    expect(isTopicCategory('trivia')).toBe(false);
+    expect(isTopicCategory('gaming')).toBe(true);
   });
 });
 
@@ -176,6 +189,8 @@ describe('AIQuizGenerator', () => {
     const select = screen.getByLabelText('Categoría');
     expect(select).toHaveValue('cat-1');
     expect(screen.getByRole('option', { name: 'Videojuegos' })).toBeInTheDocument();
+    // `personality` es un hub de tipo, no una categoría de tema.
+    expect(screen.queryByRole('option', { name: 'Personalidad' })).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: 'Guardar borrador' }));
 
@@ -250,6 +265,15 @@ describe('AIQuizGenerator', () => {
         'Llegaste al límite de generaciones. Espera un minuto e inténtalo otra vez.'
       )
     );
+  });
+
+  it('no deja generar si las categorías no cargaron', () => {
+    renderGenerator([]);
+
+    expect(screen.getByRole('button', { name: 'Generar con AI' })).toBeDisabled();
+    expect(
+      screen.getByText('No pudimos cargar las categorías. Recarga la página antes de generar.')
+    ).toBeInTheDocument();
   });
 
   it('avisa que la generación tarda mientras espera la respuesta', async () => {
