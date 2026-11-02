@@ -22,6 +22,7 @@
     "seo:assets": "node scripts/generate-brand-assets.mjs",
     "seo:indexnow": "node scripts/submit-indexnow.mjs",
     "seo:guard": "node scripts/seo/check-page-metadata.mjs",
+    "seo:locale-map": "node scripts/seo/emit-locale-map.mjs --write",
     "seed:categorize": "node scripts/seed/categorize-quizzes.mjs",
     "seed:editorial": "node scripts/seed/emit-editorial-seed.mjs",
     "seed:editorial:2026b": "node scripts/seed/emit-editorial-seed.mjs --input scripts/seed/editorial-seed-2026b.json --out supabase/seed/editorial-seed-2026b.sql --write",

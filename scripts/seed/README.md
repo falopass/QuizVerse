@@ -72,9 +72,15 @@ The insert is `ON CONFLICT (slug) DO NOTHING`, so the seed is safe to re-run.
 2. Emit the versioned SQL:
    `node scripts/seed/emit-editorial-seed.mjs --input scripts/seed/editorial-seed-<batch>.json --write --out supabase/seed/editorial-seed-<batch>.sql`
    It prints `Validated: {…}` with the per-category count before writing.
-3. Add `tests/editorial-seed-<batch>.test.ts` covering the batch (see the
+3. Regenerate the en↔es locale map so the new pairs get `hreflang` and the
+   locale switcher can route between them: `npm run seo:locale-map`.
+   `src/lib/data/quiz-locale-map.ts` is generated — never edit it by hand. The
+   pairs are derived from adjacent en/es quizzes in each editorial seed and
+   from `source_id` in `generated/trending-seed*.normalized.json`; a quiz left
+   without an adjacent counterpart is reported and skipped.
+4. Add `tests/editorial-seed-<batch>.test.ts` covering the batch (see the
    existing per-batch tests).
-4. Importing the SQL into the database is the owner's decision.
+5. Importing the SQL into the database is the owner's decision.
 
 The emitter refuses to emit when:
 
