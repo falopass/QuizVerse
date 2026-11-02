@@ -53,6 +53,7 @@ const sessionRow = {
   share_token: 'tok',
   was_shared: false,
   completed_at: '2026-01-01T00:00:00Z',
+  attempt_id: null,
 };
 
 const missingFunction = {
@@ -68,7 +69,7 @@ describe('fetchSessionByShareToken', () => {
 
     expect(mocks.rpc).toHaveBeenCalledWith('get_session_by_share_token', { p_token: 'tok' });
     expect(mocks.from).not.toHaveBeenCalled();
-    expect(row).toEqual({ ...sessionRow, player_id: null });
+    expect(row).toEqual({ ...sessionRow, player_id: null, attempt_id: null });
   });
 
   it('cae al SELECT directo cuando la función aún no existe', async () => {

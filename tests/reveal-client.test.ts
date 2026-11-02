@@ -9,8 +9,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
 
-const INPUT = { quizId: 'quiz-1', questionId: 'q1', selectedOptionId: 'q1a' };
-const HINT_INPUT = { quizId: 'quiz-1', questionId: 'q1' };
+const INPUT = {
+  quizId: 'quiz-1',
+  questionId: 'q1',
+  selectedOptionId: 'q1a',
+  attempt: 'attempt-token',
+};
+const HINT_INPUT = { quizId: 'quiz-1', questionId: 'q1', attempt: 'attempt-token' };
 
 function okResponse(body: unknown): Response {
   return {

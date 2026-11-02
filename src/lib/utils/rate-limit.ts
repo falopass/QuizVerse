@@ -1,30 +1,5 @@
-import { Redis } from '@upstash/redis';
-
-let _redis: Redis | null | undefined;
-
-function getRedis(): Redis | null {
-  if (_redis !== undefined) return _redis;
-
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-
-  if (!url || !token) {
-    console.warn(
-      '[rate-limit] Redis not configured — falling back to the Cloudflare binding when available'
-    );
-    _redis = null;
-    return null;
-  }
-
-  try {
-    _redis = new Redis({ url, token });
-    return _redis;
-  } catch (error) {
-    console.error('[rate-limit] Failed to initialize Redis client:', error);
-    _redis = null;
-    return null;
-  }
-}
+import { getRedis } from '@/lib/utils/redis';
+import type { Redis } from '@upstash/redis';
 
 /**
  * Binding nativo de Rate Limiting de Workers. La API solo expone ventanas
@@ -48,6 +23,7 @@ const CF_BINDINGS: Record<string, string> = {
   'quiz-generate-ip': 'RATE_LIMIT_GAME', // 10/60: generación IA por IP
   'quiz-generate-user': 'RATE_LIMIT_GAME', // 10/60: generación IA por usuario
   'quiz-reveal': 'RATE_LIMIT_REVEAL', // 120/60 por IP
+  'quiz-attempt': 'RATE_LIMIT_SOCIAL', // 30/60 por IP: arranque de partida
   api: 'RATE_LIMIT_API', // 100/60: monitor, analytics, perfil, likes
   social: 'RATE_LIMIT_FOLLOW', // 20/60: seguir/dejar de seguir, por usuario
   'quiz-share': 'RATE_LIMIT_SOCIAL', // 30/60 por IP

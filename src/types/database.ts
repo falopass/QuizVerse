@@ -290,6 +290,7 @@ export interface Database {
           share_token: string;
           was_shared: boolean;
           completed_at: string;
+          attempt_id: string | null;
         };
         Insert: {
           id?: string;
@@ -304,6 +305,7 @@ export interface Database {
           share_token?: string;
           was_shared?: boolean;
           completed_at?: string;
+          attempt_id?: string | null;
         };
         Update: {
           id?: string;
@@ -318,6 +320,7 @@ export interface Database {
           share_token?: string;
           was_shared?: boolean;
           completed_at?: string;
+          attempt_id?: string | null;
         };
         // Required by @supabase/postgrest-js to resolve typed queries.
         Relationships: [

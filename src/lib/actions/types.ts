@@ -13,6 +13,7 @@ export type ActionErrorCode =
   | 'invalid_input'
   | 'rate_limited'
   | 'conflict'
+  | 'unavailable'
   | 'unexpected';
 
 export interface ActionFailure {

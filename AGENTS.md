@@ -139,9 +139,11 @@ decide cuánto vale.
 | Módulo                             | Responsabilidad                                                                                                    |
 | :--------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `src/lib/quiz/answer-key.ts`       | Clave de respuestas: `evaluateAnswer`, `eliminateWrongOptions`, `toClientQuiz` (quita `is_correct`), `buildReview` |
+| `src/lib/quiz/attempt.ts`          | Partida efímera firmada (HMAC): emisión, verificación, caducidad e ids deterministas del envío                     |
+| `src/lib/quiz/attempt-store.ts`    | Estado por attempt: una pregunta revelada una sola vez y en orden (Redis; memoria si no hay)                       |
 | `src/lib/quiz/submission.ts`       | Zod del envío + `scoreSubmission` (trivia por aciertos, personality por tag dominante) + `pointsFor`               |
 | `src/lib/quiz/quiz-repository.ts`  | Única puerta a la clave: carga el quiz publicado por id                                                            |
-| `src/app/api/quiz/reveal/route.ts` | `POST` por pregunta: veredicto o pista 50/50. Rate limit por IP                                                    |
+| `src/app/api/quiz/reveal/route.ts` | `POST` por pregunta: veredicto o pista 50/50. Exige attempt, rate limit por IP                                     |
 | `src/actions/quiz.actions.ts`      | Orquestación fina: auth → Zod → dominio → persistir → revalidate                                                   |
 | `src/lib/actions/types.ts`         | Contrato `ActionResult` (`{ success: true } \| { success: false, code, error }`)                                   |
 | `src/lib/quiz/quiz-slug.ts`        | Slugs ASCII con prefijo de idioma y colisión resuelta por sufijo                                                   |
@@ -153,6 +155,22 @@ Reglas:
 - El feedback inmediato se pide a `/api/quiz/reveal`. Si falla, el jugador sigue
   sin feedback; la partida no se bloquea y el servidor vuelve a puntuar al
   enviar.
+- El reveal exige el `attempt` firmado que emite `startQuizAttempt` al arrancar
+  cada partida (secreto `QUIZ_ATTEMPT_SECRET`, o derivado de
+  `SUPABASE_SERVICE_ROLE_KEY`). Sin attempt válido responde 401/403; cada
+  pregunta se revela una sola vez por partida y solo hacia adelante. El 50/50
+  se gasta una vez por partida (repetir la misma pregunta es idempotente).
+  Sin ninguno de los dos secretos el servidor entra en modo degradado: el
+  reveal responde sin attempt (como antes del anti-trampa) y registra un
+  aviso una vez por instancia — así previews y entornos locales sin secretos
+  no pierden el feedback inmediato.
+- `submitQuizResult` es idempotente por attempt: un reintento devuelve la
+  sesión existente sin sumar puntos ni plays, pero reporta los puntos que el
+  primer envío ya otorgó. Con secreto configurado, un envío autenticado sin
+  attempt válido se guarda como anónimo (sin puntos) para que omitir el token
+  no sea una vía de farmeo; sin secreto se mantiene el comportamiento anterior.
+  La migración 020 añade `game_sessions.attempt_id`; sin ella el envío sigue
+  funcionando (se detecta la columna ausente y se registra).
 - `answers[].is_correct` que llega del cliente se ignora: se recalcula en
   `scoreSubmission` y se guarda ya corregido.
 - Los puntos los otorga el trigger `award_quiz_points` (10 + 25 por partida

@@ -87,6 +87,7 @@ function sessionRow(overrides: Partial<GameSessionRow> = {}): GameSessionRow {
     share_token: 'tok-1',
     was_shared: false,
     completed_at: '2026-01-03T00:00:00Z',
+    attempt_id: null,
     ...overrides,
   };
 }

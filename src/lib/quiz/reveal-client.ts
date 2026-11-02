@@ -8,6 +8,11 @@
  * Both helpers resolve to `null` on any failure. The player degrades to "no
  * feedback" instead of getting stuck, and the server re-grades every answer at
  * submission anyway, so a failed reveal can never corrupt a score.
+ *
+ * `attempt` es el token firmado de la partida. Cuando el servidor lo exige
+ * (secreto configurado) no entrega la clave sin él; cuando no hay secreto el
+ * endpoint responde en modo degradado y el juego conserva el feedback aunque
+ * la petición viaje sin token.
  */
 
 export interface AnswerVerdictResponse {
@@ -37,6 +42,7 @@ export async function requestAnswerVerdict(input: {
   quizId: string;
   questionId: string;
   selectedOptionId: string;
+  attempt?: string;
 }): Promise<AnswerVerdictResponse | null> {
   const payload = await postReveal({ ...input, purpose: 'answer' });
   if (!payload || typeof payload !== 'object') return null;
@@ -54,6 +60,7 @@ export async function requestAnswerVerdict(input: {
 export async function requestEliminatedOptions(input: {
   quizId: string;
   questionId: string;
+  attempt?: string;
 }): Promise<string[] | null> {
   const payload = await postReveal({ ...input, purpose: 'hint' });
   if (!payload || typeof payload !== 'object') return null;

@@ -132,6 +132,27 @@ describe('eliminateWrongOptions', () => {
   it('returns nothing when there is not enough to hide', () => {
     expect(eliminateWrongOptions(makeQuiz(), 'q2')).toEqual([]);
   });
+
+  it('en tres opciones deja una incorrecta: la pista no regala la respuesta', () => {
+    const quiz = makeQuiz({
+      questions: [
+        {
+          id: 'q3',
+          question: '¿Cuál es correcta?',
+          options: [
+            { id: 'q3a', text: 'Correcta', is_correct: true },
+            { id: 'q3b', text: 'Mala 1' },
+            { id: 'q3c', text: 'Mala 2' },
+          ],
+        },
+      ],
+    });
+
+    const eliminated = eliminateWrongOptions(quiz, 'q3');
+
+    expect(eliminated).toHaveLength(1);
+    expect(eliminated).not.toContain('q3a');
+  });
 });
 
 describe('scoreSubmission', () => {
