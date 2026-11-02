@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signUpAction } from '@/actions/auth.actions';
 import { authMessage } from '@/lib/auth/messages';
+import { CheckEmailNotice } from '@/components/auth/check-email-notice';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface RegisterFormProps {
@@ -24,6 +25,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [pendingEmail, setPendingEmail] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +34,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
 
     // La validación, el rate limit y el saneado del username viven en el
     // servidor; aquí solo se envía lo que el jugador escribió.
-    const result = await signUpAction({ email, password, name });
+    const result = await signUpAction({ email, password, name, locale });
 
     if (!result.ok) {
       setError(authMessage(result.code, locale));
@@ -40,8 +42,19 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
       return;
     }
 
+    // Alta sin sesión: el correo de confirmación manda antes que cualquier
+    // redirect; sin este aviso el usuario llegaba a la home sin sesión.
+    if (result.needsEmailConfirmation) {
+      setPendingEmail(email);
+      return;
+    }
+
     router.push(redirectTo);
     router.refresh();
+  }
+
+  if (pendingEmail) {
+    return <CheckEmailNotice email={pendingEmail} locale={locale} loginLink />;
   }
 
   return (

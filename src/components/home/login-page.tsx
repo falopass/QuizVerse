@@ -32,6 +32,8 @@ export async function LoginPageView({
           continueBody: 'Elige un proveedor y entra al estudio de QuizVerse.',
           oauthFailed: 'No pudimos completar el acceso social. Vuelve a intentarlo.',
           browseFirst: 'o explora primero',
+          noAccount: '¿No tienes cuenta?',
+          signUp: 'Crea una',
           legal: 'Al continuar, aceptas nuestros',
           and: 'y',
           privacy: 'Política de Privacidad',
@@ -49,6 +51,8 @@ export async function LoginPageView({
           continueBody: 'Pick a provider and step into the QuizVerse studio.',
           oauthFailed: "We couldn't finish the social sign-in. Try again.",
           browseFirst: 'or browse first',
+          noAccount: "Don't have an account?",
+          signUp: 'Create one',
           legal: 'By continuing, you agree to our',
           and: 'and',
           privacy: 'Privacy Policy',
@@ -120,6 +124,15 @@ export async function LoginPageView({
           >
             {dictionary.auth.guest}
           </Link>
+          <p className="text-text-secondary mt-6 text-center text-sm">
+            {copy.noAccount}{' '}
+            <Link
+              href={`${localizeHref(locale, '/register')}?redirect=${encodeURIComponent(localizedRedirect)}`}
+              className="text-accent-primary font-semibold hover:underline"
+            >
+              {copy.signUp}
+            </Link>
+          </p>
           <p className="text-text-muted mt-6 text-xs leading-6">
             {copy.legal}{' '}
             <Link href={localizeHref(locale, '/terms')} className="underline">
