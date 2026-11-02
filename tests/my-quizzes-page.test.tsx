@@ -5,11 +5,10 @@ import { render, screen } from '@testing-library/react';
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   range: vi.fn(),
-  eq: vi.fn(),
   order: vi.fn(),
   select: vi.fn(),
   from: vi.fn(),
-  listProps: [] as Array<{ count: number }>,
+  countResult: { count: 45 as number | null, error: null as { message: string } | null },
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -72,16 +71,23 @@ function row(id: string) {
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.getUser.mockResolvedValue({ data: { user: USER } });
-  mocks.select.mockReturnValue({ eq: mocks.eq });
-  mocks.eq.mockReturnValue({ order: mocks.order });
+  mocks.countResult = { count: 45, error: null };
+  // `.eq()` se espera tal cual en la consulta de recuento y encadena `.order()`
+  // en la de filas: un thenable con `order` cubre ambas.
+  mocks.select.mockReturnValue({
+    eq: () => ({
+      order: mocks.order,
+      then: (resolve: (value: unknown) => unknown) => resolve(mocks.countResult),
+    }),
+  });
   mocks.order.mockReturnValue({ range: mocks.range });
-  mocks.range.mockResolvedValue({ data: [row('1')], error: null, count: 45 });
+  mocks.range.mockResolvedValue({ data: [row('1')], error: null });
   mocks.from.mockReturnValue({ select: mocks.select });
 });
 
 describe('página /my-quizzes', () => {
   it('distingue un error de una lista vacía', async () => {
-    mocks.range.mockResolvedValue({ data: null, error: { message: 'boom' }, count: null });
+    mocks.countResult = { count: null, error: { message: 'boom' } };
 
     render(await MyQuizzesPage(props()));
 
@@ -89,8 +95,17 @@ describe('página /my-quizzes', () => {
     expect(screen.queryByTestId('list')).not.toBeInTheDocument();
   });
 
+  it('también muestra el panel de error si fallan las filas', async () => {
+    mocks.range.mockResolvedValue({ data: null, error: { message: 'boom' } });
+
+    render(await MyQuizzesPage(props()));
+
+    expect(screen.getByText('No pudimos cargar tus quizzes.')).toBeInTheDocument();
+  });
+
   it('pinta la lista (aunque esté vacía) cuando la consulta funciona', async () => {
-    mocks.range.mockResolvedValue({ data: [], error: null, count: 0 });
+    mocks.countResult = { count: 0, error: null };
+    mocks.range.mockResolvedValue({ data: [], error: null });
 
     render(await MyQuizzesPage(props()));
 
@@ -114,13 +129,14 @@ describe('página /my-quizzes', () => {
   });
 
   it('redirige a la última página válida si ?page quedó fuera de rango', async () => {
-    mocks.range.mockResolvedValue({ data: [], error: null, count: 20 });
+    mocks.countResult = { count: 20, error: null };
 
     await expect(MyQuizzesPage(props('3'))).rejects.toThrow('NEXT_REDIRECT:/es/my-quizzes');
+    expect(mocks.range).not.toHaveBeenCalled();
   });
 
   it('no pinta paginación cuando todo cabe en una página', async () => {
-    mocks.range.mockResolvedValue({ data: [row('1')], error: null, count: 5 });
+    mocks.countResult = { count: 5, error: null };
 
     render(await MyQuizzesPage(props()));
 

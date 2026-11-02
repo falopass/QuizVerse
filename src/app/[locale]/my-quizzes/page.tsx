@@ -55,29 +55,31 @@ export default async function LocalizedMyQuizzesPage({
 
   const requested = Number.parseInt(rawPage ?? '1', 10);
   const page = Number.isSafeInteger(requested) && requested >= 1 ? requested : 1;
-  const from = (page - 1) * PAGE_SIZE;
-  const {
-    data: quizzes,
-    error,
-    count,
-  } = await supabase
+
+  // El recuento va antes que el rango: un `?page` que quedó fuera de rango
+  // (p.ej. tras borrar el último quiz de la última página) hace que PostgREST
+  // responda 416 al pedir el rango, y eso no debe confundirse con una caída.
+  const { count, error: countError } = await supabase
     .from('quizzes')
-    .select('id, slug, title, status, quiz_type, language, plays_count, likes_count, created_at', {
-      count: 'exact',
-    })
+    .select('id', { count: 'exact', head: true })
+    .eq('creator_id', user.id);
+
+  const total = count ?? 0;
+  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (!countError && page > pageCount) {
+    redirect(localizeHref(locale, pageCount > 1 ? `/my-quizzes?page=${pageCount}` : '/my-quizzes'));
+  }
+
+  const from = (page - 1) * PAGE_SIZE;
+  const { data: quizzes, error: rowsError } = await supabase
+    .from('quizzes')
+    .select('id, slug, title, status, quiz_type, language, plays_count, likes_count, created_at')
     .eq('creator_id', user.id)
     .order('created_at', { ascending: false })
     .range(from, from + PAGE_SIZE - 1);
 
   const es = locale === 'es';
-  const total = count ?? 0;
-  const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
-
-  // Borrar el último quiz de una página deja `?page` fuera de rango: sin esto
-  // la lista saldría vacía aunque queden quizzes en la página anterior.
-  if (!error && page > pageCount) {
-    redirect(localizeHref(locale, pageCount > 1 ? `/my-quizzes?page=${pageCount}` : '/my-quizzes'));
-  }
+  const error = countError ?? rowsError;
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
