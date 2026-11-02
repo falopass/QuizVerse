@@ -101,7 +101,7 @@ export async function createQuiz(
 
   const parsed = createQuizSchema.safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
-  const validation = validateQuiz(parsed.data);
+  const validation = validateQuiz(parsed.data, parsed.data.language);
   if (!validation.valid) return actionFailure('invalid_input', validation.errors.join('; '));
 
   const { data: profile } = await supabase

@@ -133,6 +133,24 @@ describe('createQuiz', () => {
     }
   );
 
+  it('rechaza personality cuyas opciones no votan y traduce el error al language del quiz', async () => {
+    const input = {
+      ...createInput('en'),
+      quiz_type: 'personality',
+      results: [
+        { id: 'r1', title: 'Brave', description: 'You are brave', personality_tag: 'brave' },
+        { id: 'r2', title: 'Calm', description: 'You are calm', personality_tag: 'calm' },
+      ],
+    };
+    const result = await createQuiz(input);
+    expect(result).toMatchObject({ success: false, code: 'invalid_input' });
+    if (!result.success) {
+      expect(result.error).toContain('existing results');
+      expect(result.error).not.toContain('opción');
+    }
+    expect(mocks.insert).not.toHaveBeenCalled();
+  });
+
   it('revalida las rutas localizadas del locale del quiz', async () => {
     const result = await createQuiz(createInput('es'));
 
