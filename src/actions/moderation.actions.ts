@@ -109,8 +109,13 @@ async function moderateQuiz(
 
   if (error) {
     // PGRST204: las columnas moderated_* no existen — migración 016 sin aplicar.
-    const code = error.code === 'PGRST204' ? 'conflict' : 'unexpected';
-    return actionFailure(code, error.message);
+    if (error.code === 'PGRST204') {
+      return actionFailure(
+        'conflict',
+        'The quiz could not be moderated: the admin update policy or migration 016 is missing.'
+      );
+    }
+    return unexpectedFailure('moderation.moderate', error);
   }
   if (!updated || updated.length === 0) {
     return actionFailure(
