@@ -7,7 +7,7 @@ import {
   sharedPathAlternates,
   type SlugIndex,
 } from '@/lib/seo/sitemap-alternates';
-import { newestIso } from '@/lib/seo/sitemap-dates';
+import { newestIso, quizLastModified } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
@@ -27,6 +27,12 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
  * in the other: `/{locale}/category/...` calls `notFound()`, so advertising it
  * as a hreflang alternate would send Google to a 404 announced by us.
  * `src/lib/seo/sitemap-alternates.ts` owns that decision and is unit tested.
+ *
+ * `lastmod` es el último cambio real de contenido de cada quiz (edición
+ * posterior a la inserción, con `published_at` de respaldo) y el máximo de sus
+ * quizzes en los hubs. El `updated_at` que dejó el import masivo coincide con
+ * `created_at` y no es una edición; sin fecha fiable la URL va sin `<lastmod>`.
+ * `src/lib/seo/sitemap-dates.ts` owns that decision and is unit tested.
  */
 
 interface QuizRow {
@@ -35,6 +41,7 @@ interface QuizRow {
   cover_image_url: string | null;
   language: string | null;
   published_at: string | null;
+  created_at: string | null;
   updated_at: string | null;
   quiz_type: string | null;
   category_id: string | null;
@@ -47,7 +54,7 @@ async function fetchPublishedQuizzes(): Promise<{ quizzes: QuizRow[]; failed: bo
     const { data, error } = await supabase
       .from('quizzes')
       .select(
-        'slug, title, cover_image_url, language, published_at, updated_at, quiz_type, category_id, category:categories(slug)'
+        'slug, title, cover_image_url, language, published_at, created_at, updated_at, quiz_type, category_id, category:categories(slug)'
       )
       .eq('status', 'published')
       .order('published_at', { ascending: false })
@@ -113,20 +120,28 @@ export async function GET() {
   const hubSlugsByLocale: SlugIndex = new Map(locales.map((locale) => [locale, new Set<string>()]));
   const categoryHubs = new Map<
     string,
-    { locale: Locale; slug: string; dates: Array<string | null> }
+    { locale: Locale; slug: string; dates: Array<string | undefined> }
   >();
-  const typeHubs = new Map<string, { locale: Locale; slug: string; dates: Array<string | null> }>();
+  const typeHubs = new Map<
+    string,
+    { locale: Locale; slug: string; dates: Array<string | undefined> }
+  >();
+
+  /** Último cambio de contenido por quiz; cada hub toma el máximo de los suyos. */
+  const lastModifiedBySlug = new Map<string, string | undefined>();
 
   for (const quiz of quizzes) {
     const locale = (quiz.language === 'es' ? 'es' : 'en') as Locale;
     if (!quiz.slug) continue;
     perLocale.get(locale)?.push(quiz);
     slugsByLocale.get(locale)?.add(quiz.slug);
+    const lastModified = quizLastModified(quiz);
+    lastModifiedBySlug.set(quiz.slug, lastModified);
 
     if (quiz.quiz_type && TYPE_HUBS.includes(quiz.quiz_type)) {
       const key = `${locale}:type:${quiz.quiz_type}`;
       const hub = typeHubs.get(key) ?? { locale, slug: quiz.quiz_type, dates: [] };
-      hub.dates.push(quiz.published_at, quiz.updated_at);
+      hub.dates.push(lastModified);
       typeHubs.set(key, hub);
       hubSlugsByLocale.get(locale)?.add(quiz.quiz_type);
     }
@@ -135,7 +150,7 @@ export async function GET() {
     if (categorySlug) {
       const key = `${locale}:cat:${categorySlug}`;
       const hub = categoryHubs.get(key) ?? { locale, slug: categorySlug, dates: [] };
-      hub.dates.push(quiz.published_at, quiz.updated_at);
+      hub.dates.push(lastModified);
       categoryHubs.set(key, hub);
       hubSlugsByLocale.get(locale)?.add(categorySlug);
     }
@@ -145,7 +160,7 @@ export async function GET() {
 
   for (const locale of locales) {
     const localeQuizzes = perLocale.get(locale) ?? [];
-    const localeNewest = newestIso(localeQuizzes.map((quiz) => quiz.published_at));
+    const localeNewest = newestIso(localeQuizzes.map((quiz) => lastModifiedBySlug.get(quiz.slug)));
 
     for (const page of EDITORIAL_PAGES) {
       entries.push({
@@ -184,7 +199,7 @@ export async function GET() {
       const other: Locale = locale === 'es' ? 'en' : 'es';
       entries.push({
         url: `/${locale}/quiz/${encodeURIComponent(quiz.slug)}`,
-        lastModified: newestIso([quiz.published_at, quiz.updated_at]),
+        lastModified: lastModifiedBySlug.get(quiz.slug),
         changeFrequency: 'weekly',
         priority: 0.7,
         images: [{ url: quizCoverImageUrl(quiz), title: quiz.title ?? undefined }],
