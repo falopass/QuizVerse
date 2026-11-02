@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { RegisterForm } from '@/components/auth/register-form';
+import { OAuthButtons } from '@/components/auth/oauth-buttons';
 import { getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
@@ -22,6 +23,7 @@ export async function RegisterPageView({
         password: 'Contraseña',
         name: 'Nombre',
         signUp: 'Crear cuenta',
+        orWith: 'o crea tu cuenta con',
         haveAccount: '¿Ya tienes cuenta?',
         signIn: 'Inicia sesión',
         legal: 'Al registrarte, aceptas nuestros',
@@ -37,6 +39,7 @@ export async function RegisterPageView({
         password: 'Password',
         name: 'Name',
         signUp: 'Sign Up',
+        orWith: 'or create your account with',
         haveAccount: 'Already have an account?',
         signIn: 'Sign In',
         legal: 'By signing up, you agree to our',
@@ -70,6 +73,16 @@ export async function RegisterPageView({
             redirectTo={safeRedirect}
             locale={locale}
           />
+
+          <div className="my-6 flex items-center gap-4">
+            <div className="bg-border-subtle h-px flex-1" />
+            <span className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
+              {copy.orWith}
+            </span>
+            <div className="bg-border-subtle h-px flex-1" />
+          </div>
+
+          <OAuthButtons locale={locale} redirectTo={safeRedirect} />
 
           <p className="text-text-secondary mt-6 text-center text-sm">
             {copy.haveAccount}{' '}

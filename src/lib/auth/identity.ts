@@ -82,6 +82,14 @@ export const SignInSchema = z.object({
 });
 
 /**
+ * Proveedores OAuth aceptados por `signInWithOAuthAction`. La lista es
+ * explícita: un proveedor arbitrario llegaría hasta GoTrue y fallaría allá,
+ * con un error ininteligible para quien juega.
+ */
+export const OAuthProviderSchema = z.enum(['google', 'facebook', 'github']);
+export type OAuthProvider = z.infer<typeof OAuthProviderSchema>;
+
+/**
  * Pedido de recuperación. `locale` fija el idioma de la página de destino del
  * enlace (`/{locale}/reset-password`); el cliente no elige la ruta de retorno.
  */

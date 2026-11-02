@@ -29,9 +29,9 @@ export default async function LocalizedLoginPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ redirect?: string }>;
+  searchParams: Promise<{ redirect?: string; error?: string }>;
 }) {
-  const [{ locale }, { redirect }] = await Promise.all([params, searchParams]);
+  const [{ locale }, { redirect, error }] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) notFound();
-  return <LoginPageView redirectTo={redirect} locale={locale} />;
+  return <LoginPageView redirectTo={redirect} locale={locale} oauthFailed={error === 'oauth'} />;
 }

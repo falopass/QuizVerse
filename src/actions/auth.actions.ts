@@ -9,16 +9,22 @@
  */
 
 import { createHash } from 'node:crypto';
+import { headers } from 'next/headers';
+import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { authLimiter } from '@/lib/utils/rate-limit';
+import { clientIpFromHeaders } from '@/lib/utils/client-ip';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { SITE_URL } from '@/lib/seo/site';
 import {
+  OAuthProviderSchema,
   PasswordResetRequestSchema,
   PasswordUpdateSchema,
   SignInSchema,
   SignUpSchema,
   mapAuthError,
   normalizeUsername,
+  type AuthErrorCode,
   type AuthResult,
 } from '@/lib/auth/identity';
 
@@ -97,6 +103,50 @@ export async function signInAction(input: unknown): Promise<AuthResult> {
 
   if (error) return { ok: false, code: mapAuthError(error) };
   return { ok: true, userId: data.user?.id ?? null };
+}
+
+export type OAuthSignInResult = { ok: true; url: string } | { ok: false; code: AuthErrorCode };
+
+const OAuthSignInSchema = z.object({
+  provider: OAuthProviderSchema,
+  next: z.string().optional(),
+});
+
+/**
+ * Inicia el flujo OAuth con Google, Facebook o GitHub.
+ *
+ * `signInWithOAuth` corre en el servidor: `@supabase/ssr` fija PKCE por
+ * defecto, así que aquí se genera el `code_verifier`, se guarda en cookie y la
+ * URL resultante lleva `code_challenge`. El navegador navega a `data.url`
+ * (página del proveedor) y vuelve a `/callback?code=…`, que canjea la sesión.
+ *
+ * Enlaces directos a `/auth/v1/authorize` no sirven: sin `code_challenge`
+ * GoTrue usaría el flujo implícito y el token llegaría en el fragmento, donde
+ * el callback del servidor no puede leerlo.
+ */
+export async function signInWithOAuthAction(input: unknown): Promise<OAuthSignInResult> {
+  const parsed = OAuthSignInSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, code: 'invalid_input' };
+  }
+
+  const headerList = await headers();
+  const { allowed } = await authLimiter.check(
+    `oauth:${clientIpFromHeaders(headerList, 'anonymous')}`
+  );
+  if (!allowed) return { ok: false, code: 'rate_limited' };
+
+  const safeNext = safeRedirectPath(parsed.data.next, '/en');
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: parsed.data.provider,
+    options: {
+      redirectTo: `${SITE_URL}/callback?next=${encodeURIComponent(safeNext)}`,
+    },
+  });
+
+  if (error || !data.url) return { ok: false, code: 'unexpected' };
+  return { ok: true, url: data.url };
 }
 
 /** Cierra la sesión en el servidor y borra las cookies de Supabase. */
