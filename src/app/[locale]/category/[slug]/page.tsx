@@ -148,7 +148,7 @@ export default async function LocalizedCategoryPage({ params, searchParams }: Ca
         <p>{category.description}</p>
         <strong>{visibleGamesLabel(quizzes.length, locale)}</strong>
       </section>
-      <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
+      <nav className="arcade-filters" aria-label={dictionary.arcade.categoryNavigation}>
         <Link prefetch={false} href={localizeHref(locale, '/quiz')}>
           {dictionary.arcade.allCategories}
         </Link>

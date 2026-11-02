@@ -224,7 +224,7 @@ describe('LocalizedCategoryPage · render', () => {
 
     await renderPage();
 
-    const nav = screen.getByRole('navigation', { name: 'Todas las categorías' });
+    const nav = screen.getByRole('navigation', { name: 'Atajos de categorías' });
     const links = Array.from(nav.querySelectorAll('a'));
     expect(links.map((link) => link.getAttribute('href'))).toEqual([
       '/es/quiz',

@@ -5,6 +5,7 @@ import { render, screen } from '@testing-library/react';
 vi.mock('next/navigation', () => ({
   usePathname: () => '/es',
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 vi.mock('@/providers/supabase-provider', () => ({

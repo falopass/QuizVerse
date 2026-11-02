@@ -35,7 +35,9 @@ export function SiteShell({ children, locale, dictionary, categorySlugs }: SiteS
         {locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
       </a>
       {!isFullscreen && <FloatingNav locale={locale} dictionary={dictionary} />}
-      <RouteAnnouncer />
+      <React.Suspense fallback={null}>
+        <RouteAnnouncer />
+      </React.Suspense>
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>

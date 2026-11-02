@@ -16,17 +16,18 @@ import type { Category } from '@/types/quiz';
 
 const mocks = vi.hoisted(() => ({
   pathname: '/en',
+  search: '',
 }));
 
 vi.mock('next/navigation', () => ({
   usePathname: () => mocks.pathname,
+  useSearchParams: () => new URLSearchParams(mocks.search),
 }));
 
 vi.mock('@/actions/quiz.actions', () => ({
   incrementShares: vi.fn(async () => ({ success: true })),
 }));
 
-import { RouteAnnouncer } from '@/components/layout/route-announcer';
 import { NotFoundContent } from '@/components/layout/not-found-content';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import { CategoryStrip } from '@/components/home/category-strip';
@@ -142,20 +143,31 @@ describe('A11Y-14: landmarks de navegación con etiquetas únicas', () => {
     expect(names).toContain('All categories');
     expect(new Set(names).size).toBe(names.length);
   });
+
+  it('el nav de categorías de /category/[slug] no repite la etiqueta del footer', () => {
+    const source = codeOnly(join(SRC, 'app/[locale]/category/[slug]/page.tsx'));
+    const nav = source.match(/<nav className="arcade-filters" aria-label=\{([^}]+)\}/);
+    expect(nav).not.toBeNull();
+    expect(nav![1]).not.toContain('allCategories');
+  });
 });
 
 describe('A11Y-06: anuncio de navegación y foco al contenido', () => {
   beforeEach(() => {
     vi.useFakeTimers();
+    // El flag "primera montada" vive en el módulo: reset para aislar tests.
+    vi.resetModules();
     mocks.pathname = '/en';
+    mocks.search = '';
   });
 
   afterEach(() => {
     vi.useRealTimers();
   });
 
-  function renderPage(title: string) {
-    return (
+  async function renderPage(title: string) {
+    const { RouteAnnouncer } = await import('@/components/layout/route-announcer');
+    return render(
       <>
         <RouteAnnouncer />
         <main id="main-content" tabIndex={-1}>
@@ -165,30 +177,76 @@ describe('A11Y-06: anuncio de navegación y foco al contenido', () => {
     );
   }
 
-  it('no anuncia ni mueve el foco en la carga inicial', () => {
-    render(renderPage('Home'));
+  it('no anuncia ni mueve el foco en la carga inicial', async () => {
+    await renderPage('Home');
 
     act(() => vi.advanceTimersByTime(200));
     expect(screen.getByRole('status')).toHaveTextContent(/^$/);
     expect(document.activeElement?.id).not.toBe('main-content');
   });
 
-  it('tras navegar anuncia el h1 nuevo y enfoca <main>', () => {
-    const { rerender } = render(renderPage('Home'));
+  it('tras navegar anuncia el h1 nuevo y enfoca <main>', async () => {
+    const { RouteAnnouncer } = await import('@/components/layout/route-announcer');
+    const { rerender } = await renderPage('Home');
 
     mocks.pathname = '/en/quiz';
-    rerender(renderPage('Explore quizzes'));
+    rerender(
+      <>
+        <RouteAnnouncer />
+        <main id="main-content" tabIndex={-1}>
+          <h1>Explore quizzes</h1>
+        </main>
+      </>
+    );
     act(() => vi.advanceTimersByTime(200));
 
     expect(screen.getByRole('status')).toHaveTextContent('Explore quizzes');
     expect(document.activeElement?.id).toBe('main-content');
   });
 
-  it('en back/forward (popstate) no roba el foco', () => {
-    const { rerender } = render(renderPage('Home'));
+  it('anuncia también cuando solo cambia la query (paginación, pestañas)', async () => {
+    const { rerender } = await renderPage('Geography');
+
+    mocks.search = 'page=2';
+    const { RouteAnnouncer } = await import('@/components/layout/route-announcer');
+    rerender(
+      <>
+        <RouteAnnouncer />
+        <main id="main-content" tabIndex={-1}>
+          <h1>Geography</h1>
+        </main>
+      </>
+    );
+    act(() => vi.advanceTimersByTime(200));
+
+    expect(screen.getByRole('status')).toHaveTextContent('Geography');
+    expect(document.activeElement?.id).toBe('main-content');
+  });
+
+  it('al remontarse (cambio de idioma) sí anuncia la página nueva', async () => {
+    const { unmount } = await renderPage('Home');
+    unmount();
+
+    await renderPage('Inicio');
+    act(() => vi.advanceTimersByTime(200));
+
+    expect(screen.getByRole('status')).toHaveTextContent('Inicio');
+    expect(document.activeElement?.id).toBe('main-content');
+  });
+
+  it('en back/forward (popstate) no roba el foco', async () => {
+    const { RouteAnnouncer } = await import('@/components/layout/route-announcer');
+    const { rerender } = await renderPage('Home');
 
     mocks.pathname = '/en/quiz';
-    rerender(renderPage('Explore quizzes'));
+    rerender(
+      <>
+        <RouteAnnouncer />
+        <main id="main-content" tabIndex={-1}>
+          <h1>Explore quizzes</h1>
+        </main>
+      </>
+    );
     act(() => vi.advanceTimersByTime(200));
     (document.activeElement as HTMLElement).blur();
     expect(document.activeElement?.id).not.toBe('main-content');
@@ -197,7 +255,14 @@ describe('A11Y-06: anuncio de navegación y foco al contenido', () => {
     act(() => {
       window.dispatchEvent(new Event('popstate'));
     });
-    rerender(renderPage('Home'));
+    rerender(
+      <>
+        <RouteAnnouncer />
+        <main id="main-content" tabIndex={-1}>
+          <h1>Home</h1>
+        </main>
+      </>
+    );
     act(() => vi.advanceTimersByTime(200));
 
     expect(screen.getByRole('status')).toHaveTextContent('Home');
