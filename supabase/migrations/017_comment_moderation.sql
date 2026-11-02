@@ -212,6 +212,14 @@ BEGIN
     RETURN NEW;
   END IF;
 
+  -- Las acciones de clave foránea (ON DELETE SET NULL) actualizan el reporte
+  -- desde un trigger anidado con el mismo rol de la request: sin esta salida,
+  -- borrar un comentario, un quiz o un perfil revertiría la transacción
+  -- entera. No hay otros triggers sobre esta tabla que puedan anidarse aquí.
+  IF TG_OP = 'UPDATE' AND pg_trigger_depth() > 1 THEN
+    RETURN NEW;
+  END IF;
+
   IF TG_OP = 'INSERT' THEN
     IF NEW.comment_id IS NULL
        OR NOT EXISTS (
