@@ -362,9 +362,11 @@ describe('publishQuiz', () => {
     expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
     expect(revalidate).toHaveBeenCalledWith('/en/feed.xml');
     expect(revalidate).toHaveBeenCalledWith('/api/sitemap');
-    // La caché de datos del catálogo va por tags, no por rutas.
+    // La caché de datos del catálogo va por tags, no por rutas: el slug nuevo
+    // y el anterior (el quiz se re-sluggea al publicar).
     expect(revalidateTag).toHaveBeenCalledWith('quizzes', { expire: 0 });
-    expect(revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', { expire: 0 });
+    expect(revalidateTag).toHaveBeenCalledWith('quiz:en-quiz-de-prueba', { expire: 0 });
+    expect(revalidateTag).toHaveBeenCalledWith('quiz:en-quiz-de-prueba--k4f2a', { expire: 0 });
   });
 
   it('returns conflict when the update touches zero rows (state moved or policy missing)', async () => {

@@ -9,7 +9,7 @@ const mocks = vi.hoisted(() => ({
   headerList: new Map<string, string>(),
 }));
 
-vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
+vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }));
 vi.mock('next/headers', () => ({ headers: async () => mocks.headerList }));
 
 vi.mock('@/lib/utils/rate-limit', () => ({
