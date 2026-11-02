@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '@/types/database';
 import { googleVerificationResponse } from '@/lib/seo/google-verification';
 import { supabaseEnv } from '@/lib/supabase/env';
+import { hasSessionCookie } from '@/lib/supabase/session-cookie';
 
 function pathnameHasLocale(pathname: string) {
   return /^\/(en|es)(\/|$)/.test(pathname);
@@ -47,13 +48,8 @@ function cameOverHttp(request: NextRequest) {
   return proto !== null && proto.split(',')[0].trim().toLowerCase() === 'http';
 }
 
-// `sb-<project>-auth-token` y sus partidas `.0`, `.1`, … son la única señal de
-// sesión que el refresh del proxy necesita. `-code-verifier` (PKCE en curso) no
-// cuenta: todavía no hay sesión que refrescar.
-const SESSION_COOKIE_RE = /^sb-.+-auth-token(\.\d+)?$/;
-
 function hasSupabaseSessionCookie(request: NextRequest) {
-  return request.cookies.getAll().some(({ name }) => SESSION_COOKIE_RE.test(name));
+  return hasSessionCookie(request.cookies.getAll());
 }
 
 /**
