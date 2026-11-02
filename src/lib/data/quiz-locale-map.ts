@@ -3,6 +3,10 @@
 // Alimenta el hreflang de las fichas, los alternates del sitemap y el cambio de idioma.
 const EN_TO_ES: Record<string, string> = {
   'en-2000s-pop-culture-trivia': 'es-trivia-cultura-pop-de-los-2000',
+  'en-2026-gaming-hype-trivia': 'es-trivia-del-hype-gamer-2026',
+  'en-2026-movie-culture-trivia': 'es-trivia-de-cultura-de-cine-2026',
+  'en-2026-pop-culture-timeline-trivia': 'es-trivia-de-la-linea-de-tiempo-de-la-cultura-pop-2026',
+  'en-2026-streaming-culture-trivia': 'es-trivia-de-cultura-de-streaming-2026',
   'en-80s-movies-trivia': 'es-trivia-peliculas-de-los-80',
   'en-90s-movies-trivia': 'es-trivia-peliculas-de-los-90',
   'en-90s-music-trivia': 'es-trivia-musica-de-los-90',
@@ -37,6 +41,8 @@ const EN_TO_ES: Record<string, string> = {
   'en-bach-trivia': 'es-trivia-bach',
   'en-bachata-and-merengue-trivia': 'es-trivia-bachata-y-merengue',
   'en-back-to-the-future-trivia': 'es-trivia-regreso-al-futuro',
+  'en-bad-bunny-fan-trivia-challenge': 'es-trivia-fan-de-bad-bunny',
+  'en-baldur-s-gate-3-fan-trivia-challenge': 'es-trivia-fan-de-baldur-s-gate-3',
   'en-barbie-fan-trivia-challenge': 'es-trivia-fan-de-barbie',
   'en-batman-trivia': 'es-trivia-batman',
   'en-beef-fan-trivia-challenge': 'es-trivia-fan-de-beef',
@@ -44,6 +50,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-beethoven-trivia': 'es-trivia-beethoven',
   'en-berlin-wall-trivia': 'es-trivia-muro-de-berlin',
   'en-betty-la-fea-trivia': 'es-trivia-betty-la-fea',
+  'en-beyonce-fan-trivia-challenge': 'es-trivia-fan-de-beyonce',
   'en-big-cats-trivia': 'es-trivia-grandes-felinos',
   'en-bird-record-holders-trivia': 'es-trivia-aves-recordistas',
   'en-birds-of-prey-and-migration-trivia': 'es-trivia-aves-rapaces-y-migracion',
@@ -76,6 +83,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-celtic-mythology-trivia': 'es-trivia-mitologia-celta',
   'en-chainsaw-man-fan-trivia-challenge': 'es-trivia-fan-de-chainsaw-man',
   'en-champions-league-trivia': 'es-trivia-champions-league',
+  'en-chappell-roan-fan-trivia-challenge': 'es-trivia-fan-de-chappell-roan',
   'en-cheese-trivia': 'es-trivia-quesos',
   'en-chess-champions-trivia': 'es-trivia-campeones-de-ajedrez',
   'en-chess-openings-trivia': 'es-trivia-aperturas-ajedrez',
@@ -138,6 +146,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-egyptian-mythology-trivia': 'es-trivia-mitologia-egipcia',
   'en-el-chapulin-colorado-trivia': 'es-trivia-el-chapulin-colorado',
   'en-el-chavo-del-8-trivia': 'es-trivia-el-chavo-del-8',
+  'en-elden-ring-fan-trivia-challenge': 'es-trivia-fan-de-elden-ring',
   'en-electric-cars-trivia': 'es-trivia-autos-electricos',
   'en-elvis-presley-trivia': 'es-trivia-elvis-presley',
   'en-emmy-awards-trivia': 'es-trivia-premios-emmy',
@@ -173,6 +182,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-first-world-war-trivia': 'es-trivia-primera-guerra-mundial',
   'en-flamenco-trivia': 'es-trivia-flamenco',
   'en-flash-trivia': 'es-trivia-flash',
+  'en-food-around-the-world-trivia': 'es-trivia-de-comida-alrededor-del-mundo',
   'en-food-brands-trivia': 'es-trivia-marcas-de-comida',
   'en-food-origins-trivia': 'es-trivia-origenes-gastronomia',
   'en-football-clubs-trivia': 'es-trivia-clubes-de-futbol',
@@ -214,13 +224,21 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-tan-profundo-llega-tu-conocimiento-de-attack-on-titan',
   'en-how-deep-does-your-avatar-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-avatar',
+  'en-how-deep-does-your-bad-bunny-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-bad-bunny',
+  'en-how-deep-does-your-baldur-s-gate-3-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-baldur-s-gate-3',
   'en-how-deep-does-your-barbie-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-barbie',
   'en-how-deep-does-your-beef-knowledge-go': 'es-que-tan-profundo-llega-tu-conocimiento-de-beef',
+  'en-how-deep-does-your-beyonce-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-beyonce',
   'en-how-deep-does-your-bridgerton-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-bridgerton',
   'en-how-deep-does-your-chainsaw-man-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-chainsaw-man',
+  'en-how-deep-does-your-chappell-roan-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-chappell-roan',
   'en-how-deep-does-your-classroom-of-the-elite-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-classroom-of-the-elite',
   'en-how-deep-does-your-demon-slayer-knowledge-go':
@@ -228,6 +246,8 @@ const EN_TO_ES: Record<string, string> = {
   'en-how-deep-does-your-dr-stone-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-dr-stone',
   'en-how-deep-does-your-dune-knowledge-go': 'es-que-tan-profundo-llega-tu-conocimiento-de-dune',
+  'en-how-deep-does-your-elden-ring-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-elden-ring',
   'en-how-deep-does-your-euphoria-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-euphoria',
   'en-how-deep-does-your-frieren-knowledge-go':
@@ -246,10 +266,16 @@ const EN_TO_ES: Record<string, string> = {
   'en-how-deep-does-your-k-pop-knowledge-go': 'es-que-tan-profundo-llega-tu-conocimiento-de-k-pop',
   'en-how-deep-does-your-marvel-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-marvel',
+  'en-how-deep-does-your-minecraft-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-minecraft',
   'en-how-deep-does-your-naruto-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-naruto',
+  'en-how-deep-does-your-nintendo-switch-2-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-nintendo-switch-2',
   'en-how-deep-does-your-one-piece-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-one-piece',
+  'en-how-deep-does-your-oppenheimer-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-oppenheimer',
   'en-how-deep-does-your-pokemon-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-pokemon',
   'en-how-deep-does-your-project-hail-mary-knowledge-go':
@@ -258,10 +284,14 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-tan-profundo-llega-tu-conocimiento-de-re-zero',
   'en-how-deep-does-your-resident-evil-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-resident-evil',
+  'en-how-deep-does-your-sabrina-carpenter-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-sabrina-carpenter',
   'en-how-deep-does-your-severance-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-severance',
   'en-how-deep-does-your-solo-leveling-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-solo-leveling',
+  'en-how-deep-does-your-spider-verse-knowledge-go':
+    'es-que-tan-profundo-llega-tu-conocimiento-de-spider-verse',
   'en-how-deep-does-your-spy-x-family-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-spy-x-family',
   'en-how-deep-does-your-squid-game-knowledge-go':
@@ -296,6 +326,9 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-tan-profundo-llega-tu-conocimiento-de-wicked',
   'en-how-deep-does-your-witch-hat-atelier-knowledge-go':
     'es-que-tan-profundo-llega-tu-conocimiento-de-witch-hat-atelier',
+  'en-how-do-you-actually-use-ai-in-your-daily-life':
+    'es-como-usas-realmente-la-ia-en-tu-vida-diaria',
+  'en-how-do-you-cope-with-climate-anxiety': 'es-como-enfrentas-la-ansiedad-climatica',
   'en-how-good-a-roommate-are-you': 'es-que-tan-buen-companero-de-piso-eres',
   'en-how-healthy-are-your-digital-habits': 'es-que-tan-saludables-son-tus-habitos-digitales',
   'en-how-internet-works-trivia': 'es-trivia-como-funciona-internet',
@@ -312,6 +345,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-insect-world-trivia': 'es-trivia-mundo-de-los-insectos',
   'en-insects-trivia-2': 'es-trivia-insectos-2',
   'en-international-organizations-trivia': 'es-trivia-organismos-internacionales',
+  'en-internet-culture-essentials-trivia': 'es-trivia-esencial-de-cultura-de-internet',
   'en-internet-history-trivia': 'es-trivia-historia-de-internet',
   'en-inventions-trivia': 'es-trivia-inventos-que-cambiaron-el-mundo',
   'en-investing-basics-trivia': 'es-trivia-inversiones',
@@ -339,6 +373,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-latin-music-trivia': 'es-trivia-musica-latina',
   'en-latin-tv-90s-trivia': 'es-trivia-programas-tv-latinos-90',
   'en-league-of-legends-trivia': 'es-trivia-league-of-legends',
+  'en-legendary-anime-moments-trivia': 'es-trivia-de-momentos-legendarios-del-anime',
   'en-lego-trivia': 'es-trivia-lego',
   'en-leonardo-da-vinci-trivia': 'es-trivia-leonardo-da-vinci',
   'en-liga-mx-trivia': 'es-trivia-liga-mx',
@@ -361,6 +396,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-michael-jackson-trivia': 'es-trivia-michael-jackson',
   'en-middle-ages-trivia': 'es-trivia-edad-media',
   'en-middle-earth-places-trivia': 'es-trivia-lugares-tierra-media',
+  'en-minecraft-fan-trivia-challenge': 'es-trivia-fan-de-minecraft',
   'en-mlb-trivia': 'es-trivia-mlb',
   'en-mma-ufc-trivia': 'es-trivia-mma-ufc',
   'en-money-heist-trivia': 'es-trivia-la-casa-de-papel',
@@ -377,6 +413,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-natural-wonders-trivia': 'es-trivia-maravillas-naturales',
   'en-nba-trivia': 'es-trivia-nba',
   'en-nfl-history-trivia': 'es-trivia-historia-nfl',
+  'en-nintendo-switch-2-fan-trivia-challenge': 'es-trivia-fan-de-nintendo-switch-2',
   'en-nirvana-trivia': 'es-trivia-nirvana',
   'en-nobel-literature-trivia': 'es-trivia-premios-nobel-de-literatura',
   'en-nobel-prizes-trivia': 'es-trivia-premios-nobel',
@@ -421,6 +458,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-roman-mythology-trivia': 'es-trivia-mitologia-romana',
   'en-rosalia-trivia': 'es-trivia-rosalia',
   'en-russian-revolution-trivia': 'es-trivia-revolucion-rusa',
+  'en-sabrina-carpenter-fan-trivia-challenge': 'es-trivia-fan-de-sabrina-carpenter',
   'en-sailor-moon-trivia': 'es-trivia-sailor-moon',
   'en-salsa-music-trivia': 'es-trivia-salsa',
   'en-salvador-dali-trivia': 'es-trivia-salvador-dali',
@@ -445,6 +483,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-solar-system-planets-trivia': 'es-trivia-planetas-del-sistema-solar',
   'en-solo-leveling-fan-trivia-challenge': 'es-trivia-fan-de-solo-leveling',
   'en-sonic-trivia': 'es-trivia-sonic',
+  'en-space-exploration-trivia-2020-2026': 'es-trivia-de-exploracion-espacial-2020-2026',
   'en-space-missions-trivia': 'es-trivia-misiones-espaciales',
   'en-space-race-trivia': 'es-trivia-carrera-espacial',
   'en-space-telescopes-trivia': 'es-trivia-telescopios-espaciales',
@@ -452,9 +491,11 @@ const EN_TO_ES: Record<string, string> = {
   'en-spanish-rock-trivia': 'es-trivia-rock-en-espanol',
   'en-spelling-trivia': 'es-trivia-ortografia',
   'en-spider-man-trivia': 'es-trivia-spider-man',
+  'en-spider-verse-fan-trivia-challenge': 'es-trivia-fan-de-spider-verse',
   'en-spongebob-trivia': 'es-trivia-bob-esponja',
   'en-sports-records-trivia': 'es-trivia-records-del-deporte',
   'en-sports-trivia': 'es-trivia-deportes',
+  'en-spring-2026-anime-fan-trivia': 'es-trivia-fan-del-anime-primavera-2026',
   'en-spy-x-family-fan-trivia-challenge': 'es-trivia-fan-de-spy-x-family',
   'en-squid-game-fan-trivia-challenge': 'es-trivia-fan-de-el-juego-del-calamar',
   'en-star-trek-trivia': 'es-trivia-star-trek',
@@ -509,34 +550,61 @@ const EN_TO_ES: Record<string, string> = {
   'en-van-gogh-trivia': 'es-trivia-van-gogh',
   'en-venomous-animals-trivia': 'es-trivia-animales-venenosos',
   'en-video-game-history-trivia': 'es-trivia-historia-videojuegos',
+  'en-viral-internet-moments-trivia-2024-2026':
+    'es-trivia-de-momentos-virales-de-internet-2024-2026',
   'en-vivaldi-trivia': 'es-trivia-vivaldi',
   'en-volcanoes-and-earthquakes-trivia': 'es-trivia-volcanes-y-terremotos',
   'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-merlina',
   'en-what-animal-are-you': 'es-que-animal-eres',
+  'en-what-booktok-reading-vibe-are-you': 'es-que-vibe-lectora-tipo-booktok-eres',
   'en-what-career-suits-you': 'es-que-carrera-es-para-ti',
+  'en-what-conflict-resolution-type-are-you': 'es-que-tipo-de-solucionador-de-conflictos-eres',
+  'en-what-creative-process-style-is-yours': 'es-cual-es-tu-estilo-de-proceso-creativo',
+  'en-what-dating-app-energy-are-you-bringing': 'es-que-energia-de-app-de-citas-estas-trayendo',
+  'en-what-does-your-coffee-order-say-about-you': 'es-que-dice-tu-orden-de-cafe-sobre-ti',
+  'en-what-fitness-personality-fits-your-energy':
+    'es-que-personalidad-fitness-encaja-con-tu-energia',
+  'en-what-gift-giving-style-do-you-have': 'es-que-estilo-de-dar-regalos-tienes',
+  'en-what-home-decor-vibe-matches-your-soul': 'es-que-vibe-de-decoracion-combina-con-tu-alma',
   'en-what-is-your-friendship-style': 'es-cual-es-tu-estilo-de-amistad',
   'en-what-is-your-ideal-weekend': 'es-cual-es-tu-fin-de-semana-ideal',
   'en-what-is-your-learning-style': 'es-cual-es-tu-estilo-de-aprendizaje',
   'en-what-is-your-love-language': 'es-cual-es-tu-lenguaje-del-amor',
+  'en-what-is-your-relationship-with-technology': 'es-cual-es-tu-relacion-con-la-tecnologia',
+  'en-what-is-your-true-reading-personality': 'es-cual-es-tu-verdadera-personalidad-lectora',
   'en-what-is-your-work-style': 'es-cual-es-tu-estilo-de-trabajo',
   'en-what-k-pop-role-fits-you': 'es-que-rol-tendrias-en-un-grupo-de-k-pop',
+  'en-what-kind-of-design-taste-do-you-have': 'es-que-tipo-de-gusto-de-diseno-tienes',
   'en-what-kind-of-first-date-are-you': 'es-que-tipo-de-primera-cita-eres',
   'en-what-kind-of-friend-are-you': 'es-que-tipo-de-amigo-eres',
+  'en-what-kind-of-morning-person-are-you-really':
+    'es-que-tipo-de-persona-madrugadora-eres-realmente',
   'en-what-kind-of-partner-are-you': 'es-que-tipo-de-pareja-eres',
   'en-what-kind-of-traveler-are-you': 'es-que-tipo-de-viajero-eres',
+  'en-what-leadership-instinct-do-you-carry': 'es-que-instinto-de-liderazgo-llevas-contigo',
+  'en-what-music-festival-archetype-are-you': 'es-que-arquetipo-de-festival-de-musica-eres',
   'en-what-natural-element-are-you': 'es-que-elemento-natural-eres',
+  'en-what-party-personality-type-are-you': 'es-que-tipo-de-personalidad-de-fiesta-eres',
+  'en-what-pet-owner-personality-are-you': 'es-que-personalidad-de-dueno-de-mascota-eres',
+  'en-what-productivity-philosophy-is-actually-yours':
+    'es-cual-es-realmente-tu-filosofia-de-productividad',
   'en-what-role-would-you-play-inside-attack-on-titan':
     'es-que-rol-jugarias-dentro-de-attack-on-titan',
   'en-what-role-would-you-play-inside-avatar': 'es-que-rol-jugarias-dentro-de-avatar',
+  'en-what-role-would-you-play-inside-bad-bunny': 'es-que-rol-jugarias-dentro-de-bad-bunny',
+  'en-what-role-would-you-play-inside-baldur-s-gate-3': 'es-que-rol-jugarias-en-baldur-s-gate-3',
   'en-what-role-would-you-play-inside-barbie': 'es-que-rol-jugarias-dentro-de-barbie',
   'en-what-role-would-you-play-inside-beef': 'es-que-rol-jugarias-dentro-de-beef',
+  'en-what-role-would-you-play-inside-beyonce': 'es-que-rol-jugarias-dentro-de-beyonce',
   'en-what-role-would-you-play-inside-bridgerton': 'es-que-rol-jugarias-dentro-de-bridgerton',
   'en-what-role-would-you-play-inside-chainsaw-man': 'es-que-rol-jugarias-dentro-de-chainsaw-man',
+  'en-what-role-would-you-play-inside-chappell-roan': 'es-que-rol-jugarias-dentro-de-chappell-roan',
   'en-what-role-would-you-play-inside-classroom-of-the-elite':
     'es-que-rol-jugarias-dentro-de-classroom-of-the-elite',
   'en-what-role-would-you-play-inside-demon-slayer': 'es-que-rol-jugarias-en-demon-slayer',
   'en-what-role-would-you-play-inside-dr-stone': 'es-que-rol-jugarias-en-dr-stone',
   'en-what-role-would-you-play-inside-dune': 'es-que-rol-jugarias-dentro-de-dune',
+  'en-what-role-would-you-play-inside-elden-ring': 'es-que-rol-jugarias-dentro-de-elden-ring',
   'en-what-role-would-you-play-inside-euphoria': 'es-que-rol-jugarias-dentro-de-euphoria',
   'en-what-role-would-you-play-inside-frieren': 'es-que-rol-jugarias-dentro-de-frieren',
   'en-what-role-would-you-play-inside-grand-theft-auto-vi':
@@ -549,7 +617,10 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-rol-jugarias-dentro-de-jujutsu-kaisen',
   'en-what-role-would-you-play-inside-k-pop': 'es-que-rol-jugarias-dentro-del-k-pop',
   'en-what-role-would-you-play-inside-marvel': 'es-que-rol-jugarias-dentro-de-marvel',
+  'en-what-role-would-you-play-inside-minecraft': 'es-que-rol-jugarias-dentro-de-minecraft',
   'en-what-role-would-you-play-inside-naruto': 'es-que-rol-jugarias-dentro-de-naruto',
+  'en-what-role-would-you-play-inside-nintendo-switch-2':
+    'es-que-rol-jugarias-dentro-de-nintendo-switch-2',
   'en-what-role-would-you-play-inside-one-piece': 'es-que-rol-jugarias-dentro-de-one-piece',
   'en-what-role-would-you-play-inside-oppenheimer': 'es-que-rol-jugarias-dentro-de-oppenheimer',
   'en-what-role-would-you-play-inside-pokemon': 'es-que-rol-jugarias-dentro-de-pokemon',
@@ -557,8 +628,11 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-rol-jugarias-en-project-hail-mary',
   'en-what-role-would-you-play-inside-re-zero': 'es-que-rol-jugarias-dentro-de-re-zero',
   'en-what-role-would-you-play-inside-resident-evil': 'es-que-rol-jugarias-dentro-de-resident-evil',
+  'en-what-role-would-you-play-inside-sabrina-carpenter':
+    'es-que-rol-jugarias-dentro-de-sabrina-carpenter',
   'en-what-role-would-you-play-inside-severance': 'es-que-rol-jugarias-dentro-de-lumon',
   'en-what-role-would-you-play-inside-solo-leveling': 'es-que-rol-jugarias-dentro-de-solo-leveling',
+  'en-what-role-would-you-play-inside-spider-verse': 'es-que-rol-jugarias-dentro-del-spider-verse',
   'en-what-role-would-you-play-inside-spy-x-family': 'es-que-rol-jugarias-dentro-de-spy-x-family',
   'en-what-role-would-you-play-inside-squid-game':
     'es-que-rol-jugarias-dentro-de-el-juego-del-calamar',
@@ -583,16 +657,30 @@ const EN_TO_ES: Record<string, string> = {
   'en-what-role-would-you-play-inside-wicked': 'es-que-rol-jugarias-dentro-de-wicked',
   'en-what-role-would-you-play-inside-witch-hat-atelier':
     'es-que-rol-jugarias-dentro-de-witch-hat-atelier',
+  'en-what-social-media-alter-ego-do-you-have': 'es-que-alter-ego-de-redes-sociales-tienes',
+  'en-what-travel-energy-are-you-taking-into-2026': 'es-que-energia-viajera-llevas-a-2026',
+  'en-what-vacation-style-actually-recharges-you':
+    'es-que-estilo-de-vacaciones-realmente-te-recarga',
+  'en-what-weekend-plan-actually-fits-your-vibe':
+    'es-que-plan-de-fin-de-semana-encaja-de-verdad-con-tu-vibra',
+  'en-what-weekend-social-energy-are-you': 'es-que-energia-social-de-fin-de-semana-eres',
+  'en-what-work-style-fits-the-ai-era': 'es-que-estilo-laboral-encaja-en-la-era-de-la-ia',
   'en-which-attack-on-titan-energy-matches-you-best':
     'es-que-energia-de-attack-on-titan-combina-mejor-contigo',
   'en-which-avatar-energy-matches-you-best': 'es-que-energia-de-avatar-combina-mejor-contigo',
+  'en-which-bad-bunny-energy-matches-you-best': 'es-que-energia-de-bad-bunny-combina-mejor-contigo',
+  'en-which-baldur-s-gate-3-energy-matches-you-best':
+    'es-que-energia-de-baldur-s-gate-3-combina-mejor-contigo',
   'en-which-barbie-energy-matches-you-best': 'es-que-energia-de-barbie-combina-mejor-contigo',
   'en-which-beef-energy-matches-you-best': 'es-que-energia-de-beef-combina-mejor-contigo',
+  'en-which-beyonce-energy-matches-you-best': 'es-que-energia-de-beyonce-combina-mejor-contigo',
   'en-which-bird-are-you': 'es-que-ave-eres',
   'en-which-bridgerton-energy-matches-you-best':
     'es-que-energia-de-bridgerton-combina-mejor-contigo',
   'en-which-chainsaw-man-energy-matches-you-best':
     'es-que-energia-de-chainsaw-man-combina-mejor-contigo',
+  'en-which-chappell-roan-energy-matches-you-best':
+    'es-que-energia-de-chappell-roan-combina-mejor-contigo',
   'en-which-classroom-of-the-elite-energy-matches-you-best':
     'es-que-energia-de-classroom-of-the-elite-combina-mejor-contigo',
   'en-which-coffee-are-you': 'es-que-cafe-eres',
@@ -601,9 +689,14 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-dessert-are-you': 'es-que-postre-eres',
   'en-which-dr-stone-energy-matches-you-best': 'es-que-energia-de-dr-stone-combina-mejor-contigo',
   'en-which-dune-energy-matches-you-best': 'es-que-energia-de-dune-combina-mejor-contigo',
+  'en-which-elden-ring-energy-matches-you-best':
+    'es-que-energia-de-elden-ring-combina-mejor-contigo',
   'en-which-element-are-you': 'es-trivia-tabla-periodica',
   'en-which-euphoria-energy-matches-you-best': 'es-que-energia-de-euphoria-combina-mejor-contigo',
   'en-which-extreme-place-are-you': 'es-trivia-lugares-extremos-del-mundo',
+  'en-which-fashion-era-matches-your-personality':
+    'es-que-era-de-la-moda-combina-con-tu-personalidad',
+  'en-which-friend-archetype-are-you-in-your-group': 'es-que-arquetipo-de-amigo-eres-en-tu-grupo',
   'en-which-frieren-energy-matches-you-best': 'es-que-energia-de-frieren-combina-mejor-contigo',
   'en-which-grand-theft-auto-vi-energy-matches-you-best':
     'es-que-energia-de-grand-theft-auto-vi-combina-mejor-contigo',
@@ -619,7 +712,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-k-drama-genre-is-your-life': 'es-que-genero-de-k-drama-es-tu-vida',
   'en-which-k-pop-energy-matches-you-best': 'es-que-energia-de-k-pop-combina-mejor-contigo',
   'en-which-marvel-energy-matches-you-best': 'es-que-energia-de-marvel-combina-mejor-contigo',
+  'en-which-minecraft-energy-matches-you-best': 'es-que-energia-de-minecraft-combina-mejor-contigo',
+  'en-which-music-era-matches-your-taste': 'es-que-era-musical-combina-con-tu-gusto',
   'en-which-naruto-energy-matches-you-best': 'es-que-energia-de-naruto-combina-mejor-contigo',
+  'en-which-nintendo-switch-2-energy-matches-you-best':
+    'es-que-energia-de-nintendo-switch-2-combina-mejor-contigo',
+  'en-which-nostalgia-era-actually-defines-you': 'es-que-era-de-la-nostalgia-realmente-te-define',
   'en-which-one-piece-energy-matches-you-best': 'es-que-energia-de-one-piece-combina-mejor-contigo',
   'en-which-oppenheimer-energy-matches-you-best':
     'es-que-energia-de-oppenheimer-combina-mejor-contigo',
@@ -631,10 +729,14 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-re-zero-energy-matches-you-best': 'es-que-energia-de-re-zero-combina-mejor-contigo',
   'en-which-resident-evil-energy-matches-you-best':
     'es-que-energia-de-resident-evil-combina-mejor-contigo',
+  'en-which-sabrina-carpenter-energy-matches-you-best':
+    'es-que-energia-de-sabrina-carpenter-combina-mejor-contigo',
   'en-which-scientist-are-you': 'es-que-cientifico-serias',
   'en-which-severance-energy-matches-you-best': 'es-que-energia-de-severance-combina-mejor-contigo',
   'en-which-solo-leveling-energy-matches-you-best':
     'es-que-energia-de-solo-leveling-combina-mejor-contigo',
+  'en-which-spider-verse-energy-matches-you-best':
+    'es-que-energia-de-spider-verse-combina-mejor-contigo',
   'en-which-spy-x-family-energy-matches-you-best':
     'es-que-energia-de-spy-x-family-combina-mejor-contigo',
   'en-which-squid-game-energy-matches-you-best':

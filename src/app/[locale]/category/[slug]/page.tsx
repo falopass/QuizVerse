@@ -129,7 +129,10 @@ export default async function LocalizedCategoryPage({ params, searchParams }: Ca
               .map((quiz) => ({ name: quiz.title, path: quizPath(locale, quiz.slug) })),
             locale
           ),
-          faqNode(guide.faq),
+          // La FAQ visible se repite en todas las páginas; el rich result no:
+          // si cada ?page=N emitiera el mismo FAQPage, las URLs paginadas
+          // competirían entre sí por el mismo resultado enriquecido.
+          page === 1 ? faqNode(guide.faq) : null,
         ])}
       />
       <Breadcrumbs

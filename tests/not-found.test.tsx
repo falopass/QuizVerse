@@ -15,7 +15,9 @@ vi.mock('next/navigation', () => ({
 }));
 
 import RootNotFound from '@/app/not-found';
-import LocaleNotFound from '@/app/[locale]/not-found';
+import LocaleNotFound, {
+  generateMetadata as localeNotFoundMetadata,
+} from '@/app/[locale]/not-found';
 import EmbedNotFound from '@/app/embed/not-found';
 
 function categoryLinks() {
@@ -118,6 +120,34 @@ describe('LocaleNotFound (src/app/[locale]/not-found.tsx)', () => {
     expect(
       screen.getByRole('heading', { name: 'That page drifted out of orbit.' })
     ).toBeInTheDocument();
+  });
+});
+
+describe('LocaleNotFound metadata (el <title> del shell de error)', () => {
+  it('usa el locale de params cuando Next lo interpola', async () => {
+    // La cabecera dice lo contrario a propósito: mandan los params.
+    mocks.locale = 'en';
+    const metadata = await localeNotFoundMetadata({
+      params: Promise.resolve({ locale: 'es' }),
+    });
+
+    expect(metadata.title).toBe('Página no encontrada');
+  });
+
+  it('cae a la cabecera x-quizverse-locale cuando no hay params', async () => {
+    mocks.locale = 'es';
+    const metadata = await localeNotFoundMetadata({ params: Promise.resolve({}) });
+
+    expect(metadata.title).toBe('Página no encontrada');
+  });
+
+  it('en inglés devuelve el título inglés', async () => {
+    mocks.locale = 'en';
+    const metadata = await localeNotFoundMetadata({
+      params: Promise.resolve({ locale: 'en' }),
+    });
+
+    expect(metadata.title).toBe('Page not found');
   });
 });
 

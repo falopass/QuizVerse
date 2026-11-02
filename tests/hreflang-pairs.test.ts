@@ -2,7 +2,11 @@ import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
-import { collectLocalePairs, mergePairs } from '../scripts/seo/emit-locale-map.mjs';
+import {
+  collectLocalePairs,
+  collectTrendingPairs,
+  mergePairs,
+} from '../scripts/seo/emit-locale-map.mjs';
 
 // Cada par de quiz-locale-map.ts debe apuntar a un slug que existe en el corpus
 // de seeds, tener el prefijo del otro idioma y devolver el slug original al
@@ -12,7 +16,9 @@ import { collectLocalePairs, mergePairs } from '../scripts/seo/emit-locale-map.m
 
 const ROOT = join(__dirname, '..');
 const SEED_DIR = join(ROOT, 'scripts', 'seed');
-const TRENDING = join(ROOT, 'generated', 'trending-seed.normalized.json');
+// El importador de Supabase lee el crudo; el pulido escribe el .normalized.
+// El mapa debe cubrir ambos (SEO2-01: el crudo traía 76 parejas sin hreflang).
+const TRENDING_SOURCES = ['trending-seed.json', 'trending-seed.normalized.json'];
 const LOCALE_MAP = join(ROOT, 'src', 'lib', 'data', 'quiz-locale-map.ts');
 
 type Locale = 'en' | 'es';
@@ -32,10 +38,22 @@ function loadCorpusSlugs(): Set<string> {
     for (const quiz of data.quizzes ?? []) add(quiz);
   }
 
-  const trending = JSON.parse(readFileSync(TRENDING, 'utf8')) as Array<{ slug?: unknown }>;
-  for (const quiz of trending) add(quiz);
+  for (const file of TRENDING_SOURCES) {
+    const trending = JSON.parse(readFileSync(join(ROOT, 'generated', file), 'utf8')) as Array<{
+      slug?: unknown;
+    }>;
+    for (const quiz of trending) add(quiz);
+  }
 
   return slugs;
+}
+
+// Parejas del seed crudo, derivadas igual que en emit-locale-map.mjs.
+function loadRawTrendingPairs(): Array<{ en: string; es: string }> {
+  const quizzes = JSON.parse(
+    readFileSync(join(ROOT, 'generated', 'trending-seed.json'), 'utf8')
+  ) as Array<{ slug: string; language: string; source_id?: string }>;
+  return collectTrendingPairs(quizzes, 'generated/trending-seed.json').pairs;
 }
 
 // Extrae los pares 'en-*': 'es-*' literales de EN_TO_ES en el archivo fuente.
@@ -117,6 +135,24 @@ describe('hreflang pairs (quiz-locale-map vs corpus de seeds)', () => {
       missing,
       `pares del seed sin entrada en el mapa (npm run seo:locale-map):\n${missing
         .map(({ en, es, source }) => `${en} -> ${es} (${source})`)
+        .join('\n')}`
+    ).toEqual([]);
+  });
+
+  it('cubre cada par del seed crudo que importa Supabase (SEO2-01)', () => {
+    // El pulido descarta parejas que el importador sí subió; si el generador
+    // solo mira el .normalized, esas fichas se quedan sin hreflang.
+    const pairs = loadRawTrendingPairs();
+    expect(pairs.length).toBeGreaterThan(0);
+
+    const missing = pairs.filter(
+      ({ en, es }) =>
+        getEquivalentQuizSlug(en, 'es') !== es || getEquivalentQuizSlug(es, 'en') !== en
+    );
+    expect(
+      missing,
+      `pares de generated/trending-seed.json sin entrada en el mapa (npm run seo:locale-map):\n${missing
+        .map(({ en, es }) => `${en} -> ${es}`)
         .join('\n')}`
     ).toEqual([]);
   });
