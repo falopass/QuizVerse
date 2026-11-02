@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
-import { getArcadeCopy } from '@/lib/i18n/dictionaries';
+import { getArcadeCopy, getCommonCopy } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Category, Quiz } from '@/types/quiz';
@@ -35,7 +35,9 @@ export function EditorialQuizCard({ quiz, locale, size = 'default' }: EditorialQ
         </span>
         <TitleTag>{quiz.title}</TitleTag>
         <div className="arcade-card-bottom">
-          <small>{quiz.estimated_minutes} MIN</small>
+          <small>
+            {quiz.estimated_minutes} {getCommonCopy(locale).minutesShort}
+          </small>
           <span className="arcade-card-play">{copy.play} ↗</span>
         </div>
       </div>

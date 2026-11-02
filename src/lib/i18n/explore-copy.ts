@@ -41,14 +41,12 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     showLess: 'Mostrar menos',
     showingCount: (visible: number, total: number) => `Se muestran ${visible} de ${total} quizzes`,
     editorialGrid: 'Entradas curadas',
-    editorDeck:
-      'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
+    editorDeck: 'Otra puerta de entrada al catálogo: empieza por la categoría que más te llame.',
     min: 'min',
     plays: 'partidas',
     open: 'Abrir',
     lanesTitle: 'Los mejores caminos para entrar',
-    pulseDeck:
-      'La segunda carta fuerte no debería perderse en una grilla plana. Aquí le damos un espacio propio para convertir mejor.',
+    pulseDeck: 'De los más jugados del catálogo.',
   },
   en: {
     eyebrow: 'Explore',
@@ -66,14 +64,12 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     showLess: 'Show less',
     showingCount: (visible: number, total: number) => `Showing ${visible} of ${total} quizzes`,
     editorialGrid: 'Curated entries',
-    editorDeck:
-      'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
+    editorDeck: 'Another way into the catalog: start with the category that pulls you in.',
     min: 'min',
     plays: 'plays',
     open: 'Open',
     lanesTitle: 'The best ways in',
-    pulseDeck:
-      'The second-strongest quiz should not disappear inside a flat grid, so it gets its own selling space here.',
+    pulseDeck: 'One of the most played in the catalog.',
   },
 };
 

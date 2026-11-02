@@ -6,7 +6,7 @@ import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { readRecent, type RecentQuiz } from '@/lib/history/recent-quizzes';
-import type { Locale } from '@/lib/i18n/dictionaries';
+import { getCommonCopy, type Locale } from '@/lib/i18n/dictionaries';
 
 const COPY = {
   es: {
@@ -79,7 +79,8 @@ export function RecentlyPlayed({ locale }: RecentlyPlayedProps) {
               <h3>{entry.title}</h3>
               <div className="arcade-card-bottom">
                 <small>
-                  {entry.minutes} MIN{entry.score ? ` · ${entry.score}` : ''}
+                  {entry.minutes} {getCommonCopy(locale).minutesShort}
+                  {entry.score ? ` · ${entry.score}` : ''}
                 </small>
                 <span className="arcade-card-play">{copy.play} ↗</span>
               </div>
