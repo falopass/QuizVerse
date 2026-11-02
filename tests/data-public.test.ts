@@ -48,6 +48,11 @@ vi.mock('@/lib/supabase/server', () => ({
           const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
           return { data: res.error ? null : data, error: res.error ?? null };
         },
+        maybeSingle: async () => {
+          const res = resolve();
+          const data = Array.isArray(res.data) ? (res.data[0] ?? null) : res.data;
+          return { data: res.error ? null : data, error: res.error ?? null };
+        },
         then: (
           onFulfilled?: null | ((value: DbResult) => unknown),
           onRejected?: null | ((reason: unknown) => unknown)
@@ -104,13 +109,19 @@ vi.mock('@/lib/data/normalizers', () => ({
   normalizeCategory: (row: unknown) => row,
   normalizeProfile: (row: unknown) => row,
   normalizeAchievement: (row: unknown) => row,
-  normalizeQuiz: (row: Record<string, unknown>, categories: Map<string, unknown>) => ({
+  normalizeQuiz: (
+    row: Record<string, unknown>,
+    categories: Map<string, unknown>,
+    creator?: unknown
+  ) => ({
     ...row,
     category: categories.get(row.category_id as string) ?? null,
+    creator: creator ?? null,
   }),
 }));
 
 import {
+  CATEGORY_CARD_COLUMNS,
   categoryHasQuizzes,
   getFeaturedQuizzes,
   getHomePayload,
@@ -176,6 +187,32 @@ describe('getQuizBySlug', () => {
     expect(quiz?.category).toEqual(catRow);
     expect(db.calls).toContain('quizzes(*) eq:slug=quiz-one eq:status=published eq:language=en');
     expect(db.calls).toContain('categories(*) eq:id=cat-1');
+  });
+
+  it('resuelve el creador con el badge mínimo y lo adjunta al quiz (SOC-05)', async () => {
+    const creatorRow = { id: 'u-9', username: 'dana', display_name: 'Dana', avatar_url: null };
+    db.handler = (table) => {
+      if (table === 'quizzes') return { data: [quizRow({ creator_id: 'u-9' })], error: null };
+      if (table === 'profiles') return { data: [creatorRow], error: null };
+      return { data: [catRow], error: null };
+    };
+
+    const quiz = await getQuizBySlug('quiz-one', 'en');
+    expect(quiz?.creator).toEqual(creatorRow);
+    // Solo el badge: ni is_admin ni contadores.
+    expect(db.calls).toContain('profiles(id, username, display_name, avatar_url) eq:id=u-9');
+  });
+
+  it('un fallo al resolver el creador deja la ficha sin atribución, no la tumba', async () => {
+    db.handler = (table) => {
+      if (table === 'quizzes') return { data: [quizRow({ creator_id: 'u-9' })], error: null };
+      if (table === 'profiles') throw new Error('profiles down');
+      return { data: [catRow], error: null };
+    };
+
+    const quiz = await getQuizBySlug('quiz-one', 'en');
+    expect(quiz?.slug).toBe('quiz-one');
+    expect(quiz?.creator).toBeNull();
   });
 
   it('returns null when no row matches', async () => {
@@ -395,9 +432,9 @@ describe('getProfileByUsername', () => {
     expect(await getProfileByUsername('ghost')).toBeNull();
   });
 
-  it('returns null when the query errors', async () => {
+  it('propaga el error de la consulta (404 ≠ caída, SOC-12)', async () => {
     db.handler = () => ({ data: null, error: { message: 'boom' } });
-    expect(await getProfileByUsername('diego')).toBeNull();
+    await expect(getProfileByUsername('diego')).rejects.toBeTruthy();
   });
 });
 
@@ -411,7 +448,10 @@ describe('getQuizzesByCreatorId', () => {
     const quizzes = await getQuizzesByCreatorId('u-1');
     expect(quizzes).toHaveLength(1);
     expect(quizzes[0].category).toEqual(catRow);
-    expect(db.calls).toContain('quizzes(*) eq:creator_id=u-1 eq:status=published');
+    // Solo columnas de tarjeta: sin questions/results (SOC-12).
+    expect(db.calls).toContain(
+      `quizzes(${CATEGORY_CARD_COLUMNS}) eq:creator_id=u-1 eq:status=published`
+    );
   });
 
   it('returns [] when the quiz query errors', async () => {

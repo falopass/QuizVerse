@@ -18,6 +18,7 @@ import type {
   Achievement,
   Category,
   Profile,
+  ProfileBadge,
   Quiz,
   QuizCardViewModel,
   QuizSessionResult,
@@ -184,19 +185,38 @@ async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Qui
   }
 
   const quizRow = quiz as QuizRow;
-  const categoryResponse: { data: CategoryRow | null } | { data: null } = quizRow.category_id
-    ? ((await supabase.from('categories').select('*').eq('id', quizRow.category_id).single()) as {
-        data: CategoryRow | null;
-      })
-    : { data: null };
+  // El creador se resuelve con el badge mínimo (sin is_admin ni contadores):
+  // es lo único del perfil que puede acabar serializado hacia el cliente.
+  // Si esa consulta falla la ficha sigue sin atribución — nunca la tumba.
+  const creatorPromise: Promise<{ data: ProfileBadge | null }> = (async () => {
+    if (!quizRow.creator_id) return { data: null };
+    try {
+      const { data } = await supabase
+        .from('profiles')
+        .select('id, username, display_name, avatar_url')
+        .eq('id', quizRow.creator_id)
+        .maybeSingle();
+      return { data: (data as ProfileBadge | null) ?? null };
+    } catch {
+      return { data: null };
+    }
+  })();
+
+  const [categoryResponse, creatorResponse] = await Promise.all([
+    quizRow.category_id
+      ? supabase.from('categories').select('*').eq('id', quizRow.category_id).single()
+      : Promise.resolve({ data: null }),
+    creatorPromise,
+  ]);
 
   const categoryMap = new Map<string, Category>();
+  const categoryRow = (categoryResponse as { data: CategoryRow | null }).data;
 
-  if (categoryResponse.data) {
-    categoryMap.set(categoryResponse.data.id, normalizeCategory(categoryResponse.data));
+  if (categoryRow) {
+    categoryMap.set(categoryRow.id, normalizeCategory(categoryRow));
   }
 
-  return normalizeQuiz(quizRow, categoryMap);
+  return normalizeQuiz(quizRow, categoryMap, creatorResponse.data);
 }
 
 export const getPublicCategories = cache(async (): Promise<Category[]> => {
@@ -705,52 +725,66 @@ export interface LeaderboardEntry {
   quizzesPlayed: number;
 }
 
+export interface LeaderboardResult {
+  entries: LeaderboardEntry[];
+  hasMore: boolean;
+}
+
 /**
  * Lanza si falla la consulta, igual que `getWeeklyLeaderboard`: un error de
  * base de datos no puede llegar a la página como un ranking vacío (diría «sé
  * el primero» cuando en realidad el tablero no cargó). La API responde 503 y
  * la página muestra un aviso con reintento.
+ *
+ * Paginación real por `page` (SOC-06): pide una fila de más para que
+ * `hasMore` sea exacto sin un count aparte.
  */
-export const getLeaderboard = cache(async (limit = 50): Promise<LeaderboardEntry[]> => {
+export const getLeaderboard = cache(async (limit = 50, page = 1): Promise<LeaderboardResult> => {
   const supabase = await createClient();
+  const safePage = Number.isSafeInteger(page) && page >= 1 ? page : 1;
+  const from = (safePage - 1) * limit;
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
     .order('points', { ascending: false })
     .order('quizzes_played', { ascending: false })
-    .limit(limit);
+    .range(from, from + limit);
 
   if (error || !data) {
     throw error ?? new Error('Could not fetch leaderboard');
   }
 
-  return (data as ProfileRow[]).map((row, index) => ({
-    rank: index + 1,
-    user: normalizeProfile(row),
-    points: row.points,
-    quizzesPlayed: row.quizzes_played,
-  }));
+  const rows = data as ProfileRow[];
+  return {
+    entries: rows.slice(0, limit).map((row, index) => ({
+      rank: from + index + 1,
+      user: normalizeProfile(row),
+      points: row.points,
+      quizzesPlayed: row.quizzes_played,
+    })),
+    hasMore: rows.length > limit,
+  };
 });
 
+// null = el perfil no existe (404); un error de la consulta se propaga al
+// error boundary — nunca se disfraza de perfil inexistente.
 export const getProfileByUsername = cache(async (username: string): Promise<Profile | null> => {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('username', username)
-      .single();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('username', username)
+    .maybeSingle();
 
-    if (error || !data) {
-      return null;
-    }
-
-    return normalizeProfile(data as ProfileRow);
-  } catch {
-    return null;
+  if (error) {
+    throw error;
   }
+
+  return data ? normalizeProfile(data as ProfileRow) : null;
 });
 
+// Tarjetas de "quizzes publicados" del perfil: solo columnas de tarjeta, sin
+// questions/results (antes era select('*') y pagaba el payload entero por fila).
 export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Quiz[]> => {
   try {
     const supabase = await createClient();
@@ -758,7 +792,7 @@ export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Qu
       await Promise.all([
         supabase
           .from('quizzes')
-          .select('*')
+          .select(CATEGORY_CARD_COLUMNS)
           .eq('creator_id', creatorId)
           .eq('status', 'published')
           .order('created_at', { ascending: false }),
@@ -777,7 +811,9 @@ export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Qu
       (categories as CategoryRow[]).map((item) => [item.id, normalizeCategory(item)])
     );
 
-    return (quizzes as QuizRow[]).map((quiz) => normalizeQuiz(quiz, categoryMap));
+    return (quizzes as unknown as CategoryCardRow[]).map((quiz) =>
+      normalizeCategoryCard(quiz, categoryMap)
+    );
   } catch {
     return [];
   }
@@ -803,3 +839,75 @@ export const getUnlockedAchievements = cache(async (userId: string): Promise<Ach
     return [];
   }
 });
+
+// Lo que pinta una fila de las listas de seguidores/siguiendo.
+export interface FollowListEntry {
+  id: string;
+  username: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  points: number;
+  quizzes_played: number;
+}
+
+export interface FollowListResult {
+  entries: FollowListEntry[];
+  total: number;
+  page: number;
+  pageCount: number;
+}
+
+export const FOLLOW_LIST_PAGE_SIZE = 24;
+
+const FOLLOW_LIST_COLUMNS = 'id, username, display_name, avatar_url, points, quizzes_played';
+
+/**
+ * Lista pública del grafo de follows del perfil (`/followers`, `/following`).
+ * Depende de la policy "Anyone can read follows" (006): si el grafo se
+ * cierra a privado (decisión pendiente, SOC-09), las listas ajenas quedarán
+ * vacías y las páginas muestran su estado vacío — no se rompen.
+ *
+ * null = la consulta falló: la página muestra aviso con reintento, no un
+ * vacío falso.
+ */
+export const getFollowList = cache(
+  async (
+    userId: string,
+    kind: 'followers' | 'following',
+    page = 1
+  ): Promise<FollowListResult | null> => {
+    try {
+      const supabase = await createClient();
+      const safePage = Number.isSafeInteger(page) && page >= 1 ? page : 1;
+      const from = (safePage - 1) * FOLLOW_LIST_PAGE_SIZE;
+      // En cada dirección el perfil cuelga de la otra FK.
+      const embedded =
+        kind === 'followers'
+          ? `profile:profiles!user_follows_follower_id_fkey(${FOLLOW_LIST_COLUMNS})`
+          : `profile:profiles!user_follows_following_id_fkey(${FOLLOW_LIST_COLUMNS})`;
+
+      const { data, error, count } = await supabase
+        .from('user_follows')
+        .select(embedded, { count: 'exact' })
+        .eq(kind === 'followers' ? 'following_id' : 'follower_id', userId)
+        .order('created_at', { ascending: false })
+        .range(from, from + FOLLOW_LIST_PAGE_SIZE - 1);
+
+      if (error || !data) {
+        throw error ?? new Error('Could not fetch follow list');
+      }
+
+      const total = count ?? from + data.length;
+      return {
+        entries: (data as Array<{ profile: FollowListEntry | null }>).flatMap((row) =>
+          row.profile ? [row.profile] : []
+        ),
+        total,
+        page: safePage,
+        pageCount: Math.max(1, Math.ceil(total / FOLLOW_LIST_PAGE_SIZE)),
+      };
+    } catch {
+      return null;
+    }
+  }
+);

@@ -751,6 +751,11 @@ export interface Database {
         Args: { p_limit: number };
         Returns: { player_id: string; played: number; perfect: number }[];
       };
+      /** Migración 019: puesto propio en la semana, null si no jugó. */
+      get_weekly_rank: {
+        Args: { p_user_id: string };
+        Returns: number | null;
+      };
       unlock_achievement: {
         Args: { p_achievement_id: string };
         Returns: boolean;
