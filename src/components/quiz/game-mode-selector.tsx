@@ -4,6 +4,7 @@ import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { entrance } from '@/lib/ui/motion';
 import { cn } from '@/lib/utils/cn';
+import { availableGameModes } from '@/lib/quiz/game-modes';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Quiz } from '@/types/quiz';
 import type { GameMode } from '@/stores/quiz-store';
@@ -63,10 +64,15 @@ const GAME_MODES: GameModeInfo[] = [
 export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameModeSelectorProps) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
   const reduceMotion = useReducedMotion() ?? false;
-  const modes = React.useMemo(
-    () => GAME_MODES.filter((mode) => quiz.quiz_type === 'trivia' || mode.id !== 'survival'),
-    [quiz.quiz_type]
-  );
+  const modes = React.useMemo(() => {
+    const allowed = availableGameModes(quiz);
+    return GAME_MODES.filter((mode) => allowed.includes(mode.id));
+  }, [quiz]);
+  const headingRef = React.useRef<HTMLHeadingElement | null>(null);
+  // Pantalla nueva tras «Cambiar modo»: el foco va a su título y se anuncia.
+  React.useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
   const copy =
     locale === 'es'
       ? {
@@ -121,7 +127,9 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
         className="w-full"
       >
         <div className="arcade-mode-intro">
-          <h1>{copy.title}</h1>
+          <h1 ref={headingRef} tabIndex={-1}>
+            {copy.title}
+          </h1>
           <p className="arcade-mode-quiz">{quiz.title}</p>
           <p className="arcade-mode-count">
             {quiz.questions.length} {copy.questions} ·{' '}
@@ -157,9 +165,11 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
           ))}
         </div>
 
-        <p className="arcade-mode-hint">
-          {copy.keyboardPrefix} 1-{modes.length} {copy.keyboardSuffix}
-        </p>
+        {modes.length > 1 && (
+          <p className="arcade-mode-hint">
+            {copy.keyboardPrefix} 1-{modes.length} {copy.keyboardSuffix}
+          </p>
+        )}
       </motion.div>
     </div>
   );

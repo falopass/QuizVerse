@@ -128,4 +128,25 @@ describe('hero de la home · nombre accesible (PERF-06)', () => {
     expect(visible).toBe(`${stamp} / 001 ${TITLE}`.toLowerCase());
     expect(link.getAttribute('aria-label')?.toLowerCase()).toBe(visible);
   });
+
+  it('el CTA principal entra directo en modo Clásico', async () => {
+    const quiz = makeQuiz();
+    mocks.getHomePayload.mockResolvedValue({
+      categories: [],
+      trending: [],
+      featured: [quiz],
+      quickPlays: [],
+      freshlyPublished: [],
+      totalQuizzes: 1,
+      totalPlays: 10,
+    });
+
+    const { container } = render(
+      await LocalizedHomePage({ params: Promise.resolve({ locale: 'en' }) })
+    );
+
+    expect(
+      container.querySelector<HTMLAnchorElement>('a.arcade-button')?.getAttribute('href')
+    ).toBe('/en/quiz/flags-trivia/play?mode=classic');
+  });
 });

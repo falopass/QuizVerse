@@ -96,8 +96,8 @@ describe('QuizProgress a11y', () => {
 
 describe('QuizPlayer a11y', () => {
   async function startPlaying(locale: 'en' | 'es') {
+    // /play arranca directo en Clásico: ya no hay pantalla de selección previa.
     render(<QuizPlayer quiz={makeQuiz()} locale={locale} />);
-    fireEvent.click(screen.getByRole('button', { name: /Clásico|Classic/ }));
     return screen.findByText(locale === 'es' ? /ELIGE UNA RESPUESTA/ : /CHOOSE AN ANSWER/);
   }
 
@@ -108,8 +108,8 @@ describe('QuizPlayer a11y', () => {
     let regions = screen.getAllByRole('status');
     expect(regions).toHaveLength(2);
 
+    // Un toque responde y pinta el veredicto.
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Siguiente' }));
 
     // Con el veredicto visible hay tres regiones y solo una anuncia "Correcto".
     await screen.findByText('Correcto');
@@ -123,7 +123,6 @@ describe('QuizPlayer a11y', () => {
     await startPlaying('en');
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
 
     await screen.findByText('Correct');
     const regions = screen.getAllByRole('status');

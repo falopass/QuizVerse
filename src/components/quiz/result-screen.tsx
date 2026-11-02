@@ -80,6 +80,12 @@ export function ResultScreen({
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [shareMode, setShareMode] = React.useState<'result' | 'challenge' | null>(null);
   const [accountCtaDismissed, setAccountCtaDismissed] = React.useState(false);
+  const verdictRef = React.useRef<HTMLHeadingElement | null>(null);
+  // A11Y-02: al terminar la partida el foco cae aquí y el veredicto se anuncia;
+  // también cubre /result, que es una pantalla nueva.
+  React.useEffect(() => {
+    verdictRef.current?.focus();
+  }, []);
   const copy =
     uiLocale === 'es'
       ? {
@@ -216,6 +222,8 @@ export function ResultScreen({
         <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <section className="arcade-result-main">
             <motion.h1
+              ref={verdictRef}
+              tabIndex={-1}
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               className="arcade-result-verdict"
@@ -320,7 +328,11 @@ export function ResultScreen({
                 </button>
               )}
               <Link
-                href={localizeHref(uiLocale, '/quiz')}
+                href={
+                  related?.[0]
+                    ? localizeHref(uiLocale, `/quiz/${related[0].slug}/play?mode=classic`)
+                    : localizeHref(uiLocale, '/quiz')
+                }
                 className="arcade-button arcade-result-secondary"
               >
                 {uiLocale === 'es' ? 'Jugar otro' : 'Play another'}

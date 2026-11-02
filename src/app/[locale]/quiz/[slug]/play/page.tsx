@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
-import { getQuizBySlug, getQuizLocaleRedirect } from '@/lib/data/public';
+import { getQuizBySlug, getQuizLocaleRedirect, getRelatedQuizzes } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { localizeQuizList } from '@/lib/i18n/catalog';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
+import { parseInitialGameMode } from '@/lib/quiz/game-modes';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage, resultOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
@@ -54,9 +56,9 @@ export default async function LocalizedQuizPlayPage({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ challenge?: string }>;
+  searchParams: Promise<{ challenge?: string; mode?: string }>;
 }) {
-  const [{ locale, slug }, { challenge: challengeToken }] = await Promise.all([
+  const [{ locale, slug }, { challenge: challengeToken, mode }] = await Promise.all([
     params,
     searchParams,
   ]);
@@ -84,12 +86,25 @@ export default async function LocalizedQuizPlayPage({
     : null;
   const copy = challenge ? challengeCopy(challenge, locale) : null;
 
+  // Misma fuente que la ficha y /result; van al cliente, así que pasan por
+  // toClientQuiz para no filtrar la clave de respuestas.
+  const related = localizeQuizList(
+    await getRelatedQuizzes(quiz.slug, quiz.category?.slug, locale),
+    locale
+  ).map(toClientQuiz);
+
   // The answer key never leaves the server: the play screen asks the reveal
   // endpoint for one verdict at a time.
   return (
     <>
       {copy ? <ChallengeBanner eyebrow={copy.eyebrow} title={copy.title} body={copy.body} /> : null}
-      <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} challenge={challenge} />
+      <QuizPlayer
+        quiz={toClientQuiz(quiz)}
+        locale={locale}
+        challenge={challenge}
+        initialMode={parseInitialGameMode(mode, quiz)}
+        related={related}
+      />
     </>
   );
 }

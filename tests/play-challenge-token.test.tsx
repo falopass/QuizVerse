@@ -9,10 +9,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   getQuizBySlug: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getRelatedQuizzes: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
   getQuizBySlug: mocks.getQuizBySlug,
+  // El reproductor pinta relacionados al terminar; aquí no participan.
+  getRelatedQuizzes: mocks.getRelatedQuizzes,
 }));
 
 vi.mock('@/lib/data/challenge', () => ({
@@ -40,6 +43,7 @@ const withChallenge = (challenge?: string) => Promise.resolve({ challenge });
 beforeEach(() => {
   mocks.getQuizBySlug.mockReset().mockResolvedValue(quiz);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
+  mocks.getRelatedQuizzes.mockReset().mockResolvedValue([]);
 });
 
 describe('/play challenge token', () => {

@@ -7,6 +7,7 @@ import { submitQuizResult } from '@/actions/quiz.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
+import { availableGameModes } from '@/lib/quiz/game-modes';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
@@ -33,10 +34,19 @@ interface QuizPlayerProps {
   locale?: Locale;
   /** Reto activo: el marcador del retador que hay que superar. */
   challenge?: ChallengeInfo | null;
+  /**
+   * Modo con el que arranca la partida. Los CTA de la ficha y el hero piden
+   * Clásico (`?mode=classic`); el selector queda tras «Cambiar modo» o la pausa.
+   */
+  initialMode?: GameMode;
+  /** Relacionados saneados en el servidor; el resultado los pinta. */
+  related?: Quiz[];
 }
 
 let _audioContext: AudioContext | null = null;
 const NO_HIDDEN_OPTIONS: string[] = [];
+/** Mismo tope que `MAX_TOTAL_SECONDS` en `src/lib/quiz/submission.ts`. */
+const MAX_GAME_SECONDS = 2 * 60 * 60;
 
 /**
  * Aviso de envío fallido. Vive a nivel de módulo (no en `copy`) porque el toast
@@ -83,7 +93,7 @@ const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
   oscillator.stop(audioContext.currentTime + 0.2);
 };
 
-export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
+export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: QuizPlayerProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const copy =
     uiLocale === 'es'
@@ -106,6 +116,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           skip: 'Saltar',
           finish: 'Terminar',
           next: 'Siguiente',
+          answersRemoved: 'Dos respuestas eliminadas',
+          secondsAdded: 'Diez segundos añadidos',
+          secondsLeft30: 'Quedan 30 segundos',
+          secondsLeft10: 'Quedan 10 segundos',
         }
       : {
           pause: 'Pause',
@@ -126,8 +140,19 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           skip: 'Skip',
           finish: 'Finish',
           next: 'Next',
+          answersRemoved: 'Two answers removed',
+          secondsAdded: 'Ten seconds added',
+          secondsLeft30: '30 seconds left',
+          secondsLeft10: '10 seconds left',
         };
-  const [showModeSelector, setShowModeSelector] = React.useState(true);
+  const [showModeSelector, setShowModeSelector] = React.useState(false);
+  /** Avisos puntuales (ayudas, hitos del reloj) en una región polite propia. */
+  const [liveMessage, setLiveMessage] = React.useState('');
+  const cardWrapRef = React.useRef<HTMLDivElement | null>(null);
+  const pausePanelRef = React.useRef<HTMLDivElement | null>(null);
+  const pauseTitleRef = React.useRef<HTMLHeadingElement | null>(null);
+  const pauseButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const wasPausedRef = React.useRef(false);
   const [hiddenOptions, setHiddenOptions] = React.useState<{
     questionIndex: number;
     ids: string[];
@@ -154,10 +179,14 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const [submitFailed, setSubmitFailed] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
+  /** Segundos de la partida, congelados al completar: un reintento no suma espera. */
+  const elapsedSecondsRef = React.useRef<number | null>(null);
   const { success: toastSuccess, error: toastError } = useToast();
   const reduceMotion = useReducedMotion() ?? false;
 
   const {
+    quiz: activeQuiz,
+    gameId,
     gameMode,
     currentQuestionIndex,
     selectedOptionId,
@@ -182,6 +211,14 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     getScore,
     getPersonalityResult,
   } = useQuizStore();
+  /**
+   * El store arranca vacío en el servidor y puede traer la partida de otro
+   * quiz al navegar. `startGame` corre en un efecto, así que hasta que el
+   * `gameId` avance se pinta un marco estable (mismo HTML en servidor y
+   * cliente) en vez de la pregunta anterior o el estado «quiz no encontrado».
+   */
+  const [initialGameId] = React.useState(gameId);
+  const isGameStarted = gameId > initialGameId && activeQuiz?.id === quiz.id;
   const hiddenOptionIds =
     hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
   /**
@@ -195,43 +232,62 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   }, []);
 
   /**
-   * Asks the server whether the selected option is right, then records the
+   * Asks the server whether the chosen option is right, then records the
    * answer. If the reveal fails the answer is still recorded (without feedback)
    * because submission re-grades everything server-side.
+   *
+   * Tocar una opción la envía: la selección y el veredicto van en el mismo
+   * gesto. En Práctica y con movimiento reducido el feedback no se auto-avanza;
+   * el jugador sigue con «Siguiente».
    */
-  const submitCurrentAnswer = React.useCallback(async () => {
-    if (isCheckingAnswer || showFeedback) return;
-    const question = getCurrentQuestion();
-    if (!question || !selectedOptionId) return;
+  const submitCurrentAnswer = React.useCallback(
+    async (optionId?: string) => {
+      if (isCheckingAnswer || showFeedback) return;
+      const question = getCurrentQuestion();
+      const chosenOptionId = optionId ?? selectedOptionId;
+      if (!question || !chosenOptionId) return;
 
-    const answeredIndex = currentQuestionIndex;
-    const gameId = useQuizStore.getState().gameId;
-    setIsCheckingAnswer(true);
-    const revealed = await requestAnswerVerdict({
-      quizId: quiz.id,
-      questionId: question.id,
+      if (optionId) {
+        selectOption(optionId);
+        playSound('click');
+      }
+
+      const answeredIndex = currentQuestionIndex;
+      const gameId = useQuizStore.getState().gameId;
+      setIsCheckingAnswer(true);
+      const revealed = await requestAnswerVerdict({
+        quizId: quiz.id,
+        questionId: question.id,
+        selectedOptionId: chosenOptionId,
+      });
+      const current = useQuizStore.getState();
+      if (current.gameId !== gameId) return;
+      setIsCheckingAnswer(false);
+      if (current.isCompleted || current.currentQuestionIndex !== answeredIndex) return;
+
+      setVerdict({
+        questionIndex: answeredIndex,
+        correctOptionId: revealed?.correctOptionId ?? null,
+        explanation: revealed?.explanation ?? null,
+      });
+      submitAnswer(
+        revealed ? { isCorrect: revealed.isCorrect } : undefined,
+        revealed && (gameMode === 'practice' || reduceMotion) ? { autoAdvanceMs: null } : undefined
+      );
+    },
+    [
+      currentQuestionIndex,
+      gameMode,
+      getCurrentQuestion,
+      isCheckingAnswer,
+      quiz.id,
+      reduceMotion,
+      selectOption,
       selectedOptionId,
-    });
-    const current = useQuizStore.getState();
-    if (current.gameId !== gameId) return;
-    setIsCheckingAnswer(false);
-    if (current.isCompleted || current.currentQuestionIndex !== answeredIndex) return;
-
-    setVerdict({
-      questionIndex: answeredIndex,
-      correctOptionId: revealed?.correctOptionId ?? null,
-      explanation: revealed?.explanation ?? null,
-    });
-    submitAnswer(revealed ? { isCorrect: revealed.isCorrect } : undefined);
-  }, [
-    currentQuestionIndex,
-    getCurrentQuestion,
-    isCheckingAnswer,
-    quiz.id,
-    selectedOptionId,
-    showFeedback,
-    submitAnswer,
-  ]);
+      showFeedback,
+      submitAnswer,
+    ]
+  );
 
   // Cuando cambia el quiz, la partida anterior se descarta durante el propio
   // render (patrón "adjust state during render"): los estados locales vuelven a
@@ -243,16 +299,19 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     setIsSubmittingResult(false);
     setIsCheckingAnswer(false);
     setSubmitFailed(false);
-    setShowModeSelector(true);
+    setShowModeSelector(false);
   }
 
   React.useEffect(() => {
     hasSubmittedRef.current = false;
-    startGame(quiz, 'normal');
-  }, [quiz, startGame]);
+    elapsedSecondsRef.current = null;
+    startGame(quiz, initialMode ?? 'normal');
+  }, [quiz, startGame, initialMode]);
 
   React.useEffect(() => {
-    if (showModeSelector) return;
+    // Solo cuando la partida ya arrancó con este quiz: el primer render puede
+    // traer el modo de una partida anterior y duplicaría el evento.
+    if (showModeSelector || !isGameStarted) return;
 
     void trackEvent({
       name: 'quiz_start',
@@ -261,20 +320,27 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
       quizSlug: quiz.slug,
       quizType: quiz.quiz_type,
     });
-  }, [gameMode, quiz.id, quiz.quiz_type, quiz.slug, showModeSelector, uiLocale]);
+  }, [gameMode, isGameStarted, quiz.id, quiz.quiz_type, quiz.slug, showModeSelector, uiLocale]);
 
   React.useEffect(() => {
     if (showModeSelector || isCompleted || isPaused || showFeedback || gameMode !== 'timed') return;
     const timer = setInterval(() => {
+      const remaining = useQuizStore.getState().timeRemaining;
       useQuizStore.setState((state) => {
         if (state.timeRemaining <= 1) {
           return { timeRemaining: 0, isCompleted: true };
         }
         return { timeRemaining: state.timeRemaining - 1, totalTimeUsed: state.totalTimeUsed + 1 };
       });
+      // Hitos, no cada segundo: el reloj visible no vive en una región viva.
+      if (remaining === 31) {
+        setLiveMessage(uiLocale === 'es' ? 'Quedan 30 segundos' : '30 seconds left');
+      } else if (remaining === 11) {
+        setLiveMessage(uiLocale === 'es' ? 'Quedan 10 segundos' : '10 seconds left');
+      }
     }, 1000);
     return () => clearInterval(timer);
-  }, [gameMode, isCompleted, isPaused, showFeedback, showModeSelector]);
+  }, [gameMode, isCompleted, isPaused, showFeedback, showModeSelector, uiLocale]);
 
   React.useEffect(() => {
     if (!showFeedback || lastAnswerCorrect === null || quiz.quiz_type !== 'trivia') return;
@@ -305,10 +371,18 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     };
 
     try {
-      const totalTimeSeconds = Math.max(
-        0,
-        Math.round(answers.reduce((total, answer) => total + answer.time_ms, 0) / 1000)
-      );
+      // Tiempo real de la partida en todos los modos: inicio → envío. Antes
+      // solo Contrarreloj medía (el resto guardaba 0). Se congela la primera
+      // vez para que un reintento no cuente el rato en la pantalla de resultado.
+      if (elapsedSecondsRef.current === null) {
+        const startedAt = useQuizStore.getState().startedAt;
+        // Con tope: una pestaña olvidada horas no debe volver inválido el envío
+        // (el esquema rechaza más de 2 h y el reintento arrastraría el valor).
+        elapsedSecondsRef.current = startedAt
+          ? Math.min(MAX_GAME_SECONDS, Math.max(0, Math.round((Date.now() - startedAt) / 1000)))
+          : 0;
+      }
+      const totalTimeSeconds = elapsedSecondsRef.current;
       // Only the choices travel: the server re-grades every answer.
       const payload = answers.map(({ question_id, selected_option_id, time_ms }) => ({
         question_id,
@@ -393,28 +467,39 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (showModeSelector || isCompleted || isPaused || showFeedback) return;
+      if (showModeSelector || isCompleted || isPaused) return;
+      if (event.key === 'Escape') {
+        togglePause();
+        return;
+      }
       const currentQuestion = getCurrentQuestion();
       if (!currentQuestion) return;
 
-      if (event.key >= '1' && event.key <= '4') {
+      // Pulsar 1-4 responde igual que tocar la opción.
+      if (!showFeedback && event.key >= '1' && event.key <= '4') {
         const index = Number(event.key) - 1;
         if (
           !isCheckingAnswer &&
           index < currentQuestion.options.length &&
           !hiddenOptionIds.includes(currentQuestion.options[index].id)
         ) {
-          selectOption(currentQuestion.options[index].id);
-          playSound('click');
+          void submitCurrentAnswer(currentQuestion.options[index].id);
         }
       }
 
-      if (event.key === 'Enter' && selectedOptionId && !showFeedback) {
-        void submitCurrentAnswer();
-      }
-
-      if (event.key === 'Escape') {
-        togglePause();
+      // Enter avanza tras el feedback; sobre un control manda el control.
+      if (
+        event.key === 'Enter' &&
+        !(event.target instanceof HTMLElement && event.target.closest('button, a'))
+      ) {
+        const answered = useQuizStore
+          .getState()
+          .answers.some((answer) => answer.question_id === currentQuestion.id);
+        if (answered) {
+          useQuizStore.getState().nextQuestion();
+        } else {
+          void submitCurrentAnswer();
+        }
       }
     };
 
@@ -427,8 +512,6 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     isCompleted,
     isPaused,
     showModeSelector,
-    selectOption,
-    selectedOptionId,
     showFeedback,
     submitCurrentAnswer,
     togglePause,
@@ -452,6 +535,64 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     announcementParts.push(uiLocale === 'es' ? `Racha de ${streak}` : `Streak of ${streak}`);
   }
   const scoreAnnouncement = announcementParts.join(' · ');
+  const canChangeMode = availableGameModes(quiz).length > 1;
+  const hasAnsweredCurrent = currentQuestion
+    ? answers.some((answer) => answer.question_id === currentQuestion.id)
+    : false;
+
+  /**
+   * A11Y-03: la pausa es un diálogo modal. Al abrir, el foco va al título; Tab
+   * queda atrapado en el panel y Escape reanuda. Al volver, el foco regresa al
+   * botón de pausa.
+   */
+  React.useEffect(() => {
+    if (!isPaused) return;
+    pauseTitleRef.current?.focus();
+  }, [isPaused]);
+
+  React.useEffect(() => {
+    if (isPaused) {
+      wasPausedRef.current = true;
+      return;
+    }
+    if (!wasPausedRef.current) return;
+    wasPausedRef.current = false;
+    pauseButtonRef.current?.focus();
+  }, [isPaused]);
+
+  React.useEffect(() => {
+    if (!isPaused) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        togglePause();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const panel = pausePanelRef.current;
+      if (!panel) return;
+      const focusables = Array.from(panel.querySelectorAll<HTMLElement>('button:not([disabled])'));
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      const outside = !panel.contains(active);
+      if (event.shiftKey && (active === first || outside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || outside)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isPaused, togglePause]);
+
+  /** A11Y-08: tras usar una ayuda el foco sigue en algo útil, no en <body>. */
+  const focusFirstAvailableOption = React.useCallback(() => {
+    cardWrapRef.current?.querySelector<HTMLButtonElement>('.arcade-option:not(:disabled)')?.focus();
+  }, []);
 
   const handleStartGame = (mode: GameMode) => {
     startGame(quiz, mode);
@@ -462,6 +603,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     hasSubmittedRef.current = false;
     setShowModeSelector(false);
     setHiddenOptions({ questionIndex: -1, ids: [] });
+    elapsedSecondsRef.current = null;
     playSound('click');
   };
 
@@ -469,44 +611,72 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     return <GameModeSelector quiz={quiz} locale={uiLocale} onSelectMode={handleStartGame} />;
   }
 
+  if (!isGameStarted) {
+    return (
+      <div className="arcade-play-page arcade-wrap">
+        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center px-4 py-16">
+          <div>
+            <p className="arcade-play-label">{copy.nowPlaying}</p>
+            <h1 className="arcade-play-title">{quiz.title}</h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (isPaused) {
     return (
       <div className="arcade-play-page arcade-wrap">
         <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center justify-center">
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="quiz-pause-title"
+            aria-describedby="quiz-pause-body"
             {...entrance(reduceMotion, {
               initial: { scale: 0.96, opacity: 0 },
               animate: { scale: 1, opacity: 1 },
             })}
             className="arcade-pause w-full max-w-xl p-10 text-center"
           >
-            <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
-              II
-            </div>
-            <p className="arcade-play-label">{copy.pause}</p>
-            <h1 className="text-text-primary mt-3 text-4xl font-semibold tracking-tight">
-              {copy.pauseTitle}
-            </h1>
-            <p className="text-text-secondary mt-4 text-base leading-7">{copy.pauseBody}</p>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              <button
-                onClick={() => {
-                  togglePause();
-                  playSound('click');
-                }}
-                className="arcade-button"
+            <div ref={pausePanelRef}>
+              <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
+                II
+              </div>
+              <p className="arcade-play-label">{copy.pause}</p>
+              <h1
+                id="quiz-pause-title"
+                ref={pauseTitleRef}
+                tabIndex={-1}
+                className="text-text-primary mt-3 text-4xl font-semibold tracking-tight"
               >
-                {copy.resume}
-              </button>
-              <button
-                onClick={() => {
-                  setShowModeSelector(true);
-                  togglePause();
-                }}
-                className="arcade-pause-secondary"
-              >
-                {copy.changeMode}
-              </button>
+                {copy.pauseTitle}
+              </h1>
+              <p id="quiz-pause-body" className="text-text-secondary mt-4 text-base leading-7">
+                {copy.pauseBody}
+              </p>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <button
+                  onClick={() => {
+                    togglePause();
+                    playSound('click');
+                  }}
+                  className="arcade-button"
+                >
+                  {copy.resume}
+                </button>
+                {canChangeMode && (
+                  <button
+                    onClick={() => {
+                      setShowModeSelector(true);
+                      togglePause();
+                    }}
+                    className="arcade-pause-secondary"
+                  >
+                    {copy.changeMode}
+                  </button>
+                )}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -550,6 +720,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
         // fallido deja el marcador local sin verificar y podría dibujar un
         // veredicto distinto al que quedó en el servidor (y en la tarjeta OG).
         challenge={submission ? challenge : null}
+        related={related}
         shareUrl={
           submission?.shareToken && typeof window !== 'undefined'
             ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}${challenge ? `&challenge=${challenge.token}` : ''}`
@@ -616,28 +787,42 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                   }
                 />
               </div>
-              <button
-                onClick={() => {
-                  togglePause();
-                  playSound('click');
-                }}
-                className="bg-bg-secondary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
-                aria-label={copy.pauseGame}
-              >
-                <svg
-                  className="text-text-secondary h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              <div className="flex items-center gap-2">
+                {canChangeMode && (
+                  <button
+                    onClick={() => {
+                      setShowModeSelector(true);
+                      playSound('click');
+                    }}
+                    className="text-text-secondary hover:text-text-primary text-xs font-bold tracking-[0.08em] uppercase"
+                  >
+                    {copy.changeMode}
+                  </button>
+                )}
+                <button
+                  ref={pauseButtonRef}
+                  onClick={() => {
+                    togglePause();
+                    playSound('click');
+                  }}
+                  className="bg-bg-secondary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
+                  aria-label={copy.pauseGame}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="text-text-secondary h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
           {!showFeedback && !isCheckingAnswer && (
@@ -672,11 +857,19 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                     }
                     activatePowerUp(id);
                     playSound('powerup');
+                    // El botón usado desaparece: el foco pasa a la primera
+                    // opción que sigue disponible y el efecto se anuncia.
+                    setLiveMessage(copy.answersRemoved);
+                    setTimeout(focusFirstAvailableOption, 0);
                   })();
                   return;
                 }
                 activatePowerUp(id);
                 playSound('powerup');
+                if (id === 'extra-time') {
+                  setLiveMessage(copy.secondsAdded);
+                  focusFirstAvailableOption();
+                }
               }}
             />
           )}
@@ -686,6 +879,10 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           {/* Marcador/racha: región aparte para no repetir el veredicto */}
           <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
             {scoreAnnouncement}
+          </p>
+          {/* Avisos puntuales (ayudas, hitos del reloj): no tocan el marcador. */}
+          <p className="sr-only" aria-live="polite" aria-atomic="true">
+            {liveMessage}
           </p>
           <div className="mx-auto mb-6 flex max-w-5xl flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -702,6 +899,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentQuestionIndex}
+                ref={cardWrapRef}
                 {...entrance(reduceMotion, {
                   initial: { x: 50, opacity: 0 },
                   animate: { x: 0, opacity: 1 },
@@ -716,8 +914,8 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                   totalQuestions={totalQuestions}
                   selectedOptionId={selectedOptionId}
                   onSelectOption={(optionId) => {
-                    selectOption(optionId);
-                    playSound('click');
+                    // Un toque responde: la selección y el veredicto van juntos.
+                    void submitCurrentAnswer(optionId);
                   }}
                   showExplanation={gameMode === 'practice'}
                   disabled={showFeedback || isCheckingAnswer}
@@ -759,17 +957,22 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             <button
               onClick={() => {
                 playSound('click');
+                if (hasAnsweredCurrent) {
+                  // Tras el feedback «Siguiente» avanza sin esperar el auto-avance.
+                  useQuizStore.getState().nextQuestion();
+                  return;
+                }
                 void submitCurrentAnswer();
               }}
-              disabled={!selectedOptionId || showFeedback || isCheckingAnswer}
+              disabled={isCheckingAnswer || (!hasAnsweredCurrent && !selectedOptionId)}
               className={cn(
                 'arcade-play-submit',
-                selectedOptionId && !showFeedback && !isCheckingAnswer
+                hasAnsweredCurrent || (selectedOptionId && !isCheckingAnswer)
                   ? 'arcade-play-submit-ready'
                   : 'cursor-not-allowed opacity-50'
               )}
             >
-              {showFeedback || isCheckingAnswer ? '...' : isLastQuestion ? copy.finish : copy.next}
+              {isCheckingAnswer ? '...' : isLastQuestion ? copy.finish : copy.next}
             </button>
           </div>
         </div>

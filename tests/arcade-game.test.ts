@@ -1,5 +1,9 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { useQuizStore } from '@/stores/quiz-store';
+import {
+  FEEDBACK_AUTO_ADVANCE_MS,
+  NO_VERDICT_AUTO_ADVANCE_MS,
+  useQuizStore,
+} from '@/stores/quiz-store';
 import type { Quiz } from '@/types/quiz';
 
 const quiz = {
@@ -38,9 +42,18 @@ it('only Time Attack has a clock; Survival ends after a mistake', () => {
   useQuizStore.getState().selectOption('wrong');
   // The verdict comes from the server: the browser has no answer key.
   useQuizStore.getState().submitAnswer({ isCorrect: false });
-  vi.advanceTimersByTime(1500);
+  vi.advanceTimersByTime(FEEDBACK_AUTO_ADVANCE_MS);
   expect(useQuizStore.getState().isCompleted).toBe(true);
   expect(useQuizStore.getState().answers).toHaveLength(1);
+});
+
+it('a mistake in Survival ends the run even when the player skips the wait', () => {
+  useQuizStore.getState().startGame(quiz, 'survival');
+  useQuizStore.getState().selectOption('wrong');
+  useQuizStore.getState().submitAnswer({ isCorrect: false });
+  // «Siguiente» no puede saltarse el final de la partida.
+  useQuizStore.getState().nextQuestion();
+  expect(useQuizStore.getState().isCompleted).toBe(true);
 });
 
 it('records the answer and advances even when the reveal failed', () => {
@@ -55,7 +68,7 @@ it('records the answer and advances even when the reveal failed', () => {
   expect(useQuizStore.getState().answers).toHaveLength(1);
 
   // ...but the game still moves on and the answer is kept for submission.
-  vi.advanceTimersByTime(400);
+  vi.advanceTimersByTime(NO_VERDICT_AUTO_ADVANCE_MS);
   expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
 });
 
@@ -67,7 +80,7 @@ it('records each question once, including when reveal fails', () => {
   useQuizStore.getState().submitAnswer();
   useQuizStore.getState().skipQuestion();
   expect(useQuizStore.getState().answers).toHaveLength(1);
-  vi.advanceTimersByTime(350);
+  vi.advanceTimersByTime(NO_VERDICT_AUTO_ADVANCE_MS);
   expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
 });
 
@@ -80,10 +93,34 @@ it('ignores auto-advance from an earlier run of the same quiz', () => {
   useQuizStore.getState().resetGame();
   useQuizStore.getState().selectOption('right');
   useQuizStore.getState().submitAnswer({ isCorrect: true });
-  vi.advanceTimersByTime(500);
+  vi.advanceTimersByTime(FEEDBACK_AUTO_ADVANCE_MS - 500);
   expect(useQuizStore.getState().currentQuestionIndex).toBe(0);
-  vi.advanceTimersByTime(1000);
+  vi.advanceTimersByTime(500);
   expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
+});
+
+it('does not auto-advance when the caller asks to wait for the player', () => {
+  vi.useFakeTimers();
+  useQuizStore.getState().startGame(quiz, 'practice');
+  useQuizStore.getState().selectOption('right');
+  useQuizStore.getState().submitAnswer({ isCorrect: true }, { autoAdvanceMs: null });
+
+  // Práctica y movimiento reducido: el feedback espera a «Siguiente».
+  vi.advanceTimersByTime(60_000);
+  expect(useQuizStore.getState().currentQuestionIndex).toBe(0);
+  expect(useQuizStore.getState().showFeedback).toBe(true);
+
+  useQuizStore.getState().nextQuestion();
+  expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
+});
+
+it('marks the start of the run for time_taken_seconds', () => {
+  vi.useFakeTimers();
+  useQuizStore.getState().startGame(quiz);
+  const startedAt = useQuizStore.getState().startedAt;
+  expect(startedAt).not.toBeNull();
+  vi.advanceTimersByTime(5000);
+  expect(Date.now() - (startedAt ?? 0)).toBe(5000);
 });
 
 it('does not record late answers after the timer completes the game', () => {

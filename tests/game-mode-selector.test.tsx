@@ -90,12 +90,16 @@ describe('GameModeSelector', () => {
     expect(screen.getByText(/Press 1-4/)).toBeInTheDocument();
   });
 
-  it('no ofrece Supervivencia en quizzes de personalidad', () => {
+  it('en quizzes de personalidad solo ofrece Clásico', () => {
     renderSelector({ locale: 'es', quizType: 'personality' });
 
-    expect(screen.getAllByRole('button')).toHaveLength(3);
+    expect(screen.getAllByRole('button')).toHaveLength(1);
+    expect(screen.getByRole('button', { name: /Clásico/ })).toBeInTheDocument();
+    expect(screen.queryByText(/Contrarreloj/)).not.toBeInTheDocument();
     expect(screen.queryByText(/Supervivencia/)).not.toBeInTheDocument();
-    expect(screen.getByText(/Pulsa 1-3/)).toBeInTheDocument();
+    expect(screen.queryByText(/Práctica/)).not.toBeInTheDocument();
+    // Sin varios modos no hay pista de atajos que ofrecer.
+    expect(screen.queryByText(/Pulsa/)).not.toBeInTheDocument();
   });
 
   it.each<[string, GameMode]>([
