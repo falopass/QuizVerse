@@ -44,7 +44,7 @@ beforeEach(() => {
 });
 
 describe('NotificationList', () => {
-  it('cada notificación enlaza a su destino y se marca leída al abrirla', () => {
+  it('cada notificación enlaza a su destino y se marca leída al abrirla', async () => {
     render(
       <NotificationList
         locale="es"
@@ -73,11 +73,29 @@ describe('NotificationList', () => {
     fireEvent.click(commentLink);
 
     expect(mocks.markOne).toHaveBeenCalledWith('n-1');
-    expect(useNotificationBadge.getState().unread).toBe(2);
+    await waitFor(() => expect(useNotificationBadge.getState().unread).toBe(2));
     expect(screen.getByRole('link', { name: /Nuevo seguidor/ })).toHaveAttribute(
       'href',
       '/es/profile/grace'
     );
+  });
+
+  it('si el marcado falla no descuenta el badge', async () => {
+    mocks.markOne.mockResolvedValue({ success: false, code: 'unexpected', error: 'boom' });
+
+    render(
+      <NotificationList
+        locale="es"
+        unreadCount={3}
+        notifications={[item({ href: '/es/quiz/x' })]}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('link'));
+
+    await waitFor(() => expect(mocks.refresh).toHaveBeenCalled());
+    expect(mocks.markOne).toHaveBeenCalledWith('n-1');
+    expect(useNotificationBadge.getState().unread).toBe(3);
   });
 
   it('una notificación ya leída no vuelve a marcarse', () => {

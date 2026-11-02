@@ -7,7 +7,7 @@
  * `actorName`, `quizTitle`) y el conteo real de no leídas. Cada tarjeta con
  * `href` es un enlace — navegable con teclado — que se marca leída al abrirse;
  * «marcar todas» va a `markAllNotificationsRead`. El badge del header se
- * actualiza por el store compartido sin esperar al próximo fetch.
+ * actualiza por el store compartido cuando la action confirma.
  */
 
 import { useState } from 'react';
@@ -88,9 +88,13 @@ export function NotificationList({
 
   function handleOpen(notification: ResolvedNotification) {
     if (notification.is_read) return;
-    decrementUnread();
+    // El badge solo baja cuando la action confirma: si el UPDATE falla, el
+    // servidor sigue contando esa notificación como no leída.
     void markNotificationRead(notification.id)
-      .then(() => router.refresh())
+      .then((result) => {
+        if (result.success) decrementUnread();
+        router.refresh();
+      })
       .catch(() => {});
   }
 

@@ -2,8 +2,8 @@
  * Unread-notifications badge state (Zustand).
  *
  * `NotificationBell` owns the server truth (it refetches on navigation and
- * every 60s while the tab is visible); the list decrements optimistically so
- * the badge reacts the instant a notification is opened or all are read.
+ * every 60s while the tab is visible); the list decrements only after a mark
+ * succeeds, so a failed UPDATE never hides an unread notification.
  */
 
 import { create } from 'zustand';
