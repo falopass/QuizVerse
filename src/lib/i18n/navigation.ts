@@ -1,5 +1,5 @@
 import type { Locale } from './dictionaries';
-import { hasLocale } from './dictionaries';
+import { defaultLocale, hasLocale } from './dictionaries';
 
 export function localizeHref(locale: Locale, href: string): string {
   if (!href.startsWith('/')) {
@@ -39,4 +39,18 @@ export function stripLocaleFromPathname(pathname: string): string {
 
 export function replacePathLocale(pathname: string, locale: Locale): string {
   return localizeHref(locale, stripLocaleFromPathname(pathname));
+}
+
+/**
+ * Idioma de una ruta, para componentes cliente que no reciben el locale por
+ * props (toasts, banner de cookies, boundaries de error, modal).
+ * `/embed/{locale}/…` no cuelga de `/[locale]`: ahí el idioma es el segundo
+ * segmento. Sin prefijo reconocible se cae al idioma por defecto.
+ */
+export function localeFromPathname(pathname: string | null | undefined): Locale {
+  const path = pathname || '/';
+  const segments = stripLocaleFromPathname(path).split('/');
+  const segment = segments[1] === 'embed' ? segments[2] : path.split('/')[1];
+
+  return hasLocale(segment) ? segment : defaultLocale;
 }

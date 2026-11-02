@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { localizeHref, stripLocaleFromPathname, replacePathLocale } from '@/lib/i18n/navigation';
+import {
+  localizeHref,
+  stripLocaleFromPathname,
+  replacePathLocale,
+  localeFromPathname,
+} from '@/lib/i18n/navigation';
 
 describe('localizeHref', () => {
   it.each([
@@ -79,5 +84,29 @@ describe('replacePathLocale', () => {
   it('es idempotente al aplicarse dos veces con el mismo locale', () => {
     const once = replacePathLocale('/es/quiz/x', 'en');
     expect(replacePathLocale(once, 'en')).toBe('/en/quiz/x');
+  });
+});
+
+describe('localeFromPathname', () => {
+  it.each([
+    ['/es', 'es'],
+    ['/es/quiz/space-trivia', 'es'],
+    ['/en', 'en'],
+    ['/en/quiz/space-trivia', 'en'],
+    ['/embed/es/x', 'es'],
+    ['/embed/en/x', 'en'],
+    ['/embed/es', 'es'],
+  ])('%s → %s', (pathname, expected) => {
+    expect(localeFromPathname(pathname)).toBe(expected);
+  });
+
+  it('cae al idioma por defecto sin prefijo reconocible', () => {
+    expect(localeFromPathname('/')).toBe('en');
+    expect(localeFromPathname('/quiz')).toBe('en');
+    expect(localeFromPathname('/espanol/quiz')).toBe('en');
+    expect(localeFromPathname('/embed/fr/x')).toBe('en');
+    expect(localeFromPathname('/embed')).toBe('en');
+    expect(localeFromPathname(null)).toBe('en');
+    expect(localeFromPathname(undefined)).toBe('en');
   });
 });

@@ -19,10 +19,14 @@ export interface Dictionary {
     backHome: string;
     switchLocale: string;
     randomQuiz: string;
+    home: string;
+    close: string;
+    dismissNotification: string;
   };
   nav: {
     statement: string;
     search: string;
+    menu: string;
   };
   home: {
     eyebrow: string;
@@ -145,6 +149,46 @@ export interface Dictionary {
     home: string;
     browse: string;
   };
+  userMenu: {
+    signIn: string;
+    account: string;
+    label: string;
+    activity: string;
+    profile: string;
+    quizzes: string;
+    achievements: string;
+    settings: string;
+    signOut: string;
+  };
+  leaderboard: {
+    title: string;
+    description: string;
+    headline: string;
+    body: string;
+    visiblePlayers: string;
+    yourSpot: string;
+    scopeLabel: string;
+    tabGlobal: string;
+    tabWeekly: string;
+    tabFriends: string;
+    emptyTitle: string;
+    emptyBody: string;
+    emptyCta: string;
+    failedTitle: string;
+    weeklyFailedTitle: string;
+    weeklyEmptyTitle: string;
+    weeklyEmptyBody: string;
+    exploreCta: string;
+    friendsSignInTitle: string;
+    friendsFailedTitle: string;
+    noFollowsTitle: string;
+    noFollowsBody: string;
+    yourRank: string;
+    signInTitle: string;
+    signInCta: string;
+    quizzesPlayed: string;
+    points: string;
+  };
 }
 
 const dictionaries: Record<Locale, Dictionary> = {
@@ -163,10 +207,14 @@ const dictionaries: Record<Locale, Dictionary> = {
       backHome: 'Back home',
       switchLocale: 'Language',
       randomQuiz: 'Surprise me',
+      home: 'Home',
+      close: 'Close',
+      dismissNotification: 'Dismiss notification',
     },
     nav: {
       statement: 'Editorial quizzes for curious people.',
       search: 'Search quizzes',
+      menu: 'Menu',
     },
     home: {
       eyebrow: 'Not another template quiz site',
@@ -292,6 +340,49 @@ const dictionaries: Record<Locale, Dictionary> = {
       home: 'Go home',
       browse: 'Browse quizzes',
     },
+    userMenu: {
+      signIn: 'Sign in',
+      account: 'Account',
+      label: 'User menu',
+      activity: 'My activity',
+      profile: 'My profile',
+      quizzes: 'My quizzes',
+      achievements: 'My achievements',
+      settings: 'Settings',
+      signOut: 'Sign out',
+    },
+    leaderboard: {
+      title: 'Player leaderboard',
+      description:
+        'See who leads the QuizVerse board: points, quizzes played and the most active players in the community.',
+      headline: 'The people shaping the board.',
+      body: 'Points, plays, and consistency. This is where QuizVerse starts looking like a habit.',
+      visiblePlayers: 'Visible players',
+      yourSpot: 'Your spot',
+      scopeLabel: 'Leaderboard scope',
+      tabGlobal: 'Global',
+      tabWeekly: 'Weekly',
+      tabFriends: 'Friends',
+      emptyTitle: 'The board is empty.',
+      emptyBody: 'Finish a quiz and your name opens the board.',
+      emptyCta: 'Be the first on the board',
+      failedTitle: 'We could not load the leaderboard.',
+      weeklyFailedTitle: 'We could not load the weekly leaderboard.',
+      weeklyEmptyTitle: 'Nobody has played this week yet.',
+      weeklyEmptyBody:
+        'Finish a quiz and you will show up here: the board only looks at the last 7 days.',
+      exploreCta: 'Explore quizzes',
+      friendsSignInTitle: 'Sign in to see the friends leaderboard.',
+      friendsFailedTitle: 'We could not load your friends leaderboard.',
+      noFollowsTitle: 'You are not following anyone yet.',
+      noFollowsBody:
+        'Follow other players from their profile and this board fills up with their activity and yours.',
+      yourRank: 'Your rank',
+      signInTitle: 'Sign in to see where you land.',
+      signInCta: 'Sign in',
+      quizzesPlayed: 'quizzes played',
+      points: 'points',
+    },
   },
   es: {
     localeLabel: 'Español',
@@ -308,10 +399,14 @@ const dictionaries: Record<Locale, Dictionary> = {
       backHome: 'Volver al inicio',
       switchLocale: 'Idioma',
       randomQuiz: 'Sorpréndeme',
+      home: 'Inicio',
+      close: 'Cerrar',
+      dismissNotification: 'Cerrar aviso',
     },
     nav: {
       statement: 'Quizzes editoriales para gente curiosa.',
       search: 'Buscar quizzes',
+      menu: 'Menú',
     },
     home: {
       eyebrow: 'No es otra web de quizzes de plantilla',
@@ -438,6 +533,49 @@ const dictionaries: Record<Locale, Dictionary> = {
       home: 'Ir al inicio',
       browse: 'Explorar quizzes',
     },
+    userMenu: {
+      signIn: 'Iniciar sesión',
+      account: 'Cuenta',
+      label: 'Menú de usuario',
+      activity: 'Mi actividad',
+      profile: 'Mi perfil',
+      quizzes: 'Mis quizzes',
+      achievements: 'Mis logros',
+      settings: 'Ajustes',
+      signOut: 'Cerrar sesión',
+    },
+    leaderboard: {
+      title: 'Ranking de jugadores',
+      description:
+        'Mira quién lidera el ranking de QuizVerse: puntos, quizzes jugados y los jugadores más activos de la comunidad.',
+      headline: 'Las personas que mueven el tablero.',
+      body: 'Puntos, partidas y constancia. Aquí aparece quién está convirtiendo QuizVerse en hábito.',
+      visiblePlayers: 'Jugadores visibles',
+      yourSpot: 'Tu posición',
+      scopeLabel: 'Alcance del ranking',
+      tabGlobal: 'Global',
+      tabWeekly: 'Semanal',
+      tabFriends: 'Amigos',
+      emptyTitle: 'El tablero está vacío.',
+      emptyBody: 'Termina un quiz y tu nombre abre el ranking.',
+      emptyCta: 'Sé el primero del ranking',
+      failedTitle: 'No pudimos cargar el ranking.',
+      weeklyFailedTitle: 'No pudimos cargar el ranking semanal.',
+      weeklyEmptyTitle: 'Todavía nadie ha jugado esta semana.',
+      weeklyEmptyBody:
+        'Termina un quiz y aparecerás aquí: el tablero solo mira los últimos 7 días.',
+      exploreCta: 'Explorar quizzes',
+      friendsSignInTitle: 'Inicia sesión para ver el ranking entre amigos.',
+      friendsFailedTitle: 'No pudimos cargar tu ranking de amigos.',
+      noFollowsTitle: 'Todavía no sigues a nadie.',
+      noFollowsBody:
+        'Sigue a otros jugadores desde su perfil y este ranking se llena con su actividad y la tuya.',
+      yourRank: 'Tu puesto',
+      signInTitle: 'Inicia sesión para ver dónde caes.',
+      signInCta: 'Entrar',
+      quizzesPlayed: 'quizzes jugados',
+      points: 'puntos',
+    },
   },
 };
 
@@ -449,14 +587,20 @@ export async function getDictionary(locale: string): Promise<Dictionary> {
   return dictionaries[hasLocale(locale) ? locale : defaultLocale];
 }
 
+// Síncrono, para componentes cliente que solo reciben `locale` y no pueden
+// `await getDictionary`.
+export function getCopy<K extends keyof Dictionary>(locale: string, section: K): Dictionary[K] {
+  return dictionaries[hasLocale(locale) ? locale : defaultLocale][section];
+}
+
 export function getArcadeCopy(locale: Locale): Dictionary['arcade'] {
-  return dictionaries[locale].arcade;
+  return getCopy(locale, 'arcade');
 }
 
 // Síncrono, para las error pages (componentes cliente que no pueden
 // `await getDictionary`).
 export function getErrorCopy(locale: string): Dictionary['error'] {
-  return dictionaries[hasLocale(locale) ? locale : defaultLocale].error;
+  return getCopy(locale, 'error');
 }
 
 export function getCommonCopy(locale: Locale): Dictionary['common'] {

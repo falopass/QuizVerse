@@ -3,13 +3,12 @@
 import { usePathname } from 'next/navigation';
 import { EditorialErrorState } from '@/components/home/app-placeholders';
 import { getErrorCopy } from '@/lib/i18n/dictionaries';
+import { localeFromPathname } from '@/lib/i18n/navigation';
 
 // Último recurso: cubre errores fuera de /[locale] (incluido el propio layout
 // localizado), donde el pathname puede no llevar prefijo de idioma.
 export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
-  const pathname = usePathname();
-  const es = pathname === '/es' || pathname.startsWith('/es/');
-  const locale = es ? 'es' : 'en';
+  const locale = localeFromPathname(usePathname());
   const copy = getErrorCopy(locale);
 
   return (

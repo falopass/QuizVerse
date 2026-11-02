@@ -7,6 +7,7 @@ import type { User } from '@supabase/supabase-js';
 import { signOutAction } from '@/actions/auth.actions';
 import { useSupabase } from '@/providers/supabase-provider';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { getCopy } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 function displayName(user: User): string {
@@ -37,7 +38,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const onSignOut = useSignOut(locale);
-  const isEs = locale === 'es';
+  const copy = getCopy(locale, 'userMenu');
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
@@ -79,12 +80,12 @@ export function UserMenu({ locale }: { locale: Locale }) {
   if (!user) {
     return (
       <Link href={localizeHref(locale, '/login')} className="arcade-nav-link">
-        {isEs ? 'Iniciar sesión' : 'Sign in'}
+        {copy.signIn}
       </Link>
     );
   }
 
-  const name = displayName(user) || (isEs ? 'Cuenta' : 'Account');
+  const name = displayName(user) || copy.account;
 
   return (
     <div ref={rootRef} className="relative hidden lg:flex">
@@ -109,7 +110,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
         <div
           id="user-menu-panel"
           role="menu"
-          aria-label={isEs ? 'Menú de usuario' : 'User menu'}
+          aria-label={copy.label}
           className="border-border-subtle bg-bg-secondary absolute top-full right-0 z-50 mt-2 w-44 rounded-xl border py-1 shadow-xl"
         >
           <Link
@@ -118,7 +119,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
             className={itemClass}
             onClick={() => setOpen(false)}
           >
-            {isEs ? 'Mi actividad' : 'My activity'}
+            {copy.activity}
           </Link>
           <Link
             role="menuitem"
@@ -126,7 +127,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
             className={itemClass}
             onClick={() => setOpen(false)}
           >
-            {isEs ? 'Mi perfil' : 'My profile'}
+            {copy.profile}
           </Link>
           <Link
             role="menuitem"
@@ -134,7 +135,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
             className={itemClass}
             onClick={() => setOpen(false)}
           >
-            {isEs ? 'Mis quizzes' : 'My quizzes'}
+            {copy.quizzes}
           </Link>
           <Link
             role="menuitem"
@@ -142,7 +143,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
             className={itemClass}
             onClick={() => setOpen(false)}
           >
-            {isEs ? 'Mis logros' : 'My achievements'}
+            {copy.achievements}
           </Link>
           <Link
             role="menuitem"
@@ -150,10 +151,10 @@ export function UserMenu({ locale }: { locale: Locale }) {
             className={itemClass}
             onClick={() => setOpen(false)}
           >
-            {isEs ? 'Ajustes' : 'Settings'}
+            {copy.settings}
           </Link>
           <button role="menuitem" type="button" className={itemClass} onClick={onSignOut}>
-            {isEs ? 'Cerrar sesión' : 'Sign out'}
+            {copy.signOut}
           </button>
         </div>
       )}
@@ -164,14 +165,14 @@ export function UserMenu({ locale }: { locale: Locale }) {
 export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?: () => void }) {
   const { user, loading } = useSupabase();
   const onSignOut = useSignOut(locale);
-  const isEs = locale === 'es';
+  const copy = getCopy(locale, 'userMenu');
 
   if (loading) return null;
 
   if (!user) {
     return (
       <Link href={localizeHref(locale, '/login')} onClick={onSelect}>
-        {isEs ? 'Iniciar sesión' : 'Sign in'}
+        {copy.signIn}
       </Link>
     );
   }
@@ -179,19 +180,19 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
   return (
     <>
       <Link href={localizeHref(locale, '/me')} onClick={onSelect}>
-        {isEs ? 'Mi actividad' : 'My activity'}
+        {copy.activity}
       </Link>
       <Link href={localizeHref(locale, '/profile')} onClick={onSelect}>
-        {isEs ? 'Mi perfil' : 'My profile'}
+        {copy.profile}
       </Link>
       <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
-        {isEs ? 'Mis quizzes' : 'My quizzes'}
+        {copy.quizzes}
       </Link>
       <Link href={localizeHref(locale, '/achievements')} onClick={onSelect}>
-        {isEs ? 'Mis logros' : 'My achievements'}
+        {copy.achievements}
       </Link>
       <Link href={localizeHref(locale, '/settings')} onClick={onSelect}>
-        {isEs ? 'Ajustes' : 'Settings'}
+        {copy.settings}
       </Link>
       <button
         type="button"
@@ -201,7 +202,7 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
           await onSignOut();
         }}
       >
-        {isEs ? 'Cerrar sesión' : 'Sign out'}
+        {copy.signOut}
       </button>
     </>
   );

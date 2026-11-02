@@ -1,8 +1,11 @@
 'use client';
 
 import * as React from 'react';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
 import { useEffect, useRef } from 'react';
+import { getCopy } from '@/lib/i18n/dictionaries';
+import { localeFromPathname } from '@/lib/i18n/navigation';
 
 export interface ModalProps {
   isOpen: boolean;
@@ -36,8 +39,10 @@ export function Modal({
   showCloseButton = true,
   closeOnOverlayClick = true,
   closeOnEsc = true,
-  closeLabel = 'Close',
+  closeLabel,
 }: ModalProps) {
+  const pathname = usePathname();
+  const closeText = closeLabel ?? getCopy(localeFromPathname(pathname), 'common').close;
   const dialogRef = useRef<HTMLDivElement>(null);
   const instanceId = React.useId();
   const titleId = `${instanceId}-title`;
@@ -150,7 +155,7 @@ export function Modal({
               <button
                 onClick={onClose}
                 className="text-text-muted hover:text-text-primary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
-                aria-label={closeLabel}
+                aria-label={closeText}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path

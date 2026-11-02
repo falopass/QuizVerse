@@ -3,13 +3,13 @@
 import { usePathname } from 'next/navigation';
 import { EditorialErrorState } from '@/components/home/app-placeholders';
 import { getErrorCopy } from '@/lib/i18n/dictionaries';
+import { localeFromPathname } from '@/lib/i18n/navigation';
 
 // Boundary dentro del SiteShell: nav y footer sobreviven al error. Como vive
-// bajo /[locale], el primer segmento del pathname siempre es el locale real.
+// bajo /[locale], el pathname siempre lleva el locale real.
 export default function LocalizedErrorPage({ error, reset }: { error: Error; reset: () => void }) {
-  const segment = usePathname()?.split('/')[1] ?? 'en';
-  const copy = getErrorCopy(segment);
-  const locale = segment === 'es' ? 'es' : 'en';
+  const locale = localeFromPathname(usePathname());
+  const copy = getErrorCopy(locale);
 
   return (
     <>
