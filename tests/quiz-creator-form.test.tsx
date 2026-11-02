@@ -57,7 +57,7 @@ function renderForm() {
 }
 
 function submit() {
-  fireEvent.click(screen.getByRole('button', { name: 'Publicar quiz' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Enviar a revisión' }));
 }
 
 beforeEach(() => {
@@ -176,6 +176,37 @@ describe('QuizCreatorForm', () => {
     expect(payload.questions[0].options[0].personality_tags).toBeUndefined();
     await waitFor(() =>
       expect(mocks.push).toHaveBeenCalledWith('/es/create/done?slug=mi-quiz-trivia')
+    );
+  });
+
+  it('«Enviar a revisión» manda intent review', async () => {
+    renderForm();
+    fireEvent.change(screen.getByLabelText('Título'), {
+      target: { value: 'Trivia de prueba' },
+    });
+    [0, 1, 2].map(fillQuestion);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Enviar a revisión' }));
+
+    await waitFor(() => expect(mocks.createQuiz).toHaveBeenCalledTimes(1));
+    expect(mocks.createQuiz.mock.calls[0][0].intent).toBe('review');
+    await waitFor(() => expect(mocks.success).toHaveBeenCalledWith('Quiz enviado a revisión.'));
+  });
+
+  it('«Guardar borrador» manda intent draft', async () => {
+    renderForm();
+    fireEvent.change(screen.getByLabelText('Título'), {
+      target: { value: 'Trivia de prueba' },
+    });
+    [0, 1, 2].map(fillQuestion);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar borrador' }));
+
+    await waitFor(() => expect(mocks.createQuiz).toHaveBeenCalledTimes(1));
+    expect(mocks.createQuiz.mock.calls[0][0].intent).toBe('draft');
+    await waitFor(() => expect(mocks.success).toHaveBeenCalledWith('Borrador guardado.'));
+    await waitFor(() =>
+      expect(mocks.push).toHaveBeenCalledWith('/es/create/done?slug=mi-quiz-personalidad')
     );
   });
 });

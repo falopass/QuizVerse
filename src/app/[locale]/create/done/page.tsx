@@ -7,10 +7,12 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 /**
- * Post-create landing. A non-admin quiz is inserted with `status = 'pending'`,
- * and the public detail only resolves `published` rows — sending the creator
- * there would 404. RLS lets the owner read their own pending quiz, so this page
- * fetches it scoped by `creator_id` and explains the state instead.
+ * Post-create landing. A non-admin quiz is inserted with `status = 'pending'`
+ * (o 'draft' si se guardó como borrador), and the public detail only resolves
+ * `published` rows — sending the creator there would 404. RLS lets the owner
+ * read their own quiz in any state, so this page fetches it scoped by
+ * `creator_id` and explains the state instead, with a link to the private
+ * preview.
  */
 export async function generateMetadata({
   params,
@@ -53,7 +55,7 @@ export default async function LocalizedCreateDonePage({
 
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('slug, title, status')
+    .select('id, slug, title, status')
     .eq('slug', slug)
     .eq('creator_id', user.id)
     .maybeSingle();
@@ -62,15 +64,20 @@ export default async function LocalizedCreateDonePage({
 
   const es = locale === 'es';
   const published = quiz.status === 'published';
+  const draft = quiz.status === 'draft';
   const copy = es
     ? {
         eyebrow: 'Estudio',
         pendingTitle: 'En revisión',
         pendingBody:
           ' ya está en QuizVerse. El equipo revisa los quizzes nuevos antes de publicarlos: cuando quede aprobado aparecerá en el catálogo.',
+        draftTitle: 'Borrador guardado',
+        draftBody:
+          ' está guardado en tu estudio. Revísalo en la vista previa y envíalo a revisión cuando esté listo.',
         publishedTitle: 'Publicado',
         publishedBody: ' ya está en línea y cualquiera puede jugarlo.',
         viewQuiz: 'Ver el quiz',
+        preview: 'Vista previa',
         myQuizzes: 'Mis quizzes',
         home: 'Volver al inicio',
       }
@@ -79,9 +86,13 @@ export default async function LocalizedCreateDonePage({
         pendingTitle: 'In review',
         pendingBody:
           ' is in QuizVerse. The team reviews new quizzes before publishing them: once approved it will show up in the catalog.',
+        draftTitle: 'Draft saved',
+        draftBody:
+          ' is saved in your studio. Check it in the preview and send it to review when it is ready.',
         publishedTitle: 'Published',
         publishedBody: ' is live and anyone can play it.',
         viewQuiz: 'View the quiz',
+        preview: 'Preview',
         myQuizzes: 'My quizzes',
         home: 'Back to home',
       };
@@ -91,11 +102,11 @@ export default async function LocalizedCreateDonePage({
       <section className="surface-panel p-8 md:p-12">
         <p className="eyebrow">{copy.eyebrow}</p>
         <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-          {published ? copy.publishedTitle : copy.pendingTitle}
+          {published ? copy.publishedTitle : draft ? copy.draftTitle : copy.pendingTitle}
         </h1>
         <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
           <span className="text-text-primary font-semibold">«{quiz.title}»</span>
-          {published ? copy.publishedBody : copy.pendingBody}
+          {published ? copy.publishedBody : draft ? copy.draftBody : copy.pendingBody}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           {published ? (
@@ -105,14 +116,17 @@ export default async function LocalizedCreateDonePage({
             >
               {copy.viewQuiz}
             </Link>
-          ) : null}
+          ) : (
+            <Link
+              href={localizeHref(locale, `/my-quizzes/${quiz.id}/preview`)}
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
+            >
+              {copy.preview}
+            </Link>
+          )}
           <Link
             href={localizeHref(locale, '/my-quizzes')}
-            className={
-              published
-                ? 'ring-border-subtle text-text-primary rounded-full px-5 py-3 text-sm font-semibold ring-1'
-                : 'bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold'
-            }
+            className="ring-border-subtle text-text-primary rounded-full px-5 py-3 text-sm font-semibold ring-1"
           >
             {copy.myQuizzes}
           </Link>

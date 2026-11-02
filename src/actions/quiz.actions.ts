@@ -19,7 +19,7 @@ import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { buildReview } from '@/lib/quiz/answer-key';
 import { isShareToken } from '@/lib/quiz/challenge';
-import { QuizCreateSchema, validateQuiz } from '@/lib/quiz/validator';
+import { QuizCreateSchema, localizedIssueMessages, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
@@ -31,12 +31,19 @@ import {
 } from '@/lib/actions/types';
 import { quizLocales, revalidateQuizPages } from '@/lib/quiz/revalidate';
 import { locales } from '@/lib/i18n/dictionaries';
-import type { Database } from '@/types/database';
+import type { Database, QuizStatus } from '@/types/database';
 import type { QuizReviewItem } from '@/types/quiz';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
   /** Set by the AI assistant so the catalog can flag generated drafts. */
   is_ai_generated: z.boolean().optional().default(false),
+  /**
+   * 'draft' guarda el quiz privado y fuera de la cola de moderación;
+   * 'review' lo envía a revisión (los administradores publican directo).
+   * Sin `intent` se asume 'draft': es el estado seguro y el que promete el
+   * botón "Guardar borrador" del estudio AI.
+   */
+  intent: z.enum(['draft', 'review']).optional().default('draft'),
 });
 
 const updateQuizSchema = z.object({
@@ -51,7 +58,8 @@ const updateQuizSchema = z.object({
   estimated_minutes: z.number().int().min(1).max(30).optional(),
   // `status` stays out on purpose: publishing belongs to the moderation flow
   // (see `createQuiz`), and RLS cannot restrict columns. Zod strips any
-  // client-sent `status`, so it never reaches `.update()`.
+  // client-sent `status`, so it never reaches `.update()`. Creator-initiated
+  // transitions go through `setQuizStatus`.
 });
 
 type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
@@ -70,7 +78,7 @@ async function ownedQuiz(
   supabase: Awaited<ReturnType<typeof createClient>>,
   quizId: string,
   userId: string
-): Promise<{ slug: string; language: string; status: string } | null> {
+): Promise<{ slug: string; language: string; status: QuizStatus } | null> {
   const { data } = await supabase
     .from('quizzes')
     .select('creator_id, slug, language, status')
@@ -87,6 +95,16 @@ const DELETE_BLOCKED_ERRCODE = 'QVM03';
 // CREATE
 // ============================================
 
+/** The `language` of the raw payload, to answer errors in the quiz's tongue. */
+function inputLanguage(input: unknown): string {
+  return typeof input === 'object' && input !== null && 'language' in input
+    ? String((input as { language: unknown }).language)
+    : 'en';
+}
+
+/** Insert attempts when a slug collides at the unique constraint. */
+const MAX_SLUG_COLLISION_RETRIES = 5;
+
 export async function createQuiz(
   input: unknown
 ): Promise<ActionResult<{ quiz: { id: string; slug: string } }>> {
@@ -96,33 +114,31 @@ export async function createQuiz(
   const { allowed } = await quizLimiter.check(user.id);
   if (!allowed) return actionFailure('rate_limited', 'Too many quiz creations. Please wait.');
 
+  const language = inputLanguage(input);
   const parsed = createQuizSchema.safeParse(input);
-  if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
+  if (!parsed.success)
+    return actionFailure(
+      'invalid_input',
+      localizedIssueMessages(parsed.error, language).join('; ')
+    );
   const validation = validateQuiz(parsed.data, parsed.data.language);
   if (!validation.valid) return actionFailure('invalid_input', validation.errors.join('; '));
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('is_admin')
-    .eq('id', user.id)
-    .maybeSingle();
+  // 'review' entra a la cola de moderación (o publica directo si el autor es
+  // admin); 'draft' queda privado. El perfil solo se consulta con 'review'.
+  let status: QuizStatus = 'draft';
+  if (parsed.data.intent === 'review') {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .maybeSingle();
+    status = profile?.is_admin ? 'published' : 'pending';
+  }
 
-  const slug = await generateUniqueSlug(parsed.data.title, {
-    language: parsed.data.language,
-    exists: async (candidate) => {
-      const { data } = await supabase
-        .from('quizzes')
-        .select('id')
-        .eq('slug', candidate)
-        .maybeSingle();
-      return Boolean(data);
-    },
-  });
-
-  const insert: QuizInsert = {
+  const insert: Omit<QuizInsert, 'slug'> = {
     title: parsed.data.title,
     description: parsed.data.description ?? null,
-    slug,
     creator_id: user.id,
     category_id: parsed.data.category_id ?? null,
     quiz_type: parsed.data.quiz_type,
@@ -133,18 +149,46 @@ export async function createQuiz(
     tags: parsed.data.tags ?? [],
     estimated_minutes: parsed.data.estimated_minutes ?? 3,
     question_count: parsed.data.questions.length,
-    // Community submissions wait for review; admins publish straight away.
-    status: profile?.is_admin ? 'published' : 'pending',
+    status,
     is_ai_generated: parsed.data.is_ai_generated,
   };
 
-  const { data: quiz, error } = await supabase
-    .from('quizzes')
-    .insert(insert)
-    .select('id, slug')
-    .single();
+  // RLS solo deja ver quizzes publicados o propios: un slug tomado por un
+  // pendiente o borrador ajeno es invisible para `exists`, y el INSERT choca
+  // con la unique constraint. El 23505 confirma el slug como tomado y se
+  // reintenta con el sufijo siguiente. El mensaje crudo de Postgres nunca
+  // llega al formulario.
+  const takenSlugs = new Set<string>();
+  let quiz: { id: string; slug: string } | null = null;
+  let lastError: unknown = null;
+  for (let attempt = 0; attempt < MAX_SLUG_COLLISION_RETRIES && !quiz && !lastError; attempt += 1) {
+    const slug = await generateUniqueSlug(parsed.data.title, {
+      language: parsed.data.language,
+      exists: async (candidate) => {
+        if (takenSlugs.has(candidate)) return true;
+        const { data } = await supabase
+          .from('quizzes')
+          .select('id')
+          .eq('slug', candidate)
+          .maybeSingle();
+        return Boolean(data);
+      },
+    });
+    const { data, error } = await supabase
+      .from('quizzes')
+      .insert({ ...insert, slug })
+      .select('id, slug')
+      .single();
+    if (!error && data) {
+      quiz = data;
+    } else if (error?.code === '23505') {
+      takenSlugs.add(slug);
+    } else {
+      lastError = error ?? new Error('Could not save the quiz');
+    }
+  }
 
-  if (error || !quiz) return unexpectedFailure('quiz.create', error);
+  if (!quiz) return unexpectedFailure('quiz.create', lastError);
 
   revalidateQuizPages(parsed.data.language, quiz.slug);
 
@@ -227,6 +271,57 @@ export async function deleteQuiz(id: string): Promise<ActionResult<{ archived: b
 
   revalidateQuizPages(quiz.language, quiz.slug);
   return { success: true, archived: false };
+}
+
+const quizStatusTargetSchema = z.enum(['draft', 'pending', 'archived']);
+
+/**
+ * Transiciones que un creador puede pedir desde la app. El guard
+ * `guard_quiz_editable_columns` (014, ampliado por la 015) es quien las
+ * autoriza en la base; esta tabla es el contrato hacia el cliente: nada puede
+ * llevar un quiz a 'published' desde aquí y 'archived' es terminal.
+ */
+const CREATOR_STATUS_MOVES: Record<QuizStatus, readonly QuizStatus[]> = {
+  draft: ['pending', 'archived'],
+  pending: ['draft', 'archived'],
+  published: ['archived'],
+  rejected: ['archived'],
+  archived: [],
+};
+
+/**
+ * Mueve el quiz propio entre los estados que el creador controla: enviar a
+ * revisión (draft → pending), retirar a borrador (pending → draft) y
+ * despublicar/archivar (→ archived).
+ */
+export async function setQuizStatus(id: string, input: unknown): Promise<ActionResult> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'You need an account to manage a quiz.');
+  const quiz = await ownedQuiz(supabase, id, user.id);
+  if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
+
+  const target = quizStatusTargetSchema.safeParse(input);
+  if (!target.success) return actionFailure('invalid_input', 'Invalid status.');
+  if (target.data === quiz.status) return { success: true };
+  if (!CREATOR_STATUS_MOVES[quiz.status].includes(target.data)) {
+    return actionFailure('conflict', `A ${quiz.status} quiz cannot move to ${target.data}.`);
+  }
+
+  // Se pide el status de vuelta: la guardia de la base puede restaurar el
+  // valor anterior sin levantar error, y en ese caso hay que reportarlo.
+  const { data, error } = await supabase
+    .from('quizzes')
+    .update({ status: target.data })
+    .eq('id', id)
+    .select('status')
+    .single();
+
+  if (error || !data || data.status !== target.data) {
+    return actionFailure('conflict', 'That status change is not allowed for this quiz.');
+  }
+
+  revalidateQuizPages(quiz.language, quiz.slug);
+  return { success: true };
 }
 
 // ============================================

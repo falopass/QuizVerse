@@ -220,6 +220,16 @@ describe('validateQuiz', () => {
     expect(result.valid).toBe(false);
   });
 
+  it('devuelve los errores estructurales en el idioma pedido', () => {
+    const tooShort = { ...validTrivia, title: 'AB' };
+
+    const spanish = validateQuiz(tooShort, 'es');
+    expect(spanish.errors).toContain('title: debe tener al menos 5 caracteres');
+    const english = validateQuiz(tooShort, 'en');
+    expect(english.errors).toContain('title: must have at least 5 characters');
+    expect(english.errors.some((error) => error.includes('caracteres'))).toBe(false);
+  });
+
   it('debería rechazar null', () => {
     const result = validateQuiz(null);
     expect(result.valid).toBe(false);
