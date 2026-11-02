@@ -9,9 +9,16 @@ import { useToast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { normalizeQuizDraft } from '@/lib/quiz/normalize-draft';
+import { suggestCategory } from '@/lib/quiz/category-suggest';
+import {
+  getLocalizedDifficultyLabel,
+  getLocalizedLanguageLabel,
+  getLocalizedTypeLabel,
+  localizeCategory,
+} from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import type { PersonalityResult, Question } from '@/types/quiz';
+import type { Category, PersonalityResult, Question } from '@/types/quiz';
 
 interface Draft {
   title: string;
@@ -46,7 +53,13 @@ const TOPICS = {
   ],
 } as const;
 
-export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
+export function AIQuizGenerator({
+  locale = 'en',
+  categories,
+}: {
+  locale?: Locale;
+  categories: Category[];
+}) {
   const router = useRouter();
   const { success, error } = useToast();
   const copy =
@@ -56,7 +69,20 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           rateLimited: 'La generación está limitada temporalmente.',
           remaining: (count: number) => `Quedan ${count} generaciones en esta ventana.`,
           draftCreated: 'Borrador creado. Revísalo antes de guardarlo.',
-          generateError: 'No se pudo generar el quiz',
+          generateError: 'No se pudo generar el quiz. Inténtalo de nuevo.',
+          generationErrors: {
+            invalid_request: 'Revisa el tema y la configuración antes de reintentar.',
+            provider_misconfigured:
+              'La generación con IA no está disponible ahora. Inténtalo más tarde.',
+            rate_limited:
+              'Llegaste al límite de generaciones. Espera un minuto e inténtalo otra vez.',
+            rate_limiter_unavailable:
+              'No pudimos comprobar tu cuota de generación. Inténtalo en un momento.',
+            generation_failed:
+              'La IA no pudo generar el quiz. Ajusta el tema e inténtalo de nuevo.',
+            invalid_generated_quiz:
+              'La IA devolvió un borrador que no pasó la validación. Ajusta el tema o inténtalo de nuevo.',
+          } as Record<string, string>,
           loginRequired: 'Tu sesión expiró. Inicia sesión para seguir generando.',
           saveSuccess: 'Quiz guardado correctamente.',
           saveError: 'No se pudo guardar el quiz',
@@ -81,7 +107,6 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           backToPrompt: 'Volver al prompt',
           saving: 'Guardando quiz...',
           saveDraft: 'Guardar borrador',
-          metadata: 'Metadatos',
           description: 'Descripción',
           descriptionPlaceholder: 'Reescribe el resumen de AI para que suene más afilado.',
           questions: 'Preguntas',
@@ -117,13 +142,33 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           hard: 'Difícil',
           questionsShort: 'preguntas',
           notRequired: 'No hace falta',
+          title: 'Título',
+          missingTitle: 'Sin título',
+          category: 'Categoría',
+          categoryPlaceholder: 'Elige una categoría',
+          categorySuggested: 'Sugerida desde el tema; cámbiala si no encaja.',
+          categoryHint: 'El quiz aparecerá en el hub de la categoría que elijas.',
+          language: 'Idioma',
+          fixErrors: 'Revisa los puntos marcados antes de guardar.',
+          generatingNote: 'La IA puede tardar hasta un minuto en escribir el borrador.',
         }
       : {
           enterTopic: 'Enter a topic before generating.',
           rateLimited: 'Generation is temporarily rate limited.',
           remaining: (count: number) => `${count} generations remaining in this window.`,
           draftCreated: 'Draft created. Review it before saving.',
-          generateError: 'Failed to generate quiz',
+          generateError: 'Failed to generate the quiz. Try again.',
+          generationErrors: {
+            invalid_request: 'Check the topic and settings before retrying.',
+            provider_misconfigured: 'AI generation is unavailable right now. Try again later.',
+            rate_limited: 'You reached the generation limit. Wait a minute and try again.',
+            rate_limiter_unavailable:
+              'We could not check your generation quota. Try again in a moment.',
+            generation_failed:
+              'The AI could not generate the quiz. Adjust the topic and try again.',
+            invalid_generated_quiz:
+              'The AI returned a draft that failed validation. Adjust the topic or try again.',
+          } as Record<string, string>,
           loginRequired: 'Your session expired. Sign in to keep generating.',
           saveSuccess: 'Quiz saved successfully.',
           saveError: 'Failed to save quiz',
@@ -147,7 +192,6 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           backToPrompt: 'Back to prompt',
           saving: 'Saving quiz...',
           saveDraft: 'Save draft',
-          metadata: 'Metadata',
           description: 'Description',
           descriptionPlaceholder: 'Rewrite the AI summary into something sharper.',
           questions: 'Questions',
@@ -183,6 +227,15 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           hard: 'Hard',
           questionsShort: 'questions',
           notRequired: 'Not required',
+          title: 'Title',
+          missingTitle: 'Untitled',
+          category: 'Category',
+          categoryPlaceholder: 'Choose a category',
+          categorySuggested: 'Suggested from your topic; change it if it does not fit.',
+          categoryHint: 'The quiz will appear in the hub of the category you choose.',
+          language: 'Language',
+          fixErrors: 'Review the flagged items before saving.',
+          generatingNote: 'The AI can take up to a minute to write the draft.',
         };
   const topics = TOPICS[locale];
   const [topic, setTopic] = useState('');
@@ -194,6 +247,12 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
   const [draft, setDraft] = useState<Draft | null>(null);
   const [warnings, setWarnings] = useState<string[]>([]);
   const [rateNote, setRateNote] = useState<string | null>(null);
+  const [categoryId, setCategoryId] = useState('');
+  const [suggestedCategoryId, setSuggestedCategoryId] = useState<string | null>(null);
+  const localizedCategories = useMemo(
+    () => categories.map((category) => localizeCategory(category, locale) ?? category),
+    [categories, locale]
+  );
 
   const checks = useMemo(
     () =>
@@ -202,7 +261,15 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
             {
               label: copy.headline,
               ok: draft.title.trim().length >= 5,
-              detail: draft.title || 'Missing title',
+              detail: draft.title || copy.missingTitle,
+            },
+            {
+              label: copy.category,
+              ok: Boolean(categoryId),
+              detail: categoryId
+                ? (localizedCategories.find((c) => c.id === categoryId)?.name ??
+                  copy.categoryPlaceholder)
+                : copy.categoryPlaceholder,
             },
             {
               label: copy.questions,
@@ -219,8 +286,21 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
             },
           ]
         : [],
-    [copy.drafted, copy.headline, copy.notRequired, copy.outcomes, copy.questions, draft]
+    [
+      categoryId,
+      copy.category,
+      copy.categoryPlaceholder,
+      copy.drafted,
+      copy.headline,
+      copy.missingTitle,
+      copy.notRequired,
+      copy.outcomes,
+      copy.questions,
+      draft,
+      localizedCategories,
+    ]
   );
+  const canSave = checks.every((item) => item.ok);
 
   const generate = async () => {
     if (!topic.trim()) return error(copy.enterTopic);
@@ -238,7 +318,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           language: locale,
         }),
       });
-      const data = (await response.json()) as ApiResponse;
+      const data = (await response.json().catch(() => ({}))) as ApiResponse;
       if (response.status === 401) {
         error(copy.loginRequired);
         router.push(
@@ -249,7 +329,14 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         );
         return;
       }
-      if (!response.ok || data.error) throw new Error(data.error || copy.generateError);
+      if (!response.ok || data.error) {
+        // La API devuelve un código estable; el mensaje crudo nunca llega a la UI.
+        error(copy.generationErrors[data.error ?? ''] ?? copy.generateError);
+        return;
+      }
+      const suggested = suggestCategory(topic, categories);
+      setCategoryId(suggested?.id ?? '');
+      setSuggestedCategoryId(suggested?.id ?? null);
       setDraft({ ...data.quiz, difficulty });
       setWarnings(data.validationWarnings || []);
       if (data.rateLimit?.limited) setRateNote(copy.rateLimited);
@@ -258,7 +345,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
       success(copy.draftCreated);
     } catch (err) {
       console.error(err);
-      error(err instanceof Error ? err.message : copy.generateError);
+      error(copy.generateError);
     } finally {
       setIsGenerating(false);
     }
@@ -266,6 +353,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
 
   const save = async () => {
     if (!draft) return;
+    if (!canSave) return error(copy.fixErrors);
     setIsSaving(true);
     try {
       await trackEvent({
@@ -281,10 +369,14 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
       const response = await createQuiz({
         ...normalized,
         language: locale,
+        category_id: categoryId,
         estimated_minutes: Math.max(1, normalized.questions.length),
         is_ai_generated: true,
       });
-      if (!response.success) throw new Error(response.error);
+      if (!response.success) {
+        error(response.error);
+        return;
+      }
       await trackEvent({
         name: 'create_complete',
         locale,
@@ -299,7 +391,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
       );
     } catch (err) {
       console.error(err);
-      error(err instanceof Error ? err.message : copy.saveError);
+      error(copy.saveError);
     } finally {
       setIsSaving(false);
     }
@@ -320,6 +412,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder={copy.topicPlaceholder}
+                  aria-label={copy.topic}
                 />
               </Block>
               <div className="flex flex-wrap gap-2">
@@ -374,6 +467,11 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
               >
                 {isGenerating ? copy.generating : copy.generate}
               </Button>
+              {isGenerating ? (
+                <p role="status" className="text-text-muted text-sm">
+                  {copy.generatingNote}
+                </p>
+              ) : null}
             </div>
           </section>
         </div>
@@ -416,11 +514,18 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
                 onClick={() => {
                   setDraft(null);
                   setWarnings([]);
+                  setCategoryId('');
+                  setSuggestedCategoryId(null);
                 }}
               >
                 {copy.backToPrompt}
               </Button>
-              <Button className="rounded-full" isLoading={isSaving} onClick={save}>
+              <Button
+                className="rounded-full"
+                isLoading={isSaving}
+                disabled={!canSave}
+                onClick={save}
+              >
                 {isSaving ? copy.saving : copy.saveDraft}
               </Button>
             </div>
@@ -428,18 +533,32 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         </section>
         <section className="surface-panel p-6">
           <div className="grid gap-4 lg:grid-cols-2">
-            <Block label="Title">
+            <Block label={copy.title}>
               <Input
                 value={draft.title}
                 onChange={(e) => setDraft({ ...draft, title: e.target.value })}
+                aria-label={copy.title}
               />
             </Block>
-            <Block label={copy.metadata}>
-              <div className="border-border-subtle bg-bg-secondary text-text-secondary flex h-11 items-center gap-2 rounded-xl border px-4 text-sm">
-                <Tag>{draft.quiz_type}</Tag>
-                <Tag>{draft.difficulty}</Tag>
-                <Tag>{draft.questions.length}Q</Tag>
-              </div>
+            <Block label={copy.category}>
+              <select
+                value={categoryId}
+                onChange={(e) => setCategoryId(e.target.value)}
+                aria-label={copy.category}
+                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+              >
+                <option value="">{copy.categoryPlaceholder}</option>
+                {localizedCategories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              <p className="text-text-muted mt-2 text-xs">
+                {categoryId && categoryId === suggestedCategoryId
+                  ? copy.categorySuggested
+                  : copy.categoryHint}
+              </p>
             </Block>
           </div>
           <Block label={copy.description} className="mt-4">
@@ -717,8 +836,9 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           </div>
           <div className="space-y-4 p-6">
             <div className="flex flex-wrap gap-2">
-              <Tag>{draft.difficulty}</Tag>
-              <Tag>{draft.quiz_type}</Tag>
+              <Tag>{getLocalizedDifficultyLabel(draft.difficulty, locale)}</Tag>
+              <Tag>{getLocalizedTypeLabel(draft.quiz_type, locale)}</Tag>
+              <Tag>{getLocalizedLanguageLabel(locale, locale)}</Tag>
               <Tag>
                 {draft.questions.length} {copy.questionsShort}
               </Tag>

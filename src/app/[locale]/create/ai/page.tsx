@@ -49,6 +49,8 @@ export default async function LocalizedCreateAIPage({
     );
   }
 
+  const { data: categories } = await supabase.from('categories').select('*').order('sort_order');
+
   return (
     <div className="mx-auto max-w-5xl px-4 pt-28 pb-20">
       <div className="mb-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
@@ -62,7 +64,7 @@ export default async function LocalizedCreateAIPage({
           </p>
         </div>
       </div>
-      <AIQuizGenerator locale={locale} />
+      <AIQuizGenerator locale={locale} categories={categories || []} />
     </div>
   );
 }
