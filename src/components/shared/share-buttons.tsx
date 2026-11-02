@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 import { copyText } from '@/lib/utils/clipboard';
-import { incrementShares } from '@/actions/quiz.actions';
+import { incrementShares, markSessionShared } from '@/actions/quiz.actions';
 
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -15,9 +15,18 @@ interface ShareButtonsProps {
   locale?: Locale;
   /** When set, each real share bumps the quiz `shares_count` counter. */
   quizId?: string;
+  /** Token de la sesión propia: cada share marca la partida como compartida. */
+  shareToken?: string;
 }
 
-export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareButtonsProps) {
+export function ShareButtons({
+  title,
+  url,
+  text,
+  locale = 'en',
+  quizId,
+  shareToken,
+}: ShareButtonsProps) {
   const [copied, setCopied] = React.useState(false);
   const [copyFailed, setCopyFailed] = React.useState(false);
   const [supportsWebShare, setSupportsWebShare] = React.useState(false);
@@ -30,6 +39,7 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
   // Best effort: sharing must never break the UI.
   const trackShare = () => {
     if (quizId) void incrementShares(quizId).catch(() => undefined);
+    if (shareToken) void markSessionShared(shareToken).catch(() => undefined);
   };
 
   const handleCopy = async () => {

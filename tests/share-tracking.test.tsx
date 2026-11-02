@@ -24,10 +24,11 @@ vi.mock('@/lib/utils/rate-limit', () => ({
   authLimiter: { check: mocks.rateLimitCheck },
 }));
 
-import { incrementShares } from '@/actions/quiz.actions';
+import { incrementShares, markSessionShared } from '@/actions/quiz.actions';
 import { ShareButtons } from '@/components/shared/share-buttons';
 
 const QUIZ_ID = '123e4567-e89b-42d3-a456-426614174000';
+const SHARE_TOKEN = 'aaaa1111bbbb2222';
 
 beforeEach(() => {
   mocks.rpc.mockReset();
@@ -77,6 +78,75 @@ describe('incrementShares', () => {
   });
 });
 
+describe('markSessionShared', () => {
+  it('marca la sesión con el token validado, limitando por IP', async () => {
+    const result = await markSessionShared(SHARE_TOKEN);
+
+    expect(result).toEqual({ success: true });
+    expect(mocks.rateLimitCheck).toHaveBeenCalledWith('203.0.113.7');
+    expect(mocks.rpc).toHaveBeenCalledTimes(1);
+    expect(mocks.rpc).toHaveBeenCalledWith('mark_session_shared', { p_token: SHARE_TOKEN });
+  });
+
+  it('rechaza un token con formato inválido sin tocar la base', async () => {
+    const result = await markSessionShared('no-es-un-token');
+
+    expect(result.success).toBe(false);
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('no marca nada cuando el rate limit rechaza, pero no falla', async () => {
+    mocks.rateLimitCheck.mockResolvedValue({ allowed: false, remaining: 0, reset: 60 });
+
+    const result = await markSessionShared(SHARE_TOKEN);
+
+    expect(result).toEqual({ success: true });
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('marca igual cuando el limiter falla (Redis caído)', async () => {
+    mocks.rateLimitCheck.mockResolvedValue({
+      allowed: false,
+      remaining: 0,
+      reset: 60,
+      errored: true,
+    });
+
+    const result = await markSessionShared(SHARE_TOKEN);
+
+    expect(result).toEqual({ success: true });
+    expect(mocks.rpc).toHaveBeenCalledWith('mark_session_shared', { p_token: SHARE_TOKEN });
+  });
+
+  it('no falla si la migración 018 todavía no está aplicada (RPC inexistente)', async () => {
+    mocks.rpc.mockResolvedValue({
+      data: null,
+      error: { code: 'PGRST202', message: 'Could not find the function' },
+    });
+
+    const result = await markSessionShared(SHARE_TOKEN);
+
+    expect(result).toEqual({ success: true });
+  });
+
+  it('reporta un fallo real sin exponer el detalle del error', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    mocks.rpc.mockResolvedValue({
+      data: null,
+      error: { code: 'XX000', message: 'detalle interno' },
+    });
+
+    const result = await markSessionShared(SHARE_TOKEN);
+
+    expect(result).toEqual({
+      success: false,
+      code: 'unexpected',
+      error: 'Something went wrong. Please try again.',
+    });
+    consoleError.mockRestore();
+  });
+});
+
 describe('ShareButtons', () => {
   it('registra un share al copiar el enlace', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
@@ -120,5 +190,33 @@ describe('ShareButtons', () => {
 
     await new Promise((resolve) => setTimeout(resolve, 0));
     expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('marca la sesión compartida cuando hay token, además de shares_count', async () => {
+    render(
+      <ShareButtons
+        title="t"
+        url="https://example.com/r?s=aaaa1111bbbb2222"
+        text="s"
+        quizId={QUIZ_ID}
+        shareToken={SHARE_TOKEN}
+      />
+    );
+    fireEvent.click(screen.getByRole('link', { name: /whatsapp/i }));
+
+    await waitFor(() =>
+      expect(mocks.rpc).toHaveBeenCalledWith('increment_shares', { quiz_uuid: QUIZ_ID })
+    );
+    expect(mocks.rpc).toHaveBeenCalledWith('mark_session_shared', { p_token: SHARE_TOKEN });
+  });
+
+  it('sin token no intenta marcar la sesión', async () => {
+    render(<ShareButtons title="t" url="https://example.com/r" text="s" quizId={QUIZ_ID} />);
+    fireEvent.click(screen.getByRole('link', { name: /whatsapp/i }));
+
+    await waitFor(() =>
+      expect(mocks.rpc).toHaveBeenCalledWith('increment_shares', { quiz_uuid: QUIZ_ID })
+    );
+    expect(mocks.rpc).not.toHaveBeenCalledWith('mark_session_shared', expect.anything());
   });
 });

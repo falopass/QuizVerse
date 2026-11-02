@@ -710,6 +710,10 @@ export interface Database {
         Args: { quiz_uuid: string };
         Returns: void;
       };
+      mark_session_shared: {
+        Args: { p_token: string };
+        Returns: void;
+      };
       toggle_like: {
         Args: { p_quiz_id: string; p_user_id: string };
         Returns: boolean;
