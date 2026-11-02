@@ -95,25 +95,28 @@ export function collectEditorialPairs(quizzes, source) {
 
 /**
  * Merges pair candidates from every seed into the final sorted list. A slug
- * claimed by two different partners is ambiguous: both claims are dropped.
+ * claimed by two different partners is ambiguous: every claim involved is
+ * dropped, so the output never depends on read order.
  */
 export function mergePairs(candidates) {
-  const claims = new Map(); // en slug -> Map(es slug -> sources)
+  const byEn = new Map(); // en slug -> Map(es slug -> sources)
+  const byEs = new Map(); // es slug -> Set(en slug)
   const skipped = [];
   for (const { en, es, source } of candidates) {
     if (!en.startsWith('en-') || !es.startsWith('es-')) {
       skipped.push({ source, reason: `prefijos inválidos: ${en} -> ${es}` });
       continue;
     }
-    if (!claims.has(en)) claims.set(en, new Map());
-    const targets = claims.get(en);
+    if (!byEn.has(en)) byEn.set(en, new Map());
+    const targets = byEn.get(en);
     if (!targets.has(es)) targets.set(es, []);
     targets.get(es).push(source);
+    if (!byEs.has(es)) byEs.set(es, new Set());
+    byEs.get(es).add(en);
   }
 
   const pairs = [];
-  const claimedEs = new Map(); // es slug -> en slug
-  for (const [en, targets] of claims) {
+  for (const [en, targets] of byEn) {
     if (targets.size > 1) {
       skipped.push({
         source: [...targets.values()].flat().join(', '),
@@ -122,14 +125,13 @@ export function mergePairs(candidates) {
       continue;
     }
     const [es, sources] = [...targets.entries()][0];
-    if (claimedEs.has(es)) {
+    if (byEs.get(es).size > 1) {
       skipped.push({
         source: sources.join(', '),
-        reason: `${es} reclamado tanto por ${claimedEs.get(es)} como por ${en}`,
+        reason: `${es} reclamado por ${[...byEs.get(es)].join(', ')}`,
       });
       continue;
     }
-    claimedEs.set(es, en);
     pairs.push({ en, es, source: sources.join(', ') });
   }
   pairs.sort((a, b) => (a.en < b.en ? -1 : a.en > b.en ? 1 : 0));
@@ -195,15 +197,20 @@ function main() {
     console.warn(`omitido (${source}): ${reason}`);
   }
 
-  if (write) {
-    writeFileSync(MAP_PATH, renderLocaleMap(pairs));
-    console.log(`${MAP_PATH} regenerado`);
-  } else {
-    console.log('dry-run: usa --write para regenerar el mapa');
-  }
   console.log(
     `RESULTADO: ${pairs.length} pares en↔es derivados, ${skipped.length} omitidos por ambiguos`
   );
+
+  if (!write) {
+    console.log('dry-run: usa --write para regenerar el mapa');
+    return;
+  }
+  if (skipped.length > 0) {
+    console.error('Hay grupos ambiguos: no se escribe el mapa hasta resolverlos en el seed.');
+    process.exit(1);
+  }
+  writeFileSync(MAP_PATH, renderLocaleMap(pairs));
+  console.log(`${MAP_PATH} regenerado`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
-import { collectLocalePairs } from '../scripts/seo/emit-locale-map.mjs';
+import { collectLocalePairs, mergePairs } from '../scripts/seo/emit-locale-map.mjs';
 
 // Cada par de quiz-locale-map.ts debe apuntar a un slug que existe en el corpus
 // de seeds, tener el prefijo del otro idioma y devolver el slug original al
@@ -119,6 +119,19 @@ describe('hreflang pairs (quiz-locale-map vs corpus de seeds)', () => {
         .map(({ en, es, source }) => `${en} -> ${es} (${source})`)
         .join('\n')}`
     ).toEqual([]);
+  });
+
+  it('mergePairs descarta todas las reclamaciones ambiguas', () => {
+    const { pairs, skipped } = mergePairs([
+      { en: 'en-a', es: 'es-x', source: 's1' },
+      { en: 'en-b', es: 'es-x', source: 's2' }, // es-x reclamado dos veces
+      { en: 'en-c', es: 'es-y', source: 's3' },
+      { en: 'en-c', es: 'es-z', source: 's4' }, // en-c reclama dos parejas
+      { en: 'en-ok', es: 'es-ok', source: 's5' },
+      { en: 'es-malo', es: 'es-t', source: 's6' }, // prefijo inválido
+    ]);
+    expect(pairs).toEqual([{ en: 'en-ok', es: 'es-ok', source: 's5' }]);
+    expect(skipped).toHaveLength(4);
   });
 
   it('control: detecta un par roto en un mapa falso', () => {
