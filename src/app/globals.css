@@ -1931,3 +1931,72 @@ body:has(.arcade-result) .cookie-consent-banner {
 .arcade-detail-art {
   animation: arcade-pop 0.6s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
+
+/* Toast and cookie consent: framer-motion used to ride along in the root
+   layout's initial JS on every page just for these two entrances. Plain
+   keyframes do the same job; the global reduced-motion rule collapses them. */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -20px, 0) scale(0.95);
+  }
+}
+@keyframes toast-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+.toast-item {
+  animation: toast-in 0.25s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.toast-item-exit {
+  animation: toast-out 0.2s ease-in both;
+}
+.toast-progress {
+  animation-name: toast-progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes cookie-banner-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes cookie-banner-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+.cookie-consent-banner {
+  animation: cookie-banner-in 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.cookie-consent-banner.cookie-banner-exit {
+  animation: cookie-banner-out 0.25s ease-in both;
+}

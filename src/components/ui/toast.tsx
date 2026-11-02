@@ -1,10 +1,14 @@
 'use client';
 
+import { useCallback, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { entrance } from '@/lib/ui/motion';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
+
+interface DisplayedToast {
+  toast: Toast;
+  exiting: boolean;
+}
 
 function ToastIcon({ type }: { type: Toast['type'] }) {
   switch (type) {
@@ -56,24 +60,24 @@ function ToastIcon({ type }: { type: Toast['type'] }) {
 }
 
 function ToastItem({
-  toast,
+  entry,
   onClose,
+  onExited,
   closeLabel,
 }: {
-  toast: Toast;
+  entry: DisplayedToast;
   onClose: (id: string) => void;
+  onExited: (id: string) => void;
   closeLabel: string;
 }) {
-  const reduceMotion = useReducedMotion() ?? false;
+  const { toast, exiting } = entry;
   return (
-    <motion.div
-      {...entrance(reduceMotion, {
-        layout: true,
-        initial: { opacity: 0, y: -20, scale: 0.95 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: -20, scale: 0.95 },
-      })}
+    <div
+      onAnimationEnd={(event) => {
+        if (event.target === event.currentTarget && exiting) onExited(toast.id);
+      }}
       className={cn(
+        exiting ? 'toast-item-exit' : 'toast-item',
         'relative flex items-start gap-3 rounded-lg border p-4 shadow-lg',
         'bg-bg-secondary border-border-subtle',
         'w-[calc(100vw-2rem)] max-w-md min-w-0 sm:w-auto sm:min-w-[320px]'
@@ -111,13 +115,9 @@ function ToastItem({
       {/* Progress bar for duration */}
       {toast.duration && (
         <div className="bg-bg-tertiary absolute right-0 bottom-0 left-0 h-0.5 overflow-hidden rounded-b-lg">
-          <motion.div
-            initial={{ width: '100%' }}
-            animate={{ width: '0%' }}
-            transition={{ duration: toast.duration / 1000, ease: 'linear' }}
-            onAnimationComplete={() => onClose(toast.id)}
+          <div
             className={cn(
-              'h-full',
+              'toast-progress h-full',
               toast.type === 'success'
                 ? 'bg-success'
                 : toast.type === 'error'
@@ -126,10 +126,11 @@ function ToastItem({
                     ? 'bg-warning'
                     : 'bg-accent-primary'
             )}
+            style={{ animationDuration: `${toast.duration}ms` }}
           />
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -139,17 +140,48 @@ export function ToastViewport() {
   const es = pathname === '/es' || pathname?.startsWith('/es/');
   const closeLabel = es ? 'Cerrar aviso' : 'Dismiss notification';
 
+  // El provider quita el aviso al instante; el viewport lo conserva como
+  // "fantasma" hasta que termina su animación de salida de CSS.
+  const [displayed, setDisplayed] = useState<DisplayedToast[]>(() =>
+    toasts.map((toast) => ({ toast, exiting: false }))
+  );
+  const [lastToasts, setLastToasts] = useState(toasts);
+
+  if (toasts !== lastToasts) {
+    setLastToasts(toasts);
+    setDisplayed((prev) => {
+      const live = new Map(toasts.map((toast) => [toast.id, toast]));
+      const kept = prev.map((entry) => {
+        const current = live.get(entry.toast.id);
+        return current ? { toast: current, exiting: false } : { ...entry, exiting: true };
+      });
+      const known = new Set(prev.map((entry) => entry.toast.id));
+      const added = toasts
+        .filter((toast) => !known.has(toast.id))
+        .map((toast) => ({ toast, exiting: false }));
+      return [...kept, ...added];
+    });
+  }
+
+  const dropExited = useCallback((id: string) => {
+    setDisplayed((prev) => prev.filter((entry) => entry.toast.id !== id || !entry.exiting));
+  }, []);
+
   return (
     <div
       className="fixed top-4 right-4 z-50 flex flex-col gap-2"
       aria-live="polite"
       aria-atomic="false"
     >
-      <AnimatePresence>
-        {toasts.map((toast) => (
-          <ToastItem key={toast.id} toast={toast} onClose={removeToast} closeLabel={closeLabel} />
-        ))}
-      </AnimatePresence>
+      {displayed.map((entry) => (
+        <ToastItem
+          key={entry.toast.id}
+          entry={entry}
+          onClose={removeToast}
+          onExited={dropExited}
+          closeLabel={closeLabel}
+        />
+      ))}
     </div>
   );
 }
