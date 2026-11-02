@@ -47,6 +47,7 @@ export function stockImageVariantUrl(imageUrl: string): string {
  */
 const FETCH_TIMEOUT_MS = 8000;
 const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+const MAX_REDIRECT_HOPS = 2;
 const ALLOWED_HOSTS = new Set(['images.pexels.com', 'cdn.pixabay.com', 'pixabay.com']);
 
 function isAllowedImageUrl(url: string): boolean {
@@ -55,6 +56,51 @@ function isAllowedImageUrl(url: string): boolean {
     return parsed.protocol === 'https:' && ALLOWED_HOSTS.has(parsed.hostname);
   } catch {
     return false;
+  }
+}
+
+/**
+ * Workers no implementa `redirect: 'error'` (lanza TypeError al construir el
+ * Request), así que el proxy usa 'manual' y sigue los 3xx a mano: cada
+ * Location se valida con la misma allowlist del URL inicial — HTTPS y host
+ * permitido — y se corta a los `MAX_REDIRECT_HOPS` saltos. Sin caché de datos
+ * de Next: la respuesta ya lleva `Cache-Control` propio.
+ */
+async function fetchStockImage(slug: string, initialUrl: string): Promise<Response | null> {
+  let url = initialUrl;
+  for (let hop = 0; ; hop++) {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'QuizVerse/1.0',
+      },
+      redirect: 'manual',
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+
+    if (response.status < 300 || response.status >= 400) {
+      return response;
+    }
+
+    const location = response.headers.get('location');
+    let target: string | null = null;
+    if (location) {
+      try {
+        target = new URL(location, url).toString();
+      } catch {
+        target = null;
+      }
+    }
+
+    if (hop >= MAX_REDIRECT_HOPS || target === null || !isAllowedImageUrl(target)) {
+      console.warn('stock-cover-redirect-rejected', {
+        slug,
+        status: response.status,
+        locationHost: target ? new URL(target).hostname : null,
+      });
+      return null;
+    }
+
+    url = target;
   }
 }
 
@@ -102,27 +148,17 @@ export async function GET(
 
   if (entry && imageUrl && isAllowedImageUrl(imageUrl)) {
     try {
-      const response = await fetch(imageUrl, {
-        headers: {
-          'User-Agent': 'QuizVerse/1.0',
-        },
-        // La allowlist solo cubre la URL inicial: un 30x del proveedor podría
-        // llevar el proxy a cualquier host. Sin seguimiento, el 30x no es ok
-        // y cae al SVG procedural.
-        redirect: 'error',
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        next: { revalidate: 60 * 60 * 24 },
-      });
+      const response = await fetchStockImage(slug, imageUrl);
 
-      const contentType = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+      const contentType = response?.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
       // Un content-length que ya supera el tope evita leer el body; si falta
       // (chunked) o miente, readBodyWithCap corta igualmente al límite.
-      const declaredHeader = response.headers.get('content-length');
+      const declaredHeader = response?.headers.get('content-length') ?? null;
       const declared = declaredHeader === null ? null : Number(declaredHeader);
       const withinCap =
         declared === null || (Number.isFinite(declared) && declared <= MAX_IMAGE_BYTES);
 
-      if (response.ok && contentType?.startsWith('image/') && withinCap) {
+      if (response?.ok && contentType?.startsWith('image/') && withinCap) {
         const arrayBuffer = await readBodyWithCap(response, MAX_IMAGE_BYTES);
         if (arrayBuffer !== null) {
           // ?v= es un hash de la URL de origen: coincide solo mientras la foto
@@ -139,6 +175,14 @@ export async function GET(
             },
           });
         }
+      } else if (response) {
+        // La rama no-ok no lanzaba nada y el fallo era invisible en producción
+        // (PERF-12). Solo metadatos: nunca el body ni la URL de origen.
+        console.warn('stock-cover-fetch-not-ok', {
+          slug,
+          status: response.status,
+          contentType: contentType ?? null,
+        });
       }
     } catch (error) {
       console.error('stock-cover-fetch-failed', { slug, error });
