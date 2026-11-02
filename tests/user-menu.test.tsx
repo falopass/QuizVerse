@@ -68,6 +68,14 @@ describe('UserMenu', () => {
     fireEvent.click(trigger);
 
     expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getByRole('menuitem', { name: 'Mi actividad' })).toHaveAttribute(
+      'href',
+      '/es/me'
+    );
+    expect(screen.getByRole('menuitem', { name: 'Mi perfil' })).toHaveAttribute(
+      'href',
+      '/es/profile'
+    );
     expect(screen.getByRole('menuitem', { name: 'Ajustes' })).toHaveAttribute(
       'href',
       '/es/settings'
@@ -157,6 +165,8 @@ describe('UserMenuMobile', () => {
 
     render(<UserMenuMobile locale="es" onSelect={onSelect} />);
 
+    expect(screen.getByRole('link', { name: 'Mi actividad' })).toHaveAttribute('href', '/es/me');
+    expect(screen.getByRole('link', { name: 'Mi perfil' })).toHaveAttribute('href', '/es/profile');
     expect(screen.getByRole('link', { name: 'Ajustes' })).toHaveAttribute('href', '/es/settings');
 
     fireEvent.click(screen.getByRole('button', { name: 'Cerrar sesión' }));
