@@ -7,7 +7,7 @@ import {
   sharedPathAlternates,
   type SlugIndex,
 } from '@/lib/seo/sitemap-alternates';
-import { massUpdatedAt, newestIso, quizLastModified } from '@/lib/seo/sitemap-dates';
+import { newestIso, quizLastModified } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
@@ -28,10 +28,10 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
  * as a hreflang alternate would send Google to a 404 announced by us.
  * `src/lib/seo/sitemap-alternates.ts` owns that decision and is unit tested.
  *
- * `lastmod` es el último cambio real de contenido de cada quiz (`updated_at`
- * de ficha, con `published_at` de respaldo) y el máximo de sus quizzes en los
- * hubs. Un `updated_at` que comparten cientos de filas es un import masivo y
- * no se usa; sin fecha fiable la URL va sin `<lastmod>`.
+ * `lastmod` es el último cambio real de contenido de cada quiz (edición
+ * posterior a la inserción, con `published_at` de respaldo) y el máximo de sus
+ * quizzes en los hubs. El `updated_at` que dejó el import masivo coincide con
+ * `created_at` y no es una edición; sin fecha fiable la URL va sin `<lastmod>`.
  * `src/lib/seo/sitemap-dates.ts` owns that decision and is unit tested.
  */
 
@@ -41,6 +41,7 @@ interface QuizRow {
   cover_image_url: string | null;
   language: string | null;
   published_at: string | null;
+  created_at: string | null;
   updated_at: string | null;
   quiz_type: string | null;
   category_id: string | null;
@@ -53,7 +54,7 @@ async function fetchPublishedQuizzes(): Promise<{ quizzes: QuizRow[]; failed: bo
     const { data, error } = await supabase
       .from('quizzes')
       .select(
-        'slug, title, cover_image_url, language, published_at, updated_at, quiz_type, category_id, category:categories(slug)'
+        'slug, title, cover_image_url, language, published_at, created_at, updated_at, quiz_type, category_id, category:categories(slug)'
       )
       .eq('status', 'published')
       .order('published_at', { ascending: false })
@@ -126,9 +127,6 @@ export async function GET() {
     { locale: Locale; slug: string; dates: Array<string | undefined> }
   >();
 
-  // Un `updated_at` que comparten cientos de fichas es un import masivo, no
-  // una edición por página: esas URLs se quedan con su `published_at`.
-  const massTimestamps = massUpdatedAt(quizzes.map((quiz) => quiz.updated_at));
   /** Último cambio de contenido por quiz; cada hub toma el máximo de los suyos. */
   const lastModifiedBySlug = new Map<string, string | undefined>();
 
@@ -137,7 +135,7 @@ export async function GET() {
     if (!quiz.slug) continue;
     perLocale.get(locale)?.push(quiz);
     slugsByLocale.get(locale)?.add(quiz.slug);
-    const lastModified = quizLastModified(quiz, massTimestamps);
+    const lastModified = quizLastModified(quiz);
     lastModifiedBySlug.set(quiz.slug, lastModified);
 
     if (quiz.quiz_type && TYPE_HUBS.includes(quiz.quiz_type)) {

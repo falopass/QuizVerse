@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  MASS_UPDATE_MIN_ROWS,
-  massUpdatedAt,
-  newestIso,
-  quizLastModified,
-} from '@/lib/seo/sitemap-dates';
+import { newestIso, quizLastModified } from '@/lib/seo/sitemap-dates';
 
 describe('newestIso', () => {
   it('devuelve undefined con lista vacía', () => {
@@ -42,6 +37,7 @@ describe('quizLastModified', () => {
       quizLastModified({
         content_updated_at: '2026-10-20T00:00:00Z',
         published_at: '2026-01-01T00:00:00Z',
+        created_at: '2026-01-01T00:00:00Z',
         updated_at: '2026-10-19T00:00:00Z',
       })
     ).toBe('2026-10-20T00:00:00Z');
@@ -51,6 +47,7 @@ describe('quizLastModified', () => {
     expect(
       quizLastModified({
         published_at: '2026-01-01T00:00:00Z',
+        created_at: '2026-01-01T00:00:00Z',
         updated_at: '2026-03-01T00:00:00Z',
       })
     ).toBe('2026-03-01T00:00:00Z');
@@ -60,24 +57,31 @@ describe('quizLastModified', () => {
     expect(
       quizLastModified({
         published_at: '2026-03-01T00:00:00Z',
+        created_at: '2026-01-01T00:00:00Z',
         updated_at: '2026-01-01T00:00:00Z',
       })
     ).toBe('2026-03-01T00:00:00Z');
   });
 
-  it('ignora un updated_at de import masivo y cae en published_at', () => {
-    const mass = massUpdatedAt(
-      Array.from({ length: MASS_UPDATE_MIN_ROWS }, () => '2026-09-27T01:46:57.251Z')
-    );
+  it('ignora el updated_at del import masivo, que es igual a created_at', () => {
     expect(
-      quizLastModified(
-        {
-          published_at: '2026-05-21T02:09:36.215Z',
-          updated_at: '2026-09-27T01:46:57.251Z',
-        },
-        mass
-      )
+      quizLastModified({
+        published_at: '2026-05-21T02:09:36.215Z',
+        created_at: '2026-09-27T01:46:57.251Z',
+        updated_at: '2026-09-27T01:46:57.251Z',
+      })
     ).toBe('2026-05-21T02:09:36.215Z');
+  });
+
+  it('conserva la fecha de un lote de 50 ediciones reales', () => {
+    const dates = Array.from({ length: 50 }, () =>
+      quizLastModified({
+        published_at: '2026-05-01T00:00:00Z',
+        created_at: '2026-09-27T01:46:57.251Z',
+        updated_at: '2026-10-19T17:54:02.393Z',
+      })
+    );
+    expect(new Set(dates)).toEqual(new Set(['2026-10-19T17:54:02.393Z']));
   });
 
   it('usa updated_at si no hay published_at', () => {
@@ -90,26 +94,5 @@ describe('quizLastModified', () => {
     expect(quizLastModified({ published_at: null, updated_at: null })).toBeUndefined();
     expect(quizLastModified({ published_at: '', updated_at: 'no-es-fecha' })).toBeUndefined();
     expect(quizLastModified({})).toBeUndefined();
-  });
-});
-
-describe('massUpdatedAt', () => {
-  it('marca los timestamps que comparten muchas filas', () => {
-    const mass = massUpdatedAt([
-      ...Array.from({ length: MASS_UPDATE_MIN_ROWS }, () => '2026-09-27T01:46:57.251Z'),
-      '2026-10-19T17:54:02.393Z',
-      null,
-      'no-es-fecha',
-    ]);
-    expect([...mass]).toEqual(['2026-09-27T01:46:57.251Z']);
-  });
-
-  it('no marca un lote pequeño ni fechas únicas', () => {
-    expect(
-      massUpdatedAt(
-        Array.from({ length: MASS_UPDATE_MIN_ROWS - 1 }, () => '2026-09-27T01:46:57.251Z')
-      ).size
-    ).toBe(0);
-    expect(massUpdatedAt(['2026-10-19T17:54:02.393Z', '2026-10-19T17:54:03.555Z']).size).toBe(0);
   });
 });
