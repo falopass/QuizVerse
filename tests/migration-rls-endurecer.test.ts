@@ -5,7 +5,7 @@ import { join } from 'node:path';
 /**
  * La migración 014 endurece RLS (hallazgos AB-02/03/08/09 del informe
  * scout-auth-backend). No hay una base local en CI, así que este test fija el
- * contrato del SQL: políticas, constraints y guards tienen que existir con la
+ * contrato del SQL: políticas, guards y funciones tienen que existir con la
  * semántica esperada. La prueba funcional se hace contra Supabase local
  * (`supabase start` + `db push`) siguiendo los pasos del PR.
  */
@@ -25,18 +25,14 @@ describe('migración 014_endurecer_rls', () => {
     expect(sql).toMatch(/with check \(player_id is null or player_id = auth\.uid\(\)\)/i);
   });
 
-  it('AB-02: rangos de score, max_score y tiempo como CHECK NOT VALID', () => {
-    for (const constraint of [
-      'game_sessions_score_nonnegative',
-      'game_sessions_max_score_nonnegative',
-      'game_sessions_score_within_max',
-      'game_sessions_time_nonnegative',
-    ]) {
-      expect(sql).toMatch(new RegExp(`add constraint ${constraint}`, 'i'));
-    }
-    expect(sql).toMatch(/score <= max_score/i);
-    expect(sql).toMatch(/time_taken_seconds >= 0/i);
-    expect(sql).toMatch(/not valid/i);
+  it('AB-02: rangos de score, max_score y tiempo validados en el insert', () => {
+    // Guard BEFORE INSERT (no CHECK): las cascadas FK sobre filas basura
+    // antiguas no deben fallar al borrar una cuenta.
+    expect(sql).toMatch(/create or replace function public\.guard_game_session_ranges\(\)/i);
+    expect(sql).toMatch(/before insert on public\.game_sessions/i);
+    expect(sql).toMatch(/NEW\.score > NEW\.max_score/i);
+    expect(sql).toMatch(/NEW\.time_taken_seconds < 0/i);
+    expect(sql).toMatch(/'23514'/);
   });
 
   it('AB-03: guard de columnas no editables en profiles', () => {
@@ -71,16 +67,29 @@ describe('migración 014_endurecer_rls', () => {
     }
   });
 
+  it('AB-08: el creador sí puede archivar su propio quiz', () => {
+    expect(sql).toMatch(/NEW\.status <> 'archived'/i);
+  });
+
   it('los guards pasan libres sin JWT de usuario (service role y triggers internos)', () => {
     expect(sql).toMatch(
       /auth\.uid\(\) is null or current_user not in \('anon', 'authenticated'\)/i
     );
   });
 
-  it('AB-09: el insert de user_achievements exige auth.uid() = user_id', () => {
+  it('AB-09: el insert de user_achievements exige dueño y condición cumplida', () => {
     expect(sql).toMatch(/drop policy if exists user_achievements_insert_system/i);
     expect(sql).toMatch(/create policy "user_achievements_insert_own"/i);
-    expect(sql).toMatch(/with check \(auth\.uid\(\) = user_id\)/i);
+    expect(sql).toMatch(/auth\.uid\(\) = user_id/i);
+    expect(sql).toMatch(/achievement_condition_met\(user_id, achievement_id\)/i);
+  });
+
+  it('achievement_condition_met evalúa plays, creates y partida perfecta', () => {
+    expect(sql).toMatch(/create or replace function public\.achievement_condition_met/i);
+    expect(sql).toMatch(/when 'plays' then/i);
+    expect(sql).toMatch(/when 'creates' then/i);
+    expect(sql).toMatch(/when 'score' then/i);
+    expect(sql).toMatch(/from public\.game_sessions s/i);
   });
 
   it('el premio de logros lo otorga la base (compensa el guard de points)', () => {

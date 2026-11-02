@@ -38,10 +38,12 @@
 -- del logro con un UPDATE a profiles.points hecho con el JWT del usuario; con
 -- este endurecimiento ese UPDATE queda neutralizado. El premio pasa a la base:
 -- award_achievement_points() (DEFINER) lo otorga tras cada INSERT en
--- user_achievements. Sin la migracion la app sigue otorgando el premio ella
--- misma; con ella lo otorga el trigger y el UPDATE de la app es un no-op
--- inofensivo (el total es el mismo en ambos mundos, nunca se duplica: el
--- update fija un valor absoluto que coincide con lo ya otorgado).
+-- user_achievements — y la policy solo deja insertar logros cuya condicion ya
+-- se cumple (achievement_condition_met), asi que un INSERT fabricado no
+-- compra ni el logro ni el premio. Sin la migracion la app sigue otorgando el
+-- premio ella misma; con ella lo otorga el trigger y el UPDATE de la app es
+-- un no-op inofensivo (el total es el mismo en ambos mundos, nunca se
+-- duplica: el update fija un valor absoluto que coincide con lo ya otorgado).
 --
 -- Idempotente: todo se crea con CREATE OR REPLACE / DROP IF EXISTS.
 
@@ -59,25 +61,39 @@ CREATE POLICY "game_sessions_insert_player" ON public.game_sessions
   WITH CHECK (player_id IS NULL OR player_id = auth.uid());
 
 -- Rangos minimos que el Zod ya exige (submission.ts) pero que PostgREST
--- saltaba. NOT VALID porque en produccion hay filas basura previas: se
--- validan las escrituras nuevas y las viejas quedan a decision editorial.
--- Tras limpiar, Diego puede correr:
---   ALTER TABLE public.game_sessions VALIDATE CONSTRAINT <nombre>;
-ALTER TABLE public.game_sessions
-  DROP CONSTRAINT IF EXISTS game_sessions_score_nonnegative,
-  DROP CONSTRAINT IF EXISTS game_sessions_max_score_nonnegative,
-  DROP CONSTRAINT IF EXISTS game_sessions_score_within_max,
-  DROP CONSTRAINT IF EXISTS game_sessions_time_nonnegative;
+-- saltaba. Van en un guard BEFORE INSERT y NO en CHECK constraints: los CHECK
+-- se re-evaluan en cada UPDATE, asi que una fila basura preexistente
+-- bloquearia hasta la cascada ON DELETE SET NULL del borrado de una cuenta.
+-- No existe policy de UPDATE sobre game_sessions, asi que validar el INSERT
+-- cubre toda escritura posible de usuarios; las correcciones por service role
+-- no requieren permiso. Las filas basura actuales quedan intactas: limpiarlas
+-- es decision editorial, documentada en el PR.
+CREATE OR REPLACE FUNCTION public.guard_game_session_ranges()
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  IF NEW.score < 0
+     OR NEW.max_score < 0
+     OR NEW.score > NEW.max_score
+     OR NEW.time_taken_seconds < 0
+  THEN
+    RAISE EXCEPTION 'Resultado de partida fuera de rango'
+      USING ERRCODE = '23514';
+  END IF;
+  RETURN NEW;
+END;
+$$;
 
-ALTER TABLE public.game_sessions
-  ADD CONSTRAINT game_sessions_score_nonnegative
-    CHECK (score >= 0) NOT VALID,
-  ADD CONSTRAINT game_sessions_max_score_nonnegative
-    CHECK (max_score >= 0) NOT VALID,
-  ADD CONSTRAINT game_sessions_score_within_max
-    CHECK (score <= max_score) NOT VALID,
-  ADD CONSTRAINT game_sessions_time_nonnegative
-    CHECK (time_taken_seconds IS NULL OR time_taken_seconds >= 0) NOT VALID;
+COMMENT ON FUNCTION public.guard_game_session_ranges() IS
+  'Rechaza inserts de game_sessions con score/max_score/tiempo fuera de rango (mismos limites que el Zod de submission). BEFORE INSERT: no estorba cascadas FK ni correcciones service role sobre filas antiguas.';
+
+DROP TRIGGER IF EXISTS trigger_guard_game_session_ranges ON public.game_sessions;
+CREATE TRIGGER trigger_guard_game_session_ranges
+  BEFORE INSERT ON public.game_sessions
+  FOR EACH ROW
+  EXECUTE FUNCTION public.guard_game_session_ranges();
 
 -- ============================================
 -- AB-03: PROFILES — columnas no editables por JWT
@@ -184,10 +200,12 @@ BEGIN
   NEW.created_at := OLD.created_at;
 
   -- status solo lo mueve la moderacion: un admin con JWT conserva la via que
-  -- guard_quiz_publication (010) ya le permite; cualquier otro cambio de
-  -- status por JWT se restaura (editar un quiz publicado no lo re-modera,
-  -- decision de producto pendiente y fuera de esta migracion).
+  -- guard_quiz_publication (010) ya le permite. La unica excepcion para el
+  -- resto es 'archived', estado que el enum reserva al propio creador
+  -- ("Archivado por el creador o admin", 001). Editar un quiz publicado no lo
+  -- re-modera: decision de producto pendiente, fuera de esta migracion.
   IF NEW.status IS DISTINCT FROM OLD.status
+     AND NEW.status <> 'archived'
      AND NOT EXISTS (
        SELECT 1 FROM public.profiles p
        WHERE p.id = auth.uid() AND p.is_admin
@@ -196,12 +214,32 @@ BEGIN
     NEW.status := OLD.status;
   END IF;
 
+  -- Si tras las restauraciones la unica diferencia real es updated_at (p.ej.
+  -- un PATCH que solo tocaba columnas protegidas), se revierte tambien: el
+  -- lastmod del sitemap no debe moverse por una escritura que no cambio nada.
+  IF (NEW.id, NEW.creator_id, NEW.category_id, NEW.title, NEW.slug,
+      NEW.description, NEW.cover_image_url, NEW.quiz_type, NEW.difficulty,
+      NEW.language, NEW.questions, NEW.results, NEW.tags,
+      NEW.estimated_minutes, NEW.plays_count, NEW.shares_count, NEW.avg_score,
+      NEW.likes_count, NEW.status, NEW.is_featured, NEW.is_ai_generated,
+      NEW.featured_at, NEW.published_at, NEW.created_at)
+     IS NOT DISTINCT FROM
+     (OLD.id, OLD.creator_id, OLD.category_id, OLD.title, OLD.slug,
+      OLD.description, OLD.cover_image_url, OLD.quiz_type, OLD.difficulty,
+      OLD.language, OLD.questions, OLD.results, OLD.tags,
+      OLD.estimated_minutes, OLD.plays_count, OLD.shares_count, OLD.avg_score,
+      OLD.likes_count, OLD.status, OLD.is_featured, OLD.is_ai_generated,
+      OLD.featured_at, OLD.published_at, OLD.created_at)
+  THEN
+    NEW.updated_at := OLD.updated_at;
+  END IF;
+
   RETURN NEW;
 END;
 $$;
 
 COMMENT ON FUNCTION public.guard_quiz_editable_columns() IS
-  'Restaura columnas no editables de quizzes en escrituras con JWT (anon/authenticated): contadores, is_featured, published_at, status (salvo admin). Service role y triggers DEFINER pasan libres.';
+  'Restaura columnas no editables de quizzes en escrituras con JWT (anon/authenticated): contadores, is_featured, published_at, status (salvo admin o archivo propio). Service role y triggers DEFINER pasan libres.';
 
 DROP TRIGGER IF EXISTS trigger_guard_quiz_editable_columns ON public.quizzes;
 CREATE TRIGGER trigger_guard_quiz_editable_columns
@@ -220,15 +258,71 @@ ALTER FUNCTION public.increment_creator_quizzes() SECURITY DEFINER;
 -- AB-09: USER ACHIEVEMENTS
 -- ============================================
 
--- Insertar: solo logros del propio usuario. checkAchievements hace upsert con
--- user_id = auth.uid(): cumple. Los triggers DEFINER y la service role no
--- pasan por RLS.
+-- Condicion de cada logro evaluable con los datos del schema. Replica las
+-- reglas de checkAchievements (achievements.ts): contadores del perfil para
+-- 'plays'/'creates' y una partida perfecta real para 'score'. Los tipos que
+-- el schema aun no puede medir ('shares', 'streak', 'categories', 'share')
+-- devuelven false: tampoco la app los desbloquea hoy.
+CREATE OR REPLACE FUNCTION public.achievement_condition_met(
+  p_user_id uuid,
+  p_achievement_id text
+)
+RETURNS boolean
+LANGUAGE plpgsql
+STABLE
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  cond_type text;
+  cond_value integer;
+BEGIN
+  SELECT condition_type, condition_value
+    INTO cond_type, cond_value
+    FROM public.achievements
+    WHERE id = p_achievement_id;
+
+  IF NOT FOUND THEN
+    RETURN false;
+  END IF;
+
+  CASE cond_type
+    WHEN 'plays' THEN
+      RETURN COALESCE((
+        SELECT quizzes_played FROM public.profiles WHERE id = p_user_id
+      ), 0) >= cond_value;
+    WHEN 'creates' THEN
+      RETURN COALESCE((
+        SELECT quizzes_created FROM public.profiles WHERE id = p_user_id
+      ), 0) >= cond_value;
+    WHEN 'score' THEN
+      -- cond_value es el porcentaje exigido (100 = partida perfecta).
+      RETURN EXISTS (
+        SELECT 1 FROM public.game_sessions s
+        WHERE s.player_id = p_user_id
+          AND s.max_score > 0
+          AND s.score * 100 >= s.max_score * cond_value
+      );
+    ELSE
+      RETURN false;
+  END CASE;
+END;
+$$;
+
+COMMENT ON FUNCTION public.achievement_condition_met(uuid, text) IS
+  'Verdadero si el logro ya esta ganado segun achievements.condition_type/value (contadores de perfil, o una partida con el porcentaje exigido). Usado por user_achievements_insert_own.';
+
+-- Insertar: solo logros propios y ya cumplidos. checkAchievements hace upsert
+-- solo cuando la condicion se satisfizo: cumple. Un INSERT fabricado por
+-- PostgREST no cumple la puerta y se rechaza entero (ni logro ni premio).
 DROP POLICY IF EXISTS user_achievements_insert_system ON public.user_achievements;
 DROP POLICY IF EXISTS user_achievements_insert_own ON public.user_achievements;
 
 CREATE POLICY "user_achievements_insert_own" ON public.user_achievements
   FOR INSERT
-  WITH CHECK (auth.uid() = user_id);
+  WITH CHECK (
+    auth.uid() = user_id
+    AND public.achievement_condition_met(user_id, achievement_id)
+  );
 
 -- El premio de cada logro lo otorga la base, leyendo achievements.points_reward
 -- en el momento del desbloqueo (mismo criterio que checkAchievements). Nace
