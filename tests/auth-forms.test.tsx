@@ -81,7 +81,7 @@ describe('RegisterForm', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Crear cuenta' }));
   }
 
-  it('envía email, clave y nombre a la acción de alta', async () => {
+  it('envía email, clave, nombre e idioma a la acción de alta', async () => {
     mocks.signUp.mockResolvedValue({ ok: true, userId: 'u1' });
     fillAndSubmit();
 
@@ -90,6 +90,7 @@ describe('RegisterForm', () => {
       email: 'a@x.com',
       password: 'claveSegura1',
       name: 'Diego',
+      locale: 'es',
     });
   });
 

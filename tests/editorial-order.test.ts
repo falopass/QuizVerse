@@ -98,16 +98,16 @@ describe('explorerSelection con preferEditorial', () => {
     expect(pulse?.id).toBe('strong');
   });
 
-  it('reparte 4 lanes, 12 grid y el resto en rest, sin repetir ningún quiz', () => {
-    const list = Array.from({ length: 20 }, (_, i) =>
+  it('reparte 4 lanes, 30 grid y el resto en rest, sin repetir ningún quiz', () => {
+    const list = Array.from({ length: 40 }, (_, i) =>
       makeQuiz({ id: `q${i}`, is_featured: i === 5 })
     );
     const { lead, pulse, lanes, grid, rest } = explorerSelection(list);
     expect(lanes).toHaveLength(4);
-    expect(grid).toHaveLength(12);
-    expect(rest).toHaveLength(2);
+    expect(grid).toHaveLength(30);
+    expect(rest).toHaveLength(4);
     const all = [lead, pulse, ...lanes, ...grid, ...rest].filter((q): q is Quiz => q !== null);
-    expect(new Set(ids(all)).size).toBe(20);
+    expect(new Set(ids(all)).size).toBe(40);
     expect(new Set(ids(all))).toEqual(new Set(ids(list)));
   });
 });
@@ -154,35 +154,17 @@ describe('listas cortas y vacías', () => {
 });
 
 describe('explorerVisibleQuizzes', () => {
-  it('devuelve como mucho 18, en el orden lead-pulse-lanes-grid y sin repetir ids', () => {
-    // Score crece con plays_count: q24 es el mejor puntuado, q0 el peor.
-    // El destacado (q10) gana el lead; el pulse va al mejor score restante (q24);
-    // lanes y grid siguen el orden de score descendente hasta completar 18.
-    const list = Array.from({ length: 25 }, (_, i) =>
+  it('devuelve como mucho 36, en el orden lead-pulse-lanes-grid y sin repetir ids', () => {
+    // Score crece con plays_count: q39 es el mejor puntuado, q0 el peor.
+    // El destacado (q10) gana el lead; el pulse va al mejor score restante (q39);
+    // lanes y grid siguen el orden de score descendente hasta completar 36.
+    const list = Array.from({ length: 40 }, (_, i) =>
       makeQuiz({ id: `q${i}`, plays_count: i, is_featured: i === 10 })
     );
     const visible = explorerVisibleQuizzes(list);
-    expect(ids(visible)).toEqual([
-      'q10',
-      'q24',
-      'q23',
-      'q22',
-      'q21',
-      'q20',
-      'q19',
-      'q18',
-      'q17',
-      'q16',
-      'q15',
-      'q14',
-      'q13',
-      'q12',
-      'q11',
-      'q9',
-      'q8',
-      'q7',
-    ]);
-    expect(new Set(ids(visible)).size).toBe(18);
+    expect(ids(visible).slice(0, 6)).toEqual(['q10', 'q39', 'q38', 'q37', 'q36', 'q35']);
+    expect(visible).toHaveLength(36);
+    expect(new Set(ids(visible)).size).toBe(36);
   });
 
   it('con lista vacía devuelve []', () => {

@@ -11,7 +11,6 @@ import {
   normalizeAchievement,
   type CategoryRow,
   type QuizRow,
-  type GameSessionRow,
   type ProfileRow,
   type AchievementRow,
 } from '@/lib/data/normalizers';
@@ -26,6 +25,7 @@ import type {
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
 import { getCategoryCounts } from '@/lib/data/category-counts';
+import { fetchSessionByShareToken } from '@/lib/data/game-session';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
@@ -526,17 +526,13 @@ export const getQuizSessionByShareToken = cache(
   async (shareToken: string): Promise<QuizSessionResult | null> => {
     try {
       const supabase = await createClient();
-      const { data, error } = await supabase
-        .from('game_sessions')
-        .select('*')
-        .eq('share_token', shareToken)
-        .single();
+      const data = await fetchSessionByShareToken(supabase, shareToken);
 
-      if (error || !data) {
+      if (!data) {
         return null;
       }
 
-      return normalizeGameSession(data as GameSessionRow);
+      return normalizeGameSession(data);
     } catch {
       return null;
     }

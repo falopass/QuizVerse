@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { createClient } from '@/lib/supabase/server';
+import { fetchSessionByShareToken } from '@/lib/data/game-session';
 import type { ChallengeInfo } from '@/lib/quiz/challenge';
 
 /**
@@ -16,19 +17,8 @@ export async function getChallengeForQuiz(
   if (!token) return null;
 
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from('game_sessions')
-    .select('score, max_score, result_title')
-    .eq('share_token', token)
-    .eq('quiz_id', quizId)
-    .limit(1);
-
-  if (error) return null;
-
-  const row = (
-    data as Array<{ score: number; max_score: number; result_title: string | null }> | null
-  )?.[0];
-  if (!row) return null;
+  const row = await fetchSessionByShareToken(supabase, token);
+  if (!row || row.quiz_id !== quizId) return null;
 
   return {
     token,

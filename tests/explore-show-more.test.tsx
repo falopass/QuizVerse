@@ -41,11 +41,11 @@ const CINE: Category = {
   color: null,
   gradient_from: null,
   gradient_to: null,
-  quiz_count: 20,
+  quiz_count: 40,
   sort_order: 0,
 };
 
-const QUIZZES = Array.from({ length: 30 }, (_, index) =>
+const QUIZZES = Array.from({ length: 60 }, (_, index) =>
   makeQuiz({
     id: `q${index}`,
     slug: `quiz-${index}`,
@@ -73,66 +73,67 @@ function quizLinks(container: HTMLElement) {
   return [...container.querySelectorAll<HTMLAnchorElement>('a[href*="/quiz/"]')];
 }
 
+const announcement = () => document.getElementById('explore-show-more-announcement');
+
 describe('Explorador: botón «Ver más»', () => {
-  it('limita el primer render a 18 tarjetas y ofrece los 12 restantes', () => {
+  it('limita el primer render a 36 tarjetas y ofrece las 24 restantes', () => {
     const { container } = renderPage();
 
-    expect(quizLinks(container)).toHaveLength(18);
+    expect(quizLinks(container)).toHaveLength(36);
     expect(document.getElementById('explore-grid-rest')).toBeNull();
 
-    const button = screen.getByRole('button', { name: 'Ver los 12 restantes' });
+    const button = screen.getByRole('button', { name: 'Ver los 24 restantes' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
     expect(button).toHaveAttribute('aria-controls', 'explore-grid-rest');
   });
 
-  it('renderiza el resto al hacer clic y permite colapsar', () => {
+  it('renderiza el resto al hacer clic, anuncia el conteo y enfoca la primera tarjeta nueva', () => {
     const { container } = renderPage();
+    expect(announcement()?.textContent).toBe('');
 
-    const button = screen.getByRole('button', { name: 'Ver los 12 restantes' });
+    const button = screen.getByRole('button', { name: 'Ver los 24 restantes' });
     fireEvent.click(button);
 
-    expect(quizLinks(container)).toHaveLength(30);
+    expect(quizLinks(container)).toHaveLength(60);
     expect(button).toHaveAttribute('aria-expanded', 'true');
     expect(button).toHaveTextContent('Mostrar menos');
+    expect(announcement()).toHaveTextContent('Se muestran 60 de 60 quizzes');
 
     const rest = document.getElementById('explore-grid-rest');
     expect(rest).not.toBeNull();
     expect(button.compareDocumentPosition(rest!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
 
+    const firstNew = rest!.querySelector('a');
+    expect(firstNew).toHaveAttribute('href', '/es/quiz/quiz-36');
+    expect(document.activeElement).toBe(firstNew);
+
     fireEvent.click(button);
-    expect(quizLinks(container)).toHaveLength(18);
+    expect(quizLinks(container)).toHaveLength(36);
     expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(announcement()).toHaveTextContent('Se muestran 36 de 60 quizzes');
   });
 
-  it('se reinicia al cambiar de categoría y recalcula el restante', () => {
+  it('se reinicia al cambiar de categoría y no deja botón si todo cabe', () => {
     const { container } = renderPage();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Ver los 12 restantes' }));
-    expect(quizLinks(container)).toHaveLength(30);
+    fireEvent.click(screen.getByRole('button', { name: 'Ver los 24 restantes' }));
+    expect(quizLinks(container)).toHaveLength(60);
 
     fireEvent.click(screen.getByRole('button', { name: 'C Cine' }));
 
     expect(screen.getByRole('status')).toHaveTextContent('20 quizzes tras filtros');
-    expect(quizLinks(container)).toHaveLength(18);
-
-    const button = screen.getByRole('button', { name: 'Ver los 2 restantes' });
-    expect(button).toHaveAttribute('aria-expanded', 'false');
-
-    fireEvent.click(button);
     expect(quizLinks(container)).toHaveLength(20);
+    expect(screen.queryByRole('button', { name: /restantes/ })).toBeNull();
+    expect(announcement()).toBeNull();
   });
 
   it('no reabre los resultados al volver a un filtro ya expandido', () => {
     const { container } = renderPage();
-
-    fireEvent.click(screen.getByRole('button', { name: 'Ver los 12 restantes' }));
-    expect(quizLinks(container)).toHaveLength(30);
-
+    fireEvent.click(screen.getByRole('button', { name: 'Ver los 24 restantes' }));
     fireEvent.click(screen.getByRole('button', { name: 'C Cine' }));
     fireEvent.click(screen.getByRole('button', { name: 'Todas' }));
 
-    expect(quizLinks(container)).toHaveLength(18);
-    const button = screen.getByRole('button', { name: 'Ver los 12 restantes' });
+    expect(quizLinks(container)).toHaveLength(36);
+    const button = screen.getByRole('button', { name: 'Ver los 24 restantes' });
     expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 });

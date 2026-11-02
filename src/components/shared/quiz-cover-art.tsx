@@ -1,10 +1,12 @@
 import { cn } from '@/lib/utils/cn';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import type { Quiz } from '@/types/quiz';
+import type { Category, Quiz } from '@/types/quiz';
 
 interface QuizCoverArtProps {
-  quiz: Pick<Quiz, 'slug' | 'title' | 'quiz_type' | 'category' | 'cover_image_url'>;
+  quiz: Pick<Quiz, 'slug' | 'title' | 'quiz_type' | 'cover_image_url'> & {
+    category?: Pick<Category, 'name'> | null;
+  };
   locale: Locale;
   className?: string;
   ratioClassName?: string;
@@ -67,6 +69,10 @@ export function QuizCoverArt({
           src={quiz.cover_image_url!}
           alt=""
           className="arcade-cover-photo"
+          // La ruta sirve la variante 960×640 (3:2, la caja más grande a 2x);
+          // el CSS lo estira a object-fit: cover sobre esa proporción.
+          width={960}
+          height={640}
           loading={isAboveFold ? 'eager' : 'lazy'}
           fetchPriority={isAboveFold ? 'high' : undefined}
           decoding="async"

@@ -2,8 +2,13 @@ import { getCoverTheme } from '@/lib/design/cover-system';
 import type { Quiz } from '@/types/quiz';
 
 export function buildQuizCoverSvg(
-  quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>
+  quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>,
+  variant: 'landscape' | 'portrait' = 'landscape'
 ) {
+  return variant === 'portrait' ? portraitSvg(quiz) : landscapeSvg(quiz);
+}
+
+function landscapeSvg(quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>) {
   const theme = getCoverTheme(quiz);
   const letter = (quiz.category?.icon ?? quiz.title.charAt(0).toUpperCase()).slice(0, 1);
   const badge = quiz.quiz_type === 'personality' ? 'PERSONALITY' : 'TRIVIA';
@@ -50,6 +55,55 @@ export function buildQuizCoverSvg(
 </svg>`;
 }
 
+// Composición vertical para el panel lateral de la tarjeta OG del resultado
+// (caja ~354×510): el recorte `cover` de la 16:9 cortaría título y monograma.
+function portraitSvg(quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>) {
+  const theme = getCoverTheme(quiz);
+  const letter = (quiz.category?.icon ?? quiz.title.charAt(0).toUpperCase()).slice(0, 1);
+  const badge = quiz.quiz_type === 'personality' ? 'PERSONALITY' : 'TRIVIA';
+  const titleLines = wrapText(quiz.title, 15);
+  const categoryLabel = quiz.category?.name?.toUpperCase() ?? 'QUIZ';
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="840" height="1200" viewBox="0 0 840 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="840" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="${theme.base}"/>
+      <stop offset="0.58" stop-color="${theme.highlight}"/>
+      <stop offset="1" stop-color="${theme.deep}"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(210 170) rotate(45) scale(320 420)">
+      <stop stop-color="white" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="840" height="1200" rx="36" fill="url(#bg)"/>
+  <rect width="840" height="1200" rx="36" fill="url(#glow)"/>
+  <rect width="840" height="1200" rx="36" fill="rgba(12,8,6,0.16)"/>
+  <g opacity="0.12">
+    <path d="M0 170H840" stroke="white"/>
+    <path d="M0 450H840" stroke="white"/>
+    <path d="M0 730H840" stroke="white"/>
+    <path d="M0 1010H840" stroke="white"/>
+    <path d="M150 0V1200" stroke="white"/>
+    <path d="M360 0V1200" stroke="white"/>
+    <path d="M570 0V1200" stroke="white"/>
+    <path d="M780 0V1200" stroke="white"/>
+  </g>
+  <rect x="56" y="52" width="250" height="56" rx="28" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="181" y="88" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="17" letter-spacing="4">${escapeXml(badge)}</text>
+  <text x="784" y="88" text-anchor="end" fill="rgba(255,248,242,0.76)" font-family="Arial, sans-serif" font-size="20">QuizVerse</text>
+  <rect x="250" y="180" width="340" height="340" rx="96" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="420" y="408" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="160" font-weight="700">${escapeXml(letter)}</text>
+  <rect x="0" y="840" width="840" height="360" fill="rgba(12,8,6,0.42)"/>
+  <rect x="56" y="900" width="220" height="66" rx="33" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
+  <text x="166" y="943" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="19" letter-spacing="4">${escapeXml(
+    categoryLabel
+  )}</text>
+  ${renderTspans(titleLines, 56, 1040, 62, '#FFF8F2', true)}
+</svg>`;
+}
+
 function renderTspans(
   lines: string[],
   x: number,
@@ -86,7 +140,11 @@ function wrapText(text: string, maxLength = 22) {
   }
 
   if (current) lines.push(current);
-  return lines.slice(0, 3);
+  if (lines.length > 3) {
+    lines.length = 3;
+    lines[2] = `${lines[2]}…`;
+  }
+  return lines;
 }
 
 function escapeXml(value: string) {

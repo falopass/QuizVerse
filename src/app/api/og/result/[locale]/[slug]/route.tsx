@@ -57,7 +57,9 @@ function baseCover(quizTitle: string, options: OgOptions, headers: Record<string
 }
 
 function coverPanel(quiz: Quiz) {
-  const cover = `data:image/svg+xml;base64,${Buffer.from(buildQuizCoverSvg(quiz)).toString('base64')}`;
+  const cover = `data:image/svg+xml;base64,${Buffer.from(
+    buildQuizCoverSvg(quiz, 'portrait')
+  ).toString('base64')}`;
   return (
     <div
       style={{
@@ -74,9 +76,9 @@ function coverPanel(quiz: Quiz) {
       <img
         src={cover}
         alt=""
-        width="370"
-        height="480"
-        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        width="350"
+        height="500"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
     </div>
   );
@@ -223,7 +225,14 @@ function resultCard(
               marginTop: scoreLine ? 10 : 18,
               maxHeight: 300,
               overflow: 'hidden',
-              fontSize: headline.length > 46 ? 50 : headline.length > 30 ? 62 : 76,
+              fontSize:
+                headline.length > 70
+                  ? 42
+                  : headline.length > 46
+                    ? 50
+                    : headline.length > 30
+                      ? 62
+                      : 76,
               lineHeight: 1,
               fontFamily: 'Archivo Black',
               letterSpacing: '-0.05em',

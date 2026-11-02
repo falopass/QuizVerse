@@ -594,6 +594,31 @@ export interface Database {
         Args: { p_quiz_id: string; p_user_id: string };
         Returns: boolean;
       };
+      get_session_by_share_token: {
+        Args: { p_token: string };
+        Returns: {
+          id: string;
+          quiz_id: string;
+          score: number;
+          max_score: number;
+          percentage: number;
+          result_id: string | null;
+          result_title: string | null;
+          time_taken_seconds: number | null;
+          answers: Json | null;
+          share_token: string;
+          was_shared: boolean;
+          completed_at: string;
+        }[];
+      };
+      get_weekly_session_totals: {
+        Args: { p_limit: number };
+        Returns: { player_id: string; played: number; perfect: number }[];
+      };
+      unlock_achievement: {
+        Args: { p_achievement_id: string };
+        Returns: boolean;
+      };
     };
     Enums: {
       quiz_type: 'trivia' | 'personality' | 'poll';

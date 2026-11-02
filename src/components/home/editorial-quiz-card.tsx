@@ -4,10 +4,19 @@ import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { getArcadeCopy, getCommonCopy } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import type { Quiz } from '@/types/quiz';
+import type { Category, Quiz } from '@/types/quiz';
+
+/**
+ * Lo que pinta la tarjeta. Es un subconjunto de `Quiz` para que el explorador
+ * pueda pasar su fila liviana sin arrastrar el quiz completo al payload RSC.
+ */
+type EditorialQuizCardQuiz = Pick<
+  Quiz,
+  'slug' | 'title' | 'quiz_type' | 'estimated_minutes' | 'cover_image_url'
+> & { category?: Pick<Category, 'name'> | null };
 
 interface EditorialQuizCardProps {
-  quiz: Quiz;
+  quiz: EditorialQuizCardQuiz;
   locale: Locale;
   index?: number;
   size?: 'hero' | 'feature' | 'default' | 'compact';

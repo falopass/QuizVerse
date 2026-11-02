@@ -11,6 +11,7 @@ import {
   type GameSessionRow,
   type QuizRow,
 } from '@/lib/data/normalizers';
+import manifestJson from '@/lib/data/stock-cover-manifest.json';
 import type { Category, Profile } from '@/types/quiz';
 
 function categoryRow(overrides: Partial<CategoryRow> = {}): CategoryRow {
@@ -187,6 +188,34 @@ describe('normalizeQuiz', () => {
   it('adds visual_profile by default', () => {
     const quiz = normalizeQuiz(quizRow(), categories, creator);
     expect(quiz.visual_profile).toBeDefined();
+  });
+
+  it('versiona la cover_image_url de portadas stock con entrada en el manifest', () => {
+    const [slug, entry] = Object.entries(manifestJson)[0] as [string, { v?: string }];
+    const quiz = normalizeQuiz(
+      quizRow({ cover_image_url: `/stock-covers/${slug}` }),
+      categories,
+      creator,
+      false
+    );
+    expect(quiz.cover_image_url).toBe(`/stock-covers/${slug}?v=${entry.v}`);
+  });
+
+  it('no versiona portadas sin entrada ni URLs ajenas', () => {
+    const stockless = normalizeQuiz(
+      quizRow({ cover_image_url: '/stock-covers/sin-entrada' }),
+      categories,
+      creator,
+      false
+    );
+    expect(stockless.cover_image_url).toBe('/stock-covers/sin-entrada');
+    const external = normalizeQuiz(
+      quizRow({ cover_image_url: 'https://cdn.ejemplo.com/x.png' }),
+      categories,
+      creator,
+      false
+    );
+    expect(external.cover_image_url).toBe('https://cdn.ejemplo.com/x.png');
   });
 
   it('degrades bad questions/results columns without throwing', () => {
