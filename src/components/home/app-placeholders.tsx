@@ -89,8 +89,12 @@ export function EditorialEmptyState({
           </Link>
         ) : null}
         {tertiaryHref && tertiaryLabel ? (
+          // No prefetch: the only tertiary link in use is /{locale}/random, a
+          // 307 route handler — prefetching would cache its destination (same
+          // trick as the nav's "Surprise me" link in floating-nav.tsx).
           <Link
             href={tertiaryHref}
+            prefetch={false}
             className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors"
           >
             {tertiaryLabel}

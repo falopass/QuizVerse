@@ -33,7 +33,7 @@ export async function generateMetadata({
   // streaming, it ships the 404 only as a client-side patch (empty SSR body).
   // The page component throws it instead.
   if (!quiz) {
-    return {};
+    return { title: locale === 'es' ? 'Página no encontrada' : 'Page not found' };
   }
 
   const otherLocale = locale === 'es' ? 'en' : 'es';

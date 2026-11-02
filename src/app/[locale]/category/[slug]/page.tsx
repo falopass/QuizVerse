@@ -39,7 +39,9 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
   ]);
   // See quiz/[slug]/page.tsx: notFound() inside generateMetadata streams the
   // 404 client-side only; the page component throws it instead.
-  if (!payload || payload.quizzes.length === 0) return {};
+  if (!payload || payload.quizzes.length === 0) {
+    return { title: locale === 'es' ? 'Página no encontrada' : 'Page not found' };
+  }
   const category = localizeCategory(payload.category, locale)!;
   const count = payload.quizzes.length;
 
