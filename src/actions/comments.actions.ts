@@ -61,7 +61,7 @@ export interface QuizCommentsPage {
 }
 
 const COMMENT_SELECT =
-  'id, quiz_id, body, created_at, user_id, author:profiles(username, display_name, avatar_url)';
+  'id, quiz_id, body, created_at, user_id, author:profiles!quiz_comments_user_id_fkey(username, display_name, avatar_url)';
 
 const commentSchema = z.object({
   quizId: z.string().uuid(),
