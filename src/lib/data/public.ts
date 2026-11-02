@@ -207,9 +207,15 @@ async function fetchQuizBySlugFromDb(slug: string, locale?: Locale): Promise<Qui
 
   const { data: quiz, error } = await query.single();
 
-  if (error || !quiz) {
-    return null;
+  if (error) {
+    // PGRST116 = 0 filas: el slug no existe publicado, y ese null sí se cachea.
+    if (error.code === 'PGRST116') return null;
+    // Un fallo de red no puede quedar cacheado como "no existe": serían 404
+    // durante los 300 s de la entrada. Se lanza y `getQuizBySlug` cae al
+    // catálogo de lanzamiento sin cachear el resultado.
+    throw error;
   }
+  if (!quiz) return null;
 
   const quizRow = quiz as QuizRow;
   // El creador se resuelve con el badge mínimo (sin is_admin ni contadores):

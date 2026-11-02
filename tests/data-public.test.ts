@@ -4,7 +4,7 @@ vi.mock('server-only', () => ({}));
 
 type DbResult = {
   data: unknown;
-  error?: { message: string } | null;
+  error?: { message: string; code?: string } | null;
   count?: number | null;
 };
 
@@ -239,6 +239,28 @@ describe('getQuizBySlug', () => {
       throw new Error('db down');
     };
     expect(await getQuizBySlug('nope', 'en')).toBeNull();
+  });
+
+  it('no cachea un fallo de consulta como 404: cae al catálogo de lanzamiento', async () => {
+    // Un error de red no es "el quiz no existe". Si se devolviera null, la
+    // caché lo guardaría 300 s y una ficha publicada daría 404 tras un fallo
+    // transitorio.
+    db.handler = (table) =>
+      table === 'quizzes'
+        ? { data: null, error: { message: 'network down' } }
+        : { data: [catRow], error: null };
+
+    const quiz = await getQuizBySlug('launch-a', 'en');
+    expect(quiz?.id).toBe('launch-1');
+  });
+
+  it('un slug inexistente (PGRST116) devuelve null sin tocar el fallback', async () => {
+    db.handler = (table) =>
+      table === 'quizzes'
+        ? { data: null, error: { code: 'PGRST116', message: 'no rows' } }
+        : { data: [catRow], error: null };
+
+    expect(await getQuizBySlug('launch-a', 'en')).toBeNull();
   });
 });
 
