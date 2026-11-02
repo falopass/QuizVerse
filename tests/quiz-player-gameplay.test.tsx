@@ -3,6 +3,11 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 vi.mock('@/actions/quiz.actions', () => ({
+  startQuizAttempt: vi.fn().mockResolvedValue({
+    success: true,
+    attempt: 'test-attempt',
+    expiresAt: 9_999_999_999,
+  }),
   submitQuizResult: vi.fn().mockResolvedValue({ success: false }),
 }));
 
@@ -20,7 +25,7 @@ vi.mock('@/providers/toast-provider', () => ({
 // El resultado lanza confetti; aquí solo importa el foco y el contenido.
 vi.mock('canvas-confetti', () => ({ default: vi.fn() }));
 
-import { submitQuizResult } from '@/actions/quiz.actions';
+import { startQuizAttempt, submitQuizResult } from '@/actions/quiz.actions';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
 import { trackEvent } from '@/lib/telemetry/client';
 import { parseInitialGameMode } from '@/lib/quiz/game-modes';
@@ -95,6 +100,7 @@ beforeEach(() => {
     explanation: 'Saturn leads the moon count.',
   });
   vi.mocked(requestEliminatedOptions).mockReset().mockResolvedValue(null);
+  vi.mocked(startQuizAttempt).mockClear();
   vi.mocked(submitQuizResult).mockClear();
   vi.mocked(trackEvent).mockClear();
   useQuizStore.getState().startGame(makeQuiz());
@@ -112,6 +118,7 @@ describe('QuizPlayer · un toque responde', () => {
       quizId: makeQuiz().id,
       questionId: 'q1',
       selectedOptionId: 'q1a',
+      attempt: 'test-attempt',
     });
 
     const next = screen.getByRole('button', { name: 'Next' });
@@ -301,7 +308,12 @@ describe('QuizPlayer · resultado', () => {
       });
       await act(async () => {});
 
-      expect(submitQuizResult).toHaveBeenCalledWith(oneQuestion.id, expect.any(Array), 42);
+      expect(submitQuizResult).toHaveBeenCalledWith(
+        oneQuestion.id,
+        expect.any(Array),
+        42,
+        'test-attempt'
+      );
     } finally {
       vi.useRealTimers();
     }
@@ -329,7 +341,12 @@ describe('QuizPlayer · resultado', () => {
       await act(async () => {});
 
       // El esquema del servidor rechaza más de 2 h: se envía el tope, no 10800.
-      expect(submitQuizResult).toHaveBeenCalledWith(oneQuestion.id, expect.any(Array), 7200);
+      expect(submitQuizResult).toHaveBeenCalledWith(
+        oneQuestion.id,
+        expect.any(Array),
+        7200,
+        'test-attempt'
+      );
     } finally {
       vi.useRealTimers();
     }

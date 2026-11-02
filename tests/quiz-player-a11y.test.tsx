@@ -3,6 +3,11 @@ import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 vi.mock('@/actions/quiz.actions', () => ({
+  startQuizAttempt: vi.fn().mockResolvedValue({
+    success: true,
+    attempt: 'test-attempt',
+    expiresAt: 9_999_999_999,
+  }),
   submitQuizResult: vi.fn().mockResolvedValue({ success: false }),
 }));
 

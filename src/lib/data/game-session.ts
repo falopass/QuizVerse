@@ -23,7 +23,9 @@ export async function fetchSessionByShareToken(
     .rpc('get_session_by_share_token', { p_token: shareToken })
     .maybeSingle();
 
-  if (!error) return data ? { ...data, player_id: null } : null;
+  // El RPC no devuelve attempt_id (no forma parte del resultado compartido):
+  // la fila pública lo deja en null, igual que player_id.
+  if (!error) return data ? { ...data, player_id: null, attempt_id: null } : null;
   if (!isMissingRpcFunction(error)) return null;
 
   const { data: row, error: fallbackError } = await supabase

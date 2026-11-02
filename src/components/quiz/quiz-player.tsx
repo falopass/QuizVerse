@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { entrance } from '@/lib/ui/motion';
-import { submitQuizResult } from '@/actions/quiz.actions';
+import { startQuizAttempt, submitQuizResult } from '@/actions/quiz.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
@@ -179,6 +179,12 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const [submitFailed, setSubmitFailed] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
+  /**
+   * Emisión del attempt de la partida en curso. Las respuestas esperan esta
+   * promesa si el token aún no llegó: el primer toque no debe quedarse sin
+   * veredicto por una carrera con el arranque.
+   */
+  const attemptPromiseRef = React.useRef<Promise<string | null> | null>(null);
   /** Segundos de la partida, congelados al completar: un reintento no suma espera. */
   const elapsedSecondsRef = React.useRef<number | null>(null);
   const { success: toastSuccess, error: toastError } = useToast();
@@ -232,6 +238,27 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
   }, []);
 
   /**
+   * Pide al servidor el attempt firmado de la partida que acaba de arrancar.
+   * Si falla (sin secreto configurado, red caída), el token queda en `null`:
+   * el reveal no se intenta y la partida se puntúa igual al enviar.
+   */
+  const beginAttempt = React.useCallback((quizId: string) => {
+    const gameId = useQuizStore.getState().gameId;
+    useQuizStore.getState().setAttemptToken(null);
+
+    const promise = startQuizAttempt(quizId)
+      .then((result) => {
+        if (!result.success || useQuizStore.getState().gameId !== gameId) return null;
+        useQuizStore.getState().setAttemptToken(result.attempt);
+        return result.attempt;
+      })
+      .catch(() => null);
+
+    attemptPromiseRef.current = promise;
+    return promise;
+  }, []);
+
+  /**
    * Asks the server whether the chosen option is right, then records the
    * answer. If the reveal fails the answer is still recorded (without feedback)
    * because submission re-grades everything server-side.
@@ -255,11 +282,16 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
       const answeredIndex = currentQuestionIndex;
       const gameId = useQuizStore.getState().gameId;
       setIsCheckingAnswer(true);
-      const revealed = await requestAnswerVerdict({
-        quizId: quiz.id,
-        questionId: question.id,
-        selectedOptionId: chosenOptionId,
-      });
+      const attempt =
+        useQuizStore.getState().attemptToken ?? (await attemptPromiseRef.current) ?? null;
+      const revealed = attempt
+        ? await requestAnswerVerdict({
+            quizId: quiz.id,
+            questionId: question.id,
+            selectedOptionId: chosenOptionId,
+            attempt,
+          })
+        : null;
       const current = useQuizStore.getState();
       if (current.gameId !== gameId) return;
       setIsCheckingAnswer(false);
@@ -306,7 +338,8 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
     hasSubmittedRef.current = false;
     elapsedSecondsRef.current = null;
     startGame(quiz, initialMode ?? 'normal');
-  }, [quiz, startGame, initialMode]);
+    void beginAttempt(quiz.id);
+  }, [quiz, startGame, initialMode, beginAttempt]);
 
   React.useEffect(() => {
     // Solo cuando la partida ya arrancó con este quiz: el primer render puede
@@ -389,7 +422,13 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
         selected_option_id,
         time_ms,
       }));
-      const result = await submitQuizResult(quiz.id, payload, totalTimeSeconds);
+      // A esta altura la partida ya respondió al menos una pregunta (o terminó
+      // por tiempo): si el attempt iba a llegar, ya está en el store. No se
+      // espera la promesa para que un cuelgue de red no bloquee el resultado.
+      const attemptToken = useQuizStore.getState().attemptToken;
+      const result = attemptToken
+        ? await submitQuizResult(quiz.id, payload, totalTimeSeconds, attemptToken)
+        : await submitQuizResult(quiz.id, payload, totalTimeSeconds);
       if (isStale()) return;
       if (!result.success) {
         notifySubmitFailed();
@@ -596,6 +635,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
 
   const handleStartGame = (mode: GameMode) => {
     startGame(quiz, mode);
+    void beginAttempt(quiz.id);
     setSubmission(null);
     setIsSubmittingResult(false);
     setIsCheckingAnswer(false);
@@ -838,9 +878,16 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
                 if (id === 'fifty-fifty') {
                   void (async () => {
                     const gameId = useQuizStore.getState().gameId;
+                    const attempt =
+                      useQuizStore.getState().attemptToken ??
+                      (await attemptPromiseRef.current) ??
+                      null;
+                    // Sin attempt el servidor no da pista: la ayuda no se gasta.
+                    if (!attempt) return;
                     const eliminated = await requestEliminatedOptions({
                       quizId: quiz.id,
                       questionId: currentQuestion.id,
+                      attempt,
                     });
                     // Without an answer from the server the power-up is not spent.
                     if (!eliminated) return;

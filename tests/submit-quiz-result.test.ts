@@ -1,12 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+type DbError = { message: string; code?: string };
+
 const mocks = vi.hoisted(() => ({
   userId: null as string | null,
   insertSpy: vi.fn(),
-  insertError: null as { message: string } | null,
+  insertError: null as DbError | null,
+  insertErrors: [] as DbError[],
+  selectResult: { data: null as unknown, error: null as DbError | null },
   rpc: vi.fn(),
   limitCheck: vi.fn(),
   headerList: new Map<string, string>(),
+  verifyAttempt: vi.fn(),
+  attemptReveals: null as Record<string, string> | null,
+  sessionIds: { id: 'derived-session-id', shareToken: 'derived-share-token' },
 }));
 
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }));
@@ -28,8 +35,14 @@ vi.mock('@/lib/supabase/server', () => ({
       return {
         insert: async (payload: Record<string, unknown>) => {
           mocks.insertSpy(payload);
-          return { data: null, error: mocks.insertError };
+          const error = mocks.insertErrors.length ? mocks.insertErrors.shift() : mocks.insertError;
+          return { data: null, error: error ?? null };
         },
+        select: () => ({
+          eq: () => ({
+            maybeSingle: async () => mocks.selectResult,
+          }),
+        }),
       };
     },
     rpc: mocks.rpc,
@@ -64,9 +77,21 @@ vi.mock('@/lib/quiz/quiz-repository', () => ({
 
 vi.mock('@/lib/quiz/achievements', () => ({ checkAchievements: async () => [] }));
 
+vi.mock('@/lib/quiz/attempt', () => ({
+  createQuizAttempt: vi.fn(),
+  verifyQuizAttempt: mocks.verifyAttempt,
+  sessionIdsForAttempt: async () => mocks.sessionIds,
+}));
+
+vi.mock('@/lib/quiz/attempt-store', () => ({
+  getAttemptReveals: async () => mocks.attemptReveals,
+}));
+
 import { submitQuizResult } from '@/actions/quiz.actions';
 
 const QUIZ_ID = '3f8a2c5e-9b1d-4e7f-a2c3-d5e6f7a8b9c0';
+const ATTEMPT = 'signed-attempt-token';
+const ATTEMPT_ID = 'attempt-1';
 
 const ALL_CORRECT = [
   { question_id: 'q1', selected_option_id: 'a' },
@@ -82,9 +107,22 @@ beforeEach(() => {
   mocks.userId = null;
   mocks.insertSpy.mockClear();
   mocks.insertError = null;
+  mocks.insertErrors = [];
+  mocks.selectResult = { data: null, error: null };
   mocks.rpc.mockReset().mockResolvedValue({ data: null, error: null });
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.headerList = new Map([['cf-connecting-ip', '203.0.113.9']]);
+  mocks.verifyAttempt.mockReset().mockResolvedValue({
+    ok: true,
+    attempt: {
+      quizId: QUIZ_ID,
+      attemptId: ATTEMPT_ID,
+      issuedAt: 1_700_000_000,
+      expiresAt: 1_800_000_000,
+    },
+  });
+  mocks.attemptReveals = null;
+  mocks.sessionIds = { id: 'derived-session-id', shareToken: 'derived-share-token' };
 });
 
 describe('submitQuizResult', () => {
@@ -214,5 +252,104 @@ describe('submitQuizResult', () => {
     const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10);
 
     expect(result.success).toBe(false);
+  });
+});
+
+describe('submitQuizResult · idempotencia por attempt', () => {
+  it('un segundo envío del mismo attempt devuelve la sesión existente sin insertar', async () => {
+    mocks.selectResult = {
+      data: {
+        id: 'session-1',
+        share_token: 'share-1',
+        score: 2,
+        max_score: 2,
+        result_id: null,
+        result_title: null,
+        answers: [
+          { question_id: 'q1', selected_option_id: 'a', is_correct: true },
+          { question_id: 'q2', selected_option_id: 'a', is_correct: true },
+        ],
+      },
+      error: null,
+    };
+
+    const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.session).toEqual({ id: 'session-1', share_token: 'share-1' });
+    expect(result.score).toBe(2);
+    expect(result.points_earned).toBe(0);
+    expect(result.achievements_unlocked).toEqual([]);
+    expect(mocks.insertSpy).not.toHaveBeenCalled();
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('deduplica por el índice único cuando la RLS no deja leer la fila', async () => {
+    mocks.insertErrors = [{ code: '23505', message: 'duplicate key value' }];
+
+    const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.session).toEqual({
+      id: 'derived-session-id',
+      share_token: 'derived-share-token',
+    });
+    expect(result.points_earned).toBe(0);
+    expect(mocks.insertSpy).toHaveBeenCalledTimes(1);
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('sin la migración 019 detecta la columna ausente y guarda sin attempt_id', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    mocks.insertErrors = [
+      {
+        code: 'PGRST204',
+        message: "Could not find the 'attempt_id' column of 'game_sessions' in the schema cache",
+      },
+    ];
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+      expect(result.success).toBe(true);
+      expect(mocks.insertSpy).toHaveBeenCalledTimes(2);
+      expect(mocks.insertSpy.mock.calls[0][0]).toMatchObject({ attempt_id: ATTEMPT_ID });
+      expect(mocks.insertSpy.mock.calls[1][0]).not.toHaveProperty('attempt_id');
+      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('019_attempt_idempotencia'));
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
+  it('un attempt inválido no bloquea el envío: se guarda como antes', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'bad_signature' });
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+      expect(result.success).toBe(true);
+      expect(mocks.insertSpy).toHaveBeenCalledTimes(1);
+      expect(mocks.insertSpy.mock.calls[0][0]).not.toHaveProperty('attempt_id');
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('bad_signature'));
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
+  it('la opción revelada manda sobre la opción enviada', async () => {
+    mocks.attemptReveals = { q2: 'b' };
+
+    const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.score).toBe(1);
+    const payload = mocks.insertSpy.mock.calls[0][0] as {
+      answers: Array<{ question_id: string; selected_option_id: string }>;
+    };
+    expect(payload.answers[1]).toMatchObject({ question_id: 'q2', selected_option_id: 'b' });
   });
 });

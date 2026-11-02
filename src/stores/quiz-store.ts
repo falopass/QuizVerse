@@ -21,6 +21,8 @@ export interface QuizGameState {
   // Quiz actual
   quiz: Quiz | null;
   gameId: number;
+  /** Token firmado de la partida en curso; viaja al reveal y al envío. */
+  attemptToken: string | null;
 
   // Estado del juego
   gameMode: GameMode;
@@ -50,6 +52,7 @@ export interface QuizGameState {
 
   // Actions
   startGame: (quiz: Quiz, mode?: GameMode) => void;
+  setAttemptToken: (token: string | null) => void;
   selectOption: (optionId: string) => void;
   /**
    * Records the current answer. `verdict` comes from the server (`/api/quiz/reveal`);
@@ -116,6 +119,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   // Estado inicial
   quiz: null,
   gameId: 0,
+  attemptToken: null,
   gameMode: 'normal',
   currentQuestionIndex: 0,
   selectedOptionId: null,
@@ -137,6 +141,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     set({
       quiz,
       gameId: get().gameId + 1,
+      attemptToken: null,
       gameMode: mode,
       currentQuestionIndex: 0,
       selectedOptionId: null,
@@ -159,6 +164,10 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
       lastAnswerCorrect: null,
       showFeedback: false,
     });
+  },
+
+  setAttemptToken: (token: string | null) => {
+    set({ attemptToken: token });
   },
 
   selectOption: (optionId: string) => {

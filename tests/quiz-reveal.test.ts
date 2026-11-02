@@ -2,8 +2,8 @@
  * Contract tests for POST /api/quiz/reveal.
  *
  * The endpoint is the single place where the answer key leaves the server:
- * it must return only a verdict or a hint, throttle by IP, and never leak
- * `is_correct` or the full options list.
+ * it must return only a verdict or a hint, throttle by IP, require a valid
+ * game attempt, and never leak `is_correct` or the full options list.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,6 +12,8 @@ import type { AnswerKeyQuiz } from '@/lib/quiz/quiz-repository';
 const mocks = vi.hoisted(() => ({
   loadAnswerKey: vi.fn(),
   rateLimitCheck: vi.fn(),
+  verifyAttempt: vi.fn(),
+  claimReveal: vi.fn(),
 }));
 
 vi.mock('@/lib/quiz/quiz-repository', () => ({
@@ -22,9 +24,18 @@ vi.mock('@/lib/utils/rate-limit', () => ({
   createRateLimiter: vi.fn(() => ({ check: mocks.rateLimitCheck })),
 }));
 
+vi.mock('@/lib/quiz/attempt', () => ({
+  verifyQuizAttempt: mocks.verifyAttempt,
+}));
+
+vi.mock('@/lib/quiz/attempt-store', () => ({
+  claimQuestionReveal: mocks.claimReveal,
+}));
+
 import { POST } from '@/app/api/quiz/reveal/route';
 
 const QUIZ_ID = '123e4567-e89b-42d3-a456-426614174000';
+const ATTEMPT = 'signed-attempt-token';
 
 function makeAnswerKeyQuiz(): AnswerKeyQuiz {
   return {
@@ -63,14 +74,31 @@ function revealRequest(body: unknown): Request {
   });
 }
 
-const validAnswer = { quizId: QUIZ_ID, questionId: 'q1', selectedOptionId: 'q1a' };
-const validHint = { quizId: QUIZ_ID, questionId: 'q1', purpose: 'hint' };
+const validAnswer = {
+  quizId: QUIZ_ID,
+  questionId: 'q1',
+  selectedOptionId: 'q1a',
+  attempt: ATTEMPT,
+};
+const validHint = { quizId: QUIZ_ID, questionId: 'q1', purpose: 'hint', attempt: ATTEMPT };
 
 beforeEach(() => {
   mocks.loadAnswerKey.mockReset();
   mocks.loadAnswerKey.mockResolvedValue(makeAnswerKeyQuiz());
   mocks.rateLimitCheck.mockReset();
   mocks.rateLimitCheck.mockResolvedValue({ allowed: true, remaining: 119, reset: 60 });
+  mocks.verifyAttempt.mockReset();
+  mocks.verifyAttempt.mockResolvedValue({
+    ok: true,
+    attempt: {
+      quizId: QUIZ_ID,
+      attemptId: 'attempt-1',
+      issuedAt: 1_700_000_000,
+      expiresAt: 1_800_000_000,
+    },
+  });
+  mocks.claimReveal.mockReset();
+  mocks.claimReveal.mockResolvedValue({ ok: true });
 });
 
 describe('POST /api/quiz/reveal — answer', () => {
@@ -96,9 +124,81 @@ describe('POST /api/quiz/reveal — answer', () => {
     expect(body.correctOptionId).toBe('q1a');
   });
 
+  it('marca la pregunta como revelada con su índice y la opción elegida', async () => {
+    await POST(revealRequest(validAnswer));
+
+    expect(mocks.claimReveal).toHaveBeenCalledWith('attempt-1', 'q1', 0, 'q1a');
+  });
+
+  it('rechaza un reveal sin attempt', async () => {
+    const response = await POST(revealRequest({ ...validAnswer, attempt: undefined }));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: 'attempt_required' });
+    expect(mocks.verifyAttempt).not.toHaveBeenCalled();
+    expect(mocks.loadAnswerKey).not.toHaveBeenCalled();
+  });
+
+  it('rechaza un attempt de otro quiz', async () => {
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'quiz_mismatch' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(403);
+    expect(await response.json()).toEqual({ error: 'attempt_quiz_mismatch' });
+    expect(mocks.loadAnswerKey).not.toHaveBeenCalled();
+  });
+
+  it('rechaza un attempt caducado', async () => {
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'expired' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: 'attempt_expired' });
+  });
+
+  it('rechaza un attempt con firma inválida', async () => {
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'bad_signature' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: 'attempt_bad_signature' });
+  });
+
+  it('falla cerrado cuando no hay secreto para verificar attempts', async () => {
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'unavailable' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({ error: 'attempt_unavailable' });
+  });
+
+  it('rechaza una pregunta ya revelada en la misma partida', async () => {
+    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'already_revealed' });
+
+    const response = await POST(revealRequest(validAnswer));
+    const body = await response.json();
+
+    expect(response.status).toBe(409);
+    expect(body).toEqual({ error: 'already_revealed' });
+    expect(body).not.toHaveProperty('correctOptionId');
+  });
+
+  it('rechaza una pregunta que retrocede en el orden', async () => {
+    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'out_of_order' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(409);
+    expect(await response.json()).toEqual({ error: 'out_of_order' });
+  });
+
   it('rejects an answer without selectedOptionId', async () => {
     const response = await POST(
-      revealRequest({ quizId: QUIZ_ID, questionId: 'q1', purpose: 'answer' })
+      revealRequest({ quizId: QUIZ_ID, questionId: 'q1', purpose: 'answer', attempt: ATTEMPT })
     );
 
     expect(response.status).toBe(400);
@@ -110,6 +210,7 @@ describe('POST /api/quiz/reveal — answer', () => {
 
     expect(response.status).toBe(404);
     expect(await response.json()).toEqual({ error: 'question_not_found' });
+    expect(mocks.claimReveal).not.toHaveBeenCalled();
   });
 
   it('never exposes the answer key or the option list', async () => {
@@ -136,6 +237,15 @@ describe('POST /api/quiz/reveal — hint', () => {
     }
     expect(body.eliminated).not.toContain('q1a');
     expect(body).not.toHaveProperty('correctOptionId');
+    // Las pistas no consumen el reveal de la pregunta: son deterministas.
+    expect(mocks.claimReveal).not.toHaveBeenCalled();
+  });
+
+  it('también exige attempt', async () => {
+    const response = await POST(revealRequest({ ...validHint, attempt: undefined }));
+
+    expect(response.status).toBe(401);
+    expect(await response.json()).toEqual({ error: 'attempt_required' });
   });
 
   it('returns an empty list when there is nothing worth hiding', async () => {
@@ -186,5 +296,6 @@ describe('POST /api/quiz/reveal — rate limit', () => {
     expect(response.headers.get('cache-control')).toBe('no-store');
     expect(await response.json()).toEqual({ error: 'rate_limited' });
     expect(mocks.loadAnswerKey).not.toHaveBeenCalled();
+    expect(mocks.verifyAttempt).not.toHaveBeenCalled();
   });
 });

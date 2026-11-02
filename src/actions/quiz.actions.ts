@@ -20,9 +20,17 @@ import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { buildReview } from '@/lib/quiz/answer-key';
 import { isShareToken } from '@/lib/quiz/challenge';
+import {
+  attemptsAvailable,
+  createQuizAttempt,
+  sessionIdsForAttempt,
+  verifyQuizAttempt,
+  warnAttemptsInactive,
+} from '@/lib/quiz/attempt';
+import { getAttemptReveals } from '@/lib/quiz/attempt-store';
 import { QuizCreateSchema, localizedIssueMessages, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
-import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
+import { loadAnswerKeyByQuizId, type AnswerKeyQuiz } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug, provisionalSlug } from '@/lib/quiz/quiz-slug';
 import {
   actionFailure,
@@ -32,8 +40,9 @@ import {
 } from '@/lib/actions/types';
 import { quizLocales, revalidateQuizPages } from '@/lib/quiz/revalidate';
 import { locales } from '@/lib/i18n/dictionaries';
+import { createServiceClient } from '@/lib/supabase/service';
 import type { Database, QuizStatus } from '@/types/database';
-import type { QuizReviewItem } from '@/types/quiz';
+import type { Answer, QuizReviewItem } from '@/types/quiz';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
   /** Set by the AI assistant so the catalog can flag generated drafts. */
@@ -342,6 +351,46 @@ function newShareToken(): string {
     .join('');
 }
 
+/** Una partida nueva por reinicio es normal; 30/min por IP ya es abuso. */
+const attemptLimiter = createRateLimiter('quiz-attempt', 30, 60, 'open');
+
+/**
+ * Emite el attempt firmado de una partida.
+ *
+ * El reproductor lo pide al arrancar cada partida (incluidos «jugar otra vez» y
+ * los cambios de modo) y lo reenvía al reveal y al envío. Sin secreto de
+ * servidor devuelve `unavailable`: el juego sigue, sin feedback inmediato.
+ */
+export async function startQuizAttempt(
+  quizId: string
+): Promise<ActionResult<{ attempt: string; expiresAt: number }>> {
+  const parsed = z.string().uuid().safeParse(quizId);
+  if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
+
+  const { allowed } = await attemptLimiter.check(await clientIp());
+  if (!allowed) return actionFailure('rate_limited', 'Too many games. Please wait.');
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('quizzes')
+    .select('id')
+    .eq('id', parsed.data)
+    .eq('status', 'published')
+    .maybeSingle();
+  if (error || !data) return actionFailure('not_found', 'Quiz not found.');
+
+  const attempt = await createQuizAttempt(parsed.data);
+  if (!attempt) {
+    console.error(
+      '[quiz.attempt] sin QUIZ_ATTEMPT_SECRET ni SUPABASE_SERVICE_ROLE_KEY: ' +
+        'el reveal queda deshabilitado y las partidas se puntúan al enviar.'
+    );
+    return actionFailure('unavailable', 'Game attempts are not configured.');
+  }
+
+  return { success: true, attempt: attempt.token, expiresAt: attempt.attempt.expiresAt };
+}
+
 export interface SubmittedAnswer {
   question_id: string;
   selected_option_id: string;
@@ -362,17 +411,120 @@ export interface SubmitGameResult {
   review: QuizReviewItem[];
 }
 
+interface StoredSession {
+  id: string;
+  share_token: string | null;
+  score: number;
+  max_score: number;
+  result_id: string | null;
+  result_title: string | null;
+  answers: unknown;
+}
+
+function isMissingAttemptColumn(error: { code?: string; message?: string } | null): boolean {
+  return Boolean(
+    error &&
+    (error.code === 'PGRST204' || error.code === '42703') &&
+    /attempt_id/i.test(error.message ?? '')
+  );
+}
+
+function isDuplicateSession(error: { code?: string } | null): boolean {
+  return error?.code === '23505';
+}
+
+let warnedMissingAttemptColumn = false;
+
+function warnMissingAttemptColumn() {
+  if (warnedMissingAttemptColumn) return;
+  warnedMissingAttemptColumn = true;
+  console.error(
+    '[game-sessions] falta la columna attempt_id: aplica ' +
+      'supabase/migrations/019_attempt_idempotencia.sql. El envío sigue funcionando.'
+  );
+}
+
+/**
+ * Busca una sesión ya guardada para este attempt.
+ *
+ * La RLS no deja leer las partidas anónimas, así que se usa service role cuando
+ * existe. Si no, un anónimo no verá su propia fila y la deduplicación caerá al
+ * índice único del INSERT.
+ */
+async function findSessionByAttempt(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  attemptId: string
+): Promise<StoredSession | null> {
+  const client = createServiceClient() ?? supabase;
+  const { data, error } = await client
+    .from('game_sessions')
+    .select('id, share_token, score, max_score, result_id, result_title, answers')
+    .eq('attempt_id', attemptId)
+    .maybeSingle();
+
+  if (error) {
+    if (isMissingAttemptColumn(error)) warnMissingAttemptColumn();
+    return null;
+  }
+  return (data as unknown as StoredSession | null) ?? null;
+}
+
+function storedAnswers(existing: StoredSession | null, fallback: Answer[]): Answer[] {
+  if (!existing || !Array.isArray(existing.answers)) return fallback;
+  return existing.answers.filter(
+    (answer): answer is Answer =>
+      Boolean(answer) &&
+      typeof answer === 'object' &&
+      typeof (answer as Answer).question_id === 'string' &&
+      typeof (answer as Answer).selected_option_id === 'string'
+  );
+}
+
+/** Respuesta de un envío repetido: la sesión existe, no se suma nada. */
+function duplicateSubmitResult(
+  quiz: AnswerKeyQuiz,
+  scored: ReturnType<typeof scoreSubmission>,
+  session: { id: string; shareToken: string },
+  existing: StoredSession | null
+): ActionResult<SubmitGameResult> {
+  const resultId = existing?.result_id ?? scored.resultId;
+  const partner = resultId ? (quiz.results ?? []).find((item) => item.id === resultId) : undefined;
+
+  return {
+    success: true,
+    session: {
+      id: existing?.id ?? session.id,
+      share_token: existing?.share_token ?? session.shareToken,
+    },
+    result: partner
+      ? { id: partner.id, title: partner.title, description: partner.description }
+      : null,
+    score: existing?.score ?? scored.score,
+    max_score: existing?.max_score ?? scored.maxScore,
+    // Sin INSERT no hay trigger: ni puntos ni logros nuevos.
+    points_earned: 0,
+    achievements_unlocked: [],
+    review: buildReview(quiz, storedAnswers(existing, scored.graded)),
+  };
+}
+
 /**
  * Persists a finished game.
  *
  * The payload carries choices only. The score, the personality result and the
  * stored `answers` are all recomputed here from the quiz in the database, so a
  * crafted request cannot buy points.
+ *
+ * `attemptToken` (opcional, por compatibilidad con clientes antiguos) ata el
+ * envío a una partida: un segundo envío del mismo attempt devuelve la sesión
+ * ya guardada sin duplicar plays ni puntos. Además, si el jugador reveló una
+ * pregunta con una opción, esa opción manda sobre lo que envíe después.
  */
 export async function submitQuizResult(
   quizId: string,
   answers: SubmittedAnswer[],
-  timeTakenSeconds = 0
+  timeTakenSeconds = 0,
+  attemptToken?: string
 ): Promise<ActionResult<SubmitGameResult>> {
   const { supabase, user } = await currentUser();
 
@@ -388,16 +540,42 @@ export async function submitQuizResult(
   const quiz = await loadAnswerKeyByQuizId(parsed.data.quizId);
   if (!quiz) return actionFailure('not_found', 'Quiz not found.');
 
-  const scored = scoreSubmission(quiz, parsed.data.answers);
+  const verification = attemptToken ? await verifyQuizAttempt(attemptToken, quiz.id) : null;
+  if (verification && !verification.ok) {
+    // Un token inválido no puede costar la partida: se guarda sin idempotencia,
+    // igual que un cliente anterior a este cambio.
+    console.warn(`[quiz.submit] attempt ${verification.reason}: se envía sin idempotencia`);
+  }
+  const attempt = verification?.ok ? verification.attempt : null;
+
+  // Si hubo reveal, la opción revelada es la que vale: ver la respuesta
+  // correcta y enviar otra distinta no puede mejorar el marcador.
+  const revealed = attempt ? await getAttemptReveals(attempt.attemptId) : null;
+  const submitted = revealed
+    ? parsed.data.answers.map((answer) =>
+        revealed[answer.question_id] !== undefined
+          ? { ...answer, selected_option_id: revealed[answer.question_id] }
+          : answer
+      )
+    : parsed.data.answers;
+
+  const scored = scoreSubmission(quiz, submitted);
+
+  const existing = attempt ? await findSessionByAttempt(supabase, attempt.attemptId) : null;
+  const ids = (attempt ? await sessionIdsForAttempt(attempt.attemptId) : null) ?? {
+    id: crypto.randomUUID(),
+    shareToken: newShareToken(),
+  };
+
+  if (existing) return duplicateSubmitResult(quiz, scored, ids, existing);
 
   // La policy nueva de game_sessions solo deja leer las propias, así que un
   // INSERT ... RETURNING devolvería 0 filas para un anónimo y la partida se
   // perdería. id y share_token se generan aquí (misma forma que los defaults
   // de la tabla) y el insert no necesita leer nada de vuelta.
-  const session = { id: crypto.randomUUID(), share_token: newShareToken() };
-  const { error } = await supabase.from('game_sessions').insert({
-    id: session.id,
-    share_token: session.share_token,
+  const insert = {
+    id: ids.id,
+    share_token: ids.shareToken,
     quiz_id: quiz.id,
     player_id: user?.id ?? null,
     score: scored.score,
@@ -406,7 +584,24 @@ export async function submitQuizResult(
     result_title: scored.resultTitle,
     time_taken_seconds: parsed.data.timeTakenSeconds,
     answers: toJson(scored.graded),
-  });
+    ...(attempt ? { attempt_id: attempt.attemptId } : {}),
+  };
+
+  let { error } = await supabase.from('game_sessions').insert(insert);
+
+  if (error && attempt && isMissingAttemptColumn(error)) {
+    // Sin la migración 019 la columna no existe: se guarda como antes. El id
+    // determinista sigue evitando que un reintento duplique la sesión.
+    warnMissingAttemptColumn();
+    const withoutAttempt = { ...insert };
+    delete withoutAttempt.attempt_id;
+    ({ error } = await supabase.from('game_sessions').insert(withoutAttempt));
+    if (error && isDuplicateSession(error)) {
+      return duplicateSubmitResult(quiz, scored, ids, null);
+    }
+  } else if (error && attempt && isDuplicateSession(error)) {
+    return duplicateSubmitResult(quiz, scored, ids, null);
+  }
 
   if (error) {
     return unexpectedFailure('quiz.submit', error);
@@ -423,7 +618,7 @@ export async function submitQuizResult(
 
   return {
     success: true,
-    session: { id: session.id, share_token: session.share_token },
+    session: { id: ids.id, share_token: ids.shareToken },
     result: partner
       ? { id: partner.id, title: partner.title, description: partner.description }
       : null,
