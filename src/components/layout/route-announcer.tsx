@@ -3,10 +3,13 @@
 import * as React from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-// El flag vive a nivel de módulo: sobrevive al remontaje del shell al cambiar
-// de idioma (/en <-> /es), que también es una navegación y sí debe anunciarse.
-// Solo la primera montada de la sesión (carga inicial) queda en silencio.
+// Los flags viven a nivel de módulo: sobreviven al remontaje del shell al
+// cambiar de idioma (/en <-> /es), que también es una navegación y sí debe
+// anunciarse. Solo la primera montada de la sesión (carga inicial) queda en
+// silencio, y un Atrás/Adelante que cruza el cambio de idioma sigue contando
+// como navegación histórica en la instancia nueva.
 let mountedOnce = false;
+let historyNavigation = false;
 
 // A11Y-06: el announcer que Next inyecta queda vacío en esta app (medido con
 // axe + Playwright), así que anunciamos nosotros: tras cada navegación interna
@@ -20,11 +23,10 @@ export function RouteAnnouncer() {
   const pathname = usePathname();
   const search = useSearchParams().toString();
   const regionRef = React.useRef<HTMLDivElement>(null);
-  const isPopstate = React.useRef(false);
 
   React.useEffect(() => {
     const onPopstate = () => {
-      isPopstate.current = true;
+      historyNavigation = true;
     };
     window.addEventListener('popstate', onPopstate);
     return () => window.removeEventListener('popstate', onPopstate);
@@ -47,10 +49,10 @@ export function RouteAnnouncer() {
           region.textContent = text;
         });
       }
-      if (!isPopstate.current) {
+      if (!historyNavigation) {
         main?.focus({ preventScroll: true });
       }
-      isPopstate.current = false;
+      historyNavigation = false;
     }, 100);
     return () => window.clearTimeout(timer);
   }, [pathname, search]);

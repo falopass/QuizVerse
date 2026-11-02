@@ -234,6 +234,21 @@ describe('A11Y-06: anuncio de navegación y foco al contenido', () => {
     expect(document.activeElement?.id).toBe('main-content');
   });
 
+  it('Atrás entre idiomas (popstate + remontaje) no roba el foco', async () => {
+    // El popstate lo recibe la instancia montada; el shell se remonta después.
+    const { unmount } = await renderPage('Inicio');
+    act(() => {
+      window.dispatchEvent(new Event('popstate'));
+    });
+    unmount();
+
+    await renderPage('Home');
+    act(() => vi.advanceTimersByTime(200));
+
+    expect(screen.getByRole('status')).toHaveTextContent('Home');
+    expect(document.activeElement?.id).not.toBe('main-content');
+  });
+
   it('en back/forward (popstate) no roba el foco', async () => {
     const { RouteAnnouncer } = await import('@/components/layout/route-announcer');
     const { rerender } = await renderPage('Home');
