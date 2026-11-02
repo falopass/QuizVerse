@@ -22,12 +22,12 @@ interface LocalePageProps {
 
 const HOME_COPY = {
   en: {
-    title: 'QuizVerse — Free personality quizzes, trivia and fandom tests',
+    title: 'QuizVerse — Free personality quizzes and trivia',
     description:
       'Play free personality tests, trivia and fandom quizzes in English and Spanish. Pick a game, answer fast and share a result worth posting.',
   },
   es: {
-    title: 'QuizVerse — Tests de personalidad, trivia y quizzes de fandom gratis',
+    title: 'QuizVerse — Tests de personalidad, trivia y quizzes gratis',
     description:
       'Juega tests de personalidad, trivia y quizzes de fandom gratis en español e inglés. Elige un juego, responde rápido y comparte tu resultado.',
   },

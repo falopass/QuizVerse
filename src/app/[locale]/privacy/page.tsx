@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const lang = hasLocale(locale) ? locale : 'en';
   return buildMetadata({
-    title: lang === 'es' ? 'Política de Privacidad' : 'Privacy Policy',
+    title: lang === 'es' ? 'Política de privacidad' : 'Privacy Policy',
     description:
       lang === 'es'
         ? 'Cómo QuizVerse recopila, usa y protege tus datos personales, y qué cookies y servicios usa el sitio.'
@@ -28,7 +28,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   const lang = hasLocale(locale) ? locale : 'en';
 
   const content = {
-    title: { en: 'Privacy Policy', es: 'Política de Privacidad' },
+    title: { en: 'Privacy Policy', es: 'Política de privacidad' },
     lastUpdated: { en: 'Last updated: May 2026', es: 'Última actualización: mayo 2026' },
     sections: {
       intro: {
@@ -53,7 +53,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
         heading: { en: 'Third-Party Services', es: 'Servicios de terceros' },
         body: {
           en: 'QuizVerse uses the following third-party services that may process your data: Supabase (authentication, database, storage), DeepSeek (AI quiz generation), Pexels and Pixabay (stock imagery), and optionally Google AdSense (advertising). Each of these services has its own privacy policy.',
-          es: 'QuizVerse utiliza los siguientes servicios de terceros que pueden procesar tus datos: Supabase (autenticación, base de datos, almacenamiento), DeepSeek (generación de quizzes con IA), Pexels y Pixabay (imágenes de stock), y opcionalmente Google AdSense (publicidad). Cada uno de estos servicios tiene su propia política de privacidad.',
+          es: 'QuizVerse utiliza los siguientes servicios de terceros que pueden procesar tus datos: Supabase (autenticación, base de datos, almacenamiento), DeepSeek (generación de quizzes con IA), Pexels y Pixabay (bancos de imágenes), y opcionalmente Google AdSense (publicidad). Cada uno de estos servicios tiene su propia política de privacidad.',
         },
       },
       dataRetention: {

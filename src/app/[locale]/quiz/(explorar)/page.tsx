@@ -34,7 +34,7 @@ export async function generateMetadata({
     title: EXPLORER_TITLE[locale],
     description:
       locale === 'es'
-        ? 'Explora el catálogo completo de QuizVerse por tema, mood y ritmo. Trivia, tests de personalidad y retos de fandom gratis.'
+        ? 'Explora el catálogo completo de QuizVerse por tema, ánimo y ritmo. Trivia, tests de personalidad y retos de fandom gratis.'
         : 'Browse the full QuizVerse catalog by topic, mood and pace. Free trivia rounds, personality tests and fandom challenges.',
     path: `/${locale}/quiz`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/quiz`,

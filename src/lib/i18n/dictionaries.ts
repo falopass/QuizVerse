@@ -5,18 +5,14 @@ export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
 
 export interface Dictionary {
-  localeLabel: string;
   common: {
     explore: string;
     create: string;
     leaderboard: string;
     login: string;
-    signup: string;
     playNow: string;
-    loading: string;
     minutesShort: string;
     questionsShort: string;
-    backHome: string;
     switchLocale: string;
     randomQuiz: string;
     home: string;
@@ -24,24 +20,10 @@ export interface Dictionary {
     dismissNotification: string;
   };
   nav: {
-    statement: string;
-    search: string;
     menu: string;
   };
   home: {
-    eyebrow: string;
-    title: string;
-    titleAccent: string;
-    subtitle: string;
-    primaryCta: string;
-    secondaryCta: string;
-    featuredTitle: string;
-    featuredBody: string;
-    quickTitle: string;
-    quickBody: string;
     sections: {
-      momentum: string;
-      moods: string;
       categories: string;
       discovery: string;
     };
@@ -50,35 +32,9 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     searchPlaceholder: string;
-    sortPopular: string;
-    sortRecent: string;
-    sortTitle: string;
     allCategories: string;
     emptyTitle: string;
     emptyBody: string;
-  };
-  detail: {
-    eyebrow: string;
-    duration: string;
-    difficulty: string;
-    plays: string;
-    likes: string;
-    supporting: string;
-    primaryCta: string;
-    secondaryCta: string;
-    preview: string;
-    whatToExpect: string;
-    questionPreview: string;
-    previewHeadline: string;
-    relatedEyebrow: string;
-    relatedHeadline: string;
-    socialProof: string;
-    whyPlay: string;
-    perfectFor: string;
-    moreLikeThis: string;
-    personality: string;
-    trivia: string;
-    poll: string;
   };
   auth: {
     title: string;
@@ -90,14 +46,6 @@ export interface Dictionary {
     subtitle: string;
     aiTitle: string;
     aiSubtitle: string;
-  };
-  result: {
-    share: string;
-    playAgain: string;
-    review: string;
-    exploreMore: string;
-    yourScore: string;
-    summary: string;
   };
   footer: {
     tagline: string;
@@ -114,13 +62,11 @@ export interface Dictionary {
     chooseGame: string;
     chooseBody: string;
     play: string;
-    quickPlay: string;
     backGames: string;
     gameType: string;
     time: string;
     language: string;
     category: string;
-    visibleGames: string;
     allCategories: string;
     pagination: string;
     previousPage: string;
@@ -134,8 +80,6 @@ export interface Dictionary {
     mainNavigation: string;
     footerNavigation: string;
     startPlaying: string;
-    coverRole: string;
-    coverTrivia: string;
     invite: string;
     inviteBody: string;
     copyInvite: string;
@@ -193,18 +137,14 @@ export interface Dictionary {
 
 const dictionaries: Record<Locale, Dictionary> = {
   en: {
-    localeLabel: 'English',
     common: {
       explore: 'Explore',
       create: 'Create',
       leaderboard: 'Leaderboard',
       login: 'Log in',
-      signup: 'Join now',
       playNow: 'Play now',
-      loading: 'Loading',
       minutesShort: 'min',
       questionsShort: 'questions',
-      backHome: 'Back home',
       switchLocale: 'Language',
       randomQuiz: 'Surprise me',
       home: 'Home',
@@ -212,26 +152,10 @@ const dictionaries: Record<Locale, Dictionary> = {
       dismissNotification: 'Dismiss notification',
     },
     nav: {
-      statement: 'Editorial quizzes for curious people.',
-      search: 'Search quizzes',
       menu: 'Menu',
     },
     home: {
-      eyebrow: 'Not another template quiz site',
-      title: 'A quiz universe with',
-      titleAccent: 'real editorial taste',
-      subtitle:
-        'Play cinematic personality tests, sharp trivia and quick social formats that feel crafted, not assembled from a UI kit.',
-      primaryCta: 'Start exploring',
-      secondaryCta: 'Create with AI',
-      featuredTitle: 'High-conviction discovery',
-      featuredBody:
-        'Trending, fast plays, strong personalities and evergreen culture in one place.',
-      quickTitle: 'Built for momentum',
-      quickBody: 'Browse quickly, land on a quiz fast and get a result worth sharing.',
       sections: {
-        momentum: 'Momentum',
-        moods: 'Browse by mood',
         categories: 'Category spectrum',
         discovery: 'Fresh discovery',
       },
@@ -240,40 +164,13 @@ const dictionaries: Record<Locale, Dictionary> = {
       title: 'Explore the full catalog',
       subtitle: 'Search by feeling, topic, pace or popularity.',
       searchPlaceholder: 'Search for fandoms, topics, vibes or creators',
-      sortPopular: 'Most played',
-      sortRecent: 'Newest',
-      sortTitle: 'Title',
       allCategories: 'All categories',
       emptyTitle: 'Nothing matched that search',
       emptyBody: 'Try a broader keyword or switch category.',
     },
-    detail: {
-      eyebrow: 'Play this next',
-      duration: 'Duration',
-      difficulty: 'Difficulty',
-      plays: 'Plays',
-      likes: 'Likes',
-      supporting:
-        'Everything you need to know before you press play: the pace, the stakes and the payoff waiting at the end.',
-      primaryCta: 'Start this quiz',
-      secondaryCta: 'Browse more quizzes',
-      preview: 'Preview',
-      whatToExpect: 'What to expect',
-      questionPreview: 'Inside the flow',
-      previewHeadline: 'A first look at the pacing',
-      relatedEyebrow: 'Stay in the lane',
-      relatedHeadline: 'More quizzes with the same energy',
-      socialProof: 'people have already played this one',
-      whyPlay: 'Why this works',
-      perfectFor: 'Perfect for',
-      moreLikeThis: 'More in this lane',
-      personality: 'Personality quiz',
-      trivia: 'Trivia challenge',
-      poll: 'Opinion poll',
-    },
     auth: {
       title: 'Step into QuizVerse',
-      subtitle: 'Save your streaks, publish quizzes and keep your favorite results close.',
+      subtitle: 'Keep your history, your results and the quizzes you publish.',
       guest: 'Continue as guest',
     },
     create: {
@@ -281,14 +178,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       subtitle: 'Shape the story, pacing and payoff before you publish.',
       aiTitle: 'Generate a first draft with AI',
       aiSubtitle: 'Start from a prompt, then edit the result into something worth sharing.',
-    },
-    result: {
-      share: 'Share my result',
-      playAgain: 'Play again',
-      review: 'Review answers',
-      exploreMore: 'Explore more quizzes',
-      yourScore: 'Your score',
-      summary: 'Session summary',
     },
     footer: {
       tagline: 'Pick a game. Play your pop culture. Share the result.',
@@ -305,13 +194,11 @@ const dictionaries: Record<Locale, Dictionary> = {
       chooseGame: 'Choose your game',
       chooseBody: 'Pick one. Press play. Get your result.',
       play: 'Play',
-      quickPlay: 'Quick play',
       backGames: '← Back to games',
       gameType: 'Game type',
       time: 'Time',
       language: 'Language',
       category: 'Category',
-      visibleGames: 'Games shown',
       allCategories: 'All categories',
       pagination: 'Pagination',
       previousPage: 'Previous',
@@ -325,8 +212,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       mainNavigation: 'Main navigation',
       footerNavigation: 'Footer links',
       startPlaying: 'Start playing',
-      coverRole: 'Your role',
-      coverTrivia: 'Fan test',
       invite: 'Share this quiz',
       inviteBody: 'Send the link to a friend and see what they score.',
       copyInvite: 'Copy link',
@@ -385,18 +270,14 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
   },
   es: {
-    localeLabel: 'Español',
     common: {
       explore: 'Explorar',
       create: 'Crear',
       leaderboard: 'Ranking',
       login: 'Entrar',
-      signup: 'Únete',
       playNow: 'Jugar ahora',
-      loading: 'Cargando',
       minutesShort: 'min',
       questionsShort: 'preguntas',
-      backHome: 'Volver al inicio',
       switchLocale: 'Idioma',
       randomQuiz: 'Sorpréndeme',
       home: 'Inicio',
@@ -404,84 +285,32 @@ const dictionaries: Record<Locale, Dictionary> = {
       dismissNotification: 'Cerrar aviso',
     },
     nav: {
-      statement: 'Quizzes editoriales para gente curiosa.',
-      search: 'Buscar quizzes',
       menu: 'Menú',
     },
     home: {
-      eyebrow: 'No es otra web de quizzes de plantilla',
-      title: 'Un universo de quizzes con',
-      titleAccent: 'criterio editorial real',
-      subtitle:
-        'Juega tests de personalidad con carácter, trivia afilada y formatos rápidos que se sienten diseñados, no ensamblados desde un kit.',
-      primaryCta: 'Empezar a explorar',
-      secondaryCta: 'Crear con AI',
-      featuredTitle: 'Descubrimiento con intención',
-      featuredBody:
-        'Tendencias, partidas rápidas, personalidades marcadas y cultura evergreen en un solo lugar.',
-      quickTitle: 'Diseñado para el ritmo',
-      quickBody:
-        'Navega rápido, encuentra un quiz enseguida y consigue un resultado que sí vale la pena compartir.',
       sections: {
-        momentum: 'Impulso',
-        moods: 'Explorar por mood',
         categories: 'Mapa de categorías',
         discovery: 'Descubrimiento fresco',
       },
     },
     explore: {
       title: 'Explora el catálogo completo',
-      subtitle: 'Busca por tema, vibra, ritmo o popularidad.',
-      searchPlaceholder: 'Busca fandoms, temas, moods o creadores',
-      sortPopular: 'Más jugados',
-      sortRecent: 'Más nuevos',
-      sortTitle: 'Título',
+      subtitle: 'Busca por tema, ánimo, ritmo o popularidad.',
+      searchPlaceholder: 'Busca fandoms, temas, estados de ánimo o creadores',
       allCategories: 'Todas las categorías',
       emptyTitle: 'No encontramos coincidencias',
       emptyBody: 'Prueba una búsqueda más amplia o cambia la categoría.',
     },
-    detail: {
-      eyebrow: 'Tu siguiente quiz',
-      duration: 'Duración',
-      difficulty: 'Dificultad',
-      plays: 'Partidas',
-      likes: 'Me gusta',
-      supporting:
-        'Todo lo que necesitas saber antes de jugar: el ritmo, lo que está en juego y la recompensa que te espera al final.',
-      primaryCta: 'Empezar quiz',
-      secondaryCta: 'Ver más quizzes',
-      preview: 'Vista previa',
-      whatToExpect: 'Qué esperar',
-      questionPreview: 'Dentro del flujo',
-      previewHeadline: 'Un vistazo al ritmo del quiz',
-      relatedEyebrow: 'Sigue en este mood',
-      relatedHeadline: 'Más quizzes con esta energía',
-      socialProof: 'personas ya jugaron este quiz',
-      whyPlay: 'Por qué funciona',
-      perfectFor: 'Ideal para',
-      moreLikeThis: 'Más de este estilo',
-      personality: 'Quiz de personalidad',
-      trivia: 'Trivia',
-      poll: 'Encuesta',
-    },
     auth: {
       title: 'Entra a QuizVerse',
-      subtitle: 'Guarda tus rachas, publica quizzes y conserva tus resultados favoritos.',
+      subtitle: 'Guarda tu historial, tus resultados y los quizzes que publiques.',
       guest: 'Continuar como invitado',
     },
     create: {
       title: 'Crea un quiz con intención',
       subtitle: 'Define historia, ritmo y payoff antes de publicar.',
-      aiTitle: 'Genera un primer borrador con AI',
+      aiTitle: 'Genera un primer borrador con IA',
       aiSubtitle: 'Parte desde un prompt y edita el resultado hasta que valga la pena compartirlo.',
-    },
-    result: {
-      share: 'Compartir mi resultado',
-      playAgain: 'Jugar de nuevo',
-      review: 'Revisar respuestas',
-      exploreMore: 'Explorar más quizzes',
-      yourScore: 'Tu puntuación',
-      summary: 'Resumen de la sesión',
     },
     footer: {
       tagline: 'Elige un juego. Juega tu cultura pop. Comparte el resultado.',
@@ -498,13 +327,11 @@ const dictionaries: Record<Locale, Dictionary> = {
       chooseGame: 'Elige tu juego',
       chooseBody: 'Elige uno. Juega. Descubre tu resultado.',
       play: 'Jugar',
-      quickPlay: 'Partida rápida',
       backGames: '← Volver a juegos',
       gameType: 'Tipo de juego',
       time: 'Tiempo',
       language: 'Idioma',
       category: 'Categoría',
-      visibleGames: 'Juegos mostrados',
       allCategories: 'Todas las categorías',
       pagination: 'Paginación',
       previousPage: 'Anterior',
@@ -518,8 +345,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       mainNavigation: 'Navegación principal',
       footerNavigation: 'Enlaces del pie',
       startPlaying: 'Empezar a jugar',
-      coverRole: 'Tu rol',
-      coverTrivia: 'Test fan',
       invite: 'Comparte este quiz',
       inviteBody: 'Manda el enlace a un amigo y mira qué puntaje saca.',
       copyInvite: 'Copiar enlace',

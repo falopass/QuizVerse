@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { getCategoryLabelBySlug } from '@/lib/i18n/catalog';
+import { CookiePreferencesButton } from '@/components/shared/cookie-preferences-button';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
 export function Footer({
@@ -38,6 +39,9 @@ export function Footer({
           </Link>
           <Link href={localizeHref(locale, '/about')}>{dictionary.arcade.about}</Link>
           <Link href={localizeHref(locale, '/privacy')}>{dictionary.arcade.privacy}</Link>
+          <CookiePreferencesButton
+            label={locale === 'es' ? 'Preferencias de cookies' : 'Cookie preferences'}
+          />
           <Link href={localizeHref(locale, '/terms')}>{dictionary.arcade.terms}</Link>
           <Link href={localizeHref(locale, '/contact')}>{dictionary.arcade.contact}</Link>
           <Link href={localizeHref(locale, '/faq')}>

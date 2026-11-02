@@ -113,7 +113,11 @@ export async function POST(request: NextRequest) {
   const validationWarnings: string[] = [];
 
   if (result.data.questions.length !== parsed.data.num_questions) {
-    validationWarnings.push('The generated question count differs from the requested count.');
+    validationWarnings.push(
+      parsed.data.language === 'es'
+        ? 'La IA generó una cantidad de preguntas distinta de la pedida.'
+        : 'The AI generated a different number of questions than requested.'
+    );
   }
 
   return NextResponse.json({

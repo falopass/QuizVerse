@@ -100,7 +100,7 @@ describe('generateCategoryMetadata title', () => {
     expect(
       generateCategoryMetadata({ name: 'Historia', slug: 'history', locale: 'es', quizCount: 1 })
         .title
-    ).toBe('Historia: 1 quiz online');
+    ).toBe('Historia: 1 quiz para jugar');
     expect(
       generateCategoryMetadata({ name: 'History', slug: 'history', locale: 'en', quizCount: 1 })
         .title
@@ -110,7 +110,7 @@ describe('generateCategoryMetadata title', () => {
   it('mantiene el plural con 12 quizzes', () => {
     expect(
       generateCategoryMetadata({ name: 'Cine', slug: 'movies', locale: 'es', quizCount: 12 }).title
-    ).toBe('Cine: 12 quizzes online');
+    ).toBe('Cine: 12 quizzes para jugar');
     expect(
       generateCategoryMetadata({ name: 'Movies', slug: 'movies', locale: 'en', quizCount: 12 })
         .title

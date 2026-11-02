@@ -214,7 +214,7 @@ export function generateCategoryMetadata({
 }: GenerateCategoryMetadataOptions): Metadata {
   const baseTitle = quizCount
     ? locale === 'es'
-      ? `${name}: ${quizCountLabel(quizCount)} online`
+      ? `${name}: ${quizCountLabel(quizCount)} para jugar`
       : `${name}: ${quizCountLabel(quizCount)} to play`
     : locale === 'es'
       ? `Quizzes de ${name}`

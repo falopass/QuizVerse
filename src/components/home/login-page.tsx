@@ -18,37 +18,42 @@ export async function LoginPageView({
 }) {
   const locale = localeParam ? getLocaleFromParam(localeParam) : await getLocale();
   const dictionary = await getDictionary(locale);
+  const oauthProviders = enabledOAuthProviders();
   const copy =
     locale === 'es'
       ? {
           eyebrow: 'Cuenta',
           note1Title: 'Guarda tu progreso',
-          note1Body: 'Mantén historial, rachas y enlaces de resultados en un mismo lugar.',
+          note1Body: 'Mantén tu historial y los enlaces de tus resultados en un mismo lugar.',
           note2Title: 'Crea más rápido',
-          note2Body: 'Mueve borradores AI y edición manual sin romper tu flujo.',
+          note2Body: 'Combina borradores con IA y edición manual sin romper tu flujo.',
           note3Title: 'Comparte mejor',
           note3Body: 'Publica quizzes y resultados que se sientan diseñados para circular.',
           continueTitle: 'Continúa tu sesión',
-          continueBody: 'Elige un proveedor y entra al estudio de QuizVerse.',
+          continueBody: oauthProviders.length
+            ? 'Elige un proveedor o entra con tu correo.'
+            : 'Entra con tu correo y tu contraseña.',
           oauthFailed: 'No pudimos completar el acceso social. Vuelve a intentarlo.',
           browseFirst: 'o explora primero',
           noAccount: '¿No tienes cuenta?',
           signUp: 'Crea una',
           legal: 'Al continuar, aceptas nuestros',
           and: 'y',
-          privacy: 'Política de Privacidad',
+          privacy: 'Política de privacidad',
           terms: 'Términos',
         }
       : {
           eyebrow: 'Account',
           note1Title: 'Save progress',
-          note1Body: 'Keep quiz history, streaks and result links in one place.',
+          note1Body: 'Keep your quiz history and result links in one place.',
           note2Title: 'Create faster',
           note2Body: 'Move between AI drafts and manual editing without losing your flow.',
           note3Title: 'Share better',
           note3Body: 'Publish quizzes and results that feel designed to circulate.',
           continueTitle: 'Continue your session',
-          continueBody: 'Pick a provider and step into the QuizVerse studio.',
+          continueBody: oauthProviders.length
+            ? 'Pick a provider or sign in with your email.'
+            : 'Sign in with your email and password.',
           oauthFailed: "We couldn't finish the social sign-in. Try again.",
           browseFirst: 'or browse first',
           noAccount: "Don't have an account?",
@@ -62,7 +67,6 @@ export async function LoginPageView({
   // '/' no lleva idioma: la home localizada evita que el callback OAuth y la
   // vuelta del login por email devuelvan /es a la portada inglesa.
   const localizedRedirect = safeRedirect === '/' ? localizeHref(locale, '/') : safeRedirect;
-  const oauthProviders = enabledOAuthProviders();
 
   return (
     <div className="min-h-screen px-4 pt-28 pb-20">

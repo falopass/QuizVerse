@@ -9,13 +9,13 @@ import { localizeHref } from '@/lib/i18n/navigation';
 
 const COPY = {
   es: {
-    email: 'Email',
+    email: 'Correo electrónico',
     submit: 'Enviar enlace',
     submitting: 'Enviando…',
-    emailError: 'Ingresa un email válido.',
+    emailError: 'Ingresa un correo válido.',
     sentTitle: 'Revisa tu correo',
     sentBody:
-      'Si ese email tiene cuenta, te llegó un enlace para crear una contraseña nueva. Revisa también el spam.',
+      'Si ese correo tiene cuenta, te llegó un enlace para crear una contraseña nueva. Revisa también el spam.',
     resend: 'Reenviar enlace',
     back: 'Volver a iniciar sesión',
   },

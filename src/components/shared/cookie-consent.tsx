@@ -30,15 +30,19 @@ function getStoredConsent(): ConsentState | null {
 }
 
 function storeConsent(level: ConsentLevel) {
+  const previous = getStoredConsent()?.level ?? 'none';
   const state: ConsentState = { level, version: CONSENT_VERSION, timestamp: Date.now() };
   localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
-  window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level } }));
+  window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level, previous } }));
 }
 
 export function getConsentLevel(): ConsentLevel {
   const stored = getStoredConsent();
   return stored?.level ?? 'none';
 }
+
+/** Evento que reabre el banner (enlace «Preferencias de cookies» del footer). */
+export const COOKIE_PREFERENCES_EVENT = 'quizverse:cookie-preferences';
 
 export function hasAnalyticsConsent(): boolean {
   return getConsentLevel() === 'all';
@@ -71,6 +75,15 @@ export function CookieConsentBanner() {
       const timer = setTimeout(() => setVisible(true), 800);
       return () => clearTimeout(timer);
     }
+  }, []);
+
+  useEffect(() => {
+    const reopen = () => {
+      setExiting(false);
+      setVisible(true);
+    };
+    window.addEventListener(COOKIE_PREFERENCES_EVENT, reopen);
+    return () => window.removeEventListener(COOKIE_PREFERENCES_EVENT, reopen);
   }, []);
 
   const dismiss = useCallback(

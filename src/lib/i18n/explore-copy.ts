@@ -22,6 +22,7 @@ export interface ExploreCopy {
   open: string;
   lanesTitle: string;
   pulseDeck: string;
+  fullCatalog: string;
 }
 
 const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
@@ -47,6 +48,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     open: 'Abrir',
     lanesTitle: 'Los mejores caminos para entrar',
     pulseDeck: 'De los más jugados del catálogo.',
+    fullCatalog: 'Todo el catálogo',
   },
   en: {
     eyebrow: 'Explore',
@@ -70,6 +72,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     open: 'Open',
     lanesTitle: 'The best ways in',
     pulseDeck: 'One of the most played in the catalog.',
+    fullCatalog: 'The full catalog',
   },
 };
 

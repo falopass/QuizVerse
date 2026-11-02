@@ -29,7 +29,7 @@ export async function RegisterPageView({
         signIn: 'Inicia sesión',
         legal: 'Al registrarte, aceptas nuestros',
         and: 'y',
-        privacy: 'Política de Privacidad',
+        privacy: 'Política de privacidad',
         terms: 'Términos',
       }
     : {

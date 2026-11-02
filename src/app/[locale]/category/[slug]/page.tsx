@@ -65,7 +65,7 @@ export async function generateMetadata({ params, searchParams }: CategoryProps):
   const category = localizeCategory(payload.category, locale)!;
 
   // The stored taglines are short ("Sharp rounds with clean pacing."), so the
-  // catalogue size and the offer are appended to fill the SERP snippet.
+  // catalog size and the offer are appended to fill the SERP snippet.
   const description = categoryDescription({
     count: payload.totalQuizzes,
     name: category.name,
@@ -192,19 +192,28 @@ export default async function LocalizedCategoryPage({ params, searchParams }: Ca
           ) : null}
         </nav>
       ) : null}
-      <section className="arcade-related" aria-labelledby="category-guide">
+      <section
+        className="arcade-related"
+        aria-labelledby={hubGuide ? 'category-faq' : 'category-guide'}
+      >
+        {hubGuide ? null : (
+          <>
+            <div className="arcade-section-head">
+              <h2 id="category-guide">
+                {locale === 'es'
+                  ? `Cómo son los quizzes de ${category.name}`
+                  : `What the ${category.name} quizzes are like`}
+              </h2>
+            </div>
+            {guide.intro.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </>
+        )}
         <div className="arcade-section-head">
-          <h2 id="category-guide">
-            {locale === 'es'
-              ? `Cómo son los quizzes de ${category.name}`
-              : `What the ${category.name} quizzes are like`}
+          <h2 id={hubGuide ? 'category-faq' : undefined}>
+            {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions'}
           </h2>
-        </div>
-        {guide.intro.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
-        <div className="arcade-section-head">
-          <h2>{locale === 'es' ? 'Preguntas frecuentes' : 'Frequently asked questions'}</h2>
         </div>
         {guide.faq.map((item) => (
           <Fragment key={item.question}>

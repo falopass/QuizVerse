@@ -78,7 +78,7 @@ export default async function LocalizedCreateDonePage({
         eyebrow: 'Studio',
         pendingTitle: 'In review',
         pendingBody:
-          ' is in QuizVerse. The team reviews new quizzes before publishing them: once approved it will show up in the catalogue.',
+          ' is in QuizVerse. The team reviews new quizzes before publishing them: once approved it will show up in the catalog.',
         publishedTitle: 'Published',
         publishedBody: ' is live and anyone can play it.',
         viewQuiz: 'View the quiz',

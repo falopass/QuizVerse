@@ -16,9 +16,9 @@ export async function generateMetadata({
   const lang = hasLocale(locale) ? locale : 'en';
   const es = lang === 'es';
   return buildMetadata({
-    title: es ? 'Crear un quiz con AI' : 'Create a quiz with AI',
+    title: es ? 'Crear un quiz con IA' : 'Create a quiz with AI',
     description: es
-      ? 'Genera un borrador de quiz con AI y edítalo hasta publicarlo en QuizVerse.'
+      ? 'Genera un borrador de quiz con IA y edítalo hasta publicarlo en QuizVerse.'
       : 'Generate a quiz draft with AI, then edit it and publish it on QuizVerse.',
     path: `/${lang}/create/ai`,
     locale: lang,
@@ -53,7 +53,7 @@ export default async function LocalizedCreateAIPage({
     <div className="mx-auto max-w-5xl px-4 pt-28 pb-20">
       <div className="mb-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="surface-panel p-8">
-          <p className="eyebrow">{locale === 'es' ? 'Estudio AI' : 'AI Studio'}</p>
+          <p className="eyebrow">{locale === 'es' ? 'Estudio de IA' : 'AI Studio'}</p>
           <h1 className="text-text-primary mt-4 max-w-xl text-4xl font-semibold tracking-tight md:text-6xl">
             {dictionary.create.aiTitle}
           </h1>

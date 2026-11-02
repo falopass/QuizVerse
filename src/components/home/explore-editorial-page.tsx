@@ -367,7 +367,7 @@ export function ExploreEditorialPage({
             <section className="space-y-5">
               <div className="space-y-2">
                 <p className="eyebrow">{units.editorialGrid}</p>
-                <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
+                <h2 className="text-4xl">{units.fullCatalog}</h2>
               </div>
               <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {gridQuizzes.map((quiz, index) => (
