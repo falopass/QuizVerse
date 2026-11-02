@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { ResultScreen } from '@/components/quiz/result-screen';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
-import { getQuizBySlug, getQuizSessionByShareToken, getRelatedQuizzes } from '@/lib/data/public';
+import {
+  getQuizBySlug,
+  getQuizLocaleRedirect,
+  getQuizSessionByShareToken,
+  getRelatedQuizzes,
+} from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -104,7 +109,22 @@ export default async function LocalizedQuizResultPage({
     shareToken ? getQuizSessionByShareToken(shareToken) : Promise.resolve(null),
   ]);
 
-  if (!quiz) notFound();
+  if (!quiz) {
+    // Mismo rescate que la ficha. Con sesión compartida el token pertenece a
+    // este quiz: se cambia de idioma, no de quiz, para no perder el marcador;
+    // `s` y `challenge` viajan en el redirect.
+    const target = await getQuizLocaleRedirect(slug, locale, {
+      keepSameQuiz: Boolean(shareToken),
+    });
+    if (target) {
+      const query = new URLSearchParams();
+      if (s) query.set('s', s);
+      if (challengeToken) query.set('challenge', challengeToken);
+      const suffix = query.size > 0 ? `?${query.toString()}` : '';
+      permanentRedirect(`/${target.locale}/quiz/${target.slug}/result${suffix}`);
+    }
+    notFound();
+  }
 
   // El enlace compartido por el retado lleva el token del retador: la página
   // pinta la comparativa y la tarjeta OG sale como versus. Una sesión de otro

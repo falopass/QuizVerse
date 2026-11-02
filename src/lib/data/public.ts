@@ -26,6 +26,7 @@ import type { Locale } from '@/lib/i18n/dictionaries';
 import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { fetchSessionByShareToken } from '@/lib/data/game-session';
+import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
@@ -229,6 +230,28 @@ export const getQuizBySlug = cache(async (slug: string, locale?: Locale): Promis
     return (locale ? launch.find((quiz) => quiz.language === locale) : launch[0]) ?? null;
   }
 });
+
+// Destino cuando un slug publicado se pide bajo el locale equivocado: el par
+// traducido si existe en el idioma pedido y, si no, el mismo slug en el idioma
+// donde sí está publicado. Null si el slug no existe en ninguno de los dos.
+// `keepSameQuiz` es para enlaces con token (reto o resultado): esos tokens
+// están atados al id del quiz original, así que solo se puede cambiar de
+// idioma, no de quiz.
+export const getQuizLocaleRedirect = cache(
+  async (
+    slug: string,
+    locale: Locale,
+    { keepSameQuiz = false }: { keepSameQuiz?: boolean } = {}
+  ): Promise<{ locale: Locale; slug: string } | null> => {
+    const other: Locale = locale === 'es' ? 'en' : 'es';
+    const source = await getQuizBySlug(slug, other);
+    if (!source) return null;
+    if (keepSameQuiz) return { locale: other, slug: source.slug };
+    const translated = getEquivalentQuizSlug(slug, locale);
+    const counterpart = translated ? await getQuizBySlug(translated, locale) : null;
+    return counterpart ? { locale, slug: counterpart.slug } : { locale: other, slug: source.slug };
+  }
+);
 
 export const getPublishedQuizCount = cache(async (locale?: Locale): Promise<number> => {
   try {

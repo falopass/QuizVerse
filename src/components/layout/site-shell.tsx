@@ -10,6 +10,7 @@ interface SiteShellProps {
   children: React.ReactNode;
   locale: Locale;
   dictionary: Dictionary;
+  categorySlugs: string[];
 }
 
 const FULLSCREEN_PATTERNS = [
@@ -17,7 +18,7 @@ const FULLSCREEN_PATTERNS = [
   /^\/(?:en|es)\/quiz\/[^/]+\/result$/,
 ];
 
-export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
+export function SiteShell({ children, locale, dictionary, categorySlugs }: SiteShellProps) {
   const pathname = usePathname();
   React.useEffect(() => {
     document.documentElement.lang = locale;
@@ -36,7 +37,9 @@ export function SiteShell({ children, locale, dictionary }: SiteShellProps) {
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>
-      {!isFullscreen && <Footer dictionary={dictionary} locale={locale} />}
+      {!isFullscreen && (
+        <Footer dictionary={dictionary} locale={locale} categorySlugs={categorySlugs} />
+      )}
     </>
   );
 }
