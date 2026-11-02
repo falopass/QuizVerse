@@ -184,12 +184,14 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <Link
-                  href={localizeHref(locale, `/my-quizzes/${quiz.id}/edit`)}
-                  className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-all duration-200"
-                >
-                  {copy.edit}
-                </Link>
+                {quiz.status !== 'published' ? (
+                  <Link
+                    href={localizeHref(locale, `/my-quizzes/${quiz.id}/edit`)}
+                    className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-all duration-200"
+                  >
+                    {copy.edit}
+                  </Link>
+                ) : null}
                 <Button
                   variant="danger"
                   size="sm"

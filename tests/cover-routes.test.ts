@@ -59,7 +59,11 @@ function stubOkImage(contentType = 'image/webp') {
   const bytes = new Uint8Array([1, 2, 3]).buffer;
   vi.stubGlobal(
     'fetch',
-    vi.fn().mockResolvedValue(new Response(bytes, { status: 200, headers: { contentType } }))
+    vi
+      .fn()
+      .mockResolvedValue(
+        new Response(bytes, { status: 200, headers: { 'content-type': contentType } })
+      )
   );
 }
 
@@ -211,6 +215,103 @@ describe('GET /stock-covers/[slug]', () => {
     expect(response.headers.get('cache-control')).toContain('max-age=60');
     expect(response.headers.get('cache-control')).not.toContain('immutable');
     expect(await response.text()).toContain('<svg');
+  });
+
+  it('falls back to the procedural SVG when the upstream is not an image', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response('<html>oops</html>', {
+          status: 200,
+          headers: { 'content-type': 'text/html' },
+        })
+      )
+    );
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(await response.text()).toContain('<svg');
+  });
+
+  it('falls back to the procedural SVG when the declared size exceeds the cap', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const body = new ReadableStream({ start() {} });
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(body, {
+          status: 200,
+          headers: { 'content-type': 'image/webp', 'content-length': String(3 * 1024 * 1024) },
+        })
+      )
+    );
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+  });
+
+  it('falls back to the procedural SVG when the streamed body exceeds the cap', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const oversized = new Uint8Array(2 * 1024 * 1024 + 1);
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(oversized, {
+          status: 200,
+          headers: { 'content-type': 'image/webp' },
+        })
+      )
+    );
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+  });
+
+  it('never fetches a manifest URL outside the allowed hosts', async () => {
+    mocks.getStockCoverEntry.mockReturnValue({
+      ...fakeEntry,
+      image_url: 'https://evil.internal/metadata.jpg',
+    });
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('passes a timeout signal to the upstream fetch', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    stubOkImage();
+
+    await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    const init = vi.mocked(fetch).mock.calls[0][1] as RequestInit;
+    expect(init.signal).toBeInstanceOf(AbortSignal);
   });
 
   it('falls back to short-lived procedural SVG when the upstream responds !ok', async () => {

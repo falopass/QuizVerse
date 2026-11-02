@@ -96,6 +96,10 @@ const ERROR_LABEL: Partial<Record<ActionErrorCode, { es: string; en: string }>> 
     es: 'Demasiados intentos. Espera un momento.',
     en: 'Too many attempts. Please wait a moment.',
   },
+  conflict: {
+    es: 'Un quiz publicado ya no se puede editar: los cambios vuelven a revisión.',
+    en: 'A published quiz can no longer be edited: changes go through review again.',
+  },
 };
 
 function parseTags(value: string): string[] {

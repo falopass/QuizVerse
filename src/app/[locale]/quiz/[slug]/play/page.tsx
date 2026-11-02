@@ -7,7 +7,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage, resultOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { ChallengeBanner } from '@/components/quiz/challenge-banner';
-import { challengeCopy } from '@/lib/quiz/challenge';
+import { challengeCopy, isShareToken } from '@/lib/quiz/challenge';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 
 /**
@@ -32,7 +32,9 @@ export async function generateMetadata({
   if (!quiz) return {};
 
   const es = locale === 'es';
-  const challenge = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
+  const challenge = isShareToken(challengeToken)
+    ? await getChallengeForQuiz(challengeToken, quiz.id)
+    : null;
   return buildMetadata({
     title: es ? `Jugando ${quiz.title}` : `Playing ${quiz.title}`,
     description: challenge ? challengeCopy(challenge, locale).body : quiz.description,
@@ -75,8 +77,11 @@ export default async function LocalizedQuizPlayPage({
   }
 
   // Un enlace de reto muestra el marcador del retador antes de empezar. Si el
-  // token no es de este quiz, se ignora: mejor sin reto que con uno falso.
-  const challenge = challengeToken ? await getChallengeForQuiz(challengeToken, quiz.id) : null;
+  // token no es de este quiz — o ni siquiera tiene el formato de un share
+  // token — se ignora: mejor sin reto que con uno falso.
+  const challenge = isShareToken(challengeToken)
+    ? await getChallengeForQuiz(challengeToken, quiz.id)
+    : null;
   const copy = challenge ? challengeCopy(challenge, locale) : null;
 
   // The answer key never leaves the server: the play screen asks the reveal

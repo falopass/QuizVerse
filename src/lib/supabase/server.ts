@@ -14,6 +14,11 @@ export async function createClient() {
   const { url, anonKey } = supabaseEnv();
 
   return createServerClient<Database>(url, anonKey, {
+    // `httpOnly: false` es estructural de Supabase: el browser client lee las
+    // cookies `sb-*` vía document.cookie para refrescar la sesión. Lo que sí se
+    // puede endurecer es `secure` (solo HTTPS en producción); el resto de
+    // defaults de @supabase/ssr (path '/', sameSite 'lax') ya van bien.
+    cookieOptions: { secure: process.env.NODE_ENV === 'production' },
     cookies: {
       getAll() {
         return cookieStore.getAll();

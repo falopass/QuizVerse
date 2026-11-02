@@ -17,7 +17,12 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
-import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
+import {
+  actionFailure,
+  unexpectedFailure,
+  zodMessage,
+  type ActionResult,
+} from '@/lib/actions/types';
 
 export interface QuizCommentAuthor {
   username: string;
@@ -117,7 +122,7 @@ export async function createComment(
     .single();
 
   if (error || !data) {
-    return actionFailure('unexpected', error?.message ?? 'Could not post the comment.');
+    return unexpectedFailure('comments.create', error);
   }
 
   return {

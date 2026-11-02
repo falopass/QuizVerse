@@ -52,12 +52,12 @@ const session: QuizSessionResult = {
   result_title: null,
   time_taken_seconds: null,
   answers: null,
-  share_token: 'share-token-1',
+  share_token: '0123456789abcdef',
   was_shared: false,
   completed_at: '2026-10-19T00:00:00Z',
 };
 
-const challenger = { token: 'challenge-token-1', score: 5, maxScore: 8, resultTitle: null };
+const challenger = { token: 'abcdef0123456789', score: 5, maxScore: 8, resultTitle: null };
 
 function call(url: string, locale = 'en', slug = 'space-trivia') {
   return GET(new Request(url), { params: Promise.resolve({ locale, slug }) });
@@ -85,10 +85,10 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
   it('returns the result card as PNG for a valid quiz and share token', async () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue(session);
 
-    const res = await call(ogUrl('?s=share-token-1'));
+    const res = await call(ogUrl('?s=0123456789abcdef'));
     const bytes = await expectPng(res);
 
-    expect(mocks.getQuizSessionByShareToken).toHaveBeenCalledWith('share-token-1');
+    expect(mocks.getQuizSessionByShareToken).toHaveBeenCalledWith('0123456789abcdef');
     expect(res.headers.get('cache-control')).toContain('s-maxage=86400');
 
     // The session must reach the card: with its score the render differs
@@ -102,11 +102,11 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     // A different score must change the pixels: if resultCard dropped the
     // session or stopped drawing the score, both renders would be identical.
     mocks.getQuizSessionByShareToken.mockResolvedValue(session);
-    const seven = await call(ogUrl('?s=share-token-1'));
+    const seven = await call(ogUrl('?s=0123456789abcdef'));
     const sevenBytes = new Uint8Array(await seven.arrayBuffer());
 
     mocks.getQuizSessionByShareToken.mockResolvedValue({ ...session, score: 3 });
-    const three = await call(ogUrl('?s=share-token-1'));
+    const three = await call(ogUrl('?s=0123456789abcdef'));
     const threeBytes = new Uint8Array(await three.arrayBuffer());
 
     expect(Buffer.from(threeBytes).equals(Buffer.from(sevenBytes))).toBe(false);
@@ -122,11 +122,19 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     expect(mocks.getQuizSessionByShareToken).not.toHaveBeenCalled();
   });
 
+  it('never queries the data layer for tokens without the 16-hex share format', async () => {
+    const res = await call(ogUrl('?s=zzz-not-a-token&c=also-not-hex'));
+
+    await expectPng(res);
+    expect(mocks.getQuizSessionByShareToken).not.toHaveBeenCalled();
+    expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
+  });
+
   it('ignores a share token that belongs to another quiz', async () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue({ ...session, quiz_id: 'other-quiz' });
     mocks.getChallengeForQuiz.mockResolvedValue(challenger);
 
-    const res = await call(ogUrl('?s=share-token-1&c=challenge-token-1'));
+    const res = await call(ogUrl('?s=0123456789abcdef&c=abcdef0123456789'));
     const bytes = await expectPng(res);
 
     // Not the versus branch: identical render to the plain card with no session.
@@ -139,13 +147,13 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue(session);
     mocks.getChallengeForQuiz.mockResolvedValue(challenger);
 
-    const res = await call(ogUrl('?s=share-token-1&c=challenge-token-1'));
+    const res = await call(ogUrl('?s=0123456789abcdef&c=abcdef0123456789'));
     const bytes = await expectPng(res);
 
-    expect(mocks.getChallengeForQuiz).toHaveBeenCalledWith('challenge-token-1', 'quiz-1');
+    expect(mocks.getChallengeForQuiz).toHaveBeenCalledWith('abcdef0123456789', 'quiz-1');
 
     // The versus branch renders differently from the plain result card.
-    const plain = await call(ogUrl('?s=share-token-1'));
+    const plain = await call(ogUrl('?s=0123456789abcdef'));
     const plainBytes = new Uint8Array(await plain.arrayBuffer());
     expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
   });
@@ -164,7 +172,7 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
       result_title: 'El Estratega Melancólico',
     });
 
-    const res = await call(ogUrl('?s=share-token-1'), 'es');
+    const res = await call(ogUrl('?s=0123456789abcdef'), 'es');
 
     await expectPng(res);
   });
@@ -174,12 +182,12 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     // versus diría "TIE" sobre un reto que nadie ha jugado todavía.
     mocks.getQuizSessionByShareToken.mockResolvedValue(session);
 
-    const res = await call(ogUrl('?s=share-token-1&c=share-token-1'));
+    const res = await call(ogUrl('?s=0123456789abcdef&c=0123456789abcdef'));
     const bytes = await expectPng(res);
 
     expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
 
-    const plain = await call(ogUrl('?s=share-token-1'));
+    const plain = await call(ogUrl('?s=0123456789abcdef'));
     const plainBytes = new Uint8Array(await plain.arrayBuffer());
     expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(true);
   });

@@ -49,7 +49,10 @@ export async function updateProfileAction(input: unknown): Promise<ProfileAction
   }
 
   const { error } = await supabase.from('profiles').update(update).eq('id', user.id);
-  if (error) return { ok: false, code: 'unexpected' };
+  if (error) {
+    console.error('[action:profile.update]', error);
+    return { ok: false, code: 'unexpected' };
+  }
 
   return { ok: true };
 }

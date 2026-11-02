@@ -54,6 +54,10 @@ const SECURITY_HEADERS = [
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  // Grupo de la Reporting API para el `report-to` de la CSP: sin esta
+  // cabecera, los navegadores solo usarían el legado `report-uri`
+  // (application/csp-report) y jamás el formato application/reports+json.
+  { key: 'Reporting-Endpoints', value: 'csp="/api/csp-report"' },
 ];
 
 /**
@@ -77,10 +81,13 @@ function supabaseConnectSrc(): string {
  * violaciones en consola sin bloquear nada. Sirve para medir el ruido real
  * antes de endurecerla.
  *
+ * Las violaciones se informan a `report-uri /api/csp-report`, que acepta los
+ * formatos `application/csp-report` y `application/reports+json` con tope de
+ * tamaño y rate limit, y registra un resumen sin datos personales.
+ *
  * Para pasarla a enforce: cambiar el `key` a `Content-Security-Policy`,
- * desplegar y vigilar la consola/errores del preview una temporada; si hace
- * falta telemetría de violaciones, añadir `report-uri`/`report-to` apuntando
- * a un endpoint colector.
+ * desplegar y vigilar una temporada los reportes resumidos que emite ese
+ * endpoint.
  *
  * Hueco preparado para AdSense (descomentar al activarlo):
  *   script-src: https://pagead2.googlesyndication.com
@@ -111,6 +118,8 @@ function contentSecurityPolicy(frameAncestors: string | null): string {
     "form-action 'self'",
     'upgrade-insecure-requests',
     ...(frameAncestors ? [`frame-ancestors ${frameAncestors}`] : []),
+    'report-uri /api/csp-report',
+    'report-to csp',
   ].join('; ');
 }
 

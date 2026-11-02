@@ -26,6 +26,10 @@ export async function POST(request: Request) {
     path: '/',
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax',
+    // Solo la lee el servidor (src/lib/i18n/server.ts): HttpOnly cierra el
+    // robo por JS y Secure la limita a HTTPS en producción.
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
   });
 
   const supabase = await createClient();

@@ -21,7 +21,12 @@ import { QuizCreateSchema, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
-import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
+import {
+  actionFailure,
+  unexpectedFailure,
+  zodMessage,
+  type ActionResult,
+} from '@/lib/actions/types';
 import type { Database } from '@/types/database';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
@@ -33,10 +38,12 @@ const updateQuizSchema = z.object({
   title: z.string().min(5).max(120).optional(),
   description: z.string().max(300).optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
-  language: z.string().optional(),
+  // Mismos límites que QuizCreateSchema: un idioma fuera del catálogo deja al
+  // quiz publicado pero huérfano de las páginas por locale.
+  language: z.enum(locales).optional(),
   category_id: z.string().uuid().optional().nullable(),
-  tags: z.array(z.string()).optional(),
-  estimated_minutes: z.number().optional(),
+  tags: z.array(z.string().min(1).max(30)).max(10).optional(),
+  estimated_minutes: z.number().int().min(1).max(30).optional(),
   // `status` stays out on purpose: publishing belongs to the moderation flow
   // (see `createQuiz`), and RLS cannot restrict columns. Zod strips any
   // client-sent `status`, so it never reaches `.update()`.
@@ -53,19 +60,19 @@ async function currentUser() {
   return { supabase, user };
 }
 
-/** The quiz's slug and language when the user owns it, else `null`. */
+/** The quiz's slug, language and status when the user owns it, else `null`. */
 async function ownedQuiz(
   supabase: Awaited<ReturnType<typeof createClient>>,
   quizId: string,
   userId: string
-): Promise<{ slug: string; language: string } | null> {
+): Promise<{ slug: string; language: string; status: string } | null> {
   const { data } = await supabase
     .from('quizzes')
-    .select('creator_id, slug, language')
+    .select('creator_id, slug, language, status')
     .eq('id', quizId)
     .maybeSingle();
   if (!data || data.creator_id !== userId) return null;
-  return { slug: data.slug, language: data.language };
+  return { slug: data.slug, language: data.language, status: data.status };
 }
 
 /** Locales where a quiz is listed: its own, or every one for unknown values. */
@@ -147,8 +154,7 @@ export async function createQuiz(
     .select('id, slug')
     .single();
 
-  if (error || !quiz)
-    return actionFailure('unexpected', error?.message ?? 'Could not save the quiz.');
+  if (error || !quiz) return unexpectedFailure('quiz.create', error);
 
   revalidateQuizPages(parsed.data.language, quiz.slug);
 
@@ -162,14 +168,31 @@ export async function createQuiz(
 export async function updateQuiz(id: string, input: unknown): Promise<ActionResult> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to edit a quiz.');
+
+  const { allowed } = await apiLimiter.check(user.id);
+  if (!allowed) return actionFailure('rate_limited', 'Too many actions. Please wait.');
+
   const quiz = await ownedQuiz(supabase, id, user.id);
   if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
+
+  // Un quiz published ya pasó moderación: editarlo y seguir publicado dejaría
+  // el contenido cambiado sin revisión (título, descripción y tags alimentan
+  // SEO y la tarjeta OG). Re-marcarlo 'pending' no es opción: el guard de la
+  // migración 014 restaura `status` al valor anterior en updates con JWT de
+  // no-admin (solo 'archived' o un admin pueden moverlo), así que la acción
+  // rechaza la edición entera con un error tipado.
+  if (quiz.status === 'published') {
+    return actionFailure(
+      'conflict',
+      'A published quiz can no longer be edited: changes go through moderation again.'
+    );
+  }
 
   const parsed = updateQuizSchema.safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
   const { error } = await supabase.from('quizzes').update(parsed.data).eq('id', id);
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('quiz.update', error);
 
   revalidateQuizPages(quiz.language, quiz.slug);
   // A language change moves the quiz between locales: refresh the new one too.
@@ -182,11 +205,15 @@ export async function updateQuiz(id: string, input: unknown): Promise<ActionResu
 export async function deleteQuiz(id: string): Promise<ActionResult> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to delete a quiz.');
+
+  const { allowed } = await apiLimiter.check(user.id);
+  if (!allowed) return actionFailure('rate_limited', 'Too many actions. Please wait.');
+
   const quiz = await ownedQuiz(supabase, id, user.id);
   if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
 
   const { error } = await supabase.from('quizzes').delete().eq('id', id);
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('quiz.delete', error);
 
   revalidateQuizPages(quiz.language, quiz.slug);
   return { success: true };
@@ -262,7 +289,7 @@ export async function submitQuizResult(
   });
 
   if (error) {
-    return actionFailure('unexpected', error.message);
+    return unexpectedFailure('quiz.submit', error);
   }
 
   // Best effort: a failed counter must never fail a finished game. Con la
@@ -344,7 +371,7 @@ export async function likeQuiz(
     p_user_id: user.id,
   });
 
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('quiz.like', error);
 
   const { data: quiz } = await supabase
     .from('quizzes')
@@ -391,7 +418,7 @@ export async function incrementShares(quizId: string): Promise<ActionResult> {
 
   const supabase = await createClient();
   const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('quiz.share', error);
 
   return { success: true };
 }

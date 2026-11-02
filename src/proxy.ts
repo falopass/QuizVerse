@@ -131,6 +131,9 @@ export async function proxy(request: NextRequest) {
   if (hasSession) {
     const { url, anonKey } = supabaseEnv();
     const supabase = createServerClient<Database>(url, anonKey, {
+      // Igual que src/lib/supabase/server.ts: Secure en producción. httpOnly
+      // queda en false porque el browser client lee la sesión por JS.
+      cookieOptions: { secure: process.env.NODE_ENV === 'production' },
       cookies: {
         getAll() {
           return request.cookies.getAll();
