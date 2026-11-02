@@ -12,10 +12,15 @@ export type AdPlacement = 'home' | 'explore' | 'detail';
  * Publisher ID en la forma del snippet de AdSense (`ca-pub-…`). Se acepta
  * también el `pub-…` del panel y se normaliza.
  */
+export function normalizePublisherId(raw: string | undefined): string | null {
+  const value = raw?.trim();
+  if (!value) return null;
+  return value.startsWith('ca-') ? value : `ca-${value}`;
+}
+
+/** Publisher para el componente cliente; sale del build. */
 export function adsPublisherId(): string | null {
-  const raw = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID?.trim();
-  if (!raw) return null;
-  return raw.startsWith('ca-') ? raw : `ca-${raw}`;
+  return normalizePublisherId(process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID);
 }
 
 /** ID de la unidad de anuncio de una ubicación; sin valor, ese slot queda inerte. */

@@ -89,16 +89,18 @@ function supabaseConnectSrc(): string {
  * desplegar y vigilar una temporada los reportes resumidos que emite ese
  * endpoint.
  *
- * AdSense: si `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` está definido en el build se
- * añaden sus orígenes (script, img, frame y connect). Sin publisher la CSP
- * queda igual y los slots ni siquiera se renderizan.
+ * AdSense: si `ADSENSE_PUBLISHER_ID` o `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` están
+ * definidos en el build se añaden sus orígenes (script, img, frame y connect).
+ * Sin publisher la CSP queda igual y los slots ni siquiera se renderizan.
  *
  * `frameAncestors`: `"'none'"` reproduce el X-Frame-Options: DENY de las rutas
  * normales; las rutas `/embed/{en,es}/*` lo omiten para seguir siendo
  * embebibles desde cualquier origen.
  */
 function contentSecurityPolicy(frameAncestors: string | null): string {
-  const ads = Boolean(process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID?.trim());
+  const ads = Boolean(
+    (process.env.ADSENSE_PUBLISHER_ID || process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID)?.trim()
+  );
   return [
     "default-src 'self'",
     // Next.js serializa el payload RSC con <script> inline; sin un nonce por

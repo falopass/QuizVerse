@@ -1,14 +1,14 @@
-import { adsPublisherId } from '@/lib/ads/config';
+import { serverAdsPublisherId } from '@/lib/ads/server';
 
 /** ID de certificación de Google para AdSense (fijo, publicado por Google). */
 const ADSENSE_CERT_AUTHORITY = 'f08c47fec0942fa0';
 
-// Se lee en cada request: el publisher vive en el entorno del Worker, así que
-// activar o desactivar el archivo no exige otro build.
+// La variable no pública se lee en cada request: activar o desactivar el
+// archivo en el Worker no exige otro build.
 export const dynamic = 'force-dynamic';
 
 export function GET() {
-  const client = adsPublisherId();
+  const client = serverAdsPublisherId();
   if (!client) return new Response('Not found', { status: 404 });
 
   const publisherId = client.replace(/^ca-/, '');

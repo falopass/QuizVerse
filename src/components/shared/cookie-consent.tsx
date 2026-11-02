@@ -8,8 +8,8 @@ import { localeFromPathname } from '@/lib/i18n/navigation';
 type ConsentLevel = 'none' | 'essential' | 'all';
 
 export const CONSENT_KEY = 'quizverse-cookie-consent';
-// v2: «all» pasó a cubrir también publicidad; el consentimiento v1 solo
-// hablaba de analíticas y debe volver a preguntarse.
+// v2: «all» pasa a cubrir también publicidad. Un «all» v1 se descarta para
+// volver a preguntar; «essential» v1 sigue valiendo (sigue diciendo no).
 const CONSENT_VERSION = 2;
 
 interface ConsentState {
@@ -24,7 +24,14 @@ function getStoredConsent(): ConsentState | null {
     const raw = localStorage.getItem(CONSENT_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as ConsentState;
-    if (parsed.version !== CONSENT_VERSION) return null;
+    // Un «all» v1 solo hablaba de analíticas: no sirve como consentimiento de
+    // publicidad. «essential» v1 sigue siendo un «no» válido y se conserva.
+    if (
+      parsed.version !== CONSENT_VERSION &&
+      !(parsed.version === 1 && parsed.level === 'essential')
+    ) {
+      return null;
+    }
     return parsed;
   } catch {
     return null;
