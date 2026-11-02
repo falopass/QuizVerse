@@ -19,6 +19,16 @@ export interface ChallengeInfo extends ChallengeScore {
 
 export type ChallengeOutcome = 'win' | 'tie' | 'lose';
 
+/**
+ * Formato real de `game_sessions.share_token`
+ * (`encode(gen_random_bytes(8), 'hex')` → 16 hex en minúscula). Los tokens se
+ * reflejan en canonical/og:url y en enlaces de reto: un string arbitrario
+ * jamás llega a una URL pública.
+ */
+export function isShareToken(value: string | null | undefined): value is string {
+  return typeof value === 'string' && /^[0-9a-f]{16}$/.test(value);
+}
+
 /** Compara dos marcadores. Empate cuando ambos aciertan lo mismo. */
 export function challengeOutcome(mine: ChallengeScore, theirs: ChallengeScore): ChallengeOutcome {
   if (mine.score === theirs.score) return 'tie';

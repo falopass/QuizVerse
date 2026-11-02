@@ -76,7 +76,6 @@ export function ResultScreen({
           skipped: 'Omitida',
           close: 'Cerrar',
           shareTitle: 'Compartir resultado',
-          shareText: 'Mira mi resultado en QuizVerse.',
           challengeEyebrow: 'Comparativa del reto',
           challenger: 'Retador',
           challenged: 'Retado',
@@ -105,7 +104,6 @@ export function ResultScreen({
           skipped: 'Skipped',
           close: 'Close',
           shareTitle: 'Share result',
-          shareText: 'Check out my result on QuizVerse.',
           challengeEyebrow: 'Challenge showdown',
           challenger: 'Challenger',
           challenged: 'Challenged',
@@ -121,6 +119,10 @@ export function ResultScreen({
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
+  const shareResultTitle =
+    uiLocale === 'es'
+      ? `Obtuve ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en "${quiz.title}"`
+      : `I got ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'a result')} on "${quiz.title}"`;
 
   // Comparativa del reto: mi marca contra la del retador. En personality el
   // score persistido son preguntas respondidas (n/N), no aciertos: el veredicto
@@ -430,13 +432,15 @@ export function ResultScreen({
               <ShareButtons
                 locale={uiLocale}
                 quizId={quiz.id}
-                title={
-                  uiLocale === 'es'
-                    ? `Obtuve ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en "${quiz.title}"`
-                    : `I got ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'a result')} on "${quiz.title}"`
-                }
+                title={shareResultTitle}
                 url={shareUrl || (typeof window !== 'undefined' ? window.location.href : '')}
-                text={copy.shareText}
+                // El texto pegado en WhatsApp/X lleva el resultado: la vista
+                // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
+                text={
+                  uiLocale === 'es'
+                    ? `${shareResultTitle} — ¿puedes superarlo?`
+                    : `${shareResultTitle} — can you beat it?`
+                }
               />
             </motion.div>
           </motion.div>
