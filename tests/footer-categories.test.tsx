@@ -25,7 +25,7 @@ describe('Footer · categorías', () => {
       />
     );
 
-    const nav = categoryNav('Todas las categorías');
+    const nav = categoryNav('Categorías');
     expect(
       within(nav)
         .getAllByRole('link')
@@ -38,7 +38,7 @@ describe('Footer · categorías', () => {
       <Footer dictionary={await getDictionary('es')} locale="es" categorySlugs={['movies-tv']} />
     );
 
-    const nav = categoryNav('Todas las categorías');
+    const nav = categoryNav('Categorías');
     expect(within(nav).queryByRole('link', { name: 'Videojuegos' })).not.toBeInTheDocument();
     expect(within(nav).queryByRole('link', { name: 'Historia' })).not.toBeInTheDocument();
   });
@@ -52,7 +52,7 @@ describe('Footer · categorías', () => {
       />
     );
 
-    const nav = categoryNav('Todas las categorías');
+    const nav = categoryNav('Categorías');
     for (const label of ['Cine y televisión', 'Ciencia', 'Deportes']) {
       expect(within(nav).getByRole('link', { name: label })).toBeInTheDocument();
     }
@@ -69,7 +69,7 @@ describe('Footer · categorías', () => {
       />
     );
 
-    const nav = categoryNav('All categories');
+    const nav = categoryNav('Categories');
     expect(
       within(nav)
         .getAllByRole('link')
@@ -80,14 +80,15 @@ describe('Footer · categorías', () => {
   it('oculta el nav de categorías si no hay ninguna con contenido', async () => {
     render(<Footer dictionary={await getDictionary('en')} locale="en" categorySlugs={[]} />);
 
-    expect(screen.queryByRole('navigation', { name: 'All categories' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Categories' })).not.toBeInTheDocument();
   });
 
-  it('conserva el nav principal del pie', async () => {
+  it('conserva los grupos de navegación del pie', async () => {
     render(
       <Footer dictionary={await getDictionary('en')} locale="en" categorySlugs={['gaming']} />
     );
 
-    expect(screen.getByRole('navigation', { name: 'Footer links' })).toBeInTheDocument();
+    expect(screen.getByRole('navigation', { name: 'Play' })).toBeInTheDocument();
+    expect(screen.getByRole('navigation', { name: 'QuizVerse' })).toBeInTheDocument();
   });
 });

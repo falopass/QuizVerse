@@ -28,6 +28,8 @@ export interface Dictionary {
   };
   nav: {
     menu: string;
+    randomQuiz: string;
+    createAccount: string;
   };
   home: {
     sections: {
@@ -57,6 +59,13 @@ export interface Dictionary {
   };
   footer: {
     tagline: string;
+    play: string;
+    brand: string;
+    categories: string;
+    catalogIndex: string;
+    createQuiz: string;
+    faq: string;
+    cookiePreferences: string;
   };
   arcade: {
     pickGame: string;
@@ -189,6 +198,8 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     nav: {
       menu: 'Menu',
+      randomQuiz: 'Random quiz',
+      createAccount: 'Create account',
     },
     home: {
       sections: {
@@ -218,6 +229,13 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     footer: {
       tagline: 'Pick a game. Play your pop culture. Share the result.',
+      play: 'Play',
+      brand: 'QuizVerse',
+      categories: 'Categories',
+      catalogIndex: 'Catalog index',
+      createQuiz: 'Create quiz',
+      faq: 'FAQ',
+      cookiePreferences: 'Cookie preferences',
     },
     arcade: {
       pickGame: 'Pick a game',
@@ -367,6 +385,8 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     nav: {
       menu: 'Menú',
+      randomQuiz: 'Quiz al azar',
+      createAccount: 'Crear cuenta',
     },
     home: {
       sections: {
@@ -396,6 +416,13 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     footer: {
       tagline: 'Elige un juego. Juega tu cultura pop. Comparte el resultado.',
+      play: 'Jugar',
+      brand: 'QuizVerse',
+      categories: 'Categorías',
+      catalogIndex: 'Índice del catálogo',
+      createQuiz: 'Crear quiz',
+      faq: 'Preguntas frecuentes',
+      cookiePreferences: 'Preferencias de cookies',
     },
     arcade: {
       pickGame: 'Elige un juego',

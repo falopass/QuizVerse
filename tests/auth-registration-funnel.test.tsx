@@ -5,7 +5,9 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 const mocks = vi.hoisted(() => ({
   signInAction: vi.fn(),
   signUpAction: vi.fn(),
+  signOutAction: vi.fn(),
   resendConfirmationAction: vi.fn(),
+  useSupabase: vi.fn(),
   push: vi.fn(),
   refresh: vi.fn(),
 }));
@@ -13,16 +15,22 @@ const mocks = vi.hoisted(() => ({
 vi.mock('@/actions/auth.actions', () => ({
   signInAction: mocks.signInAction,
   signUpAction: mocks.signUpAction,
+  signOutAction: mocks.signOutAction,
   resendConfirmationAction: mocks.resendConfirmationAction,
+}));
+
+vi.mock('@/providers/supabase-provider', () => ({
+  useSupabase: mocks.useSupabase,
 }));
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mocks.push, refresh: mocks.refresh }),
+  usePathname: () => '/es',
 }));
 
 import { LoginForm } from '@/components/auth/login-form';
 import { RegisterForm } from '@/components/auth/register-form';
-import { Footer } from '@/components/layout/footer';
+import { FloatingNav } from '@/components/layout/floating-nav';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 
 const LABELS = {
@@ -44,6 +52,7 @@ beforeEach(() => {
   mocks.signInAction.mockResolvedValue({ ok: true, userId: 'u1' });
   mocks.signUpAction.mockResolvedValue({ ok: true, userId: 'u1' });
   mocks.resendConfirmationAction.mockResolvedValue({ ok: true, userId: null });
+  mocks.useSupabase.mockReturnValue({ user: null, loading: false, signOut: vi.fn() });
 });
 
 describe('enlaces a /register (F02)', () => {
@@ -55,21 +64,26 @@ describe('enlaces a /register (F02)', () => {
     expect(screen.getByText('¿No tienes cuenta?')).toBeInTheDocument();
   });
 
-  it('el footer enlaza a /register junto a login', async () => {
+  it('el menú móvil enlaza a /register junto a Entrar', async () => {
     const dictionary = await getDictionary('es');
-    render(<Footer dictionary={dictionary} locale="es" categorySlugs={[]} />);
+    render(<FloatingNav dictionary={dictionary} locale="es" />);
 
+    fireEvent.click(screen.getByRole('button', { name: 'Menú' }));
     expect(screen.getByRole('link', { name: 'Crear cuenta' })).toHaveAttribute(
       'href',
       '/es/register'
     );
   });
 
-  it('el footer en inglés enlaza a /en/register', async () => {
+  it('el menú móvil en inglés enlaza a /en/register', async () => {
     const dictionary = await getDictionary('en');
-    render(<Footer dictionary={dictionary} locale="en" categorySlugs={[]} />);
+    render(<FloatingNav dictionary={dictionary} locale="en" />);
 
-    expect(screen.getByRole('link', { name: 'Sign up' })).toHaveAttribute('href', '/en/register');
+    fireEvent.click(screen.getByRole('button', { name: 'Menu' }));
+    expect(screen.getByRole('link', { name: 'Create account' })).toHaveAttribute(
+      'href',
+      '/en/register'
+    );
   });
 });
 
