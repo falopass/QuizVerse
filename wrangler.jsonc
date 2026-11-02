@@ -38,6 +38,40 @@
       },
     ],
   },
+  // Fallback de rate limiting sin secretos cuando falta Upstash
+  // (src/lib/utils/rate-limit.ts mapea cada política a su namespace).
+  // `period` solo admite 10 u 60 s; las ventanas largas del código
+  // (reportes/comentarios, 10 min) se aproximan a su ritmo por minuto.
+  "ratelimits": [
+    // Auth estricto por identificador (email hasheado / user id).
+    { "name": "RATE_LIMIT_AUTH", "namespace_id": "7101", "simple": { "limit": 5, "period": 60 } },
+    // Techo anti-spray por IP en acciones de auth.
+    {
+      "name": "RATE_LIMIT_AUTH_IP",
+      "namespace_id": "7102",
+      "simple": { "limit": 30, "period": 60 },
+    },
+    // Juego: crear quiz y generación con IA (por IP y por usuario).
+    { "name": "RATE_LIMIT_GAME", "namespace_id": "7103", "simple": { "limit": 10, "period": 60 } },
+    // Reveal por pregunta: 1-2 llamadas por pregunta jugada, por IP.
+    {
+      "name": "RATE_LIMIT_REVEAL",
+      "namespace_id": "7104",
+      "simple": { "limit": 120, "period": 60 },
+    },
+    // API general: monitor, analytics, perfil, follows, likes.
+    { "name": "RATE_LIMIT_API", "namespace_id": "7105", "simple": { "limit": 100, "period": 60 } },
+    // Escritura social: registro de shares, por IP.
+    {
+      "name": "RATE_LIMIT_SOCIAL",
+      "namespace_id": "7106",
+      "simple": { "limit": 30, "period": 60 },
+    },
+    // Reportes y comentarios: el código usa 8/10min y 5/10min; en CF queda ~1/min.
+    { "name": "RATE_LIMIT_REPORT", "namespace_id": "7107", "simple": { "limit": 1, "period": 60 } },
+    // Beacons de CSP report, por IP.
+    { "name": "RATE_LIMIT_CSP", "namespace_id": "7108", "simple": { "limit": 60, "period": 60 } },
+  ],
   "migrations": [
     {
       "tag": "v1",
