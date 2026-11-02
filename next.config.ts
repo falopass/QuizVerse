@@ -89,33 +89,35 @@ function supabaseConnectSrc(): string {
  * desplegar y vigilar una temporada los reportes resumidos que emite ese
  * endpoint.
  *
- * Hueco preparado para AdSense (descomentar al activarlo):
- *   script-src: https://pagead2.googlesyndication.com
- *   img-src:    https://*.googlesyndication.com
- *   frame-src:  https://googleads.g.doubleclick.net https://tpc.googlesyndication.com
- *   connect-src: https://*.googlesyndication.com https://*.doubleclick.net
+ * AdSense: si `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` está definido en el build se
+ * añaden sus orígenes (script, img, frame y connect). Sin publisher la CSP
+ * queda igual y los slots ni siquiera se renderizan.
  *
  * `frameAncestors`: `"'none'"` reproduce el X-Frame-Options: DENY de las rutas
  * normales; las rutas `/embed/{en,es}/*` lo omiten para seguir siendo
  * embebibles desde cualquier origen.
  */
 function contentSecurityPolicy(frameAncestors: string | null): string {
+  const ads = Boolean(process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID?.trim());
   return [
     "default-src 'self'",
     // Next.js serializa el payload RSC con <script> inline; sin un nonce por
     // request (middleware) no hay alternativa a 'unsafe-inline' aquí.
-    "script-src 'self' 'unsafe-inline'",
+    `script-src 'self' 'unsafe-inline'${ads ? ' https://pagead2.googlesyndication.com' : ''}`,
     // Tailwind y los estilos en línea de Framer Motion los necesitan.
     "style-src 'self' 'unsafe-inline'",
     // Mismos hosts que images.remotePatterns; las covers stock se sirven
     // same-origin vía /stock-covers/ y las procedurales vía /covers/.
-    "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://images.pexels.com https://pixabay.com",
+    `img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://images.pexels.com https://pixabay.com${ads ? ' https://*.googlesyndication.com' : ''}`,
     // next/font auto-aloja las fuentes en build.
     "font-src 'self'",
-    `connect-src 'self' ${supabaseConnectSrc()}`,
+    `connect-src 'self' ${supabaseConnectSrc()}${ads ? ' https://*.googlesyndication.com https://*.doubleclick.net' : ''}`,
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
+    ...(ads
+      ? ['frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com']
+      : []),
     'upgrade-insecure-requests',
     ...(frameAncestors ? [`frame-ancestors ${frameAncestors}`] : []),
     'report-uri /api/csp-report',

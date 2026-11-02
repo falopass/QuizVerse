@@ -61,7 +61,7 @@ describe('CookieConsentBanner con transiciones CSS', () => {
   it('no aparece si ya hay consentimiento guardado', () => {
     localStorage.setItem(
       CONSENT_KEY,
-      JSON.stringify({ level: 'essential', version: 1, timestamp: Date.now() })
+      JSON.stringify({ level: 'essential', version: 2, timestamp: Date.now() })
     );
 
     const { container } = render(<CookieConsentBanner />);
@@ -114,7 +114,7 @@ describe('CookieConsentBanner con transiciones CSS', () => {
   it('reabre el banner con consentimiento guardado al pedir preferencias', () => {
     localStorage.setItem(
       CONSENT_KEY,
-      JSON.stringify({ level: 'essential', version: 1, timestamp: Date.now() })
+      JSON.stringify({ level: 'essential', version: 2, timestamp: Date.now() })
     );
 
     const { container } = render(<CookieConsentBanner />);

@@ -13,7 +13,7 @@ import { CONSENT_KEY } from '@/components/shared/cookie-consent';
 const fetchMock = vi.fn().mockResolvedValue({ ok: true });
 
 function setConsent(level: 'essential' | 'all') {
-  localStorage.setItem(CONSENT_KEY, JSON.stringify({ level, version: 1, timestamp: Date.now() }));
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({ level, version: 2, timestamp: Date.now() }));
 }
 
 beforeEach(() => {

@@ -14,6 +14,7 @@ import { CategoryStrip } from '@/components/home/category-strip';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { RecentlyPlayed } from '@/components/home/recently-played';
 import { JsonLd } from '@/components/seo/json-ld';
+import { AdSlot } from '@/components/shared/ad-slot';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 
 interface LocalePageProps {
@@ -136,6 +137,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </div>
         )}
       </section>
+      <AdSlot placement="home" locale={locale} />
       <div className="arcade-strip">
         <span>{dictionary.arcade.stripStart}</span>
         <span>{dictionary.arcade.stripMiddle}</span>

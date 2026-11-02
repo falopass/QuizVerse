@@ -8,6 +8,7 @@ import { formatCompactNumber } from '@/lib/utils/format';
 import { localizeCategory } from '@/lib/i18n/catalog';
 import { getExploreCopy } from '@/lib/i18n/explore-copy';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
+import { AdSlot } from '@/components/shared/ad-slot';
 import { editorialScore, explorerSelection } from '@/lib/quiz/editorial-order';
 import type { Category, ExploreCardQuiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -362,6 +363,8 @@ export function ExploreEditorialPage({
               </div>
             </section>
           ) : null}
+
+          <AdSlot placement="explore" locale={locale} />
 
           {gridQuizzes.length > 0 ? (
             <section className="space-y-5">

@@ -8,7 +8,9 @@ import { localeFromPathname } from '@/lib/i18n/navigation';
 type ConsentLevel = 'none' | 'essential' | 'all';
 
 export const CONSENT_KEY = 'quizverse-cookie-consent';
-const CONSENT_VERSION = 1;
+// v2: «all» pasó a cubrir también publicidad; el consentimiento v1 solo
+// hablaba de analíticas y debe volver a preguntarse.
+const CONSENT_VERSION = 2;
 
 interface ConsentState {
   level: ConsentLevel;
@@ -48,11 +50,16 @@ export function hasAnalyticsConsent(): boolean {
   return getConsentLevel() === 'all';
 }
 
+/** La publicidad comparte el nivel «all»: no hay una categoría aparte. */
+export function hasAdsConsent(): boolean {
+  return getConsentLevel() === 'all';
+}
+
 const copy = {
   title: { en: 'This site uses cookies.', es: 'Este sitio usa cookies.' },
   body: {
-    en: 'Essential cookies run the site. You can also allow analytics to help us improve it.',
-    es: 'Las cookies esenciales hacen funcionar el sitio. También puedes permitir las analíticas para ayudarnos a mejorarlo.',
+    en: 'Essential cookies run the site. You can also allow analytics and personalized ads to keep it free.',
+    es: 'Las cookies esenciales hacen funcionar el sitio. También puedes permitir analíticas y publicidad personalizada para mantenerlo gratis.',
   },
   essentialLabel: { en: 'Essential', es: 'Esenciales' },
   analyticsLabel: { en: 'Analytics', es: 'Analíticas' },

@@ -25,7 +25,7 @@ import { WebVitals } from '@/components/layout/web-vitals';
 import { CONSENT_KEY } from '@/components/shared/cookie-consent';
 
 function setConsent(level: 'essential' | 'all') {
-  localStorage.setItem(CONSENT_KEY, JSON.stringify({ level, version: 1, timestamp: Date.now() }));
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({ level, version: 2, timestamp: Date.now() }));
 }
 
 function emit(metric: Omit<ReportedMetric, 'id'> & { id?: string }) {
