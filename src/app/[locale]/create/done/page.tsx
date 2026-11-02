@@ -101,7 +101,7 @@ export default async function LocalizedCreateDonePage({
           {published ? (
             <Link
               href={localizeHref(locale, `/quiz/${quiz.slug}`)}
-              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
             >
               {copy.viewQuiz}
             </Link>
@@ -111,7 +111,7 @@ export default async function LocalizedCreateDonePage({
             className={
               published
                 ? 'ring-border-subtle text-text-primary rounded-full px-5 py-3 text-sm font-semibold ring-1'
-                : 'bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white'
+                : 'bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold'
             }
           >
             {copy.myQuizzes}

@@ -43,7 +43,7 @@ export function FollowButton({
     return (
       <Link
         href={localizeHref(locale, `/login?redirect=${redirect}`)}
-        className={`${BASE_CLASSES} bg-accent-primary hover:bg-accent-hover text-white`}
+        className={`${BASE_CLASSES} bg-accent-primary hover:bg-accent-hover text-bg-primary`}
       >
         {copy.follow}
       </Link>
@@ -73,7 +73,7 @@ export function FollowButton({
       className={
         following
           ? `${BASE_CLASSES} border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 border`
-          : `${BASE_CLASSES} bg-accent-primary hover:bg-accent-hover text-white`
+          : `${BASE_CLASSES} bg-accent-primary hover:bg-accent-hover text-bg-primary`
       }
     >
       {following ? copy.following : copy.follow}

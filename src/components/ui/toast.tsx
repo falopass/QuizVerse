@@ -76,7 +76,7 @@ function ToastItem({
       className={cn(
         'relative flex items-start gap-3 rounded-lg border p-4 shadow-lg',
         'bg-bg-secondary border-border-subtle',
-        'max-w-md min-w-[320px]'
+        'w-[calc(100vw-2rem)] max-w-md min-w-0 sm:w-auto sm:min-w-[320px]'
       )}
     >
       <div className="mt-0.5 flex-shrink-0">

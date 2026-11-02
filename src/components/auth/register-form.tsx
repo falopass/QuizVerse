@@ -111,7 +111,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
       <button
         type="submit"
         disabled={loading}
-        className="bg-accent-primary inline-flex w-full items-center justify-center rounded-full px-4 py-4 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+        className="bg-accent-primary text-bg-primary inline-flex w-full items-center justify-center rounded-full px-4 py-4 text-sm font-semibold transition-transform hover:-translate-y-0.5 disabled:opacity-50"
       >
         {loading ? '...' : labels.submit}
       </button>

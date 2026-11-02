@@ -120,7 +120,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         <p className="text-text-secondary mt-2">{copy.emptyBody}</p>
         <Link
           href={localizeHref(locale, '/create')}
-          className="bg-accent-primary hover:bg-accent-hover mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium text-white transition-colors"
+          className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium transition-colors"
         >
           {copy.emptyCta}
         </Link>
