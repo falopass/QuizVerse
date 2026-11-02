@@ -4,6 +4,7 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { FloatingNav } from './floating-nav';
 import { Footer } from './footer';
+import { RouteAnnouncer } from './route-announcer';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
 interface SiteShellProps {
@@ -34,6 +35,7 @@ export function SiteShell({ children, locale, dictionary, categorySlugs }: SiteS
         {locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
       </a>
       {!isFullscreen && <FloatingNav locale={locale} dictionary={dictionary} />}
+      <RouteAnnouncer />
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>

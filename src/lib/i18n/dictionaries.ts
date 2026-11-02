@@ -129,6 +129,7 @@ export interface Dictionary {
     contact: string;
     mainNavigation: string;
     footerNavigation: string;
+    categoryNavigation: string;
     startPlaying: string;
     coverRole: string;
     coverTrivia: string;
@@ -276,6 +277,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       contact: 'Contact',
       mainNavigation: 'Main navigation',
       footerNavigation: 'Footer links',
+      categoryNavigation: 'Category shortcuts',
       startPlaying: 'Start playing',
       coverRole: 'Your role',
       coverTrivia: 'Fan test',
@@ -422,6 +424,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       contact: 'Contacto',
       mainNavigation: 'Navegación principal',
       footerNavigation: 'Enlaces del pie',
+      categoryNavigation: 'Atajos de categorías',
       startPlaying: 'Empezar a jugar',
       coverRole: 'Tu rol',
       coverTrivia: 'Test fan',

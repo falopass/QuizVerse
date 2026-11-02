@@ -69,7 +69,7 @@ export function EditorialEmptyState({
   return (
     <div className="surface-card p-10 text-center">
       <p className="eyebrow">{eyebrow}</p>
-      <h2 className="text-text-primary mt-3 text-3xl font-semibold tracking-tight">{title}</h2>
+      <h1 className="text-text-primary mt-3 text-3xl font-semibold tracking-tight">{title}</h1>
       <p className="text-text-secondary mx-auto mt-4 max-w-2xl text-base leading-7">{body}</p>
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
         {primaryHref && primaryLabel ? (

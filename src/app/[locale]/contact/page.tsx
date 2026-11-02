@@ -41,7 +41,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           ]),
         ])}
       />
-      <main id="main-content" className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <h1 className="font-display text-4xl font-bold tracking-tight sm:text-5xl">
           {lang === 'es' ? 'Contacto' : 'Contact'}
         </h1>
@@ -92,7 +92,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             </>
           )}
         </div>
-      </main>
+      </div>
     </>
   );
 }

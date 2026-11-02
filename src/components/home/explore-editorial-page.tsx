@@ -174,7 +174,7 @@ export function ExploreEditorialPage({
   }, [showAll]);
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
+    <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
       <section className="grid items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <div className="surface-panel p-8 md:p-10">
           <p className="eyebrow">{copy.eyebrow ?? units.eyebrow}</p>
@@ -415,7 +415,7 @@ export function ExploreEditorialPage({
           <p className="text-text-secondary mt-3">{copy.emptyBody}</p>
         </section>
       )}
-    </main>
+    </div>
   );
 }
 

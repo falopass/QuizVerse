@@ -95,7 +95,7 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
           onClick={trackShare}
           className={cn(
             'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
-            'bg-[#25D366] text-white transition-colors hover:bg-[#20bd5a]'
+            'bg-[#0B7A4F] text-white transition-colors hover:bg-[#096a44]'
           )}
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -129,7 +129,7 @@ export function ShareButtons({ title, url, text, locale = 'en', quizId }: ShareB
           onClick={trackShare}
           className={cn(
             'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
-            'bg-[#1877F2] text-white transition-colors hover:bg-[#166fe5]'
+            'bg-[#0C5AC7] text-white transition-colors hover:bg-[#0a50b2]'
           )}
         >
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">

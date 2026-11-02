@@ -74,7 +74,7 @@ export default async function LocalizedProfilePage({
   ]);
 
   return (
-    <main className="mx-auto min-h-screen max-w-7xl px-4 pt-28 pb-20">
+    <div className="mx-auto min-h-screen max-w-7xl px-4 pt-28 pb-20">
       <section className="surface-panel p-8 md:p-10">
         <p className="eyebrow">{locale === 'es' ? 'Perfil' : 'Profile'}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
@@ -167,7 +167,7 @@ export default async function LocalizedProfilePage({
           <EditorialQuizCard key={quiz.id} quiz={quiz} index={index} locale={locale} />
         ))}
       </section>
-    </main>
+    </div>
   );
 }
 

@@ -36,7 +36,7 @@ export default async function LocalizedForgotPasswordPage({
   const es = locale === 'es';
 
   return (
-    <main className="mx-auto min-h-screen max-w-xl px-4 pt-28 pb-20">
+    <div className="mx-auto min-h-screen max-w-xl px-4 pt-28 pb-20">
       <section className="surface-card p-8 md:p-10">
         <p className="eyebrow">{es ? 'Cuenta' : 'Account'}</p>
         <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight">
@@ -51,6 +51,6 @@ export default async function LocalizedForgotPasswordPage({
           <ForgotPasswordForm locale={locale} initialEmail={email ?? ''} />
         </div>
       </section>
-    </main>
+    </div>
   );
 }
