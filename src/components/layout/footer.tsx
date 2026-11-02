@@ -17,40 +17,30 @@ export function Footer({
   return (
     <footer className="arcade-footer">
       <div className="arcade-wrap arcade-footer-inner">
-        <div>
+        <div className="arcade-footer-brand">
           <Link href={localizeHref(locale, '/')} className="arcade-logo">
             QUIZ<span>VERSE</span>
           </Link>
           <p>{dictionary.footer.tagline}</p>
         </div>
-        <nav aria-label={dictionary.arcade.footerNavigation}>
-          <Link href={localizeHref(locale, '/quiz')}>{dictionary.common.explore}</Link>
-          <Link href={localizeHref(locale, '/indice')}>
-            {locale === 'es' ? 'Índice del catálogo' : 'Catalog index'}
-          </Link>
-          <Link href={localizeHref(locale, '/create')}>{dictionary.common.create}</Link>
-          <Link href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</Link>
-          <Link href={localizeHref(locale, '/login')}>{dictionary.common.login}</Link>
-          <Link href={localizeHref(locale, '/register')}>
-            {locale === 'es' ? 'Crear cuenta' : 'Sign up'}
-          </Link>
-          <Link href={localizeHref(locale, '/notifications')}>
-            {locale === 'es' ? 'Notificaciones' : 'Notifications'}
-          </Link>
-          <Link href={localizeHref(locale, '/about')}>{dictionary.arcade.about}</Link>
-          <Link href={localizeHref(locale, '/privacy')}>{dictionary.arcade.privacy}</Link>
-          <CookiePreferencesButton
-            label={locale === 'es' ? 'Preferencias de cookies' : 'Cookie preferences'}
-          />
-          <Link href={localizeHref(locale, '/terms')}>{dictionary.arcade.terms}</Link>
-          <Link href={localizeHref(locale, '/contact')}>{dictionary.arcade.contact}</Link>
-          <Link href={localizeHref(locale, '/faq')}>
-            {locale === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
-          </Link>
-        </nav>
+        <div className="arcade-footer-groups">
+          <nav aria-label={dictionary.footer.play}>
+            <p className="arcade-footer-heading">{dictionary.footer.play}</p>
+            <Link href={localizeHref(locale, '/quiz')}>{dictionary.common.explore}</Link>
+            <Link href={localizeHref(locale, '/indice')}>{dictionary.footer.catalogIndex}</Link>
+            <Link href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</Link>
+            <Link href={localizeHref(locale, '/create')}>{dictionary.footer.createQuiz}</Link>
+          </nav>
+          <nav aria-label={dictionary.footer.brand}>
+            <p className="arcade-footer-heading">{dictionary.footer.brand}</p>
+            <Link href={localizeHref(locale, '/about')}>{dictionary.arcade.about}</Link>
+            <Link href={localizeHref(locale, '/faq')}>{dictionary.footer.faq}</Link>
+            <Link href={localizeHref(locale, '/contact')}>{dictionary.arcade.contact}</Link>
+          </nav>
+        </div>
         {categorySlugs.length > 0 && (
-          <nav aria-label={dictionary.explore.allCategories}>
-            <p>{dictionary.explore.allCategories}</p>
+          <nav className="arcade-footer-categories" aria-label={dictionary.footer.categories}>
+            <p className="arcade-footer-heading">{dictionary.footer.categories}</p>
             <ul className="m-0 list-none p-0">
               {categorySlugs.map((slug) => (
                 <li key={slug}>
@@ -62,6 +52,12 @@ export function Footer({
             </ul>
           </nav>
         )}
+        <div className="arcade-footer-legal">
+          <Link href={localizeHref(locale, '/privacy')}>{dictionary.arcade.privacy}</Link>
+          <Link href={localizeHref(locale, '/terms')}>{dictionary.arcade.terms}</Link>
+          <CookiePreferencesButton label={dictionary.footer.cookiePreferences} />
+          <span>© {new Date().getFullYear()} QuizVerse</span>
+        </div>
       </div>
     </footer>
   );

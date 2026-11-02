@@ -140,7 +140,7 @@ describe('A11Y-14: landmarks de navegación con etiquetas únicas', () => {
 
     const names = screen.getAllByRole('navigation').map((nav) => nav.getAttribute('aria-label'));
     expect(names).toContain('Category shortcuts');
-    expect(names).toContain('All categories');
+    expect(names).toContain('Categories');
     expect(new Set(names).size).toBe(names.length);
   });
 

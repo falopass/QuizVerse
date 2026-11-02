@@ -174,40 +174,65 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
   const { user, loading } = useSupabase();
   const onSignOut = useSignOut(locale);
   const copy = getCopy(locale, 'userMenu');
+  const common = getCopy(locale, 'common');
+  const nav = getCopy(locale, 'nav');
 
   if (loading) return null;
 
   if (!user) {
     return (
-      <Link href={localizeHref(locale, '/login')} onClick={onSelect}>
-        {copy.signIn}
-      </Link>
+      <div className="arcade-mobile-menu-account">
+        <Link
+          href={localizeHref(locale, '/login')}
+          className="arcade-mobile-menu-login"
+          onClick={onSelect}
+        >
+          {common.login}
+        </Link>
+        <Link
+          href={localizeHref(locale, '/register')}
+          className="arcade-mobile-menu-register"
+          onClick={onSelect}
+        >
+          {nav.createAccount}
+        </Link>
+      </div>
     );
   }
 
+  const name = displayName(user) || copy.account;
+
   return (
-    <>
-      <Link href={localizeHref(locale, '/me')} onClick={onSelect}>
-        {copy.activity}
-      </Link>
-      <Link href={localizeHref(locale, '/profile')} onClick={onSelect}>
-        {copy.profile}
-      </Link>
-      <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
-        {copy.quizzes}
-      </Link>
-      <Link href={localizeHref(locale, '/create/ai')} onClick={onSelect}>
-        {copy.createWithAi}
-      </Link>
-      <Link href={localizeHref(locale, '/achievements')} onClick={onSelect}>
-        {copy.achievements}
-      </Link>
-      <Link href={localizeHref(locale, '/settings')} onClick={onSelect}>
-        {copy.settings}
-      </Link>
+    <div className="arcade-mobile-menu-account">
+      <div className="arcade-mobile-menu-user">
+        <span aria-hidden="true" className="arcade-mobile-menu-avatar">
+          {name.charAt(0).toUpperCase()}
+        </span>
+        <span className="arcade-mobile-menu-name">{name}</span>
+      </div>
+      <div className="arcade-mobile-menu-links">
+        <Link href={localizeHref(locale, '/me')} onClick={onSelect}>
+          {copy.activity}
+        </Link>
+        <Link href={localizeHref(locale, '/profile')} onClick={onSelect}>
+          {copy.profile}
+        </Link>
+        <Link href={localizeHref(locale, '/my-quizzes')} onClick={onSelect}>
+          {copy.quizzes}
+        </Link>
+        <Link href={localizeHref(locale, '/create/ai')} onClick={onSelect}>
+          {copy.createWithAi}
+        </Link>
+        <Link href={localizeHref(locale, '/achievements')} onClick={onSelect}>
+          {copy.achievements}
+        </Link>
+        <Link href={localizeHref(locale, '/settings')} onClick={onSelect}>
+          {copy.settings}
+        </Link>
+      </div>
       <button
         type="button"
-        className="text-text-primary flex min-h-11 w-full items-center px-3 font-bold uppercase"
+        className="arcade-mobile-menu-signout"
         onClick={async () => {
           onSelect?.();
           await onSignOut();
@@ -215,6 +240,6 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
       >
         {copy.signOut}
       </button>
-    </>
+    </div>
   );
 }

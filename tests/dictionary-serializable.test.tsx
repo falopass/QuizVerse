@@ -76,9 +76,6 @@ describe('diccionario serializable (regresión del 500 de #348)', () => {
     );
 
     expect(screen.getByRole('navigation', { name: 'Navegación principal' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Notificaciones' })).toHaveAttribute(
-      'href',
-      '/es/notifications'
-    );
+    expect(screen.getByRole('link', { name: 'Privacidad' })).toHaveAttribute('href', '/es/privacy');
   });
 });

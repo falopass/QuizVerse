@@ -185,10 +185,14 @@ describe('UserMenu', () => {
 });
 
 describe('UserMenuMobile', () => {
-  it('sin sesión muestra solo el enlace de login', () => {
+  it('sin sesión muestra Entrar como CTA y Crear cuenta como enlace', () => {
     render(<UserMenuMobile locale="en" />);
 
-    expect(screen.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/en/login');
+    expect(screen.getByRole('link', { name: 'Log in' })).toHaveAttribute('href', '/en/login');
+    expect(screen.getByRole('link', { name: 'Create account' })).toHaveAttribute(
+      'href',
+      '/en/register'
+    );
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
@@ -216,7 +220,7 @@ describe('UserMenuMobile', () => {
 });
 
 describe('FloatingNav', () => {
-  it('sin sesión muestra «Iniciar sesión» en la cabecera y en el menú móvil', async () => {
+  it('sin sesión muestra «Iniciar sesión» en la cabecera y Entrar/Crear cuenta en el menú', async () => {
     const dictionary = await getDictionary('es');
     render(<FloatingNav locale="es" dictionary={dictionary} />);
 
@@ -226,7 +230,11 @@ describe('FloatingNav', () => {
     );
 
     fireEvent.click(screen.getByRole('button', { name: /menú/i }));
-    expect(screen.getAllByRole('link', { name: 'Iniciar sesión' })).toHaveLength(2);
+    expect(screen.getByRole('link', { name: 'Entrar' })).toHaveAttribute('href', '/es/login');
+    expect(screen.getByRole('link', { name: 'Crear cuenta' })).toHaveAttribute(
+      'href',
+      '/es/register'
+    );
   });
 
   it('con sesión monta el menú de usuario y las entradas del menú móvil', async () => {

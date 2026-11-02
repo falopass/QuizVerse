@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getLocalizedCategoryLabel } from '@/lib/i18n/catalog';
@@ -14,9 +14,45 @@ import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const normalizedPathname = stripLocaleFromPathname(pathname || '/');
   const isActive = (match: string) =>
     normalizedPathname === match || normalizedPathname.startsWith(`${match}/`);
+
+  // Cierra el menú al navegar (mismo patrón que UserMenu).
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setOpen(false);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open]);
+
+  const mobileItems = [
+    { href: '/quiz', match: '/quiz', label: dictionary.common.explore },
+    {
+      href: '/category/personality',
+      match: '/category/personality',
+      label: getLocalizedCategoryLabel('personality', locale),
+    },
+    {
+      href: '/category/trivia',
+      match: '/category/trivia',
+      label: getLocalizedCategoryLabel('trivia', locale),
+    },
+    { href: '/leaderboard', match: '/leaderboard', label: dictionary.common.leaderboard },
+  ];
+
   return (
     <header className="arcade-header">
       <div className="arcade-wrap arcade-header-inner">
@@ -71,18 +107,22 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           </Link>
           <UserMenu locale={locale} />
         </nav>
-        {/* Fuera de `.arcade-nav`: los `.arcade-nav-link` se ocultan bajo 1024px
-            y la campana debe verse también en móvil. */}
-        <NotificationBell locale={locale} />
-        <button
-          type="button"
-          className="arcade-menu-button"
-          aria-expanded={open}
-          aria-controls="arcade-mobile-menu"
-          onClick={() => setOpen(!open)}
-        >
-          {dictionary.nav.menu} ☰
-        </button>
+        {/* Fuera de `.arcade-nav`: la navegación de escritorio se oculta bajo
+            1024px y la campana debe verse también en móvil. */}
+        <div className="arcade-header-actions">
+          <NotificationBell locale={locale} />
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="arcade-menu-button"
+            aria-label={dictionary.nav.menu}
+            aria-expanded={open}
+            aria-controls="arcade-mobile-menu"
+            onClick={() => setOpen(!open)}
+          >
+            <span aria-hidden="true">☰</span>
+          </button>
+        </div>
       </div>
       {open && (
         <nav
@@ -90,48 +130,34 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           className="arcade-mobile-menu"
           aria-label={dictionary.arcade.mainNavigation}
         >
-          <Link
-            href={localizeHref(locale, '/quiz')}
-            className={cn(isActive('/quiz') && 'text-accent-primary')}
-            aria-current={isActive('/quiz') ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {dictionary.common.explore}
-          </Link>
-          <Link
-            href={localizeHref(locale, '/leaderboard')}
-            className={cn(isActive('/leaderboard') && 'text-accent-primary')}
-            aria-current={isActive('/leaderboard') ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {dictionary.common.leaderboard}
-          </Link>
-          <Link
-            href={localizeHref(locale, '/category/personality')}
-            className={cn(isActive('/category/personality') && 'text-accent-primary')}
-            aria-current={isActive('/category/personality') ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {getLocalizedCategoryLabel('personality', locale)}
-          </Link>
-          <Link
-            href={localizeHref(locale, '/category/trivia')}
-            className={cn(isActive('/category/trivia') && 'text-accent-primary')}
-            aria-current={isActive('/category/trivia') ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {getLocalizedCategoryLabel('trivia', locale)}
-          </Link>
-          <Link
-            href={localizeHref(locale, '/random')}
-            prefetch={false}
-            className={cn(isActive('/random') && 'text-accent-primary')}
-            aria-current={isActive('/random') ? 'page' : undefined}
-            onClick={() => setOpen(false)}
-          >
-            {dictionary.common.randomQuiz}
-          </Link>
+          <div className="arcade-mobile-menu-nav">
+            {mobileItems.map((item) => (
+              <Link
+                key={item.href}
+                href={localizeHref(locale, item.href)}
+                className={cn(isActive(item.match) && 'text-accent-primary')}
+                aria-current={isActive(item.match) ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            {/* /random es un route handler 307, no una página RSC: sin prefetch
+                el redirect resuelve a la URL real del quiz al hacer clic. */}
+            <Link
+              href={localizeHref(locale, '/random')}
+              prefetch={false}
+              className={cn(isActive('/random') && 'text-accent-primary')}
+              aria-current={isActive('/random') ? 'page' : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {dictionary.nav.randomQuiz}
+            </Link>
+          </div>
           <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />
+          <div className="arcade-mobile-menu-locale">
+            <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
+          </div>
         </nav>
       )}
     </header>
