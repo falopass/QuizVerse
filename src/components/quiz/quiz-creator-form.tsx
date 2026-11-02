@@ -12,6 +12,7 @@ import { trackEvent } from '@/lib/telemetry/client';
 import {
   creatorErrors,
   normalizeCreatorDraft,
+  resultGraphValid,
   tagFromTitle,
   validateCreatorDraft,
   type CreatorDraftInput,
@@ -222,15 +223,9 @@ export function QuizCreatorForm({
     return {
       title: !has('title'),
       questions: questions.length >= 3 && !has('question'),
-      results:
-        quizType === 'trivia' ||
-        (results.length >= 2 &&
-          results.length <= 6 &&
-          !has('result') &&
-          !has('question') &&
-          !has('form')),
+      results: resultGraphValid(draftInput),
     };
-  }, [errors, questions.length, quizType, results.length]);
+  }, [draftInput, errors, questions.length]);
 
   useEffect(() => {
     if (submitCount === 0 || focusedSubmit.current === submitCount) return;

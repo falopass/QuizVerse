@@ -97,6 +97,38 @@ export function normalizeCreatorDraft(input: CreatorDraftInput) {
   return normalizeQuizDraft(buildCreatorDraft(input));
 }
 
+/**
+ * ¿El grafo de resultados está listo, sin mirar el texto de preguntas y
+ * opciones? Se valida un borrador con esos textos sustituidos por placeholders
+ * para que un prompt vacío no marque los resultados como pendientes, pero sí lo
+ * hagan un tag ausente, una opción sin voto o un resultado inalcanzable.
+ */
+export function resultGraphValid(input: CreatorDraftInput): boolean {
+  if (input.quizType !== 'personality') return true;
+  if (input.results.length < 2 || input.results.length > 6) return false;
+
+  const draft = buildCreatorDraft(input);
+  const probe = {
+    ...draft,
+    title: 'Result graph',
+    description: undefined,
+    category_id: undefined,
+    questions: draft.questions.map((question, questionIndex) => ({
+      ...question,
+      question: `Pregunta ${questionIndex + 1}`,
+      explanation: null,
+      image_url: null,
+      options: question.options.map((option, optionIndex) => ({
+        ...option,
+        text: `Opción ${optionIndex + 1}`,
+        image_url: null,
+      })),
+    })),
+  };
+
+  return validateQuiz(probe, input.language).valid;
+}
+
 const QUESTION_PATH = /^questions\.(\d+)(?:\.|$)/;
 const RESULT_PATH = /^results\.(\d+)(?:\.|$)/;
 const QUESTION_MESSAGE = /^(?:Pregunta|Question) (\d+):/;

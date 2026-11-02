@@ -3,6 +3,7 @@ import {
   buildCreatorDraft,
   creatorErrors,
   normalizeCreatorDraft,
+  resultGraphValid,
   tagFromTitle,
   validateCreatorDraft,
   type CreatorDraftInput,
@@ -165,5 +166,49 @@ describe('creatorErrors', () => {
       { kind: 'result', index: 1 },
       { kind: 'form' },
     ]);
+  });
+});
+
+describe('resultGraphValid', () => {
+  it('ignora el texto de preguntas y opciones', () => {
+    const input = personalityInput();
+    input.questions[0].question = '';
+    input.questions[0].options[0].text = '';
+
+    expect(resultGraphValid(input)).toBe(true);
+  });
+
+  it('exige tags, asignaciones y resultados alcanzables', () => {
+    const missingAssignment = personalityInput();
+    delete missingAssignment.assignments['q1-a'];
+    expect(resultGraphValid(missingAssignment)).toBe(false);
+
+    const emptyTag = personalityInput();
+    emptyTag.results[1].personality_tag = '';
+    expect(resultGraphValid(emptyTag)).toBe(false);
+
+    const duplicateTag = personalityInput();
+    duplicateTag.results[1].personality_tag = 'la-curadora';
+    expect(resultGraphValid(duplicateTag)).toBe(false);
+
+    const unusedResult = personalityInput();
+    Object.keys(unusedResult.assignments).forEach((id) => {
+      unusedResult.assignments[id] = 'r1';
+    });
+    expect(resultGraphValid(unusedResult)).toBe(false);
+  });
+
+  it('sí exige el contenido de los resultados', () => {
+    const emptyTitle = personalityInput();
+    emptyTitle.results[0].title = '';
+    expect(resultGraphValid(emptyTitle)).toBe(false);
+
+    const emptyDescription = personalityInput();
+    emptyDescription.results[1].description = '';
+    expect(resultGraphValid(emptyDescription)).toBe(false);
+  });
+
+  it('no aplica a trivia', () => {
+    expect(resultGraphValid(triviaInput())).toBe(true);
   });
 });
