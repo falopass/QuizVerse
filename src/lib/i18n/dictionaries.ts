@@ -202,7 +202,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       plays: 'Plays',
       likes: 'Likes',
       supporting:
-        'A polished quiz page should sell the rhythm, stakes and payoff before the first tap. This one now does exactly that.',
+        'Everything you need to know before you press play: the pace, the stakes and the payoff waiting at the end.',
       primaryCta: 'Start this quiz',
       secondaryCta: 'Browse more quizzes',
       preview: 'Preview',
@@ -344,7 +344,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       plays: 'Partidas',
       likes: 'Me gusta',
       supporting:
-        'Una buena página de detalle debe vender ritmo, expectativa y recompensa antes del primer tap. Ahora esta experiencia sí lo hace.',
+        'Todo lo que necesitas saber antes de jugar: el ritmo, lo que está en juego y la recompensa que te espera al final.',
       primaryCta: 'Empezar quiz',
       secondaryCta: 'Ver más quizzes',
       preview: 'Vista previa',
@@ -445,4 +445,8 @@ export function getArcadeCopy(locale: Locale): Dictionary['arcade'] {
 // `await getDictionary`).
 export function getErrorCopy(locale: string): Dictionary['error'] {
   return dictionaries[hasLocale(locale) ? locale : defaultLocale].error;
+}
+
+export function getCommonCopy(locale: Locale): Dictionary['common'] {
+  return dictionaries[locale].common;
 }

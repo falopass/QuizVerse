@@ -37,14 +37,12 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     showMore: (count: number) => `Ver los ${count} restantes`,
     showLess: 'Mostrar menos',
     editorialGrid: 'Entradas curadas',
-    editorDeck:
-      'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
+    editorDeck: 'Lo mejor del catálogo, elegido a mano para empezar por ahí.',
     min: 'min',
     plays: 'partidas',
     open: 'Abrir',
     lanesTitle: 'Los mejores caminos para entrar',
-    pulseDeck:
-      'La segunda carta fuerte no debería perderse en una grilla plana. Aquí le damos un espacio propio para convertir mejor.',
+    pulseDeck: 'Lo más jugado esta semana. Otra puerta de entrada al catálogo.',
   },
   en: {
     eyebrow: 'Explore',
@@ -60,14 +58,12 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     showMore: (count: number) => `Show the ${count} remaining`,
     showLess: 'Show less',
     editorialGrid: 'Curated entries',
-    editorDeck:
-      'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
+    editorDeck: 'The best of the catalog, hand-picked so you know where to start.',
     min: 'min',
     plays: 'plays',
     open: 'Open',
     lanesTitle: 'The best ways in',
-    pulseDeck:
-      'The second-strongest quiz should not disappear inside a flat grid, so it gets its own selling space here.',
+    pulseDeck: 'The most played this week. Another way into the catalog.',
   },
 };
 
