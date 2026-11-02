@@ -15,6 +15,7 @@ import { createClient } from '@/lib/supabase/server';
 import { authLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
+import { enabledOAuthProviders } from '@/lib/auth/oauth-providers';
 import { SITE_URL } from '@/lib/seo/site';
 import {
   OAuthProviderSchema,
@@ -128,6 +129,12 @@ export async function signInWithOAuthAction(input: unknown): Promise<OAuthSignIn
   const parsed = OAuthSignInSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, code: 'invalid_input' };
+  }
+
+  // La bandera `AUTH_OAUTH_PROVIDERS` manda antes que el rate limit: con la
+  // lista vacía (o sin el proveedor) nadie llega a GoTrue ni consume cuota.
+  if (!enabledOAuthProviders().includes(parsed.data.provider)) {
+    return { ok: false, code: 'provider_disabled' };
   }
 
   const headerList = await headers();

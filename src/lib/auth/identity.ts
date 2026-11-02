@@ -118,6 +118,7 @@ export const AUTH_ERROR_CODES = [
   'email_not_confirmed',
   'weak_password',
   'unauthorized',
+  'provider_disabled',
   'unexpected',
 ] as const;
 

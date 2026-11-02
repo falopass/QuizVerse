@@ -5,6 +5,7 @@ import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocale, getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
+import { enabledOAuthProviders } from '@/lib/auth/oauth-providers';
 
 export async function LoginPageView({
   redirectTo = '/',
@@ -54,6 +55,7 @@ export async function LoginPageView({
           terms: 'Terms',
         };
   const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
+  const oauthProviders = enabledOAuthProviders();
 
   return (
     <div className="min-h-screen px-4 pt-28 pb-20">
@@ -93,7 +95,7 @@ export async function LoginPageView({
               </p>
             ) : null}
 
-            <OAuthButtons locale={locale} redirectTo={safeRedirect} />
+            <OAuthButtons locale={locale} redirectTo={safeRedirect} providers={oauthProviders} />
           </div>
 
           <div className="my-6 flex items-center gap-4">

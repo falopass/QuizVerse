@@ -4,6 +4,7 @@ import { OAuthButtons } from '@/components/auth/oauth-buttons';
 import { getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
+import { enabledOAuthProviders } from '@/lib/auth/oauth-providers';
 
 export async function RegisterPageView({
   redirectTo = '/',
@@ -49,6 +50,7 @@ export async function RegisterPageView({
       };
 
   const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
+  const oauthProviders = enabledOAuthProviders();
 
   return (
     <div className="min-h-screen px-4 pt-28 pb-20">
@@ -74,15 +76,19 @@ export async function RegisterPageView({
             locale={locale}
           />
 
-          <div className="my-6 flex items-center gap-4">
-            <div className="bg-border-subtle h-px flex-1" />
-            <span className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
-              {copy.orWith}
-            </span>
-            <div className="bg-border-subtle h-px flex-1" />
-          </div>
+          {oauthProviders.length > 0 ? (
+            <>
+              <div className="my-6 flex items-center gap-4">
+                <div className="bg-border-subtle h-px flex-1" />
+                <span className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
+                  {copy.orWith}
+                </span>
+                <div className="bg-border-subtle h-px flex-1" />
+              </div>
 
-          <OAuthButtons locale={locale} redirectTo={safeRedirect} />
+              <OAuthButtons locale={locale} redirectTo={safeRedirect} providers={oauthProviders} />
+            </>
+          ) : null}
 
           <p className="text-text-secondary mt-6 text-center text-sm">
             {copy.haveAccount}{' '}

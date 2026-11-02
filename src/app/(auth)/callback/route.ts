@@ -1,6 +1,11 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
+
+/** Idioma de la ruta de retorno; solo cuenta un prefijo `/en` o `/es` exacto. */
+function localeOfNext(next: string | null): 'en' | 'es' {
+  return next?.match(/^\/(en|es)(\/|$)/)?.[1] === 'es' ? 'es' : 'en';
+}
 
 /**
  * Retorno del flujo OAuth (y de los enlaces de recuperación de contraseña).
@@ -10,6 +15,9 @@ import { safeRedirectPath } from '@/lib/auth/safe-redirect';
  * aún no habilitado en el backend. En ambos fallos volvemos al login del
  * idioma de donde salió la persona, con `?error=oauth` para que la página
  * muestre el aviso en vez de tragar el silencio.
+ *
+ * `next` solo acepta rutas relativas internas (`safeRedirectPath` rechaza
+ * `//`, `\` y esquemas); cualquier otro valor cae a `/{locale}`.
  */
 export async function GET(request: Request) {
   const requestUrl = new URL(request.url);
@@ -17,8 +25,9 @@ export async function GET(request: Request) {
   const providerError = requestUrl.searchParams.get('error');
   const origin = requestUrl.origin;
   const next = requestUrl.searchParams.get('next');
-  const safeNext = safeRedirectPath(next, '/');
-  const loginPath = `/${safeNext.startsWith('/es') ? 'es' : 'en'}/login?error=oauth`;
+  const locale = localeOfNext(next);
+  const safeNext = safeRedirectPath(next, `/${locale}`);
+  const loginPath = `/${locale}/login?error=oauth`;
 
   if (providerError) {
     return NextResponse.redirect(`${origin}${loginPath}`);

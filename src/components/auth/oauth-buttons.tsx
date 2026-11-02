@@ -60,14 +60,22 @@ const PROVIDER_ICONS: Record<OAuthProvider, React.ReactNode> = {
   ),
 };
 
-const PROVIDERS: OAuthProvider[] = ['google', 'facebook', 'github'];
-
 /**
- * Botones de acceso social. Cada uno pide al servidor la URL de autorización
- * del proveedor (`signInWithOAuthAction` fija el verificador PKCE en cookie) y
- * navega a ella; el regreso lo completa `/callback`.
+ * Botones de acceso social. `providers` la decide el servidor
+ * (`AUTH_OAUTH_PROVIDERS`); con la lista vacía no se renderiza nada. Cada
+ * botón pide la URL de autorización a `signInWithOAuthAction` (que fija el
+ * verificador PKCE en cookie) y navega a ella; el regreso lo completa
+ * `/callback`.
  */
-export function OAuthButtons({ locale, redirectTo }: { locale: Locale; redirectTo: string }) {
+export function OAuthButtons({
+  locale,
+  redirectTo,
+  providers,
+}: {
+  locale: Locale;
+  redirectTo: string;
+  providers: OAuthProvider[];
+}) {
   const copy = COPY[locale];
   const [pending, setPending] = useState<OAuthProvider | null>(null);
   const [errorCode, setErrorCode] = useState<AuthErrorCode | null>(null);
@@ -87,9 +95,11 @@ export function OAuthButtons({ locale, redirectTo }: { locale: Locale; redirectT
     setPending(null);
   }
 
+  if (providers.length === 0) return null;
+
   return (
     <div className="space-y-4">
-      {PROVIDERS.map((provider) => (
+      {providers.map((provider) => (
         <button
           key={provider}
           type="button"

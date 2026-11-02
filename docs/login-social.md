@@ -1,20 +1,44 @@
 # Login social (Google, Facebook, GitHub)
 
-Los botones de acceso social ya están en `/[locale]/login` y `/[locale]/register`.
-El flujo es PKCE server-side:
+Los botones de acceso social están en `/[locale]/login` y `/[locale]/register`
+**detrás de una bandera de entorno** (ver abajo). El flujo es PKCE server-side:
 
 1. `OAuthButtons` llama `signInWithOAuthAction` (`src/actions/auth.actions.ts`),
-   que valida el proveedor, aplica rate limit por IP y pide a GoTrue la URL de
-   autorización (`signInWithOAuth` deja el `code_verifier` en cookie).
+   que valida el proveedor contra la bandera, aplica rate limit por IP y pide a
+   GoTrue la URL de autorización (`signInWithOAuth` deja el `code_verifier` en
+   cookie).
 2. El navegador va al proveedor y vuelve a `https://quizverse.org/callback?code=…&next=…`.
 3. `/callback` (`src/app/(auth)/callback/route.ts`) canjea el código con
    `exchangeCodeForSession`; el error vuelve a `/{locale}/login?error=oauth`.
+
+## Bandera de proveedores: `AUTH_OAUTH_PROVIDERS`
+
+Los proveedores visibles se controlan con una variable de entorno de servidor,
+leída en runtime por `enabledOAuthProviders()` (`src/lib/auth/oauth-providers.ts`):
+
+```bash
+AUTH_OAUTH_PROVIDERS="google,github"   # lista separada por comas
+```
+
+- Valores admitidos: `google`, `facebook`, `github` (cualquier otro se ignora).
+- Sin variable o vacía: no se muestra ningún botón social y
+  `signInWithOAuthAction` rechaza el proveedor con `provider_disabled`.
+- Nunca `NEXT_PUBLIC_*`: en Cloudflare Workers las variables públicas quedan
+  horneadas en el build y no se podrían activar sin redesplegar.
+
+**Dónde se configura:** como variable del Worker `quizverse` en Cloudflare
+(dashboard → Workers & Pages → `quizverse` → Settings → Variables and Secrets;
+es una variable, no un secreto). El cambio toma efecto al instante, sin rebuild.
+Hasta que GoTrue tenga el proveedor habilitado (paso siguiente), la variable se
+deja vacía o sin definir y las páginas no muestran acceso social.
 
 ## Lo que falta: habilitar los proveedores en GoTrue (VPS)
 
 El Supabase es auto-hospedado en el VPS. Ahora mismo `/auth/v1/authorize`
 responde `provider is not enabled` para google, facebook y github: **ninguno
-está configurado**. Sin este paso los botones llevan a un JSON de error.
+está configurado**. Por eso `AUTH_OAUTH_PROVIDERS` arranca vacía: cada
+proveedor se suma a la lista cuando su app OAuth y su `GOTRUE_EXTERNAL_*`
+estén listos.
 
 ### 1. Crear las apps OAuth
 
