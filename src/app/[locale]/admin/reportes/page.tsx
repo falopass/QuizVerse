@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { requireAdmin } from '@/lib/auth/require-admin';
 import { ReportList, type AdminReport } from '@/components/admin/report-list';
+import { CommentReportList, type AdminCommentReport } from '@/components/admin/comment-report-list';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -18,8 +19,8 @@ export async function generateMetadata({
   return buildMetadata({
     title: es ? 'Reportes' : 'Reports',
     description: es
-      ? 'Cola de moderación: quizzes reportados por revisar.'
-      : 'Moderation queue: reported quizzes pending review.',
+      ? 'Cola de moderación: quizzes y comentarios reportados por revisar.'
+      : 'Moderation queue: reported quizzes and comments pending review.',
     path: `/${lang}/admin/reportes`,
     locale: lang,
     noindex: true,
@@ -45,14 +46,26 @@ export default async function AdminReportsPage({
   }
   if (!isAdmin) notFound();
 
-  const { data } = await supabase
-    .from('quiz_reports')
-    .select(
-      'id, reason, details, reporter_id, created_at, quizzes(id, slug, title, status, language)'
-    )
-    .eq('resolved', false)
-    .order('created_at', { ascending: false })
-    .limit(100);
+  const [{ data }, { data: commentData }] = await Promise.all([
+    supabase
+      .from('quiz_reports')
+      .select(
+        'id, reason, details, reporter_id, created_at, quizzes(id, slug, title, status, language)'
+      )
+      .eq('resolved', false)
+      .order('created_at', { ascending: false })
+      .limit(100),
+    // `comment_reports` nace en la migración 017: si aún no se aplicó, la
+    // consulta falla y la sección sale vacía en vez de romper la página.
+    supabase
+      .from('comment_reports')
+      .select(
+        'id, reason, details, reporter_id, created_at, comment_id, comment_body, quizzes(id, slug, title, status, language)'
+      )
+      .eq('resolved', false)
+      .order('created_at', { ascending: false })
+      .limit(100),
+  ]);
 
   const reports: AdminReport[] = (data ?? []).map((report) => ({
     id: report.id,
@@ -60,6 +73,17 @@ export default async function AdminReportsPage({
     details: report.details,
     reporter_id: report.reporter_id,
     created_at: report.created_at,
+    quiz: Array.isArray(report.quizzes) ? (report.quizzes[0] ?? null) : report.quizzes,
+  }));
+
+  const commentReports: AdminCommentReport[] = (commentData ?? []).map((report) => ({
+    id: report.id,
+    reason: report.reason,
+    details: report.details,
+    reporter_id: report.reporter_id,
+    created_at: report.created_at,
+    comment_id: report.comment_id,
+    comment_body: report.comment_body,
     quiz: Array.isArray(report.quizzes) ? (report.quizzes[0] ?? null) : report.quizzes,
   }));
 
@@ -74,11 +98,12 @@ export default async function AdminReportsPage({
         </h1>
         <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
           {es
-            ? 'Quizzes reportados por la comunidad, pendientes de revisión.'
-            : 'Quizzes reported by the community, pending review.'}
+            ? 'Quizzes y comentarios reportados por la comunidad, pendientes de revisión.'
+            : 'Quizzes and comments reported by the community, pending review.'}
         </p>
       </section>
       <ReportList reports={reports} locale={locale} />
+      <CommentReportList reports={commentReports} locale={locale} />
     </div>
   );
 }

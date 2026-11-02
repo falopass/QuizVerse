@@ -5,12 +5,18 @@ import { fireEvent, render, screen } from '@testing-library/react';
 const mocks = vi.hoisted(() => ({
   getQuizComments: vi.fn(),
   createComment: vi.fn(),
+  deleteComment: vi.fn(),
+  setCommentHidden: vi.fn(),
+  reportComment: vi.fn(),
   useSupabase: vi.fn(),
 }));
 
 vi.mock('@/actions/comments.actions', () => ({
   getQuizComments: mocks.getQuizComments,
   createComment: mocks.createComment,
+  deleteComment: mocks.deleteComment,
+  setCommentHidden: mocks.setCommentHidden,
+  reportComment: mocks.reportComment,
 }));
 
 vi.mock('@/providers/supabase-provider', () => ({
@@ -29,13 +35,25 @@ const COMMENT = {
   id: 'comment-1',
   body: 'Buenísimo quiz',
   created_at: '2026-10-19T00:00:00Z',
+  user_id: 'user-1',
+  hidden_at: null,
   author: { username: 'ada', display_name: 'Ada Lovelace', avatar_url: null },
 };
+const FOREIGN_COMMENT = { ...COMMENT, user_id: 'user-2' };
 
 beforeEach(() => {
   vi.clearAllMocks();
+  vi.stubGlobal(
+    'confirm',
+    vi.fn(() => true)
+  );
   mocks.useSupabase.mockReturnValue({ user: { id: 'user-1' }, loading: false });
-  mocks.getQuizComments.mockResolvedValue({ comments: [], total: 0 });
+  mocks.getQuizComments.mockResolvedValue({
+    comments: [],
+    total: 0,
+    viewerCanModerate: false,
+    viewerIsAdmin: false,
+  });
 });
 
 describe('QuizComments', () => {
@@ -148,5 +166,75 @@ describe('QuizComments', () => {
       `/es/login?redirect=${encodeURIComponent('/es/quiz/mi-quiz')}`
     );
     expect(screen.queryByRole('button', { name: 'Comentar' })).not.toBeInTheDocument();
+  });
+
+  it('el autor ve Borrar y quita su comentario al confirmar', async () => {
+    mocks.deleteComment.mockResolvedValue({ success: true });
+    mocks.getQuizComments.mockResolvedValue({
+      comments: [COMMENT],
+      total: 1,
+      viewerCanModerate: false,
+      viewerIsAdmin: false,
+    });
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Borrar' }));
+
+    expect(mocks.deleteComment).toHaveBeenCalledWith('comment-1');
+    expect(await screen.findByText('0 comentarios')).toBeInTheDocument();
+    expect(screen.queryByText('Buenísimo quiz')).not.toBeInTheDocument();
+  });
+
+  it('un comentario ajeno muestra Reportar y no Borrar para un usuario normal', async () => {
+    mocks.getQuizComments.mockResolvedValue({
+      comments: [FOREIGN_COMMENT],
+      total: 1,
+      viewerCanModerate: false,
+      viewerIsAdmin: false,
+    });
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+
+    expect(await screen.findByRole('button', { name: 'Reportar' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Borrar' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Ocultar' })).not.toBeInTheDocument();
+  });
+
+  it('quien modera ve Ocultar y al activarlo queda marcado como oculto', async () => {
+    mocks.setCommentHidden.mockResolvedValue({
+      success: true,
+      hiddenAt: '2026-11-02T00:00:00Z',
+    });
+    mocks.getQuizComments.mockResolvedValue({
+      comments: [FOREIGN_COMMENT],
+      total: 1,
+      viewerCanModerate: true,
+      viewerIsAdmin: false,
+    });
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Ocultar' }));
+
+    expect(mocks.setCommentHidden).toHaveBeenCalledWith('comment-1', true);
+    expect(await screen.findByText('Oculto')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Mostrar' })).toBeInTheDocument();
+  });
+
+  it('reporta un comentario desde el modal con motivo', async () => {
+    mocks.reportComment.mockResolvedValue({ success: true });
+    mocks.getQuizComments.mockResolvedValue({
+      comments: [FOREIGN_COMMENT],
+      total: 1,
+      viewerCanModerate: false,
+      viewerIsAdmin: false,
+    });
+
+    render(<QuizComments quizId={QUIZ_ID} locale="es" />);
+    fireEvent.click(await screen.findByRole('button', { name: 'Reportar' }));
+    fireEvent.click(await screen.findByLabelText('Spam o engañoso'));
+    fireEvent.click(screen.getByRole('button', { name: 'Enviar reporte' }));
+
+    expect(mocks.reportComment).toHaveBeenCalledWith('comment-1', 'spam', '');
+    expect(await screen.findByText('Gracias. Revisaremos este comentario.')).toBeInTheDocument();
   });
 });
