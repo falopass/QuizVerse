@@ -2,10 +2,11 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   from: vi.fn(),
+  rpc: vi.fn(),
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
-  createClient: vi.fn(async () => ({ from: mocks.from })),
+  createClient: vi.fn(async () => ({ from: mocks.from, rpc: mocks.rpc })),
 }));
 
 import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
@@ -71,8 +72,16 @@ function mockDb({ sessionPages, profiles }: { sessionPages: DbResult[]; profiles
   return calls;
 }
 
+/** El RPC no existe hasta aplicar la migración: ese es el camino por defecto. */
+const MISSING_FUNCTION = {
+  code: 'PGRST202',
+  message: 'Could not find the function in the schema cache',
+};
+
 beforeEach(() => {
   mocks.from.mockReset();
+  mocks.rpc.mockReset();
+  mocks.rpc.mockResolvedValue({ data: null, error: MISSING_FUNCTION });
 });
 
 describe('getWeeklyLeaderboard', () => {
@@ -171,6 +180,34 @@ describe('getWeeklyLeaderboard', () => {
 
     expect(await getWeeklyLeaderboard(50)).toEqual([]);
     expect(calls.profiles).toHaveLength(0);
+  });
+
+  it('usa los totales agregados del RPC cuando existe (post-migración)', async () => {
+    const calls = mockDb({ sessionPages: [], profiles: ok([profileRow('u1'), profileRow('u2')]) });
+    mocks.rpc.mockResolvedValue({
+      data: [
+        { player_id: 'u1', played: 2, perfect: 1 }, // 2*10 + 25 = 45
+        { player_id: 'u2', played: 1, perfect: 1 }, // 35
+      ],
+      error: null,
+    });
+
+    const entries = await getWeeklyLeaderboard(10);
+
+    expect(mocks.rpc).toHaveBeenCalledWith('get_weekly_session_totals', {
+      p_limit: 10,
+    });
+    expect(mocks.from).not.toHaveBeenCalledWith('game_sessions');
+    expect(entries[0]).toMatchObject({ rank: 1, points: 45, quizzesPlayed: 2 });
+    expect(entries[1]).toMatchObject({ rank: 2, points: 35, quizzesPlayed: 1 });
+    expect(calls.profiles.find((call) => call.method === 'in')?.args[1]).toHaveLength(2);
+  });
+
+  it('propaga el error si el RPC existe pero falla por otra causa', async () => {
+    mocks.rpc.mockResolvedValue({ data: null, error: new Error('boom') });
+
+    await expect(getWeeklyLeaderboard(50)).rejects.toThrow();
+    expect(mocks.from).not.toHaveBeenCalled();
   });
 
   it('propaga el error si falla la consulta de sesiones', async () => {
