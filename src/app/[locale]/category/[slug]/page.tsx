@@ -6,8 +6,13 @@ import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { getHubGuide, getRelatedCategories, RELATED_HEADING } from '@/lib/content/hub-guides';
-import { getCategoryPayload, translatedHubExists } from '@/lib/data/public';
-import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
+import {
+  getCategoryPayload,
+  translatedHubExists,
+  translatedHubPageExists,
+} from '@/lib/data/public';
+import { parsePageParam } from '@/lib/data/quiz-pagination';
+import { getDictionary, hasLocale, type Locale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { categoryDescription, visibleGamesLabel } from '@/lib/i18n/counts';
 import { getCategoryGuide } from '@/lib/i18n/category-guides';
@@ -24,31 +29,45 @@ import {
   webPageNode,
 } from '@/lib/seo/structured-data';
 
-type CategoryProps = { params: Promise<{ locale: string; slug: string }> };
+type CategoryProps = {
+  params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<{ page?: string | string[] }>;
+};
 
 /** How many quizzes the ItemList advertises. Keeps the JSON-LD payload small. */
 const ITEM_LIST_LIMIT = 24;
 
-export async function generateMetadata({ params }: CategoryProps): Promise<Metadata> {
-  const { locale, slug } = await params;
+/** Página 1 sin query (su canonical es la URL limpia); el resto con `?page=N`. */
+function categoryPageHref(locale: Locale, slug: string, page: number): string {
+  const path = localizeHref(locale, `/category/${slug}`);
+  return page > 1 ? `${path}?page=${page}` : path;
+}
+
+function notFoundMetadata(locale: string): Metadata {
+  return { title: locale === 'es' ? 'Página no encontrada' : 'Page not found' };
+}
+
+export async function generateMetadata({ params, searchParams }: CategoryProps): Promise<Metadata> {
+  const [{ locale, slug }, query] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) return {};
+  const page = parsePageParam(query.page);
+  if (page === null) return notFoundMetadata(locale);
   const other = locale === 'es' ? 'en' : 'es';
   const [payload, siblingExists] = await Promise.all([
-    getCategoryPayload(slug, locale),
-    translatedHubExists(slug, other),
+    getCategoryPayload(slug, locale, page),
+    page > 1 ? translatedHubPageExists(slug, other, page) : translatedHubExists(slug, other),
   ]);
   // See quiz/[slug]/page.tsx: notFound() inside generateMetadata streams the
   // 404 client-side only; the page component throws it instead.
   if (!payload || payload.quizzes.length === 0) {
-    return { title: locale === 'es' ? 'Página no encontrada' : 'Page not found' };
+    return notFoundMetadata(locale);
   }
   const category = localizeCategory(payload.category, locale)!;
-  const count = payload.quizzes.length;
 
   // The stored taglines are short ("Sharp rounds with clean pacing."), so the
   // catalogue size and the offer are appended to fill the SERP snippet.
   const description = categoryDescription({
-    count,
+    count: payload.totalQuizzes,
     name: category.name,
     tagline: category.description,
     locale,
@@ -60,22 +79,32 @@ export async function generateMetadata({ params }: CategoryProps): Promise<Metad
     description,
     image: categoryOgImage(locale, slug),
     locale,
-    quizCount: count,
+    quizCount: payload.totalQuizzes,
     translatedHubExists: siblingExists,
+    page,
   });
 }
 
-export default async function LocalizedCategoryPage({ params }: CategoryProps) {
-  const { locale, slug } = await params;
+export default async function LocalizedCategoryPage({ params, searchParams }: CategoryProps) {
+  const [{ locale, slug }, query] = await Promise.all([params, searchParams]);
   if (!hasLocale(locale)) notFound();
-  const payload = await getCategoryPayload(slug, locale);
-  if (!payload) notFound();
-  if (payload.quizzes.length === 0) notFound();
+  const page = parsePageParam(query.page);
+  if (page === null) notFound();
+  const payload = await getCategoryPayload(slug, locale, page);
+  // Fuera de rango la consulta llega vacía: la página no existe, no se sirve
+  // una lista vacía con 200.
+  if (!payload || payload.quizzes.length === 0) notFound();
   const dictionary = await getDictionary(locale);
   const category = localizeCategory(payload.category, locale)!;
   const quizzes = localizeQuizList(payload.quizzes, locale);
-  const guide = getCategoryGuide(payload.category.slug, locale, category.name, quizzes.length);
+  const guide = getCategoryGuide(
+    payload.category.slug,
+    locale,
+    category.name,
+    payload.totalQuizzes
+  );
   const path = categoryPath(locale, slug);
+  const pagePath = page > 1 ? `${path}?page=${page}` : path;
   const hubGuide = getHubGuide(slug, locale);
   const related = getRelatedCategories(
     slug,
@@ -88,7 +117,7 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
     <div className="arcade-wrap arcade-page arcade-category">
       <JsonLd
         data={buildGraph([
-          webPageNode(path, locale, category.name),
+          webPageNode(pagePath, locale, category.name),
           breadcrumbNode([
             { name: locale === 'es' ? 'Inicio' : 'Home', path: `/${locale}` },
             { name: dictionary.common.explore, path: `/${locale}/quiz` },
@@ -120,12 +149,15 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
         <strong>{visibleGamesLabel(quizzes.length, locale)}</strong>
       </section>
       <nav className="arcade-filters" aria-label={dictionary.arcade.allCategories}>
-        <Link href={localizeHref(locale, '/quiz')}>{dictionary.arcade.allCategories}</Link>
+        <Link prefetch={false} href={localizeHref(locale, '/quiz')}>
+          {dictionary.arcade.allCategories}
+        </Link>
         {payload.categories.map((item) => {
           const localized = localizeCategory(item, locale)!;
           return (
             <Link
               key={item.id}
+              prefetch={false}
               href={localizeHref(locale, `/category/${item.slug}`)}
               aria-current={item.slug === slug ? 'page' : undefined}
             >
@@ -139,10 +171,27 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
         <p>{dictionary.arcade.chooseBody}</p>
       </div>
       <div className="arcade-grid">
-        {quizzes.map((quiz) => (
-          <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} />
+        {quizzes.map((quiz, index) => (
+          <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
         ))}
       </div>
+      {payload.pageCount > 1 ? (
+        <nav className="arcade-pagination" aria-label={dictionary.arcade.pagination}>
+          {page > 1 ? (
+            <Link href={categoryPageHref(locale, slug, page - 1)} rel="prev">
+              ← {dictionary.arcade.previousPage}
+            </Link>
+          ) : null}
+          <span>
+            {dictionary.arcade.page} {page} / {payload.pageCount}
+          </span>
+          {page < payload.pageCount ? (
+            <Link href={categoryPageHref(locale, slug, page + 1)} rel="next">
+              {dictionary.arcade.nextPage} →
+            </Link>
+          ) : null}
+        </nav>
+      ) : null}
       <section className="arcade-related" aria-labelledby="category-guide">
         <div className="arcade-section-head">
           <h2 id="category-guide">
@@ -194,7 +243,11 @@ export default async function LocalizedCategoryPage({ params }: CategoryProps) {
               {related.map((item) => {
                 const localized = localizeCategory(item, locale)!;
                 return (
-                  <Link key={item.id} href={localizeHref(locale, `/category/${item.slug}`)}>
+                  <Link
+                    key={item.id}
+                    prefetch={false}
+                    href={localizeHref(locale, `/category/${item.slug}`)}
+                  >
                     {localized.name}
                   </Link>
                 );

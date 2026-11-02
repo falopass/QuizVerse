@@ -80,18 +80,22 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
 }
 
 function payload(overrides: Record<string, unknown> = {}) {
+  const quizzes = (overrides.quizzes as Quiz[] | undefined) ?? [
+    makeQuiz({ id: 'q1', slug: 'trivia-cine', title: 'Trivia de cine' }),
+    makeQuiz({
+      id: 'q2',
+      slug: 'que-personaje-eres',
+      title: '¿Qué personaje eres?',
+      quiz_type: 'personality',
+    }),
+  ];
   return {
     category: MOVIES,
     categories: [MOVIES, ANIME, GAMING],
-    quizzes: [
-      makeQuiz({ id: 'q1', slug: 'trivia-cine', title: 'Trivia de cine' }),
-      makeQuiz({
-        id: 'q2',
-        slug: 'que-personaje-eres',
-        title: '¿Qué personaje eres?',
-        quiz_type: 'personality',
-      }),
-    ],
+    quizzes,
+    totalQuizzes: quizzes.length,
+    page: 1,
+    pageCount: 1,
     ...overrides,
   };
 }
@@ -105,8 +109,13 @@ function jsonLd(container: HTMLElement) {
   return graph['@graph'];
 }
 
-async function renderPage(slug = 'movies-tv', locale = 'es') {
-  return render(await LocalizedCategoryPage({ params: Promise.resolve({ locale, slug }) }));
+async function renderPage(slug = 'movies-tv', locale = 'es', query: Record<string, string> = {}) {
+  return render(
+    await LocalizedCategoryPage({
+      params: Promise.resolve({ locale, slug }),
+      searchParams: Promise.resolve(query),
+    })
+  );
 }
 
 beforeEach(() => {
@@ -133,6 +142,7 @@ describe('LocalizedCategoryPage · render', () => {
     await render(
       await LocalizedCategoryPage({
         params: Promise.resolve({ locale: 'es', slug: 'lifestyle' }),
+        searchParams: Promise.resolve({}),
       })
     );
 
@@ -234,12 +244,97 @@ describe('LocalizedCategoryPage · render', () => {
   it('sin payload o sin quizzes dispara notFound()', async () => {
     dbMocks.getCategoryPayload.mockResolvedValue(null);
     await expect(
-      LocalizedCategoryPage({ params: Promise.resolve({ locale: 'es', slug: 'nope' }) })
+      LocalizedCategoryPage({
+        params: Promise.resolve({ locale: 'es', slug: 'nope' }),
+        searchParams: Promise.resolve({}),
+      })
     ).rejects.toThrow('notFound');
 
     dbMocks.getCategoryPayload.mockResolvedValue(payload({ quizzes: [] }));
     await expect(
-      LocalizedCategoryPage({ params: Promise.resolve({ locale: 'es', slug: 'movies-tv' }) })
+      LocalizedCategoryPage({
+        params: Promise.resolve({ locale: 'es', slug: 'movies-tv' }),
+        searchParams: Promise.resolve({}),
+      })
     ).rejects.toThrow('notFound');
+  });
+});
+
+describe('LocalizedCategoryPage · paginación', () => {
+  const manyQuizzes = Array.from({ length: 36 }, (_, index) =>
+    makeQuiz({ id: `q${index}`, slug: `quiz-${index}`, title: `Quiz ${index}` })
+  );
+
+  it('la página 1 enlaza a la 2 con ?page y no muestra anterior', async () => {
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ quizzes: manyQuizzes, totalQuizzes: 100, page: 1, pageCount: 3 })
+    );
+
+    await renderPage();
+
+    expect(screen.getByRole('navigation', { name: 'Paginación' })).toHaveTextContent(
+      'Página 1 / 3'
+    );
+    expect(screen.getByRole('link', { name: /Siguiente/ })).toHaveAttribute(
+      'href',
+      '/es/category/movies-tv?page=2'
+    );
+    expect(screen.queryByRole('link', { name: /Anterior/ })).not.toBeInTheDocument();
+  });
+
+  it('la página intermedia enlaza anterior a la URL limpia y siguiente con ?page', async () => {
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ quizzes: manyQuizzes, totalQuizzes: 100, page: 2, pageCount: 3 })
+    );
+
+    await renderPage('movies-tv', 'es', { page: '2' });
+
+    expect(screen.getByRole('link', { name: /Anterior/ })).toHaveAttribute(
+      'href',
+      '/es/category/movies-tv'
+    );
+    expect(screen.getByRole('link', { name: /Siguiente/ })).toHaveAttribute(
+      'href',
+      '/es/category/movies-tv?page=3'
+    );
+  });
+
+  it('la última página no muestra siguiente', async () => {
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ quizzes: manyQuizzes, totalQuizzes: 100, page: 3, pageCount: 3 })
+    );
+
+    await renderPage('movies-tv', 'es', { page: '3' });
+
+    expect(screen.getByRole('link', { name: /Anterior/ })).toHaveAttribute(
+      'href',
+      '/es/category/movies-tv?page=2'
+    );
+    expect(screen.queryByRole('link', { name: /Siguiente/ })).not.toBeInTheDocument();
+  });
+
+  it('una página fuera de rango dispara notFound()', async () => {
+    dbMocks.getCategoryPayload.mockResolvedValue(
+      payload({ quizzes: [], totalQuizzes: 100, page: 4, pageCount: 3 })
+    );
+
+    await expect(
+      LocalizedCategoryPage({
+        params: Promise.resolve({ locale: 'es', slug: 'movies-tv' }),
+        searchParams: Promise.resolve({ page: '4' }),
+      })
+    ).rejects.toThrow('notFound');
+  });
+
+  it('un ?page que no es entero positivo dispara notFound() sin consultar', async () => {
+    for (const page of ['0', '-1', 'abc', '2.5']) {
+      await expect(
+        LocalizedCategoryPage({
+          params: Promise.resolve({ locale: 'es', slug: 'movies-tv' }),
+          searchParams: Promise.resolve({ page }),
+        })
+      ).rejects.toThrow('notFound');
+    }
+    expect(dbMocks.getCategoryPayload).not.toHaveBeenCalled();
   });
 });

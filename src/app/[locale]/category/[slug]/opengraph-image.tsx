@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
 import { OG_CACHE_HEADERS, OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
-import { getCategoryPayload } from '@/lib/data/public';
+import { getCategoryPayload, getCategoryQuizTypes } from '@/lib/data/public';
 import { getLocalizedTypeLabel, localizeCategory } from '@/lib/i18n/catalog';
 
 export const size = { width: 1200, height: 630 };
@@ -15,7 +15,11 @@ export default async function CategoryOpenGraphImage({
 }) {
   const { locale, slug } = await params;
   const uiLocale = hasLocale(locale) ? locale : 'en';
-  const payload = await getCategoryPayload(slug, uiLocale);
+  const [payload, quizTypes] = await Promise.all([
+    getCategoryPayload(slug, uiLocale),
+    // El texto en español no enumera tipos: no hace falta esa consulta.
+    uiLocale === 'es' ? Promise.resolve([]) : getCategoryQuizTypes(slug, uiLocale),
+  ]);
   if (!payload || payload.quizzes.length === 0) {
     return new ImageResponse(
       <div
@@ -37,13 +41,14 @@ export default async function CategoryOpenGraphImage({
     );
   }
   const category = localizeCategory(payload.category, uiLocale)!;
-  const types = [...new Set(payload.quizzes.map((quiz) => quiz.quiz_type))]
-    .map((type) => getLocalizedTypeLabel(type, uiLocale))
-    .join(' & ');
+  // Los tipos salen del hub completo; si esa sonda falla, de la página 1.
+  const typeList =
+    quizTypes.length > 0 ? quizTypes : [...new Set(payload.quizzes.map((quiz) => quiz.quiz_type))];
+  const types = typeList.map((type) => getLocalizedTypeLabel(type, uiLocale)).join(' & ');
   const contextLine =
     uiLocale === 'es'
-      ? `${payload.quizzes.length} quizzes en español`
-      : `${payload.quizzes.length} quizzes · ${types}`;
+      ? `${payload.totalQuizzes} quizzes en español`
+      : `${payload.totalQuizzes} quizzes · ${types}`;
   return new ImageResponse(
     <div
       style={{

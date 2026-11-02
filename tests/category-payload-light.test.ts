@@ -16,6 +16,7 @@ const quizRows = [
   },
 ];
 
+const COUNT_COLUMNS = 'category:categories(slug)';
 const selects: string[] = [];
 let failCounts = false;
 
@@ -37,17 +38,19 @@ vi.mock('@/lib/supabase/server', () => ({
                 eq: () => query,
                 order: () => query,
                 range: async (from: number, to: number) => {
-                  if (cols !== '*' && failCounts) {
-                    return { data: null, error: { message: 'counts failed' } };
+                  if (cols === COUNT_COLUMNS) {
+                    if (failCounts) return { data: null, error: { message: 'counts failed' } };
+                    return {
+                      data: quizRows
+                        .map(() => ({ category: { slug: 'culture' } }))
+                        .slice(from, to + 1),
+                      error: null,
+                    };
                   }
                   return {
-                    data:
-                      cols === '*'
-                        ? quizRows.slice(from, to + 1)
-                        : quizRows
-                            .map(() => ({ category: { slug: 'culture' } }))
-                            .slice(from, to + 1),
+                    data: quizRows.slice(from, to + 1),
                     error: null,
+                    count: quizRows.length,
                   };
                 },
               };
@@ -64,7 +67,7 @@ vi.mock('@/lib/data/normalizers', () => ({
   }),
 }));
 
-import { getCategoryPayload } from '@/lib/data/public';
+import { CATEGORY_CARD_COLUMNS, getCategoryPayload } from '@/lib/data/public';
 
 // getCategoryPayload está envuelta en cache() de React: cada `it` usa un slug
 // distinto para que la llamada llegue de verdad a los mocks.
@@ -85,7 +88,14 @@ describe('category payload light', () => {
   it('counts populated categories without selecting full quiz rows', async () => {
     selects.length = 0;
     await getCategoryPayload('personality', 'en');
-    expect(selects).toContain('quizzes:category:categories(slug)');
+    expect(selects).toContain(`quizzes:${COUNT_COLUMNS}`);
+  });
+
+  it('selects only the card columns for the quiz page', async () => {
+    selects.length = 0;
+    await getCategoryPayload('personality', 'es');
+    expect(selects).toContain(`quizzes:${CATEGORY_CARD_COLUMNS}`);
+    expect(selects).not.toContain('quizzes:*');
   });
 
   it('never links empty categories when the counts query fails', async () => {

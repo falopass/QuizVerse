@@ -43,6 +43,16 @@ export function LocaleSwitcher({ value, label }: LocaleSwitcherProps) {
             });
           } finally {
             let href = replacePathLocale(pathname || '/', nextLocale);
+            // La URL hreflang es la fuente de verdad: solo existe cuando la
+            // página traducida existe de verdad (incl. el ?page=N de una
+            // categoría con esa página hermana); sin ella va la URL limpia.
+            const alternate = document.head.querySelector<HTMLLinkElement>(
+              `link[rel="alternate"][hreflang="${nextLocale}"]`
+            );
+            if (alternate) {
+              const url = new URL(alternate.href, window.location.origin);
+              href = `${url.pathname}${url.search}${url.hash}`;
+            }
             const quizSlug = pathname?.match(/^\/(en|es)\/quiz\/([^/]+)(?:\/.*)?$/)?.[2];
             if (quizSlug) {
               try {

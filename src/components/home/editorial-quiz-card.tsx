@@ -22,12 +22,24 @@ interface EditorialQuizCardProps {
   size?: 'hero' | 'feature' | 'default' | 'compact';
 }
 
-export function EditorialQuizCard({ quiz, locale, size = 'default' }: EditorialQuizCardProps) {
+/** Primera fila de la grilla (3 columnas en escritorio): solo esas prefetchean. */
+const PREFETCH_FIRST_ROW = 3;
+
+export function EditorialQuizCard({
+  quiz,
+  locale,
+  index,
+  size = 'default',
+}: EditorialQuizCardProps) {
   const copy = getArcadeCopy(locale);
   // El lead editorial abre su propia sección sin h2 previo: ahí el titular es h2.
   const TitleTag = size === 'hero' ? 'h2' : 'h3';
   return (
-    <Link href={localizeHref(locale, `/quiz/${quiz.slug}`)} className="arcade-card">
+    <Link
+      href={localizeHref(locale, `/quiz/${quiz.slug}`)}
+      prefetch={index === undefined || index < PREFETCH_FIRST_ROW}
+      className="arcade-card"
+    >
       <QuizCoverArt quiz={quiz} locale={locale} compact decorative className="arcade-card-art" />
       <div className="arcade-card-info">
         <span className="arcade-tag">

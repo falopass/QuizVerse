@@ -118,6 +118,10 @@ export interface Dictionary {
     category: string;
     visibleGames: string;
     allCategories: string;
+    pagination: string;
+    previousPage: string;
+    nextPage: string;
+    page: string;
     related: string;
     about: string;
     privacy: string;
@@ -261,6 +265,10 @@ const dictionaries: Record<Locale, Dictionary> = {
       category: 'Category',
       visibleGames: 'Games shown',
       allCategories: 'All categories',
+      pagination: 'Pagination',
+      previousPage: 'Previous',
+      nextPage: 'Next',
+      page: 'Page',
       related: 'More games',
       about: 'About',
       privacy: 'Privacy',
@@ -403,6 +411,10 @@ const dictionaries: Record<Locale, Dictionary> = {
       category: 'Categoría',
       visibleGames: 'Juegos mostrados',
       allCategories: 'Todas las categorías',
+      pagination: 'Paginación',
+      previousPage: 'Anterior',
+      nextPage: 'Siguiente',
+      page: 'Página',
       related: 'Más juegos',
       about: 'Acerca de',
       privacy: 'Privacidad',
