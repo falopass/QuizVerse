@@ -7,7 +7,6 @@ import { getLocalizedCategoryLabel } from '@/lib/i18n/catalog';
 import { localizeHref, stripLocaleFromPathname } from '@/lib/i18n/navigation';
 import { cn } from '@/lib/utils/cn';
 import { LocaleSwitcher } from './locale-switcher';
-import { NotificationBell } from './notification-bell';
 import { UserMenu, UserMenuMobile } from './user-menu';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
@@ -64,9 +63,6 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           </Link>
           <UserMenu locale={locale} />
         </nav>
-        {/* Fuera de `.arcade-nav`: los `.arcade-nav-link` se ocultan bajo 1024px
-            y la campana debe verse también en móvil. */}
-        <NotificationBell locale={locale} />
         <button
           type="button"
           className="arcade-menu-button"
