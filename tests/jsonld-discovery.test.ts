@@ -66,7 +66,7 @@ vi.mock('@/lib/data/public', () => ({
   ],
 }));
 
-import ExplorerPage from '@/app/[locale]/quiz/page';
+import ExplorerPage from '@/app/[locale]/quiz/(explorar)/page';
 import LeaderboardPage from '@/app/[locale]/leaderboard/page';
 
 function findJsonLd(node: ReactNode): JsonLdGraph | null {

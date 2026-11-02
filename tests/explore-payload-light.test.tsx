@@ -57,7 +57,7 @@ vi.mock('next/link', () => ({
   ),
 }));
 
-import LocalizedQuizExplorerPage from '@/app/[locale]/quiz/page';
+import LocalizedQuizExplorerPage from '@/app/[locale]/quiz/(explorar)/page';
 
 const MOVIES: Category = {
   id: 'cat-movies',

@@ -19,7 +19,7 @@ import * as faqOg from '@/app/[locale]/faq/opengraph-image';
 import * as exploreOg from '@/app/[locale]/quiz/opengraph-image';
 import { generateMetadata as indiceMetadata } from '@/app/[locale]/indice/page';
 import { generateMetadata as faqMetadata } from '@/app/[locale]/faq/page';
-import { generateMetadata as exploreMetadata } from '@/app/[locale]/quiz/page';
+import { generateMetadata as exploreMetadata } from '@/app/[locale]/quiz/(explorar)/page';
 import { SITE_URL } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 
