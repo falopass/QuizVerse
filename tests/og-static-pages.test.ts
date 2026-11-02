@@ -16,17 +16,20 @@
 import { describe, expect, it } from 'vitest';
 import * as indiceOg from '@/app/[locale]/indice/opengraph-image';
 import * as faqOg from '@/app/[locale]/faq/opengraph-image';
+import * as exploreOg from '@/app/[locale]/quiz/opengraph-image';
 import { generateMetadata as indiceMetadata } from '@/app/[locale]/indice/page';
 import { generateMetadata as faqMetadata } from '@/app/[locale]/faq/page';
+import { generateMetadata as exploreMetadata } from '@/app/[locale]/quiz/page';
 import { SITE_URL } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 
 const cases = [
   { route: '/indice', mod: indiceOg, generateMetadata: indiceMetadata },
   { route: '/faq', mod: faqOg, generateMetadata: faqMetadata },
+  { route: '/quiz', mod: exploreOg, generateMetadata: exploreMetadata },
 ];
 
-describe('opengraph-image for /indice and /faq', () => {
+describe('opengraph-image for /indice, /faq and /quiz', () => {
   it.each(cases)('$route declares a 1200×630 PNG card', ({ mod }) => {
     expect(mod.size).toEqual({ width: 1200, height: 630 });
     expect(mod.contentType).toBe('image/png');

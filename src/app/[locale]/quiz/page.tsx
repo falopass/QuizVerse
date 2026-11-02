@@ -8,6 +8,7 @@ import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { absoluteUrl } from '@/lib/seo/site';
 import { buildGraph, itemListNode, quizPath, webPageNode } from '@/lib/seo/structured-data';
 import type { Quiz } from '@/types/quiz';
 
@@ -38,6 +39,7 @@ export async function generateMetadata({
     path: `/${locale}/quiz`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/quiz`,
     locale,
+    image: absoluteUrl(`/${locale}/quiz/opengraph-image`),
   });
 }
 

@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 
 export const size = { width: 1200, height: 630 };
@@ -80,6 +81,6 @@ export default async function AboutOpenGraphImage({
         {uiLocale === 'es' ? 'Jugar ahora >' : 'Play now >'}
       </div>
     </div>,
-    await arcadeOgOptions()
+    { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
   );
 }
