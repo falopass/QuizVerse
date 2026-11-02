@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { createClient } from '@/lib/supabase/server';
+import { liveStreak } from '@/lib/quiz/streak';
 import type { QuizType } from '@/types/database';
 
 export const MY_ACTIVITY_LIMIT = 30;
@@ -58,7 +59,7 @@ export async function getMyActivity(userId: string): Promise<MyActivity> {
       .limit(MY_ACTIVITY_LIMIT),
     supabase
       .from('profiles')
-      .select('points, quizzes_played, current_streak, longest_streak')
+      .select('points, quizzes_played, current_streak, longest_streak, last_played_on')
       .eq('id', userId)
       .maybeSingle(),
   ]);
@@ -73,7 +74,9 @@ export async function getMyActivity(userId: string): Promise<MyActivity> {
       .select('points, quizzes_played')
       .eq('id', userId)
       .maybeSingle();
-    profile = legacy ? { ...legacy, current_streak: 0, longest_streak: 0 } : null;
+    profile = legacy
+      ? { ...legacy, current_streak: 0, longest_streak: 0, last_played_on: null }
+      : null;
   }
 
   const sessions = (sessionsResult.data ?? []).map((row) => {
@@ -94,7 +97,7 @@ export async function getMyActivity(userId: string): Promise<MyActivity> {
     sessions,
     played: profile?.quizzes_played ?? sessions.length,
     points: profile?.points ?? 0,
-    currentStreak: profile?.current_streak ?? 0,
+    currentStreak: liveStreak(profile?.current_streak ?? 0, profile?.last_played_on ?? null),
     longestStreak: profile?.longest_streak ?? 0,
     sessionsFailed: sessionsResult.error !== null,
   };

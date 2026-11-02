@@ -10,6 +10,7 @@ import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { achievementCopy } from '@/lib/i18n/achievements';
 import { ACHIEVEMENT_ICONS } from '@/lib/quiz/achievement-progress';
+import { liveStreak } from '@/lib/quiz/streak';
 import { localizedPath, generateProfileMetadata } from '@/lib/seo/metadata';
 import { absoluteUrl } from '@/lib/seo/site';
 import { ShareButtons } from '@/components/shared/share-buttons';
@@ -56,6 +57,7 @@ export default async function LocalizedProfilePage({
     data: { user },
   } = await supabase.auth.getUser();
   const isOwnProfile = user?.id === profile.id;
+  const streak = liveStreak(profile.current_streak, profile.last_played_on);
 
   const [quizzes, achievements, countsRow, followRow] = await Promise.all([
     getQuizzesByCreatorId(profile.id),
@@ -126,8 +128,8 @@ export default async function LocalizedProfilePage({
             <StatCard
               value={
                 locale === 'es'
-                  ? `${profile.current_streak} ${profile.current_streak === 1 ? 'día' : 'días'}`
-                  : `${profile.current_streak} ${profile.current_streak === 1 ? 'day' : 'days'}`
+                  ? `${streak} ${streak === 1 ? 'día' : 'días'}`
+                  : `${streak} ${streak === 1 ? 'day' : 'days'}`
               }
               label={locale === 'es' ? 'Racha actual' : 'Current streak'}
             />

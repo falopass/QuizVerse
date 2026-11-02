@@ -6,6 +6,8 @@ const mocks = vi.hoisted(() => ({
   unlockedOrder: vi.fn(),
   catalogOrder: vi.fn(),
   profileMaybeSingle: vi.fn(),
+  playedCategories: 3,
+  unlockResult: false,
   rpc: vi.fn(),
   from: vi.fn(),
 }));
@@ -87,7 +89,13 @@ beforeEach(() => {
     },
     error: null,
   });
-  mocks.rpc.mockResolvedValue({ data: 3, error: null });
+  mocks.playedCategories = 3;
+  mocks.unlockResult = false;
+  mocks.rpc.mockImplementation(async (fn: string) =>
+    fn === 'get_my_played_categories'
+      ? { data: mocks.playedCategories, error: null }
+      : { data: mocks.unlockResult, error: null }
+  );
   mocks.from.mockImplementation((table: string) => {
     if (table === 'user_achievements') {
       return { select: () => ({ eq: () => ({ order: mocks.unlockedOrder }) }) };
@@ -148,6 +156,39 @@ describe('página /achievements', () => {
     render(await AchievementsPage(props('es')));
 
     expect(screen.getAllByText('Bloqueado')).toHaveLength(6);
+  });
+
+  it('concede con el RPC un logro cuyo contador ya cumple la meta', async () => {
+    mocks.profileMaybeSingle.mockResolvedValue({
+      data: {
+        points: 0,
+        quizzes_played: 60,
+        quizzes_created: 0,
+        current_streak: 1,
+        longest_streak: 1,
+      },
+      error: null,
+    });
+    mocks.unlockedOrder.mockResolvedValue({ data: [], error: null });
+    mocks.unlockResult = true;
+
+    render(await AchievementsPage(props('es')));
+
+    expect(mocks.rpc).toHaveBeenCalledWith('unlock_achievement', {
+      p_achievement_id: 'quiz_master_50',
+    });
+    expect(screen.getByText('3 de 7 desbloqueados')).toBeInTheDocument();
+    expect(screen.getAllByText('Bloqueado')).toHaveLength(4);
+  });
+
+  it('si no hay contadores, no pinta barras en cero', async () => {
+    mocks.profileMaybeSingle.mockResolvedValue({ data: null, error: { message: 'db down' } });
+
+    render(await AchievementsPage(props('es')));
+
+    expect(screen.queryByText('4/7 días')).not.toBeInTheDocument();
+    expect(screen.queryByText('49/50 partidas')).not.toBeInTheDocument();
+    expect(screen.getByText('Primeros pasos')).toBeInTheDocument();
   });
 
   it('si el catálogo falla, muestra al menos los logros ya ganados', async () => {

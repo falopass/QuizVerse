@@ -26,6 +26,7 @@ vi.mock('next/navigation', () => ({
 }));
 
 import MePage from '@/app/[locale]/me/page';
+import { todayInStreakZone } from '@/lib/quiz/streak';
 
 const USER = { id: 'user-1' };
 const ROWS = [
@@ -69,7 +70,13 @@ beforeEach(() => {
   mocks.sessionLimit.mockResolvedValue({ data: ROWS, error: null });
   mocks.sessionEq.mockReturnValue({ order: () => ({ limit: mocks.sessionLimit }) });
   mocks.profileMaybeSingle.mockResolvedValue({
-    data: { points: 145, quizzes_played: 12, current_streak: 4, longest_streak: 9 },
+    data: {
+      points: 145,
+      quizzes_played: 12,
+      current_streak: 4,
+      longest_streak: 9,
+      last_played_on: todayInStreakZone(),
+    },
     error: null,
   });
   mocks.from.mockImplementation((table: string) => {
@@ -112,6 +119,24 @@ describe('página /me', () => {
 
     expect(screen.getByText('Racha')).toBeInTheDocument();
     expect(screen.getByText('Racha').closest('div')).toHaveTextContent(/4\s*días/);
+    expect(screen.getByText('Mejor racha: 9')).toBeInTheDocument();
+  });
+
+  it('una racha rota no se muestra como vigente', async () => {
+    mocks.profileMaybeSingle.mockResolvedValue({
+      data: {
+        points: 145,
+        quizzes_played: 12,
+        current_streak: 4,
+        longest_streak: 9,
+        last_played_on: '2026-01-01',
+      },
+      error: null,
+    });
+
+    render(await MePage(props('es')));
+
+    expect(screen.getByText('Racha').closest('div')).toHaveTextContent(/0\s*días/);
     expect(screen.getByText('Mejor racha: 9')).toBeInTheDocument();
   });
 

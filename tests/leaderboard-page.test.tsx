@@ -55,6 +55,7 @@ const player = (overrides: Partial<Profile> = {}): Profile => ({
   preferred_language: 'en',
   current_streak: 0,
   longest_streak: 0,
+  last_played_on: null,
   created_at: '2026-01-01T00:00:00Z',
   updated_at: '2026-01-01T00:00:00Z',
   ...overrides,

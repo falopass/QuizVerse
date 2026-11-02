@@ -95,6 +95,31 @@ export default async function LocalizedAchievementsPage({
         }))
       : unlocked.map((achievement) => ({ achievement, unlockedAt: achievement.unlocked_at }));
 
+  // Reconciliación: un logro cuyo contador ya cumple la meta pero que nunca se
+  // desbloqueó (lo alcanzó antes de aplicar la 018, o checkAchievements falló
+  // tras su partida) se concede aquí, con el mismo RPC validado en SQL que paga
+  // el premio una sola vez. Sin esto, la barra diría 50/50 y la tarjeta
+  // «Bloqueado» al mismo tiempo.
+  const pending = stats
+    ? cards.filter((card) => {
+        if (card.unlockedAt) return false;
+        const progress = achievementProgress(card.achievement, stats);
+        return progress !== null && progress.current >= progress.target;
+      })
+    : [];
+
+  if (pending.length > 0) {
+    const granted = await Promise.all(
+      pending.map((card) =>
+        supabase.rpc('unlock_achievement', { p_achievement_id: card.achievement.id })
+      )
+    );
+    const now = new Date().toISOString();
+    pending.forEach((card, index) => {
+      if (granted[index].data === true) card.unlockedAt = now;
+    });
+  }
+
   cards.sort((a, b) => {
     if (Boolean(a.unlockedAt) !== Boolean(b.unlockedAt)) return a.unlockedAt ? -1 : 1;
     return a.achievement.points_reward - b.achievement.points_reward;
@@ -102,14 +127,6 @@ export default async function LocalizedAchievementsPage({
 
   const es = locale === 'es';
   const unlockedCount = cards.filter((card) => card.unlockedAt).length;
-  const statsForProgress = stats ?? {
-    points: 0,
-    quizzes_played: 0,
-    quizzes_created: 0,
-    current_streak: 0,
-    longest_streak: 0,
-    played_categories: 0,
-  };
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
@@ -154,7 +171,7 @@ export default async function LocalizedAchievementsPage({
               key={achievement.id}
               achievement={achievement}
               unlockedAt={unlockedAt}
-              progress={achievementProgress(achievement, statsForProgress)}
+              progress={stats ? achievementProgress(achievement, stats) : null}
               locale={locale}
             />
           ))}

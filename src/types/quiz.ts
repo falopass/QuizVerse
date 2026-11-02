@@ -216,6 +216,8 @@ export interface Profile {
   current_streak: number;
   /** Migración 018; 0 en bases sin aplicar. */
   longest_streak: number;
+  /** Migración 018: último día con partida, en America/Santiago. */
+  last_played_on: string | null;
   created_at: string;
   updated_at: string;
 }

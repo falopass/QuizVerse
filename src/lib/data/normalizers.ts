@@ -71,6 +71,7 @@ export function normalizeProfile(row: ProfileRow): Profile {
     preferred_language: row.preferred_language,
     current_streak: row.current_streak ?? 0,
     longest_streak: row.longest_streak ?? 0,
+    last_played_on: row.last_played_on ?? null,
     created_at: row.created_at,
     updated_at: row.updated_at,
   };
