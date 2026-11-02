@@ -15,13 +15,21 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
     quizRow: null as {
       id: string;
       slug: string;
+      title: string;
       language: string;
       status: string;
     } | null,
+    /** Slugs ya tomados por otro quiz: la sonda del slug definitivo los ve. */
+    slugTaken: new Set<string>(),
     moderateResult: { data: null, error: null } as {
       data: { id: string }[] | null;
       error: { message: string; code?: string } | null;
     },
+    /** Respuestas sucesivas del UPDATE; vacío usa moderateResult. */
+    moderateQueue: [] as Array<{
+      data: { id: string }[] | null;
+      error: { message: string; code?: string } | null;
+    }>,
     writeError: null as { message: string } | null,
     calls: [] as Call[],
   };
@@ -41,8 +49,10 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
         call.filters.push([column, values]);
         return node;
       },
-      select: async () =>
-        table === 'quizzes' ? state.moderateResult : { data: [], error: state.writeError },
+      select: async () => {
+        if (table !== 'quizzes') return { data: [], error: state.writeError };
+        return state.moderateQueue.length ? state.moderateQueue.shift()! : state.moderateResult;
+      },
       then(
         onFulfilled?: (value: { error: unknown }) => unknown,
         onRejected?: (e: unknown) => unknown
@@ -58,13 +68,27 @@ const { state, supabaseStub, revalidate } = vi.hoisted(() => {
       select: () => {
         const call: Call = { table, op: 'select', filters: [] };
         state.calls.push(call);
-        return {
+        const node = {
           eq(column: string, value: unknown) {
             call.filters.push([column, value]);
-            return this;
+            return node;
           },
-          maybeSingle: async () => ({ data: state.quizRow, error: null }),
+          neq(column: string, value: unknown) {
+            call.filters.push([`neq:${column}`, value]);
+            return node;
+          },
+          // La sonda del slug definitivo filtra por slug; el resto de lecturas
+          // es la fila del quiz que se modera.
+          maybeSingle: async () => {
+            const slug = call.filters.find(([column]) => column === 'slug')?.[1];
+            if (slug === undefined) return { data: state.quizRow, error: null };
+            return {
+              data: state.slugTaken.has(String(slug)) ? { id: 'otro-quiz' } : null,
+              error: null,
+            };
+          },
         };
+        return node;
       },
       update: (payload: unknown) => updateBuilder(table, payload),
     }),
@@ -90,7 +114,15 @@ const QUIZ_ID = '3f8a2c5e-9b1d-4e7f-a2c3-d5e6f7a8b9c0';
 /** UUIDs válidos para el caso de más de 50 reportes. */
 const manyReportIds = (count: number) =>
   Array.from({ length: count }, (_, i) => `3f8a2c5e-9b1d-4e7f-a2c3-${String(i).padStart(12, '0')}`);
-const PENDING_QUIZ = { id: QUIZ_ID, slug: 'quiz-de-prueba', language: 'en', status: 'pending' };
+// El pendiente lleva el slug provisional que deja la creación; publicar debe
+// cambiarlo por el definitivo derivado del título.
+const PENDING_QUIZ = {
+  id: QUIZ_ID,
+  slug: 'en-quiz-de-prueba-k4f2a',
+  title: 'Quiz de prueba',
+  language: 'en',
+  status: 'pending',
+};
 
 const callsTo = (table: string, op: Call['op']) =>
   state.calls.filter((call) => call.table === table && call.op === op);
@@ -99,7 +131,9 @@ beforeEach(() => {
   state.user = { id: 'admin-1' };
   state.isAdmin = true;
   state.quizRow = { ...PENDING_QUIZ };
+  state.slugTaken = new Set();
   state.moderateResult = { data: [{ id: QUIZ_ID }], error: null };
+  state.moderateQueue = [];
   state.writeError = null;
   state.calls = [];
   revalidate.mockClear();
@@ -196,6 +230,53 @@ describe('publishQuiz', () => {
     expect(update.filters).toContainEqual(['status', 'pending']);
   });
 
+  it('regenera el slug limpio al publicar: el pendiente solo tenía uno provisional', async () => {
+    const result = await publishQuiz(QUIZ_ID);
+    expect(result).toEqual({ success: true });
+
+    const [update] = callsTo('quizzes', 'update');
+    expect(update.payload).toMatchObject({ status: 'published', slug: 'en-quiz-de-prueba' });
+    // La sonda excluye el propio quiz: su slug provisional no compite.
+    const probe = state.calls.find(
+      (call) => call.op === 'select' && call.filters.some(([column]) => column === 'slug')
+    );
+    expect(probe?.filters).toContainEqual(['neq:id', QUIZ_ID]);
+    // El slug provisional pudo estar cacheado: se revalidan los dos.
+    expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
+    expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba-k4f2a');
+  });
+
+  it('sufija el slug definitivo si el base ya está tomado por otro quiz', async () => {
+    state.slugTaken = new Set(['en-quiz-de-prueba']);
+
+    await publishQuiz(QUIZ_ID);
+
+    expect(callsTo('quizzes', 'update')[0].payload).toMatchObject({ slug: 'en-quiz-de-prueba-2' });
+  });
+
+  it('reintenta con el sufijo siguiente si el UPDATE choca con la unique constraint (23505)', async () => {
+    state.moderateQueue = [
+      { data: null, error: { code: '23505', message: 'duplicate key value violates unique' } },
+      { data: [{ id: QUIZ_ID }], error: null },
+    ];
+
+    const result = await publishQuiz(QUIZ_ID);
+
+    expect(result).toEqual({ success: true });
+    const updates = callsTo('quizzes', 'update');
+    expect(updates).toHaveLength(2);
+    expect(updates[0].payload).toMatchObject({ slug: 'en-quiz-de-prueba' });
+    expect(updates[1].payload).toMatchObject({ slug: 'en-quiz-de-prueba-2' });
+  });
+
+  it('no toca el slug al rechazar', async () => {
+    await rejectQuiz(QUIZ_ID, 'Contenido duplicado');
+
+    const [update] = callsTo('quizzes', 'update');
+    expect(update.payload).not.toHaveProperty('slug');
+    expect(revalidate).not.toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
+  });
+
   it('resolves only the reports the ficha showed, validated against the quiz', async () => {
     await publishQuiz(QUIZ_ID, [REPORT_ID]);
     const [update] = callsTo('quiz_reports', 'update');
@@ -247,7 +328,7 @@ describe('publishQuiz', () => {
     await publishQuiz(QUIZ_ID);
     expect(revalidate).toHaveBeenCalledWith('/en');
     expect(revalidate).toHaveBeenCalledWith('/en/quiz');
-    expect(revalidate).toHaveBeenCalledWith('/en/quiz/quiz-de-prueba');
+    expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
     expect(revalidate).toHaveBeenCalledWith('/en/feed.xml');
     expect(revalidate).toHaveBeenCalledWith('/api/sitemap');
   });

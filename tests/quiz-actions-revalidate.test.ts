@@ -21,6 +21,8 @@ const mocks = vi.hoisted(() => ({
   },
   insertQueue: [] as Array<{ data: unknown; error: { code?: string; message: string } | null }>,
   slugLookup: { data: null as { id: string } | null },
+  /** Sondas de existencia de slug: solo debe usarlas el camino publicado. */
+  slugProbe: vi.fn(),
   sessionInsertResult: {
     data: { id: 'session-1', share_token: 'tok-1' } as unknown,
     error: null,
@@ -79,7 +81,13 @@ vi.mock('@/lib/supabase/server', () => ({
         select: (columns?: string) => ({
           eq: () => ({
             // La sonda de slugs pide solo 'id'; el resto de lecturas usa quizRow.
-            maybeSingle: async () => (columns === 'id' ? mocks.slugLookup : mocks.quizRow),
+            maybeSingle: async () => {
+              if (columns === 'id') {
+                mocks.slugProbe();
+                return mocks.slugLookup;
+              }
+              return mocks.quizRow;
+            },
           }),
         }),
         insert: (payload: unknown) => {
@@ -99,7 +107,9 @@ vi.mock('@/lib/supabase/server', () => ({
   }),
 }));
 
-vi.mock('@/lib/quiz/quiz-slug', () => ({
+vi.mock('@/lib/quiz/quiz-slug', async (importOriginal) => ({
+  // `provisionalSlug` queda real: los tests comprueban su forma aleatoria.
+  ...(await importOriginal<typeof import('@/lib/quiz/quiz-slug')>()),
   generateUniqueSlug: async (
     _title: string,
     { exists }: { exists: (c: string) => Promise<boolean> }
@@ -172,6 +182,7 @@ beforeEach(() => {
   mocks.insertResult = { data: { id: 'quiz-1', slug: 'quiz-de-prueba' }, error: null };
   mocks.insertQueue = [];
   mocks.slugLookup = { data: null };
+  mocks.slugProbe.mockClear();
   mocks.sessionInsertResult = { data: { id: 'session-1', share_token: 'tok-1' }, error: null };
   vi.mocked(loadAnswerKeyByQuizId).mockReset();
   mocks.updateResult = { error: null };
@@ -259,9 +270,36 @@ describe('createQuiz', () => {
 
     expect(result.success).toBe(true);
     expect(mocks.insert.mock.calls[0][0]).toMatchObject({ status: 'published' });
+    // El admin ve todo el catálogo: su slug nace limpio, sin sufijo aleatorio.
+    expect(mocks.insert.mock.calls[0][0].slug).toBe('quiz-de-prueba');
   });
 
-  it('reintenta con sufijo cuando el slug ya existe en un quiz invisible (23505)', async () => {
+  it('un borrador no sondea slugs: el resultado no distingue si existe uno privado ajeno', async () => {
+    mocks.profileResult = { data: { is_admin: false } };
+    const provisional = /^es-quiz-de-prueba-[a-z0-9]{6}$/;
+
+    // Caso A: nada ocupa el slug base. Caso B: existe un quiz invisible para
+    // el creador (borrador o pendiente ajeno). La respuesta debe ser la misma
+    // forma en ambos: si naciera del slug limpio, el sufijo de colisión sería
+    // el oráculo de existencia.
+    mocks.slugLookup = { data: null };
+    const free = await createQuiz(createInput('es'));
+    mocks.slugLookup = { data: { id: 'quiz-ajeno' } };
+    const hidden = await createQuiz(createInput('es'));
+
+    expect(free.success).toBe(true);
+    expect(hidden.success).toBe(true);
+    const freeSlug = mocks.insert.mock.calls[0][0].slug as string;
+    const hiddenSlug = mocks.insert.mock.calls[1][0].slug as string;
+    expect(freeSlug).toMatch(provisional);
+    expect(hiddenSlug).toMatch(provisional);
+    expect(freeSlug).not.toBe('quiz-de-prueba');
+    expect(hiddenSlug).not.toBe('quiz-de-prueba');
+    // Ni siquiera se consulta la existencia: no hay observable que comparar.
+    expect(mocks.slugProbe).not.toHaveBeenCalled();
+  });
+
+  it('reintenta con otro sufijo aleatorio cuando el INSERT choca (23505)', async () => {
     mocks.profileResult = { data: { is_admin: false } };
     mocks.insertQueue = [
       { data: null, error: { code: '23505', message: 'duplicate key value violates unique' } },
@@ -271,8 +309,12 @@ describe('createQuiz', () => {
 
     expect(result.success).toBe(true);
     expect(mocks.insert).toHaveBeenCalledTimes(2);
-    expect(mocks.insert.mock.calls[0][0].slug).toBe('quiz-de-prueba');
-    expect(mocks.insert.mock.calls[1][0].slug).toBe('quiz-de-prueba-2');
+    const first = mocks.insert.mock.calls[0][0].slug as string;
+    const second = mocks.insert.mock.calls[1][0].slug as string;
+    // Ambos provisionales: el reintento no revela ni el número de colisiones.
+    expect(first).toMatch(/^es-quiz-de-prueba-[a-z0-9]{6}$/);
+    expect(second).toMatch(/^es-quiz-de-prueba-[a-z0-9]{6}$/);
+    expect(second).not.toBe(first);
   });
 
   it('nunca devuelve el mensaje crudo de Postgres al formulario', async () => {

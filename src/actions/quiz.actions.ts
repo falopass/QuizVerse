@@ -22,7 +22,7 @@ import { isShareToken } from '@/lib/quiz/challenge';
 import { QuizCreateSchema, localizedIssueMessages, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
-import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
+import { generateUniqueSlug, provisionalSlug } from '@/lib/quiz/quiz-slug';
 import {
   actionFailure,
   unexpectedFailure,
@@ -153,27 +153,33 @@ export async function createQuiz(
     is_ai_generated: parsed.data.is_ai_generated,
   };
 
-  // RLS solo deja ver quizzes publicados o propios: un slug tomado por un
-  // pendiente o borrador ajeno es invisible para `exists`, y el INSERT choca
-  // con la unique constraint. El 23505 confirma el slug como tomado y se
-  // reintenta con el sufijo siguiente. El mensaje crudo de Postgres nunca
-  // llega al formulario.
+  // Un quiz sin publicar nace con slug provisional aleatorio. Con un slug
+  // derivado del título, el sufijo de colisión delataría que otro usuario tiene
+  // ese slug en un borrador o pendiente: RLS oculta esas filas, así que el
+  // único observable sería la respuesta. El slug definitivo (limpio y con
+  // sufijo secuencial contra todo el catálogo) se genera al publicar, donde el
+  // admin sí ve todas las filas. Un admin que publica directo salta el paso
+  // provisional. El 23505 se reintenta en ambos caminos y el mensaje crudo de
+  // Postgres nunca llega al formulario.
   const takenSlugs = new Set<string>();
   let quiz: { id: string; slug: string } | null = null;
   let lastError: unknown = null;
   for (let attempt = 0; attempt < MAX_SLUG_COLLISION_RETRIES && !quiz && !lastError; attempt += 1) {
-    const slug = await generateUniqueSlug(parsed.data.title, {
-      language: parsed.data.language,
-      exists: async (candidate) => {
-        if (takenSlugs.has(candidate)) return true;
-        const { data } = await supabase
-          .from('quizzes')
-          .select('id')
-          .eq('slug', candidate)
-          .maybeSingle();
-        return Boolean(data);
-      },
-    });
+    const slug =
+      status === 'published'
+        ? await generateUniqueSlug(parsed.data.title, {
+            language: parsed.data.language,
+            exists: async (candidate) => {
+              if (takenSlugs.has(candidate)) return true;
+              const { data } = await supabase
+                .from('quizzes')
+                .select('id')
+                .eq('slug', candidate)
+                .maybeSingle();
+              return Boolean(data);
+            },
+          })
+        : provisionalSlug(parsed.data.title, parsed.data.language);
     const { data, error } = await supabase
       .from('quizzes')
       .insert({ ...insert, slug })

@@ -26,6 +26,7 @@ import {
   type ActionResult,
 } from '@/lib/actions/types';
 import { revalidateCatalogFeeds, revalidateQuizPages } from '@/lib/quiz/revalidate';
+import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
 import type { QuizStatus } from '@/types/database';
 
 const ResolveSchema = z.object({ reportId: z.string().uuid() });
@@ -38,6 +39,8 @@ const ReportIdsSchema = z.array(z.string().uuid()).default([]);
 const ModerateSchema = z.object({ quizId: z.string().uuid(), reportIds: ReportIdsSchema });
 /** PostgREST manda los filtros en la URL: ~100 UUID por UPDATE evita el límite. */
 const REPORT_IDS_PER_UPDATE = 100;
+/** Reintentos del UPDATE si el slug definitivo choca con la unique constraint. */
+const SLUG_ATTEMPTS = 5;
 const RejectSchema = ModerateSchema.extend({ reason: z.string().trim().min(3).max(500) });
 
 /** Publicar solo alcanza lo que espera veredicto (pending) o lo apela (rejected). */
@@ -93,7 +96,7 @@ async function moderateQuiz(
 
   const { data: quiz } = await supabase
     .from('quizzes')
-    .select('id, slug, language, status')
+    .select('id, slug, title, language, status')
     .eq('id', quizId)
     .maybeSingle();
   if (!quiz) return actionFailure('not_found', 'Quiz not found.');
@@ -103,19 +106,51 @@ async function moderateQuiz(
     return actionFailure('conflict', `A ${quiz.status} quiz cannot be ${next} from here.`);
   }
 
+  // El slug definitivo nace al publicar. Al crear, el quiz sin publicar lleva
+  // uno provisional (`base-<aleatorio>`, ver provisionalSlug): resolver la
+  // colisión en ese momento revelaría si el slug base pertenece a un borrador
+  // o pendiente de otro usuario. Aquí el admin ve todas las filas, así que la
+  // sonda es total y el sufijo secuencial no filtra nada nuevo.
+  const takenSlugs = new Set<string>();
   const now = new Date().toISOString();
-  const { data: updated, error } = await supabase
-    .from('quizzes')
-    .update({
-      status: next,
-      moderated_by: user.id,
-      moderated_at: now,
-      moderation_note: note,
-      ...(next === 'published' ? { published_at: now } : {}),
-    })
-    .eq('id', quiz.id)
-    .eq('status', quiz.status)
-    .select('id');
+  let slug = quiz.slug;
+  let updated: { id: string }[] | null = null;
+  let error: { code?: string; message: string } | null = null;
+  for (let attempt = 0; attempt < SLUG_ATTEMPTS; attempt += 1) {
+    if (next === 'published') {
+      slug = await generateUniqueSlug(quiz.title, {
+        language: quiz.language ?? undefined,
+        exists: async (candidate) => {
+          if (takenSlugs.has(candidate)) return true;
+          const { data } = await supabase
+            .from('quizzes')
+            .select('id')
+            .eq('slug', candidate)
+            .neq('id', quiz.id)
+            .maybeSingle();
+          return Boolean(data);
+        },
+      });
+    }
+    const result = await supabase
+      .from('quizzes')
+      .update({
+        status: next,
+        moderated_by: user.id,
+        moderated_at: now,
+        moderation_note: note,
+        ...(next === 'published' ? { published_at: now, slug } : {}),
+      })
+      .eq('id', quiz.id)
+      .eq('status', quiz.status)
+      .select('id');
+    updated = result.data;
+    error = result.error;
+    // 23505: otra fila tomó el slug entre la sonda y el UPDATE (dos admins
+    // publicando a la vez). Se reintenta con el sufijo siguiente.
+    if (error?.code !== '23505') break;
+    takenSlugs.add(slug);
+  }
 
   if (error) {
     // PGRST204: las columnas moderated_* no existen — migración 016 sin aplicar.
@@ -147,7 +182,10 @@ async function moderateQuiz(
       .eq('resolved', false);
   }
 
-  revalidateQuizPages(quiz.language, quiz.slug);
+  revalidateQuizPages(quiz.language, slug);
+  // Un rechazado que vuelve al catálogo puede cambiar de slug: el anterior
+  // pudo quedar cacheado en CDN mientras estuvo publicado.
+  if (slug !== quiz.slug) revalidateQuizPages(quiz.language, quiz.slug);
   revalidateCatalogFeeds(quiz.language);
   revalidatePath('/[locale]/admin/moderacion', 'page');
   return { success: true };
