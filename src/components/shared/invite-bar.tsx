@@ -32,13 +32,13 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
   const es = locale === 'es';
   const embed = buildEmbedSnippet(url, locale, quizTitle);
 
-  const challengeText = es
-    ? `Reto: ¿puedes superar "${quizTitle}" en QuizVerse?`
-    : `Challenge: can you beat "${quizTitle}" on QuizVerse?`;
+  const shareText = es
+    ? `¿Te animas con "${quizTitle}" en QuizVerse?`
+    : `Up for "${quizTitle}" on QuizVerse?`;
 
-  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(`${challengeText} ${url}`)}`;
+  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${url}`)}`;
   const xHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
-    challengeText
+    shareText
   )}&url=${encodeURIComponent(url)}`;
 
   const handleCopy = async () => {

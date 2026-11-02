@@ -3,10 +3,27 @@ import {
   challengeCopy,
   challengeOutcome,
   challengeVerdictCopy,
+  isChallengeInvite,
   type ChallengeScore,
 } from '@/lib/quiz/challenge';
 
 const friend: ChallengeScore = { score: 6, maxScore: 8 };
+
+describe('isChallengeInvite', () => {
+  it('detecta el reto que apunta a la propia sesión', () => {
+    expect(isChallengeInvite('aaaa1111bbbb2222', 'aaaa1111bbbb2222')).toBe(true);
+  });
+
+  it('un reto contra otra sesión es un versus real', () => {
+    expect(isChallengeInvite('aaaa1111bbbb2222', 'cccc3333dddd4444')).toBe(false);
+  });
+
+  it('sin alguno de los dos tokens no hay invitación', () => {
+    expect(isChallengeInvite('aaaa1111bbbb2222', null)).toBe(false);
+    expect(isChallengeInvite(null, 'aaaa1111bbbb2222')).toBe(false);
+    expect(isChallengeInvite(undefined, undefined)).toBe(false);
+  });
+});
 
 describe('challengeOutcome', () => {
   it('gana con más aciertos y pierde con menos', () => {

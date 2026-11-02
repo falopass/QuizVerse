@@ -29,6 +29,19 @@ export function isShareToken(value: string | null | undefined): value is string 
   return typeof value === 'string' && /^[0-9a-f]{16}$/.test(value);
 }
 
+/**
+ * Un enlace de invitación: el "reto" apunta a la propia sesión mostrada
+ * (`?s=A&challenge=A`). No hay dos marcadores que comparar — un versus contra
+ * uno mismo siempre empata — así que la página pinta solo la marca a batir y
+ * la tarjeta OG sale como resultado personal, no como versus.
+ */
+export function isChallengeInvite(
+  sessionToken: string | null | undefined,
+  challengeToken: string | null | undefined
+): boolean {
+  return Boolean(sessionToken && challengeToken && sessionToken === challengeToken);
+}
+
 /** Compara dos marcadores. Empate cuando ambos aciertan lo mismo. */
 export function challengeOutcome(mine: ChallengeScore, theirs: ChallengeScore): ChallengeOutcome {
   if (mine.score === theirs.score) return 'tie';

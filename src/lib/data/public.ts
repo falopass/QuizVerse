@@ -569,29 +569,31 @@ export interface LeaderboardEntry {
   quizzesPlayed: number;
 }
 
+/**
+ * Lanza si falla la consulta, igual que `getWeeklyLeaderboard`: un error de
+ * base de datos no puede llegar a la página como un ranking vacío (diría «sé
+ * el primero» cuando en realidad el tablero no cargó). La API responde 503 y
+ * la página muestra un aviso con reintento.
+ */
 export const getLeaderboard = cache(async (limit = 50): Promise<LeaderboardEntry[]> => {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .order('points', { ascending: false })
-      .order('quizzes_played', { ascending: false })
-      .limit(limit);
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .order('points', { ascending: false })
+    .order('quizzes_played', { ascending: false })
+    .limit(limit);
 
-    if (error || !data) {
-      throw error ?? new Error('Could not fetch leaderboard');
-    }
-
-    return (data as ProfileRow[]).map((row, index) => ({
-      rank: index + 1,
-      user: normalizeProfile(row),
-      points: row.points,
-      quizzesPlayed: row.quizzes_played,
-    }));
-  } catch {
-    return [];
+  if (error || !data) {
+    throw error ?? new Error('Could not fetch leaderboard');
   }
+
+  return (data as ProfileRow[]).map((row, index) => ({
+    rank: index + 1,
+    user: normalizeProfile(row),
+    points: row.points,
+    quizzesPlayed: row.quizzes_played,
+  }));
 });
 
 export const getProfileByUsername = cache(async (username: string): Promise<Profile | null> => {
