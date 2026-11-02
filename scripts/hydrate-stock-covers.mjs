@@ -12,11 +12,12 @@ const reportPath = path.join(rootDir, 'generated', 'stock-cover-hydration-report
 const limit = Number(process.env.STOCK_COVER_LIMIT || 24);
 const shouldRefresh = process.env.STOCK_COVER_REFRESH === '1';
 const minimumScore = Number(process.env.STOCK_COVER_MIN_SCORE || 34);
+const pruneOnly = process.argv.includes('--prune') || process.env.STOCK_COVER_PRUNE === '1';
 
 const pexelsKey = process.env.PEXELS_API_KEY;
 const pixabayKey = process.env.PIXABAY_API_KEY;
 
-if (!pexelsKey && !pixabayKey) {
+if (!pexelsKey && !pixabayKey && !pruneOnly) {
   throw new Error('Missing PEXELS_API_KEY and PIXABAY_API_KEY');
 }
 
@@ -225,6 +226,68 @@ function writeJson(filePath, data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
 }
 
+// Misma variante que sirve src/app/stock-covers/[slug]/route.ts: la caja más
+// grande real es ~480×320 CSS, así que 960×640 WebP cubre pantallas 2x.
+const PEXELS_VARIANT_PARAMS = {
+  auto: 'compress',
+  cs: 'tinysrgb',
+  w: '960',
+  h: '640',
+  fit: 'crop',
+  fm: 'webp',
+};
+
+function stockImageVariantUrl(imageUrl) {
+  try {
+    const url = new URL(imageUrl);
+    if (url.hostname === 'images.pexels.com') {
+      url.search = '';
+      for (const [key, value] of Object.entries(PEXELS_VARIANT_PARAMS)) {
+        url.searchParams.set(key, value);
+      }
+      return url.toString();
+    }
+    if (url.hostname === 'cdn.pixabay.com' || url.hostname === 'pixabay.com') {
+      // Pixabay no tiene resize por query: el tamaño va en el sufijo del path.
+      url.pathname = url.pathname.replace(/_(1280|1920)(\.[a-z]+)$/i, '_640$2');
+      return url.toString();
+    }
+    return imageUrl;
+  } catch {
+    return imageUrl;
+  }
+}
+
+// FNV-1a 32 bits: estable y suficiente para invalidar la caché cuando cambia
+// la URL de origen (no es un uso criptográfico).
+function coverVersion(imageUrl) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < imageUrl.length; i += 1) {
+    hash ^= imageUrl.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return (hash >>> 0).toString(16).padStart(8, '0');
+}
+
+/**
+ * Slugs que existen como quiz según los seeds versionados: el trending seed
+ * (snapshot del catálogo publicado) y los lotes editoriales de scripts/seed.
+ * El manifest se poda contra este conjunto (PERF-11).
+ */
+function collectKnownSlugs(seed) {
+  const slugs = new Set(seed.map((quiz) => quiz?.slug).filter(Boolean));
+  const seedDir = path.join(rootDir, 'scripts', 'seed');
+  for (const file of fs.readdirSync(seedDir)) {
+    if (!/^editorial-seed.*\.json$/.test(file)) continue;
+    const data = readJson(path.join(seedDir, file), null);
+    const items = Array.isArray(data) ? data : (data?.quizzes ?? []);
+    for (const quiz of items) {
+      if (quiz?.slug) slugs.add(quiz.slug);
+    }
+  }
+  return slugs;
+}
+
 function normalizeText(value) {
   return String(value || '')
     .normalize('NFD')
@@ -366,7 +429,7 @@ async function searchPixabay(query) {
   const data = await response.json();
   return (data.hits ?? []).map((hit) => ({
     provider: 'pixabay',
-    image_url: hit.largeImageURL || hit.webformatURL,
+    image_url: hit.webformatURL || hit.largeImageURL,
     source_url: hit.pageURL,
     photographer: hit.user,
     photographer_url: hit.pageURL,
@@ -433,13 +496,37 @@ async function main() {
   const seed = readJson(seedPath, []);
   const manifest = shouldRefresh ? {} : readJson(manifestPath, {});
   const nextSeed = [...seed];
-  const candidates = nextSeed.filter(shouldHydrate).slice(0, limit);
+  const knownSlugs = collectKnownSlugs(nextSeed);
   const report = {
-    totalCandidates: candidates.length,
+    totalCandidates: 0,
     minimumScore,
     hydrated: [],
     skipped: [],
+    pruned: [],
   };
+
+  // PERF-11: el manifest no puede tener portadas de quizzes que ya no existen
+  // en los seeds versionados; las entradas que quedan nacen en la variante
+  // justa y con su versión de caché.
+  for (const slug of Object.keys(manifest)) {
+    if (!knownSlugs.has(slug)) {
+      delete manifest[slug];
+      report.pruned.push(slug);
+    }
+  }
+  for (const entry of Object.values(manifest)) {
+    entry.image_url = stockImageVariantUrl(entry.image_url);
+    entry.v = coverVersion(entry.image_url);
+  }
+
+  if (pruneOnly) {
+    writeJson(manifestPath, manifest);
+    console.log(JSON.stringify(report, null, 2));
+    return;
+  }
+
+  const candidates = nextSeed.filter(shouldHydrate).slice(0, limit);
+  report.totalCandidates = candidates.length;
 
   for (const quiz of candidates) {
     if (manifest[quiz.slug] && !shouldRefresh) {
@@ -458,10 +545,12 @@ async function main() {
       continue;
     }
 
+    const imageUrl = stockImageVariantUrl(result.image_url);
     manifest[quiz.slug] = {
       slug: quiz.slug,
       provider: result.provider,
-      image_url: result.image_url,
+      image_url: imageUrl,
+      v: coverVersion(imageUrl),
       source_url: result.source_url,
       photographer: result.photographer,
       photographer_url: result.photographer_url,
