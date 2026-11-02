@@ -2158,11 +2158,10 @@ body:has(.arcade-result) .cookie-consent-banner {
   .cookie-consent-inner > div:first-child {
     max-width: none;
   }
+  /* El texto de consentimiento se lee entero: no se recorta. */
   .cookie-consent-inner p {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    font-size: 13px;
+    line-height: 1.45;
   }
   /* La fila de botones mitad y mitad a 44 px ya la da el bloque de <700px. */
   .cookie-consent-actions {

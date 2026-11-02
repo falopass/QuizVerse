@@ -50,7 +50,7 @@ export function EditorialQuizCard({
         locale={locale}
         compact
         decorative
-        showTitle={isHero}
+        showTitle={false}
         className="arcade-card-art"
       />
       <div className="arcade-card-info">

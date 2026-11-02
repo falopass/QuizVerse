@@ -14,9 +14,9 @@ const quiz = {
 };
 
 describe('EditorialQuizCard', () => {
-  it('el hero mantiene el título impreso en la portada', () => {
+  it('el hero tampoco repite el título sobre la portada (ya va debajo)', () => {
     const { container } = render(<EditorialQuizCard quiz={quiz} locale="es" size="hero" />);
-    expect(container.querySelector('.arcade-cover-title')).not.toBeNull();
+    expect(container.querySelector('.arcade-cover-title')).toBeNull();
     expect(container.querySelector('.arcade-card')).toHaveClass('arcade-card-hero');
   });
 
