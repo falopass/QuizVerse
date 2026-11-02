@@ -94,10 +94,14 @@ export async function signUpAction(input: unknown): Promise<AuthResult> {
       emailRedirectTo: `${SITE_URL}/callback?next=${encodeURIComponent(`/${locale}`)}`,
       data: {
         // El trigger lee `name`; `display_name` se mantiene por compatibilidad
-        // con el formulario antiguo, que solo mandaba esa clave.
+        // con el formulario antiguo, que solo mandaba esa clave. `locale`
+        // queda en user_metadata para que el hook de correo redacte en el
+        // idioma del alta las notificaciones sin redirect_to (avisos de
+        // seguridad).
         name: displayName,
         display_name: displayName,
         username: base,
+        locale,
       },
     },
   });

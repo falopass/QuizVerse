@@ -38,6 +38,10 @@
       },
     ],
   },
+  // Correos de auth: GoTrue (Send Email Hook) llama a /api/auth/send-email y el
+  // Worker envía por Email Service. El binding solo puede escribir desde
+  // noreply@quizverse.org; GoTrue firma cada llamada (SEND_EMAIL_HOOK_SECRET).
+  "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["noreply@quizverse.org"] }],
   // Fallback de rate limiting sin secretos cuando falta Upstash
   // (src/lib/utils/rate-limit.ts mapea cada política a su namespace).
   // `period` solo admite 10 u 60 s; las ventanas largas del código

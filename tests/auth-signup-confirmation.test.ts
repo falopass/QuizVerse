@@ -63,7 +63,7 @@ describe('signUpAction con confirmación por email', () => {
       password: 'claveNueva1',
       options: {
         emailRedirectTo: 'https://quizverse.org/callback?next=%2Fes',
-        data: { name: 'Nueva', display_name: 'Nueva', username: 'nueva' },
+        data: { name: 'Nueva', display_name: 'Nueva', username: 'nueva', locale: 'es' },
       },
     });
   });
