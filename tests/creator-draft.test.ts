@@ -106,6 +106,22 @@ describe('buildCreatorDraft', () => {
     );
   });
 
+  it('rechaza preguntas, opciones y resultados que solo son espacios', () => {
+    const input = personalityInput();
+    input.questions[0].options[0].text = '   ';
+    input.results[0].title = '   ';
+    input.results[0].description = '   ';
+
+    const result = validateCreatorDraft(input, 'es');
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.some((error) => error.startsWith('questions.0.options.0.text:'))).toBe(
+      true
+    );
+    expect(result.errors.some((error) => error.startsWith('results.0.title:'))).toBe(true);
+    expect(result.errors.some((error) => error.startsWith('results.0.description:'))).toBe(true);
+  });
+
   it('mantiene trivia igual: sin resultados y sin tags de personalidad', () => {
     const draft = buildCreatorDraft(triviaInput());
 

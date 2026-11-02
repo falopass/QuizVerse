@@ -216,30 +216,21 @@ export function QuizCreatorForm({
   const descriptionError = errorsFor(visibleErrors, { kind: 'description' }).join(' ');
   const formErrors = errorsFor(visibleErrors, { kind: 'form' });
 
-  const checks = useMemo(
-    () => ({
-      title: title.trim().length >= 5,
-      questions:
-        questions.length >= 3 &&
-        questions.every(
-          (item) =>
-            Boolean(item.question.trim()) &&
-            item.options.every((option) => Boolean(option.text.trim())) &&
-            (quizType === 'personality' || item.options.some((option) => option.is_correct))
-        ),
+  const checks = useMemo(() => {
+    const has = (kind: CreatorErrorTarget['kind']) =>
+      errors.some((error) => error.target.kind === kind);
+    return {
+      title: !has('title'),
+      questions: questions.length >= 3 && !has('question'),
       results:
         quizType === 'trivia' ||
         (results.length >= 2 &&
           results.length <= 6 &&
-          results.every(
-            (item) =>
-              Boolean(item.title.trim()) &&
-              Boolean(item.description.trim()) &&
-              Boolean(item.personality_tag?.trim())
-          )),
-    }),
-    [questions, quizType, results, title]
-  );
+          !has('result') &&
+          !has('question') &&
+          !has('form')),
+    };
+  }, [errors, questions.length, quizType, results.length]);
 
   useEffect(() => {
     if (submitCount === 0 || focusedSubmit.current === submitCount) return;

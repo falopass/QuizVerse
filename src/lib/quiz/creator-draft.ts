@@ -52,6 +52,8 @@ export function tagFromTitle(title: string): string {
 export function buildCreatorDraft(input: CreatorDraftInput) {
   const results = input.results.map((result) => ({
     ...result,
+    title: result.title.trim(),
+    description: result.description.trim(),
     image_url: result.image_url?.trim() || null,
     personality_tag: result.personality_tag?.trim() || undefined,
   }));
@@ -61,12 +63,16 @@ export function buildCreatorDraft(input: CreatorDraftInput) {
 
   const questions = input.questions.map((question) => ({
     ...question,
+    question: question.question.trim(),
+    explanation: question.explanation?.trim() || null,
     image_url: question.image_url?.trim() || null,
     options: question.options.map((option) => {
+      const text = option.text.trim();
       const image_url = option.image_url?.trim() || null;
-      if (input.quizType === 'trivia') return { ...option, image_url, personality_tags: undefined };
+      if (input.quizType === 'trivia')
+        return { ...option, text, image_url, personality_tags: undefined };
       const tag = tagByResult.get(input.assignments[option.id] ?? '');
-      return { ...option, image_url, personality_tags: tag ? [tag] : undefined };
+      return { ...option, text, image_url, personality_tags: tag ? [tag] : undefined };
     }),
   }));
 
