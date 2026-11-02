@@ -33,6 +33,8 @@ export interface QuizGameState {
   // Tiempo
   timeRemaining: number;
   totalTimeUsed: number;
+  /** Marca de inicio de la partida: `time_taken_seconds` sale de aquí. */
+  startedAt: number | null;
 
   // Rachas y bonus
   streak: number;
@@ -53,8 +55,14 @@ export interface QuizGameState {
    * Records the current answer. `verdict` comes from the server (`/api/quiz/reveal`);
    * without it the answer is stored but no feedback is shown, because the browser
    * does not hold the answer key.
+   *
+   * `autoAdvanceMs: null` desactiva el auto-avance (Práctica y movimiento
+   * reducido): el jugador avanza con «Siguiente».
    */
-  submitAnswer: (verdict?: { isCorrect: boolean }) => void;
+  submitAnswer: (
+    verdict?: { isCorrect: boolean },
+    options?: { autoAdvanceMs?: number | null }
+  ) => void;
   nextQuestion: () => void;
   skipQuestion: () => void;
   usePowerUp: (powerUpId: string) => void;
@@ -70,6 +78,11 @@ export interface QuizGameState {
   getPersonalityResult: () => PersonalityResult | null;
   getTimeBonus: () => number;
 }
+
+/** Tras el veredicto hay tiempo de sobra para leerlo; «Siguiente» avanza antes. */
+export const FEEDBACK_AUTO_ADVANCE_MS = 3000;
+/** Sin veredicto no hay nada que leer: se avanza casi al instante. */
+export const NO_VERDICT_AUTO_ADVANCE_MS = 350;
 
 // Power-ups disponibles
 const DEFAULT_POWER_UPS: PowerUp[] = [
@@ -111,6 +124,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
   isPaused: false,
   timeRemaining: 30,
   totalTimeUsed: 0,
+  startedAt: null,
   streak: 0,
   maxStreak: 0,
   bonusPoints: 0,
@@ -137,6 +151,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
             )
           : 0,
       totalTimeUsed: 0,
+      startedAt: Date.now(),
       streak: 0,
       maxStreak: 0,
       bonusPoints: 0,
@@ -158,7 +173,7 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     set({ selectedOptionId: optionId });
   },
 
-  submitAnswer: (verdict) => {
+  submitAnswer: (verdict, options) => {
     const state = get();
     if (!state.quiz || !state.selectedOptionId || state.isCompleted) return;
 
@@ -206,35 +221,40 @@ export const useQuizStore = create<QuizGameState>((set, get) => ({
     const questionIndexAtSubmit = state.currentQuestionIndex;
 
     // Auto-avanzar: con feedback se deja leer el resultado, sin feedback no se
-    // retiene al jugador porque no hay nada que leer.
-    setTimeout(
-      () => {
-        const currentState = get();
-        if (
-          !currentState.quiz ||
-          currentState.gameId !== state.gameId ||
-          currentState.isCompleted ||
-          currentState.quiz.id !== state.quiz?.id ||
-          currentState.currentQuestionIndex !== questionIndexAtSubmit
-        )
-          return;
-        if (hasVerdict && !currentState.showFeedback) return;
-        if (
-          (currentState.gameMode === 'survival' && hasVerdict && !isCorrect) ||
-          currentState.currentQuestionIndex === currentState.quiz.questions.length - 1
-        ) {
-          set({ isCompleted: true });
-        } else {
-          get().nextQuestion();
-        }
-      },
-      hasVerdict ? 1500 : 350
-    );
+    // retiene al jugador porque no hay nada que leer. Práctica y movimiento
+    // reducido pasan `autoAdvanceMs: null` y avanzan con «Siguiente».
+    const autoAdvanceMs =
+      options?.autoAdvanceMs === undefined
+        ? hasVerdict
+          ? FEEDBACK_AUTO_ADVANCE_MS
+          : NO_VERDICT_AUTO_ADVANCE_MS
+        : options.autoAdvanceMs;
+    if (autoAdvanceMs === null) return;
+    setTimeout(() => {
+      const currentState = get();
+      if (
+        !currentState.quiz ||
+        currentState.gameId !== state.gameId ||
+        currentState.isCompleted ||
+        currentState.quiz.id !== state.quiz?.id ||
+        currentState.currentQuestionIndex !== questionIndexAtSubmit
+      )
+        return;
+      if (hasVerdict && !currentState.showFeedback) return;
+      get().nextQuestion();
+    }, autoAdvanceMs);
   },
 
   nextQuestion: () => {
     const state = get();
     if (!state.quiz || state.isCompleted) return;
+
+    // Un fallo en Supervivencia cierra la partida, venga el avance del
+    // temporizador o del botón «Siguiente».
+    if (state.gameMode === 'survival' && state.lastAnswerCorrect === false) {
+      set({ isCompleted: true });
+      return;
+    }
 
     const nextIndex = state.currentQuestionIndex + 1;
     if (nextIndex >= state.quiz.questions.length) {

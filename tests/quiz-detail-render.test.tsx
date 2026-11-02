@@ -194,6 +194,15 @@ describe('QuizDetailPage · render SEO', () => {
     );
   });
 
+  it('el CTA «Empezar a jugar» entra directo en modo Clásico', async () => {
+    await renderDetail('es', makeQuiz());
+
+    expect(screen.getByRole('link', { name: /Empezar a jugar/ })).toHaveAttribute(
+      'href',
+      '/es/quiz/movies-trivia/play?mode=classic'
+    );
+  });
+
   it('«Dentro del quiz» lista solo las 3 primeras preguntas y no fuga is_correct', async () => {
     const { container } = await renderDetail('es', makeQuiz());
 

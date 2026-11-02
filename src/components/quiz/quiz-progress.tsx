@@ -27,6 +27,10 @@ export function QuizProgress({
   timeLimit,
   locale,
 }: QuizProgressProps) {
+  const timerText =
+    timeRemaining !== undefined
+      ? `${Math.floor(timeRemaining / 60)}:${(timeRemaining % 60).toString().padStart(2, '0')}`
+      : undefined;
   return (
     <div className="w-full">
       {/* Progress bar (decorativa: el contador de abajo es quien anuncia) */}
@@ -60,6 +64,8 @@ export function QuizProgress({
               animated={timeRemaining <= 10}
               timerGradient={getTimerGradient(timeRemaining, timeLimit)}
               className="w-20"
+              ariaLabel={locale === 'es' ? 'Tiempo restante' : 'Time remaining'}
+              ariaValueText={timerText}
             />
             <div
               className={cn(
@@ -75,9 +81,7 @@ export function QuizProgress({
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span>
-                {Math.floor(timeRemaining / 60)}:{(timeRemaining % 60).toString().padStart(2, '0')}
-              </span>
+              <span>{timerText}</span>
             </div>
           </div>
         )}

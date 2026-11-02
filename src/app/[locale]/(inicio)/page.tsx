@@ -107,7 +107,9 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           <p>{dictionary.arcade.heroBody}</p>
           <Link
             href={
-              lead ? localizeHref(locale, `/quiz/${lead.slug}/play`) : localizeHref(locale, '/quiz')
+              lead
+                ? localizeHref(locale, `/quiz/${lead.slug}/play?mode=classic`)
+                : localizeHref(locale, '/quiz')
             }
             className="arcade-button arcade-button-pink"
           >

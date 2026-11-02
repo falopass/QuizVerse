@@ -10,6 +10,10 @@ export interface ProgressBarProps {
   animated?: boolean;
   className?: string;
   timerGradient?: 'safe' | 'medium' | 'low';
+  /** Nombre accesible del progressbar cuando no es decorativo. */
+  ariaLabel?: string;
+  /** Texto legible del valor (p. ej. «3:59») para lectores de pantalla. */
+  ariaValueText?: string;
 }
 
 export function ProgressBar({
@@ -21,6 +25,8 @@ export function ProgressBar({
   animated = true,
   className,
   timerGradient,
+  ariaLabel,
+  ariaValueText,
 }: ProgressBarProps) {
   const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
@@ -48,9 +54,11 @@ export function ProgressBar({
       <div
         className={cn('bg-bg-tertiary w-full overflow-hidden rounded-full', sizes[size])}
         role="progressbar"
+        aria-label={ariaLabel}
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={max}
+        aria-valuetext={ariaValueText}
       >
         <div
           className={cn(

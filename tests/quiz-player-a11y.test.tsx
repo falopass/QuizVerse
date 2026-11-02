@@ -68,8 +68,8 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
 }
 
 async function startPlaying(locale: 'en' | 'es' = 'en') {
+  // /play arranca directo en Clásico: el selector queda tras «Cambiar modo».
   render(<QuizPlayer quiz={makeQuiz()} locale={locale} />);
-  fireEvent.click(screen.getByRole('button', { name: /Clásico|Classic/ }));
   await screen.findByText(locale === 'es' ? /ELIGE UNA RESPUESTA/ : /CHOOSE AN ANSWER/);
 }
 
@@ -95,16 +95,16 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
   it('tras el veredicto el foco llega al enunciado en el auto-avance', async () => {
     await startPlaying('en');
 
+    // Un toque responde: no hace falta confirmar con «Siguiente».
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
     await screen.findByText('Correct');
 
-    // Auto-avance real: el temporizador de feedback (~1.5 s) monta la tarjeta
+    // Auto-avance real: el temporizador de feedback (~3 s) monta la tarjeta
     // nueva tras la animación de salida.
     const nextHeading = await screen.findByRole(
       'heading',
       { name: 'Which planet is closest to the Sun?' },
-      { timeout: 4000 }
+      { timeout: 8000 }
     );
     await waitFor(() => expect(document.activeElement).toBe(nextHeading));
   });
@@ -124,7 +124,6 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     await startPlaying('en');
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
 
     // Mientras el servidor decide, la selección no debe cambiar: de lo
     // contrario la tarjeta marcaría incorrecta una opción que no se envió.
@@ -146,14 +145,18 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     );
     await startPlaying('en');
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Next' }));
     fireEvent.click(screen.getByRole('button', { name: 'Pause game' }));
     fireEvent.click(screen.getByRole('button', { name: 'Change mode' }));
     fireEvent.click(screen.getByRole('button', { name: /Classic/ }));
     fireEvent.click(await screen.findByRole('button', { name: /Mars/ }));
     await act(async () => resolveReveal(null));
-    expect(useQuizStore.getState().answers).toEqual([]);
-    expect(useQuizStore.getState().selectedOptionId).toBe('q1b');
+
+    // El veredicto viejo (null) no pisa la partida nueva: solo cuenta la
+    // respuesta enviada después del cambio de modo.
+    const state = useQuizStore.getState();
+    expect(state.answers).toHaveLength(1);
+    expect(state.answers[0].selected_option_id).toBe('q1b');
+    expect(state.selectedOptionId).toBe('q1b');
   });
 });
 
@@ -162,7 +165,6 @@ describe('QuizPlayer veredicto accesible', () => {
     await startPlaying('es');
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Siguiente' }));
 
     const verdict = await screen.findByText('Correcto');
     expect(verdict.closest('[role="status"]')).not.toBeNull();
@@ -182,7 +184,6 @@ describe('QuizPlayer veredicto accesible', () => {
     await startPlaying('es');
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    fireEvent.click(screen.getByRole('button', { name: 'Siguiente' }));
 
     const verdict = await screen.findByText('Fallaste');
     expect(verdict.closest('[role="status"]')).not.toBeNull();

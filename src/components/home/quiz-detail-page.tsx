@@ -122,7 +122,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           <p>{quiz.description}</p>
           <div className="flex flex-wrap items-center gap-4">
             <Link
-              href={localizeHref(locale, `/quiz/${quiz.slug}/play`)}
+              href={localizeHref(locale, `/quiz/${quiz.slug}/play?mode=classic`)}
               className="arcade-button arcade-button-lime arcade-start"
             >
               {dictionary.arcade.startPlaying} <span>↗</span>
