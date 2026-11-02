@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
@@ -13,8 +13,12 @@ import { editorialScore, explorerSelection } from '@/lib/quiz/editorial-order';
 import type { Category, ExploreCardQuiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
-/** Bajo mil partidas la cifra delata poco volumen: se cambia por un dato neutro. */
+/** Bajo mil partidas la cifra delata poco volumen: se omite en las tarjetas. */
 const SOCIAL_PROOF_MIN_PLAYS = 1000;
+
+/** Filas de chips: scroll horizontal con snap en móvil, envueltas desde lg. */
+const CHIP_ROW_CLASS =
+  'flex flex-nowrap snap-x gap-2 overflow-x-auto scroll-px-4 [scrollbar-width:none] lg:flex-wrap [&::-webkit-scrollbar]:hidden';
 
 const MOODS = {
   en: [
@@ -52,13 +56,8 @@ interface ExploreCatalogPageProps {
     emptyTitle: string;
     emptyBody: string;
     allCategories: string;
-    eyebrow?: string;
-    visibleNow?: string;
-    playsInView?: string;
-    publishedNow?: string;
     searchLabel?: string;
     categoryLanes?: string;
-    leadPick?: string;
     moreWaysIn?: string;
     quizzesAfterFilters?: string;
   };
@@ -140,11 +139,6 @@ export function ExploreEditorialPage({
 
   const units = getExploreCopy(locale);
 
-  const playsInView = React.useMemo(
-    () => filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0),
-    [filteredQuizzes]
-  );
-
   const visibleCount =
     (featuredLead ? 1 : 0) +
     (pulseQuiz ? 1 : 0) +
@@ -175,115 +169,73 @@ export function ExploreEditorialPage({
   }, [showAll]);
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
-      <section className="grid items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-        <div className="surface-panel p-8 md:p-10">
-          <p className="eyebrow">{copy.eyebrow ?? units.eyebrow}</p>
-          <h1 className="text-text-primary mt-4 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
-            {copy.title}
-          </h1>
-          <p className="balanced-copy text-text-secondary mt-5 max-w-2xl text-lg md:text-xl">
-            {copy.subtitle}
-          </p>
-        </div>
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 pt-8 pb-20">
+      <header className="max-w-3xl space-y-3">
+        <h1 className="text-text-primary text-[2rem] leading-tight font-semibold tracking-tight md:text-5xl">
+          {copy.title}
+        </h1>
+        <p className="text-text-secondary max-w-2xl text-base">{copy.subtitle}</p>
+      </header>
 
-        <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-3">
-          <MetricCard
-            value={String(filteredQuizzes.length)}
-            label={copy.visibleNow ?? units.visibleNow}
+      <section className="space-y-4">
+        <label className="block">
+          <span className="sr-only">{copy.searchLabel ?? units.search}</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              resetExpansion();
+            }}
+            placeholder={copy.searchPlaceholder}
+            className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 h-12 w-full rounded-full border px-5 text-sm transition-colors outline-none"
           />
-          {playsInView >= SOCIAL_PROOF_MIN_PLAYS ? (
-            <MetricCard
-              value={formatCompactNumber(playsInView, locale)}
-              label={copy.playsInView ?? units.playsInView}
+        </label>
+
+        <div className={CHIP_ROW_CLASS} role="group" aria-label={units.moods}>
+          {moods.map((mood) => (
+            <FilterChip
+              key={mood.id}
+              active={activeMood === mood.id}
+              label={mood.label}
+              onClick={() => {
+                setActiveMood(mood.id);
+                resetExpansion();
+              }}
             />
-          ) : (
-            <MetricCard value={String(localizedCategories.length)} label={units.categories} />
-          )}
-          <MetricCard
-            value={formatCompactNumber(localizedQuizzes.length, locale)}
-            label={copy.publishedNow ?? units.publishedNow}
-          />
+          ))}
         </div>
-      </section>
 
-      <section className="surface-card p-5 md:p-6">
-        <div className="grid gap-5 lg:grid-cols-[1.18fr_0.82fr]">
-          <div className="space-y-4">
-            <label className="block">
-              <span className="text-text-muted mb-2 block text-[11px] font-semibold tracking-[0.2em] uppercase">
-                {copy.searchLabel ?? units.search}
-              </span>
-              <input
-                type="search"
-                value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                  resetExpansion();
-                }}
-                placeholder={copy.searchPlaceholder}
-                className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
-              />
-            </label>
-            <div
-              className="flex flex-wrap gap-2"
-              role="group"
-              aria-label={copy.eyebrow ?? units.eyebrow}
-            >
-              {moods.map((mood) => (
-                <button
-                  key={mood.id}
-                  type="button"
-                  aria-pressed={activeMood === mood.id}
-                  onClick={() => {
-                    setActiveMood(mood.id);
-                    resetExpansion();
-                  }}
-                  className={cn(
-                    'min-h-11 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
-                    activeMood === mood.id
-                      ? 'border-accent-primary bg-accent-primary text-bg-primary'
-                      : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
-                  )}
-                >
-                  {mood.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
-              {copy.categoryLanes ?? units.categoryLanes}
-            </p>
-            <div
-              className="flex flex-wrap gap-2"
-              role="group"
-              aria-label={copy.categoryLanes ?? units.categoryLanes}
-            >
-              <CategoryFilter
-                active={activeCategory === 'all'}
-                label={copy.allCategories}
+        <div>
+          <p className="sr-only">{copy.categoryLanes ?? units.categoryLanes}</p>
+          <div
+            className={CHIP_ROW_CLASS}
+            role="group"
+            aria-label={copy.categoryLanes ?? units.categoryLanes}
+          >
+            <FilterChip
+              active={activeCategory === 'all'}
+              label={copy.allCategories}
+              onClick={() => {
+                setActiveCategory('all');
+                resetExpansion();
+              }}
+            />
+            {localizedCategories.map((category) => (
+              <FilterChip
+                key={category!.id}
+                active={activeCategory === category!.slug}
+                label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
                 onClick={() => {
-                  setActiveCategory('all');
+                  setActiveCategory(category!.slug);
                   resetExpansion();
                 }}
               />
-              {localizedCategories.map((category) => (
-                <CategoryFilter
-                  key={category!.id}
-                  active={activeCategory === category!.slug}
-                  label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
-                  onClick={() => {
-                    setActiveCategory(category!.slug);
-                    resetExpansion();
-                  }}
-                />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-        <p role="status" aria-live="polite" className="text-text-secondary mt-5 text-sm">
+
+        <p role="status" aria-live="polite" className="text-text-secondary text-sm">
           {filteredQuizzes.length} {copy.quizzesAfterFilters ?? units.quizzesAfterFilters}
         </p>
       </section>
@@ -304,7 +256,7 @@ export function ExploreEditorialPage({
                     </p>
                     <p className="text-text-secondary mt-5 text-sm leading-6">{units.pulseDeck}</p>
                   </div>
-                  <div className="border-border-subtle text-text-muted mt-6 flex items-center justify-between border-t pt-4 text-[11px] font-semibold tracking-[0.18em] uppercase">
+                  <div className="border-border-subtle text-text-muted mt-6 flex items-center justify-between border-t pt-4 text-xs font-semibold">
                     <span>
                       {pulseQuiz.estimated_minutes} {units.min}
                     </span>
@@ -324,7 +276,7 @@ export function ExploreEditorialPage({
               ) : null}
 
               <div className="surface-card rounded-[2rem] p-6 md:p-7">
-                <p className="eyebrow mb-4">{units.leadPick}</p>
+                <p className="text-text-muted mb-4 text-sm font-semibold">{units.leadPick}</p>
                 <h2 className="text-4xl">{copy.moreWaysIn ?? units.moreWaysIn}</h2>
                 <p className="text-text-secondary mt-4 text-base leading-7">{units.editorDeck}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -332,7 +284,7 @@ export function ExploreEditorialPage({
                     <Link
                       key={category!.id}
                       href={localizeHref(locale, `/category/${category!.slug}`)}
-                      className="border-border-subtle text-text-secondary hover:text-text-primary bg-bg-primary rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors"
+                      className="border-border-subtle text-text-secondary hover:text-text-primary bg-bg-primary inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors"
                     >
                       {category!.name}
                     </Link>
@@ -422,18 +374,7 @@ export function ExploreEditorialPage({
   );
 }
 
-function MetricCard({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="surface-card p-5">
-      <p className="text-text-primary text-3xl font-semibold">{value}</p>
-      <p className="text-text-muted mt-2 text-[11px] font-semibold tracking-[0.18em] uppercase">
-        {label}
-      </p>
-    </div>
-  );
-}
-
-function CategoryFilter({
+function FilterChip({
   active,
   label,
   onClick,
@@ -448,7 +389,7 @@ function CategoryFilter({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        'min-h-11 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
+        'min-h-11 shrink-0 snap-start rounded-full border px-4 py-2 text-sm font-semibold whitespace-nowrap transition-colors',
         active
           ? 'border-accent-primary bg-accent-primary text-bg-primary'
           : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
