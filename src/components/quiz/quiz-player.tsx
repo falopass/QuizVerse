@@ -726,6 +726,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
             ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}${challenge ? `&challenge=${challenge.token}` : ''}`
             : undefined
         }
+        shareToken={submission?.shareToken ?? undefined}
         onPlayAgain={() => {
           resetGame();
           setSubmission(null);

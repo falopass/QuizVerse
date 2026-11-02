@@ -72,7 +72,7 @@ export async function generateMetadata({
 
   const description = outcome
     ? es
-      ? `Conseguí ${outcome} en ${quiz.title}. ¿Puedes superarlo?`
+      ? `Saqué ${outcome} en ${quiz.title}. ¿Puedes superarlo?`
       : `I got ${outcome} in ${quiz.title}. Can you beat it?`
     : quiz.description;
 
@@ -216,6 +216,7 @@ export default async function LocalizedQuizResultPage({
         session.answers ?? []
       )}
       shareUrl={`${SITE_URL}${resultPath}`}
+      shareToken={session.share_token}
       // El reto que se comparte lleva el token de esta sesión como marca a
       // batir: `?s=<token>&challenge=<token>` se lee como invitación abierta.
       challengeShareUrl={`${SITE_URL}/${locale}/quiz/${quiz.slug}/result?s=${session.share_token}&challenge=${session.share_token}`}

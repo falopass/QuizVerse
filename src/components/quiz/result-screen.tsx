@@ -38,6 +38,8 @@ interface ResultScreenProps {
    */
   pointsSaved?: boolean;
   shareUrl?: string;
+  /** Token de la sesión propia: al compartir marca `was_shared` en la partida. */
+  shareToken?: string;
   /** URL de invitación (`?s=<sesión>&challenge=<sesión>`) para «Reta a un amigo». */
   challengeShareUrl?: string;
   /** Registro con vuelta a este resultado; el servidor solo lo pasa a anónimos. */
@@ -67,6 +69,7 @@ export function ResultScreen({
   bonusPoints = 0,
   pointsSaved = true,
   shareUrl,
+  shareToken,
   challengeShareUrl,
   accountCtaHref,
   onPlayAgain,
@@ -81,11 +84,63 @@ export function ResultScreen({
   const [shareMode, setShareMode] = React.useState<'result' | 'challenge' | null>(null);
   const [accountCtaDismissed, setAccountCtaDismissed] = React.useState(false);
   const verdictRef = React.useRef<HTMLHeadingElement | null>(null);
+  const sharePanelRef = React.useRef<HTMLDivElement | null>(null);
+  const shareTriggerRef = React.useRef<HTMLElement | null>(null);
+  const wasSharingRef = React.useRef(false);
   // A11Y-02: al terminar la partida el foco cae aquí y el veredicto se anuncia;
   // también cubre /result, que es una pantalla nueva.
   React.useEffect(() => {
     verdictRef.current?.focus();
   }, []);
+
+  // A11Y-04: al cerrar el diálogo de compartir el foco vuelve al botón que lo
+  // abrió (hay dos: «Compartir resultado» y «Reta a un amigo»).
+  React.useEffect(() => {
+    if (shareMode !== null) {
+      wasSharingRef.current = true;
+      return;
+    }
+    if (!wasSharingRef.current) return;
+    wasSharingRef.current = false;
+    shareTriggerRef.current?.focus();
+  }, [shareMode]);
+
+  // A11Y-04: Escape cierra siempre, aunque el foco se haya escapado del panel,
+  // y Tab queda atrapado entre los controles del diálogo.
+  React.useEffect(() => {
+    if (shareMode === null) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setShareMode(null);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const panel = sharePanelRef.current;
+      if (!panel) return;
+      const focusables = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)).filter(
+        isTabbable
+      );
+      if (focusables.length === 0) {
+        event.preventDefault();
+        return;
+      }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const active = document.activeElement;
+      const outside = !panel.contains(active);
+      if (event.shiftKey && (active === first || outside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || outside)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [shareMode]);
+
   const copy =
     uiLocale === 'es'
       ? {
@@ -162,7 +217,7 @@ export function ResultScreen({
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
   const shareResultTitle =
     uiLocale === 'es'
-      ? `Obtuve ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en "${quiz.title}"`
+      ? `Saqué ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'un resultado')} en «${quiz.title}»`
       : `I got ${result?.title || (scorePercentage !== undefined ? `${scorePercentage}%` : 'a result')} on "${quiz.title}"`;
 
   // Comparativa del reto: mi marca contra la del retador. En personality el
@@ -310,7 +365,10 @@ export function ResultScreen({
               )}
               <button
                 type="button"
-                onClick={() => setShareMode('result')}
+                onClick={(event) => {
+                  shareTriggerRef.current = event.currentTarget;
+                  setShareMode('result');
+                }}
                 className={cn(
                   'arcade-button',
                   challengeHref ? 'arcade-result-secondary' : 'arcade-button-pink'
@@ -321,7 +379,10 @@ export function ResultScreen({
               {challengeShareUrl && (
                 <button
                   type="button"
-                  onClick={() => setShareMode('challenge')}
+                  onClick={(event) => {
+                    shareTriggerRef.current = event.currentTarget;
+                    setShareMode('challenge');
+                  }}
                   className="arcade-button arcade-result-secondary"
                 >
                   {copy.challengeFriend}
@@ -335,15 +396,11 @@ export function ResultScreen({
                 }
                 className="arcade-button arcade-result-secondary"
               >
-                {uiLocale === 'es' ? 'Jugar otro' : 'Play another'}
+                {uiLocale === 'es' ? 'Jugar a otro quiz' : 'Play another quiz'}
               </Link>
               {onPlayAgain && (
                 <button type="button" onClick={onPlayAgain} className="arcade-result-ranking">
-                  {challenge
-                    ? copy.rematch
-                    : uiLocale === 'es'
-                      ? 'Repetir partida'
-                      : 'Replay this quiz'}
+                  {challenge ? copy.rematch : uiLocale === 'es' ? 'Jugar otra vez' : 'Play again'}
                 </button>
               )}
               <Link href={localizeHref(uiLocale, '/leaderboard')} className="arcade-result-ranking">
@@ -505,15 +562,13 @@ export function ResultScreen({
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
             onClick={() => setShareMode(null)}
-            onKeyDown={(event) => {
-              if (event.key === 'Escape') setShareMode(null);
-            }}
           >
             <motion.div
               initial={{ scale: 0.96, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               onClick={(event) => event.stopPropagation()}
+              ref={sharePanelRef}
               className="arcade-share-panel w-full max-w-md p-6 shadow-lg"
               role="dialog"
               aria-modal="true"
@@ -535,6 +590,7 @@ export function ResultScreen({
               <ShareButtons
                 locale={uiLocale}
                 quizId={quiz.id}
+                shareToken={shareToken}
                 title={shareResultTitle}
                 url={
                   (shareMode === 'challenge' ? challengeShareUrl : shareUrl) ||
@@ -554,6 +610,15 @@ export function ResultScreen({
       </AnimatePresence>
     </div>
   );
+}
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function isTabbable(el: HTMLElement): boolean {
+  if (el.closest('[hidden], fieldset[disabled]')) return false;
+  const style = getComputedStyle(el);
+  return style.display !== 'none' && style.visibility !== 'hidden';
 }
 
 function ResultMetric({
@@ -591,5 +656,5 @@ function getScoreMessage(percentage: number | undefined, locale?: Locale) {
   if (percentage >= 90) return 'Outstanding finish';
   if (percentage >= 75) return 'Strong result';
   if (percentage >= 60) return 'Solid run';
-  return 'Run it back';
+  return 'Try again';
 }

@@ -274,7 +274,7 @@ describe('QuizPlayer · resultado', () => {
     const verdict = screen.getByRole('heading', { level: 1, name: 'Final impecable' });
     await waitFor(() => expect(document.activeElement).toBe(verdict));
 
-    expect(screen.getByRole('link', { name: 'Jugar otro' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Jugar a otro quiz' })).toHaveAttribute(
       'href',
       '/es/quiz/related-quiz/play?mode=classic'
     );

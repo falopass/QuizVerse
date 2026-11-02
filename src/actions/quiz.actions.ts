@@ -13,10 +13,12 @@ import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { toJson } from '@/lib/supabase/json';
+import { isMissingRpcFunction } from '@/lib/supabase/rpc';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
 import { buildReview } from '@/lib/quiz/answer-key';
+import { isShareToken } from '@/lib/quiz/challenge';
 import { QuizCreateSchema, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
@@ -436,6 +438,29 @@ export async function incrementShares(quizId: string): Promise<ActionResult> {
   const supabase = await createClient();
   const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });
   if (error) return unexpectedFailure('quiz.share', error);
+
+  return { success: true };
+}
+
+/**
+ * J12: marca la partida como compartida cuando el jugador comparte su propio
+ * resultado. El token es el mismo opaco de `/result?s=`; uno desconocido no
+ * actualiza nada y la acción responde igual, para no revelar si existe.
+ */
+export async function markSessionShared(shareToken: string): Promise<ActionResult> {
+  const parsed = z.string().refine(isShareToken, 'Invalid share token.').safeParse(shareToken);
+  if (!parsed.success) return actionFailure('invalid_input', 'Invalid share token.');
+
+  const { allowed, errored } = await shareLimiter.check(await clientIp());
+  if (!allowed && !errored) return { success: true };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('mark_session_shared', { p_token: parsed.data });
+  // Mientras la migración 018 no esté aplicada el RPC no existe: el share
+  // sigue funcionando y la métrica se empieza a llenar cuando se aplique.
+  if (error && !isMissingRpcFunction(error)) {
+    return unexpectedFailure('quiz.share_session', error);
+  }
 
   return { success: true };
 }

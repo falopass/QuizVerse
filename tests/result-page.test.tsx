@@ -158,6 +158,17 @@ describe('generateMetadata — resultado compartido', () => {
     expect(metadata.title).toBe('7/8 · Space Trivia');
   });
 
+  it('describe el resultado en español neutro, sin voseo', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    const metadata = await generateMetadata({
+      params: Promise.resolve({ locale: 'es', slug: 'space-trivia' }),
+      searchParams: searchParams({ s: SESSION_TOKEN }),
+    });
+
+    expect(metadata.description).toBe('Saqué 7/8 en Space Trivia. ¿Puedes superarlo?');
+  });
+
   it('añade challenge a canonical/og:url cuando el reto es válido', async () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
     mocks.getChallengeForQuiz.mockResolvedValue({
