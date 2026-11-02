@@ -216,7 +216,12 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
 
   useEffect(() => {
     let cancelled = false;
-    getQuizComments(quizId)
+    // Un aviso enlaza a #comment-<id>: se pide ese comentario además de los
+    // últimos 50 para que el ancla exista aunque haya quedado fuera.
+    const anchorId = window.location.hash.startsWith('#comment-')
+      ? window.location.hash.slice('#comment-'.length)
+      : undefined;
+    getQuizComments(quizId, anchorId)
       .then((page) => {
         if (!cancelled) setLoaded({ quizId, status: 'ok', page });
       })

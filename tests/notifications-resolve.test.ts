@@ -4,7 +4,13 @@ import { resolveNotificationTargets } from '@/lib/notifications/resolve';
 import type { Database, NotificationType } from '@/types/database';
 
 const mocks = vi.hoisted(() => ({
-  quizzes: [] as Array<{ id: string; slug: string; title: string; status: string }>,
+  quizzes: [] as Array<{
+    id: string;
+    slug: string;
+    title: string;
+    status: string;
+    language: string;
+  }>,
   profiles: [] as Array<{ id: string; username: string; display_name: string | null }>,
 }));
 
@@ -41,7 +47,15 @@ function row(overrides: Record<string, unknown>) {
 
 describe('resolveNotificationTargets', () => {
   it('comentario → ficha del quiz con ancla al comentario, actor y título', async () => {
-    mocks.quizzes = [{ id: 'q-1', slug: 'hp-trivia', title: 'HP Trivia', status: 'published' }];
+    mocks.quizzes = [
+      {
+        id: 'q-1',
+        slug: 'hp-trivia',
+        title: 'HP Trivia',
+        status: 'published',
+        language: 'es',
+      },
+    ];
     mocks.profiles = [{ id: 'u-1', username: 'ada', display_name: 'Ada' }];
 
     const [resolved] = await resolveNotificationTargets(
@@ -60,7 +74,15 @@ describe('resolveNotificationTargets', () => {
   });
 
   it('comentario sin comment_id ancla a la sección de comentarios', async () => {
-    mocks.quizzes = [{ id: 'q-1', slug: 'hp-trivia', title: 'HP Trivia', status: 'published' }];
+    mocks.quizzes = [
+      {
+        id: 'q-1',
+        slug: 'hp-trivia',
+        title: 'HP Trivia',
+        status: 'published',
+        language: 'es',
+      },
+    ];
     mocks.profiles = [];
 
     const [resolved] = await resolveNotificationTargets(
@@ -70,6 +92,29 @@ describe('resolveNotificationTargets', () => {
     );
 
     expect(resolved.href).toBe('/es/quiz/hp-trivia#quiz-comments');
+  });
+
+  it('el enlace usa el idioma del quiz, no el de la bandeja', async () => {
+    // La ficha filtra por idioma y redirige a la traducción: un aviso visto en
+    // /en debe abrir el quiz español original, donde vive el comentario.
+    mocks.quizzes = [
+      {
+        id: 'q-1',
+        slug: 'es-trivia-gatos',
+        title: 'Trivia de gatos',
+        status: 'published',
+        language: 'es',
+      },
+    ];
+    mocks.profiles = [];
+
+    const [resolved] = await resolveNotificationTargets(
+      supabase,
+      [row({ data: { quiz_id: 'q-1', comment_id: 'c-1' } })],
+      'en'
+    );
+
+    expect(resolved.href).toBe('/es/quiz/es-trivia-gatos#comment-c-1');
   });
 
   it('follow → perfil del seguidor por username', async () => {
@@ -87,7 +132,9 @@ describe('resolveNotificationTargets', () => {
   });
 
   it('quiz aprobado y publicado enlaza a la ficha; rechazado va a Mis quizzes', async () => {
-    mocks.quizzes = [{ id: 'q-2', slug: 'nuevo-quiz', title: 'Nuevo', status: 'published' }];
+    mocks.quizzes = [
+      { id: 'q-2', slug: 'nuevo-quiz', title: 'Nuevo', status: 'published', language: 'en' },
+    ];
     mocks.profiles = [];
 
     const [approved, rejected] = await resolveNotificationTargets(
@@ -104,7 +151,9 @@ describe('resolveNotificationTargets', () => {
   });
 
   it('comentario sobre quiz no publicado cae a Mis quizzes', async () => {
-    mocks.quizzes = [{ id: 'q-3', slug: 'pendiente', title: 'Pendiente', status: 'pending' }];
+    mocks.quizzes = [
+      { id: 'q-3', slug: 'pendiente', title: 'Pendiente', status: 'pending', language: 'es' },
+    ];
     mocks.profiles = [];
 
     const [resolved] = await resolveNotificationTargets(
@@ -117,7 +166,7 @@ describe('resolveNotificationTargets', () => {
   });
 
   it('tipo desconocido no rompe: sin quiz no enlaza, con quiz enlaza a la ficha', async () => {
-    mocks.quizzes = [{ id: 'q-4', slug: 'x', title: 'X', status: 'published' }];
+    mocks.quizzes = [{ id: 'q-4', slug: 'x', title: 'X', status: 'published', language: 'es' }];
     mocks.profiles = [];
 
     const unknownType = 'comment_report' as NotificationType;

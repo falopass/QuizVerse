@@ -9,7 +9,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { localizeHref } from '@/lib/i18n/navigation';
-import type { Locale } from '@/lib/i18n/dictionaries';
+import { hasLocale, type Locale } from '@/lib/i18n/dictionaries';
 import type { Database, Json } from '@/types/database';
 
 export type NotificationRow = Pick<
@@ -32,7 +32,7 @@ export interface ResolvedNotification {
   quizTitle: string | null;
 }
 
-type QuizRef = { slug: string; title: string; status: string };
+type QuizRef = { slug: string; title: string; status: string; language: string };
 type ProfileRef = { username: string; display_name: string | null };
 
 function dataString(data: Json | null, key: string): string | null {
@@ -58,8 +58,12 @@ function destinationHref(
   profile: ProfileRef | null,
   locale: Locale
 ): string | null {
+  // La ficha filtra por idioma y redirige a la traducción: el enlace tiene que
+  // usar el idioma real del quiz o un aviso de comentario abriría otro quiz
+  // (y el ancla #comment-<id> ya no existiría).
+  const quizLocale = quiz && hasLocale(quiz.language) ? quiz.language : locale;
   const quizHref =
-    quiz && quiz.status === 'published' ? localizeHref(locale, `/quiz/${quiz.slug}`) : null;
+    quiz && quiz.status === 'published' ? localizeHref(quizLocale, `/quiz/${quiz.slug}`) : null;
   switch (notification.type) {
     case 'comment':
     case 'mention': {
@@ -103,7 +107,7 @@ export async function resolveNotificationTargets(
     quizIds.size > 0
       ? supabase
           .from('quizzes')
-          .select('id, slug, title, status')
+          .select('id, slug, title, status, language')
           .in('id', [...quizIds])
       : Promise.resolve({ data: [] }),
     profileIds.size > 0
