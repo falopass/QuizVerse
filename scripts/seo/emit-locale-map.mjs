@@ -8,7 +8,10 @@
  *   node scripts/seo/emit-locale-map.mjs --write   # rewrite the map (npm run seo:locale-map)
  *
  * Sources:
- *   - generated/trending-seed*.normalized.json — pairs share one `source_id`
+ *   - generated/trending-seed.json — the file the Supabase importer reads;
+ *     pairs share one `source_id`
+ *   - generated/trending-seed*.normalized.json — the polished copy of the same
+ *     seed (a subset today, but kept as its own source)
  *   - scripts/seed/editorial-seed-*.json — each quiz sits next to its
  *     translated pair (en/es or es/en; batch 2026ak alternates the order)
  *
@@ -154,9 +157,16 @@ export function collectLocalePairs(root = ROOT) {
   }
 
   const generatedDir = join(root, 'generated');
-  for (const file of readdirSync(generatedDir)
-    .filter((name) => /^trending-seed.*\.normalized\.json$/.test(name))
-    .sort()) {
+  // El importador (scripts/import-trending-seed-to-supabase.mjs) lee el crudo;
+  // el pulido escribe el .normalized.json. Se leen ambos: el crudo conserva las
+  // parejas que el pulido descartó, y son las que se quedaban sin hreflang.
+  const trendingFiles = [
+    'trending-seed.json',
+    ...readdirSync(generatedDir)
+      .filter((name) => /^trending-seed.*\.normalized\.json$/.test(name))
+      .sort(),
+  ];
+  for (const file of trendingFiles) {
     const data = JSON.parse(readFileSync(join(generatedDir, file), 'utf8'));
     const quizzes = Array.isArray(data) ? data : (data.quizzes ?? []);
     const result = collectTrendingPairs(quizzes, `generated/${file}`);
