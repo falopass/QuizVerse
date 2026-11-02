@@ -2175,6 +2175,7 @@ body:has(.arcade-result) .cookie-consent-banner {
      La regla body:has() de las pantallas de juego gana en especificidad y lo
      mantiene en flujo ahí, como antes. */
   .cookie-consent-banner {
+    position: fixed;
     right: 0;
     bottom: 16px;
     left: 0;
