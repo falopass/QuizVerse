@@ -200,6 +200,12 @@ describe('proxy — non-locale root routes', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('location')).toBeNull();
   });
+
+  it('passes POST /api/auth/send-email (hook de GoTrue) without redirect', async () => {
+    const res = await proxy(req('/api/auth/send-email', undefined, 'POST'));
+    expect(res.status).toBe(200);
+    expect(res.headers.get('location')).toBeNull();
+  });
 });
 
 describe('proxy — Google Search Console verification', () => {

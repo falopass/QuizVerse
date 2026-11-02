@@ -194,6 +194,45 @@ Reglas:
   perfecta). `pointsFor()` sólo replica ese número para la UI: si cambias uno,
   cambia el otro.
 
+## Auth/Email — correos de GoTrue por Cloudflare Email Service
+
+GoTrue (Supabase auto-hospedado en el VPS, `api.quizverse.org`) no usa SMTP:
+envía los correos de auth con su **Send Email Hook** (HTTP, firmado con
+Standard Webhooks) contra `POST /api/auth/send-email`, y el Worker los manda
+con el binding nativo `send_email` de Cloudflare Email Service (ya habilitado
+para `quizverse.org`; DKIM/SPF/rebotes configurados a nivel de dominio).
+
+Piezas:
+
+- `src/app/api/auth/send-email/route.ts` — verifica la firma
+  (`webhook-id`/`webhook-timestamp`/`webhook-signature`, HMAC-SHA256 sobre
+  `id.timestamp.body`, tolerancia ±5 min), valida el payload con Zod y responde
+  en el formato del hook: `200 {}` al enviar, `{ error: { http_code, message } }`
+  en error (503 + `Retry-After` cuando conviene reintento). Sin sesión ni rate
+  limit de usuario: lo llama GoTrue; el proxy ya excluye `/api`.
+- `src/lib/email/hook-signature.ts` — la firma (WebCrypto, tiempo constante).
+- `src/lib/email/plan.ts` — payload → correos: idioma (`es` si `redirect_to`
+  contiene `/es` — incluido el `next` de `/callback` — o `user_metadata` lo
+  indica; si no, `en`), enlace `/auth/v1/verify` con `redirect_to` solo si es
+  de quizverse.org, y el mapeo de `email_change` (Secure Email Change manda dos
+  correos en un solo hook: al correo nuevo `token_hash`+`token_new`, al actual
+  `token_hash_new`+`token` — los nombres están invertidos por compatibilidad en
+  GoTrue, ver `src/lib/email/plan.ts`).
+- `src/lib/email/templates.ts` — HTML + texto plano, es/en, todos los
+  `email_action_type` de GoTrue (incluidas las notificaciones de seguridad).
+- `src/lib/email/send.ts` — el binding `EMAIL` (remitente restringido a
+  `noreply@quizverse.org` en `wrangler.jsonc`); sin contexto CF devuelve 503.
+
+Configuración (lado del dueño, no del repo):
+
+- GoTrue en el VPS: `GOTRUE_HOOK_SEND_EMAIL_ENABLED=true`,
+  `GOTRUE_HOOK_SEND_EMAIL_URI=https://quizverse.org/api/auth/send-email`,
+  `GOTRUE_HOOK_SEND_EMAIL_SECRETS=v1,whsec_<base64>`. Con el hook activo GoTrue
+  no toca el SMTP para ningún correo de auth.
+- Worker (ya existe como secreto): `SEND_EMAIL_HOOK_SECRET` con el mismo valor
+  `v1,whsec_<base64>` — el endpoint toma la clave HMAC de los bytes base64 tras
+  `whsec_`. Sin él responde 503.
+
 ## Contenido y seeds
 
 Pipeline reproducible en `scripts/seed/` (ver `scripts/seed/README.md`):
@@ -352,6 +391,7 @@ Server-only (configure as Worker secrets/vars):
 - `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`/`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` — Supabase client.
 - `SUPABASE_SERVICE_ROLE_KEY` — server and import scripts only (reads `quiz_answer_keys`, admin ops). Already configured. NEVER in client code.
 - `QUIZ_ATTEMPT_SECRET` — signs the anti-cheat `attempt` token for `/api/quiz/reveal` and idempotent submit. Already configured. Without it (and without service key to derive from) the server runs in degraded mode.
+- `SEND_EMAIL_HOOK_SECRET` — firma Standard Webhooks (`v1,whsec_<base64>`) del Send Email Hook de GoTrue → `/api/auth/send-email` (ver "Auth/Email"). Ya existe en el Worker; el mismo valor va en `GOTRUE_HOOK_SEND_EMAIL_SECRETS` en el VPS.
 - `AUTH_OAUTH_PROVIDERS` — comma list (`"google,github,facebook"`) gating social login buttons and the OAuth action; empty/unset = email only. Read in runtime on purpose (not `NEXT_PUBLIC_`, which is baked at build).
 - `DEEPSEEK_API_KEY` — `/api/quiz/generate` (AI creation).
 - `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` — optional: rate limiting and the per-attempt reveal store. Without Upstash, rate limiting falls back to the Cloudflare Rate Limiting bindings in `wrangler.jsonc` (`RATE_LIMIT_*`, mapped per-policy in `src/lib/utils/rate-limit.ts`) and the attempt store falls back to in-process memory.
