@@ -90,6 +90,16 @@ describe('quizLastModified', () => {
     );
   });
 
+  it('sin publicación y sin edición no anuncia una modificación inexistente', () => {
+    expect(
+      quizLastModified({
+        published_at: null,
+        created_at: '2026-09-27T01:46:57.251Z',
+        updated_at: '2026-09-27T01:46:57.251Z',
+      })
+    ).toBeUndefined();
+  });
+
   it('sin fechas válidas devuelve undefined para omitir lastmod', () => {
     expect(quizLastModified({ published_at: null, updated_at: null })).toBeUndefined();
     expect(quizLastModified({ published_at: '', updated_at: 'no-es-fecha' })).toBeUndefined();

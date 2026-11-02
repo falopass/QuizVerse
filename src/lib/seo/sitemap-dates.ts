@@ -61,5 +61,5 @@ export function quizLastModified(quiz: QuizDateFields): string | undefined {
   const contentDate = editedAfterInsert ? updated : undefined;
 
   if (published && contentDate) return newestIso([published, contentDate]);
-  return published ?? contentDate ?? updated;
+  return published ?? contentDate;
 }
