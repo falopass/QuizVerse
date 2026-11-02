@@ -220,6 +220,21 @@ describe('publishQuiz', () => {
     expect(update.filters.filter(([column]) => column === 'id')).toHaveLength(1);
   });
 
+  it('batches report resolution so a quiz with hundreds of reports stays moderable', async () => {
+    const ids = manyReportIds(250);
+    await publishQuiz(QUIZ_ID, ids);
+    const updates = callsTo('quiz_reports', 'update');
+    expect(updates).toHaveLength(3);
+    const chunkSizes = updates.map(
+      (update) => (update.filters.find(([column]) => column === 'id')?.[1] as string[]).length
+    );
+    expect(chunkSizes).toEqual([100, 100, 50]);
+    for (const update of updates) {
+      expect(update.filters).toContainEqual(['quiz_id', QUIZ_ID]);
+      expect(update.filters).toContainEqual(['resolved', false]);
+    }
+  });
+
   it('rejects invalid report ids before touching the database', async () => {
     expect(await publishQuiz(QUIZ_ID, ['no-es-uuid'])).toMatchObject({
       success: false,

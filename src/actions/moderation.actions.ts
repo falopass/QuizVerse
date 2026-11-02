@@ -29,9 +29,15 @@ import { revalidateCatalogFeeds, revalidateQuizPages } from '@/lib/quiz/revalida
 import type { QuizStatus } from '@/types/database';
 
 const ResolveSchema = z.object({ reportId: z.string().uuid() });
-/** IDs de los reportes que la ficha mostró: solo esos se cierran con el veredicto. */
-const ReportIdsSchema = z.array(z.string().uuid()).max(500).default([]);
+/**
+ * IDs de los reportes que la ficha mostró: solo esos se cierran con el
+ * veredicto. Sin tope artificial — un quiz con cientos de reportes sigue
+ * siendo moderable; el UPDATE va por lotes para no reventar la URL.
+ */
+const ReportIdsSchema = z.array(z.string().uuid()).default([]);
 const ModerateSchema = z.object({ quizId: z.string().uuid(), reportIds: ReportIdsSchema });
+/** PostgREST manda los filtros en la URL: ~100 UUID por UPDATE evita el límite. */
+const REPORT_IDS_PER_UPDATE = 100;
 const RejectSchema = ModerateSchema.extend({ reason: z.string().trim().min(3).max(500) });
 
 /** Publicar solo alcanza lo que espera veredicto (pending) o lo apela (rejected). */
@@ -130,12 +136,13 @@ async function moderateQuiz(
 
   // Best effort: el veredicto ya quedó; un fallo aquí solo deja reportes abiertos.
   // El `.eq('quiz_id')` valida en servidor que cada ID pertenece a este quiz:
-  // IDs de otro quiz no cierran nada.
-  if (reportIds.length > 0) {
+  // IDs de otro quiz no cierran nada. Por lotes para no exceder la URL.
+  const resolvedAt = new Date().toISOString();
+  for (let i = 0; i < reportIds.length; i += REPORT_IDS_PER_UPDATE) {
     await supabase
       .from('quiz_reports')
-      .update({ resolved: true, resolved_by: user.id, resolved_at: new Date().toISOString() })
-      .in('id', reportIds)
+      .update({ resolved: true, resolved_by: user.id, resolved_at: resolvedAt })
+      .in('id', reportIds.slice(i, i + REPORT_IDS_PER_UPDATE))
       .eq('quiz_id', quiz.id)
       .eq('resolved', false);
   }

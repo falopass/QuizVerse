@@ -44,6 +44,8 @@ const COPY = {
     publishedAt: 'Publicado',
     openReports: 'Reportes abiertos',
     noReports: 'Sin reportes abiertos para este quiz.',
+    shownOf: (shown: number, total: number) =>
+      `Mostrando ${shown} de ${total} reportes abiertos; el resto sigue abierto y se resuelve desde Reportes.`,
     reportedBy: 'Reportado por',
     anonymousReporter: 'anónimo',
     registeredReporter: 'cuenta registrada',
@@ -90,6 +92,8 @@ const COPY = {
     publishedAt: 'Published',
     openReports: 'Open reports',
     noReports: 'No open reports for this quiz.',
+    shownOf: (shown: number, total: number) =>
+      `Showing ${shown} of ${total} open reports; the rest stay open and are resolved from Reports.`,
     reportedBy: 'Reported by',
     anonymousReporter: 'anonymous',
     registeredReporter: 'signed-in account',
@@ -140,6 +144,9 @@ function one<T>(value: T | T[] | null): T | null {
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
+/** Reportes abiertos que la ficha muestra (y que el veredicto puede cerrar). */
+const REPORT_LIMIT = 200;
+
 export default async function AdminQuizReviewPage({
   params,
 }: {
@@ -186,20 +193,22 @@ export default async function AdminQuizReviewPage({
     );
   }
 
-  // Sin límite: el veredicto resuelve TODOS los reportes abiertos, así que la
-  // ficha tiene que mostrarlos todos (los que no se ven se cerrarían a ciegas).
-  const { data: reportRows } = await supabase
+  // El veredicto cierra solo lo que esta ficha muestra, así que el límite es
+  // explícito (no el de Supabase) y el total se avisa para que no pase inadvertido.
+  const { data: reportRows, count: reportCount } = await supabase
     .from('quiz_reports')
-    .select('id, reason, details, reporter_id, created_at')
+    .select('id, reason, details, reporter_id, created_at', { count: 'exact' })
     .eq('quiz_id', quiz.id)
     .eq('resolved', false)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(REPORT_LIMIT);
 
   const questions: Question[] = parseQuestions(quiz.questions);
   const results: PersonalityResult[] | null = parseResults(quiz.results);
   const category = one(quiz.category);
   const creator = one(quiz.creator);
   const reports = reportRows ?? [];
+  const totalReports = reportCount ?? reports.length;
 
   const copy = COPY[locale as Locale] ?? COPY.en;
   const quizLocale = hasLocale(quiz.language) ? quiz.language : locale;
@@ -289,12 +298,17 @@ export default async function AdminQuizReviewPage({
 
       <section className="surface-panel mt-6 p-8 md:p-10">
         <h2 className="text-text-primary text-xl font-semibold">
-          {copy.openReports} ({reports.length})
+          {copy.openReports} ({totalReports})
         </h2>
         {reports.length === 0 ? (
           <p className="text-text-secondary mt-3 text-sm">{copy.noReports}</p>
         ) : (
           <>
+            {totalReports > reports.length ? (
+              <p className="text-text-muted mt-2 text-xs">
+                {copy.shownOf(reports.length, totalReports)}
+              </p>
+            ) : null}
             <ul className="mt-4 space-y-3">
               {reports.map((report) => (
                 <li key={report.id} className="border-border-subtle rounded-xl border p-4">

@@ -17,6 +17,7 @@ const mocks = vi.hoisted(() => ({
   queueError: null as { message: string } | null,
   quizRow: null as unknown,
   reportRows: [] as unknown[],
+  reportCount: null as number | null,
   statusFilter: vi.fn(),
   rangeFilter: vi.fn(),
 }));
@@ -46,7 +47,13 @@ const supabaseStub = {
         select: () => ({
           eq: () => ({
             eq: () => ({
-              order: async () => ({ data: mocks.reportRows, error: null }),
+              order: () => ({
+                limit: async () => ({
+                  data: mocks.reportRows,
+                  error: null,
+                  count: mocks.reportCount ?? mocks.reportRows.length,
+                }),
+              }),
             }),
           }),
         }),
@@ -133,6 +140,7 @@ beforeEach(() => {
   mocks.queueError = null;
   mocks.quizRow = FULL_QUIZ;
   mocks.reportRows = [];
+  mocks.reportCount = null;
   actionMocks.publishQuiz.mockReset();
   actionMocks.rejectQuiz.mockReset();
 });
@@ -312,6 +320,22 @@ describe('página /admin/quizzes/[id]', () => {
       expect(actionMocks.publishQuiz).toHaveBeenCalledWith(QUIZ_ID, ['r1', 'r2'])
     );
     confirmSpy.mockRestore();
+  });
+
+  it('avisa cuando hay más reportes abiertos que los mostrados', async () => {
+    mocks.reportRows = [
+      {
+        id: 'r1',
+        reason: 'spam',
+        details: null,
+        reporter_id: null,
+        created_at: '2026-11-01T10:00:00Z',
+      },
+    ];
+    mocks.reportCount = 5;
+    render(await renderPage());
+    expect(screen.getByText('Reportes abiertos (5)')).toBeInTheDocument();
+    expect(screen.getByText(/Mostrando 1 de 5 reportes abiertos/)).toBeInTheDocument();
   });
 
   it('muestra los reportes abiertos del quiz', async () => {
