@@ -53,6 +53,7 @@ export async function POST(request: Request) {
     }
     const payload = parsed.data;
 
+    // eslint-disable-next-line no-console -- este log estructurado es el sink del evento en los logs del Worker
     console.info(
       JSON.stringify({
         channel: 'analytics',
