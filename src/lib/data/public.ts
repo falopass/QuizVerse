@@ -566,6 +566,31 @@ export async function translatedHubPageExists(
   return total !== null && total > (page - 1) * CATEGORY_PAGE_SIZE;
 }
 
+// Tipos de quiz de todo el hub, para la tarjeta social: la página 1 sola no
+// representa los tipos de las páginas siguientes. Es una consulta ligera de
+// una columna y la OG se cachea en el edge.
+export async function getCategoryQuizTypes(
+  slug: string,
+  locale: Locale
+): Promise<Array<Quiz['quiz_type']>> {
+  const category = (await getPublicCategories()).find((item) => item.slug === slug) ?? null;
+  const isType = slug === 'personality' || slug === 'trivia';
+  if (!category && !isType) return [];
+  try {
+    const supabase = await createClient();
+    let query = supabase.from('quizzes').select('quiz_type').eq('status', 'published');
+    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
+    if (locale) query = query.eq('language', locale);
+    const { data, error } = await query;
+    if (error || !data) throw error ?? new Error('Could not fetch category quiz types');
+    return [
+      ...new Set((data as Array<{ quiz_type: Quiz['quiz_type'] }>).map((row) => row.quiz_type)),
+    ];
+  } catch {
+    return [];
+  }
+}
+
 export interface HomeCardGroups {
   trending: QuizCardViewModel[];
   featured: QuizCardViewModel[];
