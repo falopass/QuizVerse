@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
+import { collectLocalePairs, mergePairs } from '../scripts/seo/emit-locale-map.mjs';
 
 // Cada par de quiz-locale-map.ts debe apuntar a un slug que existe en el corpus
 // de seeds, tener el prefijo del otro idioma y devolver el slug original al
@@ -95,6 +96,42 @@ describe('hreflang pairs (quiz-locale-map vs corpus de seeds)', () => {
   it('todo par del mapa existe en el corpus, tiene prefijo del otro idioma y vuelve', () => {
     const errors = findBrokenPairs(mapPairs, getEquivalentQuizSlug, corpus);
     expect(errors, `pares rotos:\n${errors.join('\n')}`).toEqual([]);
+  });
+
+  it('cubre cada par en/es derivable de los seeds, en ambos sentidos', () => {
+    // La misma derivación que usa emit-locale-map.mjs: si un seed publica un
+    // par y el mapa no lo recoge, la ficha queda sin hreflang.
+    const { pairs, skipped } = collectLocalePairs(ROOT);
+    expect(
+      skipped,
+      `grupos ambiguos en los seeds:\n${skipped
+        .map((skip) => `${skip.source}: ${skip.reason}`)
+        .join('\n')}`
+    ).toEqual([]);
+
+    const missing = pairs.filter(
+      ({ en, es }) =>
+        getEquivalentQuizSlug(en, 'es') !== es || getEquivalentQuizSlug(es, 'en') !== en
+    );
+    expect(
+      missing,
+      `pares del seed sin entrada en el mapa (npm run seo:locale-map):\n${missing
+        .map(({ en, es, source }) => `${en} -> ${es} (${source})`)
+        .join('\n')}`
+    ).toEqual([]);
+  });
+
+  it('mergePairs descarta todas las reclamaciones ambiguas', () => {
+    const { pairs, skipped } = mergePairs([
+      { en: 'en-a', es: 'es-x', source: 's1' },
+      { en: 'en-b', es: 'es-x', source: 's2' }, // es-x reclamado dos veces
+      { en: 'en-c', es: 'es-y', source: 's3' },
+      { en: 'en-c', es: 'es-z', source: 's4' }, // en-c reclama dos parejas
+      { en: 'en-ok', es: 'es-ok', source: 's5' },
+      { en: 'es-malo', es: 'es-t', source: 's6' }, // prefijo inválido
+    ]);
+    expect(pairs).toEqual([{ en: 'en-ok', es: 'es-ok', source: 's5' }]);
+    expect(skipped).toHaveLength(4);
   });
 
   it('control: detecta un par roto en un mapa falso', () => {
