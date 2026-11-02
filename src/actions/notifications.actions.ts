@@ -10,8 +10,14 @@
  * `getMyActivity`).
  */
 
+import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
-import { actionFailure, unexpectedFailure, type ActionResult } from '@/lib/actions/types';
+import {
+  actionFailure,
+  unexpectedFailure,
+  zodMessage,
+  type ActionResult,
+} from '@/lib/actions/types';
 
 /** Reads the authenticated user, or `null`. */
 async function currentUser() {
@@ -34,5 +40,26 @@ export async function markAllNotificationsRead(): Promise<ActionResult> {
     .eq('is_read', false);
 
   if (error) return unexpectedFailure('notifications.markAllRead', error);
+  return { success: true };
+}
+
+const notificationIdSchema = z.string().uuid();
+
+/** Marca una notificación como leída al abrirla; no-op si ya lo estaba. */
+export async function markNotificationRead(notificationId: string): Promise<ActionResult> {
+  const parsed = notificationIdSchema.safeParse(notificationId);
+  if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
+
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'Sign in to read your notifications.');
+
+  const { error } = await supabase
+    .from('notifications')
+    .update({ is_read: true })
+    .eq('user_id', user.id)
+    .eq('id', parsed.data)
+    .eq('is_read', false);
+
+  if (error) return unexpectedFailure('notifications.markNotificationRead', error);
   return { success: true };
 }

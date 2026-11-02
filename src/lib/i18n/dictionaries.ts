@@ -105,6 +105,25 @@ export interface Dictionary {
     settings: string;
     signOut: string;
   };
+  notifications: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    markAll: string;
+    marking: string;
+    unread: (count: number) => string;
+    unreadTag: string;
+    empty: string;
+    markError: string;
+    bell: string;
+    bellUnread: (count: number) => string;
+    typeLabels: Record<string, string>;
+    titles: Record<string, string>;
+    commentBody: (name: string | null, quizTitle: string | null) => string;
+    followBody: (name: string | null) => string;
+    quizApprovedBody: (quizTitle: string | null) => string;
+    quizRejectedBody: (quizTitle: string | null) => string;
+  };
   leaderboard: {
     title: string;
     description: string;
@@ -237,6 +256,49 @@ const dictionaries: Record<Locale, Dictionary> = {
       achievements: 'My achievements',
       settings: 'Settings',
       signOut: 'Sign out',
+    },
+    notifications: {
+      eyebrow: 'Activity',
+      title: 'Notifications',
+      intro: 'Comments on your quizzes, new followers and account updates.',
+      markAll: 'Mark all as read',
+      marking: 'Marking…',
+      unread: (count) => (count === 1 ? '1 unread' : `${count} unread`),
+      unreadTag: 'unread',
+      empty:
+        'No notifications yet. When someone comments on your quizzes or follows you, it will show up here.',
+      markError: 'We could not mark them as read. Please try again.',
+      bell: 'Notifications',
+      bellUnread: (count) =>
+        count === 1 ? '1 unread notification' : `${count} unread notifications`,
+      typeLabels: {
+        comment: 'Comment',
+        follow: 'Follower',
+        quiz_approved: 'Quiz',
+        quiz_rejected: 'Quiz',
+        achievement: 'Achievement',
+        mention: 'Mention',
+        generic: 'Update',
+      },
+      titles: {
+        comment: 'New comment on your quiz',
+        follow: 'New follower',
+        quiz_approved: 'Quiz approved',
+        quiz_rejected: 'Quiz rejected',
+        achievement: 'Achievement unlocked',
+        mention: 'New mention',
+      },
+      commentBody: (name, quizTitle) =>
+        `${name ?? 'Someone'} commented on ${quizTitle ? `"${quizTitle}"` : 'your quiz'}`,
+      followBody: (name) => `${name ?? 'Someone'} started following you`,
+      quizApprovedBody: (quizTitle) =>
+        quizTitle
+          ? `"${quizTitle}" was approved and is now live.`
+          : 'Your quiz was approved and is now live.',
+      quizRejectedBody: (quizTitle) =>
+        quizTitle
+          ? `"${quizTitle}" was rejected. Review it in My quizzes.`
+          : 'Your quiz was rejected. Review it in My quizzes.',
     },
     leaderboard: {
       title: 'Player leaderboard',
@@ -371,6 +433,49 @@ const dictionaries: Record<Locale, Dictionary> = {
       achievements: 'Mis logros',
       settings: 'Ajustes',
       signOut: 'Cerrar sesión',
+    },
+    notifications: {
+      eyebrow: 'Actividad',
+      title: 'Notificaciones',
+      intro: 'Comentarios en tus quizzes, nuevos seguidores y avisos de tu cuenta.',
+      markAll: 'Marcar todas como leídas',
+      marking: 'Marcando…',
+      unread: (count) => (count === 1 ? '1 sin leer' : `${count} sin leer`),
+      unreadTag: 'sin leer',
+      empty:
+        'Aún no tienes notificaciones. Cuando alguien comente tus quizzes o te siga, aparecerá aquí.',
+      markError: 'No pudimos marcarlas como leídas. Inténtalo otra vez.',
+      bell: 'Notificaciones',
+      bellUnread: (count) =>
+        count === 1 ? '1 notificación sin leer' : `${count} notificaciones sin leer`,
+      typeLabels: {
+        comment: 'Comentario',
+        follow: 'Seguidor',
+        quiz_approved: 'Quiz',
+        quiz_rejected: 'Quiz',
+        achievement: 'Logro',
+        mention: 'Mención',
+        generic: 'Aviso',
+      },
+      titles: {
+        comment: 'Nuevo comentario en tu quiz',
+        follow: 'Nuevo seguidor',
+        quiz_approved: 'Quiz aprobado',
+        quiz_rejected: 'Quiz rechazado',
+        achievement: 'Logro desbloqueado',
+        mention: 'Te mencionaron',
+      },
+      commentBody: (name, quizTitle) =>
+        `${name ?? 'Alguien'} comentó en ${quizTitle ? `"${quizTitle}"` : 'tu quiz'}`,
+      followBody: (name) => `${name ?? 'Alguien'} empezó a seguirte`,
+      quizApprovedBody: (quizTitle) =>
+        quizTitle
+          ? `"${quizTitle}" fue aprobado y ya está publicado.`
+          : 'Tu quiz fue aprobado y ya está publicado.',
+      quizRejectedBody: (quizTitle) =>
+        quizTitle
+          ? `"${quizTitle}" fue rechazado. Revísalo en Mis quizzes.`
+          : 'Tu quiz fue rechazado. Revísalo en Mis quizzes.',
     },
     leaderboard: {
       title: 'Ranking de jugadores',
