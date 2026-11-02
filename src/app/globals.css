@@ -373,15 +373,26 @@ select {
   background: var(--accent-primary);
   color: #17151d;
 }
+/* Mask, not text: a 260px text node is the largest contentful paint on the home
+   and beat the headline for LCP. A mask paints no text and no image (a
+   background-image would still be an LCP candidate). */
 .arcade-hero-copy::after {
-  content: '✦';
+  content: '';
   position: absolute;
   right: 0;
   bottom: -75px;
-  color: #17151d;
+  width: 260px;
+  height: 260px;
+  background: #17151d;
   opacity: 0.1;
-  font-size: 260px;
-  line-height: 1;
+  /* Prefixed too: the repo targets Chrome 111 and unprefixed mask landed in 120. */
+  --star: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C56 32 68 44 100 50 68 56 56 68 50 100 44 68 32 56 0 50 32 44 44 32 50 0Z'/%3E%3C/svg%3E");
+  -webkit-mask-image: var(--star);
+  mask-image: var(--star);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   pointer-events: none;
 }
 .arcade-live {
@@ -684,6 +695,10 @@ select {
   padding: 20px 0;
 }
 .arcade-back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding-block: 4px;
   color: var(--accent-primary);
   font-size: 12px;
   font-weight: 700;
@@ -869,7 +884,7 @@ select {
     padding-top: 6px;
   }
   .arcade-detail-art {
-    height: 320px;
+    height: 220px;
   }
   .arcade-detail-art .arcade-cover-title {
     font-size: 70px;
@@ -1831,24 +1846,22 @@ body:has(.arcade-result) .cookie-consent-banner {
 }
 
 /* The entrance: the hero builds in, the grid reveals on scroll, and the featured
-   cover drifts. Transform and opacity only, all of it off under reduced motion. */
+   cover drifts. Transform only, all of it off under reduced motion: content that
+   starts at opacity 0 is not painted until its animation runs, so the LCP went
+   to whatever decorative element painted first. */
 @keyframes arcade-rise {
   from {
-    opacity: 0;
     transform: translate3d(0, 18px, 0);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
 @keyframes arcade-pop {
   from {
-    opacity: 0;
     transform: scale(0.95);
   }
   to {
-    opacity: 1;
     transform: none;
   }
 }
@@ -1861,26 +1874,26 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 .arcade-hero-copy > * {
-  animation: arcade-rise 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: arcade-rise 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 .arcade-hero-copy > :nth-child(2) {
-  animation-delay: 0.07s;
+  animation-delay: 0.05s;
 }
 .arcade-hero-copy > :nth-child(3) {
-  animation-delay: 0.14s;
+  animation-delay: 0.1s;
 }
 .arcade-hero-copy > :nth-child(4) {
-  animation-delay: 0.21s;
+  animation-delay: 0.15s;
 }
 .arcade-hero-link {
-  animation: arcade-pop 0.6s 0.1s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: arcade-pop 0.5s 0.08s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 .arcade-hero-art .arcade-cover-title {
   animation: arcade-drift 16s ease-in-out infinite alternate;
 }
 .arcade-strip,
 .arcade-section-head {
-  animation: arcade-rise 0.5s 0.18s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: arcade-rise 0.45s 0.12s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 @supports (animation-timeline: view()) {
   /* Transform only: a card that starts at opacity 0 below the fold is invisible to
@@ -1923,11 +1936,11 @@ body:has(.arcade-result) .cookie-consent-banner {
   letter-spacing: -0.085em;
 }
 .arcade-detail > div {
-  animation: arcade-rise 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: arcade-rise 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
 .arcade-detail > div:nth-child(2) {
-  animation-delay: 0.08s;
+  animation-delay: 0.05s;
 }
 .arcade-detail-art {
-  animation: arcade-pop 0.6s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+  animation: arcade-pop 0.5s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
