@@ -23,7 +23,13 @@ import type {
   QuizSessionResult,
 } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
-import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from './quiz-pagination';
+import {
+  CATEGORY_PAGE_SIZE,
+  isLastPage,
+  pageRanges,
+  QUIZ_MAX_ROWS,
+  QUIZ_PAGE_SIZE,
+} from './quiz-pagination';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { fetchSessionByShareToken } from '@/lib/data/game-session';
 import { localizeQuizList } from '@/lib/i18n/catalog';
@@ -350,45 +356,110 @@ export function getLaunchHomePayload(locale?: Locale) {
   );
 }
 
-export const getCategoryPayload = cache(async (slug: string, locale?: Locale) => {
+// Columnas de tarjeta: la grilla no lee preguntas, resultados ni métricas
+// sociales, así que la consulta no las trae (antes era select('*')).
+export const CATEGORY_CARD_COLUMNS =
+  'id, slug, title, description, language, category_id, quiz_type, difficulty, cover_image_url, estimated_minutes, plays_count, likes_count, avg_score, tags, published_at, created_at, is_featured';
+
+type CategoryCardRow = Pick<
+  QuizRow,
+  | 'id'
+  | 'slug'
+  | 'title'
+  | 'description'
+  | 'language'
+  | 'category_id'
+  | 'quiz_type'
+  | 'difficulty'
+  | 'cover_image_url'
+  | 'estimated_minutes'
+  | 'plays_count'
+  | 'likes_count'
+  | 'avg_score'
+  | 'tags'
+  | 'published_at'
+  | 'created_at'
+  | 'is_featured'
+>;
+
+// normalizeQuiz espera una fila completa; la tarjeta solo necesita las
+// columnas de CATEGORY_CARD_COLUMNS, así que el resto va con valores neutros.
+function normalizeCategoryCard(row: CategoryCardRow, categories: Map<string, Category>): Quiz {
+  return normalizeQuiz(
+    {
+      ...row,
+      questions: [],
+      results: null,
+      shares_count: 0,
+      question_count: 0,
+      status: 'published',
+      is_ai_generated: false,
+      featured_at: null,
+      creator_id: null,
+      updated_at: row.created_at,
+    } as QuizRow,
+    categories
+  );
+}
+
+function sortByPopularity(quizzes: Quiz[]): Quiz[] {
+  return [...quizzes].sort((a, b) => b.plays_count - a.plays_count || (a.id < b.id ? -1 : 1));
+}
+
+export const getCategoryPayload = cache(async (slug: string, locale?: Locale, page = 1) => {
   const categories = await getPublicCategories();
   const category = categories.find((item) => item.slug === slug) ?? null;
   const isType = slug === 'personality' || slug === 'trivia';
   if (!category && !isType) {
     return null;
   }
+  const safePage = Number.isSafeInteger(page) && page >= 1 ? page : 1;
+  const from = (safePage - 1) * CATEGORY_PAGE_SIZE;
+  const to = from + CATEGORY_PAGE_SIZE - 1;
   let quizzes: Quiz[];
+  let totalQuizzes: number;
+  let counts: Map<string, number>;
   try {
     const supabase = await createClient();
-    const rows: QuizRow[] = [];
-    for (let offset = 0; ; offset += 500) {
-      let query = supabase.from('quizzes').select('*').eq('status', 'published');
-      query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
-      if (locale) query = query.eq('language', locale);
-      const { data, error } = await query
+    let query = supabase
+      .from('quizzes')
+      .select(CATEGORY_CARD_COLUMNS, { count: 'exact' })
+      .eq('status', 'published');
+    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
+    if (locale) query = query.eq('language', locale);
+    // La página y los conteos de los chips no dependen entre sí: en paralelo.
+    // `plays_count` cambia entre visitas; el id desempata para que una fila no
+    // salte de una página a otra.
+    const [{ data, error, count }, fetchedCounts] = await Promise.all([
+      query
         .order('plays_count', { ascending: false })
-        .range(offset, offset + 499);
-      if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
-      rows.push(...(data as QuizRow[]));
-      if (data.length < 500) break;
-    }
+        .order('id', { ascending: true })
+        .range(from, to),
+      locale ? getCategoryCounts(locale) : Promise.resolve(new Map<string, number>()),
+    ]);
+    if (error || !data) throw error ?? new Error('Could not fetch category quizzes');
+    counts = fetchedCounts;
+    totalQuizzes = count ?? from + data.length;
     const categoryMap = new Map(categories.map((item) => [item.id, item]));
-    quizzes = rows.map((row) => normalizeQuiz(row, categoryMap));
-  } catch {
-    quizzes = LAUNCH_QUIZZES.filter(
-      (quiz) =>
-        (isType ? quiz.quiz_type === slug : quiz.category?.slug === slug) &&
-        (!locale || quiz.language === locale)
+    quizzes = (data as unknown as CategoryCardRow[]).map((row) =>
+      normalizeCategoryCard(row, categoryMap)
     );
+  } catch {
+    const launch = sortByPopularity(
+      LAUNCH_QUIZZES.filter(
+        (quiz) =>
+          (isType ? quiz.quiz_type === slug : quiz.category?.slug === slug) &&
+          (!locale || quiz.language === locale)
+      )
+    );
+    totalQuizzes = launch.length;
+    quizzes = launch.slice(from, to + 1);
+    counts = new Map();
   }
-  // Las tarjetas no leen preguntas ni resultados: se recortan antes de
-  // serializar el payload a la página (mismo criterio que /quiz).
-  const lightQuizzes = quizzes.map((quiz) => ({ ...quiz, questions: [], results: null }));
   // Las categorías pobladas salen de un conteo ligero por slug. Si la consulta
   // falla (mapa vacío) se cae al conjunto de antes — las del catálogo de
   // lanzamiento más las de los quizzes ya cargados — para no enlazar
   // categorías que 404ean.
-  const counts = locale ? await getCategoryCounts(locale) : new Map<string, number>();
   const populated =
     counts.size > 0
       ? new Set(counts.keys())
@@ -407,11 +478,14 @@ export const getCategoryPayload = cache(async (slug: string, locale?: Locale) =>
       color: null,
       gradient_from: null,
       gradient_to: null,
-      quiz_count: lightQuizzes.length,
+      quiz_count: totalQuizzes,
       sort_order: 0,
     },
     categories: categories.filter((item) => populated.has(item.slug)),
-    quizzes: lightQuizzes,
+    quizzes,
+    totalQuizzes,
+    page: safePage,
+    pageCount: Math.max(1, Math.ceil(totalQuizzes / CATEGORY_PAGE_SIZE)),
   };
 });
 
@@ -456,6 +530,40 @@ export async function categoryHasQuizzes(slug: string, locale?: Locale): Promise
 // puede anunciar una traducción apoyándose en el catálogo de lanzamiento.
 export async function translatedHubExists(slug: string, locale: Locale): Promise<boolean> {
   return (await probeHubQuizzes(slug, locale)) === true;
+}
+
+// Total publicado por hub e idioma, sin traer filas (HEAD + count). Devuelve
+// null si la sonda falla para que el caller no anuncie una página dudosa.
+async function probeHubQuizTotal(slug: string, locale: Locale): Promise<number | null> {
+  const category = (await getPublicCategories()).find((item) => item.slug === slug) ?? null;
+  const isType = slug === 'personality' || slug === 'trivia';
+  if (!category && !isType) return 0;
+  try {
+    const supabase = await createClient();
+    let query = supabase
+      .from('quizzes')
+      .select('id', { count: 'exact', head: true })
+      .eq('status', 'published');
+    query = isType ? query.eq('quiz_type', slug) : query.eq('category_id', category!.id);
+    if (locale) query = query.eq('language', locale);
+    const { count, error } = await query;
+    if (error || count === null) throw error ?? new Error('Could not count hub quizzes');
+    return count;
+  } catch {
+    return null;
+  }
+}
+
+// La página `?page=N` de la hermana solo existe si ese idioma tiene al menos
+// (N-1)*CATEGORY_PAGE_SIZE + 1 quizzes publicados: si no, el hreflang apuntaría
+// a un 404. La página 1 sigue usando translatedHubExists.
+export async function translatedHubPageExists(
+  slug: string,
+  locale: Locale,
+  page: number
+): Promise<boolean> {
+  const total = await probeHubQuizTotal(slug, locale);
+  return total !== null && total > (page - 1) * CATEGORY_PAGE_SIZE;
 }
 
 export interface HomeCardGroups {

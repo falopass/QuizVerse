@@ -42,8 +42,8 @@ export default async function CategoryOpenGraphImage({
     .join(' & ');
   const contextLine =
     uiLocale === 'es'
-      ? `${payload.quizzes.length} quizzes en español`
-      : `${payload.quizzes.length} quizzes · ${types}`;
+      ? `${payload.totalQuizzes} quizzes en español`
+      : `${payload.totalQuizzes} quizzes · ${types}`;
   return new ImageResponse(
     <div
       style={{

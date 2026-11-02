@@ -198,6 +198,8 @@ export interface GenerateCategoryMetadataOptions {
    * than none.
    */
   translatedHubExists?: boolean;
+  /** 1-based hub page. Page 1 keeps the bare canonical; `?page=N` otherwise. */
+  page?: number;
 }
 
 export function generateCategoryMetadata({
@@ -208,21 +210,30 @@ export function generateCategoryMetadata({
   locale = 'en',
   quizCount,
   translatedHubExists = false,
+  page = 1,
 }: GenerateCategoryMetadataOptions): Metadata {
-  const title = quizCount
+  const baseTitle = quizCount
     ? locale === 'es'
       ? `${name}: ${quizCountLabel(quizCount)} online`
       : `${name}: ${quizCountLabel(quizCount)} to play`
     : locale === 'es'
       ? `Quizzes de ${name}`
       : `${name} quizzes`;
+  // Cada página se canonicaliza a sí misma; la 1 no lleva query. El título
+  // distingue las páginas 2+ en el SERP sin tocar la descripción.
+  const safePage = Number.isSafeInteger(page) && page > 1 ? page : 1;
+  const title =
+    safePage > 1
+      ? `${baseTitle} · ${locale === 'es' ? `página ${safePage}` : `page ${safePage}`}`
+      : baseTitle;
+  const pageQuery = safePage > 1 ? `?page=${safePage}` : '';
 
   return buildMetadata({
     title,
     description,
-    path: localizedPath(locale, `/category/${slug}`),
+    path: `${localizedPath(locale, `/category/${slug}`)}${pageQuery}`,
     alternatePath: translatedHubExists
-      ? localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`)
+      ? `${localizedPath(locale === 'es' ? 'en' : 'es', `/category/${slug}`)}${pageQuery}`
       : null,
     locale,
     image,

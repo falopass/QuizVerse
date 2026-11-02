@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { isLastPage, pageRanges, QUIZ_MAX_ROWS, QUIZ_PAGE_SIZE } from '@/lib/data/quiz-pagination';
+import {
+  CATEGORY_PAGE_SIZE,
+  isLastPage,
+  pageRanges,
+  parsePageParam,
+  QUIZ_MAX_ROWS,
+  QUIZ_PAGE_SIZE,
+} from '@/lib/data/quiz-pagination';
 
 function collectRows(totalRows: number, pageSize: number, maxRows: number): number {
   let collected = 0;
@@ -58,6 +65,29 @@ describe('isLastPage', () => {
 
   it('continues when the page is full', () => {
     expect(isLastPage(500, 500)).toBe(false);
+  });
+});
+
+describe('parsePageParam', () => {
+  it('defaults to page 1 when the parameter is absent', () => {
+    expect(parsePageParam(undefined)).toBe(1);
+  });
+
+  it('accepts positive integers, including an explicit page 1', () => {
+    expect(parsePageParam('1')).toBe(1);
+    expect(parsePageParam('001')).toBe(1);
+    expect(parsePageParam('2')).toBe(2);
+    expect(parsePageParam(['3', '9'])).toBe(3);
+  });
+
+  it('rejects anything that is not a positive integer', () => {
+    for (const value of ['0', '-1', '2.5', 'abc', '', '1e3']) {
+      expect(parsePageParam(value)).toBeNull();
+    }
+  });
+
+  it('keeps the category page size the brief asks for', () => {
+    expect(CATEGORY_PAGE_SIZE).toBe(36);
   });
 });
 
