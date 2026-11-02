@@ -238,8 +238,9 @@ Reglas:
 - `htmlLimitedBots` en `next.config.ts` fuerza que los crawlers reciban
   `<title>`, canonical y OG en el `<head>` (Next los streamea al body si no).
 - Rutas raíz (`/robots.txt`, `/sitemap.xml`, `/favicon.ico`, `/<key>.txt`,
-  `/google<token>.html`) están excluidas del redirect de idioma en `proxy.ts`.
-  Si añades un archivo suelto en la raíz, exclúyelo también.
+  `/google<token>.html`) están excluidas del redirect de idioma por el `matcher`
+  de `proxy.ts` (nunca llegan a la función). Si añades un archivo suelto en la
+  raíz sin extensión, exclúyelo en `NON_LOCALE_*`.
 
 ### Comandos
 

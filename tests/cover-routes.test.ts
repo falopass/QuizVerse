@@ -41,11 +41,27 @@ const fakeQuiz = {
 const fakeEntry = {
   slug: 'space-trivia',
   provider: 'pexels' as const,
-  image_url: 'https://images.example/space.jpg',
+  image_url:
+    'https://images.pexels.com/photos/12345/pexels-photo-12345.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
   source_url: 'https://example.com/photo',
   attribution: 'Someone',
   query: 'space',
+  v: 'v3rs10n',
 };
+
+const fakePixabayEntry = {
+  ...fakeEntry,
+  provider: 'pixabay' as const,
+  image_url: 'https://cdn.pixabay.com/photo/2024/01/01/space_1280.jpg',
+};
+
+function stubOkImage(contentType = 'image/webp') {
+  const bytes = new Uint8Array([1, 2, 3]).buffer;
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue(new Response(bytes, { status: 200, headers: { contentType } }))
+  );
+}
 
 function params(slug: string | undefined) {
   return { params: Promise.resolve({ slug }) };
@@ -112,9 +128,73 @@ describe('GET /stock-covers/[slug]', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toBe('image/webp');
     expect(response.headers.get('cache-control')).toContain('max-age=86400');
+    expect(response.headers.get('cache-control')).not.toContain('immutable');
     expect(new Uint8Array(await response.arrayBuffer())).toEqual(new Uint8Array([1, 2, 3]));
-    expect(fetch).toHaveBeenCalledWith(fakeEntry.image_url, expect.anything());
     expect(mocks.getQuizBySlug).not.toHaveBeenCalled();
+  });
+
+  it('reescribe la URL de Pexels a la variante 960x640 WebP (sin dpr)', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    stubOkImage();
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    const fetchedUrl = vi.mocked(fetch).mock.calls[0][0] as string;
+    const url = new URL(fetchedUrl);
+    expect(url.hostname).toBe('images.pexels.com');
+    expect(url.pathname).toBe('/photos/12345/pexels-photo-12345.jpeg');
+    expect(url.searchParams.get('w')).toBe('960');
+    expect(url.searchParams.get('h')).toBe('640');
+    expect(url.searchParams.get('fit')).toBe('crop');
+    expect(url.searchParams.get('fm')).toBe('webp');
+    expect(url.searchParams.get('dpr')).toBeNull();
+  });
+
+  it('sirve caché inmutable de un año cuando ?v= coincide con el manifest', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    stubOkImage();
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia?v=v3rs10n'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toBe('public, max-age=31536000, immutable');
+  });
+
+  it('mantiene el TTL corto cuando ?v= no coincide', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    stubOkImage();
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia?v=otro'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toContain('max-age=86400');
+    expect(response.headers.get('cache-control')).not.toContain('immutable');
+  });
+
+  it('reescribe el sufijo de tamaño en URLs de Pixabay (_1280 → _640)', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakePixabayEntry);
+    stubOkImage('image/jpeg');
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/jpeg');
+    expect(vi.mocked(fetch).mock.calls[0][0]).toBe(
+      'https://cdn.pixabay.com/photo/2024/01/01/space_640.jpg'
+    );
   });
 
   it('falls back to short-lived procedural SVG when the upstream fetch fails', async () => {

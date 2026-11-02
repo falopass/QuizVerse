@@ -5,12 +5,15 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
-import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeCategory } from '@/lib/i18n/catalog';
 import { getExploreCopy } from '@/lib/i18n/explore-copy';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { editorialScore, explorerSelection } from '@/lib/quiz/editorial-order';
-import type { Category, Quiz } from '@/types/quiz';
+import type { Category, ExploreCardQuiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
+
+/** Bajo mil partidas la cifra delata poco volumen: se cambia por un dato neutro. */
+const SOCIAL_PROOF_MIN_PLAYS = 1000;
 
 const MOODS = {
   en: [
@@ -39,7 +42,7 @@ export const fold = (value: string) =>
 
 interface ExploreCatalogPageProps {
   locale: Locale;
-  quizzes: Quiz[];
+  quizzes: ExploreCardQuiz[];
   categories: Category[];
   copy: {
     title: string;
@@ -70,10 +73,12 @@ export function ExploreEditorialPage({
   const [activeMood, setActiveMood] = React.useState<(typeof MOODS.en)[number]['id']>('all');
   const [activeCategory, setActiveCategory] = React.useState('all');
   const [showAll, setShowAll] = React.useState(false);
+  const [announcement, setAnnouncement] = React.useState('');
+  const restRef = React.useRef<HTMLDivElement>(null);
 
   const moods = MOODS[locale];
   const localizedQuizzes = React.useMemo(
-    () => localizeQuizList(quizzes, locale),
+    () => quizzes.map((quiz) => ({ ...quiz, category: localizeCategory(quiz.category, locale) })),
     [locale, quizzes]
   );
   const localizedCategories = React.useMemo(
@@ -134,6 +139,40 @@ export function ExploreEditorialPage({
 
   const units = getExploreCopy(locale);
 
+  const playsInView = React.useMemo(
+    () => filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0),
+    [filteredQuizzes]
+  );
+
+  const visibleCount =
+    (featuredLead ? 1 : 0) +
+    (pulseQuiz ? 1 : 0) +
+    laneQuizzes.length +
+    gridQuizzes.length +
+    (showAll ? restQuizzes.length : 0);
+
+  const resetExpansion = () => {
+    setShowAll(false);
+    setAnnouncement('');
+  };
+
+  const toggleShowAll = () => {
+    const next = !showAll;
+    setShowAll(next);
+    setAnnouncement(
+      units.showingCount(
+        next ? filteredQuizzes.length : visibleCount - restQuizzes.length,
+        filteredQuizzes.length
+      )
+    );
+  };
+
+  // Al expandir, el foco va a la primera tarjeta nueva: el botón queda antes
+  // de una lista larga y el usuario de teclado no debería recorrerla entera.
+  React.useEffect(() => {
+    if (showAll) restRef.current?.querySelector<HTMLElement>('a')?.focus();
+  }, [showAll]);
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-10 px-4 pt-28 pb-20">
       <section className="grid items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
@@ -152,13 +191,14 @@ export function ExploreEditorialPage({
             value={String(filteredQuizzes.length)}
             label={copy.visibleNow ?? units.visibleNow}
           />
-          <MetricCard
-            value={formatCompactNumber(
-              filteredQuizzes.reduce((total, quiz) => total + quiz.plays_count, 0),
-              locale
-            )}
-            label={copy.playsInView ?? units.playsInView}
-          />
+          {playsInView >= SOCIAL_PROOF_MIN_PLAYS ? (
+            <MetricCard
+              value={formatCompactNumber(playsInView, locale)}
+              label={copy.playsInView ?? units.playsInView}
+            />
+          ) : (
+            <MetricCard value={String(localizedCategories.length)} label={units.categories} />
+          )}
           <MetricCard
             value={formatCompactNumber(localizedQuizzes.length, locale)}
             label={copy.publishedNow ?? units.publishedNow}
@@ -178,7 +218,7 @@ export function ExploreEditorialPage({
                 value={query}
                 onChange={(event) => {
                   setQuery(event.target.value);
-                  setShowAll(false);
+                  resetExpansion();
                 }}
                 placeholder={copy.searchPlaceholder}
                 className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary/40 w-full rounded-full border px-5 py-4 text-sm transition-colors outline-none"
@@ -196,7 +236,7 @@ export function ExploreEditorialPage({
                   aria-pressed={activeMood === mood.id}
                   onClick={() => {
                     setActiveMood(mood.id);
-                    setShowAll(false);
+                    resetExpansion();
                   }}
                   className={cn(
                     'min-h-11 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
@@ -225,7 +265,7 @@ export function ExploreEditorialPage({
                 label={copy.allCategories}
                 onClick={() => {
                   setActiveCategory('all');
-                  setShowAll(false);
+                  resetExpansion();
                 }}
               />
               {localizedCategories.map((category) => (
@@ -235,7 +275,7 @@ export function ExploreEditorialPage({
                   label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
                   onClick={() => {
                     setActiveCategory(category!.slug);
-                    setShowAll(false);
+                    resetExpansion();
                   }}
                 />
               ))}
@@ -267,9 +307,11 @@ export function ExploreEditorialPage({
                     <span>
                       {pulseQuiz.estimated_minutes} {units.min}
                     </span>
-                    <span>
-                      {formatCompactNumber(pulseQuiz.plays_count, locale)} {units.plays}
-                    </span>
+                    {pulseQuiz.plays_count >= SOCIAL_PROOF_MIN_PLAYS ? (
+                      <span>
+                        {formatCompactNumber(pulseQuiz.plays_count, locale)} {units.plays}
+                      </span>
+                    ) : null}
                     <Link
                       href={localizeHref(locale, `/quiz/${pulseQuiz.slug}`)}
                       className="text-accent-primary"
@@ -333,19 +375,25 @@ export function ExploreEditorialPage({
                 ))}
               </div>
               {restQuizzes.length > 0 ? (
-                <button
-                  type="button"
-                  aria-expanded={showAll}
-                  aria-controls="explore-grid-rest"
-                  onClick={() => setShowAll((value) => !value)}
-                  className="arcade-button arcade-button-lime arcade-more"
-                >
-                  {showAll ? units.showLess : units.showMore(restQuizzes.length)}
-                </button>
+                <>
+                  <button
+                    type="button"
+                    aria-expanded={showAll}
+                    aria-controls="explore-grid-rest"
+                    onClick={toggleShowAll}
+                    className="arcade-button arcade-button-lime arcade-more"
+                  >
+                    {showAll ? units.showLess : units.showMore(restQuizzes.length)}
+                  </button>
+                  <p id="explore-show-more-announcement" aria-live="polite" className="sr-only">
+                    {announcement}
+                  </p>
+                </>
               ) : null}
               {showAll ? (
                 <div
                   id="explore-grid-rest"
+                  ref={restRef}
                   className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
                 >
                   {restQuizzes.map((quiz, index) => (

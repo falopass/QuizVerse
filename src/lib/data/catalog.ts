@@ -7,6 +7,7 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 import type { Database } from '@/types/database';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { QuizQuery } from '@/lib/api/query';
@@ -71,7 +72,7 @@ function toCard(row: CardRow): CatalogCard {
     questionCount: row.question_count ?? 0,
     estimatedMinutes: row.estimated_minutes ?? 3,
     plays: row.plays_count ?? 0,
-    coverImageUrl: row.cover_image_url,
+    coverImageUrl: versionedStockCoverUrl(row.cover_image_url),
   };
 }
 

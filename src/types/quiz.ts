@@ -77,6 +77,26 @@ export interface Quiz {
   creator?: Profile | null;
 }
 
+/**
+ * Fila mínima del explorador (`/[locale]/quiz`): solo lo que pintan la tarjeta
+ * y los filtros del cliente. Cruza al payload RSC una vez por quiz publicado
+ * del idioma, así que cada campo de más se paga cientos de veces.
+ */
+export interface ExploreCardQuiz {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  cover_image_url: string | null;
+  quiz_type: QuizType;
+  estimated_minutes: number;
+  plays_count: number;
+  likes_count: number;
+  is_featured: boolean;
+  tags: string[];
+  category?: Pick<Category, 'id' | 'slug' | 'name'> | null;
+}
+
 export interface QuizCardViewModel {
   id: string;
   slug: string;

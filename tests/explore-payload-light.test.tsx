@@ -1,20 +1,20 @@
 /**
  * QUAL-51: la página del explorador (`/[locale]/quiz`) nunca manda al
- * navegador las preguntas, los resultados ni la clave de respuestas.
+ * navegador las preguntas, los resultados ni la clave de respuestas, y
+ * proyecta cada quiz a la fila mínima que pintan las tarjetas y los filtros.
  *
  * `ExploreEditorialPage` es un componente cliente: todo lo que recibe cruza
- * al payload RSC. La página recorta cada quiz a `questions: []` y
- * `results: null` (eran ~1.7 MB de HTML para 259 tarjetas); este test fija
- * ese invariante y que el recorte no rompe los campos que usan las tarjetas.
+ * al payload RSC. Este test fija que la proyección no deja campos pesados ni
+ * rompe los campos que usan las tarjetas.
  */
 
 import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
-import type { Category, Quiz } from '@/types/quiz';
+import type { Category, ExploreCardQuiz, Quiz } from '@/types/quiz';
 
 const exploreMocks = vi.hoisted(() => ({
-  lastProps: null as { quizzes: Quiz[]; categories: Category[] } | null,
+  lastProps: null as { quizzes: ExploreCardQuiz[]; categories: Category[] } | null,
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -39,7 +39,7 @@ vi.mock('@/lib/i18n/dictionaries', () => ({
 }));
 
 vi.mock('@/components/home/explore-editorial-page', () => ({
-  ExploreEditorialPage: (props: { quizzes: Quiz[]; categories: Category[] }) => {
+  ExploreEditorialPage: (props: { quizzes: ExploreCardQuiz[]; categories: Category[] }) => {
     exploreMocks.lastProps = props;
     return <div data-testid="explore-editorial" />;
   },
@@ -164,15 +164,35 @@ async function renderPage() {
   return utils;
 }
 
+const LIGHT_KEYS = [
+  'category',
+  'cover_image_url',
+  'description',
+  'estimated_minutes',
+  'id',
+  'is_featured',
+  'likes_count',
+  'plays_count',
+  'quiz_type',
+  'slug',
+  'tags',
+  'title',
+].sort();
+
 describe('explorador: payload ligero (QUAL-51)', () => {
-  it('entrega quizzes sin preguntas ni resultados al componente cliente', async () => {
+  it('proyecta cada quiz a la fila mínima de la tarjeta', async () => {
     await renderPage();
     const { quizzes } = exploreMocks.lastProps!;
 
     expect(quizzes).toHaveLength(2);
     for (const quiz of quizzes) {
-      expect(quiz.questions).toEqual([]);
-      expect(quiz.results).toBeNull();
+      expect(Object.keys(quiz).sort()).toEqual(LIGHT_KEYS);
+      expect(quiz).not.toHaveProperty('questions');
+      expect(quiz).not.toHaveProperty('results');
+      expect(quiz).not.toHaveProperty('correct_answers');
+      expect(quiz).not.toHaveProperty('visual_profile');
+      expect(quiz).not.toHaveProperty('published_at');
+      expect(Object.keys(quiz.category!).sort()).toEqual(['id', 'name', 'slug']);
     }
   });
 
@@ -185,7 +205,7 @@ describe('explorador: payload ligero (QUAL-51)', () => {
     expect(json).not.toContain('explanation');
   });
 
-  it('conserva los campos que usan las tarjetas', async () => {
+  it('conserva los campos que usan las tarjetas y los filtros', async () => {
     await renderPage();
     const { quizzes, categories } = exploreMocks.lastProps!;
 
@@ -194,6 +214,8 @@ describe('explorador: payload ligero (QUAL-51)', () => {
       expect(quiz.description).toBeTruthy();
       expect(Array.isArray(quiz.tags)).toBe(true);
       expect(typeof quiz.plays_count).toBe('number');
+      expect(typeof quiz.likes_count).toBe('number');
+      expect(typeof quiz.is_featured).toBe('boolean');
       expect(typeof quiz.estimated_minutes).toBe('number');
       expect(quiz).toHaveProperty('cover_image_url');
       expect(quiz.category?.slug).toBe('movies-tv');
