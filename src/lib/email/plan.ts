@@ -60,30 +60,44 @@ export function safeRedirectTo(value: string): string | null {
 }
 
 /**
- * Idioma del correo: `es` si `redirect_to` contiene `/es` (el path propio o el
- * `next` dentro de /callback, que viaja URL-encoded) o si `user_metadata` lo
- * indica (`i18n`/`locale`/`language`/`preferred_locale`). Si no, `en`.
+ * Locale explícito del `redirect_to`: el path propio (`/es`, `/en`) o el `next`
+ * dentro de /callback, que viaja URL-encoded. `null` si no trae señal.
+ */
+function redirectLocale(redirectTo: string): EmailLocale | null {
+  const pathLocale = (path: string | null): EmailLocale | null => {
+    if (path === '/es' || path?.startsWith('/es/')) return 'es';
+    if (path === '/en' || path?.startsWith('/en/')) return 'en';
+    return null;
+  };
+  try {
+    const url = new URL(redirectTo);
+    return pathLocale(url.pathname) ?? pathLocale(url.searchParams.get('next'));
+  } catch {
+    // No es una URL parseable: queda el chequeo literal de abajo.
+  }
+  const lower = redirectTo.toLowerCase();
+  if (redirectTo.includes('/es') || lower.includes('%2fes')) return 'es';
+  if (redirectTo.includes('/en') || lower.includes('%2fen')) return 'en';
+  return null;
+}
+
+/**
+ * Idioma del correo: gana el locale explícito del `redirect_to` — refleja el
+ * idioma del flujo que inició el usuario, aunque su cuenta se creara en otro.
+ * Sin señal en el redirect, `user_metadata` del alta
+ * (`i18n`/`locale`/`language`/`preferred_locale`); si no, `en`.
  */
 export function resolveEmailLocale(
   redirectTo: string | undefined,
   metadata: Record<string, unknown> | null | undefined
 ): EmailLocale {
+  const explicit = redirectTo ? redirectLocale(redirectTo) : null;
+  if (explicit) return explicit;
   for (const key of ['i18n', 'locale', 'language', 'preferred_locale']) {
     const value = metadata?.[key];
     if (typeof value === 'string' && value.toLowerCase().split(/[-_]/)[0] === 'es') {
       return 'es';
     }
-  }
-  if (redirectTo) {
-    try {
-      const url = new URL(redirectTo);
-      if (url.pathname === '/es' || url.pathname.startsWith('/es/')) return 'es';
-      const next = url.searchParams.get('next');
-      if (next === '/es' || next?.startsWith('/es/')) return 'es';
-    } catch {
-      // No es una URL parseable: queda el chequeo literal de abajo.
-    }
-    if (redirectTo.includes('/es') || redirectTo.toLowerCase().includes('%2fes')) return 'es';
   }
   return 'en';
 }

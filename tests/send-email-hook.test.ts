@@ -517,10 +517,19 @@ describe('resolveEmailLocale', () => {
     expect(resolveEmailLocale('https://quizverse.org/callback?next=%2Fen', null)).toBe('en');
   });
 
-  it('lo indica user_metadata', () => {
-    expect(resolveEmailLocale('https://quizverse.org/en', { i18n: 'es' })).toBe('es');
-    expect(resolveEmailLocale('https://quizverse.org/en', { locale: 'es-CL' })).toBe('es');
-    expect(resolveEmailLocale('https://quizverse.org/en', { language: 'en' })).toBe('en');
+  it('lo indica user_metadata cuando el redirect_to no trae locale', () => {
+    expect(resolveEmailLocale('https://quizverse.org/', { i18n: 'es' })).toBe('es');
+    expect(resolveEmailLocale(undefined, { locale: 'es-CL' })).toBe('es');
+    expect(resolveEmailLocale('https://quizverse.org/', { language: 'en' })).toBe('en');
+  });
+
+  it('el locale explícito del redirect_to gana a user_metadata', () => {
+    // Recuperación pedida desde /en por una cuenta registrada en /es.
+    expect(resolveEmailLocale('https://quizverse.org/en', { i18n: 'es' })).toBe('en');
+    expect(resolveEmailLocale('https://quizverse.org/callback?next=%2Fen', { locale: 'es' })).toBe(
+      'en'
+    );
+    expect(resolveEmailLocale('https://quizverse.org/es', { locale: 'en' })).toBe('es');
   });
 });
 
