@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { Archivo_Black, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { SupabaseProvider } from '@/providers/supabase-provider';
@@ -11,6 +11,7 @@ import { WebVitals } from '@/components/layout/web-vitals';
 import { CookieConsentBanner } from '@/components/shared/cookie-consent';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildGraph, organizationNode, websiteNode } from '@/lib/seo/structured-data';
+import { hasSessionCookie } from '@/lib/supabase/session-cookie';
 import {
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_HEIGHT,
@@ -133,8 +134,12 @@ function supabaseOrigin(): string | null {
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const locale = (await headers()).get('x-quizverse-locale') === 'es' ? 'es' : 'en';
-  const apiOrigin = supabaseOrigin();
+  const [requestHeaders, requestCookies] = await Promise.all([headers(), cookies()]);
+  const locale = requestHeaders.get('x-quizverse-locale') === 'es' ? 'es' : 'en';
+  // Sin cookie de sesión el visitante es anónimo: no hay cliente de Supabase
+  // que cargar ni origen al que preconnectar.
+  const hasSession = hasSessionCookie(requestCookies.getAll());
+  const apiOrigin = hasSession ? supabaseOrigin() : null;
 
   return (
     <html
@@ -153,7 +158,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       </head>
       <body className="bg-bg-primary text-text-primary h-full antialiased">
         <JsonLd data={buildGraph([organizationNode(), websiteNode(locale)])} />
-        <SupabaseProvider>
+        <SupabaseProvider hasSession={hasSession}>
           <ThemeProvider>
             <ToastProvider>
               <AppTelemetry />
