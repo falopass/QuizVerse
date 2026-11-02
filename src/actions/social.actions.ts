@@ -51,14 +51,20 @@ export async function toggleFollowAction(
       following_id: parsed.data.targetUserId,
     });
     // 23505 (PK duplicada): ya lo sigue, el estado pedido ya existe.
-    if (error && error.code !== '23505') return { ok: false, code: 'unexpected' };
+    if (error && error.code !== '23505') {
+      console.error('[action:social.follow]', error);
+      return { ok: false, code: 'unexpected' };
+    }
   } else {
     const { error } = await supabase
       .from('user_follows')
       .delete()
       .eq('follower_id', user.id)
       .eq('following_id', parsed.data.targetUserId);
-    if (error) return { ok: false, code: 'unexpected' };
+    if (error) {
+      console.error('[action:social.unfollow]', error);
+      return { ok: false, code: 'unexpected' };
+    }
   }
 
   const { data: target } = await supabase

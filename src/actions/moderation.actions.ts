@@ -11,7 +11,12 @@
 
 import { z } from 'zod';
 import { requireAdmin } from '@/lib/auth/require-admin';
-import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
+import {
+  actionFailure,
+  unexpectedFailure,
+  zodMessage,
+  type ActionResult,
+} from '@/lib/actions/types';
 
 const ResolveSchema = z.object({ reportId: z.string().uuid() });
 
@@ -30,6 +35,6 @@ export async function resolveQuizReport(reportId: string): Promise<ActionResult>
     .eq('id', parsed.data.reportId)
     .eq('resolved', false);
 
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('moderation.resolve', error);
   return { success: true };
 }

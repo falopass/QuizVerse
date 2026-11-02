@@ -32,6 +32,18 @@ export function actionFailure(code: ActionErrorCode, error: string): ActionFailu
   return { success: false, code, error };
 }
 
+const UNEXPECTED_ERROR_MESSAGE = 'Something went wrong. Please try again.';
+
+/**
+ * Internal failures (PostgREST errors, constraint names, column details) never
+ * reach the client: they go to the server log under `scope` and the caller
+ * gets a fixed message with the stable `unexpected` code.
+ */
+export function unexpectedFailure(scope: string, error: unknown): ActionFailure {
+  console.error(`[action:${scope}]`, error);
+  return actionFailure('unexpected', UNEXPECTED_ERROR_MESSAGE);
+}
+
 /** First human-readable message from a Zod error. */
 export function zodMessage(error: {
   issues: Array<{ message: string; path: PropertyKey[] }>;

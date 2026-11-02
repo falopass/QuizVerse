@@ -47,7 +47,9 @@ export const QuizCreateSchema = z.object({
   category_id: z.string().uuid().optional().nullable(),
   questions: z.array(QuestionSchema).min(1).max(20),
   results: z.array(PersonalityResultSchema).optional().nullable(),
-  tags: z.array(z.string()).max(10).optional().default([]),
+  // Mismo tope por etiqueta que AIQuizResponseSchema y que updateQuiz: crear
+  // y editar deben compartir la regla o un quiz válido dejaría de ser editable.
+  tags: z.array(z.string().min(1).max(30)).max(10).optional().default([]),
   estimated_minutes: z.number().min(1).max(30).optional().default(3),
 });
 

@@ -60,11 +60,21 @@ describe('markAllNotificationsRead', () => {
     expect(mocks.eqSpy).toHaveBeenCalledWith('is_read', false);
   });
 
-  it('devuelve unexpected si la base de datos falla', async () => {
+  it('devuelve unexpected sin filtrar el mensaje de la base de datos', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     mocks.updateResult = { error: { message: 'boom' } };
 
     const result = await markAllNotificationsRead();
 
-    expect(result).toEqual({ success: false, code: 'unexpected', error: 'boom' });
+    expect(result).toEqual({
+      success: false,
+      code: 'unexpected',
+      error: 'Something went wrong. Please try again.',
+    });
+    expect(errorSpy).toHaveBeenCalledWith(
+      '[action:notifications.markAllRead]',
+      expect.objectContaining({ message: 'boom' })
+    );
+    errorSpy.mockRestore();
   });
 });

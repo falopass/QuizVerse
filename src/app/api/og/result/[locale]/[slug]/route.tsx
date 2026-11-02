@@ -20,7 +20,12 @@ import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
 import { getLocalizedCategoryLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
-import { challengeOutcome, isChallengeInvite, type ChallengeScore } from '@/lib/quiz/challenge';
+import {
+  challengeOutcome,
+  isChallengeInvite,
+  isShareToken,
+  type ChallengeScore,
+} from '@/lib/quiz/challenge';
 import type { Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -424,8 +429,12 @@ export async function GET(
   const { locale, slug } = await params;
   const uiLocale = hasLocale(locale) ? locale : 'en';
   const { searchParams } = new URL(request.url);
-  const token = searchParams.get('s');
-  const challengeToken = searchParams.get('c');
+  // Solo un token con formato real (16 hex) llega a PostgREST: cualquier otro
+  // string sería una consulta inútil y una entrada de caché distinta en el CDN.
+  const s = searchParams.get('s');
+  const c = searchParams.get('c');
+  const token = isShareToken(s) ? s : null;
+  const challengeToken = isShareToken(c) ? c : null;
   const options = await arcadeOgOptions();
   const headers = OG_CACHE_HEADERS;
 

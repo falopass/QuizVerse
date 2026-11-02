@@ -9,7 +9,7 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
-import { actionFailure, type ActionResult } from '@/lib/actions/types';
+import { actionFailure, unexpectedFailure, type ActionResult } from '@/lib/actions/types';
 
 /** Reads the authenticated user, or `null`. */
 async function currentUser() {
@@ -30,6 +30,6 @@ export async function markAllNotificationsRead(): Promise<ActionResult> {
     .update({ is_read: true })
     .eq('is_read', false);
 
-  if (error) return actionFailure('unexpected', error.message);
+  if (error) return unexpectedFailure('notifications.markAllRead', error);
   return { success: true };
 }
