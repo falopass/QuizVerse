@@ -69,7 +69,7 @@ beforeEach(() => {
   mocks.sessionLimit.mockResolvedValue({ data: ROWS, error: null });
   mocks.sessionEq.mockReturnValue({ order: () => ({ limit: mocks.sessionLimit }) });
   mocks.profileMaybeSingle.mockResolvedValue({
-    data: { points: 145, quizzes_played: 12 },
+    data: { points: 145, quizzes_played: 12, current_streak: 4, longest_streak: 9 },
     error: null,
   });
   mocks.from.mockImplementation((table: string) => {
@@ -105,6 +105,26 @@ describe('página /me', () => {
     expect(screen.getByText('Eres un Jedi')).toBeInTheDocument();
     expect(screen.getByText('12')).toBeInTheDocument();
     expect(screen.getByText('145')).toBeInTheDocument();
+  });
+
+  it('muestra la racha actual y la mejor racha', async () => {
+    render(await MePage(props('es')));
+
+    expect(screen.getByText('Racha')).toBeInTheDocument();
+    expect(screen.getByText('Racha').closest('div')).toHaveTextContent(/4\s*días/);
+    expect(screen.getByText('Mejor racha: 9')).toBeInTheDocument();
+  });
+
+  it('sin la migración 018 reintenta sin racha y conserva los totales', async () => {
+    mocks.profileMaybeSingle
+      .mockResolvedValueOnce({ data: null, error: { message: 'column does not exist' } })
+      .mockResolvedValueOnce({ data: { points: 145, quizzes_played: 12 }, error: null });
+
+    render(await MePage(props('es')));
+
+    expect(screen.getByText('145')).toBeInTheDocument();
+    expect(screen.getByText('Racha').closest('div')).toHaveTextContent(/0\s*días/);
+    expect(screen.getByText('Mejor racha: 0')).toBeInTheDocument();
   });
 
   it('la consulta pide solo las partidas propias con tope de 30', async () => {

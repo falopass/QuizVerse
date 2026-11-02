@@ -8,6 +8,8 @@ import {
 } from '@/lib/data/public';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { achievementCopy } from '@/lib/i18n/achievements';
+import { ACHIEVEMENT_ICONS } from '@/lib/quiz/achievement-progress';
 import { localizedPath, generateProfileMetadata } from '@/lib/seo/metadata';
 import { absoluteUrl } from '@/lib/seo/site';
 import { ShareButtons } from '@/components/shared/share-buttons';
@@ -122,6 +124,14 @@ export default async function LocalizedProfilePage({
               label={locale === 'es' ? 'Jugados' : 'Played'}
             />
             <StatCard
+              value={
+                locale === 'es'
+                  ? `${profile.current_streak} ${profile.current_streak === 1 ? 'día' : 'días'}`
+                  : `${profile.current_streak} ${profile.current_streak === 1 ? 'day' : 'days'}`
+              }
+              label={locale === 'es' ? 'Racha actual' : 'Current streak'}
+            />
+            <StatCard
               value={formatCompactNumber(profile.quizzes_created, locale)}
               label={locale === 'es' ? 'Creados' : 'Created'}
             />
@@ -146,7 +156,10 @@ export default async function LocalizedProfilePage({
                 key={achievement.id}
                 className="border-border-subtle bg-bg-primary text-text-secondary rounded-full border px-4 py-2 text-sm"
               >
-                {achievement.icon} {achievement.name}
+                <span aria-hidden="true">
+                  {ACHIEVEMENT_ICONS[achievement.id] ?? achievement.icon}
+                </span>{' '}
+                {achievementCopy(achievement.id, locale, achievement).name}
               </div>
             ))}
           </div>

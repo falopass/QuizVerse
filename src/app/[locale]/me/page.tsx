@@ -42,7 +42,8 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
     );
   }
 
-  const { sessions, played, points, sessionsFailed } = await getMyActivity(user.id);
+  const { sessions, played, points, currentStreak, longestStreak, sessionsFailed } =
+    await getMyActivity(user.id);
   const es = locale === 'es';
 
   return (
@@ -57,7 +58,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
             ? 'Tus últimas partidas, con su puntaje y el enlace a cada resultado.'
             : 'Your latest games, with their score and the link to each result.'}
         </p>
-        <dl className="mt-8 grid max-w-md grid-cols-2 gap-4">
+        <dl className="mt-8 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-3">
           <div className="surface-card p-4">
             <dt className="text-text-muted text-xs font-bold uppercase">
               {es ? 'Partidas' : 'Games played'}
@@ -69,6 +70,20 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
               {es ? 'Puntos' : 'Points'}
             </dt>
             <dd className="text-text-primary mt-1 text-3xl font-semibold">{points}</dd>
+          </div>
+          <div className="surface-card p-4">
+            <dt className="text-text-muted text-xs font-bold uppercase">
+              {es ? 'Racha' : 'Streak'}
+            </dt>
+            <dd className="text-text-primary mt-1 text-3xl font-semibold">
+              {currentStreak}{' '}
+              <span className="text-text-muted ml-1 text-sm font-normal">
+                {es ? (currentStreak === 1 ? 'día' : 'días') : currentStreak === 1 ? 'day' : 'days'}
+              </span>
+            </dd>
+            <p className="text-text-muted mt-1 text-xs">
+              {es ? `Mejor racha: ${longestStreak}` : `Best streak: ${longestStreak}`}
+            </p>
           </div>
         </dl>
       </section>
