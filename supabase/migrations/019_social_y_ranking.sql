@@ -76,7 +76,9 @@ BEGIN
     WHERE s.completed_at >= NOW() - INTERVAL '7 days'
       AND s.player_id IS NOT NULL
     GROUP BY s.player_id
-    ORDER BY 2 DESC, 3 DESC
+    -- Desempate final por player_id: sin él, dos páginas consecutivas del
+    -- ranking pueden repetir u omitir jugadores empatados.
+    ORDER BY 2 DESC, 3 DESC, s.player_id
     LIMIT LEAST(GREATEST(COALESCE(p_limit, 50), 1), 100);
 END;
 $$;
@@ -86,7 +88,8 @@ GRANT EXECUTE ON FUNCTION public.get_weekly_session_totals(INTEGER)
   TO anon, authenticated, service_role;
 
 -- Puesto propio en la semana, para mostrarlo fuera del top. Mismo orden
--- que get_weekly_session_totals: más partidas gana; empate, más perfectas.
+-- que get_weekly_session_totals: más partidas gana; empate, más perfectas
+-- y, en empate total, player_id ascendente.
 -- NULL cuando el jugador no tiene partidas autenticadas en la ventana.
 CREATE OR REPLACE FUNCTION public.get_weekly_rank(p_user_id UUID)
 RETURNS INTEGER
@@ -97,9 +100,10 @@ DECLARE
   v_perfect INTEGER;
   v_rank INTEGER;
 BEGIN
-  -- Solo el propio puesto: como toggle_like (013), service role/SQL quedan
-  -- libres (auth.uid() IS NULL) para administración.
-  IF auth.uid() IS NOT NULL AND p_user_id IS DISTINCT FROM auth.uid() THEN
+  -- Solo el propio puesto. Sin JWT de usuario (auth.uid() nulo) no hay
+  -- puesto propio que consultar: se rechaza también, en vez de dejar pasar
+  -- un p_user_id ajeno a una sesión autenticada sin claim `sub`.
+  IF p_user_id IS DISTINCT FROM auth.uid() THEN
     RAISE EXCEPTION 'get_weekly_rank: p_user_id no coincide con auth.uid()';
   END IF;
 
@@ -125,15 +129,18 @@ BEGIN
           AND s.player_id <> p_user_id
         GROUP BY s.player_id
     ) t
-    WHERE t.played > v_played OR (t.played = v_played AND t.perfect > v_perfect);
+    WHERE t.played > v_played
+       OR (t.played = v_played AND t.perfect > v_perfect)
+       OR (t.played = v_played AND t.perfect = v_perfect AND t.player_id < p_user_id);
 
   RETURN v_rank;
 END;
 $$;
 
-REVOKE EXECUTE ON FUNCTION public.get_weekly_rank(UUID) FROM PUBLIC, anon;
-GRANT EXECUTE ON FUNCTION public.get_weekly_rank(UUID)
-  TO authenticated, service_role;
+-- Solo sesiones con JWT de usuario: el guard exige p_user_id = auth.uid(),
+-- así que anon y service role no tienen puesto propio que pedir.
+REVOKE EXECUTE ON FUNCTION public.get_weekly_rank(UUID) FROM PUBLIC, anon, service_role;
+GRANT EXECUTE ON FUNCTION public.get_weekly_rank(UUID) TO authenticated;
 
 -- ============================================
 -- SOC-15: contadores de follows con piso y reconciliados

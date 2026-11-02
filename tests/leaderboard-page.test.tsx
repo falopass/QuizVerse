@@ -150,6 +150,7 @@ describe('LocalizedLeaderboardPage — con jugadores', () => {
       hasMore: false,
     });
     // 1) puntos propios; 2) perfiles por delante con el desempate del board.
+    let aheadFilter = '';
     mocks.from.mockImplementation((table: string) => {
       expect(table).toBe('profiles');
       return {
@@ -157,12 +158,18 @@ describe('LocalizedLeaderboardPage — con jugadores', () => {
           eq: () => ({
             maybeSingle: async () => ({ data: { points: 10, quizzes_played: 2 }, error: null }),
           }),
-          or: async () => ({ count: 60, error: null }),
+          or: async (filter: string) => {
+            aheadFilter = filter;
+            return { count: 60, error: null };
+          },
         }),
       };
     });
 
     await renderPage('en');
+
+    // El desempate por id replica el ORDER BY del tablero (paginación estable).
+    expect(aheadFilter).toContain('id.lt.me-1');
 
     expect(screen.queryByText('Sign in to see where you land.')).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: 'Sign in' })).not.toBeInTheDocument();

@@ -748,6 +748,9 @@ export const getLeaderboard = cache(async (limit = 50, page = 1): Promise<Leader
     .select('*')
     .order('points', { ascending: false })
     .order('quizzes_played', { ascending: false })
+    // Desempate único: sin él, dos páginas consecutivas de empate pueden
+    // repetir u omitir jugadores (paginación por offset).
+    .order('id', { ascending: true })
     .range(from, from + limit);
 
   if (error || !data) {
@@ -785,7 +788,8 @@ export const getProfileByUsername = cache(async (username: string): Promise<Prof
 
 // Tarjetas de "quizzes publicados" del perfil: solo columnas de tarjeta, sin
 // questions/results (antes era select('*') y pagaba el payload entero por fila).
-export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Quiz[]> => {
+// null = la consulta falló: el perfil muestra aviso, no «no tiene quizzes».
+export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Quiz[] | null> => {
   try {
     const supabase = await createClient();
     const [{ data: quizzes, error: quizError }, { data: categories, error: categoryError }] =
@@ -815,7 +819,7 @@ export const getQuizzesByCreatorId = cache(async (creatorId: string): Promise<Qu
       normalizeCategoryCard(quiz, categoryMap)
     );
   } catch {
-    return [];
+    return null;
   }
 });
 

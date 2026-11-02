@@ -419,8 +419,9 @@ async function getGlobalRank(
   const { count, error: countError } = await supabase
     .from('profiles')
     .select('id', { count: 'exact', head: true })
+    // Mismo orden que getLeaderboard, incluido el desempate por id.
     .or(
-      `points.gt.${me.points},and(points.eq.${me.points},quizzes_played.gt.${me.quizzes_played})`
+      `points.gt.${me.points},and(points.eq.${me.points},quizzes_played.gt.${me.quizzes_played}),and(points.eq.${me.points},quizzes_played.eq.${me.quizzes_played},id.lt.${userId})`
     );
 
   if (countError || count === null) return null;

@@ -226,6 +226,23 @@ describe('getWeeklyLeaderboard', () => {
     await expect(getWeeklyLeaderboard(50)).rejects.toThrow();
   });
 
+  it('desempata por player_id cuando partidas y puntos empatan (paginación estable)', async () => {
+    mockDb({
+      sessionPages: [
+        ok([
+          { player_id: 'u3', score: 1, max_score: 10 },
+          { player_id: 'u1', score: 1, max_score: 10 },
+          { player_id: 'u2', score: 1, max_score: 10 },
+        ]),
+      ],
+      profiles: ok([profileRow('u1'), profileRow('u2'), profileRow('u3')]),
+    });
+
+    const { entries } = await getWeeklyLeaderboard(10);
+
+    expect(entries.map((entry) => entry.user.username)).toEqual(['user-u1', 'user-u2', 'user-u3']);
+  });
+
   it('pagina: la página 2 arranca tras la 1 y hasMore refleja la fila extra', async () => {
     // 3 jugadores: página 1 con limit 2 trae 2 y hasMore; página 2 trae el resto.
     // Cada llamada barre su propia página del fixture (el mock consume una

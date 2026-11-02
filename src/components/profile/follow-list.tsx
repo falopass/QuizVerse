@@ -71,12 +71,28 @@ export async function FollowListPage({
               </h2>
             </div>
             <Link
-              href={localizeHref(locale, basePath)}
+              // El reintento conserva la página que se estaba viendo.
+              href={localizeHref(locale, `${basePath}${page > 1 ? `?page=${page}` : ''}`)}
               className="bg-accent-primary text-bg-primary inline-flex min-h-11 items-center rounded-full px-5 py-3 text-sm font-semibold"
             >
               {es ? 'Reintentar' : 'Try again'}
             </Link>
           </div>
+        </section>
+      ) : list.entries.length === 0 && list.total > 0 ? (
+        // La lista tiene filas pero esta página no: una URL ?page fuera de
+        // rango no puede disfrazarse del vacío real.
+        <section className="surface-card mt-6 p-6">
+          <p className="eyebrow">{heading}</p>
+          <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+            {es ? 'Esta página no existe.' : 'This page does not exist.'}
+          </h2>
+          <Link
+            href={localizeHref(locale, basePath)}
+            className="text-accent-primary mt-4 inline-block text-sm font-semibold"
+          >
+            {es ? 'Volver a la primera página' : 'Back to the first page'}
+          </Link>
         </section>
       ) : list.entries.length === 0 ? (
         <section className="surface-card mt-6 p-6">

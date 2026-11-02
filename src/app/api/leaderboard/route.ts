@@ -94,6 +94,8 @@ export async function GET(request: Request) {
     .select('*')
     .in('id', ids)
     .order('points', { ascending: false })
+    // Desempate único para que la paginación por offset no repita filas.
+    .order('id', { ascending: true })
     .range(from, from + limit);
 
   if (error) return jsonError(503, 'leaderboard_unavailable');

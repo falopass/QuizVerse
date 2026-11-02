@@ -447,27 +447,28 @@ describe('getQuizzesByCreatorId', () => {
 
     const quizzes = await getQuizzesByCreatorId('u-1');
     expect(quizzes).toHaveLength(1);
-    expect(quizzes[0].category).toEqual(catRow);
+    expect(quizzes?.[0].category).toEqual(catRow);
     // Solo columnas de tarjeta: sin questions/results (SOC-12).
     expect(db.calls).toContain(
       `quizzes(${CATEGORY_CARD_COLUMNS}) eq:creator_id=u-1 eq:status=published`
     );
   });
 
-  it('returns [] when the quiz query errors', async () => {
+  it('returns null (no []) when the quiz query errors', async () => {
     db.handler = (table) =>
       table === 'quizzes'
         ? { data: null, error: { message: 'boom' } }
         : { data: [catRow], error: null };
-    expect(await getQuizzesByCreatorId('u-1')).toEqual([]);
+    // null = caída; el perfil muestra aviso en vez de «no tiene quizzes».
+    expect(await getQuizzesByCreatorId('u-1')).toBeNull();
   });
 
-  it('returns [] when the categories query errors', async () => {
+  it('returns null (no []) when the categories query errors', async () => {
     db.handler = (table) =>
       table === 'quizzes'
         ? { data: [quizRow()], error: null }
         : { data: null, error: { message: 'boom' } };
-    expect(await getQuizzesByCreatorId('u-1')).toEqual([]);
+    expect(await getQuizzesByCreatorId('u-1')).toBeNull();
   });
 });
 

@@ -30,16 +30,19 @@ export function rankFriends(
   rows: readonly FriendsRankingRow[],
   meId: string
 ): FriendsRankingEntry[] {
-  return [...rows]
-    .sort((a, b) => b.points - a.points)
-    .map((row, index) => ({
-      rank: index + 1,
-      id: row.id,
-      username: row.username,
-      displayName: row.display_name,
-      avatarUrl: row.avatar_url,
-      points: row.points,
-      quizzesPlayed: row.quizzes_played,
-      isMe: row.id === meId,
-    }));
+  return (
+    [...rows]
+      // Desempate por id: el orden es estable entre renders.
+      .sort((a, b) => b.points - a.points || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+      .map((row, index) => ({
+        rank: index + 1,
+        id: row.id,
+        username: row.username,
+        displayName: row.display_name,
+        avatarUrl: row.avatar_url,
+        points: row.points,
+        quizzesPlayed: row.quizzes_played,
+        isMe: row.id === meId,
+      }))
+  );
 }

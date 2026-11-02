@@ -119,7 +119,11 @@ export async function getWeeklyLeaderboard(limit = 50, page = 1): Promise<Leader
   const totals = await loadWeeklyTotals(supabase, since, cutoff + 1);
 
   const top = [...totals.entries()]
-    .sort((a, b) => b[1].played - a[1].played || b[1].points - a[1].points)
+    // Mismo orden que el RPC: partidas, perfectas y, en empate total,
+    // player_id ascendente (sin él la paginación por offset se inestabiliza).
+    .sort(
+      (a, b) => b[1].played - a[1].played || b[1].points - a[1].points || (a[0] < b[0] ? -1 : 1)
+    )
     .slice(0, cutoff + 1);
   const window = top.slice((safePage - 1) * limit, cutoff);
   if (window.length === 0) return { entries: [], hasMore: top.length > cutoff };

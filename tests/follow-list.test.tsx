@@ -94,6 +94,35 @@ describe('FollowListPage', () => {
     );
   });
 
+  it('el reintento conserva la página que se estaba viendo', async () => {
+    mocks.getFollowList.mockResolvedValue(null);
+
+    render(await FollowListPage({ locale: 'es', username: 'dana', kind: 'followers', page: 3 }));
+
+    expect(screen.getByRole('link', { name: 'Reintentar' })).toHaveAttribute(
+      'href',
+      '/es/profile/dana/followers?page=3'
+    );
+  });
+
+  it('una página fuera de rango no se disfraza de lista vacía', async () => {
+    mocks.getFollowList.mockResolvedValue({
+      entries: [],
+      total: 72,
+      page: 4,
+      pageCount: 3,
+    });
+
+    render(await FollowListPage({ locale: 'es', username: 'dana', kind: 'followers', page: 4 }));
+
+    expect(screen.getByText('Esta página no existe.')).toBeInTheDocument();
+    expect(screen.queryByText('Todavía nadie sigue este perfil.')).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Volver a la primera página' })).toHaveAttribute(
+      'href',
+      '/es/profile/dana/followers'
+    );
+  });
+
   it('pagina con enlaces anterior/siguiente', async () => {
     mocks.getFollowList.mockResolvedValue({
       entries: [ADA],

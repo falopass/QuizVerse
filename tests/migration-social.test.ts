@@ -46,19 +46,24 @@ describe('migración 019_social_y_ranking', () => {
 
   it('SOC-14: get_weekly_rank solo devuelve el puesto propio', () => {
     expect(sql).toMatch(/create or replace function public\.get_weekly_rank\(p_user_id uuid\)/i);
-    expect(sql).toMatch(/p_user_id is distinct from auth\.uid\(\)/i);
+    // Guard estricto: sin JWT de usuario tampoco pasa (no hay puesto propio).
+    expect(sql).toMatch(/if p_user_id is distinct from auth\.uid\(\) then/i);
     expect(sql).toMatch(/raise exception 'get_weekly_rank/i);
-    // anon no puede llamarlo: el puesto es dato de la sesión.
+    // Solo sesiones con JWT: el puesto es dato de la sesión.
     expect(sql).toMatch(
-      /revoke execute on function public\.get_weekly_rank\(uuid\) from public, anon/i
+      /revoke execute on function public\.get_weekly_rank\(uuid\) from public, anon, service_role/i
     );
     expect(sql).toMatch(
-      /grant execute on function public\.get_weekly_rank\(uuid\)\s+to authenticated, service_role/i
+      /grant execute on function public\.get_weekly_rank\(uuid\)\s+to authenticated/i
     );
-    // Mismo orden que el tablero: partidas y, en empate, perfectas.
-    expect(sql).toMatch(
-      /t\.played > v_played or \(t\.played = v_played and t\.perfect > v_perfect\)/i
-    );
+    // Mismo orden que el tablero: partidas, perfectas y desempate por id.
+    expect(sql).toMatch(/t\.played > v_played/i);
+    expect(sql).toMatch(/t\.perfect > v_perfect/i);
+    expect(sql).toMatch(/t\.player_id < p_user_id/i);
+  });
+
+  it('SOC-06: el RPC de totales desempata por player_id (paginación estable)', () => {
+    expect(sql).toMatch(/order by 2 desc, 3 desc, s\.player_id/i);
   });
 
   it('SOC-15: los decrementos de follows no bajan de cero', () => {

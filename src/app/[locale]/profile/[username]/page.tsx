@@ -208,7 +208,22 @@ export default async function LocalizedProfilePage({
         </div>
       </section>
 
-      {quizzes.length === 0 ? (
+      {quizzes === null ? (
+        // Una caída del catálogo no puede leerse como «no tiene quizzes».
+        <section className="surface-card mt-6 p-6">
+          <p className="text-text-secondary max-w-xl text-sm leading-6">
+            {locale === 'es'
+              ? 'No pudimos cargar los quizzes de este perfil.'
+              : "We could not load this profile's quizzes."}
+          </p>
+          <Link
+            href={localizeHref(locale, `/profile/${encodeURIComponent(profile.username)}`)}
+            className="text-accent-primary mt-4 inline-block text-sm font-semibold"
+          >
+            {locale === 'es' ? 'Reintentar' : 'Try again'}
+          </Link>
+        </section>
+      ) : quizzes.length === 0 ? (
         <section className="surface-card mt-6 p-6">
           <p className="text-text-secondary max-w-xl text-sm leading-6">
             {locale === 'es'
