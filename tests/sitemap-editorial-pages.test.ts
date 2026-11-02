@@ -54,7 +54,13 @@ function expectedEditorialPaths(): string[] {
   const entries = readdirSync(LOCALE_DIR, { withFileTypes: true, recursive: true });
   for (const entry of entries) {
     if (!entry.isFile() || entry.name !== 'page.tsx') continue;
-    const rel = entry.parentPath.slice(LOCALE_DIR.length);
+    // Los route groups (p. ej. `(inicio)`) organizan archivos sin aparecer en
+    // la URL: se retiran del path esperado.
+    const segments = entry.parentPath
+      .slice(LOCALE_DIR.length)
+      .split('/')
+      .filter((seg) => seg && !(seg.startsWith('(') && seg.endsWith(')')));
+    const rel = segments.length ? `/${segments.join('/')}` : '';
     if (rel.includes('[')) continue;
     if (NOINDEX.test(readFileSync(join(entry.parentPath, 'page.tsx'), 'utf8'))) continue;
     paths.add(rel);

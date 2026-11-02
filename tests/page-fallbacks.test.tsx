@@ -41,8 +41,8 @@ vi.mock('@/components/home/explore-editorial-page', () => ({
   },
 }));
 
-import LocalizedHomePage from '@/app/[locale]/page';
-import LocalizedQuizExplorerPage from '@/app/[locale]/quiz/page';
+import LocalizedHomePage from '@/app/[locale]/(inicio)/page';
+import LocalizedQuizExplorerPage from '@/app/[locale]/quiz/(explorar)/page';
 import { getLaunchExplorePayload, getLaunchHomePayload } from '@/lib/data/public';
 
 describe('fallback de página al catálogo de lanzamiento (F13)', () => {

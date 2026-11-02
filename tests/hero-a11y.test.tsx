@@ -33,7 +33,7 @@ vi.mock('@/components/home/recently-played', () => ({
   RecentlyPlayed: () => null,
 }));
 
-import LocalizedHomePage from '@/app/[locale]/page';
+import LocalizedHomePage from '@/app/[locale]/(inicio)/page';
 
 const TITLE = 'World Flags Trivia: Can You Name These 8 Flags?';
 
