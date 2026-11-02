@@ -232,16 +232,23 @@ const DIFFICULTY_COPY = {
   hard: { en: 'Hard', es: 'Alta' },
 } as const;
 
-export function localizeCategory(
-  category: Category | null | undefined,
+/**
+ * Acepta tanto la `Category` completa como la fila ligera del explorador
+ * (`id`, `slug`, `name`): solo esos campos hacen falta para traducir.
+ */
+export function localizeCategory<C extends Pick<Category, 'id' | 'slug' | 'name'>>(
+  category: C | null | undefined,
   locale: Locale
-): Category | null {
+): C | null {
   if (!category) return null;
 
   const localized = CATEGORY_COPY[category.slug as keyof typeof CATEGORY_COPY];
   if (!localized) {
     return locale === 'es'
-      ? { ...category, name: CATEGORY_ES_NAMES[category.name.toLowerCase()] ?? category.name }
+      ? ({
+          ...category,
+          name: CATEGORY_ES_NAMES[category.name.toLowerCase()] ?? category.name,
+        } as C)
       : category;
   }
 
@@ -249,7 +256,7 @@ export function localizeCategory(
     ...category,
     name: localized[locale].name,
     description: localized[locale].description,
-  };
+  } as C;
 }
 
 export function localizeQuizCategory(quiz: Quiz, locale: Locale): Quiz {

@@ -4,6 +4,7 @@ export interface ExploreCopy {
   eyebrow: string;
   visibleNow: string;
   playsInView: string;
+  categories: string;
   publishedNow: string;
   search: string;
   categoryLanes: string;
@@ -13,6 +14,7 @@ export interface ExploreCopy {
   quizzesAfterFilters: string;
   showMore: (count: number) => string;
   showLess: string;
+  showingCount: (visible: number, total: number) => string;
   editorialGrid: string;
   editorDeck: string;
   min: string;
@@ -27,6 +29,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     eyebrow: 'Explorar',
     visibleNow: 'Visibles ahora',
     playsInView: 'Partidas en vista',
+    categories: 'Categorías',
     publishedNow: 'Publicados ahora',
     search: 'Buscar',
     categoryLanes: 'Carriles editoriales',
@@ -36,6 +39,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     quizzesAfterFilters: 'quizzes tras filtros',
     showMore: (count: number) => `Ver los ${count} restantes`,
     showLess: 'Mostrar menos',
+    showingCount: (visible: number, total: number) => `Se muestran ${visible} de ${total} quizzes`,
     editorialGrid: 'Entradas curadas',
     editorDeck:
       'No es solo volumen: ahora el catálogo prioriza quizzes con una promesa más clara, mejor ritmo y mejor superficie visual.',
@@ -50,6 +54,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     eyebrow: 'Explore',
     visibleNow: 'Visible now',
     playsInView: 'Plays in view',
+    categories: 'Categories',
     publishedNow: 'Published now',
     search: 'Search',
     categoryLanes: 'Editorial lanes',
@@ -59,6 +64,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     quizzesAfterFilters: 'quizzes after filters',
     showMore: (count: number) => `Show the ${count} remaining`,
     showLess: 'Show less',
+    showingCount: (visible: number, total: number) => `Showing ${visible} of ${total} quizzes`,
     editorialGrid: 'Curated entries',
     editorDeck:
       'This is not just volume. The catalog now surfaces quizzes with a stronger promise, better pacing and cleaner visual priority.',
