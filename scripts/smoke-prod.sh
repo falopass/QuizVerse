@@ -34,7 +34,11 @@ check_status() {
 check_absent() {
   local path="$1" needle="$2"
   local body
-  body=$(curl -sS -m "$CURL_TIMEOUT" "$BASE_URL$path" 2>/dev/null) || body=""
+  if ! body=$(curl -sS -m "$CURL_TIMEOUT" "$BASE_URL$path" 2>/dev/null); then
+    printf '  FAIL %s no respondió (no se pudo buscar "%s")\n' "$path" "$needle"
+    failures=$((failures + 1))
+    return
+  fi
   if printf '%s' "$body" | grep -qF "$needle"; then
     printf '  FAIL %s contiene "%s"\n' "$path" "$needle"
     failures=$((failures + 1))
