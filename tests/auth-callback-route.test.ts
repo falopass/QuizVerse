@@ -54,14 +54,16 @@ describe('GET /callback', () => {
     expect(location(response)).toBe('https://quizverse.org/en');
   });
 
-  it('un error del proveedor vuelve al login del idioma con ?error=oauth', async () => {
+  it('un error del proveedor vuelve al login del idioma conservando el destino', async () => {
     const response = await get('?error=access_denied&next=/es/create');
 
     expect(mocks.exchangeCodeForSession).not.toHaveBeenCalled();
-    expect(location(response)).toBe('https://quizverse.org/es/login?error=oauth');
+    expect(location(response)).toBe(
+      'https://quizverse.org/es/login?error=oauth&redirect=%2Fes%2Fcreate'
+    );
   });
 
-  it('un canje fallido vuelve al login del idioma con ?error=oauth', async () => {
+  it('un canje fallido vuelve al login del idioma conservando el destino', async () => {
     mocks.exchangeCodeForSession.mockResolvedValue({
       data: {},
       error: { message: 'invalid grant' },
@@ -69,6 +71,14 @@ describe('GET /callback', () => {
 
     const response = await get('?code=abc&next=/es/home');
 
-    expect(location(response)).toBe('https://quizverse.org/es/login?error=oauth');
+    expect(location(response)).toBe(
+      'https://quizverse.org/es/login?error=oauth&redirect=%2Fes%2Fhome'
+    );
+  });
+
+  it('un error sin next vuelve al login inglés con la home como destino', async () => {
+    const response = await get('?error=access_denied');
+
+    expect(location(response)).toBe('https://quizverse.org/en/login?error=oauth&redirect=%2Fen');
   });
 });

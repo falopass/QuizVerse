@@ -55,6 +55,9 @@ export async function LoginPageView({
           terms: 'Terms',
         };
   const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
+  // '/' no lleva idioma: la home localizada evita que el callback OAuth y la
+  // vuelta del login por email devuelvan /es a la portada inglesa.
+  const localizedRedirect = safeRedirect === '/' ? localizeHref(locale, '/') : safeRedirect;
   const oauthProviders = enabledOAuthProviders();
 
   return (
@@ -87,7 +90,7 @@ export async function LoginPageView({
           </div>
 
           <div className="space-y-4">
-            <LoginForm locale={locale} redirectTo={safeRedirect} />
+            <LoginForm locale={locale} redirectTo={localizedRedirect} />
 
             {oauthFailed ? (
               <p role="alert" className="text-sm font-semibold text-red-400">
@@ -95,7 +98,11 @@ export async function LoginPageView({
               </p>
             ) : null}
 
-            <OAuthButtons locale={locale} redirectTo={safeRedirect} providers={oauthProviders} />
+            <OAuthButtons
+              locale={locale}
+              redirectTo={localizedRedirect}
+              providers={oauthProviders}
+            />
           </div>
 
           <div className="my-6 flex items-center gap-4">
@@ -106,7 +113,9 @@ export async function LoginPageView({
             <div className="bg-border-subtle h-px flex-1" />
           </div>
           <Link
-            href={safeRedirect.includes('/create') ? localizeHref(locale, '/') : safeRedirect}
+            href={
+              localizedRedirect.includes('/create') ? localizeHref(locale, '/') : localizedRedirect
+            }
             className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex w-full items-center justify-center rounded-full border px-4 py-4 text-sm font-semibold transition-colors"
           >
             {dictionary.auth.guest}

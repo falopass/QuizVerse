@@ -27,7 +27,8 @@ export async function GET(request: Request) {
   const next = requestUrl.searchParams.get('next');
   const locale = localeOfNext(next);
   const safeNext = safeRedirectPath(next, `/${locale}`);
-  const loginPath = `/${locale}/login?error=oauth`;
+  // El destino se devuelve como `redirect` para que un reintento no lo pierda.
+  const loginPath = `/${locale}/login?error=oauth&redirect=${encodeURIComponent(safeNext)}`;
 
   if (providerError) {
     return NextResponse.redirect(`${origin}${loginPath}`);

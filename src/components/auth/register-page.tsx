@@ -50,6 +50,9 @@ export async function RegisterPageView({
       };
 
   const safeRedirect = safeRedirectPath(redirectTo, localizeHref(locale, '/'));
+  // '/' no lleva idioma: la home localizada evita que el callback OAuth
+  // devuelva /es a la portada inglesa.
+  const localizedRedirect = safeRedirect === '/' ? localizeHref(locale, '/') : safeRedirect;
   const oauthProviders = enabledOAuthProviders();
 
   return (
@@ -72,7 +75,7 @@ export async function RegisterPageView({
               name: copy.name,
               submit: copy.signUp,
             }}
-            redirectTo={safeRedirect}
+            redirectTo={localizedRedirect}
             locale={locale}
           />
 
@@ -86,7 +89,11 @@ export async function RegisterPageView({
                 <div className="bg-border-subtle h-px flex-1" />
               </div>
 
-              <OAuthButtons locale={locale} redirectTo={safeRedirect} providers={oauthProviders} />
+              <OAuthButtons
+                locale={locale}
+                redirectTo={localizedRedirect}
+                providers={oauthProviders}
+              />
             </>
           ) : null}
 

@@ -90,9 +90,12 @@ Debe responder `302` hacia `accounts.google.com` (hoy responde `400`).
 ## Alta de usuarios OAuth
 
 La migración `009_fix_signup_username` ya cubre el caso: el trigger
-`handle_new_user` lee `name`, `display_name` y `full_name` (Google y Facebook
-mandan `full_name`), pliega tildes y resuelve colisiones de username con
-sufijo del UUID. Un alta por Google no rompe el CHECK `^[a-z0-9_]{3,24}$`.
+`handle_new_user` deriva el username de `name`, `display_name` o `full_name`
+(Google y Facebook mandan `full_name`), pliega tildes y resuelve colisiones
+con sufijo del UUID. Un alta por Google no rompe el CHECK `^[a-z0-9_]{3,24}$`.
+Ojo: el `display_name` visible solo lee `name`/`display_name` — si el
+proveedor manda únicamente `full_name`, el nombre queda «New Player» hasta
+que la persona lo edite (deuda conocida, no bloquea el alta).
 
 ## Deuda relacionada (Worker)
 
