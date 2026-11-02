@@ -51,8 +51,28 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const ip = getRequestIdentifier(request);
+  // Peek primero: una cuota rechazada no debe consumir la otra.
+  const [ipPeek, userPeek] = await Promise.all([
+    generateIpLimiter.check(ip, { record: false }),
+    generateUserLimiter.check(user.id, { record: false }),
+  ]);
+  const peek = ipPeek.remaining <= userPeek.remaining ? ipPeek : userPeek;
+
+  if (ipPeek.errored || userPeek.errored) {
+    return NextResponse.json(
+      { error: 'Rate limiter unavailable', rateLimit: peek },
+      { status: 503 }
+    );
+  }
+
+  if (!ipPeek.allowed || !userPeek.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit: peek }, { status: 429 });
+  }
+
+  // Ambas cuotas pasaron: ahora sí se registra el consumo en las dos.
   const [ipLimit, userLimit] = await Promise.all([
-    generateIpLimiter.check(getRequestIdentifier(request)),
+    generateIpLimiter.check(ip),
     generateUserLimiter.check(user.id),
   ]);
   const rateLimit = ipLimit.remaining <= userLimit.remaining ? ipLimit : userLimit;
@@ -62,13 +82,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!ipLimit.allowed || !userLimit.allowed) {
-    return NextResponse.json(
-      {
-        error: 'Rate limit exceeded',
-        rateLimit,
-      },
-      { status: 429 }
-    );
+    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit }, { status: 429 });
   }
 
   const result = await generateQuizWithAI(parsed.data, deepseekApiKey);

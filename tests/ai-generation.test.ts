@@ -260,6 +260,17 @@ describe('POST /api/quiz/generate', () => {
     expect(generateSpy).not.toHaveBeenCalled();
   });
 
+  it('una cuota rechazada solo consulta: no registra consumo en ninguna', async () => {
+    rateLimitCheck.mockResolvedValue({ allowed: false, remaining: 0, reset: 30 });
+
+    await POST(makeRequest(requestBody));
+
+    expect(rateLimitCheck).toHaveBeenCalledTimes(2);
+    for (const call of rateLimitCheck.mock.calls) {
+      expect(call[1]).toEqual({ record: false });
+    }
+  });
+
   it('responde 502 sin detalle interno cuando la AI devuelve un quiz roto', async () => {
     const broken = validTrivia();
     broken.questions[0] = triviaQuestion('q1', [
