@@ -281,6 +281,35 @@ export async function submitQuizResult(
 // LIKES
 // ============================================
 
+/**
+ * Whether the signed-in user already liked the quiz. The detail page is
+ * static, so the client asks on mount — same pattern as `getQuizComments`.
+ * Never throws: anonymous users and failures resolve to `authenticated:
+ * false`, which the button renders as a link to login.
+ */
+export async function getQuizLikeState(
+  quizId: string
+): Promise<{ authenticated: boolean; liked: boolean }> {
+  const parsed = z.string().uuid().safeParse(quizId);
+  if (!parsed.success) return { authenticated: false, liked: false };
+
+  try {
+    const { supabase, user } = await currentUser();
+    if (!user) return { authenticated: false, liked: false };
+
+    const { data } = await supabase
+      .from('quiz_likes')
+      .select('quiz_id')
+      .eq('quiz_id', parsed.data)
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    return { authenticated: true, liked: Boolean(data) };
+  } catch {
+    return { authenticated: false, liked: false };
+  }
+}
+
 export async function likeQuiz(quizId: string): Promise<ActionResult<{ liked: boolean }>> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'Sign in to like a quiz.');

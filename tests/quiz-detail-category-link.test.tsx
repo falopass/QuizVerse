@@ -34,6 +34,11 @@ vi.mock('@/components/quiz/quiz-comments', () => ({
   QuizComments: () => null,
 }));
 
+// LikeButton pide el estado al servidor al montar; no participa en el enlazado.
+vi.mock('@/components/shared/like-button', () => ({
+  LikeButton: () => null,
+}));
+
 import { QuizDetailPage } from '@/components/home/quiz-detail-page';
 
 const MOVIES: Category = {

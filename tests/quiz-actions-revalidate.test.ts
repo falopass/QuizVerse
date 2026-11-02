@@ -18,6 +18,7 @@ const mocks = vi.hoisted(() => ({
   updateResult: { error: null as { message: string } | null },
   deleteResult: { error: null as { message: string } | null },
   rpcResult: { data: true as unknown, error: null as { message: string } | null },
+  likeRow: { data: null as { quiz_id: string } | null },
 }));
 
 vi.mock('next/cache', () => ({
@@ -45,6 +46,13 @@ vi.mock('@/lib/supabase/server', () => ({
           select: () => ({ eq: () => ({ maybeSingle: async () => mocks.profileResult }) }),
         };
       }
+      if (table === 'quiz_likes') {
+        return {
+          select: () => ({
+            eq: () => ({ eq: () => ({ maybeSingle: async () => mocks.likeRow }) }),
+          }),
+        };
+      }
       if (table !== 'quizzes') throw new Error(`unexpected table ${table}`);
       return {
         select: () => ({ eq: () => ({ maybeSingle: async () => mocks.quizRow }) }),
@@ -70,6 +78,7 @@ vi.mock('@/lib/quiz/achievements', () => ({ checkAchievements: async () => [] })
 import {
   createQuiz,
   deleteQuiz,
+  getQuizLikeState,
   likeQuiz,
   updateQuiz,
   submitQuizResult,
@@ -106,6 +115,7 @@ beforeEach(() => {
   mocks.updateResult = { error: null };
   mocks.deleteResult = { error: null };
   mocks.rpcResult = { data: true, error: null };
+  mocks.likeRow = { data: null };
 });
 
 const HUB_PATHS = [
@@ -243,5 +253,33 @@ describe('likeQuiz', () => {
 
     expect(result.success).toBe(true);
     expect(mocks.revalidate).not.toHaveBeenCalled();
+  });
+});
+
+describe('getQuizLikeState', () => {
+  it('devuelve anonymous sin sesión y no consulta quiz_likes', async () => {
+    mocks.userId = null;
+
+    expect(await getQuizLikeState(QUIZ_ID)).toEqual({
+      authenticated: false,
+      liked: false,
+    });
+  });
+
+  it('devuelve liked: true cuando el usuario tiene fila en quiz_likes', async () => {
+    mocks.likeRow = { data: { quiz_id: QUIZ_ID } };
+
+    expect(await getQuizLikeState(QUIZ_ID)).toEqual({ authenticated: true, liked: true });
+  });
+
+  it('devuelve liked: false cuando el usuario no ha dado like', async () => {
+    expect(await getQuizLikeState(QUIZ_ID)).toEqual({ authenticated: true, liked: false });
+  });
+
+  it('devuelve anonymous para ids que no son uuid', async () => {
+    expect(await getQuizLikeState('launch-no-existe')).toEqual({
+      authenticated: false,
+      liked: false,
+    });
   });
 });
