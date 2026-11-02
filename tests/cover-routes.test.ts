@@ -312,6 +312,109 @@ describe('GET /stock-covers/[slug]', () => {
 
     const init = vi.mocked(fetch).mock.calls[0][1] as RequestInit;
     expect(init.signal).toBeInstanceOf(AbortSignal);
+    // Workers solo admite 'follow'/'manual': 'error' lanza TypeError y la ruta
+    // siempre caía al fallback en producción. Tampoco va `next` (data cache).
+    expect(init.redirect).toBe('manual');
+    expect(init).not.toHaveProperty('next');
+  });
+
+  it('sigue un 3xx cuyo Location es HTTPS y host de la allowlist', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const bytes = new Uint8Array([9, 9]).buffer;
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(null, {
+          status: 302,
+          headers: { location: 'https://images.pexels.com/photos/999/ok.jpeg' },
+        })
+      )
+      .mockResolvedValueOnce(
+        new Response(bytes, { status: 200, headers: { 'content-type': 'image/webp' } })
+      );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/webp');
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(fetchMock.mock.calls[1][0]).toBe('https://images.pexels.com/photos/999/ok.jpeg');
+    // La cadena comparte un solo presupuesto de timeout, no 8 s por salto.
+    expect(fetchMock.mock.calls[1][1]?.signal).toBe(fetchMock.mock.calls[0][1]?.signal);
+  });
+
+  it('cae al SVG cuando el 3xx apunta a un host fuera de la allowlist', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(null, {
+        status: 302,
+        headers: { location: 'https://evil.internal/track.png' },
+      })
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(await response.text()).toContain('<svg');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(warnSpy).toHaveBeenCalledWith(
+      'stock-cover-redirect-rejected',
+      expect.objectContaining({ slug: 'space-trivia', locationHost: 'evil.internal' })
+    );
+    warnSpy.mockRestore();
+  });
+
+  it('cae al SVG cuando el 3xx no usa HTTPS', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(null, {
+        status: 302,
+        headers: { location: 'http://images.pexels.com/photos/999/ok.jpeg' },
+      })
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('corta la cadena de 3xx tras el máximo de saltos', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const fetchMock = vi.fn().mockImplementation(() =>
+      Promise.resolve(
+        new Response(null, {
+          status: 302,
+          headers: { location: 'https://images.pexels.com/photos/999/loop.jpeg' },
+        })
+      )
+    );
+    vi.stubGlobal('fetch', fetchMock);
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    // 1 petición inicial + 2 saltos permitidos; el tercer 3xx se rechaza.
+    expect(fetchMock).toHaveBeenCalledTimes(3);
   });
 
   it('falls back to short-lived procedural SVG when the upstream responds !ok', async () => {
@@ -327,6 +430,34 @@ describe('GET /stock-covers/[slug]', () => {
     expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
     expect(response.headers.get('cache-control')).toContain('max-age=60');
     expect(response.headers.get('cache-control')).not.toContain('immutable');
+  });
+
+  it('logs status and content-type when the upstream responds !ok', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response('<html>denied</html>', {
+          status: 403,
+          headers: { 'content-type': 'text/html; charset=utf-8' },
+        })
+      )
+    );
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia'),
+      params('space-trivia')
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('content-type')).toBe('image/svg+xml; charset=utf-8');
+    expect(warnSpy).toHaveBeenCalledWith('stock-cover-fetch-not-ok', {
+      slug: 'space-trivia',
+      status: 403,
+      contentType: 'text/html',
+    });
+    warnSpy.mockRestore();
   });
 
   it('serves short-lived procedural SVG when the slug has no manifest entry', async () => {
