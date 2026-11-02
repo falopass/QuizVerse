@@ -924,6 +924,23 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px 24px;
 }
+/* Escritorio: marca a la izquierda y los dos grupos compactos a la derecha;
+   categorías y fila legal ocupan todo el ancho debajo. */
+@media (min-width: 1024px) {
+  .arcade-footer-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 48px;
+  }
+  .arcade-footer-groups {
+    grid-template-columns: repeat(2, minmax(0, 240px));
+    justify-content: end;
+  }
+  .arcade-footer-categories,
+  .arcade-footer-legal {
+    grid-column: 1 / -1;
+  }
+}
 .arcade-footer-heading {
   margin: 0 0 4px;
   color: var(--text-muted);
