@@ -1,2 +1,18 @@
+# La capa de assets de Cloudflare Workers sirve public/ sin pasar por el
+# Worker: las reglas headers() de next.config.ts no llegan a estos archivos.
+# Las cabeceras de caché de los assets de marca viven aquí.
+
+/*
+  X-Content-Type-Options: nosniff
+
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+/icons/*
+  Cache-Control: public,max-age=604800,immutable
+
+/og/*
+  Cache-Control: public,max-age=604800,immutable
+
+/favicon.ico
+  Cache-Control: public,max-age=604800
