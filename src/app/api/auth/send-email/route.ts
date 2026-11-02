@@ -21,12 +21,20 @@
  */
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import type { Redis } from '@upstash/redis';
 import { verifySendEmailSignature } from '@/lib/email/hook-signature';
 import { planAuthEmails } from '@/lib/email/plan';
 import { sendAuthEmails } from '@/lib/email/send';
 import { supabaseEnv } from '@/lib/supabase/env';
+import { getRedis } from '@/lib/utils/redis';
 
 const MAX_BODY_BYTES = 64 * 1024;
+/**
+ * TTL de la deduplicación por webhook-id. La firma caduca a los ±5 min del
+ * timestamp, así que cualquier replay válido llega dentro de ese margen;
+ * 10 min lo cubre con holgura (GoTrue además reintenta con el mismo id).
+ */
+const HOOK_ID_TTL_SECONDS = 10 * 60;
 
 /** email_action_type que GoTrue puede mandar (internal/mailer/mailer.go). */
 const EMAIL_ACTION_TYPES = [
@@ -78,6 +86,21 @@ function hookError(status: number, message: string, headers?: Record<string, str
   );
 }
 
+/**
+ * Anti-replay además de la ventana de la firma: quien capture una petición
+ * firmada puede reenviarla durante ±5 min y duplicar correos. Con Redis se
+ * marca cada webhook-id entregado y las repeticiones responden 200 sin
+ * reenviar. Sin Redis (o si falla) se omite: es refuerzo, no prerrequisito.
+ */
+async function hookAlreadySent(redis: Redis | null, webhookId: string): Promise<boolean> {
+  if (!redis) return false;
+  try {
+    return (await redis.get(`email-hook:${webhookId}`)) !== null;
+  } catch {
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   const declared = Number(request.headers.get('content-length'));
   if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
@@ -95,6 +118,13 @@ export async function POST(request: Request) {
   }
   if (!(await verifySendEmailSignature(body, request.headers, secret))) {
     return hookError(401, 'invalid_signature');
+  }
+
+  // La firma ya validó que los tres headers existen.
+  const webhookId = request.headers.get('webhook-id')!;
+  const redis = getRedis();
+  if (await hookAlreadySent(redis, webhookId)) {
+    return NextResponse.json({}, { headers: NO_STORE });
   }
 
   let payload: unknown;
@@ -125,6 +155,8 @@ export async function POST(request: Request) {
   try {
     await sendAuthEmails(plans);
   } catch (error) {
+    // Sin marca de entregado: GoTrue reintenta con el mismo webhook-id y la
+    // siguiente pasada sí envía.
     // Solo el código del binding (E_*) o el tipo de error: nunca el mensaje,
     // que puede arrastrar direcciones o contenido del correo.
     const code =
@@ -133,6 +165,16 @@ export async function POST(request: Request) {
       `[send-email] fallo al enviar tipo=${email_data.email_action_type} correos=${plans.length} codigo=${code}`
     );
     return hookError(503, 'email_send_failed', { 'Retry-After': '30' });
+  }
+
+  // Se marca DESPUÉS de enviar: si esto falla, lo peor es un replay dentro de
+  // la ventana que vuelve a enviar (a lo sumo duplicado, nunca correo perdido).
+  if (redis) {
+    try {
+      await redis.set(`email-hook:${webhookId}`, 1, { ex: HOOK_ID_TTL_SECONDS });
+    } catch {
+      // Si la marca no se guarda, la deduplicación queda inactiva esta vez.
+    }
   }
 
   return NextResponse.json({}, { headers: NO_STORE });

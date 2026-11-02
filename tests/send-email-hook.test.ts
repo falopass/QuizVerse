@@ -10,11 +10,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn(),
+  getRedis: vi.fn(),
 }));
 
 vi.mock('@/lib/email/send', () => ({
   sendAuthEmails: mocks.send,
   getEmailBinding: vi.fn(),
+}));
+
+vi.mock('@/lib/utils/redis', () => ({
+  getRedis: mocks.getRedis,
 }));
 
 import { POST } from '@/app/api/auth/send-email/route';
@@ -107,6 +112,7 @@ function payload(overrides: {
 
 beforeEach(() => {
   mocks.send.mockReset().mockResolvedValue(undefined);
+  mocks.getRedis.mockReset().mockReturnValue(null);
   process.env.SEND_EMAIL_HOOK_SECRET = SECRET;
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://api.quizverse.org';
 });
@@ -150,6 +156,25 @@ describe('POST /api/auth/send-email — firma', () => {
 
     expect(response.status).toBe(401);
     expect(mocks.send).not.toHaveBeenCalled();
+  });
+
+  it('deduplica por webhook-id: una entrega repetida responde 200 sin reenviar', async () => {
+    const store = new Map<string, unknown>();
+    mocks.getRedis.mockReturnValue({
+      get: async (key: string) => store.get(key) ?? null,
+      set: async (key: string, value: unknown) => {
+        store.set(key, value);
+        return 'OK';
+      },
+    });
+    const body = payload({ type: 'recovery' });
+
+    const first = await POST(await hookRequest(body));
+    const second = await POST(await hookRequest(body));
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    expect(mocks.send).toHaveBeenCalledTimes(1);
   });
 
   it('rechaza una firma con timestamp caducado', async () => {
@@ -503,6 +528,7 @@ describe('safeRedirectTo / buildVerifyUrl', () => {
   it('admite quizverse.org y subdominios', () => {
     expect(safeRedirectTo('https://quizverse.org/es')).toBe('https://quizverse.org/es');
     expect(safeRedirectTo('https://www.quizverse.org/x')).toBe('https://www.quizverse.org/x');
+    expect(safeRedirectTo('http://quizverse.org/es')).toBeNull();
     expect(safeRedirectTo('https://quizverse.org.evil.com/')).toBeNull();
     expect(safeRedirectTo('https://evilquizverse.org/')).toBeNull();
     expect(safeRedirectTo('javascript:alert(1)')).toBeNull();

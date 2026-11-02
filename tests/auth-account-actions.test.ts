@@ -66,6 +66,7 @@ describe('signUpAction', () => {
           name: 'José María',
           display_name: 'José María',
           username: 'jose_maria',
+          locale: 'en',
         },
       },
     });

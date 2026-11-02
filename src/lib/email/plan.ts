@@ -43,11 +43,15 @@ export interface OutboundEmail extends AuthEmail {
 
 export type PlanFailure = 'missing_recipient' | 'unsupported_type';
 
-/** `redirect_to` solo entra al enlace si apunta a quizverse.org. */
+/**
+ * `redirect_to` solo entra al enlace si apunta a quizverse.org por HTTPS: tras
+ * verificar el token GoTrue redirige allí, y un http plano expondría en
+ * tránsito la URL con credenciales.
+ */
 export function safeRedirectTo(value: string): string | null {
   try {
     const url = new URL(value);
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') return null;
+    if (url.protocol !== 'https:') return null;
     const host = url.hostname.toLowerCase();
     return host === 'quizverse.org' || host.endsWith('.quizverse.org') ? value : null;
   } catch {
