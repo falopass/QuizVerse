@@ -9,7 +9,9 @@ function getRedis(): Redis | null {
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (!url || !token) {
-    console.warn('[rate-limit] Redis not configured — rate limiting disabled');
+    console.warn(
+      '[rate-limit] Redis not configured — falling back to the Cloudflare binding when available'
+    );
     _redis = null;
     return null;
   }
@@ -20,6 +22,55 @@ function getRedis(): Redis | null {
   } catch (error) {
     console.error('[rate-limit] Failed to initialize Redis client:', error);
     _redis = null;
+    return null;
+  }
+}
+
+/**
+ * Binding nativo de Rate Limiting de Workers. La API solo expone ventanas
+ * fijas de 10 u 60 s y `limit({key}) → {success}`: no permite consultar el
+ * contador (no hay "peek") ni saber cuánto queda ni cuándo resetea.
+ */
+interface CfRateLimitBinding {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
+/**
+ * Política (baseKey del limiter) → namespace declarado en wrangler.jsonc
+ * (`ratelimits`). Los números (limit/period) viven allí; los límites y ventanas
+ * del código solo mandan en el backend de Upstash. Las políticas con ventana de
+ * 10 min caen en el namespace ~1/min.
+ */
+const CF_BINDINGS: Record<string, string> = {
+  auth: 'RATE_LIMIT_AUTH', // 5/60: signin, signup, resend, forgot, pwreset, delete-account
+  'auth-ip': 'RATE_LIMIT_AUTH_IP', // 30/60: techo anti-spray por IP
+  quiz: 'RATE_LIMIT_GAME', // 10/60: crear quiz
+  'quiz-generate-ip': 'RATE_LIMIT_GAME', // 10/60: generación IA por IP
+  'quiz-generate-user': 'RATE_LIMIT_GAME', // 10/60: generación IA por usuario
+  'quiz-reveal': 'RATE_LIMIT_REVEAL', // 120/60 por IP
+  api: 'RATE_LIMIT_API', // 100/60: monitor, analytics, perfil, likes
+  social: 'RATE_LIMIT_FOLLOW', // 20/60: seguir/dejar de seguir, por usuario
+  'quiz-share': 'RATE_LIMIT_SOCIAL', // 30/60 por IP
+  'quiz-report': 'RATE_LIMIT_REPORT', // 8/600 ≈ 1/60
+  'quiz-comment': 'RATE_LIMIT_REPORT', // 5/600 ≈ 1/60
+  'comment-report': 'RATE_LIMIT_REPORT',
+  'csp-report': 'RATE_LIMIT_CSP', // 60/60 por IP
+};
+
+const CF_PERIOD_SECONDS = 60;
+
+async function getCfLimiter(key: string): Promise<CfRateLimitBinding | null> {
+  const bindingName = CF_BINDINGS[key.split(':', 1)[0]];
+  if (!bindingName) return null;
+  try {
+    const { getCloudflareContext } = await import('@opennextjs/cloudflare');
+    const env = getCloudflareContext().env as unknown as Record<
+      string,
+      CfRateLimitBinding | undefined
+    >;
+    return env[bindingName] ?? null;
+  } catch {
+    // Fuera de Workers (tests, next dev/build, node): no hay contexto CF.
     return null;
   }
 }
@@ -42,12 +93,42 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
   errored?: boolean;
 }> {
   const redis = getRedis();
-  if (!redis) {
-    // shortcut: sin Redis el chequeo no ocurrió; se marca errored para que los
-    // callers críticos (p. ej. /api/quiz/generate) puedan fallar cerrado.
-    return { allowed: true, remaining: config.limit, reset: config.window, errored: true };
+  if (redis) return checkWithRedis(config, redis);
+
+  const cfLimiter = await getCfLimiter(config.key);
+  if (cfLimiter) return checkWithCloudflare(config, cfLimiter);
+
+  // shortcut: sin backend el chequeo no ocurrió; se marca errored para que los
+  // callers críticos (p. ej. /api/quiz/generate) puedan fallar cerrado.
+  return { allowed: true, remaining: config.limit, reset: config.window, errored: true };
+}
+
+async function checkWithCloudflare(config: RateLimitConfig, limiter: CfRateLimitBinding) {
+  if (config.record === false) {
+    // CF no puede consultar sin consumir: se reporta capacidad y el llamante
+    // vuelve a chequear (ahí sí se aplica el límite) al registrar.
+    return { allowed: true, remaining: config.limit, reset: CF_PERIOD_SECONDS };
   }
 
+  try {
+    const { success } = await limiter.limit({ key: `ratelimit:${config.key}` });
+    // CF no expone el contador real: remaining solo distingue "pasó" de "no".
+    return {
+      allowed: success,
+      remaining: success ? config.limit : 0,
+      reset: CF_PERIOD_SECONDS,
+    };
+  } catch (error) {
+    if (config.onError === 'open') {
+      console.error('[rate-limit] Cloudflare binding error, failing open:', error);
+      return { allowed: true, remaining: config.limit, reset: CF_PERIOD_SECONDS, errored: true };
+    }
+    console.error('[rate-limit] Cloudflare binding error, failing closed:', error);
+    return { allowed: false, remaining: 0, reset: CF_PERIOD_SECONDS, errored: true };
+  }
+}
+
+async function checkWithRedis(config: RateLimitConfig, redis: Redis) {
   const now = Math.floor(Date.now() / 1000);
   const windowStart = now - config.window;
   const key = `ratelimit:${config.key}`;
