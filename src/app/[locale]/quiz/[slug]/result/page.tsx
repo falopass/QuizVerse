@@ -8,6 +8,7 @@ import {
   getQuizSessionByShareToken,
   getRelatedQuizzes,
 } from '@/lib/data/public';
+import { loadAnswerKeyBySlug } from '@/lib/quiz/quiz-repository';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -112,6 +113,10 @@ export default async function LocalizedQuizResultPage({
     getQuizBySlug(slug, locale),
     shareToken ? getQuizSessionByShareToken(shareToken) : Promise.resolve(null),
   ]);
+  // La revisión necesita la clave real: tras la 015 `questions` ya viene
+  // saneado y buildReview no podría marcar nada. Va por la puerta única del
+  // repositorio; sin clave accesible queda vacía (el error ya quedó en logs).
+  const keyQuiz = quiz ? await loadAnswerKeyBySlug(slug, locale) : null;
 
   if (!quiz) {
     // Mismo rescate que la ficha. Con sesión compartida el token pertenece a
@@ -206,7 +211,10 @@ export default async function LocalizedQuizResultPage({
       triviaScore={triviaScore}
       answers={session.answers ?? []}
       // The review is computed here so the answer key never leaves the server.
-      review={buildReview(quiz, session.answers ?? [])}
+      review={buildReview(
+        keyQuiz ?? { questions: [], quiz_type: quiz.quiz_type },
+        session.answers ?? []
+      )}
       shareUrl={`${SITE_URL}${resultPath}`}
       // El reto que se comparte lleva el token de esta sesión como marca a
       // batir: `?s=<token>&challenge=<token>` se lee como invitación abierta.

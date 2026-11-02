@@ -227,6 +227,33 @@ export interface Database {
           },
         ];
       };
+      quiz_answer_keys: {
+        Row: {
+          quiz_id: string;
+          questions: Json;
+          updated_at: string;
+        };
+        Insert: {
+          quiz_id: string;
+          questions: Json;
+          updated_at?: string;
+        };
+        Update: {
+          quiz_id?: string;
+          questions?: Json;
+          updated_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_answer_keys_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: true;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       game_sessions: {
         Row: {
           id: string;
