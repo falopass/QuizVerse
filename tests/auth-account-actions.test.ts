@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
   limitCheck: vi.fn(),
+  ipLimitCheck: vi.fn(),
   signUp: vi.fn(),
   signInWithPassword: vi.fn(),
   signOut: vi.fn(),
@@ -22,6 +23,11 @@ vi.mock('@/lib/supabase/server', () => ({
 
 vi.mock('@/lib/utils/rate-limit', () => ({
   authLimiter: { check: mocks.limitCheck },
+  authIpLimiter: { check: mocks.ipLimitCheck },
+}));
+
+vi.mock('next/headers', () => ({
+  headers: async () => new Headers({ 'cf-connecting-ip': '203.0.113.7' }),
 }));
 
 import {
@@ -33,6 +39,7 @@ import {
 
 beforeEach(() => {
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
+  mocks.ipLimitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.signUp.mockReset().mockResolvedValue({ data: { user: { id: 'u1' } }, error: null });
   mocks.signInWithPassword
     .mockReset()
@@ -49,11 +56,12 @@ describe('signUpAction', () => {
       name: 'José María',
     });
 
-    expect(result).toEqual({ ok: true, userId: 'u1' });
+    expect(result).toEqual({ ok: true, userId: 'u1', needsEmailConfirmation: true });
     expect(mocks.signUp).toHaveBeenCalledWith({
       email: 'nuevo@x.com',
       password: 'claveSegura1',
       options: {
+        emailRedirectTo: 'https://quizverse.org/callback?next=%2Fen',
         data: {
           name: 'José María',
           display_name: 'José María',
@@ -69,6 +77,7 @@ describe('signUpAction', () => {
     expect(mocks.signUp).toHaveBeenCalledWith(
       expect.objectContaining({
         options: {
+          emailRedirectTo: 'https://quizverse.org/callback?next=%2Fen',
           data: expect.objectContaining({ name: 'jugador.pro', username: 'jugador_pro' }),
         },
       })
@@ -84,7 +93,10 @@ describe('signUpAction', () => {
 
     expect(mocks.signUp).toHaveBeenCalledWith(
       expect.objectContaining({
-        options: { data: expect.objectContaining({ username: 'mi_user' }) },
+        options: {
+          emailRedirectTo: 'https://quizverse.org/callback?next=%2Fen',
+          data: expect.objectContaining({ username: 'mi_user' }),
+        },
       })
     );
   });
@@ -99,6 +111,7 @@ describe('signUpAction', () => {
     const expected = createHash('sha256').update('a@x.com').digest('hex').slice(0, 32);
     expect(key).toBe(`signup:${expected}`);
     expect(key).not.toContain('a@x.com');
+    expect(mocks.ipLimitCheck).toHaveBeenCalledWith('signup:203.0.113.7');
     expect(mocks.signUp).not.toHaveBeenCalled();
   });
 
@@ -117,6 +130,7 @@ describe('signUpAction', () => {
     const result = await signUpAction({ email: 'no-es-email', password: 'corta' });
 
     expect(result).toMatchObject({ ok: false, code: 'invalid_input' });
+    expect(mocks.ipLimitCheck).not.toHaveBeenCalled();
     expect(mocks.limitCheck).not.toHaveBeenCalled();
     expect(mocks.signUp).not.toHaveBeenCalled();
   });
@@ -161,6 +175,7 @@ describe('signInAction', () => {
     const result = await signInAction({ email: 'a@x.com', password: 'clave' });
 
     expect(result).toEqual({ ok: false, code: 'rate_limited' });
+    expect(mocks.ipLimitCheck).toHaveBeenCalledWith('signin:203.0.113.7');
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
   });
 
@@ -168,6 +183,7 @@ describe('signInAction', () => {
     const result = await signInAction({ email: 'mal', password: '' });
 
     expect(result).toMatchObject({ ok: false, code: 'invalid_input' });
+    expect(mocks.ipLimitCheck).not.toHaveBeenCalled();
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
   });
 });
@@ -215,6 +231,7 @@ describe('forgotPasswordAction', () => {
     const result = await forgotPasswordAction({ email: 'a@x.com', locale: 'es' });
 
     expect(result).toEqual({ ok: false, code: 'rate_limited' });
+    expect(mocks.ipLimitCheck).toHaveBeenCalledWith('forgot:203.0.113.7');
     expect(mocks.resetPasswordForEmail).not.toHaveBeenCalled();
   });
 
@@ -222,6 +239,7 @@ describe('forgotPasswordAction', () => {
     const result = await forgotPasswordAction({ email: 'nope', locale: 'es' });
 
     expect(result).toMatchObject({ ok: false, code: 'invalid_input' });
+    expect(mocks.ipLimitCheck).not.toHaveBeenCalled();
     expect(mocks.resetPasswordForEmail).not.toHaveBeenCalled();
   });
 });
