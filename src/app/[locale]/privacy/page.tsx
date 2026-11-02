@@ -29,7 +29,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
   const content = {
     title: { en: 'Privacy Policy', es: 'Política de privacidad' },
-    lastUpdated: { en: 'Last updated: May 2026', es: 'Última actualización: mayo 2026' },
+    lastUpdated: { en: 'Last updated: November 2026', es: 'Última actualización: noviembre 2026' },
     sections: {
       intro: {
         en: 'QuizVerse ("we", "our", or "us") is committed to protecting your privacy. This policy explains what data we collect, how we use it, and your rights regarding your personal information.',
@@ -59,15 +59,15 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
       dataRetention: {
         heading: { en: 'Data Retention', es: 'Retención de datos' },
         body: {
-          en: 'We retain your account data for as long as your account is active. Game session data is retained indefinitely for leaderboard purposes. You can request deletion of your account and associated data at any time by contacting us.',
-          es: 'Conservamos los datos de tu cuenta mientras esté activa. Los datos de sesiones de juego se conservan indefinidamente para fines de ranking. Puedes solicitar la eliminación de tu cuenta y datos asociados en cualquier momento contactándonos.',
+          en: 'We keep your account data for as long as your account is active. When you delete your account from Settings, we immediately delete your profile, comments, likes, follows, notifications and achievements, and we anonymize your game sessions so they keep counting for the quiz without being linked to you. Quizzes you published remain available under the author “Deleted account”. Moderation reports that quoted one of your comments keep that quoted text as evidence. Backup copies may persist for a short period before they are overwritten. You can also request deletion by contacting us at hello@quizverse.org.',
+          es: 'Conservamos los datos de tu cuenta mientras esté activa. Cuando eliminas tu cuenta desde Ajustes, borramos de inmediato tu perfil, comentarios, me gusta, seguidores, notificaciones y logros, y anonimizamos tus partidas para que sigan contando para el quiz sin estar ligadas a ti. Los quizzes que publicaste siguen disponibles con el autor «Cuenta eliminada». Los reportes de moderación que citaban uno de tus comentarios conservan ese texto citado como evidencia. Las copias de respaldo pueden persistir por un periodo breve antes de ser sobrescritas. También puedes solicitar el borrado contactándonos en hello@quizverse.org.',
         },
       },
       yourRights: {
         heading: { en: 'Your Rights', es: 'Tus derechos' },
         body: {
-          en: 'Depending on your jurisdiction, you may have the right to access, correct, delete, or export your personal data. You may also have the right to restrict or object to processing. To exercise these rights, contact us at hello@quizverse.org.',
-          es: 'Dependiendo de tu jurisdicción, puedes tener derecho a acceder, corregir, eliminar o exportar tus datos personales. También puedes tener derecho a restringir u oponerte al procesamiento. Para ejercer estos derechos, contáctanos en hello@quizverse.org.',
+          en: 'Depending on your jurisdiction, you may have the right to access, correct, delete, or export your personal data. You can delete your account yourself from Settings → Delete account. You may also have the right to restrict or object to processing. To exercise these rights, contact us at hello@quizverse.org.',
+          es: 'Dependiendo de tu jurisdicción, puedes tener derecho a acceder, corregir, eliminar o exportar tus datos personales. Puedes eliminar tu cuenta tú mismo desde Ajustes → Eliminar mi cuenta. También puedes tener derecho a restringir u oponerte al procesamiento. Para ejercer estos derechos, contáctanos en hello@quizverse.org.',
         },
       },
       changes: {
