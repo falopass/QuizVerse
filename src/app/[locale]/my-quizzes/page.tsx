@@ -73,6 +73,12 @@ export default async function LocalizedMyQuizzesPage({
   const total = count ?? 0;
   const pageCount = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
+  // Borrar el último quiz de una página deja `?page` fuera de rango: sin esto
+  // la lista saldría vacía aunque queden quizzes en la página anterior.
+  if (!error && page > pageCount) {
+    redirect(localizeHref(locale, pageCount > 1 ? `/my-quizzes?page=${pageCount}` : '/my-quizzes'));
+  }
+
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
       <section className="surface-panel p-8 md:p-10">

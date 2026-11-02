@@ -113,6 +113,12 @@ describe('página /my-quizzes', () => {
     );
   });
 
+  it('redirige a la última página válida si ?page quedó fuera de rango', async () => {
+    mocks.range.mockResolvedValue({ data: [], error: null, count: 20 });
+
+    await expect(MyQuizzesPage(props('3'))).rejects.toThrow('NEXT_REDIRECT:/es/my-quizzes');
+  });
+
   it('no pinta paginación cuando todo cabe en una página', async () => {
     mocks.range.mockResolvedValue({ data: [row('1')], error: null, count: 5 });
 
