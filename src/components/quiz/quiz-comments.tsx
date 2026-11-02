@@ -431,9 +431,19 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
                 <AuthorAvatar author={comment.author} />
                 <div className="min-w-0">
                   <p className="text-text-secondary flex flex-wrap items-baseline gap-x-2 text-xs">
-                    <span className="text-text-primary font-semibold">
-                      @{comment.author?.username ?? '…'}
-                    </span>
+                    {comment.author ? (
+                      <Link
+                        href={localizeHref(
+                          locale,
+                          `/profile/${encodeURIComponent(comment.author.username)}`
+                        )}
+                        className="text-text-primary font-semibold underline-offset-2 hover:underline"
+                      >
+                        @{comment.author.username}
+                      </Link>
+                    ) : (
+                      <span className="text-text-primary font-semibold">@…</span>
+                    )}
                     {comment.author?.display_name ? (
                       <span>{comment.author.display_name}</span>
                     ) : null}

@@ -121,6 +121,17 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           </Link>
           <h1>{quiz.title}</h1>
           <p>{quiz.description}</p>
+          {quiz.creator ? (
+            <p className="arcade-attribution">
+              {es ? 'por' : 'by'}{' '}
+              <Link
+                href={localizeHref(locale, `/profile/${encodeURIComponent(quiz.creator.username)}`)}
+                className="text-accent-primary underline-offset-2 hover:underline"
+              >
+                @{quiz.creator.username}
+              </Link>
+            </p>
+          ) : null}
           <div className="flex flex-wrap items-center gap-4">
             <Link
               href={localizeHref(locale, `/quiz/${quiz.slug}/play?mode=classic`)}

@@ -14,7 +14,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { locales } from '@/lib/i18n/dictionaries';
-import { apiLimiter } from '@/lib/utils/rate-limit';
+import { socialLimiter } from '@/lib/utils/rate-limit';
 
 const ToggleFollowSchema = z.object({
   targetUserId: z.string().uuid(),
@@ -23,7 +23,7 @@ const ToggleFollowSchema = z.object({
 
 export type FollowActionResult =
   | { ok: true }
-  | { ok: false; code: 'unauthorized' | 'invalid_input' | 'unexpected' };
+  | { ok: false; code: 'unauthorized' | 'invalid_input' | 'rate_limited' | 'unexpected' };
 
 export async function toggleFollowAction(
   targetUserId: string,
@@ -42,8 +42,9 @@ export async function toggleFollowAction(
     return { ok: false, code: 'unauthorized' };
   }
 
-  const { allowed } = await apiLimiter.check(`follow:${user.id}`);
-  if (!allowed) return { ok: false, code: 'unexpected' };
+  const { allowed } = await socialLimiter.check(`follow:${user.id}`);
+  // El código propio deja que el botón distinga «espera» de «algo se rompió».
+  if (!allowed) return { ok: false, code: 'rate_limited' };
 
   if (parsed.data.follow) {
     const { error } = await supabase.from('user_follows').insert({

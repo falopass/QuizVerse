@@ -113,6 +113,8 @@ export function createRateLimiter(
 }
 
 export const apiLimiter = createRateLimiter('api', 100, 60);
+/** Follow/unfollow: 20/min por usuario. Frena bucles que spamean al seguido. */
+export const socialLimiter = createRateLimiter('social', 20, 60);
 export const quizLimiter = createRateLimiter('quiz', 10, 60);
 export const authLimiter = createRateLimiter('auth', 5, 60);
 /** Techo por IP para las acciones de auth: el límite por email no frena sprays. */
