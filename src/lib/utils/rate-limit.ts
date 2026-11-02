@@ -108,5 +108,7 @@ export function createRateLimiter(
 export const apiLimiter = createRateLimiter('api', 100, 60);
 export const quizLimiter = createRateLimiter('quiz', 10, 60);
 export const authLimiter = createRateLimiter('auth', 5, 60);
+/** Techo por IP para las acciones de auth: el límite por email no frena sprays. */
+export const authIpLimiter = createRateLimiter('auth-ip', 30, 60);
 
 export default checkRateLimit;

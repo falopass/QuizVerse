@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signInAction } from '@/actions/auth.actions';
 import { authMessage } from '@/lib/auth/messages';
+import { CheckEmailNotice } from '@/components/auth/check-email-notice';
+import type { AuthErrorCode } from '@/lib/auth/identity';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 
@@ -15,6 +17,8 @@ const COPY = {
     submit: 'Entrar',
     submitting: 'Entrando…',
     forgot: '¿Olvidaste tu contraseña?',
+    noAccount: '¿No tienes cuenta?',
+    signUp: 'Crea una',
   },
   en: {
     email: 'Email',
@@ -22,6 +26,8 @@ const COPY = {
     submit: 'Sign in',
     submitting: 'Signing in…',
     forgot: 'Forgot your password?',
+    noAccount: "Don't have an account?",
+    signUp: 'Create one',
   },
 } as const;
 
@@ -37,17 +43,20 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [errorCode, setErrorCode] = useState<AuthErrorCode | ''>('');
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setError('');
+    setErrorCode('');
     setLoading(true);
 
     const result = await signInAction({ email, password });
 
     if (!result.ok) {
       setError(authMessage(result.code, locale));
+      setErrorCode(result.code);
       setLoading(false);
       return;
     }
@@ -103,6 +112,10 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
         </p>
       ) : null}
 
+      {errorCode === 'email_not_confirmed' ? (
+        <CheckEmailNotice email={email} locale={locale} />
+      ) : null}
+
       <button
         type="submit"
         disabled={loading}
@@ -110,6 +123,16 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
       >
         {loading ? copy.submitting : copy.submit}
       </button>
+
+      <p className="text-text-secondary pt-1 text-center text-sm">
+        {copy.noAccount}{' '}
+        <Link
+          href={`${localizeHref(locale, '/register')}?redirect=${encodeURIComponent(redirectTo)}`}
+          className="text-accent-primary font-semibold hover:underline"
+        >
+          {copy.signUp}
+        </Link>
+      </p>
     </form>
   );
 }

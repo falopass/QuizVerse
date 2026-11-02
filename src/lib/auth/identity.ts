@@ -74,6 +74,8 @@ export const SignUpSchema = z.object({
   name: z.string().trim().min(1).max(60).optional(),
   /** Username explícito; si falta se normaliza `name`. */
   username: z.string().trim().max(USERNAME_MAX).optional(),
+  /** Idioma de la página donde aterriza el enlace de confirmación. */
+  locale: z.enum(['en', 'es']).default('en'),
 });
 
 export const SignInSchema = z.object({
@@ -97,6 +99,9 @@ export const PasswordResetRequestSchema = z.object({
   email: EmailSchema,
   locale: z.enum(['en', 'es']).default('en'),
 });
+
+/** Reenvío del correo de confirmación: mismo contrato que la recuperación. */
+export const ResendConfirmationSchema = PasswordResetRequestSchema;
 
 /**
  * Nueva contraseña. `currentPassword` solo lo piden los flujos con sesión que
@@ -130,6 +135,8 @@ export type AuthResult =
       userId: string | null;
       /** `true` cuando la acción además cerró las demás sesiones del usuario. */
       revokedOtherSessions?: boolean;
+      /** `true` cuando el alta quedó pendiente de confirmar el email (sin sesión). */
+      needsEmailConfirmation?: boolean;
     }
   | {
       ok: false;

@@ -12,7 +12,7 @@ import { createHash } from 'node:crypto';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
-import { authLimiter } from '@/lib/utils/rate-limit';
+import { authIpLimiter, authLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { enabledOAuthProviders } from '@/lib/auth/oauth-providers';
@@ -21,6 +21,7 @@ import {
   OAuthProviderSchema,
   PasswordResetRequestSchema,
   PasswordUpdateSchema,
+  ResendConfirmationSchema,
   SignInSchema,
   SignUpSchema,
   mapAuthError,
@@ -32,6 +33,19 @@ import {
 /** El email no se guarda en claro como clave de rate limit. */
 function identifierFor(email: string): string {
   return createHash('sha256').update(email).digest('hex').slice(0, 32);
+}
+
+/**
+ * Techo por IP para las acciones que ya limitan por email: sin él, rotar el
+ * email deja probar credenciales y correos sin freno. Misma ventana para todos
+ * los scopes (auth-ip, 30/min).
+ */
+async function ipAllowedFor(scope: string): Promise<boolean> {
+  const headerList = await headers();
+  const { allowed } = await authIpLimiter.check(
+    `${scope}:${clientIpFromHeaders(headerList, 'anonymous')}`
+  );
+  return allowed;
 }
 
 /**
@@ -60,7 +74,8 @@ export async function signUpAction(input: unknown): Promise<AuthResult> {
     return { ok: false, code: 'invalid_input', fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
-  const { email, password, name } = parsed.data;
+  const { email, password, name, locale } = parsed.data;
+  if (!(await ipAllowedFor('signup'))) return { ok: false, code: 'rate_limited' };
   const { allowed } = await authLimiter.check(`signup:${identifierFor(email)}`);
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
@@ -74,6 +89,9 @@ export async function signUpAction(input: unknown): Promise<AuthResult> {
     email,
     password,
     options: {
+      // El enlace de confirmación canjea la sesión en /callback y aterriza en
+      // la home del idioma del formulario.
+      emailRedirectTo: `${SITE_URL}/callback?next=${encodeURIComponent(`/${locale}`)}`,
       data: {
         // El trigger lee `name`; `display_name` se mantiene por compatibilidad
         // con el formulario antiguo, que solo mandaba esa clave.
@@ -85,7 +103,41 @@ export async function signUpAction(input: unknown): Promise<AuthResult> {
   });
 
   if (error) return { ok: false, code: mapAuthError(error) };
-  return { ok: true, userId: data.user?.id ?? null };
+  return {
+    ok: true,
+    userId: data.user?.id ?? null,
+    // Con confirmación por email activa no hay sesión: la UI muestra
+    // «revisa tu correo» en vez de mandar al usuario a una página sin sesión.
+    needsEmailConfirmation: !data.session,
+  };
+}
+
+/**
+ * Reenvía el correo de confirmación de alta. Responde igual exista o no la
+ * cuenta pendiente (Supabase tampoco lo distingue) y limita por IP y por email.
+ */
+export async function resendConfirmationAction(input: unknown): Promise<AuthResult> {
+  const parsed = ResendConfirmationSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, code: 'invalid_input', fieldErrors: parsed.error.flatten().fieldErrors };
+  }
+
+  const { email, locale } = parsed.data;
+  if (!(await ipAllowedFor('resend'))) return { ok: false, code: 'rate_limited' };
+  const { allowed } = await authLimiter.check(`resend:${identifierFor(email)}`);
+  if (!allowed) return { ok: false, code: 'rate_limited' };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resend({
+    type: 'signup',
+    email,
+    options: {
+      emailRedirectTo: `${SITE_URL}/callback?next=${encodeURIComponent(`/${locale}`)}`,
+    },
+  });
+
+  if (error) return { ok: false, code: mapAuthError(error) };
+  return { ok: true, userId: null };
 }
 
 /** Inicia sesión con email y contraseña. */
@@ -96,6 +148,7 @@ export async function signInAction(input: unknown): Promise<AuthResult> {
   }
 
   const { email, password } = parsed.data;
+  if (!(await ipAllowedFor('signin'))) return { ok: false, code: 'rate_limited' };
   const { allowed } = await authLimiter.check(`signin:${identifierFor(email)}`);
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
@@ -176,6 +229,7 @@ export async function forgotPasswordAction(input: unknown): Promise<AuthResult> 
   }
 
   const { email, locale } = parsed.data;
+  if (!(await ipAllowedFor('forgot'))) return { ok: false, code: 'rate_limited' };
   const { allowed } = await authLimiter.check(`forgot:${identifierFor(email)}`);
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
