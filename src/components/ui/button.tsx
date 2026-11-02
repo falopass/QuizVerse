@@ -36,7 +36,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary: `
-        bg-accent-primary text-white
+        bg-accent-primary text-bg-primary
         hover:bg-accent-hover
         focus:ring-accent-primary
         shadow-lg shadow-accent-primary/25

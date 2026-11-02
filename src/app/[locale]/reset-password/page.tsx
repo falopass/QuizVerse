@@ -73,7 +73,7 @@ export default async function LocalizedResetPasswordPage({
             </p>
             <Link
               href={localizeHref(locale, '/forgot-password')}
-              className="bg-accent-primary hover:bg-accent-hover inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-sm font-semibold text-white transition-colors"
+              className="bg-accent-primary hover:bg-accent-hover text-bg-primary inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-sm font-semibold transition-colors"
             >
               {es ? 'Pedir un enlace nuevo' : 'Request a new link'}
             </Link>

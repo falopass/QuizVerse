@@ -83,7 +83,7 @@ export default async function LocalizedAchievementsPage({
           </p>
           <Link
             href={localizeHref(locale, '/quiz')}
-            className="bg-accent-primary hover:bg-accent-hover mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium text-white transition-colors"
+            className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium transition-colors"
           >
             {es ? 'Explorar quizzes' : 'Browse quizzes'}
           </Link>

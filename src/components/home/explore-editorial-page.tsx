@@ -199,9 +199,9 @@ export function ExploreEditorialPage({
                     setShowAll(false);
                   }}
                   className={cn(
-                    'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
+                    'min-h-11 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
                     activeMood === mood.id
-                      ? 'border-accent-primary bg-accent-primary text-white'
+                      ? 'border-accent-primary bg-accent-primary text-bg-primary'
                       : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
                   )}
                 >
@@ -397,9 +397,9 @@ function CategoryFilter({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        'rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
+        'min-h-11 rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.18em] uppercase transition-colors',
         active
-          ? 'border-accent-primary bg-accent-primary text-white'
+          ? 'border-accent-primary bg-accent-primary text-bg-primary'
           : 'border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary'
       )}
     >

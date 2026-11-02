@@ -168,7 +168,7 @@ export function UpdatePasswordForm({
         </div>
         <Link
           href={localizeHref(locale, '/')}
-          className="bg-accent-primary hover:bg-accent-hover inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-sm font-semibold text-white transition-colors"
+          className="bg-accent-primary hover:bg-accent-hover text-bg-primary inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-sm font-semibold transition-colors"
         >
           {copy.continueHome}
         </Link>
@@ -265,7 +265,7 @@ export function UpdatePasswordForm({
       <button
         type="submit"
         disabled={loading}
-        className="bg-accent-primary hover:bg-accent-hover w-full rounded-full px-4 py-3 text-sm font-semibold text-white transition-colors disabled:opacity-60"
+        className="bg-accent-primary hover:bg-accent-hover text-bg-primary w-full rounded-full px-4 py-3 text-sm font-semibold transition-colors disabled:opacity-60"
       >
         {loading ? copy.submitting : copy.submit}
       </button>

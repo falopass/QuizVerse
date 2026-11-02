@@ -104,7 +104,7 @@ export function NotificationList({
             type="button"
             onClick={handleMarkAll}
             disabled={pending}
-            className="border-border-subtle text-text-primary hover:border-accent-primary/40 rounded-full border px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60"
+            className="border-border-subtle text-text-primary hover:border-accent-primary/40 min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60"
           >
             {pending ? copy.marking : copy.markAll}
           </button>

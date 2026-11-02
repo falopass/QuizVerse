@@ -200,8 +200,8 @@ export default async function LocalizedLeaderboardPage({
             aria-current={activeTab === value ? 'page' : undefined}
             className={
               activeTab === value
-                ? 'bg-accent-primary rounded-full px-4 py-2 text-sm font-semibold text-white'
-                : 'ring-border-subtle text-text-secondary rounded-full px-4 py-2 text-sm font-semibold ring-1'
+                ? 'bg-accent-primary text-bg-primary inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold'
+                : 'ring-border-subtle text-text-secondary inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold ring-1'
             }
           >
             {tabLabel(value)}
@@ -230,7 +230,7 @@ export default async function LocalizedLeaderboardPage({
             </div>
             <Link
               href={tabHref('weekly')}
-              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
             >
               {locale === 'es' ? 'Reintentar' : 'Try again'}
             </Link>
@@ -276,7 +276,7 @@ export default async function LocalizedLeaderboardPage({
                 locale,
                 `/login?redirect=${encodeURIComponent(tabHref('friends'))}`
               )}
-              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
             >
               {locale === 'es' ? 'Entrar' : 'Sign in'}
             </Link>
@@ -297,7 +297,7 @@ export default async function LocalizedLeaderboardPage({
             </div>
             <Link
               href={tabHref('friends')}
-              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
             >
               {locale === 'es' ? 'Reintentar' : 'Try again'}
             </Link>
@@ -341,7 +341,7 @@ export default async function LocalizedLeaderboardPage({
                 locale,
                 `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
               )}
-              className="bg-accent-primary rounded-full px-5 py-3 text-sm font-semibold text-white"
+              className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
             >
               {locale === 'es' ? 'Entrar' : 'Sign in'}
             </Link>
