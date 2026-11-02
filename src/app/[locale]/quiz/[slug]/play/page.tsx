@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getQuizBySlug } from '@/lib/data/public';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { getQuizBySlug, getQuizLocaleRedirect } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -61,7 +61,18 @@ export default async function LocalizedQuizPlayPage({
   if (!hasLocale(locale)) notFound();
 
   const quiz = await getQuizBySlug(slug, locale);
-  if (!quiz) notFound();
+  if (!quiz) {
+    // Mismo rescate que la ficha. Con reto activo el token pertenece a este
+    // quiz: se cambia de idioma, no de quiz, para no perder el marcador.
+    const target = await getQuizLocaleRedirect(slug, locale, {
+      keepSameQuiz: Boolean(challengeToken),
+    });
+    if (target) {
+      const suffix = challengeToken ? `?challenge=${encodeURIComponent(challengeToken)}` : '';
+      permanentRedirect(`/${target.locale}/quiz/${target.slug}/play${suffix}`);
+    }
+    notFound();
+  }
 
   // Un enlace de reto muestra el marcador del retador antes de empezar. Si el
   // token no es de este quiz, se ignora: mejor sin reto que con uno falso.

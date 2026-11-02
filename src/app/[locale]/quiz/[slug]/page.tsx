@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { QuizDetailPage } from '@/components/home/quiz-detail-page';
 import { hasLocale } from '@/lib/i18n/dictionaries';
-import { getPublishedQuizzes, getQuizBySlug } from '@/lib/data/public';
+import { getPublishedQuizzes, getQuizBySlug, getQuizLocaleRedirect } from '@/lib/data/public';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage } from '@/lib/seo/site';
@@ -70,6 +70,15 @@ export default async function LocalizedQuizDetailPage({
 }) {
   const { locale, slug } = await params;
   if (!hasLocale(locale)) notFound();
+
+  // Un slug pedido bajo el locale equivocado daba 404 aunque el quiz exista:
+  // 308 al par traducido si existe, o al mismo slug en su idioma real. La
+  // consulta por locale se comparte con QuizDetailPage (getQuizBySlug memoiza).
+  if (!(await getQuizBySlug(slug, locale))) {
+    const target = await getQuizLocaleRedirect(slug, locale);
+    if (target) permanentRedirect(`/${target.locale}/quiz/${target.slug}`);
+    notFound();
+  }
 
   return <QuizDetailPage params={Promise.resolve({ locale, slug })} />;
 }

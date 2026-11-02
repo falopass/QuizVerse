@@ -1,9 +1,18 @@
 import Link from 'next/link';
 import { localizeHref } from '@/lib/i18n/navigation';
-import { CATEGORY_SLUG_NAMES, getCategoryLabelBySlug } from '@/lib/i18n/catalog';
+import { getCategoryLabelBySlug } from '@/lib/i18n/catalog';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
-export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale: Locale }) {
+export function Footer({
+  dictionary,
+  locale,
+  categorySlugs,
+}: {
+  dictionary: Dictionary;
+  locale: Locale;
+  /** Solo las categorías con quizzes publicados en este locale; una vacía 404ea. */
+  categorySlugs: string[];
+}) {
   return (
     <footer className="arcade-footer">
       <div className="arcade-wrap arcade-footer-inner">
@@ -35,18 +44,20 @@ export function Footer({ dictionary, locale }: { dictionary: Dictionary; locale:
             {locale === 'es' ? 'Preguntas frecuentes' : 'FAQ'}
           </Link>
         </nav>
-        <nav aria-label={dictionary.explore.allCategories}>
-          <p>{dictionary.explore.allCategories}</p>
-          <ul className="m-0 list-none p-0">
-            {Object.keys(CATEGORY_SLUG_NAMES).map((slug) => (
-              <li key={slug}>
-                <Link href={localizeHref(locale, `/category/${slug}`)}>
-                  {getCategoryLabelBySlug(slug, locale)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {categorySlugs.length > 0 && (
+          <nav aria-label={dictionary.explore.allCategories}>
+            <p>{dictionary.explore.allCategories}</p>
+            <ul className="m-0 list-none p-0">
+              {categorySlugs.map((slug) => (
+                <li key={slug}>
+                  <Link href={localizeHref(locale, `/category/${slug}`)}>
+                    {getCategoryLabelBySlug(slug, locale)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
       </div>
     </footer>
   );

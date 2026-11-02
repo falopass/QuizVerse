@@ -18,7 +18,7 @@ describe('Enlace de salto al contenido', () => {
   it('renderiza exactamente un enlace "Saltar al contenido" hacia #main-content', async () => {
     const dictionary = await getDictionary('es');
     render(
-      <SiteShell locale="es" dictionary={dictionary}>
+      <SiteShell locale="es" dictionary={dictionary} categorySlugs={[]}>
         <p>contenido</p>
       </SiteShell>
     );

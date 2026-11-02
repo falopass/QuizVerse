@@ -57,7 +57,7 @@ describe('enlaces a /register (F02)', () => {
 
   it('el footer enlaza a /register junto a login', async () => {
     const dictionary = await getDictionary('es');
-    render(<Footer dictionary={dictionary} locale="es" />);
+    render(<Footer dictionary={dictionary} locale="es" categorySlugs={[]} />);
 
     expect(screen.getByRole('link', { name: 'Crear cuenta' })).toHaveAttribute(
       'href',
@@ -67,7 +67,7 @@ describe('enlaces a /register (F02)', () => {
 
   it('el footer en inglés enlaza a /en/register', async () => {
     const dictionary = await getDictionary('en');
-    render(<Footer dictionary={dictionary} locale="en" />);
+    render(<Footer dictionary={dictionary} locale="en" categorySlugs={[]} />);
 
     expect(screen.getByRole('link', { name: 'Sign up' })).toHaveAttribute('href', '/en/register');
   });
