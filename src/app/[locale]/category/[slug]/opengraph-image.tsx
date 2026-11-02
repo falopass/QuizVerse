@@ -17,7 +17,8 @@ export default async function CategoryOpenGraphImage({
   const uiLocale = hasLocale(locale) ? locale : 'en';
   const [payload, quizTypes] = await Promise.all([
     getCategoryPayload(slug, uiLocale),
-    getCategoryQuizTypes(slug, uiLocale),
+    // El texto en español no enumera tipos: no hace falta esa consulta.
+    uiLocale === 'es' ? Promise.resolve([]) : getCategoryQuizTypes(slug, uiLocale),
   ]);
   if (!payload || payload.quizzes.length === 0) {
     return new ImageResponse(
