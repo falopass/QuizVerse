@@ -100,9 +100,7 @@ describe('QuizCreatorForm', () => {
     ).toEqual(['la-curadora', 'el-explorador']);
     expect(payload.questions[0].options[0].personality_tags).toEqual(['la-curadora']);
     expect(payload.questions[0].options[1].personality_tags).toEqual(['el-explorador']);
-    await waitFor(() =>
-      expect(mocks.push).toHaveBeenCalledWith('/es/create/done?slug=mi-quiz-personalidad')
-    );
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/es/create/done?id=quiz-1'));
   });
 
   it('muestra el error del validador cuando un resultado no tiene tag', async () => {
@@ -174,9 +172,7 @@ describe('QuizCreatorForm', () => {
       payload.questions[0].options.map((option: { is_correct?: boolean }) => option.is_correct)
     ).toEqual([true, false, false, false]);
     expect(payload.questions[0].options[0].personality_tags).toBeUndefined();
-    await waitFor(() =>
-      expect(mocks.push).toHaveBeenCalledWith('/es/create/done?slug=mi-quiz-trivia')
-    );
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/es/create/done?id=quiz-2'));
   });
 
   it('«Enviar a revisión» manda intent review', async () => {
@@ -205,8 +201,6 @@ describe('QuizCreatorForm', () => {
     await waitFor(() => expect(mocks.createQuiz).toHaveBeenCalledTimes(1));
     expect(mocks.createQuiz.mock.calls[0][0].intent).toBe('draft');
     await waitFor(() => expect(mocks.success).toHaveBeenCalledWith('Borrador guardado.'));
-    await waitFor(() =>
-      expect(mocks.push).toHaveBeenCalledWith('/es/create/done?slug=mi-quiz-personalidad')
-    );
+    await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/es/create/done?id=quiz-1'));
   });
 });

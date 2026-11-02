@@ -56,9 +56,14 @@ export async function generateUniqueSlug(
 
 /** Length of the random suffix that marks a slug as provisional. */
 const PROVISIONAL_SUFFIX_LENGTH = 6;
+/**
+ * Double hyphen marks a provisional slug. `slugifyTitle` collapses `--` to
+ * `-`, so no definitive slug can contain it: the check is exact.
+ */
+const PROVISIONAL_MARK = '--';
 
 /**
- * Provisional slug for an unpublished quiz: `base-<random>`.
+ * Provisional slug for an unpublished quiz: `base--<random>`.
  *
  * A draft that took the clean `base` would leak the existence of someone
  * else's private quiz: RLS hides other creators' drafts and pending quizzes,
@@ -69,9 +74,14 @@ const PROVISIONAL_SUFFIX_LENGTH = 6;
 export function provisionalSlug(title: string, language?: string): string {
   const suffix = randomSuffix(PROVISIONAL_SUFFIX_LENGTH);
   const base = slugifyTitle(title, language)
-    .slice(0, MAX_SLUG_LENGTH - suffix.length - 1)
+    .slice(0, MAX_SLUG_LENGTH - suffix.length - PROVISIONAL_MARK.length)
     .replace(/-+$/g, '');
-  return `${base}-${suffix}`;
+  return `${base}${PROVISIONAL_MARK}${suffix}`;
+}
+
+/** True when the slug was assigned provisionally at creation (never public). */
+export function isProvisionalSlug(slug: string): boolean {
+  return slug.includes(PROVISIONAL_MARK);
 }
 
 /** `length` base36 characters; uniqueness rests on the unique constraint. */

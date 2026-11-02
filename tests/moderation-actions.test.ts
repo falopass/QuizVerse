@@ -118,7 +118,7 @@ const manyReportIds = (count: number) =>
 // cambiarlo por el definitivo derivado del título.
 const PENDING_QUIZ = {
   id: QUIZ_ID,
-  slug: 'en-quiz-de-prueba-k4f2a',
+  slug: 'en-quiz-de-prueba--k4f2a',
   title: 'Quiz de prueba',
   language: 'en',
   status: 'pending',
@@ -243,7 +243,36 @@ describe('publishQuiz', () => {
     expect(probe?.filters).toContainEqual(['neq:id', QUIZ_ID]);
     // El slug provisional pudo estar cacheado: se revalidan los dos.
     expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba');
-    expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba-k4f2a');
+    expect(revalidate).toHaveBeenCalledWith('/en/quiz/en-quiz-de-prueba--k4f2a');
+  });
+
+  it('conserva el slug de un rechazado que ya estuvo publicado (enlaces compartidos)', async () => {
+    state.quizRow = {
+      ...PENDING_QUIZ,
+      slug: 'es-cine',
+      language: 'es',
+      status: 'rejected',
+    };
+
+    await publishQuiz(QUIZ_ID);
+
+    const [update] = callsTo('quizzes', 'update');
+    expect(update.payload).not.toHaveProperty('slug');
+    // Sin renombrar no hay sonda: el slug limpio se queda como estaba.
+    expect(
+      state.calls.some(
+        (call) => call.op === 'select' && call.filters.some(([column]) => column === 'slug')
+      )
+    ).toBe(false);
+    expect(revalidate).toHaveBeenCalledWith('/es/quiz/es-cine');
+  });
+
+  it('renombra un rechazado que nunca se publicó (slug todavía provisional)', async () => {
+    state.quizRow = { ...PENDING_QUIZ, status: 'rejected' };
+
+    await publishQuiz(QUIZ_ID);
+
+    expect(callsTo('quizzes', 'update')[0].payload).toMatchObject({ slug: 'en-quiz-de-prueba' });
   });
 
   it('sufija el slug definitivo si el base ya está tomado por otro quiz', async () => {

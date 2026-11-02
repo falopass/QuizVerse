@@ -38,12 +38,16 @@ export default async function LocalizedCreateDonePage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ slug?: string }>;
+  searchParams: Promise<{ slug?: string; id?: string }>;
 }) {
-  const [{ locale }, { slug }] = await Promise.all([params, searchParams]);
-  if (!hasLocale(locale) || !slug) notFound();
+  const [{ locale }, { slug, id }] = await Promise.all([params, searchParams]);
+  if (!hasLocale(locale) || (!slug && !id)) notFound();
 
-  const doneHref = localizeHref(locale, `/create/done?slug=${encodeURIComponent(slug)}`);
+  // `id` es estable: publicar regenera el slug provisional, así que un enlace
+  // guardado con `?slug=` dejaría de encontrar el quiz. `slug` sigue aceptado
+  // por compatibilidad (estudio AI).
+  const doneQuery = id ? `id=${encodeURIComponent(id)}` : `slug=${encodeURIComponent(slug ?? '')}`;
+  const doneHref = localizeHref(locale, `/create/done?${doneQuery}`);
   const supabase = await createClient();
   const {
     data: { user },
@@ -53,12 +57,13 @@ export default async function LocalizedCreateDonePage({
     redirect(localizeHref(locale, `/login?redirect=${encodeURIComponent(doneHref)}`));
   }
 
-  const { data: quiz } = await supabase
+  const owned = supabase
     .from('quizzes')
     .select('id, slug, title, status')
-    .eq('slug', slug)
-    .eq('creator_id', user.id)
-    .maybeSingle();
+    .eq('creator_id', user.id);
+  const { data: quiz } = await (
+    id ? owned.eq('id', id) : owned.eq('slug', slug ?? '')
+  ).maybeSingle();
 
   if (!quiz) notFound();
 

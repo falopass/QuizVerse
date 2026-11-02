@@ -276,7 +276,7 @@ describe('createQuiz', () => {
 
   it('un borrador no sondea slugs: el resultado no distingue si existe uno privado ajeno', async () => {
     mocks.profileResult = { data: { is_admin: false } };
-    const provisional = /^es-quiz-de-prueba-[a-z0-9]{6}$/;
+    const provisional = /^es-quiz-de-prueba--[a-z0-9]{6}$/;
 
     // Caso A: nada ocupa el slug base. Caso B: existe un quiz invisible para
     // el creador (borrador o pendiente ajeno). La respuesta debe ser la misma
@@ -312,8 +312,8 @@ describe('createQuiz', () => {
     const first = mocks.insert.mock.calls[0][0].slug as string;
     const second = mocks.insert.mock.calls[1][0].slug as string;
     // Ambos provisionales: el reintento no revela ni el número de colisiones.
-    expect(first).toMatch(/^es-quiz-de-prueba-[a-z0-9]{6}$/);
-    expect(second).toMatch(/^es-quiz-de-prueba-[a-z0-9]{6}$/);
+    expect(first).toMatch(/^es-quiz-de-prueba--[a-z0-9]{6}$/);
+    expect(second).toMatch(/^es-quiz-de-prueba--[a-z0-9]{6}$/);
     expect(second).not.toBe(first);
   });
 

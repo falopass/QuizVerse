@@ -26,7 +26,7 @@ import {
   type ActionResult,
 } from '@/lib/actions/types';
 import { revalidateCatalogFeeds, revalidateQuizPages } from '@/lib/quiz/revalidate';
-import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
+import { generateUniqueSlug, isProvisionalSlug } from '@/lib/quiz/quiz-slug';
 import type { QuizStatus } from '@/types/database';
 
 const ResolveSchema = z.object({ reportId: z.string().uuid() });
@@ -107,17 +107,20 @@ async function moderateQuiz(
   }
 
   // El slug definitivo nace al publicar. Al crear, el quiz sin publicar lleva
-  // uno provisional (`base-<aleatorio>`, ver provisionalSlug): resolver la
+  // uno provisional (`base--<aleatorio>`, ver provisionalSlug): resolver la
   // colisión en ese momento revelaría si el slug base pertenece a un borrador
   // o pendiente de otro usuario. Aquí el admin ve todas las filas, así que la
-  // sonda es total y el sufijo secuencial no filtra nada nuevo.
+  // sonda es total y el sufijo secuencial no filtra nada nuevo. Un quiz que ya
+  // tuvo slug limpio (rechazado y republicado) lo conserva: sus enlaces
+  // compartidos a /quiz, /play y /result siguen vivos.
   const takenSlugs = new Set<string>();
   const now = new Date().toISOString();
+  const renaming = next === 'published' && isProvisionalSlug(quiz.slug);
   let slug = quiz.slug;
   let updated: { id: string }[] | null = null;
   let error: { code?: string; message: string } | null = null;
   for (let attempt = 0; attempt < SLUG_ATTEMPTS; attempt += 1) {
-    if (next === 'published') {
+    if (renaming) {
       slug = await generateUniqueSlug(quiz.title, {
         language: quiz.language ?? undefined,
         exists: async (candidate) => {
@@ -139,7 +142,11 @@ async function moderateQuiz(
         moderated_by: user.id,
         moderated_at: now,
         moderation_note: note,
-        ...(next === 'published' ? { published_at: now, slug } : {}),
+        ...(renaming
+          ? { published_at: now, slug }
+          : next === 'published'
+            ? { published_at: now }
+            : {}),
       })
       .eq('id', quiz.id)
       .eq('status', quiz.status)
