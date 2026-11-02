@@ -86,13 +86,8 @@ export default async function LocalizedQuizExplorerPage({
           emptyTitle: dictionary.explore.emptyTitle,
           emptyBody: dictionary.explore.emptyBody,
           allCategories: dictionary.explore.allCategories,
-          eyebrow: locale === 'es' ? 'Explorar' : 'Explore',
-          visibleNow: locale === 'es' ? 'Visibles ahora' : 'Visible now',
-          playsInView: locale === 'es' ? 'Partidas en vista' : 'Plays in view',
-          publishedNow: locale === 'es' ? 'Publicados ahora' : 'Published now',
           searchLabel: locale === 'es' ? 'Buscar' : 'Search',
           categoryLanes: locale === 'es' ? 'Carriles de categoría' : 'Category lanes',
-          leadPick: locale === 'es' ? 'Selección principal' : 'Lead pick',
           moreWaysIn: locale === 'es' ? 'Más caminos de entrada' : 'More ways in',
           quizzesAfterFilters: locale === 'es' ? 'quizzes tras filtros' : 'quizzes after filters',
         }}

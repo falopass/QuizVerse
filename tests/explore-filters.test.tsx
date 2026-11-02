@@ -70,8 +70,22 @@ describe('Filtros del explorador', () => {
 
   it('agrupa los filtros con role=group y etiqueta accesible', () => {
     renderPage();
-    expect(screen.getByRole('group', { name: 'Explorar' })).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: 'Ánimos' })).toBeInTheDocument();
     expect(screen.getByRole('group', { name: 'Carriles editoriales' })).toBeInTheDocument();
+  });
+
+  it('no renderiza métricas y el role=status muestra el conteo filtrado', () => {
+    renderPage();
+
+    for (const label of ['Visibles ahora', 'Partidas en vista', 'Publicados ahora']) {
+      expect(screen.queryByText(label)).not.toBeInTheDocument();
+    }
+
+    const status = screen.getByRole('status');
+    expect(status).toHaveTextContent('3 quizzes tras filtros');
+
+    fireEvent.click(screen.getByRole('button', { name: 'Partidas rápidas' }));
+    expect(status).toHaveTextContent('0 quizzes tras filtros');
   });
 
   it('anuncia el contador de resultados en una región status', () => {

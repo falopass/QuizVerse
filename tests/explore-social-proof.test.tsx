@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { ExploreEditorialPage } from '@/components/home/explore-editorial-page';
 import type { Category, Quiz } from '@/types/quiz';
 
@@ -81,19 +81,21 @@ function renderPage(quizzes: Quiz[]) {
 }
 
 describe('Explorador: prueba social de partidas (F11)', () => {
-  it('oculta «Partidas en vista» bajo 1.000 y muestra el conteo de categorías', () => {
+  it('no renderiza tarjetas de métricas ni con mucho ni con poco volumen', () => {
     renderPage([quiz(32, 'q1'), quiz(10, 'q2')]);
 
-    expect(screen.queryByText('Partidas en vista')).not.toBeInTheDocument();
-    const metric = screen.getByText('Categorías').parentElement!;
-    expect(within(metric).getByText('2')).toBeInTheDocument();
+    for (const label of ['Visibles ahora', 'Partidas en vista', 'Publicados ahora']) {
+      expect(screen.queryByText(label)).not.toBeInTheDocument();
+    }
   });
 
-  it('muestra «Partidas en vista» desde 1.000 partidas en vista', () => {
+  it('tampoco renderiza métricas desde 1.000 partidas en vista', () => {
     renderPage([quiz(600, 'q1'), quiz(400, 'q2')]);
 
-    expect(screen.getByText('Partidas en vista')).toBeInTheDocument();
-    expect(screen.queryByText('Categorías')).not.toBeInTheDocument();
+    for (const label of ['Visibles ahora', 'Partidas en vista', 'Publicados ahora']) {
+      expect(screen.queryByText(label)).not.toBeInTheDocument();
+    }
+    expect(screen.getByRole('status')).toHaveTextContent('2 quizzes tras filtros');
   });
 
   it('oculta las partidas de la tarjeta de pulso bajo 1.000', () => {

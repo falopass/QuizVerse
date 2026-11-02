@@ -1,11 +1,7 @@
 import type { Locale } from './dictionaries';
 
 export interface ExploreCopy {
-  eyebrow: string;
-  visibleNow: string;
-  playsInView: string;
-  categories: string;
-  publishedNow: string;
+  moods: string;
   search: string;
   categoryLanes: string;
   leadPick: string;
@@ -27,11 +23,7 @@ export interface ExploreCopy {
 
 const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
   es: {
-    eyebrow: 'Explorar',
-    visibleNow: 'Visibles ahora',
-    playsInView: 'Partidas en vista',
-    categories: 'Categorías',
-    publishedNow: 'Publicados ahora',
+    moods: 'Ánimos',
     search: 'Buscar',
     categoryLanes: 'Carriles editoriales',
     leadPick: 'Selección principal',
@@ -51,11 +43,7 @@ const EXPLORE_COPY: Record<Locale, ExploreCopy> = {
     fullCatalog: 'Todo el catálogo',
   },
   en: {
-    eyebrow: 'Explore',
-    visibleNow: 'Visible now',
-    playsInView: 'Plays in view',
-    categories: 'Categories',
-    publishedNow: 'Published now',
+    moods: 'Moods',
     search: 'Search',
     categoryLanes: 'Editorial lanes',
     leadPick: 'Lead pick',
