@@ -14,6 +14,7 @@
 
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_CACHE_HEADERS, OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
 import { getChallengeForQuiz } from '@/lib/data/challenge';
@@ -34,7 +35,7 @@ const VIOLET = '#8458ff';
 type OgOptions = Awaited<ReturnType<typeof arcadeOgOptions>>;
 type Session = NonNullable<Awaited<ReturnType<typeof getQuizSessionByShareToken>>>;
 
-function baseCover(quizTitle: string, options: OgOptions) {
+function baseCover(quizTitle: string, options: OgOptions, headers: Record<string, string>) {
   return new ImageResponse(
     <div
       style={{
@@ -51,7 +52,7 @@ function baseCover(quizTitle: string, options: OgOptions) {
     >
       QUIZVERSE · {quizTitle}
     </div>,
-    options
+    { ...options, headers }
   );
 }
 
@@ -417,13 +418,11 @@ export async function GET(
   const token = searchParams.get('s');
   const challengeToken = searchParams.get('c');
   const options = await arcadeOgOptions();
-  const headers = {
-    'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
-  };
+  const headers = OG_CACHE_HEADERS;
 
   const quiz = await getQuizBySlug(slug, uiLocale);
   if (!quiz) {
-    return baseCover('QuizVerse', options);
+    return baseCover('QuizVerse', options, OG_MISS_CACHE_HEADERS);
   }
 
   const found = token ? await getQuizSessionByShareToken(token) : null;

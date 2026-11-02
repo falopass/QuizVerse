@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_CACHE_HEADERS, OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getPublishedQuizCount } from '@/lib/data/public';
 
@@ -35,7 +36,10 @@ export default async function ExploreOpenGraphImage({
   const uiLocale = hasLocale(locale) ? locale : 'en';
   const count = await getPublishedQuizCount(uiLocale);
   if (count === 0) {
-    return new ImageResponse(brandCard(), await arcadeOgOptions());
+    return new ImageResponse(brandCard(), {
+      ...(await arcadeOgOptions()),
+      headers: OG_MISS_CACHE_HEADERS,
+    });
   }
   const tagline =
     uiLocale === 'es'
@@ -107,6 +111,6 @@ export default async function ExploreOpenGraphImage({
         {uiLocale === 'es' ? 'Jugar ahora >' : 'Play now >'}
       </div>
     </div>,
-    await arcadeOgOptions()
+    { ...(await arcadeOgOptions()), headers: OG_CACHE_HEADERS }
   );
 }

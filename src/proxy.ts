@@ -30,7 +30,6 @@ const NON_LOCALE_EXACT = [
   '/callback',
   '/manifest.json',
   '/sw.js',
-  '/opengraph-image',
   '/icon.png',
   '/apple-icon.png',
 ];

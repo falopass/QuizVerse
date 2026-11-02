@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
+import { OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getPublishedQuizCount } from '@/lib/data/public';
 
@@ -43,7 +44,7 @@ export default async function IndiceOpenGraphImage({
   if (count === 0) {
     return new ImageResponse(brandCard(), {
       ...(await arcadeOgOptions()),
-      headers: CACHE_HEADERS,
+      headers: OG_MISS_CACHE_HEADERS,
     });
   }
   return new ImageResponse(

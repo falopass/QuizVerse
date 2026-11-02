@@ -49,14 +49,27 @@ describe('proxy — locale redirect', () => {
 });
 
 describe('proxy — non-locale root routes', () => {
-  it.each(['/covers/x.svg', '/manifest.json', '/robots.txt', '/sitemap.xml'])(
-    'passes %s through without redirect',
-    async (path) => {
-      const res = await proxy(req(path));
-      expect(res.status).toBe(200);
-      expect(res.headers.get('location')).toBeNull();
-    }
-  );
+  it('redirects /opengraph-image to the localized card', async () => {
+    const res = await proxy(req('/opengraph-image', { 'accept-language': 'es' }));
+    expect(res.status).toBe(307);
+    expect(res.headers.get('location')).toBe(`${BASE}/es/opengraph-image`);
+  });
+
+  it.each([
+    '/covers/x.svg',
+    '/manifest.json',
+    '/robots.txt',
+    '/sitemap.xml',
+    '/favicon.ico',
+    '/callback',
+    '/sw.js',
+    '/icon.png',
+    '/apple-icon.png',
+  ])('passes %s through without redirect', async (path) => {
+    const res = await proxy(req(path));
+    expect(res.status).toBe(200);
+    expect(res.headers.get('location')).toBeNull();
+  });
 
   // Activa cuando EMBED-01 mergee (añade '/embed' a NON_LOCALE_PREFIXES).
   it.skip('passes /embed/es/foo through without redirect', async () => {

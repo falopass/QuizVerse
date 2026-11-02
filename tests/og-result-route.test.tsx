@@ -118,6 +118,7 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     const res = await call(ogUrl(), 'en', 'missing-slug');
 
     await expectPng(res);
+    expect(res.headers.get('cache-control')).toContain('s-maxage=300');
     expect(mocks.getQuizSessionByShareToken).not.toHaveBeenCalled();
   });
 
