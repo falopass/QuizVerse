@@ -24,6 +24,13 @@ describe('QuizCoverArt · foto', () => {
     expect(img).toHaveAttribute('decoding', 'async');
   });
 
+  it('declara width/height de la variante 3:2 que sirve la ruta', () => {
+    const { container } = render(<QuizCoverArt quiz={quizConFoto} locale="es" decorative />);
+    const img = container.querySelector('img.arcade-cover-photo');
+    expect(img).toHaveAttribute('width', '960');
+    expect(img).toHaveAttribute('height', '640');
+  });
+
   it('tarjeta (decorative sin priorityLabel): lazy y sin fetchpriority', () => {
     const { container } = render(<QuizCoverArt quiz={quizConFoto} locale="es" decorative />);
     const img = container.querySelector('img.arcade-cover-photo');

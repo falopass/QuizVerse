@@ -11,8 +11,10 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { isMissingRpcFunction } from '@/lib/supabase/rpc';
 
 type AchievementId = 'first_quiz' | 'quiz_addict_10' | 'creator' | 'perfect_score';
+type Client = Awaited<ReturnType<typeof createClient>>;
 
 interface ProfileStats {
   points: number;
@@ -41,6 +43,48 @@ const CONDITIONS: Condition[] = [
   { id: 'creator', satisfied: (stats) => stats.quizzes_created >= 1 },
   { id: 'perfect_score', satisfied: (_stats, context) => context.perfectScore === true },
 ];
+
+/**
+ * Desbloquea el logro y paga su premio en un solo paso.
+ *
+ * Con la migración 013 lo hace el RPC `unlock_achievement`: verifica la
+ * condición en SQL y paga el `points_reward` del catálogo — el llamador no
+ * pasa ni usuario ni delta — y devuelve true solo si el logro era nuevo.
+ * Mientras el RPC no exista cae al camino de siempre (upsert del logro +
+ * UPDATE read-modify-write). Un error que no sea "función inexistente" no
+ * reintenta: el logro queda para la próxima partida.
+ */
+async function unlockAchievement(
+  supabase: Client,
+  userId: string,
+  achievementId: AchievementId,
+  reward: number,
+  stats: ProfileStats
+): Promise<boolean> {
+  const { data, error } = await supabase.rpc('unlock_achievement', {
+    p_achievement_id: achievementId,
+  });
+  if (!error) return data === true;
+  if (!isMissingRpcFunction(error)) return false;
+
+  const { error: unlockError } = await supabase
+    .from('user_achievements')
+    .upsert(
+      { user_id: userId, achievement_id: achievementId },
+      { onConflict: 'user_id,achievement_id', ignoreDuplicates: true }
+    );
+  if (unlockError) return false;
+
+  if (reward > 0) {
+    const next = stats.points + reward;
+    const { error: updateError } = await supabase
+      .from('profiles')
+      .update({ points: next })
+      .eq('id', userId);
+    if (!updateError) stats.points = next;
+  }
+  return true;
+}
 
 /**
  * Unlocks every achievement the player now qualifies for.
@@ -92,24 +136,14 @@ export async function checkAchievements(
 
     if (!achievement) continue;
 
-    const { error: unlockError } = await supabase
-      .from('user_achievements')
-      .upsert(
-        { user_id: userId, achievement_id: condition.id },
-        { onConflict: 'user_id,achievement_id', ignoreDuplicates: true }
-      );
-
-    if (unlockError) continue;
-
-    const reward = achievement.points_reward ?? 0;
-    if (reward > 0) {
-      const updatedPoints = stats.points + reward;
-      const { error: pointsError } = await supabase
-        .from('profiles')
-        .update({ points: updatedPoints })
-        .eq('id', userId);
-      if (!pointsError) stats.points = updatedPoints;
-    }
+    const unlockedNow = await unlockAchievement(
+      supabase,
+      userId,
+      condition.id,
+      achievement.points_reward ?? 0,
+      stats
+    );
+    if (!unlockedNow) continue;
 
     unlocked.push({ id: condition.id, name: achievement.name });
   }

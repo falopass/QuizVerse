@@ -11,6 +11,7 @@ import type {
 } from '@/types/quiz';
 import { calculatePercentage } from '@/lib/quiz/engine';
 import { inferVisualProfile } from '@/lib/design/visual-profile';
+import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 
 export type CategoryRow = Database['public']['Tables']['categories']['Row'];
 export type QuizRow = Database['public']['Tables']['quizzes']['Row'];
@@ -108,7 +109,7 @@ export function normalizeQuiz(
     slug: row.slug,
     title: row.title,
     description: row.description,
-    cover_image_url: row.cover_image_url,
+    cover_image_url: versionedStockCoverUrl(row.cover_image_url),
     quiz_type: row.quiz_type,
     difficulty: row.difficulty,
     language: row.language,

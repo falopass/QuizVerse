@@ -196,6 +196,13 @@ export async function deleteQuiz(id: string): Promise<ActionResult> {
 // PLAY
 // ============================================
 
+/** Mismo formato que el default de la tabla: 8 bytes aleatorios en hex. */
+function newShareToken(): string {
+  return [...crypto.getRandomValues(new Uint8Array(8))]
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
 export interface SubmittedAnswer {
   question_id: string;
   selected_option_id: string;
@@ -236,26 +243,31 @@ export async function submitQuizResult(
 
   const scored = scoreSubmission(quiz, parsed.data.answers);
 
-  const { data: session, error } = await supabase
-    .from('game_sessions')
-    .insert({
-      quiz_id: quiz.id,
-      player_id: user?.id ?? null,
-      score: scored.score,
-      max_score: scored.maxScore,
-      result_id: scored.resultId,
-      result_title: scored.resultTitle,
-      time_taken_seconds: parsed.data.timeTakenSeconds,
-      answers: toJson(scored.graded),
-    })
-    .select('id, share_token')
-    .single();
+  // La policy nueva de game_sessions solo deja leer las propias, así que un
+  // INSERT ... RETURNING devolvería 0 filas para un anónimo y la partida se
+  // perdería. id y share_token se generan aquí (misma forma que los defaults
+  // de la tabla) y el insert no necesita leer nada de vuelta.
+  const session = { id: crypto.randomUUID(), share_token: newShareToken() };
+  const { error } = await supabase.from('game_sessions').insert({
+    id: session.id,
+    share_token: session.share_token,
+    quiz_id: quiz.id,
+    player_id: user?.id ?? null,
+    score: scored.score,
+    max_score: scored.maxScore,
+    result_id: scored.resultId,
+    result_title: scored.resultTitle,
+    time_taken_seconds: parsed.data.timeTakenSeconds,
+    answers: toJson(scored.graded),
+  });
 
-  if (error || !session) {
-    return actionFailure('unexpected', error?.message ?? 'Could not save the result.');
+  if (error) {
+    return actionFailure('unexpected', error.message);
   }
 
-  // Best effort: a failed counter must never fail a finished game.
+  // Best effort: a failed counter must never fail a finished game. Con la
+  // migración 013 este EXECUTE queda revocado y el INSERT de arriba ya sumó la
+  // jugada vía trigger; sin ella esta llamada es la que cuenta.
   await supabase.rpc('increment_plays', { quiz_uuid: quiz.id });
 
   const partner = scored.resultId

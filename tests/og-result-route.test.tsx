@@ -150,6 +150,25 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
   });
 
+  it('renders a personality result title with accents and a long quiz title', async () => {
+    mocks.getQuizBySlug.mockResolvedValue({
+      ...quiz,
+      id: 'quiz-p',
+      quiz_type: 'personality',
+      title: '¿Qué personaje de anime eres según tu personalidad y tus decisiones?',
+      category: { name: 'Anime y manga', icon: '⛩', slug: 'anime-manga' },
+    } as unknown as Quiz);
+    mocks.getQuizSessionByShareToken.mockResolvedValue({
+      ...session,
+      quiz_id: 'quiz-p',
+      result_title: 'El Estratega Melancólico',
+    });
+
+    const res = await call(ogUrl('?s=share-token-1'), 'es');
+
+    await expectPng(res);
+  });
+
   it('falls back to English for an unknown locale without throwing', async () => {
     const res = await call(ogUrl(), 'fr');
 

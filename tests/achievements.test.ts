@@ -1,18 +1,30 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { state, upsertSpy, updateSpy } = vi.hoisted(() => ({
+const { state, upsertSpy, updateSpy, rpcSpy } = vi.hoisted(() => ({
   state: {
     profile: null as { points: number; quizzes_played: number; quizzes_created: number } | null,
     unlocked: new Set<string>(),
     catalog: {} as Record<string, { name: string; points_reward: number | null } | null>,
     upsertError: null as { message: string } | null,
+    rpcData: null as boolean | null,
+    rpcError: null as { code?: string; message?: string } | null,
   },
   upsertSpy: vi.fn(),
   updateSpy: vi.fn(),
+  rpcSpy: vi.fn(),
 }));
+
+const MISSING_FUNCTION = {
+  code: 'PGRST202',
+  message: 'Could not find the function in the schema cache',
+};
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
+    rpc: async (fn: string, args: unknown) => {
+      rpcSpy(fn, args);
+      return { data: state.rpcData, error: state.rpcError };
+    },
     from: (table: string) => {
       if (table === 'user_achievements') {
         return {
@@ -75,8 +87,13 @@ describe('checkAchievements', () => {
     state.unlocked = new Set();
     state.catalog = { ...CATALOG };
     state.upsertError = null;
+    state.rpcData = null;
+    // Sin la migración el RPC no existe: ese es el camino por defecto y el
+    // fallback a upsert+UPDATE es lo que ejercitan los tests de puntos.
+    state.rpcError = MISSING_FUNCTION;
     upsertSpy.mockClear();
     updateSpy.mockClear();
+    rpcSpy.mockClear();
   });
 
   it('returns [] for a null userId without touching the DB', async () => {
@@ -143,7 +160,48 @@ describe('checkAchievements', () => {
 
     await checkAchievements('user-1');
 
+    expect(rpcSpy).toHaveBeenCalledWith('unlock_achievement', {
+      p_achievement_id: 'first_quiz',
+    });
     expect(updateSpy).toHaveBeenCalledWith({ points: 110 });
+  });
+
+  it('unlocks and pays via the atomic RPC without upsert nor read-modify-write', async () => {
+    state.profile = { points: 100, quizzes_played: 1, quizzes_created: 0 };
+    state.rpcError = null;
+    state.rpcData = true;
+
+    const result = await checkAchievements('user-1');
+
+    expect(result).toEqual([{ id: 'first_quiz', name: 'First Quiz' }]);
+    expect(rpcSpy).toHaveBeenCalledWith('unlock_achievement', {
+      p_achievement_id: 'first_quiz',
+    });
+    expect(upsertSpy).not.toHaveBeenCalled();
+    expect(updateSpy).not.toHaveBeenCalled();
+  });
+
+  it('does not unlock when the RPC says the achievement was not new or not met', async () => {
+    state.profile = { points: 100, quizzes_played: 1, quizzes_created: 0 };
+    state.rpcError = null;
+    state.rpcData = false;
+
+    const result = await checkAchievements('user-1');
+
+    expect(result).toEqual([]);
+    expect(upsertSpy).not.toHaveBeenCalled();
+    expect(updateSpy).not.toHaveBeenCalled();
+  });
+
+  it('does not unlock nor pay when the RPC fails for another reason', async () => {
+    state.profile = { points: 100, quizzes_played: 1, quizzes_created: 0 };
+    state.rpcError = { message: 'connection lost' };
+
+    const result = await checkAchievements('user-1');
+
+    expect(result).toEqual([]);
+    expect(upsertSpy).not.toHaveBeenCalled();
+    expect(updateSpy).not.toHaveBeenCalled();
   });
 
   it('accumulates rewards across multiple unlocks in one run', async () => {
