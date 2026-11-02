@@ -7,7 +7,9 @@ import { submitQuizResult } from '@/actions/quiz.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
 import { useQuizStore, type GameMode } from '@/stores/quiz-store';
-import type { PersonalityResult, Quiz } from '@/types/quiz';
+import { EditorialEmptyState } from '@/components/home/app-placeholders';
+import { localizeHref } from '@/lib/i18n/navigation';
+import type { PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { ChallengeInfo } from '@/lib/quiz/challenge';
 import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
@@ -35,6 +37,23 @@ interface QuizPlayerProps {
 
 let _audioContext: AudioContext | null = null;
 const NO_HIDDEN_OPTIONS: string[] = [];
+
+/**
+ * Aviso de envío fallido. Vive a nivel de módulo (no en `copy`) porque el toast
+ * se dispara dentro del callback de envío: depender del objeto `copy`, que se
+ * recrea en cada render, cambiaría la identidad del callback y re-dispararía el
+ * efecto tras cada fallo — un auto-reintento infinito contra el rate limit.
+ */
+const SUBMIT_FAILED_COPY = {
+  es: {
+    title: 'No pudimos guardar tu partida.',
+    body: 'Reintenta desde la pantalla de resultado para no perder tus puntos.',
+  },
+  en: {
+    title: "We couldn't save your game.",
+    body: 'Retry from the result screen so your points are not lost.',
+  },
+} as const;
 function getAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null;
   if (_audioContext && _audioContext.state !== 'closed') return _audioContext;
@@ -75,6 +94,11 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           resume: 'Volver',
           changeMode: 'Cambiar modo',
           quizNotFound: 'No encontramos este quiz.',
+          quizNotFoundEyebrow: 'Sin partida',
+          quizNotFoundBody:
+            'No pudimos cargar las preguntas de este quiz. Vuelve a su ficha o explora otros.',
+          browseQuizzes: 'Explorar quizzes',
+          backToQuiz: 'Ver la ficha',
           pauseGame: 'Pausar juego',
           correct: 'Correcto',
           miss: 'Fallaste',
@@ -90,6 +114,11 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
           resume: 'Resume',
           changeMode: 'Change mode',
           quizNotFound: 'Quiz not found.',
+          quizNotFoundEyebrow: 'No game',
+          quizNotFoundBody:
+            "We couldn't load this quiz's questions. Head back to its page or browse others.",
+          browseQuizzes: 'Browse quizzes',
+          backToQuiz: 'View the quiz page',
           pauseGame: 'Pause game',
           correct: 'Correct',
           miss: 'Miss',
@@ -119,10 +148,12 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     shareToken: string | null;
     score: number;
     maxScore: number;
+    review: QuizReviewItem[] | null;
   } | null>(null);
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
+  const [submitFailed, setSubmitFailed] = React.useState(false);
   const hasSubmittedRef = React.useRef(false);
-  const { success: toastSuccess } = useToast();
+  const { success: toastSuccess, error: toastError } = useToast();
   const reduceMotion = useReducedMotion() ?? false;
 
   const {
@@ -209,6 +240,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     setSubmission(null);
     setIsSubmittingResult(false);
     setIsCheckingAnswer(false);
+    setSubmitFailed(false);
     setShowModeSelector(true);
   }
 
@@ -248,79 +280,94 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     if (navigator.vibrate) navigator.vibrate(lastAnswerCorrect ? 50 : 100);
   }, [lastAnswerCorrect, showFeedback, quiz.quiz_type]);
 
-  React.useEffect(() => {
-    if (!isCompleted || hasSubmittedRef.current || isSubmittingResult) return;
+  /**
+   * Sends the finished game to the server. `hasSubmittedRef` is the
+   * double-submit guard: it stays set after a success, and only a failure
+   * releases it so the "Retry" button can call this again without duplicating
+   * the session (a second call while one is in flight is a no-op).
+   */
+  const persistSession = React.useCallback(async () => {
+    if (hasSubmittedRef.current) return;
     hasSubmittedRef.current = true;
     setIsSubmittingResult(true);
+    // Stale guard: if a new game started while the submit was in flight, its
+    // result must not overwrite the new game's state.
     const gameId = useQuizStore.getState().gameId;
+    const isStale = () => useQuizStore.getState().gameId !== gameId;
 
-    const persistSession = async () => {
-      try {
-        const totalTimeSeconds = Math.max(
-          0,
-          Math.round(answers.reduce((total, answer) => total + answer.time_ms, 0) / 1000)
-        );
-        // Only the choices travel: the server re-grades every answer.
-        const payload = answers.map(({ question_id, selected_option_id, time_ms }) => ({
-          question_id,
-          selected_option_id,
-          time_ms,
-        }));
-        const result = await submitQuizResult(quiz.id, payload, totalTimeSeconds);
-        if (useQuizStore.getState().gameId !== gameId) return;
-        if (result.success) {
-          setSubmission({
-            result: (result.result as PersonalityResult | null) ?? null,
-            pointsEarned: result.points_earned ?? 0,
-            shareToken:
-              (result.session as { share_token?: string | null } | undefined)?.share_token ?? null,
-            score: result.score ?? 0,
-            maxScore: result.max_score ?? quiz.questions.length,
-          });
-          if (quiz.quiz_type === 'trivia' || quiz.quiz_type === 'personality') {
-            recordRecent({
-              slug: quiz.slug,
-              title: quiz.title,
-              quizType: quiz.quiz_type,
-              locale: uiLocale,
-              categoryName: quiz.category
-                ? (localizeCategory(quiz.category, uiLocale)?.name ?? quiz.category.name)
-                : null,
-              coverImageUrl: quiz.cover_image_url,
-              minutes: quiz.estimated_minutes,
-              score:
-                quiz.quiz_type === 'trivia'
-                  ? `${result.score ?? 0}/${result.max_score ?? quiz.questions.length}`
-                  : (result.result?.title ?? null),
-              playedAt: new Date().toISOString(),
-            });
-          }
-          void trackEvent({
-            name: 'quiz_complete',
-            locale: uiLocale,
-            quizId: quiz.id,
-            quizSlug: quiz.slug,
-            quizType: quiz.quiz_type,
-            value: result.points_earned ?? 0,
-            metadata: {
-              answers: answers.length,
-            },
-          });
-          const unlockedToast = achievementToastMessage(uiLocale, result.achievements_unlocked);
-          if (unlockedToast) toastSuccess(unlockedToast.title, unlockedToast.description);
-        }
-      } catch (error) {
-        console.error('Failed to submit quiz result', error);
-      } finally {
-        if (useQuizStore.getState().gameId === gameId) setIsSubmittingResult(false);
-      }
+    const notifySubmitFailed = () => {
+      hasSubmittedRef.current = false;
+      setSubmitFailed(true);
+      const failed = SUBMIT_FAILED_COPY[uiLocale];
+      toastError(failed.title, failed.body);
     };
 
-    void persistSession();
+    try {
+      const totalTimeSeconds = Math.max(
+        0,
+        Math.round(answers.reduce((total, answer) => total + answer.time_ms, 0) / 1000)
+      );
+      // Only the choices travel: the server re-grades every answer.
+      const payload = answers.map(({ question_id, selected_option_id, time_ms }) => ({
+        question_id,
+        selected_option_id,
+        time_ms,
+      }));
+      const result = await submitQuizResult(quiz.id, payload, totalTimeSeconds);
+      if (isStale()) return;
+      if (!result.success) {
+        notifySubmitFailed();
+        return;
+      }
+      setSubmission({
+        result: (result.result as PersonalityResult | null) ?? null,
+        pointsEarned: result.points_earned ?? 0,
+        shareToken:
+          (result.session as { share_token?: string | null } | undefined)?.share_token ?? null,
+        score: result.score ?? 0,
+        maxScore: result.max_score ?? quiz.questions.length,
+        review: result.review ?? null,
+      });
+      setSubmitFailed(false);
+      if (quiz.quiz_type === 'trivia' || quiz.quiz_type === 'personality') {
+        recordRecent({
+          slug: quiz.slug,
+          title: quiz.title,
+          quizType: quiz.quiz_type,
+          locale: uiLocale,
+          categoryName: quiz.category
+            ? (localizeCategory(quiz.category, uiLocale)?.name ?? quiz.category.name)
+            : null,
+          coverImageUrl: quiz.cover_image_url,
+          minutes: quiz.estimated_minutes,
+          score:
+            quiz.quiz_type === 'trivia'
+              ? `${result.score ?? 0}/${result.max_score ?? quiz.questions.length}`
+              : (result.result?.title ?? null),
+          playedAt: new Date().toISOString(),
+        });
+      }
+      void trackEvent({
+        name: 'quiz_complete',
+        locale: uiLocale,
+        quizId: quiz.id,
+        quizSlug: quiz.slug,
+        quizType: quiz.quiz_type,
+        value: result.points_earned ?? 0,
+        metadata: {
+          answers: answers.length,
+        },
+      });
+      const unlockedToast = achievementToastMessage(uiLocale, result.achievements_unlocked);
+      if (unlockedToast) toastSuccess(unlockedToast.title, unlockedToast.description);
+    } catch (error) {
+      console.error('Failed to submit quiz result', error);
+      if (!isStale()) notifySubmitFailed();
+    } finally {
+      if (!isStale()) setIsSubmittingResult(false);
+    }
   }, [
     answers,
-    isCompleted,
-    isSubmittingResult,
     quiz.category,
     quiz.cover_image_url,
     quiz.estimated_minutes,
@@ -329,9 +376,18 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     quiz.quiz_type,
     quiz.slug,
     quiz.title,
+    toastError,
     toastSuccess,
     uiLocale,
   ]);
+
+  React.useEffect(() => {
+    if (!isCompleted) return;
+    // El envío corre en un timer: persistSession hace setState y la regla
+    // react-hooks/set-state-in-effect prohíbe setState síncrono en el efecto.
+    const timer = setTimeout(() => void persistSession(), 0);
+    return () => clearTimeout(timer);
+  }, [isCompleted, persistSession]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -479,8 +535,15 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
             : undefined
         }
         answers={answers}
+        // La revisión la calcula el servidor al persistir (igual que /result):
+        // nunca se reconstruye con el is_correct local, que puede quedar
+        // desactualizado si un reveal falló durante la partida.
+        review={submission?.review ?? undefined}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
+        submitFailed={submitFailed}
+        isSubmittingResult={isSubmittingResult}
+        onRetrySubmit={persistSession}
         // La comparativa solo se declara con la sesión ya persistida: un reveal
         // fallido deja el marcador local sin verificar y podría dibujar un
         // veredicto distinto al que quedó en el servidor (y en la tarjeta OG).
@@ -493,6 +556,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
         onPlayAgain={() => {
           resetGame();
           setSubmission(null);
+          setSubmitFailed(false);
           hasSubmittedRef.current = false;
           setShowModeSelector(true);
         }}
@@ -501,7 +565,24 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   }
 
   if (!currentQuestion) {
-    return <div className="text-text-muted py-24 text-center">{copy.quizNotFound}</div>;
+    // /play no lleva nav ni footer: sin enlaces este estado era un callejón.
+    return (
+      <div className="arcade-play-page arcade-wrap">
+        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center px-4 py-16">
+          <div className="w-full">
+            <EditorialEmptyState
+              eyebrow={copy.quizNotFoundEyebrow}
+              title={copy.quizNotFound}
+              body={copy.quizNotFoundBody}
+              primaryHref={localizeHref(uiLocale, '/quiz')}
+              primaryLabel={copy.browseQuizzes}
+              secondaryHref={localizeHref(uiLocale, `/quiz/${quiz.slug}`)}
+              secondaryLabel={copy.backToQuiz}
+            />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
