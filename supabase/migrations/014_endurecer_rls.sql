@@ -19,13 +19,13 @@
 --     is_featured, published_at, status salvo admin o archivo propio) sigue
 --     siendo necesario entero.
 --   * AB-09 — la 013 dejo user_achievements_insert_system solo con
---     user_id = auth.uid(): un INSERT propio fabricado planta el logro en el
---     perfil (sin premio, pero visible). La puerta de aqui exige ademas la
---     condicion cumplida (achievement_condition_met). El PAGO lo hace solo
---     unlock_achievement (013): esta migracion no crea trigger de premio para
---     que un desbloqueo por RPC no cobre dos veces. El INSERT directo de la
---     app (fallback cuando el RPC no existe) solo puede plantar logros ya
---     ganados — sin pagar, como debe ser.
+--     user_id = auth.uid(), y eso rompe dos cosas: un INSERT propio fabricado
+--     planta logros no ganados en el perfil, y un INSERT de logro SI ganado
+--     deja la fila sin premio (unlock_achievement la encuentra con ON
+--     CONFLICT DO NOTHING, devuelve false y nunca paga: el usuario se
+--     autoanula el premio para siempre). La puerta se cierra del todo:
+--     WITH CHECK (false) — la unica escritora es la RPC, que es DEFINER y
+--     salta RLS.
 --
 -- Discriminante de escritura directa (igual que en 010): no auth.uid() sino
 -- current_user — un SECURITY DEFINER corre con el JWT de la request original.
@@ -260,87 +260,32 @@ ALTER FUNCTION public.increment_creator_quizzes() SECURITY DEFINER;
 -- AB-09: USER ACHIEVEMENTS
 -- ============================================
 
--- Puerta del INSERT directo: la 013 ya exige user_id = auth.uid() pero no
--- verifica la condicion — un usuario podia sembrarse 'internet_famous' (sin
--- premio, pero visible en su perfil). Esta funcion evalua la condicion con
--- los datos del schema: contadores del perfil para 'plays'/'creates' y una
--- partida perfecta real para 'score'. Los tipos que el schema aun no puede
--- medir ('shares', 'streak', 'categories', 'share') devuelven false: tampoco
--- la app ni unlock_achievement los desbloquean hoy.
-CREATE OR REPLACE FUNCTION public.achievement_condition_met(
-  p_user_id uuid,
-  p_achievement_id text
-)
-RETURNS boolean
-LANGUAGE plpgsql
-STABLE
-SET search_path = public, pg_temp
-AS $$
-DECLARE
-  cond_type text;
-  cond_value integer;
-BEGIN
-  -- Como RPC es invocable por cualquiera: solo se responde sobre el propio
-  -- uid, o devuelve false. Sin este corte mediria logros de otros usuarios
-  -- (user_achievements solo es legible por su dueno).
-  IF auth.uid() IS NULL OR auth.uid() <> p_user_id THEN
-    RETURN false;
-  END IF;
-
-  SELECT condition_type, condition_value
-    INTO cond_type, cond_value
-    FROM public.achievements
-    WHERE id = p_achievement_id;
-
-  IF NOT FOUND THEN
-    RETURN false;
-  END IF;
-
-  CASE cond_type
-    WHEN 'plays' THEN
-      RETURN COALESCE((
-        SELECT quizzes_played FROM public.profiles WHERE id = p_user_id
-      ), 0) >= cond_value;
-    WHEN 'creates' THEN
-      RETURN COALESCE((
-        SELECT quizzes_created FROM public.profiles WHERE id = p_user_id
-      ), 0) >= cond_value;
-    WHEN 'score' THEN
-      -- cond_value es el porcentaje exigido (100 = partida perfecta).
-      RETURN EXISTS (
-        SELECT 1 FROM public.game_sessions s
-        WHERE s.player_id = p_user_id
-          AND s.max_score > 0
-          AND s.score * 100 >= s.max_score * cond_value
-      );
-    ELSE
-      RETURN false;
-  END CASE;
-END;
-$$;
-
-COMMENT ON FUNCTION public.achievement_condition_met(uuid, text) IS
-  'Verdadero si el logro ya esta ganado segun achievements.condition_type/value (contadores de perfil, o una partida con el porcentaje exigido). Usado por user_achievements_insert_own.';
-
--- Insertar: solo logros propios y ya cumplidos. El fallback de la app (upsert
--- directo si el RPC no existe) solo se da cuando la condicion se satisface:
--- cumple. Un INSERT fabricado por PostgREST no cumple la puerta y se rechaza
--- entero. Y el insert de unlock_achievement es DEFINER: salta RLS y no pasa
--- por esta policy.
+-- La 013 exige solo user_id = auth.uid() en el insert, y eso deja dos vias
+-- malas abiertas:
+--   * Un INSERT propio fabricado planta cualquier logro en el perfil (sin
+--     premio, pero visible).
+--   * Un INSERT de un logro SI ganado deja la fila sin premio y la hace
+--     inpagable: unlock_achievement la encuentra con ON CONFLICT DO NOTHING,
+--     devuelve false y nunca paga — el usuario se autoanula el premio para
+--     siempre.
+--
+-- Unica escritora legitima bajo 013+014: unlock_achievement (013), DEFINER —
+-- salta RLS y no pasa por esta policy. El fallback de la app (upsert directo
+-- si el RPC no existe) solo corre en un mundo sin 013, donde esta policy
+-- tampoco existe. Service role y seeds saltan RLS igual que siempre.
 DROP POLICY IF EXISTS user_achievements_insert_system ON public.user_achievements;
 DROP POLICY IF EXISTS user_achievements_insert_own ON public.user_achievements;
 
-CREATE POLICY "user_achievements_insert_own" ON public.user_achievements
+CREATE POLICY "user_achievements_insert_none" ON public.user_achievements
   FOR INSERT
-  WITH CHECK (
-    auth.uid() = user_id
-    AND public.achievement_condition_met(user_id, achievement_id)
-  );
+  WITH CHECK (false);
 
--- Sin trigger de premio aqui, a proposito: el unico pagador es
--- unlock_achievement (013), atomico y verificado en servidor. Un AFTER INSERT
--- propio pagaria otra vez sobre el insert interno de la RPC (doble cobro) y
--- premiaria cualquier insert service role por el camino equivocado. Los DROP
--- limpian el enfoque anterior de esta migracion si alguien lo aplico en local.
+COMMENT ON POLICY "user_achievements_insert_none" ON public.user_achievements IS
+  'Sin inserts directos: los logros solo nacen de unlock_achievement (DEFINER, salta RLS). Evita insignias plantadas y la autoanulacion del premio por fila preexistente.';
+
+-- Limpieza del enfoque anterior de esta migracion si alguien lo aplico en
+-- local (el trigger de premio pagaba dos veces junto a la RPC, y el
+-- verificador ya no tiene llamantes).
 DROP TRIGGER IF EXISTS trigger_award_achievement_points ON public.user_achievements;
 DROP FUNCTION IF EXISTS public.award_achievement_points();
+DROP FUNCTION IF EXISTS public.achievement_condition_met(uuid, text);

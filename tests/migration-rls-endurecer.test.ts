@@ -79,23 +79,23 @@ describe('migración 014_endurecer_rls', () => {
     );
   });
 
-  it('AB-09: el insert de user_achievements exige dueño y condición cumplida', () => {
+  it('AB-09: el insert directo de user_achievements queda cerrado (solo la RPC escribe)', () => {
+    // La 013 exige solo dueño: permitía plantar logros no ganados y dejar
+    // inpagable un logro sí ganado (ON CONFLICT DO NOTHING de
+    // unlock_achievement devuelve false y nunca paga). CHECK (false) cierra
+    // la puerta; unlock_achievement es DEFINER y salta RLS.
     expect(sql).toMatch(/drop policy if exists user_achievements_insert_system/i);
-    expect(sql).toMatch(/create policy "user_achievements_insert_own"/i);
-    expect(sql).toMatch(/auth\.uid\(\) = user_id/i);
-    expect(sql).toMatch(/achievement_condition_met\(user_id, achievement_id\)/i);
+    expect(sql).toMatch(/create policy "user_achievements_insert_none"/i);
+    expect(sql).toMatch(/with check \(false\)/i);
+    // Y no queda ninguna otra policy de INSERT permisiva en la migración.
+    expect(sql).not.toMatch(/create policy "user_achievements_insert_own"/i);
   });
 
-  it('achievement_condition_met evalúa plays, creates y partida perfecta', () => {
-    expect(sql).toMatch(/create or replace function public\.achievement_condition_met/i);
-    expect(sql).toMatch(/when 'plays' then/i);
-    expect(sql).toMatch(/when 'creates' then/i);
-    expect(sql).toMatch(/when 'score' then/i);
-    expect(sql).toMatch(/from public\.game_sessions s/i);
-  });
-
-  it('achievement_condition_met solo responde sobre el propio uid (no es oráculo RPC)', () => {
-    expect(sql).toMatch(/auth\.uid\(\) is null or auth\.uid\(\) <> p_user_id/i);
+  it('AB-09: sin verificador propio — la condición la verifica unlock_achievement (013)', () => {
+    // achievement_condition_met era oráculo RPC y quedó sin llamantes al
+    // cerrar la puerta del insert.
+    expect(sql).not.toMatch(/create (or replace )?function public\.achievement_condition_met/i);
+    expect(sql).toMatch(/drop function if exists public\.achievement_condition_met\(uuid, text\)/i);
   });
 
   it('AB-03: avatar_url queda en la whitelist (grant aditivo sobre el de la 013)', () => {
