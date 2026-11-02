@@ -253,10 +253,10 @@ regenerarla, o las peticiones devuelven 403.
 
 ### Verificación de propiedad
 
-| Motor         | Cómo                                                                                                                                     |
-| :------------ | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| Motor         | Cómo                                                                                                                                                                            |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Google        | Meta tag (`GOOGLE_SITE_VERIFICATION`, variable del Worker; plantilla en `deploy/env.example`) **o** URL `https://quizverse.org/google<token>.html` (se sirve sola, sin rebuild) |
-| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION`                                                                                                                         |
+| Bing / Yandex | `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION`                                                                                                                           |
 
 Las variables de SEO se leen en runtime del Worker: se configuran como variables o secretos del Worker en Cloudflare.
 
