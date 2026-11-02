@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
-import { getHomePayload } from '@/lib/data/public';
+import { getHomePayload, getLaunchHomePayload } from '@/lib/data/public';
 import { dailyPickCopy, pickDailyQuiz } from '@/lib/content/daily-pick';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
@@ -54,8 +54,10 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const { locale } = await params;
   if (!hasLocale(locale)) notFound();
   const dictionary = await getDictionary(locale);
+  // Si el payload falla entero (Supabase caído), la home sirve el catálogo de
+  // lanzamiento como la ficha de quiz, en vez de la página de error.
   const [payload, localeCounts] = await Promise.all([
-    getHomePayload(locale),
+    getHomePayload(locale).catch(() => getLaunchHomePayload(locale)),
     getCategoryCounts(locale),
   ]);
   const quizzes = [

@@ -138,10 +138,10 @@ describe('getQuizComments', () => {
     expect(await getQuizComments(QUIZ_ID)).toEqual({ comments: [ROW], total: 60 });
   });
 
-  it('devuelve página vacía si Supabase falla', async () => {
+  it('rechaza si Supabase falla, para que la ficha ofrezca reintento', async () => {
     mocks.selectResult = { data: null, count: null, error: { message: 'boom' } };
 
-    expect(await getQuizComments(QUIZ_ID)).toEqual({ comments: [], total: 0 });
+    await expect(getQuizComments(QUIZ_ID)).rejects.toMatchObject({ message: 'boom' });
   });
 
   it('devuelve página vacía para un quizId que no es uuid', async () => {

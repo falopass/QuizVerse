@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ExploreEditorialPage } from '@/components/home/explore-editorial-page';
 import { JsonLd } from '@/components/seo/json-ld';
-import { getExplorePayload } from '@/lib/data/public';
+import { getExplorePayload, getLaunchExplorePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
@@ -52,7 +52,9 @@ export default async function LocalizedQuizExplorerPage({
   if (!hasLocale(locale)) notFound();
 
   const dictionary = await getDictionary(locale);
-  const payload = await getExplorePayload(locale);
+  // Igual que la home y la ficha: si el payload falla entero se sirve el
+  // catálogo de lanzamiento, no la página de error.
+  const payload = await getExplorePayload(locale).catch(() => getLaunchExplorePayload(locale));
 
   // This catalogue is a client component, so every object crosses into the RSC
   // payload. Questions and results are the heavy part of a quiz (they were
