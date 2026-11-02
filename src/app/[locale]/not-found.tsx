@@ -1,21 +1,22 @@
-'use client';
+import type { Metadata } from 'next';
+import { headers } from 'next/headers';
+import { LocaleNotFoundContent } from '@/components/layout/locale-not-found';
 
-import { usePathname } from 'next/navigation';
-import { NotFoundContent } from '@/components/layout/not-found-content';
+// Next 16.4.2 responde a un notFound() lanzado durante el SSR con su shell de
+// error (<html id="__next_error__">): el root layout no llega al HTML, así que
+// el documento se queda sin `lang` hasta la hidratación (vercel/next.js#99793;
+// el fix #98583 sigue abierto). El <title> sí llega al <head> del shell porque
+// Next resuelve la metadata con errorType 'not-found' desde este archivo.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale?: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const es = locale ? locale === 'es' : (await headers()).get('x-quizverse-locale') === 'es';
+  return { title: es ? 'Página no encontrada' : 'Page not found' };
+}
 
-// Next gives not-found boundaries no `params`, so the locale comes from the
-// URL segment — the same trick `src/app/error.tsx` already uses. Reading it
-// here (instead of the `x-quizverse-locale` request header) also works when
-// the header does not reach the 404 render under OpenNext.
 export default function LocaleNotFound() {
-  const pathname = usePathname();
-  const locale = pathname === '/es' || pathname.startsWith('/es/') ? 'es' : 'en';
-
-  return (
-    <div className="min-h-[70vh] px-4 pt-28 pb-16">
-      <div className="mx-auto max-w-4xl">
-        <NotFoundContent locale={locale} />
-      </div>
-    </div>
-  );
+  return <LocaleNotFoundContent />;
 }
