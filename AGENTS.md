@@ -237,7 +237,7 @@ Tables (main ones; see `supabase/migrations/` for the full list):
 
 - Files live in `supabase/migrations/` as `NNN_name.sql`. Numbers are not always unique (several `011`, `015`, `018`, `019` files exist); order within a prefix is by name and the files are idempotent.
 - **Production has everything applied up to `020`; the next free number is `021`.**
-- **There is no migrations control table** — they were applied by hand, so `supabase migration list` will not tell you what is applied. Verify by objects instead: `game_sessions.attempt_id` + index `game_sessions_attempt_id_unique` mean 020 ran; table `public.quiz_answer_keys` means 015 ran; column `quizzes.status`/draft transitions mean 015/016 ran.
+- **There is no migrations control table** — they were applied by hand, so `supabase migration list` will not tell you what is applied. Verify by objects instead, **per file**: `game_sessions.attempt_id` + index `game_sessions_attempt_id_unique` mean 020 ran; table `public.quiz_answer_keys` means `015_ocultar_clave_respuestas` ran; function `public.guard_quiz_editable_columns` means `015_creator_draft_review_transitions` ran; columns `quizzes.moderated_by`/`moderated_at` mean 016 ran. Files sharing a prefix each need their own check — one object does not prove the other file ran.
 - Safe procedure for a new migration:
   1. Take a backup (Supabase dashboard or `pg_dump`) before touching prod.
   2. Rehearse on a copy/branch DB first; migrations are written idempotent (`IF NOT EXISTS`, `ON CONFLICT`) but test anyway.
@@ -357,10 +357,10 @@ Server-only (configure as Worker secrets/vars):
 - `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` — optional: rate limiting and the per-attempt reveal store. Without Upstash, rate limiting falls back to the Cloudflare Rate Limiting bindings in `wrangler.jsonc` (`RATE_LIMIT_*`, mapped per-policy in `src/lib/utils/rate-limit.ts`) and the attempt store falls back to in-process memory.
 - `PEXELS_API_KEY` / `PIXABAY_API_KEY` — stock cover hydration scripts.
 - `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION` — SEO ownership meta tags.
-- `NEXT_PUBLIC_SITE_URL` — canonical base URL override.
 
 Public `NEXT_PUBLIC_*` (baked into the build; a change needs a rebuild):
 
+- `NEXT_PUBLIC_SITE_URL` — canonical base URL (`SITE_URL` in `src/lib/seo/site.ts`, default `https://quizverse.org`). Changing it in the Worker without rebuilding keeps the old canonical URLs.
 - `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` + `NEXT_PUBLIC_ADSENSE_{HOME,EXPLORE,DETAIL}_SLOT` — AdSense. Until publisher+slot are set the slots are inert: they render nothing and reserve no space (`src/lib/ads/config.ts`).
 
 Pipeline-only (scripts, not the Worker): `SUPABASE_DB_URL`, `SEED_*`, `STOCK_COVER_*`, `WORKERS_CI*`.
