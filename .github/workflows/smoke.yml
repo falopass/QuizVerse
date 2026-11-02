@@ -1,0 +1,39 @@
+name: Smoke producción
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      SMOKE_BASE_URL: https://quizverse.org
+    steps:
+      - uses: actions/checkout@v4
+      - name: Smoke test
+        # Tras un push a main, Workers Builds tarda unos minutos en publicar:
+        # se reintenta con backoff hasta ~10 min antes de declarar fallo. En
+        # schedule/dispatch el primer intento suele bastar.
+        run: |
+          # En push, Workers Builds compila y publica en paralelo a este job:
+          # sin espera, el smoke pasaría contra la versión anterior y nunca
+          # miraría el despliegue nuevo. ~4 min suele bastar (un build tarda
+          # ~2-4 min); si aún no está, los reintentos de abajo cubren el resto.
+          if [ "${{ github.event_name }}" = "push" ]; then
+            echo "Push a main: esperando 240s a que Workers Builds publique..."
+            sleep 240
+          fi
+          bash scripts/smoke-prod.sh "$SMOKE_BASE_URL" && exit 0
+          [ "${{ github.event_name }}" = "push" ] || exit 1
+          for wait in 60 120 180; do
+            echo "Reintento tras ${wait}s (esperando deploy de Workers Builds)..."
+            sleep "$wait"
+            bash scripts/smoke-prod.sh "$SMOKE_BASE_URL" && exit 0
+          done
+          exit 1

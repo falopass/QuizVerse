@@ -187,6 +187,10 @@ const nextConfig: NextConfig = {
     return [
       { source: '/en/explore', destination: '/en/quiz', permanent: true },
       { source: '/es/explore', destination: '/es/quiz', permanent: true },
+      // El feed sin locale: el matcher del proxy excluye *.xml, así que
+      // /feed.xml nunca llega al redirect de idioma; se consolida aquí en el
+      // feed en inglés (los lectores conocen la URL raíz).
+      { source: '/feed.xml', destination: '/en/feed.xml', permanent: true },
     ];
   },
 

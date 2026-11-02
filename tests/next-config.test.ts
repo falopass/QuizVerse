@@ -90,6 +90,7 @@ describe('next.config redirects()', () => {
     expect(redirects).toEqual([
       { source: '/en/explore', destination: '/en/quiz', permanent: true },
       { source: '/es/explore', destination: '/es/quiz', permanent: true },
+      { source: '/feed.xml', destination: '/en/feed.xml', permanent: true },
     ]);
   });
 });
