@@ -23,79 +23,82 @@ function logCleanupError(step: string, error: unknown): void {
   console.error(`[action:delete-account:${step}]`, error);
 }
 
-type ServiceClient = NonNullable<ReturnType<typeof createServiceClient>>;
-type ReportTable = 'quiz_reports' | 'comment_reports';
-
 /** PostgREST devuelve como máximo 1000 filas por consulta por defecto. */
-const REPORT_PAGE_SIZE = 1000;
+const PAGE_SIZE = 1000;
 /** El filtro `in` viaja en la URL: se trocea para no pasarse de largo. */
-const REPORT_UPDATE_CHUNK = 200;
+const UPDATE_CHUNK = 200;
 
-function isMissingTable(error: { code?: string }): boolean {
-  return error.code === 'PGRST205' || error.code === '42P01';
+interface PageResult {
+  data: { id: string }[] | null;
+  error: { code?: string } | null;
+}
+
+interface AnonymizePlan {
+  scope: string;
+  ids: string[];
+  apply: (
+    chunk: string[],
+    value: string | null
+  ) => PromiseLike<{ error: { code?: string } | null }>;
+}
+
+/** Tabla o columna que aún no está desplegada: no hay nada que anonimizar. */
+function isMissingSchema(error: { code?: string }): boolean {
+  return (
+    error.code === 'PGRST205' ||
+    error.code === 'PGRST204' ||
+    error.code === '42P01' ||
+    error.code === '42703'
+  );
 }
 
 /**
- * IDs de reportes resueltos por la cuenta. `comment_reports` nace en la 017:
- * si la tabla aún no está desplegada, no hay nada que anonimizar. Pagina
- * porque una cuenta de moderación puede superar el límite de PostgREST.
+ * IDs de filas cuyo `column` apunta a la cuenta. Pagina con orden estable
+ * porque PostgREST limita las filas por consulta y sin `order` puede repetir
+ * u omitir filas entre páginas.
  */
-async function resolvedReportIds(
-  service: ServiceClient,
-  table: ReportTable,
-  userId: string
+async function collectIds(
+  scope: string,
+  fetchPage: (from: number, to: number) => PromiseLike<PageResult>
 ): Promise<{ ok: true; ids: string[] } | { ok: false }> {
   const ids: string[] = [];
-  for (let from = 0; ; from += REPORT_PAGE_SIZE) {
-    const { data, error } = await service
-      .from(table)
-      .select('id')
-      .eq('resolved_by', userId)
-      // Sin orden estable, las páginas de PostgREST pueden repetir u omitir filas.
-      .order('id', { ascending: true })
-      .range(from, from + REPORT_PAGE_SIZE - 1);
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await fetchPage(from, from + PAGE_SIZE - 1);
     if (error) {
-      if (isMissingTable(error)) return { ok: true, ids: [] };
-      logCleanupError(`${table}-read`, error);
+      if (isMissingSchema(error)) return { ok: true, ids: [] };
+      logCleanupError(`${scope}-read`, error);
       return { ok: false };
     }
     const page = data ?? [];
     ids.push(...page.map((row) => row.id));
-    if (page.length < REPORT_PAGE_SIZE) return { ok: true, ids };
+    if (page.length < PAGE_SIZE) return { ok: true, ids };
   }
 }
 
 /**
- * `resolved_by` no tiene ON DELETE en `quiz_reports` (001) ni en
- * `comment_reports` (017): sin este UPDATE la cascada del perfil falla por la
- * FK. Los reportes se anonimizan, no se borran. `value` vuelve a `userId` para
- * compensar si el borrado no llega a ocurrir.
+ * Aplica `value` a los IDs en lotes: `null` anonimiza y `userId` restaura la
+ * autoría si el borrado no llega a ocurrir.
  */
-async function setResolvedBy(
-  service: ServiceClient,
-  table: ReportTable,
-  ids: string[],
-  value: string | null
-): Promise<boolean> {
-  for (let index = 0; index < ids.length; index += REPORT_UPDATE_CHUNK) {
-    const chunk = ids.slice(index, index + REPORT_UPDATE_CHUNK);
-    const { error } = await service.from(table).update({ resolved_by: value }).in('id', chunk);
-    if (error && !isMissingTable(error)) {
-      logCleanupError(`${table}-${value === null ? 'anonymize' : 'restore'}`, error);
+async function applyValue(plan: AnonymizePlan, value: string | null): Promise<boolean> {
+  for (let index = 0; index < plan.ids.length; index += UPDATE_CHUNK) {
+    const chunk = plan.ids.slice(index, index + UPDATE_CHUNK);
+    const { error } = await plan.apply(chunk, value);
+    if (error && !isMissingSchema(error)) {
+      logCleanupError(`${plan.scope}-${value === null ? 'anonymize' : 'restore'}`, error);
       return false;
     }
   }
   return true;
 }
 
-async function restoreResolvedBy(
-  service: ServiceClient,
-  quizReportIds: string[],
-  commentReportIds: string[],
-  userId: string
-): Promise<void> {
-  await setResolvedBy(service, 'quiz_reports', quizReportIds, userId);
-  await setResolvedBy(service, 'comment_reports', commentReportIds, userId);
+async function anonymizeAll(plans: AnonymizePlan[]): Promise<boolean> {
+  let ok = true;
+  for (const plan of plans) ok = (await applyValue(plan, null)) && ok;
+  return ok;
+}
+
+async function restoreAll(plans: AnonymizePlan[], userId: string): Promise<void> {
+  for (const plan of plans) await applyValue(plan, userId);
 }
 
 export async function deleteAccountAction(input: unknown): Promise<DeleteAccountResult> {
@@ -149,28 +152,71 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
     return { ok: false, code: 'unexpected' };
   }
 
-  // `resolved_by` no tiene ON DELETE: sin estos UPDATE la cascada del perfil
-  // falla por la FK. Los reportes quedan anonimizados, no se borran.
-  const quizReports = await resolvedReportIds(service, 'quiz_reports', user.id);
+  // Referencias de moderación sin ON DELETE: sin anonimizarlas, la cascada del
+  // perfil falla por la FK. Las filas se conservan y pierden la autoría.
+  const quizReports = await collectIds('quiz_reports', (from, to) =>
+    service
+      .from('quiz_reports')
+      .select('id')
+      .eq('resolved_by', user.id)
+      .order('id', { ascending: true })
+      .range(from, to)
+  );
   if (!quizReports.ok) return { ok: false, code: 'unexpected' };
-  const commentReports = await resolvedReportIds(service, 'comment_reports', user.id);
+
+  const commentReports = await collectIds('comment_reports', (from, to) =>
+    service
+      .from('comment_reports')
+      .select('id')
+      .eq('resolved_by', user.id)
+      .order('id', { ascending: true })
+      .range(from, to)
+  );
   if (!commentReports.ok) return { ok: false, code: 'unexpected' };
 
-  const quizAnonymized = await setResolvedBy(service, 'quiz_reports', quizReports.ids, null);
-  const commentAnonymized =
-    quizAnonymized && (await setResolvedBy(service, 'comment_reports', commentReports.ids, null));
-  if (!quizAnonymized || !commentAnonymized) {
-    // Compensación: devolver la autoría a todos los reportes, incluidos los
-    // lotes que sí se alcanzaron a anonimizar antes del fallo.
-    await restoreResolvedBy(service, quizReports.ids, commentReports.ids, user.id);
+  const moderatedQuizzes = await collectIds('quizzes-moderated', (from, to) =>
+    service
+      .from('quizzes')
+      .select('id')
+      .eq('moderated_by', user.id)
+      .order('id', { ascending: true })
+      .range(from, to)
+  );
+  if (!moderatedQuizzes.ok) return { ok: false, code: 'unexpected' };
+
+  const plans: AnonymizePlan[] = [
+    {
+      scope: 'quiz_reports',
+      ids: quizReports.ids,
+      apply: (chunk, value) =>
+        service.from('quiz_reports').update({ resolved_by: value }).in('id', chunk),
+    },
+    {
+      scope: 'comment_reports',
+      ids: commentReports.ids,
+      apply: (chunk, value) =>
+        service.from('comment_reports').update({ resolved_by: value }).in('id', chunk),
+    },
+    {
+      scope: 'quizzes-moderated',
+      ids: moderatedQuizzes.ids,
+      apply: (chunk, value) =>
+        service.from('quizzes').update({ moderated_by: value }).in('id', chunk),
+    },
+  ];
+
+  if (!(await anonymizeAll(plans))) {
+    // Compensación: devolver la autoría a todas las filas, incluidos los lotes
+    // que sí se alcanzaron a anonimizar antes del fallo.
+    await restoreAll(plans, user.id);
     return { ok: false, code: 'unexpected' };
   }
 
   const { error: deleteError } = await service.auth.admin.deleteUser(user.id);
   if (deleteError) {
     logCleanupError('auth-users', deleteError);
-    // La cuenta sigue viva: se devuelve la autoría a los reportes tocados.
-    await restoreResolvedBy(service, quizReports.ids, commentReports.ids, user.id);
+    // La cuenta sigue viva: se devuelve la autoría a las filas tocadas.
+    await restoreAll(plans, user.id);
     return { ok: false, code: 'unexpected' };
   }
 

@@ -15,6 +15,7 @@ const mocks = vi.hoisted(() => {
     user: null as { id: string; email?: string; identities?: { provider: string }[] } | null,
     profile: null as { username: string } | null,
     drafts: [] as { id: string }[],
+    resolvedModeratedQuizzes: [] as { id: string }[],
     resolvedQuizReports: [] as { id: string }[],
     resolvedCommentReports: [] as { id: string }[],
     quizReportPages: null as { id: string }[][] | null,
@@ -79,7 +80,11 @@ const mocks = vi.hoisted(() => {
     auth: { admin: { deleteUser } },
     from: (table: string) =>
       makeChain(table, serviceChains, (ops) => {
-        if (table === 'quizzes') return { data: state.drafts, error: null };
+        if (table === 'quizzes') {
+          if (ops.includes('neq')) return { data: state.drafts, error: null };
+          if (ops.includes('range')) return { data: state.resolvedModeratedQuizzes, error: null };
+          return { data: null, error: null };
+        }
         if (table === 'quiz_reports') {
           if (!ops.includes('select')) {
             const error =
@@ -136,6 +141,7 @@ beforeEach(() => {
   mocks.state.user = EMAIL_USER;
   mocks.state.profile = { username: 'diego' };
   mocks.state.drafts = [{ id: 'draft-1' }];
+  mocks.state.resolvedModeratedQuizzes = [{ id: 'quiz-moderated-1' }];
   mocks.state.resolvedQuizReports = [{ id: 'report-1' }];
   mocks.state.resolvedCommentReports = [{ id: 'comment-report-1' }];
   mocks.state.quizReportPages = null;
@@ -236,6 +242,21 @@ describe('deleteAccountAction', () => {
     expect(commentReports).toHaveLength(1);
     expect(commentReports[0].args).toEqual([{ resolved_by: null }, 'id', ['comment-report-1']]);
 
+    const moderatedQuizzes = serviceChainsFor('quizzes', 'update');
+    expect(moderatedQuizzes).toHaveLength(1);
+    expect(moderatedQuizzes[0].args).toEqual([{ moderated_by: null }, 'id', ['quiz-moderated-1']]);
+    const moderatedRead = serviceChainsFor('quizzes', 'select')[1];
+    expect(moderatedRead.ops).toEqual(['select', 'eq', 'order', 'range']);
+    expect(moderatedRead.args).toEqual([
+      'id',
+      'moderated_by',
+      'u1',
+      'id',
+      { ascending: true },
+      0,
+      999,
+    ]);
+
     const notifications = serviceChainsFor('notifications', 'delete');
     expect(notifications[0].args).toEqual(['data->>user_id.eq.u1,data->>follower_id.eq.u1']);
 
@@ -267,6 +288,11 @@ describe('deleteAccountAction', () => {
     expect(commentReports.map((entry) => entry.args[0])).toEqual([
       { resolved_by: null },
       { resolved_by: 'u1' },
+    ]);
+    const moderatedQuizzes = serviceChainsFor('quizzes', 'update');
+    expect(moderatedQuizzes.map((entry) => entry.args[0])).toEqual([
+      { moderated_by: null },
+      { moderated_by: 'u1' },
     ]);
   });
 
