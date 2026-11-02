@@ -149,6 +149,10 @@ function AuthorAvatar({ author }: { author: QuizComment['author'] }) {
   const initial = (author?.display_name ?? author?.username ?? '?').charAt(0).toUpperCase();
   if (author?.avatar_url) {
     return (
+      // El avatar sale de `raw_user_meta_data` del proveedor OAuth, así que el
+      // host es arbitrario: next/image lo rechazaría por no estar en
+      // remotePatterns, y a 36 px no gana nada con el optimizador.
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={author.avatar_url}
         alt=""
