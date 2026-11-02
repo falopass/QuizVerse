@@ -20,6 +20,7 @@ const mocks = vi.hoisted(() => ({
   getRelatedQuizzes: vi.fn(),
   getChallengeForQuiz: vi.fn(),
   getUser: vi.fn(),
+  loadAnswerKeyBySlug: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -34,6 +35,10 @@ vi.mock('@/lib/data/challenge', () => ({
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(async () => ({ auth: { getUser: mocks.getUser } })),
+}));
+
+vi.mock('@/lib/quiz/quiz-repository', () => ({
+  loadAnswerKeyBySlug: mocks.loadAnswerKeyBySlug,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -130,6 +135,7 @@ beforeEach(() => {
   mocks.getRelatedQuizzes.mockReset().mockResolvedValue([]);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
   mocks.getUser.mockReset().mockResolvedValue({ data: { user: null } });
+  mocks.loadAnswerKeyBySlug.mockReset().mockResolvedValue(null);
 });
 
 describe('generateMetadata — resultado compartido', () => {

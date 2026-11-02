@@ -33,6 +33,12 @@ interface QuestionCardProps {
    * changed after the answer was sent (or the question has no answer key).
    */
   verdictText?: string | null;
+  /**
+   * Explanation for the answer just given, revealed by the server. Once the
+   * 015 migration strips `explanation` from public `questions`, the verdict
+   * is the only source; `question.explanation` stays as the fallback.
+   */
+  explanation?: string | null;
 }
 
 export function QuestionCard({
@@ -49,8 +55,10 @@ export function QuestionCard({
   hiddenOptionIds = [],
   headingRef,
   verdictText,
+  explanation = null,
 }: QuestionCardProps) {
   const es = locale === 'es';
+  const shownExplanation = explanation ?? question.explanation;
   // The region mounts empty while the answer is being checked so the verdict
   // updates an existing live region instead of appearing already populated.
   const verdictPending = disabled && !showFeedback;
@@ -125,12 +133,12 @@ export function QuestionCard({
               : es
                 ? 'Incorrecto.'
                 : 'Incorrect.'
-          }${question.explanation ? ` ${question.explanation}` : ''}`}
+          }${shownExplanation ? ` ${shownExplanation}` : ''}`}
       </div>
-      {showExplanation && showFeedback && question.explanation && (
+      {showExplanation && showFeedback && shownExplanation && (
         <div className="arcade-explanation">
           <strong>{es ? 'EXPLICACIÓN' : 'EXPLANATION'}</strong>
-          <p>{question.explanation}</p>
+          <p>{shownExplanation}</p>
         </div>
       )}
     </article>

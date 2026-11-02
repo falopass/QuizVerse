@@ -140,6 +140,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
   const [verdict, setVerdict] = React.useState<{
     questionIndex: number;
     correctOptionId: string | null;
+    explanation: string | null;
   } | null>(null);
   const [isCheckingAnswer, setIsCheckingAnswer] = React.useState(false);
   const [submission, setSubmission] = React.useState<{
@@ -219,6 +220,7 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
     setVerdict({
       questionIndex: answeredIndex,
       correctOptionId: revealed?.correctOptionId ?? null,
+      explanation: revealed?.explanation ?? null,
     });
     submitAnswer(revealed ? { isCorrect: revealed.isCorrect } : undefined);
   }, [
@@ -722,6 +724,9 @@ export function QuizPlayer({ quiz, locale, challenge }: QuizPlayerProps) {
                   showFeedback={showFeedback}
                   correctOptionId={
                     verdict?.questionIndex === currentQuestionIndex ? verdict.correctOptionId : null
+                  }
+                  explanation={
+                    verdict?.questionIndex === currentQuestionIndex ? verdict.explanation : null
                   }
                   locale={uiLocale}
                   hiddenOptionIds={hiddenOptionIds}
