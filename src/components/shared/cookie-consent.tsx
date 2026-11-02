@@ -30,9 +30,10 @@ function getStoredConsent(): ConsentState | null {
 }
 
 function storeConsent(level: ConsentLevel) {
+  const previous = getStoredConsent()?.level ?? 'none';
   const state: ConsentState = { level, version: CONSENT_VERSION, timestamp: Date.now() };
   localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
-  window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level } }));
+  window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level, previous } }));
 }
 
 export function getConsentLevel(): ConsentLevel {

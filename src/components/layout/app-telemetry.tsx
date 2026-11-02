@@ -27,7 +27,9 @@ export function AppTelemetry() {
 
   React.useEffect(() => {
     const handleConsent = (event: Event) => {
-      if ((event as CustomEvent<{ level?: string }>).detail?.level === 'all') sendPageView();
+      const detail = (event as CustomEvent<{ level?: string; previous?: string }>).detail;
+      // Re-aceptar «todo» desde preferencias no es una visita nueva.
+      if (detail?.level === 'all' && detail.previous !== 'all') sendPageView();
     };
     const handleStorage = (event: StorageEvent) => {
       if (event.key === CONSENT_KEY && hasAnalyticsConsent()) sendPageView();
