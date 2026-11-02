@@ -6,11 +6,15 @@ const mocks = vi.hoisted(() => ({
   deleteAccount: vi.fn(),
   replace: vi.fn(),
   success: vi.fn(),
+  clientSignOut: vi.fn(),
 }));
 
 vi.mock('@/actions/account.actions', () => ({ deleteAccountAction: mocks.deleteAccount }));
 vi.mock('next/navigation', () => ({ useRouter: () => ({ replace: mocks.replace }) }));
 vi.mock('@/providers/toast-provider', () => ({ useToast: () => ({ success: mocks.success }) }));
+vi.mock('@/providers/supabase-provider', () => ({
+  useSupabase: () => ({ signOut: mocks.clientSignOut }),
+}));
 
 import { DeleteAccountZone } from '@/components/profile/delete-account-zone';
 
@@ -25,6 +29,7 @@ beforeEach(() => {
   mocks.deleteAccount.mockReset();
   mocks.replace.mockReset();
   mocks.success.mockReset();
+  mocks.clientSignOut.mockReset().mockResolvedValue(undefined);
 });
 
 describe('DeleteAccountZone', () => {
@@ -58,6 +63,7 @@ describe('DeleteAccountZone', () => {
       'Cuenta eliminada',
       'Tu cuenta y tus datos se borraron. Cerramos tu sesión.'
     );
+    expect(mocks.clientSignOut).toHaveBeenCalledTimes(1);
     expect(mocks.replace).toHaveBeenCalledWith('/es');
   });
 
@@ -90,6 +96,7 @@ describe('DeleteAccountZone', () => {
     await waitFor(() =>
       expect(screen.getByRole('alert')).toHaveTextContent('La contraseña no es correcta.')
     );
+    expect(mocks.clientSignOut).not.toHaveBeenCalled();
     expect(mocks.replace).not.toHaveBeenCalled();
   });
 });

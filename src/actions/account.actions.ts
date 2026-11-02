@@ -24,25 +24,55 @@ function logCleanupError(step: string, error: unknown): void {
 }
 
 type ServiceClient = NonNullable<ReturnType<typeof createServiceClient>>;
+type ReportTable = 'quiz_reports' | 'comment_reports';
+
+function isMissingTable(error: { code?: string }): boolean {
+  return error.code === 'PGRST205' || error.code === '42P01';
+}
+
+/**
+ * IDs de reportes resueltos por la cuenta. `comment_reports` nace en la 017:
+ * si la tabla aún no está desplegada, no hay nada que anonimizar.
+ */
+async function resolvedReportIds(
+  service: ServiceClient,
+  table: ReportTable,
+  userId: string
+): Promise<{ ok: true; ids: string[] } | { ok: false }> {
+  const { data, error } = await service.from(table).select('id').eq('resolved_by', userId);
+  if (!error) return { ok: true, ids: (data ?? []).map((row) => row.id) };
+  if (isMissingTable(error)) return { ok: true, ids: [] };
+  logCleanupError(`${table}-read`, error);
+  return { ok: false };
+}
 
 /**
  * `resolved_by` no tiene ON DELETE en `quiz_reports` (001) ni en
  * `comment_reports` (017): sin este UPDATE la cascada del perfil falla por la
- * FK. Los reportes quedan anonimizados, no se borran. Si la tabla aún no está
- * desplegada (PGRST205/42P01), no hay nada que anonimizar y se sigue.
+ * FK. Los reportes se anonimizan, no se borran. `value` vuelve a `userId` para
+ * compensar si el borrado no llega a ocurrir.
  */
-async function anonymizeResolver(
+async function setResolvedBy(
   service: ServiceClient,
-  table: 'quiz_reports' | 'comment_reports',
-  userId: string
+  table: ReportTable,
+  ids: string[],
+  value: string | null
 ): Promise<boolean> {
-  const { error } = await service
-    .from(table)
-    .update({ resolved_by: null })
-    .eq('resolved_by', userId);
-  if (!error || error.code === 'PGRST205' || error.code === '42P01') return true;
-  logCleanupError(table, error);
+  if (ids.length === 0) return true;
+  const { error } = await service.from(table).update({ resolved_by: value }).in('id', ids);
+  if (!error || isMissingTable(error)) return true;
+  logCleanupError(`${table}-${value === null ? 'anonymize' : 'restore'}`, error);
   return false;
+}
+
+async function restoreResolvedBy(
+  service: ServiceClient,
+  quizReportIds: string[],
+  commentReportIds: string[],
+  userId: string
+): Promise<void> {
+  await setResolvedBy(service, 'quiz_reports', quizReportIds, userId);
+  await setResolvedBy(service, 'comment_reports', commentReportIds, userId);
 }
 
 export async function deleteAccountAction(input: unknown): Promise<DeleteAccountResult> {
@@ -98,16 +128,28 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
 
   // `resolved_by` no tiene ON DELETE: sin estos UPDATE la cascada del perfil
   // falla por la FK. Los reportes quedan anonimizados, no se borran.
-  if (!(await anonymizeResolver(service, 'quiz_reports', user.id))) {
-    return { ok: false, code: 'unexpected' };
-  }
-  if (!(await anonymizeResolver(service, 'comment_reports', user.id))) {
+  const quizReports = await resolvedReportIds(service, 'quiz_reports', user.id);
+  if (!quizReports.ok) return { ok: false, code: 'unexpected' };
+  const commentReports = await resolvedReportIds(service, 'comment_reports', user.id);
+  if (!commentReports.ok) return { ok: false, code: 'unexpected' };
+
+  const quizAnonymized = await setResolvedBy(service, 'quiz_reports', quizReports.ids, null);
+  const commentAnonymized =
+    quizAnonymized && (await setResolvedBy(service, 'comment_reports', commentReports.ids, null));
+  if (!quizAnonymized || !commentAnonymized) {
+    // Compensación: devolver la autoría a los reportes que ya se tocaron.
+    if (quizAnonymized) await setResolvedBy(service, 'quiz_reports', quizReports.ids, user.id);
+    if (commentAnonymized) {
+      await setResolvedBy(service, 'comment_reports', commentReports.ids, user.id);
+    }
     return { ok: false, code: 'unexpected' };
   }
 
   const { error: deleteError } = await service.auth.admin.deleteUser(user.id);
   if (deleteError) {
     logCleanupError('auth-users', deleteError);
+    // La cuenta sigue viva: se devuelve la autoría a los reportes tocados.
+    await restoreResolvedBy(service, quizReports.ids, commentReports.ids, user.id);
     return { ok: false, code: 'unexpected' };
   }
 

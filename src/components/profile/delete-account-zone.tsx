@@ -6,6 +6,7 @@ import { deleteAccountAction } from '@/actions/account.actions';
 import { DELETE_ACCOUNT_CONTACT_EMAIL } from '@/lib/auth/account-deletion';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { useSupabase } from '@/providers/supabase-provider';
 import { useToast } from '@/providers/toast-provider';
 
 const COPY = {
@@ -101,6 +102,7 @@ export function DeleteAccountZone({
   const copy = COPY[locale];
   const router = useRouter();
   const toast = useToast();
+  const { signOut } = useSupabase();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const [loading, setLoading] = useState(false);
@@ -135,6 +137,13 @@ export function DeleteAccountZone({
 
     if (result.ok) {
       toast.success(copy.toastTitle, copy.toastBody);
+      // El servidor ya cerró la sesión; esto limpia la que el provider aún
+      // tiene en memoria para que el menú no siga mostrando la cuenta.
+      try {
+        await signOut();
+      } catch {
+        // La cuenta ya no existe: la navegación no se bloquea por esto.
+      }
       router.replace(localizeHref(locale, '/'));
       return;
     }
