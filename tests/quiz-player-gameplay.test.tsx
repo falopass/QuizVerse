@@ -253,7 +253,8 @@ describe('QuizPlayer · ayudas', () => {
     fireEvent.click(screen.getByRole('button', { name: /50\/50/ }));
 
     await waitFor(() => expect(screen.getByRole('button', { name: /Saturn/ })).toHaveFocus());
-    expect(screen.getByText('Dos respuestas eliminadas')).toBeInTheDocument();
+    // El mock elimina una sola opción: el aviso debe decir una, no dos.
+    expect(screen.getByText('Una respuesta eliminada')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Mars/ })).toBeDisabled();
   });
 });

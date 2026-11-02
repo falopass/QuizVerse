@@ -470,6 +470,29 @@ async function findSessionByAttempt(
   return (data as unknown as StoredSession | null) ?? null;
 }
 
+/**
+ * Busca la sesión por su id determinista.
+ *
+ * Sin la migración 019 la búsqueda por `attempt_id` falla (columna ausente),
+ * pero el id ya existe desde el primer INSERT. La RLS solo deja leer la fila
+ * si es del jugador actual, que es exactamente lo necesario para no inventar
+ * premios de una partida anónima.
+ */
+async function findSessionById(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  id: string
+): Promise<StoredSession | null> {
+  const client = createServiceClient() ?? supabase;
+  const { data, error } = await client
+    .from('game_sessions')
+    .select('id, share_token, player_id, score, max_score, result_id, result_title, answers')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) return null;
+  return (data as unknown as StoredSession | null) ?? null;
+}
+
 function storedAnswers(existing: StoredSession | null, fallback: Answer[]): Answer[] {
   if (!existing || !Array.isArray(existing.answers)) return fallback;
   return existing.answers.filter(
@@ -590,11 +613,14 @@ export async function submitQuizResult(
 
   const scored = scoreSubmission(quiz, submitted);
 
-  const existing = attempt ? await findSessionByAttempt(supabase, attempt.attemptId) : null;
   const ids = (attempt ? await sessionIdsForAttempt(attempt.attemptId) : null) ?? {
     id: crypto.randomUUID(),
     shareToken: newShareToken(),
   };
+  let existing = attempt ? await findSessionByAttempt(supabase, attempt.attemptId) : null;
+  if (!existing && attempt) {
+    existing = await findSessionById(supabase, ids.id);
+  }
 
   if (existing) return duplicateSubmitResult(quiz, scored, ids, existing, user);
 

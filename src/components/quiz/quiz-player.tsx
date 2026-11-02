@@ -117,6 +117,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
           finish: 'Terminar',
           next: 'Siguiente',
           answersRemoved: 'Dos respuestas eliminadas',
+          answerRemoved: 'Una respuesta eliminada',
           secondsAdded: 'Diez segundos añadidos',
           secondsLeft30: 'Quedan 30 segundos',
           secondsLeft10: 'Quedan 10 segundos',
@@ -141,6 +142,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
           finish: 'Finish',
           next: 'Next',
           answersRemoved: 'Two answers removed',
+          answerRemoved: 'One answer removed',
           secondsAdded: 'Ten seconds added',
           secondsLeft30: '30 seconds left',
           secondsLeft10: '10 seconds left',
@@ -907,7 +909,9 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
                     playSound('powerup');
                     // El botón usado desaparece: el foco pasa a la primera
                     // opción que sigue disponible y el efecto se anuncia.
-                    setLiveMessage(copy.answersRemoved);
+                    setLiveMessage(
+                      eliminated.length === 1 ? copy.answerRemoved : copy.answersRemoved
+                    );
                     setTimeout(focusFirstAvailableOption, 0);
                   })();
                   return;

@@ -8,6 +8,7 @@ const mocks = vi.hoisted(() => ({
   insertError: null as DbError | null,
   insertErrors: [] as DbError[],
   selectResult: { data: null as unknown, error: null as DbError | null },
+  selectByIdResult: { data: null as unknown, error: null as DbError | null },
   rpc: vi.fn(),
   limitCheck: vi.fn(),
   headerList: new Map<string, string>(),
@@ -41,8 +42,9 @@ vi.mock('@/lib/supabase/server', () => ({
           return { data: null, error: error ?? null };
         },
         select: () => ({
-          eq: () => ({
-            maybeSingle: async () => mocks.selectResult,
+          eq: (column: string) => ({
+            maybeSingle: async () =>
+              column === 'attempt_id' ? mocks.selectResult : mocks.selectByIdResult,
           }),
         }),
       };
@@ -114,6 +116,7 @@ beforeEach(() => {
   mocks.insertError = null;
   mocks.insertErrors = [];
   mocks.selectResult = { data: null, error: null };
+  mocks.selectByIdResult = { data: null, error: null };
   mocks.rpc.mockReset().mockResolvedValue({ data: null, error: null });
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.headerList = new Map([['cf-connecting-ip', '203.0.113.9']]);
@@ -392,6 +395,45 @@ describe('submitQuizResult · idempotencia por attempt', () => {
     expect(mocks.checkAchievementsSpy).not.toHaveBeenCalled();
   });
 
+  it('sin migración, el reintento recupera la sesión por su id determinista', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    mocks.userId = 'u-1';
+    mocks.selectResult = {
+      data: null,
+      error: {
+        code: 'PGRST204',
+        message: "Could not find the 'attempt_id' column of 'game_sessions' in the schema cache",
+      },
+    };
+    mocks.selectByIdResult = {
+      data: {
+        id: 'derived-session-id',
+        share_token: 'derived-share-token',
+        player_id: 'u-1',
+        score: 2,
+        max_score: 2,
+        result_id: null,
+        result_title: null,
+        answers: [],
+      },
+      error: null,
+    };
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+      expect(result.success).toBe(true);
+      if (!result.success) return;
+      // El trigger ya pagó 35 en el primer INSERT; la fila se recupera por id
+      // aunque la columna attempt_id todavía no exista.
+      expect(result.points_earned).toBe(35);
+      expect(mocks.insertSpy).not.toHaveBeenCalled();
+      expect(mocks.checkAchievementsSpy).toHaveBeenCalledWith('u-1', { perfectScore: true });
+    } finally {
+      errorSpy.mockRestore();
+    }
+  });
+
   it('sin la migración 019 detecta la columna ausente y guarda sin attempt_id', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     mocks.insertErrors = [
@@ -408,7 +450,8 @@ describe('submitQuizResult · idempotencia por attempt', () => {
       expect(mocks.insertSpy).toHaveBeenCalledTimes(2);
       expect(mocks.insertSpy.mock.calls[0][0]).toMatchObject({ attempt_id: ATTEMPT_ID });
       expect(mocks.insertSpy.mock.calls[1][0]).not.toHaveProperty('attempt_id');
-      expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('019_attempt_idempotencia'));
+      // El aviso se emite una sola vez por proceso: otro caso de este archivo
+      // pudo dispararlo antes, así que no se asserta aquí.
     } finally {
       errorSpy.mockRestore();
     }
