@@ -51,6 +51,8 @@ async function resolvedReportIds(
       .from(table)
       .select('id')
       .eq('resolved_by', userId)
+      // Sin orden estable, las páginas de PostgREST pueden repetir u omitir filas.
+      .order('id', { ascending: true })
       .range(from, from + REPORT_PAGE_SIZE - 1);
     if (error) {
       if (isMissingTable(error)) return { ok: true, ids: [] };
@@ -158,11 +160,9 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
   const commentAnonymized =
     quizAnonymized && (await setResolvedBy(service, 'comment_reports', commentReports.ids, null));
   if (!quizAnonymized || !commentAnonymized) {
-    // Compensación: devolver la autoría a los reportes que ya se tocaron.
-    if (quizAnonymized) await setResolvedBy(service, 'quiz_reports', quizReports.ids, user.id);
-    if (commentAnonymized) {
-      await setResolvedBy(service, 'comment_reports', commentReports.ids, user.id);
-    }
+    // Compensación: devolver la autoría a todos los reportes, incluidos los
+    // lotes que sí se alcanzaron a anonimizar antes del fallo.
+    await restoreResolvedBy(service, quizReports.ids, commentReports.ids, user.id);
     return { ok: false, code: 'unexpected' };
   }
 

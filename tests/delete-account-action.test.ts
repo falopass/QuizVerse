@@ -21,6 +21,8 @@ const mocks = vi.hoisted(() => {
     quizReportPageCalls: 0,
     reportsReadError: null as unknown,
     quizReportsUpdateError: null as unknown,
+    quizReportsUpdateErrors: [] as unknown[],
+    quizReportsUpdateCall: 0,
     commentReportsReadError: null as unknown,
     commentReportsUpdateError: null as unknown,
     serviceAvailable: true,
@@ -41,6 +43,7 @@ const mocks = vi.hoisted(() => {
       'or',
       'update',
       'delete',
+      'order',
       'range',
       'maybeSingle',
     ]) {
@@ -79,7 +82,11 @@ const mocks = vi.hoisted(() => {
         if (table === 'quizzes') return { data: state.drafts, error: null };
         if (table === 'quiz_reports') {
           if (!ops.includes('select')) {
-            return { data: null, error: state.quizReportsUpdateError };
+            const error =
+              state.quizReportsUpdateErrors[state.quizReportsUpdateCall] ??
+              state.quizReportsUpdateError;
+            state.quizReportsUpdateCall += 1;
+            return { data: null, error };
           }
           if (state.quizReportPages) {
             const page = state.quizReportPages[state.quizReportPageCalls] ?? [];
@@ -135,6 +142,8 @@ beforeEach(() => {
   mocks.state.quizReportPageCalls = 0;
   mocks.state.reportsReadError = null;
   mocks.state.quizReportsUpdateError = null;
+  mocks.state.quizReportsUpdateErrors = [];
+  mocks.state.quizReportsUpdateCall = 0;
   mocks.state.commentReportsReadError = null;
   mocks.state.commentReportsUpdateError = null;
   mocks.state.serviceAvailable = true;
@@ -212,8 +221,16 @@ describe('deleteAccountAction', () => {
     expect(quizReports[0].args).toEqual([{ resolved_by: null }, 'id', ['report-1']]);
 
     const quizReportsRead = serviceChainsFor('quiz_reports', 'select');
-    expect(quizReportsRead[0].ops).toEqual(['select', 'eq', 'range']);
-    expect(quizReportsRead[0].args).toEqual(['id', 'resolved_by', 'u1', 0, 999]);
+    expect(quizReportsRead[0].ops).toEqual(['select', 'eq', 'order', 'range']);
+    expect(quizReportsRead[0].args).toEqual([
+      'id',
+      'resolved_by',
+      'u1',
+      'id',
+      { ascending: true },
+      0,
+      999,
+    ]);
 
     const commentReports = serviceChainsFor('comment_reports', 'update');
     expect(commentReports).toHaveLength(1);
@@ -275,7 +292,29 @@ describe('deleteAccountAction', () => {
       { resolved_by: 'u1' },
     ]);
     const commentReports = serviceChainsFor('comment_reports', 'update');
-    expect(commentReports.map((entry) => entry.args[0])).toEqual([{ resolved_by: null }]);
+    expect(commentReports.map((entry) => entry.args[0])).toEqual([
+      { resolved_by: null },
+      { resolved_by: 'u1' },
+    ]);
+  });
+
+  it('si falla un lote, restaura también los lotes ya anonimizados', async () => {
+    mocks.state.resolvedQuizReports = Array.from({ length: 250 }, (_, index) => ({
+      id: `r${index}`,
+    }));
+    mocks.state.quizReportsUpdateErrors = [null, { message: 'boom' }];
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: false, code: 'unexpected' });
+    expect(mocks.deleteUser).not.toHaveBeenCalled();
+    const updates = serviceChainsFor('quiz_reports', 'update');
+    expect(updates.map((entry) => [entry.args[0], (entry.args[2] as string[]).length])).toEqual([
+      [{ resolved_by: null }, 200],
+      [{ resolved_by: null }, 50],
+      [{ resolved_by: 'u1' }, 200],
+      [{ resolved_by: 'u1' }, 50],
+    ]);
   });
 
   it('pagina la lectura de reportes resueltos y trocea los updates', async () => {
@@ -287,7 +326,15 @@ describe('deleteAccountAction', () => {
     expect(result).toEqual({ ok: true });
     const reads = serviceChainsFor('quiz_reports', 'select');
     expect(reads).toHaveLength(2);
-    expect(reads[1].args).toEqual(['id', 'resolved_by', 'u1', 1000, 1999]);
+    expect(reads[1].args).toEqual([
+      'id',
+      'resolved_by',
+      'u1',
+      'id',
+      { ascending: true },
+      1000,
+      1999,
+    ]);
 
     const updates = serviceChainsFor('quiz_reports', 'update');
     expect(updates.map((entry) => (entry.args[2] as string[]).length)).toEqual([
