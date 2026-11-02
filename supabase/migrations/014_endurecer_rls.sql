@@ -1,49 +1,44 @@
 -- 014 — Endurecer RLS: partidas, perfiles, quizzes y logros
 --
--- Cierra cuatro agujeros verificados por PostgREST (informe scout-auth-backend,
--- AB-02/AB-03/AB-08/AB-09):
+-- Cierra los agujeros AB-02/AB-03/AB-08/AB-09 del informe scout-auth-backend.
+-- Se aplica DESPUES de la 013 (013_lockdown_rpc_and_sessions), que cubre otro
+-- frente del mismo endurecimiento: grants por columna en profiles, lectura de
+-- game_sessions por token y la RPC unlock_achievement que paga los premios de
+-- forma atomica.
 --
---   * game_sessions_insert_any (002) tenia WITH CHECK (true): cualquier rol,
---     incluido anon, insertaba partidas con player_id ajeno. El trigger
---     award_quiz_points sumaba puntos a la victima y update_quiz_avg_score
---     corrompia la media del quiz (en produccion hay filas basura, p.ej.
---     time_ms negativos, que entraron sin pasar por el Zod de la app).
---   * profiles_update_own solo exige auth.uid() = id: PATCH con el propio JWT
---     editaba points, quizzes_played/created, followers_count e is_verified
---     (is_admin ya lo cubre el guard de la migracion 010).
---   * quizzes_update_own solo exige creator_id: el creador podia inflar
---     plays_count/likes_count/avg_score, auto-otorgarse is_featured y mover
---     status fuera del flujo de moderacion.
---   * user_achievements_insert_system (CHECK true) dejaba insertar logros con
---     user_id ajeno.
+-- Reparto tras la reconciliacion (lo que la 013 ya resuelve NO se repite):
+--   * AB-02 — la 013 no toco el INSERT de game_sessions: sigue abierto a
+--     partidas fabricadas con player_id ajeno y valores absurdos. Aqui va la
+--     policy de dueno/anonimo y el guard de rangos.
+--   * AB-03 — la 013 limita el UPDATE de profiles por privilegio de columna,
+--     pero el REVOKE no alcanza el INSERT: profiles_insert_own (002) aun
+--     deja crear la propia fila con points o flags arbitrarios. El guard se
+--     queda: sanea el INSERT con JWT y queda como segunda capa del UPDATE si
+--     un grant futuro reabriera columnas.
+--   * AB-08 — la 013 no toco quizzes: el guard del creador (contadores,
+--     is_featured, published_at, status salvo admin o archivo propio) sigue
+--     siendo necesario entero.
+--   * AB-09 — la 013 dejo user_achievements_insert_system solo con
+--     user_id = auth.uid(): un INSERT propio fabricado planta el logro en el
+--     perfil (sin premio, pero visible). La puerta de aqui exige ademas la
+--     condicion cumplida (achievement_condition_met). El PAGO lo hace solo
+--     unlock_achievement (013): esta migracion no crea trigger de premio para
+--     que un desbloqueo por RPC no cobre dos veces. El INSERT directo de la
+--     app (fallback cuando el RPC no existe) solo puede plantar logros ya
+--     ganados — sin pagar, como debe ser.
 --
--- RLS no puede restringir columnas, asi que el patron es el de la migracion
--- 010: triggers BEFORE que restauran lo que el usuario no puede tocar.
---
--- El discriminante NO es auth.uid(): un trigger SECURITY DEFINER corre con el
--- JWT de la request original, asi que una escritura interna (award_quiz_points
--- sumando puntos tras una partida) tambien ve el uid del jugador. Lo que SI
--- cambia es el rol del statement:
---
+-- Discriminante de escritura directa (igual que en 010): no auth.uid() sino
+-- current_user — un SECURITY DEFINER corre con el JWT de la request original.
 --   * PostgREST con JWT de usuario      -> current_user = 'authenticated'
 --     (o 'anon' si alguna vez escribiera con la publishable key).
 --   * Triggers internos DEFINER, service role, seeds, migraciones y acciones
---     FK (ON DELETE SET NULL / CASCADE, que corren como el dueno de la tabla)
---     -> current_user = 'postgres', 'service_role', etc.
+--     FK (ON DELETE SET NULL / CASCADE) -> 'postgres', 'service_role', etc.
+-- Los guards son SECURITY INVOKER: dentro del trigger, current_user es el rol
+-- de quien ejecuto el INSERT/UPDATE que lo disparo.
 --
--- Por eso los guards nuevos son SECURITY INVOKER: dentro del trigger,
--- current_user es el rol de quien ejecuto el INSERT/UPDATE que lo disparo.
---
--- Consecuencia conocida y compensada: checkAchievements() otorgaba el premio
--- del logro con un UPDATE a profiles.points hecho con el JWT del usuario; con
--- este endurecimiento ese UPDATE queda neutralizado. El premio pasa a la base:
--- award_achievement_points() (DEFINER) lo otorga tras cada INSERT en
--- user_achievements — y la policy solo deja insertar logros cuya condicion ya
--- se cumple (achievement_condition_met), asi que un INSERT fabricado no
--- compra ni el logro ni el premio. Sin la migracion la app sigue otorgando el
--- premio ella misma; con ella lo otorga el trigger y el UPDATE de la app es
--- un no-op inofensivo (el total es el mismo en ambos mundos, nunca se
--- duplica: el update fija un valor absoluto que coincide con lo ya otorgado).
+-- Orden de aplicacion: 013 -> 014. Sin la 013, la 014 deja el premio de
+-- logros sin via de pago (el UPDATE de la app queda neutralizado por el guard
+-- de profiles, que es lo correcto); con la 013, unlock_achievement paga solo.
 --
 -- Idempotente: todo se crea con CREATE OR REPLACE / DROP IF EXISTS.
 
@@ -99,17 +94,19 @@ CREATE TRIGGER trigger_guard_game_session_ranges
 -- AB-03: PROFILES — columnas no editables por JWT
 -- ============================================
 
--- Whitelist editable por el dueno: username, display_name, bio, avatar_url y
--- preferred_language (lo que escriben updateProfileAction y /api/locale).
--- Todo lo demas se restaura al valor anterior (UPDATE) o al default (INSERT).
+-- La 013 ya cerro el UPDATE por privilegio (authenticated solo puede tocar
+-- username, display_name, bio y preferred_language). Este guard es la segunda
+-- capa: sanea el INSERT — que el REVOKE no alcanza — y mantiene la whitelist
+-- completa del encargo si un grant futuro reabriera columnas. Whitelist:
+-- username, display_name, bio, avatar_url y preferred_language.
 CREATE OR REPLACE FUNCTION public.guard_profile_editable_columns()
 RETURNS trigger
 LANGUAGE plpgsql
 SET search_path = public, pg_temp
 AS $$
 BEGIN
-  -- Service role, seeds, migraciones y triggers internos DEFINER
-  -- (award_quiz_points, update_follow_counts, award_achievement_points,
+  -- Service role, seeds, migraciones y funciones/triggers internos DEFINER
+  -- (award_quiz_points, update_follow_counts, unlock_achievement,
   -- handle_new_user) pasan libres: no son escrituras directas del usuario.
   IF auth.uid() IS NULL OR current_user NOT IN ('anon', 'authenticated') THEN
     RETURN NEW;
@@ -152,6 +149,11 @@ CREATE TRIGGER trigger_guard_profile_editable_columns
   BEFORE INSERT OR UPDATE ON public.profiles
   FOR EACH ROW
   EXECUTE FUNCTION public.guard_profile_editable_columns();
+
+-- La 013 concedio UPDATE por columna sobre (username, display_name, bio,
+-- preferred_language). La whitelist del encargo incluye tambien avatar_url:
+-- grant aditivo e idempotente, no quita nada de lo que la 013 dejo.
+GRANT UPDATE (avatar_url) ON public.profiles TO authenticated;
 
 -- ============================================
 -- AB-08: QUIZZES — columnas no editables por el creador
@@ -247,22 +249,24 @@ CREATE TRIGGER trigger_guard_quiz_editable_columns
   FOR EACH ROW
   EXECUTE FUNCTION public.guard_quiz_editable_columns();
 
--- increment_creator_quizzes escribe profiles.quizzes_created como INVOKER:
--- con la nueva guardia lo restauraria (y con la RLS actual ya fallaba en
--- silencio cuando el actor no era el propio creador). Pasa a DEFINER como
--- hicieron los triggers de follows/notificaciones en 011_fix_*: el contador
--- es sistema, no dato editable.
+-- increment_creator_quizzes escribe profiles.quizzes_created: si corre como
+-- INVOKER el guard lo restaura (y con la RLS actual ya fallaba en silencio
+-- cuando el actor no era el propio creador). La 013 ya lo redefinio DEFINER,
+-- asi que sobre 013+014 esto es no-op; se mantiene para que la 014 sea
+-- autosuficiente si se aplicara sola.
 ALTER FUNCTION public.increment_creator_quizzes() SECURITY DEFINER;
 
 -- ============================================
 -- AB-09: USER ACHIEVEMENTS
 -- ============================================
 
--- Condicion de cada logro evaluable con los datos del schema. Replica las
--- reglas de checkAchievements (achievements.ts): contadores del perfil para
--- 'plays'/'creates' y una partida perfecta real para 'score'. Los tipos que
--- el schema aun no puede medir ('shares', 'streak', 'categories', 'share')
--- devuelven false: tampoco la app los desbloquea hoy.
+-- Puerta del INSERT directo: la 013 ya exige user_id = auth.uid() pero no
+-- verifica la condicion — un usuario podia sembrarse 'internet_famous' (sin
+-- premio, pero visible en su perfil). Esta funcion evalua la condicion con
+-- los datos del schema: contadores del perfil para 'plays'/'creates' y una
+-- partida perfecta real para 'score'. Los tipos que el schema aun no puede
+-- medir ('shares', 'streak', 'categories', 'share') devuelven false: tampoco
+-- la app ni unlock_achievement los desbloquean hoy.
 CREATE OR REPLACE FUNCTION public.achievement_condition_met(
   p_user_id uuid,
   p_achievement_id text
@@ -318,9 +322,11 @@ $$;
 COMMENT ON FUNCTION public.achievement_condition_met(uuid, text) IS
   'Verdadero si el logro ya esta ganado segun achievements.condition_type/value (contadores de perfil, o una partida con el porcentaje exigido). Usado por user_achievements_insert_own.';
 
--- Insertar: solo logros propios y ya cumplidos. checkAchievements hace upsert
--- solo cuando la condicion se satisfizo: cumple. Un INSERT fabricado por
--- PostgREST no cumple la puerta y se rechaza entero (ni logro ni premio).
+-- Insertar: solo logros propios y ya cumplidos. El fallback de la app (upsert
+-- directo si el RPC no existe) solo se da cuando la condicion se satisface:
+-- cumple. Un INSERT fabricado por PostgREST no cumple la puerta y se rechaza
+-- entero. Y el insert de unlock_achievement es DEFINER: salta RLS y no pasa
+-- por esta policy.
 DROP POLICY IF EXISTS user_achievements_insert_system ON public.user_achievements;
 DROP POLICY IF EXISTS user_achievements_insert_own ON public.user_achievements;
 
@@ -331,36 +337,10 @@ CREATE POLICY "user_achievements_insert_own" ON public.user_achievements
     AND public.achievement_condition_met(user_id, achievement_id)
   );
 
--- El premio de cada logro lo otorga la base, leyendo achievements.points_reward
--- en el momento del desbloqueo (mismo criterio que checkAchievements). Nace
--- para compensar la neutralizacion del UPDATE a points que hace la app: con
--- este trigger el desbloqueo paga siempre, venga de la app, de un seed o de
--- una escritura service role. ON CONFLICT de la app solo inserta una vez, asi
--- que no hay doble premio.
-CREATE OR REPLACE FUNCTION public.award_achievement_points()
-RETURNS trigger
-LANGUAGE plpgsql
-SECURITY DEFINER
-SET search_path = public, pg_temp
-AS $$
-BEGIN
-  UPDATE public.profiles
-  SET points = points + COALESCE((
-        SELECT a.points_reward
-        FROM public.achievements a
-        WHERE a.id = NEW.achievement_id
-      ), 0),
-      updated_at = NOW()
-  WHERE id = NEW.user_id;
-  RETURN NEW;
-END;
-$$;
-
-COMMENT ON FUNCTION public.award_achievement_points() IS
-  'Otorga achievements.points_reward al desbloquear un logro. DEFINER: corre como dueno de la funcion y atraviesa guard_profile_editable_columns.';
-
+-- Sin trigger de premio aqui, a proposito: el unico pagador es
+-- unlock_achievement (013), atomico y verificado en servidor. Un AFTER INSERT
+-- propio pagaria otra vez sobre el insert interno de la RPC (doble cobro) y
+-- premiaria cualquier insert service role por el camino equivocado. Los DROP
+-- limpian el enfoque anterior de esta migracion si alguien lo aplico en local.
 DROP TRIGGER IF EXISTS trigger_award_achievement_points ON public.user_achievements;
-CREATE TRIGGER trigger_award_achievement_points
-  AFTER INSERT ON public.user_achievements
-  FOR EACH ROW
-  EXECUTE FUNCTION public.award_achievement_points();
+DROP FUNCTION IF EXISTS public.award_achievement_points();

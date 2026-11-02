@@ -4,9 +4,11 @@ import { join } from 'node:path';
 
 /**
  * La migración 014 endurece RLS (hallazgos AB-02/03/08/09 del informe
- * scout-auth-backend). No hay una base local en CI, así que este test fija el
- * contrato del SQL: políticas, guards y funciones tienen que existir con la
- * semántica esperada. La prueba funcional se hace contra Supabase local
+ * scout-auth-backend), aplicada sobre la 013 ya mergeada: la 014 no repite
+ * lo que la 013 resuelve (grants por columna en profiles, lectura por token,
+ * RPC unlock_achievement que paga los premios) y añade lo que le quedó
+ * abierto. No hay una base local en CI, así que este test fija el contrato
+ * del SQL. La prueba funcional se hace contra Supabase local
  * (`supabase start` + `db push`) siguiendo los pasos del PR.
  */
 
@@ -96,9 +98,19 @@ describe('migración 014_endurecer_rls', () => {
     expect(sql).toMatch(/auth\.uid\(\) is null or auth\.uid\(\) <> p_user_id/i);
   });
 
-  it('el premio de logros lo otorga la base (compensa el guard de points)', () => {
-    expect(sql).toMatch(/create or replace function public\.award_achievement_points\(\)/i);
-    expect(sql).toMatch(/after insert on public\.user_achievements/i);
+  it('AB-03: avatar_url queda en la whitelist (grant aditivo sobre el de la 013)', () => {
+    expect(sql).toMatch(/grant update \(avatar_url\) on public\.profiles to authenticated/i);
+  });
+
+  it('sin trigger de premio propio: paga solo unlock_achievement (013), nunca dos veces', () => {
+    expect(sql).not.toMatch(/create (or replace )?function public\.award_achievement_points/i);
+    expect(sql).not.toMatch(/create trigger trigger_award_achievement_points/i);
+    // Limpieza del borrador anterior de la 014 si alguien lo aplico en local.
+    expect(sql).toMatch(/drop trigger if exists trigger_award_achievement_points/i);
+    expect(sql).toMatch(/drop function if exists public\.award_achievement_points\(\)/i);
+  });
+
+  it('increment_creator_quizzes queda SECURITY DEFINER (autosuficiente si va sola)', () => {
     expect(sql).toMatch(/alter function public\.increment_creator_quizzes\(\) security definer/i);
   });
 
