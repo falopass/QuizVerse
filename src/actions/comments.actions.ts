@@ -160,14 +160,18 @@ export async function getQuizComments(quizId: string): Promise<QuizCommentsPage>
   if (error || !data) throw error ?? new Error('Could not load comments');
 
   // `hidden_at` nace en la migración 017: si aún no se aplicó, esta consulta
-  // falla y todo se pinta visible en vez de romper la sección. Solo la piden
-  // los moderadores; el público no la necesita (la RLS ya filtró).
+  // falla y todo se pinta visible en vez de romper la sección. La RLS decide
+  // qué filas vuelven: al anónimo ninguna, al autor las suyas ocultas y a la
+  // moderación todas, así el autor también ve la etiqueta «Oculto» en lo suyo.
   const hiddenById = new Map<string, string>();
-  if (canModerate && data.length > 0) {
+  if (user && data.length > 0) {
     const { data: hiddenRows } = await supabase
       .from('quiz_comments')
       .select('id, hidden_at')
-      .eq('quiz_id', parsed.data)
+      .in(
+        'id',
+        data.map((row) => row.id)
+      )
       .not('hidden_at', 'is', null);
     for (const row of hiddenRows ?? []) {
       if (row.hidden_at) hiddenById.set(row.id, row.hidden_at);

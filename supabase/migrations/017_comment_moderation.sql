@@ -102,8 +102,9 @@ CREATE POLICY "quiz_comments_delete_admin" ON public.quiz_comments
 
 -- Guarda de columnas: un UPDATE que no viene del autor solo puede tocar
 -- hidden_at/hidden_by, y al ocultar hidden_by queda firmado con auth.uid().
--- El autor puede editar su texto pero nunca el estado de ocultado: si quiere
--- quitarlo de la vista pública, lo borra.
+-- El autor puede editar su texto, pero tocar el ocultado exige además ser
+-- moderador (creador del quiz o admin): un autor normal no puede desocultar
+-- lo que la moderación ocultó, y si quiere quitar su comentario lo borra.
 CREATE OR REPLACE FUNCTION public.guard_comment_moderation()
 RETURNS trigger
 LANGUAGE plpgsql
@@ -117,11 +118,13 @@ BEGIN
   END IF;
 
   IF auth.uid() IS DISTINCT FROM OLD.user_id THEN
-    IF NEW.body IS DISTINCT FROM OLD.body
+    IF NEW.id IS DISTINCT FROM OLD.id
+       OR NEW.body IS DISTINCT FROM OLD.body
        OR NEW.user_id IS DISTINCT FROM OLD.user_id
        OR NEW.quiz_id IS DISTINCT FROM OLD.quiz_id
        OR NEW.parent_id IS DISTINCT FROM OLD.parent_id
-       OR NEW.created_at IS DISTINCT FROM OLD.created_at THEN
+       OR NEW.created_at IS DISTINCT FROM OLD.created_at
+       OR NEW.updated_at IS DISTINCT FROM OLD.updated_at THEN
       RAISE EXCEPTION 'Solo se pueden cambiar hidden_at y hidden_by'
         USING ERRCODE = '42501';
     END IF;
@@ -132,8 +135,22 @@ BEGIN
   ELSE
     IF NEW.hidden_at IS DISTINCT FROM OLD.hidden_at
        OR NEW.hidden_by IS DISTINCT FROM OLD.hidden_by THEN
-      RAISE EXCEPTION 'El autor no puede cambiar el ocultado de su comentario'
-        USING ERRCODE = '42501';
+      IF NOT EXISTS (
+        SELECT 1 FROM public.profiles
+        WHERE id = auth.uid() AND is_admin = true
+      )
+      AND NOT EXISTS (
+        SELECT 1 FROM public.quizzes
+        WHERE quizzes.id = OLD.quiz_id
+        AND quizzes.creator_id = auth.uid()
+      ) THEN
+        RAISE EXCEPTION 'El autor no puede cambiar el ocultado de su comentario'
+          USING ERRCODE = '42501';
+      END IF;
+      IF NEW.hidden_at IS NOT NULL AND NEW.hidden_by IS DISTINCT FROM auth.uid() THEN
+        RAISE EXCEPTION 'hidden_by debe registrar a quien modera'
+          USING ERRCODE = '42501';
+      END IF;
     END IF;
   END IF;
 
@@ -142,7 +159,7 @@ END;
 $$;
 
 COMMENT ON FUNCTION public.guard_comment_moderation() IS
-  'Limita los UPDATE de no-autores a hidden_at/hidden_by (firma con auth.uid()) y prohíbe al autor tocar su propio ocultado. Service role pasa libre.';
+  'Limita los UPDATE de no-autores a hidden_at/hidden_by (firma con auth.uid()). El autor solo toca el ocultado si además modera (creador del quiz o admin). Service role pasa libre.';
 
 DROP TRIGGER IF EXISTS trigger_guard_comment_moderation ON public.quiz_comments;
 CREATE TRIGGER trigger_guard_comment_moderation
@@ -179,6 +196,65 @@ CREATE UNIQUE INDEX IF NOT EXISTS comment_reports_open_once
   WHERE NOT resolved;
 
 ALTER TABLE public.comment_reports ENABLE ROW LEVEL SECURITY;
+
+-- Guarda de evidencia: en INSERT la copia del comentario debe coincidir con
+-- la fila real (nadie fabrica "pruebas" contra un comentario ajeno por
+-- PostgREST); en UPDATE solo se pueden mover las columnas de resolución, así
+-- el contenido reportado queda congelado una vez en la cola.
+CREATE OR REPLACE FUNCTION public.guard_comment_report()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  IF auth.uid() IS NULL THEN
+    RETURN NEW;
+  END IF;
+
+  IF TG_OP = 'INSERT' THEN
+    IF NEW.comment_id IS NULL
+       OR NOT EXISTS (
+         SELECT 1 FROM public.quiz_comments c
+         WHERE c.id = NEW.comment_id
+           AND c.body = NEW.comment_body
+           AND c.quiz_id IS NOT DISTINCT FROM NEW.quiz_id
+       ) THEN
+      RAISE EXCEPTION 'El reporte no coincide con el comentario indicado'
+        USING ERRCODE = '42501';
+    END IF;
+    RETURN NEW;
+  END IF;
+
+  IF NEW.id IS DISTINCT FROM OLD.id
+     OR NEW.comment_id IS DISTINCT FROM OLD.comment_id
+     OR NEW.quiz_id IS DISTINCT FROM OLD.quiz_id
+     OR NEW.comment_body IS DISTINCT FROM OLD.comment_body
+     OR NEW.reporter_id IS DISTINCT FROM OLD.reporter_id
+     OR NEW.reason IS DISTINCT FROM OLD.reason
+     OR NEW.details IS DISTINCT FROM OLD.details
+     OR NEW.created_at IS DISTINCT FROM OLD.created_at THEN
+    RAISE EXCEPTION 'Solo se puede marcar el reporte como revisado'
+      USING ERRCODE = '42501';
+  END IF;
+  IF NEW.resolved_by IS DISTINCT FROM OLD.resolved_by
+     AND NEW.resolved_by IS DISTINCT FROM auth.uid() THEN
+    RAISE EXCEPTION 'resolved_by debe registrar a quien resuelve'
+      USING ERRCODE = '42501';
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+COMMENT ON FUNCTION public.guard_comment_report() IS
+  'Exige que el snapshot del reporte coincida con el comentario real al insertar y congela su contenido en updates: solo resolved/resolved_by/resolved_at cambian. Service role pasa libre.';
+
+DROP TRIGGER IF EXISTS trigger_guard_comment_report ON public.comment_reports;
+CREATE TRIGGER trigger_guard_comment_report
+  BEFORE INSERT OR UPDATE ON public.comment_reports
+  FOR EACH ROW
+  EXECUTE FUNCTION public.guard_comment_report();
 
 DROP POLICY IF EXISTS "comment_reports_insert_authenticated" ON public.comment_reports;
 CREATE POLICY "comment_reports_insert_authenticated" ON public.comment_reports

@@ -42,6 +42,7 @@ const commentsTableStub = () => ({
       maybeSingle: async () => mocks.commentRow,
       not: async () => ({ data: mocks.hiddenRows.data }),
     }),
+    in: () => ({ not: async () => ({ data: mocks.hiddenRows.data }) }),
   }),
   insert: (payload: unknown) => {
     mocks.insertSpy(payload);
