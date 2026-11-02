@@ -22,7 +22,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 const REFRESH_MS = 60_000;
 
 export function NotificationBell({ locale }: { locale: Locale }) {
-  const { supabase, user, loading } = useSupabase();
+  const { getClient, user, loading } = useSupabase();
   const pathname = usePathname();
   const unread = useNotificationBadge((state) => state.unread);
   const setUnread = useNotificationBadge((state) => state.setUnread);
@@ -35,6 +35,8 @@ export function NotificationBell({ locale }: { locale: Locale }) {
     }
     let cancelled = false;
     const load = async () => {
+      const supabase = await getClient().catch(() => null);
+      if (!supabase) return;
       const { count, error } = await supabase
         .from('notifications')
         .select('id', { count: 'exact', head: true })
@@ -50,7 +52,7 @@ export function NotificationBell({ locale }: { locale: Locale }) {
       cancelled = true;
       clearInterval(interval);
     };
-  }, [user, pathname, supabase, setUnread]);
+  }, [user, pathname, getClient, setUnread]);
 
   if (loading || !user) return null;
 
