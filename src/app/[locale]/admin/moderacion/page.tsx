@@ -168,6 +168,8 @@ export default async function AdminModerationPage({
     }).toString();
     return localizeHref(locale, `/admin/moderacion${query ? `?${query}` : ''}`);
   };
+  // Moderar el último quiz de la última página la deja vacía: vuelve a una válida.
+  if (!error && page > totalPages) redirect(pageHref(totalPages));
   const tabHref = (tab: QueueFilter) =>
     localizeHref(
       locale,

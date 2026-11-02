@@ -213,6 +213,16 @@ describe('página /admin/moderacion', () => {
     );
   });
 
+  it('redirige a la última página válida cuando la pedida quedó vacía', async () => {
+    mocks.queueCount = 50; // una sola página
+    await expect(
+      AdminModerationPage({
+        params: Promise.resolve({ locale: 'es' }),
+        searchParams: Promise.resolve({ pagina: '3' }),
+      })
+    ).rejects.toThrow('NEXT_REDIRECT:/es/admin/moderacion');
+  });
+
   it('la paginación conserva el filtro de rechazados', async () => {
     mocks.queueCount = 60;
     mocks.queueRows = [{ ...QUEUE_ROW, status: 'rejected' }];
