@@ -1,6 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
   ATTEMPT_TTL_SECONDS,
+  attemptsAvailable,
   createQuizAttempt,
   sessionIdsForAttempt,
   verifyQuizAttempt,
@@ -143,6 +144,23 @@ describe('createQuizAttempt / verifyQuizAttempt', () => {
     const verified = await verifyQuizAttempt(created!.token, QUIZ_ID, NOW);
 
     expect(verified.ok).toBe(true);
+  });
+});
+
+describe('attemptsAvailable', () => {
+  it('es true con secreto explícito o derivado', () => {
+    expect(attemptsAvailable()).toBe(true);
+
+    delete process.env.QUIZ_ATTEMPT_SECRET;
+    process.env.SUPABASE_SERVICE_ROLE_KEY = 'service-role-key';
+    expect(attemptsAvailable()).toBe(true);
+  });
+
+  it('es false sin ningún secreto', () => {
+    delete process.env.QUIZ_ATTEMPT_SECRET;
+    delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    expect(attemptsAvailable()).toBe(false);
   });
 });
 

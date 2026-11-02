@@ -158,11 +158,15 @@ Reglas:
 - El reveal exige el `attempt` firmado que emite `startQuizAttempt` al arrancar
   cada partida (secreto `QUIZ_ATTEMPT_SECRET`, o derivado de
   `SUPABASE_SERVICE_ROLE_KEY`). Sin attempt válido responde 401/403/503; cada
-  pregunta se revela una sola vez por partida y solo hacia adelante.
+  pregunta se revela una sola vez por partida y solo hacia adelante. El 50/50
+  se gasta una vez por partida (repetir la misma pregunta es idempotente).
 - `submitQuizResult` es idempotente por attempt: un reintento devuelve la
-  sesión existente sin sumar puntos ni plays. La migración 019 añade
-  `game_sessions.attempt_id`; sin ella el envío sigue funcionando (se detecta
-  la columna ausente y se registra).
+  sesión existente sin sumar puntos ni plays, pero reporta los puntos que el
+  primer envío ya otorgó. Con secreto configurado, un envío autenticado sin
+  attempt válido se guarda como anónimo (sin puntos) para que omitir el token
+  no sea una vía de farmeo; sin secreto se mantiene el comportamiento anterior.
+  La migración 019 añade `game_sessions.attempt_id`; sin ella el envío sigue
+  funcionando (se detecta la columna ausente y se registra).
 - `answers[].is_correct` que llega del cliente se ignora: se recalcula en
   `scoreSubmission` y se guarda ya corregido.
 - Los puntos los otorga el trigger `award_quiz_points` (10 + 25 por partida

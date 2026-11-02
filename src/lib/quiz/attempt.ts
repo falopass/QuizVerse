@@ -52,6 +52,14 @@ function secretMaterial(): string | null {
   return fallback ? `quiz-attempt:v1:${fallback}` : null;
 }
 
+/**
+ * Si hay secreto, el envío puede exigir un attempt. Sin secreto el juego queda
+ * en modo degradado: sin feedback y sin binding, pero no se pierden partidas.
+ */
+export function attemptsAvailable(): boolean {
+  return secretMaterial() !== null;
+}
+
 let cachedKey: { material: string; key: Promise<CryptoKey> } | null = null;
 
 function hmacKey(): Promise<CryptoKey> | null {

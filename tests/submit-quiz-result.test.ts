@@ -12,8 +12,10 @@ const mocks = vi.hoisted(() => ({
   limitCheck: vi.fn(),
   headerList: new Map<string, string>(),
   verifyAttempt: vi.fn(),
+  attemptsAvailable: false,
   attemptReveals: null as Record<string, string> | null,
   sessionIds: { id: 'derived-session-id', shareToken: 'derived-share-token' },
+  checkAchievementsSpy: vi.fn(async () => []),
 }));
 
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn(), revalidateTag: vi.fn() }));
@@ -75,12 +77,15 @@ vi.mock('@/lib/quiz/quiz-repository', () => ({
   }),
 }));
 
-vi.mock('@/lib/quiz/achievements', () => ({ checkAchievements: async () => [] }));
+vi.mock('@/lib/quiz/achievements', () => ({
+  checkAchievements: mocks.checkAchievementsSpy,
+}));
 
 vi.mock('@/lib/quiz/attempt', () => ({
   createQuizAttempt: vi.fn(),
   verifyQuizAttempt: mocks.verifyAttempt,
   sessionIdsForAttempt: async () => mocks.sessionIds,
+  attemptsAvailable: () => mocks.attemptsAvailable,
 }));
 
 vi.mock('@/lib/quiz/attempt-store', () => ({
@@ -122,7 +127,9 @@ beforeEach(() => {
     },
   });
   mocks.attemptReveals = null;
+  mocks.attemptsAvailable = false;
   mocks.sessionIds = { id: 'derived-session-id', shareToken: 'derived-share-token' };
+  mocks.checkAchievementsSpy.mockClear();
 });
 
 describe('submitQuizResult', () => {
@@ -257,10 +264,12 @@ describe('submitQuizResult', () => {
 
 describe('submitQuizResult · idempotencia por attempt', () => {
   it('un segundo envío del mismo attempt devuelve la sesión existente sin insertar', async () => {
+    mocks.userId = 'u-1';
     mocks.selectResult = {
       data: {
         id: 'session-1',
         share_token: 'share-1',
+        player_id: 'u-1',
         score: 2,
         max_score: 2,
         result_id: null,
@@ -279,10 +288,77 @@ describe('submitQuizResult · idempotencia por attempt', () => {
     if (!result.success) return;
     expect(result.session).toEqual({ id: 'session-1', share_token: 'share-1' });
     expect(result.score).toBe(2);
-    expect(result.points_earned).toBe(0);
-    expect(result.achievements_unlocked).toEqual([]);
+    // El trigger ya pagó 35 en el primer envío: el reintento no los suma otra
+    // vez, pero la pantalla debe enseñar los puntos reales de la partida.
+    expect(result.points_earned).toBe(35);
     expect(mocks.insertSpy).not.toHaveBeenCalled();
     expect(mocks.rpc).not.toHaveBeenCalled();
+    expect(mocks.checkAchievementsSpy).toHaveBeenCalledWith('u-1', { perfectScore: true });
+  });
+
+  it('un envío repetido de una partida anónima sigue reportando 0 puntos', async () => {
+    mocks.selectResult = {
+      data: {
+        id: 'session-2',
+        share_token: 'share-2',
+        player_id: null,
+        score: 2,
+        max_score: 2,
+        result_id: null,
+        result_title: null,
+        answers: [],
+      },
+      error: null,
+    };
+
+    const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.points_earned).toBe(0);
+    expect(result.achievements_unlocked).toEqual([]);
+    expect(mocks.checkAchievementsSpy).not.toHaveBeenCalled();
+  });
+
+  it('con secreto, un envío autenticado sin attempt se guarda anónimo y sin puntos', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mocks.attemptsAvailable = true;
+    mocks.userId = 'u-sin-token';
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10);
+
+      expect(result.success).toBe(true);
+      if (!result.success) return;
+      expect(result.points_earned).toBe(0);
+      expect(result.achievements_unlocked).toEqual([]);
+      const payload = mocks.insertSpy.mock.calls[0][0] as Record<string, unknown>;
+      expect(payload.player_id).toBeNull();
+      expect(payload).not.toHaveProperty('attempt_id');
+      expect(mocks.checkAchievementsSpy).not.toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('sin attempt'));
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
+  it('con secreto, un attempt inválido tampoco otorga puntos', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mocks.attemptsAvailable = true;
+    mocks.userId = 'u-token-malo';
+    mocks.verifyAttempt.mockResolvedValue({ ok: false, reason: 'expired' });
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+      expect(result.success).toBe(true);
+      if (!result.success) return;
+      expect(result.points_earned).toBe(0);
+      const payload = mocks.insertSpy.mock.calls[0][0] as Record<string, unknown>;
+      expect(payload.player_id).toBeNull();
+    } finally {
+      warnSpy.mockRestore();
+    }
   });
 
   it('deduplica por el índice único cuando la RLS no deja leer la fila', async () => {

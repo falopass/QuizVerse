@@ -6,8 +6,9 @@
  * funciona igual, pero dos isolates distintos podrían aceptar la misma pregunta
  * una vez cada uno. Es un fallback consciente, no el camino recomendado.
  *
- * Las pistas 50/50 no pasan por aquí: son deterministas y no revelan cuál es la
- * opción correcta, así que repetirlas no añade información.
+ * El 50/50 también se marca aquí, pero aparte: solo hay una pista por partida
+ * (repetir la misma pregunta es idempotente). Sin ese tope se podía dejar cada
+ * pregunta en dos alternativas sin gastar la ayuda.
  */
 
 import 'server-only';
@@ -20,10 +21,14 @@ const MAX_MEMORY_ENTRIES = 5_000;
 
 export type RevealClaim = { ok: true } | { ok: false; reason: 'already_revealed' | 'out_of_order' };
 
+export type HintClaim = { ok: true } | { ok: false; reason: 'hint_already_used' };
+
 interface MemoryAttempt {
   expiresAt: number;
   revealed: Map<string, string>;
   lastIndex: number;
+  /** Pregunta en la que se gastó el 50/50; solo hay una por partida. */
+  hintQuestionId: string | null;
 }
 
 const memory = new Map<string, MemoryAttempt>();
@@ -43,6 +48,7 @@ function memoryAttempt(attemptId: string): MemoryAttempt {
     expiresAt: now + TTL_SECONDS * 1000,
     revealed: new Map(),
     lastIndex: -1,
+    hintQuestionId: null,
   };
   memory.set(attemptId, entry);
   return entry;
@@ -101,6 +107,51 @@ export async function claimQuestionReveal(
   entry.revealed.set(questionId, selectedOptionId);
   entry.lastIndex = index;
   return { ok: true };
+}
+
+/**
+ * Lua atómico del 50/50: una sola pista por partida. Repetir la misma pregunta
+ * devuelve 2 (idempotente: el reintento tras perder la respuesta no la gasta
+ * dos veces); pedir otra devuelve 0.
+ */
+const HINT_SCRIPT = `
+local existing = redis.call('HGET', KEYS[1], 'hint')
+if existing then
+  if existing == ARGV[1] then return 2 end
+  return 0
+end
+redis.call('HSET', KEYS[1], 'hint', ARGV[1])
+redis.call('EXPIRE', KEYS[1], ARGV[2])
+return 1
+`;
+
+/**
+ * Marca el 50/50 de la partida. Sin esto un cliente podía pedir pistas de
+ * todas las preguntas y dejar cada una en dos alternativas sin gastar ayudas.
+ */
+export async function claimHint(attemptId: string, questionId: string): Promise<HintClaim> {
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const result = await redis.eval(
+        HINT_SCRIPT,
+        [`${KEY_PREFIX}${attemptId}`],
+        [questionId, String(TTL_SECONDS)]
+      );
+      return Number(result) === 0 ? { ok: false, reason: 'hint_already_used' } : { ok: true };
+    } catch (error) {
+      console.error('[quiz-attempt] Redis error, usando memoria local:', error);
+    }
+  }
+
+  const entry = memoryAttempt(attemptId);
+  if (entry.hintQuestionId === null) {
+    entry.hintQuestionId = questionId;
+    return { ok: true };
+  }
+  return entry.hintQuestionId === questionId
+    ? { ok: true }
+    : { ok: false, reason: 'hint_already_used' };
 }
 
 /**

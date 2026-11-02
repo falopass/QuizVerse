@@ -14,6 +14,7 @@ const mocks = vi.hoisted(() => ({
   rateLimitCheck: vi.fn(),
   verifyAttempt: vi.fn(),
   claimReveal: vi.fn(),
+  claimHint: vi.fn(),
 }));
 
 vi.mock('@/lib/quiz/quiz-repository', () => ({
@@ -30,6 +31,7 @@ vi.mock('@/lib/quiz/attempt', () => ({
 
 vi.mock('@/lib/quiz/attempt-store', () => ({
   claimQuestionReveal: mocks.claimReveal,
+  claimHint: mocks.claimHint,
 }));
 
 import { POST } from '@/app/api/quiz/reveal/route';
@@ -99,6 +101,8 @@ beforeEach(() => {
   });
   mocks.claimReveal.mockReset();
   mocks.claimReveal.mockResolvedValue({ ok: true });
+  mocks.claimHint.mockReset();
+  mocks.claimHint.mockResolvedValue({ ok: true });
 });
 
 describe('POST /api/quiz/reveal — answer', () => {
@@ -237,8 +241,27 @@ describe('POST /api/quiz/reveal — hint', () => {
     }
     expect(body.eliminated).not.toContain('q1a');
     expect(body).not.toHaveProperty('correctOptionId');
-    // Las pistas no consumen el reveal de la pregunta: son deterministas.
+    // La pista se marca aparte: no consume el reveal de la pregunta.
+    expect(mocks.claimHint).toHaveBeenCalledWith('attempt-1', 'q1');
     expect(mocks.claimReveal).not.toHaveBeenCalled();
+  });
+
+  it('rechaza una segunda pista en otra pregunta de la misma partida', async () => {
+    mocks.claimHint.mockResolvedValue({ ok: false, reason: 'hint_already_used' });
+
+    const response = await POST(revealRequest({ ...validHint, questionId: 'q2' }));
+
+    expect(response.status).toBe(409);
+    expect(await response.json()).toEqual({ error: 'hint_already_used' });
+  });
+
+  it('repetir la pista de la misma pregunta es idempotente', async () => {
+    const first = await POST(revealRequest(validHint));
+    const second = await POST(revealRequest(validHint));
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    expect(await second.json()).toEqual({ eliminated: expect.any(Array) });
   });
 
   it('también exige attempt', async () => {
@@ -254,6 +277,14 @@ describe('POST /api/quiz/reveal — hint', () => {
 
     expect(response.status).toBe(200);
     expect(body).toEqual({ eliminated: [] });
+  });
+
+  it('no gasta la pista si la pregunta no existe', async () => {
+    const response = await POST(revealRequest({ ...validHint, questionId: 'nope' }));
+
+    expect(response.status).toBe(404);
+    expect(await response.json()).toEqual({ error: 'question_not_found' });
+    expect(mocks.claimHint).not.toHaveBeenCalled();
   });
 });
 

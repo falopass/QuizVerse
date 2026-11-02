@@ -7,7 +7,7 @@ const redis = vi.hoisted(() => ({
 
 vi.mock('@/lib/utils/redis', () => ({ getRedis: () => redis }));
 
-import { claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
+import { claimHint, claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
 
 beforeEach(() => {
   redis.eval.mockReset();
@@ -58,6 +58,41 @@ describe('claimQuestionReveal con Redis', () => {
     expect(await claimQuestionReveal('attempt-fallback', 'q1', 0, 'b')).toEqual({
       ok: false,
       reason: 'already_revealed',
+    });
+    expect(console.error).toHaveBeenCalled();
+  });
+});
+
+describe('claimHint con Redis', () => {
+  it('acepta 1 (primera pista) y 2 (misma pregunta repetida)', async () => {
+    redis.eval.mockResolvedValue(1);
+    expect(await claimHint('attempt-1', 'q1')).toEqual({ ok: true });
+
+    redis.eval.mockResolvedValue(2);
+    expect(await claimHint('attempt-1', 'q1')).toEqual({ ok: true });
+  });
+
+  it('traduce 0 a pista ya usada en otra pregunta', async () => {
+    redis.eval.mockResolvedValue(0);
+
+    expect(await claimHint('attempt-1', 'q2')).toEqual({
+      ok: false,
+      reason: 'hint_already_used',
+    });
+    expect(redis.eval).toHaveBeenCalledWith(
+      expect.stringContaining('hint'),
+      ['quiz-attempt:attempt-1'],
+      ['q2', '10800']
+    );
+  });
+
+  it('si Redis falla, sigue con el estado en memoria', async () => {
+    redis.eval.mockRejectedValue(new Error('redis down'));
+
+    expect(await claimHint('attempt-hint-fallback', 'q1')).toEqual({ ok: true });
+    expect(await claimHint('attempt-hint-fallback', 'q2')).toEqual({
+      ok: false,
+      reason: 'hint_already_used',
     });
     expect(console.error).toHaveBeenCalled();
   });

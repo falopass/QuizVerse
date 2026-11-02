@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
+import { claimHint, claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
 
 beforeEach(() => {
   // Sin Upstash configurado el store cae al Map del proceso: aquí se prueba
@@ -47,5 +47,34 @@ describe('claimQuestionReveal (fallback en memoria)', () => {
 
   it('devuelve null cuando el attempt no tiene estado', async () => {
     expect(await getAttemptReveals(crypto.randomUUID())).toBeNull();
+  });
+});
+
+describe('claimHint (fallback en memoria)', () => {
+  it('acepta la primera pista y repetir la misma pregunta', async () => {
+    const attemptId = crypto.randomUUID();
+
+    expect(await claimHint(attemptId, 'q1')).toEqual({ ok: true });
+    expect(await claimHint(attemptId, 'q1')).toEqual({ ok: true });
+  });
+
+  it('rechaza una pista en otra pregunta de la misma partida', async () => {
+    const attemptId = crypto.randomUUID();
+
+    await claimHint(attemptId, 'q1');
+
+    expect(await claimHint(attemptId, 'q2')).toEqual({
+      ok: false,
+      reason: 'hint_already_used',
+    });
+  });
+
+  it('separa la pista por attempt', async () => {
+    const first = crypto.randomUUID();
+    const second = crypto.randomUUID();
+
+    await claimHint(first, 'q1');
+
+    expect(await claimHint(second, 'q2')).toEqual({ ok: true });
   });
 });

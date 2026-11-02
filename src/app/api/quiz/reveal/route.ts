@@ -18,7 +18,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { eliminateWrongOptions, evaluateAnswer } from '@/lib/quiz/answer-key';
 import { verifyQuizAttempt, type AttemptFailureReason } from '@/lib/quiz/attempt';
-import { claimQuestionReveal } from '@/lib/quiz/attempt-store';
+import { claimHint, claimQuestionReveal } from '@/lib/quiz/attempt-store';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
@@ -87,6 +87,15 @@ export async function POST(request: Request) {
   }
 
   if (purpose === 'hint') {
+    if (!quiz.questions.some((question) => question.id === questionId)) {
+      return NextResponse.json({ error: 'question_not_found' }, { status: 404, headers: NO_STORE });
+    }
+    // Una sola pista por partida: sin esto se podía dejar cada pregunta en dos
+    // alternativas sin gastar la ayuda. Repetir la misma pregunta es idempotente.
+    const hint = await claimHint(verification.attempt.attemptId, questionId);
+    if (!hint.ok) {
+      return NextResponse.json({ error: hint.reason }, { status: 409, headers: NO_STORE });
+    }
     return NextResponse.json(
       { eliminated: eliminateWrongOptions(quiz, questionId) },
       { headers: NO_STORE }

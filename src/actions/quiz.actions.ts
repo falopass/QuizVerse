@@ -414,6 +414,7 @@ export interface SubmitGameResult {
 interface StoredSession {
   id: string;
   share_token: string | null;
+  player_id: string | null;
   score: number;
   max_score: number;
   result_id: string | null;
@@ -458,7 +459,7 @@ async function findSessionByAttempt(
   const client = createServiceClient() ?? supabase;
   const { data, error } = await client
     .from('game_sessions')
-    .select('id, share_token, score, max_score, result_id, result_title, answers')
+    .select('id, share_token, player_id, score, max_score, result_id, result_title, answers')
     .eq('attempt_id', attemptId)
     .maybeSingle();
 
@@ -480,15 +481,27 @@ function storedAnswers(existing: StoredSession | null, fallback: Answer[]): Answ
   );
 }
 
-/** Respuesta de un envío repetido: la sesión existe, no se suma nada. */
-function duplicateSubmitResult(
+/**
+ * Respuesta de un envío repetido: la sesión existe, no se suma nada.
+ *
+ * `points_earned` refleja lo que el primer envío ya otorgó (el trigger pagó al
+ * insertar), no lo que este reintento pagaría: la pantalla de resultado debe
+ * enseñar los puntos reales de la partida, no +0. Los logros sí se reintentan
+ * (idempotente) para reparar un primer `checkAchievements` que fallara.
+ */
+async function duplicateSubmitResult(
   quiz: AnswerKeyQuiz,
   scored: ReturnType<typeof scoreSubmission>,
   session: { id: string; shareToken: string },
-  existing: StoredSession | null
-): ActionResult<SubmitGameResult> {
+  existing: StoredSession | null,
+  user: { id: string } | null
+): Promise<ActionResult<SubmitGameResult>> {
   const resultId = existing?.result_id ?? scored.resultId;
   const partner = resultId ? (quiz.results ?? []).find((item) => item.id === resultId) : undefined;
+  const perfect = existing
+    ? existing.max_score > 0 && existing.score === existing.max_score
+    : scored.perfect;
+  const awarded = existing ? Boolean(existing.player_id) : Boolean(user);
 
   return {
     success: true,
@@ -501,9 +514,11 @@ function duplicateSubmitResult(
       : null,
     score: existing?.score ?? scored.score,
     max_score: existing?.max_score ?? scored.maxScore,
-    // Sin INSERT no hay trigger: ni puntos ni logros nuevos.
-    points_earned: 0,
-    achievements_unlocked: [],
+    points_earned: awarded ? pointsFor(perfect) : 0,
+    achievements_unlocked:
+      awarded && (!existing || existing.player_id === user?.id)
+        ? await checkAchievements(user?.id ?? null, { perfectScore: perfect })
+        : [],
     review: buildReview(quiz, storedAnswers(existing, scored.graded)),
   };
 }
@@ -542,11 +557,22 @@ export async function submitQuizResult(
 
   const verification = attemptToken ? await verifyQuizAttempt(attemptToken, quiz.id) : null;
   if (verification && !verification.ok) {
-    // Un token inválido no puede costar la partida: se guarda sin idempotencia,
-    // igual que un cliente anterior a este cambio.
-    console.warn(`[quiz.submit] attempt ${verification.reason}: se envía sin idempotencia`);
+    // Un token inválido no puede costar la partida: se guarda, pero sin premios
+    // (ver `pointsEligible`) para que omitirlo no sea una vía de farmeo.
+    console.warn(`[quiz.submit] attempt ${verification.reason}: se envía sin binding`);
   }
   const attempt = verification?.ok ? verification.attempt : null;
+
+  // Con secreto configurado, un envío sin attempt válido no puede otorgar
+  // puntos: si no, bastaba con revelar la clave y enviar las respuestas
+  // correctas omitiendo el token. Sin secreto (modo degradado) se mantiene el
+  // comportamiento anterior para no perder partidas.
+  const pointsEligible = Boolean(attempt) || !attemptsAvailable();
+  if (user && !pointsEligible) {
+    console.warn(
+      '[quiz.submit] envío autenticado sin attempt: se guarda como anónimo para no otorgar puntos'
+    );
+  }
 
   // Si hubo reveal, la opción revelada es la que vale: ver la respuesta
   // correcta y enviar otra distinta no puede mejorar el marcador.
@@ -567,7 +593,7 @@ export async function submitQuizResult(
     shareToken: newShareToken(),
   };
 
-  if (existing) return duplicateSubmitResult(quiz, scored, ids, existing);
+  if (existing) return duplicateSubmitResult(quiz, scored, ids, existing, user);
 
   // La policy nueva de game_sessions solo deja leer las propias, así que un
   // INSERT ... RETURNING devolvería 0 filas para un anónimo y la partida se
@@ -577,7 +603,7 @@ export async function submitQuizResult(
     id: ids.id,
     share_token: ids.shareToken,
     quiz_id: quiz.id,
-    player_id: user?.id ?? null,
+    player_id: pointsEligible ? (user?.id ?? null) : null,
     score: scored.score,
     max_score: scored.maxScore,
     result_id: scored.resultId,
@@ -597,10 +623,10 @@ export async function submitQuizResult(
     delete withoutAttempt.attempt_id;
     ({ error } = await supabase.from('game_sessions').insert(withoutAttempt));
     if (error && isDuplicateSession(error)) {
-      return duplicateSubmitResult(quiz, scored, ids, null);
+      return duplicateSubmitResult(quiz, scored, ids, null, user);
     }
   } else if (error && attempt && isDuplicateSession(error)) {
-    return duplicateSubmitResult(quiz, scored, ids, null);
+    return duplicateSubmitResult(quiz, scored, ids, null, user);
   }
 
   if (error) {
@@ -627,10 +653,10 @@ export async function submitQuizResult(
     review: buildReview(quiz, scored.graded),
     // El trigger award_quiz_points solo corre con player_id: una partida
     // anónima no otorga nada y la respuesta debe decir lo mismo.
-    points_earned: user ? pointsFor(scored.perfect) : 0,
-    achievements_unlocked: await checkAchievements(user?.id ?? null, {
-      perfectScore: scored.perfect,
-    }),
+    points_earned: pointsEligible && user ? pointsFor(scored.perfect) : 0,
+    achievements_unlocked: pointsEligible
+      ? await checkAchievements(user?.id ?? null, { perfectScore: scored.perfect })
+      : [],
   };
 }
 
