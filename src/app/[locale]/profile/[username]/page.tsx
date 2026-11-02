@@ -8,6 +8,9 @@ import {
 } from '@/lib/data/public';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { achievementCopy } from '@/lib/i18n/achievements';
+import { ACHIEVEMENT_ICONS } from '@/lib/quiz/achievement-progress';
+import { liveStreak } from '@/lib/quiz/streak';
 import { localizedPath, generateProfileMetadata } from '@/lib/seo/metadata';
 import { absoluteUrl } from '@/lib/seo/site';
 import { ShareButtons } from '@/components/shared/share-buttons';
@@ -54,6 +57,7 @@ export default async function LocalizedProfilePage({
     data: { user },
   } = await supabase.auth.getUser();
   const isOwnProfile = user?.id === profile.id;
+  const streak = liveStreak(profile.current_streak, profile.last_played_on);
 
   const [quizzes, achievements, countsRow, followRow] = await Promise.all([
     getQuizzesByCreatorId(profile.id),
@@ -122,6 +126,14 @@ export default async function LocalizedProfilePage({
               label={locale === 'es' ? 'Jugados' : 'Played'}
             />
             <StatCard
+              value={
+                locale === 'es'
+                  ? `${streak} ${streak === 1 ? 'día' : 'días'}`
+                  : `${streak} ${streak === 1 ? 'day' : 'days'}`
+              }
+              label={locale === 'es' ? 'Racha actual' : 'Current streak'}
+            />
+            <StatCard
               value={formatCompactNumber(profile.quizzes_created, locale)}
               label={locale === 'es' ? 'Creados' : 'Created'}
             />
@@ -146,7 +158,10 @@ export default async function LocalizedProfilePage({
                 key={achievement.id}
                 className="border-border-subtle bg-bg-primary text-text-secondary rounded-full border px-4 py-2 text-sm"
               >
-                {achievement.icon} {achievement.name}
+                <span aria-hidden="true">
+                  {ACHIEVEMENT_ICONS[achievement.id] ?? achievement.icon}
+                </span>{' '}
+                {achievementCopy(achievement.id, locale, achievement).name}
               </div>
             ))}
           </div>

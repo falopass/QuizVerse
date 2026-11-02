@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { createClient } from '@/lib/supabase/server';
+import { liveStreak } from '@/lib/quiz/streak';
 import type { QuizType } from '@/types/database';
 
 export const MY_ACTIVITY_LIMIT = 30;
@@ -26,6 +27,10 @@ export interface MyActivity {
   sessions: MyActivitySession[];
   played: number;
   points: number;
+  /** Racha actual en días (migración 018); 0 si aún no se aplicó. */
+  currentStreak: number;
+  /** Mejor racha histórica (migración 018); 0 si aún no se aplicó. */
+  longestStreak: number;
   /** true si falló la consulta de partidas: la UI avisa, no muestra «vacío». */
   sessionsFailed: boolean;
 }
@@ -52,8 +57,27 @@ export async function getMyActivity(userId: string): Promise<MyActivity> {
       .eq('player_id', userId)
       .order('completed_at', { ascending: false })
       .limit(MY_ACTIVITY_LIMIT),
-    supabase.from('profiles').select('points, quizzes_played').eq('id', userId).maybeSingle(),
+    supabase
+      .from('profiles')
+      .select('points, quizzes_played, current_streak, longest_streak, last_played_on')
+      .eq('id', userId)
+      .maybeSingle(),
   ]);
+
+  // Las columnas de racha son de la migración 018: si aún no se aplicó la
+  // consulta falla entera, así que se reintenta sin ellas para no perder los
+  // totales que sí existen.
+  let profile = profileResult.data;
+  if (profileResult.error) {
+    const { data: legacy } = await supabase
+      .from('profiles')
+      .select('points, quizzes_played')
+      .eq('id', userId)
+      .maybeSingle();
+    profile = legacy
+      ? { ...legacy, current_streak: 0, longest_streak: 0, last_played_on: null }
+      : null;
+  }
 
   const sessions = (sessionsResult.data ?? []).map((row) => {
     const quizRow = row.quiz as SessionQuiz | SessionQuiz[] | null;
@@ -71,8 +95,10 @@ export async function getMyActivity(userId: string): Promise<MyActivity> {
 
   return {
     sessions,
-    played: profileResult.data?.quizzes_played ?? sessions.length,
-    points: profileResult.data?.points ?? 0,
+    played: profile?.quizzes_played ?? sessions.length,
+    points: profile?.points ?? 0,
+    currentStreak: liveStreak(profile?.current_streak ?? 0, profile?.last_played_on ?? null),
+    longestStreak: profile?.longest_streak ?? 0,
     sessionsFailed: sessionsResult.error !== null,
   };
 }

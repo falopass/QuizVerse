@@ -5,21 +5,33 @@
  * never fail the game the player just finished. Each unlock pays the reward that
  * the `achievements` row declares — never a hardcoded number.
  *
- * Only conditions the schema can actually evaluate are checked. Shares,
- * streaks and "distinct categories played" need counters that `profiles` does
- * not have yet; they are intentionally absent instead of guessed.
+ * Only conditions the schema can actually evaluate are checked. With the
+ * migration 018 that includes the daily streak and the distinct categories
+ * played; the three achievements that need metrics the product does not record
+ * reliably (`going_viral`, `internet_famous`, `social_butterfly`) are left
+ * without a condition and hidden in the UI instead of guessed.
  */
 
 import { createClient } from '@/lib/supabase/server';
 import { isMissingRpcFunction } from '@/lib/supabase/rpc';
 
-type AchievementId = 'first_quiz' | 'quiz_addict_10' | 'creator' | 'perfect_score';
+type AchievementId =
+  | 'first_quiz'
+  | 'quiz_addict_10'
+  | 'quiz_master_50'
+  | 'creator'
+  | 'perfect_score'
+  | 'week_streak'
+  | 'explorer';
 type Client = Awaited<ReturnType<typeof createClient>>;
 
-interface ProfileStats {
+export interface ProfileStats {
   points: number;
   quizzes_played: number;
   quizzes_created: number;
+  current_streak: number;
+  longest_streak: number;
+  played_categories: number;
 }
 
 export interface UnlockedAchievement {
@@ -40,8 +52,16 @@ interface Condition {
 const CONDITIONS: Condition[] = [
   { id: 'first_quiz', satisfied: (stats) => stats.quizzes_played >= 1 },
   { id: 'quiz_addict_10', satisfied: (stats) => stats.quizzes_played >= 10 },
+  { id: 'quiz_master_50', satisfied: (stats) => stats.quizzes_played >= 50 },
   { id: 'creator', satisfied: (stats) => stats.quizzes_created >= 1 },
   { id: 'perfect_score', satisfied: (_stats, context) => context.perfectScore === true },
+  // El umbral lo verifica también unlock_achievement en SQL (018); aquí solo
+  // evita pedir el RPC de un logro que aún no toca.
+  {
+    id: 'week_streak',
+    satisfied: (stats) => Math.max(stats.current_streak, stats.longest_streak) >= 7,
+  },
+  { id: 'explorer', satisfied: (stats) => stats.played_categories >= 5 },
 ];
 
 /**
@@ -87,6 +107,42 @@ async function unlockAchievement(
 }
 
 /**
+ * Carga los contadores que alimentan las condiciones. Las columnas de racha son
+ * de la migración 018: si aún no se aplicó, la consulta falla y se cae a los
+ * contadores anteriores (racha 0), de modo que los logros viejos siguen
+ * desbloqueándose igual que antes.
+ */
+export async function loadAchievementStats(
+  supabase: Client,
+  userId: string
+): Promise<ProfileStats | null> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('points, quizzes_played, quizzes_created, current_streak, longest_streak')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (error || !data) {
+    const { data: legacy } = await supabase
+      .from('profiles')
+      .select('points, quizzes_played, quizzes_created')
+      .eq('id', userId)
+      .maybeSingle();
+    if (!legacy) return null;
+    return { ...legacy, current_streak: 0, longest_streak: 0, played_categories: 0 };
+  }
+
+  // El conteo de categorías sale de un RPC (018). Sin él, explorer no avanza:
+  // es mejor no desbloquearlo que otorgarlo a ciegas.
+  const { data: categories } = await supabase.rpc('get_my_played_categories');
+
+  return {
+    ...data,
+    played_categories: typeof categories === 'number' ? categories : 0,
+  };
+}
+
+/**
  * Unlocks every achievement the player now qualifies for.
  *
  * Already-unlocked achievements are skipped, so calling this after every game is
@@ -100,19 +156,8 @@ export async function checkAchievements(
 
   const supabase = await createClient();
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('points, quizzes_played, quizzes_created')
-    .eq('id', userId)
-    .maybeSingle();
-
-  if (!profile) return [];
-
-  const stats: ProfileStats = {
-    points: profile.points,
-    quizzes_played: profile.quizzes_played,
-    quizzes_created: profile.quizzes_created,
-  };
+  const stats = await loadAchievementStats(supabase, userId);
+  if (!stats) return [];
 
   const unlocked: UnlockedAchievement[] = [];
 

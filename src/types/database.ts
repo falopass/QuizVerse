@@ -41,6 +41,12 @@ export interface Database {
           preferred_language: string;
           followers_count: number;
           following_count: number;
+          /** Migración 018; 0 en bases sin aplicar. */
+          current_streak: number;
+          /** Migración 018; 0 en bases sin aplicar. */
+          longest_streak: number;
+          /** Migración 018: último día con partida, en America/Santiago. */
+          last_played_on: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -58,6 +64,9 @@ export interface Database {
           preferred_language?: string;
           followers_count?: number;
           following_count?: number;
+          current_streak?: number;
+          longest_streak?: number;
+          last_played_on?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -75,6 +84,9 @@ export interface Database {
           preferred_language?: string;
           followers_count?: number;
           following_count?: number;
+          current_streak?: number;
+          longest_streak?: number;
+          last_played_on?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -742,6 +754,10 @@ export interface Database {
       unlock_achievement: {
         Args: { p_achievement_id: string };
         Returns: boolean;
+      };
+      get_my_played_categories: {
+        Args: Record<string, never>;
+        Returns: number;
       };
     };
     Enums: {

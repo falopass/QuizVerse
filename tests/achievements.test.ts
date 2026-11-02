@@ -2,9 +2,16 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { state, upsertSpy, updateSpy, rpcSpy } = vi.hoisted(() => ({
   state: {
-    profile: null as { points: number; quizzes_played: number; quizzes_created: number } | null,
+    profile: null as {
+      points: number;
+      quizzes_played: number;
+      quizzes_created: number;
+      current_streak?: number;
+      longest_streak?: number;
+    } | null,
     unlocked: new Set<string>(),
     catalog: {} as Record<string, { name: string; points_reward: number | null } | null>,
+    playedCategories: 0,
     upsertError: null as { message: string } | null,
     rpcData: null as boolean | null,
     rpcError: null as { code?: string; message?: string } | null,
@@ -23,6 +30,9 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     rpc: async (fn: string, args: unknown) => {
       rpcSpy(fn, args);
+      if (fn === 'get_my_played_categories') {
+        return { data: state.playedCategories, error: null };
+      }
       return { data: state.rpcData, error: state.rpcError };
     },
     from: (table: string) => {
@@ -77,8 +87,11 @@ import { checkAchievements } from '@/lib/quiz/achievements';
 const CATALOG = {
   first_quiz: { name: 'First Quiz', points_reward: 10 },
   quiz_addict_10: { name: 'Quiz Addict', points_reward: 50 },
+  quiz_master_50: { name: 'Quiz Master', points_reward: 150 },
   creator: { name: 'Creator', points_reward: 20 },
   perfect_score: { name: 'Perfect Score', points_reward: 25 },
+  week_streak: { name: 'Streak Master', points_reward: 50 },
+  explorer: { name: 'Explorer', points_reward: 75 },
 };
 
 describe('checkAchievements', () => {
@@ -86,6 +99,7 @@ describe('checkAchievements', () => {
     state.profile = { points: 100, quizzes_played: 0, quizzes_created: 0 };
     state.unlocked = new Set();
     state.catalog = { ...CATALOG };
+    state.playedCategories = 0;
     state.upsertError = null;
     state.rpcData = null;
     // Sin la migración el RPC no existe: ese es el camino por defecto y el
@@ -240,5 +254,62 @@ describe('checkAchievements', () => {
 
     expect(result).toEqual([]);
     expect(updateSpy).not.toHaveBeenCalled();
+  });
+
+  it('unlocks quiz_master_50 only from 50 games on', async () => {
+    state.profile = { points: 0, quizzes_played: 49, quizzes_created: 0 };
+    const before = await checkAchievements('user-1');
+    expect(before.map((a) => a.id)).not.toContain('quiz_master_50');
+
+    state.profile = { points: 0, quizzes_played: 50, quizzes_created: 0 };
+    state.unlocked = new Set(['first_quiz', 'quiz_addict_10']);
+    const after = await checkAchievements('user-1');
+    expect(after.map((a) => a.id)).toEqual(['quiz_master_50']);
+  });
+
+  it('unlocks week_streak at 7 days, even if the current streak already broke', async () => {
+    state.profile = {
+      points: 0,
+      quizzes_played: 8,
+      quizzes_created: 0,
+      current_streak: 6,
+      longest_streak: 6,
+    };
+    const before = await checkAchievements('user-1');
+    expect(before.map((a) => a.id)).not.toContain('week_streak');
+
+    state.profile = {
+      points: 0,
+      quizzes_played: 8,
+      quizzes_created: 0,
+      current_streak: 2,
+      longest_streak: 7,
+    };
+    state.unlocked = new Set(['first_quiz']);
+    const after = await checkAchievements('user-1');
+    expect(after.map((a) => a.id)).toContain('week_streak');
+  });
+
+  it('unlocks explorer with 5 distinct categories played', async () => {
+    state.profile = { points: 0, quizzes_played: 5, quizzes_created: 0 };
+    state.unlocked = new Set(['first_quiz']);
+
+    state.playedCategories = 4;
+    const before = await checkAchievements('user-1');
+    expect(before.map((a) => a.id)).not.toContain('explorer');
+
+    state.playedCategories = 5;
+    const after = await checkAchievements('user-1');
+    expect(after.map((a) => a.id)).toEqual(['explorer']);
+    expect(rpcSpy).toHaveBeenCalledWith('get_my_played_categories', undefined);
+  });
+
+  it('sin las columnas de racha (migración 018 sin aplicar) no inventa logros nuevos', async () => {
+    state.profile = { points: 0, quizzes_played: 5, quizzes_created: 0 };
+    state.unlocked = new Set(['first_quiz']);
+
+    const result = await checkAchievements('user-1');
+
+    expect(result).toEqual([]);
   });
 });
