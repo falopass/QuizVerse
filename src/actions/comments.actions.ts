@@ -55,35 +55,32 @@ const EMPTY_PAGE: QuizCommentsPage = { comments: [], total: 0 };
 
 /**
  * Últimos 50 comentarios de un quiz publicado + total real. Sin auth: la RLS
- * ya permite leer. Cualquier fallo devuelve página vacía — la ficha nunca se
- * rompe por esto.
+ * ya permite leer. Los fallos de la consulta rechazan para que el componente
+ * pueda distinguir el error del vacío real y ofrecer reintento — solo un
+ * quizId inválido devuelve página vacía.
  */
 export async function getQuizComments(quizId: string): Promise<QuizCommentsPage> {
   const parsed = z.string().uuid().safeParse(quizId);
   if (!parsed.success) return EMPTY_PAGE;
 
-  try {
-    const supabase = await createClient();
-    const { data, count, error } = await supabase
-      .from('quiz_comments')
-      .select(COMMENT_SELECT, { count: 'exact' })
-      .eq('quiz_id', parsed.data)
-      .order('created_at', { ascending: false })
-      .limit(50);
+  const supabase = await createClient();
+  const { data, count, error } = await supabase
+    .from('quiz_comments')
+    .select(COMMENT_SELECT, { count: 'exact' })
+    .eq('quiz_id', parsed.data)
+    .order('created_at', { ascending: false })
+    .limit(50);
 
-    if (error || !data) return EMPTY_PAGE;
-    return {
-      comments: data.map((row) => ({
-        id: row.id,
-        body: row.body,
-        created_at: row.created_at,
-        author: row.author ?? null,
-      })),
-      total: count ?? data.length,
-    };
-  } catch {
-    return EMPTY_PAGE;
-  }
+  if (error || !data) throw error ?? new Error('Could not load comments');
+  return {
+    comments: data.map((row) => ({
+      id: row.id,
+      body: row.body,
+      created_at: row.created_at,
+      author: row.author ?? null,
+    })),
+    total: count ?? data.length,
+  };
 }
 
 export async function createComment(

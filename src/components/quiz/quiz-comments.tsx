@@ -110,6 +110,9 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
   const [draft, setDraft] = useState('');
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // El reintento pasa por el efecto (subiendo `attempt`): así una respuesta
+  // tardía queda descartada por `cancelled` si la ficha cambió de quiz.
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -123,13 +126,11 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
     return () => {
       cancelled = true;
     };
-  }, [quizId]);
+  }, [quizId, attempt]);
 
   function handleRetry() {
     setLoaded(null);
-    getQuizComments(quizId)
-      .then((page) => setLoaded({ quizId, status: 'ok', page }))
-      .catch(() => setLoaded({ quizId, status: 'error' }));
+    setAttempt((value) => value + 1);
   }
 
   async function handleSubmit(event: React.FormEvent) {
