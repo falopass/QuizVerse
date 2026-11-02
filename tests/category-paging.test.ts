@@ -15,6 +15,7 @@ const quizRows = Array.from({ length: 502 }, (_, index) => ({
 /** Cuando está puesto, la consulta de tarjetas espera a que el test la suelte. */
 let pageGate: Promise<void> | null = null;
 let countsStarted = false;
+const orderCalls: string[] = [];
 
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/supabase/server', () => ({
@@ -26,7 +27,10 @@ vi.mock('@/lib/supabase/server', () => ({
             select: (cols: string) => {
               const query = {
                 eq: () => query,
-                order: () => query,
+                order: (field: string, options?: { ascending?: boolean }) => {
+                  orderCalls.push(`${field}:${options?.ascending === false ? 'desc' : 'asc'}`);
+                  return query;
+                },
                 range: async (from: number, to: number) => {
                   if (cols === 'category:categories(slug)') {
                     countsStarted = true;
@@ -95,6 +99,14 @@ describe('category paging', () => {
     expect(payload?.quizzes).toHaveLength(0);
     expect(payload?.totalQuizzes).toBe(502);
     expect(payload?.pageCount).toBe(14);
+  });
+
+  it('orders pages by plays_count with a deterministic id tiebreak', async () => {
+    orderCalls.length = 0;
+    await getCategoryPayload('personality', 'es', 3);
+
+    const start = orderCalls.indexOf('plays_count:desc');
+    expect(orderCalls.slice(start, start + 2)).toEqual(['plays_count:desc', 'id:asc']);
   });
 
   it('runs the category counts in parallel with the page query', async () => {
