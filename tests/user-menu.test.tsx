@@ -32,24 +32,11 @@ const USER = {
   user_metadata: { name: 'Ada' },
 };
 
-// Stub mínimo para NotificationBell (montada en FloatingNav): la consulta de
-// no leídas resuelve 0 sin tocar Supabase real.
-const supabaseStub = {
-  from: () => ({
-    select: () => ({ eq: () => ({ eq: async () => ({ count: 0, error: null }) }) }),
-  }),
-};
-
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.signOutAction.mockResolvedValue({ ok: true, userId: null });
   mocks.signOut.mockResolvedValue(undefined);
-  mocks.useSupabase.mockReturnValue({
-    supabase: supabaseStub,
-    user: null,
-    loading: false,
-    signOut: mocks.signOut,
-  });
+  mocks.useSupabase.mockReturnValue({ user: null, loading: false, signOut: mocks.signOut });
 });
 
 describe('UserMenu', () => {
@@ -71,12 +58,7 @@ describe('UserMenu', () => {
   });
 
   it('con sesión muestra el nombre y abre el menú con las dos opciones', () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
 
     render(<UserMenu locale="es" />);
     const trigger = screen.getByRole('button', { name: /ada/i });
@@ -130,12 +112,7 @@ describe('UserMenu', () => {
   });
 
   it('cierra el menú con Escape y devuelve el foco al botón', () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
 
     render(<UserMenu locale="es" />);
     const trigger = screen.getByRole('button', { name: /ada/i });
@@ -149,12 +126,7 @@ describe('UserMenu', () => {
   });
 
   it('cierra el menú al hacer clic fuera', () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
 
     render(<UserMenu locale="es" />);
     fireEvent.click(screen.getByRole('button', { name: /ada/i }));
@@ -166,12 +138,7 @@ describe('UserMenu', () => {
   });
 
   it('cerrar sesión llama a la action, limpia el provider y navega a la home localizada', async () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
 
     render(<UserMenu locale="es" />);
     fireEvent.click(screen.getByRole('button', { name: /ada/i }));
@@ -193,12 +160,7 @@ describe('UserMenuMobile', () => {
   });
 
   it('con sesión muestra Ajustes y Cerrar sesión', async () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
     const onSelect = vi.fn();
 
     render(<UserMenuMobile locale="es" onSelect={onSelect} />);
@@ -230,12 +192,7 @@ describe('FloatingNav', () => {
   });
 
   it('con sesión monta el menú de usuario y las entradas del menú móvil', async () => {
-    mocks.useSupabase.mockReturnValue({
-      supabase: supabaseStub,
-      user: USER,
-      loading: false,
-      signOut: mocks.signOut,
-    });
+    mocks.useSupabase.mockReturnValue({ user: USER, loading: false, signOut: mocks.signOut });
     const dictionary = await getDictionary('es');
     render(<FloatingNav locale="es" dictionary={dictionary} />);
 

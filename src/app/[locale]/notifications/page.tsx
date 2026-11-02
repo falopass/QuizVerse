@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { NotificationList } from '@/components/notifications/notification-list';
-import { hasLocale, getCopy } from '@/lib/i18n/dictionaries';
+import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
-import { resolveNotificationTargets } from '@/lib/notifications/resolve';
 import { buildMetadata } from '@/lib/seo/metadata';
 
 /** Private, login-gated inbox: never indexed. */
@@ -52,7 +51,7 @@ export default async function LocalizedNotificationsPage({
   const [{ data: notifications }, { count: unreadCount }] = await Promise.all([
     supabase
       .from('notifications')
-      .select('id, type, title, body, data, is_read, created_at')
+      .select('id, type, title, body, is_read, created_at')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(50),
@@ -63,19 +62,26 @@ export default async function LocalizedNotificationsPage({
       .eq('is_read', false),
   ]);
 
-  const resolved = await resolveNotificationTargets(supabase, notifications ?? [], locale);
-  const copy = getCopy(locale, 'notifications');
+  const es = locale === 'es';
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
       <section className="surface-panel p-8 md:p-10">
-        <p className="eyebrow">{copy.eyebrow}</p>
+        <p className="eyebrow">{es ? 'Actividad' : 'Activity'}</p>
         <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
-          {copy.title}
+          {es ? 'Notificaciones' : 'Notifications'}
         </h1>
-        <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">{copy.intro}</p>
+        <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
+          {es
+            ? 'Comentarios en tus quizzes, nuevos seguidores y avisos de tu cuenta.'
+            : 'Comments on your quizzes, new followers and account updates.'}
+        </p>
       </section>
-      <NotificationList notifications={resolved} unreadCount={unreadCount ?? 0} locale={locale} />
+      <NotificationList
+        notifications={notifications ?? []}
+        unreadCount={unreadCount ?? 0}
+        locale={locale}
+      />
     </div>
   );
 }
