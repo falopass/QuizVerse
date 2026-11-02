@@ -50,8 +50,12 @@
 -- 1. La clave vive en su propia tabla, fuera del alcance de anon/authenticated
 -- ============================================
 
+-- DEFERRABLE INITIALLY DEFERRED: el trigger BEFORE INSERT copia la clave
+-- cuando la fila padre de quizzes todavía no existe; la comprobación de la
+-- FK se difiere al COMMIT, momento en el que el padre ya está insertado.
 CREATE TABLE IF NOT EXISTS public.quiz_answer_keys (
-  quiz_id UUID PRIMARY KEY REFERENCES public.quizzes(id) ON DELETE CASCADE,
+  quiz_id UUID PRIMARY KEY REFERENCES public.quizzes(id)
+    ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
   questions JSONB NOT NULL,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

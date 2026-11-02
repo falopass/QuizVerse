@@ -113,11 +113,6 @@ export default async function LocalizedQuizResultPage({
     getQuizBySlug(slug, locale),
     shareToken ? getQuizSessionByShareToken(shareToken) : Promise.resolve(null),
   ]);
-  // La revisión necesita la clave real: tras la 015 `questions` ya viene
-  // saneado y buildReview no podría marcar nada. Va por la puerta única del
-  // repositorio; sin clave accesible queda vacía (el error ya quedó en logs).
-  const keyQuiz = quiz ? await loadAnswerKeyBySlug(slug, locale) : null;
-
   if (!quiz) {
     // Mismo rescate que la ficha. Con sesión compartida el token pertenece a
     // este quiz: se cambia de idioma, no de quiz, para no perder el marcador;
@@ -170,6 +165,11 @@ export default async function LocalizedQuizResultPage({
       </div>
     );
   }
+
+  // La revisión necesita la clave real: tras la 015 `questions` ya viene
+  // saneado y buildReview no podría marcar nada. Va por la puerta única del
+  // repositorio; sin clave accesible queda vacía (el error ya quedó en logs).
+  const keyQuiz = await loadAnswerKeyBySlug(slug, locale);
 
   // La CTA de cuenta va solo a visitantes sin sesión; a quien ya entró no se
   // le ofrece registrarse (y la sesión mostrada guarda su auth, no la suya).

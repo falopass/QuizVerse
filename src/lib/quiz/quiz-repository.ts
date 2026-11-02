@@ -64,13 +64,15 @@ function toAnswerKey(row: AnswerKeyRow, questions: unknown): AnswerKeyQuiz {
 /**
  * A trivia quiz missing its key comes back with options that have no
  * `is_correct` at all — grading that would score every answer wrong and look
- * like a legitimately lost game. Personality quizzes keep working without a
- * key row: their scoring data (`personality_tags`, `results`) is public.
+ * like a legitimately lost game. `some` (not `every`): a partially stripped
+ * payload is just as unsafe to grade. Personality quizzes keep working
+ * without a key row: their scoring data (`personality_tags`, `results`) is
+ * public.
  */
 function keyMaterialMissing(quizType: QuizType, questions: Question[]): boolean {
   return (
     quizType === 'trivia' &&
-    questions.every((question) =>
+    questions.some((question) =>
       question.options.every((option) => option.is_correct === undefined)
     )
   );

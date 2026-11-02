@@ -180,6 +180,21 @@ describe('loadAnswerKeyByQuizId', () => {
     expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('SUPABASE_SERVICE_ROLE_KEY'));
   });
 
+  it('clave parcial (una pregunta saneada sin fila de clave) también grita', async () => {
+    // Mezcla q1 con clave + q2 sin ella: puntuar eso daría aciertos falsos y
+    // fallos falsos; se rechaza igual que la columna saneada completa.
+    mocks.quizResult = {
+      data: { ...PUBLISHED_ROW, questions: [RAW_QUESTIONS[0], SANITIZED_QUESTIONS[0]] },
+      error: null,
+    };
+    mocks.keyResult = { data: null, error: null };
+
+    const quiz = await loadAnswerKeyByQuizId(QUIZ_ID);
+
+    expect(quiz).toBeNull();
+    expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('SUPABASE_SERVICE_ROLE_KEY'));
+  });
+
   it('personality sin fila de clave sigue funcionando: su contenido es público', async () => {
     mocks.quizResult = {
       data: {

@@ -29,8 +29,11 @@ describe('migración 015_ocultar_clave_respuestas', () => {
   it('crea quiz_answer_keys colgada de quizzes con cascade', () => {
     expect(sql).toMatch(/create table if not exists public\.quiz_answer_keys/i);
     expect(sql).toMatch(
-      /quiz_id uuid primary key references public\.quizzes\(id\) on delete cascade/i
+      /quiz_id uuid primary key references public\.quizzes\(id\)\s+on delete cascade/i
     );
+    // El trigger BEFORE INSERT copia la clave antes de que exista la fila
+    // padre: la FK debe diferirse al COMMIT o toda alta nueva revienta.
+    expect(sql).toMatch(/deferrable initially deferred/i);
     expect(sql).toMatch(/questions jsonb not null/i);
   });
 
