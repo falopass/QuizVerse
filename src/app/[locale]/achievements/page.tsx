@@ -113,7 +113,7 @@ export default async function LocalizedAchievementsPage({
 
   return (
     <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
-      {pending.length > 0 ? <AchievementReconciler locale={locale} /> : null}
+      {pending.length > 0 ? <AchievementReconciler /> : null}
       <section className="surface-panel p-8 md:p-10">
         <p className="eyebrow">{es ? 'Colección' : 'Collection'}</p>
         <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight md:text-6xl">

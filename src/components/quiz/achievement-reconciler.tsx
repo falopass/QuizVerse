@@ -9,12 +9,12 @@ import { reconcileAchievements } from '@/actions/achievements.actions';
  * El render de la página no escribe: esta llamada sale del cliente y solo se
  * monta cuando hay pendientes.
  */
-export function AchievementReconciler({ locale }: { locale: string }) {
+export function AchievementReconciler() {
   const router = useRouter();
 
   useEffect(() => {
     let active = true;
-    reconcileAchievements(locale)
+    reconcileAchievements()
       .then(({ unlocked }) => {
         if (active && unlocked.length > 0) router.refresh();
       })
@@ -22,7 +22,7 @@ export function AchievementReconciler({ locale }: { locale: string }) {
     return () => {
       active = false;
     };
-  }, [locale, router]);
+  }, [router]);
 
   return null;
 }

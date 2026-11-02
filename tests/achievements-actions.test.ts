@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   rpc: vi.fn(),
-  revalidate: vi.fn(),
   from: vi.fn(),
   state: {
     profile: null as {
@@ -27,8 +26,6 @@ vi.mock('@/lib/supabase/server', () => ({
     from: mocks.from,
   }),
 }));
-
-vi.mock('next/cache', () => ({ revalidatePath: mocks.revalidate }));
 
 import { reconcileAchievements } from '@/actions/achievements.actions';
 
@@ -97,12 +94,12 @@ describe('reconcileAchievements', () => {
   it('sin sesión no consulta ni concede nada', async () => {
     mocks.getUser.mockResolvedValue({ data: { user: null } });
 
-    await expect(reconcileAchievements('es')).resolves.toEqual({ unlocked: [] });
+    await expect(reconcileAchievements()).resolves.toEqual({ unlocked: [] });
     expect(mocks.from).not.toHaveBeenCalled();
   });
 
   it('concede solo los pendientes cuyo contador ya cumple la meta', async () => {
-    const result = await reconcileAchievements('es');
+    const result = await reconcileAchievements();
 
     // first_quiz ya lo tiene; creator (0/1) y week_streak (2/7) no cumplen;
     // explorer sí (3/5 no) → quedan quiz_addict_10 y quiz_master_50.
@@ -113,13 +110,12 @@ describe('reconcileAchievements', () => {
     expect(mocks.rpc).toHaveBeenCalledWith('unlock_achievement', {
       p_achievement_id: 'quiz_master_50',
     });
-    expect(mocks.revalidate).toHaveBeenCalledWith('/es/achievements');
   });
 
   it('con 5 categorías jugadas también concede explorer', async () => {
     mocks.state.playedCategories = 5;
 
-    const result = await reconcileAchievements('es');
+    const result = await reconcileAchievements();
 
     expect(result.unlocked).toContain('explorer');
   });
@@ -127,14 +123,13 @@ describe('reconcileAchievements', () => {
   it('no cuenta ni revalida lo que el RPC rechaza', async () => {
     mocks.state.unlockResult = false;
 
-    const result = await reconcileAchievements('es');
+    const result = await reconcileAchievements();
 
     expect(result.unlocked).toEqual([]);
-    expect(mocks.revalidate).not.toHaveBeenCalled();
   });
 
   it('nunca intenta los logros ocultos ni los ya ganados', async () => {
-    await reconcileAchievements('es');
+    await reconcileAchievements();
 
     const ids = mocks.rpc.mock.calls
       .filter(([fn]) => fn === 'unlock_achievement')
@@ -147,7 +142,7 @@ describe('reconcileAchievements', () => {
   it('si no puede leer los contadores, no concede nada', async () => {
     mocks.state.profile = null;
 
-    await expect(reconcileAchievements('es')).resolves.toEqual({ unlocked: [] });
+    await expect(reconcileAchievements()).resolves.toEqual({ unlocked: [] });
     expect(mocks.rpc).not.toHaveBeenCalledWith('unlock_achievement', expect.anything());
   });
 });

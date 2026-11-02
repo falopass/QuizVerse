@@ -10,10 +10,10 @@
  * valida la condición en SQL y paga el premio una sola vez.
  *
  * Es una mutación, no parte del render: la página de logros solo la invoca
- * desde el cliente cuando detecta pendientes.
+ * desde el cliente cuando detecta pendientes, y el cliente refresca la lista
+ * con `router.refresh()` — por eso no recibe parámetros ni revalida rutas.
  */
 
-import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { normalizeAchievement } from '@/lib/data/normalizers';
 import { pendingAchievements } from '@/lib/quiz/achievement-progress';
@@ -24,7 +24,7 @@ export interface ReconcileResult {
   unlocked: string[];
 }
 
-export async function reconcileAchievements(locale: string): Promise<ReconcileResult> {
+export async function reconcileAchievements(): Promise<ReconcileResult> {
   const supabase = await createClient();
   const {
     data: { user },
@@ -55,6 +55,5 @@ export async function reconcileAchievements(locale: string): Promise<ReconcileRe
     if (!error && data === true) unlocked.push(achievement.id);
   }
 
-  if (unlocked.length > 0) revalidatePath(`/${locale}/achievements`);
   return { unlocked };
 }
