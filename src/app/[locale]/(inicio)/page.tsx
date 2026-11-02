@@ -76,6 +76,8 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   ];
   const lead = quizzes[0];
   const today = new Date();
+  // El pick es independiente por idioma: los candidatos son el catálogo de este
+  // locale y forzar el par traducido exigiría consultar también el del otro.
   const dailyQuiz = pickDailyQuiz(quizzes, today);
   const dailyCopy = dailyQuiz ? dailyPickCopy(locale, today) : null;
   const games = quizzes.filter((quiz) => quiz.id !== lead?.id && quiz.id !== dailyQuiz?.id);
