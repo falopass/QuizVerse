@@ -57,6 +57,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           remaining: (count: number) => `Quedan ${count} generaciones en esta ventana.`,
           draftCreated: 'Borrador creado. Revísalo antes de guardarlo.',
           generateError: 'No se pudo generar el quiz',
+          loginRequired: 'Tu sesión expiró. Inicia sesión para seguir generando.',
           saveSuccess: 'Quiz guardado correctamente.',
           saveError: 'No se pudo guardar el quiz',
           promptEngine: 'Motor de prompts',
@@ -123,6 +124,7 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
           remaining: (count: number) => `${count} generations remaining in this window.`,
           draftCreated: 'Draft created. Review it before saving.',
           generateError: 'Failed to generate quiz',
+          loginRequired: 'Your session expired. Sign in to keep generating.',
           saveSuccess: 'Quiz saved successfully.',
           saveError: 'Failed to save quiz',
           promptEngine: 'Prompt Engine',
@@ -237,6 +239,16 @@ export function AIQuizGenerator({ locale = 'en' }: { locale?: Locale }) {
         }),
       });
       const data = (await response.json()) as ApiResponse;
+      if (response.status === 401) {
+        error(copy.loginRequired);
+        router.push(
+          localizeHref(
+            locale,
+            `/login?redirect=${encodeURIComponent(localizeHref(locale, '/create/ai'))}`
+          )
+        );
+        return;
+      }
       if (!response.ok || data.error) throw new Error(data.error || copy.generateError);
       setDraft({ ...data.quiz, difficulty });
       setWarnings(data.validationWarnings || []);

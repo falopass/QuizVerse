@@ -30,6 +30,8 @@ export interface RateLimitConfig {
   window: number; // seconds
   /** 'closed' (default) bloquea si Redis falla; 'open' deja pasar (limiters no críticos). */
   onError?: 'closed' | 'open';
+  /** false = solo consulta el contador sin registrar consumo (peek antes de decidir). */
+  record?: boolean;
 }
 
 export async function checkRateLimit(config: RateLimitConfig): Promise<{
@@ -41,7 +43,9 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
 }> {
   const redis = getRedis();
   if (!redis) {
-    return { allowed: true, remaining: config.limit, reset: config.window };
+    // shortcut: sin Redis el chequeo no ocurrió; se marca errored para que los
+    // callers críticos (p. ej. /api/quiz/generate) puedan fallar cerrado.
+    return { allowed: true, remaining: config.limit, reset: config.window, errored: true };
   }
 
   const now = Math.floor(Date.now() / 1000);
@@ -70,12 +74,14 @@ export async function checkRateLimit(config: RateLimitConfig): Promise<{
       };
     }
 
-    await redis.zadd(key, { score: now, member: `${now}-${Math.random()}` });
-    await redis.expire(key, config.window);
+    if (config.record !== false) {
+      await redis.zadd(key, { score: now, member: `${now}-${Math.random()}` });
+      await redis.expire(key, config.window);
+    }
 
     return {
       allowed: true,
-      remaining: config.limit - count - 1,
+      remaining: config.limit - count - (config.record === false ? 0 : 1),
       reset: config.window,
     };
   } catch (error) {
@@ -95,12 +101,13 @@ export function createRateLimiter(
   onError?: 'closed' | 'open'
 ) {
   return {
-    check: (identifier: string) =>
+    check: (identifier: string, opts?: { record?: boolean }) =>
       checkRateLimit({
         key: `${baseKey}:${identifier}`,
         limit,
         window,
         onError,
+        record: opts?.record,
       }),
   };
 }

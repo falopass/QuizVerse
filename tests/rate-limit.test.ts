@@ -67,6 +67,16 @@ describe('checkRateLimit', () => {
     expect(redisMocks.expire).toHaveBeenCalledWith('ratelimit:test', 60);
   });
 
+  it('con record: false no registra consumo ni lo descuenta de remaining', async () => {
+    redisMocks.zcard.mockResolvedValue(2);
+
+    const { checkRateLimit } = await loadRateLimit();
+    const result = await checkRateLimit({ key: 'test', limit: 5, window: 60, record: false });
+
+    expect(result).toEqual({ allowed: true, remaining: 3, reset: 60 });
+    expect(redisMocks.zadd).not.toHaveBeenCalled();
+  });
+
   it('falla cerrado por defecto cuando Redis lanza error', async () => {
     vi.spyOn(console, 'error').mockImplementation(() => {});
     redisMocks.zremrangebyscore.mockRejectedValue(new Error('redis down'));

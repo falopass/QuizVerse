@@ -4,6 +4,8 @@ import { generateQuizWithAI } from '@/lib/quiz/generator';
 import { validateAIQuizResponse } from '@/lib/quiz/validator';
 import { inferVisualProfile } from '@/lib/design/visual-profile';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
+import { createRateLimiter } from '@/lib/utils/rate-limit';
+import { createClient } from '@/lib/supabase/server';
 
 const generateQuizSchema = z.object({
   topic: z.string().trim().min(3).max(120),
@@ -17,7 +19,20 @@ function getRequestIdentifier(request: NextRequest) {
   return clientIpFromHeaders(request.headers, 'anonymous');
 }
 
+/** Each call burns paid DeepSeek tokens: 10/min per IP and 10/min per user, fail closed. */
+const generateIpLimiter = createRateLimiter('quiz-generate-ip', 10, 60, 'closed');
+const generateUserLimiter = createRateLimiter('quiz-generate-user', 10, 60, 'closed');
+
 export async function POST(request: NextRequest) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: 'authentication_required' }, { status: 401 });
+  }
+
   const body = await request.json().catch(() => null);
   const parsed = generateQuizSchema.safeParse(body);
 
@@ -36,31 +51,38 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let rateLimit = {
-    allowed: true,
-    remaining: 10,
-    reset: 60,
-  };
+  const ip = getRequestIdentifier(request);
+  // Peek primero: una cuota rechazada no debe consumir la otra.
+  const [ipPeek, userPeek] = await Promise.all([
+    generateIpLimiter.check(ip, { record: false }),
+    generateUserLimiter.check(user.id, { record: false }),
+  ]);
+  const peek = ipPeek.remaining <= userPeek.remaining ? ipPeek : userPeek;
 
-  try {
-    const { quizLimiter } = await import('@/lib/utils/rate-limit');
-    rateLimit = await quizLimiter.check(getRequestIdentifier(request));
-  } catch {
-    rateLimit = {
-      allowed: true,
-      remaining: 10,
-      reset: 60,
-    };
+  if (ipPeek.errored || userPeek.errored) {
+    return NextResponse.json(
+      { error: 'Rate limiter unavailable', rateLimit: peek },
+      { status: 503 }
+    );
   }
 
-  if (!rateLimit.allowed) {
-    return NextResponse.json(
-      {
-        error: 'Rate limit exceeded',
-        rateLimit,
-      },
-      { status: 429 }
-    );
+  if (!ipPeek.allowed || !userPeek.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit: peek }, { status: 429 });
+  }
+
+  // Ambas cuotas pasaron: ahora sí se registra el consumo en las dos.
+  const [ipLimit, userLimit] = await Promise.all([
+    generateIpLimiter.check(ip),
+    generateUserLimiter.check(user.id),
+  ]);
+  const rateLimit = ipLimit.remaining <= userLimit.remaining ? ipLimit : userLimit;
+
+  if (ipLimit.errored || userLimit.errored) {
+    return NextResponse.json({ error: 'Rate limiter unavailable', rateLimit }, { status: 503 });
+  }
+
+  if (!ipLimit.allowed || !userLimit.allowed) {
+    return NextResponse.json({ error: 'Rate limit exceeded', rateLimit }, { status: 429 });
   }
 
   const result = await generateQuizWithAI(parsed.data, deepseekApiKey);

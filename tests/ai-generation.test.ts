@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { validateAIQuizResponse } from '@/lib/quiz/validator';
 
 // Fixtures con la forma exacta que pide el prompt de DeepSeek
@@ -183,16 +183,22 @@ describe('validateAIQuizResponse', () => {
 
 // Caso de ruta: el POST debe responder 502 (no 200) cuando la AI devuelve
 // un quiz estructuralmente roto, sin exponer el detalle interno.
-const { generateSpy } = vi.hoisted(() => ({ generateSpy: vi.fn() }));
+const { generateSpy, getUserSpy, rateLimitCheck } = vi.hoisted(() => ({
+  generateSpy: vi.fn(),
+  getUserSpy: vi.fn(),
+  rateLimitCheck: vi.fn(),
+}));
 
 vi.mock('@/lib/quiz/generator', () => ({
   generateQuizWithAI: generateSpy,
 }));
 
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: vi.fn(async () => ({ auth: { getUser: getUserSpy } })),
+}));
+
 vi.mock('@/lib/utils/rate-limit', () => ({
-  quizLimiter: {
-    check: vi.fn(async () => ({ allowed: true, remaining: 9, reset: 60 })),
-  },
+  createRateLimiter: vi.fn(() => ({ check: rateLimitCheck })),
 }));
 
 import { NextRequest } from 'next/server';
@@ -215,8 +221,57 @@ function makeRequest(body: unknown) {
 }
 
 describe('POST /api/quiz/generate', () => {
-  it('responde 502 sin detalle interno cuando la AI devuelve un quiz roto', async () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
     process.env.DEEPSEEK_API_KEY = 'test-key';
+    getUserSpy.mockResolvedValue({ data: { user: { id: 'user-1' } } });
+    rateLimitCheck.mockResolvedValue({ allowed: true, remaining: 9, reset: 60 });
+  });
+
+  it('responde 401 sin sesión y nunca llama al generador', async () => {
+    getUserSpy.mockResolvedValue({ data: { user: null } });
+
+    const response = await POST(makeRequest(requestBody));
+    const body = await response.json();
+
+    expect(response.status).toBe(401);
+    expect(body.error).toBe('authentication_required');
+    expect(generateSpy).not.toHaveBeenCalled();
+    expect(rateLimitCheck).not.toHaveBeenCalled();
+  });
+
+  it('responde 503 si el limitador falla y no genera', async () => {
+    rateLimitCheck.mockResolvedValue({ allowed: false, remaining: 0, reset: 60, errored: true });
+
+    const response = await POST(makeRequest(requestBody));
+    const body = await response.json();
+
+    expect(response.status).toBe(503);
+    expect(body.error).toBe('Rate limiter unavailable');
+    expect(generateSpy).not.toHaveBeenCalled();
+  });
+
+  it('responde 429 cuando el limitador por usuario se agota', async () => {
+    rateLimitCheck.mockResolvedValue({ allowed: false, remaining: 0, reset: 30 });
+
+    const response = await POST(makeRequest(requestBody));
+
+    expect(response.status).toBe(429);
+    expect(generateSpy).not.toHaveBeenCalled();
+  });
+
+  it('una cuota rechazada solo consulta: no registra consumo en ninguna', async () => {
+    rateLimitCheck.mockResolvedValue({ allowed: false, remaining: 0, reset: 30 });
+
+    await POST(makeRequest(requestBody));
+
+    expect(rateLimitCheck).toHaveBeenCalledTimes(2);
+    for (const call of rateLimitCheck.mock.calls) {
+      expect(call[1]).toEqual({ record: false });
+    }
+  });
+
+  it('responde 502 sin detalle interno cuando la AI devuelve un quiz roto', async () => {
     const broken = validTrivia();
     broken.questions[0] = triviaQuestion('q1', [
       { id: 'a', text: 'A', is_correct: true },
