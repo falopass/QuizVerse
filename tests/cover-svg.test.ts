@@ -86,7 +86,36 @@ describe('buildQuizCoverSvg', () => {
 
     const tspans = svg.match(/<tspan/g) ?? [];
     expect(tspans.length).toBeGreaterThanOrEqual(2);
+    // A title that does not fit in three lines is marked as truncated.
+    expect(tspans.length).toBe(3);
+    expect(svg).toContain('…');
     expect(svg).toContain('</svg>');
+  });
+
+  it('builds a 840×1200 portrait variant for the OG result panel', () => {
+    const svg = buildQuizCoverSvg(makeCoverQuiz(), 'portrait');
+
+    expect(svg).toContain('width="840" height="1200"');
+    expect(svg).toContain('viewBox="0 0 840 1200"');
+    expect(svg).toContain('>TRIVIA<');
+    expect(svg.trimEnd().endsWith('</svg>')).toBe(true);
+  });
+
+  it('escapes the title and category in the portrait variant too', () => {
+    const svg = buildQuizCoverSvg(
+      makeCoverQuiz({ title: `<script>alert(1)</script> & "quoted"` }),
+      'portrait'
+    );
+
+    expect(svg).not.toContain('<script>');
+    expect(svg).toContain('&lt;script&gt;alert(1)&lt;/script&gt;');
+    expect(svg).toContain('MOVIES &amp; TV');
+  });
+
+  it('portrait and landscape are different documents for the same quiz', () => {
+    expect(buildQuizCoverSvg(makeCoverQuiz(), 'portrait')).not.toBe(
+      buildQuizCoverSvg(makeCoverQuiz())
+    );
   });
 
   it('uses different themes and badges for trivia vs personality', () => {
