@@ -43,6 +43,11 @@ interface ResultScreenProps {
   /** Registro con vuelta a este resultado; el servidor solo lo pasa a anónimos. */
   accountCtaHref?: string;
   onPlayAgain?: () => void;
+  /** El guardado in-game falló: muestra un aviso persistente con reintento. */
+  submitFailed?: boolean;
+  /** Desactiva el botón de reintento mientras un envío está en vuelo. */
+  isSubmittingResult?: boolean;
+  onRetrySubmit?: () => void;
   /** Marcador del retador: pinta la comparativa retador vs retado. */
   challenge?: ChallengeScore | null;
   /** Enlace para aceptar el reto desde un resultado compartido (`/play?challenge=`). */
@@ -65,6 +70,9 @@ export function ResultScreen({
   challengeShareUrl,
   accountCtaHref,
   onPlayAgain,
+  submitFailed = false,
+  isSubmittingResult = false,
+  onRetrySubmit,
   challenge = null,
   challengeHref,
   related,
@@ -106,6 +114,8 @@ export function ResultScreen({
           acceptChallenge: 'Aceptar el reto',
           keepPlaying: 'Sigue jugando',
           explanation: 'Explicación',
+          saveFailed: 'No pudimos guardar tu partida: sin guardarla no hay puntos ni enlace.',
+          retrySubmit: 'Reintentar',
         }
       : {
           eyebrow: 'Result',
@@ -139,6 +149,8 @@ export function ResultScreen({
           acceptChallenge: 'Take the challenge',
           keepPlaying: 'Keep playing',
           explanation: 'Explanation',
+          saveFailed: "We couldn't save your game — no points or share link until it's saved.",
+          retrySubmit: 'Retry',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -211,6 +223,25 @@ export function ResultScreen({
               {result?.title || scoreMessage}
             </motion.h1>
             <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
+
+            {submitFailed && (
+              <div
+                className="border-accent-primary/40 bg-bg-primary/60 mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-4"
+                role="alert"
+              >
+                <p className="text-text-primary text-sm font-medium">{copy.saveFailed}</p>
+                {onRetrySubmit && (
+                  <button
+                    type="button"
+                    onClick={onRetrySubmit}
+                    disabled={isSubmittingResult}
+                    className="arcade-result-ranking"
+                  >
+                    {isSubmittingResult ? '…' : copy.retrySubmit}
+                  </button>
+                )}
+              </div>
+            )}
 
             {challenge && (
               <div

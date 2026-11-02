@@ -17,12 +17,14 @@ import { toJson } from '@/lib/supabase/json';
 import { apiLimiter, createRateLimiter, quizLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { checkAchievements } from '@/lib/quiz/achievements';
+import { buildReview } from '@/lib/quiz/answer-key';
 import { QuizCreateSchema, validateQuiz } from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug } from '@/lib/quiz/quiz-slug';
 import { actionFailure, zodMessage, type ActionResult } from '@/lib/actions/types';
 import type { Database } from '@/types/database';
+import type { QuizReviewItem } from '@/types/quiz';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
   /** Set by the AI assistant so the catalogue can flag generated drafts. */
@@ -216,6 +218,11 @@ export interface SubmitGameResult {
   max_score: number;
   points_earned: number;
   achievements_unlocked: Array<{ id: string; name: string }>;
+  /**
+   * Server-built answer review (same shape `buildReview` gives `/result`):
+   * the client paints it without ever receiving the answer key.
+   */
+  review: QuizReviewItem[];
 }
 
 /**
@@ -232,6 +239,9 @@ export async function submitQuizResult(
 ): Promise<ActionResult<SubmitGameResult>> {
   const { supabase, user } = await currentUser();
 
+  // Anonymous players are keyed by client IP (cf-connecting-ip on Cloudflare):
+  // a shared 'anonymous' bucket would let ~11 strangers exhaust each other's
+  // submissions and lose finished games.
   const { allowed } = await quizLimiter.check(user?.id ?? `anonymous:${await clientIp()}`);
   if (!allowed) return actionFailure('rate_limited', 'Too many submissions. Please wait.');
 
@@ -282,6 +292,7 @@ export async function submitQuizResult(
       : null,
     score: scored.score,
     max_score: scored.maxScore,
+    review: buildReview(quiz, scored.graded),
     // El trigger award_quiz_points solo corre con player_id: una partida
     // anónima no otorga nada y la respuesta debe decir lo mismo.
     points_earned: user ? pointsFor(scored.perfect) : 0,
