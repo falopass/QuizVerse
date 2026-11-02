@@ -481,6 +481,8 @@ export interface Database {
           user_id: string;
           parent_id: string | null;
           body: string;
+          hidden_at: string | null;
+          hidden_by: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -490,6 +492,8 @@ export interface Database {
           user_id: string;
           parent_id?: string | null;
           body: string;
+          hidden_at?: string | null;
+          hidden_by?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -499,6 +503,8 @@ export interface Database {
           user_id?: string;
           parent_id?: string | null;
           body?: string;
+          hidden_at?: string | null;
+          hidden_by?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -523,6 +529,78 @@ export interface Database {
             columns: ['parent_id'];
             isOneToOne: false;
             referencedRelation: 'quiz_comments';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      comment_reports: {
+        Row: {
+          id: string;
+          comment_id: string | null;
+          quiz_id: string | null;
+          comment_body: string;
+          reporter_id: string | null;
+          reason: ReportReason;
+          details: string | null;
+          resolved: boolean;
+          resolved_by: string | null;
+          resolved_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          comment_id?: string | null;
+          quiz_id?: string | null;
+          comment_body: string;
+          reporter_id?: string | null;
+          reason: ReportReason;
+          details?: string | null;
+          resolved?: boolean;
+          resolved_by?: string | null;
+          resolved_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          comment_id?: string | null;
+          quiz_id?: string | null;
+          comment_body?: string;
+          reporter_id?: string | null;
+          reason?: ReportReason;
+          details?: string | null;
+          resolved?: boolean;
+          resolved_by?: string | null;
+          resolved_at?: string | null;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'comment_reports_comment_id_fkey';
+            columns: ['comment_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz_comments';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comment_reports_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comment_reports_reporter_id_fkey';
+            columns: ['reporter_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'comment_reports_resolved_by_fkey';
+            columns: ['resolved_by'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
             referencedColumns: ['id'];
           },
         ];

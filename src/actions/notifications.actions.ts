@@ -3,9 +3,11 @@
 /**
  * Notificaciones del usuario.
  *
- * La tabla `notifications` y su RLS existen desde la migración 007: la lectura
- * y el UPDATE ya quedan limitados a las filas propias por las políticas, así
- * que aquí no hace falta filtrar por `user_id` otra vez.
+ * La tabla `notifications` y su RLS existen desde la migración 007. Las
+ * políticas ya limitan las filas a las propias, pero el UPDATE filtra por
+ * `user_id` igualmente: si una migración futura relaja la policy, esta
+ * acción no puede tocar notificaciones de otra gente (mismo patrón que
+ * `getMyActivity`).
  */
 
 import { createClient } from '@/lib/supabase/server';
@@ -28,6 +30,7 @@ export async function markAllNotificationsRead(): Promise<ActionResult> {
   const { error } = await supabase
     .from('notifications')
     .update({ is_read: true })
+    .eq('user_id', user.id)
     .eq('is_read', false);
 
   if (error) return unexpectedFailure('notifications.markAllRead', error);

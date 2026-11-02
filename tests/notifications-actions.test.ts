@@ -17,12 +17,15 @@ vi.mock('@/lib/supabase/server', () => ({
       return {
         update: (payload: unknown) => {
           mocks.updateSpy(payload);
-          return {
+          const chain = {
             eq: (column: string, value: unknown) => {
               mocks.eqSpy(column, value);
-              return Promise.resolve(mocks.updateResult);
+              return chain;
             },
+            then: (resolve: (value: typeof mocks.updateResult) => void) =>
+              resolve(mocks.updateResult),
           };
+          return chain;
         },
       };
     },
@@ -52,11 +55,12 @@ describe('markAllNotificationsRead', () => {
     expect(mocks.updateSpy).not.toHaveBeenCalled();
   });
 
-  it('marca is_read=true solo sobre las filas no leídas', async () => {
+  it('marca is_read=true solo sobre las filas propias no leídas', async () => {
     const result = await markAllNotificationsRead();
 
     expect(result).toEqual({ success: true });
     expect(mocks.updateSpy).toHaveBeenCalledWith({ is_read: true });
+    expect(mocks.eqSpy).toHaveBeenCalledWith('user_id', 'user-1');
     expect(mocks.eqSpy).toHaveBeenCalledWith('is_read', false);
   });
 
