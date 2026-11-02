@@ -1,4 +1,5 @@
 ﻿import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import {
@@ -8,6 +9,7 @@ import {
 } from '@/lib/data/public';
 import { formatCompactNumber } from '@/lib/utils/format';
 import { hasLocale } from '@/lib/i18n/dictionaries';
+import { localizeHref } from '@/lib/i18n/navigation';
 import { achievementCopy } from '@/lib/i18n/achievements';
 import { ACHIEVEMENT_ICONS } from '@/lib/quiz/achievement-progress';
 import { liveStreak } from '@/lib/quiz/streak';
@@ -27,7 +29,9 @@ export async function generateMetadata({
     return {};
   }
 
-  const profile = await getProfileByUsername(username);
+  // Un fallo de la consulta no puede tumbar la metadata (la página tiene su
+  // error boundary); solo un perfil inexistente deja la metadata vacía.
+  const profile = await getProfileByUsername(username).catch(() => null);
   if (!profile) {
     return {};
   }
@@ -83,9 +87,28 @@ export default async function LocalizedProfilePage({
         <p className="eyebrow">{locale === 'es' ? 'Perfil' : 'Profile'}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
           <div>
-            <h1 className="text-text-primary text-4xl font-semibold tracking-tight md:text-6xl">
-              {profile.display_name || profile.username}
-            </h1>
+            <div className="flex items-center gap-4">
+              {profile.avatar_url ? (
+                // El avatar viene de OAuth y el host es arbitrario: next/image
+                // lo rechazaría por no estar en remotePatterns.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={profile.avatar_url}
+                  alt=""
+                  className="h-16 w-16 shrink-0 rounded-full object-cover"
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="bg-bg-tertiary text-accent-primary flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl font-bold"
+                >
+                  {(profile.display_name || profile.username).charAt(0).toUpperCase()}
+                </span>
+              )}
+              <h1 className="text-text-primary text-4xl font-semibold tracking-tight md:text-6xl">
+                {profile.display_name || profile.username}
+              </h1>
+            </div>
             <p className="text-text-muted mt-3 text-sm tracking-[0.18em] uppercase">
               @{profile.username}
             </p>
@@ -140,10 +163,18 @@ export default async function LocalizedProfilePage({
             <StatCard
               value={formatCompactNumber(countsRow.data?.followers_count ?? 0, locale)}
               label={locale === 'es' ? 'Seguidores' : 'Followers'}
+              href={localizeHref(
+                locale,
+                `/profile/${encodeURIComponent(profile.username)}/followers`
+              )}
             />
             <StatCard
               value={formatCompactNumber(countsRow.data?.following_count ?? 0, locale)}
               label={locale === 'es' ? 'Siguiendo' : 'Following'}
+              href={localizeHref(
+                locale,
+                `/profile/${encodeURIComponent(profile.username)}/following`
+              )}
             />
           </div>
         </div>
@@ -177,20 +208,61 @@ export default async function LocalizedProfilePage({
         </div>
       </section>
 
-      <section className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {quizzes.map((quiz, index) => (
-          <EditorialQuizCard key={quiz.id} quiz={quiz} index={index} locale={locale} />
-        ))}
-      </section>
+      {quizzes === null ? (
+        // Una caída del catálogo no puede leerse como «no tiene quizzes».
+        <section className="surface-card mt-6 p-6">
+          <p className="text-text-secondary max-w-xl text-sm leading-6">
+            {locale === 'es'
+              ? 'No pudimos cargar los quizzes de este perfil.'
+              : "We could not load this profile's quizzes."}
+          </p>
+          <Link
+            href={localizeHref(locale, `/profile/${encodeURIComponent(profile.username)}`)}
+            className="text-accent-primary mt-4 inline-block text-sm font-semibold"
+          >
+            {locale === 'es' ? 'Reintentar' : 'Try again'}
+          </Link>
+        </section>
+      ) : quizzes.length === 0 ? (
+        <section className="surface-card mt-6 p-6">
+          <p className="text-text-secondary max-w-xl text-sm leading-6">
+            {locale === 'es'
+              ? 'Este perfil todavía no tiene quizzes publicados.'
+              : 'This profile has no published quizzes yet.'}
+          </p>
+          <Link
+            href={localizeHref(locale, '/quiz')}
+            className="text-accent-primary mt-4 inline-block text-sm font-semibold"
+          >
+            {locale === 'es' ? 'Explorar quizzes' : 'Explore quizzes'}
+          </Link>
+        </section>
+      ) : (
+        <section className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {quizzes.map((quiz, index) => (
+            <EditorialQuizCard key={quiz.id} quiz={quiz} index={index} locale={locale} />
+          ))}
+        </section>
+      )}
     </div>
   );
 }
 
-function StatCard({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="border-border-subtle bg-bg-primary/80 rounded-[1.5rem] border p-5 text-center">
+function StatCard({ value, label, href }: { value: string; label: string; href?: string }) {
+  const body = (
+    <>
       <p className="text-text-primary text-3xl font-semibold">{value}</p>
       <p className="text-text-muted mt-2 text-sm">{label}</p>
-    </div>
+    </>
+  );
+  const classes =
+    'border-border-subtle bg-bg-primary/80 block rounded-[1.5rem] border p-5 text-center';
+
+  return href ? (
+    <Link href={href} className={`${classes} hover:border-accent-primary/40 transition-colors`}>
+      {body}
+    </Link>
+  ) : (
+    <div className={classes}>{body}</div>
   );
 }

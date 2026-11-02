@@ -56,14 +56,17 @@ vi.mock('@/lib/data/public', () => ({
     ],
     categories: [],
   }),
-  getLeaderboard: async () => [
-    {
-      rank: 1,
-      user: { id: 'u-secret', username: 'top_secret_user', display_name: 'Nombre Oculto' },
-      points: 900,
-      quizzesPlayed: 12,
-    },
-  ],
+  getLeaderboard: async () => ({
+    entries: [
+      {
+        rank: 1,
+        user: { id: 'u-secret', username: 'top_secret_user', display_name: 'Nombre Oculto' },
+        points: 900,
+        quizzesPlayed: 12,
+      },
+    ],
+    hasMore: false,
+  }),
 }));
 
 import ExplorerPage from '@/app/[locale]/quiz/(explorar)/page';

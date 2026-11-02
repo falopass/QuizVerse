@@ -25,6 +25,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/profile/weekly-ranking', () => ({
   getWeeklyLeaderboard: mocks.getWeeklyLeaderboard,
+  getWeeklyRank: vi.fn(async () => null),
 }));
 
 import LocalizedLeaderboardPage from '@/app/[locale]/leaderboard/page';
@@ -42,8 +43,8 @@ beforeEach(() => {
   mocks.getLeaderboard.mockReset();
   mocks.getWeeklyLeaderboard.mockReset();
   mocks.getUser.mockResolvedValue({ data: { user: null }, error: null });
-  mocks.getLeaderboard.mockResolvedValue([]);
-  mocks.getWeeklyLeaderboard.mockResolvedValue([]);
+  mocks.getLeaderboard.mockResolvedValue({ entries: [], hasMore: false });
+  mocks.getWeeklyLeaderboard.mockResolvedValue({ entries: [], hasMore: false });
 });
 
 describe('leaderboard: pestaña semanal', () => {

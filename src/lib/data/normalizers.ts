@@ -5,6 +5,7 @@ import type {
   Category,
   PersonalityResult,
   Profile,
+  ProfileBadge,
   Question,
   Quiz,
   QuizSessionResult,
@@ -104,7 +105,7 @@ export function parseResults(
 export function normalizeQuiz(
   row: QuizRow,
   categories: Map<string, Category>,
-  creator?: Profile | null,
+  creator?: ProfileBadge | null,
   enrichVisual = true
 ): Quiz {
   const normalizedQuiz: Quiz = {

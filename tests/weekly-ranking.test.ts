@@ -9,7 +9,7 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(async () => ({ from: mocks.from, rpc: mocks.rpc })),
 }));
 
-import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
+import { getWeeklyLeaderboard, getWeeklyRank } from '@/lib/profile/weekly-ranking';
 
 type DbResult = { data: unknown; error: unknown };
 type Call = { method: string; args: unknown[] };
@@ -97,7 +97,7 @@ describe('getWeeklyLeaderboard', () => {
       profiles: ok([profileRow('u1'), profileRow('u2')]),
     });
 
-    const entries = await getWeeklyLeaderboard(50);
+    const { entries } = await getWeeklyLeaderboard(50);
 
     expect(entries).toHaveLength(2);
     expect(entries[0]).toMatchObject({ rank: 1, points: 45, quizzesPlayed: 2 });
@@ -116,7 +116,7 @@ describe('getWeeklyLeaderboard', () => {
       profiles: ok([profileRow('u1')]),
     });
 
-    const entries = await getWeeklyLeaderboard(50);
+    const { entries } = await getWeeklyLeaderboard(50);
 
     expect(entries).toHaveLength(1);
     expect(entries[0].quizzesPlayed).toBe(1);
@@ -143,7 +143,7 @@ describe('getWeeklyLeaderboard', () => {
       profiles: ok([profileRow('u1'), profileRow('u2')]),
     });
 
-    const entries = await getWeeklyLeaderboard(50);
+    const { entries } = await getWeeklyLeaderboard(50);
 
     const ranges = calls.game_sessions.filter((call) => call.method === 'range');
     expect(ranges).toEqual([
@@ -167,7 +167,7 @@ describe('getWeeklyLeaderboard', () => {
       profiles: ok([profileRow('u1'), profileRow('u2')]),
     });
 
-    const entries = await getWeeklyLeaderboard(2);
+    const { entries } = await getWeeklyLeaderboard(2);
 
     expect(entries).toHaveLength(2);
     const inCall = calls.profiles.find((call) => call.method === 'in');
@@ -178,7 +178,7 @@ describe('getWeeklyLeaderboard', () => {
   it('sin sesiones en la semana devuelve [] y no consulta profiles', async () => {
     const calls = mockDb({ sessionPages: [ok([])], profiles: ok([]) });
 
-    expect(await getWeeklyLeaderboard(50)).toEqual([]);
+    expect(await getWeeklyLeaderboard(50)).toEqual({ entries: [], hasMore: false });
     expect(calls.profiles).toHaveLength(0);
   });
 
@@ -192,10 +192,11 @@ describe('getWeeklyLeaderboard', () => {
       error: null,
     });
 
-    const entries = await getWeeklyLeaderboard(10);
+    const { entries } = await getWeeklyLeaderboard(10);
 
+    // Una fila de más sobre la página: hasMore exacto sin count aparte.
     expect(mocks.rpc).toHaveBeenCalledWith('get_weekly_session_totals', {
-      p_limit: 10,
+      p_limit: 11,
     });
     expect(mocks.from).not.toHaveBeenCalledWith('game_sessions');
     expect(entries[0]).toMatchObject({ rank: 1, points: 45, quizzesPlayed: 2 });
@@ -223,5 +224,76 @@ describe('getWeeklyLeaderboard', () => {
     });
 
     await expect(getWeeklyLeaderboard(50)).rejects.toThrow();
+  });
+
+  it('desempata por player_id cuando partidas y puntos empatan (paginación estable)', async () => {
+    mockDb({
+      sessionPages: [
+        ok([
+          { player_id: 'u3', score: 1, max_score: 10 },
+          { player_id: 'u1', score: 1, max_score: 10 },
+          { player_id: 'u2', score: 1, max_score: 10 },
+        ]),
+      ],
+      profiles: ok([profileRow('u1'), profileRow('u2'), profileRow('u3')]),
+    });
+
+    const { entries } = await getWeeklyLeaderboard(10);
+
+    expect(entries.map((entry) => entry.user.username)).toEqual(['user-u1', 'user-u2', 'user-u3']);
+  });
+
+  it('pagina: la página 2 arranca tras la 1 y hasMore refleja la fila extra', async () => {
+    // 3 jugadores: página 1 con limit 2 trae 2 y hasMore; página 2 trae el resto.
+    // Cada llamada barre su propia página del fixture (el mock consume una
+    // página por consulta a game_sessions).
+    const week = ok([
+      { player_id: 'u1', score: 1, max_score: 10 },
+      { player_id: 'u1', score: 1, max_score: 10 },
+      { player_id: 'u2', score: 1, max_score: 10 },
+      { player_id: 'u3', score: 1, max_score: 10 },
+    ]);
+    const calls = mockDb({
+      sessionPages: [week, week],
+      profiles: ok([profileRow('u1'), profileRow('u2'), profileRow('u3')]),
+    });
+
+    const first = await getWeeklyLeaderboard(2, 1);
+    expect(first.entries.map((entry) => entry.user.username)).toEqual(['user-u1', 'user-u2']);
+    expect(first.hasMore).toBe(true);
+
+    const second = await getWeeklyLeaderboard(2, 2);
+    expect(second.entries.map((entry) => entry.user.username)).toEqual(['user-u3']);
+    expect(second.entries[0].rank).toBe(3);
+    expect(second.hasMore).toBe(false);
+    // La página 2 pide perfiles solo de su ventana.
+    expect(calls.profiles.at(-1)?.args[1]).toHaveLength(1);
+  });
+});
+
+describe('getWeeklyRank', () => {
+  it('devuelve el puesto que calcula el RPC', async () => {
+    mocks.rpc.mockResolvedValue({ data: 61, error: null });
+
+    expect(await getWeeklyRank('u-1')).toBe(61);
+    expect(mocks.rpc).toHaveBeenCalledWith('get_weekly_rank', { p_user_id: 'u-1' });
+  });
+
+  it('null si la migración aún no está aplicada (RPC ausente)', async () => {
+    mocks.rpc.mockResolvedValue({ data: null, error: MISSING_FUNCTION });
+
+    expect(await getWeeklyRank('u-1')).toBeNull();
+  });
+
+  it('null si el RPC no devuelve número (sin partidas esta semana)', async () => {
+    mocks.rpc.mockResolvedValue({ data: null, error: null });
+
+    expect(await getWeeklyRank('u-1')).toBeNull();
+  });
+
+  it('propaga un error real del RPC', async () => {
+    mocks.rpc.mockResolvedValue({ data: null, error: new Error('boom') });
+
+    await expect(getWeeklyRank('u-1')).rejects.toThrow();
   });
 });

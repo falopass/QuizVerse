@@ -22,8 +22,8 @@ describe('rankFriends', () => {
     expect(entries.map((e) => e.isMe)).toEqual([true, false, false]);
   });
 
-  it('mantiene el orden de entrada cuando hay empate en puntos', () => {
-    const entries = rankFriends([row('a', 10), row('b', 10), row('c', 10)], 'me');
+  it('desempata por id ascendente cuando hay empate en puntos (orden estable)', () => {
+    const entries = rankFriends([row('c', 10), row('a', 10), row('b', 10)], 'me');
 
     expect(entries.map((e) => e.id)).toEqual(['a', 'b', 'c']);
   });

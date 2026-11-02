@@ -194,6 +194,25 @@ describe('QuizDetailPage · render SEO', () => {
     );
   });
 
+  it('atribuye el quiz a su creador con enlace al perfil (SOC-05)', async () => {
+    await renderDetail(
+      'es',
+      makeQuiz({
+        creator: { id: 'u-1', username: 'dana', display_name: 'Dana', avatar_url: null },
+      })
+    );
+
+    expect(screen.getByText('por')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: '@dana' })).toHaveAttribute('href', '/es/profile/dana');
+  });
+
+  it('sin creador no pinta atribución', async () => {
+    await renderDetail('es', makeQuiz());
+
+    expect(screen.queryByText('por')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /^@/ })).not.toBeInTheDocument();
+  });
+
   it('el CTA «Empezar a jugar» entra directo en modo Clásico', async () => {
     await renderDetail('es', makeQuiz());
 

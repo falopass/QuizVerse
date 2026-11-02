@@ -74,7 +74,7 @@ export interface Quiz {
   visual_profile?: VisualProfile;
   // Datos relacionados (opcional)
   category?: Category | null;
-  creator?: Profile | null;
+  creator?: ProfileBadge | null;
 }
 
 /**
@@ -221,6 +221,9 @@ export interface Profile {
   created_at: string;
   updated_at: string;
 }
+
+/** Lo único de un perfil que puede cruzar a un componente cliente. */
+export type ProfileBadge = Pick<Profile, 'id' | 'username' | 'display_name' | 'avatar_url'>;
 
 // ============================================
 // CATEGORY

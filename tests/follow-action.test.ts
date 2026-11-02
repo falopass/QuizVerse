@@ -1,12 +1,16 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const { insertSpy, deleteSpy, auth } = vi.hoisted(() => ({
+const { insertSpy, deleteSpy, auth, limit } = vi.hoisted(() => ({
   insertSpy: vi.fn(),
   deleteSpy: vi.fn(),
   auth: { userId: 'user-1' as string | null },
+  limit: { allowed: true },
 }));
 
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
+vi.mock('@/lib/utils/rate-limit', () => ({
+  socialLimiter: { check: async () => ({ allowed: limit.allowed }) },
+}));
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     auth: {
@@ -45,6 +49,7 @@ const TARGET = '3f8a2c5e-9b1d-4e7f-a2c3-d5e6f7a8b9c0';
 describe('toggleFollowAction', () => {
   beforeEach(() => {
     auth.userId = 'user-1';
+    limit.allowed = true;
     insertSpy.mockClear();
     deleteSpy.mockClear();
   });
@@ -90,6 +95,15 @@ describe('toggleFollowAction', () => {
     const result = await toggleFollowAction('not-a-uuid', true);
 
     expect(result).toEqual({ ok: false, code: 'invalid_input' });
+    expect(insertSpy).not.toHaveBeenCalled();
+  });
+
+  it('returns rate_limited (no unexpected) when the social limiter blocks (SOC-10)', async () => {
+    limit.allowed = false;
+
+    const result = await toggleFollowAction(TARGET, true);
+
+    expect(result).toEqual({ ok: false, code: 'rate_limited' });
     expect(insertSpy).not.toHaveBeenCalled();
   });
 });

@@ -64,6 +64,8 @@ describe('QuizComments', () => {
 
     expect(await screen.findByText('Buenísimo quiz')).toBeInTheDocument();
     expect(screen.getByText('@ada')).toBeInTheDocument();
+    // El autor enlaza a su perfil (SOC-13).
+    expect(screen.getByText('@ada').closest('a')).toHaveAttribute('href', '/es/profile/ada');
     expect(screen.getByText('Ada Lovelace')).toBeInTheDocument();
     expect(screen.getByText('1 comentario')).toHaveAttribute('aria-live', 'polite');
   });

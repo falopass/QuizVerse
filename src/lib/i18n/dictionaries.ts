@@ -164,6 +164,8 @@ export interface Dictionary {
     yourRank: string;
     signInTitle: string;
     signInCta: string;
+    outsideTopTitle: string;
+    outsideTopBody: string;
     quizzesPlayed: string;
     points: string;
   };
@@ -342,6 +344,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       yourRank: 'Your rank',
       signInTitle: 'Sign in to see where you land.',
       signInCta: 'Sign in',
+      outsideTopTitle: 'You are outside the board shown here.',
+      outsideTopBody: 'Keep playing: the board moves with every finished quiz.',
       quizzesPlayed: 'quizzes played',
       points: 'points',
     },
@@ -518,6 +522,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       yourRank: 'Tu puesto',
       signInTitle: 'Inicia sesión para ver dónde caes.',
       signInCta: 'Entrar',
+      outsideTopTitle: 'Estás fuera del tablero que se muestra aquí.',
+      outsideTopBody: 'Sigue jugando: el tablero se mueve con cada quiz terminado.',
       quizzesPlayed: 'quizzes jugados',
       points: 'puntos',
     },

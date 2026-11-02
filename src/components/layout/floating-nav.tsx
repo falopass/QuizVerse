@@ -32,6 +32,13 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             {dictionary.common.explore}
           </Link>
           <Link
+            href={localizeHref(locale, '/leaderboard')}
+            className={cn('arcade-nav-link', isActive('/leaderboard') && 'text-accent-primary')}
+            aria-current={isActive('/leaderboard') ? 'page' : undefined}
+          >
+            {dictionary.common.leaderboard}
+          </Link>
+          <Link
             href={localizeHref(locale, '/category/personality')}
             className={cn(
               'arcade-nav-link',
@@ -90,6 +97,14 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             onClick={() => setOpen(false)}
           >
             {dictionary.common.explore}
+          </Link>
+          <Link
+            href={localizeHref(locale, '/leaderboard')}
+            className={cn(isActive('/leaderboard') && 'text-accent-primary')}
+            aria-current={isActive('/leaderboard') ? 'page' : undefined}
+            onClick={() => setOpen(false)}
+          >
+            {dictionary.common.leaderboard}
           </Link>
           <Link
             href={localizeHref(locale, '/category/personality')}

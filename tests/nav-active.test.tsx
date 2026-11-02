@@ -88,14 +88,20 @@ describe('FloatingNav marca la página activa', () => {
     expect(explore).not.toHaveAttribute('aria-current');
   });
 
-  it('en /es/leaderboard ningún enlace de la navegación lleva aria-current', async () => {
+  it('en /es/leaderboard marca Ranking (SOC-13) y deja el resto sin aria-current', async () => {
     mocks.pathname = '/es/leaderboard';
     const dictionary = await getDictionary('es');
     render(<FloatingNav locale="es" dictionary={dictionary} />);
 
     const nav = screen.getByRole('navigation', { name: dictionary.arcade.mainNavigation });
+    const ranking = screen.getByRole('link', { name: dictionary.common.leaderboard });
+    expect(ranking).toHaveAttribute('aria-current', 'page');
+    expect(ranking).toHaveAttribute('href', '/es/leaderboard');
+
     nav.querySelectorAll('a').forEach((link) => {
-      expect(link).not.toHaveAttribute('aria-current');
+      if (link !== ranking) {
+        expect(link).not.toHaveAttribute('aria-current');
+      }
     });
   });
 });
