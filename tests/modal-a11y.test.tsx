@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
+
+const mocks = vi.hoisted(() => ({ pathname: '/en/quiz/x' }));
+
+vi.mock('next/navigation', () => ({
+  usePathname: () => mocks.pathname,
+}));
+
 import { Modal } from '@/components/ui/modal';
+
+beforeEach(() => {
+  mocks.pathname = '/en/quiz/x';
+});
 
 function Harness({ closeLabel }: { closeLabel?: string }) {
   const [open, setOpen] = useState(false);
@@ -138,10 +149,22 @@ describe('Modal accesible', () => {
     expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument();
   });
 
-  it('usa "Close" como etiqueta por defecto', () => {
+  it('usa "Close" como etiqueta por defecto en /en', () => {
     renderOpen();
 
     expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
+
+  it('usa "Cerrar" por defecto en /es y en un embed en español', () => {
+    mocks.pathname = '/es/quiz/x';
+    renderOpen();
+    expect(screen.getByRole('button', { name: 'Cerrar' })).toBeInTheDocument();
+  });
+
+  it('usa "Cerrar" por defecto en /embed/es/…', () => {
+    mocks.pathname = '/embed/es/quiz-x';
+    renderOpen();
+    expect(screen.getByRole('button', { name: 'Cerrar' })).toBeInTheDocument();
   });
 
   it('restaura el foco al elemento que abrió el modal al cerrar', () => {

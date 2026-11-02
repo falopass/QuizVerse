@@ -4,6 +4,8 @@ import { useCallback, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
+import { getCopy } from '@/lib/i18n/dictionaries';
+import { localeFromPathname } from '@/lib/i18n/navigation';
 
 interface DisplayedToast {
   toast: Toast;
@@ -137,8 +139,7 @@ function ToastItem({
 export function ToastViewport() {
   const { toasts, removeToast } = useToast();
   const pathname = usePathname();
-  const es = pathname === '/es' || pathname?.startsWith('/es/');
-  const closeLabel = es ? 'Cerrar aviso' : 'Dismiss notification';
+  const closeLabel = getCopy(localeFromPathname(pathname), 'common').dismissNotification;
 
   // El provider quita el aviso al instante; el viewport lo conserva como
   // "fantasma" hasta que termina su animación de salida de CSS.

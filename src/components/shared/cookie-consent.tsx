@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
+import { localeFromPathname } from '@/lib/i18n/navigation';
 
 type ConsentLevel = 'none' | 'essential' | 'all';
 
@@ -59,7 +60,7 @@ export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
   const pathname = usePathname();
-  const locale = pathname?.startsWith('/es') ? 'es' : 'en';
+  const locale = localeFromPathname(pathname);
   const initialized = useRef(false);
 
   useEffect(() => {

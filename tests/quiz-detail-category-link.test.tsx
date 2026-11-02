@@ -27,6 +27,7 @@ vi.mock('next/navigation', () => ({
   notFound: () => {
     throw new Error('notFound');
   },
+  usePathname: () => '/en/quiz/x',
 }));
 
 // QuizComments monta el provider de Supabase; no participa en el enlazado.

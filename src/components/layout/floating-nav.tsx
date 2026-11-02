@@ -70,7 +70,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
           aria-controls="arcade-mobile-menu"
           onClick={() => setOpen(!open)}
         >
-          {locale === 'es' ? 'Menú' : 'Menu'} ☰
+          {dictionary.nav.menu} ☰
         </button>
       </div>
       {open && (
