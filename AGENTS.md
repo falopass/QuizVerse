@@ -16,7 +16,8 @@ This project is developed on a single personal machine, and also worked on by Cl
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (it is no longer production; it belongs to the owner).
-- Verify before opening a PR: `npm run lint`, `npm run typecheck`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
+- Verify before opening a PR: `npm run format:check`, `npm run typecheck`, `npm run lint` (`eslint . --max-warnings=0`: warnings are errors), `npm run seo:guard`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
+- `npm test` does NOT enforce coverage; `npm run test:coverage` does (v8 thresholds in `vitest.config.ts`: global ~60/75/70 plus higher bars for `src/lib/quiz`, `src/lib/seo`, `src/lib/data`). CI runs coverage.
 - If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge the PR yourself once the checks are green — that merge IS the production deploy; the owner reviews merged work afterwards. Never deploy by hand.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 - There is no `CHANGELOG.md`. Changes are documented in each PR description; do not create the file or ask for one.
@@ -59,30 +60,45 @@ npm run seed:supabase:import  # Import seed into Supabase
 src/
 ├── app/
 │   ├── [locale]/              # Bilingual routes (/en, /es)
-│   │   ├── home
-│   │   ├── explore
-│   │   ├── quiz/
-│   │   │   ├── [slug]/        # Quiz detail
-│   │   │   │   ├── play/      # Play flow
-│   │   │   │   └── result/    # Shareable results
-│   ├── api/                   # API routes (AI generation, analytics, monitoring)
+│   │   ├── (inicio)/          # Home
+│   │   ├── quiz/              # Explore lives here: /[locale]/quiz (route group (explorar)).
+│   │   │   │                  #   /[locale]/explore 308-redirects here (next.config.ts)
+│   │   │   └── [slug]/        # Quiz detail
+│   │   │       ├── play/      # Play flow
+│   │   │       └── result/    # Shareable results
+│   │   ├── category/[slug]/   # Category hubs
+│   │   ├── leaderboard/       # Rankings
+│   │   ├── login|register|forgot-password|reset-password/
+│   │   ├── me/                # "Mi actividad": own profile hub
+│   │   ├── profile/[username]# Public profiles
+│   │   ├── my-quizzes/        # Creator's quizzes; [id]/edit, [id]/preview (draft preview)
+│   │   ├── create/            # Manual composer (+ create/ai, create/done)
+│   │   ├── admin/             # moderacion, quizzes, reportes (owner-only)
+│   │   ├── notifications/     # Notification inbox
+│   │   ├── settings/          # Account settings (incl. delete account)
+│   │   ├── achievements/      # Achievements
+│   │   └── about|contact|faq|privacy|terms|novedades|indice|random|feed.xml
+│   ├── api/                   # API routes (AI generation, analytics, monitoring, csp-report)
 │   ├── covers/                # Procedural cover image generation
 │   └── stock-covers/          # Stock cover routing
 ├── actions/
-│   └── quiz.actions.ts        # Server actions for quiz operations
+│   └── quiz.actions.ts        # Server actions for quiz operations (auth|social|... actions too)
 ├── components/
 │   ├── home/                  # Home page components
 │   ├── layout/                # Layout shared components
 │   ├── quiz/                  # Quiz play, result, detail components
 │   └── shared/                # Shared UI primitives
 ├── lib/
+│   ├── ads/                   # AdSense slot config (inert until env is set)
+│   ├── auth/                  # OAuth provider flag, identity
 │   ├── data/                  # Public data layer (src/lib/data/public.ts)
 │   ├── design/                # Design tokens
 │   ├── i18n/                  # Internationalization
-│   ├── quiz/                  # Quiz logic and types
+│   ├── quiz/                  # Quiz logic and types (see "Juego y puntuación")
 │   ├── seo/                   # Metadata and OG image generation
 │   ├── supabase/              # Supabase client + SSR helpers
-│   └── telemetry/             # Analytics and monitoring
+│   ├── telemetry/             # Analytics and monitoring
+│   └── utils/                 # rate-limit.ts (Upstash → CF ratelimit bindings fallback)
 ├── providers/                 # React providers
 ├── stores/                    # Zustand stores
 └── types/                     # TypeScript type definitions
@@ -117,6 +133,7 @@ supabase/
 - **Covers** — layered system: procedural (fallback) → stock (curated) → generated/curated (future)
 - **OG Images** — Satori + resvg for dynamic social share images
 - **Telemetry** — analytics endpoint for page views, quiz lifecycle, locale switch events
+- **Serializable props across the server/client boundary** — every prop passed to a `'use client'` component must be JSON-serializable (no functions, classes, `Date`, `Map`). This includes the i18n dictionary: the layout passes it whole to `SiteShell` (`'use client'`). A PR that added functions to the dictionary took production down with 500s on every route and CI did not catch it — think twice before touching the dictionary, the root layout or the shell.
 
 ## ⚠️ WHAT NOT TO TOUCH
 
@@ -206,27 +223,50 @@ la página 404 y el sitemap la omite.
 
 ## Database Schema (Supabase)
 
-Tables:
+Tables (main ones; see `supabase/migrations/` for the full list):
 
-- `quizzes` — id, slug, title, description, locale, category, quiz_type, questions[], correct_answers[], featured, cover_type, cover_url, payoff, created_at
+- `quizzes` — id, slug, title, description, locale, category, quiz_type, questions[], status (draft/published), featured, cover_type, cover_url, payoff, created_at
+- `quiz_answer_keys` — the answer key, split out of `quizzes` by migration 015. **No grants for `anon`/`authenticated`, no policies**: only the server (service role) reads it, via `src/lib/quiz/quiz-repository.ts`. A trigger keeps it in sync on insert/update.
 - `categories` — id, slug, label (en/es), icon
 - `profiles` — user profiles (Supabase Auth linked)
-- `game_sessions` — play session persistence with share tokens
+- `game_sessions` — play session persistence with share tokens and `attempt_id` (migration 020)
 - `likes` — quiz likes/favorites
-- `achievements` — user achievements
+- `achievements`, `comments`, `follows`, `notifications` — social layer
+
+### Migrations
+
+- Files live in `supabase/migrations/` as `NNN_name.sql`. Numbers are not always unique (several `011`, `015`, `018`, `019` files exist); order within a prefix is by name and the files are idempotent.
+- **Production has everything applied up to `020`; the next free number is `021`.**
+- **There is no migrations control table** — they were applied by hand, so `supabase migration list` will not tell you what is applied. Verify by objects instead, **per file**: `game_sessions.attempt_id` + index `game_sessions_attempt_id_unique` mean 020 ran; table `public.quiz_answer_keys` means `015_ocultar_clave_respuestas` ran; function `public.guard_quiz_editable_columns` means `015_creator_draft_review_transitions` ran; columns `quizzes.moderated_by`/`moderated_at` mean 016 ran. Files sharing a prefix each need their own check — one object does not prove the other file ran.
+- Safe procedure for a new migration:
+  1. Take a backup (Supabase dashboard or `pg_dump`) before touching prod.
+  2. Rehearse on a copy/branch DB first; migrations are written idempotent (`IF NOT EXISTS`, `ON CONFLICT`) but test anyway.
+  3. Apply **one file at a time inside a transaction** (`psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -1 -f supabase/migrations/0NN_x.sql`), so a failure rolls back cleanly.
+  4. Smoke afterwards: `scripts/smoke-prod.sh` plus the specific path the migration touches.
+- `scripts/apply-migrations.mjs` wraps `supabase db push --db-url` for future use (needs `SUPABASE_DB_URL` in `.env.local`); because prod was applied by hand, the first run would need a one-time `supabase migration repair --status applied <versiones>`. Owner's call, not automated.
+- **Never edit an existing migration** — new changes go in a new file.
 
 ## Locale Routing
 
 ```
-/en          → English home
-/es          → Spanish home
-/en/quiz     → English explore
-/[locale]/quiz/[slug]     → Quiz detail
-/[locale]/quiz/[slug]/play     → Play flow
-/[locale]/quiz/[slug]/result   → Shareable results
+/en                     → English home
+/es                     → Spanish home
+/[locale]/quiz          → Explore (was /explore; /[locale]/explore 308-redirects here)
+/[locale]/quiz/[slug]         → Quiz detail
+/[locale]/quiz/[slug]/play    → Play flow
+/[locale]/quiz/[slug]/result  → Shareable results
+/[locale]/category/[slug]     → Category hub
+/[locale]/leaderboard         → Rankings
+/[locale]/me                  → "Mi actividad" (own activity, auth)
+/[locale]/profile/[username]  → Public profile
+/[locale]/my-quizzes          → Creator's quizzes (+ [id]/edit, [id]/preview)
+/[locale]/create, /create/ai  → Manual and AI composers (auth)
+/[locale]/notifications       → Notification inbox (auth)
+/[locale]/settings            → Account settings (auth)
+/[locale]/admin/*             → moderacion, quizzes, reportes (owner-only)
 ```
 
-Non-localized root paths redirect to `/en` by default via `proxy.ts`.
+Non-localized root paths redirect to `/en` by default via `src/proxy.ts`.
 
 ## SEO
 
@@ -303,6 +343,30 @@ Las variables de SEO se leen en runtime del Worker: se configuran como variables
 - Cache: R2 for the incremental cache (`NEXT_INC_CACHE_R2_BUCKET`) and D1 for the tag cache (`NEXT_TAG_CACHE_D1`); bindings live in `wrangler.jsonc`.
 - Domain: `quizverse.org` serves the app; `www.quizverse.org` redirects to apex and `/` redirects to `/en`.
 - `deploy/` (owner's VPS: Docker + Caddy) is no longer production; leave it untouched.
-- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). The app also reads `SUPABASE_SERVICE_ROLE_KEY` (server and import scripts only), `UPSTASH_REDIS_REST_URL`/`UPSTASH_REDIS_REST_TOKEN` (rate limiting), `PEXELS_API_KEY`/`PIXABAY_API_KEY` (stock covers) and the optional `NEXT_PUBLIC_ADSENSE_*_SLOT`. Never commit real values.
+- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). Never commit real values.
+
+### Worker variables and secrets (what the code reads today)
+
+Server-only (configure as Worker secrets/vars):
+
+- `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`/`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` — Supabase client.
+- `SUPABASE_SERVICE_ROLE_KEY` — server and import scripts only (reads `quiz_answer_keys`, admin ops). Already configured. NEVER in client code.
+- `QUIZ_ATTEMPT_SECRET` — signs the anti-cheat `attempt` token for `/api/quiz/reveal` and idempotent submit. Already configured. Without it (and without service key to derive from) the server runs in degraded mode.
+- `AUTH_OAUTH_PROVIDERS` — comma list (`"google,github,facebook"`) gating social login buttons and the OAuth action; empty/unset = email only. Read in runtime on purpose (not `NEXT_PUBLIC_`, which is baked at build).
+- `DEEPSEEK_API_KEY` — `/api/quiz/generate` (AI creation).
+- `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` — optional: rate limiting and the per-attempt reveal store. Without Upstash, rate limiting falls back to the Cloudflare Rate Limiting bindings in `wrangler.jsonc` (`RATE_LIMIT_*`, mapped per-policy in `src/lib/utils/rate-limit.ts`) and the attempt store falls back to in-process memory.
+- `PEXELS_API_KEY` / `PIXABAY_API_KEY` — stock cover hydration scripts.
+- `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION` — SEO ownership meta tags.
+
+Public `NEXT_PUBLIC_*` (baked into the build; a change needs a rebuild):
+
+- `NEXT_PUBLIC_SITE_URL` — canonical base URL (`SITE_URL` in `src/lib/seo/site.ts`, default `https://quizverse.org`). Changing it in the Worker without rebuilding keeps the old canonical URLs.
+- `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` + `NEXT_PUBLIC_ADSENSE_{HOME,EXPLORE,DETAIL}_SLOT` — AdSense. Until publisher+slot are set the slots are inert: they render nothing and reserve no space (`src/lib/ads/config.ts`).
+
+Pipeline-only (scripts, not the Worker): `SUPABASE_DB_URL`, `SEED_*`, `STOCK_COVER_*`, `WORKERS_CI*`.
+
+### Production smoke
+
+`scripts/smoke-prod.sh` curl-checks the deployed site (local homes, explore, a quiz detail, play/result, OG, sitemap, robots, `/feed.xml` and `/explore` redirects, real 404s incl. Googlebot UA, and asserts the `/play` HTML never leaks `is_correct`). `.github/workflows/smoke.yml` runs it every 30 min, on `workflow_dispatch` and after each push to `main` (with a wait + retries while Workers Builds publishes). Run by hand: `scripts/smoke-prod.sh [base-url]`.
 
 Product direction: editorial, bilingual, discovery-oriented, ad-supported. NOT a generic quiz template grid.

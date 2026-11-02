@@ -6,7 +6,7 @@
 
 A bilingual quiz platform built with Next.js 16, React 19, and Supabase.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.2.1-111111?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16.4.2-111111?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19.2.4-149ECA?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -24,25 +24,16 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 ## 📊 Current Snapshot
 
-- ✅ Production build passes with **Next.js 16.2.1**
+- ✅ Production build passes with **Next.js 16.4.2**
 - ✅ TypeScript passes clean
 - ✅ Public routes localized under `/en` and `/es`
 - ✅ Runtime catalog seeded in Supabase with real quizzes
-- ✅ Core flows live: home, explore, detail, play, result, login, create, AI create, profile, leaderboard
+- ✅ Core flows live: home, explore (`/[locale]/quiz`), detail, play, result, login, social login (behind flag), create, AI create, drafts + preview, profile, "Mi actividad" (`/me`), notifications, leaderboard, admin moderation
 - ✅ Seed, polish, cover hydration, and Supabase import pipelines in place
 
 ### Content stats
 
-| Metric                                       | Count   |
-| -------------------------------------------- | ------- |
-| Real quizzes seeded and synced to Supabase   | **493** |
-| English quizzes                              | 259     |
-| Spanish quizzes                              | 259     |
-| Trivia quizzes                               | 188     |
-| Personality quizzes                          | 189     |
-| Featured quizzes                             | 13      |
-| Strong editorial quizzes                     | 338     |
-| Prioritized quizzes with stock cover routing | 40      |
+Last DB audit (`generated/audit/content-audit.json`, 2026-10-18): **524 published quizzes** and 4192 questions (262 en / 262 es; 246 trivia / 278 personality). Newer editorial batches merged since then are pending import — merged ≠ published; applying the SQL is the owner's call.
 
 ---
 
@@ -52,23 +43,27 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 - Editorial bilingual home page
 - Editorial explore page with filters and visual hierarchy
-- Quiz detail pages with cover-led hero, payoff, and related quizzes
-- Play flow with localized game modes and result persistence
+- Quiz detail pages with cover-led hero, payoff, related quizzes, likes and comments
+- Server-authoritative play flow: signed attempts, per-question reveal (with 50/50 hint), idempotent submission and server-built answer review
 - Result pages with sharing-oriented composition
-- Localized login flow
-- User profile pages
+- Localized login + social login (Google/GitHub/Facebook behind `AUTH_OAUTH_PROVIDERS`)
+- User profiles, "Mi actividad", follows, notifications, daily streak and achievements
 - Leaderboard
-- Manual quiz creation flow
+- Manual quiz creation flow with drafts, unpublish and preview
 - AI-powered quiz creation flow
+- Admin moderation queue (pending quizzes, reports, comment moderation)
+- AdSense slots, inert until configured
 
 ### Infrastructure
 
-- Supabase catalog with 493 real quizzes
+- Supabase catalog (524+ published quizzes; answer keys isolated in `quiz_answer_keys`, service-role only)
 - Seed + polish + cover hydration pipelines
 - Supabase import pipelines
 - OG image generation
 - Analytics + monitoring hooks
 - Procedural + curated stock cover layers
+- Rate limiting: Upstash Redis, with Cloudflare Rate Limiting bindings as fallback (`wrangler.jsonc`)
+- Production smoke every 30 min (`scripts/smoke-prod.sh` + `smoke.yml` workflow)
 
 ---
 
@@ -76,7 +71,7 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 | Layer               | Technology                           |
 | ------------------- | ------------------------------------ |
-| **Framework**       | Next.js 16.2.1 (App Router)          |
+| **Framework**       | Next.js 16.4.2 (App Router)          |
 | **UI**              | React 19.2.4                         |
 | **Language**        | TypeScript 5.x                       |
 | **Database & Auth** | Supabase                             |
@@ -91,30 +86,30 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 ```
 QuizVerse/
-├── app/
+├── src/app/
 │   ├── [locale]/                # /en and /es localized routes
-│   │   ├── page.tsx             # Home
-│   │   ├── explore/             # Discovery + filters
-│   │   ├── quiz/[slug]/         # Detail
-│   │   ├── play/[slug]/         # Play flow
-│   │   ├── result/[id]/         # Shareable results
-│   │   ├── create/              # Manual creation
-│   │   ├── ai-create/           # AI-powered creation
-│   │   ├── profile/             # User profile
+│   │   ├── (inicio)/            # Home
+│   │   ├── quiz/                # Explore (/[locale]/quiz; /explore 308-redirects)
+│   │   │   └── [slug]/          # Detail + play/ + result/
+│   │   ├── category/[slug]/     # Category hubs
+│   │   ├── me/                  # "Mi actividad"
+│   │   ├── profile/[username]/  # Public profiles
+│   │   ├── my-quizzes/          # Drafts, edit, preview
+│   │   ├── create/ + create/ai/ # Manual and AI composers
+│   │   ├── notifications/       # Inbox
+│   │   ├── admin/               # Moderation queue (owner)
 │   │   ├── leaderboard/         # Rankings
-│   │   └── login/               # Auth
-│   └── api/
-│       ├── og/                  # OG image generation
-│       └── quiz/                # Quiz CRUD
-├── components/                  # UI components
-├── lib/
+│   │   └── login|register|settings|…
+│   └── api/                     # quiz (reveal, generate), og, analytics, monitor, csp-report
+├── src/components/              # UI components
+├── src/lib/
 │   ├── supabase/                # Supabase client + queries
-│   ├── ai/                      # AI quiz generation
-│   ├── seed/                    # Seeding pipelines
-│   ├── polish/                  # Content polishing
-│   └── covers/                  # Cover hydration
-├── scripts/                     # Seed, polish, import scripts
-└── content/                     # Editorial quiz drafts
+│   ├── quiz/                    # Answer key, attempts, scoring (server-authoritative)
+│   ├── seo/                     # Metadata, JSON-LD, sitemap, OG
+│   ├── ads/ + auth/ + utils/    # AdSense config, OAuth flag, rate limiting
+│   └── data/ + i18n/            # Public data layer, dictionaries
+├── scripts/                     # Seed, polish, import, smoke-prod.sh
+└── supabase/                    # migrations/ (applied up to 020) + seed/
 ```
 
 ---
@@ -130,9 +125,11 @@ cd QuizVerse
 npm install
 
 # Configure environment
-cp .env.example .env.local
+cp deploy/env.example .env.local
 # Fill in: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY,
-#         SUPABASE_SERVICE_ROLE_KEY, and any LLM provider keys
+#         SUPABASE_SERVICE_ROLE_KEY, QUIZ_ATTEMPT_SECRET, DEEPSEEK_API_KEY
+# Optional: AUTH_OAUTH_PROVIDERS, UPSTASH_REDIS_REST_*, NEXT_PUBLIC_ADSENSE_*,
+#         PEXELS_API_KEY / PIXABAY_API_KEY (see AGENTS.md → Worker variables)
 
 # Run dev server
 npm run dev
@@ -193,7 +190,7 @@ QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado 
 
 ## Estado actual
 
-- ✅ Build de producción funcionando con Next.js 16.2.1
+- ✅ Build de producción funcionando con Next.js 16.4.2
 - ✅ TypeScript sin errores
 - ✅ Rutas públicas localizadas bajo `/en` y `/es`
 - ✅ Catálogo de runtime seedeado en Supabase con quizzes reales
@@ -201,17 +198,12 @@ QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado 
 
 ## Estadísticas de contenido
 
-- **493 quizzes reales** seedeados y sincronizados con Supabase
-- 259 quizzes en inglés
-- 259 quizzes en español
-- 188 quizzes de trivia
-- 189 quizzes de personalidad
-- 13 quizzes destacados
-- 338 quizzes editoriales de alta calidad
+- **524 quizzes publicados** en el último audit de la DB (`generated/audit/content-audit.json`, 2026-10-18): 262 en inglés, 262 en español, 246 trivia, 278 personalidad, 4192 preguntas
+- Lotes editoriales mergeados desde entonces quedan pendientes de importar (mergeado ≠ publicado)
 
 ## Stack
 
-- Next.js 16.2.1 (App Router)
+- Next.js 16.4.2 (App Router)
 - React 19.2.4
 - TypeScript 5.x
 - Supabase (backend + auth)
