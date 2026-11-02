@@ -7,15 +7,18 @@
  * skeleton con un 200 (soft 404).
  *
  * Reglas sobre el árbol de `src/app`:
+ *  - `loading.tsx` solo puede existir en `SKELETON_ALLOWLIST`: las páginas de
+ *    listado que conservan skeleton a propósito. Una página estática puede
+ *    delegar el `notFound()` a un server component hijo (la ficha lo delega
+ *    en `QuizDetailPage`), así que basta con que alguien añada un loading a
+ *    una ruta nueva para reintroducir el soft 404 — la lista blanca lo hace
+ *    un acto deliberado.
  *  - Ningún `page.tsx` bajo un segmento dinámico distinto de `[locale]` puede
- *    tener `loading.tsx` en su directorio ni en un ancestro. Las rutas
- *    dinámicas hacen `notFound()` cuando el dato no existe, a veces desde un
- *    server component hijo (la ficha delega en `QuizDetailPage`), así que el
- *    texto del archivo no basta para decidir.
- *  - Un `page.tsx` estático solo puede estar bajo `loading.tsx` si sus
- *    `notFound()` son el guard de locale (`hasLocale`), inalcanzable en la
- *    práctica: `[locale]/layout.tsx` valida el locale antes de renderizar
- *    `children`, fuera de cualquier boundary de loading.
+ *    tener `loading.tsx` en su directorio ni en un ancestro.
+ *  - Tampoco un `page.tsx` estático que llame `notFound()` por algo que no
+ *    sea el guard de locale (`hasLocale`), inalcanzable en la práctica:
+ *    `[locale]/layout.tsx` valida el locale antes de renderizar `children`,
+ *    fuera de cualquier boundary de loading.
  */
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
@@ -24,11 +27,20 @@ import { describe, expect, it } from 'vitest';
 
 const APP_DIR = join(__dirname, '../src/app');
 
-function* walkPages(dir: string): Generator<string> {
+// Páginas de listado con skeleton: home, explorar y leaderboard. Ninguna
+// puede hacer notFound() con datos — solo el guard de locale, ya cubierto
+// por `[locale]/layout.tsx` fuera del boundary.
+const SKELETON_ALLOWLIST = new Set([
+  join('[locale]', '(inicio)'),
+  join('[locale]', 'leaderboard'),
+  join('[locale]', 'quiz', '(explorar)'),
+]);
+
+function* walkFiles(dir: string, name: string): Generator<string> {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name);
-    if (entry.isDirectory()) yield* walkPages(full);
-    else if (entry.name === 'page.tsx') yield full;
+    if (entry.isDirectory()) yield* walkFiles(full, name);
+    else if (entry.name === name) yield full;
   }
 }
 
@@ -61,10 +73,21 @@ function hasDataNotFound(pageFile: string): boolean {
 }
 
 describe('loading.tsx no envuelve páginas que pueden hacer notFound() con datos', () => {
+  it('loading.tsx solo existe sobre las páginas de listado permitidas', () => {
+    const problems: string[] = [];
+
+    for (const loading of walkFiles(APP_DIR, 'loading.tsx')) {
+      const rel = relative(APP_DIR, dirname(loading));
+      if (!SKELETON_ALLOWLIST.has(rel)) problems.push(`${rel}/loading.tsx`);
+    }
+
+    expect(problems).toEqual([]);
+  });
+
   it('ningún page.tsx riesgoso tiene un loading.tsx en su segmento o ancestros', () => {
     const problems: string[] = [];
 
-    for (const page of walkPages(APP_DIR)) {
+    for (const page of walkFiles(APP_DIR, 'page.tsx')) {
       const dynamic = routeSegments(page).some(
         (seg) => DYNAMIC_SEGMENT.test(seg) && seg !== '[locale]'
       );
