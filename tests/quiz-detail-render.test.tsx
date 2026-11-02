@@ -33,6 +33,11 @@ vi.mock('@/components/quiz/quiz-comments', () => ({
   QuizComments: () => null,
 }));
 
+// LikeButton pide el estado al servidor al montar; no participa en el render SEO.
+vi.mock('@/components/shared/like-button', () => ({
+  LikeButton: () => null,
+}));
+
 import { QuizDetailPage } from '@/components/home/quiz-detail-page';
 
 // El nombre almacenado viaja en inglés: la ficha lo localiza por slug

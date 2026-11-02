@@ -5,6 +5,7 @@ import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { ReportButton } from '@/components/shared/report-button';
+import { LikeButton } from '@/components/shared/like-button';
 import { QuizComments } from '@/components/quiz/quiz-comments';
 import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
@@ -119,12 +120,24 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           </Link>
           <h1>{quiz.title}</h1>
           <p>{quiz.description}</p>
-          <Link
-            href={localizeHref(locale, `/quiz/${quiz.slug}/play`)}
-            className="arcade-button arcade-button-lime arcade-start"
-          >
-            {dictionary.arcade.startPlaying} <span>↗</span>
-          </Link>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              href={localizeHref(locale, `/quiz/${quiz.slug}/play`)}
+              className="arcade-button arcade-button-lime arcade-start"
+            >
+              {dictionary.arcade.startPlaying} <span>↗</span>
+            </Link>
+            {/* Los quizzes del catálogo de respaldo (`launch-*`) no existen en
+                la DB: sin fila no hay like que guardar. */}
+            {z.string().uuid().safeParse(quiz.id).success && (
+              <LikeButton
+                quizId={quiz.id}
+                locale={locale}
+                detailPath={canonicalPath}
+                initialCount={quiz.likes_count}
+              />
+            )}
+          </div>
           <dl className="arcade-facts">
             <div>
               <dt>{dictionary.arcade.gameType}</dt>
