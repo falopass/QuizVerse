@@ -488,6 +488,10 @@ function storedAnswers(existing: StoredSession | null, fallback: Answer[]): Answ
  * insertar), no lo que este reintento pagaría: la pantalla de resultado debe
  * enseñar los puntos reales de la partida, no +0. Los logros sí se reintentan
  * (idempotente) para reparar un primer `checkAchievements` que fallara.
+ *
+ * Si la fila no se pudo leer (RLS sin service role), no se infieren premios:
+ * un jugador que inicia sesión después de guardar una partida anónima no debe
+ * ver puntos ni logros que el trigger nunca le pagó.
  */
 async function duplicateSubmitResult(
   quiz: AnswerKeyQuiz,
@@ -501,7 +505,8 @@ async function duplicateSubmitResult(
   const perfect = existing
     ? existing.max_score > 0 && existing.score === existing.max_score
     : scored.perfect;
-  const awarded = existing ? Boolean(existing.player_id) : Boolean(user);
+  const awarded = Boolean(existing?.player_id);
+  const samePlayer = Boolean(existing?.player_id) && existing?.player_id === user?.id;
 
   return {
     success: true,
@@ -516,9 +521,7 @@ async function duplicateSubmitResult(
     max_score: existing?.max_score ?? scored.maxScore,
     points_earned: awarded ? pointsFor(perfect) : 0,
     achievements_unlocked:
-      awarded && (!existing || existing.player_id === user?.id)
-        ? await checkAchievements(user?.id ?? null, { perfectScore: perfect })
-        : [],
+      samePlayer && user ? await checkAchievements(user.id, { perfectScore: perfect }) : [],
     review: buildReview(quiz, storedAnswers(existing, scored.graded)),
   };
 }

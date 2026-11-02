@@ -377,6 +377,21 @@ describe('submitQuizResult · idempotencia por attempt', () => {
     expect(mocks.rpc).not.toHaveBeenCalled();
   });
 
+  it('no infiere puntos ni logros si el conflicto no deja leer la fila', async () => {
+    mocks.userId = 'u-late';
+    mocks.insertErrors = [{ code: '23505', message: 'duplicate key value' }];
+
+    const result = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    // La partida pudo guardarse anónima antes de iniciar sesión: el trigger no
+    // pagó puntos y los logros no son de esta identidad.
+    expect(result.points_earned).toBe(0);
+    expect(result.achievements_unlocked).toEqual([]);
+    expect(mocks.checkAchievementsSpy).not.toHaveBeenCalled();
+  });
+
   it('sin la migración 019 detecta la columna ausente y guarda sin attempt_id', async () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     mocks.insertErrors = [

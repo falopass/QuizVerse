@@ -81,6 +81,10 @@ function hashString(value: string): number {
  *
  * Deterministic on purpose: refreshing the page must not reroll a better hint,
  * and the same question always yields the same pair.
+ *
+ * Nunca elimina todas las incorrectas: en preguntas de tres opciones eso
+ * dejaría solo la correcta y la pista regalaría la respuesta. Siempre quedan
+ * al menos dos opciones (una correcta y una incorrecta).
  */
 export function eliminateWrongOptions(
   quiz: Pick<Quiz, 'id' | 'questions'>,
@@ -88,13 +92,14 @@ export function eliminateWrongOptions(
   count = 2
 ): string[] {
   const question = findQuestion(quiz, questionId);
-  if (!question || question.options.length <= count) return [];
+  if (!question || question.options.length <= 2) return [];
 
+  const eliminable = Math.min(count, question.options.length - 2);
   return question.options
     .filter((option) => option.is_correct !== true)
     .map((option) => ({ id: option.id, rank: hashString(`${quiz.id}:${questionId}:${option.id}`) }))
     .sort((left, right) => left.rank - right.rank || left.id.localeCompare(right.id))
-    .slice(0, count)
+    .slice(0, eliminable)
     .map((entry) => entry.id);
 }
 
