@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { cn } from '@/lib/utils/cn';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { getArcadeCopy, getCommonCopy } from '@/lib/i18n/dictionaries';
@@ -36,17 +37,25 @@ export function EditorialQuizCard({
 }: EditorialQuizCardProps) {
   const copy = getArcadeCopy(locale);
   // El lead editorial abre su propia sección sin h2 previo: ahí el titular es h2.
-  const TitleTag = size === 'hero' ? 'h2' : 'h3';
+  const isHero = size === 'hero';
+  const TitleTag = isHero ? 'h2' : 'h3';
   return (
     <Link
       href={localizeHref(locale, `/quiz/${quiz.slug}`)}
       prefetch={prefetch ?? (index === undefined || index < PREFETCH_FIRST_ROW)}
-      className="arcade-card"
+      className={cn('arcade-card', isHero && 'arcade-card-hero')}
     >
-      <QuizCoverArt quiz={quiz} locale={locale} compact decorative className="arcade-card-art" />
+      <QuizCoverArt
+        quiz={quiz}
+        locale={locale}
+        compact
+        decorative
+        showTitle={false}
+        className="arcade-card-art"
+      />
       <div className="arcade-card-info">
-        <span className="arcade-tag">
-          {getLocalizedTypeLabel(quiz.quiz_type, locale)} / {quiz.category?.name ?? 'QuizVerse'}
+        <span className="arcade-card-meta">
+          {getLocalizedTypeLabel(quiz.quiz_type, locale)} · {quiz.category?.name ?? 'QuizVerse'}
         </span>
         <TitleTag>{quiz.title}</TitleTag>
         <div className="arcade-card-bottom">

@@ -18,6 +18,8 @@ interface QuizCoverArtProps {
    * once as the image label and once as the heading.
    */
   decorative?: boolean;
+  /** Prints the title over the artwork. Cards repeat it next to the poster: there it is noise. */
+  showTitle?: boolean;
 }
 
 /**
@@ -40,6 +42,7 @@ export function QuizCoverArt({
   compact = false,
   priorityLabel,
   decorative = false,
+  showTitle = true,
 }: QuizCoverArtProps) {
   const photo = quiz.cover_image_url?.startsWith('/stock-covers/');
   // Above-the-fold se deduce de las props sin un prop nuevo: el hero pasa
@@ -83,9 +86,11 @@ export function QuizCoverArt({
           {priorityLabel ?? getLocalizedTypeLabel(quiz.quiz_type, locale)}
         </span>
       )}
-      <strong className={cn('arcade-cover-title', `arcade-cover-title-${bucket}`)}>
-        {artTitle}
-      </strong>
+      {showTitle && (
+        <strong className={cn('arcade-cover-title', `arcade-cover-title-${bucket}`)}>
+          {artTitle}
+        </strong>
+      )}
       {!photo && bucket === 'short' && (
         <span className="arcade-cover-star" aria-hidden="true">
           ✦

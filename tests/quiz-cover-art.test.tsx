@@ -68,6 +68,16 @@ describe('QuizCoverArt · foto', () => {
     expect(container.querySelector('img')).toBeNull();
   });
 
+  it('showTitle={false} no imprime el título sobre la portada', () => {
+    const { container } = render(<QuizCoverArt quiz={quizConFoto} locale="es" showTitle={false} />);
+    expect(container.querySelector('.arcade-cover-title')).toBeNull();
+  });
+
+  it('sin la prop sigue imprimiendo el título (ficha y hero no cambian)', () => {
+    const { container } = render(<QuizCoverArt quiz={quizConFoto} locale="es" />);
+    expect(container.querySelector('.arcade-cover-title')).not.toBeNull();
+  });
+
   // La otra mitad del contrato (la ruta responde image/svg+xml cuando el
   // proveedor cae) la cubre cover-routes.test.ts; el <img> directo es lo que
   // hace que ese SVG se pinte — jsdom no descarga ni renderiza imágenes.
