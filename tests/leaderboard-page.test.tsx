@@ -3,7 +3,8 @@
  *
  * Contrato: un ranking vacío muestra un estado vacío honesto con CTA a jugar
  * («Be the first on the board»), no solo un «0 players» y nada más; y la
- * tarjeta de login solo aparece cuando hay un tablero real en el que caer.
+ * tarjeta de login solo aparece cuando hay un tablero real en el que caer y
+ * no hay sesión (SOC-03: un jugador logueado fuera del top ve su puesto).
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -12,15 +13,15 @@ import { render, screen } from '@testing-library/react';
 const mocks = vi.hoisted(() => ({
   getLeaderboard: vi.fn(),
   getWeeklyLeaderboard: vi.fn(),
+  getWeeklyRank: vi.fn(),
   getUser: vi.fn(),
+  from: vi.fn(),
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(async () => ({
     auth: { getUser: mocks.getUser },
-    from: vi.fn(() => {
-      throw new Error('from() no debería llamarse en el tablero global');
-    }),
+    from: mocks.from,
   })),
 }));
 
@@ -30,6 +31,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/profile/weekly-ranking', () => ({
   getWeeklyLeaderboard: mocks.getWeeklyLeaderboard,
+  getWeeklyRank: mocks.getWeeklyRank,
 }));
 
 vi.mock('next/navigation', () => ({
@@ -69,9 +71,11 @@ function renderPage(locale = 'en', search: Record<string, string> = {}) {
 }
 
 beforeEach(() => {
-  mocks.getLeaderboard.mockReset().mockResolvedValue([]);
-  mocks.getWeeklyLeaderboard.mockReset().mockResolvedValue([]);
+  mocks.getLeaderboard.mockReset().mockResolvedValue({ entries: [], hasMore: false });
+  mocks.getWeeklyLeaderboard.mockReset().mockResolvedValue({ entries: [], hasMore: false });
+  mocks.getWeeklyRank.mockReset().mockResolvedValue(null);
   mocks.getUser.mockReset().mockResolvedValue({ data: { user: null } });
+  mocks.from.mockReset();
 });
 
 describe('LocalizedLeaderboardPage — tablero vacío', () => {
@@ -113,13 +117,79 @@ describe('LocalizedLeaderboardPage — consulta caída', () => {
 
 describe('LocalizedLeaderboardPage — con jugadores', () => {
   it('pinta las filas del ranking y no el estado vacío', async () => {
-    mocks.getLeaderboard.mockResolvedValue([
-      { rank: 1, user: player(), points: 120, quizzesPlayed: 9 },
-    ]);
+    mocks.getLeaderboard.mockResolvedValue({
+      entries: [{ rank: 1, user: player(), points: 120, quizzesPlayed: 9 }],
+      hasMore: false,
+    });
 
     await renderPage('en');
 
     expect(screen.getByText('Pixel Pro')).toBeInTheDocument();
     expect(screen.queryByText('The board is empty.')).not.toBeInTheDocument();
+  });
+
+  it('sin sesión y fuera del top ofrece iniciar sesión', async () => {
+    mocks.getLeaderboard.mockResolvedValue({
+      entries: [{ rank: 1, user: player(), points: 120, quizzesPlayed: 9 }],
+      hasMore: false,
+    });
+
+    await renderPage('en');
+
+    expect(screen.getByText('Sign in to see where you land.')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Sign in' })).toHaveAttribute(
+      'href',
+      '/en/login?redirect=%2Fen%2Fleaderboard'
+    );
+  });
+
+  it('con sesión fuera del top muestra el puesto real, nunca el CTA de login (SOC-03)', async () => {
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'me-1' } } });
+    mocks.getLeaderboard.mockResolvedValue({
+      entries: [{ rank: 1, user: player(), points: 120, quizzesPlayed: 9 }],
+      hasMore: false,
+    });
+    // 1) puntos propios; 2) perfiles por delante con el desempate del board.
+    mocks.from.mockImplementation((table: string) => {
+      expect(table).toBe('profiles');
+      return {
+        select: () => ({
+          eq: () => ({
+            maybeSingle: async () => ({ data: { points: 10, quizzes_played: 2 }, error: null }),
+          }),
+          or: async () => ({ count: 60, error: null }),
+        }),
+      };
+    });
+
+    await renderPage('en');
+
+    expect(screen.queryByText('Sign in to see where you land.')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'Sign in' })).not.toBeInTheDocument();
+    // 60 jugadores por delante + 1 = #61: en la tarjeta y en la métrica.
+    expect(screen.getAllByText('#61')).toHaveLength(2);
+    expect(
+      screen.getByText('Keep playing: the board moves with every finished quiz.')
+    ).toBeInTheDocument();
+  });
+});
+
+describe('LocalizedLeaderboardPage — amigos (SOC-07)', () => {
+  it('sin seguir a nadie muestra solo el estado vacío, no la fila propia como #1', async () => {
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'me-1' } } });
+    mocks.from.mockImplementation((table: string) => {
+      expect(table).toBe('user_follows');
+      return {
+        select: () => ({
+          eq: async () => ({ data: [], error: null }),
+        }),
+      };
+    });
+
+    await renderPage('en', { scope: 'friends' });
+
+    expect(screen.getByText('You are not following anyone yet.')).toBeInTheDocument();
+    expect(screen.queryByText('Pixel Pro')).not.toBeInTheDocument();
+    expect(screen.getByText('Visible players').parentElement).toHaveTextContent('0');
   });
 });

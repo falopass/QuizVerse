@@ -8,7 +8,7 @@ import { getCopy, getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { rankFriends } from '@/lib/profile/friends-ranking';
-import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
+import { getWeeklyLeaderboard, getWeeklyRank } from '@/lib/profile/weekly-ranking';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -73,14 +73,18 @@ export default async function LocalizedLeaderboardPage({
     isFriends
       ? Promise.resolve(null)
       : isWeekly
-        ? getWeeklyLeaderboard(50).catch(() => {
-            weeklyFailed = true;
-            return null;
-          })
-        : getLeaderboard(50).catch(() => {
-            globalFailed = true;
-            return null;
-          }),
+        ? getWeeklyLeaderboard(50)
+            .then((result) => result.entries)
+            .catch(() => {
+              weeklyFailed = true;
+              return null;
+            })
+        : getLeaderboard(50)
+            .then((result) => result.entries)
+            .catch(() => {
+              globalFailed = true;
+              return null;
+            }),
   ]);
   const currentUser = auth.user;
 
@@ -114,8 +118,12 @@ export default async function LocalizedLeaderboardPage({
     if (followsError) {
       friendsFailed = true;
       entries = [];
+    } else if (follows.length === 0) {
+      // Sin seguidos no hay ranking de amigos: pintar la fila propia como #1
+      // junto al aviso «no sigues a nadie» se contradecía (SOC-07).
+      noFollows = true;
+      entries = [];
     } else {
-      noFollows = follows.length === 0;
       const ids = [currentUser.id, ...follows.map((f) => f.following_id)];
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
@@ -134,6 +142,19 @@ export default async function LocalizedLeaderboardPage({
   }
 
   const currentEntry = entries?.find((entry) => entry.isMe) ?? null;
+
+  // Puesto propio fuera del top mostrado (SOC-03/SOC-14): solo con sesión y
+  // cuando el jugador no aparece en la lista. Global: cuenta de perfiles por
+  // delante (mismo orden points/quizzes_played). Semanal: RPC
+  // get_weekly_rank; si la migración aún no está aplicada o falla, null y se
+  // muestra el aviso genérico de «fuera del tablero», nunca un CTA de login.
+  let myRank: number | null = null;
+  if (!isFriends && currentUser && entries !== null && entries.length > 0 && !currentEntry) {
+    myRank = isWeekly
+      ? await getWeeklyRank(currentUser.id).catch(() => null)
+      : await getGlobalRank(supabase, currentUser.id).catch(() => null);
+  }
+
   const trail = [
     { name: dictionary.common.home, href: `/${locale}` },
     { name: copy.title, href: `/${locale}/leaderboard` },
@@ -177,7 +198,7 @@ export default async function LocalizedLeaderboardPage({
             <MetricCard label={copy.visiblePlayers} value={String(entries?.length ?? 0)} />
             <MetricCard
               label={copy.yourSpot}
-              value={currentEntry ? `#${currentEntry.rank}` : '—'}
+              value={currentEntry ? `#${currentEntry.rank}` : myRank ? `#${myRank}` : '—'}
             />
           </div>
         </div>
@@ -331,33 +352,79 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
-      {!isFriends &&
-        entries !== null &&
-        entries.length > 0 &&
-        !currentEntry &&
-        (!isWeekly || !currentUser) && (
-          <section className="surface-card mt-10 p-6">
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p className="eyebrow">{copy.yourRank}</p>
-                <h2 className="text-text-primary mt-2 text-2xl font-semibold">
-                  {copy.signInTitle}
-                </h2>
-              </div>
-              <Link
-                href={localizeHref(
-                  locale,
-                  `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
-                )}
-                className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
-              >
-                {copy.signInCta}
-              </Link>
-            </div>
-          </section>
-        )}
+      {!isFriends && entries !== null && entries.length > 0 && !currentEntry && (
+        <section className="surface-card mt-10 p-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {currentUser ? (
+              <>
+                <div>
+                  <p className="eyebrow">{copy.yourRank}</p>
+                  <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                    {myRank !== null ? `#${myRank}` : copy.outsideTopTitle}
+                  </h2>
+                  <p className="text-text-secondary mt-2 max-w-xl text-sm leading-6">
+                    {copy.outsideTopBody}
+                  </p>
+                </div>
+                <Link
+                  href={localizeHref(locale, '/quiz')}
+                  className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
+                >
+                  {copy.exploreCta}
+                </Link>
+              </>
+            ) : (
+              <>
+                <div>
+                  <p className="eyebrow">{copy.yourRank}</p>
+                  <h2 className="text-text-primary mt-2 text-2xl font-semibold">
+                    {copy.signInTitle}
+                  </h2>
+                </div>
+                <Link
+                  href={localizeHref(
+                    locale,
+                    `/login?redirect=${encodeURIComponent(tabHref(activeTab))}`
+                  )}
+                  className="bg-accent-primary text-bg-primary rounded-full px-5 py-3 text-sm font-semibold"
+                >
+                  {copy.signInCta}
+                </Link>
+              </>
+            )}
+          </div>
+        </section>
+      )}
     </div>
   );
+}
+
+/**
+ * Puesto en el tablero global de un jugador fuera del top: perfiles por
+ * delante con el mismo desempate que `getLeaderboard` (points DESC,
+ * quizzes_played DESC). null si alguna consulta falla.
+ */
+async function getGlobalRank(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string
+): Promise<number | null> {
+  const { data: me, error } = await supabase
+    .from('profiles')
+    .select('points, quizzes_played')
+    .eq('id', userId)
+    .maybeSingle();
+
+  if (error || !me) return null;
+
+  const { count, error: countError } = await supabase
+    .from('profiles')
+    .select('id', { count: 'exact', head: true })
+    .or(
+      `points.gt.${me.points},and(points.eq.${me.points},quizzes_played.gt.${me.quizzes_played})`
+    );
+
+  if (countError || count === null) return null;
+  return count + 1;
 }
 
 function LeaderboardRow({
