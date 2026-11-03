@@ -29,7 +29,7 @@ export function PowerUpBar({ powerUps, onUsePowerUp, locale }: PowerUpBarProps) 
   return (
     <div className="arcade-power-ups">
       <div className="arcade-play-wrap">
-        <span>{locale === 'es' ? 'AYUDAS' : 'POWER-UPS'}</span>
+        <span>{locale === 'es' ? 'Ayudas' : 'Power-ups'}</span>
         <div>
           {available.map((powerUp) => {
             const label = labels[powerUp.id]?.[locale];

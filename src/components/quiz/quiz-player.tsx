@@ -838,7 +838,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
                       setShowModeSelector(true);
                       playSound('click');
                     }}
-                    className="text-text-secondary hover:text-text-primary text-xs font-bold tracking-[0.08em] uppercase"
+                    className="text-text-secondary hover:text-text-primary inline-flex min-h-11 items-center text-xs font-semibold"
                   >
                     {copy.changeMode}
                   </button>
@@ -849,7 +849,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
                     togglePause();
                     playSound('click');
                   }}
-                  className="bg-bg-secondary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
+                  className="bg-bg-secondary hover:bg-bg-tertiary inline-flex h-11 w-11 items-center justify-center rounded-lg p-2 transition-colors"
                   aria-label={copy.pauseGame}
                 >
                   <svg

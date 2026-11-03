@@ -189,7 +189,7 @@ export default async function LocalizedQuizPreviewPage({
           <ol className="mt-6 space-y-4">
             {quiz.questions.map((question, index) => (
               <li key={question.id} className="surface-card p-5">
-                <span className="text-accent-primary text-[10px] font-bold tracking-[0.18em] uppercase">
+                <span className="text-accent-primary text-[10px] font-semibold">
                   {String(index + 1).padStart(2, '0')} / {quiz.questions.length}
                 </span>
                 <p className="text-text-primary mt-2 text-base leading-snug font-semibold">

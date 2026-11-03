@@ -285,7 +285,6 @@ export function ResultScreen({
             >
               {result?.title || scoreMessage}
             </motion.h1>
-            <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
 
             {submitFailed && (
               <div
@@ -306,51 +305,12 @@ export function ResultScreen({
               </div>
             )}
 
-            {challenge && (
-              <div
-                className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
-                role="status"
-              >
-                <p className="arcade-play-label">{copy.challengeEyebrow}</p>
-                <p className="text-accent-primary mt-2 text-2xl font-black tracking-tight uppercase md:text-3xl">
-                  {challengeVerdict}
-                </p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
-                  <span className="text-text-secondary">
-                    {copy.challenger}:{' '}
-                    <strong className="text-text-primary">
-                      {challengeMark(challenge, personality)}
-                    </strong>
-                  </span>
-                  <span className="text-text-secondary">
-                    {copy.challenged}:{' '}
-                    <strong className="text-text-primary">
-                      {challengeMark(myScore, personality)}
-                    </strong>
-                  </span>
-                </div>
-              </div>
-            )}
-
-            <div className="arcade-result-metrics">
-              <ResultMetric
-                label={copy.questions}
-                value={String(triviaScore?.total ?? answers.length)}
-              />
-              <ResultMetric label={copy.bestStreak} value={String(streak)} />
-              <ResultMetric
-                label={copy.bonus}
-                value={pointsSaved ? `+${bonusPoints}` : copy.pointsAccountHint}
-                hint={!pointsSaved}
-              />
-            </div>
-
             {triviaScore && (
               <div className="arcade-result-score">
                 <span className="arcade-play-label">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
                   <p className="arcade-result-number">{triviaScore.percentage}%</p>
-                  <p className="text-text-primary pb-2 text-sm font-bold tracking-wider uppercase">
+                  <p className="text-text-primary pb-2 text-sm font-semibold">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>
                 </div>
@@ -359,7 +319,7 @@ export function ResultScreen({
 
             <div className="arcade-result-actions">
               {challengeHref && (
-                <Link href={challengeHref} className="arcade-button arcade-button-pink">
+                <Link href={challengeHref} className="arcade-button arcade-result-primary">
                   {copy.acceptChallenge}
                 </Link>
               )}
@@ -371,7 +331,7 @@ export function ResultScreen({
                 }}
                 className={cn(
                   'arcade-button',
-                  challengeHref ? 'arcade-result-secondary' : 'arcade-button-pink'
+                  challengeHref ? 'arcade-result-secondary' : 'arcade-result-primary'
                 )}
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
@@ -408,13 +368,54 @@ export function ResultScreen({
               </Link>
             </div>
 
+            <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
+
+            {challenge && (
+              <div
+                className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
+                role="status"
+              >
+                <p className="arcade-play-label">{copy.challengeEyebrow}</p>
+                <p className="text-accent-primary mt-2 text-2xl font-semibold md:text-3xl">
+                  {challengeVerdict}
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+                  <span className="text-text-secondary">
+                    {copy.challenger}:{' '}
+                    <strong className="text-text-primary">
+                      {challengeMark(challenge, personality)}
+                    </strong>
+                  </span>
+                  <span className="text-text-secondary">
+                    {copy.challenged}:{' '}
+                    <strong className="text-text-primary">
+                      {challengeMark(myScore, personality)}
+                    </strong>
+                  </span>
+                </div>
+              </div>
+            )}
+
+            <div className="arcade-result-metrics">
+              <ResultMetric
+                label={copy.questions}
+                value={String(triviaScore?.total ?? answers.length)}
+              />
+              <ResultMetric label={copy.bestStreak} value={String(streak)} />
+              <ResultMetric
+                label={copy.bonus}
+                value={pointsSaved ? `+${bonusPoints}` : copy.pointsAccountHint}
+                hint={!pointsSaved}
+              />
+            </div>
+
             {accountCtaHref && !accountCtaDismissed && (
               <div className="border-border-subtle bg-bg-primary/60 mt-6 flex items-start justify-between gap-4 rounded-2xl border px-5 py-4">
                 <div>
                   <p className="text-text-primary text-sm font-semibold">{copy.accountCtaBody}</p>
                   <Link
                     href={accountCtaHref}
-                    className="text-accent-primary mt-2 inline-flex min-h-11 items-center text-sm font-bold tracking-[0.08em] uppercase"
+                    className="text-accent-primary mt-2 inline-flex min-h-11 items-center text-sm font-semibold"
                   >
                     {copy.accountCtaAction}
                   </Link>
@@ -433,7 +434,14 @@ export function ResultScreen({
 
           <section className="space-y-6">
             <div className="arcade-result-cover">
-              <QuizCoverArt quiz={quiz} locale={uiLocale} compact ratioClassName="aspect-[16/9]" />
+              <QuizCoverArt
+                quiz={quiz}
+                locale={uiLocale}
+                compact
+                decorative
+                showTitle={false}
+                ratioClassName="aspect-[16/9]"
+              />
             </div>
 
             <div className="arcade-result-summary">
@@ -581,7 +589,7 @@ export function ResultScreen({
                 <button
                   type="button"
                   onClick={() => setShareMode(null)}
-                  className="text-text-primary text-sm font-bold"
+                  className="text-text-primary text-sm font-semibold"
                   autoFocus
                 >
                   {copy.close}

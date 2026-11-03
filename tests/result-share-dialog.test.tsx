@@ -70,6 +70,24 @@ function renderScreen(props: Partial<React.ComponentProps<typeof ResultScreen>> 
 }
 
 describe('ResultScreen · diálogo de compartir accesible', () => {
+  it.each(['es', 'en'] as const)('adelanta la acción al resumen y las métricas (%s)', (locale) => {
+    const { container } = renderScreen({ locale });
+    const primary = screen.getByRole('button', {
+      name: locale === 'es' ? 'Compartir resultado' : 'Share result',
+    });
+
+    expect(primary).toHaveClass('arcade-result-primary');
+    expect(primary).not.toHaveClass('uppercase');
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(container.querySelector('.arcade-result-cover .arcade-cover-title')).toBeNull();
+    for (const selector of ['.arcade-result-body', '.arcade-result-metrics']) {
+      expect(
+        primary.compareDocumentPosition(container.querySelector(selector)!) &
+          Node.DOCUMENT_POSITION_FOLLOWING
+      ).toBeTruthy();
+    }
+  });
+
   it('atrapa el foco, cierra con Escape desde fuera y lo devuelve al botón', async () => {
     renderScreen();
     const trigger = screen.getByRole('button', { name: 'Compartir resultado' });

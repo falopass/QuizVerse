@@ -150,7 +150,7 @@ export async function FollowListPage({
                     <p className="text-accent-primary text-lg font-semibold">
                       {formatCompactNumber(entry.points, locale)}
                     </p>
-                    <p className="text-text-muted text-[11px] tracking-[0.16em] uppercase">
+                    <p className="text-text-muted text-[11px] font-semibold">
                       {es ? 'puntos' : 'points'}
                     </p>
                   </div>

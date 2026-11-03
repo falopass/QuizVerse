@@ -25,7 +25,7 @@ export function Breadcrumbs({
   return (
     <nav
       aria-label={locale === 'es' ? 'Ruta de navegación' : 'Breadcrumb'}
-      className={`text-text-muted flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-bold tracking-[0.14em] uppercase ${className}`}
+      className={`text-text-muted flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold ${className}`}
     >
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
@@ -37,7 +37,10 @@ export function Breadcrumbs({
               </span>
             ) : null}
             {item.href && !isLast ? (
-              <Link href={item.href} className="hover:text-accent-primary transition-colors">
+              <Link
+                href={item.href}
+                className="hover:text-accent-primary inline-flex min-h-11 items-center transition-colors"
+              >
                 {item.name}
               </Link>
             ) : (

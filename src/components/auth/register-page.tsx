@@ -60,7 +60,7 @@ export async function RegisterPageView({
       <div className="mx-auto max-w-md">
         <div className="surface-card p-8 md:p-10">
           <div className="mb-8">
-            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-14 w-14 items-center justify-center rounded-full border text-sm font-black tracking-[0.22em] uppercase">
+            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-14 w-14 items-center justify-center rounded-full border text-sm font-semibold">
               QV
             </div>
             <p className="eyebrow mt-5">{copy.eyebrow}</p>
@@ -83,7 +83,7 @@ export async function RegisterPageView({
             <>
               <div className="my-6 flex items-center gap-4">
                 <div className="bg-border-subtle h-px flex-1" />
-                <span className="text-text-muted text-[11px] font-semibold tracking-[0.24em] uppercase">
+                <span className="text-text-muted text-[11px] font-semibold">
                   {copy.orWith}
                 </span>
                 <div className="bg-border-subtle h-px flex-1" />

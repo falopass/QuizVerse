@@ -106,13 +106,14 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           ),
         ])}
       />
-      <Breadcrumbs items={trail} locale={locale} className="mb-6" />
+      <Breadcrumbs items={trail} locale={locale} className="arcade-detail-trail mb-6" />
       <section className="arcade-detail">
         <div>
           <QuizCoverArt
             quiz={quiz}
             locale={locale}
             decorative
+            showTitle={false}
             className="arcade-detail-art"
             priorityLabel=""
           />
@@ -137,7 +138,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               </Link>
             </p>
           ) : null}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="arcade-detail-actions flex flex-wrap items-center gap-4">
             <Link
               href={localizeHref(locale, `/quiz/${quiz.slug}/play?mode=classic`)}
               className="arcade-button arcade-button-lime arcade-start"
@@ -221,7 +222,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
                 key={question.id ?? index}
                 className="border-border-subtle bg-bg-secondary rounded-[4px] border p-5"
               >
-                <span className="text-accent-primary text-[10px] font-bold tracking-[0.18em] uppercase">
+                <span className="text-accent-primary text-[10px] font-semibold">
                   {String(index + 1).padStart(2, '0')} / {quiz.questions.length}
                 </span>
                 <p className="text-text-primary mt-2 text-base leading-snug font-semibold">

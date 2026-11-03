@@ -487,7 +487,7 @@ export function QuizCreatorForm({
                           <div className="mb-3 flex items-center justify-between">
                             <label
                               htmlFor={optionId}
-                              className="text-text-muted text-xs font-semibold tracking-[0.2em] uppercase"
+                              className="text-text-muted text-xs font-semibold"
                             >
                               {copy.option} {String.fromCharCode(65 + optionIndex)}
                             </label>

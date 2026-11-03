@@ -84,7 +84,7 @@ describe('GameModeSelector', () => {
     renderSelector({ locale: 'en' });
 
     expect(screen.getByRole('button', { name: /Classic/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Time Attack/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Time attack/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Survival/ })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Practice/ })).toBeInTheDocument();
     expect(screen.getByText(/Press 1-4/)).toBeInTheDocument();

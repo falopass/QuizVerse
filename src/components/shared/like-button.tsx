@@ -92,7 +92,7 @@ export function LikeButton({
 
   const loginHref = `${localizeHref(locale, '/login')}?redirect=${encodeURIComponent(detailPath)}`;
   const classes = [
-    'inline-flex min-h-11 items-center gap-2 rounded-full border px-5 py-2 text-xs font-bold tracking-[0.08em] uppercase transition-colors',
+    'inline-flex min-h-11 items-center gap-2 rounded-full border px-5 py-2 text-xs font-semibold transition-colors',
     liked
       ? 'border-accent-tertiary bg-accent-tertiary/15 text-accent-tertiary'
       : 'border-border-subtle text-text-secondary hover:border-accent-tertiary hover:text-accent-tertiary',

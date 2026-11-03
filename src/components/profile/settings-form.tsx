@@ -155,7 +155,7 @@ export function SettingsForm({
         <span className="mb-1 flex items-baseline justify-between">
           <label
             htmlFor="settings-display-name"
-            className="text-text-secondary text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary text-xs font-semibold"
           >
             {copy.displayName}
           </label>
@@ -183,7 +183,7 @@ export function SettingsForm({
       <div>
         <label
           htmlFor="settings-username"
-          className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+          className="text-text-secondary mb-1 block text-xs font-semibold"
         >
           {copy.username}
         </label>
@@ -216,7 +216,7 @@ export function SettingsForm({
         <span className="mb-1 flex items-baseline justify-between">
           <label
             htmlFor="settings-bio"
-            className="text-text-secondary text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary text-xs font-semibold"
           >
             {copy.bio}
           </label>

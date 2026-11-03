@@ -109,7 +109,7 @@ beforeEach(() => {
 describe('QuizPlayer · un toque responde', () => {
   it('tocar una opción la envía y «Siguiente» avanza tras el feedback', async () => {
     render(<QuizPlayer quiz={makeQuiz()} locale="en" />);
-    await screen.findByText(/CHOOSE AN ANSWER/);
+    await screen.findByText(/Choose an answer/);
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
@@ -130,7 +130,7 @@ describe('QuizPlayer · un toque responde', () => {
 
   it('el atajo 1-4 también responde sin pasar por «Siguiente»', async () => {
     render(<QuizPlayer quiz={makeQuiz()} locale="en" />);
-    await screen.findByText(/CHOOSE AN ANSWER/);
+    await screen.findByText(/Choose an answer/);
 
     fireEvent.keyDown(window, { key: '2' });
 
@@ -147,7 +147,7 @@ describe('QuizPlayer · un toque responde', () => {
       error: 'Game attempts are not configured.',
     });
     render(<QuizPlayer quiz={makeQuiz()} locale="en" />);
-    await screen.findByText(/CHOOSE AN ANSWER/);
+    await screen.findByText(/Choose an answer/);
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
@@ -207,7 +207,7 @@ describe('QuizPlayer · personalidad', () => {
         initialMode={parseInitialGameMode('timed', personality)}
       />
     );
-    await screen.findByText(/CHOOSE AN ANSWER/);
+    await screen.findByText(/Choose an answer/);
 
     expect(screen.queryByRole('button', { name: 'Change mode' })).not.toBeInTheDocument();
     expect(useQuizStore.getState().gameMode).toBe('normal');
@@ -241,7 +241,7 @@ describe('QuizPlayer · temporizador accesible', () => {
 describe('QuizPlayer · pausa accesible', () => {
   it('abre un diálogo modal con foco atrapado, Escape y retorno del foco', async () => {
     render(<QuizPlayer quiz={makeQuiz()} locale="es" />);
-    await screen.findByText(/ELIGE UNA RESPUESTA/);
+    await screen.findByText(/Elige una respuesta/);
 
     fireEvent.click(screen.getByRole('button', { name: 'Pausar juego' }));
 
@@ -270,7 +270,7 @@ describe('QuizPlayer · ayudas', () => {
   it('tras el 50/50 el foco pasa a la primera opción disponible y se anuncia', async () => {
     vi.mocked(requestEliminatedOptions).mockResolvedValueOnce(['q1b']);
     render(<QuizPlayer quiz={makeQuiz()} locale="es" />);
-    await screen.findByText(/ELIGE UNA RESPUESTA/);
+    await screen.findByText(/Elige una respuesta/);
 
     fireEvent.click(screen.getByRole('button', { name: /50\/50/ }));
 
@@ -293,7 +293,7 @@ describe('QuizPlayer · resultado', () => {
     });
 
     render(<QuizPlayer quiz={oneQuestion} locale="es" related={[related]} />);
-    await screen.findByText(/ELIGE UNA RESPUESTA/);
+    await screen.findByText(/Elige una respuesta/);
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
     await screen.findByText('Correcto');
@@ -379,7 +379,7 @@ describe('QuizPlayer · resultado', () => {
 describe('QuizPlayer · telemetría', () => {
   it('registra un solo quiz_start al entrar por URL en otro modo', async () => {
     render(<QuizPlayer quiz={makeQuiz()} locale="en" initialMode="timed" />);
-    await screen.findByText(/CHOOSE AN ANSWER/);
+    await screen.findByText(/Choose an answer/);
 
     const starts = vi
       .mocked(trackEvent)

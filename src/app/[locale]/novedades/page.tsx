@@ -152,7 +152,7 @@ function WhatsNewCard({ quiz, locale }: { quiz: WhatsNewQuiz; locale: Locale }) 
         <h3 className="text-text-primary group-hover:text-accent-primary truncate text-lg font-semibold transition-colors">
           {quiz.title}
         </h3>
-        <p className="text-text-muted mt-1 text-xs font-semibold tracking-[0.14em] uppercase">
+        <p className="text-text-muted mt-1 text-xs font-semibold">
           {getLocalizedTypeLabel(quiz.quiz_type, locale)} · {quiz.estimated_minutes} min ·{' '}
           <time dateTime={publishedAt.toISOString()}>
             {publishedAt.toLocaleDateString(locale, {

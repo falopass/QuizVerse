@@ -101,7 +101,7 @@ export function ForgotPasswordForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-3" noValidate>
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase">
+        <span className="text-text-secondary mb-1 block text-xs font-semibold">
           {copy.email}
         </span>
         <input

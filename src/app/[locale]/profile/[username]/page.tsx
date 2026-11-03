@@ -109,7 +109,7 @@ export default async function LocalizedProfilePage({
                 {profile.display_name || profile.username}
               </h1>
             </div>
-            <p className="text-text-muted mt-3 text-sm tracking-[0.18em] uppercase">
+            <p className="text-text-muted mt-3 text-sm font-semibold">
               @{profile.username}
             </p>
             <p className="text-text-secondary mt-4 max-w-2xl text-base leading-7">
