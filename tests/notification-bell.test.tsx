@@ -62,12 +62,14 @@ beforeEach(() => {
 });
 
 describe('NotificationBell', () => {
-  it('sin sesión no renderiza nada', () => {
+  it('sin sesión reserva el mismo espacio sin enlace ni consulta', () => {
     mocks.useSupabase.mockReturnValue({ user: null, loading: false, signOut: vi.fn() });
 
     const { container } = render(<NotificationBell locale="es" />);
 
-    expect(container.firstChild).toBeNull();
+    expect(container.firstChild).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.queryByRole('link')).toBeNull();
+    expect(mocks.selectSpy).not.toHaveBeenCalled();
   });
 
   it('con no leídas muestra el badge y el nombre accesible con el conteo', async () => {

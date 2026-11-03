@@ -80,18 +80,18 @@ function getLocaleFromRequest(request: NextRequest) {
 const METADATA_FILE_RE = /\/(opengraph-image|twitter-image|icon|apple-icon)$/;
 
 /**
- * Páginas HTML bajo /<locale>: las únicas cuyo `Cache-Control: private,
- * no-cache, no-store, max-age=0, must-revalidate` (viene del `headers()` del
- * layout raíz) es seguro relajar. Se excluye cualquier último segmento con
- * extensión (`/en/feed.xml` lleva `revalidate` propio y lo perdería), los
- * archivos de metadata y lo que no es GET/HEAD.
+ * Solo documentos/RSC: los handlers y las acciones conservan sus políticas.
  */
-function isRelaxablePageRequest(request: NextRequest, pathname: string) {
+function isPageRequest(request: NextRequest, pathname: string) {
   if (request.method !== 'GET' && request.method !== 'HEAD') return false;
   if (!pathnameHasLocale(pathname)) return false;
   const lastSegment = pathname.slice(pathname.lastIndexOf('/') + 1);
   return !lastSegment.includes('.') && !METADATA_FILE_RE.test(pathname);
 }
+
+// Lista cerrada de páginas sin personalización de servidor. Next decide si la
+// respuesta es ISR, redirect, 404 o error; nunca forzamos `public` desde aquí.
+const CACHEABLE_PAGE_RE = /^\/(en|es)(?:\/(?:quiz(?:\/[^/.]+)?|about|faq|privacy|terms|contact))?\/?$/;
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -113,7 +113,7 @@ export async function proxy(request: NextRequest) {
   const verification = googleVerificationResponse(pathname);
   if (verification) return verification;
 
-  // El header alimenta <html lang>: /embed/{locale} también lleva el idioma en la ruta.
+  // Solo los errores sin params necesitan este fallback; los layouts usan la ruta.
   request.headers.set(
     'x-quizverse-locale',
     pathname.startsWith('/es') || pathname.startsWith('/embed/es') ? 'es' : 'en'
@@ -152,11 +152,12 @@ export async function proxy(request: NextRequest) {
     NON_LOCALE_PREFIXES.some((prefix) => pathname.startsWith(prefix)) ||
     NON_LOCALE_EXACT.includes(pathname)
   ) {
-    // `private, no-cache` en vez del `no-store` del HTML dinámico: revalida
-    // siempre pero vuelve a permitir bfcache. Nunca con sesión (ese HTML es
-    // personalizado y sigue sin cachear ni restaurar).
-    if (!hasSession && isRelaxablePageRequest(request, pathname)) {
-      response.headers.set('Cache-Control', 'private, no-cache');
+    if (isPageRequest(request, pathname)) {
+      // Conserva también el Vary de RSC que añade Next al responder.
+      response.headers.append('Vary', 'Cookie');
+      if (hasSession || !CACHEABLE_PAGE_RE.test(pathname)) {
+        response.headers.set('Cache-Control', 'private, no-cache');
+      }
     }
     return response;
   }

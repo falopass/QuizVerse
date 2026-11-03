@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { EditorialErrorState } from '@/components/home/app-placeholders';
 import { getErrorCopy } from '@/lib/i18n/dictionaries';
 import { localeFromPathname } from '@/lib/i18n/navigation';
+import './globals.css';
 
 // Último recurso: cubre errores fuera de /[locale] (incluido el propio layout
 // localizado), donde el pathname puede no llevar prefijo de idioma.
@@ -12,7 +13,8 @@ export default function ErrorPage({ error, reset }: { error: Error; reset: () =>
   const copy = getErrorCopy(locale);
 
   return (
-    <>
+    <html lang={locale}>
+    <body className="bg-bg-primary text-text-primary min-h-screen antialiased">
       <EditorialErrorState
         eyebrow={copy.eyebrow}
         title={copy.title}
@@ -31,6 +33,7 @@ export default function ErrorPage({ error, reset }: { error: Error; reset: () =>
           </pre>
         </div>
       ) : null}
-    </>
+    </body>
+    </html>
   );
 }

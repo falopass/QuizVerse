@@ -1,7 +1,10 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { preconnect } from 'react-dom';
+import { usePathname } from 'next/navigation';
 import type { Session, SupabaseClient, User } from '@supabase/supabase-js';
+import { hasSessionCookie } from '@/lib/supabase/session-cookie';
 
 interface SupabaseContext {
   user: User | null;
@@ -14,21 +17,12 @@ interface SupabaseContext {
 
 const Context = createContext<SupabaseContext | undefined>(undefined);
 
-export function SupabaseProvider({
-  children,
-  hasSession = false,
-}: {
-  children: React.ReactNode;
-  /**
-   * Cookie `sb-*-auth-token` presente en la petición, resuelta en el layout del
-   * servidor. Sin ella no se importa el cliente: el visitante anónimo ve el
-   * enlace de login desde el primer render, sin parpadeo ni chunk de Supabase.
-   */
-  hasSession?: boolean;
-}) {
+export function SupabaseProvider({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(hasSession);
+  // El HTML y el primer render siempre son iguales, incluso con sesión.
+  const [loading, setLoading] = useState(true);
   const clientRef = useRef<Promise<SupabaseClient> | null>(null);
 
   // `import()` deja `@supabase/supabase-js` en un chunk aparte que solo se pide
@@ -44,32 +38,38 @@ export function SupabaseProvider({
     return clientRef.current;
   }, []);
 
-  // El layout se reutiliza al navegar: tras un login el servidor manda
-  // `hasSession` nuevo sin remontar el provider. Ajustar el estado en render
-  // evita enseñar «Iniciar sesión» mientras llega la sesión.
-  const [prevHasSession, setPrevHasSession] = useState(hasSession);
-  if (prevHasSession !== hasSession) {
-    setPrevHasSession(hasSession);
-    setLoading(hasSession);
-    if (!hasSession) {
-      setUser(null);
-      setSession(null);
-    }
-  }
-
   useEffect(() => {
-    if (!hasSession) return;
-
     let cancelled = false;
     let unsubscribe: (() => void) | undefined;
 
     void (async () => {
+      // También al navegar: login/register son acciones de servidor, no
+      // eventos del SDK. Sus redirects deben descubrir la cookie nueva.
+      const hasSession = hasSessionCookie(
+        document.cookie.split(';').map((cookie) => ({ name: cookie.trim().split('=')[0] }))
+      );
+      if (!hasSession) {
+        setSession(null);
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      const apiUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      if (apiUrl) {
+        try {
+          preconnect(new URL(apiUrl).origin, { crossOrigin: 'anonymous' });
+        } catch {
+          // Un hint opcional no puede impedir resolver la sesión.
+        }
+      }
       const client = await getClient();
       if (cancelled) return;
 
       const {
         data: { subscription },
       } = client.auth.onAuthStateChange((_event, nextSession) => {
+        if (cancelled) return;
         setSession(nextSession);
         setUser(nextSession?.user ?? null);
         setLoading(false);
@@ -92,15 +92,18 @@ export function SupabaseProvider({
       cancelled = true;
       unsubscribe?.();
     };
-  }, [getClient, hasSession]);
+  }, [getClient, pathname]);
 
   const signOut = useCallback(async () => {
     try {
       const client = await getClient();
       await client.auth.signOut();
     } catch {
-      // La sesión del servidor ya se cerró; si el chunk falla, el refresh del
-      // layout limpia igualmente el estado.
+      // La acción del servidor ya cerró la sesión.
+    } finally {
+      setSession(null);
+      setUser(null);
+      setLoading(false);
     }
   }, [getClient]);
 

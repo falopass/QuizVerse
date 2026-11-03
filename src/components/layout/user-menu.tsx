@@ -72,14 +72,14 @@ export function UserMenu({ locale }: { locale: Locale }) {
     return (
       <span
         aria-hidden="true"
-        className="border-border-subtle hidden h-11 w-20 rounded-full border opacity-40 lg:inline-flex"
+        className="border-border-subtle hidden h-11 w-28 shrink-0 rounded-full border opacity-40 lg:inline-flex"
       />
     );
   }
 
   if (!user) {
     return (
-      <Link href={localizeHref(locale, '/login')} className="arcade-nav-link">
+      <Link href={localizeHref(locale, '/login')} className="arcade-nav-link w-28 shrink-0 justify-center">
         {copy.signIn}
       </Link>
     );
@@ -88,11 +88,11 @@ export function UserMenu({ locale }: { locale: Locale }) {
   const name = displayName(user) || copy.account;
 
   return (
-    <div ref={rootRef} className="relative hidden lg:flex">
+    <div ref={rootRef} className="relative hidden w-28 shrink-0 lg:flex">
       <button
         ref={triggerRef}
         type="button"
-        className="arcade-nav-link gap-2"
+        className="arcade-nav-link w-full gap-2"
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls="user-menu-panel"
@@ -100,11 +100,11 @@ export function UserMenu({ locale }: { locale: Locale }) {
       >
         <span
           aria-hidden="true"
-          className="bg-accent-primary text-bg-primary flex h-7 w-7 items-center justify-center rounded-full text-[11px]"
+          className="bg-accent-primary text-bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px]"
         >
           {name.charAt(0).toUpperCase()}
         </span>
-        <span className="max-w-28 truncate">{name}</span>
+        <span className="min-w-0 truncate">{name}</span>
       </button>
       {open && (
         <div

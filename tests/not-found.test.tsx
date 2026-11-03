@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
@@ -14,11 +15,15 @@ vi.mock('next/navigation', () => ({
   usePathname: () => mocks.pathname,
 }));
 
-import RootNotFound from '@/app/not-found';
+vi.mock('@/components/layout/site-document', () => ({
+  SiteDocument: ({ children }: { children: ReactNode }) => children,
+}));
+
+import RootNotFound from '@/app/global-not-found';
 import LocaleNotFound, {
   generateMetadata as localeNotFoundMetadata,
 } from '@/app/[locale]/not-found';
-import EmbedNotFound from '@/app/embed/not-found';
+import EmbedNotFound from '@/app/embed/[locale]/not-found';
 
 function categoryLinks() {
   return screen
@@ -26,7 +31,7 @@ function categoryLinks() {
     .filter((link) => link.getAttribute('href')?.includes('/category/'));
 }
 
-describe('RootNotFound (src/app/not-found.tsx)', () => {
+describe('RootNotFound (src/app/global-not-found.tsx)', () => {
   it('muestra copy en inglés y enlaces /en con cabecera en', async () => {
     mocks.locale = 'en';
     render(await RootNotFound());
@@ -151,7 +156,7 @@ describe('LocaleNotFound metadata (el <title> del shell de error)', () => {
   });
 });
 
-describe('EmbedNotFound (src/app/embed/not-found.tsx)', () => {
+describe('EmbedNotFound (src/app/embed/[locale]/not-found.tsx)', () => {
   it('muestra el 404 del embed en español bajo /embed/es', () => {
     mocks.pathname = '/embed/es/no-existe';
     render(<EmbedNotFound />);
