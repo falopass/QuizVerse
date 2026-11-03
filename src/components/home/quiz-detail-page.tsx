@@ -162,7 +162,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               <dd>{getLocalizedTypeLabel(quiz.quiz_type, locale)}</dd>
             </div>
             <div>
-              <dt>{dictionary.common.questionsShort}</dt>
+              <dt className="capitalize">{dictionary.common.questionsShort}</dt>
               <dd>{quiz.questions.length}</dd>
             </div>
             <div>
@@ -212,8 +212,8 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             <h2 id="inside-quiz">{es ? 'Dentro del quiz' : 'Inside the quiz'}</h2>
             <p>
               {es
-                ? `Las primeras ${questions.length} preguntas reales de ${quiz.title}.`
-                : `The first ${questions.length} real questions in ${quiz.title}.`}
+                ? `Las primeras ${questions.length} preguntas reales de ${quiz.title}${/[.?!]$/.test(quiz.title) ? '' : '.'}`
+                : `The first ${questions.length} real questions in ${quiz.title}${/[.?!]$/.test(quiz.title) ? '' : '.'}`}
             </p>
           </div>
           <ol className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
