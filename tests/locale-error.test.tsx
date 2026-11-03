@@ -60,7 +60,7 @@ describe('app/error (último recurso)', () => {
   it('usa el copy del diccionario según el pathname', () => {
     mocks.pathname = '/es';
 
-    render(<RootErrorPage error={boom()} reset={vi.fn()} />);
+    render(<RootErrorPage error={boom()} reset={vi.fn()} />, { container: document });
 
     expect(screen.getByText('Algo interrumpió el flujo.')).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe('app/error (último recurso)', () => {
   it('cae al inglés en rutas sin prefijo de locale', () => {
     mocks.pathname = '/api/whatever';
 
-    render(<RootErrorPage error={boom()} reset={vi.fn()} />);
+    render(<RootErrorPage error={boom()} reset={vi.fn()} />, { container: document });
 
     expect(screen.getByText('Something interrupted the flow.')).toBeInTheDocument();
   });

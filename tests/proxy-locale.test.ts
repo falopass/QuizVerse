@@ -109,7 +109,7 @@ describe('proxy — public HTML cache policy', () => {
   ])('leaves Next/OpenNext in control of anonymous %s', async (path) => {
     const res = await proxy(req(path));
     expect(res.headers.get('cache-control')).toBeNull();
-      expect(res.headers.get('vary')).toBeNull();
+    expect(res.headers.get('vary')).toBeNull();
   });
 
   it('preserves an existing cache policy and Vary', async () => {

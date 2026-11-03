@@ -42,7 +42,7 @@ function importGraph(entry: string): Set<string> {
   return seen;
 }
 
-const graph = importGraph(join(SRC, 'app', 'layout.tsx'));
+const graph = importGraph(join(SRC, 'app', '[locale]', 'layout.tsx'));
 
 describe('bundle inicial del layout raíz', () => {
   it('recorre el toast y el banner de cookies', () => {

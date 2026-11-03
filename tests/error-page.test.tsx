@@ -15,7 +15,7 @@ import ErrorPage from '@/app/error';
 describe('ErrorPage', () => {
   it('muestra el copy en inglés y enlaces /en en una ruta /en', () => {
     mocks.pathname = '/en/quiz/x';
-    render(<ErrorPage error={new Error('boom')} reset={() => {}} />);
+    render(<ErrorPage error={new Error('boom')} reset={() => {}} />, { container: document });
 
     expect(
       screen.getByRole('heading', { name: 'Something interrupted the flow.' })
@@ -30,7 +30,7 @@ describe('ErrorPage', () => {
 
   it('muestra el copy en español y enlaces /es en una ruta /es', () => {
     mocks.pathname = '/es/quiz/x';
-    render(<ErrorPage error={new Error('boom')} reset={() => {}} />);
+    render(<ErrorPage error={new Error('boom')} reset={() => {}} />, { container: document });
 
     expect(screen.getByRole('heading', { name: 'Algo interrumpió el flujo.' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Reintentar' })).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('ErrorPage', () => {
 
   it('usa inglés por defecto cuando la ruta no tiene prefijo /es', () => {
     mocks.pathname = '/';
-    render(<ErrorPage error={new Error('boom')} reset={() => {}} />);
+    render(<ErrorPage error={new Error('boom')} reset={() => {}} />, { container: document });
 
     expect(
       screen.getByRole('heading', { name: 'Something interrupted the flow.' })
@@ -53,7 +53,7 @@ describe('ErrorPage', () => {
 
   it('no confunde un segmento que empieza por /es con el locale /es', () => {
     mocks.pathname = '/espanol/quiz/x';
-    render(<ErrorPage error={new Error('boom')} reset={() => {}} />);
+    render(<ErrorPage error={new Error('boom')} reset={() => {}} />, { container: document });
 
     expect(
       screen.getByRole('heading', { name: 'Something interrupted the flow.' })
