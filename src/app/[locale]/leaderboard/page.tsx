@@ -466,9 +466,7 @@ function LeaderboardRow({
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-border-subtle bg-bg-primary/80 rounded-[1.5rem] border p-5">
-      <p className="text-text-muted text-[11px] font-semibold">
-        {label}
-      </p>
+      <p className="text-text-muted text-[11px] font-semibold">{label}</p>
       <p className="text-text-primary mt-3 text-3xl font-semibold">{value}</p>
     </div>
   );

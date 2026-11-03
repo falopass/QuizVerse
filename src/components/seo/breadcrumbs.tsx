@@ -39,7 +39,7 @@ export function Breadcrumbs({
             {item.href && !isLast ? (
               <Link
                 href={item.href}
-                className="hover:text-accent-primary inline-flex min-h-11 items-center transition-colors"
+                className="hover:text-accent-primary inline-flex min-h-11 min-w-11 items-center transition-colors"
               >
                 {item.name}
               </Link>

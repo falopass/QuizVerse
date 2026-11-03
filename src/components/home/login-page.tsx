@@ -115,9 +115,7 @@ export async function LoginPageView({
 
           <div className="my-6 flex items-center gap-4">
             <div className="bg-border-subtle h-px flex-1" />
-            <span className="text-text-muted text-[11px] font-semibold">
-              {copy.browseFirst}
-            </span>
+            <span className="text-text-muted text-[11px] font-semibold">{copy.browseFirst}</span>
             <div className="bg-border-subtle h-px flex-1" />
           </div>
           <Link

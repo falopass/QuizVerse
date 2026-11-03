@@ -66,15 +66,11 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
             <dd className="text-text-primary mt-1 text-3xl font-semibold">{played}</dd>
           </div>
           <div className="surface-card p-4">
-            <dt className="text-text-muted text-xs font-semibold">
-              {es ? 'Puntos' : 'Points'}
-            </dt>
+            <dt className="text-text-muted text-xs font-semibold">{es ? 'Puntos' : 'Points'}</dt>
             <dd className="text-text-primary mt-1 text-3xl font-semibold">{points}</dd>
           </div>
           <div className="surface-card p-4">
-            <dt className="text-text-muted text-xs font-semibold">
-              {es ? 'Racha' : 'Streak'}
-            </dt>
+            <dt className="text-text-muted text-xs font-semibold">{es ? 'Racha' : 'Streak'}</dt>
             <dd className="text-text-primary mt-1 text-3xl font-semibold">
               {currentStreak}{' '}
               <span className="text-text-muted ml-1 text-sm font-normal">

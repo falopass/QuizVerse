@@ -412,7 +412,7 @@ export function ResultScreen({
             {accountCtaHref && !accountCtaDismissed && (
               <div className="border-border-subtle bg-bg-primary/60 mt-6 flex items-start justify-between gap-4 rounded-2xl border px-5 py-4">
                 <div>
-                  <p className="text-text-primary text-sm font-semibold">{copy.accountCtaBody}</p>
+                  <p className="text-text-primary inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold">{copy.accountCtaBody}</p>
                   <Link
                     href={accountCtaHref}
                     className="text-accent-primary mt-2 inline-flex min-h-11 items-center text-sm font-semibold"
@@ -589,7 +589,7 @@ export function ResultScreen({
                 <button
                   type="button"
                   onClick={() => setShareMode(null)}
-                  className="text-text-primary text-sm font-semibold"
+                  className="text-text-primary inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold"
                   autoFocus
                 >
                   {copy.close}

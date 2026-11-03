@@ -214,10 +214,7 @@ export function SettingsForm({
 
       <div>
         <span className="mb-1 flex items-baseline justify-between">
-          <label
-            htmlFor="settings-bio"
-            className="text-text-secondary text-xs font-semibold"
-          >
+          <label htmlFor="settings-bio" className="text-text-secondary text-xs font-semibold">
             {copy.bio}
           </label>
           <span className="text-text-muted text-xs">

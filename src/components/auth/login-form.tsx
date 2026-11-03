@@ -68,9 +68,7 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
   return (
     <form onSubmit={handleSubmit} className="space-y-3" noValidate>
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold">
-          {copy.email}
-        </span>
+        <span className="text-text-secondary mb-1 block text-xs font-semibold">{copy.email}</span>
         <input
           type="email"
           name="email"

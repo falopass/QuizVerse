@@ -2320,6 +2320,7 @@ body:has(.arcade-result) .cookie-consent-banner {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  min-width: 44px;
 }
 
 .arcade-result-primary {
@@ -2337,9 +2338,6 @@ body:has(.arcade-result) .cookie-consent-banner {
 @media (max-width: 699px) {
   .arcade-detail-trail {
     margin-bottom: 8px;
-  }
-  .arcade-detail-trail > span:last-child {
-    display: none;
   }
   .arcade-detail {
     display: flex;
