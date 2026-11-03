@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import { cookies, headers } from 'next/headers';
 import { Archivo_Black, Space_Grotesk } from 'next/font/google';
-import './globals.css';
+import '@/app/globals.css';
 import { SupabaseProvider } from '@/providers/supabase-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
@@ -11,7 +10,7 @@ import { WebVitals } from '@/components/layout/web-vitals';
 import { CookieConsentBanner } from '@/components/shared/cookie-consent';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildGraph, organizationNode, websiteNode } from '@/lib/seo/structured-data';
-import { hasSessionCookie } from '@/lib/supabase/session-cookie';
+import type { Locale } from '@/lib/i18n/dictionaries';
 import {
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_HEIGHT,
@@ -132,25 +131,8 @@ export const viewport: Viewport = {
   themeColor: '#101019',
 };
 
-/** Origin of the self-hosted Supabase — the only third-party connection the client makes. */
-function supabaseOrigin(): string | null {
-  const raw = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!raw) return null;
-  try {
-    return new URL(raw).origin;
-  } catch {
-    return null;
-  }
-}
-
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const [requestHeaders, requestCookies] = await Promise.all([headers(), cookies()]);
-  const locale = requestHeaders.get('x-quizverse-locale') === 'es' ? 'es' : 'en';
-  // Sin cookie de sesión el visitante es anónimo: no hay cliente de Supabase
-  // que cargar ni origen al que preconnectar.
-  const hasSession = hasSessionCookie(requestCookies.getAll());
-  const apiOrigin = hasSession ? supabaseOrigin() : null;
-
+/** Documento compartido por los layouts raíz; nunca lee datos de la petición. */
+export function SiteDocument({ children, locale }: { children: React.ReactNode; locale: Locale }) {
   return (
     <html
       lang={locale}
@@ -158,17 +140,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
-      <head>
-        {apiOrigin ? (
-          <>
-            <link rel="preconnect" href={apiOrigin} crossOrigin="anonymous" />
-            <link rel="dns-prefetch" href={apiOrigin} />
-          </>
-        ) : null}
-      </head>
       <body className="bg-bg-primary text-text-primary h-full antialiased">
         <JsonLd data={buildGraph([organizationNode(), websiteNode(locale)])} />
-        <SupabaseProvider hasSession={hasSession}>
+        <SupabaseProvider>
           <ThemeProvider>
             <ToastProvider>
               <AppTelemetry />

@@ -3,8 +3,7 @@
  * sesión de Supabase. `-code-verifier` (PKCE en curso) no cuenta: todavía no
  * hay sesión.
  *
- * La usan el proxy (para decidir si refresca la sesión) y el layout raíz (para
- * no cargar el cliente de navegador a un visitante anónimo).
+ * La usan el proxy (refresh) y el provider en el navegador (carga diferida).
  */
 const SESSION_COOKIE_RE = /^sb-.+-auth-token(\.\d+)?$/;
 

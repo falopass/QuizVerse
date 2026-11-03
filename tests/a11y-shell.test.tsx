@@ -48,11 +48,11 @@ function* tsxFiles(dir: string): Generator<string> {
 // Rutas fuera de SiteShell que sí pueden renderizar su propio <main>.
 const ALLOWED_MAIN = new Set([
   'components/layout/site-shell.tsx',
-  'app/not-found.tsx',
+  'app/global-not-found.tsx',
   'app/embed/[locale]/[slug]/page.tsx',
-  'app/embed/not-found.tsx',
+  'app/embed/[locale]/not-found.tsx',
 ]);
-const ALLOWED_MAIN_ID = new Set(['components/layout/site-shell.tsx', 'app/not-found.tsx']);
+const ALLOWED_MAIN_ID = new Set(['components/layout/site-shell.tsx', 'app/global-not-found.tsx']);
 
 // Los comentarios pueden citar `<main>` como texto; se quitan antes de buscar.
 function codeOnly(file: string) {

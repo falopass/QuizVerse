@@ -8,6 +8,8 @@ vi.mock('@/lib/supabase/client', () => {
   throw new Error('chunk load failed');
 });
 
+vi.mock('next/navigation', () => ({ usePathname: () => '/es' }));
+
 import { SupabaseProvider, useSupabase } from '@/providers/supabase-provider';
 
 function Probe() {
@@ -17,8 +19,9 @@ function Probe() {
 
 describe('SupabaseProvider con el chunk de Supabase roto', () => {
   it('cae al estado anónimo si el import dinámico falla', async () => {
+    document.cookie = 'sb-project-auth-token=synthetic; Path=/';
     render(
-      <SupabaseProvider hasSession>
+      <SupabaseProvider>
         <Probe />
       </SupabaseProvider>
     );

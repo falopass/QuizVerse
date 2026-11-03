@@ -127,6 +127,8 @@ function contentSecurityPolicy(frameAncestors: string | null): string {
 }
 
 const nextConfig: NextConfig = {
+  // Necesario al tener layouts raíz en [locale] y embed/[locale].
+  experimental: { globalNotFound: true },
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,

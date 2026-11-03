@@ -1,8 +1,15 @@
 import { notFound } from 'next/navigation';
 import { SiteShell } from '@/components/layout/site-shell';
+import { SiteDocument } from '@/components/layout/site-document';
 import { getPopulatedCategorySlugs } from '@/lib/data/category-counts';
 import { CATEGORY_SLUG_NAMES } from '@/lib/i18n/catalog';
 import { getDictionary, hasLocale, locales } from '@/lib/i18n/dictionaries';
+
+export { metadata, viewport } from '@/components/layout/site-document';
+
+// Literal exigido por Next; alineado con CATALOG_REVALIDATE_SECONDS.
+// cookies/searchParams en las páginas privadas siguen optando por SSR.
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -30,8 +37,10 @@ export default async function LocaleLayout({
   const categorySlugs = Object.keys(CATEGORY_SLUG_NAMES).filter((slug) => populated.has(slug));
 
   return (
-    <SiteShell locale={locale} dictionary={dictionary} categorySlugs={categorySlugs}>
-      {children}
-    </SiteShell>
+    <SiteDocument locale={locale}>
+      <SiteShell locale={locale} dictionary={dictionary} categorySlugs={categorySlugs}>
+        {children}
+      </SiteShell>
+    </SiteDocument>
   );
 }

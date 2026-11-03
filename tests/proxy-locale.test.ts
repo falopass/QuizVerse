@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { proxy } from '@/proxy';
 
 const mocks = vi.hoisted(() => ({
@@ -89,21 +89,76 @@ describe('proxy — session refresh', () => {
     }
   );
 
+  it('no responde 500 si el SDK lanza con una cookie de sesión corrupta', async () => {
+    mocks.getUser.mockRejectedValueOnce(new Error('Invalid UTF-8 sequence'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const response = await proxy(req('/en', { cookie: 'sb-project-auth-token=base64-roto' }));
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Cache-Control')).toBe('private, no-cache');
+    warn.mockRestore();
+  });
+
   it('does not treat a lone PKCE code-verifier cookie as a session', async () => {
     await proxy(req('/en', { cookie: 'sb-project-auth-token-code-verifier=xyz' }));
     expect(mocks.getUser).not.toHaveBeenCalled();
   });
 });
 
-describe('proxy — bfcache relaxation', () => {
-  it('relaxes Cache-Control to private, no-cache on anonymous public pages', async () => {
-    const res = await proxy(req('/en/quiz/foo'));
-    expect(res.headers.get('cache-control')).toBe('private, no-cache');
+describe('proxy — public HTML cache policy', () => {
+  it.each([
+    '/en',
+    '/es',
+    '/es/quiz',
+    '/en/quiz/foo',
+    '/es/about',
+    '/en/faq',
+    '/es/privacy',
+    '/en/terms',
+    '/es/contact',
+  ])('leaves Next/OpenNext in control of anonymous %s', async (path) => {
+    const res = await proxy(req(path));
+    expect(res.headers.get('cache-control')).toBeNull();
+    expect(res.headers.get('vary')).toBeNull();
   });
 
-  it('keeps the page default when there is a session cookie', async () => {
+  it('preserves an existing cache policy and Vary', async () => {
+    const response = NextResponse.next();
+    response.headers.set('Cache-Control', 's-maxage=300, stale-while-revalidate=86400');
+    response.headers.set('Vary', 'RSC, Next-Router-State-Tree');
+    const next = vi.spyOn(NextResponse, 'next').mockReturnValueOnce(response);
+    try {
+      const res = await proxy(req('/es'));
+      expect(res.headers.get('cache-control')).toBe('s-maxage=300, stale-while-revalidate=86400');
+      expect(res.headers.get('vary')).toBe('RSC, Next-Router-State-Tree');
+    } finally {
+      next.mockRestore();
+    }
+  });
+
+  it('makes even an invalid session cookie private', async () => {
     const res = await proxy(req('/en/quiz/foo', { cookie: 'sb-x-auth-token=abc' }));
-    expect(res.headers.get('cache-control')).toBeNull();
+    expect(res.headers.get('cache-control')).toBe('private, no-cache');
+    expect(mocks.getUser).toHaveBeenCalledOnce();
+  });
+
+  it.each([
+    '/es/me',
+    '/en/settings',
+    '/es/my-quizzes',
+    '/en/create',
+    '/es/create/ai',
+    '/en/notifications',
+    '/es/admin/moderacion',
+    '/en/login',
+    '/es/register',
+    '/en/quiz/foo/play',
+    '/es/quiz/foo/result',
+    '/es/category/trivia?page=2',
+    '/en/leaderboard',
+    '/es/no-existe',
+  ])('keeps dynamic/unknown %s private even without a session', async (path) => {
+    const res = await proxy(req(path));
+    expect(res.headers.get('cache-control')).toBe('private, no-cache');
   });
 
   it.each([
