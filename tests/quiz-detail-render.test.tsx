@@ -140,6 +140,18 @@ async function renderDetail(locale: string, quiz: Quiz | null, related: Quiz[] =
   );
 }
 
+describe('nombre accesible del CTA', () => {
+  it.each([
+    ['en', 'Start playing'],
+    ['es', 'Empezar a jugar'],
+  ])('incluye el texto visible en %s', async (locale, label) => {
+    const { container } = await renderDetail(locale, makeQuiz());
+    const link = container.querySelector('.arcade-detail-actions a');
+    expect(link).toHaveTextContent(label);
+    expect(link).toHaveAccessibleName(new RegExp(label, 'i'));
+  });
+});
+
 interface GraphNode {
   '@type'?: string;
   name?: string;

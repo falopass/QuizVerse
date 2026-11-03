@@ -103,7 +103,7 @@ export function LikeButton({
 
   if (state === 'anonymous') {
     return (
-      <Link href={loginHref} aria-label={copy.signIn} className={classes}>
+      <Link href={loginHref} aria-label={`${copy.signIn} (${count})`} className={classes}>
         <HeartIcon filled={false} />
         <span>{count}</span>
       </Link>
