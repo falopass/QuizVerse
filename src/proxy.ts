@@ -145,7 +145,15 @@ export async function proxy(request: NextRequest) {
       },
     });
 
-    await supabase.auth.getUser();
+    try {
+      await supabase.auth.getUser();
+    } catch (error) {
+      // Una cookie `sb-*` corrupta (p. ej. `base64-` con contenido inválido) hace
+      // lanzar al SDK al decodificarla. Antes eso era un 500 en todas las páginas
+      // hasta que el visitante borraba sus cookies: se sigue como anónimo, sin
+      // cachear (la respuesta ya sale `private, no-cache` por llevar cookie).
+      console.warn('proxy: cookie de sesión ilegible', error instanceof Error ? error.message : '');
+    }
   }
 
   if (

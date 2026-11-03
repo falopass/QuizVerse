@@ -89,6 +89,15 @@ describe('proxy — session refresh', () => {
     }
   );
 
+  it('no responde 500 si el SDK lanza con una cookie de sesión corrupta', async () => {
+    mocks.getUser.mockRejectedValueOnce(new Error('Invalid UTF-8 sequence'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const response = await proxy(req('/en', { cookie: 'sb-project-auth-token=base64-roto' }));
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Cache-Control')).toBe('private, no-cache');
+    warn.mockRestore();
+  });
+
   it('does not treat a lone PKCE code-verifier cookie as a session', async () => {
     await proxy(req('/en', { cookie: 'sb-project-auth-token-code-verifier=xyz' }));
     expect(mocks.getUser).not.toHaveBeenCalled();
