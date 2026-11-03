@@ -97,7 +97,8 @@ describe('LikeButton', () => {
     mocks.getQuizLikeState.mockResolvedValue({ authenticated: false, liked: false });
     renderButton('es');
 
-    const link = await screen.findByRole('link', { name: 'Inicia sesión para dar me gusta' });
+    // WCAG 2.5.3: el nombre accesible incluye el texto visible (el contador).
+    const link = await screen.findByRole('link', { name: 'Inicia sesión para dar me gusta (7)' });
     expect(link).toHaveAttribute(
       'href',
       `/es/login?redirect=${encodeURIComponent('/es/quiz/mi-quiz')}`
