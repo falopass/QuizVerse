@@ -457,7 +457,7 @@ function LeaderboardRow({
         <p className="text-accent-primary text-2xl font-semibold">
           {formatCompactNumber(entry.points, locale)}
         </p>
-        <p className="text-text-muted text-xs tracking-[0.16em] uppercase">{copy.points}</p>
+        <p className="text-text-muted text-xs font-semibold">{copy.points}</p>
       </div>
     </Link>
   );
@@ -466,9 +466,7 @@ function LeaderboardRow({
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-border-subtle bg-bg-primary/80 rounded-[1.5rem] border p-5">
-      <p className="text-text-muted text-[11px] font-semibold tracking-[0.2em] uppercase">
-        {label}
-      </p>
+      <p className="text-text-muted text-[11px] font-semibold">{label}</p>
       <p className="text-text-primary mt-3 text-3xl font-semibold">{value}</p>
     </div>
   );

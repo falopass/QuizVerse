@@ -184,7 +184,7 @@ export function QuizEditForm({
         <div>
           <label
             htmlFor="quiz-edit-title"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.title}
           </label>
@@ -199,7 +199,7 @@ export function QuizEditForm({
         <div>
           <label
             htmlFor="quiz-edit-category"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.category}
           </label>
@@ -220,7 +220,7 @@ export function QuizEditForm({
         <div className="lg:col-span-2">
           <label
             htmlFor="quiz-edit-description"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.description}
           </label>
@@ -236,7 +236,7 @@ export function QuizEditForm({
         <div>
           <label
             htmlFor="quiz-edit-difficulty"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.difficulty}
           </label>
@@ -254,7 +254,7 @@ export function QuizEditForm({
         <div>
           <label
             htmlFor="quiz-edit-minutes"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.minutes}
           </label>
@@ -270,7 +270,7 @@ export function QuizEditForm({
         <div className="lg:col-span-2">
           <label
             htmlFor="quiz-edit-tags"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.tags}
           </label>

@@ -34,7 +34,7 @@ const GAME_MODES: GameModeInfo[] = [
   },
   {
     id: 'timed',
-    name: { en: 'Time Attack', es: 'Contrarreloj' },
+    name: { en: 'Time attack', es: 'Contrarreloj' },
     icon: 'R',
     description: {
       en: 'Answer as many questions as possible before time runs out.',

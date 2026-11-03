@@ -182,7 +182,7 @@ export function UpdatePasswordForm({
         <div>
           <label
             htmlFor="update-password-current"
-            className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+            className="text-text-secondary mb-1 block text-xs font-semibold"
           >
             {copy.currentPassword}
           </label>
@@ -206,7 +206,7 @@ export function UpdatePasswordForm({
       <div>
         <label
           htmlFor="update-password-new"
-          className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+          className="text-text-secondary mb-1 block text-xs font-semibold"
         >
           {copy.password}
         </label>
@@ -230,7 +230,7 @@ export function UpdatePasswordForm({
       <div>
         <label
           htmlFor="update-password-confirm"
-          className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+          className="text-text-secondary mb-1 block text-xs font-semibold"
         >
           {copy.confirm}
         </label>

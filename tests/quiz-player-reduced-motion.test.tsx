@@ -102,7 +102,9 @@ describe('QuizPlayer con prefers-reduced-motion', () => {
       fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
       await act(async () => {});
 
-      expect(screen.getByText('Correct')).toBeInTheDocument();
+      expect(
+        screen.getByText('Correct', { selector: ':not(.arcade-option-state)' })
+      ).toBeInTheDocument();
 
       act(() => {
         vi.advanceTimersByTime(60_000);

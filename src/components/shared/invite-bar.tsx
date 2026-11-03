@@ -66,16 +66,14 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
 
   return (
     <div className="mt-6 border-t border-[#474558] pt-5">
-      <p className="text-[11px] font-bold tracking-[0.16em] text-[var(--accent-primary)] uppercase">
-        {labels.invite}
-      </p>
+      <p className="text-[11px] font-semibold text-[var(--accent-primary)]">{labels.invite}</p>
       <p className="mt-2 max-w-sm text-sm text-[var(--text-secondary)]">{labels.inviteBody}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <a
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-[#25D366] px-4 py-2 text-xs font-bold tracking-[0.08em] text-[#101019] uppercase transition-opacity hover:opacity-90"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-full bg-[#25D366] px-4 py-2 text-xs font-semibold text-[#101019] transition-opacity hover:opacity-90"
         >
           WhatsApp
         </a>
@@ -83,14 +81,14 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
           href={xHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full border border-[#474558] px-4 py-2 text-xs font-bold tracking-[0.08em] text-[var(--text-primary)] uppercase transition-colors hover:border-[var(--accent-primary)]"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-full border border-[#474558] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)]"
         >
           X
         </a>
         <button
           type="button"
           onClick={handleCopy}
-          className="rounded-full border border-[#474558] px-4 py-2 text-xs font-bold tracking-[0.08em] text-[var(--text-primary)] uppercase transition-colors hover:border-[var(--accent-primary)]"
+          className="inline-flex min-h-11 min-w-11 items-center rounded-full border border-[#474558] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)]"
         >
           {copied ? labels.copied : labels.copyInvite}
         </button>
@@ -98,7 +96,7 @@ export function InviteBar({ url, quizTitle, locale, labels }: InviteBarProps) {
           <button
             type="button"
             onClick={handleCopyEmbed}
-            className="rounded-full border border-[#474558] px-4 py-2 text-xs font-bold tracking-[0.08em] text-[var(--text-primary)] uppercase transition-colors hover:border-[var(--accent-primary)]"
+            className="inline-flex min-h-11 min-w-11 items-center rounded-full border border-[#474558] px-4 py-2 text-xs font-semibold text-[var(--text-primary)] transition-colors hover:border-[var(--accent-primary)]"
           >
             {embedCopied ? labels.copied : es ? 'Insertar' : 'Embed'}
           </button>

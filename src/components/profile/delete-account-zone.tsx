@@ -198,7 +198,7 @@ export function DeleteAccountZone({
           <div>
             <label
               htmlFor="delete-account-confirmation"
-              className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase"
+              className="text-text-secondary mb-1 block text-xs font-semibold"
             >
               {hasEmailIdentity ? copy.passwordLabel : copy.confirmationLabel(confirmationTarget)}
             </label>

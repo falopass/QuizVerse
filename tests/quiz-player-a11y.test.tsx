@@ -75,7 +75,7 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
 async function startPlaying(locale: 'en' | 'es' = 'en') {
   // /play arranca directo en Clásico: el selector queda tras «Cambiar modo».
   render(<QuizPlayer quiz={makeQuiz()} locale={locale} />);
-  await screen.findByText(locale === 'es' ? /ELIGE UNA RESPUESTA/ : /CHOOSE AN ANSWER/);
+  await screen.findByText(locale === 'es' ? /Elige una respuesta/ : /Choose an answer/);
 }
 
 describe('QuizPlayer foco al cambiar de pregunta', () => {
@@ -102,7 +102,7 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
 
     // Un toque responde: no hace falta confirmar con «Siguiente».
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
 
     // Auto-avance real: el temporizador de feedback (~3 s) monta la tarjeta
     // nueva tras la animación de salida.
@@ -137,7 +137,7 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
     resolveReveal({ isCorrect: false, correctOptionId: 'q1b', explanation: null });
 
     await screen.findByText('Miss');
-    expect(screen.getByRole('button', { name: /INCORRECT/ })).toHaveAccessibleName(/Saturn/);
+    expect(screen.getByRole('button', { name: /Incorrect/ })).toHaveAccessibleName(/Saturn/);
   });
 
   it('descarta un veredicto de una partida anterior tras cambiar de modo', async () => {
@@ -194,7 +194,7 @@ describe('QuizPlayer veredicto accesible', () => {
     expect(verdict.closest('[role="status"]')).not.toBeNull();
 
     // La marca visual sigue siendo parte del nombre accesible del botón.
-    expect(screen.getByRole('button', { name: /INCORRECTA/ })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /\bCORRECTA/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Incorrecta/ })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /\bCorrecta/ })).toBeInTheDocument();
   });
 });

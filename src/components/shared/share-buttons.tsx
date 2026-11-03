@@ -78,7 +78,7 @@ export function ShareButtons({
         <Button
           variant="primary"
           size="lg"
-          className="w-full"
+          className="w-full font-semibold"
           onClick={handleWebShare}
           leftIcon={
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,7 +104,7 @@ export function ShareButtons({
           rel="noopener noreferrer"
           onClick={trackShare}
           className={cn(
-            'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
+            'flex items-center justify-center gap-2 rounded-lg py-3 font-semibold',
             'bg-[#0B7A4F] text-white transition-colors hover:bg-[#096a44]'
           )}
         >
@@ -121,7 +121,7 @@ export function ShareButtons({
           rel="noopener noreferrer"
           onClick={trackShare}
           className={cn(
-            'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
+            'flex items-center justify-center gap-2 rounded-lg py-3 font-semibold',
             'bg-black text-white transition-colors hover:bg-gray-800'
           )}
         >
@@ -138,7 +138,7 @@ export function ShareButtons({
           rel="noopener noreferrer"
           onClick={trackShare}
           className={cn(
-            'flex items-center justify-center gap-2 rounded-lg py-3 font-medium',
+            'flex items-center justify-center gap-2 rounded-lg py-3 font-semibold',
             'bg-[#0C5AC7] text-white transition-colors hover:bg-[#0a50b2]'
           )}
         >
@@ -153,7 +153,7 @@ export function ShareButtons({
       <Button
         variant="secondary"
         size="lg"
-        className="w-full"
+        className="w-full font-semibold"
         onClick={handleCopy}
         leftIcon={
           copied ? (
@@ -182,7 +182,7 @@ export function ShareButtons({
           )
         }
       >
-        {copied ? (isEs ? '¡Copiado!' : 'Copied!') : isEs ? 'Copiar enlace' : 'Copy Link'}
+        {copied ? (isEs ? '¡Copiado!' : 'Copied!') : isEs ? 'Copiar enlace' : 'Copy link'}
       </Button>
 
       {copyFailed && (

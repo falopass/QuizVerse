@@ -68,9 +68,7 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
   return (
     <form onSubmit={handleSubmit} className="space-y-3" noValidate>
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase">
-          {copy.email}
-        </span>
+        <span className="text-text-secondary mb-1 block text-xs font-semibold">{copy.email}</span>
         <input
           type="email"
           name="email"
@@ -83,7 +81,7 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
       </label>
 
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold tracking-wide uppercase">
+        <span className="text-text-secondary mb-1 block text-xs font-semibold">
           {copy.password}
         </span>
         <input

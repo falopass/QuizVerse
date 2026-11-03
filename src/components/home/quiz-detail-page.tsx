@@ -106,13 +106,14 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
           ),
         ])}
       />
-      <Breadcrumbs items={trail} locale={locale} className="mb-6" />
+      <Breadcrumbs items={trail} locale={locale} className="arcade-detail-trail mb-6" />
       <section className="arcade-detail">
         <div>
           <QuizCoverArt
             quiz={quiz}
             locale={locale}
             decorative
+            showTitle={false}
             className="arcade-detail-art"
             priorityLabel=""
           />
@@ -137,7 +138,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               </Link>
             </p>
           ) : null}
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="arcade-detail-actions flex flex-wrap items-center gap-4">
             <Link
               href={localizeHref(locale, `/quiz/${quiz.slug}/play?mode=classic`)}
               className="arcade-button arcade-button-lime arcade-start"
@@ -161,7 +162,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               <dd>{getLocalizedTypeLabel(quiz.quiz_type, locale)}</dd>
             </div>
             <div>
-              <dt>{dictionary.common.questionsShort}</dt>
+              <dt className="capitalize">{dictionary.common.questionsShort}</dt>
               <dd>{quiz.questions.length}</dd>
             </div>
             <div>
@@ -211,8 +212,8 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             <h2 id="inside-quiz">{es ? 'Dentro del quiz' : 'Inside the quiz'}</h2>
             <p>
               {es
-                ? `Las primeras ${questions.length} preguntas reales de ${quiz.title}.`
-                : `The first ${questions.length} real questions in ${quiz.title}.`}
+                ? `Las primeras ${questions.length} preguntas reales de ${quiz.title}${/[.?!]$/.test(quiz.title) ? '' : '.'}`
+                : `The first ${questions.length} real questions in ${quiz.title}${/[.?!]$/.test(quiz.title) ? '' : '.'}`}
             </p>
           </div>
           <ol className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -221,7 +222,7 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
                 key={question.id ?? index}
                 className="border-border-subtle bg-bg-secondary rounded-[4px] border p-5"
               >
-                <span className="text-accent-primary text-[10px] font-bold tracking-[0.18em] uppercase">
+                <span className="text-accent-primary text-[10px] font-semibold">
                   {String(index + 1).padStart(2, '0')} / {quiz.questions.length}
                 </span>
                 <p className="text-text-primary mt-2 text-base leading-snug font-semibold">

@@ -6,7 +6,7 @@ export function StreakIndicator({ streak, locale }: { streak: number; locale: Lo
   if (streak < 2) return null;
   return (
     <span className="arcade-streak">
-      {streak}× {locale === 'es' ? 'RACHA' : 'STREAK'}
+      {streak}× {locale === 'es' ? 'Racha' : 'Streak'}
     </span>
   );
 }

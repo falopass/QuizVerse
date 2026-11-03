@@ -467,7 +467,7 @@ export function QuizComments({ quizId, locale }: { quizId: string; locale: Local
                       {relativeDate(comment.created_at, locale)}
                     </time>
                     {hidden ? (
-                      <span className="border-border-subtle text-text-muted rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase">
+                      <span className="border-border-subtle text-text-muted rounded-full border px-2 py-0.5 text-[10px] font-semibold">
                         {copy.hiddenBadge}
                       </span>
                     ) : null}

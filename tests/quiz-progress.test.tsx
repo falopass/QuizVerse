@@ -10,7 +10,9 @@ describe('QuizProgress', () => {
       <QuizProgress currentQuestion={3} totalQuestions={10} locale="en" />
     );
 
-    expect(screen.getByRole('status')).toHaveTextContent('QUESTION 3 OF 10');
+    expect(screen.getByRole('status')).toHaveTextContent('Question 3 of 10');
+    expect(screen.getByRole('status')).toHaveClass('font-semibold');
+    expect(screen.getByRole('status')).not.toHaveClass('uppercase');
 
     const bars = container.querySelectorAll('[role="progressbar"]');
     expect(bars).toHaveLength(1);
@@ -22,7 +24,7 @@ describe('QuizProgress', () => {
   it('usa las etiquetas en español', () => {
     render(<QuizProgress currentQuestion={3} totalQuestions={10} locale="es" />);
 
-    expect(screen.getByRole('status')).toHaveTextContent('PREGUNTA 3 DE 10');
+    expect(screen.getByRole('status')).toHaveTextContent('Pregunta 3 de 10');
   });
 
   it('pinta el reloj en mm:ss con ceros a la izquierda', () => {

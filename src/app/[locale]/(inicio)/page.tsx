@@ -184,7 +184,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </Link>
           <Link
             href={localizeHref(locale, '/novedades')}
-            className="text-accent-primary text-xs font-bold tracking-[0.08em] uppercase"
+            className="text-accent-primary text-xs font-semibold"
           >
             {locale === 'es' ? 'Ver novedades' : "What's new"} ↗
           </Link>

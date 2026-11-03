@@ -218,12 +218,18 @@ describe('QuizDetailPage · render SEO', () => {
   });
 
   it('el CTA «Empezar a jugar» entra directo en modo Clásico', async () => {
-    await renderDetail('es', makeQuiz());
+    const { container } = await renderDetail('es', makeQuiz());
 
-    expect(screen.getByRole('link', { name: /Empezar a jugar/ })).toHaveAttribute(
-      'href',
-      '/es/quiz/movies-trivia/play?mode=classic'
-    );
+    const cta = screen.getByRole('link', { name: /Empezar a jugar/ });
+    expect(cta).toHaveAttribute('href', '/es/quiz/movies-trivia/play?mode=classic');
+    expect(cta).not.toHaveClass('uppercase');
+    expect(cta.closest('.arcade-detail-copy')).not.toBeNull();
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(container.querySelector('.arcade-detail-art .arcade-cover-title')).toBeNull();
+    expect(
+      cta.compareDocumentPosition(container.querySelector('.arcade-facts')!) &
+        Node.DOCUMENT_POSITION_FOLLOWING
+    ).toBeTruthy();
   });
 
   it('«Dentro del quiz» lista solo las 3 primeras preguntas y no fuga is_correct', async () => {

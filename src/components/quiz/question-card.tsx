@@ -71,10 +71,10 @@ export function QuestionCard({
       )}
       <div className="arcade-question-head">
         <span>
-          {es ? 'PREGUNTA' : 'QUESTION'} {String(questionNumber).padStart(2, '0')} /{' '}
+          {es ? 'Pregunta' : 'Question'} {String(questionNumber).padStart(2, '0')} /{' '}
           {String(totalQuestions).padStart(2, '0')}
         </span>
-        <span>{es ? 'ELIGE UNA RESPUESTA' : 'CHOOSE AN ANSWER'}</span>
+        <span>{es ? 'Elige una respuesta' : 'Choose an answer'}</span>
       </div>
       <h2 ref={headingRef} tabIndex={-1}>
         {question.question}
@@ -111,10 +111,10 @@ export function QuestionCard({
               <span className="arcade-option-letter">{String.fromCharCode(65 + index)}</span>
               <span>{option.text}</span>
               {correct && (
-                <span className="arcade-option-state">{es ? 'CORRECTA' : 'CORRECT'}</span>
+                <span className="arcade-option-state">{es ? 'Correcta' : 'Correct'}</span>
               )}
               {incorrect && (
-                <span className="arcade-option-state">{es ? 'INCORRECTA' : 'INCORRECT'}</span>
+                <span className="arcade-option-state">{es ? 'Incorrecta' : 'Incorrect'}</span>
               )}
             </button>
           );
@@ -137,7 +137,7 @@ export function QuestionCard({
       </div>
       {showExplanation && showFeedback && shownExplanation && (
         <div className="arcade-explanation">
-          <strong>{es ? 'EXPLICACIÓN' : 'EXPLANATION'}</strong>
+          <strong>{es ? 'Explicación' : 'Explanation'}</strong>
           <p>{shownExplanation}</p>
         </div>
       )}

@@ -80,10 +80,10 @@ describe('QuizProgress a11y', () => {
 
     expect(region).toHaveAttribute('aria-live', 'polite');
     expect(region).toHaveAttribute('aria-atomic', 'true');
-    expect(region).toHaveTextContent('PREGUNTA 1 DE 3');
+    expect(region).toHaveTextContent('Pregunta 1 de 3');
 
     rerender(<QuizProgress currentQuestion={2} totalQuestions={3} locale="es" />);
-    expect(screen.getByRole('status')).toHaveTextContent('PREGUNTA 2 DE 3');
+    expect(screen.getByRole('status')).toHaveTextContent('Pregunta 2 de 3');
   });
 
   it('anuncia el avance en una región viva polite que cambia de pregunta (en)', () => {
@@ -92,10 +92,10 @@ describe('QuizProgress a11y', () => {
     );
     const region = screen.getByRole('status');
 
-    expect(region).toHaveTextContent('QUESTION 1 OF 3');
+    expect(region).toHaveTextContent('Question 1 of 3');
 
     rerender(<QuizProgress currentQuestion={2} totalQuestions={3} locale="en" />);
-    expect(screen.getByRole('status')).toHaveTextContent('QUESTION 2 OF 3');
+    expect(screen.getByRole('status')).toHaveTextContent('Question 2 of 3');
   });
 });
 
@@ -103,7 +103,7 @@ describe('QuizPlayer a11y', () => {
   async function startPlaying(locale: 'en' | 'es') {
     // /play arranca directo en Clásico: ya no hay pantalla de selección previa.
     render(<QuizPlayer quiz={makeQuiz()} locale={locale} />);
-    return screen.findByText(locale === 'es' ? /ELIGE UNA RESPUESTA/ : /CHOOSE AN ANSWER/);
+    return screen.findByText(locale === 'es' ? /Elige una respuesta/ : /Choose an answer/);
   }
 
   it('el marcador se anuncia en su propia región viva, separada del veredicto', async () => {
@@ -129,7 +129,7 @@ describe('QuizPlayer a11y', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
     const regions = screen.getAllByRole('status');
     expect(regions.filter((r) => r.textContent?.includes('Correct'))).toHaveLength(1);
     expect(regions.some((r) => r.textContent?.includes('1 of 1 correct'))).toBe(true);

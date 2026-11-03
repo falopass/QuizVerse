@@ -101,9 +101,7 @@ export function AdSlot({ placement, locale }: AdSlotProps) {
       className="border-border-subtle bg-bg-secondary mx-auto w-full max-w-[970px] rounded-[4px] border px-2 pt-1"
       data-ad-placement={placement}
     >
-      <span className="text-text-muted block text-[10px] font-semibold tracking-[0.18em] uppercase">
-        {LABEL[locale]}
-      </span>
+      <span className="text-text-muted block text-[10px] font-semibold">{LABEL[locale]}</span>
       <ins
         ref={slotRef}
         className="adsbygoogle block w-full"

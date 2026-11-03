@@ -19,7 +19,7 @@ export function LocaleSwitcher({ value, label }: LocaleSwitcherProps) {
   const [isSaving, setIsSaving] = React.useState(false);
 
   return (
-    <label className="text-text-muted inline-flex items-center gap-2 text-xs tracking-[0.22em] uppercase">
+    <label className="text-text-muted inline-flex items-center gap-2 text-xs font-semibold">
       <span>{label}</span>
       <select
         value={locale}
@@ -71,8 +71,8 @@ export function LocaleSwitcher({ value, label }: LocaleSwitcherProps) {
           }
         }}
         className={cn(
-          'border-border-subtle bg-bg-secondary text-text-primary rounded-full border px-3 py-2 text-[11px] font-semibold tracking-[0.18em]',
-          'hover:border-accent focus:border-accent transition-colors outline-none disabled:opacity-70'
+          'border-border-subtle bg-bg-secondary text-text-primary rounded-full border px-3 py-2 text-[11px] font-semibold',
+          'hover:border-accent focus:border-accent transition-colors disabled:opacity-70'
         )}
       >
         <option value="en">EN</option>

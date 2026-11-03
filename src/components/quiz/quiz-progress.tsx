@@ -50,10 +50,10 @@ export function QuizProgress({
           role="status"
           aria-live="polite"
           aria-atomic="true"
-          className="text-text-primary font-bold"
+          className="text-text-primary font-semibold"
         >
-          {locale === 'es' ? 'PREGUNTA' : 'QUESTION'} {currentQuestion}{' '}
-          {locale === 'es' ? 'DE' : 'OF'} {totalQuestions}
+          {locale === 'es' ? 'Pregunta' : 'Question'} {currentQuestion}{' '}
+          {locale === 'es' ? 'de' : 'of'} {totalQuestions}
         </span>
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">

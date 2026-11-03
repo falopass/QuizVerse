@@ -661,7 +661,7 @@ export function AIQuizGenerator({
                       )}
                     >
                       <div className="mb-3 flex items-center justify-between">
-                        <span className="text-text-muted text-xs font-semibold tracking-[0.2em] uppercase">
+                        <span className="text-text-muted text-xs font-semibold">
                           {copy.option} {String.fromCharCode(65 + optionIndex)}
                         </span>
                         {draft.quiz_type === 'trivia' ? (
@@ -873,9 +873,7 @@ export function AIQuizGenerator({
             ))}
             {warnings.length ? (
               <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3">
-                <p className="text-xs font-semibold tracking-[0.2em] text-amber-900 uppercase">
-                  {copy.validationWarnings}
-                </p>
+                <p className="text-xs font-semibold text-amber-900">{copy.validationWarnings}</p>
                 <ul className="mt-2 space-y-1 text-sm text-amber-900">
                   {warnings.map((warning) => (
                     <li key={warning}>{warning}</li>
