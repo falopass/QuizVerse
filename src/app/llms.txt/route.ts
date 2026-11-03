@@ -8,7 +8,6 @@ import {
   type LlmsLocaleSection,
   type LlmsQuizEntry,
 } from '@/lib/seo/llms';
-import type { Quiz } from '@/types/quiz';
 
 export const revalidate = 3600;
 
@@ -49,7 +48,7 @@ async function buildSection(locale: Locale): Promise<LlmsLocaleSection> {
     .filter((hub) => hub.count > 0)
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 
-  const newest: LlmsQuizEntry[] = (quizzes as Quiz[])
+  const newest: LlmsQuizEntry[] = quizzes
     .slice()
     .sort((a, b) => (b.published_at ?? '').localeCompare(a.published_at ?? ''))
     .map((quiz) => ({ title: quiz.title, slug: quiz.slug }));

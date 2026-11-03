@@ -34,7 +34,12 @@ const db = vi.hoisted(() => ({
 }));
 
 const cacheCalls = vi.hoisted(
-  () => [] as Array<{ keyParts: string[]; options: { tags?: string[]; revalidate?: number } }>
+  () =>
+    [] as Array<{
+      keyParts: string[];
+      options: { tags?: string[]; revalidate?: number };
+      value?: unknown;
+    }>
 );
 
 vi.mock('next/cache', () => ({
@@ -43,8 +48,12 @@ vi.mock('next/cache', () => ({
     keyParts: string[],
     options: { tags?: string[]; revalidate?: number }
   ) => {
-    cacheCalls.push({ keyParts, options });
-    return fn;
+    const entry = { keyParts, options, value: undefined as unknown };
+    cacheCalls.push(entry);
+    return async (...args: unknown[]) => {
+      entry.value = await (fn as (...args: unknown[]) => unknown)(...args);
+      return entry.value;
+    };
   },
 }));
 
@@ -82,7 +91,10 @@ const fakeClient = vi.hoisted(() => () => ({
         return query;
       },
       order: () => query,
-      range: () => query,
+      range: (from: number, to: number) => {
+        filters.push(`range:${from}-${to}`);
+        return query;
+      },
       limit: () => query,
       single,
       maybeSingle: single,
@@ -118,7 +130,10 @@ vi.mock('@/lib/data/normalizers', () => ({
 }));
 
 import {
+  EXPLORE_CARD_COLUMNS,
   getCategoryPayload,
+  getExplorePayload,
+  getLaunchExplorePayload,
   getPublicCategories,
   getPublishedQuizzes,
   getQuizBySlug,
@@ -261,5 +276,82 @@ describe('getRelatedQuizzesBySlug', () => {
           : { data: [quizRow()], error: null };
 
     expect(await getRelatedQuizzesBySlug('demo')).toEqual([]);
+  });
+});
+
+describe('caché ligera de explorar', () => {
+  const columns =
+    'id, slug, title, description, category_id, quiz_type, cover_image_url, estimated_minutes, plays_count, likes_count, tags, is_featured, published_at';
+
+  it('cachea solo tarjetas, pagina por id y conserva filtros y fechas con el doble de catálogo', async () => {
+    const rows = Array.from({ length: 1040 }, (_, index) =>
+      quizRow({
+        id: String(index).padStart(36, '0'),
+        slug: `es-trivia-de-peliculas-y-series-${index}`,
+        title: '¿Cuánto sabes de películas y series clásicas?',
+        description: 'Una descripción para buscar películas y series. '.repeat(8),
+        language: 'es',
+        cover_image_url: 'https://example.com/portada.jpg',
+        tags: ['películas', 'series', 'cine', 'cultura'],
+        likes_count: 5,
+        plays_count: index,
+        published_at: '2026-11-01T00:00:00Z',
+        questions: [{ options: [{ is_correct: true }] }],
+        results: [{ description: 'Resultado extenso'.repeat(100) }],
+      })
+    );
+    db.handler = (table, select, filters) => {
+      if (table === 'categories') return { data: [categoryRow] };
+      const range = filters.find((filter) => filter.startsWith('range:'))!;
+      const [from, to] = range.slice(6).split('-').map(Number);
+      return {
+        data: rows
+          .slice(from, to + 1)
+          .map((row) =>
+            Object.fromEntries(select.split(', ').map((key) => [key, row[key as keyof typeof row]]))
+          ),
+      };
+    };
+
+    const payload = await getExplorePayload('es');
+    expect(EXPLORE_CARD_COLUMNS).toBe(columns);
+    expect(db.calls.filter((call) => call.startsWith('quizzes('))).toEqual(
+      ['0-499', '500-999', '1000-1499'].map(
+        (range) => `quizzes(${columns}) eq:status=published eq:language=es range:${range}`
+      )
+    );
+    expect(payload.quizzes).toHaveLength(1040);
+    expect(payload.quizzes[0]).toMatchObject({
+      slug: 'es-trivia-de-peliculas-y-series-1039',
+      description: expect.stringContaining('Una descripción para buscar películas'),
+      tags: rows[0].tags,
+      estimated_minutes: 3,
+      likes_count: 5,
+      category: { id: 'cat-1', slug: 'movies-tv', name: 'Movies & TV' },
+      published_at: '2026-11-01T00:00:00Z',
+    });
+    expect(payload.categories).toEqual([categoryRow]);
+    const cached = wrapperFor('explore-quizzes');
+    expect(cached?.options).toEqual({ tags: ['quizzes', 'categories'], revalidate: 300 });
+    const json = JSON.stringify(cached?.value);
+    expect(json).not.toMatch(/"(?:questions|results|is_correct|visual_profile)":/);
+    // Menos de la mitad del límite incluso duplicando los ~520 publicados.
+    expect(new TextEncoder().encode(json).byteLength).toBeLessThan(1024 * 1024);
+
+    const filtered = await getExplorePayload('es', 'buscar películas', 'movies-tv');
+    expect(filtered.quizzes).toHaveLength(1040);
+    expect((await getExplorePayload('es', 'ausente')).quizzes).toEqual([]);
+    expect((await getExplorePayload('es', undefined, 'culture')).quizzes).toEqual([]);
+  });
+
+  it('mantiene el catálogo de lanzamiento ante un fallo de la consulta ligera', async () => {
+    db.handler = (table) =>
+      table === 'categories'
+        ? { data: [categoryRow] }
+        : { data: null, error: { message: 'Supabase down' } };
+
+    const payload = await getExplorePayload('en');
+    const fallback = getLaunchExplorePayload('en');
+    expect(payload.quizzes).toEqual(fallback.quizzes);
   });
 });

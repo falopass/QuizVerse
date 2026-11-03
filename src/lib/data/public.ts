@@ -20,6 +20,7 @@ import {
 import type {
   Achievement,
   Category,
+  ExploreCardQuiz,
   Profile,
   ProfileBadge,
   Quiz,
@@ -38,6 +39,8 @@ import { getCategoryCounts } from '@/lib/data/category-counts';
 import { fetchSessionByShareToken } from '@/lib/data/game-session';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { localizeQuizList } from '@/lib/i18n/catalog';
+import { toExploreCard } from '@/lib/quiz/explore-card';
+import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
   const supabase = createPublicClient();
@@ -115,6 +118,48 @@ const fetchPublishedQuizzesCached = unstable_cache(
   ['published-quizzes'],
   { revalidate: CATALOG_REVALIDATE_SECONDS, tags: [CATALOG_TAGS.quizzes] }
 );
+
+// Tarjetas y búsqueda de /quiz; published_at conserva el orden de /llms.txt.
+// Se proyecta antes de cachear: el catálogo completo con preguntas supera 2 MB.
+export const EXPLORE_CARD_COLUMNS =
+  'id, slug, title, description, category_id, quiz_type, cover_image_url, estimated_minutes, plays_count, likes_count, tags, is_featured, published_at';
+
+type ExploreCardRow = Omit<ExploreCardQuiz, 'category'> &
+  Pick<QuizRow, 'category_id' | 'published_at'>;
+
+async function fetchExploreQuizzesFromDb(locale?: Locale) {
+  const supabase = createPublicClient();
+  const [rows, categories] = await Promise.all([
+    (async () => {
+      const rows: ExploreCardRow[] = [];
+      for (const { from, to } of pageRanges(QUIZ_PAGE_SIZE, QUIZ_MAX_ROWS)) {
+        let query = supabase.from('quizzes').select(EXPLORE_CARD_COLUMNS).eq('status', 'published');
+        if (locale) query = query.eq('language', locale);
+        const { data, error } = await query.order('id', { ascending: true }).range(from, to);
+        if (error || !data) throw error ?? new Error('Could not fetch explore quizzes');
+        rows.push(...(data as unknown as ExploreCardRow[]));
+        if (isLastPage(data.length, to - from + 1)) break;
+      }
+      return rows;
+    })(),
+    fetchPublicCategoriesCached(),
+  ]);
+  const categoryMap = new Map(categories.map((category) => [category.id, category]));
+  rows.sort((a, b) => b.plays_count - a.plays_count || (a.id < b.id ? -1 : 1));
+  return rows.map((row) => ({
+    ...toExploreCard({
+      ...row,
+      cover_image_url: versionedStockCoverUrl(row.cover_image_url),
+      category: row.category_id ? (categoryMap.get(row.category_id) ?? null) : null,
+    }),
+    published_at: row.published_at,
+  }));
+}
+
+const fetchExploreQuizzesCached = unstable_cache(fetchExploreQuizzesFromDb, ['explore-quizzes'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes, CATALOG_TAGS.categories],
+});
 
 async function fetchFeaturedQuizzesFromDb(limit = 4, locale?: Locale): Promise<Quiz[]> {
   const supabase = createPublicClient();
@@ -357,7 +402,7 @@ export async function getExplorePayload(
   const search = locale ? searchOrCategory : localeOrSearch;
   const categorySlug = locale ? maybeCategorySlug : searchOrCategory;
   const [quizzes, categories] = await Promise.all([
-    getPublishedQuizzes(QUIZ_MAX_ROWS, locale),
+    fetchExploreQuizzesCached(locale).catch(() => launchQuizzes(locale)),
     getPublicCategories(),
   ]);
   const normalizedSearch = search?.trim().toLowerCase() ?? '';
