@@ -102,7 +102,7 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
 
     // Un toque responde: no hace falta confirmar con «Siguiente».
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
 
     // Auto-avance real: el temporizador de feedback (~3 s) monta la tarjeta
     // nueva tras la animación de salida.

@@ -129,7 +129,7 @@ describe('QuizPlayer a11y', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
     const regions = screen.getAllByRole('status');
     expect(regions.filter((r) => r.textContent?.includes('Correct'))).toHaveLength(1);
     expect(regions.some((r) => r.textContent?.includes('1 of 1 correct'))).toBe(true);

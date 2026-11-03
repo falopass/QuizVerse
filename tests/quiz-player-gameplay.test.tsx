@@ -113,7 +113,7 @@ describe('QuizPlayer · un toque responde', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
     expect(requestAnswerVerdict).toHaveBeenCalledWith({
       quizId: makeQuiz().id,
       questionId: 'q1',
@@ -134,7 +134,7 @@ describe('QuizPlayer · un toque responde', () => {
 
     fireEvent.keyDown(window, { key: '2' });
 
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
     expect(requestAnswerVerdict).toHaveBeenCalledWith(
       expect.objectContaining({ selectedOptionId: 'q1b' })
     );
@@ -153,7 +153,7 @@ describe('QuizPlayer · un toque responde', () => {
 
     // En modo degradado el servidor responde sin token: el jugador conserva
     // el feedback aunque startQuizAttempt haya devuelto `unavailable`.
-    await screen.findByText('Correct');
+    await screen.findByText('Correct', { selector: ':not(.arcade-option-state)' });
     expect(requestAnswerVerdict).toHaveBeenCalledWith({
       quizId: makeQuiz().id,
       questionId: 'q1',
@@ -173,7 +173,9 @@ describe('QuizPlayer · Práctica sin prisa', () => {
       fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
       await act(async () => {});
 
-      expect(screen.getByText('Correct')).toBeInTheDocument();
+      expect(
+        screen.getByText('Correct', { selector: ':not(.arcade-option-state)' })
+      ).toBeInTheDocument();
       expect(screen.getByText('Saturn leads the moon count.')).toBeInTheDocument();
 
       act(() => {
