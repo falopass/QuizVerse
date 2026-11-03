@@ -96,13 +96,21 @@ describe('proxy — session refresh', () => {
 });
 
 describe('proxy — public HTML cache policy', () => {
-  it.each(['/en', '/es', '/es/quiz', '/en/quiz/foo', '/es/about', '/en/faq', '/es/privacy', '/en/terms', '/es/contact'])(
-    'leaves Next/OpenNext in control of anonymous %s', async (path) => {
-      const res = await proxy(req(path));
-      expect(res.headers.get('cache-control')).toBeNull();
-      expect(res.headers.get('vary')).toBe('Cookie');
-    }
-  );
+  it.each([
+    '/en',
+    '/es',
+    '/es/quiz',
+    '/en/quiz/foo',
+    '/es/about',
+    '/en/faq',
+    '/es/privacy',
+    '/en/terms',
+    '/es/contact',
+  ])('leaves Next/OpenNext in control of anonymous %s', async (path) => {
+    const res = await proxy(req(path));
+    expect(res.headers.get('cache-control')).toBeNull();
+      expect(res.headers.get('vary')).toBeNull();
+  });
 
   it('preserves an existing cache policy and Vary', async () => {
     const response = NextResponse.next();
@@ -112,8 +120,10 @@ describe('proxy — public HTML cache policy', () => {
     try {
       const res = await proxy(req('/es'));
       expect(res.headers.get('cache-control')).toBe('s-maxage=300, stale-while-revalidate=86400');
-      expect(res.headers.get('vary')).toBe('RSC, Next-Router-State-Tree, Cookie');
-    } finally { next.mockRestore(); }
+      expect(res.headers.get('vary')).toBe('RSC, Next-Router-State-Tree');
+    } finally {
+      next.mockRestore();
+    }
   });
 
   it('makes even an invalid session cookie private', async () => {
@@ -122,12 +132,25 @@ describe('proxy — public HTML cache policy', () => {
     expect(mocks.getUser).toHaveBeenCalledOnce();
   });
 
-  it.each(['/es/me', '/en/settings', '/es/my-quizzes', '/en/create', '/es/create/ai', '/en/notifications', '/es/admin/moderacion', '/en/login', '/es/register', '/en/quiz/foo/play', '/es/quiz/foo/result', '/es/category/trivia?page=2', '/en/leaderboard', '/es/no-existe'])(
-    'keeps dynamic/unknown %s private even without a session', async (path) => {
-      const res = await proxy(req(path));
-      expect(res.headers.get('cache-control')).toBe('private, no-cache');
-    }
-  );
+  it.each([
+    '/es/me',
+    '/en/settings',
+    '/es/my-quizzes',
+    '/en/create',
+    '/es/create/ai',
+    '/en/notifications',
+    '/es/admin/moderacion',
+    '/en/login',
+    '/es/register',
+    '/en/quiz/foo/play',
+    '/es/quiz/foo/result',
+    '/es/category/trivia?page=2',
+    '/en/leaderboard',
+    '/es/no-existe',
+  ])('keeps dynamic/unknown %s private even without a session', async (path) => {
+    const res = await proxy(req(path));
+    expect(res.headers.get('cache-control')).toBe('private, no-cache');
+  });
 
   it.each([
     '/en/feed.xml',

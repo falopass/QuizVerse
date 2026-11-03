@@ -54,7 +54,8 @@ export function NotificationBell({ locale }: { locale: Locale }) {
     };
   }, [user, pathname, getClient, setUnread]);
 
-  if (loading || !user) return <span aria-hidden="true" className="inline-block h-11 w-9 shrink-0" />;
+  if (loading || !user)
+    return <span aria-hidden="true" className="inline-block h-11 w-9 shrink-0" />;
 
   return (
     <Link

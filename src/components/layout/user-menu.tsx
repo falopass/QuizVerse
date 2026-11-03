@@ -79,7 +79,10 @@ export function UserMenu({ locale }: { locale: Locale }) {
 
   if (!user) {
     return (
-      <Link href={localizeHref(locale, '/login')} className="arcade-nav-link w-28 shrink-0 justify-center">
+      <Link
+        href={localizeHref(locale, '/login')}
+        className="arcade-nav-link w-28 shrink-0 justify-center"
+      >
         {copy.signIn}
       </Link>
     );

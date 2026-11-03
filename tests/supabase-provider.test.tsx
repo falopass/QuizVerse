@@ -205,30 +205,50 @@ describe('SupabaseProvider perezoso', () => {
 
   it('el HTML de servidor no contiene la sesión aunque el navegador tenga cookie', () => {
     document.cookie = 'sb-project-auth-token=synthetic; Path=/';
-    const html = renderToString(<SupabaseProvider><Probe /></SupabaseProvider>);
+    const html = renderToString(
+      <SupabaseProvider>
+        <Probe />
+      </SupabaseProvider>
+    );
     expect(html).toContain('loading');
     expect(html).not.toContain('user-1');
     expect(mocks.createClient).not.toHaveBeenCalled();
   });
 
   it('detecta login por acción de servidor al navegar sin remontar el provider', async () => {
-    const view = <SupabaseProvider><Probe /></SupabaseProvider>;
+    const view = (
+      <SupabaseProvider>
+        <Probe />
+      </SupabaseProvider>
+    );
     const { rerender } = render(view);
     expect(screen.getByTestId('state')).toHaveTextContent('anonymous');
     document.cookie = 'sb-project-auth-token=synthetic; Path=/';
     mocks.pathname = '/es';
-    rerender(<SupabaseProvider><Probe /></SupabaseProvider>);
+    rerender(
+      <SupabaseProvider>
+        <Probe />
+      </SupabaseProvider>
+    );
     expect(screen.getByTestId('state')).toHaveTextContent('loading');
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('user-1'));
   });
 
   it('al perder la cookie limpia el usuario al navegar sin volver a importar', async () => {
     document.cookie = 'sb-project-auth-token=synthetic; Path=/';
-    const { rerender } = render(<SupabaseProvider><Probe /></SupabaseProvider>);
+    const { rerender } = render(
+      <SupabaseProvider>
+        <Probe />
+      </SupabaseProvider>
+    );
     await waitFor(() => expect(screen.getByTestId('state')).toHaveTextContent('user-1'));
     document.cookie = 'sb-project-auth-token=; Max-Age=0; Path=/';
     mocks.pathname = '/es';
-    rerender(<SupabaseProvider><Probe /></SupabaseProvider>);
+    rerender(
+      <SupabaseProvider>
+        <Probe />
+      </SupabaseProvider>
+    );
     expect(screen.getByTestId('state')).toHaveTextContent('anonymous');
     expect(mocks.createClient).toHaveBeenCalledTimes(1);
     expect(mocks.unsubscribe).toHaveBeenCalledTimes(1);

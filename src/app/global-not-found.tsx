@@ -14,11 +14,11 @@ export default async function NotFoundPage() {
   const locale = (await headers()).get('x-quizverse-locale') === 'es' ? 'es' : 'en';
   return (
     <SiteDocument locale={locale}>
-    <main id="main-content" className="min-h-[70vh] px-4 pt-28 pb-16">
-      <div className="mx-auto max-w-4xl">
-        <NotFoundContent locale={locale} />
-      </div>
-    </main>
+      <main id="main-content" className="min-h-[70vh] px-4 pt-28 pb-16">
+        <div className="mx-auto max-w-4xl">
+          <NotFoundContent locale={locale} />
+        </div>
+      </main>
     </SiteDocument>
   );
 }
