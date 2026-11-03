@@ -305,9 +305,11 @@ describe('caché ligera de explorar', () => {
       const range = filters.find((filter) => filter.startsWith('range:'))!;
       const [from, to] = range.slice(6).split('-').map(Number);
       return {
-        data: rows.slice(from, to + 1).map((row) =>
-          Object.fromEntries(select.split(', ').map((key) => [key, row[key as keyof typeof row]]))
-        ),
+        data: rows
+          .slice(from, to + 1)
+          .map((row) =>
+            Object.fromEntries(select.split(', ').map((key) => [key, row[key as keyof typeof row]]))
+          ),
       };
     };
 
