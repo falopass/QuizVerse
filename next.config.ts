@@ -120,7 +120,6 @@ function contentSecurityPolicy(frameAncestors: string | null): string {
     ...(ads
       ? ['frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com']
       : []),
-    'upgrade-insecure-requests',
     ...(frameAncestors ? [`frame-ancestors ${frameAncestors}`] : []),
     'report-uri /api/csp-report',
     'report-to csp',

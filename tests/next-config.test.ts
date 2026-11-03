@@ -30,6 +30,7 @@ describe('next.config headers()', () => {
     expect(csp).toContain("connect-src 'self' https://*.supabase.co");
     expect(csp).toContain("img-src 'self' data: blob:");
     expect(csp).toContain("frame-ancestors 'none'");
+    expect(csp).not.toContain('upgrade-insecure-requests');
     // Report-only: nunca la versión que bloquea.
     expect(headerValue(normal, 'Content-Security-Policy')).toBeUndefined();
     expect(headerValue(normal, 'X-Frame-Options')).toBe('DENY');
