@@ -155,6 +155,33 @@ export interface CatalogStats {
   plays: number;
 }
 
+type CatalogClient = Awaited<ReturnType<typeof createClient>>;
+
+// PostgREST corta cada respuesta en `max-rows` (1000): una suma sobre un solo
+// `select` ignoraba en silencio los quizzes que pasan de ese tope. Se pagina con
+// un orden estable (`id`) para no repetir ni omitir filas entre páginas.
+async function sumPublishedPlays(
+  supabase: CatalogClient
+): Promise<{ total: number; error: { message: string } | null }> {
+  const PAGE_SIZE = 1000;
+  let total = 0;
+  for (let page = 0; page < 50; page += 1) {
+    const from = page * PAGE_SIZE;
+    const { data, error } = await supabase
+      .from('quizzes')
+      .select('plays_count')
+      .eq('status', 'published')
+      .order('id', { ascending: true })
+      .range(from, from + PAGE_SIZE - 1);
+    if (error) return { total, error };
+    for (const row of data ?? []) {
+      total += (row as { plays_count: number | null }).plays_count ?? 0;
+    }
+    if ((data?.length ?? 0) < PAGE_SIZE) break;
+  }
+  return { total, error: null };
+}
+
 /** Agregados públicos: cuatro counts y una suma, todo sobre filas publicadas. */
 export async function getCatalogStats(): Promise<CatalogStats> {
   const supabase = await createClient();
@@ -182,7 +209,7 @@ export async function getCatalogStats(): Promise<CatalogStats> {
       .eq('status', 'published')
       .eq('quiz_type', 'personality'),
     supabase.from('categories').select('id', { count: 'exact', head: true }),
-    supabase.from('quizzes').select('plays_count').eq('status', 'published'),
+    sumPublishedPlays(supabase),
   ]);
 
   const firstError =
@@ -198,10 +225,7 @@ export async function getCatalogStats(): Promise<CatalogStats> {
     throw new Error(`stats_query_failed: ${firstError.message}`);
   }
 
-  const totalPlays = (plays.data ?? []).reduce(
-    (sum, row) => sum + ((row as { plays_count: number | null }).plays_count ?? 0),
-    0
-  );
+  const totalPlays = plays.total;
 
   return {
     quizzes: total.count ?? 0,
