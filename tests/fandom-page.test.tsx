@@ -27,7 +27,10 @@ vi.mock('next/navigation', () => ({
   },
 }));
 
-import LocalizedFandomPage, { generateMetadata } from '@/app/[locale]/fandom/[slug]/page';
+import LocalizedFandomPage, {
+  generateMetadata,
+  generateStaticParams,
+} from '@/app/[locale]/fandom/[slug]/page';
 
 const ANIME = { id: 'cat-anime', slug: 'anime-manga', name: 'Anime & Manga' };
 
@@ -122,6 +125,12 @@ describe('LocalizedFandomPage · render', () => {
   it('hace notFound cuando el hub no existe (menos de 3 quizzes)', async () => {
     dbMocks.getFandomHub.mockResolvedValue(null);
     await expect(renderPage('inexistente')).rejects.toThrow('notFound');
+  });
+});
+
+describe('LocalizedFandomPage · ISR', () => {
+  it('exporta generateStaticParams vacío: activa el ISR bajo demanda sin prerenderizar hubs', () => {
+    expect(generateStaticParams()).toEqual([]);
   });
 });
 

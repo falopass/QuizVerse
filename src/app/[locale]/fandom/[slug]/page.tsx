@@ -24,6 +24,14 @@ import {
 // headers(), ni searchParams — la página queda cacheable al nivel del layout.
 export const revalidate = 300;
 
+// Sin `generateStaticParams` Next trata la ruta dinámica como totalmente dinámica
+// (`no-store`) aunque haya `revalidate`. Devolver [] no prerenderiza nada en el
+// build y activa el ISR bajo demanda: cada hub se genera en su primera visita y
+// se reutiliza 300 s, como las fichas de quiz.
+export function generateStaticParams() {
+  return [];
+}
+
 type FandomProps = {
   params: Promise<{ locale: string; slug: string }>;
 };
