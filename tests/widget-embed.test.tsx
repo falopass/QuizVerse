@@ -92,7 +92,7 @@ const QUIZ = {
 } as unknown as Quiz;
 
 function catalogResponse(items: unknown[] = [QUIZ_ITEM]) {
-  return Response.json({ items, total: items.length, page: 1, limit: 6, hasMore: false });
+  return Response.json({ items, total: items.length, page: 1, limit: 50, hasMore: false });
 }
 
 async function flush(ms = 0) {
@@ -126,6 +126,22 @@ describe('EmbedBuilder', () => {
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock.mock.calls[0][0]).toContain('q=har');
+  });
+
+  it('recorta el término a los 60 caracteres que admite la API', async () => {
+    const fetchMock = vi.fn(async (_input: string | URL | Request) => catalogResponse());
+    vi.stubGlobal('fetch', fetchMock);
+    render(<EmbedBuilder locale="es" labels={LABELS} />);
+    await flush();
+    fetchMock.mockClear();
+
+    const input = screen.getByRole('combobox', { name: 'Elige un quiz' });
+    fireEvent.change(input, { target: { value: 'x'.repeat(80) } });
+    await flush(300);
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][0]).toContain(`q=${'x'.repeat(60)}`);
+    expect(fetchMock.mock.calls[0][0]).not.toContain('x'.repeat(61));
   });
 
   it('permite elegir un resultado solo con teclado y genera el código', async () => {

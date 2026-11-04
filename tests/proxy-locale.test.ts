@@ -115,6 +115,8 @@ describe('proxy — public HTML cache policy', () => {
     '/es/privacy',
     '/en/terms',
     '/es/contact',
+    '/en/widget',
+    '/es/widget',
   ])('leaves Next/OpenNext in control of anonymous %s', async (path) => {
     const res = await proxy(req(path));
     expect(res.headers.get('cache-control')).toBeNull();

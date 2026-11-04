@@ -23,7 +23,7 @@ const FAQS = {
     {
       question: '¿Mis visitantes necesitan cuenta en QuizVerse?',
       answer:
-        'No. Juegan dentro del iframe, sin registro ni instalación. Si quieren guardar su puntuación o competir en el ranking, pueden abrir el quiz en QuizVerse desde el enlace del propio widget.',
+        'No. Juegan dentro del iframe, sin registro ni instalación. Para que la puntuación quede en su perfil y sume al ranking, abren el quiz en QuizVerse desde el enlace del propio widget.',
     },
     {
       question: '¿El widget se actualiza si el quiz cambia?',
@@ -44,7 +44,7 @@ const FAQS = {
     {
       question: 'Do my visitors need a QuizVerse account?',
       answer:
-        'No. They play inside the iframe — no sign-up, nothing to install. If they want to save their score or join the leaderboard, they can open the quiz on QuizVerse from the link inside the widget.',
+        'No. They play inside the iframe — no sign-up, nothing to install. To have the score saved to their profile and count on the leaderboard, they open the quiz on QuizVerse from the link inside the widget.',
     },
     {
       question: 'Does the widget update when the quiz changes?',

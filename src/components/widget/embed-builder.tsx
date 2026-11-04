@@ -42,8 +42,14 @@ interface QuizOption {
 }
 
 const HEIGHTS = [560, 720, 900] as const;
-const RESULT_LIMIT = 6;
+// El máximo del contrato público: sin paginación en la UI, pedir la primera
+// página completa evita que un match por título quede enterrado tras cinco
+// matches por descripción con más partidas.
+const RESULT_LIMIT = 50;
 const DEBOUNCE_MS = 300;
+// `/api/quizzes` acota `q` a 60 caracteres: un título más largo se recorta
+// aquí para que siga coincidiendo por prefijo en vez de responder 400.
+const QUERY_MAX = 60;
 
 export function EmbedBuilder({ locale, labels }: { locale: Locale; labels: EmbedBuilderLabels }) {
   // En SSR cae a SITE_URL; en el navegador usa el origen real para que las
@@ -79,13 +85,13 @@ export function EmbedBuilder({ locale, labels }: { locale: Locale; labels: Embed
           limit: String(RESULT_LIMIT),
           page: '1',
         });
-        if (term) params.set('q', term);
+        if (term) params.set('q', term.slice(0, QUERY_MAX));
         const res = await fetch(`/api/quizzes?${params.toString()}`, {
           signal: controller.signal,
         });
         if (!res.ok) throw new Error(`quizzes ${res.status}`);
         const data = (await res.json()) as { items?: QuizOption[] };
-        setItems(Array.isArray(data.items) ? data.items.slice(0, RESULT_LIMIT) : []);
+        setItems(Array.isArray(data.items) ? data.items : []);
         setFailed(false);
         setOpen(true);
         setActive(-1);
