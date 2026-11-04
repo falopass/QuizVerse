@@ -34,6 +34,7 @@ const COPY = {
     title: 'Cola de moderación',
     intro: 'Quizzes enviados por creadores, esperando publicación o rechazo.',
     reportsLink: 'Ver reportes',
+    statsLink: 'Estadísticas',
     tabPending: 'Pendientes',
     tabRejected: 'Rechazados',
     empty: 'Nada por aquí. La cola está limpia.',
@@ -61,6 +62,7 @@ const COPY = {
     title: 'Moderation queue',
     intro: 'Quizzes submitted by creators, awaiting publication or rejection.',
     reportsLink: 'View reports',
+    statsLink: 'Statistics',
     tabPending: 'Pending',
     tabRejected: 'Rejected',
     empty: 'Nothing here. The queue is clean.',
@@ -193,12 +195,20 @@ export default async function AdminModerationPage({
             </h1>
             <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">{copy.intro}</p>
           </div>
-          <Link
-            href={localizeHref(locale, '/admin/reportes')}
-            className="text-accent-primary hover:text-accent-hover mt-2 inline-flex min-h-11 items-center text-sm font-medium transition-colors"
-          >
-            {copy.reportsLink}
-          </Link>
+          <nav aria-label="Admin" className="mt-2 flex flex-wrap gap-4 text-sm font-medium">
+            <Link
+              href={localizeHref(locale, '/admin/reportes')}
+              className="text-accent-primary hover:text-accent-hover inline-flex min-h-11 items-center transition-colors"
+            >
+              {copy.reportsLink}
+            </Link>
+            <Link
+              href={localizeHref(locale, '/admin/estadisticas')}
+              className="text-accent-primary hover:text-accent-hover inline-flex min-h-11 items-center transition-colors"
+            >
+              {copy.statsLink}
+            </Link>
+          </nav>
         </div>
         <nav aria-label={copy.title} className="mt-6 flex gap-2">
           <Link
