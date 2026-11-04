@@ -63,6 +63,7 @@ export interface Dictionary {
     brand: string;
     categories: string;
     catalogIndex: string;
+    whatsNew: string;
     createQuiz: string;
     faq: string;
     cookiePreferences: string;
@@ -233,6 +234,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       brand: 'QuizVerse',
       categories: 'Categories',
       catalogIndex: 'Catalog index',
+      whatsNew: "What's new",
       createQuiz: 'Create quiz',
       faq: 'FAQ',
       cookiePreferences: 'Cookie preferences',
@@ -420,6 +422,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       brand: 'QuizVerse',
       categories: 'Categorías',
       catalogIndex: 'Índice del catálogo',
+      whatsNew: 'Novedades',
       createQuiz: 'Crear quiz',
       faq: 'Preguntas frecuentes',
       cookiePreferences: 'Preferencias de cookies',
