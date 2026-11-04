@@ -25,6 +25,11 @@ vi.mock('@/lib/data/public', () => ({
   getRelatedQuizzesBySlug: dbMocks.getRelatedQuizzes,
 }));
 
+// Sin hub de fandom la ficha queda igual que antes del bloque «Más de…».
+vi.mock('@/lib/data/fandom', () => ({
+  getQuizFandom: vi.fn(async () => null),
+}));
+
 vi.mock('next/navigation', () => ({
   notFound: () => {
     throw new Error('notFound');

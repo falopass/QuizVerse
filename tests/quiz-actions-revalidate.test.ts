@@ -196,6 +196,7 @@ beforeEach(() => {
 
 const HUB_PATHS = [
   ['/[locale]/category/[slug]', 'page'],
+  ['/[locale]/fandom/[slug]', 'page'],
   ['/[locale]/profile/[username]', 'page'],
 ];
 
@@ -241,7 +242,7 @@ describe('createQuiz', () => {
     const result = await createQuiz(createInput('es'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(5);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
     expect(mocks.revalidate).toHaveBeenCalledWith('/es');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
@@ -356,7 +357,7 @@ describe('createQuiz', () => {
     const result = await createQuiz(createInput('pt'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(8);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(9);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
@@ -417,8 +418,8 @@ describe('updateQuiz', () => {
     const result = await updateQuiz(QUIZ_ID, { language: 'es' });
 
     expect(result.success).toBe(true);
-    // 3 paths × 2 locales + 2 hub patterns × 2 calls (los hubs se repiten, es idempotente)
-    expect(mocks.revalidate).toHaveBeenCalledTimes(10);
+    // 3 paths × 2 locales + 3 hub patterns × 2 calls (los hubs se repiten, es idempotente)
+    expect(mocks.revalidate).toHaveBeenCalledTimes(12);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
@@ -433,7 +434,7 @@ describe('deleteQuiz', () => {
     const result = await deleteQuiz(QUIZ_ID);
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(5);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
     expect(mocks.revalidate).toHaveBeenCalledWith('/en');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz/quiz-de-prueba');

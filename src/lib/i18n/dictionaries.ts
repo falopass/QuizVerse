@@ -148,6 +148,18 @@ export interface Dictionary {
     quizRejectedBody: string;
     quizRejectedBodyGeneric: string;
   };
+  fandom: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    introNoCategory: string;
+    typesTrivia: string;
+    typesPersonality: string;
+    typesMixed: string;
+    categoryLink: string;
+    moreFrom: string;
+    hubLink: string;
+  };
   leaderboard: {
     title: string;
     description: string;
@@ -334,6 +346,20 @@ const dictionaries: Record<Locale, Dictionary> = {
       quizApprovedBodyGeneric: 'Your quiz was approved and is now live.',
       quizRejectedBody: '"{quiz}" was rejected. Review it in My quizzes.',
       quizRejectedBodyGeneric: 'Your quiz was rejected. Review it in My quizzes.',
+    },
+    fandom: {
+      eyebrow: 'Fandom',
+      title: '{name} quizzes',
+      intro:
+        'All {count} {name} quizzes in one place: {types}, inside {category}. Free, no signup, instant results.',
+      introNoCategory:
+        'All {count} {name} quizzes in one place: {types}. Free, no signup, instant results.',
+      typesTrivia: 'trivia rounds',
+      typesPersonality: 'personality tests',
+      typesMixed: 'trivia and personality tests',
+      categoryLink: 'See all {category} quizzes',
+      moreFrom: 'More from {name}',
+      hubLink: 'All {name} quizzes',
     },
     leaderboard: {
       title: 'Player leaderboard',
@@ -522,6 +548,20 @@ const dictionaries: Record<Locale, Dictionary> = {
       quizApprovedBodyGeneric: 'Tu quiz fue aprobado y ya está publicado.',
       quizRejectedBody: '"{quiz}" fue rechazado. Revísalo en Mis quizzes.',
       quizRejectedBodyGeneric: 'Tu quiz fue rechazado. Revísalo en Mis quizzes.',
+    },
+    fandom: {
+      eyebrow: 'Fandom',
+      title: 'Quizzes de {name}',
+      intro:
+        'Aquí juntamos los {count} quizzes de {name}: {types}, dentro de {category}. Gratis, sin registro y con resultado al instante.',
+      introNoCategory:
+        'Aquí juntamos los {count} quizzes de {name}: {types}. Gratis, sin registro y con resultado al instante.',
+      typesTrivia: 'rondas de trivia',
+      typesPersonality: 'tests de personalidad',
+      typesMixed: 'trivia y tests de personalidad',
+      categoryLink: 'Ver todos los quizzes de {category}',
+      moreFrom: 'Más de {name}',
+      hubLink: 'Todos los quizzes de {name}',
     },
     leaderboard: {
       title: 'Ranking de jugadores',
