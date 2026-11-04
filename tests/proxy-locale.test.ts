@@ -110,6 +110,9 @@ describe('proxy — public HTML cache policy', () => {
     '/es',
     '/es/quiz',
     '/en/quiz/foo',
+    '/es/fandom/frieren',
+    '/en/indice',
+    '/es/novedades',
     '/es/about',
     '/en/faq',
     '/es/privacy',
@@ -157,6 +160,8 @@ describe('proxy — public HTML cache policy', () => {
     '/es/quiz/foo/result',
     '/es/category/trivia?page=2',
     '/en/leaderboard',
+    '/es/fandom',
+    '/es/fandom/frieren/extra',
     '/es/no-existe',
   ])('keeps dynamic/unknown %s private even without a session', async (path) => {
     const res = await proxy(req(path));

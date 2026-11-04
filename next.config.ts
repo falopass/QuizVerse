@@ -126,6 +126,31 @@ function contentSecurityPolicy(frameAncestors: string | null): string {
   ].join('; ');
 }
 
+/**
+ * CSP en modo *enforce* con solo las directivas que no dependen de scripts ni
+ * estilos: endurecer `script-src`/`style-src` exigiría nonces por request, lo
+ * que haría dinámico el HTML y rompería la caché ISR. Es una segunda cabecera
+ * `Content-Security-Policy` que el navegador aplica además de la report-only
+ * (las políticas se intersectan), con un valor estático — nada por request —
+ * así que las respuestas siguen siendo cacheables.
+ *
+ * `form-action 'self'` alcanza: todos los formularios del sitio envían por JS
+ * (server actions) a rutas propias, y el login OAuth redirige con
+ * `window.location.assign` — una navegación, no un envío de formulario — así
+ * que ni `api.quizverse.org` ni el proveedor externo necesitan excepción.
+ *
+ * `frameAncestors`: `"'self'"` en rutas normales; las `/embed/{en,es}/*` lo
+ * omiten para seguir siendo embebibles desde cualquier origen.
+ */
+function enforcedCsp(frameAncestors: string | null): string {
+  return [
+    "base-uri 'self'",
+    "object-src 'none'",
+    "form-action 'self'",
+    ...(frameAncestors ? [`frame-ancestors ${frameAncestors}`] : []),
+  ].join('; ');
+}
+
 const nextConfig: NextConfig = {
   // Necesario al tener layouts raíz en [locale] y embed/[locale].
   experimental: { globalNotFound: true },
@@ -159,6 +184,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy-Report-Only',
             value: contentSecurityPolicy("'none'"),
           },
+          { key: 'Content-Security-Policy', value: enforcedCsp("'self'") },
         ],
       },
       {
@@ -169,6 +195,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy-Report-Only',
             value: contentSecurityPolicy(null),
           },
+          { key: 'Content-Security-Policy', value: enforcedCsp(null) },
         ],
       },
       {
@@ -179,6 +206,7 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy-Report-Only',
             value: contentSecurityPolicy(null),
           },
+          { key: 'Content-Security-Policy', value: enforcedCsp(null) },
         ],
       },
       // Las reglas de caché de los assets de marca (/icons, /og, /favicon.ico)

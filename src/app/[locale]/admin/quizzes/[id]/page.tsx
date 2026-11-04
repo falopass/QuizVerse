@@ -35,6 +35,7 @@ const COPY = {
   es: {
     backQueue: 'Cola de moderación',
     backReports: 'Reportes',
+    backStats: 'Estadísticas',
     by: 'por',
     anonymous: 'autor desconocido',
     uncategorized: 'Sin categoría',
@@ -83,6 +84,7 @@ const COPY = {
   en: {
     backQueue: 'Moderation queue',
     backReports: 'Reports',
+    backStats: 'Statistics',
     by: 'by',
     anonymous: 'unknown author',
     uncategorized: 'Uncategorized',
@@ -228,6 +230,12 @@ export default async function AdminQuizReviewPage({
           className="hover:text-accent-primary transition-colors"
         >
           ← {copy.backReports}
+        </Link>
+        <Link
+          href={localizeHref(locale, '/admin/estadisticas')}
+          className="hover:text-accent-primary transition-colors"
+        >
+          ← {copy.backStats}
         </Link>
       </nav>
 

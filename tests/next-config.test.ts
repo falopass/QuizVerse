@@ -31,9 +31,25 @@ describe('next.config headers()', () => {
     expect(csp).toContain("img-src 'self' data: blob:");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).not.toContain('upgrade-insecure-requests');
-    // Report-only: nunca la versión que bloquea.
-    expect(headerValue(normal, 'Content-Security-Policy')).toBeUndefined();
     expect(headerValue(normal, 'X-Frame-Options')).toBe('DENY');
+  });
+
+  it('emits a static enforce-mode CSP without script/style directives', async () => {
+    const { rules } = await loadConfig();
+    const normal = rules[0];
+
+    const csp = headerValue(normal, 'Content-Security-Policy');
+    expect(csp).toBeDefined();
+    expect(csp).toContain("base-uri 'self'");
+    expect(csp).toContain("object-src 'none'");
+    expect(csp).toContain("form-action 'self'");
+    expect(csp).toContain("frame-ancestors 'self'");
+    // Scripts y estilos se quedan en report-only: pasarlos a enforce exigiría
+    // nonces por request y rompería la caché ISR del HTML.
+    expect(csp).not.toContain('script-src');
+    expect(csp).not.toContain('style-src');
+    expect(csp).not.toContain('nonce');
+    expect(csp).not.toContain('report-');
   });
 
   it('uses the real Supabase origin in connect-src when the env is set', async () => {
@@ -91,7 +107,18 @@ describe('next.config headers()', () => {
       const csp = headerValue(rule, 'Content-Security-Policy-Report-Only');
       expect(csp).toBeDefined();
       expect(csp).not.toContain('frame-ancestors');
+      const enforced = headerValue(rule, 'Content-Security-Policy');
+      expect(enforced).toBeDefined();
+      expect(enforced).not.toContain('frame-ancestors');
       expect(headerValue(rule, 'X-Frame-Options')).toBeUndefined();
+    }
+  });
+
+  it('emits no Vary header: every rule is static', async () => {
+    const { rules } = await loadConfig();
+
+    for (const rule of rules) {
+      expect(headerValue(rule, 'Vary')).toBeUndefined();
     }
   });
 
