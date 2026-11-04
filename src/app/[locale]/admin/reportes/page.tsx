@@ -129,12 +129,20 @@ export default async function AdminReportsPage({
                 : 'Quizzes and comments reported by the community, pending review.'}
             </p>
           </div>
-          <Link
-            href={localizeHref(locale, '/admin/moderacion')}
-            className="text-accent-primary hover:text-accent-hover mt-2 inline-flex min-h-11 items-center text-sm font-medium transition-colors"
-          >
-            {es ? 'Ver cola de moderación' : 'View moderation queue'}
-          </Link>
+          <nav aria-label="Admin" className="mt-2 flex flex-wrap gap-4 text-sm font-medium">
+            <Link
+              href={localizeHref(locale, '/admin/moderacion')}
+              className="text-accent-primary hover:text-accent-hover inline-flex min-h-11 items-center transition-colors"
+            >
+              {es ? 'Ver cola de moderación' : 'View moderation queue'}
+            </Link>
+            <Link
+              href={localizeHref(locale, '/admin/estadisticas')}
+              className="text-accent-primary hover:text-accent-hover inline-flex min-h-11 items-center transition-colors"
+            >
+              {es ? 'Estadísticas' : 'Statistics'}
+            </Link>
+          </nav>
         </div>
       </section>
       <ReportList reports={reports} locale={locale} />

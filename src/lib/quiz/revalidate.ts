@@ -32,7 +32,10 @@ export function revalidateQuizPages(language: string, slug: string) {
   }
   // Category hubs and creator profiles list quizzes too. Their slug/username
   // aren't at hand without a join, so the dynamic routes go out wholesale.
+  // Los hubs de fandom también: agrupan por título, así que cualquier cambio
+  // de quiz puede crearlos, moverlos o hacerlos desaparecer.
   revalidatePath('/[locale]/category/[slug]', 'page');
+  revalidatePath('/[locale]/fandom/[slug]', 'page');
   revalidatePath('/[locale]/profile/[username]', 'page');
   revalidateTag(CATALOG_TAGS.quizzes, { expire: 0 });
   revalidateTag(CATALOG_TAGS.quiz(slug), { expire: 0 });
