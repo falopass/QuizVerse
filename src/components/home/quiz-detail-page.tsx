@@ -11,14 +11,17 @@ import { QuizComments } from '@/components/quiz/quiz-comments';
 import { InviteBar } from '@/components/shared/invite-bar';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getPublishedQuizzes, getQuizBySlug, getRelatedQuizzesBySlug } from '@/lib/data/public';
+import { getQuizFandom } from '@/lib/data/fandom';
 import { getStockCoverEntry } from '@/lib/data/stock-cover-manifest';
 import { LAUNCH_QUIZZES } from '@/lib/data/launch-catalog';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 import { getLocaleFromParam } from '@/lib/i18n/server';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { formatMessage } from '@/lib/i18n/format';
 import {
   getLocalizedLanguageLabel,
   getLocalizedTypeLabel,
+  localizeCategory,
   localizeQuizCategory,
 } from '@/lib/i18n/catalog';
 import { clampDescription } from '@/lib/seo/metadata';
@@ -56,9 +59,10 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
   // PERF-10: los relacionados se resuelven en paralelo con la ficha, con una
   // sonda de una columna que solo necesita el slug (la ficha espera a
   // normalizar el quiz completo). Así la segunda consulta no suma al TTFB.
-  const [stored, related] = await Promise.all([
+  const [stored, related, fandom] = await Promise.all([
     getQuizBySlug(slug, locale),
     getRelatedQuizzesBySlug(slug, locale),
+    getQuizFandom(locale, slug),
   ]);
   if (!stored) notFound();
 
@@ -266,6 +270,34 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* «Más de {franquicia}»: el hub de fandom solo existe con ≥3 quizzes
+          del idioma; sin hub no hay bloque y la ficha queda igual que antes. */}
+      {fandom && (
+        <section className="arcade-related" aria-labelledby="fandom-more">
+          <div className="arcade-section-head">
+            <h2 id="fandom-more">
+              {formatMessage(dictionary.fandom.moreFrom, { name: fandom.name })}
+            </h2>
+          </div>
+          <div className="arcade-grid">
+            {fandom.quizzes
+              .filter((item) => item.slug !== quiz.slug)
+              .slice(0, 4)
+              .map((item) => (
+                <EditorialQuizCard
+                  key={item.slug}
+                  quiz={{ ...item, category: localizeCategory(item.category ?? null, locale) }}
+                  locale={locale}
+                  prefetch={false}
+                />
+              ))}
+          </div>
+          <Link href={`/${locale}/fandom/${fandom.slug}`} className="arcade-back mt-6 inline-block">
+            {formatMessage(dictionary.fandom.hubLink, { name: fandom.name })} ↗
+          </Link>
         </section>
       )}
 

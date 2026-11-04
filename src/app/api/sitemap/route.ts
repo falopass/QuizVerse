@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { generateSitemapXml, type SitemapEntry } from '@/lib/seo/sitemap';
 import {
+  fandomAlternates,
   hubAlternates,
   quizAlternates,
   sharedPathAlternates,
@@ -9,6 +10,7 @@ import {
 } from '@/lib/seo/sitemap-alternates';
 import { newestIso, quizLastModified } from '@/lib/seo/sitemap-dates';
 import { SITE_URL } from '@/lib/seo/site';
+import { buildFandomHubs, pairedFandomSlug } from '@/lib/content/franchise';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
 import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 import { locales, type Locale } from '@/lib/i18n/dictionaries';
@@ -18,9 +20,10 @@ import { locales, type Locale } from '@/lib/i18n/dictionaries';
  *
  * The sitemap only lists URLs that are indexable, self-canonical and actually
  * render content: every published quiz in its own language, every category and
- * quiz type that has at least one quiz in that language, and the editorial
- * pages. Login-gated tools (/create) and personalized views (/play, /result)
- * are intentionally absent.
+ * quiz type that has at least one quiz in that language, every fandom hub
+ * (franchise group with at least three quizzes in that language), and the
+ * editorial pages. Login-gated tools (/create) and personalized views
+ * (/play, /result) are intentionally absent.
  *
  * Bilingual pairs are declared with `xhtml:link`, but only when the translated
  * page really exists. A category with quizzes in one language only has no page
@@ -156,6 +159,25 @@ export async function GET() {
     }
   }
 
+  // Hubs de fandom por idioma: los quizzes se agrupan por la franquicia que
+  // anuncia su título (ver src/lib/content/franchise.ts); solo existen los
+  // grupos con ≥3 miembros, igual que la página. La pareja hreflang se decide
+  // por votación de los pares del mapa de idiomas — los slugs no se traducen.
+  const fandomHubsByLocale = {
+    en: buildFandomHubs(
+      (perLocale.get('en') ?? []).filter((quiz): quiz is QuizRow & { title: string } =>
+        Boolean(quiz.title)
+      ),
+      'en'
+    ),
+    es: buildFandomHubs(
+      (perLocale.get('es') ?? []).filter((quiz): quiz is QuizRow & { title: string } =>
+        Boolean(quiz.title)
+      ),
+      'es'
+    ),
+  };
+
   const entries: SitemapEntry[] = [];
 
   for (const locale of locales) {
@@ -192,6 +214,17 @@ export async function GET() {
         changeFrequency: 'weekly',
         priority: 0.7,
         alternates: hubAlternates(locale, hub.slug, hubSlugsByLocale),
+      });
+    }
+
+    for (const hub of fandomHubsByLocale[locale].values()) {
+      const paired = pairedFandomSlug(fandomHubsByLocale, locale, hub.slug, getEquivalentQuizSlug);
+      entries.push({
+        url: `/${locale}/fandom/${hub.slug}`,
+        lastModified: newestIso(hub.quizzes.map((quiz) => lastModifiedBySlug.get(quiz.slug))),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+        alternates: fandomAlternates(locale, hub.slug, paired),
       });
     }
 
