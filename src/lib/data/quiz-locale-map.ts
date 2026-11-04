@@ -665,6 +665,8 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-plan-de-fin-de-semana-encaja-de-verdad-con-tu-vibra',
   'en-what-weekend-social-energy-are-you': 'es-que-energia-social-de-fin-de-semana-eres',
   'en-what-work-style-fits-the-ai-era': 'es-que-estilo-laboral-encaja-en-la-era-de-la-ia',
+  'en-which-among-us-role-are-you': 'es-que-rol-de-among-us-eres',
+  'en-which-animal-crossing-villager-are-you': 'es-que-vecino-de-animal-crossing-eres',
   'en-which-attack-on-titan-energy-matches-you-best':
     'es-que-energia-de-attack-on-titan-combina-mejor-contigo',
   'en-which-avatar-energy-matches-you-best': 'es-que-energia-de-avatar-combina-mejor-contigo',
@@ -698,6 +700,7 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-era-de-la-moda-combina-con-tu-personalidad',
   'en-which-friend-archetype-are-you-in-your-group': 'es-que-arquetipo-de-amigo-eres-en-tu-grupo',
   'en-which-frieren-energy-matches-you-best': 'es-que-energia-de-frieren-combina-mejor-contigo',
+  'en-which-genshin-impact-character-are-you': 'es-que-personaje-de-genshin-impact-eres',
   'en-which-grand-theft-auto-vi-energy-matches-you-best':
     'es-que-energia-de-grand-theft-auto-vi-combina-mejor-contigo',
   'en-which-hacks-energy-matches-you-best': 'es-que-energia-de-hacks-combina-mejor-contigo',
@@ -705,12 +708,14 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-halloween-creature-are-you': 'es-que-criatura-de-halloween-eres',
   'en-which-harry-potter-energy-matches-you-best':
     'es-que-energia-de-harry-potter-combina-mejor-contigo',
+  'en-which-hollow-knight-character-are-you': 'es-que-personaje-de-hollow-knight-eres',
   'en-which-invincible-energy-matches-you-best':
     'es-que-energia-de-invincible-combina-mejor-contigo',
   'en-which-jujutsu-kaisen-energy-matches-you-best':
     'es-que-energia-de-jujutsu-kaisen-combina-mejor-contigo',
   'en-which-k-drama-genre-is-your-life': 'es-que-genero-de-k-drama-es-tu-vida',
   'en-which-k-pop-energy-matches-you-best': 'es-que-energia-de-k-pop-combina-mejor-contigo',
+  'en-which-league-of-legends-champion-are-you': 'es-que-campeon-de-league-of-legends-eres',
   'en-which-marvel-energy-matches-you-best': 'es-que-energia-de-marvel-combina-mejor-contigo',
   'en-which-minecraft-energy-matches-you-best': 'es-que-energia-de-minecraft-combina-mejor-contigo',
   'en-which-music-era-matches-your-taste': 'es-que-era-musical-combina-con-tu-gusto',
@@ -721,6 +726,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-one-piece-energy-matches-you-best': 'es-que-energia-de-one-piece-combina-mejor-contigo',
   'en-which-oppenheimer-energy-matches-you-best':
     'es-que-energia-de-oppenheimer-combina-mejor-contigo',
+  'en-which-overwatch-hero-are-you': 'es-que-heroe-de-overwatch-eres',
   'en-which-planet-are-you': 'es-que-planeta-eres',
   'en-which-pokemon-energy-matches-you-best': 'es-que-energia-de-pokemon-combina-mejor-contigo',
   'en-which-predator-would-you-be': 'es-que-depredador-serias',
@@ -760,6 +766,8 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-energia-de-the-super-mario-galaxy-movie-combina-mejor-contigo',
   'en-which-the-white-lotus-energy-matches-you-best':
     'es-que-energia-de-the-white-lotus-combina-mejor-contigo',
+  'en-which-the-witcher-3-character-are-you': 'es-que-personaje-de-the-witcher-3-eres',
+  'en-which-undertale-character-are-you': 'es-que-personaje-de-undertale-eres',
   'en-which-wednesday-energy-matches-you-best': 'es-que-energia-de-merlina-combina-mejor-contigo',
   'en-which-wicked-energy-matches-you-best': 'es-que-energia-de-wicked-combina-mejor-contigo',
   'en-which-witch-hat-atelier-energy-matches-you-best':
