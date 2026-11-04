@@ -54,7 +54,7 @@ export default async function EmbedQuizPage({
   return (
     <main>
       <QuizPlayer quiz={toClientQuiz(quiz)} locale={locale} />
-      <p className="pb-5 text-center text-xs text-[var(--text-secondary)]">
+      <p className="px-4 pb-5 text-center text-xs text-[var(--text-secondary)]">
         <a
           href={quizUrl}
           target="_blank"

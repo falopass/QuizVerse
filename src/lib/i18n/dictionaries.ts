@@ -65,6 +65,7 @@ export interface Dictionary {
     catalogIndex: string;
     whatsNew: string;
     createQuiz: string;
+    embedQuiz: string;
     faq: string;
     cookiePreferences: string;
   };
@@ -236,6 +237,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       catalogIndex: 'Catalog index',
       whatsNew: "What's new",
       createQuiz: 'Create quiz',
+      embedQuiz: 'Embed a quiz',
       faq: 'FAQ',
       cookiePreferences: 'Cookie preferences',
     },
@@ -424,6 +426,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       catalogIndex: 'Índice del catálogo',
       whatsNew: 'Novedades',
       createQuiz: 'Crear quiz',
+      embedQuiz: 'Incrustar un quiz',
       faq: 'Preguntas frecuentes',
       cookiePreferences: 'Preferencias de cookies',
     },

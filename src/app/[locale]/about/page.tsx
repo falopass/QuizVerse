@@ -163,6 +163,37 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
         <div className="border-border-subtle mt-12 border-t pt-8">
           <h2 className="font-display text-2xl font-semibold">
+            {lang === 'es' ? '¿Tienes una web?' : 'Run a website?'}
+          </h2>
+          <p className="text-text-secondary mt-3 text-base leading-relaxed">
+            {lang === 'es' ? (
+              <>
+                Puedes{' '}
+                <Link
+                  href={localizeHref(lang, '/widget')}
+                  className="text-accent-primary underline"
+                >
+                  incrustar cualquier quiz de QuizVerse
+                </Link>{' '}
+                con un iframe: gratis, sin registro para tus visitantes y siempre actualizado.
+              </>
+            ) : (
+              <>
+                You can{' '}
+                <Link
+                  href={localizeHref(lang, '/widget')}
+                  className="text-accent-primary underline"
+                >
+                  embed any QuizVerse quiz
+                </Link>{' '}
+                with an iframe: free, no sign-up for your visitors and always up to date.
+              </>
+            )}
+          </p>
+        </div>
+
+        <div className="border-border-subtle mt-12 border-t pt-8">
+          <h2 className="font-display text-2xl font-semibold">
             {lang === 'es' ? 'Empieza a explorar' : 'Start exploring'}
           </h2>
           <p className="text-text-secondary mt-3 text-base leading-relaxed">
