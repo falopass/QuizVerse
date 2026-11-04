@@ -139,17 +139,12 @@ function quizHubIndex<Q extends { slug: string }>(
  * mayoría estricta de los votos emitidos; un empate o una dispersión no
  * justifican anunciar una traducción (un hreflang a 404 es peor que ninguno).
  */
-export function pairedFandomSlug<Q extends { slug: string }>(
-  hubsByLocale: Record<Locale, Map<string, FandomHub<Q>>>,
-  locale: Locale,
-  slug: string,
+function majorityVote<Q extends { slug: string }>(
+  hub: FandomHub<Q>,
+  otherIndex: Map<string, string>,
+  other: Locale,
   counterpartOf: (quizSlug: string, target: Locale) => string | null
 ): string | null {
-  const hub = hubsByLocale[locale].get(slug);
-  if (!hub) return null;
-  const other: Locale = locale === 'es' ? 'en' : 'es';
-  const otherIndex = quizHubIndex(hubsByLocale[other]);
-
   const votes = new Map<string, number>();
   let cast = 0;
   for (const quiz of hub.quizzes) {
@@ -170,6 +165,30 @@ export function pairedFandomSlug<Q extends { slug: string }>(
     }
   }
   return winner !== null && winnerVotes * 2 > cast ? winner : null;
+}
+
+export function pairedFandomSlug<Q extends { slug: string }>(
+  hubsByLocale: Record<Locale, Map<string, FandomHub<Q>>>,
+  locale: Locale,
+  slug: string,
+  counterpartOf: (quizSlug: string, target: Locale) => string | null
+): string | null {
+  const hub = hubsByLocale[locale].get(slug);
+  if (!hub) return null;
+  const other: Locale = locale === 'es' ? 'en' : 'es';
+  const forward = majorityVote(hub, quizHubIndex(hubsByLocale[other]), other, counterpartOf);
+  if (!forward) return null;
+
+  // Reciprocidad: el hreflang es mutuo por definición, así que la pareja
+  // también tiene que elegirnos. Si los grupos están desiguales y el hub
+  // elegido apunta a otro, no se anuncia nada en ninguna dirección.
+  const back = majorityVote(
+    hubsByLocale[other].get(forward)!,
+    quizHubIndex(hubsByLocale[locale]),
+    locale,
+    counterpartOf
+  );
+  return back === slug ? forward : null;
 }
 
 /**

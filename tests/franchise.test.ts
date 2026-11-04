@@ -228,9 +228,35 @@ describe('pairedFandomSlug', () => {
   });
 
   it('un solo voto válido basta si el mapa solo conoce un par', () => {
+    // El mapa real es bidireccional: un par conocido en las dos direcciones
+    // confirma la pareja aunque el resto de miembros no tenga traducción.
     const lonely = (slug: string) =>
-      slug === 'en-wednesday-fan-trivia-challenge' ? 'es-trivia-fan-de-merlina' : null;
+      (
+        ({
+          'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-merlina',
+          'es-trivia-fan-de-merlina': 'en-wednesday-fan-trivia-challenge',
+        }) as Record<string, string>
+      )[slug] ?? null;
     expect(pairedFandomSlug(hubs, 'en', 'wednesday', lonely)).toBe('merlina');
+  });
+
+  it('sin reciprocidad no hay pareja: el elegido debe elegir de vuelta', () => {
+    // es-merlina vota a wednesday, pero en-wednesday vota a frieren:
+    // anunciar la pareja en un solo sentido sería un hreflang asimétrico.
+    const oneWay = (slug: string) =>
+      (
+        ({
+          'es-trivia-fan-de-merlina': 'en-wednesday-fan-trivia-challenge',
+          'es-merlina-rol': 'en-wednesday-role',
+          'es-merlina-energia': 'en-wednesday-energy',
+          'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-frieren',
+          'en-wednesday-role': 'es-trivia-fan-de-frieren',
+          'en-wednesday-energy': 'es-trivia-fan-de-frieren',
+          'en-wednesday-deep': 'es-trivia-fan-de-frieren',
+        }) as Record<string, string>
+      )[slug] ?? null;
+    expect(pairedFandomSlug(hubs, 'es', 'merlina', oneWay)).toBeNull();
+    expect(pairedFandomSlug(hubs, 'en', 'wednesday', oneWay)).toBeNull();
   });
 
   it('un slug que no es hub devuelve null aunque el mapa conozca pares', () => {
@@ -245,6 +271,11 @@ describe('pairedFandomSlug', () => {
           'es-trivia-fan-de-merlina': 'en-wednesday-fan-trivia-challenge',
           'es-merlina-rol': 'en-wednesday-role',
           'es-merlina-energia': 'en-dune-fan', // voto espurio a otro hub
+          // La vuelta confirma: los miembros de wednesday votan a merlina.
+          'en-wednesday-fan-trivia-challenge': 'es-trivia-fan-de-merlina',
+          'en-wednesday-role': 'es-merlina-rol',
+          'en-wednesday-energy': 'es-merlina-energia',
+          'en-wednesday-deep': 'es-trivia-fan-de-merlina',
         }) as Record<string, string>
       )[slug] ?? null;
     // 3 votos: 2 a wednesday, 1 a dune → mayoría a wednesday
