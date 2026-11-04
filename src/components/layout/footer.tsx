@@ -28,6 +28,7 @@ export function Footer({
             <p className="arcade-footer-heading">{dictionary.footer.play}</p>
             <Link href={localizeHref(locale, '/quiz')}>{dictionary.common.explore}</Link>
             <Link href={localizeHref(locale, '/indice')}>{dictionary.footer.catalogIndex}</Link>
+            <Link href={localizeHref(locale, '/novedades')}>{dictionary.footer.whatsNew}</Link>
             <Link href={localizeHref(locale, '/leaderboard')}>{dictionary.common.leaderboard}</Link>
             <Link href={localizeHref(locale, '/create')}>{dictionary.footer.createQuiz}</Link>
           </nav>

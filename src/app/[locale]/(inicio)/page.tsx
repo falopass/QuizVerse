@@ -4,8 +4,9 @@ import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { getHomePayload, getLaunchHomePayload } from '@/lib/data/public';
 import { dailyPickCopy, pickDailyQuiz } from '@/lib/content/daily-pick';
+import { collectHomeQuizzes } from '@/lib/data/daily-quiz';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
-import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeCategory } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { homeOgImage } from '@/lib/seo/site';
@@ -61,19 +62,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     getHomePayload(locale).catch(() => getLaunchHomePayload(locale)),
     getCategoryCounts(locale),
   ]);
-  const quizzes = [
-    ...new Map(
-      localizeQuizList(
-        [
-          ...payload.featured,
-          ...payload.trending,
-          ...payload.quickPlays,
-          ...payload.freshlyPublished,
-        ],
-        locale
-      ).map((quiz) => [quiz.id, quiz])
-    ).values(),
-  ];
+  const quizzes = collectHomeQuizzes(payload, locale);
   const lead = quizzes[0];
   const today = new Date();
   // El pick es independiente por idioma: los candidatos son el catálogo de este
