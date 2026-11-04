@@ -27,7 +27,8 @@ function escapeHtml(value: string): string {
 export function buildEmbedSnippet(
   canonicalUrl: string,
   locale: Locale,
-  title?: string
+  title?: string,
+  height?: number
 ): EmbedSnippet | null {
   let url: URL;
   try {
@@ -39,6 +40,12 @@ export function buildEmbedSnippet(
   const slug = url.pathname.replace(/\/+$/, '').split('/').pop();
   if (!slug) return null;
 
+  // La altura es un atributo del iframe: se limita a un rango usable para que
+  // un valor roto nunca genere un snippet inútil (320–2000 px, 720 por defecto).
+  const frameHeight = Number.isFinite(height)
+    ? Math.min(Math.max(Math.round(height as number), 320), 2000)
+    : 720;
+
   const embedUrl = `${url.origin}/embed/${locale}/${slug}`;
   const label = (title ?? '').trim() || 'QuizVerse';
   const escapedLabel = escapeHtml(label);
@@ -48,7 +55,7 @@ export function buildEmbedSnippet(
       : `Play “${escapedLabel}” on QuizVerse`;
 
   const snippet =
-    `<iframe src="${escapeHtml(embedUrl)}" width="600" height="720" ` +
+    `<iframe src="${escapeHtml(embedUrl)}" width="600" height="${frameHeight}" ` +
     `style="border:0;border-radius:12px;max-width:100%" loading="lazy" ` +
     `title="${escapedLabel} | QuizVerse"></iframe>\n` +
     `<p><a href="${escapeHtml(canonicalUrl)}" target="_blank" rel="noopener">${linkText}</a></p>`;

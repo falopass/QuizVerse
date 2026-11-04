@@ -36,6 +36,7 @@ export function Footer({
             <p className="arcade-footer-heading">{dictionary.footer.brand}</p>
             <Link href={localizeHref(locale, '/about')}>{dictionary.arcade.about}</Link>
             <Link href={localizeHref(locale, '/faq')}>{dictionary.footer.faq}</Link>
+            <Link href={localizeHref(locale, '/widget')}>{dictionary.footer.embedQuiz}</Link>
             <Link href={localizeHref(locale, '/contact')}>{dictionary.arcade.contact}</Link>
           </nav>
         </div>

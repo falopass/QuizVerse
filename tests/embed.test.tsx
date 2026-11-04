@@ -41,6 +41,22 @@ describe('buildEmbedSnippet', () => {
     expect(result?.snippet).toContain('Play');
   });
 
+  it('respeta la altura pedida y la limita a un rango usable', () => {
+    expect(buildEmbedSnippet(CANONICAL, 'es', 'Mi Quiz', 900)?.snippet).toContain('height="900"');
+    expect(buildEmbedSnippet(CANONICAL, 'es', 'Mi Quiz', 10)?.snippet).toContain('height="320"');
+    expect(buildEmbedSnippet(CANONICAL, 'es', 'Mi Quiz', Number.NaN)?.snippet).toContain(
+      'height="720"'
+    );
+  });
+
+  it('el slug de la URL canónica queda codificado en el iframe y el enlace', () => {
+    const result = buildEmbedSnippet('https://quizverse.org/es/quiz/quiz%20raro', 'es', 'Quiz');
+
+    expect(result?.embedUrl).toBe('https://quizverse.org/embed/es/quiz%20raro');
+    expect(result?.snippet).toContain('src="https://quizverse.org/embed/es/quiz%20raro"');
+    expect(result?.snippet).not.toContain('quiz raro');
+  });
+
   it('devuelve null con una URL inválida', () => {
     expect(buildEmbedSnippet('no-es-una-url', 'es')).toBeNull();
   });
