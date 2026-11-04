@@ -16,31 +16,34 @@ vi.mock('@/lib/supabase/server', () => ({
         select: () => query,
         eq: () => query,
         order: () => query,
-        limit: async () => ({
-          data: [
-            {
-              slug: 'quiz-stock',
-              title: 'Quiz con stock',
-              cover_image_url: '/stock-covers/movies-tv/quiz-stock.jpg',
-              language: 'es',
-              published_at: '2026-10-01T00:00:00Z',
-              updated_at: null,
-              quiz_type: 'trivia',
-              category_id: 'movies-tv',
-              category: { slug: 'movies-tv' },
-            },
-            {
-              slug: 'quiz-procedural',
-              title: 'Quiz procedural',
-              cover_image_url: null,
-              language: 'en',
-              published_at: '2026-10-02T00:00:00Z',
-              updated_at: null,
-              quiz_type: 'trivia',
-              category_id: 'gaming',
-              category: { slug: 'gaming' },
-            },
-          ],
+        range: async (from: number) => ({
+          data:
+            from > 0
+              ? []
+              : [
+                  {
+                    slug: 'quiz-stock',
+                    title: 'Quiz con stock',
+                    cover_image_url: '/stock-covers/movies-tv/quiz-stock.jpg',
+                    language: 'es',
+                    published_at: '2026-10-01T00:00:00Z',
+                    updated_at: null,
+                    quiz_type: 'trivia',
+                    category_id: 'movies-tv',
+                    category: { slug: 'movies-tv' },
+                  },
+                  {
+                    slug: 'quiz-procedural',
+                    title: 'Quiz procedural',
+                    cover_image_url: null,
+                    language: 'en',
+                    published_at: '2026-10-02T00:00:00Z',
+                    updated_at: null,
+                    quiz_type: 'trivia',
+                    category_id: 'gaming',
+                    category: { slug: 'gaming' },
+                  },
+                ],
           error: null,
         }),
       };

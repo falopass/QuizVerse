@@ -65,6 +65,32 @@ export function hubAlternates(
 }
 
 /**
+ * Alternates de un hub de fandom (`/{locale}/fandom/{slug}`).
+ *
+ * Los slugs de franquicia no coinciden entre idiomas («el-juego-del-calamar»
+ * ↔ «squid-game»): la pareja se decide por votación de los quizzes bilingües
+ * en `pairedFandomSlug` y llega ya resuelta en `pairedSlug`. Sin pareja, la
+ * URL del otro idioma sería un 404 anunciado: no se emite hreflang.
+ */
+export function fandomAlternates(
+  locale: Locale,
+  slug: string,
+  pairedSlug: string | null
+): SitemapAlternate[] | undefined {
+  if (!pairedSlug) return undefined;
+
+  const other = otherLocale(locale);
+  const self = `/${locale}/fandom/${slug}`;
+  const translated = `/${other}/fandom/${pairedSlug}`;
+
+  return [
+    { hreflang: locale, href: self },
+    { hreflang: other, href: translated },
+    { hreflang: 'x-default', href: locale === 'en' ? self : translated },
+  ];
+}
+
+/**
  * Alternates de un quiz.
  *
  * Doble comprobación: el mapa de traducciones tiene que conocer la pareja

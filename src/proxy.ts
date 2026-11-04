@@ -92,7 +92,7 @@ function isPageRequest(request: NextRequest, pathname: string) {
 // Lista cerrada de páginas sin personalización de servidor. Next decide si la
 // respuesta es ISR, redirect, 404 o error; nunca forzamos `public` desde aquí.
 const CACHEABLE_PAGE_RE =
-  /^\/(en|es)(?:\/(?:quiz(?:\/[^/.]+)?|about|faq|privacy|terms|contact))?\/?$/;
+  /^\/(en|es)(?:\/(?:quiz(?:\/[^/.]+)?|fandom\/[^/.]+|indice|novedades|about|faq|privacy|terms|contact))?\/?$/;
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

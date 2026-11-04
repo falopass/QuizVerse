@@ -677,6 +677,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-beef-energy-matches-you-best': 'es-que-energia-de-beef-combina-mejor-contigo',
   'en-which-beyonce-energy-matches-you-best': 'es-que-energia-de-beyonce-combina-mejor-contigo',
   'en-which-bird-are-you': 'es-que-ave-eres',
+  'en-which-bleach-character-are-you': 'es-que-personaje-de-bleach-eres',
   'en-which-bridgerton-energy-matches-you-best':
     'es-que-energia-de-bridgerton-combina-mejor-contigo',
   'en-which-chainsaw-man-energy-matches-you-best':
@@ -686,10 +687,12 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-classroom-of-the-elite-energy-matches-you-best':
     'es-que-energia-de-classroom-of-the-elite-combina-mejor-contigo',
   'en-which-coffee-are-you': 'es-que-cafe-eres',
+  'en-which-death-note-character-are-you': 'es-que-personaje-de-death-note-eres',
   'en-which-demon-slayer-energy-matches-you-best':
     'es-que-energia-de-demon-slayer-combina-mejor-contigo',
   'en-which-dessert-are-you': 'es-que-postre-eres',
   'en-which-dr-stone-energy-matches-you-best': 'es-que-energia-de-dr-stone-combina-mejor-contigo',
+  'en-which-dragon-ball-character-are-you': 'es-que-personaje-de-dragon-ball-eres',
   'en-which-dune-energy-matches-you-best': 'es-que-energia-de-dune-combina-mejor-contigo',
   'en-which-elden-ring-energy-matches-you-best':
     'es-que-energia-de-elden-ring-combina-mejor-contigo',
@@ -701,14 +704,17 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-friend-archetype-are-you-in-your-group': 'es-que-arquetipo-de-amigo-eres-en-tu-grupo',
   'en-which-frieren-energy-matches-you-best': 'es-que-energia-de-frieren-combina-mejor-contigo',
   'en-which-genshin-impact-character-are-you': 'es-que-personaje-de-genshin-impact-eres',
+  'en-which-fullmetal-alchemist-character-are-you': 'es-que-personaje-de-fullmetal-alchemist-eres',
   'en-which-grand-theft-auto-vi-energy-matches-you-best':
     'es-que-energia-de-grand-theft-auto-vi-combina-mejor-contigo',
   'en-which-hacks-energy-matches-you-best': 'es-que-energia-de-hacks-combina-mejor-contigo',
   'en-which-hades-ii-energy-matches-you-best': 'es-que-energia-de-hades-ii-combina-mejor-contigo',
+  'en-which-haikyu-character-are-you': 'es-que-personaje-de-haikyu-eres',
   'en-which-halloween-creature-are-you': 'es-que-criatura-de-halloween-eres',
   'en-which-harry-potter-energy-matches-you-best':
     'es-que-energia-de-harry-potter-combina-mejor-contigo',
   'en-which-hollow-knight-character-are-you': 'es-que-personaje-de-hollow-knight-eres',
+  'en-which-hunter-x-hunter-character-are-you': 'es-que-personaje-de-hunter-x-hunter-eres',
   'en-which-invincible-energy-matches-you-best':
     'es-que-energia-de-invincible-combina-mejor-contigo',
   'en-which-jujutsu-kaisen-energy-matches-you-best':
@@ -719,6 +725,7 @@ const EN_TO_ES: Record<string, string> = {
   'en-which-marvel-energy-matches-you-best': 'es-que-energia-de-marvel-combina-mejor-contigo',
   'en-which-minecraft-energy-matches-you-best': 'es-que-energia-de-minecraft-combina-mejor-contigo',
   'en-which-music-era-matches-your-taste': 'es-que-era-musical-combina-con-tu-gusto',
+  'en-which-my-hero-academia-character-are-you': 'es-que-personaje-de-my-hero-academia-eres',
   'en-which-naruto-energy-matches-you-best': 'es-que-energia-de-naruto-combina-mejor-contigo',
   'en-which-nintendo-switch-2-energy-matches-you-best':
     'es-que-energia-de-nintendo-switch-2-combina-mejor-contigo',
@@ -768,6 +775,7 @@ const EN_TO_ES: Record<string, string> = {
     'es-que-energia-de-the-white-lotus-combina-mejor-contigo',
   'en-which-the-witcher-3-character-are-you': 'es-que-personaje-de-the-witcher-3-eres',
   'en-which-undertale-character-are-you': 'es-que-personaje-de-undertale-eres',
+  'en-which-tokyo-revengers-character-are-you': 'es-que-personaje-de-tokyo-revengers-eres',
   'en-which-wednesday-energy-matches-you-best': 'es-que-energia-de-merlina-combina-mejor-contigo',
   'en-which-wicked-energy-matches-you-best': 'es-que-energia-de-wicked-combina-mejor-contigo',
   'en-which-witch-hat-atelier-energy-matches-you-best':

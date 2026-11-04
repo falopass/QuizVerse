@@ -37,6 +37,7 @@ vi.mock('@/lib/supabase/server', () => ({
         not: () => query,
         order: () => query,
         limit: async () => (onlyUndated ? db.undated : db.result),
+        range: async (from: number) => (from > 0 ? { data: [], error: null } : db.result),
       };
       return query;
     },
