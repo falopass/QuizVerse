@@ -292,6 +292,12 @@ describe('loadAdminStats', () => {
     for (const { calls } of topCalls) {
       expect(calls).toContainEqual({ method: 'limit', args: [TOP_QUIZ_LIMIT] });
       expect(calls).toContainEqual({ method: 'eq', args: ['status', 'published'] });
+      // Desempates deterministas: sin ellos el LIMIT corta empates al azar.
+      expect(calls).toContainEqual({
+        method: 'order',
+        args: ['title', { ascending: true }],
+      });
+      expect(calls).toContainEqual({ method: 'order', args: ['id', { ascending: true }] });
     }
     const headCounts = allCalls.filter(({ calls }) => selectOptions(calls)?.head === true);
     expect(headCounts.length).toBe(8);

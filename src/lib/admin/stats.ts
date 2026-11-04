@@ -68,6 +68,7 @@ export interface AdminStats {
     windowRegistered: number;
     windowAnonymous: number;
     truncated: boolean;
+    /** Sesiones conservadas: cleanup_old_game_sessions puede podar anónimas antiguas. */
     allTimeTotal: number;
     allTimeRegistered: number;
     allTimeAnonymous: number;
@@ -254,7 +255,11 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
       .from('quizzes')
       .select(`title, slug, language, value:${metric}`)
       .eq('status', 'published')
+      // Desempates en SQL: sin ellos PostgREST elige al azar qué fila corta
+      // el límite cuando la métrica empata en el puesto 20 (p. ej. ceros).
       .order(metric, { ascending: false })
+      .order('title', { ascending: true })
+      .order('id', { ascending: true })
       .limit(TOP_QUIZ_LIMIT)
       .then((res) => {
         if (res.error) throw res.error;
