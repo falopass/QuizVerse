@@ -51,22 +51,40 @@ interface QuizRow {
   category: { slug: string | null } | null;
 }
 
+// PostgREST corta cada respuesta en `max-rows` (1000 por defecto): un `limit(50000)`
+// devuelve solo 1000 filas sin avisar, así que el sitemap perdía en silencio todo lo
+// que pasaba de ese tope. Se pagina con `range`; el orden incluye `slug` (único)
+// porque muchos quizzes comparten `published_at` y un orden con empates repite u
+// omite filas entre páginas.
+const PAGE_SIZE = 1000;
+const MAX_PAGES = 50;
+
 async function fetchPublishedQuizzes(): Promise<{ quizzes: QuizRow[]; failed: boolean }> {
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase
-      .from('quizzes')
-      .select(
-        'slug, title, cover_image_url, language, published_at, created_at, updated_at, quiz_type, category_id, category:categories(slug)'
-      )
-      .eq('status', 'published')
-      .order('published_at', { ascending: false })
-      .limit(50000);
+    const quizzes: QuizRow[] = [];
+
+    for (let page = 0; page < MAX_PAGES; page += 1) {
+      const from = page * PAGE_SIZE;
+      const { data, error } = await supabase
+        .from('quizzes')
+        .select(
+          'slug, title, cover_image_url, language, published_at, created_at, updated_at, quiz_type, category_id, category:categories(slug)'
+        )
+        .eq('status', 'published')
+        .order('published_at', { ascending: false })
+        .order('slug', { ascending: true })
+        .range(from, from + PAGE_SIZE - 1);
+
+      if (error || !data) return { quizzes: [], failed: true };
+      quizzes.push(...(data as unknown as QuizRow[]));
+      if (data.length < PAGE_SIZE) break;
+    }
 
     // Con cientos de quizzes publicados, `data: []` es un fallo silencioso
     // (select roto, RLS, filtro mal escrito), no un catálogo real.
-    if (error || !data || data.length === 0) return { quizzes: [], failed: true };
-    return { quizzes: data as unknown as QuizRow[], failed: false };
+    if (quizzes.length === 0) return { quizzes: [], failed: true };
+    return { quizzes, failed: false };
   } catch {
     return { quizzes: [], failed: true };
   }
