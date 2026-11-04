@@ -1,0 +1,4039 @@
+{
+  "$comment": "Editorial seed 2026ct: personality quizzes in the 'which character are you' format for eight anime/manga franchises that lacked it (dragon ball, my hero academia, death note, fullmetal alchemist, bleach, haikyu, tokyo revengers, hunter x hunter), es/en pairs. Applied by scripts/seed/emit-editorial-seed.mjs.",
+  "quizzes": [
+    {
+      "slug": "en-which-dragon-ball-character-are-you",
+      "title": "Which Dragon Ball Character Are You?",
+      "description": "Goku, Vegeta or someone else entirely — seven questions to find out which Dragon Ball personality matches yours.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["dragon ball", "personality quiz", "anime", "goku", "saiyan"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Goku",
+          "description": "You're Goku: the fight itself is the reward. You stay cheerful under pressure, forgive fast and treat every limit like a friendly suggestion — and somehow pull everyone up with you.",
+          "personality_tag": "goku",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Vegeta",
+          "description": "You're Vegeta: pride is your fuel. You outwork everyone in the room, turn setbacks into training plans, and pretend not to care about the people you'd defend to the very end.",
+          "personality_tag": "vegeta",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Gohan",
+          "description": "You're Gohan: quiet strength with a scholar's heart. You'd rather study than fight, but when it truly counts you hit harder than anyone expected — yourself included.",
+          "personality_tag": "gohan",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "Piccolo",
+          "description": "You're Piccolo: the calm in the storm. You watch, you wait, and when you act it's with precision — the stern mentor everyone needs even before they know it.",
+          "personality_tag": "piccolo",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Krillin",
+          "description": "You're Krillin: the bravest regular person alive. No powers required — you show up, crack the joke, take the hit and keep your friends standing when it matters.",
+          "personality_tag": "krillin",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Bulma",
+          "description": "You're Bulma: genius with zero patience for nonsense. You invent your own solutions, boss around warriors and gods alike, and almost always get what you want.",
+          "personality_tag": "bulma",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A rival who is clearly stronger than you appears. Your first thought is…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Finally — a real fight!",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "I'll train until I'm the stronger one.",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "How do I end this without anyone getting hurt?",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "d",
+              "text": "Watch first. Strike once the pattern shows.",
+              "personality_tags": ["piccolo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Pick an ideal afternoon:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A calm dinner, then a chapter of a good book.",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "b",
+              "text": "Water and silence — fuel is fuel.",
+              "personality_tags": ["piccolo"]
+            },
+            {
+              "id": "c",
+              "text": "Whatever's cooking at a friend's place; the company matters.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "Something excellent, paid for by your latest invention.",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your role in the group is usually…",
+          "options": [
+            {
+              "id": "a",
+              "text": "The reliable one who shows up no matter what.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "b",
+              "text": "The brains with the tools and the plan.",
+              "personality_tags": ["bulma"]
+            },
+            {
+              "id": "c",
+              "text": "The mood-lifter who keeps everyone hungry for more.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "d",
+              "text": "The quiet rival who makes everyone train harder.",
+              "personality_tags": ["vegeta"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What would you never forgive yourself for?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Passing up a chance to grow stronger.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "Falling behind your rival.",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "Failing someone you could have helped.",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "d",
+              "text": "Losing control of a situation you should have seen coming.",
+              "personality_tags": ["piccolo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "How do you actually improve?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Study the theory, then apply it once, perfectly.",
+              "personality_tags": ["gohan", "piccolo"]
+            },
+            {
+              "id": "b",
+              "text": "Alone, with extra weight and meditation.",
+              "personality_tags": ["piccolo", "gohan"]
+            },
+            {
+              "id": "c",
+              "text": "Drilling the basics with a friend until they're reflexes.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "Building a machine that does the training for you.",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your worst habit, honestly:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Underrating yourself — you've held your own against gods.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "b",
+              "text": "Yelling first and apologizing later.",
+              "personality_tags": ["bulma"]
+            },
+            {
+              "id": "c",
+              "text": "Forgetting the small stuff: chores, schedules, names.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "d",
+              "text": "Turning every friendly thing into a contest.",
+              "personality_tags": ["vegeta"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Choose a motto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Stronger than yesterday — that's the whole plan.'",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "'Prince or rival, doesn't matter — never second.'",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "'Brave isn't not being scared. It's showing up anyway.'",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "'There's no problem a brilliant mind can't solve.'",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-dragon-ball-eres",
+      "title": "¿Qué personaje de Dragon Ball eres?",
+      "description": "¿Goku, Vegeta o alguien totalmente distinto? Siete preguntas para saber qué personaje de Dragon Ball va contigo.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["dragon ball", "test de personalidad", "anime", "goku", "saiyan"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Goku",
+          "description": "Eres Goku: la pelea en sí es el premio. Conservas el buen humor bajo presión, perdonas rápido y tratas cada límite como una sugerencia amistosa, y de paso contagias a todos.",
+          "personality_tag": "goku",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Vegeta",
+          "description": "Eres Vegeta: el orgullo es tu combustible. Trabajas más que nadie en la sala, conviertes los tropiezos en planes de entrenamiento y finges no querer a la gente que defenderías hasta el final.",
+          "personality_tag": "vegeta",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Gohan",
+          "description": "Eres Gohan: fuerza tranquila con corazón de estudioso. Preferirías estudiar antes que pelear, pero cuando de verdad importa golpeas más fuerte de lo que nadie esperaba, tú incluido.",
+          "personality_tag": "gohan",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r4",
+          "title": "Piccolo",
+          "description": "Eres Piccolo: la calma en medio de la tormenta. Observas, esperas y cuando actúas lo haces con precisión: el mentor exigente que todos necesitan aunque todavía no lo sepan.",
+          "personality_tag": "piccolo",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Krilin",
+          "description": "Eres Krilin: la persona más valiente sin superpoderes. No necesitas nada especial: te presentas, sueltas el chiste, aguantas el golpe y mantienes a tus amigos en pie cuando cuenta.",
+          "personality_tag": "krillin",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Bulma",
+          "description": "Eres Bulma: genio sin paciencia para tonterías. Inventas tus propias soluciones, pones en su sitio a guerreros y dioses por igual, y casi siempre consigues lo que quieres.",
+          "personality_tag": "bulma",
+          "background_theme": "ice"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Aparece un rival claramente más fuerte que tú. Tu primera idea es…",
+          "options": [
+            {
+              "id": "a",
+              "text": "¡Por fin! Una pelea de verdad.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "Entrenaré hasta superarlo, cueste lo que cueste.",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "¿Cómo termino esto sin que nadie salga herido?",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "d",
+              "text": "Observar primero. Atacar cuando vea el patrón.",
+              "personality_tags": ["piccolo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Elige una tarde ideal:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una cena tranquila y un capítulo de un buen libro.",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "b",
+              "text": "Agua y silencio: comer es solo recargar energía.",
+              "personality_tags": ["piccolo"]
+            },
+            {
+              "id": "c",
+              "text": "Lo que estén cocinando en casa de un amigo: importa la compañía.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "Algo excelente, pagado con tu último invento.",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu papel en el grupo suele ser…",
+          "options": [
+            {
+              "id": "a",
+              "text": "El que siempre aparece, pase lo que pase.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "b",
+              "text": "La mente con las herramientas y el plan.",
+              "personality_tags": ["bulma"]
+            },
+            {
+              "id": "c",
+              "text": "El que levanta el ánimo y saca lo mejor de todos.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "d",
+              "text": "El rival silencioso que obliga a todos a esforzarse más.",
+              "personality_tags": ["vegeta"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué no te perdonarías nunca?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Desaprovechar la oportunidad de hacerte más fuerte.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "Quedarte por detrás de tu rival.",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "Fallarle a alguien pudiendo haber ayudado.",
+              "personality_tags": ["gohan"]
+            },
+            {
+              "id": "d",
+              "text": "Perder el control de una situación que debiste prever.",
+              "personality_tags": ["piccolo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "¿Cómo mejoras de verdad?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Estudiando la teoría y aplicándola una vez, perfecta.",
+              "personality_tags": ["gohan", "piccolo"]
+            },
+            {
+              "id": "b",
+              "text": "Solo, con peso extra y meditación.",
+              "personality_tags": ["piccolo", "gohan"]
+            },
+            {
+              "id": "c",
+              "text": "Repitiendo lo básico con un amigo hasta que salga solo.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "Construyendo una máquina que entrene por ti.",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu peor costumbre, seamos honestos:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Subestimarte: has aguantado peleas de otro nivel.",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "b",
+              "text": "Gritar primero y pedir perdón después.",
+              "personality_tags": ["bulma"]
+            },
+            {
+              "id": "c",
+              "text": "Olvidar lo pequeño: recados, horarios, nombres.",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "d",
+              "text": "Convertir cualquier cosa amistosa en una competencia.",
+              "personality_tags": ["vegeta"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige una frase para vivir:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Más fuerte que ayer: ese es todo el plan.'",
+              "personality_tags": ["goku"]
+            },
+            {
+              "id": "b",
+              "text": "'Príncipe o rival, da igual: nunca segundo.'",
+              "personality_tags": ["vegeta"]
+            },
+            {
+              "id": "c",
+              "text": "'Valiente no es no tener miedo: es presentarse igual.'",
+              "personality_tags": ["krillin"]
+            },
+            {
+              "id": "d",
+              "text": "'No hay problema que una mente brillante no resuelva.'",
+              "personality_tags": ["bulma"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-my-hero-academia-character-are-you",
+      "title": "Which My Hero Academia Character Are You?",
+      "description": "Deku, Bakugo, Todoroki or someone else in Class 1-A — seven questions to find out which My Hero Academia personality fits you.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["my hero academia", "personality quiz", "anime", "quirks", "heroes"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Izuku Midoriya (Deku)",
+          "description": "You're Deku: a walking hero encyclopedia with a heart to match. You analyze everything, tear up a little, then throw yourself into the rescue anyway — preparation plus courage is your whole deal.",
+          "personality_tag": "deku",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Katsuki Bakugo",
+          "description": "You're Bakugo: a perfectionist explosion. 'Good enough' doesn't exist, second place doesn't count, and under the temper is someone who refuses to lose because losing means failing people.",
+          "personality_tag": "bakugo",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r3",
+          "title": "Shoto Todoroki",
+          "description": "You're Todoroki: cool-headed and quietly powerful. You do things your own way, in your own time — deadpan on the outside, fiercely loyal underneath it all.",
+          "personality_tag": "todoroki",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r4",
+          "title": "Ochaco Uraraka",
+          "description": "You're Uraraka: warmth with a work ethic. You chase your goal for the people you love, stay kind under pressure, and doubt yourself a little less every single day.",
+          "personality_tag": "uraraka",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Tenya Iida",
+          "description": "You're Iida: order, duty and a hand-chop for emphasis. Rules aren't a cage to you — they're how you protect people, and you'd rather be earnest than cool.",
+          "personality_tag": "iida",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Eijiro Kirishima",
+          "description": "You're Kirishima: unbreakable in spirit, not just in quirk. You hype your friends, take hits head-on, and believe that doing the right thing while scared still counts — maybe most of all.",
+          "personality_tag": "kirishima",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your dream needs one huge leap. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Study everyone who did it before and take notes.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "Jump — you were going to win anyway.",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "Use the strengths you have and tune out the noise.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "d",
+              "text": "Do it for the people back home who believe in you.",
+              "personality_tags": ["uraraka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "A teammate is doubting themselves before the big day. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Say a few quiet, honest words and get back to work.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "b",
+              "text": "Stay close, cheer them on, make them laugh.",
+              "personality_tags": ["uraraka"]
+            },
+            {
+              "id": "c",
+              "text": "Deliver a structured pep talk with a plan attached.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "Tell them doing it scared is the manliest thing there is.",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "In a group project, you're the one who…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sets the schedule and keeps everyone on task.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "b",
+              "text": "Keeps morale up and carries the heavy stuff.",
+              "personality_tags": ["kirishima", "uraraka"]
+            },
+            {
+              "id": "c",
+              "text": "Does triple the research and shares all of it.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "d",
+              "text": "Does your part perfectly and expects the same.",
+              "personality_tags": ["bakugo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What does the word 'hero' mean to you?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Someone who saves others before thinking about it.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "Someone who always wins — that's the whole job.",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "Someone who uses power without being consumed by it.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "d",
+              "text": "Someone who makes people feel safe enough to smile.",
+              "personality_tags": ["uraraka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your training philosophy:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Master both halves of yourself — even the one you hate.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "b",
+              "text": "Push your limit a little further every single day.",
+              "personality_tags": ["uraraka", "todoroki"]
+            },
+            {
+              "id": "c",
+              "text": "Discipline: repeat the basics until they're reflexes.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "Take the hits head-on and get back up smiling.",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "A weakness you'd admit to a friend:",
+          "options": [
+            {
+              "id": "a",
+              "text": "You panic when there's no rule for the situation.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "b",
+              "text": "You take the jokes too far trying to keep things light.",
+              "personality_tags": ["kirishima"]
+            },
+            {
+              "id": "c",
+              "text": "You ramble — muttering analysis out loud is a tell.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "d",
+              "text": "You can't accept help even when you really need it.",
+              "personality_tags": ["bakugo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick a battle cry:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'I have to keep going — people are counting on me!'",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "'I win because I refuse to lose!'",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "'Rules and duty exist to protect everyone.'",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "'Unbreakable! Let's do this!'",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-my-hero-academia-eres",
+      "title": "¿Qué personaje de My Hero Academia eres?",
+      "description": "¿Deku, Bakugo, Todoroki u otro de la clase 1-A? Siete preguntas para descubrir qué personalidad de My Hero Academia encaja contigo.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["my hero academia", "test de personalidad", "anime", "quirks", "héroes"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Izuku Midoriya (Deku)",
+          "description": "Eres Deku: una enciclopedia de héroes con un corazón a la altura. Analizas todo, se te humedecen los ojos y luego te lanzas al rescate de todas formas: preparación más coraje, esa es tu fórmula.",
+          "personality_tag": "deku",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Katsuki Bakugo",
+          "description": "Eres Bakugo: un perfeccionista explosivo. El 'suficientemente bueno' no existe, el segundo puesto no cuenta, y bajo el mal genio hay alguien que se niega a perder porque perder es fallarle a la gente.",
+          "personality_tag": "bakugo",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r3",
+          "title": "Shoto Todoroki",
+          "description": "Eres Todoroki: cabeza fría y poder discreto. Haces las cosas a tu manera y a tu ritmo: cara de pocos amigos por fuera, lealtad absoluta por dentro.",
+          "personality_tag": "todoroki",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r4",
+          "title": "Ochaco Uraraka",
+          "description": "Eres Uraraka: calidez con ética de trabajo. Persigues tu meta por la gente que quieres, sigues siendo amable bajo presión y cada día dudas un poco menos de ti.",
+          "personality_tag": "uraraka",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Tenya Iida",
+          "description": "Eres Iida: orden, deber y un golpe de mano en el aire para remarcarlo. Las reglas no son una jaula para ti: son la forma de proteger a la gente, y prefieres ser serio que ser cool.",
+          "personality_tag": "iida",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Eijiro Kirishima",
+          "description": "Eres Kirishima: inquebrantable de espíritu, no solo de quirk. Animas a tus amigos, recibes los golpes de frente y crees que hacer lo correcto con miedo también cuenta; quizá es lo que más cuenta.",
+          "personality_tag": "kirishima",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu sueño exige un salto enorme. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Estudias a todos los que lo lograron antes y tomas notas.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "Saltas: ibas a ganar de todas formas.",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "Usas las fortalezas que tienes e ignoras el ruido.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "d",
+              "text": "Lo haces por la gente de casa que cree en ti.",
+              "personality_tags": ["uraraka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Un compañero duda de sí mismo antes del gran día. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Le dices unas palabras honestas y vuelves al trabajo.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "b",
+              "text": "Te quedas cerca, lo animas y lo haces reír.",
+              "personality_tags": ["uraraka"]
+            },
+            {
+              "id": "c",
+              "text": "Le das una charla motivadora con plan incluido.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "Le dices que hacerlo con miedo es lo más admirable que hay.",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "En un trabajo en grupo, tú eres quien…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Arma el calendario y mantiene a todos enfocados.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "b",
+              "text": "Levanta la moral y carga con lo pesado.",
+              "personality_tags": ["kirishima", "uraraka"]
+            },
+            {
+              "id": "c",
+              "text": "Investiga el triple y comparte todo lo que aprende.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "d",
+              "text": "Hace su parte a la perfección y espera lo mismo.",
+              "personality_tags": ["bakugo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué significa la palabra 'héroe' para ti?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Alguien que salva a otros antes de pensarlo.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "Alguien que siempre gana: ese es todo el trabajo.",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "Alguien que usa su poder sin dejarse consumir por él.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "d",
+              "text": "Alguien que hace que la gente se sienta lo bastante segura para sonreír.",
+              "personality_tags": ["uraraka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu filosofía de entrenamiento:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Dominar ambas mitades de ti, hasta la que odias.",
+              "personality_tags": ["todoroki"]
+            },
+            {
+              "id": "b",
+              "text": "Superar tu límite un poquito más cada día.",
+              "personality_tags": ["uraraka", "todoroki"]
+            },
+            {
+              "id": "c",
+              "text": "Disciplina: repetir lo básico hasta que sea reflejo.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "Recibir los golpes de frente y levantarte sonriendo.",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "La debilidad que le confesarías a un amigo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Entras en pánico cuando no hay una regla para la situación.",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "b",
+              "text": "Te pasas de bromas intentando aligerar el ambiente.",
+              "personality_tags": ["kirishima"]
+            },
+            {
+              "id": "c",
+              "text": "Divagas: murmurar análisis en voz alta te delata.",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "d",
+              "text": "No sabes aceptar ayuda ni cuando de verdad la necesitas.",
+              "personality_tags": ["bakugo"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige un grito de guerra:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'¡Tengo que seguir: hay gente contando conmigo!'",
+              "personality_tags": ["deku"]
+            },
+            {
+              "id": "b",
+              "text": "'¡Gano porque me niego a perder!'",
+              "personality_tags": ["bakugo"]
+            },
+            {
+              "id": "c",
+              "text": "'Las reglas y el deber existen para proteger a todos.'",
+              "personality_tags": ["iida"]
+            },
+            {
+              "id": "d",
+              "text": "'¡Inquebrantable! ¡Vamos a hacerlo!'",
+              "personality_tags": ["kirishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-death-note-character-are-you",
+      "title": "Which Death Note Character Are You?",
+      "description": "Light, L, Ryuk or someone else from the cat-and-mouse game — seven questions to find out which Death Note mind matches yours.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["death note", "personality quiz", "anime", "kira", "detective"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Light Yagami",
+          "description": "You're Light: top of the class with a vision too big for the rules. Charming, disciplined and five moves ahead — the only real question is how much of yourself you'd trade for control.",
+          "personality_tag": "light",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "L",
+          "description": "You're L: the world's most eccentric genius. Cake for fuel, bare feet for comfort, and a brain that hears the lie before the sentence ends — social norms simply aren't evidence.",
+          "personality_tag": "l",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "Misa Amane",
+          "description": "You're Misa: devotion turned up to eleven. You love loudly, act first and light up every room you enter — impulsive, absolutely, but no one questions your loyalty.",
+          "personality_tag": "misa",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Ryuk",
+          "description": "You're Ryuk: the amused spectator. Humans fascinate you, apples sustain you, and you'd rather watch the chaos unfold than pick a side — boredom is your only enemy.",
+          "personality_tag": "ryuk",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r5",
+          "title": "Near",
+          "description": "You're Near: calm, toy-strewn and surgical. You never raise your voice because you never need to — the puzzle always breaks before your patience does.",
+          "personality_tag": "near",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Soichiro Yagami",
+          "description": "You're Soichiro: duty in human form. You carry the case, the team and your family at the same time, and you choose the right thing even when it costs the most.",
+          "personality_tag": "soichiro",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "An impossible mystery lands on your desk. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Solve it publicly — recognition matters.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "Solve it alone, with cake, at 3 a.m.",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "Charge in head-first — gut over proof.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "d",
+              "text": "Grab snacks and watch how it unfolds.",
+              "personality_tags": ["ryuk"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Your ideal weekend:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Spotlight, friends and a little chaos.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "b",
+              "text": "Lying around, snacking, watching humans be humans.",
+              "personality_tags": ["ryuk"]
+            },
+            {
+              "id": "c",
+              "text": "A puzzle no one else has cracked.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "d",
+              "text": "A quiet dinner with the family, phone off.",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "A power you're not supposed to have falls into your hands. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Test it quietly and map every rule.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "b",
+              "text": "Hand it over — rules exist for a reason.",
+              "personality_tags": ["soichiro"]
+            },
+            {
+              "id": "c",
+              "text": "Use it to remake the world in your image.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "d",
+              "text": "Set a trap for whoever lost it.",
+              "personality_tags": ["l"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What wins arguments for you?",
+          "options": [
+            {
+              "id": "a",
+              "text": "A plan three moves deep.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "Evidence and probability — nothing else.",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "Pure stubborn passion.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "d",
+              "text": "You don't argue. You observe. It's funnier.",
+              "personality_tags": ["ryuk"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Someone close suspects your secret. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Distract them with charm and noise.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "b",
+              "text": "Do nothing — their next move is more interesting.",
+              "personality_tags": ["ryuk"]
+            },
+            {
+              "id": "c",
+              "text": "Feed them a false trail and watch where they take it.",
+              "personality_tags": ["near", "ryuk"]
+            },
+            {
+              "id": "d",
+              "text": "Tell the truth and accept the consequences.",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your blind spot:",
+          "options": [
+            {
+              "id": "a",
+              "text": "You can seem cold when you're just focused.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "b",
+              "text": "You carry everyone else's burden as your own.",
+              "personality_tags": ["soichiro"]
+            },
+            {
+              "id": "c",
+              "text": "You underestimate how much the mask costs.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "d",
+              "text": "Social conventions — you simply ignore them.",
+              "personality_tags": ["l", "misa"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick a motto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'The world can be better — if someone has the will.'",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "'I only need to be right once.'",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "'Stay calm. The pieces always reveal the player.'",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "d",
+              "text": "'Do what's right, even when it costs you.'",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-death-note-eres",
+      "title": "¿Qué personaje de Death Note eres?",
+      "description": "¿Light, L, Ryuk u otro jugador del juego del gato y el ratón? Siete preguntas para saber qué mente de Death Note coincide con la tuya.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["death note", "test de personalidad", "anime", "kira", "detective"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Light Yagami",
+          "description": "Eres Light: el mejor de la clase con una visión demasiado grande para las reglas. Encantador, disciplinado y cinco jugadas por delante; la única pregunta real es cuánto de ti cambiarías por el control.",
+          "personality_tag": "light",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "L",
+          "description": "Eres L: el genio más excéntrico del mundo. Pastel como combustible, pies descalzos por comodidad y un cerebro que detecta la mentira antes de que termine la frase: las normas sociales no son evidencia.",
+          "personality_tag": "l",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r3",
+          "title": "Misa Amane",
+          "description": "Eres Misa: devoción al máximo volumen. Amas en voz alta, actúas primero y enciendes cada sala en la que entras; impulsiva, sí, pero nadie cuestiona tu lealtad.",
+          "personality_tag": "misa",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Ryuk",
+          "description": "Eres Ryuk: el espectador divertido. Los humanos te fascinan, las manzanas te sostienen y prefieres ver el caos desarrollarse antes que elegir un bando: el aburrimiento es tu único enemigo.",
+          "personality_tag": "ryuk",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r5",
+          "title": "Near",
+          "description": "Eres Near: calma, juguetes y precisión quirúrgica. Nunca alzas la voz porque nunca lo necesitas: el rompecabezas siempre se rompe antes que tu paciencia.",
+          "personality_tag": "near",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Soichiro Yagami",
+          "description": "Eres Soichiro: el deber hecho persona. Cargas el caso, el equipo y a tu familia al mismo tiempo, y eliges lo correcto aunque sea lo que más cuesta.",
+          "personality_tag": "soichiro",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un misterio imposible llega a tu escritorio. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo resuelves en público: el reconocimiento importa.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "Lo resuelves a solas, con pastel, a las 3 de la mañana.",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "Te lanzas de cabeza: la intuición antes que las pruebas.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "d",
+              "text": "Tomas un tentempié y miras cómo se desarrolla.",
+              "personality_tags": ["ryuk"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Tu fin de semana ideal:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Reflectores, amigos y un poco de caos.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "b",
+              "text": "Tirado en casa, picando algo, viendo a los humanos ser humanos.",
+              "personality_tags": ["ryuk"]
+            },
+            {
+              "id": "c",
+              "text": "Un rompecabezas que nadie más ha resuelto.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "d",
+              "text": "Una cena tranquila en familia, con el teléfono apagado.",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Cae en tus manos un poder que no deberías tener. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo pruebas en silencio y mapeas cada regla.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "b",
+              "text": "Lo entregas: las reglas existen por algo.",
+              "personality_tags": ["soichiro"]
+            },
+            {
+              "id": "c",
+              "text": "Lo usas para rehacer el mundo a tu imagen.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "d",
+              "text": "Le tiendes una trampa a quien lo perdió.",
+              "personality_tags": ["l"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué te gana las discusiones?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un plan pensado tres jugadas adelante.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "Evidencia y probabilidad: nada más.",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "Pura pasión terca.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "d",
+              "text": "No discutes. Observas. Es más divertido.",
+              "personality_tags": ["ryuk"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Alguien cercano sospecha tu secreto. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lo distraes con encanto y ruido.",
+              "personality_tags": ["misa"]
+            },
+            {
+              "id": "b",
+              "text": "No haces nada: su siguiente movimiento es más interesante.",
+              "personality_tags": ["ryuk"]
+            },
+            {
+              "id": "c",
+              "text": "Le dejas un rastro falso y observas a dónde va.",
+              "personality_tags": ["near", "ryuk"]
+            },
+            {
+              "id": "d",
+              "text": "Dices la verdad y aceptas las consecuencias.",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu punto ciego:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Puedes parecer frío cuando solo estás concentrado.",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "b",
+              "text": "Cargas la responsabilidad de todos como si fuera tuya.",
+              "personality_tags": ["soichiro"]
+            },
+            {
+              "id": "c",
+              "text": "Subestimas lo que cuesta mantener la máscara.",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "d",
+              "text": "Las convenciones sociales: simplemente las ignoras.",
+              "personality_tags": ["l", "misa"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige una frase:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'El mundo puede ser mejor, si alguien tiene la voluntad.'",
+              "personality_tags": ["light"]
+            },
+            {
+              "id": "b",
+              "text": "'Solo necesito tener razón una vez.'",
+              "personality_tags": ["l"]
+            },
+            {
+              "id": "c",
+              "text": "'Mantén la calma: las piezas siempre revelan al jugador.'",
+              "personality_tags": ["near"]
+            },
+            {
+              "id": "d",
+              "text": "'Haz lo correcto, aunque te cueste.'",
+              "personality_tags": ["soichiro"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-fullmetal-alchemist-character-are-you",
+      "title": "Which Fullmetal Alchemist Character Are You?",
+      "description": "Edward, Alphonse, Mustang or another face from Amestris — seven questions to find out which Fullmetal Alchemist spirit is yours.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["fullmetal alchemist", "personality quiz", "anime", "manga", "elric"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Edward Elric",
+          "description": "You're Edward: the youngest genius in the room with the shortest fuse. You hate being talked down to, you never break a promise, and 'equivalent exchange' runs your life — give everything, take nothing unearned.",
+          "personality_tag": "edward",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Alphonse Elric",
+          "description": "You're Alphonse: as gentle as armor can be. You hold people together while quietly carrying more than anyone sees, and your kindness outlasts almost anyone's pride.",
+          "personality_tag": "alphonse",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Roy Mustang",
+          "description": "You're Mustang: ambition wrapped in charm. You play the long game, protect your people fiercely, and intend to change the whole system — with a snap of your fingers if needed.",
+          "personality_tag": "roy",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Winry Rockbell",
+          "description": "You're Winry: the mechanic everyone depends on. You say exactly what you think, fix whatever is broken — automail or people — and your warmth is the real engineering.",
+          "personality_tag": "winry",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Riza Hawkeye",
+          "description": "You're Riza: calm, precise and utterly dependable. You would rather hold the line quietly than take the spotlight, and the people you protect never fully know how much you do.",
+          "personality_tag": "riza",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Alex Louis Armstrong",
+          "description": "You're Armstrong: enthusiasm passed down through generations. You do everything — strength, kindness, art — at full volume, with sparkles, and somehow it always works.",
+          "personality_tag": "armstrong",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A friend loses something precious. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Move heaven and earth to get it back — no deals, no shortcuts.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "Stay with them first; fixing it comes second.",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "Work the angles from the top until it's resolved.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "d",
+              "text": "Rebuild it with your own hands.",
+              "personality_tags": ["winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "The thing that keeps you going:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A promise — and a country you intend to change.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "b",
+              "text": "Knowing your work keeps people whole.",
+              "personality_tags": ["winry"]
+            },
+            {
+              "id": "c",
+              "text": "The people who'd fall apart without you watching their backs.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "Family tradition — and the joy of doing it beautifully.",
+              "personality_tags": ["armstrong"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your reputation in your circle:",
+          "options": [
+            {
+              "id": "a",
+              "text": "The steady one trusted with the hardest calls.",
+              "personality_tags": ["riza", "roy"]
+            },
+            {
+              "id": "b",
+              "text": "Unforgettable — enthusiasm counts as a talent.",
+              "personality_tags": ["armstrong"]
+            },
+            {
+              "id": "c",
+              "text": "Brilliant and stubborn, with a famous temper.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "d",
+              "text": "The kind one who somehow out-stubborns the stubborn.",
+              "personality_tags": ["alphonse"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Someone calls you out in public. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Snap back twice as loud — especially if they mentioned height.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "Take a breath and answer like a reasonable person.",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "Smile politely; they'll understand later.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "d",
+              "text": "Argue — then fix their problem anyway.",
+              "personality_tags": ["winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Pick a project:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A five-year plan to run the whole thing.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "b",
+              "text": "A custom automail arm, fitted to the millimeter.",
+              "personality_tags": ["winry"]
+            },
+            {
+              "id": "c",
+              "text": "A training regimen you'll actually keep.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "A statue, a feast and muscles — all magnificent.",
+              "personality_tags": ["armstrong"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your philosophy on rules:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Follow them — someone has to hold the line.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "b",
+              "text": "Tradition is a rule you choose to love.",
+              "personality_tags": ["armstrong"]
+            },
+            {
+              "id": "c",
+              "text": "Rules bend. Equivalent exchange doesn't.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "d",
+              "text": "Mercy first; the rules can argue about it after.",
+              "personality_tags": ["alphonse"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Choose a principle:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Equivalent exchange: you give something to get something.'",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "'Kindness is its own kind of strength.'",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "'Protect your own — quietly, completely.'",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "'Do it with heart, or don't do it at all.'",
+              "personality_tags": ["armstrong", "winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-fullmetal-alchemist-eres",
+      "title": "¿Qué personaje de Fullmetal Alchemist eres?",
+      "description": "¿Edward, Alphonse, Mustang u otra cara de Amestris? Siete preguntas para descubrir qué espíritu de Fullmetal Alchemist es el tuyo.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["fullmetal alchemist", "test de personalidad", "anime", "manga", "elric"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Edward Elric",
+          "description": "Eres Edward: el genio más joven de la sala con la mecha más corta. Odias que te subestimen, jamás rompes una promesa y el 'intercambio equivalente' gobierna tu vida: lo das todo y no tomas nada que no hayas ganado.",
+          "personality_tag": "edward",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Alphonse Elric",
+          "description": "Eres Alphonse: tan amable como una armadura permite. Mantienes unida a la gente mientras cargas en silencio más de lo que nadie ve, y tu bondad dura más que el orgullo de casi todos.",
+          "personality_tag": "alphonse",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r3",
+          "title": "Roy Mustang",
+          "description": "Eres Mustang: ambición envuelta en carisma. Juegas a largo plazo, proteges a tu gente con fiereza y planeas cambiar el sistema entero, con un chasquido de dedos si hace falta.",
+          "personality_tag": "roy",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Winry Rockbell",
+          "description": "Eres Winry: la mecánica en la que todos confían. Dices exactamente lo que piensas, arreglas lo que se rompe —automail o personas— y tu calidez es la verdadera ingeniería.",
+          "personality_tag": "winry",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Riza Hawkeye",
+          "description": "Eres Riza: serena, precisa y absolutamente confiable. Prefieres sostener la línea en silencio antes que buscar el reflector, y a quienes proteges nunca saben del todo cuánto haces.",
+          "personality_tag": "riza",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r6",
+          "title": "Alex Louis Armstrong",
+          "description": "Eres Armstrong: entusiasmo heredado por generaciones. Haces todo —fuerza, bondad, arte— a todo volumen y con brillantina, y de alguna forma siempre funciona.",
+          "personality_tag": "armstrong",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un amigo pierde algo valiosísimo. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mueves cielo y tierra para recuperarlo: sin tratos ni atajos.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "Te quedas con él primero; arreglarlo viene después.",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "Mueves los hilos desde arriba hasta resolverlo.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "d",
+              "text": "Lo reconstruyes con tus propias manos.",
+              "personality_tags": ["winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Lo que te mantiene en pie:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una promesa, y un país que piensas cambiar.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "b",
+              "text": "Saber que tu trabajo mantiene a la gente entera.",
+              "personality_tags": ["winry"]
+            },
+            {
+              "id": "c",
+              "text": "La gente que se vendría abajo sin ti cuidándoles la espalda.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "La tradición familiar, y el gusto de hacerlo todo con belleza.",
+              "personality_tags": ["armstrong"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu reputación en tu círculo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "La persona estable a la que le encargan las decisiones difíciles.",
+              "personality_tags": ["riza", "roy"]
+            },
+            {
+              "id": "b",
+              "text": "Inolvidable: el entusiasmo también es un talento.",
+              "personality_tags": ["armstrong"]
+            },
+            {
+              "id": "c",
+              "text": "Brillante y terco, con un temperamento célebre.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "d",
+              "text": "El amable que de alguna forma es más terco que los tercos.",
+              "personality_tags": ["alphonse"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Alguien te reta en público. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Respondes el doble de fuerte, sobre todo si habló de tu estatura.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "Respiras y contestas como una persona razonable.",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "Sonríes con educación; ya lo entenderá después.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "d",
+              "text": "Discutes, y luego le arreglas el problema de todos modos.",
+              "personality_tags": ["winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Elige un proyecto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un plan a cinco años para dirigirlo todo.",
+              "personality_tags": ["roy"]
+            },
+            {
+              "id": "b",
+              "text": "Un brazo de automail a medida, ajustado al milímetro.",
+              "personality_tags": ["winry"]
+            },
+            {
+              "id": "c",
+              "text": "Un régimen de entrenamiento que de verdad vas a cumplir.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "Una estatua, un banquete y músculos: todo magnífico.",
+              "personality_tags": ["armstrong"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu filosofía sobre las reglas:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Seguirlas: alguien tiene que sostener la línea.",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "b",
+              "text": "La tradición es una regla que eliges amar.",
+              "personality_tags": ["armstrong"]
+            },
+            {
+              "id": "c",
+              "text": "Las reglas se doblan. El intercambio equivalente, no.",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "d",
+              "text": "Primero la piedad; que las reglas lo discutan después.",
+              "personality_tags": ["alphonse"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige un principio:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Intercambio equivalente: hay que dar algo para obtener algo.'",
+              "personality_tags": ["edward"]
+            },
+            {
+              "id": "b",
+              "text": "'La bondad es una forma de fuerza.'",
+              "personality_tags": ["alphonse"]
+            },
+            {
+              "id": "c",
+              "text": "'Protege a los tuyos: en silencio y por completo.'",
+              "personality_tags": ["riza"]
+            },
+            {
+              "id": "d",
+              "text": "'Hazlo con el corazón o no lo hagas.'",
+              "personality_tags": ["armstrong", "winry"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-bleach-character-are-you",
+      "title": "Which Bleach Character Are You?",
+      "description": "Ichigo, Rukia, Hitsugaya or another Soul Reaper at heart — seven questions to find out which Bleach personality you carry.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["bleach", "personality quiz", "anime", "manga", "soul reaper"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Ichigo Kurosaki",
+          "description": "You're Ichigo: the delinquent-looking softie who protects first and asks later. You never wanted the spotlight — you wanted everyone home safe, and you'll break your own limits to make it happen.",
+          "personality_tag": "ichigo",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Rukia Kuchiki",
+          "description": "You're Rukia: composed, dutiful and quietly odd. You hold yourself to a code, explain things with terrible drawings, and care far more than your serious face lets on.",
+          "personality_tag": "rukia",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Orihime Inoue",
+          "description": "You're Orihime: the gentle one with the wildest imagination. You heal what others break — wounds, moods, awkward silences — and your weird ideas are weirder and warmer than anyone expects.",
+          "personality_tag": "orihime",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Uryu Ishida",
+          "description": "You're Uryu: pride and precision, with a sewing kit behind the swagger. You insist you don't care about the group while showing up early, prepared, and impossible to rattle.",
+          "personality_tag": "uryu",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Renji Abarai",
+          "description": "You're Renji: the scrappy lieutenant who never stays down. Loud, tattooed and forever chasing the person ahead of you — and every loss just makes the next round more interesting.",
+          "personality_tag": "renji",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r6",
+          "title": "Toshiro Hitsugaya",
+          "description": "You're Hitsugaya: the youngest captain for a reason. Serious, disciplined and allergic to nonsense, you carry responsibility that arrived early — and you make it look earned.",
+          "personality_tag": "hitsugaya",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A friend is in real trouble. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Charge in — protecting people isn't a choice.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "Do your duty, and help anyway.",
+              "personality_tags": ["rukia"]
+            },
+            {
+              "id": "c",
+              "text": "Stay with them and heal whatever's broken.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Handle it your own way — no thanks needed.",
+              "personality_tags": ["uryu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Pick a hobby:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Daydreaming — and inventing meals no one else would.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "b",
+              "text": "Sewing club. Precision is relaxing.",
+              "personality_tags": ["uryu"]
+            },
+            {
+              "id": "c",
+              "text": "Training until your arms give out.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "Anything that doesn't involve crowds or small talk.",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "People's first impression of you is usually…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Loud, intense, maybe a little scrappy.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "b",
+              "text": "Way too serious for your age.",
+              "personality_tags": ["hitsugaya"]
+            },
+            {
+              "id": "c",
+              "text": "Rough around the edges — until they see you defend someone.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "d",
+              "text": "Composed, proper and a bit hard to read.",
+              "personality_tags": ["rukia"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Your temperamental reputation:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Short fuse, soft heart.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "Calm — until someone disrespects what you love.",
+              "personality_tags": ["rukia"]
+            },
+            {
+              "id": "c",
+              "text": "Too kind to hold a grudge.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Cold on the surface, stubborn underneath.",
+              "personality_tags": ["uryu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Your secret talent:",
+          "options": [
+            {
+              "id": "a",
+              "text": "A wild imagination — and even wilder cooking.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "b",
+              "text": "Craftsmanship nobody expects from you.",
+              "personality_tags": ["uryu"]
+            },
+            {
+              "id": "c",
+              "text": "Getting back up. Every. Single. Time.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "Reading a room faster than anyone.",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "You'd rather be known as…",
+          "options": [
+            {
+              "id": "a",
+              "text": "The one who never stops chasing the top.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "b",
+              "text": "The prodigy who earns it again every day.",
+              "personality_tags": ["hitsugaya"]
+            },
+            {
+              "id": "c",
+              "text": "The one who showed up when it mattered.",
+              "personality_tags": ["ichigo", "orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Someone who did right by everyone.",
+              "personality_tags": ["rukia"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Choose a motto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'I protect what's mine. All of it.'",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "'Pride in the work, not the title.'",
+              "personality_tags": ["rukia", "uryu"]
+            },
+            {
+              "id": "c",
+              "text": "'Keep chasing — the gap is closing.'",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "'Talent means nothing without discipline.'",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-bleach-eres",
+      "title": "¿Qué personaje de Bleach eres?",
+      "description": "¿Ichigo, Rukia, Hitsugaya u otro shinigami de corazón? Siete preguntas para saber qué personalidad de Bleach llevas dentro.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["bleach", "test de personalidad", "anime", "manga", "shinigami"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Ichigo Kurosaki",
+          "description": "Eres Ichigo: el de cara de matón con corazón blando que protege primero y pregunta después. Nunca quisiste el reflector: quieres a todos a salvo en casa, y rompes tus propios límites para lograrlo.",
+          "personality_tag": "ichigo",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Rukia Kuchiki",
+          "description": "Eres Rukia: serena, cumplidora y discretamente rara. Te exiges un código, explicas las cosas con dibujos terribles y te importa mucho más de lo que tu cara seria deja ver.",
+          "personality_tag": "rukia",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Orihime Inoue",
+          "description": "Eres Orihime: la dulce con la imaginación más salvaje. Curas lo que otros rompen —heridas, ánimos, silencios incómodos— y tus ideas raras son más cálidas de lo que nadie espera.",
+          "personality_tag": "orihime",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r4",
+          "title": "Uryu Ishida",
+          "description": "Eres Uryu: orgullo y precisión, con costurero detrás de la pose. Insistes en que el grupo no te importa mientras llegas temprano, preparado e imposible de desconcertar.",
+          "personality_tag": "uryu",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r5",
+          "title": "Renji Abarai",
+          "description": "Eres Renji: el teniente callejero que jamás se queda en el suelo. Ruidoso, tatuado y eternamente persiguiendo al que va delante, y cada derrota solo hace más interesante la siguiente ronda.",
+          "personality_tag": "renji",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r6",
+          "title": "Toshiro Hitsugaya",
+          "description": "Eres Hitsugaya: el capitán más joven por algo. Serio, disciplinado y alérgico a las tonterías: cargas una responsabilidad que llegó temprano y haces que parezca merecida.",
+          "personality_tag": "hitsugaya",
+          "background_theme": "ocean"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un amigo está en problemas de verdad. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Te lanzas de cabeza: proteger a la gente no es opcional.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "Cumples tu deber, y ayudas de todas formas.",
+              "personality_tags": ["rukia"]
+            },
+            {
+              "id": "c",
+              "text": "Te quedas con él y curas lo que se rompió.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Lo resuelves a tu manera: no hacen falta gracias.",
+              "personality_tags": ["uryu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Elige un pasatiempo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Soñar despierto e inventar comidas que nadie más haría.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "b",
+              "text": "El club de costura: la precisión relaja.",
+              "personality_tags": ["uryu"]
+            },
+            {
+              "id": "c",
+              "text": "Entrenar hasta que los brazos no den más.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "Cualquier cosa que no implique multitudes ni charla vacía.",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "La primera impresión que la gente tiene de ti suele ser…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ruidoso, intenso, quizá un poco callejero.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "b",
+              "text": "Demasiado serio para tu edad.",
+              "personality_tags": ["hitsugaya"]
+            },
+            {
+              "id": "c",
+              "text": "Borde por fuera, hasta que te ven defender a alguien.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "d",
+              "text": "Sereno, correcto y algo difícil de leer.",
+              "personality_tags": ["rukia"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "Tu reputación de carácter:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Mecha corta, corazón blando.",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "Calma, hasta que alguien falta el respeto a lo que amas.",
+              "personality_tags": ["rukia"]
+            },
+            {
+              "id": "c",
+              "text": "Demasiado amable para guardar rencor.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Frío por fuera, terco por dentro.",
+              "personality_tags": ["uryu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Tu talento secreto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una imaginación salvaje, y una cocina aún más salvaje.",
+              "personality_tags": ["orihime"]
+            },
+            {
+              "id": "b",
+              "text": "Una destreza manual que nadie espera de ti.",
+              "personality_tags": ["uryu"]
+            },
+            {
+              "id": "c",
+              "text": "Levantarte. Todas. Y cada. Una. De las veces.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "Leer una sala más rápido que nadie.",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Preferirías ser conocido como…",
+          "options": [
+            {
+              "id": "a",
+              "text": "El que nunca deja de perseguir la cima.",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "b",
+              "text": "El prodigio que se lo gana de nuevo cada día.",
+              "personality_tags": ["hitsugaya"]
+            },
+            {
+              "id": "c",
+              "text": "El que apareció cuando importaba.",
+              "personality_tags": ["ichigo", "orihime"]
+            },
+            {
+              "id": "d",
+              "text": "Alguien que hizo lo correcto con todos.",
+              "personality_tags": ["rukia"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige una frase:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Protejo lo que es mío. Todo.'",
+              "personality_tags": ["ichigo"]
+            },
+            {
+              "id": "b",
+              "text": "'Orgullo en el trabajo, no en el título.'",
+              "personality_tags": ["rukia", "uryu"]
+            },
+            {
+              "id": "c",
+              "text": "'Sigue persiguiendo: la distancia se está cerrando.'",
+              "personality_tags": ["renji"]
+            },
+            {
+              "id": "d",
+              "text": "'El talento no vale nada sin disciplina.'",
+              "personality_tags": ["hitsugaya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-haikyu-character-are-you",
+      "title": "Which Haikyu!! Character Are You?",
+      "description": "Hinata, Kageyama, Oikawa or another player on the court — seven questions to find out which Haikyu!! teammate you are.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["haikyu", "personality quiz", "anime", "volleyball", "karasuno"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Shoyo Hinata",
+          "description": "You're Hinata: the smallest player with the biggest jump. You refuse to be told what you can't reach, turn every scrap into a point, and your optimism is genuinely contagious.",
+          "personality_tag": "hinata",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Tobio Kageyama",
+          "description": "You're Kageyama: the demanding genius of the court. Your standards are brutal — for yourself most of all — and once you learn to trust your team, there's no better partner.",
+          "personality_tag": "kageyama",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Kei Tsukishima",
+          "description": "You're Tsukishima: the sarcastic one reading three plays ahead. You pretend effort is uncool while quietly perfecting your craft — the block nobody gets past twice.",
+          "personality_tag": "tsukishima",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Yu Nishinoya",
+          "description": "You're Nishinoya: the guardian deity of the backcourt. Loud, fearless and allergic to doubt, you throw your whole body at every ball like the floor owes you nothing.",
+          "personality_tag": "nishinoya",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Toru Oikawa",
+          "description": "You're Oikawa: the rival who works harder than any 'genius'. Charm on the surface, grudges underneath — you study everyone, out-prepare everyone, and make it look effortless.",
+          "personality_tag": "oikawa",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Koshi Sugawara",
+          "description": "You're Sugawara: the calm vice-captain every team needs. You read people better than scoreboards, lift the whole room's level quietly, and never need the credit.",
+          "personality_tag": "sugawara",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "In a team, you're…",
+          "options": [
+            {
+              "id": "a",
+              "text": "The spark who jumps highest when it counts.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "The engine: demanding, precise, exact.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "The one reading three plays ahead.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "d",
+              "text": "The wall that never lets the ball drop.",
+              "personality_tags": ["nishinoya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "A teammate makes a big mistake. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Point it out — feelings recover, rallies don't.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "b",
+              "text": "Shrug it off: 'the next one's mine.'",
+              "personality_tags": ["nishinoya"]
+            },
+            {
+              "id": "c",
+              "text": "File it away — useful data for next time.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "Catch their eye and reset them with a grin.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your competitive style:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Out-prepare everyone, then charm the crowd.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "b",
+              "text": "Lift the whole team's level, quietly.",
+              "personality_tags": ["sugawara"]
+            },
+            {
+              "id": "c",
+              "text": "Relentless — every point is winnable.",
+              "personality_tags": ["hinata", "nishinoya"]
+            },
+            {
+              "id": "d",
+              "text": "Ruthless standards, for yourself most of all.",
+              "personality_tags": ["kageyama"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What gets under your skin?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Being told you're too small.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "People who don't try their hardest.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "Over-the-top enthusiasm before noon.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "d",
+              "text": "Nothing — you bounce off walls for fun.",
+              "personality_tags": ["nishinoya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "The crowd would describe you as…",
+          "options": [
+            {
+              "id": "a",
+              "text": "The smug one who keeps scoring anyway.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "b",
+              "text": "The loudest libero alive.",
+              "personality_tags": ["nishinoya"]
+            },
+            {
+              "id": "c",
+              "text": "The rival everyone secretly admires.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "The calm one who steadies the whole team.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your hidden strength:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Hard work disguised as natural talent.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "b",
+              "text": "Reading people better than scoreboards.",
+              "personality_tags": ["sugawara"]
+            },
+            {
+              "id": "c",
+              "text": "Speed and guts nobody taught you.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "d",
+              "text": "Precision others call genius; you call it practice.",
+              "personality_tags": ["kageyama", "tsukishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick a pre-game ritual:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Visualization: jump, score, repeat.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "Extra drills until the toss feels right.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "Milk bread and a mental list of rivals.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "Checking that everyone's head is in the game.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-haikyu-eres",
+      "title": "¿Qué personaje de Haikyu!! eres?",
+      "description": "¿Hinata, Kageyama, Oikawa u otro jugador de la cancha? Siete preguntas para descubrir qué compañero de Haikyu!! eres.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["haikyu", "test de personalidad", "anime", "voleibol", "karasuno"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Shoyo Hinata",
+          "description": "Eres Hinata: el jugador más bajo con el salto más alto. Te niegas a que te digan a qué no puedes llegar, conviertes cada migaja en un punto y tu optimismo es de verdad contagioso.",
+          "personality_tag": "hinata",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r2",
+          "title": "Tobio Kageyama",
+          "description": "Eres Kageyama: el genio exigente de la cancha. Tus estándares son brutales, contigo antes que con nadie, y cuando aprendes a confiar en tu equipo no hay mejor compañero.",
+          "personality_tag": "kageyama",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Kei Tsukishima",
+          "description": "Eres Tsukishima: el sarcástico que lee tres jugadas por delante. Finges que esforzarse no es cool mientras perfeccionas tu juego en silencio: el bloqueo que nadie supera dos veces.",
+          "personality_tag": "tsukishima",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Yu Nishinoya",
+          "description": "Eres Nishinoya: la deidad guardiana de la zaga. Ruidoso, intrépido y alérgico a la duda: te lanzas con todo el cuerpo a cada balón como si el suelo no te debiera nada.",
+          "personality_tag": "nishinoya",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Toru Oikawa",
+          "description": "Eres Oikawa: el rival que trabaja más duro que cualquier 'genio'. Carisma por fuera, cuentas pendientes por dentro: estudias a todos, superas a todos y haces que parezca fácil.",
+          "personality_tag": "oikawa",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r6",
+          "title": "Koshi Sugawara",
+          "description": "Eres Sugawara: el subcapitán sereno que todo equipo necesita. Lees a la gente mejor que el marcador, subes el nivel del equipo en silencio y nunca necesitas el crédito.",
+          "personality_tag": "sugawara",
+          "background_theme": "forest"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "En un equipo, tú eres…",
+          "options": [
+            {
+              "id": "a",
+              "text": "La chispa que salta más alto cuando cuenta.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "El motor: exigente, preciso, exacto.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "El que lee tres jugadas por delante.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "d",
+              "text": "La muralla que nunca deja caer el balón.",
+              "personality_tags": ["nishinoya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Un compañero comete un error garrafal. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Se lo señalas: los sentimientos se recuperan, los rallies no.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "b",
+              "text": "Lo ignoras: 'el siguiente es mío'.",
+              "personality_tags": ["nishinoya"]
+            },
+            {
+              "id": "c",
+              "text": "Lo archivas: dato útil para la próxima vez.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "Le buscas la mirada y lo reseteas con una sonrisa.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu estilo competitivo:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Prepararte mejor que todos, y luego encantar a la grada.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "b",
+              "text": "Subir el nivel de todo el equipo, en silencio.",
+              "personality_tags": ["sugawara"]
+            },
+            {
+              "id": "c",
+              "text": "Incansable: cada punto se puede ganar.",
+              "personality_tags": ["hinata", "nishinoya"]
+            },
+            {
+              "id": "d",
+              "text": "Estándares implacables, contigo antes que con nadie.",
+              "personality_tags": ["kageyama"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué te saca de quicio?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Que te digan que eres demasiado bajo.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "La gente que no se esfuerza al máximo.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "El entusiasmo desmedido antes del mediodía.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "d",
+              "text": "Nada: rebotas contra las paredes por diversión.",
+              "personality_tags": ["nishinoya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "La grada te describiría como…",
+          "options": [
+            {
+              "id": "a",
+              "text": "El creído que de todas formas sigue anotando.",
+              "personality_tags": ["tsukishima"]
+            },
+            {
+              "id": "b",
+              "text": "El líbero más ruidoso del mundo.",
+              "personality_tags": ["nishinoya"]
+            },
+            {
+              "id": "c",
+              "text": "El rival que todos admiran en secreto.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "El sereno que estabiliza a todo el equipo.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu fuerza oculta:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Trabajo duro disfrazado de talento natural.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "b",
+              "text": "Leer a la gente mejor que el marcador.",
+              "personality_tags": ["sugawara"]
+            },
+            {
+              "id": "c",
+              "text": "Velocidad y agallas que nadie te enseñó.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "d",
+              "text": "Precisión que otros llaman genio; tú lo llamas práctica.",
+              "personality_tags": ["kageyama", "tsukishima"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige un ritual antes del partido:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Visualizar: saltar, anotar, repetir.",
+              "personality_tags": ["hinata"]
+            },
+            {
+              "id": "b",
+              "text": "Ejercicios extra hasta que el pase salga perfecto.",
+              "personality_tags": ["kageyama"]
+            },
+            {
+              "id": "c",
+              "text": "Pan de leche y una lista mental de rivales.",
+              "personality_tags": ["oikawa"]
+            },
+            {
+              "id": "d",
+              "text": "Verificar que todos tengan la cabeza en el partido.",
+              "personality_tags": ["sugawara"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-tokyo-revengers-character-are-you",
+      "title": "Which Tokyo Revengers Character Are You?",
+      "description": "Takemichi, Mikey, Draken or another Toman member — seven questions to find out which Tokyo Revengers personality you have.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["tokyo revengers", "personality quiz", "anime", "manga", "toman"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Takemichi Hanagaki",
+          "description": "You're Takemichi: the crybaby who never actually runs. You feel everything at full volume, go back again and again, and your stubborn loyalty is stronger than any punch.",
+          "personality_tag": "takemichi",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Manjiro 'Mikey' Sano",
+          "description": "You're Mikey: the grin everyone follows. Playful one second and terrifying the next, you carry a whole gang on your back like it's nothing — and keep your people closer than anything.",
+          "personality_tag": "mikey",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Ken 'Draken' Ryuguji",
+          "description": "You're Draken: the calm half of the pair. Level-headed, dragon-tattooed and loyal to the bone, you're the one who ends fights instead of starting them.",
+          "personality_tag": "draken",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r4",
+          "title": "Chifuyu Matsuno",
+          "description": "You're Chifuyu: the right hand who keeps everyone honest. Loyal, sharp and impossible to buy, you'd stand in front of your partner without blinking.",
+          "personality_tag": "chifuyu",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Keisuke Baji",
+          "description": "You're Baji: wild grin, iron loyalty. You'd take on the whole world for the friends you made a promise to — and you'd do it smiling like it's a festival.",
+          "personality_tag": "baji",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r6",
+          "title": "Takashi Mitsuya",
+          "description": "You're Mitsuya: the big brother of the group. You raise your sisters, sew your own designs, keep everyone patched up — the dependable one who somehow makes it look easy.",
+          "personality_tag": "mitsuya",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Your friend group is in real trouble. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cry, panic — then go back anyway.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "Show up grinning: nobody touches your people.",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "Step between everyone and shut it down.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "d",
+              "text": "Get the facts first, then back your partner to the end.",
+              "personality_tags": ["chifuyu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "A free afternoon — pick one:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Fixing the bike, then a long ride.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "b",
+              "text": "Hanging with your best friend, no plan needed.",
+              "personality_tags": ["chifuyu"]
+            },
+            {
+              "id": "c",
+              "text": "Somewhere loud — trouble always finds you.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "Watching the little ones, then sewing something.",
+              "personality_tags": ["mitsuya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your reputation:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Wild, loyal, laughs in the middle of a fight.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "b",
+              "text": "The responsible one with surprising talents.",
+              "personality_tags": ["mitsuya"]
+            },
+            {
+              "id": "c",
+              "text": "The crybaby who never quits.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "d",
+              "text": "The leader everyone follows anyway.",
+              "personality_tags": ["mikey"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What do you protect most?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Your friends' futures — whatever it costs you.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "The family you chose.",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "The code: loyalty above everything.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "d",
+              "text": "Your partner — you'd stand in front for him.",
+              "personality_tags": ["chifuyu", "draken"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "In a fight, you…",
+          "options": [
+            {
+              "id": "a",
+              "text": "End it fast — calm beats chaos.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "b",
+              "text": "Fight smart and never abandon your post.",
+              "personality_tags": ["chifuyu"]
+            },
+            {
+              "id": "c",
+              "text": "Grin through it like it's a festival.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "Protect, defuse, then patch everyone up after.",
+              "personality_tags": ["mitsuya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your flaw, honestly:",
+          "options": [
+            {
+              "id": "a",
+              "text": "You'd rather bleed than explain yourself.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "b",
+              "text": "You carry everyone and ask for nothing.",
+              "personality_tags": ["mitsuya"]
+            },
+            {
+              "id": "c",
+              "text": "You feel everything — loudly.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "d",
+              "text": "When you go quiet, everyone worries.",
+              "personality_tags": ["mikey"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick a motto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'You can always go back and fix it.'",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "'Nobody touches what's mine.'",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "'A real friend fights for you — even against you.'",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "'Take care of your own first.'",
+              "personality_tags": ["mitsuya", "chifuyu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-tokyo-revengers-eres",
+      "title": "¿Qué personaje de Tokyo Revengers eres?",
+      "description": "¿Takemichi, Mikey, Draken u otro miembro de la Toman? Siete preguntas para saber qué personalidad de Tokyo Revengers tienes.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["tokyo revengers", "test de personalidad", "anime", "manga", "toman"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Takemichi Hanagaki",
+          "description": "Eres Takemichi: el llorón que jamás huye de verdad. Sientes todo a todo volumen, vuelves una y otra vez, y tu lealtad terca es más fuerte que cualquier golpe.",
+          "personality_tag": "takemichi",
+          "background_theme": "ocean"
+        },
+        {
+          "id": "r2",
+          "title": "Manjiro 'Mikey' Sano",
+          "description": "Eres Mikey: la sonrisa que todos siguen. Juguetón un segundo e imponente al siguiente: cargas a toda una pandilla a la espalda como si no pesara y cuidas a los tuyos sobre todo.",
+          "personality_tag": "mikey",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r3",
+          "title": "Ken 'Draken' Ryuguji",
+          "description": "Eres Draken: la mitad serena de la dupla. Sensato, tatuado con el dragón y leal hasta el hueso: eres quien termina las peleas en vez de empezarlas.",
+          "personality_tag": "draken",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r4",
+          "title": "Chifuyu Matsuno",
+          "description": "Eres Chifuyu: la mano derecha que mantiene a todos honestos. Leal, listo e imposible de comprar: te pondrías delante de tu compañero sin parpadear.",
+          "personality_tag": "chifuyu",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r5",
+          "title": "Keisuke Baji",
+          "description": "Eres Baji: sonrisa salvaje, lealtad de hierro. Te enfrentarías al mundo entero por los amigos a los que les hiciste una promesa, y lo harías sonriendo como en festival.",
+          "personality_tag": "baji",
+          "background_theme": "fire"
+        },
+        {
+          "id": "r6",
+          "title": "Takashi Mitsuya",
+          "description": "Eres Mitsuya: el hermano mayor del grupo. Crías a tus hermanas, coses tus propios diseños, curas a todos después: el confiable que hace que parezca fácil.",
+          "personality_tag": "mitsuya",
+          "background_theme": "mystic"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Tu grupo de amigos está en problemas de verdad. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Lloras, entras en pánico, y vuelves de todas formas.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "Apareces sonriendo: nadie toca a los tuyos.",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "Te metes entre todos y lo paras.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "d",
+              "text": "Consigues los datos primero, y respaldas a tu compañero hasta el final.",
+              "personality_tags": ["chifuyu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "Una tarde libre, elige una:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Arreglar la moto y luego una ruta larga.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "b",
+              "text": "Estar con tu mejor amigo, sin plan.",
+              "personality_tags": ["chifuyu"]
+            },
+            {
+              "id": "c",
+              "text": "Un lugar ruidoso: los problemas siempre te encuentran.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "Cuidar a los pequeños y luego coser algo.",
+              "personality_tags": ["mitsuya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu reputación:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Salvaje, leal, se ríe en medio de la pelea.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "b",
+              "text": "El responsable con talentos sorprendentes.",
+              "personality_tags": ["mitsuya"]
+            },
+            {
+              "id": "c",
+              "text": "El llorón que nunca se rinde.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "d",
+              "text": "El líder al que todos siguen de todas formas.",
+              "personality_tags": ["mikey"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué proteges sobre todo?",
+          "options": [
+            {
+              "id": "a",
+              "text": "El futuro de tus amigos, cueste lo que cueste.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "La familia que elegiste.",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "El código: lealtad por encima de todo.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "d",
+              "text": "A tu compañero: te pondrías delante por él.",
+              "personality_tags": ["chifuyu", "draken"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "En una pelea, tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "La terminas rápido: la calma vence al caos.",
+              "personality_tags": ["draken"]
+            },
+            {
+              "id": "b",
+              "text": "Peleas con cabeza y jamás abandonas tu puesto.",
+              "personality_tags": ["chifuyu"]
+            },
+            {
+              "id": "c",
+              "text": "Sonríes como si fuera un festival.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "Proteges, calmas, y luego curas a todos.",
+              "personality_tags": ["mitsuya"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu defecto, honestamente:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Prefieres sangrar antes que explicarte.",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "b",
+              "text": "Cargas con todos y no pides nada.",
+              "personality_tags": ["mitsuya"]
+            },
+            {
+              "id": "c",
+              "text": "Sientes todo, y en voz alta.",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "d",
+              "text": "Cuando te quedas callado, todos se preocupan.",
+              "personality_tags": ["mikey"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige una frase:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'Siempre puedes volver y arreglarlo.'",
+              "personality_tags": ["takemichi"]
+            },
+            {
+              "id": "b",
+              "text": "'Nadie toca lo que es mío.'",
+              "personality_tags": ["mikey"]
+            },
+            {
+              "id": "c",
+              "text": "'Un amigo de verdad pelea por ti, incluso contra ti.'",
+              "personality_tags": ["baji"]
+            },
+            {
+              "id": "d",
+              "text": "'Cuida primero de los tuyos.'",
+              "personality_tags": ["mitsuya", "chifuyu"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "en-which-hunter-x-hunter-character-are-you",
+      "title": "Which Hunter x Hunter Character Are You?",
+      "description": "Gon, Killua, Kurapika or someone more unpredictable — seven questions to find out which Hunter x Hunter spirit you carry.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "en",
+      "category": "anime-manga",
+      "tags": ["hunter x hunter", "personality quiz", "anime", "manga", "hxh"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Gon Freecss",
+          "description": "You're Gon: pure-hearted stubbornness with a fishing rod. You make friends out of rivals, trust your nose for people, and once you set your mind on something, no argument moves you.",
+          "personality_tag": "gon",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Killua Zoldyck",
+          "description": "You're Killua: quick, sarcastic and raised in a world you've left behind. You act unimpressed by everything, but for the one circle you let in, you're fiercer than anyone.",
+          "personality_tag": "killua",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Kurapika",
+          "description": "You're Kurapika: the calm strategist with a fire underneath. Polite, private and patient — but when your goal is on the line, no one out-plans or out-waits you.",
+          "personality_tag": "kurapika",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Leorio Paradinight",
+          "description": "You're Leorio: the loud heart of the group. You talk about money and comfort, then show up first when someone's hurting — a future doctor in every way that counts.",
+          "personality_tag": "leorio",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Hisoka Morow",
+          "description": "You're Hisoka: the magician nobody can read. Charming in a way that worries people, you live for the thrill of a worthy opponent and keep your own rules — all of them unwritten.",
+          "personality_tag": "hisoka",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "A dangerous new world opens up in front of you. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Run toward it — the adventure is the point.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "b",
+              "text": "Check the exits first, then enjoy it.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "c",
+              "text": "Learn every rule before stepping in.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "d",
+              "text": "Complain loudly while walking straight in.",
+              "personality_tags": ["leorio"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "How do you handle a stronger opponent?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Shout, bluff and hope your friends arrive.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "b",
+              "text": "Enjoy it — that's the whole reason you came.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "c",
+              "text": "Fight until your body says stop.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "d",
+              "text": "Win by speed and nerve, not muscle.",
+              "personality_tags": ["killua", "hisoka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Your best quality:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Unpredictable — even you find yourself entertaining.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "b",
+              "text": "You make friends out of rivals.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "c",
+              "text": "Fast thinking, faster feet.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "d",
+              "text": "Focus — what you want is already halfway yours.",
+              "personality_tags": ["kurapika"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "What drives you?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Justice — some debts have to be repaid.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "b",
+              "text": "A good life for you and the people you love.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "c",
+              "text": "The thrill of the hunt.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "d",
+              "text": "Finding the person you're looking for.",
+              "personality_tags": ["gon"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "A friend breaks your trust. You…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Get angry, then forgive — you can't help it.",
+              "personality_tags": ["gon", "leorio"]
+            },
+            {
+              "id": "b",
+              "text": "Pull back — trust has to be earned twice now.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "c",
+              "text": "File it away; you never forget.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "d",
+              "text": "Yell, sulk, hug it out within the hour.",
+              "personality_tags": ["leorio"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Your social style:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sarcastic, and loyal to exactly one circle.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "b",
+              "text": "Polite, private, hard to truly know.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "c",
+              "text": "Loud, warm, impossible to ignore.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "d",
+              "text": "Charming — in a way that worries people.",
+              "personality_tags": ["hisoka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Pick a motto:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'The sweetest fruit is the one still ripening.'",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "b",
+              "text": "'Keep moving — the answer is ahead somewhere.'",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "c",
+              "text": "'Live your own life, not the one you were handed.'",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "d",
+              "text": "'Stay calm. Precision is its own kind of power.'",
+              "personality_tags": ["kurapika"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    },
+    {
+      "slug": "es-que-personaje-de-hunter-x-hunter-eres",
+      "title": "¿Qué personaje de Hunter x Hunter eres?",
+      "description": "¿Gon, Killua, Kurapika o alguien más impredecible? Siete preguntas para saber qué espíritu de Hunter x Hunter llevas dentro.",
+      "quiz_type": "personality",
+      "difficulty": "easy",
+      "language": "es",
+      "category": "anime-manga",
+      "tags": ["hunter x hunter", "test de personalidad", "anime", "manga", "hxh"],
+      "estimated_minutes": 3,
+      "results": [
+        {
+          "id": "r1",
+          "title": "Gon Freecss",
+          "description": "Eres Gon: terquedad de corazón puro con caña de pescar. Conviertes rivales en amigos, confías en tu olfato para la gente y cuando se te mete algo en la cabeza ningún argumento te mueve.",
+          "personality_tag": "gon",
+          "background_theme": "forest"
+        },
+        {
+          "id": "r2",
+          "title": "Killua Zoldyck",
+          "description": "Eres Killua: rápido, sarcástico y criado en un mundo que dejaste atrás. Actúas como si nada te impresionara, pero por el único círculo que dejas entrar eres más feroz que nadie.",
+          "personality_tag": "killua",
+          "background_theme": "ice"
+        },
+        {
+          "id": "r3",
+          "title": "Kurapika",
+          "description": "Eres Kurapika: el estratega sereno con fuego por dentro. Educado, reservado y paciente, pero cuando tu objetivo está en juego nadie planea ni espera mejor que tú.",
+          "personality_tag": "kurapika",
+          "background_theme": "mystic"
+        },
+        {
+          "id": "r4",
+          "title": "Leorio Paradinight",
+          "description": "Eres Leorio: el corazón ruidoso del grupo. Hablas de dinero y comodidad, y luego apareces primero cuando alguien lo está pasando mal: un futuro médico en todo lo que cuenta.",
+          "personality_tag": "leorio",
+          "background_theme": "stars"
+        },
+        {
+          "id": "r5",
+          "title": "Hisoka Morow",
+          "description": "Eres Hisoka: el mago que nadie consigue leer. Encantador de una forma que inquieta, vives por la emoción de un rival a la altura y sigues tus propias reglas, todas sin escribir.",
+          "personality_tag": "hisoka",
+          "background_theme": "fire"
+        }
+      ],
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Un mundo nuevo y peligroso se abre frente a ti. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Corres hacia él: la aventura es el punto.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "b",
+              "text": "Revisas las salidas primero, y luego lo disfrutas.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "c",
+              "text": "Aprendes cada regla antes de entrar.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "d",
+              "text": "Te quejas en voz alta mientras entras directo.",
+              "personality_tags": ["leorio"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q2",
+          "question": "¿Cómo manejas a un rival más fuerte que tú?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Gritas, faroleas y esperas que lleguen tus amigos.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "b",
+              "text": "Lo disfrutas: es toda la razón por la que viniste.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "c",
+              "text": "Peleas hasta que tu cuerpo diga basta.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "d",
+              "text": "Ganas con velocidad y nervio, no con músculo.",
+              "personality_tags": ["killua", "hisoka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q3",
+          "question": "Tu mejor cualidad:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Impredecible: hasta tú te resultas divertido.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "b",
+              "text": "Conviertes rivales en amigos.",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "c",
+              "text": "Mente rápida, pies más rápidos.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "d",
+              "text": "Enfoque: lo que quieres ya es medio tuyo.",
+              "personality_tags": ["kurapika"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q4",
+          "question": "¿Qué te impulsa?",
+          "options": [
+            {
+              "id": "a",
+              "text": "La justicia: hay deudas que hay que saldar.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "b",
+              "text": "Una buena vida para ti y la gente que quieres.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "c",
+              "text": "La emoción de la caza.",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "d",
+              "text": "Encontrar a la persona que buscas.",
+              "personality_tags": ["gon"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q5",
+          "question": "Un amigo rompe tu confianza. Tú…",
+          "options": [
+            {
+              "id": "a",
+              "text": "Te enojas y luego perdonas: no puedes evitarlo.",
+              "personality_tags": ["gon", "leorio"]
+            },
+            {
+              "id": "b",
+              "text": "Te alejas: ahora la confianza se gana dos veces.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "c",
+              "text": "Lo archivas: tú no olvidas.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "d",
+              "text": "Gritas, enfurruñas y lo arreglas con un abrazo en la misma hora.",
+              "personality_tags": ["leorio"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q6",
+          "question": "Tu estilo social:",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sarcástico, y leal a un solo círculo.",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "b",
+              "text": "Educado, reservado, difícil de conocer de verdad.",
+              "personality_tags": ["kurapika"]
+            },
+            {
+              "id": "c",
+              "text": "Ruidoso, cálido, imposible de ignorar.",
+              "personality_tags": ["leorio"]
+            },
+            {
+              "id": "d",
+              "text": "Encantador, de una forma que inquieta a la gente.",
+              "personality_tags": ["hisoka"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        },
+        {
+          "id": "q7",
+          "question": "Elige una frase:",
+          "options": [
+            {
+              "id": "a",
+              "text": "'La fruta más dulce es la que aún está madurando.'",
+              "personality_tags": ["hisoka"]
+            },
+            {
+              "id": "b",
+              "text": "'Sigue avanzando: la respuesta está en algún lugar adelante.'",
+              "personality_tags": ["gon"]
+            },
+            {
+              "id": "c",
+              "text": "'Vive tu propia vida, no la que te entregaron.'",
+              "personality_tags": ["killua"]
+            },
+            {
+              "id": "d",
+              "text": "'Mantén la calma: la precisión es su propio tipo de poder.'",
+              "personality_tags": ["kurapika"]
+            }
+          ],
+          "explanation": null,
+          "time_limit_seconds": 30
+        }
+      ]
+    }
+  ]
+}
