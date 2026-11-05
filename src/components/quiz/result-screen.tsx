@@ -875,9 +875,11 @@ export function ResultScreen({
                     // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
                     text={
                       shareMode === 'challenge' && groupShareUrl
-                        ? uiLocale === 'es'
-                          ? `${shareResultTitle} — entra al grupo y supéranos`
-                          : `${shareResultTitle} — join the group and beat us`
+                        ? truncateShareText(
+                            uiLocale === 'es'
+                              ? `${shareResultTitle} — entra al grupo y supéranos`
+                              : `${shareResultTitle} — join the group and beat us`
+                          )
                         : uiLocale === 'es'
                           ? `${shareResultTitle} — ¿puedes superarlo?`
                           : `${shareResultTitle} — can you beat it?`
@@ -922,6 +924,14 @@ function ResultMetric({
 /** Lo que se muestra como marca: aciertos en trivia, título en personality. */
 function challengeMark(score: ChallengeScore, personality: boolean): string {
   return personality ? (score.resultTitle ?? '—') : `${score.score}/${score.maxScore}`;
+}
+
+// El mensaje del grupo va por `text` (sin `context`): X suma el enlace al
+// mensaje, así que se recorta al mismo tope que usa `shareText` (220).
+const SHARE_TEXT_MAX = 220;
+
+function truncateShareText(text: string): string {
+  return text.length <= SHARE_TEXT_MAX ? text : `${text.slice(0, SHARE_TEXT_MAX - 1).trimEnd()}…`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {
