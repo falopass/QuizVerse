@@ -19,6 +19,7 @@
 import 'server-only';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { SHARE_CHANNELS } from '@/lib/share/messages';
 import { createServiceClient } from '@/lib/supabase/service';
 import type { Database } from '@/types/database';
 
@@ -45,28 +46,62 @@ export interface AnalyticsEventInput {
 
 type AnalyticsClient = Pick<SupabaseClient<Database>, 'from'>;
 
-/** Solo la ruta interna, sin query ni hash: ahí viajan los tokens de share. */
+const SHARE_CHANNEL_SET: ReadonlySet<string> = new Set(SHARE_CHANNELS);
+const INVITE_CHANNELS: ReadonlySet<string> = new Set(['challenge', 'g']);
+
+/**
+ * Solo la ruta interna, sin query ni hash: ahí viajan los tokens de share.
+ * Los share_click llegan como URL absoluta (SITE_URL o location.href): se
+ * queda el pathname. Cualquier otra cosa se descarta.
+ */
 export function sanitizeEventPath(path: string | undefined): string | null {
   if (!path) return null;
   const clean = path.split(/[?#]/, 1)[0];
-  return clean.startsWith('/') ? clean : null;
+  if (clean.startsWith('/') && !clean.startsWith('//')) return clean;
+  try {
+    const url = new URL(clean);
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
+    return url.pathname;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Origen `via:<canal>` solo si el canal es uno de los que emite urlWithVia;
+ * `invite:` solo challenge/g. `?via=` lo puede escribir cualquiera en la URL:
+ * sin esta lista un correo o un token acabaría guardado en `source`.
+ */
+function attributedSource(kind: unknown, channel: unknown): string | null {
+  if (kind === 'via' && typeof channel === 'string' && SHARE_CHANNEL_SET.has(channel)) {
+    return `via:${channel}`;
+  }
+  if (kind === 'invite' && typeof channel === 'string' && INVITE_CHANNELS.has(channel)) {
+    return `invite:${channel}`;
+  }
+  return null;
 }
 
 /** Canal de origen: share_click lo trae en `source`; el resto, en metadata. */
 function eventSource(payload: AnalyticsEventInput): string | null {
   const metadata = payload.metadata ?? {};
   if (payload.name === 'invite_landing') {
-    const kind = metadata.kind;
-    const channel = metadata.channel;
-    return (kind === 'via' || kind === 'invite') && typeof channel === 'string'
-      ? `${kind}:${channel}`
-      : null;
+    return attributedSource(metadata.kind, metadata.channel);
   }
   if (payload.name === 'quiz_complete') {
     const shareVia = metadata.shareVia;
-    return typeof shareVia === 'string' ? shareVia : null;
+    if (typeof shareVia !== 'string') return null;
+    const separator = shareVia.indexOf(':');
+    return separator > 0
+      ? attributedSource(shareVia.slice(0, separator), shareVia.slice(separator + 1))
+      : null;
   }
-  return typeof payload.source === 'string' ? payload.source : null;
+  if (payload.name === 'share_click') {
+    return typeof payload.source === 'string' && SHARE_CHANNEL_SET.has(payload.source)
+      ? payload.source
+      : null;
+  }
+  return null;
 }
 
 /** null cuando el evento no se persiste (no está en la lista blanca). */

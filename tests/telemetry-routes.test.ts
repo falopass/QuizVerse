@@ -96,7 +96,8 @@ describe('POST /api/analytics', () => {
       analytics({
         name: 'share_click',
         locale: 'es',
-        path: '/es/quiz/x?via=whatsapp&s=secret-token#frag',
+        // Los shares mandan URL absolutas: solo queda el pathname.
+        path: 'https://quizverse.org/es/quiz/x?via=whatsapp&s=secret-token#frag',
         source: 'whatsapp',
       })
     );
@@ -112,6 +113,22 @@ describe('POST /api/analytics', () => {
     });
     const stored = JSON.stringify(mocks.insert.mock.calls.map((call) => call[0]));
     expect(stored).not.toMatch(/secret-token|\?|#/);
+  });
+
+  it('stores null for a hostile via channel instead of the raw value', async () => {
+    const response = await analyticsPOST(
+      analytics({
+        name: 'invite_landing',
+        path: '/es/quiz/x?via=correo%40evil.com',
+        metadata: { kind: 'via', channel: 'correo@evil.com' },
+      })
+    );
+
+    expect(response.status).toBe(200);
+    expect(mocks.insert).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'invite_landing', source: null })
+    );
+    expect(JSON.stringify(mocks.insert.mock.calls)).not.toContain('evil.com');
   });
 
   it('does not persist events outside the whitelist', async () => {

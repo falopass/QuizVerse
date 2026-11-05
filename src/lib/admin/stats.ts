@@ -27,6 +27,8 @@ const PAGE_SIZE = 1000;
 const CATALOG_ROW_CAP = 20_000;
 const SESSION_ROW_CAP = 100_000;
 const EVENT_ROW_CAP = 200_000;
+/** Los únicos nombres que agrega la sección «Origen de visitas». */
+const TRAFFIC_EVENT_NAMES = ['share_click', 'invite_landing', 'quiz_start', 'quiz_complete'];
 const CATEGORY_LIMIT = 500;
 export const TOP_QUIZ_LIMIT = 20;
 /** Ventanas de la sección «Origen de visitas»: 7 y 30 días (UTC). */
@@ -454,8 +456,13 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
       client
         .from('analytics_events')
         .select('name, source, created_at')
+        .in('name', TRAFFIC_EVENT_NAMES)
         .gte('created_at', windowStart.toISOString())
-        .order('id')
+        // Recientes primero: si el cap recorta se quedan fuera los eventos
+        // más viejos y la ventana de 7 días sigue exacta. `id` desempata
+        // para que la paginación por range sea estable.
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
         .range(from, to)
     ),
   ]);
