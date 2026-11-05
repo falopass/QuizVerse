@@ -8,59 +8,56 @@
 const ORIGIN_KEY = 'qv.share_origin';
 
 export type ShareOrigin =
-  | { kind: 'via'; channel: string; ref?: string }
-  | { kind: 'invite'; channel: 'g' | 'challenge'; ref?: string };
+  | { kind: 'via'; channel: string; refs?: string[] }
+  | { kind: 'invite'; channel: 'g' | 'challenge'; refs?: string[] };
 
 /** Interpreta los parámetros de la URL actual; null si no hay origen. */
 export function detectShareOrigin(search: string): ShareOrigin | null {
   const params = new URLSearchParams(search);
+  const refs = ['s', 'challenge', 'g']
+    .map((key) => params.get(key))
+    .filter((value): value is string => Boolean(value))
+    .map((value) => value.slice(0, 80));
   const via = params.get('via');
-  if (via)
-    return {
-      kind: 'via',
-      channel: via.slice(0, 40),
-      ref: (params.get('challenge') ?? params.get('s') ?? params.get('g'))?.slice(0, 80),
-    };
+  if (via) return { kind: 'via', channel: via.slice(0, 40), refs };
   const challenge = params.get('challenge');
-  if (challenge) return { kind: 'invite', channel: 'challenge', ref: challenge.slice(0, 80) };
-  const g = params.get('g');
-  if (g) return { kind: 'invite', channel: 'g', ref: g.slice(0, 80) };
+  if (challenge) return { kind: 'invite', channel: 'challenge', refs };
+  if (params.get('g')) return { kind: 'invite', channel: 'g', refs };
   return null;
 }
 
-const SEEN_KEY = 'qv.share_landings';
-const SEEN_CAP = 20;
+// En memoria, no en sessionStorage: deduplica la navegación interna del SPA
+// (result → /play conserva `challenge`), pero una recarga real del enlace
+// vuelve a contar como visita.
+const seenLandings = new Set<string>();
+const SEEN_CAP = 50;
 
-function seenLandings(): string[] {
-  try {
-    const raw = sessionStorage.getItem(SEEN_KEY);
-    const parsed = raw ? (JSON.parse(raw) as unknown) : [];
-    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : [];
-  } catch {
-    return [];
-  }
+/**
+ * Firmas de la llegada: una por token del enlace (s, challenge, g) o, sin
+ * tokens, kind:channel:ruta. Una llegada solo es duplicada si *todas* sus
+ * firmas ya se vieron: dos resultados distintos del mismo reto (`s` distinto,
+ * `challenge` igual) cuentan cada uno, pero la navegación interna que solo
+ * repite un token ya visto no.
+ */
+export function landingSignatures(origin: ShareOrigin, path: string): string[] {
+  return origin.refs?.length
+    ? origin.refs.map((ref) => `ref:${ref}`)
+    : [`${origin.kind}:${origin.channel}:${path}`];
 }
 
 /**
- * Firma de la llegada para no contarla dos veces: el token del enlace (s,
- * challenge, g) distingue enlaces; sin token manda la ruta. Las navegaciones
- * internas que conservan `challenge` comparten firma y no cuentan de nuevo.
+ * true si la llegada ya se registró/encoló (todas las firmas vistas); si es
+ * nueva, marca todas sus firmas y devuelve false.
  */
-export function landingSignature(origin: ShareOrigin, path: string): string {
-  // Con token, la firma es el token solo: el mismo enlace compartido (s o
-  // challenge) genera la misma firma llegue por via o por invitación, y las
-  // navegaciones internas /result → /play?challenge= no cuentan dos veces.
-  return origin.ref ?? `${origin.kind}:${origin.channel}:${path}`;
-}
-
-/** true si esta llegada ya se registró/encoló antes; la marca si no. */
-export function markLandingSeen(signature: string): boolean {
-  const seen = seenLandings();
-  if (seen.includes(signature)) return true;
-  try {
-    sessionStorage.setItem(SEEN_KEY, JSON.stringify([...seen.slice(-SEEN_CAP + 1), signature]));
-  } catch {
-    // best-effort
+export function claimLanding(signatures: string[]): boolean {
+  const fresh = signatures.filter((sig) => !seenLandings.has(sig));
+  if (fresh.length === 0) return true;
+  for (const sig of fresh) {
+    if (seenLandings.size >= SEEN_CAP) {
+      const oldest = seenLandings.values().next().value;
+      if (oldest !== undefined) seenLandings.delete(oldest);
+    }
+    seenLandings.add(sig);
   }
   return false;
 }
