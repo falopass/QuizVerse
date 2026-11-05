@@ -21,12 +21,19 @@ export function detectShareOrigin(search: string): ShareOrigin | null {
   return null;
 }
 
-const REPORTED_KEY = 'qv.share_origin_reported';
+const PENDING_KEY = 'qv.share_origin_pending';
+
+export type PendingShareOrigin = ShareOrigin & {
+  /** Página de la llegada (sin query); sin ella se usa la ruta actual al reportar. */
+  path?: string;
+  locale?: 'en' | 'es';
+};
 
 /**
- * Guarda el origen de la sesión. Atribución de primer contacto: no
- * sobreescribe un origen ya guardado (el reto aceptado tras llegar por
- * WhatsApp sigue atribuyéndose a WhatsApp).
+ * Guarda el origen de la sesión para atribuir la partida. Atribución de
+ * primer contacto: no sobreescribe (el reto aceptado tras llegar por
+ * WhatsApp sigue atribuyéndose a WhatsApp). El evento `invite_landing` se
+ * reporta aparte con `stashPendingOrigin`, una vez por cada llegada.
  */
 export function storeShareOrigin(origin: ShareOrigin): void {
   try {
@@ -49,23 +56,34 @@ export function getShareOrigin(): ShareOrigin | null {
   }
 }
 
-/** Marca el origen como ya reportado para no duplicar el evento al dar consentimiento tarde. */
-export function markShareOriginReported(): void {
+/** Encola la llegada para reportarla cuando haya consentimiento de analíticas. */
+export function stashPendingOrigin(origin: PendingShareOrigin): void {
   try {
-    sessionStorage.setItem(REPORTED_KEY, '1');
+    sessionStorage.setItem(PENDING_KEY, JSON.stringify(origin));
   } catch {
     // best-effort
   }
 }
 
-/** Origen pendiente de reportar (guardado pero aún sin consentimiento). */
-export function pendingShareOrigin(): ShareOrigin | null {
+/** La llegada pendiente de reportar, si la hay. */
+export function pendingShareOrigin(): PendingShareOrigin | null {
   try {
-    if (sessionStorage.getItem(REPORTED_KEY)) return null;
+    const raw = sessionStorage.getItem(PENDING_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PendingShareOrigin;
+    if (parsed?.kind === 'via' || parsed?.kind === 'invite') return parsed;
+    return null;
   } catch {
     return null;
   }
-  return getShareOrigin();
+}
+
+export function clearPendingOrigin(): void {
+  try {
+    sessionStorage.removeItem(PENDING_KEY);
+  } catch {
+    // best-effort
+  }
 }
 
 /** La URL sin `via` (los demás parámetros se conservan). */

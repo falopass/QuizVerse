@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
+  clearPendingOrigin,
   detectShareOrigin,
   getShareOrigin,
-  markShareOriginReported,
   pendingShareOrigin,
+  stashPendingOrigin,
   storeShareOrigin,
   stripViaParam,
 } from '@/lib/share/origin';
@@ -57,12 +58,22 @@ describe('sessionStorage origin', () => {
     expect(getShareOrigin()).toEqual({ kind: 'via', channel: 'whatsapp' });
   });
 
-  it('pendingShareOrigin: pendiente hasta marcarlo reportado', () => {
-    storeShareOrigin({ kind: 'via', channel: 'x' });
-    expect(pendingShareOrigin()).toEqual({ kind: 'via', channel: 'x' });
-    markShareOriginReported();
+  it('pendiente: cada llegada se encola hasta reportarla', () => {
+    stashPendingOrigin({ kind: 'via', channel: 'x', path: '/en/quiz/a', locale: 'en' });
+    expect(pendingShareOrigin()).toEqual({
+      kind: 'via',
+      channel: 'x',
+      path: '/en/quiz/a',
+      locale: 'en',
+    });
+    clearPendingOrigin();
     expect(pendingShareOrigin()).toBeNull();
-    // El origen sigue guardado para adjuntarlo al quiz_complete.
-    expect(getShareOrigin()).not.toBeNull();
+  });
+
+  it('pendiente y atribución son independientes: reportar no borra el origen', () => {
+    storeShareOrigin({ kind: 'via', channel: 'whatsapp' });
+    stashPendingOrigin({ kind: 'via', channel: 'x' });
+    clearPendingOrigin();
+    expect(getShareOrigin()).toEqual({ kind: 'via', channel: 'whatsapp' });
   });
 });

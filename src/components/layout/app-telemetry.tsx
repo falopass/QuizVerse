@@ -7,10 +7,10 @@ import { CONSENT_KEY, hasAnalyticsConsent } from '@/components/shared/cookie-con
 import {
   detectShareOrigin,
   storeShareOrigin,
+  stashPendingOrigin,
   pendingShareOrigin,
-  markShareOriginReported,
+  clearPendingOrigin,
   stripViaParam,
-  type ShareOrigin,
 } from '@/lib/share/origin';
 
 export function AppTelemetry() {
@@ -37,29 +37,32 @@ export function AppTelemetry() {
   // registra, se guarda en sessionStorage para el quiz_complete y se limpia
   // `via` de la barra para que un re-share del visitante no lo propague.
   React.useEffect(() => {
-    const reportOrigin = (origin: ShareOrigin) => {
-      const segments = (pathname ?? '').split('/');
-      const locale = segments[1] === 'embed' ? segments[2] : segments[1];
-      void trackEvent({
-        name: 'invite_landing',
-        path: pathname ?? window.location.pathname,
-        locale: locale === 'es' || locale === 'en' ? locale : undefined,
-        metadata: { kind: origin.kind, channel: origin.channel },
-      });
-      markShareOriginReported();
-    };
+    const segments = (pathname ?? '').split('/');
+    const localeSeg = segments[1] === 'embed' ? segments[2] : segments[1];
+    const locale = localeSeg === 'es' || localeSeg === 'en' ? localeSeg : undefined;
 
     const origin = detectShareOrigin(window.location.search);
     if (origin) {
+      // Primer contacto para atribuir la partida; cada llegada se encola
+      // como evento con su ruta e idioma propios.
       storeShareOrigin(origin);
+      stashPendingOrigin({ ...origin, path: pathname ?? window.location.pathname, locale });
       if (origin.kind === 'via') {
         window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
       }
     }
-    // Solo se reporta con consentimiento; si llega después, se envía el
-    // origen pendiente desde el handler de consentimiento de abajo.
+    // Solo se reporta con consentimiento; si llega después, el handler de
+    // consentimiento de abajo emite la llegada pendiente con su ruta original.
     const pending = pendingShareOrigin();
-    if (hasAnalyticsConsent() && pending) reportOrigin(pending);
+    if (hasAnalyticsConsent() && pending) {
+      void trackEvent({
+        name: 'invite_landing',
+        path: pending.path ?? pathname ?? window.location.pathname,
+        locale: pending.locale,
+        metadata: { kind: pending.kind, channel: pending.channel },
+      });
+      clearPendingOrigin();
+    }
   }, [pathname]);
 
   React.useEffect(() => {
@@ -68,10 +71,11 @@ export function AppTelemetry() {
       if (pending) {
         void trackEvent({
           name: 'invite_landing',
-          path: window.location.pathname,
+          path: pending.path ?? window.location.pathname,
+          locale: pending.locale,
           metadata: { kind: pending.kind, channel: pending.channel },
         });
-        markShareOriginReported();
+        clearPendingOrigin();
       }
     };
     const handleConsent = (event: Event) => {
