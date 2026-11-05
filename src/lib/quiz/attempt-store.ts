@@ -185,3 +185,46 @@ export async function getAttemptReveals(attemptId: string): Promise<Record<strin
   if (!entry || entry.expiresAt <= Date.now()) return null;
   return Object.fromEntries(entry.revealed);
 }
+
+/**
+ * Lua atómico: fija la opción elegida para una pregunta una sola vez, sin
+ * exigir orden — a diferencia del claim de reveal, que no puede retroceder.
+ * Sirve para el envío final del reto diario, que llega fuera de secuencia:
+ * lo que no llegó a revelarse queda fijado al primer envío y un reenvío con
+ * otra opción no puede sondear la clave. Devuelve 1 si quedó fijada, 0 si ya
+ * existía.
+ */
+const LOCK_CHOICE_SCRIPT = `
+local existing = redis.call('HGET', KEYS[1], 'q:' .. ARGV[1])
+if existing then return 0 end
+redis.call('HSET', KEYS[1], 'q:' .. ARGV[1], ARGV[2])
+redis.call('EXPIRE', KEYS[1], ARGV[3])
+return 1
+`;
+
+/**
+ * Fija la opción enviada para una pregunta no revelada (una vez por partida).
+ * Escribe en el mismo campo `q:` que el reveal: después cuenta como revelada.
+ */
+export async function lockAttemptChoice(
+  attemptId: string,
+  questionId: string,
+  selectedOptionId: string
+): Promise<void> {
+  const redis = getRedis();
+  if (redis) {
+    try {
+      await redis.eval(
+        LOCK_CHOICE_SCRIPT,
+        [`${KEY_PREFIX}${attemptId}`],
+        [questionId, selectedOptionId, String(TTL_SECONDS)]
+      );
+      return;
+    } catch (error) {
+      console.error('[quiz-attempt] Redis error, usando memoria local:', error);
+    }
+  }
+
+  const entry = memoryAttempt(attemptId);
+  if (!entry.revealed.has(questionId)) entry.revealed.set(questionId, selectedOptionId);
+}

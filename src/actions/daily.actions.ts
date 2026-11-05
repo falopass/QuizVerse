@@ -19,7 +19,7 @@ import {
   warnAttemptsInactive,
   type QuizAttempt,
 } from '@/lib/quiz/attempt';
-import { claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
+import { getAttemptReveals, lockAttemptChoice } from '@/lib/quiz/attempt-store';
 import { QuizAnswerSchema } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { getDailyChallenge } from '@/lib/data/daily-quiz';
@@ -109,20 +109,12 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
 
   const marks: boolean[] = [];
   for (const question of challenge.questions) {
-    let optionId = revealed?.[question.id] ?? chosen.get(question.id) ?? null;
+    const optionId = revealed?.[question.id] ?? chosen.get(question.id) ?? null;
     if (attempt && revealed?.[question.id] === undefined && optionId) {
-      // Sin reveal previo, la primera opción enviada queda fijada en el
-      // attempt: reenviar con otra no convierte el envío en oráculo de la
-      // clave del reto. Si ya estaba fijada vale lo almacenado; fuera de
-      // orden (una posterior sí se reveló y esta no, p. ej. un veredicto
-      // perdido en red) se califica lo enviado — la alternativa era marcar
-      // como fallo un acierto honesto de forma irreversible.
-      const quizIndex = quiz.questions.findIndex((item) => item.id === question.id);
-      const claim = await claimQuestionReveal(attempt.attemptId, question.id, quizIndex, optionId);
-      if (!claim.ok && claim.reason === 'already_revealed') {
-        const fresh = await getAttemptReveals(attempt.attemptId);
-        optionId = fresh?.[question.id] ?? null;
-      }
+      // Lo no revelado queda fijado al primer envío (sin exigir orden: el
+      // envío no es un paso del juego). Así reenviar con otra opción no
+      // convierte el envío en oráculo de la clave del reto.
+      await lockAttemptChoice(attempt.attemptId, question.id, optionId);
     }
     marks.push(
       optionId ? (evaluateAnswer(quiz, question.id, optionId)?.isCorrect ?? false) : false

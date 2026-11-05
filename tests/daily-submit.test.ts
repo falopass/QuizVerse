@@ -15,7 +15,7 @@ const mocks = vi.hoisted(() => ({
   verifyAttempt: vi.fn(),
   attemptsAvailable: false,
   attemptReveals: null as Record<string, string> | null,
-  claimReveal: vi.fn(),
+  lockChoice: vi.fn(),
   challenge: null as {
     quiz: { id: string };
     questions: Array<{ id: string }>;
@@ -64,7 +64,7 @@ vi.mock('@/lib/quiz/attempt', () => ({
 
 vi.mock('@/lib/quiz/attempt-store', () => ({
   getAttemptReveals: async () => mocks.attemptReveals,
-  claimQuestionReveal: mocks.claimReveal,
+  lockAttemptChoice: mocks.lockChoice,
 }));
 
 import { submitDailyResult } from '@/actions/daily.actions';
@@ -142,7 +142,7 @@ beforeEach(() => {
   mocks.verifyAttempt.mockReset().mockResolvedValue({ ok: true, attempt: { attemptId: 'a1' } });
   mocks.attemptsAvailable = false;
   mocks.attemptReveals = null;
-  mocks.claimReveal.mockReset().mockResolvedValue({ ok: true });
+  mocks.lockChoice.mockReset().mockResolvedValue(undefined);
   mocks.challenge = {
     quiz: { id: QUIZ_ID },
     questions: DAILY_IDS.map((id) => ({ id })),
@@ -219,9 +219,9 @@ describe('submitDailyResult', () => {
     if (result.success) expect(result.marks[0]).toBe(false);
   });
 
-  it('una opción ya fijada por claim se usa en reenvíos posteriores', async () => {
+  it('una opción ya fijada por el primer envío se usa en reenvíos', async () => {
     mocks.attemptsAvailable = true;
-    // q2 no tiene reveal: el primer envío la fija con claim y la califica.
+    // q2 no tiene reveal: el primer envío la fija y la califica.
     mocks.attemptReveals = null;
     const first = await submit({
       attempt: 'signed-token',
@@ -229,8 +229,8 @@ describe('submitDailyResult', () => {
     });
     expect(first.success).toBe(true);
     if (first.success) expect(first.marks[0]).toBe(true);
-    // Reenviar con otra opción: el claim falla y vale lo almacenado.
-    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'already_revealed' });
+    expect(mocks.lockChoice).toHaveBeenCalledWith('a1', 'q2', 'b');
+    // Reenviar con otra opción: lo ya fijado es lo que manda.
     mocks.attemptReveals = { q2: 'b' };
     const second = await submit({
       attempt: 'signed-token',
@@ -240,11 +240,12 @@ describe('submitDailyResult', () => {
     if (second.success) expect(second.marks[0]).toBe(true);
   });
 
-  it('fuera de orden por un veredicto perdido no castiga el acierto honesto', async () => {
+  it('un veredicto perdido en red no castiga el acierto honesto', async () => {
     mocks.attemptsAvailable = true;
-    // La pregunta 1 (q2) nunca llegó a revelarse; una posterior sí. El claim
-    // sale fuera de orden y se califica la opción enviada ('b', correcta).
-    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'out_of_order' });
+    // La pregunta 1 (q2) nunca llegó a revelarse; una posterior (q4) sí. El
+    // envío fija y califica la opción mandada ('b', correcta) sin exigir
+    // orden — no hay claim que la rechace.
+    mocks.attemptReveals = { q4: 'b' };
     const result = await submit({
       attempt: 'signed-token',
       answers: [{ question_id: 'q2', selected_option_id: 'b' }],
