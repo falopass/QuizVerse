@@ -91,6 +91,7 @@ export async function fetchGroupEntries(
         timeTakenSeconds: row.time_taken_seconds,
         gameSessionId: row.game_session_id,
         createdAt: row.created_at,
+        position: row.position,
       }))
     )
   );

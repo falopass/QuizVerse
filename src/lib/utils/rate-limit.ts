@@ -28,7 +28,7 @@ const CF_BINDINGS: Record<string, string> = {
   social: 'RATE_LIMIT_FOLLOW', // 20/60: seguir/dejar de seguir, por usuario
   'quiz-share': 'RATE_LIMIT_SOCIAL', // 30/60 por IP
   'quiz-group': 'RATE_LIMIT_SOCIAL', // 20/60 por IP: grupos de ranking
-  'quiz-group-read': 'RATE_LIMIT_SOCIAL', // 60/60 por IP: lectura del ranking
+  'quiz-group-read': 'RATE_LIMIT_API', // 60/60 por IP: lectura del ranking
   'quiz-report': 'RATE_LIMIT_REPORT', // 8/600 ≈ 1/60
   'quiz-comment': 'RATE_LIMIT_REPORT', // 5/600 ≈ 1/60
   'comment-report': 'RATE_LIMIT_REPORT',

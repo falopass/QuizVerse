@@ -141,7 +141,8 @@ RETURNS TABLE (
   max_score INTEGER,
   time_taken_seconds INTEGER,
   game_session_id UUID,
-  created_at TIMESTAMPTZ
+  created_at TIMESTAMPTZ,
+  position INTEGER
 )
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp
 AS $$
@@ -160,7 +161,7 @@ BEGIN
     WHERE g.token = p_token
   )
   SELECT r.nickname, r.score, r.max_score, r.time_taken_seconds,
-         r.game_session_id, r.created_at
+         r.game_session_id, r.created_at, r.pos::INTEGER
   FROM ranked r
   WHERE r.pos <= 100
      OR (p_session IS NOT NULL AND r.game_session_id = p_session)

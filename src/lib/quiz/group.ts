@@ -33,6 +33,11 @@ export interface GroupEntry {
   timeTakenSeconds: number | null;
   gameSessionId: string;
   createdAt: string;
+  /**
+   * Puesto real 1-based dentro del grupo: el RPC lo devuelve para cada fila
+   * (la propia puede quedar fuera del top 100). Búsquedas directas lo omiten.
+   */
+  position?: number;
 }
 
 /**
@@ -49,12 +54,16 @@ export function rankGroupEntries(entries: readonly GroupEntry[]): GroupEntry[] {
   });
 }
 
-/** Posición 1-based de una sesión dentro del ranking ya ordenado; 0 si no está. */
+/**
+ * Posición 1-based de una sesión dentro del ranking; 0 si no está. Prefiere
+ * `entry.position` (el puesto real del RPC) sobre el índice del array: la
+ * fila propia puede venir fuera del top 100 y el índice mentiría el puesto.
+ */
 export function groupPositionOf(
   ranked: readonly GroupEntry[],
   gameSessionId: string | undefined
 ): number {
   if (!gameSessionId) return 0;
   const index = ranked.findIndex((entry) => entry.gameSessionId === gameSessionId);
-  return index === -1 ? 0 : index + 1;
+  return index === -1 ? 0 : (ranked[index].position ?? index + 1);
 }

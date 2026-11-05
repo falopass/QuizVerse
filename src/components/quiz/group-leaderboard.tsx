@@ -293,7 +293,9 @@ export function GroupLeaderboard({
                         mine && 'bg-accent-primary/10'
                       )}
                     >
-                      <td className="text-text-secondary py-2.5 pr-3 font-semibold">{index + 1}</td>
+                      <td className="text-text-secondary py-2.5 pr-3 font-semibold">
+                        {entry.position ?? index + 1}
+                      </td>
                       <td className="text-text-primary py-2.5 pr-3 font-semibold">
                         {entry.nickname}
                         {mine && (

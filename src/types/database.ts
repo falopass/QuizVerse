@@ -927,6 +927,7 @@ export interface Database {
           time_taken_seconds: number | null;
           game_session_id: string;
           created_at: string;
+          position: number;
         }[];
       };
     };
