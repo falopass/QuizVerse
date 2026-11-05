@@ -47,6 +47,7 @@ const group = {
   quizId: 'quiz-1',
   token: GROUP_TOKEN,
   creatorNickname: 'Diego',
+  playerCount: 1,
   createdAt: '2025-01-01T00:00:00.000Z',
 };
 
@@ -104,6 +105,15 @@ describe('createQuizGroup', () => {
       creator_user_id: 'user-1',
       creator_nickname: 'Diego',
     });
+  });
+
+  it('una carrera de creación devuelve el grupo que ganó, no un error', async () => {
+    mocks.insertGroup.mockResolvedValue({ state: 'conflict', value: null });
+    mocks.fetchExistingGroup
+      .mockResolvedValueOnce(ok(null)) // consulta previa: nadie lo había creado
+      .mockResolvedValueOnce(ok(group)); // tras el conflicto: el ganador
+    const result = await createQuizGroup({ shareToken: SHARE_TOKEN, nickname: 'Diego' });
+    expect(result).toEqual({ success: true, groupToken: GROUP_TOKEN, group, reused: true });
   });
 
   it('degrada a unavailable cuando falta la migración', async () => {

@@ -128,7 +128,13 @@ $$;
 
 -- Entradas del ranking en su orden (puntaje desc, tiempo asc, llegada asc);
 -- top 100: el enlace va a un grupo de WhatsApp, no a un directorio público.
-CREATE OR REPLACE FUNCTION public.get_quiz_group_entries(p_token TEXT)
+-- p_session (opcional, sin auth) incluye la fila propia aunque quede fuera
+-- del top: el cliente resalta su marca y no finge "no entraste".
+DROP FUNCTION IF EXISTS public.get_quiz_group_entries(TEXT);
+CREATE OR REPLACE FUNCTION public.get_quiz_group_entries(
+  p_token TEXT,
+  p_session UUID DEFAULT NULL
+)
 RETURNS TABLE (
   nickname TEXT,
   score INTEGER,
@@ -141,15 +147,24 @@ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp
 AS $$
 BEGIN
   RETURN QUERY
-  SELECT e.nickname, e.score, e.max_score, e.time_taken_seconds,
-         e.game_session_id, e.created_at
-  FROM public.quiz_group_entries e
-  JOIN public.quiz_groups g ON g.id = e.group_id
-  WHERE g.token = p_token
-  ORDER BY e.score DESC,
-           e.time_taken_seconds ASC NULLS LAST,
-           e.created_at ASC
-  LIMIT 100;
+  WITH ranked AS (
+    SELECT e.nickname, e.score, e.max_score, e.time_taken_seconds,
+           e.game_session_id, e.created_at,
+           ROW_NUMBER() OVER (
+             ORDER BY e.score DESC,
+                      e.time_taken_seconds ASC NULLS LAST,
+                      e.created_at ASC
+           ) AS pos
+    FROM public.quiz_group_entries e
+    JOIN public.quiz_groups g ON g.id = e.group_id
+    WHERE g.token = p_token
+  )
+  SELECT r.nickname, r.score, r.max_score, r.time_taken_seconds,
+         r.game_session_id, r.created_at
+  FROM ranked r
+  WHERE r.pos <= 100
+     OR (p_session IS NOT NULL AND r.game_session_id = p_session)
+  ORDER BY r.pos;
 END;
 $$;
 
@@ -159,6 +174,6 @@ REVOKE EXECUTE ON FUNCTION public.get_quiz_group_by_token(TEXT) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.get_quiz_group_by_token(TEXT)
   TO anon, authenticated, service_role;
 
-REVOKE EXECUTE ON FUNCTION public.get_quiz_group_entries(TEXT) FROM PUBLIC;
-GRANT EXECUTE ON FUNCTION public.get_quiz_group_entries(TEXT)
+REVOKE EXECUTE ON FUNCTION public.get_quiz_group_entries(TEXT, UUID) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.get_quiz_group_entries(TEXT, UUID)
   TO anon, authenticated, service_role;

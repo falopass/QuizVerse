@@ -124,12 +124,13 @@ export default async function LocalizedQuizResultPage({
     // este quiz: se cambia de idioma, no de quiz, para no perder el marcador;
     // `s` y `challenge` viajan en el redirect.
     const target = await getQuizLocaleRedirect(slug, locale, {
-      keepSameQuiz: Boolean(shareToken),
+      keepSameQuiz: Boolean(shareToken || groupToken),
     });
     if (target) {
       const query = new URLSearchParams();
       if (s) query.set('s', s);
       if (challengeToken) query.set('challenge', challengeToken);
+      if (groupToken) query.set('g', groupToken);
       const suffix = query.size > 0 ? `?${query.toString()}` : '';
       permanentRedirect(`/${target.locale}/quiz/${target.slug}/result${suffix}`);
     }

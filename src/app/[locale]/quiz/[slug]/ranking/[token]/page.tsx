@@ -120,6 +120,7 @@ export default async function GroupRankingPage({
             groupToken={token}
             creatorNickname={group.creatorNickname}
             initialEntries={entries}
+            playerCount={group.playerCount}
             readOnly
           />
         </div>

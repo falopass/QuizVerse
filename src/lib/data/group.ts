@@ -61,17 +61,24 @@ export async function fetchGroupByToken(
     quizId: data.quiz_id,
     token,
     creatorNickname: data.creator_nickname,
+    playerCount: data.entries_count,
     createdAt: data.created_at,
   });
 }
 
-/** Ranking del grupo por token, ya ordenado. */
+/**
+ * Ranking del grupo por token, ya ordenado. `sessionId` pide también la fila
+ * propia aunque quede fuera del top 100 del RPC: sin ella el resaltado y el
+ * "ya entraste" desaparecerían en grupos grandes.
+ */
 export async function fetchGroupEntries(
   supabase: Client,
-  token: string
+  token: string,
+  sessionId?: string
 ): Promise<GroupReadResult<GroupEntry[]>> {
   const { data, error } = await supabase.rpc('get_quiz_group_entries', {
     p_token: token,
+    p_session: sessionId ?? null,
   });
 
   if (error) return isAbsent(error) ? missing() : failed();
@@ -114,13 +121,24 @@ export async function fetchGroupForSession(gameSessionId: string): Promise<QuizG
     .maybeSingle();
 
   if (groupError || !group) return null;
+  const playerCount = await groupPlayerCount(service, group.id);
   return {
     id: group.id,
     quizId: group.quiz_id,
     token: group.token,
     creatorNickname: group.creator_nickname,
+    playerCount,
     createdAt: group.created_at,
   };
+}
+
+/** Conteo real de entradas del grupo (la lectura pública recorta a 100). */
+async function groupPlayerCount(service: ServiceClient, groupId: string): Promise<number> {
+  const { count, error } = await service
+    .from('quiz_group_entries')
+    .select('id', { count: 'exact', head: true })
+    .eq('group_id', groupId);
+  return error ? 0 : (count ?? 0);
 }
 
 /** Sesión propietaria del resultado: las columnas que el grupo necesita. */
@@ -169,13 +187,21 @@ export async function fetchExistingGroup(
 
   if (error) return isAbsent(error) ? missing() : failed();
   if (!data) return ok<QuizGroupInfo>(null);
+  const playerCount = await groupPlayerCount(service, data.id);
   return ok({
     id: data.id,
     quizId: data.quiz_id,
     token: data.token,
     creatorNickname: data.creator_nickname,
+    playerCount,
     createdAt: data.created_at,
   });
+}
+
+/** Resultado del insert del grupo: `conflict` = otra creación ganó la carrera. */
+export interface GroupInsertResult {
+  state: 'ok' | 'missing' | 'error' | 'conflict';
+  value: QuizGroupInfo | null;
 }
 
 /** Inserta el grupo; el token lo genera la DB (20 hex, no adivinable). */
@@ -187,19 +213,23 @@ export async function insertGroup(
     creator_user_id: string | null;
     creator_nickname: string;
   }
-): Promise<GroupReadResult<QuizGroupInfo>> {
+): Promise<GroupInsertResult> {
   const { data, error } = await service
     .from('quiz_groups')
     .insert(row)
     .select('id, quiz_id, token, creator_nickname, created_at')
     .single();
 
-  if (error) return isAbsent(error) ? missing() : failed();
+  if (error) {
+    if (error.code === '23505') return { state: 'conflict', value: null };
+    return isAbsent(error) ? missing() : failed();
+  }
   return ok({
     id: data.id,
     quizId: data.quiz_id,
     token: data.token,
     creatorNickname: data.creator_nickname,
+    playerCount: 0,
     createdAt: data.created_at,
   });
 }

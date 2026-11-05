@@ -20,6 +20,8 @@ export interface QuizGroupInfo {
   quizId: string;
   token: string;
   creatorNickname: string;
+  /** Jugadores con entrada; sale del conteo del RPC, no del tope de filas. */
+  playerCount: number;
   createdAt: string;
 }
 

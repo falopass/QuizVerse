@@ -35,6 +35,8 @@ interface GroupLeaderboardProps {
   suggestedNickname?: string;
   /** Entradas ya resueltas en el servidor (página /ranking en readOnly). */
   initialEntries?: GroupEntry[];
+  /** Conteo real de jugadores para readOnly (el RPC recorta filas a 100). */
+  playerCount?: number;
   /** Sin fetch ni alta: la página ligera de ranking pinta solo la tabla. */
   readOnly?: boolean;
 }
@@ -108,10 +110,12 @@ export function GroupLeaderboard({
   shareToken,
   suggestedNickname,
   initialEntries,
+  playerCount,
   readOnly = false,
 }: GroupLeaderboardProps) {
   const copy = locale === 'es' ? COPY.es : COPY.en;
   const [entries, setEntries] = React.useState<GroupEntry[] | null>(initialEntries ?? null);
+  const [total, setTotal] = React.useState(playerCount ?? initialEntries?.length ?? 0);
   const [state, setState] = React.useState<LoadState>(initialEntries ? 'ready' : 'loading');
   const [nickname, setNickname] = React.useState(() => {
     // localStorage gana sobre el nombre de usuario: es la elección previa real.
@@ -130,15 +134,16 @@ export function GroupLeaderboard({
   const [justJoined, setJustJoined] = React.useState<string | null>(null);
 
   const refresh = React.useCallback(async () => {
-    const result = await getQuizGroupLeaderboard(groupToken);
+    const result = await getQuizGroupLeaderboard(groupToken, gameSessionId);
     if (!result.success) {
       setState(result.code === 'unavailable' ? 'unavailable' : 'error');
       return false;
     }
     setEntries(result.entries);
+    setTotal(result.group.playerCount);
     setState('ready');
     return true;
-  }, [groupToken]);
+  }, [groupToken, gameSessionId]);
 
   React.useEffect(() => {
     if (readOnly || initialEntries) return;
@@ -219,7 +224,7 @@ export function GroupLeaderboard({
             </h2>
           </div>
           <p className="text-text-secondary text-sm">
-            {copy.joined(rows.length)}
+            {copy.joined(total)}
             {position > 0 && ` · ${ahead === 0 ? copy.first : copy.ahead(ahead)}`}
           </p>
         </div>

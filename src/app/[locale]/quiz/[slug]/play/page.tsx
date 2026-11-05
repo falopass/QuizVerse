@@ -15,7 +15,7 @@ import {
   getPersonalityChallengeForQuiz,
   type PersonalityChallenge,
 } from '@/lib/data/challenge';
-import { fetchGroupByToken, fetchGroupEntries, pickProfileNickname } from '@/lib/data/group';
+import { fetchGroupByToken, pickProfileNickname } from '@/lib/data/group';
 import { isGroupToken } from '@/lib/quiz/group';
 import { createClient } from '@/lib/supabase/server';
 
@@ -111,12 +111,6 @@ export default async function LocalizedQuizPlayPage({
   // creador y la cantidad de jugadores. Token ajeno al quiz o migración
   // pendiente: se ignora igual que un reto inválido.
   const group = await groupFromToken(groupToken, quiz.id);
-  let playerCount = 0;
-  if (group) {
-    const supabase = await createClient();
-    const entriesRead = await fetchGroupEntries(supabase, groupToken!);
-    if (entriesRead.state === 'ok') playerCount = entriesRead.value?.length ?? 0;
-  }
 
   // El apodo sugerido viene del perfil solo cuando hay grupo: sin `?g=` la
   // consulta extra no tiene uso.
@@ -139,12 +133,12 @@ export default async function LocalizedQuizPlayPage({
     ? locale === 'es'
       ? {
           eyebrow: 'Ranking del grupo',
-          title: `Estás jugando el ranking de ${group.creatorNickname} (${playerCount} jugador${playerCount === 1 ? '' : 'es'})`,
+          title: `Estás jugando el ranking de ${group.creatorNickname} (${group.playerCount} jugador${group.playerCount === 1 ? '' : 'es'})`,
           body: 'Al terminar eliges tu apodo y entras a la tabla del grupo.',
         }
       : {
           eyebrow: 'Group leaderboard',
-          title: `You're playing ${group.creatorNickname}'s leaderboard (${playerCount} player${playerCount === 1 ? '' : 's'})`,
+          title: `You're playing ${group.creatorNickname}'s leaderboard (${group.playerCount} player${group.playerCount === 1 ? '' : 's'})`,
           body: 'When you finish, pick a nickname to join the group table.',
         }
     : null;

@@ -914,9 +914,12 @@ export interface Database {
           created_at: string;
         }[];
       };
-      /** Migración 021: entradas del ranking de un grupo, solo por token (top 100). */
+      /**
+       * Migración 021: entradas del ranking de un grupo, solo por token
+       * (top 100 más la fila propia si `p_session` quedó fuera del corte).
+       */
       get_quiz_group_entries: {
-        Args: { p_token: string };
+        Args: { p_token: string; p_session?: string | null };
         Returns: {
           nickname: string;
           score: number;

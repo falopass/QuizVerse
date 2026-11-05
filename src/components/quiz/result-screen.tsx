@@ -111,7 +111,19 @@ export function ResultScreen({
   // El grupo activo decide qué comparte «Reta a un amigo»: el link ?g= une a
   // todos en un ranking; si no hay tabla todavía se comparte el reto clásico.
   const [activeGroup, setActiveGroup] = React.useState<QuizGroupInfo | null>(group);
-  const [groupNick, setGroupNick] = React.useState(suggestedNickname ?? '');
+  const [groupNick, setGroupNick] = React.useState(() => {
+    // Como en el alta del ranking: localStorage gana sobre el nombre sugerido.
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = window.localStorage.getItem('qv_group_nick');
+        if (saved) return saved;
+      } catch {
+        // Sin storage: queda el sugerido.
+      }
+    }
+    return suggestedNickname ?? '';
+  });
+  const [groupJoinFailed, setGroupJoinFailed] = React.useState(false);
   const [groupBusy, setGroupBusy] = React.useState(false);
   const [groupError, setGroupError] = React.useState('');
   const [groupUnavailable, setGroupUnavailable] = React.useState(false);
@@ -223,6 +235,8 @@ export function ResultScreen({
           groupErrNickReserved: 'Ese nombre está reservado. Prueba con otro.',
           groupErrRate: 'Demasiados intentos. Espera un momento.',
           groupErrGeneric: 'No pudimos crear el grupo. Intenta de nuevo.',
+          groupJoinFailed:
+            'No pudimos sumar tu marca al ranking; el enlace funciona igual para el resto.',
         }
       : {
           eyebrow: 'Result',
@@ -272,6 +286,8 @@ export function ResultScreen({
           groupErrNickReserved: 'That name is reserved. Try another one.',
           groupErrRate: 'Too many attempts. Wait a moment.',
           groupErrGeneric: "We couldn't create the group. Try again.",
+          groupJoinFailed:
+            "We couldn't add your mark to the leaderboard; the link still works for everyone else.",
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -371,13 +387,17 @@ export function ResultScreen({
 
     // La marca del creador también entra al ranking: sin esto el grupo nace
     // vacío y el ejemplo «Grupo de Diego: Camila 8/8, tú 7/8» no se cumple.
+    // Si el alta falla el enlace igual funciona — pero se avisa, no se finge.
+    let joinFailed = false;
     if (gameSessionId) {
-      await joinQuizGroup({
+      const joined = await joinQuizGroup({
         groupToken: created.groupToken,
         sessionToken: shareToken,
         nickname: verdict.value,
       });
+      joinFailed = !joined.success;
     }
+    setGroupJoinFailed(joinFailed);
     try {
       window.localStorage.setItem('qv_group_nick', verdict.value);
     } catch {
@@ -814,6 +834,11 @@ export function ResultScreen({
                 <>
                   {shareMode === 'challenge' && groupUnavailable && (
                     <p className="text-text-secondary mb-3 text-sm">{copy.groupUnavailable}</p>
+                  )}
+                  {shareMode === 'challenge' && groupJoinFailed && (
+                    <p className="text-text-secondary mb-3 text-sm" role="alert">
+                      {copy.groupJoinFailed}
+                    </p>
                   )}
                   <ShareButtons
                     locale={uiLocale}

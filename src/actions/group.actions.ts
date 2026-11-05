@@ -40,8 +40,10 @@ import {
   insertGroupEntry,
 } from '@/lib/data/group';
 
-/** 20/min por IP: crea grupos, une entradas y consulta rankings. */
+/** 20/min por IP: crea grupos y une entradas (escrituras). */
 const groupLimiter = createRateLimiter('quiz-group', 20, 60, 'open');
+/** 60/min por IP: consulta pública del ranking, con conteo real (`record`). */
+const groupReadLimiter = createRateLimiter('quiz-group-read', 60, 60, 'open');
 
 async function clientIp(): Promise<string> {
   return clientIpFromHeaders(await headers());
@@ -75,6 +77,10 @@ function nicknameOrFailure(raw: string): { value?: string; failure?: ActionFailu
  * prueba la propiedad de la sesión — es un secreto bearer ya existente — y la
  * sesión aporta quiz y creador; el apodo del creador se modera igual que el de
  * cualquier entrada.
+ *
+ * shortcut: quien recibe el enlace de resultado puede actuar sobre esa sesión
+ * (crear su grupo o inscribirla con otro apodo). Riesgo aceptado: el alcance
+ * se limita al puntaje que el enlace ya publica; auth sería la mejora.
  */
 export async function createQuizGroup(input: {
   shareToken: string;
@@ -122,6 +128,20 @@ export async function createQuizGroup(input: {
     creator_nickname: nickname!,
   });
   if (created.state === 'missing') return unavailable('createQuizGroup');
+  if (created.state === 'conflict') {
+    // Dos creaciones simultáneas compitieron por el índice único: la otra ya
+    // ganó; se devuelve ese grupo como reuse, no un error.
+    const winner = await fetchExistingGroup(
+      service,
+      session.quiz_id,
+      session.id,
+      session.player_id
+    );
+    if (winner.value) {
+      return { success: true, groupToken: winner.value.token, group: winner.value, reused: true };
+    }
+    return unexpectedFailure('createQuizGroup.conflict', 'conflict without group');
+  }
   if (created.state === 'error' || !created.value) {
     return unexpectedFailure('createQuizGroup.insert', 'group insert failed');
   }
@@ -134,6 +154,10 @@ export async function createQuizGroup(input: {
  * propiedad de la sesión; puntaje, máximo y tiempo se leen de la sesión
  * persistida por el servidor, nunca del cliente. Idempotente: una sesión
  * entra una sola vez por grupo (único + reintento devuelve "ya estaba").
+ *
+ * shortcut: el token es bearer (ver createQuizGroup); un receptor del enlace
+ * puede inscribir la partida con un apodo distinto. Riesgo aceptado y
+ * documentado en el PR; sin cuenta no hay otra prueba de titularidad.
  */
 export async function joinQuizGroup(input: {
   groupToken: string;
@@ -218,20 +242,27 @@ export async function joinQuizGroup(input: {
   };
 }
 
-/** Ranking público del grupo por token: datos del grupo + entradas ordenadas. */
+/**
+ * Ranking público del grupo por token: datos del grupo + entradas ordenadas.
+ * `sessionId` (la sesión propia, sin auth) hace que el RPC incluya su fila
+ * aunque quede fuera del top 100: el resaltado y el "ya entraste" no mienten.
+ */
 export async function getQuizGroupLeaderboard(
-  groupToken: string
+  groupToken: string,
+  sessionId?: string
 ): Promise<ActionResult<{ group: QuizGroupInfo; entries: GroupEntry[] }>> {
-  const { allowed } = await groupLimiter.check(await clientIp(), { record: false });
+  const { allowed } = await groupReadLimiter.check(await clientIp());
   if (!allowed) return actionFailure('rate_limited', 'Too many requests. Try again later.');
 
   const parsed = groupTokenSchema.safeParse(groupToken);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
+  const parsedSession = z.string().uuid().optional().safeParse(sessionId);
+  if (!parsedSession.success) return actionFailure('invalid_input', 'Invalid session id.');
 
   const supabase = await createClient();
   const [groupRead, entriesRead] = await Promise.all([
     fetchGroupByToken(supabase, parsed.data),
-    fetchGroupEntries(supabase, parsed.data),
+    fetchGroupEntries(supabase, parsed.data, parsedSession.data),
   ]);
 
   if (groupRead.state === 'missing' || entriesRead.state === 'missing') {

@@ -85,6 +85,7 @@ const GROUP = {
   quizId: 'quiz-1',
   token: GROUP_TOKEN,
   creatorNickname: 'Diego',
+  playerCount: 1,
   createdAt: '2026-10-19T00:00:00Z',
 };
 
