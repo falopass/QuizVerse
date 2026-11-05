@@ -37,6 +37,101 @@ export function pickDailyQuiz<T extends { id: string }>(
   return sorted[dayNumber(dayKey(date)) % sorted.length] ?? null;
 }
 
+// ============================================
+// Quiz del día (reto diario estilo Wordle)
+// ============================================
+
+/** Preguntas del reto diario. */
+export const DAILY_QUESTION_COUNT = 5;
+
+/**
+ * Día editorial (America/Santiago) del primer reto: `dailyChallengeNumber`
+ * devuelve 1 en esa fecha.
+ */
+export const DAILY_LAUNCH_DAY_KEY = '2026-11-05';
+
+/** La clave de día `delta` días civiles después. Aritmética de calendario, sin huso. */
+export function dayKeyAdd(key: string, delta: number): string {
+  return new Date((dayNumber(key) + delta) * MS_PER_DAY).toISOString().slice(0, 10);
+}
+
+/**
+ * Un `Date` cuyo día civil en Chile es `key`. Mediodía con un -03:00 fijo: el
+ * instante cae dentro del mismo día local con UTC-3 o UTC-4 (el reloj chileno
+ * nunca sale de ese rango), así que sirve en invierno y en verano.
+ */
+export function dateFromDayKey(key: string): Date {
+  return new Date(`${key}T12:00:00-03:00`);
+}
+
+/** Número del reto del día: 1 en el lanzamiento, +1 por día editorial. */
+export function dailyChallengeNumber(date: Date): number {
+  return Math.max(1, dayNumber(dayKey(date)) - dayNumber(DAILY_LAUNCH_DAY_KEY) + 1);
+}
+
+interface DailyTriviaCandidate {
+  id: string;
+  quiz_type: string;
+  questions: readonly unknown[];
+}
+
+/**
+ * El quiz del reto diario: un quiz de trivia del catálogo publicado, elegido
+ * con la misma rotación determinista de `pickDailyQuiz`.
+ *
+ * Se prefieren los que tienen al menos `DAILY_QUESTION_COUNT` preguntas; si
+ * ninguno llega (catálogo chico) se rota sobre cualquier trivia con preguntas
+ * y el reto sale más corto antes que no salir.
+ */
+export function pickDailyTriviaQuiz<T extends DailyTriviaCandidate>(
+  quizzes: readonly T[],
+  date: Date
+): T | null {
+  const trivia = quizzes.filter((quiz) => quiz.quiz_type === 'trivia' && quiz.questions.length > 0);
+  const withEnoughQuestions = trivia.filter(
+    (quiz) => quiz.questions.length >= DAILY_QUESTION_COUNT
+  );
+  return pickDailyQuiz(withEnoughQuestions.length > 0 ? withEnoughQuestions : trivia, date);
+}
+
+// FNV-1a, el mismo hash diminuto de `src/lib/quiz/answer-key.ts`: se repite
+// aquí porque ese módulo es server-only y este también se usa en el cliente.
+function hashDaily(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+}
+
+/**
+ * Las `count` preguntas del reto dentro del quiz del día.
+ *
+ * Deterministas por `dayKey`: mismas para todos ese día y distintas de un día
+ * a otro cuando el quiz sobra. El subconjunto elegido se devuelve en su orden
+ * original porque `/api/quiz/reveal` exige revelar hacia adelante según el
+ * índice de la pregunta en el quiz completo.
+ */
+export function pickDailyQuestions<T extends { id: string }>(
+  questions: readonly T[],
+  date: Date,
+  count = DAILY_QUESTION_COUNT
+): T[] {
+  if (questions.length <= count) return [...questions];
+  const key = dayKey(date);
+  return questions
+    .map((question, index) => ({
+      index,
+      question,
+      rank: hashDaily(`${key}:${question.id}`),
+    }))
+    .sort((left, right) => left.rank - right.rank || left.index - right.index)
+    .slice(0, count)
+    .sort((left, right) => left.index - right.index)
+    .map((entry) => entry.question);
+}
+
 const DAILY_PICK_COPY: Record<Locale, { eyebrow: string; title: string; body: string }> = {
   es: {
     eyebrow: 'Solo por hoy',

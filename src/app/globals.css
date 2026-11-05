@@ -1511,6 +1511,28 @@ select {
   gap: 10px;
   margin-top: 28px;
 }
+.arcade-daily-grid {
+  display: flex;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1;
+}
+.arcade-daily-countdown {
+  color: #101019;
+  font-size: 15px;
+  font-weight: 700;
+}
+.arcade-daily-intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+}
+.arcade-daily-intro-actions .arcade-tag {
+  font-size: 13px;
+}
 .arcade-result-ranking {
   padding: 12px;
   color: #101019;

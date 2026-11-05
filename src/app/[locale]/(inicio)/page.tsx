@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { getHomePayload, getLaunchHomePayload } from '@/lib/data/public';
-import { dailyPickCopy, pickDailyQuiz } from '@/lib/content/daily-pick';
+import { dailyPickCopy, pickDailyTriviaQuiz } from '@/lib/content/daily-pick';
 import { collectHomeQuizzes } from '@/lib/data/daily-quiz';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory } from '@/lib/i18n/catalog';
@@ -67,7 +67,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const today = new Date();
   // El pick es independiente por idioma: los candidatos son el catálogo de este
   // locale y forzar el par traducido exigiría consultar también el del otro.
-  const dailyQuiz = pickDailyQuiz(quizzes, today);
+  const dailyQuiz = pickDailyTriviaQuiz(quizzes, today);
   const dailyCopy = dailyQuiz ? dailyPickCopy(locale, today) : null;
   const games = quizzes.filter((quiz) => quiz.id !== lead?.id && quiz.id !== dailyQuiz?.id);
   const homeCategories = payload.categories
@@ -149,7 +149,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
             <EditorialQuizCard quiz={dailyQuiz} locale={locale} />
           </div>
           <Link
-            href={localizeHref(locale, `/quiz/${dailyQuiz.slug}`)}
+            href={localizeHref(locale, '/daily')}
             className="arcade-button arcade-button-lime arcade-more"
           >
             {dictionary.common.playNow} ↗

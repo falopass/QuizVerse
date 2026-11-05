@@ -40,6 +40,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
 
   const mobileItems = [
     { href: '/quiz', match: '/quiz', label: dictionary.common.explore },
+    { href: '/daily', match: '/daily', label: dictionary.common.dailyQuiz },
     {
       href: '/category/personality',
       match: '/category/personality',
@@ -66,6 +67,13 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             aria-current={isActive('/quiz') ? 'page' : undefined}
           >
             {dictionary.common.explore}
+          </Link>
+          <Link
+            href={localizeHref(locale, '/daily')}
+            className={cn('arcade-nav-link', isActive('/daily') && 'text-accent-primary')}
+            aria-current={isActive('/daily') ? 'page' : undefined}
+          >
+            {dictionary.common.dailyQuiz}
           </Link>
           <Link
             href={localizeHref(locale, '/leaderboard')}
