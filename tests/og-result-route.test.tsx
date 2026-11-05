@@ -15,6 +15,7 @@ const mocks = vi.hoisted(() => ({
   getQuizBySlug: vi.fn(),
   getQuizSessionByShareToken: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getPersonalityChallengeForQuiz: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -24,6 +25,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/data/challenge', () => ({
   getChallengeForQuiz: mocks.getChallengeForQuiz,
+  getPersonalityChallengeForQuiz: mocks.getPersonalityChallengeForQuiz,
 }));
 
 import { GET } from '@/app/api/og/result/[locale]/[slug]/route';
@@ -79,6 +81,7 @@ beforeEach(() => {
   mocks.getQuizBySlug.mockReset().mockResolvedValue(quiz);
   mocks.getQuizSessionByShareToken.mockReset().mockResolvedValue(null);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
+  mocks.getPersonalityChallengeForQuiz.mockReset().mockResolvedValue(null);
 });
 
 describe('GET /api/og/result/[locale]/[slug]', () => {
@@ -175,6 +178,53 @@ describe('GET /api/og/result/[locale]/[slug]', () => {
     const res = await call(ogUrl('?s=0123456789abcdef'), 'es');
 
     await expectPng(res);
+  });
+
+  it('renders the compatibility versus for a personality challenge', async () => {
+    mocks.getQuizBySlug.mockResolvedValue({
+      ...quiz,
+      id: 'quiz-p',
+      quiz_type: 'personality',
+      questions: [
+        {
+          id: 'q1',
+          options: [
+            { id: 'q1a', personality_tags: ['hero'] },
+            { id: 'q1b', personality_tags: ['rival'] },
+          ],
+        },
+      ],
+    } as unknown as Quiz);
+    mocks.getQuizSessionByShareToken.mockResolvedValue({
+      ...session,
+      quiz_id: 'quiz-p',
+      result_id: 'r-hero',
+      result_title: 'The Hero',
+      answers: [{ question_id: 'q1', selected_option_id: 'q1a', is_correct: true, time_ms: 0 }],
+    });
+    mocks.getPersonalityChallengeForQuiz.mockResolvedValue({
+      token: 'abcdef0123456789',
+      score: 1,
+      maxScore: 1,
+      resultTitle: 'The Rival',
+      resultId: 'r-rival',
+      tags: ['rival'],
+    });
+
+    const res = await call(ogUrl('?s=0123456789abcdef&c=abcdef0123456789'));
+    const bytes = await expectPng(res);
+
+    // La vía de personalidad resuelve el reto con tags, no con getChallengeForQuiz.
+    expect(mocks.getPersonalityChallengeForQuiz).toHaveBeenCalledWith(
+      'abcdef0123456789',
+      expect.objectContaining({ id: 'quiz-p' })
+    );
+    expect(mocks.getChallengeForQuiz).not.toHaveBeenCalled();
+
+    // Y el render no es la tarjeta personal.
+    const plain = await call(ogUrl('?s=0123456789abcdef'));
+    const plainBytes = new Uint8Array(await plain.arrayBuffer());
+    expect(Buffer.from(bytes).equals(Buffer.from(plainBytes))).toBe(false);
   });
 
   it('renders the personal card when the challenge token is the session itself', async () => {

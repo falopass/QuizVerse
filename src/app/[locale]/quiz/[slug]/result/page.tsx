@@ -9,7 +9,11 @@ import {
   getRelatedQuizzes,
 } from '@/lib/data/public';
 import { loadAnswerKeyBySlug } from '@/lib/quiz/quiz-repository';
-import { getChallengeForQuiz } from '@/lib/data/challenge';
+import {
+  getChallengeForQuiz,
+  getPersonalityChallengeForQuiz,
+  type PersonalityChallenge,
+} from '@/lib/data/challenge';
 import { localizeQuizList } from '@/lib/i18n/catalog';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { resultOgImage, SITE_URL } from '@/lib/seo/site';
@@ -136,9 +140,14 @@ export default async function LocalizedQuizResultPage({
   // ESTE quiz no hay marcador propio y comparar contra 0 sería inventar un
   // resultado.
   const session = found?.quiz_id === quiz.id ? found : null;
+  // En personality el reto trae además los tags del retador: con ellos y con
+  // las respuestas de esta sesión la pantalla calcula la compatibilidad. La
+  // invitación (s == challenge) sigue sin versus.
   const challenge =
     session && isShareToken(challengeToken) && !isChallengeInvite(shareToken, challengeToken)
-      ? await getChallengeForQuiz(challengeToken, quiz.id)
+      ? quiz.quiz_type === 'personality'
+        ? await getPersonalityChallengeForQuiz(challengeToken, quiz)
+        : await getChallengeForQuiz(challengeToken, quiz.id)
       : null;
 
   // Sin sesión válida no hay nada que mostrar: ni marcador, ni resultado de
@@ -233,6 +242,11 @@ export default async function LocalizedQuizResultPage({
           : 0
       }
       challenge={challenge}
+      // El reto de personality ya trae los tags del retador: la tarjeta de
+      // compatibilidad se monta solo con esa pieza extra.
+      compatibility={
+        quiz.quiz_type === 'personality' ? (challenge as PersonalityChallenge | null) : null
+      }
       // Con comparativa activa el reto es contra la marca del retador, no
       // contra la propia sesión.
       challengeHref={`/${locale}/quiz/${quiz.slug}/play?challenge=${challenge?.token ?? session.share_token}`}

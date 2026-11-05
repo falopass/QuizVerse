@@ -15,6 +15,7 @@ const mocks = vi.hoisted(() => ({
   getQuizSessionByShareToken: vi.fn(),
   getRelatedQuizzes: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getPersonalityChallengeForQuiz: vi.fn(),
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -27,6 +28,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/data/challenge', () => ({
   getChallengeForQuiz: mocks.getChallengeForQuiz,
+  getPersonalityChallengeForQuiz: mocks.getPersonalityChallengeForQuiz,
 }));
 
 vi.mock('@/components/home/quiz-detail-page', () => ({

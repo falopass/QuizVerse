@@ -19,6 +19,7 @@ const mocks = vi.hoisted(() => ({
   getQuizSessionByShareToken: vi.fn(),
   getRelatedQuizzes: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getPersonalityChallengeForQuiz: vi.fn(),
   getUser: vi.fn(),
   loadAnswerKeyBySlug: vi.fn(),
 }));
@@ -31,6 +32,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/data/challenge', () => ({
   getChallengeForQuiz: mocks.getChallengeForQuiz,
+  getPersonalityChallengeForQuiz: mocks.getPersonalityChallengeForQuiz,
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -134,6 +136,7 @@ beforeEach(() => {
   mocks.getQuizSessionByShareToken.mockReset().mockResolvedValue(null);
   mocks.getRelatedQuizzes.mockReset().mockResolvedValue([]);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
+  mocks.getPersonalityChallengeForQuiz.mockReset().mockResolvedValue(null);
   mocks.getUser.mockReset().mockResolvedValue({ data: { user: null } });
   mocks.loadAnswerKeyBySlug.mockReset().mockResolvedValue(null);
 });

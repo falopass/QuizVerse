@@ -12,6 +12,7 @@ import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import { localizeHref } from '@/lib/i18n/navigation';
 import type { PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { ChallengeInfo } from '@/lib/quiz/challenge';
+import type { CompatibilityPeer } from '@/lib/quiz/compatibility';
 import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
@@ -34,6 +35,8 @@ interface QuizPlayerProps {
   locale?: Locale;
   /** Reto activo: el marcador del retador que hay que superar. */
   challenge?: ChallengeInfo | null;
+  /** Reto de personalidad: resultado y tags del retador, para la tarjeta de compatibilidad. */
+  compatibility?: CompatibilityPeer | null;
   /**
    * Modo con el que arranca la partida. Los CTA de la ficha y el hero piden
    * Clásico (`?mode=classic`); el selector queda tras «Cambiar modo» o la pausa.
@@ -93,7 +96,14 @@ const playSound = (type: 'correct' | 'incorrect' | 'click' | 'powerup') => {
   oscillator.stop(audioContext.currentTime + 0.2);
 };
 
-export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: QuizPlayerProps) {
+export function QuizPlayer({
+  quiz,
+  locale,
+  challenge,
+  compatibility,
+  initialMode,
+  related,
+}: QuizPlayerProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const copy =
     uiLocale === 'es'
@@ -763,6 +773,9 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
         // fallido deja el marcador local sin verificar y podría dibujar un
         // veredicto distinto al que quedó en el servidor (y en la tarjeta OG).
         challenge={submission ? challenge : null}
+        // Misma regla que el marcador: la compatibilidad solo se declara con
+        // la partida ya persistida en el servidor.
+        compatibility={submission ? compatibility : null}
         related={related}
         shareUrl={
           submission?.shareToken && typeof window !== 'undefined'
@@ -770,6 +783,13 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
             : undefined
         }
         shareToken={submission?.shareToken ?? undefined}
+        // Invitación propia (`s` y `challenge` apuntan a esta sesión): la
+        // tarjeta de compatibilidad la ofrece como «Compara con otro amigo».
+        challengeShareUrl={
+          submission?.shareToken && typeof window !== 'undefined'
+            ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}&challenge=${submission.shareToken}`
+            : undefined
+        }
         onPlayAgain={() => {
           resetGame();
           setSubmission(null);

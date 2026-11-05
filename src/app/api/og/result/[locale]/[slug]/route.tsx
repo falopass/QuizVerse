@@ -17,7 +17,11 @@ import { arcadeOgOptions } from '@/lib/seo/og-font';
 import { OG_CACHE_HEADERS, OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { getQuizBySlug, getQuizSessionByShareToken } from '@/lib/data/public';
-import { getChallengeForQuiz } from '@/lib/data/challenge';
+import {
+  getChallengeForQuiz,
+  getPersonalityChallengeForQuiz,
+  type PersonalityChallenge,
+} from '@/lib/data/challenge';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
 import { getLocalizedCategoryLabel, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import {
@@ -26,6 +30,13 @@ import {
   isShareToken,
   type ChallengeScore,
 } from '@/lib/quiz/challenge';
+import {
+  compatibilityLabel,
+  compatibilityVerdict,
+  personalityTagsFromAnswers,
+  samePersonalityResult,
+  type CompatibilityPeer,
+} from '@/lib/quiz/compatibility';
 import type { Quiz } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -276,6 +287,7 @@ function versusCard(
   quiz: Quiz,
   session: Session,
   challenger: ChallengeScore,
+  peer: CompatibilityPeer | null,
   locale: Locale,
   options: OgOptions,
   headers: Record<string, string>
@@ -287,28 +299,41 @@ function versusCard(
     resultTitle: session.result_title,
   };
   // En personality el score son preguntas respondidas: el reto se decide por
-  // título de resultado, no por puntos.
+  // título de resultado, no por puntos. Con los tags del retador el titular
+  // es la afinidad entre ambos — el gancho que hace compartir el enlace.
   const personality = quiz.quiz_type === 'personality';
+  const compat = peer
+    ? compatibilityVerdict(
+        personalityTagsFromAnswers(quiz.questions, session.answers ?? []),
+        peer.tags,
+        samePersonalityResult(
+          { resultId: session.result_id, resultTitle: session.result_title },
+          peer
+        )
+      )
+    : null;
   const outcome = challengeOutcome(mine, challenger);
-  const verdict = personality
-    ? mine.resultTitle === challenger.resultTitle
-      ? es
-        ? 'MISMO RESULTADO'
-        : 'SAME RESULT'
-      : es
-        ? 'RESULTADOS DISTINTOS'
-        : 'DIFFERENT RESULTS'
-    : outcome === 'win'
-      ? es
-        ? 'RETO SUPERADO'
-        : 'CHALLENGE BEATEN'
-      : outcome === 'tie'
+  const verdict = compat
+    ? `${compat.percent}% · ${compatibilityLabel(compat.tier, locale).toUpperCase()}`
+    : personality
+      ? mine.resultTitle === challenger.resultTitle
         ? es
-          ? 'EMPATE'
-          : 'TIE'
+          ? 'MISMO RESULTADO'
+          : 'SAME RESULT'
         : es
-          ? 'EL RETO SIGUE EN PIE'
-          : 'THE CHALLENGE STANDS';
+          ? 'RESULTADOS DISTINTOS'
+          : 'DIFFERENT RESULTS'
+      : outcome === 'win'
+        ? es
+          ? 'RETO SUPERADO'
+          : 'CHALLENGE BEATEN'
+        : outcome === 'tie'
+          ? es
+            ? 'EMPATE'
+            : 'TIE'
+          : es
+            ? 'EL RETO SIGUE EN PIE'
+            : 'THE CHALLENGE STANDS';
 
   const side = (role: string, value: string, accent: boolean) => (
     <div
@@ -413,7 +438,15 @@ function versusCard(
           </div>
         </div>
 
-        {bottomRow(es ? 'TU REVANCHA >' : 'YOUR REMATCH >')}
+        {bottomRow(
+          personality
+            ? es
+              ? '¿SOMOS COMPATIBLES? >'
+              : 'ARE WE COMPATIBLE? >'
+            : es
+              ? 'TU REVANCHA >'
+              : 'YOUR REMATCH >'
+        )}
       </div>
 
       {coverPanel(quiz)}
@@ -450,11 +483,21 @@ export async function GET(
   // hay dos marcadores, así que la tarjeta sale como resultado personal.
   const challenger =
     challengeToken && !isChallengeInvite(token, challengeToken)
-      ? await getChallengeForQuiz(challengeToken, quiz.id)
+      ? quiz.quiz_type === 'personality'
+        ? await getPersonalityChallengeForQuiz(challengeToken, quiz)
+        : await getChallengeForQuiz(challengeToken, quiz.id)
       : null;
 
   if (session && challenger) {
-    return versusCard(quiz, session, challenger, uiLocale, options, headers);
+    return versusCard(
+      quiz,
+      session,
+      challenger,
+      quiz.quiz_type === 'personality' ? (challenger as PersonalityChallenge) : null,
+      uiLocale,
+      options,
+      headers
+    );
   }
 
   return resultCard(quiz, session, uiLocale, options, headers);
