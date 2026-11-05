@@ -22,7 +22,7 @@ import {
   type CompatibilityPeer,
 } from '@/lib/quiz/compatibility';
 import { CompatibilityCard } from '@/components/quiz/compatibility-card';
-import type { QuizGroupInfo } from '@/lib/quiz/group';
+import { groupShareText, type QuizGroupInfo } from '@/lib/quiz/group';
 import { isNicknameAllowed } from '@/lib/moderation/nickname';
 import { createQuizGroup, joinQuizGroup } from '@/actions/group.actions';
 import { GroupLeaderboard } from '@/components/quiz/group-leaderboard';
@@ -920,19 +920,6 @@ function ResultMetric({
 /** Lo que se muestra como marca: aciertos en trivia, título en personality. */
 function challengeMark(score: ChallengeScore, personality: boolean): string {
   return personality ? (score.resultTitle ?? '—') : `${score.score}/${score.maxScore}`;
-}
-
-// El mensaje del grupo va por `text` (sin `context`): X suma el enlace al
-// mensaje, así que se reserva el tope que usa `shareText` (220). La
-// invitación siempre sobrevive: solo se recorta el título del resultado.
-const SHARE_TEXT_MAX = 220;
-
-function groupShareText(resultTitle: string, locale: Locale | undefined): string {
-  const cta = locale === 'es' ? ' — entra al grupo y supéranos' : ' — join the group and beat us';
-  const room = SHARE_TEXT_MAX - cta.length;
-  const head =
-    resultTitle.length <= room ? resultTitle : `${resultTitle.slice(0, room - 1).trimEnd()}…`;
-  return `${head}${cta}`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {

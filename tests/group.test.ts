@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { groupPositionOf, isGroupToken, rankGroupEntries, type GroupEntry } from '@/lib/quiz/group';
+import {
+  GROUP_SHARE_TEXT_MAX_UNITS,
+  groupPositionOf,
+  groupShareText,
+  isGroupToken,
+  rankGroupEntries,
+  type GroupEntry,
+} from '@/lib/quiz/group';
 import { pickProfileNickname } from '@/lib/data/group';
 
 const entry = (over: Partial<GroupEntry> = {}): GroupEntry => ({
@@ -94,6 +101,29 @@ describe('groupPositionOf', () => {
     expect(groupPositionOf(ranked, 'ajeno')).toBe(0);
     expect(groupPositionOf(ranked, undefined)).toBe(0);
     expect(groupPositionOf([], 'ganador')).toBe(0);
+  });
+});
+
+describe('groupShareText', () => {
+  it('título corto conserva la invitación completa', () => {
+    expect(groupShareText('Saqué 7/8', 'es')).toBe('Saqué 7/8 — entra al grupo y supéranos');
+    expect(groupShareText('I got 7/8', 'en')).toBe('I got 7/8 — join the group and beat us');
+  });
+
+  it('título largo: ≤220 unidades UTF-16 y la invitación intacta', () => {
+    const text = groupShareText(`Saqué ${'x'.repeat(300)} en «Quiz»`, 'es');
+    expect(text.length).toBeLessThanOrEqual(GROUP_SHARE_TEXT_MAX_UNITS);
+    expect(text.endsWith(' — entra al grupo y supéranos')).toBe(true);
+    expect(text).toContain('…');
+  });
+
+  it('un emoji en el límite no queda partido (sin sustituto suelto)', () => {
+    // El emoji (2 unidades UTF-16) cae justo en el borde del recorte.
+    const room = GROUP_SHARE_TEXT_MAX_UNITS - ' — entra al grupo y supéranos'.length;
+    const title = `${'a'.repeat(room - 3)}😀${'b'.repeat(50)}`;
+    const text = groupShareText(title, 'es');
+    expect(() => encodeURIComponent(text)).not.toThrow();
+    expect(text.endsWith('… — entra al grupo y supéranos')).toBe(true);
   });
 });
 

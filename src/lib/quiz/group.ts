@@ -67,3 +67,24 @@ export function groupPositionOf(
   const index = ranked.findIndex((entry) => entry.gameSessionId === gameSessionId);
   return index === -1 ? 0 : (ranked[index].position ?? index + 1);
 }
+
+/**
+ * Texto «resultado — entra al grupo»: la invitación siempre sobrevive; solo
+ * se recorta el título. El tope (unidades UTF-16) deja espacio al enlace que
+ * X suma al mensaje — el mismo presupuesto que usa `shareText`. El recorte
+ * itera puntos de código: nunca parte un par sustituto (un sustituto suelto
+ * rompe `encodeURIComponent` en los botones de compartir).
+ */
+export const GROUP_SHARE_TEXT_MAX_UNITS = 220;
+
+export function groupShareText(resultTitle: string, locale: string | undefined): string {
+  const cta = locale === 'es' ? ' — entra al grupo y supéranos' : ' — join the group and beat us';
+  const room = GROUP_SHARE_TEXT_MAX_UNITS - cta.length;
+  if (resultTitle.length <= room) return `${resultTitle}${cta}`;
+  let end = 0;
+  for (const ch of resultTitle) {
+    if (end + ch.length > room - 1) break;
+    end += ch.length;
+  }
+  return `${resultTitle.slice(0, end).trimEnd()}…${cta}`;
+}
