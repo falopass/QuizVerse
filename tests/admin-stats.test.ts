@@ -344,6 +344,38 @@ describe('loadAdminStats', () => {
     expect(gte?.args).toEqual(['completed_at', '2026-10-06T00:00:00.000Z']);
   });
 
+  it('la consulta de eventos filtra nombres y ordena recientes primero', async () => {
+    const specs = baseSpecs();
+    const { client, allCalls } = makeClient(specs);
+    await loadAdminStats(client as never, NOW);
+
+    const events = allCalls.find(
+      ({ table, calls }) =>
+        table === 'analytics_events' && sel(calls) === 'name, source, created_at'
+    );
+    expect(events).toBeDefined();
+    // Solo los nombres agregados y la ventana de 30 días: sin ello page_view
+    // inflaría el recorrido hasta el cap.
+    expect(events!.calls).toContainEqual({
+      method: 'in',
+      args: ['name', ['share_click', 'invite_landing', 'quiz_start', 'quiz_complete']],
+    });
+    expect(events!.calls).toContainEqual({
+      method: 'gte',
+      args: ['created_at', '2026-10-06T00:00:00.000Z'],
+    });
+    // Recientes primero con desempate estable: el cap se lleva los más viejos.
+    expect(events!.calls).toContainEqual({
+      method: 'order',
+      args: ['created_at', { ascending: false }],
+    });
+    expect(events!.calls).toContainEqual({
+      method: 'order',
+      args: ['id', { ascending: false }],
+    });
+    expect(events!.calls).toContainEqual({ method: 'range', args: [0, 999] });
+  });
+
   it('pagina el catálogo mientras vengan páginas llenas', async () => {
     const specs = baseSpecs();
     const catalog = specs.find((s) => s.table === 'quizzes')!;
