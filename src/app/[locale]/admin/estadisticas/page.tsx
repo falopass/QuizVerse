@@ -73,6 +73,9 @@ const COPY = {
     colName: 'Nombre',
     colCount: 'Cantidad',
     colShare: '%',
+    trafficTitle: 'Origen de visitas',
+    trafficNote:
+      'Los eventos share_click e invite_landing se emiten a /api/analytics, que los vuelca en los logs del Worker; todavía no se persisten en base de datos, así que no hay tabla consultable. La tabla aparecerá cuando exista almacenamiento de analítica.',
     accountsTitle: 'Cuentas y comunidad',
     rowProfilesTotal: 'Cuentas totales',
     rowProfiles7d: 'Cuentas nuevas (7 días)',
@@ -122,6 +125,9 @@ const COPY = {
     colName: 'Name',
     colCount: 'Count',
     colShare: '%',
+    trafficTitle: 'Traffic sources',
+    trafficNote:
+      'share_click and invite_landing events are sent to /api/analytics, which writes them to Worker logs; they are not persisted to the database yet, so there is no queryable table. The table will appear once analytics storage exists.',
     accountsTitle: 'Accounts & community',
     rowProfilesTotal: 'Total accounts',
     rowProfiles7d: 'New accounts (7 days)',
@@ -415,6 +421,11 @@ export default async function AdminStatsPage({ params }: { params: Promise<{ loc
                 </div>
               </div>
             )}
+          </section>
+
+          <section className="surface-panel mt-6 p-8 md:p-10">
+            <h2 className="text-text-primary text-xl font-semibold">{copy.trafficTitle}</h2>
+            <p className="text-text-secondary mt-4 text-sm">{copy.trafficNote}</p>
           </section>
 
           <section className="surface-panel mt-6 p-8 md:p-10">

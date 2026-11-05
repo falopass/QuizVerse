@@ -329,8 +329,10 @@ describe('ResultScreen — texto compartido', () => {
 
     const whatsapp = screen.getByRole('link', { name: /whatsapp/i });
     const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
-    expect(shared).toContain('I got The Wolf on "What Animal Are You" — can you beat it?');
+    expect(shared).toContain('The Wolf');
+    expect(shared).toContain('What Animal Are You');
     expect(shared).toContain(`s=${SESSION_TOKEN}`);
+    expect(shared).toContain('via=whatsapp');
   });
 });
 

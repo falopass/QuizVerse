@@ -70,7 +70,7 @@ describe('ShareButtons sin forma de copiar', () => {
 
     const status = await screen.findByRole('status');
     expect(status).toHaveTextContent("Couldn't copy: select the link");
-    expect(screen.getByRole('textbox')).toHaveValue('https://quizverse.org/en/quiz/x');
+    expect(screen.getByRole('textbox')).toHaveValue('https://quizverse.org/en/quiz/x?via=copy');
     expect(document.querySelector('textarea')).toBeNull();
   });
 });

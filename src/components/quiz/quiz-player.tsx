@@ -25,6 +25,7 @@ import {
   localizeCategory,
 } from '@/lib/i18n/catalog';
 import { trackEvent } from '@/lib/telemetry/client';
+import { getShareOrigin } from '@/lib/share/origin';
 import { achievementToastMessage } from '@/lib/quiz/achievement-toast';
 import { requestAnswerVerdict, requestEliminatedOptions } from '@/lib/quiz/reveal-client';
 import { useToast } from '@/providers/toast-provider';
@@ -465,6 +466,8 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
           playedAt: new Date().toISOString(),
         });
       }
+      // Origen de la visita si llegó por un enlace compartido/invitación.
+      const shareOrigin = getShareOrigin();
       void trackEvent({
         name: 'quiz_complete',
         locale: uiLocale,
@@ -474,6 +477,7 @@ export function QuizPlayer({ quiz, locale, challenge, initialMode, related }: Qu
         value: result.points_earned ?? 0,
         metadata: {
           answers: answers.length,
+          ...(shareOrigin ? { shareVia: `${shareOrigin.kind}:${shareOrigin.channel}` } : {}),
         },
       });
       const unlockedToast = achievementToastMessage(uiLocale, result.achievements_unlocked);

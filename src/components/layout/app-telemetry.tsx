@@ -4,6 +4,7 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { trackEvent, reportClientError } from '@/lib/telemetry/client';
 import { CONSENT_KEY, hasAnalyticsConsent } from '@/components/shared/cookie-consent';
+import { detectShareOrigin, storeShareOrigin, stripViaParam } from '@/lib/share/origin';
 
 export function AppTelemetry() {
   const pathname = usePathname();
@@ -24,6 +25,26 @@ export function AppTelemetry() {
   React.useEffect(() => {
     sendPageView();
   }, [sendPageView]);
+
+  // Llegada por enlace compartido (?via=) o invitación (g/challenge): se
+  // registra, se guarda en sessionStorage para el quiz_complete y se limpia
+  // `via` de la barra para que un re-share del visitante no lo propague.
+  React.useEffect(() => {
+    const origin = detectShareOrigin(window.location.search);
+    if (!origin) return;
+    storeShareOrigin(origin);
+    const segments = (pathname ?? '').split('/');
+    const locale = segments[1] === 'embed' ? segments[2] : segments[1];
+    void trackEvent({
+      name: 'invite_landing',
+      path: pathname ?? window.location.pathname,
+      locale: locale === 'es' || locale === 'en' ? locale : undefined,
+      metadata: { kind: origin.kind, channel: origin.channel },
+    });
+    if (origin.kind === 'via') {
+      window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
+    }
+  }, [pathname]);
 
   React.useEffect(() => {
     const handleConsent = (event: Event) => {

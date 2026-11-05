@@ -602,6 +602,24 @@ export function ResultScreen({
                 quizId={quiz.id}
                 shareToken={shareToken}
                 title={shareResultTitle}
+                context={
+                  personality
+                    ? {
+                        kind: 'personality_result',
+                        slug: quiz.slug,
+                        title: quiz.title,
+                        resultTitle: result?.title ?? quiz.title,
+                      }
+                    : triviaScore
+                      ? {
+                          kind: 'trivia_result',
+                          slug: quiz.slug,
+                          title: quiz.title,
+                          score: triviaScore.correct,
+                          maxScore: triviaScore.total,
+                        }
+                      : { kind: 'quiz_invite', slug: quiz.slug, title: quiz.title }
+                }
                 url={
                   (shareMode === 'challenge' ? challengeShareUrl : shareUrl) ||
                   (typeof window !== 'undefined' ? window.location.href : '')
