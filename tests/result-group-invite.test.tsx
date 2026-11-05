@@ -80,6 +80,7 @@ function props(extra: Partial<React.ComponentProps<typeof ResultScreen>> = {}) {
   return {
     locale: 'es' as const,
     quiz,
+    result: null,
     score: 2,
     maxScore: 8,
     answers: [],
