@@ -145,7 +145,7 @@ RETURNS TABLE (
   time_taken_seconds INTEGER,
   game_session_id UUID,
   created_at TIMESTAMPTZ,
-  position INTEGER
+  "position" INTEGER
 )
 LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, pg_temp
 AS $$
