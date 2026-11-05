@@ -26,8 +26,13 @@ const PAGE_SIZE = 1000;
 // como truncada y conviene una vista/RPC agregada (migración nueva).
 const CATALOG_ROW_CAP = 20_000;
 const SESSION_ROW_CAP = 100_000;
+const EVENT_ROW_CAP = 200_000;
+/** Los únicos nombres que agrega la sección «Origen de visitas». */
+const TRAFFIC_EVENT_NAMES = ['share_click', 'invite_landing', 'quiz_start', 'quiz_complete'];
 const CATEGORY_LIMIT = 500;
 export const TOP_QUIZ_LIMIT = 20;
+/** Ventanas de la sección «Origen de visitas»: 7 y 30 días (UTC). */
+export const TRAFFIC_SHORT_WINDOW_DAYS = 7;
 
 export interface DailySeriesPoint {
   /** Día UTC en formato YYYY-MM-DD. */
@@ -50,6 +55,30 @@ export interface TopQuiz {
   slug: string;
   language: string;
   value: number;
+}
+
+/** Una ventana de la sección «Origen de visitas» (7 o 30 días). */
+export interface TrafficWindowStats {
+  /** share_click agrupados por canal (source). */
+  shareClicks: GroupCount[];
+  /** invite_landing agrupados por origen: 'via:<canal>' | 'invite:challenge' | 'invite:g'. */
+  arrivals: GroupCount[];
+  quizStarts: number;
+  quizCompletes: number;
+  /**
+   * quiz_complete con origen compartido ÷ llegadas. Puede superar 1: la
+   * atribución vive en la sesión del navegador, así que una partida cuenta
+   * aunque la llegada haya caído fuera de la ventana.
+   */
+  arrivalCompletionShare: number;
+}
+
+export interface TrafficStats {
+  /** false cuando la migración 022 (analytics_events) aún no está aplicada. */
+  available: boolean;
+  truncated: boolean;
+  days7: TrafficWindowStats;
+  days30: TrafficWindowStats;
 }
 
 export interface AdminStats {
@@ -89,6 +118,13 @@ export interface AdminStats {
     /** null cuando la migración 017 aún no está aplicada. */
     pendingCommentReports: number | null;
   };
+  traffic: TrafficStats;
+}
+
+export interface AnalyticsEventLite {
+  name: string;
+  source: string | null;
+  created_at: string;
 }
 
 interface SessionLite {
@@ -171,6 +207,66 @@ export function topQuizzes(rows: TopQuiz[], limit = TOP_QUIZ_LIMIT): TopQuiz[] {
     .slice(0, limit);
 }
 
+function emptyTrafficWindow(): TrafficWindowStats {
+  return {
+    shareClicks: [],
+    arrivals: [],
+    quizStarts: 0,
+    quizCompletes: 0,
+    arrivalCompletionShare: 0,
+  };
+}
+
+/** Agrega los eventos ya filtrados por ventana en las cifras del panel. */
+export function trafficWindow(events: AnalyticsEventLite[]): TrafficWindowStats {
+  const clickChannels: (string | null)[] = [];
+  const arrivalSources: (string | null)[] = [];
+  let quizStarts = 0;
+  let quizCompletes = 0;
+  let completesViaShare = 0;
+  for (const event of events) {
+    if (event.name === 'share_click') clickChannels.push(event.source);
+    else if (event.name === 'invite_landing') arrivalSources.push(event.source);
+    else if (event.name === 'quiz_start') quizStarts += 1;
+    else if (event.name === 'quiz_complete') {
+      quizCompletes += 1;
+      if (event.source) completesViaShare += 1;
+    }
+  }
+  return {
+    shareClicks: groupCounts(clickChannels),
+    arrivals: groupCounts(arrivalSources),
+    quizStarts,
+    quizCompletes,
+    arrivalCompletionShare: shareOf(completesViaShare, arrivalSources.length),
+  };
+}
+
+/** null = tabla ausente (migración 022 sin aplicar): la sección se marca no disponible. */
+export function buildTraffic(
+  events: { rows: AnalyticsEventLite[]; truncated: boolean } | null,
+  now: Date
+): TrafficStats {
+  if (!events) {
+    return {
+      available: false,
+      truncated: false,
+      days7: emptyTrafficWindow(),
+      days30: emptyTrafficWindow(),
+    };
+  }
+  const shortStart = utcWindowStart(now, TRAFFIC_SHORT_WINDOW_DAYS).getTime();
+  const inShortWindow = events.rows.filter(
+    (event) => new Date(event.created_at).getTime() >= shortStart
+  );
+  return {
+    available: true,
+    truncated: events.truncated,
+    days7: trafficWindow(inShortWindow),
+    days30: trafficWindow(events.rows),
+  };
+}
+
 /** PostgREST/SQL cuando la tabla todavía no existe (migración sin aplicar). */
 function isMissingTableError(error: { code?: string; message?: string }): boolean {
   return (
@@ -203,6 +299,19 @@ async function collectPages<Row>(
     if (batch.length < PAGE_SIZE) return { rows, truncated: false };
   }
   return { rows, truncated: true };
+}
+
+/** Igual que collectPages pero devuelve null cuando la tabla aún no existe. */
+async function collectPagesOrMissing<Row>(
+  cap: number,
+  page: (from: number, to: number) => PromiseLike<PageResult<Row>>
+): Promise<{ rows: Row[]; truncated: boolean } | null> {
+  try {
+    return await collectPages(cap, page);
+  } catch (error) {
+    if (isMissingTableError(error as { code?: string; message?: string })) return null;
+    throw error;
+  }
 }
 
 interface CountResult {
@@ -281,6 +390,7 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
     commentsTotal,
     pendingQuizReports,
     pendingCommentReports,
+    analyticsEvents,
   ] = await Promise.all([
     collectPages<CatalogRow>(CATALOG_ROW_CAP, (from, to) =>
       client
@@ -340,6 +450,21 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
         .select('id', { count: 'exact', head: true })
         .eq('resolved', false)
     ),
+    // Ventana de 30 días cubre también la de 7 (mismo origen UTC alineado a
+    // día). Solo columnas agregables: nada de paths ni quiz_slug aquí.
+    collectPagesOrMissing<AnalyticsEventLite>(EVENT_ROW_CAP, (from, to) =>
+      client
+        .from('analytics_events')
+        .select('name, source, created_at')
+        .in('name', TRAFFIC_EVENT_NAMES)
+        .gte('created_at', windowStart.toISOString())
+        // Recientes primero: si el cap recorta se quedan fuera los eventos
+        // más viejos y la ventana de 7 días sigue exacta. `id` desempata
+        // para que la paginación por range sea estable.
+        .order('created_at', { ascending: false })
+        .order('id', { ascending: false })
+        .range(from, to)
+    ),
   ]);
 
   const categoryNames = new Map(categories.map((category) => [category.id, category.name]));
@@ -382,5 +507,6 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
       pendingQuizReports,
       pendingCommentReports,
     },
+    traffic: buildTraffic(analyticsEvents, now),
   };
 }

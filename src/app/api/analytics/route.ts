@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
+import { persistAnalyticsEvent } from '@/lib/telemetry/persist';
 
 // No crítico: si Redis cae, degradamos abierto en vez de tumbar analytics.
 const analyticsLimiter = createRateLimiter('api', 100, 60, 'open');
@@ -63,6 +64,11 @@ export async function POST(request: Request) {
         ...payload,
       })
     );
+
+    // Migración 022: los eventos de la lista blanca también se guardan en
+    // analytics_events. Best-effort — persist nunca lanza; si falta la tabla
+    // o la clave, el evento queda solo en el log, como antes.
+    await persistAnalyticsEvent(payload);
 
     return NextResponse.json({ success: true });
   } catch (error) {

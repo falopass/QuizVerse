@@ -82,6 +82,31 @@ const STATS: AdminStats = {
   },
   accounts: { profilesTotal: 500, profilesNew7d: 12, profilesNew30d: 50 },
   community: { commentsTotal: 33, pendingQuizReports: 7, pendingCommentReports: null },
+  traffic: {
+    available: true,
+    truncated: false,
+    days7: {
+      shareClicks: [{ key: 'whatsapp', count: 4, share: 1 }],
+      arrivals: [{ key: 'via:whatsapp', count: 3, share: 1 }],
+      quizStarts: 5,
+      quizCompletes: 2,
+      arrivalCompletionShare: 2 / 3,
+    },
+    days30: {
+      shareClicks: [
+        { key: 'whatsapp', count: 8, share: 0.8 },
+        { key: 'copy', count: 2, share: 0.2 },
+      ],
+      arrivals: [
+        { key: 'via:whatsapp', count: 5, share: 5 / 9 },
+        { key: 'invite:challenge', count: 3, share: 3 / 9 },
+        { key: 'invite:g', count: 1, share: 1 / 9 },
+      ],
+      quizStarts: 12,
+      quizCompletes: 7,
+      arrivalCompletionShare: 4 / 9,
+    },
+  },
 };
 
 const renderPage = (locale: 'es' | 'en' = 'es') =>
@@ -143,6 +168,37 @@ describe('página /admin/estadisticas', () => {
     expect(screen.getByText('—')).toBeInTheDocument();
     // El HTML servido no lleva correos, usernames ni ids de usuario.
     expect(container.innerHTML).not.toMatch(/@|player_id|username|u-secret/);
+  });
+
+  it('renderiza «Origen de visitas» con canales, partidas y conversión', async () => {
+    render(await renderPage());
+
+    expect(screen.getByText('Origen de visitas')).toBeInTheDocument();
+    // Las dos ventanas (7 y 30 días) muestran las mismas métricas.
+    expect(screen.getByText('Últimos 7 días')).toBeInTheDocument();
+    expect(screen.getByText('Últimos 30 días')).toBeInTheDocument();
+    expect(screen.getAllByText('Partidas iniciadas')).toHaveLength(2);
+    expect(screen.getAllByText('Conversión llegada → completada')).toHaveLength(2);
+    expect(screen.getAllByText('Clics en compartir por canal')).toHaveLength(2);
+    // Canales e invitaciones con su clave de origen.
+    expect(screen.getAllByText('whatsapp').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('via:whatsapp').length).toBeGreaterThan(0);
+    expect(screen.getByText('invite:challenge')).toBeInTheDocument();
+    expect(screen.getByText('invite:g')).toBeInTheDocument();
+  });
+
+  it('avisa cuando falta la migración de analítica', async () => {
+    mocks.loadStats.mockResolvedValue({
+      ...STATS,
+      traffic: {
+        ...STATS.traffic,
+        available: false,
+      },
+    });
+
+    render(await renderPage());
+    expect(screen.getByText(/Todavía no hay almacenamiento de analítica/)).toBeInTheDocument();
+    expect(screen.queryByText('Partidas iniciadas')).not.toBeInTheDocument();
   });
 
   it('renderiza en inglés', async () => {

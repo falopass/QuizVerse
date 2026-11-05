@@ -2,13 +2,16 @@ import { describe, expect, it } from 'vitest';
 
 import {
   buildDailySeries,
+  buildTraffic,
   groupCounts,
   loadAdminStats,
   shareOf,
   STATS_WINDOW_DAYS,
   TOP_QUIZ_LIMIT,
   topQuizzes,
+  trafficWindow,
   utcWindowStart,
+  type AnalyticsEventLite,
 } from '@/lib/admin/stats';
 
 const NOW = new Date('2026-11-04T15:30:00Z');
@@ -153,8 +156,23 @@ function baseSpecs(): QuerySpec[] {
     { table: 'quiz_comments', when: () => true, queue: [count(33)] },
     { table: 'quiz_reports', when: () => true, queue: [count(7)] },
     { table: 'comment_reports', when: () => true, queue: [count(2)] },
+    { table: 'analytics_events', when: () => true, queue: [ok(EVENT_ROWS)] },
   ];
 }
+
+// Ventana: NOW = 2026-11-04; el corte de 7 días es 2026-10-29 00:00 UTC.
+const EVENT_ROWS: AnalyticsEventLite[] = [
+  { name: 'share_click', source: 'whatsapp', created_at: '2026-11-03T10:00:00Z' },
+  { name: 'share_click', source: 'whatsapp', created_at: '2026-11-03T11:00:00Z' },
+  { name: 'share_click', source: 'copy', created_at: '2026-10-20T12:00:00Z' },
+  { name: 'invite_landing', source: 'via:whatsapp', created_at: '2026-11-03T13:00:00Z' },
+  { name: 'invite_landing', source: 'invite:challenge', created_at: '2026-10-20T13:00:00Z' },
+  { name: 'invite_landing', source: 'invite:g', created_at: '2026-10-10T13:00:00Z' },
+  { name: 'quiz_start', source: null, created_at: '2026-11-03T14:00:00Z' },
+  { name: 'quiz_complete', source: 'via:whatsapp', created_at: '2026-11-03T15:00:00Z' },
+  { name: 'quiz_complete', source: null, created_at: '2026-10-15T15:00:00Z' },
+  { name: 'page_view', source: null, created_at: '2026-11-03T16:00:00Z' },
+];
 
 const load = (specs: QuerySpec[]) => loadAdminStats(makeClient(specs).client as never, NOW);
 
@@ -268,6 +286,25 @@ describe('loadAdminStats', () => {
     });
     expect(stats.top.byPlays[0]).toMatchObject({ slug: 'es-trivia-de-cine', value: 42 });
 
+    // Origen de visitas: ventanas de 7 y 30 días sobre analytics_events.
+    expect(stats.traffic.available).toBe(true);
+    expect(stats.traffic.days7.quizStarts).toBe(1);
+    expect(stats.traffic.days7.arrivals.map((g) => [g.key, g.count])).toEqual([
+      ['via:whatsapp', 1],
+    ]);
+    expect(stats.traffic.days30.shareClicks.map((g) => [g.key, g.count])).toEqual([
+      ['whatsapp', 2],
+      ['copy', 1],
+    ]);
+    expect(stats.traffic.days30.arrivals.map((g) => [g.key, g.count])).toEqual([
+      ['invite:challenge', 1],
+      ['invite:g', 1],
+      ['via:whatsapp', 1],
+    ]);
+    expect(stats.traffic.days30.quizCompletes).toBe(2);
+    // 1 partida completada con origen compartido ÷ 3 llegadas.
+    expect(stats.traffic.days30.arrivalCompletionShare).toBeCloseTo(1 / 3);
+
     // Nada de ids de jugador ni correos en lo que sale hacia la página.
     const payload = JSON.stringify(stats);
     expect(payload).not.toContain('u-secret');
@@ -305,6 +342,38 @@ describe('loadAdminStats', () => {
     const windowCalls = allCalls.find(({ calls }) => sel(calls) === 'completed_at, player_id');
     const gte = windowCalls?.calls.find((call) => call.method === 'gte');
     expect(gte?.args).toEqual(['completed_at', '2026-10-06T00:00:00.000Z']);
+  });
+
+  it('la consulta de eventos filtra nombres y ordena recientes primero', async () => {
+    const specs = baseSpecs();
+    const { client, allCalls } = makeClient(specs);
+    await loadAdminStats(client as never, NOW);
+
+    const events = allCalls.find(
+      ({ table, calls }) =>
+        table === 'analytics_events' && sel(calls) === 'name, source, created_at'
+    );
+    expect(events).toBeDefined();
+    // Solo los nombres agregados y la ventana de 30 días: sin ello page_view
+    // inflaría el recorrido hasta el cap.
+    expect(events!.calls).toContainEqual({
+      method: 'in',
+      args: ['name', ['share_click', 'invite_landing', 'quiz_start', 'quiz_complete']],
+    });
+    expect(events!.calls).toContainEqual({
+      method: 'gte',
+      args: ['created_at', '2026-10-06T00:00:00.000Z'],
+    });
+    // Recientes primero con desempate estable: el cap se lleva los más viejos.
+    expect(events!.calls).toContainEqual({
+      method: 'order',
+      args: ['created_at', { ascending: false }],
+    });
+    expect(events!.calls).toContainEqual({
+      method: 'order',
+      args: ['id', { ascending: false }],
+    });
+    expect(events!.calls).toContainEqual({ method: 'range', args: [0, 999] });
   });
 
   it('pagina el catálogo mientras vengan páginas llenas', async () => {
@@ -357,5 +426,72 @@ describe('loadAdminStats', () => {
     ];
 
     await expect(load(specs)).rejects.toMatchObject({ code: '42501' });
+  });
+
+  it('tolera analytics_events sin migración 022 (available: false, el resto carga)', async () => {
+    const specs = baseSpecs();
+    specs.find((s) => s.table === 'analytics_events')!.queue = [
+      { error: { code: 'PGRST205', message: 'Could not find the table' } },
+    ];
+
+    const stats = await load(specs);
+    expect(stats.traffic.available).toBe(false);
+    expect(stats.traffic.days30.quizStarts).toBe(0);
+    expect(stats.catalog.published).toBe(2);
+  });
+
+  it('un error real de analytics_events propaga como el resto', async () => {
+    const specs = baseSpecs();
+    specs.find((s) => s.table === 'analytics_events')!.queue = [
+      { error: { code: '42501', message: 'permission denied' } },
+    ];
+
+    await expect(load(specs)).rejects.toMatchObject({ code: '42501' });
+  });
+});
+
+describe('trafficWindow', () => {
+  it('agrupa clics y llegadas por canal y calcula la conversión', () => {
+    const window = trafficWindow(EVENT_ROWS);
+
+    expect(window.shareClicks.map((g) => [g.key, g.count])).toEqual([
+      ['whatsapp', 2],
+      ['copy', 1],
+    ]);
+    expect(window.arrivals.map((g) => [g.key, g.count])).toEqual([
+      ['invite:challenge', 1],
+      ['invite:g', 1],
+      ['via:whatsapp', 1],
+    ]);
+    expect(window.quizStarts).toBe(1);
+    expect(window.quizCompletes).toBe(2);
+    expect(window.arrivalCompletionShare).toBeCloseTo(1 / 3);
+  });
+
+  it('sin llegadas la conversión es 0', () => {
+    const window = trafficWindow([
+      { name: 'quiz_complete', source: 'via:whatsapp', created_at: '2026-11-03T15:00:00Z' },
+    ]);
+    expect(window.arrivalCompletionShare).toBe(0);
+  });
+});
+
+describe('buildTraffic', () => {
+  it('marca no disponible cuando la tabla no existe', () => {
+    const traffic = buildTraffic(null, NOW);
+    expect(traffic.available).toBe(false);
+    expect(traffic.days7.arrivals).toEqual([]);
+  });
+
+  it('la ventana de 7 días solo incluye eventos desde 2026-10-29 UTC', () => {
+    const traffic = buildTraffic({ rows: EVENT_ROWS, truncated: false }, NOW);
+    expect(traffic.available).toBe(true);
+    // En 7 días: 2 clics whatsapp, 1 llegada via:whatsapp, 1 start, 1 completa.
+    expect(traffic.days7.shareClicks.map((g) => [g.key, g.count])).toEqual([['whatsapp', 2]]);
+    expect(traffic.days7.arrivals.map((g) => [g.key, g.count])).toEqual([['via:whatsapp', 1]]);
+    expect(traffic.days7.quizStarts).toBe(1);
+    expect(traffic.days7.quizCompletes).toBe(1);
+    expect(traffic.days30.arrivals).toHaveLength(3);
+    expect(traffic.truncated).toBe(false);
   });
 });

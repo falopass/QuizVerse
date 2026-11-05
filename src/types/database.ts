@@ -711,6 +711,40 @@ export interface Database {
           },
         ];
       };
+      analytics_events: {
+        Row: {
+          id: string;
+          name: string;
+          locale: string | null;
+          path: string | null;
+          quiz_slug: string | null;
+          source: string | null;
+          value: number | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          locale?: string | null;
+          path?: string | null;
+          quiz_slug?: string | null;
+          source?: string | null;
+          value?: number | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          locale?: string | null;
+          path?: string | null;
+          quiz_slug?: string | null;
+          source?: string | null;
+          value?: number | null;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [];
+      };
     };
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Views: {};
