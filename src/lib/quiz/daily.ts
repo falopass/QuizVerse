@@ -12,6 +12,15 @@ import type { Locale } from '@/lib/i18n/dictionaries';
 
 export const DAILY_STORAGE_KEY = 'quizverse:daily-result';
 
+/**
+ * Un registro por idioma: los retos de `/en/daily` y `/es/daily` son quizzes
+ * distintos, así que jugar uno no puede bloquear ni pisar el resultado del
+ * otro. La racha también es por idioma — es la del reto que se juega.
+ */
+export function dailyStorageKey(locale: Locale): string {
+  return `${DAILY_STORAGE_KEY}:${locale}`;
+}
+
 /** Resultado del último reto jugado en este dispositivo. */
 export interface DailyRecord {
   /** Clave del día editorial (America/Santiago) que se jugó. */
@@ -56,13 +65,14 @@ function isDailyRecord(value: unknown): value is DailyRecord {
   );
 }
 
-/** El último resultado guardado, o null si no hay o está corrupto. */
+/** El último resultado guardado en ese idioma, o null si no hay o está corrupto. */
 export function readDailyResult(
+  locale: Locale,
   storage: StorageLike | null = defaultStorage()
 ): DailyRecord | null {
   if (!storage) return null;
   try {
-    const raw = storage.getItem(DAILY_STORAGE_KEY);
+    const raw = storage.getItem(dailyStorageKey(locale));
     if (!raw) return null;
     const parsed: unknown = JSON.parse(raw);
     return isDailyRecord(parsed) ? parsed : null;
@@ -80,10 +90,11 @@ export function readDailyResult(
  * horario chileno (días de 23/25 h) no rompe la cuenta.
  */
 export function recordDailyResult(
+  locale: Locale,
   result: Omit<DailyRecord, 'streak'>,
   storage: StorageLike | null = defaultStorage()
 ): DailyRecord {
-  const previous = readDailyResult(storage);
+  const previous = readDailyResult(locale, storage);
   const streak =
     previous?.dayKey === result.dayKey
       ? previous.streak
@@ -93,7 +104,7 @@ export function recordDailyResult(
   const record: DailyRecord = { ...result, streak };
   try {
     // Safari privado lanza al escribir: se pierde la racha, no la partida.
-    storage?.setItem(DAILY_STORAGE_KEY, JSON.stringify(record));
+    storage?.setItem(dailyStorageKey(locale), JSON.stringify(record));
   } catch {
     /* noop */
   }

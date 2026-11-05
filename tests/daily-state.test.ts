@@ -6,9 +6,9 @@
 
 import { describe, expect, it } from 'vitest';
 import {
-  DAILY_STORAGE_KEY,
   buildDailyShareText,
   currentDailyStreak,
+  dailyStorageKey,
   formatDailySeconds,
   nextDailyReset,
   readDailyResult,
@@ -16,6 +16,8 @@ import {
   type StorageLike,
 } from '@/lib/quiz/daily';
 import { dayKey } from '@/lib/content/daily-pick';
+
+const LOCALE = 'es' as const;
 
 function memoryStorage(initial?: Record<string, string>) {
   const data: Record<string, string> = { ...(initial ?? {}) };
@@ -40,27 +42,41 @@ const result = (dayKey: string, score = 4) => ({
 describe('recordDailyResult + readDailyResult («ya jugaste hoy»)', () => {
   it('guarda el resultado del día y lo devuelve intacto', () => {
     const storage = memoryStorage();
-    const record = recordDailyResult(result('2026-11-05'), storage);
+    const record = recordDailyResult(LOCALE, result('2026-11-05'), storage);
     expect(record.streak).toBe(1);
-    expect(readDailyResult(storage)).toEqual(record);
-    expect(readDailyResult(storage)?.dayKey).toBe('2026-11-05');
+    expect(readDailyResult(LOCALE, storage)).toEqual(record);
+    expect(readDailyResult(LOCALE, storage)?.dayKey).toBe('2026-11-05');
+  });
+
+  it('un idioma no bloquea el reto del otro', () => {
+    const storage = memoryStorage();
+    recordDailyResult('es', result('2026-11-05'), storage);
+    // En inglés ese día todavía no se jugó: hay registro propio por idioma.
+    expect(readDailyResult('en', storage)).toBeNull();
+    const enRecord = recordDailyResult('en', result('2026-11-05', 5), storage);
+    expect(enRecord.streak).toBe(1);
+    expect(readDailyResult('es', storage)?.score).toBe(4);
+    expect(readDailyResult('en', storage)?.score).toBe(5);
   });
 
   it('devuelve null sin nada guardado o con datos corruptos', () => {
-    expect(readDailyResult(memoryStorage())).toBeNull();
-    expect(readDailyResult(null)).toBeNull();
-    expect(readDailyResult(memoryStorage({ [DAILY_STORAGE_KEY]: '{mal json' }))).toBeNull();
+    expect(readDailyResult(LOCALE, memoryStorage())).toBeNull();
+    expect(readDailyResult(LOCALE, null)).toBeNull();
+    expect(
+      readDailyResult(LOCALE, memoryStorage({ [dailyStorageKey(LOCALE)]: '{mal json' }))
+    ).toBeNull();
     expect(
       readDailyResult(
-        memoryStorage({ [DAILY_STORAGE_KEY]: JSON.stringify({ dayKey: 'hoy', score: 'x' }) })
+        LOCALE,
+        memoryStorage({ [dailyStorageKey(LOCALE)]: JSON.stringify({ dayKey: 'hoy' }) })
       )
     ).toBeNull();
   });
 
   it('un reintento el mismo día no infla la racha', () => {
     const storage = memoryStorage();
-    recordDailyResult(result('2026-11-05'), storage);
-    const again = recordDailyResult(result('2026-11-05', 5), storage);
+    recordDailyResult(LOCALE, result('2026-11-05'), storage);
+    const again = recordDailyResult(LOCALE, result('2026-11-05', 5), storage);
     expect(again.streak).toBe(1);
     expect(again.score).toBe(5);
   });
@@ -69,31 +85,30 @@ describe('recordDailyResult + readDailyResult («ya jugaste hoy»)', () => {
 describe('racha', () => {
   it('suma días consecutivos y se reinicia tras un hueco', () => {
     const storage = memoryStorage();
-    expect(recordDailyResult(result('2026-11-05'), storage).streak).toBe(1);
-    expect(recordDailyResult(result('2026-11-06'), storage).streak).toBe(2);
-    expect(recordDailyResult(result('2026-11-07'), storage).streak).toBe(3);
+    expect(recordDailyResult(LOCALE, result('2026-11-05'), storage).streak).toBe(1);
+    expect(recordDailyResult(LOCALE, result('2026-11-06'), storage).streak).toBe(2);
+    expect(recordDailyResult(LOCALE, result('2026-11-07'), storage).streak).toBe(3);
     // Un día sin jugar y la racha vuelve a 1.
-    expect(recordDailyResult(result('2026-11-09'), storage).streak).toBe(1);
+    expect(recordDailyResult(LOCALE, result('2026-11-09'), storage).streak).toBe(1);
   });
 
   it('sobrevive el cambio de horario chileno (días de 23 y 25 horas)', () => {
     const storage = memoryStorage();
     // 2026-09-06: Chile adelanta el reloj (el 5 dura 23 h). La racha usa
     // claves de calendario, así que no se rompe.
-    recordDailyResult(result('2026-09-05'), storage);
-    expect(recordDailyResult(result('2026-09-06'), storage).streak).toBe(2);
-    recordDailyResult(result('2026-09-07'), storage);
+    recordDailyResult(LOCALE, result('2026-09-05'), storage);
+    expect(recordDailyResult(LOCALE, result('2026-09-06'), storage).streak).toBe(2);
     // 2026-04-05: Chile atrasa el reloj (el 4 dura 25 h).
     const winter = memoryStorage();
-    recordDailyResult(result('2026-04-04'), winter);
-    expect(recordDailyResult(result('2026-04-05'), winter).streak).toBe(2);
+    recordDailyResult(LOCALE, result('2026-04-04'), winter);
+    expect(recordDailyResult(LOCALE, result('2026-04-05'), winter).streak).toBe(2);
   });
 
   it('currentDailyStreak: vive hoy y ayer, muere con un día de por medio', () => {
     const storage = memoryStorage();
-    recordDailyResult(result('2026-11-05'), storage);
-    recordDailyResult(result('2026-11-06'), storage);
-    const record = readDailyResult(storage);
+    recordDailyResult(LOCALE, result('2026-11-05'), storage);
+    recordDailyResult(LOCALE, result('2026-11-06'), storage);
+    const record = readDailyResult(LOCALE, storage);
     expect(currentDailyStreak(record, '2026-11-06')).toBe(2);
     expect(currentDailyStreak(record, '2026-11-07')).toBe(2);
     expect(currentDailyStreak(record, '2026-11-08')).toBe(0);

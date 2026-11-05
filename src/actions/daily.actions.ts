@@ -13,7 +13,13 @@ import { headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { evaluateAnswer } from '@/lib/quiz/answer-key';
-import { attemptsAvailable, verifyQuizAttempt, warnAttemptsInactive } from '@/lib/quiz/attempt';
+import {
+  attemptsAvailable,
+  verifyQuizAttempt,
+  warnAttemptsInactive,
+  type QuizAttempt,
+} from '@/lib/quiz/attempt';
+import { claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
 import { QuizAnswerSchema } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId } from '@/lib/quiz/quiz-repository';
 import { getDailyChallenge } from '@/lib/data/daily-quiz';
@@ -70,12 +76,14 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
   }
 
   const secured = attemptsAvailable();
+  let attempt: QuizAttempt | null = null;
   if (!secured) {
     warnAttemptsInactive();
   } else {
     if (!attemptToken) return actionFailure('unauthorized', 'Missing game attempt.');
     const verification = await verifyQuizAttempt(attemptToken, quizId);
     if (!verification.ok) return actionFailure('unauthorized', 'Invalid game attempt.');
+    attempt = verification.attempt;
   }
 
   // El conjunto del reto se recalcula aquí: el cliente no decide qué
@@ -88,17 +96,36 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
   const quiz = await loadAnswerKeyByQuizId(quizId);
   if (!quiz) return actionFailure('not_found', 'Quiz not found.');
 
+  // Lo revelado manda sobre lo enviado (misma regla que `submitQuizResult`):
+  // ver la respuesta correcta y enviar otra distinta no mejora el marcador.
+  const revealed = attempt ? await getAttemptReveals(attempt.attemptId) : null;
+
   // Una respuesta por pregunta del reto; la primera gana, como en
   // `scoreSubmission`. Las que no pertenecen al reto se ignoran.
   const chosen = new Map<string, string>();
   for (const answer of answers) {
     if (!chosen.has(answer.question_id)) chosen.set(answer.question_id, answer.selected_option_id);
   }
-  const marks = challenge.questions.map((question) => {
-    const selectedOptionId = chosen.get(question.id);
-    if (!selectedOptionId) return false;
-    return evaluateAnswer(quiz, question.id, selectedOptionId)?.isCorrect ?? false;
-  });
+
+  const marks: boolean[] = [];
+  for (const question of challenge.questions) {
+    let optionId = revealed?.[question.id] ?? chosen.get(question.id) ?? null;
+    if (attempt && revealed?.[question.id] === undefined && optionId) {
+      // Sin reveal previo, la primera opción enviada queda fijada en el
+      // attempt: reenviar con otra no convierte el envío en oráculo de la
+      // clave del reto. Si el claim falla (fuera de orden o carrera), vale lo
+      // ya fijado — y si no hay nada, cuenta como fallo.
+      const quizIndex = quiz.questions.findIndex((item) => item.id === question.id);
+      const claim = await claimQuestionReveal(attempt.attemptId, question.id, quizIndex, optionId);
+      if (!claim.ok) {
+        const fresh = await getAttemptReveals(attempt.attemptId);
+        optionId = fresh?.[question.id] ?? null;
+      }
+    }
+    marks.push(
+      optionId ? (evaluateAnswer(quiz, question.id, optionId)?.isCorrect ?? false) : false
+    );
+  }
 
   return {
     success: true,

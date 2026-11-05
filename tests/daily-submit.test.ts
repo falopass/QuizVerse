@@ -14,6 +14,8 @@ const mocks = vi.hoisted(() => ({
   limitCheck: vi.fn(),
   verifyAttempt: vi.fn(),
   attemptsAvailable: false,
+  attemptReveals: null as Record<string, string> | null,
+  claimReveal: vi.fn(),
   challenge: null as {
     quiz: { id: string };
     questions: Array<{ id: string }>;
@@ -58,6 +60,11 @@ vi.mock('@/lib/quiz/attempt', () => ({
   attemptsAvailable: () => mocks.attemptsAvailable,
   verifyQuizAttempt: mocks.verifyAttempt,
   warnAttemptsInactive: vi.fn(),
+}));
+
+vi.mock('@/lib/quiz/attempt-store', () => ({
+  getAttemptReveals: async () => mocks.attemptReveals,
+  claimQuestionReveal: mocks.claimReveal,
 }));
 
 import { submitDailyResult } from '@/actions/daily.actions';
@@ -134,6 +141,8 @@ beforeEach(() => {
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.verifyAttempt.mockReset().mockResolvedValue({ ok: true, attempt: { attemptId: 'a1' } });
   mocks.attemptsAvailable = false;
+  mocks.attemptReveals = null;
+  mocks.claimReveal.mockReset().mockResolvedValue({ ok: true });
   mocks.challenge = {
     quiz: { id: QUIZ_ID },
     questions: DAILY_IDS.map((id) => ({ id })),
@@ -198,6 +207,37 @@ describe('submitDailyResult', () => {
     mocks.verifyAttempt.mockResolvedValue({ ok: true, attempt: { attemptId: 'a1' } });
     const valid = await submit({ attempt: 'signed-token' });
     expect(valid.success).toBe(true);
+  });
+
+  it('lo revelado manda sobre lo enviado: no hay oráculo reenviando opciones', async () => {
+    mocks.attemptsAvailable = true;
+    // En el reveal de q2 el jugador eligió 'a' (incorrecta); reenviar 'b'
+    // (la correcta) no puede mejorar el marcador.
+    mocks.attemptReveals = { q2: 'a' };
+    const result = await submit({ attempt: 'signed-token' });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.marks[0]).toBe(false);
+  });
+
+  it('una opción ya fijada por claim se usa en reenvíos posteriores', async () => {
+    mocks.attemptsAvailable = true;
+    // q2 no tiene reveal: el primer envío la fija con claim y la califica.
+    mocks.attemptReveals = null;
+    const first = await submit({
+      attempt: 'signed-token',
+      answers: [{ question_id: 'q2', selected_option_id: 'b' }],
+    });
+    expect(first.success).toBe(true);
+    if (first.success) expect(first.marks[0]).toBe(true);
+    // Reenviar con otra opción: el claim falla y vale lo almacenado.
+    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'already_revealed' });
+    mocks.attemptReveals = { q2: 'b' };
+    const second = await submit({
+      attempt: 'signed-token',
+      answers: [{ question_id: 'q2', selected_option_id: 'a' }],
+    });
+    expect(second.success).toBe(true);
+    if (second.success) expect(second.marks[0]).toBe(true);
   });
 
   it('en modo degradado califica sin attempt', async () => {

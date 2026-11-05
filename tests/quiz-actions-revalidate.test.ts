@@ -242,10 +242,12 @@ describe('createQuiz', () => {
     const result = await createQuiz(createInput('es'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(7);
     expect(mocks.revalidate).toHaveBeenCalledWith('/es');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/es/quiz/quiz-de-prueba');
+    // El reto diario juega con quizzes publicados: también se refresca.
+    expect(mocks.revalidate).toHaveBeenCalledWith('/es/daily');
     expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
@@ -357,11 +359,12 @@ describe('createQuiz', () => {
     const result = await createQuiz(createInput('pt'));
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(9);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(11);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/daily`);
     }
     expectHubs();
   });
@@ -418,12 +421,13 @@ describe('updateQuiz', () => {
     const result = await updateQuiz(QUIZ_ID, { language: 'es' });
 
     expect(result.success).toBe(true);
-    // 3 paths × 2 locales + 3 hub patterns × 2 calls (los hubs se repiten, es idempotente)
-    expect(mocks.revalidate).toHaveBeenCalledTimes(12);
+    // 4 paths × 2 locales + 3 hub patterns × 2 calls (los hubs se repiten, es idempotente)
+    expect(mocks.revalidate).toHaveBeenCalledTimes(14);
     for (const locale of ['en', 'es']) {
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
       expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/daily`);
     }
     expectHubs();
   });
@@ -434,10 +438,11 @@ describe('deleteQuiz', () => {
     const result = await deleteQuiz(QUIZ_ID);
 
     expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(6);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(7);
     expect(mocks.revalidate).toHaveBeenCalledWith('/en');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz');
     expect(mocks.revalidate).toHaveBeenCalledWith('/en/quiz/quiz-de-prueba');
+    expect(mocks.revalidate).toHaveBeenCalledWith('/en/daily');
     expectHubs();
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/');
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
