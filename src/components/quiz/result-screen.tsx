@@ -846,22 +846,26 @@ export function ResultScreen({
                     shareToken={shareToken}
                     title={shareResultTitle}
                     context={
-                      personality
-                        ? {
-                            kind: 'personality_result',
-                            slug: quiz.slug,
-                            title: quiz.title,
-                            resultTitle: result?.title ?? quiz.title,
-                          }
-                        : triviaScore
+                      shareMode === 'challenge' && groupShareUrl
+                        ? // En modo grupo `context` ganaría a `text` y los canales
+                          // con mensaje saldrían como reto individual, no al ranking.
+                          undefined
+                        : personality
                           ? {
-                              kind: 'trivia_result',
+                              kind: 'personality_result',
                               slug: quiz.slug,
                               title: quiz.title,
-                              score: triviaScore.correct,
-                              maxScore: triviaScore.total,
+                              resultTitle: result?.title ?? quiz.title,
                             }
-                          : { kind: 'quiz_invite', slug: quiz.slug, title: quiz.title }
+                          : triviaScore
+                            ? {
+                                kind: 'trivia_result',
+                                slug: quiz.slug,
+                                title: quiz.title,
+                                score: triviaScore.correct,
+                                maxScore: triviaScore.total,
+                              }
+                            : { kind: 'quiz_invite', slug: quiz.slug, title: quiz.title }
                     }
                     url={
                       (shareMode === 'challenge' ? groupShareUrl || challengeShareUrl : shareUrl) ||
