@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
+  bindRefsToChannel,
+  channelForRefs,
   claimLanding,
   clearPendingOrigin,
   detectShareOrigin,
@@ -115,5 +117,16 @@ describe('sessionStorage origin', () => {
     stashPendingOrigin({ kind: 'via', channel: 'x' });
     clearPendingOrigin();
     expect(getShareOrigin()).toEqual({ kind: 'via', channel: 'whatsapp' });
+  });
+});
+
+describe('canal ligado a tokens', () => {
+  beforeEach(() => sessionStorage.clear());
+
+  it('la recarga sin via recupera el canal original por token', () => {
+    bindRefsToChannel(['s1', 'c1'], 'whatsapp');
+    expect(channelForRefs(['c1'])).toBe('whatsapp');
+    expect(channelForRefs(['otro'])).toBeNull();
+    expect(channelForRefs([])).toBeNull();
   });
 });

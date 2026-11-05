@@ -10,6 +10,8 @@ import {
   stashPendingOrigin,
   landingSignatures,
   claimLanding,
+  bindRefsToChannel,
+  channelForRefs,
   pendingShareOrigin,
   clearPendingOrigin,
   stripViaParam,
@@ -51,9 +53,17 @@ export function AppTelemetry() {
       storeShareOrigin(origin);
       const signatures = landingSignatures(origin, pathname ?? window.location.pathname);
       if (!claimLanding(signatures)) {
-        stashPendingOrigin({ ...origin, path: pathname ?? window.location.pathname, locale });
+        // Recarga tras quitar `via`: el invite conserva el canal original.
+        const bound = origin.kind === 'invite' ? channelForRefs(origin.refs) : null;
+        const reported = bound ? { ...origin, kind: 'via' as const, channel: bound } : origin;
+        stashPendingOrigin({
+          ...reported,
+          path: pathname ?? window.location.pathname,
+          locale,
+        });
       }
       if (origin.kind === 'via') {
+        bindRefsToChannel(origin.refs, origin.channel);
         window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
       }
     }

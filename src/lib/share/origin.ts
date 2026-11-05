@@ -62,6 +62,45 @@ export function claimLanding(signatures: string[]): boolean {
   return false;
 }
 
+const REF_CHANNELS_KEY = 'qv.share_ref_channels';
+const REF_CHANNELS_CAP = 10;
+
+/**
+ * Al quitar `via` de la URL quedan los tokens (s, challenge): si el visitante
+ * recarga, la llegada se detectaría como `invite`. Se guarda el canal ligado
+ * a cada token para atribuir esa recarga al canal original.
+ */
+export function bindRefsToChannel(refs: readonly string[] | undefined, channel: string): void {
+  if (!refs?.length) return;
+  try {
+    const raw = sessionStorage.getItem(REF_CHANNELS_KEY);
+    const map: Record<string, string> = raw ? (JSON.parse(raw) as Record<string, string>) : {};
+    for (const ref of refs) map[ref] = channel;
+    sessionStorage.setItem(
+      REF_CHANNELS_KEY,
+      JSON.stringify(Object.fromEntries(Object.entries(map).slice(-REF_CHANNELS_CAP)))
+    );
+  } catch {
+    // best-effort
+  }
+}
+
+/** Canal ligado a alguno de los tokens, si se compartieron antes con `via`. */
+export function channelForRefs(refs: readonly string[] | undefined): string | null {
+  if (!refs?.length) return null;
+  try {
+    const raw = sessionStorage.getItem(REF_CHANNELS_KEY);
+    const map: Record<string, string> = raw ? (JSON.parse(raw) as Record<string, string>) : {};
+    for (const ref of refs) {
+      const channel = map[ref];
+      if (typeof channel === 'string') return channel;
+    }
+  } catch {
+    // best-effort
+  }
+  return null;
+}
+
 const PENDING_KEY = 'qv.share_origin_pending';
 
 export type PendingShareOrigin = ShareOrigin & {
