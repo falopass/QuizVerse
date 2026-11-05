@@ -10,7 +10,11 @@ import { quizOgImage, resultOgImage } from '@/lib/seo/site';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { ChallengeBanner } from '@/components/quiz/challenge-banner';
 import { challengeCopy, isShareToken } from '@/lib/quiz/challenge';
-import { getChallengeForQuiz } from '@/lib/data/challenge';
+import {
+  getChallengeForQuiz,
+  getPersonalityChallengeForQuiz,
+  type PersonalityChallenge,
+} from '@/lib/data/challenge';
 
 /**
  * The play view is the same quiz the detail page already ranks for, with no
@@ -81,8 +85,12 @@ export default async function LocalizedQuizPlayPage({
   // Un enlace de reto muestra el marcador del retador antes de empezar. Si el
   // token no es de este quiz — o ni siquiera tiene el formato de un share
   // token — se ignora: mejor sin reto que con uno falso.
+  // En personality el reto trae además los tags del retador para la tarjeta
+  // de compatibilidad que verá el retado al terminar la partida.
   const challenge = isShareToken(challengeToken)
-    ? await getChallengeForQuiz(challengeToken, quiz.id)
+    ? quiz.quiz_type === 'personality'
+      ? await getPersonalityChallengeForQuiz(challengeToken, quiz)
+      : await getChallengeForQuiz(challengeToken, quiz.id)
     : null;
   const copy = challenge ? challengeCopy(challenge, locale) : null;
 
@@ -102,6 +110,9 @@ export default async function LocalizedQuizPlayPage({
         quiz={toClientQuiz(quiz)}
         locale={locale}
         challenge={challenge}
+        compatibility={
+          quiz.quiz_type === 'personality' ? (challenge as PersonalityChallenge | null) : null
+        }
         initialMode={parseInitialGameMode(mode, quiz)}
         related={related}
       />

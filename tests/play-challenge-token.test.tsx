@@ -9,6 +9,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   getQuizBySlug: vi.fn(),
   getChallengeForQuiz: vi.fn(),
+  getPersonalityChallengeForQuiz: vi.fn(),
   getRelatedQuizzes: vi.fn(),
 }));
 
@@ -20,6 +21,7 @@ vi.mock('@/lib/data/public', () => ({
 
 vi.mock('@/lib/data/challenge', () => ({
   getChallengeForQuiz: mocks.getChallengeForQuiz,
+  getPersonalityChallengeForQuiz: mocks.getPersonalityChallengeForQuiz,
 }));
 
 vi.mock('@/components/quiz/quiz-player', () => ({ QuizPlayer: () => null }));
@@ -43,6 +45,7 @@ const withChallenge = (challenge?: string) => Promise.resolve({ challenge });
 beforeEach(() => {
   mocks.getQuizBySlug.mockReset().mockResolvedValue(quiz);
   mocks.getChallengeForQuiz.mockReset().mockResolvedValue(null);
+  mocks.getPersonalityChallengeForQuiz.mockReset().mockResolvedValue(null);
   mocks.getRelatedQuizzes.mockReset().mockResolvedValue([]);
 });
 

@@ -15,6 +15,13 @@ import {
 } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { challengeOutcome, type ChallengeScore } from '@/lib/quiz/challenge';
+import {
+  compatibilityVerdict,
+  personalityTagsFromAnswers,
+  samePersonalityResult,
+  type CompatibilityPeer,
+} from '@/lib/quiz/compatibility';
+import { CompatibilityCard } from '@/components/quiz/compatibility-card';
 import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -52,6 +59,11 @@ interface ResultScreenProps {
   onRetrySubmit?: () => void;
   /** Marcador del retador: pinta la comparativa retador vs retado. */
   challenge?: ChallengeScore | null;
+  /**
+   * Partida del retador en un test de personalidad: su resultado y los tags
+   * que acumuló. Activa la tarjeta de compatibilidad en lugar del marcador.
+   */
+  compatibility?: CompatibilityPeer | null;
   /** Enlace para aceptar el reto desde un resultado compartido (`/play?challenge=`). */
   challengeHref?: string;
   /** Relacionados ya saneados con `toClientQuiz` en el servidor; se muestran hasta 3. */
@@ -77,6 +89,7 @@ export function ResultScreen({
   isSubmittingResult = false,
   onRetrySubmit,
   challenge = null,
+  compatibility = null,
   challengeHref,
   related,
 }: ResultScreenProps) {
@@ -243,6 +256,22 @@ export function ResultScreen({
           : copy.challengeLose
     : null;
 
+  // Compatibilidad del reto de personalidad: coseno de los vectores de tags,
+  // simétrico — los dos jugadores ven el mismo número. Sin tags en alguna de
+  // las dos partidas no hay porcentaje: queda la comparativa clásica del reto.
+  const compatVerdict =
+    personality && compatibility
+      ? compatibilityVerdict(
+          personalityTagsFromAnswers(quiz.questions, answers),
+          compatibility.tags,
+          samePersonalityResult(
+            { resultId: result?.id ?? null, resultTitle: result?.title ?? null },
+            compatibility
+          )
+        )
+      : null;
+  const showCompatibility = Boolean(compatibility && compatVerdict && result?.title);
+
   React.useEffect(() => {
     if (
       scorePercentage === undefined ||
@@ -370,30 +399,48 @@ export function ResultScreen({
 
             <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
 
-            {challenge && (
-              <div
-                className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
-                role="status"
-              >
-                <p className="arcade-play-label">{copy.challengeEyebrow}</p>
-                <p className="text-accent-primary mt-2 text-2xl font-semibold md:text-3xl">
-                  {challengeVerdict}
-                </p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
-                  <span className="text-text-secondary">
-                    {copy.challenger}:{' '}
-                    <strong className="text-text-primary">
-                      {challengeMark(challenge, personality)}
-                    </strong>
-                  </span>
-                  <span className="text-text-secondary">
-                    {copy.challenged}:{' '}
-                    <strong className="text-text-primary">
-                      {challengeMark(myScore, personality)}
-                    </strong>
-                  </span>
+            {showCompatibility && compatibility && compatVerdict ? (
+              <CompatibilityCard
+                locale={uiLocale}
+                myResult={result?.title ?? ''}
+                theirResult={compatibility.resultTitle ?? null}
+                percent={compatVerdict.percent}
+                tier={compatVerdict.tier}
+                onShareChallenge={
+                  challengeShareUrl
+                    ? (event) => {
+                        shareTriggerRef.current = event.currentTarget;
+                        setShareMode('challenge');
+                      }
+                    : undefined
+                }
+              />
+            ) : (
+              challenge && (
+                <div
+                  className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
+                  role="status"
+                >
+                  <p className="arcade-play-label">{copy.challengeEyebrow}</p>
+                  <p className="text-accent-primary mt-2 text-2xl font-semibold md:text-3xl">
+                    {challengeVerdict}
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+                    <span className="text-text-secondary">
+                      {copy.challenger}:{' '}
+                      <strong className="text-text-primary">
+                        {challengeMark(challenge, personality)}
+                      </strong>
+                    </span>
+                    <span className="text-text-secondary">
+                      {copy.challenged}:{' '}
+                      <strong className="text-text-primary">
+                        {challengeMark(myScore, personality)}
+                      </strong>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )
             )}
 
             <div className="arcade-result-metrics">
