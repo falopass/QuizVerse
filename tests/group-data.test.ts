@@ -53,9 +53,13 @@ const entryRow = {
 
 /** Builder thenable: cualquier método encadena y los terminales resuelven. */
 function query(result: { data?: unknown; error?: unknown; count?: number | null }) {
-  const builder: Record<string, unknown> = {};
+  const filters: [string, unknown, unknown][] = [];
+  const builder: Record<string, unknown> = { filters };
   for (const m of ['select', 'eq', 'is', 'limit', 'insert', 'order', 'update', 'upsert']) {
-    builder[m] = () => builder;
+    builder[m] = (...args: unknown[]) => {
+      if (m === 'eq' || m === 'is') filters.push([m, args[0], args[1]]);
+      return builder;
+    };
   }
   builder.maybeSingle = async () => ({ data: result.data ?? null, error: result.error ?? null });
   builder.single = async () => ({ data: result.data ?? null, error: result.error ?? null });
@@ -211,14 +215,31 @@ describe('fetchSessionForGroup', () => {
 });
 
 describe('fetchExistingGroup', () => {
-  it('con usuario busca por creator_user_id y devuelve el grupo con conteo', async () => {
-    let i = 0;
-    mocks.serviceFrom.mockImplementation(() =>
-      query(i++ === 0 ? { data: groupRow } : { data: null, count: 4 })
-    );
+  it('con usuario filtra por quiz y creator_user_id', async () => {
+    const first = query({ data: groupRow });
+    let calls = 0;
+    mocks.serviceFrom.mockImplementation(() => (calls++ === 0 ? first : query({ count: 4 })));
     const result = await fetchExistingGroup(service(), 'quiz-1', 'sess-1', 'user-1');
     expect(result.state).toBe('ok');
+    expect(result.value?.token).toBe(TOKEN);
     expect(result.value?.playerCount).toBe(4);
+    expect(first.filters).toEqual([
+      ['eq', 'quiz_id', 'quiz-1'],
+      ['eq', 'creator_user_id', 'user-1'],
+    ]);
+    expect(mocks.serviceFrom).toHaveBeenNthCalledWith(1, 'quiz_groups');
+  });
+
+  it('sin usuario filtra por sesión con creator_user_id null', async () => {
+    const first = query({ data: groupRow });
+    let calls = 0;
+    mocks.serviceFrom.mockImplementation(() => (calls++ === 0 ? first : query({ count: 1 })));
+    await fetchExistingGroup(service(), 'quiz-1', 'sess-1', null);
+    expect(first.filters).toEqual([
+      ['eq', 'quiz_id', 'quiz-1'],
+      ['is', 'creator_user_id', null],
+      ['eq', 'creator_session_id', 'sess-1'],
+    ]);
   });
 
   it('sin grupo → ok con null', async () => {
