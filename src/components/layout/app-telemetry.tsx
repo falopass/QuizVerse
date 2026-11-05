@@ -8,6 +8,8 @@ import {
   detectShareOrigin,
   storeShareOrigin,
   stashPendingOrigin,
+  landingSignature,
+  markLandingSeen,
   pendingShareOrigin,
   clearPendingOrigin,
   stripViaParam,
@@ -43,10 +45,14 @@ export function AppTelemetry() {
 
     const origin = detectShareOrigin(window.location.search);
     if (origin) {
-      // Primer contacto para atribuir la partida; cada llegada se encola
-      // como evento con su ruta e idioma propios.
+      // Primer contacto para atribuir la partida; cada llegada *nueva* se
+      // encola como evento. La firma deduplica la navegación interna
+      // /result → /play que conserva `challenge` en la URL.
       storeShareOrigin(origin);
-      stashPendingOrigin({ ...origin, path: pathname ?? window.location.pathname, locale });
+      const signature = landingSignature(origin, pathname ?? window.location.pathname);
+      if (!markLandingSeen(signature)) {
+        stashPendingOrigin({ ...origin, path: pathname ?? window.location.pathname, locale });
+      }
       if (origin.kind === 'via') {
         window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
       }

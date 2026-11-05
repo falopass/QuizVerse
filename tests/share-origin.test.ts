@@ -3,6 +3,8 @@ import {
   clearPendingOrigin,
   detectShareOrigin,
   getShareOrigin,
+  landingSignature,
+  markLandingSeen,
   pendingShareOrigin,
   stashPendingOrigin,
   storeShareOrigin,
@@ -15,17 +17,52 @@ describe('detectShareOrigin', () => {
   });
 
   it('challenge y g se detectan como invitación', () => {
-    expect(detectShareOrigin('?challenge=abc')).toEqual({ kind: 'invite', channel: 'challenge' });
-    expect(detectShareOrigin('?g=abc')).toEqual({ kind: 'invite', channel: 'g' });
+    expect(detectShareOrigin('?challenge=abc')).toEqual({
+      kind: 'invite',
+      channel: 'challenge',
+      ref: 'abc',
+    });
+    expect(detectShareOrigin('?g=abc')).toEqual({ kind: 'invite', channel: 'g', ref: 'abc' });
   });
 
-  it('via manda sobre challenge/g', () => {
-    expect(detectShareOrigin('?via=x&challenge=abc')?.channel).toBe('x');
+  it('via manda sobre challenge/g y conserva el token como ref', () => {
+    expect(detectShareOrigin('?via=x&challenge=abc')).toEqual({
+      kind: 'via',
+      channel: 'x',
+      ref: 'abc',
+    });
   });
 
   it('sin parámetros de share no hay origen', () => {
     expect(detectShareOrigin('?s=abc')).toBeNull();
     expect(detectShareOrigin('')).toBeNull();
+  });
+});
+
+describe('dedupe de llegadas', () => {
+  beforeEach(() => sessionStorage.clear());
+
+  it('la navegación interna /result → /play con el mismo challenge no cuenta dos veces', () => {
+    const landing = detectShareOrigin('?s=t&challenge=t&via=whatsapp')!;
+    const sig1 = landingSignature(landing, '/es/quiz/a/result');
+    expect(markLandingSeen(sig1)).toBe(false);
+
+    const nav = detectShareOrigin('?challenge=t')!;
+    const sig2 = landingSignature(nav, '/es/quiz/a/play');
+    expect(markLandingSeen(sig2)).toBe(true); // mismo token: no es una llegada nueva
+  });
+
+  it('llegadas distintas sí cuentan aunque sean del mismo canal', () => {
+    expect(
+      markLandingSeen(landingSignature(detectShareOrigin('?via=whatsapp')!, '/es/quiz/a'))
+    ).toBe(false);
+    expect(
+      markLandingSeen(landingSignature(detectShareOrigin('?via=whatsapp')!, '/es/quiz/b'))
+    ).toBe(false);
+    // La misma repetida no.
+    expect(
+      markLandingSeen(landingSignature(detectShareOrigin('?via=whatsapp')!, '/es/quiz/a'))
+    ).toBe(true);
   });
 });
 
