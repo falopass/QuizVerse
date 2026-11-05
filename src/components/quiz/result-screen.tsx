@@ -875,11 +875,7 @@ export function ResultScreen({
                     // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
                     text={
                       shareMode === 'challenge' && groupShareUrl
-                        ? truncateShareText(
-                            uiLocale === 'es'
-                              ? `${shareResultTitle} — entra al grupo y supéranos`
-                              : `${shareResultTitle} — join the group and beat us`
-                          )
+                        ? groupShareText(shareResultTitle, uiLocale)
                         : uiLocale === 'es'
                           ? `${shareResultTitle} — ¿puedes superarlo?`
                           : `${shareResultTitle} — can you beat it?`
@@ -927,11 +923,16 @@ function challengeMark(score: ChallengeScore, personality: boolean): string {
 }
 
 // El mensaje del grupo va por `text` (sin `context`): X suma el enlace al
-// mensaje, así que se recorta al mismo tope que usa `shareText` (220).
+// mensaje, así que se reserva el tope que usa `shareText` (220). La
+// invitación siempre sobrevive: solo se recorta el título del resultado.
 const SHARE_TEXT_MAX = 220;
 
-function truncateShareText(text: string): string {
-  return text.length <= SHARE_TEXT_MAX ? text : `${text.slice(0, SHARE_TEXT_MAX - 1).trimEnd()}…`;
+function groupShareText(resultTitle: string, locale: Locale | undefined): string {
+  const cta = locale === 'es' ? ' — entra al grupo y supéranos' : ' — join the group and beat us';
+  const room = SHARE_TEXT_MAX - cta.length;
+  const head =
+    resultTitle.length <= room ? resultTitle : `${resultTitle.slice(0, room - 1).trimEnd()}…`;
+  return `${head}${cta}`;
 }
 
 function getScoreMessage(percentage: number | undefined, locale?: Locale) {
