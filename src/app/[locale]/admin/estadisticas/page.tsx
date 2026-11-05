@@ -74,8 +74,16 @@ const COPY = {
     colCount: 'Cantidad',
     colShare: '%',
     trafficTitle: 'Origen de visitas',
-    trafficNote:
-      'Los eventos share_click e invite_landing se emiten a /api/analytics, que los vuelca en los logs del Worker; todavía no se persisten en base de datos, así que no hay tabla consultable. La tabla aparecerá cuando exista almacenamiento de analítica.',
+    trafficUnavailable:
+      'Todavía no hay almacenamiento de analítica: falta aplicar la migración 022_analytics_events.sql. Mientras tanto los eventos solo se vuelcan en los logs del Worker.',
+    trafficWindow: (days: number) => `Últimos ${days} días`,
+    trafficArrivals: 'Llegadas',
+    trafficStarts: 'Partidas iniciadas',
+    trafficCompletes: 'Partidas completadas',
+    trafficConversion: 'Conversión llegada → completada',
+    trafficClicksTitle: 'Clics en compartir por canal',
+    trafficArrivalsTitle: 'Llegadas por canal e invitación',
+    trafficUnknown: 'Sin origen',
     accountsTitle: 'Cuentas y comunidad',
     rowProfilesTotal: 'Cuentas totales',
     rowProfiles7d: 'Cuentas nuevas (7 días)',
@@ -126,8 +134,16 @@ const COPY = {
     colCount: 'Count',
     colShare: '%',
     trafficTitle: 'Traffic sources',
-    trafficNote:
-      'share_click and invite_landing events are sent to /api/analytics, which writes them to Worker logs; they are not persisted to the database yet, so there is no queryable table. The table will appear once analytics storage exists.',
+    trafficUnavailable:
+      'Analytics storage is not enabled yet: apply migration 022_analytics_events.sql. In the meantime events are only written to the Worker logs.',
+    trafficWindow: (days: number) => `Last ${days} days`,
+    trafficArrivals: 'Arrivals',
+    trafficStarts: 'Plays started',
+    trafficCompletes: 'Plays completed',
+    trafficConversion: 'Arrival → completed conversion',
+    trafficClicksTitle: 'Share clicks by channel',
+    trafficArrivalsTitle: 'Arrivals by channel & invite',
+    trafficUnknown: 'No origin',
     accountsTitle: 'Accounts & community',
     rowProfilesTotal: 'Total accounts',
     rowProfiles7d: 'New accounts (7 days)',
@@ -425,7 +441,70 @@ export default async function AdminStatsPage({ params }: { params: Promise<{ loc
 
           <section className="surface-panel mt-6 p-8 md:p-10">
             <h2 className="text-text-primary text-xl font-semibold">{copy.trafficTitle}</h2>
-            <p className="text-text-secondary mt-4 text-sm">{copy.trafficNote}</p>
+            {!stats.traffic.available ? (
+              <p className="text-text-secondary mt-4 text-sm">{copy.trafficUnavailable}</p>
+            ) : (
+              <>
+                {stats.traffic.truncated ? (
+                  <p className="text-warning mt-2 text-xs">{copy.truncatedNote}</p>
+                ) : null}
+                {[
+                  { title: copy.trafficWindow(7), window: stats.traffic.days7 },
+                  { title: copy.trafficWindow(30), window: stats.traffic.days30 },
+                ].map(({ title, window }) => (
+                  <div key={title} className="mt-8 first:mt-6">
+                    <h3 className="text-text-secondary text-sm font-medium">{title}</h3>
+                    <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
+                      {[
+                        {
+                          label: copy.trafficArrivals,
+                          value: num(window.arrivals.reduce((sum, g) => sum + g.count, 0)),
+                        },
+                        { label: copy.trafficStarts, value: num(window.quizStarts) },
+                        { label: copy.trafficCompletes, value: num(window.quizCompletes) },
+                        {
+                          label: copy.trafficConversion,
+                          value: percent(window.arrivalCompletionShare),
+                        },
+                      ].map((kpi) => (
+                        <div key={kpi.label} className="border-border-subtle rounded-lg border p-3">
+                          <p className="text-text-muted text-xs">{kpi.label}</p>
+                          <p className="text-text-primary mt-1 text-xl font-semibold tabular-nums">
+                            {kpi.value}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 grid gap-6 md:grid-cols-2">
+                      <div>
+                        <h4 className="text-text-secondary text-sm font-medium">
+                          {copy.trafficClicksTitle}
+                        </h4>
+                        <div className="mt-2">
+                          {window.shareClicks.length === 0 ? (
+                            <p className="text-text-secondary text-sm">{copy.empty}</p>
+                          ) : (
+                            groupTable(window.shareClicks, (key) => key ?? copy.trafficUnknown)
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-text-secondary text-sm font-medium">
+                          {copy.trafficArrivalsTitle}
+                        </h4>
+                        <div className="mt-2">
+                          {window.arrivals.length === 0 ? (
+                            <p className="text-text-secondary text-sm">{copy.empty}</p>
+                          ) : (
+                            groupTable(window.arrivals, (key) => key ?? copy.trafficUnknown)
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </section>
 
           <section className="surface-panel mt-6 p-8 md:p-10">
