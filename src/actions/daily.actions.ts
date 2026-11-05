@@ -113,11 +113,13 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
     if (attempt && revealed?.[question.id] === undefined && optionId) {
       // Sin reveal previo, la primera opción enviada queda fijada en el
       // attempt: reenviar con otra no convierte el envío en oráculo de la
-      // clave del reto. Si el claim falla (fuera de orden o carrera), vale lo
-      // ya fijado — y si no hay nada, cuenta como fallo.
+      // clave del reto. Si ya estaba fijada vale lo almacenado; fuera de
+      // orden (una posterior sí se reveló y esta no, p. ej. un veredicto
+      // perdido en red) se califica lo enviado — la alternativa era marcar
+      // como fallo un acierto honesto de forma irreversible.
       const quizIndex = quiz.questions.findIndex((item) => item.id === question.id);
       const claim = await claimQuestionReveal(attempt.attemptId, question.id, quizIndex, optionId);
-      if (!claim.ok) {
+      if (!claim.ok && claim.reason === 'already_revealed') {
         const fresh = await getAttemptReveals(attempt.attemptId);
         optionId = fresh?.[question.id] ?? null;
       }

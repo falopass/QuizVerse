@@ -240,6 +240,19 @@ describe('submitDailyResult', () => {
     if (second.success) expect(second.marks[0]).toBe(true);
   });
 
+  it('fuera de orden por un veredicto perdido no castiga el acierto honesto', async () => {
+    mocks.attemptsAvailable = true;
+    // La pregunta 1 (q2) nunca llegó a revelarse; una posterior sí. El claim
+    // sale fuera de orden y se califica la opción enviada ('b', correcta).
+    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'out_of_order' });
+    const result = await submit({
+      attempt: 'signed-token',
+      answers: [{ question_id: 'q2', selected_option_id: 'b' }],
+    });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.marks[0]).toBe(true);
+  });
+
   it('en modo degradado califica sin attempt', async () => {
     mocks.attemptsAvailable = false;
     const result = await submit();
