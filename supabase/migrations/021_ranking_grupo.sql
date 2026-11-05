@@ -130,7 +130,10 @@ $$;
 -- top 100: el enlace va a un grupo de WhatsApp, no a un directorio público.
 -- p_session (opcional, sin auth) incluye la fila propia aunque quede fuera
 -- del top: el cliente resalta su marca y no finge "no entraste".
+-- Se eliminan ambas firmas: un OR REPLACE sobre una firma existente con otro
+-- tipo de retorno hace fallar la re-aplicación (idempotencia real).
 DROP FUNCTION IF EXISTS public.get_quiz_group_entries(TEXT);
+DROP FUNCTION IF EXISTS public.get_quiz_group_entries(TEXT, UUID);
 CREATE OR REPLACE FUNCTION public.get_quiz_group_entries(
   p_token TEXT,
   p_session UUID DEFAULT NULL
