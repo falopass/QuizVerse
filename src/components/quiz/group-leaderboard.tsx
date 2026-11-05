@@ -14,6 +14,7 @@
  */
 
 import * as React from 'react';
+import Link from 'next/link';
 import { getQuizGroupLeaderboard, joinQuizGroup } from '@/actions/group.actions';
 import { groupPositionOf, type GroupEntry } from '@/lib/quiz/group';
 import { formatTime } from '@/lib/quiz/engine';
@@ -29,8 +30,14 @@ interface GroupLeaderboardProps {
   creatorNickname: string;
   /** Sesión propia: resalta su fila y habilita el alta con `shareToken`. */
   gameSessionId?: string;
-  /** Token bearer de la sesión propia: prueba la titularidad al entrar. */
+  /** Token de la sesión propia: ubica la partida al entrar al ranking. */
   shareToken?: string;
+  /** Attempt firmado de la partida propia: prueba la titularidad en el alta. */
+  attemptToken?: string;
+  /** La partida es del visitante (acaba de jugarla o es suya con sesión). */
+  canJoin?: boolean;
+  /** Enlace a jugar por el grupo: CTA cuando la partida no es propia. */
+  joinHref?: string;
   /** Apodo sugerido (nombre de usuario con sesión); localStorage gana si existe. */
   suggestedNickname?: string;
   /** Entradas ya resueltas en el servidor (página /ranking en readOnly). */
@@ -71,6 +78,7 @@ const COPY = {
     nickReserved: 'Ese nombre está reservado. Prueba con otro.',
     joinedAs: (nick: string) => `Entraste como ${nick}`,
     noTime: '—',
+    playAndJoin: 'Jugar y entrar al ranking',
   },
   en: {
     eyebrow: 'Group leaderboard',
@@ -99,6 +107,7 @@ const COPY = {
     nickReserved: 'That name is reserved. Try another one.',
     joinedAs: (nick: string) => `You joined as ${nick}`,
     noTime: '—',
+    playAndJoin: 'Play & join the leaderboard',
   },
 } as const;
 
@@ -108,6 +117,9 @@ export function GroupLeaderboard({
   creatorNickname,
   gameSessionId,
   shareToken,
+  attemptToken,
+  canJoin = false,
+  joinHref,
   suggestedNickname,
   initialEntries,
   playerCount,
@@ -157,7 +169,9 @@ export function GroupLeaderboard({
   const alreadyJoined =
     justJoined !== null ||
     Boolean(gameSessionId && entries?.some((entry) => entry.gameSessionId === gameSessionId));
-  const canJoin = Boolean(shareToken && gameSessionId && !alreadyJoined);
+  // El alta exige titularidad real: attempt firmado o sesión propia — un
+  // enlace de resultado compartido no basta para mover la marca ajena.
+  const showJoinForm = Boolean(canJoin && shareToken && gameSessionId && !alreadyJoined);
   const position = groupPositionOf(entries ?? [], gameSessionId);
   const ahead = position > 0 ? position - 1 : 0;
 
@@ -184,6 +198,7 @@ export function GroupLeaderboard({
       groupToken,
       sessionToken: shareToken,
       nickname: verdict.value,
+      ...(attemptToken ? { attempt: attemptToken } : {}),
     });
     setJoining(false);
 
@@ -320,7 +335,7 @@ export function GroupLeaderboard({
           </div>
         )}
 
-        {!readOnly && canJoin && (
+        {!readOnly && showJoinForm && (
           <form onSubmit={onJoin} className="mt-5">
             <label
               htmlFor="group-nickname"
@@ -358,6 +373,17 @@ export function GroupLeaderboard({
               </p>
             )}
           </form>
+        )}
+
+        {!readOnly && !showJoinForm && !alreadyJoined && joinHref && (
+          <div className="mt-5">
+            <Link
+              href={joinHref}
+              className="arcade-button arcade-result-primary inline-flex min-h-11 items-center"
+            >
+              {copy.playAndJoin}
+            </Link>
+          </div>
         )}
       </div>
     </section>

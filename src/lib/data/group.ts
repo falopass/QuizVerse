@@ -147,6 +147,8 @@ export interface GroupCreatorSession {
   id: string;
   quiz_id: string;
   player_id: string | null;
+  /** Attempt firmado que creó la partida (migración 020): prueba titularidad. */
+  attempt_id: string | null;
   score: number;
   max_score: number;
   time_taken_seconds: number | null;
@@ -158,7 +160,7 @@ export async function fetchSessionForGroup(
 ): Promise<GroupReadResult<GroupCreatorSession>> {
   const { data, error } = await supabase
     .from('game_sessions')
-    .select('id, quiz_id, player_id, score, max_score, time_taken_seconds')
+    .select('id, quiz_id, player_id, attempt_id, score, max_score, time_taken_seconds')
     .eq('share_token', shareToken)
     .maybeSingle();
 

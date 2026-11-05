@@ -282,6 +282,10 @@ export default async function LocalizedQuizResultPage({
       related={related}
       group={group}
       gameSessionId={session.id}
+      // Quien abre el resultado de otro por enlace no puede inscribir esa
+      // marca: solo un dueño autenticado (o quien acaba de jugar, con attempt)
+      // ve las acciones de grupo; al resto se le ofrece jugar y entrar.
+      canJoinGroup={session.player_id !== null && session.player_id === user?.id}
       suggestedNickname={suggestedNickname}
     />
   );

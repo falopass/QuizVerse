@@ -202,6 +202,7 @@ describe('fetchSessionForGroup', () => {
           id: 'sess-1',
           quiz_id: 'quiz-1',
           player_id: null,
+          attempt_id: 'att-1',
           score: 7,
           max_score: 8,
           time_taken_seconds: 42,

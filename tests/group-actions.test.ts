@@ -9,6 +9,9 @@ const mocks = vi.hoisted(() => ({
   fetchSessionForGroup: vi.fn(),
   insertGroup: vi.fn(),
   insertGroupEntry: vi.fn(),
+  getUser: vi.fn(),
+  attemptsAvailable: vi.fn(),
+  verifyQuizAttempt: vi.fn(),
 }));
 
 vi.mock('next/headers', () => ({ headers: async () => new Headers() }));
@@ -16,7 +19,14 @@ vi.mock('@/lib/utils/client-ip', () => ({ clientIpFromHeaders: () => '1.2.3.4' }
 vi.mock('@/lib/utils/rate-limit', () => ({
   createRateLimiter: () => ({ check: mocks.rateCheck }),
 }));
-vi.mock('@/lib/supabase/server', () => ({ createClient: async () => ({}) }));
+vi.mock('@/lib/quiz/attempt', () => ({
+  attemptsAvailable: mocks.attemptsAvailable,
+  verifyQuizAttempt: mocks.verifyQuizAttempt,
+  warnAttemptsInactive: vi.fn(),
+}));
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: async () => ({ auth: { getUser: mocks.getUser } }),
+}));
 vi.mock('@/lib/supabase/service', () => ({ createServiceClient: () => ({}) }));
 vi.mock('@/lib/data/group', () => ({
   fetchExistingGroup: mocks.fetchExistingGroup,
@@ -37,9 +47,15 @@ const session = {
   id: 'sess-1',
   quiz_id: 'quiz-1',
   player_id: 'user-1',
+  attempt_id: 'att-1',
   score: 7,
   max_score: 8,
   time_taken_seconds: 42,
+};
+
+const validAttempt = {
+  ok: true as const,
+  attempt: { quizId: 'quiz-1', attemptId: 'att-1', issuedAt: 1, expiresAt: 9999999999 },
 };
 
 const group = {
@@ -57,6 +73,10 @@ const missing = <T>() => ({ state: 'missing' as const, value: null as T | null }
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.rateCheck.mockResolvedValue({ allowed: true });
+  // Titularidad por defecto: usuario autenticado dueño de la partida.
+  mocks.getUser.mockResolvedValue({ data: { user: { id: 'user-1' } } });
+  mocks.attemptsAvailable.mockReturnValue(true);
+  mocks.verifyQuizAttempt.mockResolvedValue(validAttempt);
   mocks.fetchSessionForGroup.mockResolvedValue(ok(session));
   mocks.fetchExistingGroup.mockResolvedValue(ok(null));
   mocks.insertGroup.mockResolvedValue(ok(group));
@@ -203,6 +223,103 @@ describe('joinQuizGroup', () => {
     const result = await join();
     expect(result.success).toBe(false);
     if (!result.success) expect(result.code).toBe('unavailable');
+  });
+});
+
+describe('titularidad de la partida', () => {
+  const anonymous = () => {
+    mocks.getUser.mockResolvedValue({ data: { user: null } });
+    mocks.fetchSessionForGroup.mockResolvedValue(ok({ ...session, player_id: null }));
+  };
+
+  it('token de resultado ajeno sin attempt → unauthorized (crear y unir)', async () => {
+    anonymous();
+    mocks.verifyQuizAttempt.mockResolvedValue({ ok: false, reason: 'missing' });
+
+    const created = await createQuizGroup({ shareToken: SHARE_TOKEN, nickname: 'Diego' });
+    expect(created.success).toBe(false);
+    if (!created.success) expect(created.code).toBe('unauthorized');
+    expect(mocks.insertGroup).not.toHaveBeenCalled();
+
+    const joined = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+    });
+    expect(joined.success).toBe(false);
+    if (!joined.success) expect(joined.code).toBe('unauthorized');
+    expect(mocks.insertGroupEntry).not.toHaveBeenCalled();
+  });
+
+  it('attempt de otra partida → unauthorized', async () => {
+    anonymous();
+    mocks.verifyQuizAttempt.mockResolvedValue({
+      ok: true,
+      attempt: { quizId: 'quiz-1', attemptId: 'otro-attempt', issuedAt: 1, expiresAt: 9999999999 },
+    });
+    const result = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+      attempt: 'v1.payload.firma',
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) expect(result.code).toBe('unauthorized');
+    expect(mocks.insertGroupEntry).not.toHaveBeenCalled();
+  });
+
+  it('attempt correcto de una sesión anónima → ok en crear y unir', async () => {
+    anonymous();
+    const created = await createQuizGroup({
+      shareToken: SHARE_TOKEN,
+      nickname: 'Diego',
+      attempt: 'v1.payload.firma',
+    });
+    expect(created.success).toBe(true);
+    const joined = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+      attempt: 'v1.payload.firma',
+    });
+    expect(joined.success).toBe(true);
+    expect(mocks.verifyQuizAttempt).toHaveBeenCalledWith('v1.payload.firma', 'quiz-1');
+  });
+
+  it('usuario dueño con sesión → ok aunque el attempt falte', async () => {
+    mocks.verifyQuizAttempt.mockResolvedValue({ ok: false, reason: 'missing' });
+    const result = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('modo degradado: solo partidas sin attempt_id', async () => {
+    anonymous();
+    mocks.attemptsAvailable.mockReturnValue(false);
+
+    mocks.fetchSessionForGroup.mockResolvedValue(
+      ok({ ...session, player_id: null, attempt_id: 'att-1' })
+    );
+    const bound = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+    });
+    expect(bound.success).toBe(false);
+    if (!bound.success) expect(bound.code).toBe('unauthorized');
+
+    mocks.fetchSessionForGroup.mockResolvedValue(
+      ok({ ...session, player_id: null, attempt_id: null })
+    );
+    const legacy = await joinQuizGroup({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SHARE_TOKEN,
+      nickname: 'Camila',
+    });
+    expect(legacy.success).toBe(true);
   });
 });
 

@@ -76,6 +76,18 @@ interface ResultScreenProps {
   group?: QuizGroupInfo | null;
   /** Sesión propia persistida: resalta su fila y autoriza el alta vía shareToken. */
   gameSessionId?: string;
+  /**
+   * Attempt firmado de la partida recién jugada: la prueba de titularidad que
+   * las actions verifican. Vive solo en memoria — nunca en la URL ni en
+   * localStorage.
+   */
+  attemptToken?: string;
+  /**
+   * La partida del resultado es del visitante (acaba de jugarla o es suya con
+   * sesión iniciada): habilita crear el grupo y entrar al ranking. Sin ella
+   * el botón de reto ofrece jugar y entrar, no escribir con la marca ajena.
+   */
+  canJoinGroup?: boolean;
   /** Apodo sugerido para entrar al grupo (username de perfil si hay sesión). */
   suggestedNickname?: string;
 }
@@ -104,6 +116,8 @@ export function ResultScreen({
   related,
   group = null,
   gameSessionId,
+  attemptToken,
+  canJoinGroup = false,
   suggestedNickname,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
@@ -237,6 +251,7 @@ export function ResultScreen({
           groupErrGeneric: 'No pudimos crear el grupo. Intenta de nuevo.',
           groupJoinFailed:
             'No pudimos sumar tu marca al ranking; el enlace funciona igual para el resto.',
+          playAndJoin: 'Jugar y entrar al ranking',
         }
       : {
           eyebrow: 'Result',
@@ -288,6 +303,7 @@ export function ResultScreen({
           groupErrGeneric: "We couldn't create the group. Try again.",
           groupJoinFailed:
             "We couldn't add your mark to the leaderboard; the link still works for everyone else.",
+          playAndJoin: 'Play & join the leaderboard',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -343,6 +359,11 @@ export function ResultScreen({
       )}?g=${activeGroup.token}`
     : null;
 
+  // Jugar por el enlace del grupo: entra al ranking con la partida propia.
+  const groupPlayHref = activeGroup
+    ? localizeHref(uiLocale, `/quiz/${quiz.slug}/play?g=${activeGroup.token}`)
+    : null;
+
   const groupNickError = (reason: string): string => {
     if (reason.endsWith('_length')) return copy.groupErrNickLength;
     if (reason.endsWith('_chars')) return copy.groupErrNickChars;
@@ -357,7 +378,7 @@ export function ResultScreen({
    */
   const onCreateGroup = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!shareToken) return;
+    if (!shareToken || !canJoinGroup) return;
 
     const verdict = isNicknameAllowed(groupNick);
     if (!verdict.ok) {
@@ -367,7 +388,8 @@ export function ResultScreen({
 
     setGroupBusy(true);
     setGroupError('');
-    const created = await createQuizGroup({ shareToken, nickname: verdict.value });
+    const proof = attemptToken ? { attempt: attemptToken } : {};
+    const created = await createQuizGroup({ shareToken, nickname: verdict.value, ...proof });
     if (!created.success) {
       setGroupBusy(false);
       if (created.code === 'unavailable') {
@@ -394,6 +416,7 @@ export function ResultScreen({
         groupToken: created.groupToken,
         sessionToken: shareToken,
         nickname: verdict.value,
+        ...proof,
       });
       joinFailed = !joined.success;
     }
@@ -500,18 +523,28 @@ export function ResultScreen({
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
-              {challengeShareUrl && (
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    shareTriggerRef.current = event.currentTarget;
-                    setShareMode('challenge');
-                  }}
-                  className="arcade-button arcade-result-secondary"
-                >
-                  {copy.challengeFriend}
-                </button>
-              )}
+              {challengeShareUrl &&
+                (canJoinGroup || !activeGroup ? (
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      shareTriggerRef.current = event.currentTarget;
+                      setShareMode('challenge');
+                    }}
+                    className="arcade-button arcade-result-secondary"
+                  >
+                    {copy.challengeFriend}
+                  </button>
+                ) : (
+                  // Resultado ajeno con grupo: el visitante no puede escribir
+                  // con la marca de otro; se le ofrece jugar y entrar él mismo.
+                  <Link
+                    href={groupPlayHref!}
+                    className="arcade-button arcade-result-secondary inline-flex items-center"
+                  >
+                    {copy.playAndJoin}
+                  </Link>
+                ))}
               <Link
                 href={
                   related?.[0]
@@ -725,6 +758,9 @@ export function ResultScreen({
           creatorNickname={activeGroup.creatorNickname}
           gameSessionId={gameSessionId}
           shareToken={shareToken}
+          attemptToken={attemptToken}
+          canJoin={canJoinGroup}
+          joinHref={groupPlayHref ?? undefined}
           suggestedNickname={suggestedNickname}
         />
       )}
@@ -791,7 +827,11 @@ export function ResultScreen({
                   {copy.close}
                 </button>
               </div>
-              {shareMode === 'challenge' && !groupShareUrl && shareToken && !groupUnavailable ? (
+              {shareMode === 'challenge' &&
+              !groupShareUrl &&
+              shareToken &&
+              !groupUnavailable &&
+              canJoinGroup ? (
                 // Antes de compartir hay que nombrar el grupo: el enlace `?g=`
                 // junta a todos en un ranking moderado por apodo.
                 <form onSubmit={onCreateGroup}>

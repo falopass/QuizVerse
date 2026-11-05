@@ -29,6 +29,7 @@ import {
 } from '@/lib/actions/types';
 import { isShareToken } from '@/lib/quiz/challenge';
 import { isGroupToken, type GroupEntry, type QuizGroupInfo } from '@/lib/quiz/group';
+import { attemptsAvailable, verifyQuizAttempt, warnAttemptsInactive } from '@/lib/quiz/attempt';
 import { isNicknameAllowed, type NicknameDenyReason } from '@/lib/moderation/nickname';
 import {
   fetchExistingGroup,
@@ -38,6 +39,7 @@ import {
   fetchSessionForGroup,
   insertGroup,
   insertGroupEntry,
+  type GroupCreatorSession,
 } from '@/lib/data/group';
 
 /** 20/min por IP: crea grupos y une entradas (escrituras). */
@@ -53,6 +55,8 @@ const groupTokenSchema = z.string().refine(isGroupToken, { message: 'Invalid gro
 const shareTokenSchema = z.string().refine(isShareToken, { message: 'Invalid session token.' });
 /** Texto libre acotado; la forma concreta la decide el filtro de apodos. */
 const rawNicknameSchema = z.string().min(1).max(80);
+/** Token attempt firmado (v1.<payload>.<firma>); acotado contra abuso. */
+const attemptSchema = z.string().min(1).max(1024).optional();
 
 const UNAVAILABLE = 'The group ranking is not available yet.';
 
@@ -73,30 +77,58 @@ function nicknameOrFailure(raw: string): { value?: string; failure?: ActionFailu
 }
 
 /**
- * Crea (o reutiliza) el grupo del que comparte el resultado. El `shareToken`
- * prueba la propiedad de la sesión — es un secreto bearer ya existente — y la
- * sesión aporta quiz y creador; el apodo del creador se modera igual que el de
- * cualquier entrada.
+ * Titularidad de la partida. El `shareToken` solo ubica la sesión — viaja en
+ * todos los resultados compartidos y no prueba nada por sí solo. Las pruebas
+ * reales, en orden:
  *
- * shortcut: quien recibe el enlace de resultado puede actuar sobre esa sesión
- * (crear su grupo o inscribirla con otro apodo). Riesgo aceptado: el alcance
- * se limita al puntaje que el enlace ya publica; auth sería la mejora.
+ * 1. Usuario autenticado dueño de la partida (`player_id` = auth.uid()).
+ * 2. El attempt firmado de la partida: quien jugó lo tiene en memoria (nunca
+ *    va en un enlace) y debe coincidir con `game_sessions.attempt_id` y con
+ *    el quiz de la sesión.
+ *
+ * Sin secreto de attempts el servidor ya corre en modo degradado (como en el
+ * reveal/envío): se permite solo partidas previas a los attempts
+ * (`attempt_id` NULL); las demás no pueden probarse y se rechazan.
+ */
+async function ownsGameSession(
+  session: GroupCreatorSession,
+  attemptToken: string | undefined,
+  userId: string | null
+): Promise<boolean> {
+  if (userId && session.player_id === userId) return true;
+  if (!attemptsAvailable()) {
+    warnAttemptsInactive();
+    return session.attempt_id === null;
+  }
+  const check = await verifyQuizAttempt(attemptToken, session.quiz_id);
+  return check.ok && check.attempt.attemptId === session.attempt_id;
+}
+
+const NOT_OWNED = 'Only the owner of this game session can add it to a group.';
+
+/**
+ * Crea (o reutiliza) el grupo del que comparte el resultado. La titularidad
+ * de la sesión se prueba con el attempt firmado o con la sesión de auth (ver
+ * `ownsGameSession`); la sesión aporta quiz y creador, y el apodo del creador
+ * se modera igual que el de cualquier entrada.
  */
 export async function createQuizGroup(input: {
   shareToken: string;
   nickname: string;
+  attempt?: string;
 }): Promise<ActionResult<{ groupToken: string; group: QuizGroupInfo; reused: boolean }>> {
   const { allowed } = await groupLimiter.check(await clientIp());
   if (!allowed) return actionFailure('rate_limited', 'Too many requests. Try again later.');
 
   const parsed = z
-    .object({ shareToken: shareTokenSchema, nickname: rawNicknameSchema })
+    .object({ shareToken: shareTokenSchema, nickname: rawNicknameSchema, attempt: attemptSchema })
     .safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
   const { value: nickname, failure } = nicknameOrFailure(parsed.data.nickname);
   if (failure) return failure;
 
+  const supabase = await createClient();
   const service = createServiceClient();
   if (!service) return actionFailure('unavailable', UNAVAILABLE);
 
@@ -106,6 +138,13 @@ export async function createQuizGroup(input: {
   }
   const session = sessionRead.value;
   if (!session) return actionFailure('not_found', 'Session not found.');
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!(await ownsGameSession(session, parsed.data.attempt, user?.id ?? null))) {
+    return actionFailure('unauthorized', NOT_OWNED);
+  }
 
   const existing = await fetchExistingGroup(
     service,
@@ -150,19 +189,17 @@ export async function createQuizGroup(input: {
 }
 
 /**
- * Entra una partida al ranking del grupo. El `sessionToken` prueba la
- * propiedad de la sesión; puntaje, máximo y tiempo se leen de la sesión
- * persistida por el servidor, nunca del cliente. Idempotente: una sesión
- * entra una sola vez por grupo (único + reintento devuelve "ya estaba").
- *
- * shortcut: el token es bearer (ver createQuizGroup); un receptor del enlace
- * puede inscribir la partida con un apodo distinto. Riesgo aceptado y
- * documentado en el PR; sin cuenta no hay otra prueba de titularidad.
+ * Entra una partida al ranking del grupo. La titularidad se prueba con el
+ * attempt firmado o con la sesión de auth (ver `ownsGameSession`); puntaje,
+ * máximo y tiempo se leen de la sesión persistida por el servidor, nunca del
+ * cliente. Idempotente: una sesión entra una sola vez por grupo (único +
+ * reintento devuelve "ya estaba").
  */
 export async function joinQuizGroup(input: {
   groupToken: string;
   sessionToken: string;
   nickname: string;
+  attempt?: string;
 }): Promise<ActionResult<{ entry: GroupEntry; alreadyJoined: boolean }>> {
   const { allowed } = await groupLimiter.check(await clientIp());
   if (!allowed) return actionFailure('rate_limited', 'Too many requests. Try again later.');
@@ -172,6 +209,7 @@ export async function joinQuizGroup(input: {
       groupToken: groupTokenSchema,
       sessionToken: shareTokenSchema,
       nickname: rawNicknameSchema,
+      attempt: attemptSchema,
     })
     .safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
@@ -199,6 +237,13 @@ export async function joinQuizGroup(input: {
   if (!session) return actionFailure('not_found', 'Session not found.');
   if (session.quiz_id !== group.quizId) {
     return actionFailure('invalid_input', 'This session belongs to another quiz.');
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!(await ownsGameSession(session, parsed.data.attempt, user?.id ?? null))) {
+    return actionFailure('unauthorized', NOT_OWNED);
   }
 
   const already = await fetchGroupEntry(service, group.id, session.id);

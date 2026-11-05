@@ -430,8 +430,14 @@ describe('LocalizedQuizResultPage — invitación de reto (s == challenge)', () 
 });
 
 describe('ResultScreen — «Reta a un amigo»', () => {
+  // Crear/entrar al grupo exige titularidad: sesión del usuario autenticado.
+  const ownResult = () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession({ player_id: 'user-1' }));
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'user-1' } } });
+  };
+
   it('pide el apodo del creador y comparte el enlace del grupo', async () => {
-    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+    ownResult();
 
     await renderPage({ s: SESSION_TOKEN });
 
@@ -458,7 +464,7 @@ describe('ResultScreen — «Reta a un amigo»', () => {
   });
 
   it('cae al enlace de reto clásico si el grupo aún no está disponible', async () => {
-    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+    ownResult();
     mocks.createQuizGroup.mockResolvedValue({
       success: false,
       code: 'unavailable',
@@ -477,6 +483,33 @@ describe('ResultScreen — «Reta a un amigo»', () => {
     const whatsapp = await within(dialog).findByRole('link', { name: /whatsapp/i });
     const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
     expect(shared).toContain(`s=${SESSION_TOKEN}&challenge=${SESSION_TOKEN}`);
+  });
+
+  it('un visitante del enlace no ve el formulario: solo compartir clásico', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Challenge a friend' }));
+    const dialog = screen.getByRole('dialog', { name: 'Challenge a friend' });
+    expect(within(dialog).queryByLabelText('Your nickname for the group')).toBeNull();
+    expect(within(dialog).getByRole('link', { name: /whatsapp/i })).toBeTruthy();
+    expect(mocks.createQuizGroup).not.toHaveBeenCalled();
+  });
+
+  it('en un resultado ajeno con grupo el botón pasa a «Play & join»', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+    mocks.fetchGroupByToken.mockResolvedValue({ state: 'ok', value: GROUP });
+
+    await renderPage({ s: SESSION_TOKEN, g: GROUP_TOKEN });
+
+    // El botón del reto y el CTA del leaderboard apuntan a jugar con `?g=`.
+    const ctas = screen.getAllByRole('link', { name: 'Play & join the leaderboard' });
+    expect(ctas.length).toBeGreaterThan(0);
+    for (const cta of ctas) {
+      expect(cta.getAttribute('href')).toBe(`/en/quiz/space-trivia/play?g=${GROUP_TOKEN}`);
+    }
+    expect(screen.queryByRole('button', { name: 'Challenge a friend' })).toBeNull();
   });
 
   it('«Share result» sigue compartiendo la URL limpia', async () => {

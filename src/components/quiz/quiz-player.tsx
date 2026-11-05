@@ -805,6 +805,10 @@ export function QuizPlayer({
         }
         group={submission ? (group ?? null) : null}
         gameSessionId={submission?.sessionId ?? undefined}
+        // La partida recién jugada es propia por construcción: el attempt
+        // firmado (memoria, nunca URL) prueba la titularidad en el servidor.
+        attemptToken={useQuizStore.getState().attemptToken ?? undefined}
+        canJoinGroup={Boolean(submission)}
         suggestedNickname={suggestedNickname}
         onPlayAgain={() => {
           resetGame();
