@@ -29,6 +29,9 @@ export function revalidateQuizPages(language: string, slug: string) {
     revalidatePath(`/${locale}`);
     revalidatePath(`/${locale}/quiz`);
     revalidatePath(`/${locale}/quiz/${slug}`);
+    // El reto diario juega con un quiz publicado: retirarlo o cambiar sus
+    // preguntas debe refrescar también la página cacheada de /daily.
+    revalidatePath(`/${locale}/daily`);
   }
   // Category hubs and creator profiles list quizzes too. Their slug/username
   // aren't at hand without a join, so the dynamic routes go out wholesale.

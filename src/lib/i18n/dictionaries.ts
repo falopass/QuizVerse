@@ -22,6 +22,7 @@ export interface Dictionary {
     questionsShort: string;
     switchLocale: string;
     randomQuiz: string;
+    dailyQuiz: string;
     home: string;
     close: string;
     dismissNotification: string;
@@ -206,6 +207,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       questionsShort: 'questions',
       switchLocale: 'Language',
       randomQuiz: 'Surprise me',
+      dailyQuiz: 'Daily quiz',
       home: 'Home',
       close: 'Close',
       dismissNotification: 'Dismiss notification',
@@ -409,6 +411,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       questionsShort: 'preguntas',
       switchLocale: 'Idioma',
       randomQuiz: 'Sorpréndeme',
+      dailyQuiz: 'Quiz diario',
       home: 'Inicio',
       close: 'Cerrar',
       dismissNotification: 'Cerrar aviso',
