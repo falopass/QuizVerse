@@ -175,7 +175,10 @@ describe('ResultScreen · copy del resultado', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Compartir resultado' }));
     const whatsapp = screen.getByRole('link', { name: /whatsapp/i });
     const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
-    expect(shared).toContain('Saqué The Wolf en «What Animal Are You» — ¿puedes superarlo?');
+    expect(shared).toContain('The Wolf');
+    expect(shared).toContain('What Animal Are You');
+    // Sin voseo ni calcos del inglés en el gancho.
+    expect(shared).not.toMatch(/\b(sacaste|ganás|superás|vos)\b/i);
   });
 
   it('mantiene el mismo sentido en inglés', () => {

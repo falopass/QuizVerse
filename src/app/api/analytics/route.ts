@@ -18,6 +18,8 @@ const analyticsSchema = z.object({
     'quiz_complete',
     'create_start',
     'create_complete',
+    'share_click',
+    'invite_landing',
     'client_error',
     'web_vitals',
   ]),
