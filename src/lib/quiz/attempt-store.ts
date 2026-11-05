@@ -196,35 +196,40 @@ export async function getAttemptReveals(attemptId: string): Promise<Record<strin
  */
 const LOCK_CHOICE_SCRIPT = `
 local existing = redis.call('HGET', KEYS[1], 'q:' .. ARGV[1])
-if existing then return 0 end
+if existing then return existing end
 redis.call('HSET', KEYS[1], 'q:' .. ARGV[1], ARGV[2])
 redis.call('EXPIRE', KEYS[1], ARGV[3])
-return 1
+return ARGV[2]
 `;
 
 /**
- * Fija la opción enviada para una pregunta no revelada (una vez por partida).
- * Escribe en el mismo campo `q:` que el reveal: después cuenta como revelada.
+ * Fija la opción enviada para una pregunta no revelada (una vez por partida)
+ * y devuelve la que quedó: leer-o-escribir atómico, así dos envíos
+ * simultáneos con opciones distintas califican la misma — la primera —
+ * y ninguno sondea la clave. Escribe en el mismo campo `q:` que el reveal.
  */
 export async function lockAttemptChoice(
   attemptId: string,
   questionId: string,
   selectedOptionId: string
-): Promise<void> {
+): Promise<string> {
   const redis = getRedis();
   if (redis) {
     try {
-      await redis.eval(
+      const stored = await redis.eval(
         LOCK_CHOICE_SCRIPT,
         [`${KEY_PREFIX}${attemptId}`],
         [questionId, selectedOptionId, String(TTL_SECONDS)]
       );
-      return;
+      if (typeof stored === 'string') return stored;
     } catch (error) {
       console.error('[quiz-attempt] Redis error, usando memoria local:', error);
     }
   }
 
   const entry = memoryAttempt(attemptId);
-  if (!entry.revealed.has(questionId)) entry.revealed.set(questionId, selectedOptionId);
+  const existing = entry.revealed.get(questionId);
+  if (existing !== undefined) return existing;
+  entry.revealed.set(questionId, selectedOptionId);
+  return selectedOptionId;
 }

@@ -142,7 +142,11 @@ beforeEach(() => {
   mocks.verifyAttempt.mockReset().mockResolvedValue({ ok: true, attempt: { attemptId: 'a1' } });
   mocks.attemptsAvailable = false;
   mocks.attemptReveals = null;
-  mocks.lockChoice.mockReset().mockResolvedValue(undefined);
+  // Leer-o-escribir: lo ya fijado manda; si no hay nada, fija lo enviado.
+  mocks.lockChoice.mockReset().mockImplementation(async (_a: string, q: string, opt: string) => {
+    const store = (mocks.attemptReveals ??= {});
+    return (store[q] ??= opt);
+  });
   mocks.challenge = {
     quiz: { id: QUIZ_ID },
     questions: DAILY_IDS.map((id) => ({ id })),
