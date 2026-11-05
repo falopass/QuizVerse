@@ -13,6 +13,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import type { PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { ChallengeInfo } from '@/lib/quiz/challenge';
 import type { CompatibilityPeer } from '@/lib/quiz/compatibility';
+import type { QuizGroupInfo } from '@/lib/quiz/group';
 import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
@@ -38,6 +39,10 @@ interface QuizPlayerProps {
   challenge?: ChallengeInfo | null;
   /** Reto de personalidad: resultado y tags del retador, para la tarjeta de compatibilidad. */
   compatibility?: CompatibilityPeer | null;
+  /** Grupo de ranking del enlace `?g=`: al terminar se ofrece entrar con apodo. */
+  group?: QuizGroupInfo | null;
+  /** Apodo sugerido para entrar al grupo (username de perfil si hay sesión). */
+  suggestedNickname?: string;
   /**
    * Modo con el que arranca la partida. Los CTA de la ficha y el hero piden
    * Clásico (`?mode=classic`); el selector queda tras «Cambiar modo» o la pausa.
@@ -102,6 +107,8 @@ export function QuizPlayer({
   locale,
   challenge,
   compatibility,
+  group,
+  suggestedNickname,
   initialMode,
   related,
 }: QuizPlayerProps) {
@@ -185,6 +192,7 @@ export function QuizPlayer({
     result: PersonalityResult | null;
     pointsEarned: number;
     shareToken: string | null;
+    sessionId: string | null;
     score: number;
     maxScore: number;
     review: QuizReviewItem[] | null;
@@ -453,6 +461,7 @@ export function QuizPlayer({
         pointsEarned: result.points_earned ?? 0,
         shareToken:
           (result.session as { share_token?: string | null } | undefined)?.share_token ?? null,
+        sessionId: (result.session as { id?: string | null } | undefined)?.id ?? null,
         score: result.score ?? 0,
         maxScore: result.max_score ?? quiz.questions.length,
         review: result.review ?? null,
@@ -794,6 +803,13 @@ export function QuizPlayer({
             ? `${window.location.origin}/${uiLocale}/quiz/${quiz.slug}/result?s=${submission.shareToken}&challenge=${submission.shareToken}`
             : undefined
         }
+        group={submission ? (group ?? null) : null}
+        gameSessionId={submission?.sessionId ?? undefined}
+        // La partida recién jugada es propia por construcción: el attempt
+        // firmado (memoria, nunca URL) prueba la titularidad en el servidor.
+        attemptToken={useQuizStore.getState().attemptToken ?? undefined}
+        canJoinGroup={Boolean(submission)}
+        suggestedNickname={suggestedNickname}
         onPlayAgain={() => {
           resetGame();
           setSubmission(null);

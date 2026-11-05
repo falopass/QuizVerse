@@ -11,3 +11,15 @@ export function isMissingRpcFunction(error: { code?: string; message?: string })
     /could not find the function|schema cache/i.test(error.message ?? '')
   );
 }
+
+/**
+ * Igual que arriba pero para una tabla ausente del schema cache (PGRST205) o
+ * inexistente en Postgres (42P01): la migración que la crea no se aplicó.
+ */
+export function isMissingTable(error: { code?: string; message?: string }): boolean {
+  return (
+    error.code === 'PGRST205' ||
+    error.code === '42P01' ||
+    /could not find the table|schema cache/i.test(error.message ?? '')
+  );
+}

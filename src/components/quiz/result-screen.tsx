@@ -22,6 +22,10 @@ import {
   type CompatibilityPeer,
 } from '@/lib/quiz/compatibility';
 import { CompatibilityCard } from '@/components/quiz/compatibility-card';
+import { groupShareText, type QuizGroupInfo } from '@/lib/quiz/group';
+import { isNicknameAllowed } from '@/lib/moderation/nickname';
+import { createQuizGroup, joinQuizGroup } from '@/actions/group.actions';
+import { GroupLeaderboard } from '@/components/quiz/group-leaderboard';
 import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
@@ -68,6 +72,24 @@ interface ResultScreenProps {
   challengeHref?: string;
   /** Relacionados ya saneados con `toClientQuiz` en el servidor; se muestran hasta 3. */
   related?: Quiz[];
+  /** Grupo de ranking activo (`?g=` o uno ya creado/entrado por esta sesión). */
+  group?: QuizGroupInfo | null;
+  /** Sesión propia persistida: resalta su fila y autoriza el alta vía shareToken. */
+  gameSessionId?: string;
+  /**
+   * Attempt firmado de la partida recién jugada: la prueba de titularidad que
+   * las actions verifican. Vive solo en memoria — nunca en la URL ni en
+   * localStorage.
+   */
+  attemptToken?: string;
+  /**
+   * La partida del resultado es del visitante (acaba de jugarla o es suya con
+   * sesión iniciada): habilita crear el grupo y entrar al ranking. Sin ella
+   * el botón de reto ofrece jugar y entrar, no escribir con la marca ajena.
+   */
+  canJoinGroup?: boolean;
+  /** Apodo sugerido para entrar al grupo (username de perfil si hay sesión). */
+  suggestedNickname?: string;
 }
 
 export function ResultScreen({
@@ -92,9 +114,33 @@ export function ResultScreen({
   compatibility = null,
   challengeHref,
   related,
+  group = null,
+  gameSessionId,
+  attemptToken,
+  canJoinGroup = false,
+  suggestedNickname,
 }: ResultScreenProps) {
   const uiLocale: Locale = locale === 'es' ? 'es' : 'en';
   const [shareMode, setShareMode] = React.useState<'result' | 'challenge' | null>(null);
+  // El grupo activo decide qué comparte «Reta a un amigo»: el link ?g= une a
+  // todos en un ranking; si no hay tabla todavía se comparte el reto clásico.
+  const [activeGroup, setActiveGroup] = React.useState<QuizGroupInfo | null>(group);
+  const [groupNick, setGroupNick] = React.useState(() => {
+    // Como en el alta del ranking: localStorage gana sobre el nombre sugerido.
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = window.localStorage.getItem('qv_group_nick');
+        if (saved) return saved;
+      } catch {
+        // Sin storage: queda el sugerido.
+      }
+    }
+    return suggestedNickname ?? '';
+  });
+  const [groupJoinFailed, setGroupJoinFailed] = React.useState(false);
+  const [groupBusy, setGroupBusy] = React.useState(false);
+  const [groupError, setGroupError] = React.useState('');
+  const [groupUnavailable, setGroupUnavailable] = React.useState(false);
   const [accountCtaDismissed, setAccountCtaDismissed] = React.useState(false);
   const verdictRef = React.useRef<HTMLHeadingElement | null>(null);
   const sharePanelRef = React.useRef<HTMLDivElement | null>(null);
@@ -190,6 +236,22 @@ export function ResultScreen({
           explanation: 'Explicación',
           saveFailed: 'No pudimos guardar tu partida: sin guardarla no hay puntos ni enlace.',
           retrySubmit: 'Reintentar',
+          groupEyebrow: 'Ranking del grupo',
+          groupNameLabel: 'Tu apodo para el grupo',
+          groupNamePlaceholder: 'Camila, Pato…',
+          groupCreate: 'Crear ranking',
+          groupCreating: 'Creando…',
+          groupHint: 'Un mismo enlace junta a todos los que juegan desde él.',
+          groupUnavailable: 'El ranking de grupo aún no está disponible; comparte el reto clásico.',
+          groupErrNickLength: 'El apodo debe tener entre 2 y 20 caracteres.',
+          groupErrNickChars: 'Solo letras, números, espacios y _ - .',
+          groupErrNickBlocked: 'Ese apodo no está permitido. Prueba con otro.',
+          groupErrNickReserved: 'Ese nombre está reservado. Prueba con otro.',
+          groupErrRate: 'Demasiados intentos. Espera un momento.',
+          groupErrGeneric: 'No pudimos crear el grupo. Intenta de nuevo.',
+          groupJoinFailed:
+            'No pudimos sumar tu marca al ranking; el enlace funciona igual para el resto.',
+          playAndJoin: 'Jugar y entrar al ranking',
         }
       : {
           eyebrow: 'Result',
@@ -225,6 +287,23 @@ export function ResultScreen({
           explanation: 'Explanation',
           saveFailed: "We couldn't save your game — no points or share link until it's saved.",
           retrySubmit: 'Retry',
+          groupEyebrow: 'Group leaderboard',
+          groupNameLabel: 'Your nickname for the group',
+          groupNamePlaceholder: 'Camila, Pat…',
+          groupCreate: 'Create leaderboard',
+          groupCreating: 'Creating…',
+          groupHint: 'One link gathers everyone who plays from it.',
+          groupUnavailable:
+            "The group leaderboard isn't available yet — share the classic challenge instead.",
+          groupErrNickLength: 'Nickname must be 2–20 characters.',
+          groupErrNickChars: 'Only letters, numbers, spaces and _ - .',
+          groupErrNickBlocked: 'That nickname is not allowed. Try another one.',
+          groupErrNickReserved: 'That name is reserved. Try another one.',
+          groupErrRate: 'Too many attempts. Wait a moment.',
+          groupErrGeneric: "We couldn't create the group. Try again.",
+          groupJoinFailed:
+            "We couldn't add your mark to the leaderboard; the link still works for everyone else.",
+          playAndJoin: 'Play & join the leaderboard',
         };
   const scorePercentage = triviaScore?.percentage;
   const scoreMessage = getScoreMessage(scorePercentage, uiLocale);
@@ -271,6 +350,85 @@ export function ResultScreen({
         )
       : null;
   const showCompatibility = Boolean(compatibility && compatVerdict && result?.title);
+
+  // URL pública del grupo: `?g=` une a todos los que juegan desde el enlace.
+  const groupShareUrl = activeGroup
+    ? `${typeof window !== 'undefined' ? window.location.origin : ''}${localizeHref(
+        uiLocale,
+        `/quiz/${quiz.slug}/play`
+      )}?g=${activeGroup.token}`
+    : null;
+
+  // Jugar por el enlace del grupo: entra al ranking con la partida propia.
+  const groupPlayHref = activeGroup
+    ? localizeHref(uiLocale, `/quiz/${quiz.slug}/play?g=${activeGroup.token}`)
+    : null;
+
+  const groupNickError = (reason: string): string => {
+    if (reason.endsWith('_length')) return copy.groupErrNickLength;
+    if (reason.endsWith('_chars')) return copy.groupErrNickChars;
+    if (reason.endsWith('_reserved')) return copy.groupErrNickReserved;
+    return copy.groupErrNickBlocked;
+  };
+
+  /**
+   * «Reta a un amigo» ahora crea (o reutiliza) el grupo: apodo del creador
+   * moderado → grupo → su propia marca entra al ranking → el diálogo comparte
+   * `?g=`. Si la tabla aún no existe, el diálogo cae al reto clásico.
+   */
+  const onCreateGroup = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!shareToken || !canJoinGroup) return;
+
+    const verdict = isNicknameAllowed(groupNick);
+    if (!verdict.ok) {
+      setGroupError(groupNickError(`nickname_${verdict.reason}`));
+      return;
+    }
+
+    setGroupBusy(true);
+    setGroupError('');
+    const proof = attemptToken ? { attempt: attemptToken } : {};
+    const created = await createQuizGroup({ shareToken, nickname: verdict.value, ...proof });
+    if (!created.success) {
+      setGroupBusy(false);
+      if (created.code === 'unavailable') {
+        setGroupUnavailable(true);
+        setGroupError('');
+        return;
+      }
+      setGroupError(
+        created.code === 'rate_limited'
+          ? copy.groupErrRate
+          : created.error.startsWith('nickname_')
+            ? groupNickError(created.error)
+            : copy.groupErrGeneric
+      );
+      return;
+    }
+
+    // La marca del creador también entra al ranking: sin esto el grupo nace
+    // vacío y el ejemplo «Grupo de Diego: Camila 8/8, tú 7/8» no se cumple.
+    // Si el alta falla el enlace igual funciona — pero se avisa, no se finge.
+    let joinFailed = false;
+    if (gameSessionId) {
+      const joined = await joinQuizGroup({
+        groupToken: created.groupToken,
+        sessionToken: shareToken,
+        nickname: verdict.value,
+        ...proof,
+      });
+      joinFailed = !joined.success;
+    }
+    setGroupJoinFailed(joinFailed);
+    try {
+      window.localStorage.setItem('qv_group_nick', verdict.value);
+    } catch {
+      // Conveniencia solamente.
+    }
+    setActiveGroup(created.group);
+    setGroupBusy(false);
+  };
 
   React.useEffect(() => {
     if (
@@ -365,18 +523,28 @@ export function ResultScreen({
               >
                 {uiLocale === 'es' ? 'Compartir resultado' : 'Share result'}
               </button>
-              {challengeShareUrl && (
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    shareTriggerRef.current = event.currentTarget;
-                    setShareMode('challenge');
-                  }}
-                  className="arcade-button arcade-result-secondary"
-                >
-                  {copy.challengeFriend}
-                </button>
-              )}
+              {challengeShareUrl &&
+                (canJoinGroup || !activeGroup ? (
+                  <button
+                    type="button"
+                    onClick={(event) => {
+                      shareTriggerRef.current = event.currentTarget;
+                      setShareMode('challenge');
+                    }}
+                    className="arcade-button arcade-result-secondary"
+                  >
+                    {copy.challengeFriend}
+                  </button>
+                ) : (
+                  // Resultado ajeno con grupo: el visitante no puede escribir
+                  // con la marca de otro; se le ofrece jugar y entrar él mismo.
+                  <Link
+                    href={groupPlayHref!}
+                    className="arcade-button arcade-result-secondary inline-flex items-center"
+                  >
+                    {copy.playAndJoin}
+                  </Link>
+                ))}
               <Link
                 href={
                   related?.[0]
@@ -582,6 +750,21 @@ export function ResultScreen({
         </div>
       </div>
 
+      {/* Único punto de montaje del ranking de grupo (migración 021). */}
+      {activeGroup && (
+        <GroupLeaderboard
+          locale={uiLocale}
+          groupToken={activeGroup.token}
+          creatorNickname={activeGroup.creatorNickname}
+          gameSessionId={gameSessionId}
+          shareToken={shareToken}
+          attemptToken={attemptToken}
+          canJoin={canJoinGroup}
+          joinHref={groupPlayHref ?? undefined}
+          suggestedNickname={suggestedNickname}
+        />
+      )}
+
       {related && related.length > 0 && (
         <section
           className="arcade-related relative z-10 mx-auto max-w-6xl"
@@ -644,41 +827,102 @@ export function ResultScreen({
                   {copy.close}
                 </button>
               </div>
-              <ShareButtons
-                locale={uiLocale}
-                quizId={quiz.id}
-                shareToken={shareToken}
-                title={shareResultTitle}
-                context={
-                  personality
-                    ? {
-                        kind: 'personality_result',
-                        slug: quiz.slug,
-                        title: quiz.title,
-                        resultTitle: result?.title ?? quiz.title,
-                      }
-                    : triviaScore
-                      ? {
-                          kind: 'trivia_result',
-                          slug: quiz.slug,
-                          title: quiz.title,
-                          score: triviaScore.correct,
-                          maxScore: triviaScore.total,
-                        }
-                      : { kind: 'quiz_invite', slug: quiz.slug, title: quiz.title }
-                }
-                url={
-                  (shareMode === 'challenge' ? challengeShareUrl : shareUrl) ||
-                  (typeof window !== 'undefined' ? window.location.href : '')
-                }
-                // El texto pegado en WhatsApp/X lleva el resultado: la vista
-                // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
-                text={
-                  uiLocale === 'es'
-                    ? `${shareResultTitle} — ¿puedes superarlo?`
-                    : `${shareResultTitle} — can you beat it?`
-                }
-              />
+              {shareMode === 'challenge' &&
+              !groupShareUrl &&
+              shareToken &&
+              !groupUnavailable &&
+              canJoinGroup ? (
+                // Antes de compartir hay que nombrar el grupo: el enlace `?g=`
+                // junta a todos en un ranking moderado por apodo.
+                <form onSubmit={onCreateGroup}>
+                  <p className="text-text-secondary text-sm">{copy.groupHint}</p>
+                  <label
+                    htmlFor="group-creator-nick"
+                    className="text-text-primary mt-3 block text-sm font-semibold"
+                  >
+                    {copy.groupNameLabel}
+                  </label>
+                  <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+                    <input
+                      id="group-creator-nick"
+                      type="text"
+                      value={groupNick}
+                      onChange={(event) => {
+                        setGroupNick(event.target.value);
+                        if (groupError) setGroupError('');
+                      }}
+                      placeholder={copy.groupNamePlaceholder}
+                      maxLength={30}
+                      autoComplete="nickname"
+                      className="border-border-subtle bg-bg-secondary text-text-primary focus-visible:border-accent-primary min-h-11 flex-1 rounded-xl border px-4 text-sm outline-none"
+                    />
+                    <button
+                      type="submit"
+                      disabled={groupBusy}
+                      className="arcade-button arcade-result-primary min-h-11"
+                    >
+                      {groupBusy ? copy.groupCreating : copy.groupCreate}
+                    </button>
+                  </div>
+                  {groupError && (
+                    <p className="text-accent-primary mt-2 text-sm font-medium" role="alert">
+                      {groupError}
+                    </p>
+                  )}
+                </form>
+              ) : (
+                <>
+                  {shareMode === 'challenge' && groupUnavailable && (
+                    <p className="text-text-secondary mb-3 text-sm">{copy.groupUnavailable}</p>
+                  )}
+                  {shareMode === 'challenge' && groupJoinFailed && (
+                    <p className="text-text-secondary mb-3 text-sm" role="alert">
+                      {copy.groupJoinFailed}
+                    </p>
+                  )}
+                  <ShareButtons
+                    locale={uiLocale}
+                    quizId={quiz.id}
+                    shareToken={shareToken}
+                    title={shareResultTitle}
+                    context={
+                      shareMode === 'challenge' && groupShareUrl
+                        ? // En modo grupo `context` ganaría a `text` y los canales
+                          // con mensaje saldrían como reto individual, no al ranking.
+                          undefined
+                        : personality
+                          ? {
+                              kind: 'personality_result',
+                              slug: quiz.slug,
+                              title: quiz.title,
+                              resultTitle: result?.title ?? quiz.title,
+                            }
+                          : triviaScore
+                            ? {
+                                kind: 'trivia_result',
+                                slug: quiz.slug,
+                                title: quiz.title,
+                                score: triviaScore.correct,
+                                maxScore: triviaScore.total,
+                              }
+                            : { kind: 'quiz_invite', slug: quiz.slug, title: quiz.title }
+                    }
+                    url={
+                      (shareMode === 'challenge' ? groupShareUrl || challengeShareUrl : shareUrl) ||
+                      (typeof window !== 'undefined' ? window.location.href : '')
+                    }
+                    // El texto pegado en WhatsApp/X lleva el resultado: la vista
+                    // previa del enlace no siempre lo muestra (WhatsApp/Facebook).
+                    text={
+                      shareMode === 'challenge' && groupShareUrl
+                        ? groupShareText(shareResultTitle, uiLocale)
+                        : uiLocale === 'es'
+                          ? `${shareResultTitle} — ¿puedes superarlo?`
+                          : `${shareResultTitle} — can you beat it?`
+                    }
+                  />
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}

@@ -745,6 +745,108 @@ export interface Database {
         // Required by @supabase/postgrest-js to resolve typed queries.
         Relationships: [];
       };
+      quiz_groups: {
+        Row: {
+          id: string;
+          quiz_id: string;
+          creator_session_id: string | null;
+          creator_user_id: string | null;
+          creator_nickname: string;
+          token: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          quiz_id: string;
+          creator_session_id?: string | null;
+          creator_user_id?: string | null;
+          creator_nickname: string;
+          token?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          quiz_id?: string;
+          creator_session_id?: string | null;
+          creator_user_id?: string | null;
+          creator_nickname?: string;
+          token?: string;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_groups_quiz_id_fkey';
+            columns: ['quiz_id'];
+            isOneToOne: false;
+            referencedRelation: 'quizzes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_groups_creator_session_id_fkey';
+            columns: ['creator_session_id'];
+            isOneToOne: false;
+            referencedRelation: 'game_sessions';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_groups_creator_user_id_fkey';
+            columns: ['creator_user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      quiz_group_entries: {
+        Row: {
+          id: string;
+          group_id: string;
+          nickname: string;
+          score: number;
+          max_score: number;
+          time_taken_seconds: number | null;
+          game_session_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          group_id: string;
+          nickname: string;
+          score: number;
+          max_score: number;
+          time_taken_seconds?: number | null;
+          game_session_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          group_id?: string;
+          nickname?: string;
+          score?: number;
+          max_score?: number;
+          time_taken_seconds?: number | null;
+          game_session_id?: string;
+          created_at?: string;
+        };
+        // Required by @supabase/postgrest-js to resolve typed queries.
+        Relationships: [
+          {
+            foreignKeyName: 'quiz_group_entries_group_id_fkey';
+            columns: ['group_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz_groups';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'quiz_group_entries_game_session_id_fkey';
+            columns: ['game_session_id'];
+            isOneToOne: false;
+            referencedRelation: 'game_sessions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Views: {};
@@ -800,6 +902,33 @@ export interface Database {
       get_my_played_categories: {
         Args: Record<string, never>;
         Returns: number;
+      };
+      /** Migración 021: datos públicos de un grupo de ranking, solo por token. */
+      get_quiz_group_by_token: {
+        Args: { p_token: string };
+        Returns: {
+          id: string;
+          quiz_id: string;
+          creator_nickname: string;
+          entries_count: number;
+          created_at: string;
+        }[];
+      };
+      /**
+       * Migración 021: entradas del ranking de un grupo, solo por token
+       * (top 100 más la fila propia si `p_session` quedó fuera del corte).
+       */
+      get_quiz_group_entries: {
+        Args: { p_token: string; p_session?: string | null };
+        Returns: {
+          nickname: string;
+          score: number;
+          max_score: number;
+          time_taken_seconds: number | null;
+          game_session_id: string;
+          created_at: string;
+          position: number;
+        }[];
       };
     };
     Enums: {
