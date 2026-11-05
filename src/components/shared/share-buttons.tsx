@@ -49,7 +49,13 @@ export function ShareButtons({
   const trackShare = (channel: ShareChannel) => {
     if (quizId) void incrementShares(quizId).catch(() => undefined);
     if (shareToken) void markSessionShared(shareToken).catch(() => undefined);
-    void trackEvent({ name: 'share_click', locale, path: url, source: channel });
+    // Solo el path: los tokens de sesión (`s`, `challenge`) no van a los logs.
+    void trackEvent({
+      name: 'share_click',
+      locale,
+      path: url.split(/[?#]/, 1)[0],
+      source: channel,
+    });
   };
 
   const message = (channel: ShareChannel) => (context ? shareText(context, locale, channel) : text);

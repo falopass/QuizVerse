@@ -4,7 +4,14 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { trackEvent, reportClientError } from '@/lib/telemetry/client';
 import { CONSENT_KEY, hasAnalyticsConsent } from '@/components/shared/cookie-consent';
-import { detectShareOrigin, storeShareOrigin, stripViaParam } from '@/lib/share/origin';
+import {
+  detectShareOrigin,
+  storeShareOrigin,
+  pendingShareOrigin,
+  markShareOriginReported,
+  stripViaParam,
+  type ShareOrigin,
+} from '@/lib/share/origin';
 
 export function AppTelemetry() {
   const pathname = usePathname();
@@ -30,21 +37,57 @@ export function AppTelemetry() {
   // registra, se guarda en sessionStorage para el quiz_complete y se limpia
   // `via` de la barra para que un re-share del visitante no lo propague.
   React.useEffect(() => {
+    const reportOrigin = (origin: ShareOrigin) => {
+      const segments = (pathname ?? '').split('/');
+      const locale = segments[1] === 'embed' ? segments[2] : segments[1];
+      void trackEvent({
+        name: 'invite_landing',
+        path: pathname ?? window.location.pathname,
+        locale: locale === 'es' || locale === 'en' ? locale : undefined,
+        metadata: { kind: origin.kind, channel: origin.channel },
+      });
+      markShareOriginReported();
+    };
+
     const origin = detectShareOrigin(window.location.search);
-    if (!origin) return;
-    storeShareOrigin(origin);
-    const segments = (pathname ?? '').split('/');
-    const locale = segments[1] === 'embed' ? segments[2] : segments[1];
-    void trackEvent({
-      name: 'invite_landing',
-      path: pathname ?? window.location.pathname,
-      locale: locale === 'es' || locale === 'en' ? locale : undefined,
-      metadata: { kind: origin.kind, channel: origin.channel },
-    });
-    if (origin.kind === 'via') {
-      window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
+    if (origin) {
+      storeShareOrigin(origin);
+      if (origin.kind === 'via') {
+        window.history.replaceState(window.history.state, '', stripViaParam(window.location.href));
+      }
     }
+    // Solo se reporta con consentimiento; si llega después, se envía el
+    // origen pendiente desde el handler de consentimiento de abajo.
+    const pending = pendingShareOrigin();
+    if (hasAnalyticsConsent() && pending) reportOrigin(pending);
   }, [pathname]);
+
+  React.useEffect(() => {
+    const reportPendingOrigin = () => {
+      const pending = pendingShareOrigin();
+      if (pending) {
+        void trackEvent({
+          name: 'invite_landing',
+          path: window.location.pathname,
+          metadata: { kind: pending.kind, channel: pending.channel },
+        });
+        markShareOriginReported();
+      }
+    };
+    const handleConsent = (event: Event) => {
+      const detail = (event as CustomEvent<{ level?: string; previous?: string }>).detail;
+      if (detail?.level === 'all') reportPendingOrigin();
+    };
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key === CONSENT_KEY && hasAnalyticsConsent()) reportPendingOrigin();
+    };
+    window.addEventListener('quizverse:consent', handleConsent);
+    window.addEventListener('storage', handleStorage);
+    return () => {
+      window.removeEventListener('quizverse:consent', handleConsent);
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, []);
 
   React.useEffect(() => {
     const handleConsent = (event: Event) => {

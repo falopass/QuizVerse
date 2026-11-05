@@ -21,9 +21,16 @@ export function detectShareOrigin(search: string): ShareOrigin | null {
   return null;
 }
 
-/** Guarda el origen de la sesión; sobreescribe el anterior (último clic manda). */
+const REPORTED_KEY = 'qv.share_origin_reported';
+
+/**
+ * Guarda el origen de la sesión. Atribución de primer contacto: no
+ * sobreescribe un origen ya guardado (el reto aceptado tras llegar por
+ * WhatsApp sigue atribuyéndose a WhatsApp).
+ */
 export function storeShareOrigin(origin: ShareOrigin): void {
   try {
+    if (sessionStorage.getItem(ORIGIN_KEY)) return;
     sessionStorage.setItem(ORIGIN_KEY, JSON.stringify(origin));
   } catch {
     // sessionStorage puede no estar disponible; medir es best-effort.
@@ -40,6 +47,25 @@ export function getShareOrigin(): ShareOrigin | null {
   } catch {
     return null;
   }
+}
+
+/** Marca el origen como ya reportado para no duplicar el evento al dar consentimiento tarde. */
+export function markShareOriginReported(): void {
+  try {
+    sessionStorage.setItem(REPORTED_KEY, '1');
+  } catch {
+    // best-effort
+  }
+}
+
+/** Origen pendiente de reportar (guardado pero aún sin consentimiento). */
+export function pendingShareOrigin(): ShareOrigin | null {
+  try {
+    if (sessionStorage.getItem(REPORTED_KEY)) return null;
+  } catch {
+    return null;
+  }
+  return getShareOrigin();
 }
 
 /** La URL sin `via` (los demás parámetros se conservan). */

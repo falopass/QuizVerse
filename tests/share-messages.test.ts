@@ -76,6 +76,16 @@ describe('shareText', () => {
     expect(shareText(long, 'es', 'x').length).toBeLessThanOrEqual(X_TEXT_LIMIT);
     expect(shareText(long, 'en', 'x').length).toBeLessThanOrEqual(X_TEXT_LIMIT);
   });
+
+  it('x: título y resultado largos no reventan el límite', () => {
+    const long: ShareContext = {
+      ...personality,
+      title: 'Q'.padEnd(120, 'uiz '),
+      resultTitle: 'R'.padEnd(100, 'esult '),
+    };
+    expect(shareText(long, 'es', 'x').length).toBeLessThanOrEqual(X_TEXT_LIMIT);
+    expect(shareText(long, 'en', 'x').length).toBeLessThanOrEqual(X_TEXT_LIMIT);
+  });
 });
 
 describe('urlWithVia', () => {

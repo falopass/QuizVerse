@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import {
   detectShareOrigin,
   getShareOrigin,
+  markShareOriginReported,
+  pendingShareOrigin,
   storeShareOrigin,
   stripViaParam,
 } from '@/lib/share/origin';
@@ -47,5 +49,20 @@ describe('sessionStorage origin', () => {
 
   it('sin origen guardado devuelve null', () => {
     expect(getShareOrigin()).toBeNull();
+  });
+
+  it('primer contacto manda: no sobreescribe un origen ya guardado', () => {
+    storeShareOrigin({ kind: 'via', channel: 'whatsapp' });
+    storeShareOrigin({ kind: 'invite', channel: 'challenge' });
+    expect(getShareOrigin()).toEqual({ kind: 'via', channel: 'whatsapp' });
+  });
+
+  it('pendingShareOrigin: pendiente hasta marcarlo reportado', () => {
+    storeShareOrigin({ kind: 'via', channel: 'x' });
+    expect(pendingShareOrigin()).toEqual({ kind: 'via', channel: 'x' });
+    markShareOriginReported();
+    expect(pendingShareOrigin()).toBeNull();
+    // El origen sigue guardado para adjuntarlo al quiz_complete.
+    expect(getShareOrigin()).not.toBeNull();
   });
 });

@@ -78,8 +78,13 @@ function variants(context: ShareContext, locale: Locale): string[] {
  * para que el mensaje quede bajo `X_TEXT_LIMIT`.
  */
 export function shareText(context: ShareContext, locale: Locale, channel?: ShareChannel): string {
-  const cap = channel === 'x' ? X_TEXT_LIMIT - 40 : context.title.length;
-  const fitted = { ...context, title: fitTitle(context.title, cap) };
+  // En X también se acota el resultado: título de 120 + resultado de 100
+  // reventarían el límite aunque cada uno cumpla los suyos.
+  const titleCap = channel === 'x' ? 90 : context.title.length;
+  const fitted = { ...context, title: fitTitle(context.title, titleCap) };
+  if (fitted.kind === 'personality_result' && channel === 'x') {
+    fitted.resultTitle = fitTitle(fitted.resultTitle, 90);
+  }
   const options = variants(fitted, locale);
   const text = options[variantIndex(context.slug || context.title, options.length)];
   return channel === 'x' && text.length > X_TEXT_LIMIT
