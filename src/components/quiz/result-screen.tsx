@@ -124,7 +124,12 @@ export function ResultScreen({
   const [shareMode, setShareMode] = React.useState<'result' | 'challenge' | null>(null);
   // El grupo activo decide qué comparte «Reta a un amigo»: el link ?g= une a
   // todos en un ranking; si no hay tabla todavía se comparte el reto clásico.
-  const [activeGroup, setActiveGroup] = React.useState<QuizGroupInfo | null>(group);
+  // El grupo por el que se llegó (`?g=`) llega por prop y puede aparecer después
+  // del primer render (el reproductor lo pasa al terminar la partida): se deriva
+  // en cada render en vez de congelarlo en un useState inicial. El creado aquí
+  // («Reta a un amigo») tiene prioridad.
+  const [createdGroup, setCreatedGroup] = React.useState<QuizGroupInfo | null>(null);
+  const activeGroup = createdGroup ?? group ?? null;
   const [groupNick, setGroupNick] = React.useState(() => {
     // Como en el alta del ranking: localStorage gana sobre el nombre sugerido.
     if (typeof window !== 'undefined') {
@@ -426,7 +431,7 @@ export function ResultScreen({
     } catch {
       // Conveniencia solamente.
     }
-    setActiveGroup(created.group);
+    setCreatedGroup(created.group);
     setGroupBusy(false);
   };
 
