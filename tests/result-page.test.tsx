@@ -22,6 +22,27 @@ const mocks = vi.hoisted(() => ({
   getPersonalityChallengeForQuiz: vi.fn(),
   getUser: vi.fn(),
   loadAnswerKeyBySlug: vi.fn(),
+  fetchGroupByToken: vi.fn(),
+  fetchGroupForSession: vi.fn(),
+  createQuizGroup: vi.fn(),
+  joinQuizGroup: vi.fn(),
+  getQuizGroupLeaderboard: vi.fn(),
+}));
+
+// pickProfileNickname es pura: se mantiene la real para el apodo sugerido.
+vi.mock('@/lib/data/group', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@/lib/data/group')>();
+  return {
+    ...original,
+    fetchGroupByToken: mocks.fetchGroupByToken,
+    fetchGroupForSession: mocks.fetchGroupForSession,
+  };
+});
+
+vi.mock('@/actions/group.actions', () => ({
+  createQuizGroup: mocks.createQuizGroup,
+  joinQuizGroup: mocks.joinQuizGroup,
+  getQuizGroupLeaderboard: mocks.getQuizGroupLeaderboard,
 }));
 
 vi.mock('@/lib/data/public', () => ({
@@ -57,6 +78,15 @@ import type { Quiz, QuizSessionResult } from '@/types/quiz';
 // Tokens con el formato real de game_sessions.share_token (16 hex).
 const SESSION_TOKEN = 'aaaa1111bbbb2222';
 const CHALLENGER_TOKEN = 'cccc3333dddd4444';
+// Token de grupo: 20 hex (migración 021).
+const GROUP_TOKEN = 'a1b2c3d4e5f6a1b2c3d4';
+const GROUP = {
+  id: 'group-1',
+  quizId: 'quiz-1',
+  token: GROUP_TOKEN,
+  creatorNickname: 'Diego',
+  createdAt: '2026-10-19T00:00:00Z',
+};
 
 function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   return {
@@ -139,6 +169,31 @@ beforeEach(() => {
   mocks.getPersonalityChallengeForQuiz.mockReset().mockResolvedValue(null);
   mocks.getUser.mockReset().mockResolvedValue({ data: { user: null } });
   mocks.loadAnswerKeyBySlug.mockReset().mockResolvedValue(null);
+  mocks.fetchGroupByToken.mockReset().mockResolvedValue({ state: 'ok', value: null });
+  mocks.fetchGroupForSession.mockReset().mockResolvedValue(null);
+  mocks.createQuizGroup.mockReset().mockResolvedValue({
+    success: true,
+    groupToken: GROUP_TOKEN,
+    group: GROUP,
+    reused: false,
+  });
+  mocks.joinQuizGroup.mockReset().mockResolvedValue({
+    success: true,
+    entry: {
+      nickname: 'Diego',
+      score: 7,
+      maxScore: 8,
+      timeTakenSeconds: 60,
+      gameSessionId: 'session-1',
+      createdAt: '2026-10-19T00:00:00Z',
+    },
+    alreadyJoined: false,
+  });
+  mocks.getQuizGroupLeaderboard.mockReset().mockResolvedValue({
+    success: true,
+    group: GROUP,
+    entries: [],
+  });
 });
 
 describe('generateMetadata — resultado compartido', () => {
@@ -374,7 +429,7 @@ describe('LocalizedQuizResultPage — invitación de reto (s == challenge)', () 
 });
 
 describe('ResultScreen — «Reta a un amigo»', () => {
-  it('abre el diálogo con la URL de invitación', async () => {
+  it('pide el apodo del creador y comparte el enlace del grupo', async () => {
     mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
 
     await renderPage({ s: SESSION_TOKEN });
@@ -382,7 +437,43 @@ describe('ResultScreen — «Reta a un amigo»', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Challenge a friend' }));
 
     const dialog = screen.getByRole('dialog', { name: 'Challenge a friend' });
-    const whatsapp = within(dialog).getByRole('link', { name: /whatsapp/i });
+    fireEvent.change(within(dialog).getByLabelText('Your nickname for the group'), {
+      target: { value: 'Diego' },
+    });
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Create leaderboard' }));
+
+    const whatsapp = await within(dialog).findByRole('link', { name: /whatsapp/i });
+    const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
+    expect(shared).toContain(`?g=${GROUP_TOKEN}`);
+    expect(mocks.createQuizGroup).toHaveBeenCalledWith({
+      shareToken: SESSION_TOKEN,
+      nickname: 'Diego',
+    });
+    expect(mocks.joinQuizGroup).toHaveBeenCalledWith({
+      groupToken: GROUP_TOKEN,
+      sessionToken: SESSION_TOKEN,
+      nickname: 'Diego',
+    });
+  });
+
+  it('cae al enlace de reto clásico si el grupo aún no está disponible', async () => {
+    mocks.getQuizSessionByShareToken.mockResolvedValue(makeSession());
+    mocks.createQuizGroup.mockResolvedValue({
+      success: false,
+      code: 'unavailable',
+      error: 'not yet',
+    });
+
+    await renderPage({ s: SESSION_TOKEN });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Challenge a friend' }));
+    const dialog = screen.getByRole('dialog', { name: 'Challenge a friend' });
+    fireEvent.change(within(dialog).getByLabelText('Your nickname for the group'), {
+      target: { value: 'Diego' },
+    });
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Create leaderboard' }));
+
+    const whatsapp = await within(dialog).findByRole('link', { name: /whatsapp/i });
     const shared = decodeURIComponent(whatsapp.getAttribute('href') ?? '');
     expect(shared).toContain(`s=${SESSION_TOKEN}&challenge=${SESSION_TOKEN}`);
   });

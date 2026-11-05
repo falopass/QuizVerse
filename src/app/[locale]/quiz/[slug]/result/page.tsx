@@ -20,6 +20,8 @@ import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { buildReview, toClientQuiz } from '@/lib/quiz/answer-key';
 import { isChallengeInvite, isShareToken } from '@/lib/quiz/challenge';
+import { fetchGroupByToken, fetchGroupForSession, pickProfileNickname } from '@/lib/data/group';
+import { isGroupToken } from '@/lib/quiz/group';
 import { pointsFor } from '@/lib/quiz/submission';
 import { createClient } from '@/lib/supabase/server';
 
@@ -104,9 +106,9 @@ export default async function LocalizedQuizResultPage({
   searchParams,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ s?: string; challenge?: string }>;
+  searchParams: Promise<{ s?: string; challenge?: string; g?: string }>;
 }) {
-  const [{ locale, slug }, { s, challenge: challengeToken }] = await Promise.all([
+  const [{ locale, slug }, { s, challenge: challengeToken, g: groupToken }] = await Promise.all([
     params,
     searchParams,
   ]);
@@ -187,6 +189,32 @@ export default async function LocalizedQuizResultPage({
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Grupo de ranking activo: el `?g=` del enlace compartido, o —al volver al
+  // resultado desde su propio link— el grupo donde la sesión ya entró. Con
+  // migración pendiente degrada a null y la página sigue igual.
+  let group: Awaited<ReturnType<typeof fetchGroupForSession>> = null;
+  if (isGroupToken(groupToken)) {
+    const read = await fetchGroupByToken(supabase, groupToken);
+    const found = read.state === 'ok' ? read.value : null;
+    group = found?.quizId === quiz.id ? found : null;
+  }
+  if (!group) {
+    const own = await fetchGroupForSession(session.id);
+    group = own?.quizId === quiz.id ? own : null;
+  }
+
+  // Apodo sugerido para el alta: solo si hay sesión iniciada y un grupo a la
+  // vista; la consulta al perfil no corre en resultados comunes.
+  let suggestedNickname: string | undefined;
+  if (group && user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('username, display_name')
+      .eq('id', user.id)
+      .maybeSingle();
+    suggestedNickname = pickProfileNickname(profile);
+  }
+
   const resultPath = `/${locale}/quiz/${quiz.slug}/result?s=${session.share_token}${challenge ? `&challenge=${challenge.token}` : ''}`;
 
   const resolvedResult =
@@ -251,6 +279,9 @@ export default async function LocalizedQuizResultPage({
       // contra la propia sesión.
       challengeHref={`/${locale}/quiz/${quiz.slug}/play?challenge=${challenge?.token ?? session.share_token}`}
       related={related}
+      group={group}
+      gameSessionId={session.id}
+      suggestedNickname={suggestedNickname}
     />
   );
 }
