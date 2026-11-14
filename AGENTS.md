@@ -410,3 +410,7 @@ Pipeline-only (scripts, not the Worker): `SUPABASE_DB_URL`, `SEED_*`, `STOCK_COV
 `scripts/smoke-prod.sh` curl-checks the deployed site (local homes, explore, a quiz detail, play/result, OG, sitemap, robots, `/feed.xml` and `/explore` redirects, real 404s incl. Googlebot UA, and asserts the `/play` HTML never leaks `is_correct`). `.github/workflows/smoke.yml` runs it every 30 min, on `workflow_dispatch` and after each push to `main` (with a wait + retries while Workers Builds publishes). Run by hand: `scripts/smoke-prod.sh [base-url]`.
 
 Product direction: editorial, bilingual, discovery-oriented, ad-supported. NOT a generic quiz template grid.
+
+## Frontend
+
+Base: `frontend-base`. Piso comprobable antes de entregar: `C:/Users/lenov/.agents/studio/canonical/frontend-references/corpus/piso.md` (16 reglas; vale con cualquier dirección). Referencias por tema en `corpus/LEEME.md`; aquí sirven `assets.md`, `motion.md`, `interfaz-producto.md`. Las rutas existen solo en la máquina de Diego.
