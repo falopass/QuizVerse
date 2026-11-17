@@ -108,8 +108,10 @@ describe('QuizProgress — marcador en vivo y cronómetro', () => {
 
     // Sigue habiendo una sola región status (la de "Pregunta X de Y").
     expect(screen.getAllByRole('status')).toHaveLength(1);
+    // El marcador lo anuncia scoreAnnouncement del player → aria-hidden.
     expect(screen.getByText('3/4 correctas')).toHaveAttribute('aria-hidden', 'true');
-    expect(screen.getByText('1:05')).toHaveAttribute('aria-hidden', 'true');
+    // El cronómetro no tiene alternativa: texto plano consultable, no oculto.
+    expect(screen.getByText('1:05')).not.toHaveAttribute('aria-hidden');
   });
 
   it('sin marcador ni cronómetro solo se ve el contador de pregunta', () => {

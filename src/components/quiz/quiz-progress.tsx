@@ -68,10 +68,10 @@ export function QuizProgress({
             {correctAnswers}/{answeredCount} {locale === 'es' ? 'correctas' : 'correct'}
           </span>
         )}
+        {/* Cronómetro: texto plano (no región viva): no anuncia cada segundo
+            pero el lector de pantalla puede consultarlo — no va aria-hidden. */}
         {elapsedSeconds !== undefined && (
-          <span className="text-text-secondary font-mono" aria-hidden="true">
-            {formatClock(elapsedSeconds)}
-          </span>
+          <span className="text-text-secondary font-mono">{formatClock(elapsedSeconds)}</span>
         )}
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">
