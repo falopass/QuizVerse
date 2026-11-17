@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils/cn';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { getArcadeCopy, getCommonCopy } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { accentForCategory } from '@/lib/design/franchise-palette';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Category, Quiz } from '@/types/quiz';
 
@@ -14,7 +16,7 @@ import type { Category, Quiz } from '@/types/quiz';
 type EditorialQuizCardQuiz = Pick<
   Quiz,
   'slug' | 'title' | 'quiz_type' | 'estimated_minutes' | 'cover_image_url'
-> & { category?: Pick<Category, 'name'> | null };
+> & { category?: (Pick<Category, 'name'> & { slug?: string }) | null };
 
 interface EditorialQuizCardProps {
   quiz: EditorialQuizCardQuiz;
@@ -36,6 +38,17 @@ export function EditorialQuizCard({
   prefetch,
 }: EditorialQuizCardProps) {
   const copy = getArcadeCopy(locale);
+  // Acento de la franquicia (categoría): la tarjeta publica las variables
+  // --qv-* que el CSS puede consumir; sin entrada en la paleta, el acento
+  // lima actual. El meta y el botón ya las consumen con fallback.
+  const accent = accentForCategory(quiz.category?.slug);
+  const accentVars = accent
+    ? ({
+        '--qv-accent': accent.accent,
+        '--qv-accent-soft': accent.soft,
+        '--qv-on-accent': accent.onAccent,
+      } as CSSProperties)
+    : undefined;
   // El lead editorial abre su propia sección sin h2 previo: ahí el titular es h2.
   const isHero = size === 'hero';
   const TitleTag = isHero ? 'h2' : 'h3';
@@ -44,6 +57,7 @@ export function EditorialQuizCard({
       href={localizeHref(locale, `/quiz/${quiz.slug}`)}
       prefetch={prefetch ?? (index === undefined || index < PREFETCH_FIRST_ROW)}
       className={cn('arcade-card', isHero && 'arcade-card-hero')}
+      style={accentVars}
     >
       <QuizCoverArt
         quiz={quiz}
@@ -53,8 +67,11 @@ export function EditorialQuizCard({
         showTitle={false}
         className="arcade-card-art"
       />
-      <div className="arcade-card-info">
-        <span className="arcade-card-meta">
+      <div
+        className="arcade-card-info"
+        style={{ backgroundColor: 'var(--qv-accent-soft, transparent)' }}
+      >
+        <span className="arcade-card-meta" style={{ color: 'var(--qv-accent, var(--text-muted))' }}>
           {getLocalizedTypeLabel(quiz.quiz_type, locale)} · {quiz.category?.name ?? 'QuizVerse'}
         </span>
         <TitleTag>{quiz.title}</TitleTag>
@@ -62,7 +79,16 @@ export function EditorialQuizCard({
           <small>
             {quiz.estimated_minutes} {getCommonCopy(locale).minutesShort}
           </small>
-          <span className="arcade-card-play">{copy.play} ↗</span>
+          <span
+            className="arcade-card-play"
+            style={
+              accent
+                ? { backgroundColor: 'var(--qv-accent)', color: 'var(--qv-on-accent)' }
+                : undefined
+            }
+          >
+            {copy.play} ↗
+          </span>
         </div>
       </div>
     </Link>
