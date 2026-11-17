@@ -501,7 +501,7 @@ export function ResultScreen({
               <div className="arcade-result-score">
                 <span className="arcade-play-label">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
-                  <p className="arcade-result-number">{triviaScore.percentage}%</p>
+                  <p className="arcade-result-number qv-l1-score-pop">{triviaScore.percentage}%</p>
                   <p className="text-text-primary pb-2 text-sm font-semibold">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>

@@ -199,6 +199,8 @@ export function QuizPlayer({
   } | null>(null);
   const [isSubmittingResult, setIsSubmittingResult] = React.useState(false);
   const [submitFailed, setSubmitFailed] = React.useState(false);
+  /** Segundos visibles del cronómetro: el mismo reloj que viaja en el envío. */
+  const [elapsedSeconds, setElapsedSeconds] = React.useState(0);
   const hasSubmittedRef = React.useRef(false);
   /**
    * Emisión del attempt de la partida en curso. Las respuestas esperan esta
@@ -354,6 +356,7 @@ export function QuizPlayer({
     setIsCheckingAnswer(false);
     setSubmitFailed(false);
     setShowModeSelector(false);
+    setElapsedSeconds(0);
   }
 
   React.useEffect(() => {
@@ -396,6 +399,21 @@ export function QuizPlayer({
     }, 1000);
     return () => clearInterval(timer);
   }, [gameMode, isCompleted, isPaused, showFeedback, showModeSelector, uiLocale]);
+
+  // Cronómetro visible en todos los modos: lee `startedAt`, el mismo reloj que
+  // viaja en el envío (la pausa también cuenta, igual que en persistSession).
+  React.useEffect(() => {
+    if (!isGameStarted || isCompleted || isPaused || showModeSelector) return;
+    const timer = setInterval(() => {
+      const startedAt = useQuizStore.getState().startedAt;
+      setElapsedSeconds(
+        startedAt
+          ? Math.min(MAX_GAME_SECONDS, Math.max(0, Math.floor((Date.now() - startedAt) / 1000)))
+          : 0
+      );
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [isGameStarted, isCompleted, isPaused, showModeSelector]);
 
   React.useEffect(() => {
     if (!showFeedback || lastAnswerCorrect === null || quiz.quiz_type !== 'trivia') return;
@@ -667,6 +685,7 @@ export function QuizPlayer({
     setIsCheckingAnswer(false);
     setVerdict(null);
     hasSubmittedRef.current = false;
+    setElapsedSeconds(0);
     setShowModeSelector(false);
     setHiddenOptions({ questionIndex: -1, ids: [] });
     elapsedSecondsRef.current = null;
@@ -860,6 +879,9 @@ export function QuizPlayer({
                   currentQuestion={currentQuestionIndex + 1}
                   totalQuestions={totalQuestions}
                   locale={uiLocale}
+                  correctAnswers={quiz.quiz_type === 'trivia' ? getScore().correct : undefined}
+                  answeredCount={quiz.quiz_type === 'trivia' ? answeredCount : undefined}
+                  elapsedSeconds={elapsedSeconds}
                   timeRemaining={gameMode === 'timed' ? timeRemaining : undefined}
                   timeLimit={
                     gameMode === 'timed'
@@ -1027,6 +1049,7 @@ export function QuizPlayer({
                         : copy.miss
                       : null
                   }
+                  verdictCorrect={quiz.quiz_type === 'trivia' ? lastAnswerCorrect : null}
                 />
               </motion.div>
             </AnimatePresence>
