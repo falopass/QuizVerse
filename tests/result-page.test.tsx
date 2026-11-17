@@ -158,7 +158,11 @@ function renderPage(query: Record<string, string> = {}, locale = 'en') {
 beforeAll(() => {
   Object.defineProperty(window, 'matchMedia', {
     configurable: true,
-    value: vi.fn(() => ({ matches: true })),
+    value: vi.fn(() => ({
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    })),
   });
 });
 

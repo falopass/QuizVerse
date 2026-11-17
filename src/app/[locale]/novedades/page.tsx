@@ -9,6 +9,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 import { Breadcrumbs } from '@/components/seo/breadcrumbs';
 import { JsonLd } from '@/components/seo/json-ld';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { novedadesOgImage } from '@/lib/seo/site';
 import {
   breadcrumbNode,
   buildGraph,
@@ -60,6 +61,7 @@ export async function generateMetadata({ params }: NovedadesPageProps): Promise<
     // La página existe en los dos idiomas: el hreflang va siempre.
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/novedades`,
     locale,
+    image: novedadesOgImage(locale),
   });
 }
 
