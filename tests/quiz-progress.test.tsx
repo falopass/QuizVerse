@@ -60,3 +60,76 @@ describe('QuizProgress', () => {
     expect(screen.queryByText(/\d+:\d{2}/)).not.toBeInTheDocument();
   });
 });
+
+describe('QuizProgress — marcador en vivo y cronómetro', () => {
+  it('pinta el marcador de aciertos y el cronómetro cuando llegan', () => {
+    render(
+      <QuizProgress
+        currentQuestion={5}
+        totalQuestions={10}
+        correctAnswers={3}
+        answeredCount={4}
+        elapsedSeconds={65}
+        locale="es"
+      />
+    );
+
+    expect(screen.getByText('3/4 correctas')).toBeInTheDocument();
+    expect(screen.getByText('1:05')).toBeInTheDocument();
+  });
+
+  it('usa las etiquetas en inglés', () => {
+    render(
+      <QuizProgress
+        currentQuestion={5}
+        totalQuestions={10}
+        correctAnswers={3}
+        answeredCount={4}
+        elapsedSeconds={600}
+        locale="en"
+      />
+    );
+
+    expect(screen.getByText('3/4 correct')).toBeInTheDocument();
+    expect(screen.getByText('10:00')).toBeInTheDocument();
+  });
+
+  it('no anuncia de nuevo: marcador y reloj quedan fuera del árbol accesible', () => {
+    render(
+      <QuizProgress
+        currentQuestion={5}
+        totalQuestions={10}
+        correctAnswers={3}
+        answeredCount={4}
+        elapsedSeconds={65}
+        locale="es"
+      />
+    );
+
+    // Sigue habiendo una sola región status (la de "Pregunta X de Y").
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+    expect(screen.getByText('3/4 correctas')).toHaveAttribute('aria-hidden', 'true');
+    expect(screen.getByText('1:05')).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('sin marcador ni cronómetro solo se ve el contador de pregunta', () => {
+    render(<QuizProgress currentQuestion={5} totalQuestions={10} locale="es" />);
+
+    expect(screen.queryByText(/correctas/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/\d+:\d{2}/)).not.toBeInTheDocument();
+  });
+
+  it('el marcador no aparece antes de la primera respuesta', () => {
+    render(
+      <QuizProgress
+        currentQuestion={1}
+        totalQuestions={10}
+        correctAnswers={0}
+        answeredCount={0}
+        locale="es"
+      />
+    );
+
+    expect(screen.queryByText(/correctas/)).not.toBeInTheDocument();
+  });
+});

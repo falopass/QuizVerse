@@ -34,6 +34,11 @@ interface QuestionCardProps {
    */
   verdictText?: string | null;
   /**
+   * Whether the verdict was a hit, straight from the server reveal. Tints the
+   * verdict banner (green/red); `null`/undefined leaves it untinted.
+   */
+  verdictCorrect?: boolean | null;
+  /**
    * Explanation for the answer just given, revealed by the server. Once the
    * 015 migration strips `explanation` from public `questions`, the verdict
    * is the only source; `question.explanation` stays as the fallback.
@@ -55,6 +60,7 @@ export function QuestionCard({
   hiddenOptionIds = [],
   headingRef,
   verdictText,
+  verdictCorrect = null,
   explanation = null,
 }: QuestionCardProps) {
   const es = locale === 'es';
@@ -65,7 +71,16 @@ export function QuestionCard({
   return (
     <article className="arcade-question">
       {(verdictPending || verdictText) && (
-        <span className="arcade-answer-feedback" role="status" aria-live="polite">
+        <span
+          className={cn(
+            'arcade-answer-feedback',
+            verdictText &&
+              verdictCorrect !== null &&
+              (verdictCorrect ? 'qv-l1-verdict-correct' : 'qv-l1-verdict-incorrect')
+          )}
+          role="status"
+          aria-live="polite"
+        >
           {verdictText}
         </span>
       )}
@@ -100,11 +115,15 @@ export function QuestionCard({
               onClick={() => onSelectOption(option.id)}
               disabled={disabled || hiddenOptionIds.includes(option.id)}
               aria-pressed={selected}
+              // Entrada escalonada por pregunta (la tarjeta re-monta con cada
+              // una); al revelar el veredicto el retardo se anula para que el
+              // pulso/shake salten al instante, no tras el stagger.
+              style={{ animationDelay: showFeedback ? '0ms' : `${index * 50}ms` }}
               className={cn(
-                'arcade-option',
+                'arcade-option qv-l1-option-in',
                 selected && 'arcade-option-selected',
-                correct && 'arcade-option-correct',
-                incorrect && 'arcade-option-incorrect',
+                correct && 'arcade-option-correct qv-l1-correct-pulse',
+                incorrect && 'arcade-option-incorrect qv-l1-shake',
                 hiddenOptionIds.includes(option.id) && 'arcade-option-hidden'
               )}
             >

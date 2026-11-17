@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils/cn';
 import { ProgressBar } from '@/components/ui/progress-bar';
+import { formatClock } from '@/lib/quiz/format-clock';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface QuizProgressProps {
@@ -10,6 +11,12 @@ interface QuizProgressProps {
   totalQuestions: number;
   timeRemaining?: number;
   timeLimit?: number;
+  /** Aciertos confirmados por el servidor hasta ahora (trivia). */
+  correctAnswers?: number;
+  /** Respuestas enviadas hasta ahora (trivia). Va junto a correctAnswers. */
+  answeredCount?: number;
+  /** Segundos transcurridos de la partida: cronómetro visible en todo modo. */
+  elapsedSeconds?: number;
   locale: Locale;
 }
 
@@ -25,12 +32,12 @@ export function QuizProgress({
   totalQuestions,
   timeRemaining,
   timeLimit,
+  correctAnswers,
+  answeredCount,
+  elapsedSeconds,
   locale,
 }: QuizProgressProps) {
-  const timerText =
-    timeRemaining !== undefined
-      ? `${Math.floor(timeRemaining / 60)}:${(timeRemaining % 60).toString().padStart(2, '0')}`
-      : undefined;
+  const timerText = timeRemaining !== undefined ? formatClock(timeRemaining) : undefined;
   return (
     <div className="w-full">
       {/* Progress bar (decorativa: el contador de abajo es quien anuncia) */}
@@ -55,6 +62,17 @@ export function QuizProgress({
           {locale === 'es' ? 'Pregunta' : 'Question'} {currentQuestion}{' '}
           {locale === 'es' ? 'de' : 'of'} {totalQuestions}
         </span>
+        {/* Marcador vivo: lo anuncia la región sr-only del player; aquí solo se ve. */}
+        {correctAnswers !== undefined && answeredCount !== undefined && answeredCount > 0 && (
+          <span className="text-text-secondary font-semibold" aria-hidden="true">
+            {correctAnswers}/{answeredCount} {locale === 'es' ? 'correctas' : 'correct'}
+          </span>
+        )}
+        {elapsedSeconds !== undefined && (
+          <span className="text-text-secondary font-mono" aria-hidden="true">
+            {formatClock(elapsedSeconds)}
+          </span>
+        )}
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">
             <ProgressBar
