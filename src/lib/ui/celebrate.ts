@@ -31,24 +31,28 @@ export function celebrate({
   let cancelled = false;
   let interval: ReturnType<typeof setInterval> | undefined;
 
-  void import('canvas-confetti').then(({ default: confetti }) => {
-    if (cancelled) return;
-    // El plazo corre desde que el módulo carga: una descarga lenta no debe
-    // comerse la celebración (la de personality ya es corta de por sí).
-    const end = Date.now() + durationMs;
-    interval = setInterval(() => {
-      const timeLeft = end - Date.now();
-      if (timeLeft <= 0) {
-        if (interval !== undefined) clearInterval(interval);
-        return;
-      }
-      void confetti({
-        ...CONFETTI_DEFAULTS,
-        particleCount: Math.max(1, Math.round(particlesPerTick * (timeLeft / durationMs))),
-        origin: { x: Math.random(), y: Math.random() * 0.4 },
-      });
-    }, intervalMs);
-  });
+  // Si el chunk no carga (red caída, deploy nuevo) no hay celebración, pero
+  // tampoco un rechazo sin manejar.
+  void import('canvas-confetti')
+    .then(({ default: confetti }) => {
+      if (cancelled) return;
+      // El plazo corre desde que el módulo carga: una descarga lenta no debe
+      // comerse la celebración (la de personality ya es corta de por sí).
+      const end = Date.now() + durationMs;
+      interval = setInterval(() => {
+        const timeLeft = end - Date.now();
+        if (timeLeft <= 0) {
+          if (interval !== undefined) clearInterval(interval);
+          return;
+        }
+        void confetti({
+          ...CONFETTI_DEFAULTS,
+          particleCount: Math.max(1, Math.round(particlesPerTick * (timeLeft / durationMs))),
+          origin: { x: Math.random(), y: Math.random() * 0.4 },
+        });
+      }, intervalMs);
+    })
+    .catch(noop);
 
   return () => {
     cancelled = true;
