@@ -1,5 +1,6 @@
 /**
- * Contract test for the /indice and /faq OG cards (SEO-48).
+ * Contract test for the static-page OG cards (SEO-48): /indice, /faq, /quiz,
+ * /daily and /novedades.
  *
  * Next registers an `opengraph-image` route from the module's static exports:
  * `size` fixes the PNG at 1200×630 and `contentType` declares the format. The
@@ -17,9 +18,13 @@ import { describe, expect, it } from 'vitest';
 import * as indiceOg from '@/app/[locale]/indice/opengraph-image';
 import * as faqOg from '@/app/[locale]/faq/opengraph-image';
 import * as exploreOg from '@/app/[locale]/quiz/opengraph-image';
+import * as dailyOg from '@/app/[locale]/daily/opengraph-image';
+import * as novedadesOg from '@/app/[locale]/novedades/opengraph-image';
 import { generateMetadata as indiceMetadata } from '@/app/[locale]/indice/page';
 import { generateMetadata as faqMetadata } from '@/app/[locale]/faq/page';
 import { generateMetadata as exploreMetadata } from '@/app/[locale]/quiz/(explorar)/page';
+import { generateMetadata as dailyMetadata } from '@/app/[locale]/daily/page';
+import { generateMetadata as novedadesMetadata } from '@/app/[locale]/novedades/page';
 import { SITE_URL } from '@/lib/seo/site';
 import type { Metadata } from 'next';
 
@@ -27,9 +32,11 @@ const cases = [
   { route: '/indice', mod: indiceOg, generateMetadata: indiceMetadata },
   { route: '/faq', mod: faqOg, generateMetadata: faqMetadata },
   { route: '/quiz', mod: exploreOg, generateMetadata: exploreMetadata },
+  { route: '/daily', mod: dailyOg, generateMetadata: dailyMetadata },
+  { route: '/novedades', mod: novedadesOg, generateMetadata: novedadesMetadata },
 ];
 
-describe('opengraph-image for /indice, /faq and /quiz', () => {
+describe('opengraph-image for /indice, /faq, /quiz, /daily and /novedades', () => {
   it.each(cases)('$route declares a 1200×630 PNG card', ({ mod }) => {
     expect(mod.size).toEqual({ width: 1200, height: 630 });
     expect(mod.contentType).toBe('image/png');

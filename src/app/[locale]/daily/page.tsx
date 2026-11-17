@@ -5,6 +5,7 @@ import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { dailyOgImage } from '@/lib/seo/site';
 import { DailyPlayer } from '@/components/daily/daily-player';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -54,6 +55,7 @@ export async function generateMetadata({
     path: `/${locale}/daily`,
     alternatePath: `/${locale === 'es' ? 'en' : 'es'}/daily`,
     locale,
+    image: dailyOgImage(locale),
   });
 }
 
