@@ -30,10 +30,12 @@ export function celebrate({
 
   let cancelled = false;
   let interval: ReturnType<typeof setInterval> | undefined;
-  const end = Date.now() + durationMs;
 
   void import('canvas-confetti').then(({ default: confetti }) => {
     if (cancelled) return;
+    // El plazo corre desde que el módulo carga: una descarga lenta no debe
+    // comerse la celebración (la de personality ya es corta de por sí).
+    const end = Date.now() + durationMs;
     interval = setInterval(() => {
       const timeLeft = end - Date.now();
       if (timeLeft <= 0) {
