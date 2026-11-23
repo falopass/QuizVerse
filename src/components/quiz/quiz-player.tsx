@@ -826,6 +826,10 @@ export function QuizPlayer({
         review={submission?.review ?? undefined}
         streak={maxStreak}
         bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
+        // Igual que /result: sin puntos confirmados por el servidor (partida
+        // anónima) la métrica muestra el aviso de cuenta, no un +N que nadie
+        // guardó. Con cuenta, toda partida con participación suma al menos 10.
+        pointsSaved={!submission || submission.pointsEarned > 0}
         submitFailed={submitFailed}
         isSubmittingResult={isSubmittingResult}
         onRetrySubmit={persistSession}

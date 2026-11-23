@@ -7,6 +7,10 @@ const mocks = vi.hoisted(() => ({
   pathname: '/en/definitely-missing',
 }));
 
+vi.mock('@/components/layout/display-font-swap', () => ({
+  DisplayFontSwap: ({ children }: { children: import('react').ReactNode }) => children,
+  displayFontSwapClass: 'qv-display-swap',
+}));
 vi.mock('next/headers', () => ({
   headers: vi.fn(async () => new Headers({ 'x-quizverse-locale': mocks.locale })),
 }));

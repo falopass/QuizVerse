@@ -33,17 +33,6 @@ const archivo = Archivo_Black({
   display: 'optional',
 });
 
-// El 404 global no recibe el preload de next/font (solo lo emiten las rutas
-// con layout), así que con `optional` la primera visita pintaba el titular y
-// la marca con el fallback. Ahí no compite por el LCP: `swap` sin preload.
-const archivoSwap = Archivo_Black({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-archivo',
-  display: 'swap',
-  preload: false,
-});
-
 // El texto nunca es el elemento LCP: `swap` garantiza que acaba pintando en
 // Bricolage Grotesque, y quitarle el preload deja ~10 KB de ancho de banda
 // para la fuente display y la portada en la primera carga.
@@ -143,19 +132,11 @@ export const viewport: Viewport = {
 };
 
 /** Documento compartido por los layouts raíz; nunca lee datos de la petición. */
-export function SiteDocument({
-  children,
-  locale,
-  displayFontSwap = false,
-}: {
-  children: React.ReactNode;
-  locale: Locale;
-  displayFontSwap?: boolean;
-}) {
+export function SiteDocument({ children, locale }: { children: React.ReactNode; locale: Locale }) {
   return (
     <html
       lang={locale}
-      className={`h-full ${(displayFontSwap ? archivoSwap : archivo).variable} ${bricolage.variable}`}
+      className={`h-full ${archivo.variable} ${bricolage.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

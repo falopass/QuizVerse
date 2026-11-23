@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { DisplayFontSwap } from '@/components/layout/display-font-swap';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { getQuizBySlug, getQuizLocaleRedirect, getRelatedQuizzes } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
@@ -183,7 +184,7 @@ export default async function LocalizedQuizPlayPage({
   // The answer key never leaves the server: the play screen asks the reveal
   // endpoint for one verdict at a time.
   return (
-    <>
+    <DisplayFontSwap>
       {copy ? <ChallengeBanner eyebrow={copy.eyebrow} title={copy.title} body={copy.body} /> : null}
       {groupBanner ? (
         <ChallengeBanner
@@ -204,7 +205,7 @@ export default async function LocalizedQuizPlayPage({
         initialMode={parseInitialGameMode(mode, quiz)}
         related={related}
       />
-    </>
+    </DisplayFontSwap>
   );
 }
 

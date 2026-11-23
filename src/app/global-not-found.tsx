@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { NotFoundContent } from '@/components/layout/not-found-content';
+import { DisplayFontSwap } from '@/components/layout/display-font-swap';
 import { SiteDocument } from '@/components/layout/site-document';
 
 // Los layouts raíz están bajo [locale] y embed/[locale]. Solo el 404 global
@@ -13,12 +14,14 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NotFoundPage() {
   const locale = (await headers()).get('x-quizverse-locale') === 'es' ? 'es' : 'en';
   return (
-    <SiteDocument locale={locale} displayFontSwap>
-      <main id="main-content" className="min-h-[70vh] px-4 pt-28 pb-16">
-        <div className="mx-auto max-w-4xl">
-          <NotFoundContent locale={locale} />
-        </div>
-      </main>
+    <SiteDocument locale={locale}>
+      <DisplayFontSwap>
+        <main id="main-content" className="min-h-[70vh] px-4 pt-28 pb-16">
+          <div className="mx-auto max-w-4xl">
+            <NotFoundContent locale={locale} />
+          </div>
+        </main>
+      </DisplayFontSwap>
     </SiteDocument>
   );
 }

@@ -312,6 +312,28 @@ describe('QuizPlayer · resultado', () => {
     );
   });
 
+  it('partida anónima sin puntos del servidor: muestra el aviso de cuenta, no un +N', async () => {
+    vi.mocked(submitQuizResult).mockResolvedValueOnce({
+      success: true,
+      session: { id: 's-1', share_token: 'tok' },
+      result: null,
+      score: 1,
+      max_score: 1,
+      points_earned: 0,
+      achievements_unlocked: [],
+      review: [],
+    } as never);
+    const oneQuestion = makeQuiz({ questions: [makeQuiz().questions[0]] });
+
+    render(<QuizPlayer quiz={oneQuestion} locale="es" />);
+    await screen.findByText(/Elige una respuesta/);
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+    await screen.findByText('Correcto');
+    fireEvent.click(screen.getByRole('button', { name: 'Terminar' }));
+
+    expect(await screen.findByText('Los puntos se guardan con una cuenta')).toBeInTheDocument();
+  });
+
   it('registra el tiempo real de la partida en cualquier modo', async () => {
     vi.useFakeTimers();
     try {

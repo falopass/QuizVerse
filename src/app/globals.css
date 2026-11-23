@@ -3398,4 +3398,11 @@ body:has(.arcade-result) .cookie-consent-banner {
 html:has(.cookie-consent-banner) {
   scroll-padding-bottom: 176px;
 }
+/* Árbol con Archivo Black en `swap` (ver display-font-swap.tsx): el token se
+   recalcula aquí porque en :root ya quedó resuelto con la instancia optional.
+   `contents` evita que el envoltorio altere el layout de la partida. */
+.qv-display-swap {
+  display: contents;
+  --font-display: var(--font-archivo), Impact, sans-serif;
+}
 /* === fin QA final === */
