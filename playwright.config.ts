@@ -17,6 +17,8 @@ export default defineConfig({
     env: {
       NEXT_PUBLIC_SUPABASE_URL: 'http://127.0.0.1:4511',
       NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: 'e2e-public-placeholder',
+      UPSTASH_REDIS_REST_URL: 'http://127.0.0.1:4511/redis',
+      UPSTASH_REDIS_REST_TOKEN: 'e2e-public-placeholder',
     },
   },
 });

@@ -47,10 +47,37 @@ const publicQuiz = {
   created_at: '2026-01-01T00:00:00.000Z',
 };
 
-const fixture = createServer((request, response) => {
+const fixture = createServer(async (request, response) => {
   const url = new URL(request.url ?? '/', 'http://127.0.0.1:4511');
   const single = request.headers.accept?.includes('vnd.pgrst.object+json');
   response.setHeader('content-type', 'application/json');
+  if (request.method === 'POST' && url.pathname === '/redis/pipeline') {
+    // next start no tiene el binding de Workers. La app consulta su limitador
+    // real a través del cliente Upstash; este fixture responde solo a sus EVAL.
+    try {
+      let body = '';
+      for await (const chunk of request) body += chunk;
+      const commands: unknown = JSON.parse(body);
+      if (
+        Array.isArray(commands) &&
+        commands.every(
+          (command) =>
+            Array.isArray(command) &&
+            command[0] === 'eval' &&
+            typeof command[3] === 'string' &&
+            command[3].startsWith('ratelimit:')
+        )
+      ) {
+        response.end(JSON.stringify(commands.map(() => ({ result: [1, 1, 60] }))));
+        return;
+      }
+    } catch {
+      // Una llamada distinta a la del limitador invalida el fixture.
+    }
+    response.statusCode = 400;
+    response.end(JSON.stringify({ error: 'Expected rate-limit EVAL' }));
+    return;
+  }
   if (
     url.pathname === '/rest/v1/quiz_answer_keys' &&
     url.searchParams.get('quiz_id') === `eq.${id}`
@@ -108,7 +135,8 @@ for (const { mode, reducedMotion, viewport } of [
 
     const reveal = page.waitForResponse((response) => response.url().endsWith('/api/quiz/reveal'));
     await page.keyboard.press('Enter');
-    expect((await reveal).ok()).toBe(true);
+    const revealed = await reveal;
+    expect(revealed.ok(), `Reveal HTTP ${revealed.status()}: ${await revealed.text()}`).toBe(true);
 
     const verdict = page.locator('.arcade-question').locator('[role="status"], [aria-live]');
     await expect(verdict).toHaveCount(1);
