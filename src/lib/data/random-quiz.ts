@@ -3,6 +3,10 @@ import 'server-only';
 import { createClient } from '@/lib/supabase/server';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
+// Solo los tipos que /play abre en modo Clásico: el azar lleva directo a la
+// primera pregunta y un tipo sin ese modo dejaría al jugador en un callejón.
+const PLAYABLE_TYPES = ['trivia', 'personality'] as const;
+
 // Picks a published quiz slug of the locale without fetching the catalog:
 // one count query, then a single row at a random offset. Never throws; a
 // failure is indistinguishable from an empty catalog for the caller.
@@ -14,7 +18,8 @@ export async function getRandomQuizSlug(locale: Locale): Promise<string | null> 
       .from('quizzes')
       .select('id', { count: 'exact', head: true })
       .eq('status', 'published')
-      .eq('language', locale);
+      .eq('language', locale)
+      .in('quiz_type', [...PLAYABLE_TYPES]);
 
     if (countError || !count) return null;
 
@@ -24,6 +29,7 @@ export async function getRandomQuizSlug(locale: Locale): Promise<string | null> 
       .select('slug')
       .eq('status', 'published')
       .eq('language', locale)
+      .in('quiz_type', [...PLAYABLE_TYPES])
       .order('slug')
       .range(offset, offset);
 

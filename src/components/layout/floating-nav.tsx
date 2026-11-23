@@ -24,14 +24,14 @@ export interface NavLabels {
   menu: string;
 }
 
-export function extractNavLabels(dictionary: Dictionary, locale: Locale): NavLabels {
+export function extractNavLabels(dictionary: Dictionary, _locale: Locale): NavLabels {
   return {
     mainNavigation: dictionary.arcade.mainNavigation,
     explore: dictionary.common.explore,
     dailyQuiz: dictionary.common.dailyQuiz,
     leaderboard: dictionary.common.leaderboard,
-    personality: locale === 'es' ? 'Personalidad' : 'Personality',
-    trivia: 'Trivia',
+    personality: dictionary.nav.personality,
+    trivia: dictionary.nav.trivia,
     randomQuiz: dictionary.common.randomQuiz,
     mobileRandomQuiz: dictionary.nav.randomQuiz,
     switchLocale: dictionary.common.switchLocale,
@@ -111,13 +111,6 @@ export function FloatingNav(props: FloatingNavProps) {
             {labels.dailyQuiz}
           </Link>
           <Link
-            href={localizeHref(locale, '/leaderboard')}
-            className={cn('arcade-nav-link', isActive('/leaderboard') && 'text-accent-primary')}
-            aria-current={isActive('/leaderboard') ? 'page' : undefined}
-          >
-            {labels.leaderboard}
-          </Link>
-          <Link
             href={localizeHref(locale, '/category/personality')}
             className={cn(
               'arcade-nav-link',
@@ -134,19 +127,20 @@ export function FloatingNav(props: FloatingNavProps) {
           >
             {labels.trivia}
           </Link>
-          {/* /random is a 307 route handler, not an RSC page: no prefetch so the
-              redirect resolves to the real quiz URL on click. */}
           <Link
-            href={localizeHref(locale, '/random')}
-            prefetch={false}
-            className={cn('arcade-nav-link', isActive('/random') && 'text-accent-primary')}
-            aria-current={isActive('/random') ? 'page' : undefined}
+            href={localizeHref(locale, '/leaderboard')}
+            className={cn('arcade-nav-link', isActive('/leaderboard') && 'text-accent-primary')}
+            aria-current={isActive('/leaderboard') ? 'page' : undefined}
           >
-            {labels.randomQuiz}
+            {labels.leaderboard}
           </Link>
           <LocaleSwitcher value={locale} label={labels.switchLocale} />
-          <Link href={localizeHref(locale, '/quiz')} className="arcade-pill">
-            {labels.pickGame} ↗
+          {/* Una sola acción de juego en la barra: el azar entra directo a la
+              primera pregunta. Explorar ya tiene su enlace, así que la píldora
+              no repite /quiz. /random es un route handler 307, no una página
+              RSC: sin prefetch el redirect resuelve al hacer clic. */}
+          <Link href={localizeHref(locale, '/random')} prefetch={false} className="arcade-pill">
+            {labels.randomQuiz} <span aria-hidden="true">↗</span>
           </Link>
           <UserMenu locale={locale} />
         </nav>

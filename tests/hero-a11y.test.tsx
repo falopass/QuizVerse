@@ -11,6 +11,7 @@ import type { Quiz } from '@/types/quiz';
 
 const mocks = vi.hoisted(() => ({
   getHomePayload: vi.fn(),
+  getCategoryCounts: vi.fn(async () => new Map<string, number>()),
 }));
 
 vi.mock('@/lib/data/public', async (importOriginal) => {
@@ -19,7 +20,7 @@ vi.mock('@/lib/data/public', async (importOriginal) => {
 });
 
 vi.mock('@/lib/data/category-counts', () => ({
-  getCategoryCounts: vi.fn(async () => new Map<string, number>()),
+  getCategoryCounts: mocks.getCategoryCounts,
 }));
 
 // CategoryStrip es un server component async: suspende en el render síncrono
@@ -113,6 +114,8 @@ async function renderHome(locale: 'en' | 'es') {
 
 beforeEach(() => {
   mocks.getHomePayload.mockReset();
+  mocks.getCategoryCounts.mockReset();
+  mocks.getCategoryCounts.mockResolvedValue(new Map<string, number>());
 });
 
 describe('hero de la home · nombre accesible (PERF-06)', () => {
@@ -148,5 +151,80 @@ describe('hero de la home · nombre accesible (PERF-06)', () => {
     expect(
       container.querySelector<HTMLAnchorElement>('a.arcade-button')?.getAttribute('href')
     ).toBe('/en/quiz/flags-trivia/play?mode=classic');
+  });
+});
+
+describe('portada · mazo de accesos y destacado sin repetir', () => {
+  function payloadWith(quizzes: Quiz[]) {
+    return {
+      categories: [],
+      trending: [],
+      featured: quizzes,
+      quickPlays: [],
+      freshlyPublished: [],
+      totalQuizzes: quizzes.length,
+      totalPlays: 10,
+    };
+  }
+
+  it.each([
+    ['en', 'Daily quiz', 'Random quiz', 'Challenge #'],
+    ['es', 'Quiz diario', 'Quiz al azar', 'Reto #'],
+  ] as const)(
+    'en /%s el mazo enlaza reto diario, azar, personalidad y trivia',
+    async (locale, daily, random, challenge) => {
+      mocks.getHomePayload.mockResolvedValue(payloadWith([makeQuiz({ language: locale })]));
+
+      const { container } = render(
+        await LocalizedHomePage({ params: Promise.resolve({ locale }) })
+      );
+
+      const cards = Array.from(container.querySelectorAll<HTMLAnchorElement>('a.qv-l9-card'));
+      expect(cards.map((card) => card.getAttribute('href'))).toEqual([
+        `/${locale}/daily`,
+        `/${locale}/random`,
+        `/${locale}/category/personality`,
+        `/${locale}/category/trivia`,
+      ]);
+      expect(cards[0]).toHaveTextContent(daily);
+      // El número del reto es el real del día, no texto inventado.
+      expect(cards[0].textContent).toMatch(new RegExp(`${challenge}[0-9]+`));
+      expect(cards[1]).toHaveTextContent(random);
+      // El tamaño del catálogo sale del payload.
+      expect(cards[1]).toHaveTextContent('1 quizzes');
+    }
+  );
+
+  it('el destacado no se repite como segundo bloque diario', async () => {
+    // Un único quiz de trivia: antes era a la vez destacado y «quiz de hoy».
+    mocks.getHomePayload.mockResolvedValue(payloadWith([makeQuiz()]));
+
+    const { container } = render(
+      await LocalizedHomePage({ params: Promise.resolve({ locale: 'en' }) })
+    );
+
+    const detailLinks = container.querySelectorAll('a[href="/en/quiz/flags-trivia"]');
+    // Solo el arte del hero enlaza a la ficha del destacado.
+    expect(detailLinks).toHaveLength(1);
+    expect(detailLinks[0]).toHaveClass('arcade-hero-link');
+    expect(container.textContent).not.toContain("Today's quiz");
+  });
+
+  it('el mazo va antes de la grilla de juegos y el CTA del hero sigue siendo el primero', async () => {
+    mocks.getHomePayload.mockResolvedValue(payloadWith([makeQuiz()]));
+
+    const { container } = render(
+      await LocalizedHomePage({ params: Promise.resolve({ locale: 'es' }) })
+    );
+
+    const links = Array.from(container.querySelectorAll('a'));
+    const cta = links.findIndex((link) => link.classList.contains('arcade-button'));
+    const firstCard = links.findIndex((link) => link.classList.contains('qv-l9-card'));
+    expect(cta).toBe(0);
+    expect(firstCard).toBeGreaterThan(cta);
+    const games = container.querySelector('#games');
+    expect(games).not.toBeNull();
+    const deck = container.querySelector('.qv-l9-deck');
+    expect(deck!.compareDocumentPosition(games!) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 });

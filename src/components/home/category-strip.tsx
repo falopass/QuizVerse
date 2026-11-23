@@ -22,7 +22,7 @@ export async function CategoryStrip({
   const dictionary = await getDictionary(locale);
 
   return (
-    <section className="arcade-related">
+    <section className="arcade-related qv-l9-cats">
       <div className="arcade-section-head">
         <h2>{dictionary.home.sections.categories}</h2>
         <p>{dictionary.arcade.allCategories}</p>
@@ -30,7 +30,8 @@ export async function CategoryStrip({
       <nav className="arcade-filters" aria-label={dictionary.arcade.categoryNavigation}>
         {visible.map((category) => (
           <Link key={category.id} href={localizeHref(locale, `/category/${category.slug}`)}>
-            {localizeCategory(category, locale)?.name ?? category.name} · {category.quiz_count}
+            {localizeCategory(category, locale)?.name ?? category.name}{' '}
+            <span className="qv-l9-cat-count">{category.quiz_count}</span>
           </Link>
         ))}
       </nav>

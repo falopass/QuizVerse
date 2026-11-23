@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { getHomePayload, getLaunchHomePayload } from '@/lib/data/public';
-import { dailyPickCopy, pickDailyTriviaQuiz } from '@/lib/content/daily-pick';
+import { dailyChallengeNumber, dailyPickCopy } from '@/lib/content/daily-pick';
 import { collectHomeQuizzes } from '@/lib/data/daily-quiz';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeCategory } from '@/lib/i18n/catalog';
@@ -12,6 +12,7 @@ import { buildMetadata } from '@/lib/seo/metadata';
 import { homeOgImage } from '@/lib/seo/site';
 import { buildGraph, categoryPath, itemListNode, webPageNode } from '@/lib/seo/structured-data';
 import { CategoryStrip } from '@/components/home/category-strip';
+import { QuickStartDeck, type QuickStartItem } from '@/components/home/quick-start-deck';
 import { EditorialQuizCard } from '@/components/home/editorial-quiz-card';
 import { RecentlyPlayed } from '@/components/home/recently-played';
 import { JsonLd } from '@/components/seo/json-ld';
@@ -65,11 +66,10 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
   const quizzes = collectHomeQuizzes(payload, locale);
   const lead = quizzes[0];
   const today = new Date();
-  // El pick es independiente por idioma: los candidatos son el catálogo de este
-  // locale y forzar el par traducido exigiría consultar también el del otro.
-  const dailyQuiz = pickDailyTriviaQuiz(quizzes, today);
-  const dailyCopy = dailyQuiz ? dailyPickCopy(locale, today) : null;
-  const games = quizzes.filter((quiz) => quiz.id !== lead?.id && quiz.id !== dailyQuiz?.id);
+  // El reto diario vive en /daily: la portada ya no repite su quiz como una
+  // segunda tarjeta (a menudo era el mismo destacado). Solo el lead sale de la
+  // grilla, que así conserva el resto del catálogo de la portada.
+  const games = quizzes.filter((quiz) => quiz.id !== lead?.id);
   const homeCategories = payload.categories
     .map((category) => ({ ...category, quiz_count: localeCounts.get(category.slug) ?? 0 }))
     .filter((category) => category.quiz_count > 0)
@@ -79,6 +79,47 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
     name: localizeCategory(category, locale)?.name ?? category.name,
     path: categoryPath(locale, category.slug),
   }));
+
+  const dailyCopy = dailyPickCopy(locale, today);
+  const countLabel = (count: number) =>
+    `${new Intl.NumberFormat(locale).format(count)} ${dictionary.home.deck.quizzesUnit}`;
+  const deckItems: QuickStartItem[] = [
+    {
+      kind: 'daily',
+      href: localizeHref(locale, '/daily'),
+      title: dictionary.common.dailyQuiz,
+      kicker: `${dictionary.home.deck.challengeNumber} #${dailyChallengeNumber(today)} · ${dailyCopy.dateLabel}`,
+      action: dictionary.arcade.play,
+      prefetch: true,
+    },
+    {
+      kind: 'random',
+      href: localizeHref(locale, '/random'),
+      title: dictionary.common.randomQuiz,
+      kicker:
+        payload.totalQuizzes > 0 ? countLabel(payload.totalQuizzes) : dictionary.arcade.pickGame,
+      action: dictionary.arcade.play,
+      prefetch: false,
+    },
+    // Personalidad y trivia son hubs por tipo de juego (/category/<tipo> filtra
+    // por quiz_type), los mismos que enlaza la barra.
+    {
+      kind: 'personality',
+      href: localizeHref(locale, '/category/personality'),
+      title: dictionary.nav.personality,
+      kicker: dictionary.arcade.gameType,
+      action: dictionary.common.explore,
+      prefetch: true,
+    },
+    {
+      kind: 'trivia',
+      href: localizeHref(locale, '/category/trivia'),
+      title: dictionary.nav.trivia,
+      kicker: dictionary.arcade.gameType,
+      action: dictionary.common.explore,
+      prefetch: true,
+    },
+  ];
 
   return (
     <div className="arcade-wrap arcade-page">
@@ -92,9 +133,12 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           ),
         ])}
       />
-      <section className="arcade-hero">
+      <section className="arcade-hero qv-l9-home">
         <div className="arcade-hero-copy">
-          <span className="arcade-live">● {dictionary.home.sections.discovery}</span>
+          <span className="arcade-live">
+            <span className="qv-l9-live-dot" aria-hidden="true" />
+            {dictionary.home.sections.discovery}
+          </span>
           <h1>{dictionary.arcade.heroTitle}</h1>
           <p>{dictionary.arcade.heroBody}</p>
           <Link
@@ -105,7 +149,8 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
             }
             className="arcade-button arcade-button-pink"
           >
-            {lead ? dictionary.arcade.playFeatured : dictionary.arcade.pickGame} <span>↗</span>
+            {lead ? dictionary.arcade.playFeatured : dictionary.arcade.pickGame}{' '}
+            <span aria-hidden="true">↗</span>
           </Link>
         </div>
         {lead ? (
@@ -128,35 +173,15 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           </div>
         )}
       </section>
-      <AdSlot placement="home" locale={locale} />
-      <div className="arcade-strip">
-        <span>{dictionary.arcade.stripStart}</span>
-        <span>{dictionary.arcade.stripMiddle}</span>
-        <span>{dictionary.arcade.stripEnd}</span>
-      </div>
-      {dailyQuiz && dailyCopy ? (
-        <section className="arcade-related">
-          <div className="arcade-section-head">
-            <div>
-              <span className="arcade-tag">
-                {dailyCopy.eyebrow} · {dailyCopy.dateLabel}
-              </span>
-              <h2>{dailyCopy.title}</h2>
-            </div>
-            <p>{dailyCopy.body}</p>
-          </div>
-          <div className="arcade-grid">
-            <EditorialQuizCard quiz={dailyQuiz} locale={locale} />
-          </div>
-          <Link
-            href={localizeHref(locale, '/daily')}
-            className="arcade-button arcade-button-lime arcade-more"
-          >
-            {dictionary.common.playNow} ↗
-          </Link>
-        </section>
-      ) : null}
+      <QuickStartDeck
+        items={deckItems}
+        heading={dictionary.arcade.startPlaying}
+        previousLabel={dictionary.home.deck.previous}
+        nextLabel={dictionary.home.deck.next}
+      />
+      <CategoryStrip categories={homeCategories} locale={locale} />
       <RecentlyPlayed locale={locale} />
+      <AdSlot placement="home" locale={locale} />
       <section id="games" className="arcade-games">
         <div className="arcade-section-head">
           <h2>{dictionary.arcade.chooseGame}</h2>
@@ -175,11 +200,10 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
             href={localizeHref(locale, '/novedades')}
             className="text-accent-primary text-xs font-semibold"
           >
-            {locale === 'es' ? 'Ver novedades' : "What's new"} ↗
+            {dictionary.footer.whatsNew} ↗
           </Link>
         </div>
       </section>
-      <CategoryStrip categories={homeCategories} locale={locale} />
     </div>
   );
 }
