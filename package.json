@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
     "seed:generate": "node scripts/generate-trending-seed.mjs",
     "seed:polish": "node scripts/polish-trending-seed.mjs",
     "seed:covers": "node scripts/generate-cover-assets.mjs",
@@ -38,7 +39,6 @@
   ],
   "dependencies": {
     "@opennextjs/cloudflare": "1.20.13",
-    "@resvg/resvg-js": "^2.6.2",
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.101.0",
     "@types/canvas-confetti": "^1.9.0",
@@ -48,7 +48,6 @@
     "dotenv": "^17.3.1",
     "framer-motion": "^12.38.0",
     "next": "16.4.2",
-    "openai": "^6.33.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.5.0",
@@ -56,6 +55,8 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^16",
@@ -68,6 +69,7 @@
     "eslint-config-next": "16.4.2",
     "eslint-config-prettier": "^10",
     "jsdom": "^26",
+    "openai": "^6.33.0",
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "^0.6",
     "tailwindcss": "^4",

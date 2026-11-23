@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from 'next/navigation';
 import { getQuizBySlug, getQuizLocaleRedirect, getRelatedQuizzes } from '@/lib/data/public';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { localizeQuizList } from '@/lib/i18n/catalog';
+import { toExploreCard } from '@/lib/quiz/explore-card';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { parseInitialGameMode } from '@/lib/quiz/game-modes';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -173,12 +174,11 @@ export default async function LocalizedQuizPlayPage({
         }
     : null;
 
-  // Misma fuente que la ficha y /result; van al cliente, así que pasan por
-  // toClientQuiz para no filtrar la clave de respuestas.
+  // Los relacionados viajan como tarjetas sin preguntas ni resultados.
   const related = localizeQuizList(
     await getRelatedQuizzes(quiz.slug, quiz.category?.slug, locale),
     locale
-  ).map(toClientQuiz);
+  ).map(toExploreCard);
 
   // The answer key never leaves the server: the play screen asks the reveal
   // endpoint for one verdict at a time.

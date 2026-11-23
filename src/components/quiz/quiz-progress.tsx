@@ -1,6 +1,3 @@
-'use client';
-
-import * as React from 'react';
 import { cn } from '@/lib/utils/cn';
 import { ProgressBar } from '@/components/ui/progress-bar';
 import { formatClock } from '@/lib/quiz/format-clock';
@@ -64,14 +61,20 @@ export function QuizProgress({
         </span>
         {/* Marcador vivo: lo anuncia la región sr-only del player; aquí solo se ve. */}
         {correctAnswers !== undefined && answeredCount !== undefined && answeredCount > 0 && (
-          <span className="text-text-secondary font-semibold" aria-hidden="true">
+          <span
+            key={answeredCount}
+            className="qv-l10-score-tick text-text-secondary font-semibold tabular-nums"
+            aria-hidden="true"
+          >
             {correctAnswers}/{answeredCount} {locale === 'es' ? 'correctas' : 'correct'}
           </span>
         )}
         {/* Cronómetro: texto plano (no región viva): no anuncia cada segundo
             pero el lector de pantalla puede consultarlo — no va aria-hidden. */}
         {elapsedSeconds !== undefined && (
-          <span className="text-text-secondary font-mono">{formatClock(elapsedSeconds)}</span>
+          <span className="text-text-secondary font-mono tabular-nums">
+            {formatClock(elapsedSeconds)}
+          </span>
         )}
         {timeRemaining !== undefined && timeLimit !== undefined && (
           <div className="flex items-center gap-2">
@@ -87,7 +90,7 @@ export function QuizProgress({
             />
             <div
               className={cn(
-                'flex items-center gap-1.5 font-mono',
+                'flex items-center gap-1.5 font-mono tabular-nums',
                 timeRemaining <= 10 ? 'text-warning' : 'text-text-primary'
               )}
             >

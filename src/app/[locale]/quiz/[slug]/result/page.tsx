@@ -15,6 +15,7 @@ import {
   type PersonalityChallenge,
 } from '@/lib/data/challenge';
 import { localizeQuizList } from '@/lib/i18n/catalog';
+import { toExploreCard } from '@/lib/quiz/explore-card';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { resultOgImage, SITE_URL } from '@/lib/seo/site';
 import { hasLocale } from '@/lib/i18n/dictionaries';
@@ -242,12 +243,11 @@ export default async function LocalizedQuizResultPage({
         }
       : undefined;
 
-  // Misma fuente que el detalle; van al cliente, así que cada uno pasa por
-  // toClientQuiz para no filtrar su clave de respuestas.
+  // Los relacionados viajan como tarjetas sin preguntas ni resultados.
   const related = localizeQuizList(
     await getRelatedQuizzes(quiz.slug, quiz.category?.slug, locale),
     locale
-  ).map(toClientQuiz);
+  ).map(toExploreCard);
 
   const hasSessionParticipation =
     session.score > 0 ||
