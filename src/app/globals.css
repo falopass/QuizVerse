@@ -3398,6 +3398,12 @@ body:has(.arcade-result) .cookie-consent-banner {
 html:has(.cookie-consent-banner) {
   scroll-padding-bottom: 176px;
 }
+/* Al final de la página no hay recorrido que reservar: el cuerpo suma el alto
+   del aviso para que los enlaces del pie puedan salir de debajo. Las vistas
+   de juego ya lo llevan en el flujo (posición relativa). */
+body:has(.cookie-consent-banner):not(:has(.arcade-play-page, .arcade-play-screen, .arcade-result)) {
+  padding-bottom: 176px;
+}
 /* Árbol con Archivo Black en `swap` (ver display-font-swap.tsx): el token se
    recalcula aquí porque en :root ya quedó resuelto con la instancia optional.
    `contents` evita que el envoltorio altere el layout de la partida. */

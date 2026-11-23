@@ -301,7 +301,9 @@ describe('QuizPlayer · resultado', () => {
     await screen.findByText('Correcto');
     fireEvent.click(screen.getByRole('button', { name: 'Terminar' }));
 
-    await screen.findByRole('region', { name: 'Sigue jugando' });
+    // ResultScreen es un chunk diferido: bajo carga (suite completa) tarda más
+    // que el segundo por defecto de findBy.
+    await screen.findByRole('region', { name: 'Sigue jugando' }, { timeout: 5000 });
 
     const verdict = screen.getByRole('heading', { level: 1, name: 'Final impecable' });
     await waitFor(() => expect(document.activeElement).toBe(verdict));
@@ -331,7 +333,9 @@ describe('QuizPlayer · resultado', () => {
     await screen.findByText('Correcto');
     fireEvent.click(screen.getByRole('button', { name: 'Terminar' }));
 
-    expect(await screen.findByText('Los puntos se guardan con una cuenta')).toBeInTheDocument();
+    expect(
+      await screen.findByText('Los puntos se guardan con una cuenta', {}, { timeout: 5000 })
+    ).toBeInTheDocument();
   });
 
   it('registra el tiempo real de la partida en cualquier modo', async () => {
