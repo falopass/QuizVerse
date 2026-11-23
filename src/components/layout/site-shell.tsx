@@ -38,7 +38,9 @@ export function SiteShell({ children, locale, footer, navLabels, dictionary }: S
       >
         {locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}
       </a>
-      {!isFullscreen && resolvedLabels && <FloatingNav locale={locale} navLabels={resolvedLabels} />}
+      {!isFullscreen && resolvedLabels && (
+        <FloatingNav locale={locale} navLabels={resolvedLabels} />
+      )}
       <React.Suspense fallback={null}>
         <RouteAnnouncer />
       </React.Suspense>
