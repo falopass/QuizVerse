@@ -15,7 +15,7 @@ jobs:
     env:
       SMOKE_BASE_URL: https://quizverse.org
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Smoke test
         # Tras un push a main, Workers Builds tarda unos minutos en publicar:
         # se reintenta con backoff hasta ~10 min antes de declarar fallo. En

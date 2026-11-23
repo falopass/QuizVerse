@@ -16,11 +16,12 @@ This project is developed on a single personal machine, and also worked on by Cl
 - Before starting: `git switch main && git pull --rebase` (multiple sessions may be working on the repo).
 - Commits in Spanish (Conventional Commits: `feat:`, `fix:`, `docs:`…).
 - Do not touch `deploy/` or the VPS infrastructure (it is no longer production; it belongs to the owner).
-- Verify before opening a PR: `npm run format:check`, `npm run typecheck`, `npm run lint` (`eslint . --max-warnings=0`: warnings are errors), `npm run seo:guard`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Use the Workers Builds branch preview for visual checks.
+- Verify before opening a PR: `npm run format:check`, `npm run typecheck`, `npm run lint` (`eslint . --max-warnings=0`: warnings are errors), `npm run seo:guard`, `npm test` (vitest; while iterating, `npx vitest related <files>`) and `npm run test:node` (`node --test tests/*.node.test.mjs`, for `node:test` suites that vitest does not discover). `npm run build` runs in CI and in Cloud sessions; locally only if the owner asks (it is denied in the owner's machine config). Nota sobre previews: Workers Builds **no** genera URL de preview por rama para QuizVerse porque el Worker declara Durable Objects (`NEXT_CACHE_DO_QUEUE`); para cambios de UI, revisar componentes con vitest/testing-library o HTML estático antes del merge y hacer smoke + capturas en producción tras el deploy.
 - `npm test` does NOT enforce coverage; `npm run test:coverage` does (v8 thresholds in `vitest.config.ts`: global ~60/75/70 plus higher bars for `src/lib/quiz`, `src/lib/seo`, `src/lib/data`). CI runs coverage.
 - If you rebase a branch that is already pushed, push with `git push --force-with-lease`, never `--force`. Merge the PR yourself once the checks are green — that merge IS the production deploy; the owner reviews merged work afterwards. Never deploy by hand.
 - Step-by-step procedures live in `.devin/skills/`: `verificar` and `entregar-pr`.
 - There is no `CHANGELOG.md`. Changes are documented in each PR description; do not create the file or ask for one.
+- `IDEA.md` está excluido localmente mediante `.git/info/exclude` (no está versionado en Git); cualquier ajuste sobre `IDEA.md` corresponde a Diego. La verdad operativa versionada vive en `AGENTS.md`, `README.md` y `docs/`.
 
 ## Stack
 
@@ -43,7 +44,7 @@ This project is developed on a single personal machine, and also worked on by Cl
 # App lifecycle — BLOCKED on the work machine
 # npm run dev and npm run build are denied in the owner's machine config.
 # The build runs in CI per PR (.github/workflows/ci.yml) and in Cloud sessions;
-# use the Workers Builds branch preview for visual checks instead of a local dev server.
+# Workers Builds does not generate branch preview URLs (Durable Objects); verify UI via component tests/static HTML and post-merge production smoke.
 npm start          # Production server
 npm run lint       # ESLint
 
@@ -73,16 +74,22 @@ src/
 │   │   ├── profile/[username]# Public profiles
 │   │   ├── my-quizzes/        # Creator's quizzes; [id]/edit, [id]/preview (draft preview)
 │   │   ├── create/            # Manual composer (+ create/ai, create/done)
-│   │   ├── admin/             # moderacion, quizzes, reportes (owner-only)
+│   │   ├── admin/             # moderacion, quizzes, reportes, estadisticas (owner-only; requireAdmin)
+│   │   ├── daily/             # Reto diario (cálculo en servidor, racha en dispositivo)
+│   │   ├── fandom/[slug]/     # Hubs por franquicia/fandom
+│   │   ├── widget/            # Builder de embeds
 │   │   ├── notifications/     # Notification inbox
 │   │   ├── settings/          # Account settings (incl. delete account)
 │   │   ├── achievements/      # Achievements
 │   │   └── about|contact|faq|privacy|terms|novedades|indice|random|feed.xml
-│   ├── api/                   # API routes (AI generation, analytics, monitoring, csp-report)
+│   ├── embed/[locale]/[slug]/ # Iframe embeddable (sin shell, noindex)
+│   ├── api/                   # 16 rutas API (quizzes, categories, stats, leaderboard, daily/today,
+│   │                          #   quiz/reveal, quiz/generate, quiz/report, quiz/locale, auth/send-email,
+│   │                          #   og/result, analytics, monitor, csp-report, locale, sitemap)
 │   ├── covers/                # Procedural cover image generation
 │   └── stock-covers/          # Stock cover routing
-├── actions/
-│   └── quiz.actions.ts        # Server actions for quiz operations (auth|social|... actions too)
+├── actions/                   # 11 módulos de Server Actions (quiz, auth, account, achievements,
+│                              #   comments, daily, group, moderation, notifications, profile, social)
 ├── components/
 │   ├── home/                  # Home page components
 │   ├── layout/                # Layout shared components
@@ -262,21 +269,35 @@ la página 404 y el sitemap la omite.
 
 ## Database Schema (Supabase)
 
-Tables (main ones; see `supabase/migrations/` for the full list):
+Tables (actual SQL names; see `supabase/migrations/` and `src/types/database.ts` for the full list):
 
-- `quizzes` — id, slug, title, description, locale, category, quiz_type, questions[], status (draft/published), featured, cover_type, cover_url, payoff, created_at
-- `quiz_answer_keys` — the answer key, split out of `quizzes` by migration 015. **No grants for `anon`/`authenticated`, no policies**: only the server (service role) reads it, via `src/lib/quiz/quiz-repository.ts`. A trigger keeps it in sync on insert/update.
-- `categories` — id, slug, label (en/es), icon
-- `profiles` — user profiles (Supabase Auth linked)
-- `game_sessions` — play session persistence with share tokens and `attempt_id` (migration 020)
-- `likes` — quiz likes/favorites
-- `achievements`, `comments`, `follows`, `notifications` — social layer
+- `quizzes` — `id`, `slug`, `title`, `description`, `language`, `category_id`, `quiz_type`, `questions` (jsonb), `question_count` (generated), `status` (`draft`/`pending_review`/`published`/`rejected`/`archived`), `is_featured`, `cover_image_url`, `created_at`
+- `quiz_answer_keys` — the answer key, split out of `quizzes` by `015_ocultar_clave_respuestas.sql`. **No grants for `anon`/`authenticated`, no policies**: only the server (`service_role`) reads it, via `src/lib/quiz/quiz-repository.ts`. A trigger keeps it in sync on insert/update.
+- `categories` — `id`, `slug`, `name`, `description`, `icon`, `color`, `sort_order`
+- `profiles` — user profiles (Supabase Auth linked, incl. `is_admin` checked by `src/lib/auth/require-admin.ts` for `/[locale]/admin/*` and `src/actions/moderation.actions.ts`)
+- `game_sessions` — play session persistence with `share_token` and `attempt_id` (`020_attempt_idempotencia.sql`)
+- `quiz_likes`, `quiz_comments`, `user_follows`, `notifications`, `achievements`, `user_achievements`, `quiz_reports` — social, achievements and moderation layer
+- `quiz_groups`, `quiz_group_entries` — link-shared group rankings (`021_ranking_grupo.sql`; RLS enabled with no direct policies, read via `SECURITY DEFINER` RPCs by token)
+- `analytics_events` — growth event persistence without PII (`022_analytics_events.sql`; RLS enabled, `service_role` only, retention function `delete_old_analytics_events()`)
 
 ### Migrations
 
+> **Estado operativo al 2026-11-22** (alcance: lectura del repositorio en `main` y contratos de código; sin acceso directo a la base de producción). Solo Diego decide acceder a producción o aplicar cambios.
+
 - Files live in `supabase/migrations/` as `NNN_name.sql`. Numbers are not always unique (several `011`, `015`, `018`, `019` files exist); order within a prefix is by name and the files are idempotent.
-- **Production has everything applied up to `020`; the next free number is `021`.**
-- **There is no migrations control table** — they were applied by hand, so `supabase migration list` will not tell you what is applied. Verify by objects instead, **per file**: `game_sessions.attempt_id` + index `game_sessions_attempt_id_unique` mean 020 ran; table `public.quiz_answer_keys` means `015_ocultar_clave_respuestas` ran; function `public.guard_quiz_editable_columns` means `015_creator_draft_review_transitions` ran; columns `quizzes.moderated_by`/`moderated_at` mean 016 ran. Files sharing a prefix each need their own check — one object does not prove the other file ran.
+- **Versioned in `main`:** up to `022_analytics_events.sql` (next free prefix on `main`: `023`).
+- **Distinción obligatorio — versionada vs. aplicada en producción:**
+  - **Confirmado (histórico documentado hasta `020`):** la línea base operativa documenta hasta `020_attempt_idempotencia.sql` como aplicada. Comprobar siempre por objeto y por archivo, no por prefijo.
+  - **Pendiente de verificación en producción — `021_ranking_grupo.sql`:** versionada en `main` (el código en `src/lib/data/group.ts` degrada a «no disponible» si falta; el merge de PR #392 / `735d40d` prueba corrección del SQL en Git, no ejecución en DB). Para confirmar aplicación, verificar **todos** sus objetos:
+    - Tablas: `public.quiz_groups`, `public.quiz_group_entries` (ambas con RLS habilitada y sin policies directas).
+    - RPCs: `public.get_quiz_group_by_token(TEXT)` y `public.get_quiz_group_entries(TEXT, UUID)` (firma con `p_session UUID DEFAULT NULL` y columna `"position"`).
+    - Grants: `EXECUTE` revocado de `PUBLIC` y concedido a `anon, authenticated, service_role` en ambos RPCs.
+    - Índices: `quiz_groups_creator_user_unique`, `quiz_groups_creator_session_unique`, `quiz_groups_token_idx`, `quiz_group_entries_group_idx`.
+  - **Pendiente de verificación en producción — `022_analytics_events.sql`:** versionada en `main` (`src/lib/telemetry/persist.ts` degrada a logs del Worker si falta la tabla). Para confirmar aplicación, verificar:
+    - Tabla e índices: `public.analytics_events`, `idx_analytics_events_created_at`, `idx_analytics_events_name_created_at`.
+    - Permisos/RLS: RLS habilitada sin policies, `REVOKE ALL` a `PUBLIC, anon, authenticated` y `GRANT SELECT, INSERT` a `service_role`.
+    - Retención y programación: función `public.delete_old_analytics_events()` (con `GRANT EXECUTE` solo a `service_role`) **y** si existe ejecución programada (`pg_cron` o tarea externa) para la ventana de 180 días — el repositorio no versiona un job de cron.
+- **There is no migrations control table** — they were applied by hand, so `supabase migration list` will not tell you what is applied. Verify by objects instead, **per file**: `game_sessions.attempt_id` + index `game_sessions_attempt_id_unique` mean 020 ran; table `public.quiz_answer_keys` means `015_ocultar_clave_respuestas` ran; function `public.guard_quiz_editable_columns` means `015_creator_draft_review_transitions` ran; columns `quizzes.moderated_by`/`moderated_at` mean 016 ran; los objetos listados arriba confirman `021` y `022`. Files sharing a prefix each need their own check — one object does not prove the other file ran.
 - Safe procedure for a new migration:
   1. Take a backup (Supabase dashboard or `pg_dump`) before touching prod.
   2. Rehearse on a copy/branch DB first; migrations are written idempotent (`IF NOT EXISTS`, `ON CONFLICT`) but test anyway.
@@ -358,44 +379,38 @@ regenerarla, o las peticiones devuelven 403.
 
 Las variables de SEO se leen en runtime del Worker: se configuran como variables o secretos del Worker en Cloudflare.
 
-## Catalog Stats (≥ 524; audit DB 2026-10-18; lotes pendientes de importar aparte)
+## Catalog Stats (fuentes fechadas; no mezclar snapshot DB, seeds y muestreo HTTP)
 
-- 524 quizzes published confirmados: el último audit contra la DB
-  (`generated/audit/content-audit.json`, 2026-10-18) contó 524 quizzes y 4192
-  preguntas (262 en, 262 es; 246 trivia, 278 personality). Desde entonces se
-  mergearon lotes nuevos, pero **mergeado ≠ publicado**: importar el SQL es
-  decisión del dueño, así que el total real es 524 + lo que ya se haya aplicado.
-- Los seeds editoriales versionados suman 314 quizzes
-  (`grep -c 'insert into public.quizzes' supabase/seed/*.sql`: 157 en + 157 es;
-  284 trivia + 30 personality, según `scripts/seed/editorial-seed*.json`).
-- Por categoría (audit 2026-10-18, ya parcialmente desactualizado):
-  movies-tv 174, anime-manga 119, gaming 94, music 51, lifestyle 21, culture 20,
-  literature 12, pop-culture 9, technology 5, relationships 5, food-drink 3,
-  science 3, animals 2, sports 2, geography 2, history 2.
-- `personality` es un hub de _tipo_ de quiz (`/category/personality`), no una
-  categoría de tema: se queda sin filas a propósito
-- Regenerar la taxonomía: `npm run seed:categorize`; auditar: `npm run seed:audit`
+- **Audit directo de DB (`generated/audit/content-audit.json`, 2026-10-18 — histórico confirmado):** 524 quizzes publicados y 4192 preguntas (262 `en`, 262 `es`; 246 `trivia`, 278 `personality`). Desglose por categoría de aquel snapshot: `movies-tv` 174, `anime-manga` 119, `gaming` 94, `music` 51, `lifestyle` 21, `culture` 20, `literature` 12, `pop-culture` 9, `technology` 5, `relationships` 5, `food-drink` 3, `science` 3, `animals` 2, `sports` 2, `geography` 2, `history` 2.
+- **Definiciones de seed versionadas en el repo (`scripts/seed/editorial-seed*.json`, conteo verificado 2026-11-22):** 89 lotes, **916 quizzes** (458 `en` + 458 `es`; 801 `trivia` + 115 `personality`). **Mergeado ≠ publicado**: importar SQL a la DB sigue siendo decisión del dueño.
+- **Muestreo HTTP anónimo contra producción (`https://quizverse.org`, 2026-11-22 — observación externa, no dump DB):** `sitemap.xml` listó 1.434 URLs de quiz (717 por idioma en `/es/quiz`) y una muestra de 37 slugs de lotes antes marcados pendientes (incluidos `ct`, `cu`, `cv`) respondió `200`. El conteo exacto y la cobertura completa por lote en DB quedan **pendientes** de verificación directa por Diego.
+- `personality` es un hub de _tipo_ de quiz (`/category/personality`), no una categoría de tema: se queda sin filas a propósito.
+- Regenerar la taxonomía: `npm run seed:categorize`; auditar: `npm run seed:audit`.
 
 ## Deployment
 
-- Production runs on Cloudflare Workers via OpenNext: Workers Builds builds and deploys `main`, and creates preview deployments for other branches and PRs.
-- Cache: R2 for the incremental cache (`NEXT_INC_CACHE_R2_BUCKET`) and D1 for the tag cache (`NEXT_TAG_CACHE_D1`); bindings live in `wrangler.jsonc`.
+- Production runs on Cloudflare Workers via OpenNext: Workers Builds builds and deploys `main`. Branch/PR preview URLs are **not** generated for QuizVerse because the Worker uses Durable Objects (`NEXT_CACHE_DO_QUEUE`; confirmed 2026-11-22).
+- Cloudflare bindings declared in `wrangler.jsonc`:
+  - Cache: R2 (`NEXT_INC_CACHE_R2_BUCKET`), D1 (`NEXT_TAG_CACHE_D1`) and Durable Object (`NEXT_CACHE_DO_QUEUE`).
+  - Email: Cloudflare Email Service (`EMAIL`, `allowed_sender_addresses: ["noreply@quizverse.org"]`) used by `/api/auth/send-email`.
+  - Rate limiting fallback: `RATE_LIMIT_AUTH`, `RATE_LIMIT_AUTH_IP`, `RATE_LIMIT_GAME`, `RATE_LIMIT_REVEAL`, `RATE_LIMIT_API`, `RATE_LIMIT_SOCIAL`, `RATE_LIMIT_FOLLOW`, `RATE_LIMIT_REPORT`, `RATE_LIMIT_CSP` (per-location, 60 s window; active when Upstash is unset).
 - Domain: `quizverse.org` serves the app; `www.quizverse.org` redirects to apex and `/` redirects to `/en`.
-- `deploy/` (owner's VPS: Docker + Caddy) is no longer production; leave it untouched.
-- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). Never commit real values.
+- `deploy/` (owner's VPS: Docker + Caddy) is no longer production for the Next.js app; leave it untouched. Supabase/GoTrue stays self-hosted at `api.quizverse.org`.
+- Environment variables: the tracked template is `deploy/env.example` (`.env.example` is gitignored, so Cloud sessions do not have it). Never commit or print real values.
 
 ### Worker variables and secrets (what the code reads today)
 
 Server-only (configure as Worker secrets/vars):
 
 - `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`/`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` — Supabase client.
-- `SUPABASE_SERVICE_ROLE_KEY` — server and import scripts only (reads `quiz_answer_keys`, admin ops). Already configured. NEVER in client code.
-- `QUIZ_ATTEMPT_SECRET` — signs the anti-cheat `attempt` token for `/api/quiz/reveal` and idempotent submit. Already configured. Without it (and without service key to derive from) the server runs in degraded mode.
-- `SEND_EMAIL_HOOK_SECRET` — firma Standard Webhooks (`v1,whsec_<base64>`) del Send Email Hook de GoTrue → `/api/auth/send-email` (ver "Auth/Email"). Ya existe en el Worker; el mismo valor va en `GOTRUE_HOOK_SEND_EMAIL_SECRETS` en el VPS.
-- `AUTH_OAUTH_PROVIDERS` — comma list (`"google,github,facebook"`) gating social login buttons and the OAuth action; empty/unset = email only. Read in runtime on purpose (not `NEXT_PUBLIC_`, which is baked at build).
+- `SUPABASE_SERVICE_ROLE_KEY` — server and import scripts only (reads `quiz_answer_keys`, admin ops, group writes, analytics persistence). NEVER in client code.
+- `QUIZ_ATTEMPT_SECRET` — signs the anti-cheat `attempt` token for `/api/quiz/reveal` and idempotent submit. Without it (and without service key to derive from) the server runs in degraded mode.
+- `SEND_EMAIL_HOOK_SECRET` — firma Standard Webhooks (`v1,whsec_<base64>`) del Send Email Hook de GoTrue → `/api/auth/send-email` (ver "Auth/Email"); el mismo valor va en `GOTRUE_HOOK_SEND_EMAIL_SECRETS` en el VPS. Sin él responde 503.
+- `AUTH_OAUTH_PROVIDERS` — comma list (`"google,github,facebook"`) gating social login buttons and the OAuth action; empty/unset = email only. Read in runtime on purpose (not `NEXT_PUBLIC_`, which is baked at build). Observación anónima en producción (2026-11-22): `google` y `github` visibles (`302` en GoTrue; ciclo completo hasta sesión **pendiente**); `facebook` **pendiente** de app Meta y variables en GoTrue (`400` el 2026-11-22). Ver `docs/login-social.md`.
+- `ADSENSE_PUBLISHER_ID` — runtime publisher ID for `/ads.txt` (falls back to `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` in `src/lib/ads/server.ts`, so `/ads.txt` returns 404 only when both are unset; AdSense **pendiente** de aprobación, mantener apagado).
 - `DEEPSEEK_API_KEY` — `/api/quiz/generate` (AI creation).
-- `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` — optional: rate limiting and the per-attempt reveal store. Without Upstash, rate limiting falls back to the Cloudflare Rate Limiting bindings in `wrangler.jsonc` (`RATE_LIMIT_*`, mapped per-policy in `src/lib/utils/rate-limit.ts`) and the attempt store falls back to in-process memory.
-- `PEXELS_API_KEY` / `PIXABAY_API_KEY` — stock cover hydration scripts.
+- `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` — optional (**pendiente** en el Worker de producción al 2026-11-22): rate limiting global y `attempt-store` compartido entre isolates. Sin Upstash, el rate limiting cae a los bindings `RATE_LIMIT_*` de `wrangler.jsonc` y `attempt-store` cae a memoria por isolate.
+- `PEXELS_API_KEY` / `PIXABAY_API_KEY` — stock cover hydration scripts (offline editorial process).
 - `GOOGLE_SITE_VERIFICATION` / `BING_SITE_VERIFICATION` / `YANDEX_SITE_VERIFICATION` — SEO ownership meta tags.
 
 Public `NEXT_PUBLIC_*` (baked into the build; a change needs a rebuild):
