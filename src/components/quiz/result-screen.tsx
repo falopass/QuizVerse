@@ -2,8 +2,9 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import confetti from 'canvas-confetti';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { celebrate } from '@/lib/ui/celebrate';
+import { entrance } from '@/lib/ui/motion';
 import { cn } from '@/lib/utils/cn';
 import { ShareButtons } from '@/components/shared/share-buttons';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
@@ -151,6 +152,7 @@ export function ResultScreen({
   const sharePanelRef = React.useRef<HTMLDivElement | null>(null);
   const shareTriggerRef = React.useRef<HTMLElement | null>(null);
   const wasSharingRef = React.useRef(false);
+  const reduceMotion = useReducedMotion() ?? false;
   // A11Y-02: al terminar la partida el foco cae aquí y el veredicto se anuncia;
   // también cubre /result, que es una pantalla nueva.
   React.useEffect(() => {
@@ -435,33 +437,14 @@ export function ResultScreen({
     setGroupBusy(false);
   };
 
+  // Trivia celebra a partir del 60 % como siempre; personality no tiene % de
+  // acierto y celebra al terminar con una ráfaga más corta. `celebrate` ya
+  // corta en prefers-reduced-motion y difiere el bundle de canvas-confetti.
   React.useEffect(() => {
-    if (
-      scorePercentage === undefined ||
-      scorePercentage < 60 ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-      return;
-    const duration = 3000;
-    const end = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 999 };
-
-    const interval = setInterval(() => {
-      const timeLeft = end - Date.now();
-      if (timeLeft <= 0) {
-        clearInterval(interval);
-        return;
-      }
-      const particleCount = 50 * (timeLeft / duration);
-      void confetti({
-        ...defaults,
-        particleCount,
-        origin: { x: Math.random(), y: Math.random() * 0.4 },
-      });
-    }, 250);
-
-    return () => clearInterval(interval);
-  }, [scorePercentage]);
+    const triviaCelebrates = !personality && scorePercentage !== undefined && scorePercentage >= 60;
+    if (!personality && !triviaCelebrates) return;
+    return celebrate({ durationMs: personality ? 1200 : 3000 });
+  }, [personality, scorePercentage]);
 
   return (
     <div className="arcade-result arcade-wrap">
@@ -471,8 +454,10 @@ export function ResultScreen({
             <motion.h1
               ref={verdictRef}
               tabIndex={-1}
-              initial={{ y: 16, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              {...entrance(reduceMotion, {
+                initial: { y: 16, opacity: 0 },
+                animate: { y: 0, opacity: 1 },
+              })}
               className="arcade-result-verdict"
             >
               {result?.title || scoreMessage}
@@ -689,9 +674,11 @@ export function ResultScreen({
               <AnimatePresence initial={false}>
                 {
                   <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 16 }}
+                    {...entrance(reduceMotion, {
+                      initial: { opacity: 0, y: 16 },
+                      animate: { opacity: 1, y: 0 },
+                      exit: { opacity: 0, y: 16 },
+                    })}
                     className="mt-5 space-y-3"
                   >
                     {(
@@ -802,16 +789,20 @@ export function ResultScreen({
       <AnimatePresence>
         {shareMode !== null && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            {...entrance(reduceMotion, {
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              exit: { opacity: 0 },
+            })}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
             onClick={() => setShareMode(null)}
           >
             <motion.div
-              initial={{ scale: 0.96, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
+              {...entrance(reduceMotion, {
+                initial: { scale: 0.96, opacity: 0 },
+                animate: { scale: 1, opacity: 1 },
+                exit: { scale: 0.96, opacity: 0 },
+              })}
               onClick={(event) => event.stopPropagation()}
               ref={sharePanelRef}
               className="arcade-share-panel w-full max-w-md p-6 shadow-lg"

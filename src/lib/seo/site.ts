@@ -91,6 +91,16 @@ export function leaderboardOgImage(locale: string): string {
   return `${SITE_URL}/${locale}/leaderboard/opengraph-image`;
 }
 
+/** Daily page dynamic OG image route (app/[locale]/daily/opengraph-image.tsx). */
+export function dailyOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/daily/opengraph-image`;
+}
+
+/** Novedades page dynamic OG image route (app/[locale]/novedades/opengraph-image.tsx). */
+export function novedadesOgImage(locale: string): string {
+  return `${SITE_URL}/${locale}/novedades/opengraph-image`;
+}
+
 /**
  * Per-result dynamic OG card (app/api/og/result/[locale]/[slug]).
  *
