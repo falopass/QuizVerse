@@ -615,7 +615,7 @@ export function ExploreEditorialPage({
               <FilterChip
                 key={category!.id}
                 active={activeCategory === category!.slug}
-                label={`${category!.icon ?? category!.name.charAt(0)} ${category!.name}`.trim()}
+                label={category!.icon ? `${category!.icon} ${category!.name}` : category!.name}
                 onClick={() => {
                   setActiveCategory(category!.slug);
                   resetExpansion();

@@ -112,17 +112,19 @@ describe('quizCoverImageUrl', () => {
 
   it('cae en la portada procedural /covers/[slug] sin stock cover', () => {
     expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: null })).toBe(
-      `${SITE_URL}/covers/foo`
+      `${SITE_URL}/covers/foo?v=qv8`
     );
-    expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: '' })).toBe(`${SITE_URL}/covers/foo`);
+    expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: '' })).toBe(
+      `${SITE_URL}/covers/foo?v=qv8`
+    );
     expect(quizCoverImageUrl({ slug: 'foo', cover_image_url: 'https://otro.example/x.png' })).toBe(
-      `${SITE_URL}/covers/foo`
+      `${SITE_URL}/covers/foo?v=qv8`
     );
   });
 
   it('devuelve URL absoluta y codifica el slug', () => {
     const url = quizCoverImageUrl({ slug: 'qué es', cover_image_url: null });
-    expect(url).toBe(`${SITE_URL}/covers/qu%C3%A9%20es`);
+    expect(url).toBe(`${SITE_URL}/covers/qu%C3%A9%20es?v=qv8`);
   });
 });
 
@@ -132,7 +134,7 @@ describe('GET /api/sitemap — imágenes', () => {
     expect(xml).toContain(
       `<image:loc>${SITE_URL}/stock-covers/movies-tv/quiz-stock.jpg</image:loc>`
     );
-    expect(xml).toContain(`<image:loc>${SITE_URL}/covers/quiz-procedural</image:loc>`);
+    expect(xml).toContain(`<image:loc>${SITE_URL}/covers/quiz-procedural?v=qv8</image:loc>`);
     expect(xml).toContain('<image:title>Quiz con stock</image:title>');
     // Solo los quizzes llevan imagen: una por ficha, ninguna en hubs ni editoriales.
     expect(xml.match(/<image:image>/g)).toHaveLength(2);

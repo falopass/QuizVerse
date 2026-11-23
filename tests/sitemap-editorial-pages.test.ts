@@ -61,7 +61,7 @@ function expectedEditorialPaths(): string[] {
     // la URL: se retiran del path esperado.
     const segments = entry.parentPath
       .slice(LOCALE_DIR.length)
-      .split('/')
+      .split(/[\\/]/)
       .filter((seg) => seg && !(seg.startsWith('(') && seg.endsWith(')')));
     const rel = segments.length ? `/${segments.join('/')}` : '';
     if (rel.includes('[')) continue;

@@ -3379,3 +3379,36 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 /* === fin L10 === */
+
+/* === QA final === */
+/* Fila móvil: el tinte de la tarjeta (L8) llegaba justo al texto porque la
+   regla de L7 deja el panel sin padding. El panel ocupa el alto de la portada
+   y el texto respira dentro del tinte. */
+@media (max-width: 639px) {
+  .qv8-card:not(.arcade-card-hero) .arcade-card-info {
+    align-self: stretch;
+    justify-content: center;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+}
+/* Mientras el aviso de cookies flota abajo, el foco de teclado no queda
+   escondido detrás de él (WCAG 2.4.11): el scroll reserva su alto. */
+html:has(.cookie-consent-banner) {
+  scroll-padding-bottom: 176px;
+}
+/* Al final de la página no hay recorrido que reservar: el cuerpo suma el alto
+   del aviso para que los enlaces del pie puedan salir de debajo. Las vistas
+   de juego ya lo llevan en el flujo (posición relativa). */
+body:has(.cookie-consent-banner):not(:has(.arcade-play-page, .arcade-play-screen, .arcade-result)) {
+  padding-bottom: 176px;
+}
+/* Árbol con Archivo Black en `swap` (ver display-font-swap.tsx): el token se
+   recalcula aquí porque en :root ya quedó resuelto con la instancia optional.
+   `contents` evita que el envoltorio altere el layout de la partida. */
+.qv-display-swap {
+  display: contents;
+  --font-display: var(--font-archivo), Impact, sans-serif;
+}
+/* === fin QA final === */

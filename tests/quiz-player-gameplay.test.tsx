@@ -301,7 +301,9 @@ describe('QuizPlayer · resultado', () => {
     await screen.findByText('Correcto');
     fireEvent.click(screen.getByRole('button', { name: 'Terminar' }));
 
-    await screen.findByRole('region', { name: 'Sigue jugando' });
+    // ResultScreen es un chunk diferido: bajo carga (suite completa) tarda más
+    // que el segundo por defecto de findBy.
+    await screen.findByRole('region', { name: 'Sigue jugando' }, { timeout: 5000 });
 
     const verdict = screen.getByRole('heading', { level: 1, name: 'Final impecable' });
     await waitFor(() => expect(document.activeElement).toBe(verdict));
@@ -310,6 +312,30 @@ describe('QuizPlayer · resultado', () => {
       'href',
       '/es/quiz/related-quiz/play?mode=classic'
     );
+  });
+
+  it('partida anónima sin puntos del servidor: muestra el aviso de cuenta, no un +N', async () => {
+    vi.mocked(submitQuizResult).mockResolvedValueOnce({
+      success: true,
+      session: { id: 's-1', share_token: 'tok' },
+      result: null,
+      score: 1,
+      max_score: 1,
+      points_earned: 0,
+      achievements_unlocked: [],
+      review: [],
+    } as never);
+    const oneQuestion = makeQuiz({ questions: [makeQuiz().questions[0]] });
+
+    render(<QuizPlayer quiz={oneQuestion} locale="es" />);
+    await screen.findByText(/Elige una respuesta/);
+    fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+    await screen.findByText('Correcto');
+    fireEvent.click(screen.getByRole('button', { name: 'Terminar' }));
+
+    expect(
+      await screen.findByText('Los puntos se guardan con una cuenta', {}, { timeout: 5000 })
+    ).toBeInTheDocument();
   });
 
   it('registra el tiempo real de la partida en cualquier modo', async () => {

@@ -825,7 +825,13 @@ export function QuizPlayer({
         // desactualizado si un reveal falló durante la partida.
         review={submission?.review ?? undefined}
         streak={maxStreak}
-        bonusPoints={bonusPoints + (submission?.pointsEarned ?? 0)}
+        // Práctica nunca suma puntos (con o sin cuenta): +0 en vez de un bonus
+        // de racha que no se guarda ni un aviso de cuenta que no aplica.
+        bonusPoints={gameMode === 'practice' ? 0 : bonusPoints + (submission?.pointsEarned ?? 0)}
+        // Igual que /result: sin puntos confirmados por el servidor (partida
+        // anónima) la métrica muestra el aviso de cuenta, no un +N que nadie
+        // guardó. Con cuenta, toda partida con participación suma al menos 10.
+        pointsSaved={!submission || submission.pointsEarned > 0 || gameMode === 'practice'}
         submitFailed={submitFailed}
         isSubmittingResult={isSubmittingResult}
         onRetrySubmit={persistSession}

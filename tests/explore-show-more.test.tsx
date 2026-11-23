@@ -118,7 +118,7 @@ describe('Explorador: botón «Ver más»', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Ver los 24 restantes' }));
     expect(quizLinks(container)).toHaveLength(60);
 
-    fireEvent.click(screen.getByRole('button', { name: 'C Cine' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Cine' }));
 
     expect(screen.getByRole('status')).toHaveTextContent('20 quizzes tras filtros');
     expect(quizLinks(container)).toHaveLength(20);
@@ -129,7 +129,7 @@ describe('Explorador: botón «Ver más»', () => {
   it('no reabre los resultados al volver a un filtro ya expandido', () => {
     const { container } = renderPage();
     fireEvent.click(screen.getByRole('button', { name: 'Ver los 24 restantes' }));
-    fireEvent.click(screen.getByRole('button', { name: 'C Cine' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Cine' }));
     fireEvent.click(screen.getByRole('button', { name: 'Todas' }));
 
     expect(quizLinks(container)).toHaveLength(36);

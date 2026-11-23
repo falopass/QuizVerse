@@ -13,6 +13,10 @@ const mocks = vi.hoisted(() => ({
   getRelatedQuizzes: vi.fn(),
 }));
 
+vi.mock('@/components/layout/display-font-swap', () => ({
+  DisplayFontSwap: ({ children }: { children: import('react').ReactNode }) => children,
+  displayFontSwapClass: 'qv-display-swap',
+}));
 vi.mock('@/lib/data/public', () => ({
   getQuizBySlug: mocks.getQuizBySlug,
   // El reproductor pinta relacionados al terminar; aquí no participan.
