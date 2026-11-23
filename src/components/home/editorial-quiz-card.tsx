@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils/cn';
-import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
+import { LARGE_COVER_SIZES, QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { accentForCategory } from '@/lib/design/franchise-palette';
@@ -82,6 +82,8 @@ export function EditorialQuizCard({
         decorative
         showTitle={false}
         className="arcade-card-art"
+        // El destacado queda vertical también en móvil (fuera de la fila de 96 px).
+        sizes={isHero ? LARGE_COVER_SIZES : undefined}
       />
       <div className="arcade-card-info">
         <span className="arcade-card-meta">

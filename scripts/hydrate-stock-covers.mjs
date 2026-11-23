@@ -21,10 +21,13 @@ const seedPath = path.join(rootDir, 'generated', 'trending-seed.json');
 const normalizedPath = path.join(rootDir, 'generated', 'trending-seed.normalized.json');
 const manifestPath = path.join(rootDir, 'src', 'lib', 'data', 'stock-cover-manifest.json');
 const reportPath = path.join(rootDir, 'generated', 'stock-cover-hydration-report.json');
-const limit = Number(process.env.STOCK_COVER_LIMIT || 24);
-const shouldRefresh = process.env.STOCK_COVER_REFRESH === '1';
-const minimumScore = Number(process.env.STOCK_COVER_MIN_SCORE || 34);
-const pruneOnly = process.argv.includes('--prune') || process.env.STOCK_COVER_PRUNE === '1';
+// Configuración del comando: se resuelve en main() DESPUÉS de cargar
+// .env.local, para que las opciones del archivo local (poda, límite, umbral,
+// escritura) se respeten igual que antes.
+let limit = 24;
+let shouldRefresh = false;
+let minimumScore = 34;
+let pruneOnly = false;
 
 /** `--write` (o STOCK_COVER_WRITE=1) es la única forma de escribir en disco. */
 export function shouldWrite(argv = process.argv, env = process.env) {
@@ -555,13 +558,17 @@ function resetToProcedural(quiz) {
 }
 
 async function main() {
-  const write = shouldWrite();
   // Solo el proceso editorial lee el entorno local (claves de API). Nunca se
   // imprime ningún valor.
   const { default: dotenv } = await import('dotenv');
   dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
+  limit = Number(process.env.STOCK_COVER_LIMIT || 24);
+  shouldRefresh = process.env.STOCK_COVER_REFRESH === '1';
+  minimumScore = Number(process.env.STOCK_COVER_MIN_SCORE || 34);
+  pruneOnly = process.argv.includes('--prune') || process.env.STOCK_COVER_PRUNE === '1';
   pexelsKey = process.env.PEXELS_API_KEY;
   pixabayKey = process.env.PIXABAY_API_KEY;
+  const write = shouldWrite();
   if (!pexelsKey && !pixabayKey && !pruneOnly) {
     throw new Error('Missing PEXELS_API_KEY and PIXABAY_API_KEY');
   }
@@ -642,11 +649,16 @@ async function main() {
 
     quiz.cover_image_url = `/stock-covers/${quiz.slug}`;
     quiz.cover_mode = 'stock';
+    // Identifica la foto propuesta para revisarla antes de autorizar --write.
     report.hydrated.push({
       slug: quiz.slug,
       provider: result.provider,
       query: result.query,
       score: result.score,
+      image_url: imageUrl,
+      source_url: result.source_url,
+      photographer: result.photographer,
+      source_file: sourceFileKey({ image_url: imageUrl }),
     });
   }
 

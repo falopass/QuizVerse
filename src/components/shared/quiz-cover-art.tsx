@@ -32,8 +32,11 @@ interface QuizCoverArtProps {
  */
 export const STOCK_COVER_WIDTHS = [320, 640, 960] as const;
 
-const CARD_SIZES = '(max-width: 639px) 96px, (max-width: 900px) 50vw, 430px';
-const LARGE_SIZES = '(max-width: 699px) 100vw, 50vw';
+// Tarjeta: fila de 96 px bajo 640, una columna a todo el ancho hasta 699, dos
+// columnas hasta 900 y tres (~430 px) por encima.
+const CARD_SIZES =
+  '(max-width: 639px) 96px, (max-width: 699px) 100vw, (max-width: 900px) 50vw, 430px';
+export const LARGE_COVER_SIZES = '(max-width: 699px) 100vw, 50vw';
 
 /** Añade `w=` a la URL versionada (`?v=`) sin perder la versión: el ancho entra en la clave de caché. */
 export function stockCoverVariant(src: string, width: number): string {
@@ -122,7 +125,7 @@ export function QuizCoverArt({
         <img
           src={src}
           srcSet={STOCK_COVER_WIDTHS.map((w) => `${stockCoverVariant(src, w)} ${w}w`).join(', ')}
-          sizes={sizes ?? (compact ? CARD_SIZES : LARGE_SIZES)}
+          sizes={sizes ?? (compact ? CARD_SIZES : LARGE_COVER_SIZES)}
           alt=""
           className="arcade-cover-photo"
           // Variante 3:2; el CSS la recorta con object-fit: cover.
