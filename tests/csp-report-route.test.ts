@@ -96,6 +96,44 @@ describe('POST /api/csp-report — admission', () => {
     expect(await response.json()).toEqual({ error: 'invalid_payload' });
   });
 
+  it.each([
+    '[{"body":null}]',
+    '[{"body":[]}]',
+    '[null,{"body":"text"}]',
+    '{"csp-report":null}',
+    '{"csp-report":[]}',
+    '{"body":[]}',
+  ])('rejects null/array report bodies without crashing: %s', async (payload) => {
+    const response = await POST(cspRequest(payload, 'application/reports+json'));
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toEqual({ error: 'invalid_payload' });
+  });
+
+  it('skips null/array entries in a batch and logs only valid report objects', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const mixed = JSON.stringify([
+      null,
+      { body: null },
+      { body: ['not-a-record'] },
+      { body: { effectiveDirective: 'img-src', blockedURL: 'https://cdn.example/a.png' } },
+    ]);
+
+    const response = await POST(cspRequest(mixed, 'application/reports+json'));
+
+    expect(response.status).toBe(204);
+    const logged = JSON.parse(warnSpy.mock.calls[0][0] as string);
+    expect(logged.reports).toEqual([
+      {
+        directive: 'img-src',
+        blockedHost: 'cdn.example',
+        sourceHost: null,
+        disposition: null,
+      },
+    ]);
+    warnSpy.mockRestore();
+  });
+
   it('returns 429 when the limiter denies', async () => {
     mocks.rateLimitCheck.mockResolvedValue({ allowed: false });
 

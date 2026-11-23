@@ -3,16 +3,21 @@
 /**
  * Seguir y dejar de seguir jugadores.
  *
- * Única puerta de escritura de `user_follows`: la RLS ya exige que
- * `follower_id` sea el usuario autenticado y el trigger
- * `trg_update_follow_counts` mantiene `followers_count`/`following_count`
- * de `profiles`. El ranking de amigos (`/api/leaderboard?scope=friends`)
- * lee esta misma tabla.
+ * Única puerta de escritura de `user_follows`: valida sesión, impide
+ * auto-seguimiento y aplica `socialLimiter`. Con la migración 024 aplicada,
+ * `anon`/`authenticated` ya no pueden mutar `user_follows` directamente por
+ * PostgREST y solo el escritor validado (service role) inserta o borra; si
+ * falta la clave de servicio (tests/entornos sin 024), cae al cliente SSR.
+ *
+ * Los triggers `trg_update_follow_counts` y `trg_notify_follow` (deduplicado
+ * en 024) mantienen `followers_count`/`following_count` y evitan notificaciones
+ * repetidas por el mismo par.
  */
 
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 import { locales } from '@/lib/i18n/dictionaries';
 import { socialLimiter } from '@/lib/utils/rate-limit';
 
@@ -42,12 +47,18 @@ export async function toggleFollowAction(
     return { ok: false, code: 'unauthorized' };
   }
 
-  const { allowed } = await socialLimiter.check(`follow:${user.id}`);
+  const limit = await socialLimiter.check(`follow:${user.id}`);
+  if (limit.errored && !limit.allowed) {
+    console.error('[action:social.rate_limit] backend unavailable');
+    return { ok: false, code: 'unexpected' };
+  }
   // El código propio deja que el botón distinga «espera» de «algo se rompió».
-  if (!allowed) return { ok: false, code: 'rate_limited' };
+  if (!limit.allowed) return { ok: false, code: 'rate_limited' };
+
+  const writer = createServiceClient() ?? supabase;
 
   if (parsed.data.follow) {
-    const { error } = await supabase.from('user_follows').insert({
+    const { error } = await writer.from('user_follows').insert({
       follower_id: user.id,
       following_id: parsed.data.targetUserId,
     });
@@ -57,7 +68,7 @@ export async function toggleFollowAction(
       return { ok: false, code: 'unexpected' };
     }
   } else {
-    const { error } = await supabase
+    const { error } = await writer
       .from('user_follows')
       .delete()
       .eq('follower_id', user.id)

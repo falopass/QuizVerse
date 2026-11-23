@@ -3,7 +3,9 @@
 /**
  * Notificaciones del usuario.
  *
- * La tabla `notifications` y su RLS existen desde la migración 007. Las
+ * La tabla `notifications` y su RLS existen desde la migración 007. La
+ * migración 024 restringe además el UPDATE de `authenticated` únicamente a la
+ * columna `is_read` (por privilegio de columna y guard en trigger). Las
  * políticas ya limitan las filas a las propias, pero el UPDATE filtra por
  * `user_id` igualmente: si una migración futura relaja la policy, esta
  * acción no puede tocar notificaciones de otra gente (mismo patrón que

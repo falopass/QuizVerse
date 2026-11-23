@@ -15,6 +15,7 @@
 import 'server-only';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { ANALYTICS_RETENTION_DAYS } from '@/lib/telemetry/persist';
 import type { Database } from '@/types/database';
 
 type StatsClient = Pick<SupabaseClient<Database>, 'from'>;
@@ -77,6 +78,10 @@ export interface TrafficStats {
   /** false cuando la migración 022 (analytics_events) aún no está aplicada. */
   available: boolean;
   truncated: boolean;
+  /** Beacons anónimos del navegador: señal estimada, no confirmada por servidor. */
+  measurement?: 'estimated_beacon';
+  /** Días de retención definidos por delete_old_analytics_events() (migración 022). */
+  retentionDays?: number;
   days7: TrafficWindowStats;
   days30: TrafficWindowStats;
 }
@@ -91,6 +96,8 @@ export interface AdminStats {
     byCategory: GroupCount[];
   };
   sessions: {
+    /** Partidas persistidas en game_sessions: señal confirmada por el servidor. */
+    measurement?: 'server_confirmed';
     daily: DailySeriesPoint[];
     windowDays: number;
     windowTotal: number;
@@ -251,6 +258,8 @@ export function buildTraffic(
     return {
       available: false,
       truncated: false,
+      measurement: 'estimated_beacon',
+      retentionDays: ANALYTICS_RETENTION_DAYS,
       days7: emptyTrafficWindow(),
       days30: emptyTrafficWindow(),
     };
@@ -262,6 +271,8 @@ export function buildTraffic(
   return {
     available: true,
     truncated: events.truncated,
+    measurement: 'estimated_beacon',
+    retentionDays: ANALYTICS_RETENTION_DAYS,
     days7: trafficWindow(inShortWindow),
     days30: trafficWindow(events.rows),
   };
@@ -486,6 +497,7 @@ export async function loadAdminStats(client: StatsClient, now = new Date()): Pro
       ),
     },
     sessions: {
+      measurement: 'server_confirmed',
       daily,
       windowDays: STATS_WINDOW_DAYS,
       windowTotal: windowRegistered + windowAnonymous,

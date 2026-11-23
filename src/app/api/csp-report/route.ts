@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createRateLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
+import { hasOversizedContentLength, readBoundedText } from '@/lib/utils/read-bounded-body';
 
 /**
  * Receptor de reportes de la `Content-Security-Policy-Report-Only`
@@ -27,6 +28,10 @@ const SAFE_TOKEN = /^[a-zA-Z0-9-]{1,40}$/;
 
 // Telemetría, no seguridad: como /api/monitor degrada abierto si Redis cae.
 const cspReportLimiter = createRateLimiter('csp-report', 60, 60, 'open');
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
 
 function safeToken(value: unknown): string | null {
   return typeof value === 'string' && SAFE_TOKEN.test(value) ? value : null;
@@ -55,52 +60,23 @@ function summarize(report: Record<string, unknown>) {
   };
 }
 
-/** Normaliza ambos formatos a la lista de cuerpos del reporte. */
+/** Normaliza ambos formatos a la lista de cuerpos del reporte, descartando null y arrays. */
 function reportBodies(raw: unknown): Record<string, unknown>[] {
-  if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
-    const legacy = (raw as Record<string, unknown>)['csp-report'];
-    if (legacy && typeof legacy === 'object') return [legacy as Record<string, unknown>];
-    const single = (raw as Record<string, unknown>).body;
-    if (single && typeof single === 'object') return [single as Record<string, unknown>];
+  if (isPlainRecord(raw)) {
+    const legacy = raw['csp-report'];
+    if (isPlainRecord(legacy)) return [legacy];
+    const single = raw.body;
+    if (isPlainRecord(single)) return [single];
     return [];
   }
   if (!Array.isArray(raw)) return [];
-  return raw
-    .filter(
-      (item): item is { body: Record<string, unknown> } =>
-        Boolean(item) &&
-        typeof item === 'object' &&
-        typeof (item as { body?: unknown }).body === 'object'
-    )
-    .map((item) => item.body);
-}
-
-/** Lee el body con tope real: `null` si supera `maxBytes` (cancela el stream). */
-async function readTextWithCap(request: Request, maxBytes: number): Promise<string | null> {
-  if (!request.body) {
-    const text = await request.text();
-    return text.length <= maxBytes ? text : null;
-  }
-  const reader = request.body.getReader();
-  const chunks: Uint8Array[] = [];
-  let total = 0;
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    total += value.byteLength;
-    if (total > maxBytes) {
-      await reader.cancel();
-      return null;
+  const bodies: Record<string, unknown>[] = [];
+  for (const item of raw) {
+    if (isPlainRecord(item) && isPlainRecord(item.body)) {
+      bodies.push(item.body);
     }
-    chunks.push(value);
   }
-  const buffer = new Uint8Array(total);
-  let offset = 0;
-  for (const chunk of chunks) {
-    buffer.set(chunk, offset);
-    offset += chunk.byteLength;
-  }
-  return new TextDecoder().decode(buffer);
+  return bodies;
 }
 
 export async function POST(request: Request) {
@@ -109,8 +85,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'unsupported_media_type' }, { status: 415 });
   }
 
-  const declared = Number(request.headers.get('content-length'));
-  if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) {
+  if (hasOversizedContentLength(request, MAX_BODY_BYTES)) {
     return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
   }
 
@@ -119,14 +94,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'rate_limited' }, { status: 429 });
   }
 
-  const text = await readTextWithCap(request, MAX_BODY_BYTES);
-  if (text === null) {
+  const read = await readBoundedText(request, MAX_BODY_BYTES);
+  if (!read.ok) {
     return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
   }
 
   let raw: unknown;
   try {
-    raw = JSON.parse(text);
+    raw = JSON.parse(read.text);
   } catch {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
   }
@@ -139,6 +114,7 @@ export async function POST(request: Request) {
   console.warn(
     JSON.stringify({
       channel: 'csp-report',
+      signal: 'csp_violation_report',
       at: new Date().toISOString(),
       reports: summaries,
     })

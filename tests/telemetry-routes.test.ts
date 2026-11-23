@@ -207,6 +207,49 @@ describe('POST /api/analytics', () => {
     expect(response.status).toBe(200);
     expect(mocks.insert).not.toHaveBeenCalled();
   });
+
+  it('rejects oversized bodies with 413 before JSON.parse (header and stream)', async () => {
+    const byHeader = await analyticsPOST(
+      new Request('http://test/api/analytics', {
+        method: 'POST',
+        body: JSON.stringify({ name: 'page_view' }),
+        headers: { 'content-length': String(9 * 1024) },
+      })
+    );
+    expect(byHeader.status).toBe(413);
+    expect(mocks.rateLimitCheck).not.toHaveBeenCalled();
+
+    const byStream = await analyticsPOST(
+      analytics({ name: 'page_view', message: 'x'.repeat(9 * 1024) })
+    );
+    expect(byStream.status).toBe(413);
+    expect(mocks.insert).not.toHaveBeenCalled();
+  });
+
+  it('normalizes public fields before logging and tags beacons as estimated', async () => {
+    const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
+
+    const response = await analyticsPOST(
+      analytics({
+        name: 'invite_landing',
+        path: 'https://quizverse.org/es/quiz/x?s=secret-token&via=correo@evil.com#frag',
+        source: 'free text\ninjected',
+        metadata: { kind: 'via', channel: 'correo@evil.com', note: 'hello\nuser@secret.test' },
+      })
+    );
+
+    expect(response.status).toBe(200);
+    const rawLog = infoSpy.mock.calls[0][0] as string;
+    const logged = JSON.parse(rawLog) as Record<string, unknown>;
+    expect(logged.channel).toBe('analytics');
+    expect(logged.signal).toBe('beacon_estimated');
+    expect(logged.path).toBe('/es/quiz/x');
+    expect(rawLog).not.toContain('secret-token');
+    expect(rawLog).not.toContain('correo@evil.com');
+    expect(rawLog).not.toContain('user@secret.test');
+    expect(rawLog).not.toContain('\\n');
+    infoSpy.mockRestore();
+  });
 });
 
 describe('POST /api/monitor', () => {
@@ -238,5 +281,46 @@ describe('POST /api/monitor', () => {
 
     expect(response.status).toBe(400);
     expect(await response.json()).toEqual({ error: 'invalid_json' });
+  });
+
+  it('rejects oversized monitor bodies with 413 before JSON.parse', async () => {
+    const byHeader = await monitorPOST(
+      new Request('http://test/api/monitor', {
+        method: 'POST',
+        body: JSON.stringify({ message: 'boom' }),
+        headers: { 'content-length': String(9 * 1024) },
+      })
+    );
+    expect(byHeader.status).toBe(413);
+    expect(mocks.rateLimitCheck).not.toHaveBeenCalled();
+
+    const byStream = await monitorPOST(monitor({ message: 'x'.repeat(9 * 1024) }));
+    expect(byStream.status).toBe(413);
+  });
+
+  it('normalizes path, source, message and metadata before console.error', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    const response = await monitorPOST(
+      monitor({
+        message: 'Crash at https://quizverse.org/es/result?s=tok123\nfor alice@example.com',
+        path: '/es/quiz/foo/result?s=secret-share-token#top',
+        source: 'invalid source with spaces',
+        metadata: { ref: 'https://quizverse.org/en?token=abc', ok: true },
+      })
+    );
+
+    expect(response.status).toBe(200);
+    const rawLog = errorSpy.mock.calls[0][0] as string;
+    const logged = JSON.parse(rawLog) as Record<string, unknown>;
+    expect(logged.channel).toBe('monitor');
+    expect(logged.signal).toBe('client_error_beacon');
+    expect(logged.path).toBe('/es/quiz/foo/result');
+    expect(logged.source).toBeUndefined();
+    expect(rawLog).not.toContain('secret-share-token');
+    expect(rawLog).not.toContain('tok123');
+    expect(rawLog).not.toContain('alice@example.com');
+    expect(rawLog).not.toContain('token=abc');
+    errorSpy.mockRestore();
   });
 });

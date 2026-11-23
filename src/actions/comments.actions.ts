@@ -228,8 +228,11 @@ export async function createComment(
   const parsed = commentSchema.safeParse({ quizId, body });
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
-  const { allowed } = await commentLimiter.check(await clientIp());
-  if (!allowed) return actionFailure('rate_limited', 'Too many comments. Please wait.');
+  const limit = await commentLimiter.check(await clientIp());
+  if (limit.errored && !limit.allowed) {
+    return actionFailure('unavailable', 'Comments are temporarily unavailable. Please try again.');
+  }
+  if (!limit.allowed) return actionFailure('rate_limited', 'Too many comments. Please wait.');
 
   // The INSERT policy only checks ownership: without this look-up an
   // authenticated caller could comment on drafts/pending quizzes and still
@@ -357,8 +360,11 @@ export async function reportComment(
   } = await supabase.auth.getUser();
   if (!user) return actionFailure('unauthorized', 'Sign in to report a comment.');
 
-  const { allowed } = await commentReportLimiter.check(user.id);
-  if (!allowed) return actionFailure('rate_limited', 'Too many reports. Please wait.');
+  const limit = await commentReportLimiter.check(user.id);
+  if (limit.errored && !limit.allowed) {
+    return actionFailure('unavailable', 'Reporting is temporarily unavailable. Please try again.');
+  }
+  if (!limit.allowed) return actionFailure('rate_limited', 'Too many reports. Please wait.');
 
   const { data: comment } = await supabase
     .from('quiz_comments')
