@@ -2444,3 +2444,131 @@ body:has(.arcade-result) .cookie-consent-banner {
     flex-basis: 100%;
   }
 }
+
+/* === lote1: animaciones de juego === */
+/* Entrada escalonada de opciones: el retardo llega inline desde question-card. */
+@keyframes qv-l1-option-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Pulso + halo breve sobre la opción correcta revelada. */
+@keyframes qv-l1-correct-pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--success) 35%, transparent);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+/* Shake horizontal breve sobre la opción elegida incorrecta. */
+@keyframes qv-l1-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+/* Pop de la puntuación en la pantalla de resultado. */
+@keyframes qv-l1-score-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Entrada de tarjetas del grid de explorar: retardo inline desde la página. */
+@keyframes qv-l1-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* Pop de la racha al subir: la key por valor re-monta y repite la animación. */
+@keyframes qv-l1-streak-pop {
+  0% {
+    transform: scale(0.7);
+  }
+  55% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.qv-l1-option-in {
+  animation: qv-l1-option-in 0.28s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.qv-l1-correct-pulse {
+  animation: qv-l1-correct-pulse 0.45s ease-out;
+}
+.qv-l1-shake {
+  animation: qv-l1-shake 0.35s ease-in-out;
+}
+.arcade-answer-feedback.qv-l1-verdict-correct {
+  border-color: var(--success);
+  color: var(--success);
+}
+.arcade-answer-feedback.qv-l1-verdict-incorrect {
+  border-color: var(--error);
+  color: var(--error);
+}
+.qv-l1-score-pop {
+  transform-origin: left bottom;
+  animation: qv-l1-score-pop 0.55s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+.qv-l1-explore-card {
+  animation: qv-l1-card-in 0.45s cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+/* El hover ya lo trae .arcade-card; esto da la misma reacción al foco de teclado. */
+.qv-l1-explore-card:focus-within .arcade-card {
+  border-color: var(--accent-primary);
+  transform: translateY(-4px);
+}
+.qv-l1-streak-pop {
+  display: inline-block;
+  animation: qv-l1-streak-pop 0.35s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .qv-l1-option-in,
+  .qv-l1-correct-pulse,
+  .qv-l1-shake,
+  .qv-l1-score-pop,
+  .qv-l1-explore-card,
+  .qv-l1-streak-pop {
+    animation: none;
+  }
+}
+/* === fin lote1 === */

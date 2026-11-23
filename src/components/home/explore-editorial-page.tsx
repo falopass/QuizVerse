@@ -326,7 +326,13 @@ export function ExploreEditorialPage({
               </div>
               <div className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {gridQuizzes.map((quiz, index) => (
-                  <EditorialQuizCard key={quiz.id} quiz={quiz} locale={locale} index={index} />
+                  <div
+                    key={quiz.id}
+                    className="qv-l1-explore-card"
+                    style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
+                  >
+                    <EditorialQuizCard quiz={quiz} locale={locale} index={index} />
+                  </div>
                 ))}
               </div>
               {restQuizzes.length > 0 ? (
@@ -352,12 +358,17 @@ export function ExploreEditorialPage({
                   className="grid items-start gap-5 md:grid-cols-2 xl:grid-cols-3"
                 >
                   {restQuizzes.map((quiz, index) => (
-                    <EditorialQuizCard
+                    <div
                       key={quiz.id}
-                      quiz={quiz}
-                      locale={locale}
-                      index={gridQuizzes.length + index}
-                    />
+                      className="qv-l1-explore-card"
+                      style={{ animationDelay: `${Math.min(index, 12) * 45}ms` }}
+                    >
+                      <EditorialQuizCard
+                        quiz={quiz}
+                        locale={locale}
+                        index={gridQuizzes.length + index}
+                      />
+                    </div>
                   ))}
                 </div>
               ) : null}
