@@ -81,9 +81,23 @@ export default async function LocalizedProfilePage({
       : Promise.resolve({ data: null }),
   ]);
 
+  const publishedCount = quizzes?.length ?? 0;
+  const defaultBio =
+    publishedCount > 0
+      ? locale === 'es'
+        ? `Creador en QuizVerse con ${publishedCount} ${publishedCount === 1 ? 'quiz publicado' : 'quizzes publicados'}.`
+        : `QuizVerse creator with ${publishedCount} published ${publishedCount === 1 ? 'quiz' : 'quizzes'}.`
+      : profile.quizzes_played > 0
+        ? locale === 'es'
+          ? `Jugador en QuizVerse con ${profile.quizzes_played} ${profile.quizzes_played === 1 ? 'partida registrada' : 'partidas registradas'}.`
+          : `QuizVerse player with ${profile.quizzes_played} recorded ${profile.quizzes_played === 1 ? 'game' : 'games'}.`
+        : locale === 'es'
+          ? 'Perfil público en QuizVerse.'
+          : 'Public profile on QuizVerse.';
+
   return (
-    <div className="mx-auto min-h-screen max-w-7xl px-4 pt-28 pb-20">
-      <section className="surface-panel p-8 md:p-10">
+    <div className="mx-auto min-h-screen max-w-7xl px-4 pt-6 pb-16 md:pt-10 md:pb-20">
+      <section className="surface-panel p-6 sm:p-8 md:p-10">
         <p className="eyebrow">{locale === 'es' ? 'Perfil' : 'Profile'}</p>
         <div className="mt-4 grid gap-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-end">
           <div>
@@ -105,18 +119,15 @@ export default async function LocalizedProfilePage({
                   {(profile.display_name || profile.username).charAt(0).toUpperCase()}
                 </span>
               )}
-              <h1 className="text-text-primary text-4xl font-semibold tracking-tight md:text-6xl">
+              <h1 className="font-display text-text-primary text-3xl font-normal sm:text-4xl md:text-5xl">
                 {profile.display_name || profile.username}
               </h1>
             </div>
             <p className="text-text-muted mt-3 text-sm font-semibold">@{profile.username}</p>
             <p className="text-text-secondary mt-4 max-w-2xl text-base leading-7">
-              {profile.bio ||
-                (locale === 'es'
-                  ? 'Un perfil de QuizVerse en construcción, con quizzes publicados y una huella editorial propia.'
-                  : 'A QuizVerse profile with published quizzes and a visible editorial footprint.')}
+              {profile.bio || defaultBio}
             </p>
-            <div className="mt-6 flex max-w-md flex-col items-start gap-4">
+            <div className="mt-6 flex w-full max-w-md flex-col items-start gap-4">
               {!isOwnProfile ? (
                 <FollowButton
                   targetUserId={profile.id}
@@ -127,6 +138,7 @@ export default async function LocalizedProfilePage({
               ) : null}
               <ShareButtons
                 locale={locale}
+                emphasis="secondary"
                 title={`${profile.display_name || profile.username} · QuizVerse`}
                 url={absoluteUrl(localizedPath(locale, `/profile/${profile.username}`))}
                 text={
@@ -249,15 +261,15 @@ export default async function LocalizedProfilePage({
 function StatCard({ value, label, href }: { value: string; label: string; href?: string }) {
   const body = (
     <>
-      <p className="text-text-primary text-3xl font-semibold">{value}</p>
+      <p className="text-text-primary text-2xl font-bold tabular-nums sm:text-3xl">{value}</p>
       <p className="text-text-muted mt-2 text-sm">{label}</p>
     </>
   );
   const classes =
-    'border-border-subtle bg-bg-primary/80 block rounded-[1.5rem] border p-5 text-center';
+    'border-border-subtle bg-bg-primary/80 block rounded-[4px] border p-5 text-center';
 
   return href ? (
-    <Link href={href} className={`${classes} hover:border-accent-primary/40 transition-colors`}>
+    <Link href={href} className={`${classes} hover:border-accent-primary transition-colors`}>
       {body}
     </Link>
   ) : (

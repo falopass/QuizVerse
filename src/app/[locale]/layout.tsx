@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation';
+import { Footer } from '@/components/layout/footer';
+import type { NavLabels } from '@/components/layout/floating-nav';
 import { SiteShell } from '@/components/layout/site-shell';
 import { SiteDocument } from '@/components/layout/site-document';
 import { getPopulatedCategorySlugs } from '@/lib/data/category-counts';
@@ -35,10 +37,27 @@ export default async function LocaleLayout({
   // El footer solo enlaza hubs que existen en este idioma: uno vacío hace
   // notFound(), así que enlazarlo sería un 404 desde todas las páginas.
   const categorySlugs = Object.keys(CATEGORY_SLUG_NAMES).filter((slug) => populated.has(slug));
+  const navLabels: NavLabels = {
+    mainNavigation: dictionary.arcade.mainNavigation,
+    explore: dictionary.common.explore,
+    dailyQuiz: dictionary.common.dailyQuiz,
+    leaderboard: dictionary.common.leaderboard,
+    personality: locale === 'es' ? 'Personalidad' : 'Personality',
+    trivia: 'Trivia',
+    randomQuiz: dictionary.common.randomQuiz,
+    mobileRandomQuiz: dictionary.nav.randomQuiz,
+    switchLocale: dictionary.common.switchLocale,
+    pickGame: dictionary.arcade.pickGame,
+    menu: dictionary.nav.menu,
+  };
 
   return (
     <SiteDocument locale={locale}>
-      <SiteShell locale={locale} dictionary={dictionary} categorySlugs={categorySlugs}>
+      <SiteShell
+        locale={locale}
+        navLabels={navLabels}
+        footer={<Footer dictionary={dictionary} locale={locale} categorySlugs={categorySlugs} />}
+      >
         {children}
       </SiteShell>
     </SiteDocument>

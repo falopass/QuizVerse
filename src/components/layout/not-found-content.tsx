@@ -19,6 +19,14 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
   const es = locale === 'es';
   return (
     <>
+      <div className="border-border-subtle mb-6 flex items-center justify-between border-b pb-4">
+        <Link href={`/${locale}`} className="arcade-logo" aria-label="QuizVerse">
+          QUIZ<span>VERSE</span>
+        </Link>
+        <span className="text-text-muted text-xs font-semibold tabular-nums">
+          {es ? 'Error 404' : '404 Error'}
+        </span>
+      </div>
       <EditorialEmptyState
         eyebrow="404"
         title={es ? 'Esta página se salió de órbita.' : 'That page drifted out of orbit.'}
@@ -34,14 +42,14 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
         tertiaryHref={`/${locale}/random`}
         tertiaryLabel={es ? 'Sorpréndeme' : 'Surprise me'}
       />
-      <nav aria-label={es ? 'Categorías' : 'Categories'} className="mx-auto mt-6 max-w-4xl">
+      <nav aria-label={es ? 'Categorías' : 'Categories'} className="mx-auto mt-8 max-w-4xl">
         <h2 className="eyebrow text-center">{es ? 'Categorías' : 'Categories'}</h2>
         <ul className="mt-4 flex flex-wrap justify-center gap-3">
           {POPULAR_CATEGORIES.map((category) => (
             <li key={category.slug}>
               <Link
                 href={`/${locale}/category/${category.slug}`}
-                className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors"
+                className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold transition-colors"
               >
                 {es ? category.es : category.en}
               </Link>

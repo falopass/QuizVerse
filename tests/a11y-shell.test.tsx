@@ -29,10 +29,15 @@ vi.mock('@/actions/quiz.actions', () => ({
 }));
 
 import { NotFoundContent } from '@/components/layout/not-found-content';
-import { EditorialEmptyState } from '@/components/home/app-placeholders';
+import {
+  EditorialEmptyState,
+  EditorialLoadingStage,
+  type LoadingStageVariant,
+} from '@/components/home/app-placeholders';
 import { CategoryStrip } from '@/components/home/category-strip';
 import { Footer } from '@/components/layout/footer';
 import { ShareButtons } from '@/components/shared/share-buttons';
+import { Button } from '@/components/ui/button';
 import { getDictionary } from '@/lib/i18n/dictionaries';
 
 const SRC = join(__dirname, '..', 'src');
@@ -308,14 +313,49 @@ describe('A11Y-11: contraste de los botones de compartir', () => {
     return match![1];
   }
 
-  it('WhatsApp y Facebook llegan a >= 4.5:1 con texto blanco', () => {
+  it('WhatsApp, Telegram y Facebook llegan a >= 4.5:1 con texto blanco', () => {
     const { container } = render(<ShareButtons title="t" url="https://x.test" text="t" />);
 
     const whatsapp = container.querySelector('a[href^="https://wa.me"]')!;
+    const telegram = container.querySelector('a[href^="https://t.me/share"]')!;
     const facebook = container.querySelector('a[href*="facebook.com/sharer"]')!;
-    for (const link of [whatsapp, facebook]) {
+    for (const link of [whatsapp, telegram, facebook]) {
       expect(link.className).toContain('text-white');
       expect(contrast('#ffffff', bgHex(link))).toBeGreaterThanOrEqual(4.5);
+    }
+  });
+
+  it('Button danger usa tinta oscura sobre --error (>= 4.5:1) sin transition-all ni outline-none', () => {
+    render(<Button variant="danger">Borrar</Button>);
+
+    const button = screen.getByRole('button', { name: 'Borrar' });
+    expect(button.className).toContain('bg-error');
+    expect(button.className).toContain('text-bg-primary');
+    expect(button.className).not.toContain('text-white');
+    expect(button.className).not.toContain('transition-all');
+    expect(button.className).not.toContain('outline-none');
+    expect(contrast('#101019', '#ff709d')).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('EditorialLoadingStage expone estado accesible en todas las variantes de vista', () => {
+    const variants: LoadingStageVariant[] = [
+      'home',
+      'explore',
+      'leaderboard',
+      'me',
+      'notifications',
+      'settings',
+      'my-quizzes',
+      'admin',
+    ];
+    for (const variant of variants) {
+      const { unmount } = render(
+        <EditorialLoadingStage variant={variant} eyebrow="Cargando" title={`Vista ${variant}`} />
+      );
+      const status = screen.getByRole('status');
+      expect(status).toHaveTextContent(`Cargando: Vista ${variant}`);
+      expect(status).not.toHaveAttribute('aria-busy');
+      unmount();
     }
   });
 });

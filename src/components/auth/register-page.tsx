@@ -56,15 +56,17 @@ export async function RegisterPageView({
   const oauthProviders = enabledOAuthProviders();
 
   return (
-    <div className="min-h-screen px-4 pt-28 pb-20">
+    <div className="min-h-screen px-4 pt-6 pb-16 md:pt-10 md:pb-20">
       <div className="mx-auto max-w-md">
-        <div className="surface-card p-8 md:p-10">
+        <div className="surface-card p-6 sm:p-8 md:p-10">
           <div className="mb-8">
-            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-14 w-14 items-center justify-center rounded-full border text-sm font-semibold">
+            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-12 w-12 items-center justify-center rounded-[4px] border text-sm font-bold">
               QV
             </div>
             <p className="eyebrow mt-5">{copy.eyebrow}</p>
-            <h1 className="font-display text-text-primary mt-1 text-4xl">{copy.title}</h1>
+            <h1 className="font-display text-text-primary mt-1 text-3xl font-normal sm:text-4xl">
+              {copy.title}
+            </h1>
             <p className="text-text-secondary mt-3 text-sm leading-6">{copy.subtitle}</p>
           </div>
 
@@ -83,7 +85,7 @@ export async function RegisterPageView({
             <>
               <div className="my-6 flex items-center gap-4">
                 <div className="bg-border-subtle h-px flex-1" />
-                <span className="text-text-muted text-[11px] font-semibold">{copy.orWith}</span>
+                <span className="text-text-muted text-xs font-semibold">{copy.orWith}</span>
                 <div className="bg-border-subtle h-px flex-1" />
               </div>
 

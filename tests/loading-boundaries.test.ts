@@ -27,13 +27,17 @@ import { describe, expect, it } from 'vitest';
 
 const APP_DIR = join(__dirname, '../src/app');
 
-// Páginas de listado con skeleton: home, explorar y leaderboard. Ninguna
-// puede hacer notFound() con datos — solo el guard de locale, ya cubierto
-// por `[locale]/layout.tsx` fuera del boundary.
+// Páginas con skeleton seguro: listados públicos y vistas de cuenta sin
+// segmentos dinámicos hijos ni `notFound()` por datos (solo el guard de locale,
+// ya cubierto por `[locale]/layout.tsx` fuera del boundary).
+// `admin` y `my-quizzes` quedan fuera: tienen `notFound()` por rol o hijos `[id]`.
 const SKELETON_ALLOWLIST = new Set([
   join('[locale]', '(inicio)'),
   join('[locale]', 'leaderboard'),
+  join('[locale]', 'me'),
+  join('[locale]', 'notifications'),
   join('[locale]', 'quiz', '(explorar)'),
+  join('[locale]', 'settings'),
 ]);
 
 function* walkFiles(dir: string, name: string): Generator<string> {

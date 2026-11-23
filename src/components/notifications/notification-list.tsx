@@ -15,13 +15,104 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { markAllNotificationsRead, markNotificationRead } from '@/actions/notifications.actions';
 import { useNotificationBadge } from '@/stores/notification-store';
-import { getCopy } from '@/lib/i18n/dictionaries';
 import { formatMessage } from '@/lib/i18n/format';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 import { formatRelativeDate } from '@/lib/utils/format';
 import type { ResolvedNotification } from '@/lib/notifications/resolve';
 
-type NotificationsCopy = Dictionary['notifications'];
+type NotificationsCopy = Pick<
+  Dictionary['notifications'],
+  | 'title'
+  | 'markAll'
+  | 'marking'
+  | 'unread'
+  | 'unreadTag'
+  | 'empty'
+  | 'markError'
+  | 'someone'
+  | 'yourQuiz'
+  | 'typeLabels'
+  | 'titles'
+  | 'commentBody'
+  | 'followBody'
+  | 'quizApprovedBody'
+  | 'quizApprovedBodyGeneric'
+  | 'quizRejectedBody'
+  | 'quizRejectedBodyGeneric'
+>;
+
+const COPY: Record<Locale, NotificationsCopy> = {
+  en: {
+    title: 'Notifications',
+    markAll: 'Mark all as read',
+    marking: 'Marking…',
+    unread: '{count} unread',
+    unreadTag: 'unread',
+    empty:
+      'No notifications yet. When someone comments on your quizzes or follows you, it will show up here.',
+    markError: 'We could not mark them as read. Please try again.',
+    someone: 'Someone',
+    yourQuiz: 'your quiz',
+    typeLabels: {
+      comment: 'Comment',
+      follow: 'Follower',
+      quiz_approved: 'Quiz',
+      quiz_rejected: 'Quiz',
+      achievement: 'Achievement',
+      mention: 'Mention',
+      generic: 'Update',
+    },
+    titles: {
+      comment: 'New comment on your quiz',
+      follow: 'New follower',
+      quiz_approved: 'Quiz approved',
+      quiz_rejected: 'Quiz rejected',
+      achievement: 'Achievement unlocked',
+      mention: 'New mention',
+    },
+    commentBody: '{name} commented on {quiz}',
+    followBody: '{name} started following you',
+    quizApprovedBody: '"{quiz}" was approved and is now live.',
+    quizApprovedBodyGeneric: 'Your quiz was approved and is now live.',
+    quizRejectedBody: '"{quiz}" was rejected. Review it in My quizzes.',
+    quizRejectedBodyGeneric: 'Your quiz was rejected. Review it in My quizzes.',
+  },
+  es: {
+    title: 'Notificaciones',
+    markAll: 'Marcar todas como leídas',
+    marking: 'Marcando…',
+    unread: '{count} sin leer',
+    unreadTag: 'sin leer',
+    empty:
+      'Aún no tienes notificaciones. Cuando alguien comente tus quizzes o te siga, aparecerá aquí.',
+    markError: 'No pudimos marcarlas como leídas. Inténtalo otra vez.',
+    someone: 'Alguien',
+    yourQuiz: 'tu quiz',
+    typeLabels: {
+      comment: 'Comentario',
+      follow: 'Seguidor',
+      quiz_approved: 'Quiz',
+      quiz_rejected: 'Quiz',
+      achievement: 'Logro',
+      mention: 'Mención',
+      generic: 'Aviso',
+    },
+    titles: {
+      comment: 'Nuevo comentario en tu quiz',
+      follow: 'Nuevo seguidor',
+      quiz_approved: 'Quiz aprobado',
+      quiz_rejected: 'Quiz rechazado',
+      achievement: 'Logro desbloqueado',
+      mention: 'Te mencionaron',
+    },
+    commentBody: '{name} comentó en {quiz}',
+    followBody: '{name} empezó a seguirte',
+    quizApprovedBody: '"{quiz}" fue aprobado y ya está publicado.',
+    quizApprovedBodyGeneric: 'Tu quiz fue aprobado y ya está publicado.',
+    quizRejectedBody: '"{quiz}" fue rechazado. Revísalo en Mis quizzes.',
+    quizRejectedBodyGeneric: 'Tu quiz fue rechazado. Revísalo en Mis quizzes.',
+  },
+};
 
 /** Tipos conocidos: título localizado; desconocidos: el texto guardado. */
 function notificationTitle(notification: ResolvedNotification, copy: NotificationsCopy): string {
@@ -88,7 +179,7 @@ export function NotificationList({
   unreadCount: number;
   locale: Locale;
 }) {
-  const copy = getCopy(locale, 'notifications');
+  const copy = COPY[locale];
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -133,7 +224,7 @@ export function NotificationList({
   return (
     <section className="mt-8" aria-label={copy.title}>
       <div className="mb-4 flex items-center justify-between gap-4">
-        <p className="text-text-secondary text-sm" aria-live="polite">
+        <p className="text-text-secondary text-sm tabular-nums" aria-live="polite">
           {unreadCount > 0 ? formatMessage(copy.unread, { count: unreadCount }) : null}
         </p>
         {unreadCount > 0 ? (
@@ -141,7 +232,7 @@ export function NotificationList({
             type="button"
             onClick={handleMarkAll}
             disabled={pending}
-            className="border-border-subtle text-text-primary hover:border-accent-primary/40 min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60"
+            className="border-border-subtle text-text-primary hover:border-accent-primary min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition-colors disabled:opacity-60"
           >
             {pending ? copy.marking : copy.markAll}
           </button>

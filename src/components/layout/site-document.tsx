@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
-import { Archivo_Black, Space_Grotesk } from 'next/font/google';
+import { Archivo_Black, Bricolage_Grotesque } from 'next/font/google';
 import '@/app/globals.css';
 import { SupabaseProvider } from '@/providers/supabase-provider';
-import { ThemeProvider } from '@/providers/theme-provider';
 import { ToastProvider } from '@/providers/toast-provider';
 import { ToastViewport } from '@/components/ui/toast';
 import { AppTelemetry } from '@/components/layout/app-telemetry';
@@ -35,11 +34,12 @@ const archivo = Archivo_Black({
 });
 
 // El texto nunca es el elemento LCP: `swap` garantiza que acaba pintando en
-// Space Grotesk, y quitarle el preload deja ~10 KB de ancho de banda para la
-// fuente display y la portada en la primera carga.
-const space = Space_Grotesk({
+// Bricolage Grotesque, y quitarle el preload deja ~10 KB de ancho de banda
+// para la fuente display y la portada en la primera carga.
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-space',
+  weight: ['400', '600', '700'],
+  variable: '--font-bricolage',
   display: 'swap',
   preload: false,
 });
@@ -136,22 +136,20 @@ export function SiteDocument({ children, locale }: { children: React.ReactNode; 
   return (
     <html
       lang={locale}
-      className={`h-full ${archivo.variable} ${space.variable}`}
+      className={`h-full ${archivo.variable} ${bricolage.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >
       <body className="bg-bg-primary text-text-primary h-full antialiased">
         <JsonLd data={buildGraph([organizationNode(), websiteNode(locale)])} />
         <SupabaseProvider>
-          <ThemeProvider>
-            <ToastProvider>
-              <AppTelemetry />
-              <WebVitals />
-              {children}
-              <ToastViewport />
-              <CookieConsentBanner />
-            </ToastProvider>
-          </ThemeProvider>
+          <ToastProvider>
+            <AppTelemetry />
+            <WebVitals />
+            {children}
+            <ToastViewport />
+            <CookieConsentBanner />
+          </ToastProvider>
         </SupabaseProvider>
       </body>
     </html>

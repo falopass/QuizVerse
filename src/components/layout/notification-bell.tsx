@@ -14,19 +14,31 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSupabase } from '@/providers/supabase-provider';
 import { useNotificationBadge } from '@/stores/notification-store';
-import { getCopy } from '@/lib/i18n/dictionaries';
 import { formatMessage } from '@/lib/i18n/format';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 
 const REFRESH_MS = 60_000;
 
+const COPY = {
+  en: {
+    bell: 'Notifications',
+    bellUnreadOne: '1 unread notification',
+    bellUnreadMany: '{count} unread notifications',
+  },
+  es: {
+    bell: 'Notificaciones',
+    bellUnreadOne: '1 notificación sin leer',
+    bellUnreadMany: '{count} notificaciones sin leer',
+  },
+} as const;
+
 export function NotificationBell({ locale }: { locale: Locale }) {
   const { getClient, user, loading } = useSupabase();
   const pathname = usePathname();
   const unread = useNotificationBadge((state) => state.unread);
   const setUnread = useNotificationBadge((state) => state.setUnread);
-  const copy = getCopy(locale, 'notifications');
+  const copy = COPY[locale];
 
   useEffect(() => {
     if (!user) {
@@ -60,7 +72,7 @@ export function NotificationBell({ locale }: { locale: Locale }) {
   return (
     <Link
       href={localizeHref(locale, '/notifications')}
-      className="text-text-primary hover:text-accent-primary relative inline-flex min-h-11 items-center px-2 transition-colors"
+      className="text-text-primary hover:text-accent-primary relative inline-flex min-h-11 items-center rounded-full px-2 transition-colors"
     >
       <svg
         aria-hidden="true"
@@ -78,7 +90,7 @@ export function NotificationBell({ locale }: { locale: Locale }) {
       {unread !== null && unread > 0 ? (
         <span
           aria-hidden="true"
-          className="bg-accent-primary text-bg-primary absolute -top-0.5 -right-0.5 flex min-h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold"
+          className="bg-accent-primary text-bg-primary absolute -top-0.5 -right-0.5 flex min-h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold tabular-nums"
         >
           {unread > 99 ? '99+' : unread}
         </span>

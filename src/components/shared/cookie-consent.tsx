@@ -18,8 +18,23 @@ interface ConsentState {
   timestamp: number;
 }
 
+// Respaldo en memoria para navegadores o contextos donde localStorage lanza
+// SecurityError / QuotaExceededError: mantiene el significado y los controles.
+let memoryConsent: ConsentState | null = null;
+
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+}
+
 function getStoredConsent(): ConsentState | null {
   if (typeof window === 'undefined') return null;
+  // Si una escritura reciente falló (p. ej. QuotaExceededError), la elección
+  // en memoria manda sobre cualquier valor antiguo legible en localStorage.
+  if (memoryConsent) return memoryConsent;
   try {
     const raw = localStorage.getItem(CONSENT_KEY);
     if (!raw) return null;
@@ -41,8 +56,18 @@ function getStoredConsent(): ConsentState | null {
 function storeConsent(level: ConsentLevel) {
   const previous = getStoredConsent()?.level ?? 'none';
   const state: ConsentState = { level, version: CONSENT_VERSION, timestamp: Date.now() };
-  localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
+    memoryConsent = null;
+  } catch {
+    memoryConsent = state;
+  }
   window.dispatchEvent(new CustomEvent('quizverse:consent', { detail: { level, previous } }));
+}
+
+/** Restablece el respaldo en memoria (uso en pruebas). */
+export function resetConsentMemoryForTests() {
+  memoryConsent = null;
 }
 
 export function getConsentLevel(): ConsentLevel {
@@ -63,6 +88,7 @@ export function hasAdsConsent(): boolean {
 }
 
 const copy = {
+  regionLabel: { en: 'Cookie preferences', es: 'Preferencias de cookies' },
   title: { en: 'This site uses cookies.', es: 'Este sitio usa cookies.' },
   body: {
     en: 'Essential cookies run the site. You can also allow analytics and personalized ads to keep it free.',
@@ -104,6 +130,10 @@ export function CookieConsentBanner() {
     (level: ConsentLevel) => {
       if (exiting) return;
       storeConsent(level);
+      if (prefersReducedMotion()) {
+        setVisible(false);
+        return;
+      }
       setExiting(true);
     },
     [exiting]
@@ -126,6 +156,8 @@ export function CookieConsentBanner() {
   return (
     visible && (
       <div
+        role="region"
+        aria-label={copy.regionLabel[locale]}
         className={cn('cookie-consent-banner', exiting && 'cookie-banner-exit')}
         onAnimationEnd={(event) => {
           if (event.target === event.currentTarget && exiting) setVisible(false);
@@ -139,10 +171,10 @@ export function CookieConsentBanner() {
             </p>
           </div>
           <div className="cookie-consent-actions">
-            <button onClick={acceptEssential} className="cookie-consent-secondary">
+            <button type="button" onClick={acceptEssential} className="cookie-consent-secondary">
               {copy.essentialButton[locale]}
             </button>
-            <button onClick={acceptAll} className="arcade-button">
+            <button type="button" onClick={acceptAll} className="arcade-button">
               {copy.acceptAllButton[locale]}
             </button>
           </div>

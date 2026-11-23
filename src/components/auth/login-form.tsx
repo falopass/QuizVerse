@@ -13,6 +13,7 @@ import { localizeHref } from '@/lib/i18n/navigation';
 const COPY = {
   es: {
     email: 'Correo electrónico',
+    emailPlaceholder: 'tu@correo.com',
     password: 'Contraseña',
     submit: 'Entrar',
     submitting: 'Entrando…',
@@ -22,6 +23,7 @@ const COPY = {
   },
   en: {
     email: 'Email',
+    emailPlaceholder: 'you@example.com',
     password: 'Password',
     submit: 'Sign in',
     submitting: 'Signing in…',
@@ -37,7 +39,16 @@ const COPY = {
  * No habla con Supabase desde el navegador: llama a `signInAction`, que valida,
  * limita intentos y devuelve un código de error estable.
  */
-export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: string }) {
+export function LoginForm({
+  locale,
+  redirectTo,
+  showRegisterLink = true,
+}: {
+  locale: Locale;
+  redirectTo: string;
+  /** Cuando la página ya muestra un único enlace a registro, evita duplicarlo. */
+  showRegisterLink?: boolean;
+}) {
   const copy = COPY[locale];
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -66,46 +77,51 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+    <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold">{copy.email}</span>
+        <span className="text-text-secondary mb-1.5 block text-xs font-semibold">{copy.email}</span>
         <input
           type="email"
           name="email"
           autoComplete="email"
+          placeholder={copy.emailPlaceholder}
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="border-border-subtle bg-bg-primary text-text-primary focus:border-accent-primary w-full rounded-full border px-4 py-3 text-sm outline-none"
+          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm transition-colors"
         />
       </label>
 
       <label className="block">
-        <span className="text-text-secondary mb-1 block text-xs font-semibold">
+        <span className="text-text-secondary mb-1.5 block text-xs font-semibold">
           {copy.password}
         </span>
         <input
           type="password"
           name="password"
           autoComplete="current-password"
+          placeholder="········"
           required
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="border-border-subtle bg-bg-primary text-text-primary focus:border-accent-primary w-full rounded-full border px-4 py-3 text-sm outline-none"
+          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm transition-colors"
         />
       </label>
 
       <p className="text-right">
         <Link
           href={`${localizeHref(locale, '/forgot-password')}${email ? `?email=${encodeURIComponent(email)}` : ''}`}
-          className="text-text-secondary hover:text-accent-primary text-xs font-semibold transition-colors"
+          className="text-text-secondary hover:text-accent-primary inline-flex min-h-9 items-center text-xs font-semibold transition-colors"
         >
           {copy.forgot}
         </Link>
       </p>
 
       {error ? (
-        <p role="alert" className="text-sm font-semibold text-red-400">
+        <p
+          role="alert"
+          className="border-error/40 bg-error/10 text-error rounded-[4px] border px-4 py-3 text-sm font-semibold"
+        >
           {error}
         </p>
       ) : null}
@@ -117,20 +133,22 @@ export function LoginForm({ locale, redirectTo }: { locale: Locale; redirectTo: 
       <button
         type="submit"
         disabled={loading}
-        className="bg-accent-primary hover:bg-accent-hover text-bg-primary w-full rounded-full px-4 py-3 text-sm font-semibold transition-colors disabled:opacity-60"
+        className="bg-accent-primary hover:bg-accent-hover text-bg-primary min-h-12 w-full rounded-full px-4 py-3 text-sm font-semibold transition-colors disabled:opacity-60"
       >
         {loading ? copy.submitting : copy.submit}
       </button>
 
-      <p className="text-text-secondary pt-1 text-center text-sm">
-        {copy.noAccount}{' '}
-        <Link
-          href={`${localizeHref(locale, '/register')}?redirect=${encodeURIComponent(redirectTo)}`}
-          className="text-accent-primary font-semibold hover:underline"
-        >
-          {copy.signUp}
-        </Link>
-      </p>
+      {showRegisterLink ? (
+        <p className="text-text-secondary pt-1 text-center text-sm">
+          {copy.noAccount}{' '}
+          <Link
+            href={`${localizeHref(locale, '/register')}?redirect=${encodeURIComponent(redirectTo)}`}
+            className="text-accent-primary font-semibold hover:underline"
+          >
+            {copy.signUp}
+          </Link>
+        </p>
+      ) : null}
     </form>
   );
 }

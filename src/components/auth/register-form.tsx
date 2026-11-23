@@ -60,7 +60,10 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
   return (
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div>
-        <label htmlFor="register-name" className="text-text-primary mb-1 block text-sm font-medium">
+        <label
+          htmlFor="register-name"
+          className="text-text-secondary mb-1.5 block text-xs font-semibold"
+        >
           {labels.name}
         </label>
         <input
@@ -70,7 +73,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
           onChange={(e) => setName(e.target.value)}
           required
           minLength={2}
-          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm transition-colors"
           placeholder={labels.name}
           autoComplete="name"
         />
@@ -79,7 +82,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
       <div>
         <label
           htmlFor="register-email"
-          className="text-text-primary mb-1 block text-sm font-medium"
+          className="text-text-secondary mb-1.5 block text-xs font-semibold"
         >
           {labels.email}
         </label>
@@ -89,8 +92,8 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
-          placeholder="you@example.com"
+          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm transition-colors"
+          placeholder={locale === 'es' ? 'tu@correo.com' : 'you@example.com'}
           autoComplete="email"
         />
       </div>
@@ -98,7 +101,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
       <div>
         <label
           htmlFor="register-password"
-          className="text-text-primary mb-1 block text-sm font-medium"
+          className="text-text-secondary mb-1.5 block text-xs font-semibold"
         >
           {labels.password}
         </label>
@@ -109,14 +112,17 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
           onChange={(e) => setPassword(e.target.value)}
           required
           minLength={8}
-          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus:border-accent-primary w-full rounded-xl border px-4 py-3 text-sm focus:outline-none"
+          className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm transition-colors"
           placeholder="········"
           autoComplete="new-password"
         />
       </div>
 
       {error && (
-        <p className="rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-400" role="alert">
+        <p
+          className="border-error/40 bg-error/10 text-error rounded-[4px] border px-4 py-3 text-sm font-semibold"
+          role="alert"
+        >
           {error}
         </p>
       )}
@@ -124,7 +130,7 @@ export function RegisterForm({ labels, redirectTo, locale = 'en' }: RegisterForm
       <button
         type="submit"
         disabled={loading}
-        className="bg-accent-primary text-bg-primary inline-flex w-full items-center justify-center rounded-full px-4 py-4 text-sm font-semibold transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+        className="bg-accent-primary hover:bg-accent-hover text-bg-primary inline-flex min-h-12 w-full items-center justify-center rounded-full px-4 py-3.5 text-sm font-semibold transition-colors disabled:opacity-50"
       >
         {loading ? '...' : labels.submit}
       </button>

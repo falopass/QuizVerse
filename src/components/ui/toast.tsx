@@ -4,7 +4,6 @@ import { useCallback, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useToast, type Toast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
-import { getCopy } from '@/lib/i18n/dictionaries';
 import { localeFromPathname } from '@/lib/i18n/navigation';
 
 interface DisplayedToast {
@@ -12,17 +11,37 @@ interface DisplayedToast {
   exiting: boolean;
 }
 
+function prefersReducedMotion(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+}
+
 function ToastIcon({ type }: { type: Toast['type'] }) {
   switch (type) {
     case 'success':
       return (
-        <svg className="text-success h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          aria-hidden="true"
+          className="text-success h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
       );
     case 'error':
       return (
-        <svg className="text-error h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          aria-hidden="true"
+          className="text-error h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -33,7 +52,13 @@ function ToastIcon({ type }: { type: Toast['type'] }) {
       );
     case 'warning':
       return (
-        <svg className="text-warning h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          aria-hidden="true"
+          className="text-warning h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -45,7 +70,8 @@ function ToastIcon({ type }: { type: Toast['type'] }) {
     case 'info':
       return (
         <svg
-          className="text-accent-secondary h-5 w-5"
+          aria-hidden="true"
+          className="text-accent-primary h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -80,7 +106,7 @@ function ToastItem({
       }}
       className={cn(
         exiting ? 'toast-item-exit' : 'toast-item',
-        'relative flex items-start gap-3 rounded-lg border p-4 shadow-lg',
+        'shadow-card relative flex items-start gap-3 rounded-[4px] border p-4',
         'bg-bg-secondary border-border-subtle',
         'w-[calc(100vw-2rem)] max-w-md min-w-0 sm:w-auto sm:min-w-[320px]'
       )}
@@ -95,9 +121,10 @@ function ToastItem({
         )}
       </div>
       <button
+        type="button"
         onClick={() => onClose(toast.id)}
         aria-label={closeLabel}
-        className="text-text-muted hover:text-text-primary flex-shrink-0 transition-colors"
+        className="text-text-muted hover:text-text-primary inline-flex min-h-8 min-w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors"
       >
         <svg
           className="h-4 w-4"
@@ -116,7 +143,7 @@ function ToastItem({
       </button>
       {/* Progress bar for duration */}
       {toast.duration && (
-        <div className="bg-bg-tertiary absolute right-0 bottom-0 left-0 h-0.5 overflow-hidden rounded-b-lg">
+        <div className="bg-bg-tertiary absolute right-0 bottom-0 left-0 h-0.5 overflow-hidden rounded-b-[4px]">
           <div
             className={cn(
               'toast-progress h-full',
@@ -139,10 +166,12 @@ function ToastItem({
 export function ToastViewport() {
   const { toasts, removeToast } = useToast();
   const pathname = usePathname();
-  const closeLabel = getCopy(localeFromPathname(pathname), 'common').dismissNotification;
+  const closeLabel =
+    localeFromPathname(pathname) === 'es' ? 'Cerrar aviso' : 'Dismiss notification';
 
   // El provider quita el aviso al instante; el viewport lo conserva como
-  // "fantasma" hasta que termina su animación de salida de CSS.
+  // "fantasma" hasta que termina su animación de salida de CSS (salvo en
+  // movimiento reducido, donde sale de inmediato).
   const [displayed, setDisplayed] = useState<DisplayedToast[]>(() =>
     toasts.map((toast) => ({ toast, exiting: false }))
   );
@@ -150,11 +179,13 @@ export function ToastViewport() {
 
   if (toasts !== lastToasts) {
     setLastToasts(toasts);
+    const reduced = prefersReducedMotion();
     setDisplayed((prev) => {
       const live = new Map(toasts.map((toast) => [toast.id, toast]));
-      const kept = prev.map((entry) => {
+      const kept = prev.flatMap((entry) => {
         const current = live.get(entry.toast.id);
-        return current ? { toast: current, exiting: false } : { ...entry, exiting: true };
+        if (current) return [{ toast: current, exiting: false }];
+        return reduced ? [] : [{ ...entry, exiting: true }];
       });
       const known = new Set(prev.map((entry) => entry.toast.id));
       const added = toasts

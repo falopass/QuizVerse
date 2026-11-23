@@ -4,7 +4,6 @@ import * as React from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
 import { useEffect, useRef } from 'react';
-import { getCopy } from '@/lib/i18n/dictionaries';
 import { localeFromPathname } from '@/lib/i18n/navigation';
 
 export interface ModalProps {
@@ -42,7 +41,7 @@ export function Modal({
   closeLabel,
 }: ModalProps) {
   const pathname = usePathname();
-  const closeText = closeLabel ?? getCopy(localeFromPathname(pathname), 'common').close;
+  const closeText = closeLabel ?? (localeFromPathname(pathname) === 'es' ? 'Cerrar' : 'Close');
   const dialogRef = useRef<HTMLDivElement>(null);
   const instanceId = React.useId();
   const titleId = `${instanceId}-title`;
@@ -115,11 +114,11 @@ export function Modal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* Backdrop */}
+      {/* Backdrop con respaldo sólido AA */}
       <div
         className={cn(
-          'fixed inset-0 bg-black/60 backdrop-blur-sm',
-          'transition-opacity duration-300',
+          'bg-bg-primary/80 fixed inset-0 backdrop-blur-sm',
+          'transition-opacity duration-200',
           'animate-fade-in'
         )}
         onClick={closeOnOverlayClick ? onClose : undefined}
@@ -129,7 +128,7 @@ export function Modal({
       {/* Modal */}
       <div
         className={cn(
-          'bg-bg-secondary shadow-elevated relative w-full rounded-xl',
+          'bg-bg-secondary shadow-elevated relative w-full rounded-[4px]',
           'border-border-subtle border',
           'flex flex-col',
           'max-h-[90vh]',
@@ -147,17 +146,27 @@ export function Modal({
         {(title || showCloseButton) && (
           <div className="border-border-subtle flex items-center justify-between border-b px-6 py-4">
             {title && (
-              <h2 id={titleId} className="text-text-primary text-lg font-semibold">
+              <h2
+                id={titleId}
+                className="text-text-primary font-body text-lg font-bold tracking-normal"
+              >
                 {title}
               </h2>
             )}
             {showCloseButton && (
               <button
+                type="button"
                 onClick={onClose}
-                className="text-text-muted hover:text-text-primary hover:bg-bg-tertiary rounded-lg p-2 transition-colors"
+                className="text-text-muted hover:text-text-primary hover:bg-bg-tertiary inline-flex min-h-11 min-w-11 items-center justify-center rounded-full p-2 transition-colors"
                 aria-label={closeText}
               >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  aria-hidden="true"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

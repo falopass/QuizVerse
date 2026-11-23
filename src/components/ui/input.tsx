@@ -32,10 +32,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={type}
             className={cn(
-              `bg-bg-secondary text-text-primary border-border-subtle placeholder:text-text-muted focus:border-accent-primary focus:ring-accent-primary w-full rounded-lg border px-4 py-2.5 transition-all duration-200 focus:ring-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50`,
+              `bg-bg-secondary text-text-primary border-border-subtle placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:outline-accent-primary w-full rounded-[4px] border px-4 py-2.5 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50`,
               leftIcon && 'pl-10',
               rightIcon && 'pr-10',
-              error && 'border-error focus:border-error focus:ring-error',
+              error && 'border-error focus-visible:border-error focus-visible:outline-error',
               className
             )}
             {...props}

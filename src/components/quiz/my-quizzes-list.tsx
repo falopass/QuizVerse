@@ -7,10 +7,14 @@ import { deleteQuiz, setQuizStatus } from '@/actions/quiz.actions';
 import { Button } from '@/components/ui/button';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { formatCompactNumber } from '@/lib/utils/format';
-import { hasLocale, type Locale } from '@/lib/i18n/dictionaries';
+import type { Locale } from '@/lib/i18n/dictionaries';
 import { STATUS_LABEL, STATUS_TONE } from '@/lib/quiz/quiz-status';
 import type { ActionErrorCode } from '@/lib/actions/types';
 import type { QuizStatus, QuizType } from '@/types/database';
+
+function isLocale(value: string): value is Locale {
+  return value === 'en' || value === 'es';
+}
 
 export interface MyQuizRow {
   id: string;
@@ -150,7 +154,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
         <p className="text-text-secondary mt-2">{copy.emptyBody}</p>
         <Link
           href={localizeHref(locale, '/create')}
-          className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium transition-colors"
+          className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-full px-6 font-semibold transition-colors"
         >
           {copy.emptyCta}
         </Link>
@@ -163,7 +167,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
       {errorMessage ? (
         <p
           role="alert"
-          className="border-error/40 bg-error/10 text-error mb-4 rounded-xl border px-4 py-3 text-sm"
+          className="border-error/40 bg-error/10 text-error mb-4 rounded-[4px] border px-4 py-3 text-sm"
         >
           {errorMessage}
         </p>
@@ -171,7 +175,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
       {notice ? (
         <p
           role="status"
-          className="border-warning/40 bg-warning/10 text-warning mb-4 rounded-xl border px-4 py-3 text-sm"
+          className="border-warning/40 bg-warning/10 text-warning mb-4 rounded-[4px] border px-4 py-3 text-sm"
         >
           {notice}
         </p>
@@ -182,7 +186,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
             quiz.status === 'published' ? (
               <Link
                 href={localizeHref(
-                  hasLocale(quiz.language) ? quiz.language : locale,
+                  isLocale(quiz.language) ? quiz.language : locale,
                   `/quiz/${quiz.slug}`
                 )}
                 className="text-text-primary hover:text-accent-primary font-semibold transition-colors"
@@ -242,7 +246,7 @@ export function MyQuizzesList({ quizzes, locale }: { quizzes: MyQuizRow[]; local
                 {quiz.status !== 'published' ? (
                   <Link
                     href={localizeHref(locale, `/my-quizzes/${quiz.id}/edit`)}
-                    className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary border-border-subtle inline-flex h-8 items-center justify-center gap-1.5 rounded-lg border px-3 text-sm font-medium transition-all duration-200"
+                    className="bg-bg-tertiary text-text-primary hover:bg-bg-secondary hover:border-accent-primary border-border-subtle inline-flex h-9 items-center justify-center gap-1.5 rounded-full border px-4 text-sm font-semibold transition-colors"
                   >
                     {copy.edit}
                   </Link>
