@@ -20,6 +20,37 @@ import { createServiceClient } from '@/lib/supabase/service';
 import { isMissingRpcFunction, isMissingTable } from '@/lib/supabase/rpc';
 import { rankGroupEntries, type GroupEntry, type QuizGroupInfo } from '@/lib/quiz/group';
 
+/**
+ * Orden determinista con desempate final por `gameSessionId`:
+ * puntaje desc -> tiempo asc (null al final) -> llegada asc -> sesión asc.
+ */
+export function sortGroupEntriesDeterministically(entries: readonly GroupEntry[]): GroupEntry[] {
+  const base = rankGroupEntries(entries);
+  return base.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    const timeA = a.timeTakenSeconds ?? Number.MAX_SAFE_INTEGER;
+    const timeB = b.timeTakenSeconds ?? Number.MAX_SAFE_INTEGER;
+    if (timeA !== timeB) return timeA - timeB;
+    const byDate = a.createdAt.localeCompare(b.createdAt);
+    if (byDate !== 0) return byDate;
+    return a.gameSessionId.localeCompare(b.gameSessionId);
+  });
+}
+
+/**
+ * Compara si un nuevo intento supera al intento actual de un participante:
+ * mayor puntaje gana; a igual puntaje, menor tiempo válido gana.
+ */
+export function isBetterGroupAttempt(
+  candidate: { score: number; time_taken_seconds: number | null },
+  current: { score: number; time_taken_seconds: number | null }
+): boolean {
+  if (candidate.score !== current.score) return candidate.score > current.score;
+  const candidateTime = candidate.time_taken_seconds ?? Number.MAX_SAFE_INTEGER;
+  const currentTime = current.time_taken_seconds ?? Number.MAX_SAFE_INTEGER;
+  return candidateTime < currentTime;
+}
+
 type Client = Awaited<ReturnType<typeof createClient>>;
 type ServiceClient = NonNullable<ReturnType<typeof createServiceClient>>;
 
@@ -83,7 +114,7 @@ export async function fetchGroupEntries(
 
   if (error) return isAbsent(error) ? missing() : failed();
   return ok(
-    rankGroupEntries(
+    sortGroupEntriesDeterministically(
       (data ?? []).map((row) => ({
         nickname: row.nickname,
         score: row.score,
@@ -281,4 +312,135 @@ export async function insertGroupEntry(
   if (!error) return 'ok';
   if (error.code === '23505') return 'conflict';
   return isAbsent(error) ? 'missing' : 'error';
+}
+
+export interface ReconcileParticipantResult {
+  state: 'ok' | 'missing' | 'error';
+  action: 'insert_new' | 'keep_existing' | 'replaced';
+  entry: GroupEntry | null;
+}
+
+/**
+ * Mantiene un único mejor intento elegible por participante autenticado en el
+ * grupo, compatible con la migración 027 aplicada y sin aplicar.
+ *
+ * - Si el usuario no tenía entradas previas en este grupo, indica `insert_new`.
+ * - Si ya tenía una entrada igual o mejor, indica `keep_existing` y la devuelve.
+ * - Si el nuevo intento supera a su marca anterior (mayor puntaje o menor
+ *   tiempo a igual puntaje), actualiza la fila existente y devuelve `replaced`.
+ */
+export async function reconcileParticipantGroupEntry(
+  service: ServiceClient,
+  groupId: string,
+  session: GroupCreatorSession,
+  nickname: string
+): Promise<ReconcileParticipantResult> {
+  if (!session.player_id) {
+    return { state: 'ok', action: 'insert_new', entry: null };
+  }
+
+  const { data: groupEntries, error: entriesError } = await service
+    .from('quiz_group_entries')
+    .select('id, nickname, score, max_score, time_taken_seconds, game_session_id, created_at')
+    .eq('group_id', groupId);
+
+  if (entriesError) {
+    return {
+      state: isAbsent(entriesError) ? 'missing' : 'error',
+      action: 'insert_new',
+      entry: null,
+    };
+  }
+
+  const rows = (groupEntries ?? []) as Array<{
+    id: string;
+    nickname: string;
+    score: number;
+    max_score: number;
+    time_taken_seconds: number | null;
+    game_session_id: string;
+    created_at: string;
+  }>;
+  if (rows.length === 0) {
+    return { state: 'ok', action: 'insert_new', entry: null };
+  }
+
+  const sessionIds = rows.map((row) => row.game_session_id);
+  const { data: ownedSessions, error: sessionsError } = await service
+    .from('game_sessions')
+    .select('id, player_id')
+    .eq('player_id', session.player_id);
+
+  if (sessionsError) {
+    return { state: 'error', action: 'insert_new', entry: null };
+  }
+
+  const ownedSet = new Set(
+    ((ownedSessions ?? []) as Array<{ id: string }>)
+      .map((item) => item.id)
+      .filter((id) => sessionIds.includes(id))
+  );
+  const participantEntries = rows.filter((row) => ownedSet.has(row.game_session_id));
+  if (participantEntries.length === 0) {
+    return { state: 'ok', action: 'insert_new', entry: null };
+  }
+
+  // Elige la mejor marca previa del participante si hubiera históricos múltiples.
+  participantEntries.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    const timeA = a.time_taken_seconds ?? Number.MAX_SAFE_INTEGER;
+    const timeB = b.time_taken_seconds ?? Number.MAX_SAFE_INTEGER;
+    if (timeA !== timeB) return timeA - timeB;
+    return (
+      a.created_at.localeCompare(b.created_at) || a.game_session_id.localeCompare(b.game_session_id)
+    );
+  });
+  const bestPrevious = participantEntries[0];
+
+  if (!isBetterGroupAttempt(session, bestPrevious)) {
+    return {
+      state: 'ok',
+      action: 'keep_existing',
+      entry: {
+        nickname: bestPrevious.nickname,
+        score: bestPrevious.score,
+        maxScore: bestPrevious.max_score,
+        timeTakenSeconds: bestPrevious.time_taken_seconds,
+        gameSessionId: bestPrevious.game_session_id,
+        createdAt: bestPrevious.created_at,
+      },
+    };
+  }
+
+  const { error: updateError } = await service
+    .from('quiz_group_entries')
+    .update({
+      nickname,
+      score: session.score,
+      max_score: session.max_score,
+      time_taken_seconds: session.time_taken_seconds,
+      game_session_id: session.id,
+    })
+    .eq('id', bestPrevious.id);
+
+  if (updateError) {
+    return {
+      state: isAbsent(updateError) ? 'missing' : 'error',
+      action: 'insert_new',
+      entry: null,
+    };
+  }
+
+  return {
+    state: 'ok',
+    action: 'replaced',
+    entry: {
+      nickname,
+      score: session.score,
+      maxScore: session.max_score,
+      timeTakenSeconds: session.time_taken_seconds,
+      gameSessionId: session.id,
+      createdAt: bestPrevious.created_at,
+    },
+  };
 }

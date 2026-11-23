@@ -125,7 +125,12 @@ export function QuizPlayer({
           quizNotFoundEyebrow: 'Sin partida',
           quizNotFoundBody:
             'No pudimos cargar las preguntas de este quiz. Vuelve a su ficha o explora otros.',
+          gradingUnavailableEyebrow: 'Modo de respaldo',
+          gradingUnavailableTitle: 'Calificación temporalmente no disponible',
+          gradingUnavailableBody:
+            'Estamos mostrando el catálogo de respaldo mientras se restablece el servicio de partidas. Vuelve al catálogo e inténtalo en unos minutos.',
           browseQuizzes: 'Explorar quizzes',
+          backToCatalog: 'Volver al catálogo',
           backToQuiz: 'Ver la ficha',
           pauseGame: 'Pausar juego',
           correct: 'Correcto',
@@ -150,7 +155,12 @@ export function QuizPlayer({
           quizNotFoundEyebrow: 'No game',
           quizNotFoundBody:
             "We couldn't load this quiz's questions. Head back to its page or browse others.",
+          gradingUnavailableEyebrow: 'Fallback catalog',
+          gradingUnavailableTitle: 'Grading is temporarily unavailable',
+          gradingUnavailableBody:
+            'We are serving the fallback catalog while the game grading service reconnects. Head back to the catalog and try again shortly.',
           browseQuizzes: 'Browse quizzes',
+          backToCatalog: 'Back to catalog',
           backToQuiz: 'View the quiz page',
           pauseGame: 'Pause game',
           correct: 'Correct',
@@ -266,11 +276,12 @@ export function QuizPlayer({
    * el reveal se intenta igual — el servidor puede responder en modo
    * degradado — y la partida se puntúa al enviar pase lo que pase.
    */
-  const beginAttempt = React.useCallback((quizId: string) => {
+  const beginAttempt = React.useCallback((quizId: string, mode?: GameMode) => {
+    if (quizId.startsWith('launch-')) return Promise.resolve(null);
     const gameId = useQuizStore.getState().gameId;
     useQuizStore.getState().setAttemptToken(null);
 
-    const promise = startQuizAttempt(quizId)
+    const promise = (mode ? startQuizAttempt(quizId, { mode }) : startQuizAttempt(quizId))
       .then((result) => {
         if (!result.success || useQuizStore.getState().gameId !== gameId) return null;
         useQuizStore.getState().setAttemptToken(result.attempt);
@@ -363,7 +374,7 @@ export function QuizPlayer({
     hasSubmittedRef.current = false;
     elapsedSecondsRef.current = null;
     startGame(quiz, initialMode ?? 'normal');
-    void beginAttempt(quiz.id);
+    void beginAttempt(quiz.id, initialMode);
   }, [quiz, startGame, initialMode, beginAttempt]);
 
   React.useEffect(() => {
@@ -466,9 +477,14 @@ export function QuizPlayer({
       // por tiempo): si el attempt iba a llegar, ya está en el store. No se
       // espera la promesa para que un cuelgue de red no bloquee el resultado.
       const attemptToken = useQuizStore.getState().attemptToken;
+      const currentMode = useQuizStore.getState().gameMode;
       const result = attemptToken
         ? await submitQuizResult(quiz.id, payload, totalTimeSeconds, attemptToken)
-        : await submitQuizResult(quiz.id, payload, totalTimeSeconds);
+        : currentMode === 'practice'
+          ? await submitQuizResult(quiz.id, payload, totalTimeSeconds, undefined, {
+              mode: 'practice',
+            })
+          : await submitQuizResult(quiz.id, payload, totalTimeSeconds);
       if (isStale()) return;
       if (!result.success) {
         notifySubmitFailed();
@@ -679,7 +695,7 @@ export function QuizPlayer({
 
   const handleStartGame = (mode: GameMode) => {
     startGame(quiz, mode);
-    void beginAttempt(quiz.id);
+    void beginAttempt(quiz.id, mode);
     setSubmission(null);
     setIsSubmittingResult(false);
     setIsCheckingAnswer(false);
@@ -691,6 +707,26 @@ export function QuizPlayer({
     elapsedSecondsRef.current = null;
     playSound('click');
   };
+
+  if (quiz.id.startsWith('launch-')) {
+    return (
+      <div className="arcade-play-page arcade-wrap">
+        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center px-4 py-16">
+          <div className="w-full">
+            <EditorialEmptyState
+              eyebrow={copy.gradingUnavailableEyebrow}
+              title={copy.gradingUnavailableTitle}
+              body={copy.gradingUnavailableBody}
+              primaryHref={localizeHref(uiLocale, '/quiz')}
+              primaryLabel={copy.backToCatalog}
+              secondaryHref={localizeHref(uiLocale, `/quiz/${quiz.slug}`)}
+              secondaryLabel={copy.backToQuiz}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (showModeSelector) {
     return <GameModeSelector quiz={quiz} locale={uiLocale} onSelectMode={handleStartGame} />;

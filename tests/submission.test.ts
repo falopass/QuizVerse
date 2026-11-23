@@ -196,14 +196,45 @@ describe('scoreSubmission — personality', () => {
     expect(scored.resultId).toBe('r-calm');
   });
 
-  it('falls back to the first result when no tags were collected', () => {
-    const scored = scoreSubmission(makePersonalityQuiz(), [
-      { question_id: 'p1', selected_option_id: '', time_ms: 0 },
-    ]);
+  it('falls back to the first result when a valid option has no tags, and skips do not count as participation', () => {
+    const quizWithoutTags = makePersonalityQuiz();
+    quizWithoutTags.questions[0].options[0] = { id: 'p1a', text: 'Books' };
 
-    expect(scored.resultId).toBe('r-bold');
-    // A skipped question still lands in `graded`, so it counts toward the score.
-    expect(scored.score).toBe(1);
+    const withValidUntagged = scoreSubmission(quizWithoutTags, [
+      { question_id: 'p1', selected_option_id: 'p1a', time_ms: 0 },
+    ]);
+    expect(withValidUntagged.participated).toBe(true);
+    expect(withValidUntagged.score).toBe(1);
+    expect(withValidUntagged.resultId).toBe('r-bold');
+
+    const skippedOnly = scoreSubmission(makePersonalityQuiz(), [
+      { question_id: 'p1', selected_option_id: '', time_ms: 0 },
+      { question_id: 'p2', selected_option_id: 'invented', time_ms: 0 },
+    ]);
+    expect(skippedOnly.participated).toBe(false);
+    expect(skippedOnly.answeredCount).toBe(0);
+    expect(skippedOnly.score).toBe(0);
+    expect(skippedOnly.resultId).toBeNull();
+    expect(skippedOnly.resultTitle).toBeNull();
+    expect(skippedOnly.completed).toBe(false);
+    expect(skippedOnly.perfectTrivia).toBe(false);
+  });
+
+  it('separates personality completion from trivia perfection', () => {
+    const completedPersonality = scoreSubmission(makePersonalityQuiz(), [
+      { question_id: 'p1', selected_option_id: 'p1a', time_ms: 0 },
+      { question_id: 'p2', selected_option_id: 'p2a', time_ms: 0 },
+    ]);
+    expect(completedPersonality.completed).toBe(true);
+    expect(completedPersonality.perfectTrivia).toBe(false);
+
+    const perfectTrivia = scoreSubmission(makeQuiz(), [
+      { question_id: 'q1', selected_option_id: 'q1a', time_ms: 0 },
+      { question_id: 'q2', selected_option_id: 'q2a', time_ms: 0 },
+      { question_id: 'q3', selected_option_id: 'q3a', time_ms: 0 },
+    ]);
+    expect(perfectTrivia.completed).toBe(true);
+    expect(perfectTrivia.perfectTrivia).toBe(true);
   });
 });
 
@@ -254,8 +285,11 @@ describe('QuizAnswerSchema', () => {
 });
 
 describe('pointsFor', () => {
-  it('matches the award_quiz_points trigger: 10 + 25 for a perfect game', () => {
+  it('matches the award_quiz_points trigger: 10 + 25 for a perfect trivia game, 10 for personality, 0 without participation', () => {
     expect(pointsFor(true)).toBe(35);
     expect(pointsFor(false)).toBe(10);
+    expect(pointsFor(true, { quizType: 'personality', participated: true })).toBe(10);
+    expect(pointsFor(true, { quizType: 'trivia', participated: false })).toBe(0);
+    expect(pointsFor(false, { participated: false })).toBe(0);
   });
 });

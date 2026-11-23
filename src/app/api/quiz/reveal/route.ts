@@ -52,7 +52,7 @@ const NO_STORE = { 'Cache-Control': 'no-store' } as const;
 
 function attemptStatus(reason: AttemptFailureReason): number {
   if (reason === 'unavailable') return 503;
-  if (reason === 'quiz_mismatch') return 403;
+  if (reason === 'quiz_mismatch' || reason === 'scope_mismatch') return 403;
   return 401;
 }
 
@@ -104,6 +104,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'quiz_not_found' }, { status: 404, headers: NO_STORE });
   }
 
+  if (attempt && Array.isArray(attempt.questionIds) && !attempt.questionIds.includes(questionId)) {
+    return NextResponse.json(
+      { error: 'attempt_scope_mismatch' },
+      { status: 403, headers: NO_STORE }
+    );
+  }
+
   if (purpose === 'hint') {
     if (!quiz.questions.some((question) => question.id === questionId)) {
       return NextResponse.json({ error: 'question_not_found' }, { status: 404, headers: NO_STORE });
@@ -113,7 +120,8 @@ export async function POST(request: Request) {
     if (attempt) {
       const hint = await claimHint(attempt.attemptId, questionId);
       if (!hint.ok) {
-        return NextResponse.json({ error: hint.reason }, { status: 409, headers: NO_STORE });
+        const status = hint.reason === 'store_unavailable' ? 503 : 409;
+        return NextResponse.json({ error: hint.reason }, { status, headers: NO_STORE });
       }
     }
     return NextResponse.json(
@@ -132,7 +140,9 @@ export async function POST(request: Request) {
   }
 
   if (attempt) {
-    const questionIndex = quiz.questions.findIndex((question) => question.id === questionId);
+    const questionIndex = Array.isArray(attempt.questionIds)
+      ? attempt.questionIds.indexOf(questionId)
+      : quiz.questions.findIndex((question) => question.id === questionId);
     const claim = await claimQuestionReveal(
       attempt.attemptId,
       questionId,
@@ -140,7 +150,8 @@ export async function POST(request: Request) {
       selectedOptionId
     );
     if (!claim.ok) {
-      return NextResponse.json({ error: claim.reason }, { status: 409, headers: NO_STORE });
+      const status = claim.reason === 'store_unavailable' ? 503 : 409;
+      return NextResponse.json({ error: claim.reason }, { status, headers: NO_STORE });
     }
   }
 

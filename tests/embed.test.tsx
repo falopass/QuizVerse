@@ -2,7 +2,9 @@ import React from 'react';
 import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { buildEmbedSnippet } from '@/lib/seo/embed';
+import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { InviteBar } from '@/components/shared/invite-bar';
+import type { Quiz } from '@/types/quiz';
 
 const CANONICAL = 'https://quizverse.org/es/quiz/mi-quiz';
 
@@ -77,5 +79,46 @@ describe('InviteBar', () => {
     const copied = writeText.mock.calls[0][0] as string;
     expect(copied).toContain('<iframe src="https://quizverse.org/embed/es/mi-quiz"');
     expect(copied).toContain('href="https://quizverse.org/es/quiz/mi-quiz"');
+  });
+
+  it('la proyección de cliente para embed elimina is_correct y explanation previas', () => {
+    const sanitized = toClientQuiz({
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      slug: 'mi-quiz',
+      title: 'Mi Quiz',
+      description: null,
+      cover_image_url: null,
+      quiz_type: 'trivia',
+      difficulty: 'easy',
+      language: 'es',
+      questions: [
+        {
+          id: 'q1',
+          question: '¿Capital?',
+          explanation: 'Santiago es la capital de Chile.',
+          options: [
+            { id: 'a', text: 'Santiago', is_correct: true },
+            { id: 'b', text: 'Lima', is_correct: false },
+          ],
+        },
+      ],
+      results: null,
+      tags: [],
+      estimated_minutes: 2,
+      plays_count: 0,
+      shares_count: 0,
+      avg_score: null,
+      likes_count: 0,
+      status: 'published',
+      is_featured: false,
+      is_ai_generated: false,
+      published_at: null,
+      updated_at: null,
+      created_at: '2026-01-01',
+    } as Quiz);
+
+    expect(JSON.stringify(sanitized)).not.toContain('is_correct');
+    expect(JSON.stringify(sanitized)).not.toContain('explanation');
+    expect(JSON.stringify(sanitized)).not.toContain('Santiago es la capital de Chile.');
   });
 });

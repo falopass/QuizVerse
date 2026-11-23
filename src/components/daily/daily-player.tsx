@@ -5,6 +5,7 @@ import { startQuizAttempt } from '@/actions/quiz.actions';
 import { submitDailyResult } from '@/actions/daily.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { localizeCategory } from '@/lib/i18n/catalog';
+import { localizeHref } from '@/lib/i18n/navigation';
 import { requestAnswerVerdict } from '@/lib/quiz/reveal-client';
 import { FEEDBACK_AUTO_ADVANCE_MS, NO_VERDICT_AUTO_ADVANCE_MS } from '@/stores/quiz-store';
 import { trackEvent } from '@/lib/telemetry/client';
@@ -48,6 +49,10 @@ const COPY = {
     failedTitle: 'No pudimos calificar el reto.',
     failedBody: 'El servidor no respondió. Tu partida sigue aquí: reintenta para no perderla.',
     retry: 'Reintentar',
+    fallbackTitle: 'Calificación temporalmente no disponible',
+    fallbackBody:
+      'Estamos mostrando el catálogo de respaldo mientras se restablece el servicio de partidas. Vuelve al catálogo e inténtalo en unos minutos.',
+    backToCatalog: 'Volver al catálogo',
   },
   en: {
     eyebrow: 'The QuizVerse daily quiz',
@@ -61,6 +66,10 @@ const COPY = {
     failedTitle: 'We could not grade the challenge.',
     failedBody: 'The server did not answer. Your game is still here: retry to keep it.',
     retry: 'Retry',
+    fallbackTitle: 'Grading is temporarily unavailable',
+    fallbackBody:
+      'We are serving the fallback catalog while the game grading service reconnects. Head back to the catalog and try again shortly.',
+    backToCatalog: 'Back to catalog',
   },
 } as const;
 
@@ -100,7 +109,10 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
   const [introStreak, setIntroStreak] = React.useState(0);
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedOptionId, setSelectedOptionId] = React.useState<string | null>(null);
-  const [verdict, setVerdict] = React.useState<{ correctOptionId: string | null } | null>(null);
+  const [verdict, setVerdict] = React.useState<{
+    correctOptionId: string | null;
+    explanation?: string | null;
+  } | null>(null);
   const [isChecking, setIsChecking] = React.useState(false);
 
   const answersRef = React.useRef<GivenAnswer[]>([]);
@@ -154,14 +166,21 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
   );
 
   const beginAttempt = React.useCallback(() => {
-    attemptPromiseRef.current = startQuizAttempt(challenge.quiz.id)
+    if (challenge.quiz.id.startsWith('launch-')) {
+      attemptPromiseRef.current = Promise.resolve(null);
+      return;
+    }
+    attemptPromiseRef.current = startQuizAttempt(challenge.quiz.id, {
+      mode: 'daily',
+      dayKey: challenge.dayKey,
+    })
       .then((result) => {
         const token = result.success ? result.attempt : null;
         attemptTokenRef.current = token;
         return token;
       })
       .catch(() => null);
-  }, [challenge.quiz.id]);
+  }, [challenge.dayKey, challenge.quiz.id]);
 
   const handlePlay = () => {
     answersRef.current = [];
@@ -278,7 +297,12 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
       selectedOptionId: optionId,
       isCorrect: revealed?.isCorrect ?? null,
     });
-    if (revealed) setVerdict({ correctOptionId: revealed.correctOptionId });
+    if (revealed) {
+      setVerdict({
+        correctOptionId: revealed.correctOptionId,
+        explanation: revealed.explanation ?? null,
+      });
+    }
 
     const isLast = questionIndex + 1 >= challenge.quiz.questions.length;
     if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
@@ -295,6 +319,25 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
       revealed ? FEEDBACK_AUTO_ADVANCE_MS : NO_VERDICT_AUTO_ADVANCE_MS
     );
   };
+
+  if (challenge.quiz.id.startsWith('launch-')) {
+    return (
+      <section className="arcade-hero">
+        <div className="arcade-hero-copy">
+          <span className="arcade-live">
+            {copy.eyebrow} · {copy.challenge} #{challenge.challengeNumber}
+          </span>
+          <h1>{copy.fallbackTitle}</h1>
+          <p>{copy.fallbackBody}</p>
+          <div className="arcade-daily-intro-actions">
+            <a href={localizeHref(locale, '/quiz')} className="arcade-button arcade-button-pink">
+              {copy.backToCatalog} ↗
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (phase === 'done' && record) {
     return (
@@ -347,6 +390,7 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
             onSelectOption={(optionId) => void handleSelect(optionId)}
             showFeedback={verdict !== null}
             correctOptionId={verdict?.correctOptionId}
+            explanation={verdict?.explanation ?? null}
             disabled={isChecking || verdict !== null}
             locale={locale}
             verdictText={

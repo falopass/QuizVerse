@@ -41,6 +41,7 @@ import {
   insertGroupEntry,
   type GroupCreatorSession,
 } from '@/lib/data/group';
+import * as groupDataModule from '@/lib/data/group';
 
 /** 20/min por IP: crea grupos y une entradas (escrituras). */
 const groupLimiter = createRateLimiter('quiz-group', 20, 60, 'open');
@@ -238,6 +239,14 @@ export async function joinQuizGroup(input: {
   if (session.quiz_id !== group.quizId) {
     return actionFailure('invalid_input', 'This session belongs to another quiz.');
   }
+  if (
+    session.max_score <= 0 ||
+    session.score < 0 ||
+    session.score > session.max_score ||
+    (session.time_taken_seconds !== null && session.time_taken_seconds < 0)
+  ) {
+    return actionFailure('invalid_input', 'This session is not eligible for the group ranking.');
+  }
 
   const {
     data: { user },
@@ -253,6 +262,29 @@ export async function joinQuizGroup(input: {
   }
   if (already.value) {
     return { success: true, entry: already.value, alreadyJoined: true };
+  }
+
+  let reconcileFn: typeof groupDataModule.reconcileParticipantGroupEntry | null = null;
+  try {
+    if (typeof groupDataModule.reconcileParticipantGroupEntry === 'function') {
+      reconcileFn = groupDataModule.reconcileParticipantGroupEntry;
+    }
+  } catch {
+    reconcileFn = null;
+  }
+
+  if (session.player_id && reconcileFn) {
+    const participantOutcome = await reconcileFn(service, group.id, session, nickname!);
+    if (participantOutcome.state === 'missing') return unavailable('joinQuizGroup');
+    if (participantOutcome.state === 'error') {
+      return unexpectedFailure('joinQuizGroup.participant', 'participant entry lookup failed');
+    }
+    if (participantOutcome.action === 'keep_existing' && participantOutcome.entry) {
+      return { success: true, entry: participantOutcome.entry, alreadyJoined: true };
+    }
+    if (participantOutcome.action === 'replaced' && participantOutcome.entry) {
+      return { success: true, entry: participantOutcome.entry, alreadyJoined: false };
+    }
   }
 
   const inserted = await insertGroupEntry(service, {

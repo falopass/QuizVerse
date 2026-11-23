@@ -26,8 +26,12 @@ import {
   sessionIdsForAttempt,
   verifyQuizAttempt,
   warnAttemptsInactive,
+  type QuizAttempt,
+  type QuizAttemptVariant,
 } from '@/lib/quiz/attempt';
-import { getAttemptReveals } from '@/lib/quiz/attempt-store';
+import * as attemptStore from '@/lib/quiz/attempt-store';
+import { DAILY_QUESTION_COUNT, dateFromDayKey, pickDailyQuestions } from '@/lib/content/daily-pick';
+import { parseQuestions } from '@/lib/data/normalizers';
 import {
   PersonalityResultSchema,
   QuestionSchema,
@@ -497,6 +501,44 @@ function newShareToken(): string {
 /** Una partida nueva por reinicio es normal; 30/min por IP ya es abuso. */
 const attemptLimiter = createRateLimiter('quiz-attempt', 30, 60, 'open');
 
+function isFallbackQuizId(quizId: string | null | undefined): boolean {
+  return typeof quizId === 'string' && quizId.startsWith('launch-');
+}
+
+function optionalAttemptStoreFn<T>(name: keyof typeof attemptStore): T | null {
+  try {
+    const fn = attemptStore[name];
+    return typeof fn === 'function' ? (fn as unknown as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+function authoritativeTimeForAttempt(
+  clientSeconds: number,
+  attempt: Pick<QuizAttempt, 'issuedAt' | 'expiresAt'> | null
+): number {
+  const maxSeconds = 2 * 60 * 60;
+  const sanitizedClient = Math.min(maxSeconds, Math.max(0, Math.trunc(clientSeconds || 0)));
+  if (!attempt || !Number.isInteger(attempt.issuedAt) || !Number.isInteger(attempt.expiresAt)) {
+    return sanitizedClient;
+  }
+  const ttl = 3 * 60 * 60;
+  if (attempt.expiresAt - attempt.issuedAt !== ttl) {
+    return sanitizedClient;
+  }
+  const elapsed = Math.floor(Date.now() / 1000) - attempt.issuedAt;
+  if (elapsed <= 0 || elapsed > ttl) {
+    return sanitizedClient;
+  }
+  return Math.min(maxSeconds, elapsed);
+}
+
+export interface StartQuizAttemptOptions {
+  mode?: QuizAttemptVariant;
+  dayKey?: string;
+}
+
 /**
  * Emite el attempt firmado de una partida.
  *
@@ -506,8 +548,12 @@ const attemptLimiter = createRateLimiter('quiz-attempt', 30, 60, 'open');
  * responde en modo degradado (como antes de los attempts).
  */
 export async function startQuizAttempt(
-  quizId: string
+  quizId: string,
+  options?: StartQuizAttemptOptions
 ): Promise<ActionResult<{ attempt: string; expiresAt: number }>> {
+  if (isFallbackQuizId(quizId)) {
+    return actionFailure('unavailable', 'Fallback catalog quizzes cannot be graded right now.');
+  }
   const parsed = z.string().uuid().safeParse(quizId);
   if (!parsed.success) return actionFailure('invalid_input', 'Invalid quiz id.');
 
@@ -515,18 +561,45 @@ export async function startQuizAttempt(
   if (!allowed) return actionFailure('rate_limited', 'Too many games. Please wait.');
 
   const supabase = await createClient();
+  const user = supabase.auth?.getUser ? ((await supabase.auth.getUser()).data?.user ?? null) : null;
   const { data, error } = await supabase
     .from('quizzes')
-    .select('id')
+    .select('id, questions')
     .eq('id', parsed.data)
     .eq('status', 'published')
     .maybeSingle();
   if (error || !data) return actionFailure('not_found', 'Quiz not found.');
 
-  const attempt = await createQuizAttempt(parsed.data);
+  const rawQuestions = (data as { id: string; questions?: unknown }).questions;
+  let questionIds: string[] | undefined;
+  if (Array.isArray(rawQuestions)) {
+    const parsedQuestions = parseQuestions(rawQuestions as Parameters<typeof parseQuestions>[0]);
+    if (options?.mode === 'daily' && options.dayKey && /^\d{4}-\d{2}-\d{2}$/.test(options.dayKey)) {
+      questionIds = pickDailyQuestions(parsedQuestions, dateFromDayKey(options.dayKey))
+        .slice(0, DAILY_QUESTION_COUNT)
+        .map((q) => q.id);
+    } else if (parsedQuestions.length > 0) {
+      questionIds = parsedQuestions.map((q) => q.id);
+    }
+  }
+
+  const attempt = await createQuizAttempt(parsed.data, Date.now(), {
+    userId: user?.id ?? null,
+    variant: options?.mode ?? 'normal',
+    ...(questionIds && questionIds.length > 0 ? { questionIds } : {}),
+    ...(options?.dayKey ? { dayKey: options.dayKey } : {}),
+  });
   if (!attempt) {
     warnAttemptsInactive();
     return actionFailure('unavailable', 'Game attempts are not configured.');
+  }
+
+  const initFn = optionalAttemptStoreFn<typeof attemptStore.initAttemptState>('initAttemptState');
+  if (initFn) {
+    const initialized = await initFn(attempt.attempt.attemptId);
+    if (!initialized) {
+      return actionFailure('unavailable', 'Game state store is temporarily unavailable.');
+    }
   }
 
   return { success: true, attempt: attempt.token, expiresAt: attempt.attempt.expiresAt };
@@ -645,6 +718,24 @@ function storedAnswers(existing: StoredSession | null, fallback: Answer[]): Answ
   );
 }
 
+function hasValidStoredParticipation(quiz: AnswerKeyQuiz, existing: StoredSession | null): boolean {
+  if (!existing) return false;
+  if (existing.score > 0) return true;
+  if (!Array.isArray(existing.answers)) return false;
+  return existing.answers.some((item) => {
+    if (!item || typeof item !== 'object') return false;
+    const answer = item as Answer;
+    if (typeof answer.question_id !== 'string' || typeof answer.selected_option_id !== 'string') {
+      return false;
+    }
+    if (!answer.selected_option_id) return false;
+    const question = quiz.questions.find((q) => q.id === answer.question_id);
+    return question
+      ? question.options.some((opt) => opt.id === answer.selected_option_id)
+      : Boolean(answer.selected_option_id);
+  });
+}
+
 /**
  * Respuesta de un envío repetido: la sesión existe, no se suma nada.
  *
@@ -662,14 +753,18 @@ async function duplicateSubmitResult(
   scored: ReturnType<typeof scoreSubmission>,
   session: { id: string; shareToken: string },
   existing: StoredSession | null,
-  user: { id: string } | null
+  user: { id: string } | null,
+  reviewAuthorized = true
 ): Promise<ActionResult<SubmitGameResult>> {
   const resultId = existing?.result_id ?? scored.resultId;
   const partner = resultId ? (quiz.results ?? []).find((item) => item.id === resultId) : undefined;
-  const perfect = existing
-    ? existing.max_score > 0 && existing.score === existing.max_score
-    : scored.perfect;
-  const awarded = Boolean(existing?.player_id);
+  const participated = existing ? hasValidStoredParticipation(quiz, existing) : scored.participated;
+  const perfectTrivia =
+    quiz.quiz_type === 'trivia' &&
+    (existing
+      ? existing.max_score > 0 && existing.score === existing.max_score
+      : scored.perfectTrivia);
+  const awarded = Boolean(existing?.player_id) && participated;
   const samePlayer = Boolean(existing?.player_id) && existing?.player_id === user?.id;
 
   return {
@@ -683,11 +778,19 @@ async function duplicateSubmitResult(
       : null,
     score: existing?.score ?? scored.score,
     max_score: existing?.max_score ?? scored.maxScore,
-    points_earned: awarded ? pointsFor(perfect) : 0,
+    points_earned: awarded
+      ? pointsFor(perfectTrivia, { participated, quizType: quiz.quiz_type })
+      : 0,
     achievements_unlocked:
-      samePlayer && user ? await checkAchievements(user.id, { perfectScore: perfect }) : [],
-    review: buildReview(quiz, storedAnswers(existing, scored.graded)),
+      samePlayer && user && awarded
+        ? await checkAchievements(user.id, { perfectScore: perfectTrivia })
+        : [],
+    review: reviewAuthorized ? buildReview(quiz, storedAnswers(existing, scored.graded)) : [],
   };
+}
+
+export interface SubmitQuizOptions {
+  mode?: QuizAttemptVariant;
 }
 
 /**
@@ -706,7 +809,8 @@ export async function submitQuizResult(
   quizId: string,
   answers: SubmittedAnswer[],
   timeTakenSeconds = 0,
-  attemptToken?: string
+  attemptToken?: string,
+  options?: SubmitQuizOptions
 ): Promise<ActionResult<SubmitGameResult>> {
   const { supabase, user } = await currentUser();
 
@@ -715,6 +819,10 @@ export async function submitQuizResult(
   // submissions and lose finished games.
   const { allowed } = await quizLimiter.check(user?.id ?? `anonymous:${await clientIp()}`);
   if (!allowed) return actionFailure('rate_limited', 'Too many submissions. Please wait.');
+
+  if (isFallbackQuizId(quizId)) {
+    return actionFailure('unavailable', 'Fallback catalog quizzes cannot be graded right now.');
+  }
 
   const parsed = QuizSubmissionSchema.safeParse({ quizId, answers, timeTakenSeconds });
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
@@ -728,7 +836,26 @@ export async function submitQuizResult(
     // (ver `pointsEligible`) para que omitirlo no sea una vía de farmeo.
     console.warn(`[quiz.submit] attempt ${verification.reason}: se envía sin binding`);
   }
-  const attempt = verification?.ok ? verification.attempt : null;
+
+  let verifiedAttempt: QuizAttempt | null = verification?.ok ? verification.attempt : null;
+  if (verifiedAttempt) {
+    const quizQuestionIds = quiz.questions.map((question) => question.id);
+    const wrongVariant = verifiedAttempt.variant === 'daily';
+    const wrongOwner =
+      verifiedAttempt.userId !== undefined &&
+      verifiedAttempt.userId !== null &&
+      verifiedAttempt.userId !== (user?.id ?? null);
+    const wrongQuestions =
+      Array.isArray(verifiedAttempt.questionIds) &&
+      (verifiedAttempt.questionIds.length !== quizQuestionIds.length ||
+        verifiedAttempt.questionIds.some((id, idx) => id !== quizQuestionIds[idx]));
+
+    if (wrongVariant || wrongOwner || wrongQuestions) {
+      console.warn('[quiz.submit] attempt scope_mismatch: se envía sin binding');
+      verifiedAttempt = null;
+    }
+  }
+  const attempt = verifiedAttempt;
 
   // Con secreto configurado, un envío sin attempt válido no puede otorgar
   // puntos: si no, bastaba con revelar la clave y enviar las respuestas
@@ -736,25 +863,62 @@ export async function submitQuizResult(
   // comportamiento anterior para no perder partidas.
   const secured = attemptsAvailable();
   if (!secured) warnAttemptsInactive();
-  const pointsEligible = Boolean(attempt) || !secured;
-  if (user && !pointsEligible) {
-    console.warn(
-      '[quiz.submit] envío autenticado sin attempt: se guarda como anónimo para no otorgar puntos'
-    );
-  }
 
   // Si hubo reveal, la opción revelada es la que vale: ver la respuesta
   // correcta y enviar otra distinta no puede mejorar el marcador.
-  const revealed = attempt ? await getAttemptReveals(attempt.attemptId) : null;
-  const submitted = revealed
+  const revealed = attempt ? await attemptStore.getAttemptReveals(attempt.attemptId) : null;
+  const stateLost = secured && Boolean(attempt) && revealed === null;
+  if (stateLost) {
+    console.warn(
+      '[quiz.submit] estado del attempt no disponible (caída o cambio de isolate): se degrada a práctica sin premios'
+    );
+  }
+
+  const submittedChoiceMap: Record<string, string> = {};
+  for (const answer of parsed.data.answers) {
+    if (
+      answer.question_id &&
+      typeof answer.selected_option_id === 'string' &&
+      answer.selected_option_id.length > 0 &&
+      submittedChoiceMap[answer.question_id] === undefined
+    ) {
+      submittedChoiceMap[answer.question_id] = answer.selected_option_id;
+    }
+  }
+
+  const finalizeFn =
+    optionalAttemptStoreFn<typeof attemptStore.finalizeAttemptState>('finalizeAttemptState');
+  const finalized =
+    attempt && !stateLost && finalizeFn
+      ? await finalizeFn(attempt.attemptId, submittedChoiceMap)
+      : null;
+  const lockedChoices = finalized?.ok ? finalized.choices : revealed;
+
+  const submitted = lockedChoices
     ? parsed.data.answers.map((answer) =>
-        revealed[answer.question_id] !== undefined
-          ? { ...answer, selected_option_id: revealed[answer.question_id] }
+        lockedChoices[answer.question_id] !== undefined
+          ? { ...answer, selected_option_id: lockedChoices[answer.question_id] }
           : answer
       )
     : parsed.data.answers;
 
   const scored = scoreSubmission(quiz, submitted);
+
+  const isPractice = options?.mode === 'practice' || attempt?.variant === 'practice';
+  const startedAnonymouslyAndLoggedInLater = Boolean(
+    attempt && attempt.userId === null && user?.id
+  );
+  const hasValidAttemptForRewards =
+    Boolean(attempt) && !stateLost && !isPractice && !startedAnonymouslyAndLoggedInLater;
+  const pointsEligible =
+    scored.participated && !isPractice && (hasValidAttemptForRewards || !secured);
+  const reviewAuthorized = !secured || (Boolean(attempt) && !stateLost);
+
+  if (user && !pointsEligible) {
+    console.warn(
+      '[quiz.submit] envío autenticado no elegible para premios (sin attempt, práctica o cero participación): se guarda como anónimo'
+    );
+  }
 
   const ids = (attempt ? await sessionIdsForAttempt(attempt.attemptId) : null) ?? {
     id: crypto.randomUUID(),
@@ -765,12 +929,20 @@ export async function submitQuizResult(
     existing = await findSessionById(supabase, ids.id);
   }
 
-  if (existing) return duplicateSubmitResult(quiz, scored, ids, existing, user);
+  if (existing) {
+    return duplicateSubmitResult(quiz, scored, ids, existing, user, reviewAuthorized);
+  }
 
-  // La policy nueva de game_sessions solo deja leer las propias, así que un
-  // INSERT ... RETURNING devolvería 0 filas para un anónimo y la partida se
-  // perdería. id y share_token se generan aquí (misma forma que los defaults
-  // de la tabla) y el insert no necesita leer nada de vuelta.
+  const authoritativeTimeSeconds = authoritativeTimeForAttempt(
+    parsed.data.timeTakenSeconds,
+    attempt
+  );
+
+  // La policy de game_sessions solo deja leer las propias y la migración 026
+  // reserva el INSERT al escritor de servidor (`service_role`). Cuando no hay
+  // `SUPABASE_SERVICE_ROLE_KEY` (entornos locales/tests sin migración 026) cae
+  // al cliente SSR normal.
+  const writer = createServiceClient() ?? supabase;
   const insert = {
     id: ids.id,
     share_token: ids.shareToken,
@@ -780,12 +952,12 @@ export async function submitQuizResult(
     max_score: scored.maxScore,
     result_id: scored.resultId,
     result_title: scored.resultTitle,
-    time_taken_seconds: parsed.data.timeTakenSeconds,
+    time_taken_seconds: authoritativeTimeSeconds,
     answers: toJson(scored.graded),
     ...(attempt ? { attempt_id: attempt.attemptId } : {}),
   };
 
-  let { error } = await supabase.from('game_sessions').insert(insert);
+  let { error } = await writer.from('game_sessions').insert(insert);
 
   if (error && attempt && isMissingAttemptColumn(error)) {
     // Sin la migración 020 la columna no existe: se guarda como antes. El id
@@ -793,12 +965,16 @@ export async function submitQuizResult(
     warnMissingAttemptColumn();
     const withoutAttempt = { ...insert };
     delete withoutAttempt.attempt_id;
-    ({ error } = await supabase.from('game_sessions').insert(withoutAttempt));
+    ({ error } = await writer.from('game_sessions').insert(withoutAttempt));
     if (error && isDuplicateSession(error)) {
-      return duplicateSubmitResult(quiz, scored, ids, null, user);
+      const winner = await findSessionById(supabase, ids.id);
+      return duplicateSubmitResult(quiz, scored, ids, winner, user, reviewAuthorized);
     }
   } else if (error && attempt && isDuplicateSession(error)) {
-    return duplicateSubmitResult(quiz, scored, ids, null, user);
+    const winner =
+      (await findSessionByAttempt(supabase, attempt.attemptId)) ??
+      (await findSessionById(supabase, ids.id));
+    return duplicateSubmitResult(quiz, scored, ids, winner, user, reviewAuthorized);
   }
 
   if (error) {
@@ -806,9 +982,9 @@ export async function submitQuizResult(
   }
 
   // Best effort: a failed counter must never fail a finished game. Con la
-  // migración 013 este EXECUTE queda revocado y el INSERT de arriba ya sumó la
-  // jugada vía trigger; sin ella esta llamada es la que cuenta.
-  await supabase.rpc('increment_plays', { quiz_uuid: quiz.id });
+  // migración 013 este EXECUTE queda revocado para roles públicos y el INSERT
+  // de arriba ya sumó la jugada vía trigger; sin ella esta llamada es la que cuenta.
+  await writer.rpc('increment_plays', { quiz_uuid: quiz.id });
 
   const partner = scored.resultId
     ? (quiz.results ?? []).find((item) => item.id === scored.resultId)
@@ -822,12 +998,18 @@ export async function submitQuizResult(
       : null,
     score: scored.score,
     max_score: scored.maxScore,
-    review: buildReview(quiz, scored.graded),
-    // El trigger award_quiz_points solo corre con player_id: una partida
-    // anónima no otorga nada y la respuesta debe decir lo mismo.
-    points_earned: pointsEligible && user ? pointsFor(scored.perfect) : 0,
+    review: reviewAuthorized ? buildReview(quiz, scored.graded) : [],
+    // El trigger award_quiz_points solo corre con player_id y participación;
+    // la perfección (+25) es exclusiva de trivia.
+    points_earned:
+      pointsEligible && user
+        ? pointsFor(scored.perfectTrivia, {
+            participated: scored.participated,
+            quizType: quiz.quiz_type,
+          })
+        : 0,
     achievements_unlocked: pointsEligible
-      ? await checkAchievements(user?.id ?? null, { perfectScore: scored.perfect })
+      ? await checkAchievements(user?.id ?? null, { perfectScore: scored.perfectTrivia })
       : [],
   };
 }
@@ -933,8 +1115,8 @@ export async function incrementShares(quizId: string): Promise<ActionResult> {
   const { allowed, errored } = await shareLimiter.check(await clientIp());
   if (!allowed && !errored) return { success: true };
 
-  const supabase = await createClient();
-  const { error } = await supabase.rpc('increment_shares', { quiz_uuid: parsed.data });
+  const writer = createServiceClient() ?? (await createClient());
+  const { error } = await writer.rpc('increment_shares', { quiz_uuid: parsed.data });
   if (error) return unexpectedFailure('quiz.share', error);
 
   return { success: true };
@@ -952,8 +1134,8 @@ export async function markSessionShared(shareToken: string): Promise<ActionResul
   const { allowed, errored } = await shareLimiter.check(await clientIp());
   if (!allowed && !errored) return { success: true };
 
-  const supabase = await createClient();
-  const { error } = await supabase.rpc('mark_session_shared', { p_token: parsed.data });
+  const writer = createServiceClient() ?? (await createClient());
+  const { error } = await writer.rpc('mark_session_shared', { p_token: parsed.data });
   // Mientras la migración 018 no esté aplicada el RPC no existe: el share
   // sigue funcionando y la métrica se empieza a llenar cuando se aplique.
   if (error && !isMissingRpcFunction(error)) {

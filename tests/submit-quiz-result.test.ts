@@ -487,4 +487,117 @@ describe('submitQuizResult · idempotencia por attempt', () => {
     };
     expect(payload.answers[1]).toMatchObject({ question_id: 'q2', selected_option_id: 'b' });
   });
+
+  it('en conflicto 23505 lee la fila ganadora y devuelve su sesión y premios confirmados', async () => {
+    mocks.userId = 'u-winner';
+    mocks.insertErrors = [{ code: '23505', message: 'duplicate key value' }];
+    mocks.selectResult = {
+      data: null,
+      error: null,
+    };
+    // Tras el conflicto 23505, la segunda lectura devuelve la fila ganadora.
+    let attemptsRead = 0;
+    mocks.selectByIdResult = {
+      data: {
+        id: 'winner-session-id',
+        share_token: 'winner-share-token',
+        player_id: 'u-winner',
+        score: 2,
+        max_score: 2,
+        result_id: null,
+        result_title: null,
+        answers: [
+          { question_id: 'q1', selected_option_id: 'a', is_correct: true },
+          { question_id: 'q2', selected_option_id: 'a', is_correct: true },
+        ],
+      },
+      error: null,
+    };
+    // La lectura previa al INSERT aún no veía la fila; tras el 23505 sí.
+    const origSelectById = mocks.selectByIdResult;
+    mocks.selectByIdResult = { data: null, error: null };
+    mocks.insertSpy.mockImplementationOnce(() => {
+      attemptsRead += 1;
+      mocks.selectByIdResult = origSelectById;
+    });
+
+    const result = await submitQuizResult(QUIZ_ID, ONE_WRONG, 10, ATTEMPT);
+
+    expect(attemptsRead).toBe(1);
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.session).toEqual({
+      id: 'winner-session-id',
+      share_token: 'winner-share-token',
+    });
+    expect(result.score).toBe(2);
+    expect(result.points_earned).toBe(35);
+    expect(mocks.checkAchievementsSpy).toHaveBeenCalledWith(
+      'u-winner',
+      expect.objectContaining({ perfectScore: true })
+    );
+  });
+
+  it('no otorga premios ni logros cuando hay cero participación (todas omitidas)', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mocks.userId = 'u-zero';
+
+    try {
+      const result = await submitQuizResult(QUIZ_ID, [
+        { question_id: 'q1', selected_option_id: '' },
+        { question_id: 'q2', selected_option_id: '' },
+      ]);
+
+      expect(result.success).toBe(true);
+      if (!result.success) return;
+      expect(result.score).toBe(0);
+      expect(result.points_earned).toBe(0);
+      expect(result.achievements_unlocked).toEqual([]);
+      const payload = mocks.insertSpy.mock.calls[0][0] as Record<string, unknown>;
+      expect(payload.player_id).toBeNull();
+      expect(mocks.checkAchievementsSpy).not.toHaveBeenCalled();
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
+
+  it('en modo práctica o pérdida de estado por cambio de isolate guarda sin premios y protege revisión en fallo de estado', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    mocks.attemptsAvailable = true;
+    mocks.userId = 'u-isolate';
+    // attempt válido pero attemptReveals === null indica pérdida de estado (cambio de isolate o caída de Redis).
+    mocks.attemptReveals = null;
+
+    try {
+      const lostState = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+      expect(lostState.success).toBe(true);
+      if (lostState.success) {
+        expect(lostState.points_earned).toBe(0);
+        expect(lostState.achievements_unlocked).toEqual([]);
+        expect(lostState.review).toEqual([]);
+      }
+
+      // Modo práctica con estado válido: sin premios pero con revisión autorizada.
+      mocks.attemptReveals = { q1: 'a', q2: 'a' };
+      mocks.verifyAttempt.mockResolvedValueOnce({
+        ok: true,
+        attempt: {
+          quizId: QUIZ_ID,
+          attemptId: 'att-practice',
+          issuedAt: 1_700_000_000,
+          expiresAt: 1_800_000_000,
+          variant: 'practice',
+        },
+      });
+      const practice = await submitQuizResult(QUIZ_ID, ALL_CORRECT, 10, ATTEMPT);
+      expect(practice.success).toBe(true);
+      if (practice.success) {
+        expect(practice.points_earned).toBe(0);
+        expect(practice.achievements_unlocked).toEqual([]);
+        expect(practice.review).toHaveLength(2);
+      }
+    } finally {
+      warnSpy.mockRestore();
+    }
+  });
 });

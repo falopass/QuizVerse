@@ -114,11 +114,21 @@ async function toKeyQuiz(
 }
 
 /**
+ * True when a quiz comes from the static launch fallback catalog (`launch-*`)
+ * rather than Supabase. Launch fallback entries keep discovery pages alive
+ * during a database outage, but cannot be graded or persisted by the server.
+ */
+export function isFallbackCatalogQuizId(quizId: string | null | undefined): boolean {
+  return typeof quizId === 'string' && quizId.startsWith('launch-');
+}
+
+/**
  * Loads the answer key for a published quiz.
  *
  * Unpublished quizzes return `null`: a draft must not be playable even by id.
  */
 export async function loadAnswerKeyByQuizId(quizId: string): Promise<AnswerKeyQuiz | null> {
+  if (isFallbackCatalogQuizId(quizId)) return null;
   const client = await keyClient();
   const { data, error } = await client
     .from('quizzes')

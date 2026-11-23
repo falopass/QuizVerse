@@ -106,14 +106,30 @@ export function eliminateWrongOptions(
 /**
  * Projection of a quiz that is safe to serialize to the browser.
  *
- * Drops the answer key; keeps everything the play and result screens render.
+ * Explicit public whitelist: drops `options[].is_correct` and
+ * `questions[].explanation` (which in trivia can name or imply the right
+ * option before the player answers). Authorized explanations only leave the
+ * server after a choice via `/api/quiz/reveal` or in the finished session
+ * review built by `buildReview`.
  */
 export function toClientQuiz(quiz: Quiz): Quiz {
   return {
     ...quiz,
-    questions: quiz.questions.map((question) => ({
-      ...question,
-      options: question.options.map(({ is_correct: _isCorrect, ...option }) => option),
+    questions: quiz.questions.map(({ explanation: _explanation, ...question }) => ({
+      id: question.id,
+      question: question.question,
+      ...(question.image_url !== undefined ? { image_url: question.image_url } : {}),
+      ...(question.time_limit_seconds !== undefined
+        ? { time_limit_seconds: question.time_limit_seconds }
+        : {}),
+      options: question.options.map(({ is_correct: _isCorrect, ...option }) => ({
+        id: option.id,
+        text: option.text,
+        ...(option.image_url !== undefined ? { image_url: option.image_url } : {}),
+        ...(option.personality_tags !== undefined
+          ? { personality_tags: option.personality_tags }
+          : {}),
+      })),
     })),
   };
 }
@@ -126,9 +142,12 @@ export function buildReview(
   quiz: Pick<Quiz, 'questions' | 'quiz_type'>,
   answers: Array<Pick<Answer, 'question_id' | 'selected_option_id' | 'is_correct'>>
 ): QuizReviewItem[] {
+  const seen = new Set<string>();
   return answers.flatMap((answer) => {
+    if (seen.has(answer.question_id)) return [];
     const question = findQuestion(quiz, answer.question_id);
     if (!question) return [];
+    seen.add(question.id);
 
     const selected = question.options.find((option) => option.id === answer.selected_option_id);
     const correct = question.options.find((option) => option.is_correct === true);
@@ -142,7 +161,7 @@ export function buildReview(
         isCorrect:
           quiz.quiz_type === 'trivia'
             ? Boolean(selected && correct && selected.id === correct.id)
-            : Boolean(answer.is_correct),
+            : Boolean(selected),
         explanation: question.explanation ?? null,
       },
     ];

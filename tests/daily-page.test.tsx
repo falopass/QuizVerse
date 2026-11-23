@@ -129,6 +129,7 @@ describe('GET /{locale}/daily (página)', () => {
     expect(props.dayKey).toBe('2026-11-10');
     expect(props.quiz.questions).toHaveLength(5);
     for (const question of props.quiz.questions) {
+      expect('explanation' in question).toBe(false);
       for (const option of question.options) {
         expect('is_correct' in option).toBe(false);
       }

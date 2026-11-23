@@ -4,11 +4,17 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 const mocks = vi.hoisted(() => ({
   rpc: vi.fn(),
+  serviceRpc: vi.fn(),
+  useServiceClient: false,
   rateLimitCheck: vi.fn(),
 }));
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(async () => ({ rpc: mocks.rpc })),
+}));
+
+vi.mock('@/lib/supabase/service', () => ({
+  createServiceClient: vi.fn(() => (mocks.useServiceClient ? { rpc: mocks.serviceRpc } : null)),
 }));
 
 vi.mock('next/headers', () => ({
@@ -33,6 +39,9 @@ const SHARE_TOKEN = 'aaaa1111bbbb2222';
 beforeEach(() => {
   mocks.rpc.mockReset();
   mocks.rpc.mockResolvedValue({ data: null, error: null });
+  mocks.serviceRpc.mockReset();
+  mocks.serviceRpc.mockResolvedValue({ data: null, error: null });
+  mocks.useServiceClient = false;
   mocks.rateLimitCheck.mockReset();
   mocks.rateLimitCheck.mockResolvedValue({ allowed: true, remaining: 29, reset: 60 });
 });
@@ -75,6 +84,17 @@ describe('incrementShares', () => {
 
     expect(result.success).toBe(false);
     expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it('usa el escritor de servidor (service_role) cuando está disponible para incrementShares y markSessionShared', async () => {
+    mocks.useServiceClient = true;
+
+    expect(await incrementShares(QUIZ_ID)).toEqual({ success: true });
+    expect(mocks.serviceRpc).toHaveBeenCalledWith('increment_shares', { quiz_uuid: QUIZ_ID });
+    expect(mocks.rpc).not.toHaveBeenCalled();
+
+    expect(await markSessionShared(SHARE_TOKEN)).toEqual({ success: true });
+    expect(mocks.serviceRpc).toHaveBeenCalledWith('mark_session_shared', { p_token: SHARE_TOKEN });
   });
 });
 

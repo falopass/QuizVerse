@@ -187,7 +187,9 @@ export default async function LocalizedQuizResultPage({
   // La revisión necesita la clave real: tras la 015 `questions` ya viene
   // saneado y buildReview no podría marcar nada. Va por la puerta única del
   // repositorio; sin clave accesible queda vacía (el error ya quedó en logs).
-  const keyQuiz = await loadAnswerKeyBySlug(slug, locale);
+  const loadedKeyQuiz = await loadAnswerKeyBySlug(slug, locale);
+  const keyQuiz =
+    loadedKeyQuiz && (!loadedKeyQuiz.id || loadedKeyQuiz.id === quiz.id) ? loadedKeyQuiz : null;
 
   // La CTA de cuenta va solo a visitantes sin sesión; a quien ya entró no se
   // le ofrece registrarse (y la sesión mostrada guarda su auth, no la suya).
@@ -247,6 +249,13 @@ export default async function LocalizedQuizResultPage({
     locale
   ).map(toClientQuiz);
 
+  const hasSessionParticipation =
+    session.score > 0 ||
+    (Array.isArray(session.answers) &&
+      session.answers.some((answer) => Boolean(answer?.selected_option_id)));
+  const isPerfectTriviaSession =
+    quiz.quiz_type === 'trivia' && session.max_score > 0 && session.score === session.max_score;
+
   return (
     <ResultScreen
       locale={locale}
@@ -267,13 +276,16 @@ export default async function LocalizedQuizResultPage({
       accountCtaHref={
         user ? undefined : `/${locale}/register?redirect=${encodeURIComponent(resultPath)}`
       }
-      // Los puntos solo existen si la partida tenía jugador: el trigger
-      // award_quiz_points no corre en sesiones anónimas y pointsFor replica su
-      // misma cuenta para la UI.
-      pointsSaved={session.player_id !== null}
+      // Los puntos solo existen si la partida tenía jugador y participación:
+      // el trigger award_quiz_points no corre en sesiones anónimas y el bono
+      // de perfección (+25) es exclusivo de trivia.
+      pointsSaved={session.player_id !== null && hasSessionParticipation}
       bonusPoints={
-        session.player_id !== null
-          ? pointsFor(session.max_score > 0 && session.score === session.max_score)
+        session.player_id !== null && hasSessionParticipation
+          ? pointsFor(isPerfectTriviaSession, {
+              participated: hasSessionParticipation,
+              quizType: quiz.quiz_type,
+            })
           : 0
       }
       challenge={challenge}
