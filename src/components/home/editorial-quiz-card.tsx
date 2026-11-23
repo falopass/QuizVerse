@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react';
 import { cn } from '@/lib/utils/cn';
 import { QuizCoverArt } from '@/components/shared/quiz-cover-art';
 import { getLocalizedTypeLabel } from '@/lib/i18n/catalog';
-import { getArcadeCopy, getCommonCopy } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
 import { accentForCategory } from '@/lib/design/franchise-palette';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -16,7 +15,18 @@ import type { Category, Quiz } from '@/types/quiz';
 type EditorialQuizCardQuiz = Pick<
   Quiz,
   'slug' | 'title' | 'quiz_type' | 'estimated_minutes' | 'cover_image_url'
-> & { category?: (Pick<Category, 'name'> & { slug?: string }) | null };
+> & { category?: (Pick<Category, 'name'> & { slug?: string | null }) | null };
+
+/**
+ * Las dos cadenas de la tarjeta, espejo de `arcade.play` y `common.minutesShort`
+ * del diccionario (lo vigila tests/quiz-cover-art.test.tsx). Viven aquí para
+ * que la tarjeta, que también monta en cliente (explorar, recientes,
+ * resultado), no arrastre el diccionario completo al bundle (D-04).
+ */
+export const CARD_COPY = {
+  es: { play: 'Jugar', minutesShort: 'min' },
+  en: { play: 'Play', minutesShort: 'min' },
+} as const satisfies Record<Locale, { play: string; minutesShort: string }>;
 
 interface EditorialQuizCardProps {
   quiz: EditorialQuizCardQuiz;
@@ -25,6 +35,10 @@ interface EditorialQuizCardProps {
   size?: 'hero' | 'feature' | 'default' | 'compact';
   /** Pisa la regla por fila para tarjetas que no abren una grilla (p. ej. relacionados). */
   prefetch?: boolean;
+  /** Locale del enlace cuando difiere de la UI: un reciente solo existe en el idioma donde se jugó. */
+  hrefLocale?: Locale;
+  /** Dato real extra para el pie (p. ej. el marcador de un reciente). */
+  extraMeta?: string | null;
 }
 
 /** Primera fila de la grilla (3 columnas en escritorio): solo esas prefetchean. */
@@ -36,12 +50,14 @@ export function EditorialQuizCard({
   index,
   size = 'default',
   prefetch,
+  hrefLocale,
+  extraMeta,
 }: EditorialQuizCardProps) {
-  const copy = getArcadeCopy(locale);
-  // Acento de la franquicia (categoría): la tarjeta publica las variables
-  // --qv-* que el CSS puede consumir; sin entrada en la paleta, el acento
-  // lima actual. El meta y el botón ya las consumen con fallback.
-  const accent = accentForCategory(quiz.category?.slug);
+  const copy = CARD_COPY[locale] ?? CARD_COPY.en;
+  // Acento de la franquicia (categoría) o, sin categoría conocida, del tipo de
+  // juego: la tarjeta publica --qv-* y el CSS (bloque L8) los consume.
+  const accent =
+    accentForCategory(quiz.category?.slug) ?? accentForCategory(quiz.quiz_type) ?? undefined;
   const accentVars = accent
     ? ({
         '--qv-accent': accent.accent,
@@ -54,9 +70,9 @@ export function EditorialQuizCard({
   const TitleTag = isHero ? 'h2' : 'h3';
   return (
     <Link
-      href={localizeHref(locale, `/quiz/${quiz.slug}`)}
+      href={localizeHref(hrefLocale ?? locale, `/quiz/${quiz.slug}`)}
       prefetch={prefetch ?? (index === undefined || index < PREFETCH_FIRST_ROW)}
-      className={cn('arcade-card', isHero && 'arcade-card-hero')}
+      className={cn('arcade-card qv8-card', isHero && 'arcade-card-hero')}
       style={accentVars}
     >
       <QuizCoverArt
@@ -67,27 +83,20 @@ export function EditorialQuizCard({
         showTitle={false}
         className="arcade-card-art"
       />
-      <div
-        className="arcade-card-info"
-        style={{ backgroundColor: 'var(--qv-accent-soft, transparent)' }}
-      >
-        <span className="arcade-card-meta" style={{ color: 'var(--qv-accent, var(--text-muted))' }}>
-          {getLocalizedTypeLabel(quiz.quiz_type, locale)} · {quiz.category?.name ?? 'QuizVerse'}
+      <div className="arcade-card-info">
+        <span className="arcade-card-meta">
+          <span className="qv8-card-type">{getLocalizedTypeLabel(quiz.quiz_type, locale)}</span>
+          {' · '}
+          {quiz.category?.name ?? 'QuizVerse'}
         </span>
         <TitleTag>{quiz.title}</TitleTag>
         <div className="arcade-card-bottom">
           <small>
-            {quiz.estimated_minutes} {getCommonCopy(locale).minutesShort}
+            {quiz.estimated_minutes} {copy.minutesShort}
+            {extraMeta ? ` · ${extraMeta}` : ''}
           </small>
-          <span
-            className="arcade-card-play"
-            style={
-              accent
-                ? { backgroundColor: 'var(--qv-accent)', color: 'var(--qv-on-accent)' }
-                : undefined
-            }
-          >
-            {copy.play} ↗
+          <span className="arcade-card-play">
+            {copy.play} <span aria-hidden="true">↗</span>
           </span>
         </div>
       </div>

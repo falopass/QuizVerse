@@ -2629,3 +2629,208 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 /* === fin lote1 === */
+
+/* === L8 portadas y cards === */
+/* Portada con arte propio determinista (motivo por categoría, variación por
+   slug, inicial del título). Sustituye los anillos concéntricos iguales para
+   todo el catálogo. La foto stock, si existe, va encima del arte: si no carga,
+   queda el arte y nunca una caja vacía. */
+.qv8-cover {
+  container-type: inline-size;
+  background: var(--qv8-field, #191826);
+}
+.qv8-cover::before {
+  display: none;
+}
+.qv8-art {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 62% 48%;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+.qv8-cover > .arcade-cover-photo {
+  z-index: 1;
+}
+.qv8-cover.qv8-cover-has-photo::after {
+  z-index: 2;
+  background: linear-gradient(200deg, transparent 40%, rgba(16, 16, 25, 0.72));
+}
+.qv8-glyph {
+  position: absolute;
+  z-index: 3;
+  right: 4%;
+  bottom: -0.1em;
+  color: var(--qv8-ink);
+  font-family: var(--font-display);
+  font-size: clamp(88px, 44cqw, 300px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-shadow: 0.05em 0.05em 0 var(--qv8-second);
+  pointer-events: none;
+  user-select: none;
+  transition: transform 0.24s steps(3, end);
+}
+.qv8-cover-night .qv8-glyph {
+  color: var(--qv8-accent);
+}
+.qv8-cover-has-photo .qv8-glyph {
+  color: transparent;
+  -webkit-text-stroke: 3px var(--qv8-accent);
+  text-shadow: none;
+}
+.qv8-cover .arcade-cover-stamp,
+.qv8-cover .arcade-cover-title {
+  z-index: 4;
+}
+/* Título impreso (hero): campo pleno, tinta encima y sombra dura del segundo
+   color en vez del blanco con sombra violeta pensado para el degradado. */
+.qv8-cover-pleno:not(.qv8-cover-has-photo) .arcade-cover-title {
+  color: #101019;
+  text-shadow: 0.045em 0.045em 0 var(--qv8-second);
+}
+.qv8-cover-pleno:not(.qv8-cover-has-photo) .arcade-cover-stamp {
+  border-color: #101019;
+  background: #101019;
+  color: var(--qv8-field);
+}
+.arcade-detail-art.qv8-cover .qv8-glyph {
+  font-size: clamp(150px, 52cqw, 340px);
+}
+
+/* Tarjeta: el acento de la categoría (o del tipo) vive en CSS, no en style
+   inline. Borde de ticket en zigzag entre portada e información. */
+.qv8-card {
+  /* Grillas acotadas (24 por página): pintar siempre evita las cajas vacías
+     que B vio en scroll rápido y capturas completas. */
+  content-visibility: visible;
+}
+.qv8-card .arcade-card-info {
+  background: var(--qv-accent-soft, transparent);
+}
+.qv8-card .arcade-card-meta {
+  color: var(--text-muted);
+}
+.qv8-card .qv8-card-type {
+  color: var(--qv-accent, var(--accent-primary));
+  font-weight: 700;
+}
+.qv8-card .arcade-card-play {
+  background: var(--qv-accent, var(--accent-primary));
+  color: var(--qv-on-accent, #101019);
+}
+.qv8-card .arcade-card-play > span {
+  display: inline-block;
+  transition: transform 0.2s steps(2, end);
+}
+@media (min-width: 640px) {
+  .qv8-card .arcade-card-art {
+    --qv8-tooth: 7px;
+    -webkit-mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--qv8-tooth)) no-repeat,
+      conic-gradient(from 135deg at top, #000 90deg, #0000 0) bottom / calc(var(--qv8-tooth) * 2)
+        var(--qv8-tooth) repeat-x;
+    mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--qv8-tooth)) no-repeat,
+      conic-gradient(from 135deg at top, #000 90deg, #0000 0) bottom / calc(var(--qv8-tooth) * 2)
+        var(--qv8-tooth) repeat-x;
+  }
+}
+/* Reacción con carácter: la tarjeta salta con sombra dura del acento, el
+   motivo se acerca y la inicial brinca a pasos (steps), como un sprite. Solo
+   con puntero fino; el foco de teclado recibe la misma respuesta. */
+@media (hover: hover) and (pointer: fine) {
+  .qv8-card:hover {
+    border-color: var(--qv-accent, var(--accent-primary));
+    box-shadow: 6px 7px 0 var(--qv-accent, var(--accent-primary));
+    transform: translate(-3px, -5px);
+  }
+  .qv8-card:hover .qv8-art {
+    transform: scale(1.12) rotate(-2deg);
+  }
+  .qv8-card:hover .qv8-glyph {
+    transform: translate(-8%, -14%) rotate(-7deg);
+  }
+  .qv8-card:hover .arcade-card-play {
+    background: var(--text-primary);
+    color: #101019;
+  }
+  .qv8-card:hover .arcade-card-play > span {
+    transform: translate(3px, -3px);
+  }
+}
+.qv8-card:focus-visible {
+  border-color: var(--qv-accent, var(--accent-primary));
+  box-shadow: 6px 7px 0 var(--qv-accent, var(--accent-primary));
+}
+.qv8-card:focus-visible .qv8-art {
+  transform: scale(1.12) rotate(-2deg);
+}
+.qv8-card:focus-visible .qv8-glyph {
+  transform: translate(-8%, -14%) rotate(-7deg);
+}
+/* Entrada: la inicial sube a pasos al entrar la tarjeta en pantalla. Solo
+   translate (nunca opacidad), así una captura completa la muestra igual. */
+@supports (animation-timeline: view()) {
+  .qv8-card .qv8-glyph {
+    animation: qv8-glyph-rise steps(4, end) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+}
+@keyframes qv8-glyph-rise {
+  from {
+    translate: 0 38%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+/* Fila móvil (96 px): la inicial llena el cuadro. */
+@media (max-width: 639px) {
+  .qv8-card:not(.arcade-card-hero) .qv8-glyph {
+    right: 6%;
+    font-size: 82px;
+  }
+}
+/* Ficha: relacionados (3) y «Más de…» (hasta 4) sin tarjeta huérfana en la
+   última fila. Con 3 columnas sobra la 4.ª; con 2 columnas, la 3.ª de 3. */
+@media (min-width: 901px) {
+  .arcade-detail-page .arcade-grid > .qv8-card:nth-child(4):last-child {
+    display: none;
+  }
+}
+@media (min-width: 700px) and (max-width: 900px) {
+  .arcade-detail-page .arcade-grid > .qv8-card:nth-child(3):last-child {
+    display: none;
+  }
+}
+.qv8-credit a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.qv8-credit a:hover {
+  color: var(--accent-primary);
+}
+@media (prefers-reduced-motion: reduce) {
+  .qv8-art,
+  .qv8-glyph,
+  .qv8-card .arcade-card-play > span {
+    transition: none;
+  }
+  .qv8-card .qv8-glyph {
+    animation: none;
+  }
+  .qv8-card:hover,
+  .qv8-card:hover .qv8-art,
+  .qv8-card:hover .qv8-glyph,
+  .qv8-card:focus-visible .qv8-art,
+  .qv8-card:focus-visible .qv8-glyph {
+    transform: none;
+  }
+}
+/* === fin L8 === */

@@ -8,6 +8,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
+import { coverArtSpec, coverMotifMarkup } from '@/lib/design/franchise-palette';
 import type { Category, Quiz } from '@/types/quiz';
 
 type CoverQuiz = Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>;
@@ -69,15 +70,41 @@ describe('buildQuizCoverSvg', () => {
     expect(buildQuizCoverSvg(quiz)).toBe(buildQuizCoverSvg(quiz));
   });
 
-  it('produces a different cover for a different quiz (theme override)', () => {
-    const strangerThings = buildQuizCoverSvg(
+  it('produces a different cover for a different quiz, tinted by its category', () => {
+    const a = buildQuizCoverSvg(
       makeCoverQuiz({ title: 'Which Stranger Things character are you?' })
     );
-    const generic = buildQuizCoverSvg(makeCoverQuiz({ title: 'Random facts' }));
+    const b = buildQuizCoverSvg(makeCoverQuiz({ title: 'Random facts' }));
 
-    expect(strangerThings).not.toBe(generic);
-    expect(strangerThings).toContain('#a64c33'); // stranger-things base
-    expect(generic).toContain('#2d5f9c'); // trivia base
+    expect(a).not.toBe(b);
+    // movies-tv: acento de la paleta por franquicia.
+    expect(a).toContain('#ff6b6b');
+    expect(b).toContain('#ff6b6b');
+  });
+
+  it('shares the card rule: the same motif markup the card paints inline', () => {
+    const quiz = { ...makeCoverQuiz(), slug: 'en-space-trivia' };
+    const spec = coverArtSpec(
+      { slug: quiz.slug, title: quiz.title, quizType: quiz.quiz_type, categorySlug: 'movies-tv' },
+      'night'
+    );
+    expect(spec.motif).toBe('film');
+    expect(buildQuizCoverSvg(quiz)).toContain(coverMotifMarkup(spec, 1600, 900));
+  });
+
+  it('art variant (stock fallback) is 3:2 and carries no title text', () => {
+    const svg = buildQuizCoverSvg(
+      { ...makeCoverQuiz({ title: '<b>Space</b> Trivia' }), slug: 'x' },
+      'art'
+    );
+
+    expect(svg).toContain('viewBox="0 0 1200 800"');
+    expect(svg).not.toContain('Space Trivia');
+    expect(svg).not.toContain('>Space<');
+    expect(svg).not.toContain('<b>');
+    expect(svg).not.toContain('TRIVIA');
+    // Solo la inicial como texto («Space» → S), nunca el «<» del marcado.
+    expect(svg).toContain('>S</text>');
   });
 
   it('wraps a very long title with emojis into multiple tspans', () => {
@@ -124,8 +151,6 @@ describe('buildQuizCoverSvg', () => {
 
     expect(trivia).toContain('>TRIVIA<');
     expect(personality).toContain('>PERSONALITY<');
-    expect(trivia).toContain('#2d5f9c');
-    expect(personality).toContain('#bb5c35');
     expect(trivia).not.toBe(personality);
   });
 });
