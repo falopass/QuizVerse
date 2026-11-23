@@ -110,10 +110,14 @@ describe('QuizPlayer con prefers-reduced-motion', () => {
         vi.advanceTimersByTime(60_000);
       });
 
+      const next = screen.getByRole('button', { name: 'Next' });
+      expect(next).toHaveFocus();
       expect(useQuizStore.getState().currentQuestionIndex).toBe(0);
       expect(
         screen.getByRole('heading', { name: 'Which planet has the most moons?' })
       ).toBeInTheDocument();
+      fireEvent.click(next);
+      expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
     } finally {
       vi.useRealTimers();
     }

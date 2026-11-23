@@ -13,12 +13,12 @@ interface GameModeSelectorProps {
   quiz: Quiz;
   locale?: Locale;
   onSelectMode: (mode: GameMode) => void;
+  currentMode?: GameMode;
 }
 
 interface GameModeInfo {
   id: GameMode;
   name: Record<'en' | 'es', string>;
-  icon: string;
   description: Record<'en' | 'es', string>;
 }
 
@@ -26,7 +26,6 @@ const GAME_MODES: GameModeInfo[] = [
   {
     id: 'normal',
     name: { en: 'Classic', es: 'Clásico' },
-    icon: 'T',
     description: {
       en: 'Answer at your own pace. No pressure.',
       es: 'Responde a tu ritmo. Sin presión.',
@@ -35,7 +34,6 @@ const GAME_MODES: GameModeInfo[] = [
   {
     id: 'timed',
     name: { en: 'Time attack', es: 'Contrarreloj' },
-    icon: 'R',
     description: {
       en: 'Answer as many questions as possible before time runs out.',
       es: 'Responde la mayor cantidad posible antes de que se acabe el tiempo.',
@@ -44,7 +42,6 @@ const GAME_MODES: GameModeInfo[] = [
   {
     id: 'survival',
     name: { en: 'Survival', es: 'Supervivencia' },
-    icon: 'S',
     description: {
       en: "One mistake and you're out. How far can you go?",
       es: 'Un error y quedas fuera. ¿Hasta dónde llegas?',
@@ -53,7 +50,6 @@ const GAME_MODES: GameModeInfo[] = [
   {
     id: 'practice',
     name: { en: 'Practice', es: 'Práctica' },
-    icon: 'P',
     description: {
       en: 'Learn at your own pace with instant explanations.',
       es: 'Aprende a tu ritmo con explicaciones instantáneas.',
@@ -61,7 +57,12 @@ const GAME_MODES: GameModeInfo[] = [
   },
 ];
 
-export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameModeSelectorProps) {
+export function GameModeSelector({
+  quiz,
+  locale = 'en',
+  onSelectMode,
+  currentMode,
+}: GameModeSelectorProps) {
   const [selectedMode, setSelectedMode] = React.useState<GameMode | null>(null);
   const reduceMotion = useReducedMotion() ?? false;
   const modes = React.useMemo(() => {
@@ -77,6 +78,7 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
     locale === 'es'
       ? {
           title: 'Elige tu modo',
+          current: 'Modo actual',
           knowledge: 'Pon a prueba lo que sabes',
           result: 'Descubre tu resultado',
           questions: 'preguntas',
@@ -85,6 +87,7 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
         }
       : {
           title: 'Choose your mode',
+          current: 'Current mode',
           knowledge: 'Test your knowledge',
           result: 'Discover your result',
           questions: 'questions',
@@ -101,6 +104,8 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
     const onKeyDown = (event: KeyboardEvent) => {
       const index = Number(event.key) - 1;
       if (
+        event.defaultPrevented ||
+        event.repeat ||
         event.altKey ||
         event.ctrlKey ||
         event.metaKey ||
@@ -146,6 +151,9 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
                 animate: { y: 0, opacity: 1 },
                 transition: { delay: index * 0.1 },
               })}
+              type="button"
+              aria-keyshortcuts={String(index + 1)}
+              data-current={currentMode === mode.id || undefined}
               onClick={() => handleModeSelect(mode.id)}
               disabled={selectedMode !== null}
               className={cn(
@@ -153,11 +161,14 @@ export function GameModeSelector({ quiz, locale = 'en', onSelectMode }: GameMode
                 selectedMode === mode.id && 'arcade-mode-card-selected'
               )}
             >
-              <span className="arcade-mode-number">
-                0{index + 1} / {mode.icon}
-              </span>
+              <kbd className="arcade-mode-number" aria-hidden="true">
+                {index + 1}
+              </kbd>
               <span className="arcade-mode-name">{mode.name[locale]}</span>
               <span className="arcade-mode-description">{mode.description[locale]}</span>
+              {currentMode === mode.id && (
+                <span className="qv-l10-current-mode">{copy.current}</span>
+              )}
               <span className="arcade-mode-arrow" aria-hidden="true">
                 ↗
               </span>

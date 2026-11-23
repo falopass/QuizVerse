@@ -21,3 +21,5 @@ jobs:
       - run: npm run test:coverage -- --testTimeout=15000
       - run: npm run test:node
       - run: npm run build
+      - run: npx playwright install --with-deps firefox
+      - run: npm run test:e2e

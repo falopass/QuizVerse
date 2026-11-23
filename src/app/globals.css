@@ -3309,3 +3309,73 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 /* === fin L9 === */
+
+/* === L10 juego, resultados y reto diario === */
+.arcade-hero.qv-l10-daily-panel {
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 58rem);
+  margin-inline: auto;
+}
+.qv-l10-daily-panel .arcade-hero-copy {
+  min-height: 0;
+}
+.qv-l10-daily-panel .arcade-daily-intro-actions {
+  position: relative;
+  z-index: 1;
+}
+.qv-l10-daily-play .arcade-question-head span:first-child {
+  display: inline;
+}
+.qv-l10-daily-panel .arcade-tag {
+  color: #101019;
+}
+.arcade-result.qv-l10-daily-panel {
+  max-width: 58rem;
+  margin-inline: auto;
+}
+.arcade-result .qv-l10-result-link {
+  color: var(--text-primary);
+}
+.arcade-result-main .qv-l10-result-dark :focus-visible {
+  outline-color: var(--accent-primary);
+}
+.arcade-mode-card[data-current] {
+  border-color: var(--accent-primary);
+}
+.qv-l10-current-mode {
+  align-self: flex-start;
+  margin-top: 12px;
+  border-bottom: 1px solid currentColor;
+  color: var(--accent-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+.qv-l10-question-feedback:not(:empty) {
+  margin-top: 16px;
+}
+.qv-l10-question-feedback .arcade-answer-feedback {
+  margin-bottom: 0;
+}
+.arcade-answer-feedback.qv-l10-pending {
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-body, inherit);
+  font-size: 14px;
+}
+.arcade-option[aria-disabled='true'] {
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .qv-l10-score-tick {
+    animation: qv-l10-score-tick 0.25s ease-out;
+  }
+}
+@keyframes qv-l10-score-tick {
+  from {
+    transform: translateY(3px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+/* === fin L10 === */

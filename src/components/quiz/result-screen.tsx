@@ -27,7 +27,13 @@ import { groupShareText, type QuizGroupInfo } from '@/lib/quiz/group';
 import { isNicknameAllowed } from '@/lib/moderation/nickname';
 import { createQuizGroup, joinQuizGroup } from '@/actions/group.actions';
 import { GroupLeaderboard } from '@/components/quiz/group-leaderboard';
-import type { Answer, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
+import type {
+  Answer,
+  ExploreCardQuiz,
+  PersonalityResult,
+  Quiz,
+  QuizReviewItem,
+} from '@/types/quiz';
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 interface ResultScreenProps {
@@ -71,8 +77,8 @@ interface ResultScreenProps {
   compatibility?: CompatibilityPeer | null;
   /** Enlace para aceptar el reto desde un resultado compartido (`/play?challenge=`). */
   challengeHref?: string;
-  /** Relacionados ya saneados con `toClientQuiz` en el servidor; se muestran hasta 3. */
-  related?: Quiz[];
+  /** Proyección de tarjeta del servidor; se muestran hasta 3. */
+  related?: ExploreCardQuiz[];
   /** Grupo de ranking activo (`?g=` o uno ya creado/entrado por esta sesión). */
   group?: QuizGroupInfo | null;
   /** Sesión propia persistida: resalta su fila y autoriza el alta vía shareToken. */
@@ -449,7 +455,7 @@ export function ResultScreen({
   return (
     <div className="arcade-result arcade-wrap">
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-6rem)] max-w-6xl items-center">
-        <div className="grid w-full gap-6 xl:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid w-full items-start gap-6 xl:grid-cols-[1.05fr_0.95fr]">
           <section className="arcade-result-main">
             <motion.h1
               ref={verdictRef}
@@ -465,7 +471,7 @@ export function ResultScreen({
 
             {submitFailed && (
               <div
-                className="border-accent-primary/40 bg-bg-primary/60 mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-4"
+                className="border-accent-primary/40 bg-bg-primary qv-l10-result-dark mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-4"
                 role="alert"
               >
                 <p className="text-text-primary text-sm font-medium">{copy.saveFailed}</p>
@@ -474,7 +480,7 @@ export function ResultScreen({
                     type="button"
                     onClick={onRetrySubmit}
                     disabled={isSubmittingResult}
-                    className="arcade-result-ranking"
+                    className="arcade-result-ranking qv-l10-result-link"
                   >
                     {isSubmittingResult ? '…' : copy.retrySubmit}
                   </button>
@@ -486,7 +492,9 @@ export function ResultScreen({
               <div className="arcade-result-score">
                 <span className="arcade-play-label">{copy.scoreline}</span>
                 <div className="mt-4 flex flex-wrap items-end gap-4">
-                  <p className="arcade-result-number qv-l1-score-pop">{triviaScore.percentage}%</p>
+                  <p key={triviaScore.percentage} className="arcade-result-number qv-l1-score-pop">
+                    {triviaScore.percentage}%
+                  </p>
                   <p className="text-text-primary pb-2 text-sm font-semibold">
                     {triviaScore.correct}/{triviaScore.total} {copy.correct}
                   </p>
@@ -553,6 +561,9 @@ export function ResultScreen({
               <Link href={localizeHref(uiLocale, '/leaderboard')} className="arcade-result-ranking">
                 {uiLocale === 'es' ? 'Ver ranking ↗' : 'View ranking ↗'}
               </Link>
+              <Link href={localizeHref(uiLocale, '/')} className="arcade-result-ranking">
+                {uiLocale === 'es' ? 'Volver al inicio' : 'Back to home'}
+              </Link>
             </div>
 
             <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
@@ -576,10 +587,12 @@ export function ResultScreen({
             ) : (
               challenge && (
                 <div
-                  className="border-accent-primary/40 bg-bg-primary/60 mt-6 rounded-2xl border px-5 py-4"
+                  className="border-accent-primary/40 bg-bg-primary qv-l10-result-dark mt-6 rounded-2xl border px-5 py-4"
                   role="status"
                 >
-                  <p className="arcade-play-label">{copy.challengeEyebrow}</p>
+                  <p className="qv-l10-result-link text-xs font-semibold">
+                    {copy.challengeEyebrow}
+                  </p>
                   <p className="text-accent-primary mt-2 text-2xl font-semibold md:text-3xl">
                     {challengeVerdict}
                   </p>
@@ -615,7 +628,7 @@ export function ResultScreen({
             </div>
 
             {accountCtaHref && !accountCtaDismissed && (
-              <div className="border-border-subtle bg-bg-primary/60 mt-6 flex items-start justify-between gap-4 rounded-2xl border px-5 py-4">
+              <div className="border-border-subtle bg-bg-primary qv-l10-result-dark mt-6 flex items-start justify-between gap-4 rounded-2xl border px-5 py-4">
                 <div>
                   <p className="text-text-primary inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold">
                     {copy.accountCtaBody}
@@ -777,7 +790,7 @@ export function ResultScreen({
         <div className="arcade-related relative z-10 mx-auto max-w-6xl">
           <Link
             href={localizeHref(uiLocale, `/category/${category.slug}`)}
-            className="arcade-result-ranking inline-block"
+            className="arcade-result-ranking qv-l10-result-link"
           >
             {uiLocale === 'es'
               ? `Ver todos los quizzes de ${category.name} ↗`

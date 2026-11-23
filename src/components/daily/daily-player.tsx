@@ -43,6 +43,8 @@ const COPY = {
     introBody: 'Cinco preguntas, el mismo reto para todo el mundo hoy.',
     shareHint: 'Al terminar comparte tu resultado en emojis, sin spoilers.',
     play: 'Jugar el reto de hoy',
+    next: 'Siguiente',
+    finish: 'Terminar',
     streak: 'racha',
     correct: 'Correcto',
     miss: 'Fallaste',
@@ -60,6 +62,8 @@ const COPY = {
     introBody: 'Five questions, the same challenge for everyone today.',
     shareHint: 'When you finish, share your result as emojis — no spoilers.',
     play: 'Play today’s challenge',
+    next: 'Next',
+    finish: 'Finish',
     streak: 'streak',
     correct: 'Correct',
     miss: 'Miss',
@@ -110,10 +114,21 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
   const [questionIndex, setQuestionIndex] = React.useState(0);
   const [selectedOptionId, setSelectedOptionId] = React.useState<string | null>(null);
   const [verdict, setVerdict] = React.useState<{
+    isCorrect: boolean;
     correctOptionId: string | null;
     explanation?: string | null;
   } | null>(null);
   const [isChecking, setIsChecking] = React.useState(false);
+  const [canAdvance, setCanAdvance] = React.useState(false);
+  const continueButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const focusHeading = React.useCallback((heading: HTMLHeadingElement | null) => {
+    heading?.focus();
+  }, []);
+  const isLastQuestion = questionIndex + 1 >= challenge.quiz.questions.length;
+
+  React.useEffect(() => {
+    if (canAdvance) continueButtonRef.current?.focus();
+  }, [canAdvance]);
 
   const answersRef = React.useRef<GivenAnswer[]>([]);
   const attemptPromiseRef = React.useRef<Promise<string | null> | null>(null);
@@ -188,6 +203,7 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
     startedAtRef.current = Date.now();
     beginAttempt();
     setQuestionIndex(0);
+    setCanAdvance(false);
     setSelectedOptionId(null);
     setVerdict(null);
     setPhase('playing');
@@ -276,6 +292,17 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
     });
   }, [challenge, locale]);
 
+  const advanceQuestion = () => {
+    if (isLastQuestion) {
+      void finish();
+      return;
+    }
+    setCanAdvance(false);
+    setSelectedOptionId(null);
+    setVerdict(null);
+    setQuestionIndex((index) => index + 1);
+  };
+
   const handleSelect = async (optionId: string) => {
     if (isChecking || verdict || selectedOptionId) return;
     const question = challenge.quiz.questions[questionIndex];
@@ -297,32 +324,21 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
       selectedOptionId: optionId,
       isCorrect: revealed?.isCorrect ?? null,
     });
-    if (revealed) {
-      setVerdict({
-        correctOptionId: revealed.correctOptionId,
-        explanation: revealed.explanation ?? null,
-      });
-    }
+    setVerdict(revealed);
 
-    const isLast = questionIndex + 1 >= challenge.quiz.questions.length;
-    if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setCanAdvance(true);
+      return;
+    }
     advanceTimerRef.current = setTimeout(
-      () => {
-        if (isLast) {
-          void finish();
-          return;
-        }
-        setSelectedOptionId(null);
-        setVerdict(null);
-        setQuestionIndex((index) => index + 1);
-      },
+      advanceQuestion,
       revealed ? FEEDBACK_AUTO_ADVANCE_MS : NO_VERDICT_AUTO_ADVANCE_MS
     );
   };
 
   if (challenge.quiz.id.startsWith('launch-')) {
     return (
-      <section className="arcade-hero">
+      <section className="arcade-hero qv-l10-daily-panel">
         <div className="arcade-hero-copy">
           <span className="arcade-live">
             {copy.eyebrow} · {copy.challenge} #{challenge.challengeNumber}
@@ -356,12 +372,14 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
 
   if (phase === 'failed') {
     return (
-      <section className="arcade-hero">
+      <section className="arcade-hero qv-l10-daily-panel">
         <div className="arcade-hero-copy">
           <span className="arcade-live">
             {copy.challenge} #{challenge.challengeNumber}
           </span>
-          <h1>{copy.failedTitle}</h1>
+          <h1 ref={focusHeading} tabIndex={-1}>
+            {copy.failedTitle}
+          </h1>
           <p>{copy.failedBody}</p>
           <div className="arcade-daily-intro-actions">
             <button
@@ -380,9 +398,14 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
   if (phase === 'playing') {
     const question = challenge.quiz.questions[questionIndex];
     return (
-      <section aria-label={`${copy.challenge} #${challenge.challengeNumber}`}>
+      <section
+        className="qv-l10-daily-play"
+        aria-label={`${copy.challenge} #${challenge.challengeNumber}`}
+      >
         {question ? (
           <QuestionCard
+            key={question.id}
+            headingRef={focusHeading}
             question={question}
             questionNumber={questionIndex + 1}
             totalQuestions={challenge.quiz.questions.length}
@@ -391,23 +414,31 @@ export function DailyPlayer({ quiz, locale, challengeNumber, dayKey }: DailyPlay
             showFeedback={verdict !== null}
             correctOptionId={verdict?.correctOptionId}
             explanation={verdict?.explanation ?? null}
-            disabled={isChecking || verdict !== null}
+            isChecking={isChecking}
+            disabled={selectedOptionId !== null}
             locale={locale}
-            verdictText={
-              verdict
-                ? selectedOptionId === verdict.correctOptionId
-                  ? copy.correct
-                  : copy.miss
-                : null
-            }
+            verdictText={verdict ? (verdict.isCorrect ? copy.correct : copy.miss) : null}
+            verdictCorrect={verdict?.isCorrect}
           />
         ) : null}
+        {canAdvance && (
+          <div className="arcade-daily-intro-actions">
+            <button
+              ref={continueButtonRef}
+              type="button"
+              className="arcade-play-submit arcade-play-submit-ready"
+              onClick={advanceQuestion}
+            >
+              {isLastQuestion ? copy.finish : copy.next}
+            </button>
+          </div>
+        )}
       </section>
     );
   }
 
   return (
-    <section className="arcade-hero">
+    <section className="arcade-hero qv-l10-daily-panel">
       <div className="arcade-hero-copy">
         <span className="arcade-live">
           {copy.eyebrow} · {copy.challenge} #{challenge.challengeNumber}

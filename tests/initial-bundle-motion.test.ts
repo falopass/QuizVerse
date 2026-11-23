@@ -78,3 +78,12 @@ describe('animaciones de toast y banner', () => {
     );
   });
 });
+
+describe('bundle inicial del juego', () => {
+  it('difiere el resultado hasta terminar la partida', () => {
+    const player = join(SRC, 'components', 'quiz', 'quiz-player.tsx');
+    const result = join(SRC, 'components', 'quiz', 'result-screen.tsx');
+    expect(importGraph(player).has(result)).toBe(false);
+    expect(readFileSync(player, 'utf8')).toContain("import('./result-screen')");
+  });
+});

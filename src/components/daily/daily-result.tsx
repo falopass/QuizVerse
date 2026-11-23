@@ -36,6 +36,7 @@ const COPY = {
     copied: '¡Copiado!',
     share: 'Compartir',
     keepPlaying: 'Más quizzes',
+    home: 'Volver al inicio',
     summary: (score: number, total: number) => `${score} de ${total} correctas`,
   },
   en: {
@@ -53,6 +54,7 @@ const COPY = {
     copied: 'Copied!',
     share: 'Share',
     keepPlaying: 'More quizzes',
+    home: 'Back to home',
     summary: (score: number, total: number) => `${score} out of ${total} correct`,
   },
 } as const;
@@ -75,6 +77,7 @@ export function DailyResult({
   const copy = COPY[locale];
   const [copied, setCopied] = React.useState(false);
   const [supportsShare, setSupportsShare] = React.useState(false);
+  const headingRef = React.useRef<HTMLHeadingElement>(null);
   const [remainingMs, setRemainingMs] = React.useState<number | null>(null);
 
   const shareText = buildDailyShareText({
@@ -88,6 +91,7 @@ export function DailyResult({
   });
 
   React.useEffect(() => {
+    headingRef.current?.focus();
     queueMicrotask(() => setSupportsShare('share' in navigator));
     const tick = () => setRemainingMs(Math.max(0, nextDailyReset().getTime() - Date.now()));
     tick();
@@ -120,12 +124,14 @@ export function DailyResult({
         ).padStart(2, '0')}:${String(totalSecondsLeft % 60).padStart(2, '0')}`;
 
   return (
-    <section className="arcade-result">
+    <section className="arcade-result qv-l10-daily-panel">
       <div className="arcade-result-main">
         <span className="arcade-tag">
           {copy.eyebrow} · QuizVerse #{challengeNumber}
         </span>
-        <h1 className="arcade-result-verdict">{quizTitle}</h1>
+        <h1 ref={headingRef} tabIndex={-1} className="arcade-result-verdict">
+          {quizTitle}
+        </h1>
         <p className="arcade-result-body">
           {copy.playedToday} {copy.summary(score, total)}.
         </p>
@@ -164,16 +170,27 @@ export function DailyResult({
             </p>
           )}
           <div className="arcade-result-actions">
-            <button type="button" className="arcade-button arcade-button-lime" onClick={handleCopy}>
+            <button
+              type="button"
+              className="arcade-button arcade-result-primary"
+              onClick={handleCopy}
+            >
               {copied ? copy.copied : copy.copy}
             </button>
             {supportsShare && (
-              <button type="button" className="arcade-button" onClick={handleShare}>
+              <button
+                type="button"
+                className="arcade-button arcade-result-secondary"
+                onClick={handleShare}
+              >
                 {copy.share}
               </button>
             )}
             <Link href={localizeHref(locale, '/quiz')} className="arcade-result-ranking">
-              {copy.keepPlaying} ↗
+              {copy.keepPlaying}
+            </Link>
+            <Link href={localizeHref(locale, '/')} className="arcade-result-ranking">
+              {copy.home}
             </Link>
           </div>
         </div>

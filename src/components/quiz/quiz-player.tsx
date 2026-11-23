@@ -6,11 +6,16 @@ import { entrance } from '@/lib/ui/motion';
 import { startQuizAttempt, submitQuizResult } from '@/actions/quiz.actions';
 import { recordRecent } from '@/lib/history/recent-quizzes';
 import { cn } from '@/lib/utils/cn';
-import { useQuizStore, type GameMode } from '@/stores/quiz-store';
+import {
+  FEEDBACK_AUTO_ADVANCE_MS,
+  NO_VERDICT_AUTO_ADVANCE_MS,
+  useQuizStore,
+  type GameMode,
+} from '@/stores/quiz-store';
 import { availableGameModes } from '@/lib/quiz/game-modes';
 import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import { localizeHref } from '@/lib/i18n/navigation';
-import type { PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
+import type { ExploreCardQuiz, PersonalityResult, Quiz, QuizReviewItem } from '@/types/quiz';
 import type { ChallengeInfo } from '@/lib/quiz/challenge';
 import type { CompatibilityPeer } from '@/lib/quiz/compatibility';
 import type { QuizGroupInfo } from '@/lib/quiz/group';
@@ -18,7 +23,6 @@ import { GameModeSelector } from './game-mode-selector';
 import { PowerUpBar } from './power-up-bar';
 import { QuestionCard } from './question-card';
 import { QuizProgress } from './quiz-progress';
-import { ResultScreen } from './result-screen';
 import { StreakIndicator } from './streak-indicator';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import {
@@ -48,9 +52,13 @@ interface QuizPlayerProps {
    * Clásico (`?mode=classic`); el selector queda tras «Cambiar modo» o la pausa.
    */
   initialMode?: GameMode;
-  /** Relacionados saneados en el servidor; el resultado los pinta. */
-  related?: Quiz[];
+  /** Tarjetas de quizzes relacionados para el resultado. */
+  related?: ExploreCardQuiz[];
 }
+
+const ResultScreen = React.lazy(() =>
+  import('./result-screen').then(({ ResultScreen }) => ({ default: ResultScreen }))
+);
 
 let _audioContext: AudioContext | null = null;
 const NO_HIDDEN_OPTIONS: string[] = [];
@@ -139,6 +147,7 @@ export function QuizPlayer({
           skip: 'Saltar',
           finish: 'Terminar',
           next: 'Siguiente',
+          loadingResult: 'Cargando resultado\u2026',
           answersRemoved: 'Dos respuestas eliminadas',
           answerRemoved: 'Una respuesta eliminada',
           secondsAdded: 'Diez segundos añadidos',
@@ -169,6 +178,7 @@ export function QuizPlayer({
           skip: 'Skip',
           finish: 'Finish',
           next: 'Next',
+          loadingResult: 'Loading result\u2026',
           answersRemoved: 'Two answers removed',
           answerRemoved: 'One answer removed',
           secondsAdded: 'Ten seconds added',
@@ -182,7 +192,8 @@ export function QuizPlayer({
   const pausePanelRef = React.useRef<HTMLDivElement | null>(null);
   const pauseTitleRef = React.useRef<HTMLHeadingElement | null>(null);
   const pauseButtonRef = React.useRef<HTMLButtonElement | null>(null);
-  const wasPausedRef = React.useRef(false);
+  const continueButtonRef = React.useRef<HTMLButtonElement | null>(null);
+  const pauseReturnFocus = React.useRef<HTMLElement | null>(null);
   const [hiddenOptions, setHiddenOptions] = React.useState<{
     questionIndex: number;
     ids: string[];
@@ -258,6 +269,7 @@ export function QuizPlayer({
    */
   const [initialGameId] = React.useState(gameId);
   const isGameStarted = gameId > initialGameId && activeQuiz?.id === quiz.id;
+  const manualAdvance = gameMode === 'practice' || reduceMotion;
   const hiddenOptionIds =
     hiddenOptions.questionIndex === currentQuestionIndex ? hiddenOptions.ids : NO_HIDDEN_OPTIONS;
   /**
@@ -304,7 +316,7 @@ export function QuizPlayer({
    */
   const submitCurrentAnswer = React.useCallback(
     async (optionId?: string) => {
-      if (isCheckingAnswer || showFeedback) return;
+      if (isCheckingAnswer || showFeedback || useQuizStore.getState().isPaused) return;
       const question = getCurrentQuestion();
       const chosenOptionId = optionId ?? selectedOptionId;
       if (!question || !chosenOptionId) return;
@@ -337,18 +349,16 @@ export function QuizPlayer({
         correctOptionId: revealed?.correctOptionId ?? null,
         explanation: revealed?.explanation ?? null,
       });
-      submitAnswer(
-        revealed ? { isCorrect: revealed.isCorrect } : undefined,
-        revealed && (gameMode === 'practice' || reduceMotion) ? { autoAdvanceMs: null } : undefined
-      );
+      // El temporizador vive en el reproductor para detenerse en pausa.
+      submitAnswer(revealed ? { isCorrect: revealed.isCorrect } : undefined, {
+        autoAdvanceMs: null,
+      });
     },
     [
       currentQuestionIndex,
-      gameMode,
       getCurrentQuestion,
       isCheckingAnswer,
       quiz.id,
-      reduceMotion,
       selectOption,
       selectedOptionId,
       showFeedback,
@@ -415,15 +425,20 @@ export function QuizPlayer({
   // viaja en el envío (la pausa también cuenta, igual que en persistSession).
   React.useEffect(() => {
     if (!isGameStarted || isCompleted || isPaused || showModeSelector) return;
-    const timer = setInterval(() => {
+    const tick = () => {
       const startedAt = useQuizStore.getState().startedAt;
       setElapsedSeconds(
         startedAt
           ? Math.min(MAX_GAME_SECONDS, Math.max(0, Math.floor((Date.now() - startedAt) / 1000)))
           : 0
       );
-    }, 1000);
-    return () => clearInterval(timer);
+    };
+    const initialTick = setTimeout(tick, 0);
+    const timer = setInterval(tick, 1000);
+    return () => {
+      clearTimeout(initialTick);
+      clearInterval(timer);
+    };
   }, [isGameStarted, isCompleted, isPaused, showModeSelector]);
 
   React.useEffect(() => {
@@ -564,37 +579,122 @@ export function QuizPlayer({
     return () => clearTimeout(timer);
   }, [isCompleted, persistSession]);
 
+  const currentQuestion = getCurrentQuestion();
+  const totalQuestions = quiz.questions.length;
+  const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
+  const hasAnsweredCurrent = currentQuestion
+    ? answers.some((answer) => answer.question_id === currentQuestion.id)
+    : false;
+
+  React.useEffect(() => {
+    if (manualAdvance && hasAnsweredCurrent) continueButtonRef.current?.focus();
+  }, [hasAnsweredCurrent, manualAdvance]);
+
+  React.useEffect(() => {
+    if (manualAdvance || !hasAnsweredCurrent || isPaused || isCompleted || showModeSelector) return;
+    const timer = setTimeout(
+      () => {
+        const current = useQuizStore.getState();
+        if (
+          !current.isPaused &&
+          current.gameId === gameId &&
+          current.currentQuestionIndex === currentQuestionIndex
+        ) {
+          current.nextQuestion();
+        }
+      },
+      showFeedback ? FEEDBACK_AUTO_ADVANCE_MS : NO_VERDICT_AUTO_ADVANCE_MS
+    );
+    return () => clearTimeout(timer);
+  }, [
+    currentQuestionIndex,
+    gameId,
+    hasAnsweredCurrent,
+    isCompleted,
+    isPaused,
+    manualAdvance,
+    showFeedback,
+    showModeSelector,
+  ]);
+
+  const openPause = React.useCallback(
+    (trigger: Element | null) => {
+      pauseReturnFocus.current =
+        trigger instanceof HTMLElement && trigger !== document.body
+          ? trigger
+          : pauseButtonRef.current;
+      togglePause();
+    },
+    [togglePause]
+  );
+
+  React.useEffect(() => {
+    if (isPaused) {
+      if (!pausePanelRef.current?.contains(document.activeElement)) {
+        pauseTitleRef.current?.focus();
+      }
+      return;
+    }
+    const previous = pauseReturnFocus.current;
+    pauseReturnFocus.current = null;
+    if (!previous || showModeSelector) return;
+    const target =
+      previous.isConnected && !previous.matches(':disabled, [aria-disabled="true"]')
+        ? previous
+        : manualAdvance && hasAnsweredCurrent
+          ? continueButtonRef.current
+          : pauseButtonRef.current;
+    target?.focus();
+  }, [isPaused, showModeSelector, manualAdvance, hasAnsweredCurrent]);
+
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (showModeSelector || isCompleted || isPaused) return;
-      if (event.key === 'Escape') {
-        togglePause();
+      const { key, repeat } = event;
+      if (event.defaultPrevented || !isGameStarted || showModeSelector || isCompleted) return;
+      if (key === 'Escape') {
+        if (repeat) return;
+        event.preventDefault();
+        if (useQuizStore.getState().isPaused) togglePause();
+        else openPause(document.activeElement);
         return;
       }
-      const currentQuestion = getCurrentQuestion();
-      if (!currentQuestion) return;
+      if (isPaused) {
+        if (key !== 'Tab') return;
+        const panel = pausePanelRef.current;
+        if (!panel) return;
+        const buttons = panel.querySelectorAll<HTMLButtonElement>('button:not(:disabled)');
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        const active = document.activeElement;
+        const outside = !panel.contains(active);
+        if (event.shiftKey && (active === first || active === pauseTitleRef.current || outside)) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && (active === last || outside)) {
+          event.preventDefault();
+          first?.focus();
+        }
+        return;
+      }
+      if (!currentQuestion || event.altKey || event.ctrlKey || event.metaKey || repeat) return;
 
-      // Pulsar 1-4 responde igual que tocar la opción.
-      if (!showFeedback && event.key >= '1' && event.key <= '4') {
-        const index = Number(event.key) - 1;
-        if (
-          !isCheckingAnswer &&
-          index < currentQuestion.options.length &&
-          !hiddenOptionIds.includes(currentQuestion.options[index].id)
-        ) {
-          void submitCurrentAnswer(currentQuestion.options[index].id);
+      if (!hasAnsweredCurrent && key >= '1' && key <= '4') {
+        const option = currentQuestion.options[Number(key) - 1];
+        if (!isCheckingAnswer && option && !hiddenOptionIds.includes(option.id)) {
+          void submitCurrentAnswer(option.id);
         }
       }
 
       // Enter avanza tras el feedback; sobre un control manda el control.
       if (
-        event.key === 'Enter' &&
-        !(event.target instanceof HTMLElement && event.target.closest('button, a'))
+        key === 'Enter' &&
+        !(
+          event.target instanceof HTMLElement &&
+          event.target.closest('button:not([aria-disabled="true"]), a')
+        )
       ) {
-        const answered = useQuizStore
-          .getState()
-          .answers.some((answer) => answer.question_id === currentQuestion.id);
-        if (answered) {
+        if (hasAnsweredCurrent) {
+          event.preventDefault();
           useQuizStore.getState().nextQuestion();
         } else {
           void submitCurrentAnswer();
@@ -605,20 +705,18 @@ export function QuizPlayer({
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [
-    getCurrentQuestion,
+    currentQuestion,
+    hasAnsweredCurrent,
     hiddenOptionIds,
     isCheckingAnswer,
     isCompleted,
+    isGameStarted,
     isPaused,
+    openPause,
     showModeSelector,
-    showFeedback,
     submitCurrentAnswer,
     togglePause,
   ]);
-
-  const currentQuestion = getCurrentQuestion();
-  const totalQuestions = quiz.questions.length;
-  const isLastQuestion = currentQuestionIndex === totalQuestions - 1;
 
   // Marcador para lectores de pantalla: cambia solo al responder, no por tecla.
   const answeredCount = answers.length;
@@ -635,59 +733,6 @@ export function QuizPlayer({
   }
   const scoreAnnouncement = announcementParts.join(' · ');
   const canChangeMode = availableGameModes(quiz).length > 1;
-  const hasAnsweredCurrent = currentQuestion
-    ? answers.some((answer) => answer.question_id === currentQuestion.id)
-    : false;
-
-  /**
-   * A11Y-03: la pausa es un diálogo modal. Al abrir, el foco va al título; Tab
-   * queda atrapado en el panel y Escape reanuda. Al volver, el foco regresa al
-   * botón de pausa.
-   */
-  React.useEffect(() => {
-    if (!isPaused) return;
-    pauseTitleRef.current?.focus();
-  }, [isPaused]);
-
-  React.useEffect(() => {
-    if (isPaused) {
-      wasPausedRef.current = true;
-      return;
-    }
-    if (!wasPausedRef.current) return;
-    wasPausedRef.current = false;
-    pauseButtonRef.current?.focus();
-  }, [isPaused]);
-
-  React.useEffect(() => {
-    if (!isPaused) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        togglePause();
-        return;
-      }
-      if (event.key !== 'Tab') return;
-      const panel = pausePanelRef.current;
-      if (!panel) return;
-      const focusables = Array.from(panel.querySelectorAll<HTMLElement>('button:not([disabled])'));
-      if (!focusables.length) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const active = document.activeElement;
-      const outside = !panel.contains(active);
-      if (event.shiftKey && (active === first || outside)) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && (active === last || outside)) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [isPaused, togglePause]);
-
   /** A11Y-08: tras usar una ayuda el foco sigue en algo útil, no en <body>. */
   const focusFirstAvailableOption = React.useCallback(() => {
     cardWrapRef.current?.querySelector<HTMLButtonElement>('.arcade-option:not(:disabled)')?.focus();
@@ -729,7 +774,14 @@ export function QuizPlayer({
   }
 
   if (showModeSelector) {
-    return <GameModeSelector quiz={quiz} locale={uiLocale} onSelectMode={handleStartGame} />;
+    return (
+      <GameModeSelector
+        quiz={quiz}
+        locale={uiLocale}
+        currentMode={gameMode}
+        onSelectMode={handleStartGame}
+      />
+    );
   }
 
   if (!isGameStarted) {
@@ -745,68 +797,8 @@ export function QuizPlayer({
     );
   }
 
-  if (isPaused) {
-    return (
-      <div className="arcade-play-page arcade-wrap">
-        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center justify-center">
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="quiz-pause-title"
-            aria-describedby="quiz-pause-body"
-            {...entrance(reduceMotion, {
-              initial: { scale: 0.96, opacity: 0 },
-              animate: { scale: 1, opacity: 1 },
-            })}
-            className="arcade-pause w-full max-w-xl p-10 text-center"
-          >
-            <div ref={pausePanelRef}>
-              <div className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black">
-                II
-              </div>
-              <p className="arcade-play-label">{copy.pause}</p>
-              <h1
-                id="quiz-pause-title"
-                ref={pauseTitleRef}
-                tabIndex={-1}
-                className="text-text-primary mt-3 text-4xl font-semibold tracking-tight"
-              >
-                {copy.pauseTitle}
-              </h1>
-              <p id="quiz-pause-body" className="text-text-secondary mt-4 text-base leading-7">
-                {copy.pauseBody}
-              </p>
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                <button
-                  onClick={() => {
-                    togglePause();
-                    playSound('click');
-                  }}
-                  className="arcade-button"
-                >
-                  {copy.resume}
-                </button>
-                {canChangeMode && (
-                  <button
-                    onClick={() => {
-                      setShowModeSelector(true);
-                      togglePause();
-                    }}
-                    className="arcade-pause-secondary"
-                  >
-                    {copy.changeMode}
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    );
-  }
-
   if (isCompleted) {
-    return (
+    const resultScreen = (
       <ResultScreen
         locale={uiLocale}
         quiz={quiz}
@@ -874,6 +866,17 @@ export function QuizPlayer({
         }}
       />
     );
+    return (
+      <React.Suspense
+        fallback={
+          <p className="arcade-wrap py-10" role="status">
+            {copy.loadingResult}
+          </p>
+        }
+      >
+        {resultScreen}
+      </React.Suspense>
+    );
   }
 
   if (!currentQuestion) {
@@ -897,9 +900,71 @@ export function QuizPlayer({
     );
   }
 
+  const pauseDialog = isPaused ? (
+    <div className="arcade-play-page arcade-wrap">
+      <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center justify-center">
+        <motion.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="quiz-pause-title"
+          aria-describedby="quiz-pause-body"
+          {...entrance(reduceMotion, {
+            initial: { scale: 0.96, opacity: 0 },
+            animate: { scale: 1, opacity: 1 },
+          })}
+          className="arcade-pause w-full max-w-xl p-6 text-center sm:p-10"
+        >
+          <div ref={pausePanelRef}>
+            <div
+              aria-hidden="true"
+              className="border-border-subtle bg-bg-primary text-text-primary mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border text-3xl font-black"
+            >
+              II
+            </div>
+            <p className="arcade-play-label">{copy.pause}</p>
+            <h1
+              id="quiz-pause-title"
+              ref={pauseTitleRef}
+              tabIndex={-1}
+              className="text-text-primary mt-3 text-4xl font-semibold tracking-tight"
+            >
+              {copy.pauseTitle}
+            </h1>
+            <p id="quiz-pause-body" className="text-text-secondary mt-4 text-base leading-7">
+              {copy.pauseBody}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <button
+                onClick={() => {
+                  togglePause();
+                  playSound('click');
+                }}
+                className="arcade-button"
+              >
+                {copy.resume}
+              </button>
+              {canChangeMode && (
+                <button
+                  onClick={() => {
+                    setShowModeSelector(true);
+                    togglePause();
+                  }}
+                  className="arcade-pause-secondary"
+                >
+                  {copy.changeMode}
+                </button>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  ) : null;
+
   return (
     <div className="arcade-play-screen">
-      <div className="flex min-h-screen flex-col">
+      {pauseDialog}
+      <div className={cn('min-h-screen flex-col', !isPaused && 'flex')} hidden={isPaused}>
         <motion.div
           {...entrance(reduceMotion, {
             initial: { y: -20, opacity: 0 },
@@ -943,8 +1008,8 @@ export function QuizPlayer({
                 )}
                 <button
                   ref={pauseButtonRef}
-                  onClick={() => {
-                    togglePause();
+                  onClick={(event) => {
+                    openPause(event.currentTarget);
                     playSound('click');
                   }}
                   className="bg-bg-secondary hover:bg-bg-tertiary inline-flex h-11 w-11 items-center justify-center rounded-lg p-2 transition-colors"
@@ -1026,7 +1091,12 @@ export function QuizPlayer({
 
         <div className="arcade-play-body flex-1 px-4 py-8 md:py-10">
           {/* Marcador/racha: región aparte para no repetir el veredicto */}
-          <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+          <p
+            className="sr-only"
+            role={scoreAnnouncement ? 'status' : undefined}
+            aria-live="polite"
+            aria-atomic="true"
+          >
             {scoreAnnouncement}
           </p>
           {/* Avisos puntuales (ayudas, hitos del reloj): no tocan el marcador. */}
@@ -1067,7 +1137,8 @@ export function QuizPlayer({
                     void submitCurrentAnswer(optionId);
                   }}
                   showExplanation={gameMode === 'practice'}
-                  disabled={showFeedback || isCheckingAnswer}
+                  disabled={hasAnsweredCurrent || isCheckingAnswer}
+                  isChecking={isCheckingAnswer}
                   showFeedback={showFeedback}
                   correctOptionId={
                     verdict?.questionIndex === currentQuestionIndex ? verdict.correctOptionId : null
@@ -1099,12 +1170,13 @@ export function QuizPlayer({
                 skipQuestion();
                 playSound('click');
               }}
-              disabled={showFeedback || isCheckingAnswer}
+              disabled={hasAnsweredCurrent || isCheckingAnswer}
               className="arcade-play-skip"
             >
               {copy.skip}
             </button>
             <button
+              ref={continueButtonRef}
               onClick={() => {
                 playSound('click');
                 if (hasAnsweredCurrent) {
@@ -1122,7 +1194,7 @@ export function QuizPlayer({
                   : 'cursor-not-allowed opacity-50'
               )}
             >
-              {isCheckingAnswer ? '...' : isLastQuestion ? copy.finish : copy.next}
+              {isLastQuestion ? copy.finish : copy.next}
             </button>
           </div>
         </div>

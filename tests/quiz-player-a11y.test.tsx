@@ -72,9 +72,13 @@ function makeQuiz(overrides: Partial<Quiz> = {}): Quiz {
   };
 }
 
-async function startPlaying(locale: 'en' | 'es' = 'en') {
+async function startPlaying(
+  locale: 'en' | 'es' = 'en',
+  initialMode?: 'practice',
+  quiz = makeQuiz()
+) {
   // /play arranca directo en Clásico: el selector queda tras «Cambiar modo».
-  render(<QuizPlayer quiz={makeQuiz()} locale={locale} />);
+  render(<QuizPlayer quiz={quiz} locale={locale} initialMode={initialMode} />);
   await screen.findByText(locale === 'es' ? /Elige una respuesta/ : /Choose an answer/);
 }
 
@@ -165,19 +169,75 @@ describe('QuizPlayer foco al cambiar de pregunta', () => {
   });
 });
 
-describe('QuizPlayer veredicto accesible', () => {
-  it('el veredicto se anuncia una sola vez dentro de role="status"', async () => {
-    await startPlaying('es');
+describe('QuizPlayer pausa con teclado', () => {
+  it('mantiene la pregunta en pausa incluso cuando el veredicto ya lleg\u00f3', async () => {
+    vi.useFakeTimers();
+    try {
+      render(<QuizPlayer quiz={makeQuiz()} locale="en" />);
+      await act(async () => {});
+      fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
+      await act(async () => {});
 
+      fireEvent.keyDown(window, { key: 'Escape' });
+      act(() => vi.advanceTimersByTime(5000));
+      expect(useQuizStore.getState().currentQuestionIndex).toBe(0);
+
+      fireEvent.keyDown(window, { key: 'Escape' });
+      act(() => vi.advanceTimersByTime(5000));
+      expect(useQuizStore.getState().currentQuestionIndex).toBe(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it.each([undefined, 'practice'] as const)(
+    'devuelve el foco a donde se abri\u00f3 (%s)',
+    async (mode) => {
+      await startPlaying('en', mode);
+      const option = screen.getByRole('button', { name: /Mars/ });
+      option.focus();
+
+      fireEvent.keyDown(option, { key: 'Escape' });
+      const dialog = screen.getByRole('dialog');
+      expect(dialog).toContainElement(document.activeElement as HTMLElement);
+
+      fireEvent.keyDown(document.activeElement!, { key: 'Escape' });
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Mars/ })).toHaveFocus();
+    }
+  );
+});
+
+describe('QuizPlayer veredicto accesible', () => {
+  it('en Pr\u00e1ctica anuncia un solo veredicto y enfoca Siguiente', async () => {
+    vi.mocked(requestAnswerVerdict).mockResolvedValueOnce({
+      isCorrect: true,
+      correctOptionId: 'q1a',
+      explanation: 'Saturno tiene m\u00e1s lunas.',
+    });
+    await startPlaying('es', 'practice');
+
+    const option = screen.getByRole('button', { name: /Saturn/ });
+    option.focus();
+    fireEvent.click(option);
+
+    const next = await screen.findByRole('button', { name: 'Siguiente' });
+    await waitFor(() => expect(next).toHaveFocus());
+    const card = next.ownerDocument.querySelector('article')!;
+    const regions = card.querySelectorAll('[aria-live], [role="status"]');
+    expect(regions).toHaveLength(1);
+    expect(regions[0]).toHaveTextContent('Correcto');
+    expect(regions[0]).toHaveTextContent('Saturno tiene m\u00e1s lunas.');
+  });
+
+  it('en la \u00faltima pregunta enfoca Terminar aunque falle el reveal', async () => {
+    vi.mocked(requestAnswerVerdict).mockResolvedValueOnce(null);
+    await startPlaying('es', 'practice', makeQuiz({ questions: makeQuiz().questions.slice(0, 1) }));
     fireEvent.click(screen.getByRole('button', { name: /Saturn/ }));
 
-    const verdict = await screen.findByText('Correcto');
-    expect(verdict.closest('[role="status"]')).not.toBeNull();
-
-    const verdictRegions = screen
-      .getAllByRole('status')
-      .filter((region) => region.textContent?.includes('Correcto'));
-    expect(verdictRegions).toHaveLength(1);
+    const finish = screen.getByRole('button', { name: 'Terminar' });
+    await waitFor(() => expect(finish).toHaveFocus());
+    expect(finish).toBeEnabled();
   });
 
   it('un fallo también se anuncia en role="status" y la opción elegida lo marca en su nombre', async () => {

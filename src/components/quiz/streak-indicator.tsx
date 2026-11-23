@@ -1,5 +1,3 @@
-'use client';
-
 import type { Locale } from '@/lib/i18n/dictionaries';
 
 export function StreakIndicator({ streak, locale }: { streak: number; locale: Locale }) {

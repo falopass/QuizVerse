@@ -13,6 +13,7 @@ interface QuestionCardProps {
   onSelectOption: (optionId: string) => void;
   showExplanation?: boolean;
   showFeedback?: boolean;
+  isChecking?: boolean;
   /**
    * Id of the right option, revealed by the server for the answer just given.
    * The card never reads `option.is_correct`: that field does not reach the
@@ -54,6 +55,7 @@ export function QuestionCard({
   onSelectOption,
   showExplanation = false,
   showFeedback = false,
+  isChecking = false,
   correctOptionId = null,
   disabled = false,
   locale,
@@ -65,25 +67,20 @@ export function QuestionCard({
 }: QuestionCardProps) {
   const es = locale === 'es';
   const shownExplanation = explanation ?? question.explanation;
-  // The region mounts empty while the answer is being checked so the verdict
-  // updates an existing live region instead of appearing already populated.
-  const verdictPending = disabled && !showFeedback;
+  const fallbackVerdict =
+    correctOptionId === null
+      ? null
+      : selectedOptionId === correctOptionId
+        ? es
+          ? 'Correcto.'
+          : 'Correct.'
+        : es
+          ? 'Incorrecto.'
+          : 'Incorrect.';
+  const verdict = showFeedback ? (verdictText ?? fallbackVerdict) : null;
+
   return (
     <article className="arcade-question">
-      {(verdictPending || verdictText) && (
-        <span
-          className={cn(
-            'arcade-answer-feedback',
-            verdictText &&
-              verdictCorrect !== null &&
-              (verdictCorrect ? 'qv-l1-verdict-correct' : 'qv-l1-verdict-incorrect')
-          )}
-          role="status"
-          aria-live="polite"
-        >
-          {verdictText}
-        </span>
-      )}
       <div className="arcade-question-head">
         <span>
           {es ? 'Pregunta' : 'Question'} {String(questionNumber).padStart(2, '0')} /{' '}
@@ -112,8 +109,11 @@ export function QuestionCard({
             <button
               key={option.id}
               type="button"
-              onClick={() => onSelectOption(option.id)}
-              disabled={disabled || hiddenOptionIds.includes(option.id)}
+              onClick={() => {
+                if (!disabled) onSelectOption(option.id);
+              }}
+              disabled={(disabled && !selected) || hiddenOptionIds.includes(option.id)}
+              aria-disabled={(disabled && selected) || undefined}
               aria-pressed={selected}
               // Entrada escalonada por pregunta (la tarjeta re-monta con cada
               // una); al revelar el veredicto el retardo se anula para que el
@@ -139,27 +139,35 @@ export function QuestionCard({
           );
         })}
       </div>
-      {/* Sin role="status" a propósito: quiz-player cuenta las regiones status
-          (progreso + marcador + veredicto). aria-live basta para anunciar. */}
-      <div key={question.id} aria-live="polite" aria-atomic="true" className="sr-only">
-        {showFeedback &&
-          correctOptionId !== null &&
-          `${
-            selectedOptionId === correctOptionId
-              ? es
-                ? 'Correcto.'
-                : 'Correct.'
-              : es
-                ? 'Incorrecto.'
-                : 'Incorrect.'
-          }${shownExplanation ? ` ${shownExplanation}` : ''}`}
+      <div className="qv-l10-question-feedback" role="status" aria-live="polite" aria-atomic="true">
+        {isChecking && (
+          <p className="arcade-answer-feedback qv-l10-pending">
+            {es ? 'Comprobando respuesta\u2026' : 'Checking answer\u2026'}
+          </p>
+        )}
+        {verdict && (
+          <>
+            <span
+              className={cn(
+                'arcade-answer-feedback',
+                verdictCorrect !== null &&
+                  (verdictCorrect ? 'qv-l1-verdict-correct' : 'qv-l1-verdict-incorrect')
+              )}
+            >
+              {verdict}
+            </span>
+            {shownExplanation &&
+              (showExplanation ? (
+                <div className="arcade-explanation">
+                  <strong>{es ? 'Explicación' : 'Explanation'}</strong>
+                  <p>{shownExplanation}</p>
+                </div>
+              ) : (
+                <span className="sr-only"> {shownExplanation}</span>
+              ))}
+          </>
+        )}
       </div>
-      {showExplanation && showFeedback && shownExplanation && (
-        <div className="arcade-explanation">
-          <strong>{es ? 'Explicación' : 'Explanation'}</strong>
-          <p>{shownExplanation}</p>
-        </div>
-      )}
     </article>
   );
 }
