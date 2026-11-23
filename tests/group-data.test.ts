@@ -27,7 +27,10 @@ import {
   fetchSessionForGroup,
   insertGroup,
   insertGroupEntry,
+  isBetterGroupAttempt,
   pickProfileNickname,
+  reconcileParticipantGroupEntry,
+  sortGroupEntriesDeterministically,
 } from '@/lib/data/group';
 
 const TOKEN = '0123456789abcdef0123';
@@ -320,5 +323,99 @@ describe('insertGroupEntry', () => {
       query({ error: { code: 'PGRST205', message: 'missing table' } })
     );
     expect(await insertGroupEntry(service(), row)).toBe('missing');
+  });
+});
+
+describe('mejor intento por participante y desempate estable', () => {
+  it('desempata determinísticamente por puntaje, tiempo, fecha y gameSessionId', () => {
+    const sorted = sortGroupEntriesDeterministically([
+      {
+        nickname: 'B',
+        score: 7,
+        maxScore: 8,
+        timeTakenSeconds: 30,
+        gameSessionId: 'sess-b',
+        createdAt: '2025-01-01T00:00:00.000Z',
+      },
+      {
+        nickname: 'A',
+        score: 7,
+        maxScore: 8,
+        timeTakenSeconds: 30,
+        gameSessionId: 'sess-a',
+        createdAt: '2025-01-01T00:00:00.000Z',
+      },
+    ]);
+    expect(sorted.map((item) => item.gameSessionId)).toEqual(['sess-a', 'sess-b']);
+    expect(
+      isBetterGroupAttempt(
+        { score: 7, time_taken_seconds: 25 },
+        { score: 7, time_taken_seconds: 30 }
+      )
+    ).toBe(true);
+    expect(
+      isBetterGroupAttempt(
+        { score: 7, time_taken_seconds: 35 },
+        { score: 7, time_taken_seconds: 30 }
+      )
+    ).toBe(false);
+  });
+
+  it('reconcileParticipantGroupEntry conserva la marca previa si la nueva no la supera y reemplaza si es mejor', async () => {
+    const prevEntry = {
+      id: 'entry-1',
+      nickname: 'Diego',
+      score: 7,
+      max_score: 8,
+      time_taken_seconds: 30,
+      game_session_id: 'sess-prev',
+      created_at: '2025-01-01T00:00:00.000Z',
+    };
+    const calls = [{ data: [prevEntry] }, { data: [{ id: 'sess-prev', player_id: 'user-1' }] }];
+    let idx = 0;
+    mocks.serviceFrom.mockImplementation(() => query(calls[idx++]));
+
+    const kept = await reconcileParticipantGroupEntry(
+      service(),
+      'group-1',
+      {
+        id: 'sess-worse',
+        quiz_id: 'quiz-1',
+        player_id: 'user-1',
+        attempt_id: 'att-2',
+        score: 6,
+        max_score: 8,
+        time_taken_seconds: 20,
+      },
+      'Diego'
+    );
+    expect(kept.action).toBe('keep_existing');
+    expect(kept.entry?.gameSessionId).toBe('sess-prev');
+
+    const replaceCalls = [
+      { data: [prevEntry] },
+      { data: [{ id: 'sess-prev', player_id: 'user-1' }] },
+      { data: null },
+    ];
+    let rIdx = 0;
+    mocks.serviceFrom.mockImplementation(() => query(replaceCalls[rIdx++]));
+
+    const replaced = await reconcileParticipantGroupEntry(
+      service(),
+      'group-1',
+      {
+        id: 'sess-better',
+        quiz_id: 'quiz-1',
+        player_id: 'user-1',
+        attempt_id: 'att-3',
+        score: 8,
+        max_score: 8,
+        time_taken_seconds: 28,
+      },
+      'Diego'
+    );
+    expect(replaced.action).toBe('replaced');
+    expect(replaced.entry?.score).toBe(8);
+    expect(replaced.entry?.gameSessionId).toBe('sess-better');
   });
 });

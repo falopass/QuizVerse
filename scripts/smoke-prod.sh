@@ -93,6 +93,11 @@ check_status /en/no-such-page 404
 
 echo "Seguridad de la clave de respuestas"
 check_absent /en/quiz/en-salvador-dali-trivia/play is_correct
+check_absent /en/quiz/en-salvador-dali-trivia/play '"explanation"'
+check_absent /embed/en/en-salvador-dali-trivia is_correct
+check_absent /embed/en/en-salvador-dali-trivia '"explanation"'
+check_absent "/api/daily/today?locale=en" is_correct
+check_absent "/api/daily/today?locale=en" '"explanation"'
 
 echo
 if [ "$failures" -gt 0 ]; then

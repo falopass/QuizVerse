@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   ATTEMPT_TTL_SECONDS,
   attemptsAvailable,
+  computeAuthoritativeTimeSeconds,
   createQuizAttempt,
   sessionIdsForAttempt,
   verifyQuizAttempt,
@@ -203,5 +204,55 @@ describe('sessionIdsForAttempt', () => {
 
     expect(first!.id).not.toBe(second!.id);
     expect(first!.shareToken).not.toBe(second!.shareToken);
+  });
+});
+
+describe('ámbito del attempt y tiempo competitivo del servidor', () => {
+  it('vincula variante, identidad, conjunto de preguntas y día editorial, y rechaza discrepancias', async () => {
+    const created = await createQuizAttempt(QUIZ_ID, NOW, {
+      userId: 'user-1',
+      variant: 'daily',
+      questionIds: ['q1', 'q2'],
+      dayKey: '2026-11-23',
+    });
+    expect(created).not.toBeNull();
+
+    const ok = await verifyQuizAttempt(created!.token, QUIZ_ID, NOW + 5000, {
+      userId: 'user-1',
+      allowedVariants: ['daily'],
+      questionId: 'q1',
+      allowedDayKeys: ['2026-11-22', '2026-11-23'],
+    });
+    expect(ok.ok).toBe(true);
+
+    const wrongUser = await verifyQuizAttempt(created!.token, QUIZ_ID, NOW + 5000, {
+      userId: 'user-2',
+    });
+    expect(wrongUser).toEqual({ ok: false, reason: 'scope_mismatch' });
+
+    const wrongVariant = await verifyQuizAttempt(created!.token, QUIZ_ID, NOW + 5000, {
+      allowedVariants: ['normal', 'timed'],
+    });
+    expect(wrongVariant).toEqual({ ok: false, reason: 'scope_mismatch' });
+
+    const wrongQuestion = await verifyQuizAttempt(created!.token, QUIZ_ID, NOW + 5000, {
+      questionId: 'q99',
+    });
+    expect(wrongQuestion).toEqual({ ok: false, reason: 'scope_mismatch' });
+  });
+
+  it('acepta tokens v1 en curso sin campos de ámbito (migración compatible)', async () => {
+    const legacy = await createQuizAttempt(QUIZ_ID, NOW);
+    const verified = await verifyQuizAttempt(legacy!.token, QUIZ_ID, NOW + 1000, {
+      userId: 'user-1',
+      allowedVariants: ['normal'],
+      questionIds: ['q1', 'q2'],
+    });
+    expect(verified.ok).toBe(true);
+  });
+
+  it('mide el tiempo competitivo en el servidor ignorando tiempos sub-declarados por el cliente', async () => {
+    const created = await createQuizAttempt(QUIZ_ID, NOW);
+    expect(computeAuthoritativeTimeSeconds(1, created!.attempt, NOW + 45_000)).toBe(45);
   });
 });

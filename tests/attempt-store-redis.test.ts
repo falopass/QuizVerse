@@ -7,7 +7,13 @@ const redis = vi.hoisted(() => ({
 
 vi.mock('@/lib/utils/redis', () => ({ getRedis: () => redis }));
 
-import { claimHint, claimQuestionReveal, getAttemptReveals } from '@/lib/quiz/attempt-store';
+import {
+  claimHint,
+  claimQuestionReveal,
+  finalizeAttemptState,
+  getAttemptReveals,
+  initAttemptState,
+} from '@/lib/quiz/attempt-store';
 
 beforeEach(() => {
   redis.eval.mockReset();
@@ -51,13 +57,12 @@ describe('claimQuestionReveal con Redis', () => {
     });
   });
 
-  it('si Redis falla, sigue con el estado en memoria y lo registra', async () => {
+  it('si Redis falla, falla cerrado con store_unavailable en vez de degradar a memoria por isolate', async () => {
     redis.eval.mockRejectedValue(new Error('redis down'));
 
-    expect(await claimQuestionReveal('attempt-fallback', 'q1', 0, 'a')).toEqual({ ok: true });
-    expect(await claimQuestionReveal('attempt-fallback', 'q1', 0, 'b')).toEqual({
+    expect(await claimQuestionReveal('attempt-fallback', 'q1', 0, 'a')).toEqual({
       ok: false,
-      reason: 'already_revealed',
+      reason: 'store_unavailable',
     });
     expect(console.error).toHaveBeenCalled();
   });
@@ -86,19 +91,18 @@ describe('claimHint con Redis', () => {
     );
   });
 
-  it('si Redis falla, sigue con el estado en memoria', async () => {
+  it('si Redis falla, falla cerrado con store_unavailable', async () => {
     redis.eval.mockRejectedValue(new Error('redis down'));
 
-    expect(await claimHint('attempt-hint-fallback', 'q1')).toEqual({ ok: true });
-    expect(await claimHint('attempt-hint-fallback', 'q2')).toEqual({
+    expect(await claimHint('attempt-hint-fallback', 'q1')).toEqual({
       ok: false,
-      reason: 'hint_already_used',
+      reason: 'store_unavailable',
     });
     expect(console.error).toHaveBeenCalled();
   });
 });
 
-describe('getAttemptReveals con Redis', () => {
+describe('getAttemptReveals y finalizeAttemptState con Redis', () => {
   it('filtra el campo "last" y devuelve solo las preguntas', async () => {
     redis.hgetall.mockResolvedValue({ 'q:q1': 'a', 'q:q2': 'b', last: '1' });
 
@@ -111,10 +115,27 @@ describe('getAttemptReveals con Redis', () => {
     expect(await getAttemptReveals('attempt-1')).toBeNull();
   });
 
-  it('si Redis falla, lee el estado en memoria', async () => {
+  it('si Redis falla, devuelve null sin usar memoria local', async () => {
     redis.hgetall.mockRejectedValue(new Error('redis down'));
 
     expect(await getAttemptReveals('attempt-sin-memoria')).toBeNull();
     expect(console.error).toHaveBeenCalled();
+  });
+
+  it('initAttemptState y finalizeAttemptState consolidan una sola transición en Redis', async () => {
+    redis.eval.mockResolvedValueOnce(1);
+    expect(await initAttemptState('attempt-init')).toBe(true);
+
+    redis.eval.mockResolvedValueOnce([
+      1,
+      ['init', '1', 'q:q1', 'a', 'q:q2', 'b', 'finalized', '1'],
+    ]);
+    const finalized = await finalizeAttemptState('attempt-init', { q1: 'x', q2: 'b' });
+    expect(finalized).toEqual({
+      ok: true,
+      firstTime: true,
+      choices: { q1: 'a', q2: 'b' },
+      durable: true,
+    });
   });
 });

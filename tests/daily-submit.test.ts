@@ -270,4 +270,25 @@ describe('submitDailyResult', () => {
     expect(result.success).toBe(false);
     if (!result.success) expect(result.code).toBe('rate_limited');
   });
+
+  it('rechaza un attempt emitido para otra modalidad o día, y devuelve unavailable si falla el lock de estado', async () => {
+    mocks.attemptsAvailable = true;
+    mocks.verifyAttempt.mockResolvedValueOnce({
+      ok: true,
+      attempt: { attemptId: 'a1', variant: 'normal' },
+    });
+    const wrongVariant = await submit({ attempt: 'signed-token' });
+    expect(wrongVariant).toMatchObject({ success: false, code: 'unauthorized' });
+
+    mocks.verifyAttempt.mockResolvedValueOnce({
+      ok: true,
+      attempt: { attemptId: 'a1', variant: 'daily', dayKey: '2020-01-01' },
+    });
+    const wrongDay = await submit({ attempt: 'signed-token' });
+    expect(wrongDay).toMatchObject({ success: false, code: 'unauthorized' });
+
+    mocks.lockChoice.mockRejectedValueOnce(new Error('redis down'));
+    const storeDown = await submit({ attempt: 'signed-token' });
+    expect(storeDown).toMatchObject({ success: false, code: 'unavailable' });
+  });
 });

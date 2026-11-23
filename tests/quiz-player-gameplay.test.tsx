@@ -389,3 +389,19 @@ describe('QuizPlayer · telemetría', () => {
     expect(starts).toHaveLength(1);
   });
 });
+
+describe('QuizPlayer · catálogo de respaldo sin calificación', () => {
+  it('muestra estado temporal localizado y regreso al catálogo cuando la ficha es de respaldo', async () => {
+    const fallbackQuiz = makeQuiz({ id: 'launch-es-cultura', slug: 'cultura-es' });
+    render(<QuizPlayer quiz={fallbackQuiz} locale="es" />);
+
+    expect(
+      screen.getByRole('heading', { name: 'Calificación temporalmente no disponible' })
+    ).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Volver al catálogo' })).toHaveAttribute(
+      'href',
+      '/es/quiz'
+    );
+    expect(startQuizAttempt).not.toHaveBeenCalled();
+  });
+});

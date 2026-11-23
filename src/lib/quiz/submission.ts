@@ -32,7 +32,7 @@ export const QuizSubmissionSchema = z.object({
 export type QuizSubmissionInput = z.infer<typeof QuizSubmissionSchema>;
 
 export interface ScoredSubmission {
-  /** Correct answers for trivia; answered questions for personality. */
+  /** Correct answers for trivia; validly answered questions for personality. */
   score: number;
   maxScore: number;
   percentage: number;
@@ -40,6 +40,14 @@ export interface ScoredSubmission {
   resultTitle: string | null;
   /** Answers re-graded on the server; safe to persist and to show as a review. */
   graded: Answer[];
+  /** Questions answered with a valid option belonging to that question. */
+  answeredCount: number;
+  /** True when at least one question was answered with a valid option. */
+  participated: boolean;
+  /** True when every question in the quiz was answered with a valid option. */
+  completed: boolean;
+  /** True only when a trivia quiz has all questions answered correctly. */
+  perfectTrivia: boolean;
   perfect: boolean;
 }
 
@@ -48,8 +56,8 @@ export interface ScoredSubmission {
  *
  * - Answers for questions that do not belong to the quiz are dropped.
  * - Duplicate answers for one question keep the first one only.
- * - Trivia scores on correctness; personality quizzes score on completion and
- *   resolve the dominant personality tag into a result.
+ * - Trivia scores on correctness; personality quizzes score on valid option
+ *   completion and resolve the dominant personality tag into a result.
  */
 export function scoreSubmission(
   quiz: Pick<Quiz, 'questions' | 'results' | 'quiz_type'>,
@@ -58,6 +66,7 @@ export function scoreSubmission(
   const seen = new Set<string>();
   const graded: Answer[] = [];
   const personalityTags: string[] = [];
+  let answeredCount = 0;
 
   for (const answer of answers) {
     if (seen.has(answer.question_id)) continue;
@@ -66,6 +75,7 @@ export function scoreSubmission(
 
     const option = question.options.find((item) => item.id === answer.selected_option_id);
     const correctOption = question.options.find((item) => item.is_correct === true);
+    if (option) answeredCount += 1;
     const isCorrect =
       quiz.quiz_type === 'trivia'
         ? Boolean(option && correctOption && option.id === correctOption.id)
@@ -92,12 +102,20 @@ export function scoreSubmission(
   if (quiz.quiz_type === 'trivia') {
     score = graded.filter((answer) => answer.is_correct).length;
   } else {
-    // Personality quizzes have no wrong answers: completing them is the pass.
-    score = graded.length;
-    const result = calculatePersonalityResult(personalityTags, quiz.results ?? []);
-    resultId = result?.id ?? null;
-    resultTitle = result?.title ?? null;
+    // Personality quizzes have no wrong answers, but skipped or invalid options
+    // do not count as completed questions.
+    score = answeredCount;
+    if (answeredCount > 0) {
+      const result = calculatePersonalityResult(personalityTags, quiz.results ?? []);
+      resultId = result?.id ?? null;
+      resultTitle = result?.title ?? null;
+    }
   }
+
+  const participated = answeredCount > 0;
+  const completed = maxScore > 0 && answeredCount === maxScore;
+  const perfect = maxScore > 0 && score === maxScore;
+  const perfectTrivia = quiz.quiz_type === 'trivia' && perfect;
 
   return {
     score,
@@ -106,7 +124,11 @@ export function scoreSubmission(
     resultId,
     resultTitle,
     graded,
-    perfect: maxScore > 0 && score === maxScore,
+    answeredCount,
+    participated,
+    completed,
+    perfectTrivia,
+    perfect,
   };
 }
 
@@ -114,8 +136,14 @@ export function scoreSubmission(
  * Points shown to the player.
  *
  * Mirrors the database trigger `award_quiz_points`, which is the real source of
- * truth: 10 for finishing, +25 for a perfect score. Keep both in sync.
+ * truth: 0 when there was no valid participation, 10 for finishing, +25 bonus
+ * only for a perfect trivia score. Keep both in sync.
  */
-export function pointsFor(perfect: boolean): number {
+export function pointsFor(
+  perfect: boolean,
+  options?: { participated?: boolean; quizType?: Quiz['quiz_type'] }
+): number {
+  if (options?.participated === false) return 0;
+  if (options?.quizType && options.quizType !== 'trivia') return 10;
   return perfect ? 35 : 10;
 }

@@ -40,8 +40,12 @@ export interface UnlockedAchievement {
 }
 
 export interface AchievementContext {
-  /** Set when the game that just finished was flawless. */
+  /** Set when the trivia game that just finished was flawless. */
   perfectScore?: boolean;
+  /** Quiz modality; `perfect_score` is exclusive to trivia. */
+  quizType?: 'trivia' | 'personality';
+  /** False when the submission had zero valid answers. */
+  participated?: boolean;
 }
 
 interface Condition {
@@ -54,7 +58,11 @@ const CONDITIONS: Condition[] = [
   { id: 'quiz_addict_10', satisfied: (stats) => stats.quizzes_played >= 10 },
   { id: 'quiz_master_50', satisfied: (stats) => stats.quizzes_played >= 50 },
   { id: 'creator', satisfied: (stats) => stats.quizzes_created >= 1 },
-  { id: 'perfect_score', satisfied: (_stats, context) => context.perfectScore === true },
+  {
+    id: 'perfect_score',
+    satisfied: (_stats, context) =>
+      context.perfectScore === true && context.quizType !== 'personality',
+  },
   // El umbral lo verifica también unlock_achievement en SQL (018); aquí solo
   // evita pedir el RPC de un logro que aún no toca.
   {
@@ -152,7 +160,7 @@ export async function checkAchievements(
   userId: string | null,
   context: AchievementContext = {}
 ): Promise<UnlockedAchievement[]> {
-  if (!userId) return [];
+  if (!userId || context.participated === false) return [];
 
   const supabase = await createClient();
 

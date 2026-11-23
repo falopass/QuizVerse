@@ -215,6 +215,34 @@ describe('POST /api/quiz/reveal — answer', () => {
     expect(await response.json()).toEqual({ error: 'out_of_order' });
   });
 
+  it('devuelve 503 store_unavailable cuando el almacén de estado del intento falla', async () => {
+    mocks.claimReveal.mockResolvedValue({ ok: false, reason: 'store_unavailable' });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({ error: 'store_unavailable' });
+  });
+
+  it('rechaza con 403 una pregunta fuera del conjunto autorizado en el attempt', async () => {
+    mocks.verifyAttempt.mockResolvedValue({
+      ok: true,
+      attempt: {
+        quizId: QUIZ_ID,
+        attemptId: 'attempt-1',
+        issuedAt: 1_700_000_000,
+        expiresAt: 1_800_000_000,
+        questionIds: ['q2'],
+      },
+    });
+
+    const response = await POST(revealRequest(validAnswer));
+
+    expect(response.status).toBe(403);
+    expect(await response.json()).toEqual({ error: 'attempt_scope_mismatch' });
+    expect(mocks.claimReveal).not.toHaveBeenCalled();
+  });
+
   it('rejects an answer without selectedOptionId', async () => {
     const response = await POST(
       revealRequest({ quizId: QUIZ_ID, questionId: 'q1', purpose: 'answer', attempt: ATTEMPT })

@@ -224,6 +224,13 @@ describe('joinQuizGroup', () => {
     expect(result.success).toBe(false);
     if (!result.success) expect(result.code).toBe('unavailable');
   });
+
+  it('rechaza una sesión con puntaje o rango inválido', async () => {
+    mocks.fetchSessionForGroup.mockResolvedValue(ok({ ...session, max_score: 0 }));
+    const result = await join();
+    expect(result).toMatchObject({ success: false, code: 'invalid_input' });
+    expect(mocks.insertGroupEntry).not.toHaveBeenCalled();
+  });
 });
 
 describe('titularidad de la partida', () => {

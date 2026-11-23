@@ -12,6 +12,7 @@ import { NextResponse } from 'next/server';
 import { getDailyChallenge } from '@/lib/data/daily-quiz';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import { toClientQuiz } from '@/lib/quiz/answer-key';
+import { isFallbackCatalogQuizId } from '@/lib/quiz/quiz-repository';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +25,13 @@ export async function GET(request: Request) {
   const challenge = await getDailyChallenge(locale);
   if (!challenge) {
     return NextResponse.json({ error: 'no_challenge' }, { status: 404 });
+  }
+
+  if (isFallbackCatalogQuizId(challenge.quiz.id)) {
+    return NextResponse.json(
+      { error: 'grading_unavailable' },
+      { status: 503, headers: { 'Cache-Control': 'no-store' } }
+    );
   }
 
   return NextResponse.json(

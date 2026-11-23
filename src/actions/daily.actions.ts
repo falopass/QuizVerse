@@ -68,10 +68,15 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
 
   const { quizId, locale, dayKey: playedKey, answers, attempt: attemptToken } = parsed.data;
 
+  if (quizId.startsWith('launch-')) {
+    return actionFailure('unavailable', 'Daily challenge grading is temporarily unavailable.');
+  }
+
   // Solo se califica el reto vigente o el de ayer (carrera de medianoche: el
   // jugador empezó un día y terminó al siguiente). Otros días no existen.
   const todayKey = dayKey(new Date());
-  if (playedKey !== todayKey && playedKey !== dayKeyAdd(todayKey, -1)) {
+  const yesterdayKey = dayKeyAdd(todayKey, -1);
+  if (playedKey !== todayKey && playedKey !== yesterdayKey) {
     return actionFailure('invalid_input', 'That daily challenge is no longer current.');
   }
 
@@ -83,6 +88,16 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
     if (!attemptToken) return actionFailure('unauthorized', 'Missing game attempt.');
     const verification = await verifyQuizAttempt(attemptToken, quizId);
     if (!verification.ok) return actionFailure('unauthorized', 'Invalid game attempt.');
+    if (verification.attempt.variant !== undefined && verification.attempt.variant !== 'daily') {
+      return actionFailure('unauthorized', 'Invalid game attempt scope.');
+    }
+    if (
+      verification.attempt.dayKey !== undefined &&
+      verification.attempt.dayKey !== null &&
+      verification.attempt.dayKey !== playedKey
+    ) {
+      return actionFailure('unauthorized', 'Invalid game attempt day.');
+    }
     attempt = verification.attempt;
   }
 
@@ -91,6 +106,16 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
   const challenge = await getDailyChallenge(locale, dateFromDayKey(playedKey)).catch(() => null);
   if (!challenge || challenge.quiz.id !== quizId) {
     return actionFailure('invalid_input', 'That is not the daily challenge.');
+  }
+
+  if (attempt && Array.isArray(attempt.questionIds)) {
+    const dailyIds = challenge.questions.map((question) => question.id);
+    if (
+      attempt.questionIds.length !== dailyIds.length ||
+      attempt.questionIds.some((id, index) => id !== dailyIds[index])
+    ) {
+      return actionFailure('unauthorized', 'Invalid game attempt questions.');
+    }
   }
 
   const quiz = await loadAnswerKeyByQuizId(quizId);
@@ -114,7 +139,11 @@ export async function submitDailyResult(input: unknown): Promise<ActionResult<Da
       // Lo no revelado queda fijado al primer envío (sin exigir orden: el
       // envío no es un paso del juego) y se califica lo que quedó fijado:
       // ni reenvíos ni envíos simultáneos sondean la clave del reto.
-      optionId = await lockAttemptChoice(attempt.attemptId, question.id, optionId);
+      try {
+        optionId = await lockAttemptChoice(attempt.attemptId, question.id, optionId);
+      } catch {
+        return actionFailure('unavailable', 'Daily challenge state is temporarily unavailable.');
+      }
     }
     marks.push(
       optionId ? (evaluateAnswer(quiz, question.id, optionId)?.isCorrect ?? false) : false

@@ -7,6 +7,7 @@ import { toClientQuiz } from '@/lib/quiz/answer-key';
 import { parseInitialGameMode } from '@/lib/quiz/game-modes';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { quizOgImage, resultOgImage } from '@/lib/seo/site';
+import { EditorialEmptyState } from '@/components/home/app-placeholders';
 import { QuizPlayer } from '@/components/quiz/quiz-player';
 import { ChallengeBanner } from '@/components/quiz/challenge-banner';
 import { challengeCopy, isShareToken } from '@/lib/quiz/challenge';
@@ -93,6 +94,35 @@ export default async function LocalizedQuizPlayPage({
       permanentRedirect(`/${target.locale}/quiz/${target.slug}/play${suffix}`);
     }
     notFound();
+  }
+
+  if (quiz.id.startsWith('launch-')) {
+    const es = locale === 'es';
+    return (
+      <div className="arcade-play-page arcade-wrap">
+        <div className="mx-auto flex min-h-[calc(100vh-5rem)] max-w-3xl items-center px-4 py-16">
+          <div className="w-full">
+            <EditorialEmptyState
+              eyebrow={es ? 'Modo de respaldo' : 'Fallback catalog'}
+              title={
+                es
+                  ? 'Calificación temporalmente no disponible'
+                  : 'Grading is temporarily unavailable'
+              }
+              body={
+                es
+                  ? 'Estamos mostrando el catálogo de respaldo mientras se restablece el servicio de partidas. Vuelve al catálogo e inténtalo en unos minutos.'
+                  : 'We are serving the fallback catalog while the game grading service reconnects. Head back to the catalog and try again shortly.'
+              }
+              primaryHref={`/${locale}/quiz`}
+              primaryLabel={es ? 'Volver al catálogo' : 'Back to catalog'}
+              secondaryHref={`/${locale}/quiz/${quiz.slug}`}
+              secondaryLabel={es ? 'Ver la ficha del quiz' : 'View quiz page'}
+            />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   // Un enlace de reto muestra el marcador del retador antes de empezar. Si el
