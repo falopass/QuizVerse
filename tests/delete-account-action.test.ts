@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 /**
  * `deleteAccountAction` es la puerta del borrado de cuenta. Estos tests fijan:
- * sin sesión, contraseña incorrecta, sin service key, éxito (con el admin
- * client mockeado), cuentas solo-OAuth, qué pasa con los quizzes publicados y
- * que la autoría de los reportes se restaure si el borrado no ocurre.
+ * sin sesión, contraseña incorrecta, sin service key, fail-closed si faltan
+ * identidades, camino atómico con migración 028 aplicada (sin pre-anonimizar ni
+ * dejar borradores huérfanos) y camino compatible sin 028 (con y sin 019).
  */
 
 const mocks = vi.hoisted(() => {
@@ -14,7 +14,13 @@ const mocks = vi.hoisted(() => {
   const state = {
     user: null as { id: string; email?: string; identities?: { provider: string }[] } | null,
     profile: null as { username: string } | null,
+    atomicRpcResult: {
+      data: null,
+      error: { code: 'PGRST202', message: 'function not found' },
+    } as { data: unknown; error: { code?: string; message?: string } | null },
     drafts: [] as { id: string }[],
+    draftPages: null as { id: string }[][] | null,
+    draftPageCalls: 0,
     resolvedModeratedQuizzes: [] as { id: string }[],
     resolvedQuizReports: [] as { id: string }[],
     resolvedCommentReports: [] as { id: string }[],
@@ -63,6 +69,7 @@ const mocks = vi.hoisted(() => {
   const signOut = vi.fn();
   const deleteUser = vi.fn();
   const limitCheck = vi.fn();
+  const rpc = vi.fn(async () => state.atomicRpcResult);
 
   const server = {
     auth: {
@@ -78,10 +85,18 @@ const mocks = vi.hoisted(() => {
 
   const service = {
     auth: { admin: { deleteUser } },
+    rpc,
     from: (table: string) =>
       makeChain(table, serviceChains, (ops) => {
         if (table === 'quizzes') {
-          if (ops.includes('neq')) return { data: state.drafts, error: null };
+          if (ops.includes('neq')) {
+            if (state.draftPages) {
+              const page = state.draftPages[state.draftPageCalls] ?? [];
+              state.draftPageCalls += 1;
+              return { data: page, error: null };
+            }
+            return { data: state.drafts, error: null };
+          }
           if (ops.includes('range')) return { data: state.resolvedModeratedQuizzes, error: null };
           return { data: null, error: null };
         }
@@ -115,6 +130,7 @@ const mocks = vi.hoisted(() => {
     serviceChains,
     server,
     service,
+    rpc,
     signInWithPassword,
     signOut,
     deleteUser,
@@ -140,7 +156,13 @@ function serviceChainsFor(table: string, op: string) {
 beforeEach(() => {
   mocks.state.user = EMAIL_USER;
   mocks.state.profile = { username: 'diego' };
+  mocks.state.atomicRpcResult = {
+    data: null,
+    error: { code: 'PGRST202', message: 'function not found' },
+  };
   mocks.state.drafts = [{ id: 'draft-1' }];
+  mocks.state.draftPages = null;
+  mocks.state.draftPageCalls = 0;
   mocks.state.resolvedModeratedQuizzes = [{ id: 'quiz-moderated-1' }];
   mocks.state.resolvedQuizReports = [{ id: 'report-1' }];
   mocks.state.resolvedCommentReports = [{ id: 'comment-report-1' }];
@@ -155,13 +177,49 @@ beforeEach(() => {
   mocks.state.serviceAvailable = true;
   mocks.serverChains.length = 0;
   mocks.serviceChains.length = 0;
+  mocks.rpc.mockClear();
   mocks.limitCheck.mockReset().mockResolvedValue({ allowed: true });
   mocks.signInWithPassword.mockReset().mockResolvedValue({ error: null });
   mocks.signOut.mockReset().mockResolvedValue({ error: null });
   mocks.deleteUser.mockReset().mockResolvedValue({ error: null });
 });
 
-describe('deleteAccountAction', () => {
+describe('deleteAccountAction — camino atómico con migración 028 (A-12)', () => {
+  it('conserva propiedad hasta deleteUser y no ejecuta limpiezas separadas cuando 028 está aplicada', async () => {
+    mocks.state.atomicRpcResult = { data: true, error: null };
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: true });
+    expect(mocks.rpc).toHaveBeenCalledWith('has_atomic_account_deletion');
+    expect(mocks.deleteUser).toHaveBeenCalledWith('u1');
+    expect(mocks.signOut).toHaveBeenCalled();
+    // La DB limpia borradores, notificaciones y referencias en la misma transacción.
+    expect(mocks.serviceChains).toHaveLength(0);
+  });
+
+  it('si deleteUser falla con 028 aplicada, devuelve unexpected sin mutaciones previas', async () => {
+    mocks.state.atomicRpcResult = { data: true, error: null };
+    mocks.deleteUser.mockResolvedValue({ error: { message: 'trigger rollback' } });
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: false, code: 'unexpected' });
+    expect(mocks.serviceChains).toHaveLength(0);
+    expect(mocks.signOut).not.toHaveBeenCalled();
+  });
+
+  it('falla cerrado si la comprobación RPC devuelve un error inesperado de DB', async () => {
+    mocks.state.atomicRpcResult = { data: null, error: { code: '08006', message: 'db down' } };
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: false, code: 'unexpected' });
+    expect(mocks.deleteUser).not.toHaveBeenCalled();
+  });
+});
+
+describe('deleteAccountAction — validaciones y camino compatible sin 028', () => {
   it('sin sesión no toca nada y responde unauthorized', async () => {
     mocks.state.user = null;
 
@@ -185,6 +243,15 @@ describe('deleteAccountAction', () => {
     });
     expect(mocks.deleteUser).not.toHaveBeenCalled();
     expect(mocks.signOut).not.toHaveBeenCalled();
+  });
+
+  it('falla cerrado y exige contraseña si identities viene ausente o vacío', async () => {
+    mocks.state.user = { id: 'u1', email: 'u@x.com', identities: [] };
+
+    const result = await deleteAccountAction({ confirmation: 'diego' });
+
+    expect(result).toEqual({ ok: false, code: 'invalid_input' });
+    expect(mocks.deleteUser).not.toHaveBeenCalled();
   });
 
   it('sin SUPABASE_SERVICE_ROLE_KEY falla de forma tipada antes de revalidar', async () => {
@@ -215,7 +282,7 @@ describe('deleteAccountAction', () => {
     expect(mocks.signInWithPassword).not.toHaveBeenCalled();
   });
 
-  it('con la clave correcta borra auth.users, anonimiza reportes y limpia borradores', async () => {
+  it('con la clave correcta borra auth.users, anonimiza reportes y limpia borradores paginados', async () => {
     const result = await deleteAccountAction({ password: 'claveVieja1' });
 
     expect(result).toEqual({ ok: true });
@@ -261,13 +328,33 @@ describe('deleteAccountAction', () => {
     expect(notifications[0].args).toEqual(['data->>user_id.eq.u1,data->>follower_id.eq.u1']);
 
     const draftsRead = serviceChainsFor('quizzes', 'select');
-    expect(draftsRead[0].ops).toEqual(['select', 'eq', 'neq']);
-    expect(draftsRead[0].args).toEqual(['id', 'creator_id', 'u1', 'status', 'published']);
+    expect(draftsRead[0].ops).toEqual(['select', 'eq', 'neq', 'order', 'range']);
+    expect(draftsRead[0].args).toEqual([
+      'id',
+      'creator_id',
+      'u1',
+      'status',
+      'published',
+      'id',
+      { ascending: true },
+      0,
+      999,
+    ]);
 
     // Solo se borran los no publicados: los publicados quedan con creator_id NULL.
     const draftsDelete = serviceChainsFor('quizzes', 'delete');
     expect(draftsDelete[0].ops).toEqual(['delete', 'in']);
     expect(draftsDelete[0].args).toEqual(['id', ['draft-1']]);
+  });
+
+  it('trocea el borrado de borradores cuando superan 200 filas', async () => {
+    mocks.state.drafts = Array.from({ length: 250 }, (_, index) => ({ id: `d${index}` }));
+
+    const result = await deleteAccountAction({ password: 'claveVieja1' });
+
+    expect(result).toEqual({ ok: true });
+    const deletes = serviceChainsFor('quizzes', 'delete');
+    expect(deletes.map((entry) => (entry.args[1] as string[]).length)).toEqual([200, 50]);
   });
 
   it('si el admin delete falla, restaura la autoría de los reportes y no borra borradores', async () => {

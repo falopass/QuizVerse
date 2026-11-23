@@ -132,6 +132,21 @@ describe('signInWithOAuthAction', () => {
     }
   );
 
+  it.each([
+    ['/es/reset-password', '%2Fes'],
+    ['/en/reset-password', '%2Fen'],
+  ])(
+    'impide que OAuth use %s como destino de recuperación (A-06)',
+    async (next, expectedEncoded) => {
+      await signInWithOAuthAction({ provider: 'facebook', next });
+
+      expect(mocks.signInWithOAuth).toHaveBeenCalledWith({
+        provider: 'facebook',
+        options: { redirectTo: `https://quizverse.org/callback?next=${expectedEncoded}` },
+      });
+    }
+  );
+
   it('falla limpio cuando GoTrue no devuelve URL', async () => {
     mocks.signInWithOAuth.mockResolvedValue({ data: { url: null }, error: { message: 'off' } });
 

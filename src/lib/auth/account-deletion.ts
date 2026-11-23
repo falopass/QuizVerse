@@ -42,3 +42,56 @@ export type DeleteAccountErrorCode =
   | 'unexpected';
 
 export type DeleteAccountResult = { ok: true } | { ok: false; code: DeleteAccountErrorCode };
+
+/**
+ * Determina si la cuenta exige revalidar contraseña antes de acciones sensibles
+ * (cambio de contraseña o borrado de cuenta).
+ *
+ * Falla cerrado: solo se considera solo-OAuth cuando `identities` viene poblado
+ * y ninguna identidad es `email`. Si `identities` falta o está vacío, se exige
+ * contraseña para evitar que un objeto parcial salte la reautenticación.
+ */
+export function requiresPasswordReauth(user: {
+  identities?: ReadonlyArray<{ provider?: string | null }> | null;
+}): boolean {
+  const identities = user.identities;
+  if (!identities || identities.length === 0) return true;
+  return identities.some((identity) => identity.provider === 'email');
+}
+
+/** Comprueba la frase de confirmación de una cuenta solo-OAuth (sin sensibilidad a mayúsculas). */
+export function matchesOAuthConfirmation(
+  typed: string | undefined,
+  expectedTarget: string | null | undefined
+): boolean {
+  const expected = (expectedTarget ?? '').trim().toLowerCase();
+  const actual = (typed ?? '').trim().toLowerCase();
+  return expected.length > 0 && actual === expected;
+}
+
+/**
+ * Errores de PostgREST / PostgreSQL que indican tabla, columna o RPC todavía
+ * no desplegado en la base (compatibilidad con migraciones pendientes).
+ */
+export function isMissingSchemaError(error: { code?: string } | null | undefined): boolean {
+  const code = error?.code;
+  return (
+    code === 'PGRST202' ||
+    code === 'PGRST204' ||
+    code === 'PGRST205' ||
+    code === '42P01' ||
+    code === '42703' ||
+    code === '42883'
+  );
+}
+
+/** Trocea listas de IDs para respetar límites de longitud de URL en filtros `in`. */
+export function chunkIds(ids: readonly string[], chunkSize = 200): string[][] {
+  if (ids.length === 0) return [];
+  const size = Math.max(1, Math.floor(chunkSize));
+  const chunks: string[][] = [];
+  for (let index = 0; index < ids.length; index += size) {
+    chunks.push(ids.slice(index, index + size));
+  }
+  return chunks;
+}
