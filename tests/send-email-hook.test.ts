@@ -284,18 +284,21 @@ describe('POST /api/auth/send-email — firma y límite de cuerpo', () => {
     mocks.getRedis.mockReturnValue(redis);
     const body = payload({ type: 'recovery' });
 
+    let markEntered!: () => void;
+    const enteredSend = new Promise<void>((resolve) => {
+      markEntered = resolve;
+    });
     let releaseFirst!: () => void;
     mocks.sendEmail.mockImplementationOnce(
       () =>
         new Promise((resolve) => {
+          markEntered();
           releaseFirst = () => resolve({ messageId: 'm-1' });
         })
     );
 
     const firstPromise = POST(await hookRequest(body, { id: 'msg_race_1' }));
-    // Espera un tick para que el primer request adquiera el claim `sending`.
-    await Promise.resolve();
-    await Promise.resolve();
+    await enteredSend;
 
     const concurrent = await POST(await hookRequest(body, { id: 'msg_race_1' }));
     expect(concurrent.status).toBe(503);
