@@ -148,6 +148,17 @@ describe('QuickStartDeck', () => {
     expect(document.activeElement).toBe(links[3]);
   });
 
+  it('con Ctrl, Alt o Meta deja la tecla al navegador', () => {
+    renderDeck();
+    const links = screen.getAllByRole('link');
+
+    links[1].focus();
+    fireEvent.keyDown(links[1], { key: 'Home', ctrlKey: true });
+    fireEvent.keyDown(links[1], { key: 'End', metaKey: true });
+    fireEvent.keyDown(links[1], { key: 'ArrowRight', altKey: true });
+    expect(document.activeElement).toBe(links[1]);
+  });
+
   it('solo desplaza la pista cuando desborda (móvil) y sin suavizado con reduce', () => {
     const { container } = renderDeck();
     const track = container.querySelector<HTMLUListElement>('ul.qv-l9-deck-track')!;

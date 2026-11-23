@@ -126,7 +126,8 @@ export function QuickStartDeck({ items, heading, previousLabel, nextLabel }: Qui
 
   const onKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
     const index = cardRefs.current.findIndex((card) => card === document.activeElement);
-    if (index === -1) return;
+    // Con modificadores (Ctrl+Inicio, Alt+flecha…) manda el navegador.
+    if (index === -1 || event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
       event.preventDefault();
       select(index + 1, 1, true);

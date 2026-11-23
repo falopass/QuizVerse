@@ -2876,13 +2876,13 @@ body:has(.arcade-result) .cookie-consent-banner {
 }
 
 /* Hero más compacto: el mazo asoma en el primer pliegue a 1440 x 900. */
-.arcade-hero-copy {
+.qv-l9-home .arcade-hero-copy {
   min-height: 440px;
 }
-.arcade-hero-art {
+.qv-l9-home .arcade-hero-art {
   min-height: 440px;
 }
-.arcade-live {
+.qv-l9-home .arcade-live {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -2895,22 +2895,22 @@ body:has(.arcade-result) .cookie-consent-banner {
   box-shadow: 0 0 0 2px #17151d;
   animation: qv-l9-blink 0.7s 0.5s ease-in-out 3;
 }
-.arcade-hero-copy::after {
+.qv-l9-home .arcade-hero-copy::after {
   transform-origin: 50% 50%;
   animation: qv-l9-star-in 0.9s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.arcade-hero-copy h1 {
+.qv-l9-home .arcade-hero-copy h1 {
   text-shadow: 4px 4px 0 var(--accent-tertiary);
 }
 /* Las entradas del hero terminan sin fijar transform (fill backwards): así el
    hover y el pulsado de abajo vuelven a mandar cuando acaba la animación. */
-.arcade-hero-copy > *,
-.arcade-hero-link {
+.qv-l9-home .arcade-hero-copy > *,
+.qv-l9-home .arcade-hero-link {
   animation-fill-mode: backwards;
 }
 /* El CTA es un botón de máquina: sombra dura que se hunde al pulsar. */
-.arcade-hero-copy .arcade-button {
+.qv-l9-home .arcade-hero-copy .arcade-button {
   border: 2px solid #17151d;
   box-shadow: 5px 5px 0 #17151d;
   font-size: 14px;
@@ -2919,32 +2919,34 @@ body:has(.arcade-result) .cookie-consent-banner {
     box-shadow 0.16s,
     background 0.15s;
 }
-.arcade-hero-copy .arcade-button:active {
-  transform: translate(5px, 5px);
-  box-shadow: 0 0 0 #17151d;
-}
-.arcade-hero-link {
+.qv-l9-home .arcade-hero-link {
   border-radius: var(--radius-md);
   transition:
     transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
     box-shadow 0.3s;
 }
-.arcade-hero-link:focus-visible {
+.qv-l9-home .arcade-hero-link:focus-visible {
   outline: 3px solid var(--accent-primary);
   outline-offset: 4px;
 }
 @media (hover: hover) and (pointer: fine) {
-  .arcade-hero-copy:hover::after {
+  .qv-l9-home .arcade-hero-copy:hover::after {
     transform: rotate(35deg) scale(1.08);
   }
-  .arcade-hero-copy .arcade-button:hover {
+  .qv-l9-home .arcade-hero-copy .arcade-button:hover {
     transform: translate(-2px, -2px);
     box-shadow: 7px 7px 0 #17151d;
   }
-  .arcade-hero-link:hover {
+  .qv-l9-home .arcade-hero-link:hover {
     transform: translate(-6px, -6px) rotate(-0.8deg);
     box-shadow: 10px 10px 0 var(--accent-tertiary);
   }
+}
+
+/* Después del hover: con el puntero encima, el pulsado sigue hundiendo el botón. */
+.qv-l9-home .arcade-hero-copy .arcade-button:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 #17151d;
 }
 
 /* Mazo de accesos. */
@@ -3206,24 +3208,30 @@ body:has(.arcade-result) .cookie-consent-banner {
   .qv-l9-deck-slot + .qv-l9-deck-slot .qv-l9-card {
     padding-left: 20px;
   }
+  .qv-l9-home .arcade-hero-copy {
+    min-height: 0;
+  }
+  .qv-l9-home .arcade-hero-art {
+    min-height: 380px;
+  }
 }
 
 /* Móvil: el mazo es una pista con scroll-snap; los botones y el dedo pasan las
    cartas y la siguiente asoma por el borde. */
 @media (max-width: 699px) {
-  .arcade-hero-copy {
+  .qv-l9-home .arcade-hero-copy {
     min-height: 0;
     padding: 24px 22px 26px;
   }
-  .arcade-hero-copy h1 {
+  .qv-l9-home .arcade-hero-copy h1 {
     margin: 16px 0;
     text-shadow: 3px 3px 0 var(--accent-tertiary);
   }
-  .arcade-hero-copy p {
+  .qv-l9-home .arcade-hero-copy p {
     margin-bottom: 18px;
   }
-  .arcade-hero-art,
-  .arcade-hero-empty {
+  .qv-l9-home .arcade-hero-art,
+  .qv-l9-home .arcade-hero-empty {
     min-height: 200px;
     height: 200px;
   }
@@ -3286,13 +3294,13 @@ body:has(.arcade-result) .cookie-consent-banner {
 
 @media (prefers-reduced-motion: reduce) {
   .qv-l9-live-dot,
-  .arcade-hero-copy::after,
+  .qv-l9-home .arcade-hero-copy::after,
   .qv-l9-card {
     animation: none !important;
   }
-  .arcade-hero-copy::after,
-  .arcade-hero-copy .arcade-button,
-  .arcade-hero-link,
+  .qv-l9-home .arcade-hero-copy::after,
+  .qv-l9-home .arcade-hero-copy .arcade-button,
+  .qv-l9-home .arcade-hero-link,
   .qv-l9-deck-controls button,
   .qv-l9-card,
   .qv-l9-card-glyph,

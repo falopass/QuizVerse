@@ -133,7 +133,7 @@ export default async function LocalizedHomePage({ params }: LocalePageProps) {
           ),
         ])}
       />
-      <section className="arcade-hero">
+      <section className="arcade-hero qv-l9-home">
         <div className="arcade-hero-copy">
           <span className="arcade-live">
             <span className="qv-l9-live-dot" aria-hidden="true" />
