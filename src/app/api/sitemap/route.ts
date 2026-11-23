@@ -115,12 +115,16 @@ const TYPE_HUBS = ['trivia', 'personality'];
 /**
  * URL absoluta de la portada de un quiz, para `image:image` del sitemap.
  * Las stock covers ya tienen su ruta servible; el resto cae en la portada
- * procedural `/covers/[slug]`, que siempre existe.
+ * procedural `/covers/[slug]`, que siempre existe. Esa ruta responde con
+ * caché inmutable de un año: el `?v=` cambia con el arte (L8) para que los
+ * buscadores y el CDN no sigan sirviendo el anterior.
  */
+const PROCEDURAL_COVER_VERSION = 'qv8';
+
 export function quizCoverImageUrl(quiz: Pick<QuizRow, 'slug' | 'cover_image_url'>): string {
   const path = quiz.cover_image_url?.startsWith('/stock-covers/')
     ? versionedStockCoverUrl(quiz.cover_image_url)
-    : `/covers/${encodeURIComponent(quiz.slug)}`;
+    : `/covers/${encodeURIComponent(quiz.slug)}?v=${PROCEDURAL_COVER_VERSION}`;
   return `${SITE_URL}${path}`;
 }
 

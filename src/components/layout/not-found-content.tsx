@@ -40,7 +40,7 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
         secondaryHref={`/${locale}`}
         secondaryLabel={es ? 'Ir al inicio' : 'Go home'}
         tertiaryHref={`/${locale}/random`}
-        tertiaryLabel={es ? 'Sorpréndeme' : 'Surprise me'}
+        tertiaryLabel={es ? 'Quiz al azar' : 'Random quiz'}
       />
       <nav aria-label={es ? 'Categorías' : 'Categories'} className="mx-auto mt-8 max-w-4xl">
         <h2 className="eyebrow text-center">{es ? 'Categorías' : 'Categories'}</h2>

@@ -3379,3 +3379,23 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 /* === fin L10 === */
+
+/* === QA final === */
+/* Fila móvil: el tinte de la tarjeta (L8) llegaba justo al texto porque la
+   regla de L7 deja el panel sin padding. El panel ocupa el alto de la portada
+   y el texto respira dentro del tinte. */
+@media (max-width: 639px) {
+  .qv8-card:not(.arcade-card-hero) .arcade-card-info {
+    align-self: stretch;
+    justify-content: center;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+  }
+}
+/* Mientras el aviso de cookies flota abajo, el foco de teclado no queda
+   escondido detrás de él (WCAG 2.4.11): el scroll reserva su alto. */
+html:has(.cookie-consent-banner) {
+  scroll-padding-bottom: 176px;
+}
+/* === fin QA final === */

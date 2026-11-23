@@ -44,7 +44,7 @@ describe('RootNotFound (src/app/global-not-found.tsx)', () => {
       '/en/quiz'
     );
     expect(screen.getByRole('link', { name: 'Go home' })).toHaveAttribute('href', '/en');
-    expect(screen.getByRole('link', { name: 'Surprise me' })).toHaveAttribute('href', '/en/random');
+    expect(screen.getByRole('link', { name: 'Random quiz' })).toHaveAttribute('href', '/en/random');
 
     const links = categoryLinks();
     expect(links.length).toBeGreaterThanOrEqual(6);
@@ -70,7 +70,10 @@ describe('RootNotFound (src/app/global-not-found.tsx)', () => {
       '/es/quiz'
     );
     expect(screen.getByRole('link', { name: 'Ir al inicio' })).toHaveAttribute('href', '/es');
-    expect(screen.getByRole('link', { name: 'Sorpréndeme' })).toHaveAttribute('href', '/es/random');
+    expect(screen.getByRole('link', { name: 'Quiz al azar' })).toHaveAttribute(
+      'href',
+      '/es/random'
+    );
 
     const links = categoryLinks();
     expect(links.length).toBeGreaterThanOrEqual(6);
@@ -98,7 +101,10 @@ describe('LocaleNotFound (src/app/[locale]/not-found.tsx)', () => {
       '/es/quiz'
     );
     expect(screen.getByRole('link', { name: 'Ir al inicio' })).toHaveAttribute('href', '/es');
-    expect(screen.getByRole('link', { name: 'Sorpréndeme' })).toHaveAttribute('href', '/es/random');
+    expect(screen.getByRole('link', { name: 'Quiz al azar' })).toHaveAttribute(
+      'href',
+      '/es/random'
+    );
     for (const link of categoryLinks()) {
       expect(link.getAttribute('href')).toMatch(/^\/es\/category\/[a-z-]+$/);
     }
@@ -115,7 +121,7 @@ describe('LocaleNotFound (src/app/[locale]/not-found.tsx)', () => {
       'href',
       '/en/quiz'
     );
-    expect(screen.getByRole('link', { name: 'Surprise me' })).toHaveAttribute('href', '/en/random');
+    expect(screen.getByRole('link', { name: 'Random quiz' })).toHaveAttribute('href', '/en/random');
   });
 
   it('cae a inglés cuando la ruta no empieza por /es', () => {

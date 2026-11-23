@@ -263,7 +263,7 @@ describe('Explorador: URL ?q=, atrás/adelante, limpiar filtros, fallback y pagi
     );
 
     // Ahora probamos fallo remoto al filtrar por categoría y botón de reintento.
-    fireEvent.click(screen.getByRole('button', { name: 'V Videojuegos' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Videojuegos' }));
     await waitFor(() => {
       expect(screen.getByRole('alert')).toBeInTheDocument();
     });
