@@ -1,3 +1,7 @@
+/* eslint @next/next/no-img-element: "off" */
+// Satori requiere <img> nativo con data URI en ImageResponse. Se usa configuración
+// de regla en lugar de eslint-disable porque @next/eslint-plugin-next omite
+// opengraph-image.tsx en POSIX pero lo dispara en Windows (bug de path.sep).
 import { ImageResponse } from 'next/og';
 import { arcadeOgOptions } from '@/lib/seo/og-font';
 import { OG_CACHE_HEADERS, OG_MISS_CACHE_HEADERS } from '@/lib/seo/og-cache';
@@ -124,8 +128,6 @@ export default async function QuizOpenGraphImage({
           transform: 'rotate(3deg)',
         }}
       >
-        {/* Satori requiere <img> nativo con data URI; next/image no funciona en ImageResponse. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cover}
           alt=""

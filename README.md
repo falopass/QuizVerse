@@ -27,7 +27,7 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 - ✅ Production deployed on **Cloudflare Workers** (OpenNext / Workers Builds) with **Next.js 16.4.2** and **React 19.2.4**
 - ✅ Public routes localized under `/en` and `/es`
 - ✅ Runtime catalog backed by Supabase (self-hosted GoTrue + Postgres at `api.quizverse.org`)
-- ✅ Core flows live: home, explore (`/[locale]/quiz`), detail, play, result, daily quiz, group rankings, fandom hubs, embed widget, login, social login (`google` + `github` visible in prod; full session round-trip and `facebook` setup pending — see `docs/login-social.md`), create, AI create, drafts + preview, profile, "Mi actividad" (`/me`), notifications, leaderboard, admin moderation (`/[locale]/admin/*`), and public info pages (`about`, `contact`, `faq`, `privacy`, `terms`)
+- ✅ Core flows live: home, explore (`/[locale]/quiz`), detail, play, result, daily quiz, group rankings (implemented; migration `021` pending prod verification), fandom hubs, embed widget, login, social login (`google` + `github` visible in prod; full session round-trip and `facebook` setup pending — see `docs/login-social.md`), create, AI create, drafts + preview, profile, "Mi actividad" (`/me`), notifications, leaderboard, admin moderation (`/[locale]/admin/*`), and public info pages (`about`, `contact`, `faq`, `privacy`, `terms`)
 - ✅ Seed, polish, cover hydration, and Supabase import pipelines in place
 
 ### Content stats (dated by evidence source)
@@ -194,7 +194,7 @@ QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado 
 - ✅ Producción en Cloudflare Workers (OpenNext / Workers Builds) con Next.js 16.4.2 y React 19.2.4
 - ✅ Rutas públicas localizadas bajo `/en` y `/es`
 - ✅ Catálogo en Supabase (migraciones versionadas hasta `022`; aplicadas documentadas hasta `020`, `021`–`022` pendientes de verificación por objeto en producción)
-- ✅ Flujos core en vivo: home, explore, detalle, play, resultado, reto diario, ranking de grupo, login y OAuth (`google` y `github` visibles en prod, sesión completa y `facebook` pendientes), creación manual e IA, perfiles, moderación admin y páginas informativas
+- ✅ Flujos core en vivo: home, explore, detalle, play, resultado, reto diario, ranking de grupo (implementado; migración `021` pendiente de verificación en prod), login y OAuth (`google` y `github` visibles en prod, sesión completa y `facebook` pendientes), creación manual e IA, perfiles, moderación admin y páginas informativas
 
 ## Estadísticas de contenido
 
