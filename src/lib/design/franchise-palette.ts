@@ -326,7 +326,7 @@ export function coverMotifMarkup(spec: CoverArtSpec, w = 300, h = 200): string {
         );
       }
       parts.push(
-        `<rect x="${r1(w * (0.15 + rand() * 0.5))}" y="${r1(h * 0.12 + stripH * 0.36)}" width="${r1(w * 0.18)}" height="${r1(stripH * 0.28)}" fill="${second}"/>`
+        `<rect x="${r1(w * (0.04 + rand() * 0.2))}" y="${r1(h * 0.12 + stripH * 0.36)}" width="${r1(w * 0.18)}" height="${r1(stripH * 0.28)}" fill="${second}"/>`
       );
       out.push(`<g transform="rotate(${r1(tilt * 0.6)} ${cx} ${cy})">${parts.join('')}</g>`);
       break;
