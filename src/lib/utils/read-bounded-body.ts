@@ -9,7 +9,7 @@
 
 export type BoundedTextResult =
   | { ok: true; text: string; bytes: number }
-  | { ok: false; reason: 'payload_too_large' };
+  | { ok: false; reason: 'payload_too_large' | 'read_error' };
 
 export type BoundedJsonResult =
   | { ok: true; data: unknown; bytes: number }
@@ -33,12 +33,16 @@ export async function readBoundedText(
   }
 
   if (!request.body) {
-    const text = await request.text();
-    const bytes = new TextEncoder().encode(text).byteLength;
-    if (bytes > maxBytes) {
-      return { ok: false, reason: 'payload_too_large' };
+    try {
+      const text = await request.text();
+      const bytes = new TextEncoder().encode(text).byteLength;
+      if (bytes > maxBytes) {
+        return { ok: false, reason: 'payload_too_large' };
+      }
+      return { ok: true, text, bytes };
+    } catch {
+      return { ok: false, reason: 'read_error' };
     }
-    return { ok: true, text, bytes };
   }
 
   const reader = request.body.getReader();
@@ -56,6 +60,8 @@ export async function readBoundedText(
       }
       chunks.push(value);
     }
+  } catch {
+    return { ok: false, reason: 'read_error' };
   } finally {
     reader.releaseLock();
   }
@@ -80,7 +86,11 @@ export async function readBoundedJson(
   maxBytes: number
 ): Promise<BoundedJsonResult> {
   const read = await readBoundedText(request, maxBytes);
-  if (!read.ok) return read;
+  if (!read.ok) {
+    return read.reason === 'payload_too_large'
+      ? { ok: false, reason: 'payload_too_large' }
+      : { ok: false, reason: 'invalid_json' };
+  }
 
   try {
     return { ok: true, data: JSON.parse(read.text) as unknown, bytes: read.bytes };

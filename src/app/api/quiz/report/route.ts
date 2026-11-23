@@ -48,15 +48,20 @@ function clientIp(request: Request): string {
 }
 
 /**
- * Huella anónima sin PII (SHA-256) para deduplicar reportes abiertos del
- * mismo origen sobre el mismo quiz sin guardar la IP en la base de datos.
+ * Huella anónima sin PII (SHA-256) para deduplicar reportes abiertos idénticos
+ * (mismo quiz, motivo y origen) sin guardar la IP ni silenciar motivos distintos
+ * enviados desde una misma red compartida (NAT/escuela/biblioteca).
  */
-async function anonymousReportFingerprint(quizId: string, ip: string): Promise<string> {
+async function anonymousReportFingerprint(
+  quizId: string,
+  reason: string,
+  ip: string
+): Promise<string> {
   const salt =
     process.env.QUIZ_ATTEMPT_SECRET?.trim() ||
     process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() ||
     'quizverse-report-v1';
-  const payload = new TextEncoder().encode(`quiz-report:${salt}:${quizId}:${ip}`);
+  const payload = new TextEncoder().encode(`quiz-report:${salt}:${quizId}:${reason}:${ip}`);
   const digest = await crypto.subtle.digest('SHA-256', payload);
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
 }
@@ -138,7 +143,10 @@ export async function POST(request: Request) {
 
   const rowWithFingerprint: QuizReportInsert = reporterId
     ? baseRow
-    : { ...baseRow, reporter_fingerprint: await anonymousReportFingerprint(quiz.id, ip) };
+    : {
+        ...baseRow,
+        reporter_fingerprint: await anonymousReportFingerprint(quiz.id, parsed.data.reason, ip),
+      };
 
   let { error } = await writer
     .from('quiz_reports')

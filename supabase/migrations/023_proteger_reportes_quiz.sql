@@ -58,6 +58,28 @@ WHERE r.quiz_id = q.id
 -- Deduplicación de reportes abiertos e índice de cola pendiente
 -- ============================================
 
+-- Consolida duplicados abiertos históricos del mismo (quiz_id, reporter_id)
+-- conservando todas las filas como evidencia y dejando abierto el más reciente,
+-- para que la creación del índice único no falle sobre datos previos a 023.
+WITH ranked_open_reports AS (
+  SELECT
+    id,
+    ROW_NUMBER() OVER (
+      PARTITION BY quiz_id, reporter_id
+      ORDER BY created_at DESC, id DESC
+    ) AS rn
+  FROM public.quiz_reports
+  WHERE NOT resolved
+    AND quiz_id IS NOT NULL
+    AND reporter_id IS NOT NULL
+)
+UPDATE public.quiz_reports r
+SET resolved = true,
+    resolved_at = COALESCE(r.resolved_at, now())
+FROM ranked_open_reports d
+WHERE r.id = d.id
+  AND d.rn > 1;
+
 CREATE UNIQUE INDEX IF NOT EXISTS quiz_reports_open_by_user_once
   ON public.quiz_reports (quiz_id, reporter_id)
   WHERE NOT resolved

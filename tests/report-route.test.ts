@@ -187,6 +187,24 @@ describe('POST /api/quiz/report — validated writer and deduplication', () => {
     expect(mocks.ssrInsert).not.toHaveBeenCalled();
   });
 
+  it('produces distinct anonymous fingerprints for different reasons from the same shared IP', async () => {
+    await POST(
+      reportRequest(
+        { ...validBody, reason: 'incorrect_info' },
+        { 'x-forwarded-for': '203.0.113.42' }
+      )
+    );
+    await POST(
+      reportRequest({ ...validBody, reason: 'hate_speech' }, { 'x-forwarded-for': '203.0.113.42' })
+    );
+
+    const fp1 = (mocks.serviceInsert.mock.calls[0][0] as { reporter_fingerprint: string })
+      .reporter_fingerprint;
+    const fp2 = (mocks.serviceInsert.mock.calls[1][0] as { reporter_fingerprint: string })
+      .reporter_fingerprint;
+    expect(fp1).not.toBe(fp2);
+  });
+
   it('falls back cleanly without reporter_fingerprint when migration 023 is not applied yet', async () => {
     mocks.serviceInsert
       .mockResolvedValueOnce({

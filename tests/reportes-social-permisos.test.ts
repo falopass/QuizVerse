@@ -77,6 +77,7 @@ describe('migración 023 — proteger reportes de quizzes (A-08)', () => {
   });
 
   it('crea índices únicos parciales para deduplicar reportes abiertos (autenticado y anónimo sin PII)', () => {
+    expect(sql).toMatch(/WITH ranked_open_reports AS/i);
     expect(sql).toMatch(/CREATE UNIQUE INDEX IF NOT EXISTS quiz_reports_open_by_user_once/i);
     expect(sql).toMatch(/CREATE UNIQUE INDEX IF NOT EXISTS quiz_reports_open_by_fingerprint_once/i);
     expect(sql).toMatch(/reporter_fingerprint/i);
@@ -168,9 +169,22 @@ describe('readBoundedText / readBoundedJson', () => {
     expect(byStream).toEqual({ ok: false, reason: 'payload_too_large' });
   });
 
-  it('distingue JSON malformado de exceso de tamaño', async () => {
+  it('distingue JSON malformado de exceso de tamaño y captura errores del stream', async () => {
     const req = new Request('http://test/api', { method: 'POST', body: '{bad' });
     expect(await readBoundedJson(req, 64)).toEqual({ ok: false, reason: 'invalid_json' });
+
+    const brokenStream = new ReadableStream<Uint8Array>({
+      pull() {
+        throw new Error('stream aborted');
+      },
+    });
+    const brokenReq = new Request('http://test/api', {
+      method: 'POST',
+      body: brokenStream,
+      // @ts-expect-error -- Node fetch requiere duplex para ReadableStream
+      duplex: 'half',
+    });
+    expect(await readBoundedJson(brokenReq, 64)).toEqual({ ok: false, reason: 'invalid_json' });
   });
 });
 

@@ -96,7 +96,10 @@ export async function POST(request: Request) {
 
   const read = await readBoundedText(request, MAX_BODY_BYTES);
   if (!read.ok) {
-    return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
+    if (read.reason === 'payload_too_large') {
+      return NextResponse.json({ error: 'payload_too_large' }, { status: 413 });
+    }
+    return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
   }
 
   let raw: unknown;
