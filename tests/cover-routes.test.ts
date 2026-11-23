@@ -158,6 +158,60 @@ describe('GET /stock-covers/[slug]', () => {
     expect(url.searchParams.get('dpr')).toBeNull();
   });
 
+  it.each([
+    ['320', '320', '213'],
+    ['640', '640', '427'],
+    ['960', '960', '640'],
+    ['1234', '960', '640'],
+    ['abc', '960', '640'],
+  ])(
+    '?w=%s pide a Pexels la variante %sx%s (anchos fuera de lista caen a 960)',
+    async (w, ew, eh) => {
+      mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+      stubOkImage();
+
+      const response = await stockCoverGet(
+        new Request(`http://test/stock-covers/space-trivia?v=v3rs10n&w=${w}`),
+        params('space-trivia')
+      );
+
+      expect(response.status).toBe(200);
+      const url = new URL(vi.mocked(fetch).mock.calls[0][0] as string);
+      expect(url.searchParams.get('w')).toBe(ew);
+      expect(url.searchParams.get('h')).toBe(eh);
+      // El ancho va en la URL pública: cada variante es su propia clave de caché.
+      expect(response.headers.get('cache-control')).toBe('public, max-age=31536000, immutable');
+    }
+  );
+
+  it('?w=320 en Pixabay usa el sufijo _340', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakePixabayEntry);
+    stubOkImage('image/jpeg');
+
+    await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia?w=320'),
+      params('space-trivia')
+    );
+
+    expect(vi.mocked(fetch).mock.calls[0][0]).toBe(
+      'https://cdn.pixabay.com/photo/2024/01/01/space_340.jpg'
+    );
+  });
+
+  it('el fallback de un proveedor caído es arte sin texto (la tarjeta ya imprime el título)', async () => {
+    mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('network down')));
+
+    const response = await stockCoverGet(
+      new Request('http://test/stock-covers/space-trivia?w=320'),
+      params('space-trivia')
+    );
+
+    const body = await response.text();
+    expect(body).toContain('viewBox="0 0 1200 800"');
+    expect(body).not.toContain('Space Trivia');
+  });
+
   it('sirve caché inmutable de un año cuando ?v= coincide con el manifest', async () => {
     mocks.getStockCoverEntry.mockReturnValue(fakeEntry);
     stubOkImage();

@@ -1,25 +1,43 @@
 ﻿import fs from 'node:fs';
 import path from 'node:path';
-import dotenv from 'dotenv';
+import { pathToFileURL } from 'node:url';
+
+/**
+ * Hidratación de portadas stock (Pexels/Pixabay).
+ *
+ * Por defecto es un REPORTE: no escribe el manifest, los seeds ni el reporte
+ * en disco; imprime lo que haría. Solo `--write` (o STOCK_COVER_WRITE=1)
+ * persiste, y solo debe correrlo Diego con las fotos aprobadas: el manifest
+ * versionado contiene únicamente entradas autorizadas.
+ *
+ * Además del reporte de hidratación, señala los duplicados por locale: una
+ * misma foto de origen solo puede quedar activa una vez por locale, salvo el
+ * par de traducción declarado (es/en del mismo quiz).
+ */
 
 const rootDir = process.cwd();
-dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
 
 const seedPath = path.join(rootDir, 'generated', 'trending-seed.json');
 const normalizedPath = path.join(rootDir, 'generated', 'trending-seed.normalized.json');
 const manifestPath = path.join(rootDir, 'src', 'lib', 'data', 'stock-cover-manifest.json');
 const reportPath = path.join(rootDir, 'generated', 'stock-cover-hydration-report.json');
-const limit = Number(process.env.STOCK_COVER_LIMIT || 24);
-const shouldRefresh = process.env.STOCK_COVER_REFRESH === '1';
-const minimumScore = Number(process.env.STOCK_COVER_MIN_SCORE || 34);
-const pruneOnly = process.argv.includes('--prune') || process.env.STOCK_COVER_PRUNE === '1';
+// Configuración del comando: se resuelve en main() DESPUÉS de cargar
+// .env.local, para que las opciones del archivo local (poda, límite, umbral,
+// escritura) se respeten igual que antes.
+let limit = 24;
+let shouldRefresh = false;
+let minimumScore = 34;
+let pruneOnly = false;
 
-const pexelsKey = process.env.PEXELS_API_KEY;
-const pixabayKey = process.env.PIXABAY_API_KEY;
-
-if (!pexelsKey && !pixabayKey && !pruneOnly) {
-  throw new Error('Missing PEXELS_API_KEY and PIXABAY_API_KEY');
+/** `--write` (o STOCK_COVER_WRITE=1) es la única forma de escribir en disco. */
+export function shouldWrite(argv = process.argv, env = process.env) {
+  return argv.includes('--write') || env.STOCK_COVER_WRITE === '1';
 }
+
+// Las claves se leen al arrancar main(), nunca al importar el módulo: el test
+// importa las funciones puras sin tocar el entorno.
+let pexelsKey;
+let pixabayKey;
 
 const GLOBAL_REJECT_TERMS = [
   'portrait',
@@ -237,7 +255,7 @@ const PEXELS_VARIANT_PARAMS = {
   fm: 'webp',
 };
 
-function stockImageVariantUrl(imageUrl) {
+export function stockImageVariantUrl(imageUrl) {
   try {
     const url = new URL(imageUrl);
     if (url.hostname === 'images.pexels.com') {
@@ -260,13 +278,58 @@ function stockImageVariantUrl(imageUrl) {
 
 // FNV-1a 32 bits: estable y suficiente para invalidar la caché cuando cambia
 // la URL de origen (no es un uso criptográfico).
-function coverVersion(imageUrl) {
+export function coverVersion(imageUrl) {
   let hash = 0x811c9dc5;
   for (let i = 0; i < imageUrl.length; i += 1) {
     hash ^= imageUrl.charCodeAt(i);
     hash = Math.imul(hash, 0x01000193);
   }
   return (hash >>> 0).toString(16).padStart(8, '0');
+}
+
+/** Locale del slug (`es-…` / `en-…`); `null` si el slug no lo declara. */
+export function slugLocale(slug) {
+  const match = /^(es|en)-/.exec(String(slug));
+  return match ? match[1] : null;
+}
+
+/**
+ * Archivo de origen de una entrada: la URL de la foto sin query (Pexels/Pixabay
+ * sirven variantes del mismo archivo con parámetros distintos).
+ */
+export function sourceFileKey(entry) {
+  try {
+    const url = new URL(entry.image_url);
+    return `${url.hostname}${url.pathname.replace(/_(180|340|640|1280|1920)(\.[a-z]+)$/i, '$2')}`;
+  } catch {
+    return String(entry.image_url);
+  }
+}
+
+/**
+ * Duplicados por locale: grupos de slugs del mismo locale que reutilizan un
+ * mismo archivo de origen. El par de traducción (es/en del mismo quiz) es la
+ * excepción controlada: sus slugs viven en locales distintos y nunca forman
+ * grupo.
+ */
+export function findLocaleDuplicates(manifest) {
+  const groups = new Map();
+  for (const entry of Object.values(manifest ?? {})) {
+    if (!entry?.slug || !entry?.image_url) continue;
+    const key = `${slugLocale(entry.slug) ?? '??'}|${sourceFileKey(entry)}`;
+    const list = groups.get(key) ?? [];
+    list.push(entry.slug);
+    groups.set(key, list);
+  }
+  const duplicates = [];
+  for (const [key, slugs] of groups) {
+    if (slugs.length < 2) continue;
+    const [locale, source] = key.split('|');
+    duplicates.push({ locale, source, slugs: [...slugs].sort() });
+  }
+  return duplicates.sort(
+    (a, b) => a.source.localeCompare(b.source) || a.locale.localeCompare(b.locale)
+  );
 }
 
 /**
@@ -495,6 +558,21 @@ function resetToProcedural(quiz) {
 }
 
 async function main() {
+  // Solo el proceso editorial lee el entorno local (claves de API). Nunca se
+  // imprime ningún valor.
+  const { default: dotenv } = await import('dotenv');
+  dotenv.config({ path: path.join(rootDir, '.env.local'), override: true });
+  limit = Number(process.env.STOCK_COVER_LIMIT || 24);
+  shouldRefresh = process.env.STOCK_COVER_REFRESH === '1';
+  minimumScore = Number(process.env.STOCK_COVER_MIN_SCORE || 34);
+  pruneOnly = process.argv.includes('--prune') || process.env.STOCK_COVER_PRUNE === '1';
+  pexelsKey = process.env.PEXELS_API_KEY;
+  pixabayKey = process.env.PIXABAY_API_KEY;
+  const write = shouldWrite();
+  if (!pexelsKey && !pixabayKey && !pruneOnly) {
+    throw new Error('Missing PEXELS_API_KEY and PIXABAY_API_KEY');
+  }
+
   // El seed alimenta la poda: si no se puede leer, abortar antes de escribir
   // un manifest mutilado (readJson tragaría el error con []).
   const seed = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
@@ -502,6 +580,7 @@ async function main() {
   const nextSeed = [...seed];
   const knownSlugs = collectKnownSlugs(nextSeed);
   const report = {
+    mode: write ? 'write' : 'report',
     totalCandidates: 0,
     minimumScore,
     hydrated: [],
@@ -524,7 +603,8 @@ async function main() {
   }
 
   if (pruneOnly) {
-    writeJson(manifestPath, manifest);
+    report.localeDuplicates = findLocaleDuplicates(manifest);
+    if (write) writeJson(manifestPath, manifest);
     console.log(JSON.stringify(report, null, 2));
     return;
   }
@@ -569,11 +649,16 @@ async function main() {
 
     quiz.cover_image_url = `/stock-covers/${quiz.slug}`;
     quiz.cover_mode = 'stock';
+    // Identifica la foto propuesta para revisarla antes de autorizar --write.
     report.hydrated.push({
       slug: quiz.slug,
       provider: result.provider,
       query: result.query,
       score: result.score,
+      image_url: imageUrl,
+      source_url: result.source_url,
+      photographer: result.photographer,
+      source_file: sourceFileKey({ image_url: imageUrl }),
     });
   }
 
@@ -583,15 +668,22 @@ async function main() {
     }
   }
 
-  writeJson(seedPath, nextSeed);
-  writeJson(normalizedPath, nextSeed);
-  writeJson(manifestPath, manifest);
-  writeJson(reportPath, report);
+  report.localeDuplicates = findLocaleDuplicates(manifest);
+
+  if (write) {
+    writeJson(seedPath, nextSeed);
+    writeJson(normalizedPath, nextSeed);
+    writeJson(manifestPath, manifest);
+    writeJson(reportPath, report);
+  }
 
   console.log(JSON.stringify(report, null, 2));
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+// Solo corre al ejecutarse como script; importarlo (tests) no tiene efectos.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

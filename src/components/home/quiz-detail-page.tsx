@@ -122,7 +122,27 @@ export async function QuizDetailPage({ params }: QuizDetailPageProps) {
             priorityLabel=""
           />
           {stockCover && quiz.cover_image_url?.startsWith('/stock-covers/') && (
-            <p className="arcade-attribution">{stockCover.attribution}</p>
+            // Crédito verificable: autor y página de origen enlazados desde
+            // el manifest (Pexels/Pixabay piden atribución visible).
+            <p className="arcade-attribution qv8-credit">
+              {es ? 'Foto' : 'Photo'}
+              {stockCover.photographer ? (
+                <>
+                  {es ? ' de ' : ' by '}
+                  {stockCover.photographer_url ? (
+                    <a href={stockCover.photographer_url} rel="noopener noreferrer" target="_blank">
+                      {stockCover.photographer}
+                    </a>
+                  ) : (
+                    stockCover.photographer
+                  )}
+                </>
+              ) : null}
+              {es ? ' en ' : ' on '}
+              <a href={stockCover.source_url} rel="noopener noreferrer" target="_blank">
+                {stockCover.provider === 'pixabay' ? 'Pixabay' : 'Pexels'}
+              </a>
+            </p>
           )}
         </div>
         <div className="arcade-detail-copy">

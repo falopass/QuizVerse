@@ -2,35 +2,59 @@ import { getStockCoverEntry } from '@/lib/data/stock-cover-manifest';
 import { getQuizBySlug } from '@/lib/data/public';
 import { buildQuizCoverSvg } from '@/lib/design/cover-svg';
 
-// La caja más grande real es la portada de la ficha (≈480×320 CSS); 960×640
-// cubre pantallas 2x sin pasarse. fit=crop fija un 3:2 exacto para que el
-// <img> pueda declarar width/height. WebP baja 201–478 KB a ~20–110 KB.
-const PEXELS_VARIANT_PARAMS: Record<string, string> = {
-  auto: 'compress',
-  cs: 'tinysrgb',
-  w: '960',
-  h: '640',
-  fit: 'crop',
-  fm: 'webp',
-};
+// Variantes acotadas (3:2 exacto, WebP). La caja más grande real es la
+// portada de la ficha (≈480×320 CSS): 960×640 la cubre a 2x y es la variante
+// por defecto (URLs sin `w=` siguen sirviendo lo mismo que antes). 640 cubre la
+// tarjeta de grilla y 320 la fila móvil de 96 px. fit=crop fija el 3:2 para que
+// el <img> declare width/height.
+export const STOCK_VARIANT_WIDTHS = [320, 640, 960] as const;
+export type StockVariantWidth = (typeof STOCK_VARIANT_WIDTHS)[number];
+const DEFAULT_WIDTH: StockVariantWidth = 960;
+
+/** `w=` de la query: solo un ancho de la lista; cualquier otro valor cae al por defecto. */
+export function parseVariantWidth(raw: string | null): StockVariantWidth {
+  const value = Number(raw);
+  return (STOCK_VARIANT_WIDTHS as readonly number[]).includes(value)
+    ? (value as StockVariantWidth)
+    : DEFAULT_WIDTH;
+}
+
+/** Sufijo de Pixabay más chico que cubre el ancho pedido (_340/_640). */
+function pixabaySuffix(width: StockVariantWidth): string {
+  return width <= 320 ? '_340' : '_640';
+}
 
 /**
  * Reescribe la URL de origen a la variante que el sitio realmente pinta.
  * Pexels acepta parámetros imgix en la query; Pixabay no tiene resize por
  * query y los tamaños van en el sufijo del path (_180/_340/_640/_1280).
  */
-export function stockImageVariantUrl(imageUrl: string): string {
+export function stockImageVariantUrl(
+  imageUrl: string,
+  width: StockVariantWidth = DEFAULT_WIDTH
+): string {
   try {
     const url = new URL(imageUrl);
     if (url.hostname === 'images.pexels.com') {
       url.search = '';
-      for (const [key, value] of Object.entries(PEXELS_VARIANT_PARAMS)) {
+      const params: Record<string, string> = {
+        auto: 'compress',
+        cs: 'tinysrgb',
+        w: String(width),
+        h: String(Math.round((width * 2) / 3)),
+        fit: 'crop',
+        fm: 'webp',
+      };
+      for (const [key, value] of Object.entries(params)) {
         url.searchParams.set(key, value);
       }
       return url.toString();
     }
     if (url.hostname === 'cdn.pixabay.com' || url.hostname === 'pixabay.com') {
-      url.pathname = url.pathname.replace(/_(1280|1920)(\.[a-z]+)$/i, '_640$2');
+      url.pathname = url.pathname.replace(
+        /_(340|640|1280|1920)(\.[a-z]+)$/i,
+        `${pixabaySuffix(width)}$2`
+      );
       return url.toString();
     }
     return imageUrl;
@@ -147,7 +171,11 @@ export async function GET(
   }
 
   const entry = getStockCoverEntry(slug);
-  const imageUrl = entry ? stockImageVariantUrl(entry.image_url) : null;
+  const requestUrl = new URL(request.url);
+  // El ancho forma parte de la URL pública (?v=…&w=…), así que cada variante
+  // tiene su propia entrada en la caché del CDN y del navegador.
+  const width = parseVariantWidth(requestUrl.searchParams.get('w'));
+  const imageUrl = entry ? stockImageVariantUrl(entry.image_url, width) : null;
 
   if (entry && imageUrl && isAllowedImageUrl(imageUrl)) {
     try {
@@ -166,7 +194,7 @@ export async function GET(
         if (arrayBuffer !== null) {
           // ?v= es un hash de la URL de origen: coincide solo mientras la foto
           // no cambie, así que una URL versionada puede cachearse un año entero.
-          const version = new URL(request.url).searchParams.get('v');
+          const version = requestUrl.searchParams.get('v');
           const cacheControl =
             entry.v && version === entry.v
               ? 'public, max-age=31536000, immutable'
@@ -198,7 +226,10 @@ export async function GET(
     return new Response('Not found', { status: 404 });
   }
 
-  const svg = buildQuizCoverSvg(quiz);
+  // Fallback sin texto: la tarjeta, la ficha y el hero ya imprimen el título
+  // fuera de la imagen, así que el SVG trae solo el arte propio (mismo motivo
+  // que pinta la tarjeta bajo la foto).
+  const svg = buildQuizCoverSvg(quiz, 'art');
 
   return new Response(svg, {
     headers: {

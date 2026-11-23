@@ -1,127 +1,114 @@
-import { getCoverTheme } from '@/lib/design/cover-system';
+import { coverArtSpec, coverMotifMarkup, type CoverArtSpec } from '@/lib/design/franchise-palette';
 import type { Quiz } from '@/types/quiz';
 
+type CoverSvgQuiz = Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'> & {
+  slug?: string;
+};
+
+/**
+ * Portada SVG servida por `/covers`, el fallback de `/stock-covers` y la OG.
+ * Comparte la regla gráfica con la tarjeta (`coverArtSpec` + `coverMotifMarkup`):
+ * mismo motivo por categoría, mismas variaciones por slug.
+ *
+ * - `landscape` (1600×900): arte + banda con tipo, categoría y título.
+ * - `portrait` (840×1200): panel lateral de la OG del resultado.
+ * - `art` (1200×800, 3:2): solo arte e inicial, sin texto; lo usa el fallback
+ *   de la foto stock, porque la tarjeta y la ficha ya imprimen el título.
+ */
 export function buildQuizCoverSvg(
-  quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>,
-  variant: 'landscape' | 'portrait' = 'landscape'
+  quiz: CoverSvgQuiz,
+  variant: 'landscape' | 'portrait' | 'art' = 'landscape'
 ) {
+  if (variant === 'art') return artSvg(quiz);
   return variant === 'portrait' ? portraitSvg(quiz) : landscapeSvg(quiz);
 }
 
-function landscapeSvg(quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>) {
-  const theme = getCoverTheme(quiz);
-  const letter = (quiz.category?.icon ?? quiz.title.charAt(0).toUpperCase()).slice(0, 1);
+function specFor(quiz: CoverSvgQuiz, forceMode?: 'pleno' | 'night'): CoverArtSpec {
+  return coverArtSpec(
+    {
+      slug: quiz.slug ?? quiz.title,
+      title: quiz.title,
+      quizType: quiz.quiz_type,
+      categorySlug: quiz.category?.slug ?? null,
+    },
+    forceMode
+  );
+}
+
+const DISPLAY_FONT = "'Archivo Black', 'Arial Black', Arial, sans-serif";
+
+function glyphText(spec: CoverArtSpec, x: number, y: number, size: number) {
+  const fill = spec.mode === 'night' ? spec.accent : '#101019';
+  return `<text x="${x + size * 0.05}" y="${y + size * 0.05}" fill="${spec.second}" font-family="${DISPLAY_FONT}" font-size="${size}" font-weight="900" text-anchor="end">${escapeXml(spec.glyph)}</text><text x="${x}" y="${y}" fill="${fill}" font-family="${DISPLAY_FONT}" font-size="${size}" font-weight="900" text-anchor="end">${escapeXml(spec.glyph)}</text>`;
+}
+
+function artSvg(quiz: CoverSvgQuiz) {
+  const spec = specFor(quiz);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="${spec.field}"/>
+  ${coverMotifMarkup(spec, 1200, 800)}
+  ${glyphText(spec, 1150, 860, 720)}
+</svg>`;
+}
+
+function landscapeSvg(quiz: CoverSvgQuiz) {
+  const spec = specFor(quiz, 'night');
   const badge = quiz.quiz_type === 'personality' ? 'PERSONALITY' : 'TRIVIA';
   const titleLines = wrapText(quiz.title, 18);
   const categoryLabel = quiz.category?.name?.toUpperCase() ?? 'QUIZ';
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
-      <stop stop-color="${theme.base}"/>
-      <stop offset="0.58" stop-color="${theme.highlight}"/>
-      <stop offset="1" stop-color="${theme.deep}"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(262 162) rotate(45) scale(463 413)">
-      <stop stop-color="white" stop-opacity="0.26"/>
-      <stop offset="1" stop-color="white" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="1600" height="900" rx="40" fill="url(#bg)"/>
-  <rect width="1600" height="900" rx="40" fill="url(#glow)"/>
-  <rect width="1600" height="900" rx="40" fill="rgba(12,8,6,0.16)"/>
-  <g opacity="0.12">
-    <path d="M0 70H1600" stroke="white"/>
-    <path d="M0 280H1600" stroke="white"/>
-    <path d="M0 490H1600" stroke="white"/>
-    <path d="M0 700H1600" stroke="white"/>
-    <path d="M220 0V900" stroke="white"/>
-    <path d="M600 0V900" stroke="white"/>
-    <path d="M980 0V900" stroke="white"/>
-    <path d="M1360 0V900" stroke="white"/>
-  </g>
-  <rect x="70" y="64" width="300" height="56" rx="28" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="112" y="100" fill="white" font-family="Arial, sans-serif" font-size="18" letter-spacing="5.8">${escapeXml(badge)}</text>
-  <rect x="0" y="620" width="1600" height="280" fill="rgba(12,8,6,0.42)"/>
-  <rect x="70" y="690" width="220" height="70" rx="35" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="180" y="734" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="20" letter-spacing="4">${escapeXml(
+  <rect width="1600" height="900" fill="${spec.field}"/>
+  ${coverMotifMarkup(spec, 1600, 900)}
+  ${glyphText(spec, 1540, 640, 620)}
+  <rect x="70" y="64" width="300" height="56" rx="28" fill="${spec.accent}"/>
+  <text x="220" y="100" text-anchor="middle" fill="#101019" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">${escapeXml(badge)}</text>
+  <rect x="0" y="600" width="1600" height="300" fill="#101019" fill-opacity="0.86"/>
+  <rect x="0" y="600" width="1600" height="10" fill="${spec.accent}"/>
+  <text x="70" y="668" fill="${spec.accent}" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="4">${escapeXml(
     categoryLabel
   )}</text>
-  ${renderTspans(titleLines, 70, 792, 72, '#FFF8F2', true)}
-  <rect x="1200" y="120" width="250" height="250" rx="78" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="1325" y="270" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="120" font-weight="700">${escapeXml(letter)}</text>
-  <text x="1284" y="790" fill="rgba(255,248,242,0.76)" font-family="Arial, sans-serif" font-size="22" text-anchor="end">QuizVerse</text>
+  ${renderTspans(titleLines, 70, 752, 64, '#F6F3FF')}
+  <text x="1530" y="860" fill="rgba(246,243,255,0.76)" font-family="Arial, sans-serif" font-size="22" text-anchor="end">QuizVerse</text>
 </svg>`;
 }
 
 // Composición vertical para el panel lateral de la tarjeta OG del resultado
-// (caja ~354×510): el recorte `cover` de la 16:9 cortaría título y monograma.
-function portraitSvg(quiz: Pick<Quiz, 'title' | 'description' | 'quiz_type' | 'category'>) {
-  const theme = getCoverTheme(quiz);
-  const letter = (quiz.category?.icon ?? quiz.title.charAt(0).toUpperCase()).slice(0, 1);
+// (caja ~354×510): el recorte `cover` de la 16:9 cortaría título e inicial.
+function portraitSvg(quiz: CoverSvgQuiz) {
+  const spec = specFor(quiz, 'night');
   const badge = quiz.quiz_type === 'personality' ? 'PERSONALITY' : 'TRIVIA';
   const titleLines = wrapText(quiz.title, 15);
   const categoryLabel = quiz.category?.name?.toUpperCase() ?? 'QUIZ';
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="840" height="1200" viewBox="0 0 840 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="840" y2="1200" gradientUnits="userSpaceOnUse">
-      <stop stop-color="${theme.base}"/>
-      <stop offset="0.58" stop-color="${theme.highlight}"/>
-      <stop offset="1" stop-color="${theme.deep}"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(210 170) rotate(45) scale(320 420)">
-      <stop stop-color="white" stop-opacity="0.26"/>
-      <stop offset="1" stop-color="white" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <rect width="840" height="1200" rx="36" fill="url(#bg)"/>
-  <rect width="840" height="1200" rx="36" fill="url(#glow)"/>
-  <rect width="840" height="1200" rx="36" fill="rgba(12,8,6,0.16)"/>
-  <g opacity="0.12">
-    <path d="M0 170H840" stroke="white"/>
-    <path d="M0 450H840" stroke="white"/>
-    <path d="M0 730H840" stroke="white"/>
-    <path d="M0 1010H840" stroke="white"/>
-    <path d="M150 0V1200" stroke="white"/>
-    <path d="M360 0V1200" stroke="white"/>
-    <path d="M570 0V1200" stroke="white"/>
-    <path d="M780 0V1200" stroke="white"/>
-  </g>
-  <rect x="56" y="52" width="250" height="56" rx="28" fill="rgba(255,255,255,0.16)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="181" y="88" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="17" letter-spacing="4">${escapeXml(badge)}</text>
-  <text x="784" y="88" text-anchor="end" fill="rgba(255,248,242,0.76)" font-family="Arial, sans-serif" font-size="20">QuizVerse</text>
-  <rect x="250" y="180" width="340" height="340" rx="96" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="420" y="408" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="160" font-weight="700">${escapeXml(letter)}</text>
-  <rect x="0" y="840" width="840" height="360" fill="rgba(12,8,6,0.42)"/>
-  <rect x="56" y="900" width="220" height="66" rx="33" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.18)"/>
-  <text x="166" y="943" text-anchor="middle" fill="#FFF8F2" font-family="Arial, sans-serif" font-size="19" letter-spacing="4">${escapeXml(
+  <rect width="840" height="1200" fill="${spec.field}"/>
+  ${coverMotifMarkup(spec, 840, 1200)}
+  ${glyphText(spec, 800, 780, 640)}
+  <rect x="56" y="52" width="250" height="56" rx="28" fill="${spec.accent}"/>
+  <text x="181" y="88" text-anchor="middle" fill="#101019" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="4">${escapeXml(badge)}</text>
+  <text x="784" y="88" text-anchor="end" fill="rgba(246,243,255,0.76)" font-family="Arial, sans-serif" font-size="20">QuizVerse</text>
+  <rect x="0" y="840" width="840" height="360" fill="#101019" fill-opacity="0.86"/>
+  <rect x="0" y="840" width="840" height="10" fill="${spec.accent}"/>
+  <text x="56" y="920" fill="${spec.accent}" font-family="Arial, sans-serif" font-size="19" font-weight="700" letter-spacing="4">${escapeXml(
     categoryLabel
   )}</text>
-  ${renderTspans(titleLines, 56, 1040, 62, '#FFF8F2', true)}
+  ${renderTspans(titleLines, 56, 1010, 58, '#F6F3FF')}
 </svg>`;
 }
 
-function renderTspans(
-  lines: string[],
-  x: number,
-  y: number,
-  fontSize: number,
-  fill: string,
-  bold: boolean
-) {
+function renderTspans(lines: string[], x: number, y: number, fontSize: number, fill: string) {
   const tspans = lines
     .map(
       (line, index) =>
-        `<tspan x="${x}" dy="${index === 0 ? 0 : fontSize * 0.74}">${escapeXml(line)}</tspan>`
+        `<tspan x="${x}" dy="${index === 0 ? 0 : fontSize * 1.02}">${escapeXml(line)}</tspan>`
     )
     .join('');
 
-  return `<text y="${y}" fill="${fill}" font-family="Arial, sans-serif" font-size="${fontSize}" ${
-    bold ? 'font-weight="700"' : ''
-  }>${tspans}</text>`;
+  return `<text y="${y}" fill="${fill}" font-family="${DISPLAY_FONT}" font-size="${fontSize}" font-weight="700">${tspans}</text>`;
 }
 
 function wrapText(text: string, maxLength = 22) {
