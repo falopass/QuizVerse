@@ -20,6 +20,7 @@ import * as faqOg from '@/app/[locale]/faq/opengraph-image';
 import * as exploreOg from '@/app/[locale]/quiz/opengraph-image';
 import * as dailyOg from '@/app/[locale]/daily/opengraph-image';
 import * as novedadesOg from '@/app/[locale]/novedades/opengraph-image';
+import * as widgetOg from '@/app/[locale]/widget/opengraph-image';
 import { generateMetadata as indiceMetadata } from '@/app/[locale]/indice/page';
 import { generateMetadata as faqMetadata } from '@/app/[locale]/faq/page';
 import { generateMetadata as exploreMetadata } from '@/app/[locale]/quiz/(explorar)/page';
@@ -37,11 +38,14 @@ const cases = [
 ];
 
 describe('opengraph-image for /indice, /faq, /quiz, /daily and /novedades', () => {
-  it.each(cases)('$route declares a 1200×630 PNG card', ({ mod }) => {
-    expect(mod.size).toEqual({ width: 1200, height: 630 });
-    expect(mod.contentType).toBe('image/png');
-    expect(typeof mod.default).toBe('function');
-  });
+  it.each([...cases, { route: '/widget', mod: widgetOg }])(
+    '$route declares a 1200×630 PNG card',
+    ({ mod }) => {
+      expect(mod.size).toEqual({ width: 1200, height: 630 });
+      expect(mod.contentType).toBe('image/png');
+      expect(typeof mod.default).toBe('function');
+    }
+  );
 
   it.each(cases)(
     '$route metadata points og:image and twitter:image at the dynamic card',

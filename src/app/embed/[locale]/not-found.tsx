@@ -9,9 +9,12 @@ import { SITE_URL } from '@/lib/seo/site';
 export default function EmbedNotFound() {
   const pathname = usePathname();
   const es = pathname.startsWith('/embed/es');
+  const title = es ? 'Quiz no encontrado · QuizVerse' : 'Quiz not found · QuizVerse';
 
   return (
     <main className="flex min-h-[60vh] items-center justify-center px-6 text-center">
+      <title>{title}</title>
+      <meta name="robots" content="noindex" />
       <div>
         <p className="eyebrow">404</p>
         <h1 className="text-text-primary mt-2 text-2xl font-semibold">

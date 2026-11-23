@@ -39,6 +39,25 @@ describe('parseQuery', () => {
     expect(ok.ok).toBe(true);
   });
 
+  it('valida filtros combinados de categoría, tipo y mood', () => {
+    const combined = parseQuery(
+      QuizQuerySchema,
+      params({ locale: 'es', category: 'movies-tv', type: 'trivia', mood: 'fast', q: 'f1' })
+    );
+    expect(combined.ok).toBe(true);
+    if (combined.ok) {
+      expect(combined.data).toMatchObject({
+        locale: 'es',
+        category: 'movies-tv',
+        type: 'trivia',
+        mood: 'fast',
+        q: 'f1',
+      });
+    }
+    expect(parseQuery(QuizQuerySchema, params({ type: 'poll' })).ok).toBe(false);
+    expect(parseQuery(QuizQuerySchema, params({ mood: 'unknown' })).ok).toBe(false);
+  });
+
   it('devuelve errores por campo, no una excepción', () => {
     const result = parseQuery(QuizQuerySchema, params({ limit: '999', page: '-1' }));
     expect(result.ok).toBe(false);

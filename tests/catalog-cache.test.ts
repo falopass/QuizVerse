@@ -340,6 +340,9 @@ describe('caché ligera de explorar', () => {
 
     const filtered = await getExplorePayload('es', 'buscar películas', 'movies-tv');
     expect(filtered.quizzes).toHaveLength(1040);
+    // Paridad con #396: buscar sin tilde («peliculas») encuentra «películas».
+    const withoutAccent = await getExplorePayload('es', 'buscar peliculas', 'movies-tv');
+    expect(withoutAccent.quizzes).toHaveLength(1040);
     expect((await getExplorePayload('es', 'ausente')).quizzes).toEqual([]);
     expect((await getExplorePayload('es', undefined, 'culture')).quizzes).toEqual([]);
   });
@@ -353,5 +356,6 @@ describe('caché ligera de explorar', () => {
     const payload = await getExplorePayload('en');
     const fallback = getLaunchExplorePayload('en');
     expect(payload.quizzes).toEqual(fallback.quizzes);
+    expect(payload.isFallback).toBe(true);
   });
 });

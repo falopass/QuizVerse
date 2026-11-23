@@ -34,3 +34,37 @@ export function searchIndexText(quiz: SearchIndexSource): string {
 export function matchesSearchIndex(indexText: string, normalizedQuery: string): boolean {
   return indexText.includes(normalizedQuery);
 }
+
+/**
+ * Normaliza un término de búsqueda externo (URL `?q=` o endpoint `/api/quizzes`)
+ * con la misma regla de `foldSearchText`: preserva la `ñ` precompuesta, quita
+ * marcas combinantes huérfanas y devuelve `''` si el término solo contenía
+ * diacríticos o espacios.
+ */
+export function normalizeSearchTerm(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  const folded = foldSearchText(trimmed).trim();
+  if (!folded) return '';
+  return trimmed
+    .normalize('NFD')
+    .replace(/n\u0303/g, '\u00f1')
+    .replace(/N\u0303/g, '\u00d1')
+    .normalize('NFC');
+}
+
+/**
+ * Variantes de consulta para la búsqueda remota (`/api/quizzes`): devuelve el
+ * término NFC normalizado y, si lleva tildes/diéresis que `foldSearchText`
+ * pliega (p. ej. `Música` → `musica`), añade también la variante plegada para
+ * que la búsqueda remota mantenga paridad con el índice local.
+ */
+export function searchQueryTerms(value: string): string[] {
+  const nfc = normalizeSearchTerm(value);
+  if (!nfc) return [];
+  const folded = foldSearchText(nfc);
+  if (!folded || folded === nfc.toLowerCase()) {
+    return [nfc];
+  }
+  return [nfc, folded];
+}

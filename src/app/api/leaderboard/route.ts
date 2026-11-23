@@ -2,9 +2,22 @@ import { z } from 'zod';
 import { PaginationSchema, jsonError, jsonOk, parseQuery } from '@/lib/api/query';
 import { getLeaderboard } from '@/lib/data/public';
 import { getWeeklyLeaderboard } from '@/lib/profile/weekly-ranking';
+import { isMissingRpcFunction } from '@/lib/supabase/rpc';
 import { createClient } from '@/lib/supabase/server';
 
 export const revalidate = 60;
+
+const FRIENDS_PROFILE_COLUMNS = 'id, username, display_name, avatar_url, points, quizzes_played';
+const MAX_FOLLOWS_SCAN = 5000;
+
+interface FriendsProfileRow {
+  id: string;
+  username: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  points: number;
+  quizzes_played: number;
+}
 
 const LeaderboardQuerySchema = PaginationSchema.extend({
   /** `friends` incluye al jugador y a quienes sigue. Requiere sesión. */
@@ -78,29 +91,58 @@ export async function GET(request: Request) {
 
   if (!user) return jsonError(401, 'unauthorized');
 
-  const { data: follows, error: followsError } = await supabase
-    .from('user_follows')
-    .select('following_id')
-    .eq('follower_id', user.id);
-
-  if (followsError) return jsonError(503, 'leaderboard_unavailable');
-
-  const ids = [user.id, ...(follows ?? []).map((f) => f.following_id)];
   const from = (page - 1) * limit;
+  let rows: FriendsProfileRow[] | null = null;
 
-  // Una fila de más para que `hasMore` sea exacto, igual que en el board global.
-  const { data: rows, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .in('id', ids)
-    .order('points', { ascending: false })
-    // Desempate único para que la paginación por offset no repita filas.
-    .order('id', { ascending: true })
-    .range(from, from + limit);
+  const withRpc = supabase as typeof supabase & {
+    rpc?: (
+      fn: string,
+      args: Record<string, unknown>
+    ) => Promise<{
+      data: FriendsProfileRow[] | null;
+      error: { code?: string; message?: string } | null;
+    }>;
+  };
 
-  if (error) return jsonError(503, 'leaderboard_unavailable');
+  if (typeof withRpc.rpc === 'function') {
+    const rpcResult = await withRpc.rpc('get_friends_leaderboard', {
+      p_limit: limit + 1,
+      p_offset: from,
+    });
+    if (!rpcResult.error && Array.isArray(rpcResult.data)) {
+      rows = rpcResult.data;
+    } else if (rpcResult.error && !isMissingRpcFunction(rpcResult.error)) {
+      return jsonError(503, 'leaderboard_unavailable');
+    }
+  }
 
-  const pageRows = (rows ?? []).slice(0, limit);
+  if (rows === null) {
+    const { data: follows, error: followsError } = await supabase
+      .from('user_follows')
+      .select('following_id')
+      .eq('follower_id', user.id)
+      .limit(MAX_FOLLOWS_SCAN);
+
+    if (followsError) return jsonError(503, 'leaderboard_unavailable');
+
+    const ids = [user.id, ...(follows ?? []).map((f) => f.following_id)];
+
+    // Una fila de más para que `hasMore` sea exacto, igual que en el board global.
+    const { data: profileRows, error } = await supabase
+      .from('profiles')
+      .select(FRIENDS_PROFILE_COLUMNS)
+      .in('id', ids)
+      .order('points', { ascending: false })
+      .order('quizzes_played', { ascending: false })
+      // Desempate único para que la paginación por offset no repita filas.
+      .order('id', { ascending: true })
+      .range(from, from + limit);
+
+    if (error) return jsonError(503, 'leaderboard_unavailable');
+    rows = (profileRows ?? []) as FriendsProfileRow[];
+  }
+
+  const pageRows = rows.slice(0, limit);
   const entries: PublicEntry[] = pageRows.map((row, index) => ({
     rank: from + index + 1,
     id: row.id,

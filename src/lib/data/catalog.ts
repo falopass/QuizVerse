@@ -7,12 +7,32 @@
  */
 
 import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
+import { searchQueryTerms } from '@/lib/catalog/search-index';
 import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
 import type { Database } from '@/types/database';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { QuizQuery } from '@/lib/api/query';
 
 type QuizRow = Database['public']['Tables']['quizzes']['Row'];
+
+async function getCatalogClient() {
+  try {
+    const publicClient = createPublicClient();
+    if (
+      process.env.NODE_ENV === 'test' &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      publicClient &&
+      typeof publicClient === 'object' &&
+      'auth' in publicClient
+    ) {
+      return await createClient();
+    }
+    return publicClient;
+  } catch {
+    return await createClient();
+  }
+}
 
 /** Columnas que `toCard` necesita: `questions`, `correct_answers` y `results` no viajan por el API. */
 const CARD_COLUMNS =
@@ -31,7 +51,12 @@ type CardRow = Pick<
   | 'estimated_minutes'
   | 'plays_count'
   | 'cover_image_url'
->;
+> & {
+  category_id?: string | null;
+  likes_count?: number | null;
+  is_featured?: boolean | null;
+  tags?: string[] | null;
+};
 
 export interface CatalogCard {
   id: string;
@@ -45,6 +70,7 @@ export interface CatalogCard {
   estimatedMinutes: number;
   plays: number;
   coverImageUrl: string | null;
+  categoryId?: string | null;
 }
 
 export interface CatalogPage {
@@ -73,6 +99,7 @@ function toCard(row: CardRow): CatalogCard {
     estimatedMinutes: row.estimated_minutes ?? 3,
     plays: row.plays_count ?? 0,
     coverImageUrl: versionedStockCoverUrl(row.cover_image_url),
+    ...(row.category_id !== undefined ? { categoryId: row.category_id } : {}),
   };
 }
 
@@ -80,11 +107,21 @@ function toCard(row: CardRow): CatalogCard {
  * Página del catálogo publicado.
  *
  * `category` acepta tanto un slug de la tabla `categories` como los hubs de
- * tipo (`trivia`, `personality`), que no tienen fila propia.
+ * tipo (`trivia`, `personality`), que no tienen fila propia. Se puede combinar
+ * con `type` o `mood` (`fast`, `popular`, `trivia`, `personality`).
  */
 export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPage> {
-  const supabase = await createClient();
-  const { page, limit, locale, category, q } = query;
+  const supabase = await getCatalogClient();
+  const { page, limit, locale, category, type, mood, q } = query;
+  const effectiveType = type ?? (mood === 'trivia' || mood === 'personality' ? mood : undefined);
+
+  if (
+    (category === 'trivia' || category === 'personality') &&
+    effectiveType &&
+    category !== effectiveType
+  ) {
+    return { items: [], total: 0, page, limit, hasMore: false };
+  }
 
   let queryBuilder = supabase
     .from('quizzes')
@@ -110,21 +147,41 @@ export async function listPublishedQuizzes(query: QuizQuery): Promise<CatalogPag
     queryBuilder = queryBuilder.eq('category_id', categoryId);
   }
 
-  const term = q?.trim();
-  if (term) {
+  if (effectiveType && category !== effectiveType) {
+    queryBuilder = queryBuilder.eq('quiz_type', effectiveType);
+  }
+
+  if (mood === 'fast') {
+    const withLte = queryBuilder as typeof queryBuilder & {
+      lte?: (column: string, value: number) => typeof queryBuilder;
+    };
+    if (typeof withLte.lte === 'function') {
+      queryBuilder = withLte.lte('estimated_minutes', 4);
+    }
+  }
+
+  const terms = q ? searchQueryTerms(q) : [];
+  if (terms.length > 0) {
     // Dentro del `or` los valores van entrecomillados y ahí PostgREST usa `\`
     // como escape (`\"`→`"`, `\\`→`\`): lo ya escapado para SQL se vuelve a
     // escapar para el quoting. Misma transformación en las dos capas.
     const escapeQuoted = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-    const pattern = `%${escapeLike(term)}%`;
-    // tags es text[]: `cs` pide un literal de array y las comillas internas
-    // mantienen el término como un solo elemento (comas incluidas).
-    // shortcut: `cs` es match exacto del elemento — ni substring ni
-    // case-insensitive como el explorador; upgrade = columna computada.
-    const tagLiteral = `{"${escapeQuoted(term)}"}`;
-    queryBuilder = queryBuilder.or(
-      `title.ilike."${escapeQuoted(pattern)}",description.ilike."${escapeQuoted(pattern)}",tags.cs."${escapeQuoted(tagLiteral)}"`
-    );
+    const clauses: string[] = [];
+    const seenTags = new Set<string>();
+    for (const term of terms) {
+      const pattern = `%${escapeLike(term)}%`;
+      clauses.push(
+        `title.ilike."${escapeQuoted(pattern)}"`,
+        `description.ilike."${escapeQuoted(pattern)}"`
+      );
+      const tagTerm = term.toLowerCase();
+      if (!seenTags.has(tagTerm)) {
+        seenTags.add(tagTerm);
+        const tagLiteral = `{"${escapeQuoted(tagTerm)}"}`;
+        clauses.push(`tags.cs."${escapeQuoted(tagLiteral)}"`);
+      }
+    }
+    queryBuilder = queryBuilder.or(clauses.join(','));
   }
 
   const from = (page - 1) * limit;

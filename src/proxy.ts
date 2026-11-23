@@ -92,7 +92,12 @@ function isPageRequest(request: NextRequest, pathname: string) {
 // Lista cerrada de páginas sin personalización de servidor. Next decide si la
 // respuesta es ISR, redirect, 404 o error; nunca forzamos `public` desde aquí.
 const CACHEABLE_PAGE_RE =
-  /^\/(en|es)(?:\/(?:quiz(?:\/[^/.]+)?|fandom\/[^/.]+|indice|novedades|about|faq|privacy|terms|contact|widget))?\/?$/;
+  /^\/(en|es)(?:\/(?:quiz(?:\/[^/.]+)?|category\/[^/.]+|daily|fandom\/[^/.]+|indice|novedades|about|faq|privacy|terms|contact|widget))?\/?$/;
+
+// `/[locale]/category/[slug]?page=N` varía por query string: solo la página 1
+// limpia (sin query) pasa sin `private, no-cache` para no mezclar páginas en
+// una caché que no discrimine `search`.
+const QUERY_DYNAMIC_PAGE_RE = /^\/(en|es)\/category\/[^/.]+\/?$/;
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -164,7 +169,9 @@ export async function proxy(request: NextRequest) {
     if (isPageRequest(request, pathname)) {
       // No escribir Vary aquí: OpenNext da prioridad al proxy y sustituiría
       // los selectores RSC que añade Next (no los combina).
-      if (hasSession || !CACHEABLE_PAGE_RE.test(pathname)) {
+      const hasDynamicQuery =
+        request.nextUrl.search.length > 0 && QUERY_DYNAMIC_PAGE_RE.test(pathname);
+      if (hasSession || hasDynamicQuery || !CACHEABLE_PAGE_RE.test(pathname)) {
         response.headers.set('Cache-Control', 'private, no-cache');
       }
     }

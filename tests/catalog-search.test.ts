@@ -168,4 +168,30 @@ describe('listPublishedQuizzes búsqueda multicampo', () => {
       'tags.cs.{"a\\\\b"}',
     ]);
   });
+
+  it('paridad con #396: un término con tilde incluye la variante plegada y tags en minúsculas', async () => {
+    await listPublishedQuizzes({ ...BASE, q: 'Música' });
+
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%Música%',
+      'description.ilike.%Música%',
+      'tags.cs.{"música"}',
+      'title.ilike.%musica%',
+      'description.ilike.%musica%',
+      'tags.cs.{"musica"}',
+    ]);
+  });
+
+  it('paridad con #396: recompone ñ en NFD sin plegarla a n e ignora diacríticos sueltos', async () => {
+    await listPublishedQuizzes({ ...BASE, q: 'año' });
+    expect(decodedOrs()).toEqual([
+      'title.ilike.%año%',
+      'description.ilike.%año%',
+      'tags.cs.{"año"}',
+    ]);
+
+    recorded.clear();
+    await listPublishedQuizzes({ ...BASE, q: '\u0301\u0301' });
+    expect(quizFilters()?.ors).toEqual([]);
+  });
 });

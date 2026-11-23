@@ -130,6 +130,29 @@ describe('listPublishedQuizzes — category', () => {
     expect(queued.get('quizzes')).toHaveLength(1);
     expect(recorded.get('quizzes')?.[0].eqs.some(([c]) => c === 'category_id')).toBe(false);
   });
+
+  it('combina category slug con type/mood de tipo y devuelve vacío si chocan', async () => {
+    queued.set('categories', [{ data: [{ id: 'cat-9' }], error: null }]);
+    queued.set('quizzes', [{ data: [quizRow()], error: null, count: 1 }]);
+
+    await listPublishedQuizzes({
+      ...BASE,
+      category: 'movies-tv',
+      type: 'personality',
+      mood: 'personality',
+    });
+
+    const eqs = recorded.get('quizzes')?.[0].eqs ?? [];
+    expect(eqs).toContainEqual(['category_id', 'cat-9']);
+    expect(eqs).toContainEqual(['quiz_type', 'personality']);
+
+    const conflict = await listPublishedQuizzes({
+      ...BASE,
+      category: 'trivia',
+      type: 'personality',
+    });
+    expect(conflict).toEqual({ items: [], total: 0, page: 1, limit: 20, hasMore: false });
+  });
 });
 
 describe('listPublishedQuizzes — search', () => {

@@ -22,10 +22,13 @@ describe('rankFriends', () => {
     expect(entries.map((e) => e.isMe)).toEqual([true, false, false]);
   });
 
-  it('desempata por id ascendente cuando hay empate en puntos (orden estable)', () => {
-    const entries = rankFriends([row('c', 10), row('a', 10), row('b', 10)], 'me');
+  it('desempata por quizzes_played descendente y luego por id ascendente (orden estable)', () => {
+    const entries = rankFriends(
+      [row('c', 10, 2), row('a', 10, 5), row('b', 10, 5), row('d', 10, 1)],
+      'me'
+    );
 
-    expect(entries.map((e) => e.id)).toEqual(['a', 'b', 'c']);
+    expect(entries.map((e) => e.id)).toEqual(['a', 'b', 'c', 'd']);
   });
 
   it('devuelve lista vacía sin lanzar', () => {

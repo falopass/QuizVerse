@@ -7,7 +7,13 @@
  */
 
 import { describe, expect, it } from 'vitest';
-import { foldSearchText, matchesSearchIndex, searchIndexText } from '@/lib/catalog/search-index';
+import {
+  foldSearchText,
+  matchesSearchIndex,
+  normalizeSearchTerm,
+  searchIndexText,
+  searchQueryTerms,
+} from '@/lib/catalog/search-index';
 
 describe('foldSearchText', () => {
   it('minúsculas y sin acentos, preservando la ñ', () => {
@@ -97,5 +103,25 @@ describe('searchIndexText', () => {
         );
       }
     }
+  });
+});
+
+describe('normalizeSearchTerm y searchQueryTerms (paridad local/remota)', () => {
+  it('descarta términos vacíos o compuestos solo por diacríticos', () => {
+    expect(normalizeSearchTerm('   ')).toBe('');
+    expect(normalizeSearchTerm('\u0301\u0308')).toBe('');
+    expect(searchQueryTerms('   ')).toEqual([]);
+    expect(searchQueryTerms('\u0301')).toEqual([]);
+  });
+
+  it('preserva la ñ precompuesta y recompone n + tilde combinante (NFD)', () => {
+    expect(normalizeSearchTerm('año')).toBe('año');
+    expect(searchQueryTerms('año')).toEqual(['año']);
+  });
+
+  it('devuelve término NFC y variante plegada cuando hay tildes que foldSearchText quita', () => {
+    expect(searchQueryTerms('Música')).toEqual(['Música', 'musica']);
+    expect(searchQueryTerms('Películas')).toEqual(['Películas', 'peliculas']);
+    expect(searchQueryTerms('star wars')).toEqual(['star wars']);
   });
 });
