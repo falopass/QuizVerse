@@ -353,7 +353,8 @@ describe('A11Y-11: contraste de los botones de compartir', () => {
         <EditorialLoadingStage variant={variant} eyebrow="Cargando" title={`Vista ${variant}`} />
       );
       const status = screen.getByRole('status');
-      expect(status).toHaveAttribute('aria-busy', 'true');
+      expect(status).toHaveTextContent(`Cargando: Vista ${variant}`);
+      expect(status).not.toHaveAttribute('aria-busy');
       unmount();
     }
   });

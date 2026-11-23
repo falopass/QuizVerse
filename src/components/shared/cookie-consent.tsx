@@ -32,9 +32,12 @@ function prefersReducedMotion(): boolean {
 
 function getStoredConsent(): ConsentState | null {
   if (typeof window === 'undefined') return null;
+  // Si una escritura reciente falló (p. ej. QuotaExceededError), la elección
+  // en memoria manda sobre cualquier valor antiguo legible en localStorage.
+  if (memoryConsent) return memoryConsent;
   try {
     const raw = localStorage.getItem(CONSENT_KEY);
-    if (!raw) return memoryConsent;
+    if (!raw) return null;
     const parsed = JSON.parse(raw) as ConsentState;
     // Un «all» v1 solo hablaba de analíticas: no sirve como consentimiento de
     // publicidad. «essential» v1 sigue siendo un «no» válido y se conserva.
@@ -44,10 +47,9 @@ function getStoredConsent(): ConsentState | null {
     ) {
       return null;
     }
-    memoryConsent = null;
     return parsed;
   } catch {
-    return memoryConsent;
+    return null;
   }
 }
 

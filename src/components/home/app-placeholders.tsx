@@ -58,17 +58,11 @@ export function EditorialLoadingStage({
         : 'max-w-6xl';
 
   return (
-    <div
-      className="min-h-[70vh] px-4 pt-6 pb-16 md:pt-10"
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-    >
-      <div className={`mx-auto ${maxWidthClass} space-y-6`}>
-        <span className="sr-only">
-          {eyebrow}: {title}
-        </span>
-
+    <div className="min-h-[70vh] px-4 pt-6 pb-16 md:pt-10">
+      <p role="status" aria-live="polite" className="sr-only">
+        {eyebrow}: {title}
+      </p>
+      <div className={`mx-auto ${maxWidthClass} space-y-6`} aria-busy="true">
         {variant === 'home' ? (
           <>
             <section className="grid gap-5 lg:grid-cols-2">

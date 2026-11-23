@@ -81,11 +81,12 @@ export default async function LocalizedProfilePage({
       : Promise.resolve({ data: null }),
   ]);
 
+  const publishedCount = quizzes?.length ?? 0;
   const defaultBio =
-    profile.quizzes_created > 0
+    publishedCount > 0
       ? locale === 'es'
-        ? `Creador en QuizVerse con ${profile.quizzes_created} ${profile.quizzes_created === 1 ? 'quiz publicado' : 'quizzes publicados'}.`
-        : `QuizVerse creator with ${profile.quizzes_created} published ${profile.quizzes_created === 1 ? 'quiz' : 'quizzes'}.`
+        ? `Creador en QuizVerse con ${publishedCount} ${publishedCount === 1 ? 'quiz publicado' : 'quizzes publicados'}.`
+        : `QuizVerse creator with ${publishedCount} published ${publishedCount === 1 ? 'quiz' : 'quizzes'}.`
       : profile.quizzes_played > 0
         ? locale === 'es'
           ? `Jugador en QuizVerse con ${profile.quizzes_played} ${profile.quizzes_played === 1 ? 'partida registrada' : 'partidas registradas'}.`

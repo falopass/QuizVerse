@@ -191,6 +191,27 @@ describe('CookieConsentBanner con transiciones CSS', () => {
     window.removeEventListener('quizverse:consent', listener);
   });
 
+  it('prioriza la nueva elección en memoria si getItem lee el valor previo pero setItem falla', () => {
+    localStorage.setItem(
+      CONSENT_KEY,
+      JSON.stringify({ level: 'all', version: 2, timestamp: Date.now() })
+    );
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new DOMException('Quota exceeded', 'QuotaExceededError');
+    });
+
+    const { container } = render(<CookieConsentBanner />);
+    act(() => {
+      window.dispatchEvent(new CustomEvent(COOKIE_PREFERENCES_EVENT));
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: 'Solo esenciales' }));
+
+    expect(getConsentLevel()).toBe('essential');
+    fireEvent.animationEnd(container.querySelector('.cookie-consent-banner') as Element);
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('desmonta de inmediato bajo prefers-reduced-motion: reduce sin esperar onAnimationEnd', () => {
     const originalMatchMedia = window.matchMedia;
     window.matchMedia = vi.fn().mockReturnValue({ matches: true }) as typeof window.matchMedia;
