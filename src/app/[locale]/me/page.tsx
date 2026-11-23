@@ -86,7 +86,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
 
       {sessionsFailed ? (
         <section className="surface-card mt-8 p-10 text-center">
-          <h2 className="font-display text-text-primary text-2xl font-normal">
+          <h2 className="font-body text-text-primary text-2xl font-bold tracking-tight">
             {es ? 'No pudimos cargar tu historial' : 'We could not load your history'}
           </h2>
           <p className="text-text-secondary mt-2">
@@ -101,7 +101,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
         </section>
       ) : sessions.length === 0 ? (
         <section className="surface-card mt-8 p-10 text-center">
-          <h2 className="font-display text-text-primary text-2xl font-normal">
+          <h2 className="font-body text-text-primary text-2xl font-bold tracking-tight">
             {es ? 'Aún no has jugado' : "You haven't played yet"}
           </h2>
           <p className="text-text-secondary mt-2">
