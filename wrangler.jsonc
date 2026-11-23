@@ -38,6 +38,20 @@
       },
     ],
   },
+  // Sumidero nativo de logs estructurados (Workers Logs) para /api/analytics,
+  // /api/monitor y /api/csp-report; sin proveedor externo ni secretos extra.
+  // `invocation_logs: false` evita persistir URLs crudas con tokens de share o
+  // enlaces de /ranking/[token] fuera del saneamiento de telemetría.
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": false,
+      "persist": true,
+    },
+  },
   // Correos de auth: GoTrue (Send Email Hook) llama a /api/auth/send-email y el
   // Worker envía por Email Service. El binding solo puede escribir desde
   // noreply@quizverse.org; GoTrue firma cada llamada (SEND_EMAIL_HOOK_SECRET).

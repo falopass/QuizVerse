@@ -60,6 +60,9 @@ describe('markAllNotificationsRead', () => {
 
     expect(result).toEqual({ success: true });
     expect(mocks.updateSpy).toHaveBeenCalledWith({ is_read: true });
+    expect(Object.keys(mocks.updateSpy.mock.calls[0][0] as Record<string, unknown>)).toEqual([
+      'is_read',
+    ]);
     expect(mocks.eqSpy).toHaveBeenCalledWith('user_id', 'user-1');
     expect(mocks.eqSpy).toHaveBeenCalledWith('is_read', false);
   });
