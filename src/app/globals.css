@@ -2808,6 +2808,16 @@ body:has(.arcade-result) .cookie-consent-banner {
     display: none;
   }
 }
+/* «Vuelve a jugar» monta tras hidratar y la sección siguiente no trae margen
+   superior: sin esto, «Elige tu juego» quedaba pegado a la última tarjeta. */
+.qv8-recent {
+  margin-bottom: 56px;
+}
+@media (max-width: 699px) {
+  .qv8-recent {
+    margin-bottom: 40px;
+  }
+}
 .qv8-credit a {
   color: var(--text-primary);
   text-decoration: underline;
