@@ -22,18 +22,19 @@ QuizVerse is a bilingual (`/en`, `/es`) editorial quiz product focused on pop cu
 
 ---
 
-## 📊 Current Snapshot
+## 📊 Current Snapshot (2026-11-22)
 
-- ✅ Production build passes with **Next.js 16.4.2**
-- ✅ TypeScript passes clean
+- ✅ Production deployed on **Cloudflare Workers** (OpenNext / Workers Builds) with **Next.js 16.4.2** and **React 19.2.4**
 - ✅ Public routes localized under `/en` and `/es`
-- ✅ Runtime catalog seeded in Supabase with real quizzes
-- ✅ Core flows live: home, explore (`/[locale]/quiz`), detail, play, result, login, social login (behind flag), create, AI create, drafts + preview, profile, "Mi actividad" (`/me`), notifications, leaderboard, admin moderation
+- ✅ Runtime catalog backed by Supabase (self-hosted GoTrue + Postgres at `api.quizverse.org`)
+- ✅ Core flows live: home, explore (`/[locale]/quiz`), detail, play, result, daily quiz, group rankings, fandom hubs, embed widget, login, social login (`google` + `github` visible in prod; full session round-trip and `facebook` setup pending — see `docs/login-social.md`), create, AI create, drafts + preview, profile, "Mi actividad" (`/me`), notifications, leaderboard, admin moderation (`/[locale]/admin/*`), and public info pages (`about`, `contact`, `faq`, `privacy`, `terms`)
 - ✅ Seed, polish, cover hydration, and Supabase import pipelines in place
 
-### Content stats
+### Content stats (dated by evidence source)
 
-Last DB audit (`generated/audit/content-audit.json`, 2026-10-18): **524 published quizzes** and 4192 questions (262 en / 262 es; 246 trivia / 278 personality). Newer editorial batches merged since then are pending import — merged ≠ published; applying the SQL is the owner's call.
+- **DB audit (`generated/audit/content-audit.json`, 2026-10-18):** 524 published quizzes and 4,192 questions (262 `en` / 262 `es`; 246 `trivia` / 278 `personality`).
+- **Versioned editorial seeds (`scripts/seed/editorial-seed*.json`, verified 2026-11-22):** 89 batches, 916 quizzes (458 `en` / 458 `es`; 801 `trivia` / 115 `personality`). Merged ≠ published: applying SQL to production is always the owner's decision.
+- **Anonymous live sitemap/HTTP probe (`https://quizverse.org`, 2026-11-22):** 1,434 quiz URLs observed in `sitemap.xml` (717 per locale in Explore); exact DB totals remain owner-verified.
 
 ---
 
@@ -46,23 +47,23 @@ Last DB audit (`generated/audit/content-audit.json`, 2026-10-18): **524 publishe
 - Quiz detail pages with cover-led hero, payoff, related quizzes, likes and comments
 - Server-authoritative play flow: signed attempts, per-question reveal (with 50/50 hint), idempotent submission and server-built answer review
 - Result pages with sharing-oriented composition
-- Localized login + social login (Google/GitHub/Facebook behind `AUTH_OAUTH_PROVIDERS`)
-- User profiles, "Mi actividad", follows, notifications, daily streak and achievements
-- Leaderboard
-- Manual quiz creation flow with drafts, unpublish and preview
+- Localized login + social login (`AUTH_OAUTH_PROVIDERS`: `google` and `github` confirmed visible in prod on 2026-11-22 with full session check pending; `facebook` pending Meta/GoTrue setup)
+- User profiles, "Mi actividad", follows, notifications, daily quiz (local device streak), achievements and link-shared group rankings
+- Leaderboard (global, weekly global, friends)
+- Manual quiz creation flow with drafts, unpublish and preview (trivia & personality)
 - AI-powered quiz creation flow
-- Admin moderation queue (pending quizzes, reports, comment moderation)
-- AdSense slots, inert until configured
+- Admin moderation queue (pending quizzes, reports, comment moderation, growth stats)
+- AdSense slots + `/ads.txt` route, inert until publisher/slots are approved and configured
 
 ### Infrastructure
 
-- Supabase catalog (524+ published quizzes; answer keys isolated in `quiz_answer_keys`, service-role only)
+- Supabase catalog (answer keys isolated in `quiz_answer_keys`, service-role only; migrations versioned up to `022_analytics_events.sql`, with `021` and `022` pending per-object verification in production — see `AGENTS.md`)
 - Seed + polish + cover hydration pipelines
 - Supabase import pipelines
-- OG image generation
-- Analytics + monitoring hooks
+- OG image generation (Satori)
+- Analytics + monitoring hooks (with optional persistent `analytics_events` table in migration `022`)
 - Procedural + curated stock cover layers
-- Rate limiting: Upstash Redis, with Cloudflare Rate Limiting bindings as fallback (`wrangler.jsonc`)
+- Rate limiting: Upstash Redis (pending secrets in Worker) with Cloudflare Rate Limiting bindings as active per-location fallback (`wrangler.jsonc`)
 - Production smoke every 30 min (`scripts/smoke-prod.sh` + `smoke.yml` workflow)
 
 ---
@@ -97,10 +98,11 @@ QuizVerse/
 │   │   ├── my-quizzes/          # Drafts, edit, preview
 │   │   ├── create/ + create/ai/ # Manual and AI composers
 │   │   ├── notifications/       # Inbox
-│   │   ├── admin/               # Moderation queue (owner)
+│   │   ├── admin/               # Moderation queue & stats (owner)
+│   │   ├── daily/ + fandom/     # Daily challenge & fandom hubs
 │   │   ├── leaderboard/         # Rankings
-│   │   └── login|register|settings|…
-│   └── api/                     # quiz (reveal, generate), og, analytics, monitor, csp-report
+│   │   └── login|register|settings|widget|about|contact|faq|privacy|terms|…
+│   └── api/                     # 16 API routes (quizzes, categories, stats, leaderboard, daily, reveal, generate, report, auth/send-email, og, analytics, monitor, csp-report, …)
 ├── src/components/              # UI components
 ├── src/lib/
 │   ├── supabase/                # Supabase client + queries
@@ -109,7 +111,7 @@ QuizVerse/
 │   ├── ads/ + auth/ + utils/    # AdSense config, OAuth flag, rate limiting
 │   └── data/ + i18n/            # Public data layer, dictionaries
 ├── scripts/                     # Seed, polish, import, smoke-prod.sh
-└── supabase/                    # migrations/ (applied up to 020) + seed/
+└── supabase/                    # migrations/ (versioned to 022; applied through 020 documented, 021–022 pending verification) + seed/
 ```
 
 ---
@@ -160,13 +162,12 @@ scripts/smoke-prod.sh https://preview-url  # or any base URL
 
 ---
 
-## 🗺️ Roadmap Before Public Launch
+## 🗺️ Open Operational & Product Milestones
 
-- Polishing remaining covers and hero art
-- SEO metadata pass on all quiz detail pages
-- Performance audit and Core Web Vitals optimization
-- Public marketing pages (about, terms, privacy)
-- Content moderation flow for user-generated quizzes
+- Cover art & hero card polish (stock/curated variants and deterministic art)
+- Performance, pagination & Core Web Vitals optimization (`/quiz` payload, CDN cache headers, client bundle)
+- Operational verification by owner: migrations `021`/`022` per-object check in prod, Upstash Redis secrets in Worker, Facebook OAuth app/GoTrue setup, and end-to-end OAuth session check
+- AdSense activation once publisher account and ad units are approved (kept off until then)
 - Public launch announcement
 
 ---
@@ -188,18 +189,18 @@ QuizVerse is part of an indie SaaS portfolio focused on shipping real, editorial
 
 QuizVerse es un producto editorial de quizzes bilingüe (`/en`, `/es`) enfocado en cultura pop, formatos de personalidad, resultados compartibles y una sensación de producto más fuerte que los sitios genéricos de quizzes. Corre sobre un catálogo real en Supabase con creación manual y con IA, rutas localizadas, páginas de resultados compartibles, imágenes OG, hooks de analítica y monitoreo, y un sistema escalable de portadas con capas procedurales y curadas.
 
-## Estado actual
+## Estado actual (2026-11-22)
 
-- ✅ Build de producción funcionando con Next.js 16.4.2
-- ✅ TypeScript sin errores
+- ✅ Producción en Cloudflare Workers (OpenNext / Workers Builds) con Next.js 16.4.2 y React 19.2.4
 - ✅ Rutas públicas localizadas bajo `/en` y `/es`
-- ✅ Catálogo de runtime seedeado en Supabase con quizzes reales
-- ✅ Flujos core en vivo: home, explore, detalle, play, resultado, login, create, AI create, profile, leaderboard
+- ✅ Catálogo en Supabase (migraciones versionadas hasta `022`; aplicadas documentadas hasta `020`, `021`–`022` pendientes de verificación por objeto en producción)
+- ✅ Flujos core en vivo: home, explore, detalle, play, resultado, reto diario, ranking de grupo, login y OAuth (`google` y `github` visibles en prod, sesión completa y `facebook` pendientes), creación manual e IA, perfiles, moderación admin y páginas informativas
 
 ## Estadísticas de contenido
 
-- **524 quizzes publicados** en el último audit de la DB (`generated/audit/content-audit.json`, 2026-10-18): 262 en inglés, 262 en español, 246 trivia, 278 personalidad, 4192 preguntas
-- Lotes editoriales mergeados desde entonces quedan pendientes de importar (mergeado ≠ publicado)
+- **Audit de DB (`generated/audit/content-audit.json`, 2026-10-18):** 524 quizzes publicados (262 `en`, 262 `es`; 246 `trivia`, 278 `personality`; 4.192 preguntas)
+- **Seeds versionados (`scripts/seed/editorial-seed*.json`, 2026-11-22):** 89 lotes, 916 quizzes (mergeado ≠ publicado)
+- **Muestreo HTTP/sitemap (`https://quizverse.org`, 2026-11-22):** 1.434 URLs de quiz observadas en `sitemap.xml` (conteo exacto en DB sujeto a verificación del dueño)
 
 ## Stack
 

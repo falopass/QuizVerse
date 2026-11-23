@@ -124,6 +124,8 @@ export default async function QuizOpenGraphImage({
           transform: 'rotate(3deg)',
         }}
       >
+        {/* Satori requiere <img> nativo con data URI; next/image no funciona en ImageResponse. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={cover}
           alt=""

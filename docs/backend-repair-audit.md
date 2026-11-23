@@ -2,7 +2,20 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> **Nota de mantenimiento.** Revisado el 2026-10-19 contra `origin/main` (`5327ef0`); este documento se poda contra `main`: lo que no tenga estado explícito es no verificado.
+> **Nota de mantenimiento (2026-11-22).** Plan de auditoría histórico originado en octubre de 2026 y contrastado contra `main` (`8271d9b`, lectura estática de código/SQL sin acceso a la base de producción).
+>
+> - **Confirmado resuelto en código (`main`):**
+>   - Validación centralizada de env Supabase (`src/lib/supabase/env.ts`, §4) y cliente `service_role` validado para servidor (`src/lib/supabase/admin.ts`, §5).
+>   - Tipos `Database` completos para las 16 tablas y RPCs vigentes, incluidas `021`/`022` (`src/types/database.ts`, §6) y retiro de casts `as never`/`@ts-expect-error` en writes (§7).
+>   - `toggle_like` vía `.rpc()` (§8), puntuación server-authoritative en `submitQuizResult` + `answer-key.ts` (§9), `user_achievements.achievement_id` (§11), `handle_new_user` en `009` (§13), ruta única de reportes `/api/quiz/report` (§17), extracción segura del score `zrange` en `rate-limit.ts` (§20), `poll` rechazado en creación/IA (§22), revalidaciones localizadas (§23) y consolidación de `public.ts` (§24).
+>   - Moderación admin implementada en código (`src/lib/auth/require-admin.ts`, `src/actions/moderation.actions.ts`, `/[locale]/admin/*`) con migraciones `012_admin_moderation_read.sql`, `016_moderation_queue.sql` y `017_comment_moderation.sql` (§14–§16).
+>   - Rate limiting con fallback nativo a bindings de Cloudflare Workers (`RATE_LIMIT_*` en `wrangler.jsonc`) cuando falta Upstash Redis (§19).
+> - **Pendiente (verificación operativa o endurecimiento de fase 2):**
+>   - Verificación en producción por objeto de las migraciones `021_ranking_grupo.sql` y `022_analytics_events.sql` (incluida la programación de `delete_old_analytics_events()`), más alta de secretos Upstash Redis en el Worker (decisión de Diego).
+>   - Endurecimientos abiertos detectados en la auditoría de fase 2 (2026-11-22): `INSERT` exclusivo de servidor para `game_sessions` y `quiz_reports`, retiro de `question_count` en `INSERT` de quizzes, migración de `deepseek-chat` a `deepseek-flash`, consumo atómico en Redis, recuperación de contraseña vinculada a desafío de un solo uso y borrado atómico de cuenta.
+>   - `poll` sigue existiendo en el enum SQL y en el importador legado (`scripts/import-trending-seed-to-supabase.mjs`), pero no es una modalidad soportada por la app.
+>
+> _(Las secciones §1–§25 abajo se conservan como registro histórico del audit de 2026-10-19 contra `5327ef0`.)_
 
 **Goal:** Reparar el backend de QuizVerse con cambios mínimos, verificables y seguros, dejando claras las causas de cada problema antes de tocar código.
 

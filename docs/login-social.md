@@ -29,16 +29,27 @@ AUTH_OAUTH_PROVIDERS="google,github"   # lista separada por comas
 **Dónde se configura:** como variable del Worker `quizverse` en Cloudflare
 (dashboard → Workers & Pages → `quizverse` → Settings → Variables and Secrets;
 es una variable, no un secreto). El cambio toma efecto al instante, sin rebuild.
-Hasta que GoTrue tenga el proveedor habilitado (paso siguiente), la variable se
-deja vacía o sin definir y las páginas no muestran acceso social.
+Cada proveedor debe añadirse a la lista solo cuando su app OAuth y sus variables
+`GOTRUE_EXTERNAL_*` estén configuradas en GoTrue.
 
-## Lo que falta: habilitar los proveedores en GoTrue (VPS)
+## Estado operativo observado (2026-11-22)
 
-El Supabase es auto-hospedado en el VPS. Ahora mismo `/auth/v1/authorize`
-responde `provider is not enabled` para google, facebook y github: **ninguno
-está configurado**. Por eso `AUTH_OAUTH_PROVIDERS` arranca vacía: cada
-proveedor se suma a la lista cuando su app OAuth y su `GOTRUE_EXTERNAL_*`
-estén listos.
+> **Alcance y origen de la evidencia:** lectura de código en `main` (`8271d9b`) +
+> sondas HTTP anónimas GET contra `https://quizverse.org` y
+> `https://api.quizverse.org/auth/v1/authorize` (sin iniciar sesión ni acceder al
+> VPS/dashboard). Solo el dueño verifica credenciales o aplica cambios en
+> producción.
+
+| Proveedor | Estado en UI / GoTrue                                                            | Ciclo completo hasta sesión                                                                                           |
+| :-------- | :------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
+| Google    | **Confirmado visible** en prod (botón en `/login` y `302` desde GoTrue)          | **Pendiente** — falta prueba end-to-end con cuenta de prueba hasta sesión activa                                      |
+| GitHub    | **Confirmado visible** en prod (botón en `/login` y `302` desde GoTrue)          | **Pendiente** — falta prueba end-to-end con cuenta de prueba hasta sesión activa                                      |
+| Facebook  | **Pendiente** — GoTrue respondió `400` (`provider is not enabled`) el 2026-11-22 | **Pendiente** — requiere crear app de Meta, `GOTRUE_EXTERNAL_FACEBOOK_*` y añadir `facebook` a `AUTH_OAUTH_PROVIDERS` |
+
+## Configurar o agregar proveedores en GoTrue (VPS)
+
+El Supabase es auto-hospedado en el VPS (`api.quizverse.org`). Para habilitar un
+proveedor nuevo (por ejemplo `facebook`) o revisar uno existente, sigue estos pasos:
 
 ### 1. Crear las apps OAuth
 
@@ -85,7 +96,11 @@ curl -s -o /dev/null -w "%{http_code}" \
   "https://api.quizverse.org/auth/v1/authorize?provider=google"
 ```
 
-Debe responder `302` hacia `accounts.google.com` (hoy responde `400`).
+Debe responder `302` hacia el proveedor (confirmado el 2026-11-22 para `google` y
+`github`; `facebook` respondía `400` hasta configurar su app). Ten en cuenta que
+ese `302` solo confirma que GoTrue reconoce el proveedor: **no valida** el canje
+PKCE en `/callback` ni la creación de sesión, que deben comprobarse aparte con
+cuentas de prueba autorizadas.
 
 ## Alta de usuarios OAuth
 
@@ -97,11 +112,16 @@ Ojo: el `display_name` visible solo lee `name`/`display_name` — si el
 proveedor manda únicamente `full_name`, el nombre queda «New Player» hasta
 que la persona lo edite (deuda conocida, no bloquea el alta).
 
-## Deuda relacionada (Worker)
+## Deuda relacionada (Worker — estado al 2026-11-22)
 
-El rate limit de auth (`authLimiter`, 5 intentos/minuto) depende de
-`UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`. Esas variables **no
-están configuradas en el Worker de producción** (solo existe
-`DEEPSEEK_API_KEY`): hoy el límite falla abierto y login, registro,
-recuperación y `/api/quiz/reveal` corren sin freno. Hay que subirlas como
-secretos del Worker `quizverse`.
+- **Rate limiting:** cuando `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`
+  no están configurados en el Worker, `src/lib/utils/rate-limit.ts` ya **no falla
+  abierto por defecto**: recurre a los bindings nativos de Cloudflare Rate
+  Limiting declarados en `wrangler.jsonc` (`RATE_LIMIT_AUTH`, `RATE_LIMIT_AUTH_IP`,
+  `RATE_LIMIT_GAME`, `RATE_LIMIT_REVEAL`, etc.). Estos bindings aplican límites
+  aproximados por ubicación (ventana fija de 60 s).
+- **Estado pendiente (Upstash Redis):** subir `UPSTASH_REDIS_REST_URL` y
+  `UPSTASH_REDIS_REST_TOKEN` como secretos del Worker `quizverse` sigue
+  **pendiente** para contar con cuotas globales consistentes entre ubicaciones y
+  almacenamiento compartido de `attempt-store` (revelación por pregunta y 50/50)
+  entre isolates.

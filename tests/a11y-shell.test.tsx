@@ -9,7 +9,7 @@
  */
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, render, screen } from '@testing-library/react';
 import type { Category } from '@/types/quiz';
@@ -65,7 +65,7 @@ describe('A11Y-12: un solo <main id="main-content"> por página', () => {
   it('ningún archivo fuera del shell y los embeds renderiza <main>', () => {
     const offenders: string[] = [];
     for (const file of tsxFiles(SRC)) {
-      const rel = relative(SRC, file);
+      const rel = relative(SRC, file).split(sep).join('/');
       if (/<main[\s>]/.test(codeOnly(file)) && !ALLOWED_MAIN.has(rel)) {
         offenders.push(rel);
       }
@@ -76,7 +76,7 @@ describe('A11Y-12: un solo <main id="main-content"> por página', () => {
   it('id="main-content" solo existe en el shell y el 404 raíz', () => {
     const offenders: string[] = [];
     for (const file of tsxFiles(SRC)) {
-      const rel = relative(SRC, file);
+      const rel = relative(SRC, file).split(sep).join('/');
       if (/id="main-content"/.test(codeOnly(file)) && !ALLOWED_MAIN_ID.has(rel)) {
         offenders.push(rel);
       }
