@@ -148,5 +148,8 @@ for (const { mode, reducedMotion, viewport } of [
     await expect(page.getByRole('heading', { name: questions[1].question })).toBeFocused();
     await page.keyboard.press('1');
     await expect(page.getByRole('button', { name: 'Finish' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('heading', { name: 'Outstanding finish' })).toBeFocused();
+    await expect(page.getByRole('link', { name: 'Back to home' })).toHaveAttribute('href', '/en');
   });
 }
