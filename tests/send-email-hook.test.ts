@@ -246,17 +246,35 @@ describe('POST /api/auth/send-email — firma y límite de cuerpo', () => {
     expect(mocks.sendEmail.mock.calls[0][0].to).toBe('new@example.com');
     expect(mocks.sendEmail.mock.calls[1][0].to).toBe('old@example.com');
 
-    // Reintento de GoTrue con el mismo webhook-id: solo envía old@example.com.
+    // Reintento de GoTrue con un webhook-id NUEVO (contrato real de hookshttp.go):
+    // conserva el 1.º correo ya marcado y solo envía old@example.com.
     mocks.sendEmail.mockResolvedValueOnce({ messageId: 'm-old' });
-    const retry = await POST(await hookRequest(body, { id: 'msg_partial_1' }));
+    const retry = await POST(await hookRequest(body, { id: 'msg_partial_2' }));
     expect(retry.status).toBe(200);
     expect(mocks.sendEmail).toHaveBeenCalledTimes(3);
     expect(mocks.sendEmail.mock.calls[2][0].to).toBe('old@example.com');
 
     // Tercer replay: ambos ya están en `sent`, cero envíos extra.
-    const replay = await POST(await hookRequest(body, { id: 'msg_partial_1' }));
+    const replay = await POST(await hookRequest(body, { id: 'msg_partial_3' }));
     expect(replay.status).toBe(200);
     expect(mocks.sendEmail).toHaveBeenCalledTimes(3);
+
+    // Una solicitud nueva con tokens distintos sí se envía (no queda deduplicada).
+    const freshBody = payload({
+      type: 'email_change',
+      email: 'old@example.com',
+      newEmail: 'new@example.com',
+      token: '999999',
+      tokenHash: 'hashFreshNew',
+      tokenNew: '888888',
+      tokenHashNew: 'hashFreshOld',
+    });
+    mocks.sendEmail
+      .mockResolvedValueOnce({ messageId: 'm-fresh-1' })
+      .mockResolvedValueOnce({ messageId: 'm-fresh-2' });
+    const fresh = await POST(await hookRequest(freshBody, { id: 'msg_fresh_1' }));
+    expect(fresh.status).toBe(200);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(5);
 
     errorSpy.mockRestore();
   });

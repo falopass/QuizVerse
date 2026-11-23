@@ -235,12 +235,8 @@ export function resetRecoveryMemoryStoreForTests(): void {
   memoryState.clear();
 }
 
-function usedKey(challengeId: string): string {
-  return `pw-recovery:used:${challengeId}`;
-}
-
-function claimKey(challengeId: string): string {
-  return `pw-recovery:claim:${challengeId}`;
+function stateKey(challengeId: string): string {
+  return `pw-recovery:state:${challengeId}`;
 }
 
 async function isChallengeConsumed(challengeId: string, now: number): Promise<boolean> {
@@ -251,7 +247,7 @@ async function isChallengeConsumed(challengeId: string, now: number): Promise<bo
   const redis = getRedis();
   if (!redis) return false;
   try {
-    return (await redis.get(usedKey(challengeId))) !== null;
+    return (await redis.get(stateKey(challengeId))) === 'used';
   } catch {
     return false;
   }
@@ -397,17 +393,21 @@ export async function beginRecoveryChallengeUse(
   }
 
   const redis = getRedis();
+  const key = stateKey(challenge.challengeId);
   if (redis) {
     try {
-      if ((await redis.get(usedKey(challenge.challengeId))) !== null) {
-        return { ok: false, reason: 'consumed' };
-      }
-      const claimed = await redis.set(claimKey(challenge.challengeId), '1', {
+      // Una sola clave atómica (`pending` → `used`) evita la carrera entre
+      // comprobar `used` y reservar `claim` en dos claves distintas.
+      const claimed = await redis.set(key, 'pending', {
         nx: true,
         ex: RECOVERY_CLAIM_TTL_SECONDS,
       });
       if (claimed === null) {
-        return { ok: false, reason: 'in_progress' };
+        const current = await redis.get(key);
+        return {
+          ok: false,
+          reason: current === 'used' ? 'consumed' : 'in_progress',
+        };
       }
     } catch {
       // Sin Redis operativo cae al guard local de este isolate.
@@ -429,8 +429,7 @@ export async function beginRecoveryChallengeUse(
       });
       if (redis) {
         try {
-          await redis.set(usedKey(challenge.challengeId), '1', { ex: remainingSeconds });
-          await redis.del(claimKey(challenge.challengeId));
+          await redis.set(key, 'used', { ex: remainingSeconds });
         } catch {
           // La cookie igualmente se elimina al responder y memoria local bloquea este isolate.
         }
@@ -443,7 +442,7 @@ export async function beginRecoveryChallengeUse(
       }
       if (redis) {
         try {
-          await redis.del(claimKey(challenge.challengeId));
+          await redis.del(key);
         } catch {
           // La reserva caduca sola tras RECOVERY_CLAIM_TTL_SECONDS.
         }

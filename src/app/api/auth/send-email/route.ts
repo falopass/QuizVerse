@@ -147,13 +147,23 @@ async function readBoundedText(request: Request, maxBytes: number): Promise<stri
   return new TextDecoder().decode(buffer);
 }
 
-/** Clave Redis sin PII para cada destinatario dentro de un `webhook-id`. */
-function messageDeliveryKey(webhookId: string, recipient: string, index: number): string {
+/**
+ * Clave Redis sin PII derivada del cuerpo firmado del evento + destinatario +
+ * posición. GoTrue conserva el mismo cuerpo en sus reintentos tras 503, pero
+ * genera un `webhook-id` nuevo en cada iteración: usar la huella del cuerpo
+ * firmado conserva el avance por destinatario incluso con distinto `webhook-id`,
+ * mientras eventos nuevos (otros tokens) producen una clave distinta.
+ */
+function messageDeliveryKey(signedBody: string, recipient: string, index: number): string {
   const digest = createHash('sha256')
-    .update(`${webhookId}:${recipient.toLowerCase()}:${index}`)
+    .update(signedBody)
+    .update('\0')
+    .update(recipient.toLowerCase())
+    .update('\0')
+    .update(String(index))
     .digest('hex')
-    .slice(0, 24);
-  return `email-hook:${webhookId}:msg:${digest}`;
+    .slice(0, 32);
+  return `email-hook:msg:${digest}`;
 }
 
 type ClaimOutcome = 'acquired' | 'already_sent' | 'in_progress' | 'degraded';
@@ -223,8 +233,6 @@ export async function POST(request: Request) {
     return hookError(401, 'invalid_signature');
   }
 
-  // La firma ya validó que los tres headers existen.
-  const webhookId = request.headers.get('webhook-id')!;
   const redis = getRedis();
 
   let payload: unknown;
@@ -253,7 +261,7 @@ export async function POST(request: Request) {
   }
 
   for (const [index, plan] of plans.entries()) {
-    const key = messageDeliveryKey(webhookId, plan.to, index);
+    const key = messageDeliveryKey(body, plan.to, index);
     const claim = await acquireMessageClaim(redis, key);
     if (claim === 'already_sent') continue;
     if (claim === 'in_progress') {
