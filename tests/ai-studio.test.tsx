@@ -45,6 +45,7 @@ vi.mock('next/navigation', () => ({
 import { AIQuizGenerator } from '@/components/quiz/ai-quiz-generator';
 import { UserMenu, UserMenuMobile } from '@/components/layout/user-menu';
 import CreatePage from '@/app/[locale]/create/page';
+import CreateAIPage from '@/app/[locale]/create/ai/page';
 import { isTopicCategory, suggestCategorySlug } from '@/lib/quiz/category-suggest';
 
 const USER = { id: 'user-1', email: 'ada@example.com', user_metadata: { name: 'Ada' } };
@@ -287,5 +288,64 @@ describe('AIQuizGenerator', () => {
     expect(
       await screen.findByText('La IA puede tardar hasta un minuto en escribir el borrador.')
     ).toBeInTheDocument();
+  });
+
+  it.each([
+    [
+      'daily_quota_exceeded',
+      429,
+      'Se alcanzó el presupuesto diario de generación con IA. Crea tu quiz manualmente o inténtalo mañana.',
+    ],
+    [
+      'generation_timeout',
+      504,
+      'La generación tardó demasiado y se canceló. Prueba con un tema más corto o menos preguntas.',
+    ],
+    [
+      'generation_truncated',
+      502,
+      'La respuesta de la IA se cortó antes de terminar. Prueba pidiendo menos preguntas.',
+    ],
+    [
+      'provider_quota_exceeded',
+      503,
+      'El servicio de IA está temporalmente saturado. Inténtalo de nuevo en unos minutos.',
+    ],
+  ])('muestra error legible en pantalla para %s', async (errorCode, status, expected) => {
+    mocks.fetch.mockResolvedValue(jsonResponse(status, { error: errorCode }));
+    renderGenerator();
+    fireEvent.change(screen.getByLabelText('Tema o ángulo'), {
+      target: { value: 'Trivia de videojuegos' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Generar con AI' }));
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(expected);
+    expect(mocks.error).toHaveBeenCalledWith(expected);
+  });
+
+  it('usa superficies oscuras consistentes sin clases bg-white ni text-amber-900 heredadas', async () => {
+    generateOk();
+    const { container } = renderGenerator();
+    expect(container.innerHTML).not.toContain('bg-white');
+    expect(container.innerHTML).not.toContain('text-rose-700');
+    expect(container.innerHTML).not.toContain('text-amber-900');
+
+    await generate('Trivia de videojuegos');
+    expect(container.innerHTML).not.toContain('bg-white');
+    expect(container.innerHTML).not.toContain('text-rose-700');
+    expect(container.innerHTML).not.toContain('text-amber-900');
+  });
+
+  it('/create/ai renderiza dos columnas equilibradas en cabecera con enlace al compositor manual', async () => {
+    mocks.getUser.mockResolvedValue({ data: { user: USER } });
+    const order = vi.fn().mockResolvedValue({ data: CATEGORIES });
+    mocks.from.mockReturnValue({ select: vi.fn(() => ({ order })) });
+
+    render(await CreateAIPage({ params: Promise.resolve({ locale: 'es' }) }));
+
+    expect(screen.getByRole('link', { name: 'Ir al compositor manual' })).toHaveAttribute(
+      'href',
+      '/es/create'
+    );
   });
 });

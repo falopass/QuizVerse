@@ -76,8 +76,16 @@ export function AIQuizGenerator({
               'La generación con IA no está disponible ahora. Inténtalo más tarde.',
             rate_limited:
               'Llegaste al límite de generaciones. Espera un minuto e inténtalo otra vez.',
+            daily_quota_exceeded:
+              'Se alcanzó el presupuesto diario de generación con IA. Crea tu quiz manualmente o inténtalo mañana.',
             rate_limiter_unavailable:
               'No pudimos comprobar tu cuota de generación. Inténtalo en un momento.',
+            generation_timeout:
+              'La generación tardó demasiado y se canceló. Prueba con un tema más corto o menos preguntas.',
+            generation_truncated:
+              'La respuesta de la IA se cortó antes de terminar. Prueba pidiendo menos preguntas.',
+            provider_quota_exceeded:
+              'El servicio de IA está temporalmente saturado. Inténtalo de nuevo en unos minutos.',
             generation_failed:
               'La IA no pudo generar el quiz. Ajusta el tema e inténtalo de nuevo.',
             invalid_generated_quiz:
@@ -164,8 +172,16 @@ export function AIQuizGenerator({
             invalid_request: 'Check the topic and settings before retrying.',
             provider_misconfigured: 'AI generation is unavailable right now. Try again later.',
             rate_limited: 'You reached the generation limit. Wait a minute and try again.',
+            daily_quota_exceeded:
+              'The daily AI generation budget has been reached. Create your quiz manually or try again tomorrow.',
             rate_limiter_unavailable:
               'We could not check your generation quota. Try again in a moment.',
+            generation_timeout:
+              'Generation took too long and timed out. Try a shorter topic or fewer questions.',
+            generation_truncated:
+              'The AI response was cut off before finishing. Try requesting fewer questions.',
+            provider_quota_exceeded:
+              'The AI service is temporarily at capacity. Please try again in a few minutes.',
             generation_failed:
               'The AI could not generate the quiz. Adjust the topic and try again.',
             invalid_generated_quiz:
@@ -251,6 +267,7 @@ export function AIQuizGenerator({
   const [draft, setDraft] = useState<Draft | null>(null);
   const [warnings, setWarnings] = useState<string[]>([]);
   const [rateNote, setRateNote] = useState<string | null>(null);
+  const [generationError, setGenerationError] = useState<string | null>(null);
   const [categoryId, setCategoryId] = useState('');
   const [suggestedCategoryId, setSuggestedCategoryId] = useState<string | null>(null);
   // `personality` y `trivia` son hubs de tipo: elegirlos como categoría dejaría
@@ -315,6 +332,7 @@ export function AIQuizGenerator({
     if (!topic.trim()) return error(copy.enterTopic);
     setIsGenerating(true);
     setRateNote(null);
+    setGenerationError(null);
     try {
       const response = await fetch('/api/quiz/generate', {
         method: 'POST',
@@ -329,6 +347,7 @@ export function AIQuizGenerator({
       });
       const data = (await response.json().catch(() => ({}))) as ApiResponse;
       if (response.status === 401) {
+        setGenerationError(copy.loginRequired);
         error(copy.loginRequired);
         router.push(
           localizeHref(
@@ -340,7 +359,9 @@ export function AIQuizGenerator({
       }
       if (!response.ok || data.error) {
         // La API devuelve un código estable; el mensaje crudo nunca llega a la UI.
-        error(copy.generationErrors[data.error ?? ''] ?? copy.generateError);
+        const message = copy.generationErrors[data.error ?? ''] ?? copy.generateError;
+        setGenerationError(message);
+        error(message);
         return;
       }
       const suggested = suggestCategory(topic, categories);
@@ -354,6 +375,7 @@ export function AIQuizGenerator({
       success(copy.draftCreated);
     } catch (err) {
       console.error(err);
+      setGenerationError(copy.generateError);
       error(copy.generateError);
     } finally {
       setIsGenerating(false);
@@ -430,7 +452,7 @@ export function AIQuizGenerator({
                     key={item}
                     type="button"
                     onClick={() => setTopic(item)}
-                    className="bg-bg-secondary text-text-secondary ring-border-subtle rounded-full px-4 py-2 text-sm font-medium ring-1"
+                    className="bg-bg-secondary text-text-secondary ring-border-subtle hover:border-accent-primary focus-visible:outline-accent-primary rounded-full px-4 py-2 text-sm font-medium ring-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                   >
                     {item}
                   </button>
@@ -464,7 +486,8 @@ export function AIQuizGenerator({
                   max="20"
                   value={numQuestions}
                   onChange={(e) => setNumQuestions(Number(e.target.value))}
-                  className="accent-accent-primary w-full"
+                  aria-label={copy.questionCount}
+                  className="accent-accent-primary focus-visible:outline-accent-primary w-full focus-visible:outline-2 focus-visible:outline-offset-4"
                 />
               </Block>
               <Button
@@ -481,8 +504,19 @@ export function AIQuizGenerator({
                   {copy.generatingNote}
                 </p>
               ) : null}
+              {generationError ? (
+                <p
+                  role="alert"
+                  className="border-error/40 bg-error/10 text-error rounded-[4px] border px-4 py-3 text-sm"
+                >
+                  {generationError}
+                </p>
+              ) : null}
               {localizedCategories.length === 0 ? (
-                <p role="alert" className="text-sm text-rose-700">
+                <p
+                  role="alert"
+                  className="border-error/40 bg-error/10 text-error rounded-[4px] border px-4 py-3 text-sm"
+                >
                   {copy.categoriesUnavailable}
                 </p>
               ) : null}
@@ -490,7 +524,7 @@ export function AIQuizGenerator({
           </section>
         </div>
         <aside className="space-y-6">
-          <section className="surface-panel sticky top-28 p-6">
+          <section className="surface-panel sticky top-6 p-6">
             <p className="eyebrow">{copy.studioNotes}</p>
             <h3 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
               {copy.notesTitle}
@@ -499,7 +533,7 @@ export function AIQuizGenerator({
               <Note title={copy.note1Title} body={copy.note1Body} />
               <Note title={copy.note2Title} body={copy.note2Body} />
               {rateNote ? (
-                <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-900">
+                <div className="border-warning/40 bg-warning/10 text-warning rounded-[4px] border px-4 py-3 text-sm">
                   {rateNote}
                 </div>
               ) : null}
@@ -559,7 +593,7 @@ export function AIQuizGenerator({
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
                 aria-label={copy.category}
-                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+                className="border-border-subtle bg-bg-secondary text-text-primary focus-visible:border-accent-primary focus-visible:ring-accent-primary h-11 w-full rounded-[4px] border px-4 text-sm focus-visible:ring-2 focus-visible:outline-none"
               >
                 <option value="">{copy.categoryPlaceholder}</option>
                 {localizedCategories.map((category) => (
@@ -580,7 +614,7 @@ export function AIQuizGenerator({
               value={draft.description}
               onChange={(e) => setDraft({ ...draft, description: e.target.value })}
               rows={4}
-              className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+              className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
               placeholder={copy.descriptionPlaceholder}
             />
           </Block>
@@ -606,9 +640,9 @@ export function AIQuizGenerator({
             {draft.questions.map((item, index) => (
               <article
                 key={item.id}
-                className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                className="border-border-subtle bg-bg-tertiary rounded-[4px] border p-5"
               >
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <p className="text-text-primary text-sm font-semibold">
                     {copy.question} {index + 1}
                   </p>
@@ -654,19 +688,20 @@ export function AIQuizGenerator({
                     <div
                       key={option.id}
                       className={cn(
-                        'rounded-2xl border p-4',
+                        'rounded-[4px] border p-4',
                         option.is_correct
-                          ? 'border-emerald-500/35 bg-emerald-500/8'
-                          : 'border-border-subtle bg-bg-secondary/60'
+                          ? 'border-accent-primary/50 bg-accent-primary/10'
+                          : 'border-border-subtle bg-bg-secondary'
                       )}
                     >
                       <div className="mb-3 flex items-center justify-between">
-                        <span className="text-text-muted text-xs font-semibold">
+                        <span className="text-text-secondary text-xs font-semibold">
                           {copy.option} {String.fromCharCode(65 + optionIndex)}
                         </span>
                         {draft.quiz_type === 'trivia' ? (
                           <button
                             type="button"
+                            aria-pressed={Boolean(option.is_correct)}
                             onClick={() =>
                               setDraft({
                                 ...draft,
@@ -684,10 +719,10 @@ export function AIQuizGenerator({
                               })
                             }
                             className={cn(
-                              'rounded-full px-3 py-1 text-xs font-semibold',
+                              'focus-visible:outline-accent-primary rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
                               option.is_correct
-                                ? 'bg-emerald-600 text-white'
-                                : 'text-text-secondary ring-border-subtle bg-white ring-1'
+                                ? 'bg-accent-primary text-bg-primary'
+                                : 'border-border-subtle bg-bg-tertiary text-text-primary hover:border-accent-primary border'
                             )}
                           >
                             {option.is_correct ? copy.correct : copy.markCorrect}
@@ -727,7 +762,7 @@ export function AIQuizGenerator({
                     })
                   }
                   rows={3}
-                  className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                  className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary mt-4 w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
                   placeholder={copy.explanation}
                 />
               </article>
@@ -756,7 +791,7 @@ export function AIQuizGenerator({
               {(draft.results || []).map((item, index) => (
                 <article
                   key={item.id}
-                  className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                  className="border-border-subtle bg-bg-tertiary rounded-[4px] border p-5"
                 >
                   <div className="flex items-center justify-between">
                     <p className="text-text-primary text-sm font-semibold">
@@ -828,7 +863,7 @@ export function AIQuizGenerator({
                       })
                     }
                     rows={3}
-                    className="border-border-subtle bg-bg-secondary text-text-primary mt-4 w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                    className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary mt-4 w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
                     placeholder={copy.whyEnding}
                   />
                 </article>
@@ -838,8 +873,8 @@ export function AIQuizGenerator({
         ) : null}
       </div>
       <aside className="space-y-6">
-        <section className="surface-panel sticky top-28 overflow-hidden p-0">
-          <div className="border-border-subtle border-b bg-[linear-gradient(140deg,rgba(216,120,52,0.18),transparent_72%)] p-6">
+        <section className="surface-panel sticky top-6 overflow-hidden p-0">
+          <div className="border-border-subtle border-b bg-[linear-gradient(140deg,rgba(217,255,67,0.12),transparent_72%)] p-6">
             <p className="eyebrow">{copy.draftStatus}</p>
             <h3 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
               {draft.title || copy.untitled}
@@ -861,10 +896,10 @@ export function AIQuizGenerator({
               <div
                 key={item.label}
                 className={cn(
-                  'rounded-2xl border px-4 py-3',
+                  'rounded-[4px] border px-4 py-3',
                   item.ok
-                    ? 'border-emerald-500/20 bg-emerald-500/8'
-                    : 'border-border-subtle bg-white/75'
+                    ? 'border-accent-primary/40 bg-accent-primary/10'
+                    : 'border-border-subtle bg-bg-secondary'
                 )}
               >
                 <p className="text-text-primary text-sm font-medium">{item.label}</p>
@@ -872,9 +907,9 @@ export function AIQuizGenerator({
               </div>
             ))}
             {warnings.length ? (
-              <div className="rounded-2xl border border-amber-500/20 bg-amber-500/10 px-4 py-3">
-                <p className="text-xs font-semibold text-amber-900">{copy.validationWarnings}</p>
-                <ul className="mt-2 space-y-1 text-sm text-amber-900">
+              <div className="border-warning/40 bg-warning/10 rounded-[4px] border px-4 py-3">
+                <p className="text-warning text-xs font-semibold">{copy.validationWarnings}</p>
+                <ul className="text-warning mt-2 space-y-1 text-sm">
                   {warnings.map((warning) => (
                     <li key={warning}>{warning}</li>
                   ))}
@@ -955,12 +990,13 @@ function Choice({
           <button
             key={id}
             type="button"
+            aria-pressed={value === id}
             onClick={() => setValue(id)}
             className={cn(
-              'rounded-[24px] border px-4 py-4 text-left transition',
+              'focus-visible:outline-accent-primary rounded-[4px] border px-4 py-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
               value === id
-                ? 'border-accent-primary bg-accent-primary/8'
-                : 'border-border-subtle bg-bg-secondary'
+                ? 'border-accent-primary bg-accent-primary/10'
+                : 'border-border-subtle bg-bg-secondary hover:border-text-muted'
             )}
           >
             <p className="text-text-primary text-base font-semibold">{text}</p>
@@ -987,10 +1023,10 @@ function Mini({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'rounded-full px-3 py-1.5 text-xs font-semibold disabled:opacity-45',
+        'focus-visible:outline-accent-primary rounded-full px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-45',
         tone === 'danger'
-          ? 'bg-rose-500/10 text-rose-700'
-          : 'bg-bg-secondary text-text-secondary ring-border-subtle ring-1'
+          ? 'border-error/40 bg-error/15 text-error border'
+          : 'bg-bg-secondary text-text-primary ring-border-subtle ring-1'
       )}
     >
       {children}
@@ -999,14 +1035,14 @@ function Mini({
 }
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="text-text-secondary ring-border-subtle rounded-full bg-white px-3 py-1 text-xs font-semibold ring-1">
+    <span className="bg-bg-secondary text-text-secondary ring-border-subtle rounded-full px-3 py-1 text-xs font-semibold ring-1">
       {children}
     </span>
   );
 }
 function Note({ title, body }: { title: string; body: string }) {
   return (
-    <div className="border-border-subtle rounded-2xl border bg-white/80 p-4">
+    <div className="border-border-subtle bg-bg-secondary rounded-[4px] border p-4">
       <p className="text-text-primary text-sm font-semibold">{title}</p>
       <p className="text-text-secondary mt-2 text-sm leading-6">{body}</p>
     </div>

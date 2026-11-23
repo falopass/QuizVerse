@@ -50,7 +50,7 @@ export default async function LocalizedCreatePage({
   const { data: categories } = await supabase.from('categories').select('*').order('sort_order');
 
   return (
-    <div className="mx-auto max-w-6xl px-4 pt-28 pb-20">
+    <div className="mx-auto max-w-6xl px-4 pt-6 pb-20 md:pt-10">
       <div className="mb-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="surface-panel p-8">
           <p className="eyebrow">{locale === 'es' ? 'Estudio' : 'Studio'}</p>
@@ -73,7 +73,7 @@ export default async function LocalizedCreatePage({
           </div>
           <Link
             href={localizeHref(locale, '/create/ai')}
-            className="bg-accent-primary text-bg-primary mt-6 inline-flex w-fit items-center rounded-full px-5 py-3 text-sm font-semibold"
+            className="bg-accent-primary text-bg-primary focus-visible:outline-accent-primary mt-6 inline-flex w-fit items-center rounded-full px-5 py-3 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {dictionary.create.aiCta}
           </Link>

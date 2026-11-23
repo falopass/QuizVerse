@@ -183,7 +183,7 @@ export interface Database {
           results?: Json | null;
           tags?: string[];
           estimated_minutes?: number;
-          question_count?: number;
+          // `question_count` es GENERATED ALWAYS AS (jsonb_array_length(questions)) STORED: solo lectura.
           plays_count?: number;
           shares_count?: number;
           avg_score?: number | null;
@@ -214,7 +214,7 @@ export interface Database {
           results?: Json | null;
           tags?: string[];
           estimated_minutes?: number;
-          question_count?: number;
+          // `question_count` es GENERATED ALWAYS AS (jsonb_array_length(questions)) STORED: solo lectura.
           plays_count?: number;
           shares_count?: number;
           avg_score?: number | null;
@@ -929,6 +929,11 @@ export interface Database {
           created_at: string;
           position: number;
         }[];
+      };
+      /** Migración 030: preguntas completas de un borrador propio (status = draft). */
+      get_own_draft_questions: {
+        Args: { p_quiz_id: string };
+        Returns: Json | null;
       };
     };
     Enums: {

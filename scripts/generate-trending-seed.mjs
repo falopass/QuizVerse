@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env.local', override: true });
 
-const MODEL = process.env.SEED_MODEL || 'deepseek-chat';
+const MODEL = process.env.SEED_MODEL || 'deepseek-flash';
 const OUTPUT_DIR = path.join(process.cwd(), 'generated');
 const OUTPUT_FILE = path.join(OUTPUT_DIR, 'trending-seed.json');
 const REPORT_FILE = path.join(OUTPUT_DIR, 'trending-seed-report.json');
@@ -843,9 +843,16 @@ async function requestQuiz(item) {
         ],
         response_format: { type: 'json_object' },
         temperature: 0.6,
+        max_tokens: 4000,
+        thinking: { type: 'disabled' },
       });
 
-      const content = completion.choices[0]?.message?.content;
+      const choice = completion.choices[0];
+      if (choice?.finish_reason === 'length') {
+        throw new Error('Truncated model response (finish_reason=length).');
+      }
+
+      const content = choice?.message?.content;
       if (!content) {
         throw new Error('Empty model response.');
       }

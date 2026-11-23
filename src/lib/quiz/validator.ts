@@ -3,12 +3,13 @@
  */
 
 import { z } from 'zod';
+import { locales } from '@/lib/i18n/dictionaries';
 
 // ============================================
 // SCHEMAS
 // ============================================
 
-const OptionSchema = z.object({
+export const OptionSchema = z.object({
   id: z.string().min(1).max(64),
   text: z.string().min(1).max(500),
   is_correct: z.boolean().optional(),
@@ -16,7 +17,7 @@ const OptionSchema = z.object({
   image_url: z.string().url().optional().nullable(),
 });
 
-const QuestionSchema = z.object({
+export const QuestionSchema = z.object({
   id: z.string().min(1).max(64),
   question: z.string().min(1).max(1000),
   image_url: z.string().url().optional().nullable(),
@@ -25,8 +26,8 @@ const QuestionSchema = z.object({
   time_limit_seconds: z.number().min(5).max(300).optional().nullable(),
 });
 
-const PersonalityResultSchema = z.object({
-  id: z.string(),
+export const PersonalityResultSchema = z.object({
+  id: z.string().min(1).max(64),
   title: z.string().min(1).max(100),
   description: z.string().min(1).max(1000),
   image_url: z.string().url().optional().nullable(),
@@ -43,7 +44,9 @@ export const QuizCreateSchema = z.object({
   // La DB conserva 'poll' en su enum; vuelve a las entradas cuando exista implementación completa (puntuación incluida).
   quiz_type: z.enum(['trivia', 'personality']),
   difficulty: z.enum(['easy', 'medium', 'hard']),
-  language: z.string().min(2).max(10).default('en'),
+  // Mismo conjunto vigente que las rutas /[locale] y updateQuiz: un idioma
+  // fuera del catálogo deja al quiz huérfano de las páginas por locale.
+  language: z.enum(locales).default('en'),
   category_id: z.string().uuid().optional().nullable(),
   questions: z.array(QuestionSchema).min(1).max(20),
   results: z.array(PersonalityResultSchema).optional().nullable(),
@@ -57,7 +60,7 @@ export const QuizCreateSchema = z.object({
 // en src/lib/quiz/generator.ts. No incluye quiz_type/difficulty/language porque
 // esos los fija la request, no el modelo.
 const AIOptionSchema = z.object({
-  id: z.string().min(1),
+  id: z.string().min(1).max(64),
   text: z.string().min(1).max(500),
   is_correct: z.boolean().optional(),
   personality_tags: z.array(z.string()).optional(),
@@ -65,7 +68,7 @@ const AIOptionSchema = z.object({
 });
 
 const AIQuestionSchema = z.object({
-  id: z.string().min(1),
+  id: z.string().min(1).max(64),
   question: z.string().min(1).max(1000),
   options: z.array(AIOptionSchema).min(2).max(6),
   explanation: z.string().max(500).optional().nullable(),
@@ -74,7 +77,7 @@ const AIQuestionSchema = z.object({
 });
 
 const AIResultSchema = z.object({
-  id: z.string().min(1),
+  id: z.string().min(1).max(64),
   title: z.string().min(1).max(100),
   description: z.string().min(1).max(1000),
   personality_tag: z.string().optional().nullable(),
@@ -101,6 +104,7 @@ export type QuestionInput = z.infer<typeof QuestionSchema>;
 export type OptionInput = z.infer<typeof OptionSchema>;
 export type PersonalityResultInput = z.infer<typeof PersonalityResultSchema>;
 export type QuizCreateInput = z.infer<typeof QuizCreateSchema>;
+export type AIQuizResponse = z.infer<typeof AIQuizResponseSchema>;
 
 // ============================================
 // FUNCIONES DE VALIDACIÓN
@@ -111,9 +115,13 @@ export interface ValidationResult {
   errors: string[];
 }
 
-// Errores semánticos, bilingües: `createQuiz` los devuelve al formulario, que
-// los muestra tal cual (ver `ActionFailure.error`). El locale es el `language`
-// del quiz enviado, que los formularios fijan al locale de la UI.
+export interface AIValidationResult extends ValidationResult {
+  data?: AIQuizResponse;
+}
+
+// Errores semánticos, bilingües: `createQuiz` y `updateQuiz` los devuelven al
+// formulario, que los muestra tal cual (ver `ActionFailure.error`). El locale
+// es el `language` del quiz enviado, que los formularios fijan al locale de la UI.
 const semantic = {
   uniqueQuestionIds: {
     es: 'Las preguntas deben tener identificadores únicos',
@@ -207,15 +215,90 @@ function structuralMessage(issue: StructuralIssue, lang: 'es' | 'en'): string {
 
 /**
  * Mensajes `ruta: error` localizados para un fallo de schema. Lo comparten
- * `validateQuiz` y `createQuiz`, cuyo schema extendido puede fallar antes de
- * llegar a la validación semántica.
+ * `validateQuiz`, `validateAIQuizResponse`, `createQuiz` y `updateQuiz`.
  */
 export function localizedIssueMessages(
   error: { issues: StructuralIssue[] },
   locale: string
 ): string[] {
   const lang = locale === 'es' ? 'es' : 'en';
-  return error.issues.map((issue) => `${issue.path.join('.')}: ${structuralMessage(issue, lang)}`);
+  return error.issues.map(
+    (issue) => `${issue.path.join('.') || 'root'}: ${structuralMessage(issue, lang)}`
+  );
+}
+
+/**
+ * Reglas semánticas únicas para quizzes creados, editados o generados por IA:
+ * IDs únicos, exactamente una opción correcta en trivia y grafo completo de
+ * tags/resultados en personality.
+ */
+function validateQuizSemantics(
+  quiz: {
+    quiz_type: 'trivia' | 'personality';
+    questions: QuestionInput[];
+    results?: PersonalityResultInput[] | null;
+  },
+  lang: 'es' | 'en'
+): string[] {
+  const errors: string[] = [];
+
+  if (new Set(quiz.questions.map((question) => question.id)).size !== quiz.questions.length) {
+    errors.push(semantic.uniqueQuestionIds[lang]);
+  }
+
+  quiz.questions.forEach((question, index) => {
+    if (new Set(question.options.map((option) => option.id)).size !== question.options.length) {
+      errors.push(semantic.uniqueOptionIds(index)[lang]);
+    }
+  });
+
+  if (quiz.quiz_type === 'trivia') {
+    quiz.questions.forEach((question, index) => {
+      const correctOptions = question.options.filter((option) => option.is_correct === true);
+      if (correctOptions.length !== 1) {
+        errors.push(semantic.singleCorrectOption(index, correctOptions.length)[lang]);
+      }
+    });
+  }
+
+  if (quiz.quiz_type === 'personality') {
+    if (!quiz.results || quiz.results.length === 0) {
+      errors.push(semantic.resultsRequired[lang]);
+    } else {
+      const normalizedTags = quiz.results.map((item) => item.personality_tag?.trim() ?? '');
+      const resultTags = new Set(normalizedTags);
+      if (resultTags.has('') || resultTags.size !== quiz.results.length) {
+        errors.push(semantic.uniqueResultTags[lang]);
+      }
+      if (new Set(quiz.results.map((item) => item.id)).size !== quiz.results.length) {
+        errors.push(semantic.uniqueResultIds[lang]);
+      }
+
+      const allTags = new Set<string>();
+      quiz.questions.forEach((question, index) => {
+        const invalid = question.options.some((option) => {
+          const optionTags = option.personality_tags?.map((tag) => tag.trim()).filter(Boolean);
+          return !optionTags?.length || optionTags.some((tag) => !resultTags.has(tag));
+        });
+        if (invalid) errors.push(semantic.existingResultTags(index)[lang]);
+        question.options.forEach((option) =>
+          option.personality_tags?.forEach((tag) => {
+            const trimmed = tag.trim();
+            if (trimmed) allTags.add(trimmed);
+          })
+        );
+      });
+
+      quiz.results.forEach((item, index) => {
+        const tag = item.personality_tag?.trim();
+        if (tag && !allTags.has(tag)) {
+          errors.push(semantic.unusedResultTag(index, tag)[lang]);
+        }
+      });
+    }
+  }
+
+  return errors;
 }
 
 /**
@@ -230,67 +313,7 @@ export function validateQuiz(data: unknown, locale: string = 'es'): ValidationRe
     return { valid: false, errors: localizedIssueMessages(result.error, locale) };
   }
 
-  // Validaciones adicionales específicas
-  const additionalErrors: string[] = [];
-  if (
-    new Set(result.data.questions.map((question) => question.id)).size !==
-    result.data.questions.length
-  ) {
-    additionalErrors.push(semantic.uniqueQuestionIds[lang]);
-  }
-  result.data.questions.forEach((question, index) => {
-    if (new Set(question.options.map((option) => option.id)).size !== question.options.length) {
-      additionalErrors.push(semantic.uniqueOptionIds(index)[lang]);
-    }
-  });
-
-  // Para trivia: cada pregunta debe tener exactamente una respuesta correcta
-  if (result.data.quiz_type === 'trivia') {
-    result.data.questions.forEach((q, index) => {
-      const correctOptions = q.options.filter((o) => o.is_correct === true);
-      if (correctOptions.length !== 1) {
-        additionalErrors.push(semantic.singleCorrectOption(index, correctOptions.length)[lang]);
-      }
-    });
-  }
-
-  // Para personality: debe tener resultados y los tags deben coincidir
-  if (result.data.quiz_type === 'personality') {
-    if (!result.data.results || result.data.results.length === 0) {
-      additionalErrors.push(semantic.resultsRequired[lang]);
-    } else {
-      const resultTags = new Set(result.data.results.map((item) => item.personality_tag));
-      if (
-        resultTags.has(null) ||
-        resultTags.has(undefined) ||
-        resultTags.has('') ||
-        resultTags.size !== result.data.results.length
-      ) {
-        additionalErrors.push(semantic.uniqueResultTags[lang]);
-      }
-      if (new Set(result.data.results.map((item) => item.id)).size !== result.data.results.length) {
-        additionalErrors.push(semantic.uniqueResultIds[lang]);
-      }
-      // Recopilar todos los tags de las opciones
-      const allTags = new Set<string>();
-      result.data.questions.forEach((q, index) => {
-        const invalid = q.options.some(
-          (o) =>
-            !o.personality_tags?.length || o.personality_tags.some((tag) => !resultTags.has(tag))
-        );
-        if (invalid) additionalErrors.push(semantic.existingResultTags(index)[lang]);
-        q.options.forEach((o) => o.personality_tags?.forEach((tag) => allTags.add(tag)));
-      });
-
-      // Verificar que cada resultado tenga un tag válido
-      result.data.results.forEach((r, index) => {
-        if (r.personality_tag && !allTags.has(r.personality_tag)) {
-          additionalErrors.push(semantic.unusedResultTag(index, r.personality_tag)[lang]);
-        }
-      });
-    }
-  }
-
+  const additionalErrors = validateQuizSemantics(result.data, lang);
   if (additionalErrors.length > 0) {
     return { valid: false, errors: additionalErrors };
   }
@@ -328,43 +351,33 @@ export function validatePersonalityResult(data: unknown): ValidationResult {
 
 /**
  * Valida la respuesta cruda del generador AI antes de servirla al cliente.
- * Aplica el schema estructural y encima las reglas semánticas del tipo de quiz.
+ * Devuelve únicamente el objeto parseado por Zod (sin campos extra) y aplica
+ * las mismas reglas semánticas que el guardado en `validateQuiz`.
  */
 export function validateAIQuizResponse(
   data: unknown,
-  quizType: 'trivia' | 'personality'
-): ValidationResult {
+  quizType: 'trivia' | 'personality',
+  locale: string = 'es'
+): AIValidationResult {
+  const lang = locale === 'es' ? 'es' : 'en';
   const result = AIQuizResponseSchema.safeParse(data);
 
   if (!result.success) {
-    const errors = result.error.issues.map(
-      (issue) => `${issue.path.join('.') || 'root'}: ${issue.message}`
-    );
-    return { valid: false, errors };
+    return { valid: false, errors: localizedIssueMessages(result.error, lang) };
   }
 
-  const additionalErrors: string[] = [];
-
-  // Para trivia: cada pregunta debe tener exactamente una respuesta correcta
-  if (quizType === 'trivia') {
-    result.data.questions.forEach((q, index) => {
-      const correctOptions = q.options.filter((o) => o.is_correct === true);
-      if (correctOptions.length !== 1) {
-        additionalErrors.push(
-          `Pregunta ${index + 1}: debe tener exactamente una respuesta correcta (tiene ${correctOptions.length})`
-        );
-      }
-    });
-  }
-
-  // Para personality: el schema exige 3-8 resultados cuando existen; aquí se exige que existan
-  if (quizType === 'personality' && !result.data.results?.length) {
-    additionalErrors.push('Los quizzes de personalidad deben tener resultados definidos');
-  }
+  const additionalErrors = validateQuizSemantics(
+    {
+      quiz_type: quizType,
+      questions: result.data.questions,
+      results: result.data.results,
+    },
+    lang
+  );
 
   if (additionalErrors.length > 0) {
     return { valid: false, errors: additionalErrors };
   }
 
-  return { valid: true, errors: [] };
+  return { valid: true, errors: [], data: result.data };
 }
