@@ -7,8 +7,38 @@ import type { User } from '@supabase/supabase-js';
 import { signOutAction } from '@/actions/auth.actions';
 import { useSupabase } from '@/providers/supabase-provider';
 import { localizeHref } from '@/lib/i18n/navigation';
-import { getCopy } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
+
+const COPY = {
+  en: {
+    signIn: 'Sign in',
+    login: 'Log in',
+    createAccount: 'Create account',
+    account: 'Account',
+    label: 'User menu',
+    activity: 'My activity',
+    profile: 'My profile',
+    quizzes: 'My quizzes',
+    createWithAi: 'Create with AI',
+    achievements: 'My achievements',
+    settings: 'Settings',
+    signOut: 'Sign out',
+  },
+  es: {
+    signIn: 'Iniciar sesión',
+    login: 'Entrar',
+    createAccount: 'Crear cuenta',
+    account: 'Cuenta',
+    label: 'Menú de usuario',
+    activity: 'Mi actividad',
+    profile: 'Mi perfil',
+    quizzes: 'Mis quizzes',
+    createWithAi: 'Crear con AI',
+    achievements: 'Mis logros',
+    settings: 'Ajustes',
+    signOut: 'Cerrar sesión',
+  },
+} as const;
 
 function displayName(user: User): string {
   const metadata = user.user_metadata as { name?: unknown; display_name?: unknown };
@@ -38,7 +68,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const onSignOut = useSignOut(locale);
-  const copy = getCopy(locale, 'userMenu');
+  const copy = COPY[locale];
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
@@ -66,7 +96,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
   }, [open]);
 
   const itemClass =
-    'text-text-primary hover:bg-bg-tertiary hover:text-accent-primary flex min-h-11 w-full items-center px-4 text-left text-sm';
+    'text-text-primary hover:bg-bg-tertiary hover:text-accent-primary flex min-h-11 w-full items-center px-4 text-left text-sm transition-colors';
 
   if (loading) {
     return (
@@ -103,7 +133,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
       >
         <span
           aria-hidden="true"
-          className="bg-accent-primary text-bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px]"
+          className="bg-accent-primary text-bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
         >
           {name.charAt(0).toUpperCase()}
         </span>
@@ -114,7 +144,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
           id="user-menu-panel"
           role="menu"
           aria-label={copy.label}
-          className="border-border-subtle bg-bg-secondary absolute top-full right-0 z-50 mt-2 w-44 rounded-xl border py-1 shadow-xl"
+          className="border-border-subtle bg-bg-secondary shadow-elevated absolute top-full right-0 z-50 mt-2 w-48 rounded-[4px] border py-1"
         >
           <Link
             role="menuitem"
@@ -176,9 +206,7 @@ export function UserMenu({ locale }: { locale: Locale }) {
 export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?: () => void }) {
   const { user, loading } = useSupabase();
   const onSignOut = useSignOut(locale);
-  const copy = getCopy(locale, 'userMenu');
-  const common = getCopy(locale, 'common');
-  const nav = getCopy(locale, 'nav');
+  const copy = COPY[locale];
 
   if (loading) return null;
 
@@ -190,14 +218,14 @@ export function UserMenuMobile({ locale, onSelect }: { locale: Locale; onSelect?
           className="arcade-mobile-menu-login"
           onClick={onSelect}
         >
-          {common.login}
+          {copy.login}
         </Link>
         <Link
           href={localizeHref(locale, '/register')}
           className="arcade-mobile-menu-register"
           onClick={onSelect}
         >
-          {nav.createAccount}
+          {copy.createAccount}
         </Link>
       </div>
     );

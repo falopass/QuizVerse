@@ -12,16 +12,20 @@ import {
   CONSENT_KEY,
   COOKIE_PREFERENCES_EVENT,
   CookieConsentBanner,
+  getConsentLevel,
+  resetConsentMemoryForTests,
 } from '@/components/shared/cookie-consent';
 
 beforeEach(() => {
   localStorage.clear();
+  resetConsentMemoryForTests();
   mocks.pathname = '/es/explore';
   vi.useFakeTimers();
 });
 
 afterEach(() => {
   vi.useRealTimers();
+  vi.restoreAllMocks();
 });
 
 function showBanner() {
@@ -162,5 +166,40 @@ describe('CookieConsentBanner con transiciones CSS', () => {
     fireEvent.animationEnd(container.querySelector('.cookie-consent-banner') as Element);
 
     expect(container.querySelector('.cookie-consent-banner')).toBeInTheDocument();
+  });
+
+  it('conserva controles, significado y cierre cuando localStorage no está disponible', () => {
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new DOMException('Denied', 'SecurityError');
+    });
+    vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+      throw new DOMException('Denied', 'SecurityError');
+    });
+    const listener = vi.fn();
+    window.addEventListener('quizverse:consent', listener);
+
+    const { container } = showBanner();
+    expect(screen.getByRole('button', { name: 'Aceptar todo' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Solo esenciales' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Solo esenciales' }));
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(getConsentLevel()).toBe('essential');
+    fireEvent.animationEnd(container.querySelector('.cookie-consent-banner') as Element);
+    expect(container).toBeEmptyDOMElement();
+    window.removeEventListener('quizverse:consent', listener);
+  });
+
+  it('desmonta de inmediato bajo prefers-reduced-motion: reduce sin esperar onAnimationEnd', () => {
+    const originalMatchMedia = window.matchMedia;
+    window.matchMedia = vi.fn().mockReturnValue({ matches: true }) as typeof window.matchMedia;
+    try {
+      const { container } = showBanner();
+      fireEvent.click(screen.getByRole('button', { name: 'Aceptar todo' }));
+      expect(container).toBeEmptyDOMElement();
+    } finally {
+      window.matchMedia = originalMatchMedia;
+    }
   });
 });

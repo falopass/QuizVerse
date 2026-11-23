@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { Modal } from '@/components/ui/modal';
 import { Button } from '@/components/ui/button';
 import type { Locale } from '@/lib/i18n/dictionaries';
@@ -18,6 +18,8 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
   const [details, setDetails] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const detailsId = useId();
+  const feedbackId = useId();
 
   const copy =
     locale === 'es'
@@ -26,6 +28,8 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
           title: 'Reportar quiz',
           description:
             'Ayúdanos a mantener QuizVerse útil y seguro. Cuéntanos qué problema viste en este quiz.',
+          reasonLegend: 'Motivo del reporte',
+          detailsLabel: 'Detalles adicionales',
           placeholder: 'Cuéntanos un poco más…',
           cancel: 'Cancelar',
           submit: 'Enviar reporte',
@@ -46,6 +50,8 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
           title: 'Report quiz',
           description:
             'Help us keep QuizVerse useful and safe. Tell us what felt wrong about this quiz.',
+          reasonLegend: 'Reason for reporting',
+          detailsLabel: 'Additional details',
           placeholder: 'Tell us a bit more…',
           cancel: 'Cancel',
           submit: 'Submit report',
@@ -132,11 +138,14 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
         <div className="space-y-4">
           <p className="text-text-secondary text-sm leading-6">{copy.description}</p>
 
-          <div className="space-y-2">
+          <fieldset className="space-y-2 border-0 p-0">
+            <legend className="text-text-secondary mb-2 text-sm font-semibold">
+              {copy.reasonLegend}
+            </legend>
             {reasons.map((reason) => (
               <label
                 key={reason.value}
-                className="border-border-subtle hover:bg-bg-tertiary flex cursor-pointer items-center gap-3 rounded-2xl border p-3 transition-colors"
+                className="border-border-subtle bg-bg-primary hover:border-accent-primary/60 flex cursor-pointer items-center gap-3 rounded-[4px] border p-3 transition-colors"
               >
                 <input
                   type="radio"
@@ -144,26 +153,35 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
                   value={reason.value}
                   checked={selectedReason === reason.value}
                   onChange={(event) => setSelectedReason(event.target.value)}
-                  className="text-accent-primary h-4 w-4"
+                  className="accent-accent-primary h-4 w-4"
                 />
-                <span className="text-text-primary">{reason.label}</span>
+                <span className="text-text-primary text-sm">{reason.label}</span>
               </label>
             ))}
-          </div>
+          </fieldset>
 
           {(selectedReason === 'other' || status === 'error') && (
-            <textarea
-              value={details}
-              onChange={(event) => setDetails(event.target.value)}
-              placeholder={copy.placeholder}
-              className="border-border-subtle bg-bg-tertiary text-text-primary placeholder:text-text-muted w-full resize-none rounded-2xl border p-3"
-              rows={4}
-            />
+            <div>
+              <label
+                htmlFor={detailsId}
+                className="text-text-secondary mb-1.5 block text-sm font-semibold"
+              >
+                {copy.detailsLabel}
+              </label>
+              <textarea
+                id={detailsId}
+                value={details}
+                onChange={(event) => setDetails(event.target.value)}
+                placeholder={copy.placeholder}
+                className="border-border-subtle bg-bg-primary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary w-full resize-none rounded-[4px] border p-3 text-sm"
+                rows={4}
+              />
+            </div>
           )}
 
           {status === 'success' ? (
             <p
-              id="report-feedback"
+              id={feedbackId}
               role="status"
               aria-live="polite"
               className="text-success text-sm font-medium"
@@ -172,13 +190,14 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
             </p>
           ) : null}
           {status === 'error' ? (
-            <p id="report-feedback" role="alert" className="text-error text-sm font-medium">
+            <p id={feedbackId} role="alert" className="text-error text-sm font-medium">
               {copy.error}
             </p>
           ) : null}
 
           <div className="flex gap-3 pt-4">
             <Button
+              type="button"
               variant="secondary"
               onClick={() => {
                 setIsOpen(false);
@@ -189,10 +208,11 @@ export function ReportButton({ quizId, quizSlug, locale = 'en', className }: Rep
               {copy.cancel}
             </Button>
             <Button
+              type="button"
               variant="danger"
               onClick={handleSubmit}
               disabled={!selectedReason || isSubmitting}
-              aria-describedby={status !== 'idle' ? 'report-feedback' : undefined}
+              aria-describedby={status !== 'idle' ? feedbackId : undefined}
               className="flex-1"
             >
               {isSubmitting ? copy.submitting : copy.submit}

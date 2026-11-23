@@ -14,7 +14,7 @@ const request = vi.hoisted(() => ({
 vi.mock('next/headers', () => request);
 vi.mock('next/font/google', () => ({
   Archivo_Black: () => ({ variable: '--font-archivo' }),
-  Space_Grotesk: () => ({ variable: '--font-space' }),
+  Bricolage_Grotesque: () => ({ variable: '--font-bricolage' }),
 }));
 vi.mock('@/lib/data/category-counts', () => ({
   getPopulatedCategorySlugs: async () => new Set(['trivia']),
@@ -35,9 +35,10 @@ describe('documento público cacheable', () => {
       });
       expect(tree.type).toBe(SiteDocument);
       expect(SiteDocument(tree.props).props.lang).toBe(locale);
-      expect(tree.props.children.props.dictionary).toEqual(
-        JSON.parse(JSON.stringify(tree.props.children.props.dictionary))
+      expect(tree.props.children.props.navLabels).toEqual(
+        JSON.parse(JSON.stringify(tree.props.children.props.navLabels))
       );
+      expect(tree.props.children.props.footer).toBeDefined();
       expect(request.cookies).not.toHaveBeenCalled();
       expect(request.headers).not.toHaveBeenCalled();
     }

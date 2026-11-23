@@ -69,39 +69,27 @@ export async function LoginPageView({
   const localizedRedirect = safeRedirect === '/' ? localizeHref(locale, '/') : safeRedirect;
 
   return (
-    <div className="min-h-screen px-4 pt-28 pb-20">
+    <div className="min-h-screen px-4 pt-6 pb-16 md:pt-10 md:pb-20">
       <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-        <section className="surface-panel flex min-h-[34rem] flex-col justify-between p-8 md:p-10">
-          <div className="space-y-5">
-            <p className="eyebrow">{copy.eyebrow}</p>
-            <h1 className="text-text-primary max-w-xl text-4xl font-semibold tracking-tight md:text-6xl">
-              {dictionary.auth.title}
-            </h1>
-            <p className="balanced-copy text-text-secondary max-w-xl text-lg">
-              {dictionary.auth.subtitle}
-            </p>
-          </div>
-          <div className="grid items-start gap-4 sm:grid-cols-3">
-            <EditorialNote title={copy.note1Title} body={copy.note1Body} />
-            <EditorialNote title={copy.note2Title} body={copy.note2Body} />
-            <EditorialNote title={copy.note3Title} body={copy.note3Body} />
-          </div>
-        </section>
-
-        <section className="surface-card p-8 md:p-10">
+        <section className="surface-card order-1 p-6 sm:p-8 md:p-10 lg:order-2">
           <div className="mb-8">
-            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-14 w-14 items-center justify-center rounded-full border text-sm font-semibold">
+            <div className="border-border-subtle bg-bg-primary text-accent-primary flex h-12 w-12 items-center justify-center rounded-[4px] border text-sm font-bold">
               QV
             </div>
-            <h2 className="font-display text-text-primary mt-5 text-4xl">{copy.continueTitle}</h2>
+            <h1 className="font-display text-text-primary mt-5 text-3xl font-normal sm:text-4xl">
+              {copy.continueTitle}
+            </h1>
             <p className="text-text-secondary mt-3 text-sm leading-6">{copy.continueBody}</p>
           </div>
 
           <div className="space-y-4">
-            <LoginForm locale={locale} redirectTo={localizedRedirect} />
+            <LoginForm locale={locale} redirectTo={localizedRedirect} showRegisterLink={false} />
 
             {oauthFailed ? (
-              <p role="alert" className="text-sm font-semibold text-red-400">
+              <p
+                role="alert"
+                className="border-error/40 bg-error/10 text-error rounded-[4px] border px-4 py-3 text-sm font-semibold"
+              >
                 {copy.oauthFailed}
               </p>
             ) : null}
@@ -115,14 +103,14 @@ export async function LoginPageView({
 
           <div className="my-6 flex items-center gap-4">
             <div className="bg-border-subtle h-px flex-1" />
-            <span className="text-text-muted text-[11px] font-semibold">{copy.browseFirst}</span>
+            <span className="text-text-muted text-xs font-semibold">{copy.browseFirst}</span>
             <div className="bg-border-subtle h-px flex-1" />
           </div>
           <Link
             href={
               localizedRedirect.includes('/create') ? localizeHref(locale, '/') : localizedRedirect
             }
-            className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary/40 inline-flex w-full items-center justify-center rounded-full border px-4 py-4 text-sm font-semibold transition-colors"
+            className="border-border-subtle bg-bg-primary text-text-primary hover:border-accent-primary inline-flex min-h-12 w-full items-center justify-center rounded-full border px-4 py-3.5 text-sm font-semibold transition-colors"
           >
             {dictionary.auth.guest}
           </Link>
@@ -147,6 +135,23 @@ export async function LoginPageView({
             .
           </p>
         </section>
+
+        <section className="surface-panel order-2 flex flex-col justify-between gap-8 p-6 sm:p-8 md:p-10 lg:order-1 lg:min-h-[34rem]">
+          <div className="space-y-4">
+            <p className="eyebrow">{copy.eyebrow}</p>
+            <h2 className="font-display text-text-primary max-w-xl text-3xl font-normal md:text-5xl">
+              {dictionary.auth.title}
+            </h2>
+            <p className="balanced-copy text-text-secondary max-w-xl text-base md:text-lg">
+              {dictionary.auth.subtitle}
+            </p>
+          </div>
+          <div className="grid items-start gap-4 sm:grid-cols-3">
+            <EditorialNote title={copy.note1Title} body={copy.note1Body} />
+            <EditorialNote title={copy.note2Title} body={copy.note2Body} />
+            <EditorialNote title={copy.note3Title} body={copy.note3Body} />
+          </div>
+        </section>
       </div>
     </div>
   );
@@ -154,7 +159,7 @@ export async function LoginPageView({
 
 function EditorialNote({ title, body }: { title: string; body: string }) {
   return (
-    <div className="border-border-subtle bg-bg-primary rounded-[1.5rem] border px-5 py-5">
+    <div className="border-border-subtle bg-bg-primary rounded-[4px] border px-4 py-4">
       <p className="text-text-primary text-sm font-semibold">{title}</p>
       <p className="text-text-secondary mt-2 text-sm leading-6">{body}</p>
     </div>

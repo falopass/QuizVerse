@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getLocalizedCategoryLabel } from '@/lib/i18n/catalog';
 import { localizeHref, stripLocaleFromPathname } from '@/lib/i18n/navigation';
 import { cn } from '@/lib/utils/cn';
 import { LocaleSwitcher } from './locale-switcher';
@@ -11,7 +10,43 @@ import { NotificationBell } from './notification-bell';
 import { UserMenu, UserMenuMobile } from './user-menu';
 import type { Dictionary, Locale } from '@/lib/i18n/dictionaries';
 
-export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
+export interface NavLabels {
+  mainNavigation: string;
+  explore: string;
+  dailyQuiz: string;
+  leaderboard: string;
+  personality: string;
+  trivia: string;
+  randomQuiz: string;
+  mobileRandomQuiz: string;
+  switchLocale: string;
+  pickGame: string;
+  menu: string;
+}
+
+export function extractNavLabels(dictionary: Dictionary, locale: Locale): NavLabels {
+  return {
+    mainNavigation: dictionary.arcade.mainNavigation,
+    explore: dictionary.common.explore,
+    dailyQuiz: dictionary.common.dailyQuiz,
+    leaderboard: dictionary.common.leaderboard,
+    personality: locale === 'es' ? 'Personalidad' : 'Personality',
+    trivia: 'Trivia',
+    randomQuiz: dictionary.common.randomQuiz,
+    mobileRandomQuiz: dictionary.nav.randomQuiz,
+    switchLocale: dictionary.common.switchLocale,
+    pickGame: dictionary.arcade.pickGame,
+    menu: dictionary.nav.menu,
+  };
+}
+
+type FloatingNavProps =
+  | { locale: Locale; navLabels: NavLabels; dictionary?: never }
+  | { locale: Locale; dictionary: Dictionary; navLabels?: never };
+
+export function FloatingNav(props: FloatingNavProps) {
+  const { locale } = props;
+  const labels = props.navLabels ?? extractNavLabels(props.dictionary, locale);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -39,19 +74,19 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
   }, [open]);
 
   const mobileItems = [
-    { href: '/quiz', match: '/quiz', label: dictionary.common.explore },
-    { href: '/daily', match: '/daily', label: dictionary.common.dailyQuiz },
+    { href: '/quiz', match: '/quiz', label: labels.explore },
+    { href: '/daily', match: '/daily', label: labels.dailyQuiz },
     {
       href: '/category/personality',
       match: '/category/personality',
-      label: getLocalizedCategoryLabel('personality', locale),
+      label: labels.personality,
     },
     {
       href: '/category/trivia',
       match: '/category/trivia',
-      label: getLocalizedCategoryLabel('trivia', locale),
+      label: labels.trivia,
     },
-    { href: '/leaderboard', match: '/leaderboard', label: dictionary.common.leaderboard },
+    { href: '/leaderboard', match: '/leaderboard', label: labels.leaderboard },
   ];
 
   return (
@@ -60,27 +95,27 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
         <Link href={localizeHref(locale, '/')} className="arcade-logo" aria-label="QuizVerse">
           QUIZ<span>VERSE</span>
         </Link>
-        <nav className="arcade-nav" aria-label={dictionary.arcade.mainNavigation}>
+        <nav className="arcade-nav" aria-label={labels.mainNavigation}>
           <Link
             href={localizeHref(locale, '/quiz')}
             className={cn('arcade-nav-link', isActive('/quiz') && 'text-accent-primary')}
             aria-current={isActive('/quiz') ? 'page' : undefined}
           >
-            {dictionary.common.explore}
+            {labels.explore}
           </Link>
           <Link
             href={localizeHref(locale, '/daily')}
             className={cn('arcade-nav-link', isActive('/daily') && 'text-accent-primary')}
             aria-current={isActive('/daily') ? 'page' : undefined}
           >
-            {dictionary.common.dailyQuiz}
+            {labels.dailyQuiz}
           </Link>
           <Link
             href={localizeHref(locale, '/leaderboard')}
             className={cn('arcade-nav-link', isActive('/leaderboard') && 'text-accent-primary')}
             aria-current={isActive('/leaderboard') ? 'page' : undefined}
           >
-            {dictionary.common.leaderboard}
+            {labels.leaderboard}
           </Link>
           <Link
             href={localizeHref(locale, '/category/personality')}
@@ -90,14 +125,14 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             )}
             aria-current={isActive('/category/personality') ? 'page' : undefined}
           >
-            {getLocalizedCategoryLabel('personality', locale)}
+            {labels.personality}
           </Link>
           <Link
             href={localizeHref(locale, '/category/trivia')}
             className={cn('arcade-nav-link', isActive('/category/trivia') && 'text-accent-primary')}
             aria-current={isActive('/category/trivia') ? 'page' : undefined}
           >
-            {getLocalizedCategoryLabel('trivia', locale)}
+            {labels.trivia}
           </Link>
           {/* /random is a 307 route handler, not an RSC page: no prefetch so the
               redirect resolves to the real quiz URL on click. */}
@@ -107,11 +142,11 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             className={cn('arcade-nav-link', isActive('/random') && 'text-accent-primary')}
             aria-current={isActive('/random') ? 'page' : undefined}
           >
-            {dictionary.common.randomQuiz}
+            {labels.randomQuiz}
           </Link>
-          <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
+          <LocaleSwitcher value={locale} label={labels.switchLocale} />
           <Link href={localizeHref(locale, '/quiz')} className="arcade-pill">
-            {dictionary.arcade.pickGame} ↗
+            {labels.pickGame} ↗
           </Link>
           <UserMenu locale={locale} />
         </nav>
@@ -123,7 +158,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
             ref={menuButtonRef}
             type="button"
             className="arcade-menu-button"
-            aria-label={dictionary.nav.menu}
+            aria-label={labels.menu}
             aria-expanded={open}
             aria-controls="arcade-mobile-menu"
             onClick={() => setOpen(!open)}
@@ -136,7 +171,7 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
         <nav
           id="arcade-mobile-menu"
           className="arcade-mobile-menu"
-          aria-label={dictionary.arcade.mainNavigation}
+          aria-label={labels.mainNavigation}
         >
           <div className="arcade-mobile-menu-nav">
             {mobileItems.map((item) => (
@@ -159,12 +194,12 @@ export function FloatingNav({ locale, dictionary }: { locale: Locale; dictionary
               aria-current={isActive('/random') ? 'page' : undefined}
               onClick={() => setOpen(false)}
             >
-              {dictionary.nav.randomQuiz}
+              {labels.mobileRandomQuiz}
             </Link>
           </div>
           <UserMenuMobile locale={locale} onSelect={() => setOpen(false)} />
           <div className="arcade-mobile-menu-locale">
-            <LocaleSwitcher value={locale} label={dictionary.common.switchLocale} />
+            <LocaleSwitcher value={locale} label={labels.switchLocale} />
           </div>
         </nav>
       )}

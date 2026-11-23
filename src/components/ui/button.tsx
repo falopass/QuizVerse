@@ -27,9 +27,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const baseStyles = `
       inline-flex items-center justify-center
-      font-medium rounded-lg
-      transition-all duration-200
-      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-bg-primary
+      font-semibold rounded-full
+      transition-[background-color,border-color,color,transform] duration-150
+      focus-visible:outline-2 focus-visible:outline-offset-2
       disabled:opacity-50 disabled:cursor-not-allowed
       active:scale-[0.98]
     `;
@@ -38,38 +38,35 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       primary: `
         bg-accent-primary text-bg-primary
         hover:bg-accent-hover
-        focus:ring-accent-primary
-        shadow-lg shadow-accent-primary/25
-        hover:shadow-xl hover:shadow-accent-primary/30
+        focus-visible:outline-accent-primary
       `,
       secondary: `
         bg-bg-tertiary text-text-primary
-        hover:bg-bg-secondary
-        focus:ring-bg-tertiary
+        hover:bg-bg-secondary hover:border-accent-primary
+        focus-visible:outline-accent-primary
         border border-border-subtle
       `,
       ghost: `
         text-text-secondary
-        hover:text-text-primary hover:bg-bg-tertiary/50
-        focus:ring-bg-tertiary
+        hover:text-text-primary hover:bg-bg-tertiary/60
+        focus-visible:outline-accent-primary
       `,
       outline: `
         bg-transparent text-text-primary
         border-2 border-accent-primary
         hover:bg-accent-primary/10
-        focus:ring-accent-primary
+        focus-visible:outline-accent-primary
       `,
       danger: `
-        bg-error text-white
-        hover:bg-red-600
-        focus:ring-error
-        shadow-lg shadow-error/25
+        bg-error text-bg-primary
+        hover:bg-[#ff528a]
+        focus-visible:outline-error
       `,
     };
 
     const sizes = {
-      sm: 'h-8 px-3 text-sm gap-1.5',
-      md: 'h-10 px-4 text-sm gap-2',
+      sm: 'h-9 px-4 text-sm gap-1.5',
+      md: 'h-11 px-5 text-sm gap-2',
       lg: 'h-12 px-6 text-base gap-2',
       xl: 'h-14 px-8 text-lg gap-3',
     };
@@ -83,6 +80,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && (
           <svg
+            aria-hidden="true"
             className="h-4 w-4 animate-spin"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

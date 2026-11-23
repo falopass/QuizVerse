@@ -22,7 +22,6 @@ export function ProgressBar({
   showLabel = false,
   size = 'md',
   variant = 'default',
-  animated = true,
   className,
   timerGradient,
   ariaLabel,
@@ -62,15 +61,14 @@ export function ProgressBar({
       >
         <div
           className={cn(
-            'h-full rounded-full transition-all duration-500 ease-out',
-            timerGradient ? timerGradients[timerGradient] : variants[variant],
-            animated && 'animate-pulse'
+            'h-full rounded-full transition-[width] duration-300 ease-out',
+            timerGradient ? timerGradients[timerGradient] : variants[variant]
           )}
           style={{ width: `${percentage}%` }}
         />
       </div>
       {showLabel && (
-        <div className="text-text-secondary mt-1.5 flex justify-between text-xs">
+        <div className="text-text-secondary mt-1.5 flex justify-between text-xs tabular-nums">
           <span>{value}</span>
           <span>{max}</span>
         </div>

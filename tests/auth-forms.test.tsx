@@ -68,6 +68,15 @@ describe('LoginForm', () => {
     );
     expect(mocks.push).not.toHaveBeenCalled();
   });
+
+  it('omite el enlace duplicado a registro cuando showRegisterLink es false y mantiene foco visible', () => {
+    render(<LoginForm locale="es" redirectTo="/es/home" showRegisterLink={false} />);
+
+    expect(screen.queryByRole('link', { name: 'Crea una' })).not.toBeInTheDocument();
+    const emailInput = screen.getByLabelText('Correo electrónico');
+    expect(emailInput).toHaveAttribute('placeholder', 'tu@correo.com');
+    expect(emailInput.className).not.toContain('outline-none');
+  });
 });
 
 describe('RegisterForm', () => {
@@ -104,6 +113,14 @@ describe('RegisterForm', () => {
       )
     );
     expect(mocks.push).not.toHaveBeenCalled();
+  });
+
+  it('localiza el placeholder de email y mantiene foco visible en los campos', () => {
+    render(<RegisterForm labels={REGISTER_LABELS} redirectTo="/es/home" locale="es" />);
+
+    const emailInput = screen.getByLabelText('Correo electrónico');
+    expect(emailInput).toHaveAttribute('placeholder', 'tu@correo.com');
+    expect(emailInput.className).not.toContain('outline-none');
   });
 });
 

@@ -71,8 +71,8 @@ export function LocaleSwitcher({ value, label }: LocaleSwitcherProps) {
           }
         }}
         className={cn(
-          'border-border-subtle bg-bg-secondary text-text-primary rounded-full border px-3 py-2 text-[11px] font-semibold',
-          'hover:border-accent focus:border-accent transition-colors disabled:opacity-70'
+          'border-border-subtle bg-bg-secondary text-text-primary min-h-11 rounded-full border px-3 py-2 text-xs font-semibold',
+          'hover:border-accent-primary focus-visible:border-accent-primary transition-colors disabled:opacity-70'
         )}
       >
         <option value="en">EN</option>

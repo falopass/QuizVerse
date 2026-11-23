@@ -47,13 +47,13 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
   const es = locale === 'es';
 
   return (
-    <div className="mx-auto min-h-screen max-w-5xl px-4 pt-28 pb-20">
-      <section className="surface-panel p-8 md:p-10">
+    <div className="mx-auto min-h-screen max-w-5xl px-4 pt-6 pb-16 md:pt-10 md:pb-20">
+      <section className="surface-panel p-6 sm:p-8 md:p-10">
         <p className="eyebrow">{es ? 'Cuenta' : 'Account'}</p>
-        <h1 className="text-text-primary mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
+        <h1 className="font-display text-text-primary mt-4 text-4xl font-normal md:text-5xl">
           {es ? 'Mi actividad' : 'My activity'}
         </h1>
-        <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-lg">
+        <p className="balanced-copy text-text-secondary mt-4 max-w-xl text-base md:text-lg">
           {es
             ? 'Tus últimas partidas, con su puntaje y el enlace a cada resultado.'
             : 'Your latest games, with their score and the link to each result.'}
@@ -63,21 +63,21 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
             <dt className="text-text-muted text-xs font-semibold">
               {es ? 'Partidas' : 'Games played'}
             </dt>
-            <dd className="text-text-primary mt-1 text-3xl font-semibold">{played}</dd>
+            <dd className="text-text-primary mt-1 text-3xl font-bold tabular-nums">{played}</dd>
           </div>
           <div className="surface-card p-4">
             <dt className="text-text-muted text-xs font-semibold">{es ? 'Puntos' : 'Points'}</dt>
-            <dd className="text-text-primary mt-1 text-3xl font-semibold">{points}</dd>
+            <dd className="text-text-primary mt-1 text-3xl font-bold tabular-nums">{points}</dd>
           </div>
           <div className="surface-card p-4">
             <dt className="text-text-muted text-xs font-semibold">{es ? 'Racha' : 'Streak'}</dt>
-            <dd className="text-text-primary mt-1 text-3xl font-semibold">
+            <dd className="text-text-primary mt-1 text-3xl font-bold tabular-nums">
               {currentStreak}{' '}
               <span className="text-text-muted ml-1 text-sm font-normal">
                 {es ? (currentStreak === 1 ? 'día' : 'días') : currentStreak === 1 ? 'day' : 'days'}
               </span>
             </dd>
-            <p className="text-text-muted mt-1 text-xs">
+            <p className="text-text-muted mt-1 text-xs tabular-nums">
               {es ? `Mejor racha: ${longestStreak}` : `Best streak: ${longestStreak}`}
             </p>
           </div>
@@ -86,7 +86,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
 
       {sessionsFailed ? (
         <section className="surface-card mt-8 p-10 text-center">
-          <h2 className="text-text-primary text-2xl font-semibold">
+          <h2 className="font-display text-text-primary text-2xl font-normal">
             {es ? 'No pudimos cargar tu historial' : 'We could not load your history'}
           </h2>
           <p className="text-text-secondary mt-2">
@@ -94,14 +94,14 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
           </p>
           <Link
             href={localizeHref(locale, '/me')}
-            className="bg-accent-primary hover:bg-accent-hover mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium text-white transition-colors"
+            className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-full px-6 font-semibold transition-colors"
           >
             {es ? 'Reintentar' : 'Retry'}
           </Link>
         </section>
       ) : sessions.length === 0 ? (
         <section className="surface-card mt-8 p-10 text-center">
-          <h2 className="text-text-primary text-2xl font-semibold">
+          <h2 className="font-display text-text-primary text-2xl font-normal">
             {es ? 'Aún no has jugado' : "You haven't played yet"}
           </h2>
           <p className="text-text-secondary mt-2">
@@ -111,7 +111,7 @@ export default async function LocalizedMePage({ params }: { params: Promise<{ lo
           </p>
           <Link
             href={localizeHref(locale, '/quiz')}
-            className="bg-accent-primary hover:bg-accent-hover mt-6 inline-flex h-12 items-center justify-center rounded-lg px-6 font-medium text-white transition-colors"
+            className="bg-accent-primary hover:bg-accent-hover text-bg-primary mt-6 inline-flex h-12 items-center justify-center rounded-full px-6 font-semibold transition-colors"
           >
             {es ? 'Explorar quizzes' : 'Browse quizzes'}
           </Link>

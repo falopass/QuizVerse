@@ -51,4 +51,14 @@ describe('ReportButton accesible', () => {
       expect(screen.getByRole('button', { name: 'Enviar reporte' })).toBeEnabled()
     );
   });
+
+  it('agrupa las opciones en fieldset con legend y etiqueta el textarea de detalles', () => {
+    render(<ReportButton quizId="quiz-1" quizSlug="quiz-de-prueba" locale="es" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Reportar quiz' }));
+
+    expect(screen.getByRole('group', { name: 'Motivo del reporte' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('radio', { name: 'Otro motivo' }));
+    expect(screen.getByLabelText('Detalles adicionales')).toBeInTheDocument();
+  });
 });

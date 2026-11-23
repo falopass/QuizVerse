@@ -18,10 +18,10 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     `;
 
     const variants = {
-      text: 'rounded',
+      text: 'rounded-[4px]',
       circular: 'rounded-full',
       rectangular: 'rounded-none',
-      rounded: 'rounded-lg',
+      rounded: 'rounded-[4px]',
     };
 
     const style: React.CSSProperties = {};
@@ -36,7 +36,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
 
     if (lines > 1 && variant === 'text') {
       return (
-        <div className="flex flex-col gap-2" ref={ref} {...props}>
+        <div aria-hidden="true" className="flex flex-col gap-2" ref={ref} {...props}>
           {Array.from({ length: lines }).map((_, i) => (
             <div
               key={i}
@@ -53,6 +53,7 @@ const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
 
     return (
       <div
+        aria-hidden="true"
         ref={ref}
         className={cn(baseStyles, variants[variant], className)}
         style={style}
