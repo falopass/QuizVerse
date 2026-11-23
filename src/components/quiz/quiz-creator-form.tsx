@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/providers/toast-provider';
 import { cn } from '@/lib/utils/cn';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { localizeCategory } from '@/lib/i18n/catalog';
+import { isTopicCategory } from '@/lib/quiz/category-suggest';
 import { trackEvent } from '@/lib/telemetry/client';
 import {
   creatorErrors,
@@ -114,6 +116,9 @@ export function QuizCreatorForm({
           spanish: 'Español',
           english: 'Inglés',
           questionsCount: 'preguntas',
+          missingTitle: 'Sin título',
+          editingNote:
+            'Si guardas como borrador puedes volver a editar sus preguntas antes de enviarlo a moderación. Una vez publicado, los cambios requieren nueva revisión.',
         }
       : {
           questionsError: 'Complete at least 3 full questions.',
@@ -183,6 +188,9 @@ export function QuizCreatorForm({
           spanish: 'Spanish',
           english: 'English',
           questionsCount: 'questions',
+          missingTitle: 'Missing title',
+          editingNote:
+            'Saved drafts stay private and you can still edit their questions before sending to moderation. Once published, changes require review again.',
         };
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -205,6 +213,14 @@ export function QuizCreatorForm({
   // Qué botón disparó el submit: "Guardar borrador" o "Enviar a revisión".
   const intentRef = useRef<'draft' | 'review'>('review');
 
+  const localizedCategories = useMemo(
+    () =>
+      categories
+        .filter((category) => isTopicCategory(category.slug))
+        .map((category) => localizeCategory(category, locale) ?? category),
+    [categories, locale]
+  );
+
   const draftInput: CreatorDraftInput = useMemo(
     () => ({
       title,
@@ -226,15 +242,26 @@ export function QuizCreatorForm({
   const descriptionError = errorsFor(visibleErrors, { kind: 'description' }).join(' ');
   const formErrors = errorsFor(visibleErrors, { kind: 'form' });
 
+  const questionStructureKey = useMemo(
+    () => questions.map((q) => `${q.id}:${q.options.map((o) => o.id).join(',')}`).join('|'),
+    [questions]
+  );
+  const resultsReady = useMemo(() => {
+    if (quizType !== 'personality') return true;
+    return resultGraphValid(draftInput);
+    // Solo depende de la estructura de opciones, resultados y asignaciones (no del texto).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quizType, results, assignments, locale, questionStructureKey]);
+
   const checks = useMemo(() => {
     const has = (kind: CreatorErrorTarget['kind']) =>
       errors.some((error) => error.target.kind === kind);
     return {
       title: !has('title'),
       questions: questions.length >= 3 && !has('question'),
-      results: resultGraphValid(draftInput),
+      results: resultsReady,
     };
-  }, [draftInput, errors, questions.length]);
+  }, [errors, questions.length, resultsReady]);
 
   useEffect(() => {
     if (submitCount === 0 || focusedSubmit.current === submitCount) return;
@@ -319,10 +346,10 @@ export function QuizCreatorForm({
                   {...props}
                   value={categoryId}
                   onChange={(e) => setCategoryId(e.target.value)}
-                  className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+                  className="border-border-subtle bg-bg-secondary text-text-primary focus-visible:border-accent-primary focus-visible:ring-accent-primary h-11 w-full rounded-[4px] border px-4 text-sm focus-visible:ring-2 focus-visible:outline-none"
                 >
                   <option value="">{copy.categoryPlaceholder}</option>
-                  {categories.map((c) => (
+                  {localizedCategories.map((c) => (
                     <option key={c.id} value={c.id}>
                       {c.name}
                     </option>
@@ -343,7 +370,7 @@ export function QuizCreatorForm({
                   onChange={(e) => setDescription(e.target.value)}
                   rows={4}
                   maxLength={300}
-                  className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                  className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
                   placeholder={copy.descriptionPlaceholder}
                 />
               )}
@@ -406,9 +433,9 @@ export function QuizCreatorForm({
               return (
                 <article
                   key={item.id}
-                  className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                  className="border-border-subtle bg-bg-tertiary rounded-[4px] border p-5"
                 >
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
                     <label
                       htmlFor={`creator-question-${index}`}
                       className="text-text-primary text-sm font-semibold"
@@ -478,16 +505,16 @@ export function QuizCreatorForm({
                         <div
                           key={option.id}
                           className={cn(
-                            'rounded-2xl border p-4',
+                            'rounded-[4px] border p-4',
                             option.is_correct
-                              ? 'border-emerald-500/35 bg-emerald-500/8'
-                              : 'border-border-subtle bg-bg-secondary/60'
+                              ? 'border-accent-primary/50 bg-accent-primary/10'
+                              : 'border-border-subtle bg-bg-secondary'
                           )}
                         >
                           <div className="mb-3 flex items-center justify-between">
                             <label
                               htmlFor={optionId}
-                              className="text-text-muted text-xs font-semibold"
+                              className="text-text-secondary text-xs font-semibold"
                             >
                               {copy.option} {String.fromCharCode(65 + optionIndex)}
                             </label>
@@ -511,10 +538,10 @@ export function QuizCreatorForm({
                                   )
                                 }
                                 className={cn(
-                                  'rounded-full px-3 py-1 text-xs font-semibold',
+                                  'focus-visible:outline-accent-primary rounded-full px-3 py-1 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
                                   option.is_correct
-                                    ? 'bg-emerald-600 text-white'
-                                    : 'text-text-secondary ring-border-subtle bg-white ring-1'
+                                    ? 'bg-accent-primary text-bg-primary'
+                                    : 'border-border-subtle bg-bg-tertiary text-text-primary hover:border-accent-primary border'
                                 )}
                               >
                                 {option.is_correct ? copy.correct : copy.markCorrect}
@@ -566,7 +593,7 @@ export function QuizCreatorForm({
                                 }
                                 aria-describedby={describedBy}
                                 aria-invalid={showErrors && missingResult ? true : undefined}
-                                className="border-border-subtle bg-bg-secondary text-text-primary h-11 w-full rounded-xl border px-4 text-sm outline-none"
+                                className="border-border-subtle bg-bg-secondary text-text-primary focus-visible:border-accent-primary focus-visible:ring-accent-primary h-11 w-full rounded-[4px] border px-4 text-sm focus-visible:ring-2 focus-visible:outline-none"
                               >
                                 <option value="">{copy.chooseResult}</option>
                                 {results.map((outcome, outcomeIndex) => (
@@ -595,7 +622,7 @@ export function QuizCreatorForm({
                         }
                         rows={3}
                         maxLength={500}
-                        className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                        className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
                         placeholder={copy.explanation}
                       />
                     )}
@@ -635,7 +662,7 @@ export function QuizCreatorForm({
                 return (
                   <article
                     key={item.id}
-                    className="border-border-subtle rounded-[28px] border bg-white/90 p-5 shadow-[0_16px_45px_rgba(15,23,42,0.08)]"
+                    className="border-border-subtle bg-bg-tertiary rounded-[4px] border p-5"
                   >
                     <div className="flex items-center justify-between">
                       <label
@@ -730,7 +757,7 @@ export function QuizCreatorForm({
                           }
                           rows={3}
                           maxLength={1000}
-                          className="border-border-subtle bg-bg-secondary text-text-primary w-full rounded-2xl border px-4 py-3 text-sm outline-none"
+                          className="border-border-subtle bg-bg-secondary text-text-primary placeholder:text-text-muted focus-visible:border-accent-primary focus-visible:ring-accent-primary w-full rounded-[4px] border px-4 py-3 text-sm focus-visible:ring-2 focus-visible:outline-none"
                           placeholder={copy.outcomeDescription}
                         />
                       )}
@@ -821,8 +848,8 @@ export function QuizCreatorForm({
       </div>
 
       <aside className="space-y-6">
-        <section className="surface-panel sticky top-28 overflow-hidden p-0">
-          <div className="border-border-subtle border-b bg-[linear-gradient(135deg,rgba(216,120,52,0.18),transparent_70%)] p-6">
+        <section className="surface-panel sticky top-6 overflow-hidden p-0">
+          <div className="border-border-subtle border-b bg-[linear-gradient(135deg,rgba(217,255,67,0.12),transparent_70%)] p-6">
             <p className="eyebrow">{copy.previewEyebrow}</p>
             <h3 className="text-text-primary mt-3 text-2xl font-semibold tracking-tight">
               {title || copy.futureCover}
@@ -833,7 +860,7 @@ export function QuizCreatorForm({
           </div>
           <div className="space-y-4 p-6">
             <div className="flex flex-wrap gap-2">
-              <Tag>{difficulty}</Tag>
+              <Tag>{copy[difficulty]}</Tag>
               <Tag>{quizType === 'trivia' ? copy.trivia : copy.personality}</Tag>
               <Tag>
                 {questions.length} {copy.questionsCount}
@@ -842,7 +869,7 @@ export function QuizCreatorForm({
                 {copy.language}: {locale === 'es' ? copy.spanish : copy.english}
               </Tag>
             </div>
-            <Check ready={checks.title} label={copy.headline} detail={title || 'Missing title'} />
+            <Check ready={checks.title} label={copy.headline} detail={title || copy.missingTitle} />
             <Check
               ready={checks.questions}
               label={copy.playableQuestions}
@@ -855,6 +882,9 @@ export function QuizCreatorForm({
                 quizType === 'trivia' ? copy.notRequired : `${results.length} ${copy.drafted}`
               }
             />
+            <p className="border-border-subtle bg-bg-secondary text-text-secondary rounded-[4px] border px-4 py-3 text-xs leading-5">
+              {copy.editingNote}
+            </p>
           </div>
         </section>
       </aside>
@@ -997,10 +1027,10 @@ function Choice({
             aria-pressed={value === optionId}
             onClick={() => setValue(optionId)}
             className={cn(
-              'rounded-[24px] border px-4 py-4 text-left transition',
+              'focus-visible:outline-accent-primary rounded-[4px] border px-4 py-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
               value === optionId
-                ? 'border-accent-primary bg-accent-primary/8'
-                : 'border-border-subtle bg-bg-secondary'
+                ? 'border-accent-primary bg-accent-primary/10'
+                : 'border-border-subtle bg-bg-secondary hover:border-text-muted'
             )}
           >
             <p className="text-text-primary text-base font-semibold">{text}</p>
@@ -1027,10 +1057,10 @@ function Mini({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        'rounded-full px-3 py-1.5 text-xs font-semibold disabled:opacity-45',
+        'focus-visible:outline-accent-primary rounded-full px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-45',
         tone === 'danger'
-          ? 'bg-rose-500/10 text-rose-700'
-          : 'bg-bg-secondary text-text-secondary ring-border-subtle ring-1'
+          ? 'border-error/40 bg-error/15 text-error border'
+          : 'bg-bg-secondary text-text-primary ring-border-subtle ring-1'
       )}
     >
       {children}
@@ -1048,8 +1078,10 @@ function Check({ ready, label, detail }: { ready: boolean; label: string; detail
   return (
     <div
       className={cn(
-        'rounded-2xl border px-4 py-3',
-        ready ? 'border-emerald-500/20 bg-emerald-500/8' : 'border-border-subtle bg-white/75'
+        'rounded-[4px] border px-4 py-3',
+        ready
+          ? 'border-accent-primary/40 bg-accent-primary/10'
+          : 'border-border-subtle bg-bg-secondary'
       )}
     >
       <p className="text-text-primary text-sm font-medium">{label}</p>

@@ -194,6 +194,16 @@ describe('validateQuiz', () => {
     expect(result.valid).toBe(false);
   });
 
+  it('debería rechazar locales fuera del catálogo vigente', () => {
+    for (const language of ['pt', 'fr', 'de', '']) {
+      const result = validateQuiz({ ...validTrivia, language }, 'es');
+      expect(result.valid).toBe(false);
+      expect(result.errors.some((error) => error.startsWith('language:'))).toBe(true);
+    }
+    expect(validateQuiz({ ...validTrivia, language: 'en' }, 'en').valid).toBe(true);
+    expect(validateQuiz({ ...validTrivia, language: 'es' }, 'es').valid).toBe(true);
+  });
+
   it('debería rechazar poll mientras no esté implementado', () => {
     const pollQuiz = {
       title: 'Poll Quiz',

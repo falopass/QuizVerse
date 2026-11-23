@@ -65,9 +65,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 pulido de textos, asignación de portadas y validación de estructura.
               </p>
               <p>
-                Nuestro motor soporta formatos de trivia, personalidad y encuestas, con puntuación
-                inteligente, rachas, potenciadores y resultados compartibles. Todo corre sobre
-                Next.js, Supabase y DeepSeek, con un stack moderno pensado para escalar.
+                Nuestro motor soporta formatos de trivia y personalidad, con puntuación inteligente,
+                rachas, potenciadores y resultados compartibles. Todo corre sobre Next.js, Supabase
+                y DeepSeek, con un stack moderno pensado para escalar.
               </p>
               <p>
                 QuizVerse es un producto editorial bilingüe, orientado al descubrimiento y diseñado
@@ -88,7 +88,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 and structure validation.
               </p>
               <p>
-                Our engine supports trivia, personality, and poll formats with intelligent scoring,
+                Our engine supports trivia and personality formats with intelligent scoring,
                 streaks, power-ups, and shareable results. Everything runs on Next.js, Supabase, and
                 DeepSeek — a modern stack built to scale.
               </p>

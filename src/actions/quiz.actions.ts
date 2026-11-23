@@ -28,7 +28,13 @@ import {
   warnAttemptsInactive,
 } from '@/lib/quiz/attempt';
 import { getAttemptReveals } from '@/lib/quiz/attempt-store';
-import { QuizCreateSchema, localizedIssueMessages, validateQuiz } from '@/lib/quiz/validator';
+import {
+  PersonalityResultSchema,
+  QuestionSchema,
+  QuizCreateSchema,
+  localizedIssueMessages,
+  validateQuiz,
+} from '@/lib/quiz/validator';
 import { QuizSubmissionSchema, pointsFor, scoreSubmission } from '@/lib/quiz/submission';
 import { loadAnswerKeyByQuizId, type AnswerKeyQuiz } from '@/lib/quiz/quiz-repository';
 import { generateUniqueSlug, provisionalSlug } from '@/lib/quiz/quiz-slug';
@@ -42,7 +48,7 @@ import { quizLocales, revalidateQuizPages } from '@/lib/quiz/revalidate';
 import { locales } from '@/lib/i18n/dictionaries';
 import { createServiceClient } from '@/lib/supabase/service';
 import type { Database, QuizStatus } from '@/types/database';
-import type { Answer, QuizReviewItem } from '@/types/quiz';
+import type { Answer, PersonalityResult, Question, QuizReviewItem } from '@/types/quiz';
 
 const createQuizSchema = QuizCreateSchema.omit({ cover_image_url: true }).extend({
   /** Set by the AI assistant so the catalog can flag generated drafts. */
@@ -66,6 +72,10 @@ const updateQuizSchema = z.object({
   category_id: z.string().uuid().optional().nullable(),
   tags: z.array(z.string().min(1).max(30)).max(10).optional(),
   estimated_minutes: z.number().int().min(1).max(30).optional(),
+  // Solo se admiten cuando el quiz sigue en `status = 'draft'` (validado en
+  // `updateQuiz` y protegido en DB por la migración 030).
+  questions: z.array(QuestionSchema).min(1).max(20).optional(),
+  results: z.array(PersonalityResultSchema).optional().nullable(),
   // `status` stays out on purpose: publishing belongs to the moderation flow
   // (see `createQuiz`), and RLS cannot restrict columns. Zod strips any
   // client-sent `status`, so it never reaches `.update()`. Creator-initiated
@@ -73,6 +83,7 @@ const updateQuizSchema = z.object({
 });
 
 type QuizInsert = Database['public']['Tables']['quizzes']['Insert'];
+type QuizUpdate = Database['public']['Tables']['quizzes']['Update'];
 
 /** Reads the authenticated user, or `null`. */
 async function currentUser() {
@@ -83,19 +94,39 @@ async function currentUser() {
   return { supabase, user };
 }
 
+interface OwnedQuizRecord {
+  slug: string;
+  language: string;
+  status: QuizStatus;
+  title?: string;
+  quiz_type?: Database['public']['Enums']['quiz_type'];
+  difficulty?: Database['public']['Enums']['difficulty'];
+  questions?: unknown;
+  results?: unknown;
+}
+
 /** The quiz's slug, language and status when the user owns it, else `null`. */
 async function ownedQuiz(
   supabase: Awaited<ReturnType<typeof createClient>>,
   quizId: string,
   userId: string
-): Promise<{ slug: string; language: string; status: QuizStatus } | null> {
+): Promise<OwnedQuizRecord | null> {
   const { data } = await supabase
     .from('quizzes')
-    .select('creator_id, slug, language, status')
+    .select('creator_id, slug, language, status, title, quiz_type, difficulty, questions, results')
     .eq('id', quizId)
     .maybeSingle();
   if (!data || data.creator_id !== userId) return null;
-  return { slug: data.slug, language: data.language, status: data.status };
+  return {
+    slug: data.slug,
+    language: data.language,
+    status: data.status,
+    title: data.title,
+    quiz_type: data.quiz_type,
+    difficulty: data.difficulty,
+    questions: data.questions,
+    results: data.results,
+  };
 }
 
 /** Código SQLSTATE con que la DB rechaza borrar un quiz con reportes abiertos. */
@@ -158,7 +189,6 @@ export async function createQuiz(
     results: parsed.data.results ? toJson(parsed.data.results) : null,
     tags: parsed.data.tags ?? [],
     estimated_minutes: parsed.data.estimated_minutes ?? 3,
-    question_count: parsed.data.questions.length,
     status,
     is_ai_generated: parsed.data.is_ai_generated,
   };
@@ -215,6 +245,78 @@ export async function createQuiz(
 // UPDATE / DELETE
 // ============================================
 
+export interface OwnDraftContent {
+  editable: boolean;
+  status: QuizStatus;
+  questions: Question[];
+  results: PersonalityResult[] | null;
+}
+
+/**
+ * Devuelve las preguntas (y resultados de personalidad) editables únicamente
+ * cuando el quiz pertenece al usuario autenticado y sigue en `status = 'draft'`.
+ *
+ * Nunca entrega claves de quizzes publicados, pendientes, rechazados ni
+ * archivados. Compatible con la migración 030 aplicada y sin aplicar: usa
+ * `service_role` sobre `quiz_answer_keys` si existe, luego la RPC
+ * `get_own_draft_questions` (030) y finalmente `quizzes.questions`.
+ */
+export async function getOwnDraftContent(id: string): Promise<ActionResult<OwnDraftContent>> {
+  const { supabase, user } = await currentUser();
+  if (!user) return actionFailure('unauthorized', 'You need an account to edit a quiz.');
+
+  const parsedId = z.string().uuid().safeParse(id);
+  if (!parsedId.success) return actionFailure('invalid_input', 'Invalid quiz id.');
+
+  const { allowed } = await apiLimiter.check(user.id);
+  if (!allowed) return actionFailure('rate_limited', 'Too many actions. Please wait.');
+
+  const quiz = await ownedQuiz(supabase, parsedId.data, user.id);
+  if (!quiz) return actionFailure('forbidden', 'That quiz is not yours.');
+
+  if (quiz.status !== 'draft') {
+    return {
+      success: true,
+      editable: false,
+      status: quiz.status,
+      questions: [],
+      results: null,
+    };
+  }
+
+  let rawQuestions: unknown = quiz.questions;
+
+  const service = createServiceClient();
+  if (service) {
+    const { data: keyRow } = await service
+      .from('quiz_answer_keys')
+      .select('questions')
+      .eq('quiz_id', parsedId.data)
+      .maybeSingle();
+    if (keyRow?.questions) rawQuestions = keyRow.questions;
+  } else {
+    const { data: rpcQuestions, error: rpcError } = await supabase.rpc('get_own_draft_questions', {
+      p_quiz_id: parsedId.data,
+    });
+    if (!rpcError && rpcQuestions) {
+      rawQuestions = rpcQuestions;
+    } else if (rpcError && !isMissingRpcFunction(rpcError)) {
+      return unexpectedFailure('quiz.draftContent', rpcError);
+    }
+  }
+
+  const questions = Array.isArray(rawQuestions) ? (rawQuestions as Question[]) : [];
+  const results = Array.isArray(quiz.results) ? (quiz.results as PersonalityResult[]) : null;
+
+  return {
+    success: true,
+    editable: true,
+    status: 'draft',
+    questions,
+    results,
+  };
+}
+
 export async function updateQuiz(id: string, input: unknown): Promise<ActionResult> {
   const { supabase, user } = await currentUser();
   if (!user) return actionFailure('unauthorized', 'You need an account to edit a quiz.');
@@ -241,7 +343,48 @@ export async function updateQuiz(id: string, input: unknown): Promise<ActionResu
   const parsed = updateQuizSchema.safeParse(input);
   if (!parsed.success) return actionFailure('invalid_input', zodMessage(parsed.error));
 
-  const { error } = await supabase.from('quizzes').update(parsed.data).eq('id', id);
+  const editingContent = parsed.data.questions !== undefined || parsed.data.results !== undefined;
+  if (editingContent) {
+    if (quiz.status !== 'draft') {
+      return actionFailure(
+        'conflict',
+        'Questions and results can only be edited while the quiz is a draft.'
+      );
+    }
+    const targetLanguage = parsed.data.language ?? quiz.language;
+    const candidate = {
+      title: parsed.data.title ?? quiz.title ?? 'Draft quiz title',
+      description: parsed.data.description,
+      quiz_type: quiz.quiz_type ?? 'trivia',
+      difficulty: parsed.data.difficulty ?? quiz.difficulty ?? 'medium',
+      language: targetLanguage,
+      category_id: parsed.data.category_id,
+      questions: parsed.data.questions ?? quiz.questions,
+      results: parsed.data.results !== undefined ? parsed.data.results : quiz.results,
+      tags: parsed.data.tags,
+      estimated_minutes: parsed.data.estimated_minutes,
+    };
+    const validation = validateQuiz(candidate, targetLanguage);
+    if (!validation.valid) {
+      return actionFailure('invalid_input', validation.errors.join('; '));
+    }
+  }
+
+  const payload: QuizUpdate = {};
+  if (parsed.data.title !== undefined) payload.title = parsed.data.title;
+  if (parsed.data.description !== undefined) payload.description = parsed.data.description;
+  if (parsed.data.difficulty !== undefined) payload.difficulty = parsed.data.difficulty;
+  if (parsed.data.language !== undefined) payload.language = parsed.data.language;
+  if (parsed.data.category_id !== undefined) payload.category_id = parsed.data.category_id;
+  if (parsed.data.tags !== undefined) payload.tags = parsed.data.tags;
+  if (parsed.data.estimated_minutes !== undefined)
+    payload.estimated_minutes = parsed.data.estimated_minutes;
+  if (parsed.data.questions !== undefined) payload.questions = toJson(parsed.data.questions);
+  if (parsed.data.results !== undefined) {
+    payload.results = parsed.data.results ? toJson(parsed.data.results) : null;
+  }
+
+  const { error } = await supabase.from('quizzes').update(payload).eq('id', id);
   if (error) return unexpectedFailure('quiz.update', error);
 
   revalidateQuizPages(quiz.language, quiz.slug);

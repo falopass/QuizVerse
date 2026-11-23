@@ -355,18 +355,12 @@ describe('createQuiz', () => {
     expect(mocks.insert).not.toHaveBeenCalled();
   });
 
-  it('revalida ambos locales cuando el language no es en/es', async () => {
+  it('rechaza un language fuera de en/es antes de persistir ni revalidar', async () => {
     const result = await createQuiz(createInput('pt'));
 
-    expect(result.success).toBe(true);
-    expect(mocks.revalidate).toHaveBeenCalledTimes(11);
-    for (const locale of ['en', 'es']) {
-      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
-      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
-      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
-      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/daily`);
-    }
-    expectHubs();
+    expect(result).toMatchObject({ success: false, code: 'invalid_input' });
+    expect(mocks.insert).not.toHaveBeenCalled();
+    expect(mocks.revalidate).not.toHaveBeenCalled();
   });
 });
 
@@ -448,6 +442,22 @@ describe('deleteQuiz', () => {
     expect(mocks.revalidate).not.toHaveBeenCalledWith('/quiz');
     expect(mocks.revalidateTag).toHaveBeenCalledWith('quizzes', { expire: 0 });
     expect(mocks.revalidateTag).toHaveBeenCalledWith('quiz:quiz-de-prueba', { expire: 0 });
+  });
+
+  it('revalida ambos locales cuando un quiz legado tiene language fuera de en/es', async () => {
+    mocks.quizRow = { data: { creator_id: 'user-1', slug: 'quiz-de-prueba', language: 'pt' } };
+
+    const result = await deleteQuiz(QUIZ_ID);
+
+    expect(result.success).toBe(true);
+    expect(mocks.revalidate).toHaveBeenCalledTimes(11);
+    for (const locale of ['en', 'es']) {
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}`);
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz`);
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/quiz/quiz-de-prueba`);
+      expect(mocks.revalidate).toHaveBeenCalledWith(`/${locale}/daily`);
+    }
+    expectHubs();
   });
 });
 

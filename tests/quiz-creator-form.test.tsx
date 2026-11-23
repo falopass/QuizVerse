@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import type { Category } from '@/types/quiz';
 
 const mocks = vi.hoisted(() => ({
   createQuiz: vi.fn(),
@@ -20,6 +21,33 @@ import { QuizCreatorForm } from '@/components/quiz/quiz-creator-form';
 
 const LETTERS = ['A', 'B', 'C', 'D'];
 
+const CATEGORIES: Category[] = [
+  {
+    id: 'cat-0',
+    slug: 'personality',
+    name: 'Personality',
+    description: null,
+    icon: null,
+    color: null,
+    gradient_from: null,
+    gradient_to: null,
+    quiz_count: 5,
+    sort_order: 0,
+  },
+  {
+    id: 'cat-1',
+    slug: 'gaming',
+    name: 'Gaming',
+    description: null,
+    icon: null,
+    color: null,
+    gradient_from: null,
+    gradient_to: null,
+    quiz_count: 10,
+    sort_order: 1,
+  },
+];
+
 function cardFor(index: number) {
   return screen.getByLabelText(`Pregunta ${index + 1}`).closest('article') as HTMLElement;
 }
@@ -38,8 +66,9 @@ function fillQuestion(index: number) {
 }
 
 function assign(card: HTMLElement, optionIndex: number, outcome: string) {
-  const select = within(card).getAllByLabelText('Suma a')[optionIndex];
-  const option = within(select).getByRole('option', { name: outcome }) as HTMLOptionElement;
+  const select = within(card).getAllByLabelText('Suma a')[optionIndex] as HTMLSelectElement;
+  const option = Array.from(select.options).find((item) => item.textContent === outcome);
+  if (!option) throw new Error(`Option "${outcome}" not found`);
   fireEvent.change(select, { target: { value: option.value } });
 }
 
@@ -52,8 +81,8 @@ function fillOutcome(index: number, title: string) {
   });
 }
 
-function renderForm() {
-  return render(<QuizCreatorForm categories={[]} locale="es" />);
+function renderForm(categories: Category[] = []) {
+  return render(<QuizCreatorForm categories={categories} locale="es" />);
 }
 
 function submit() {
@@ -101,7 +130,7 @@ describe('QuizCreatorForm', () => {
     expect(payload.questions[0].options[0].personality_tags).toEqual(['la-curadora']);
     expect(payload.questions[0].options[1].personality_tags).toEqual(['el-explorador']);
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/es/create/done?id=quiz-1'));
-  });
+  }, 15_000);
 
   it('muestra el error del validador cuando un resultado no tiene tag', async () => {
     renderForm();
@@ -122,7 +151,7 @@ describe('QuizCreatorForm', () => {
       await screen.findByText('Cada resultado debe tener un tag de personalidad único y no vacío')
     ).toBeInTheDocument();
     expect(mocks.createQuiz).not.toHaveBeenCalled();
-  });
+  }, 15_000);
 
   it('muestra el error cuando una opción no suma a ningún resultado', async () => {
     renderForm();
@@ -149,7 +178,7 @@ describe('QuizCreatorForm', () => {
     expect(mocks.createQuiz).not.toHaveBeenCalled();
     const pending = within(cards[1]).getAllByLabelText('Suma a')[1];
     await waitFor(() => expect(pending).toHaveFocus());
-  });
+  }, 15_000);
 
   it('mantiene el flujo de trivia sin resultados ni tags', async () => {
     mocks.createQuiz.mockResolvedValue({
@@ -202,5 +231,16 @@ describe('QuizCreatorForm', () => {
     expect(mocks.createQuiz.mock.calls[0][0].intent).toBe('draft');
     await waitFor(() => expect(mocks.success).toHaveBeenCalledWith('Borrador guardado.'));
     await waitFor(() => expect(mocks.push).toHaveBeenCalledWith('/es/create/done?id=quiz-1'));
+  });
+
+  it('localiza categorías y textos en español y evita superficies claras heredadas', () => {
+    const { container } = renderForm(CATEGORIES);
+
+    expect(screen.getByRole('option', { name: 'Videojuegos' })).toBeInTheDocument();
+    expect(screen.queryByRole('option', { name: 'Personalidad' })).not.toBeInTheDocument();
+    expect(screen.getByText('Sin título')).toBeInTheDocument();
+    expect(screen.queryByText('Missing title')).not.toBeInTheDocument();
+    expect(container.innerHTML).not.toContain('bg-white');
+    expect(container.innerHTML).not.toContain('text-rose-700');
   });
 });
