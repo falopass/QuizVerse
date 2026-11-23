@@ -9,13 +9,21 @@
  */
 
 import { createHash } from 'node:crypto';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { authIpLimiter, authLimiter } from '@/lib/utils/rate-limit';
 import { clientIpFromHeaders } from '@/lib/utils/client-ip';
 import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { enabledOAuthProviders } from '@/lib/auth/oauth-providers';
+import { requiresPasswordReauth } from '@/lib/auth/account-deletion';
+import {
+  RECOVERY_COOKIE_NAME,
+  beginRecoveryChallengeUse,
+  isRecoveryPath,
+  recoveryCookieOptions,
+  sessionIdFromAccessToken,
+} from '@/lib/auth/password-recovery';
 import { SITE_URL } from '@/lib/seo/site';
 import {
   OAuthProviderSchema,
@@ -200,7 +208,10 @@ export async function signInWithOAuthAction(input: unknown): Promise<OAuthSignIn
   );
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
-  const safeNext = safeRedirectPath(parsed.data.next, '/en');
+  const rawNext = safeRedirectPath(parsed.data.next, '/en');
+  // OAuth nunca puede aterrizar en /reset-password: la recuperación exige su
+  // propio desafío de correo, no un inicio de sesión social.
+  const safeNext = isRecoveryPath(rawNext) ? (rawNext.startsWith('/es/') ? '/es' : '/en') : rawNext;
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: parsed.data.provider,
@@ -247,9 +258,11 @@ export async function forgotPasswordAction(input: unknown): Promise<AuthResult> 
 }
 
 /**
- * Nueva contraseña tras el enlace de recuperación. Lo que autoriza el cambio
- * es la sesión que creó `/callback` al canjear el código del correo; sin esa
- * sesión la acción no toca la cuenta.
+ * Nueva contraseña tras el enlace de recuperación.
+ *
+ * Además de la sesión autenticada de Supabase, exige la cookie HttpOnly del
+ * desafío de recuperación firmado y de un solo uso que emitió `/callback` tras
+ * verificar el enlace con GoTrue. Una sesión ordinaria no supera esta barrera.
  */
 export async function resetPasswordAction(input: unknown): Promise<AuthResult> {
   const parsed = PasswordUpdateSchema.safeParse(input);
@@ -266,17 +279,53 @@ export async function resetPasswordAction(input: unknown): Promise<AuthResult> {
   const { allowed } = await authLimiter.check(`pwreset:${user.id}`);
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
+  const sessionResult =
+    typeof supabase.auth.getSession === 'function' ? await supabase.auth.getSession() : null;
+  const sessionId = sessionIdFromAccessToken(sessionResult?.data?.session?.access_token);
+
+  const cookieStore = await cookies();
+  const recoveryToken = cookieStore.get(RECOVERY_COOKIE_NAME)?.value;
+  const clearRecoveryCookie = () => {
+    try {
+      cookieStore.set(RECOVERY_COOKIE_NAME, '', recoveryCookieOptions(0));
+    } catch {
+      // En contextos donde las cookies son de solo lectura, el estado servidor impide el reuso.
+    }
+  };
+
+  const claim = await beginRecoveryChallengeUse(recoveryToken, {
+    userId: user.id,
+    sessionId,
+  });
+  if (!claim.ok) {
+    if (recoveryToken && claim.reason !== 'in_progress') {
+      clearRecoveryCookie();
+    }
+    return { ok: false, code: 'unauthorized' };
+  }
+
   const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
-  if (error) return { ok: false, code: mapAuthError(error) };
+  if (error) {
+    const code = mapAuthError(error);
+    // Si GoTrue rechaza por contraseña débil o fallo recuperable, liberamos la
+    // reserva en vuelo para que pueda reintentar dentro de la ventana vigente.
+    await claim.release();
+    if (code === 'unauthorized') clearRecoveryCookie();
+    return { ok: false, code };
+  }
+
+  await claim.complete();
+  clearRecoveryCookie();
   return { ok: true, userId: user.id, revokedOtherSessions: await revokeOtherSessions(supabase) };
 }
 
 /**
- * Cambio de contraseña con sesión normal (/settings). Si la cuenta ya tiene
- * identidad por email se revalida la clave vigente antes de reemplazarla: una
- * sesión abierta en un equipo ajeno no basta para tomar la cuenta, y al cambiar
- * la clave esa sesión además queda revocada. Quien entró solo por OAuth no
- * tiene clave que revalidar y define la primera aquí.
+ * Cambio de contraseña con sesión normal (/settings). Si la cuenta tiene
+ * identidad por email (o no reporta identidades, fallando cerrado) se revalida
+ * la clave vigente antes de reemplazarla: una sesión abierta en un equipo ajeno
+ * no basta para tomar la cuenta, y al cambiar la clave las demás sesiones
+ * quedan revocadas. Quien entró solo por OAuth no tiene clave que revalidar y
+ * define la primera aquí.
  */
 export async function changePasswordAction(input: unknown): Promise<AuthResult> {
   const parsed = PasswordUpdateSchema.safeParse(input);
@@ -293,9 +342,7 @@ export async function changePasswordAction(input: unknown): Promise<AuthResult> 
   const { allowed } = await authLimiter.check(`pwchange:${user.id}`);
   if (!allowed) return { ok: false, code: 'rate_limited' };
 
-  const hasEmailIdentity =
-    user.identities?.some((identity) => identity.provider === 'email') ?? false;
-  if (hasEmailIdentity) {
+  if (requiresPasswordReauth(user)) {
     const { currentPassword } = parsed.data;
     if (!currentPassword) {
       return {

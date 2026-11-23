@@ -31,7 +31,20 @@ export async function getEmailBinding(): Promise<SendEmailBinding | null> {
   }
 }
 
+export async function sendAuthEmail(message: OutboundEmail): Promise<{ messageId: string }> {
+  const binding = await getEmailBinding();
+  if (!binding) throw new Error('email binding EMAIL not available');
+  return binding.send({
+    to: message.to,
+    from: SENDER,
+    subject: message.subject,
+    html: message.html,
+    text: message.text,
+  });
+}
+
 export async function sendAuthEmails(messages: OutboundEmail[]): Promise<void> {
+  if (messages.length === 0) return;
   const binding = await getEmailBinding();
   if (!binding) throw new Error('email binding EMAIL not available');
   for (const message of messages) {

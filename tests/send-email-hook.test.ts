@@ -1,20 +1,21 @@
 /**
  * Contract tests for POST /api/auth/send-email — the Supabase/GoTrue Send
- * Email Hook. GoTrue signs every call with Standard Webhooks; the endpoint
- * must reject unsigned or stale requests, validate the payload, render the
- * right bilingual template and send through the EMAIL binding. Failures answer
- * in the hook error format `{ error: { http_code, message } }`.
+ * Email Hook. Covers Standard Webhooks signature, streaming body byte limit,
+ * per-message durable claim with partial-failure recovery and concurrent
+ * duplicate protection (hallazgo A-13), plus bilingual templates/planning.
  */
 
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const mocks = vi.hoisted(() => ({
-  send: vi.fn(),
+  sendEmail: vi.fn(),
+  sendEmails: vi.fn(),
   getRedis: vi.fn(),
 }));
 
 vi.mock('@/lib/email/send', () => ({
-  sendAuthEmails: mocks.send,
+  sendAuthEmail: mocks.sendEmail,
+  sendAuthEmails: mocks.sendEmails,
   getEmailBinding: vi.fn(),
 }));
 
@@ -35,6 +36,23 @@ const SECRET = `v1,whsec_${SECRET_B64}`;
 const VERIFY_BASE = 'https://api.quizverse.org/auth/v1/verify';
 
 const encoder = new TextEncoder();
+
+function createMemoryRedis() {
+  const store = new Map<string, unknown>();
+  return {
+    store,
+    get: async (key: string) => store.get(key) ?? null,
+    set: async (key: string, value: unknown, opts?: { nx?: boolean; ex?: number }) => {
+      if (opts?.nx && store.has(key)) return null;
+      store.set(key, value);
+      return 'OK';
+    },
+    del: async (key: string) => {
+      const existed = store.delete(key);
+      return existed ? 1 : 0;
+    },
+  };
+}
 
 async function sign(body: string, id: string, timestamp: number): Promise<string> {
   const key = await crypto.subtle.importKey(
@@ -111,26 +129,54 @@ function payload(overrides: {
 }
 
 beforeEach(() => {
-  mocks.send.mockReset().mockResolvedValue(undefined);
+  mocks.sendEmail.mockReset().mockResolvedValue({ messageId: 'msg-cf-1' });
+  mocks.sendEmails.mockReset().mockResolvedValue(undefined);
   mocks.getRedis.mockReset().mockReturnValue(null);
   process.env.SEND_EMAIL_HOOK_SECRET = SECRET;
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://api.quizverse.org';
 });
 
-describe('POST /api/auth/send-email — firma', () => {
+describe('POST /api/auth/send-email — firma y límite de cuerpo', () => {
   it('acepta una firma válida y envía el correo', async () => {
     const response = await POST(await hookRequest(payload({ type: 'recovery' })));
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({});
-    expect(mocks.send).toHaveBeenCalledTimes(1);
-    const [messages] = mocks.send.mock.calls[0];
-    expect(messages).toHaveLength(1);
-    expect(messages[0].to).toBe('user@example.com');
-    expect(messages[0].subject).toBe('Reset your QuizVerse password');
-    expect(messages[0].html).toContain('token=hashAAA111bbb222ccc333');
-    expect(messages[0].html).toContain('type=recovery');
-    expect(messages[0].text).toBeTruthy();
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(1);
+    const [message] = mocks.sendEmail.mock.calls[0];
+    expect(message.to).toBe('user@example.com');
+    expect(message.subject).toBe('Reset your QuizVerse password');
+    expect(message.html).toContain('token=hashAAA111bbb222ccc333');
+    expect(message.html).toContain('type=recovery');
+    expect(message.text).toBeTruthy();
+  });
+
+  it('corta el stream con 413 si el cuerpo supera 64 KiB sin content-length', async () => {
+    let pulledChunks = 0;
+    const chunk = new Uint8Array(24 * 1024).fill(97); // 24 KiB por chunk
+    const stream = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulledChunks += 1;
+        if (pulledChunks <= 10) controller.enqueue(chunk);
+        else controller.close();
+      },
+    });
+    const request = new Request('http://test/api/auth/send-email', {
+      method: 'POST',
+      body: stream,
+      // @ts-expect-error duplex requerido en streams de Node/Undici
+      duplex: 'half',
+    });
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(413);
+    expect(await response.json()).toEqual({
+      error: { http_code: 413, message: 'payload_too_large' },
+    });
+    // Canceló el stream al cruzar 64 KiB sin leer los 10 chunks completos.
+    expect(pulledChunks).toBeLessThan(10);
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 
   it('rechaza sin headers de firma', async () => {
@@ -145,7 +191,7 @@ describe('POST /api/auth/send-email — firma', () => {
     expect(await response.json()).toEqual({
       error: { http_code: 401, message: 'invalid_signature' },
     });
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 
   it('rechaza una firma sobre otro cuerpo', async () => {
@@ -155,18 +201,12 @@ describe('POST /api/auth/send-email — firma', () => {
     const response = await POST(request);
 
     expect(response.status).toBe(401);
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 
-  it('deduplica por webhook-id: una entrega repetida responde 200 sin reenviar', async () => {
-    const store = new Map<string, unknown>();
-    mocks.getRedis.mockReturnValue({
-      get: async (key: string) => store.get(key) ?? null,
-      set: async (key: string, value: unknown) => {
-        store.set(key, value);
-        return 'OK';
-      },
-    });
+  it('deduplica por webhook-id y destinatario sin guardar el email en claro en Redis', async () => {
+    const redis = createMemoryRedis();
+    mocks.getRedis.mockReturnValue(redis);
     const body = payload({ type: 'recovery' });
 
     const first = await POST(await hookRequest(body));
@@ -174,7 +214,103 @@ describe('POST /api/auth/send-email — firma', () => {
 
     expect(first.status).toBe(200);
     expect(second.status).toBe(200);
-    expect(mocks.send).toHaveBeenCalledTimes(1);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(1);
+    for (const key of redis.store.keys()) {
+      expect(key).not.toContain('user@example.com');
+    }
+  });
+
+  it('conserva envíos previos en fallo parcial de 2 destinatarios y reenvía solo el pendiente (A-13)', async () => {
+    const redis = createMemoryRedis();
+    mocks.getRedis.mockReturnValue(redis);
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    const body = payload({
+      type: 'email_change',
+      email: 'old@example.com',
+      newEmail: 'new@example.com',
+      token: '111111',
+      tokenHash: 'hashForNewEmail',
+      tokenNew: '222222',
+      tokenHashNew: 'hashForCurrentEmail',
+    });
+
+    // Primer intento: 1.º correo (new@example.com) pasa, 2.º (old@example.com) falla.
+    mocks.sendEmail
+      .mockResolvedValueOnce({ messageId: 'm-new' })
+      .mockRejectedValueOnce(Object.assign(new Error('temp fail'), { code: 'E_TEMP' }));
+
+    const first = await POST(await hookRequest(body, { id: 'msg_partial_1' }));
+    expect(first.status).toBe(503);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(2);
+    expect(mocks.sendEmail.mock.calls[0][0].to).toBe('new@example.com');
+    expect(mocks.sendEmail.mock.calls[1][0].to).toBe('old@example.com');
+
+    // Reintento de GoTrue con un webhook-id NUEVO (contrato real de hookshttp.go):
+    // conserva el 1.º correo ya marcado y solo envía old@example.com.
+    mocks.sendEmail.mockResolvedValueOnce({ messageId: 'm-old' });
+    const retry = await POST(await hookRequest(body, { id: 'msg_partial_2' }));
+    expect(retry.status).toBe(200);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(3);
+    expect(mocks.sendEmail.mock.calls[2][0].to).toBe('old@example.com');
+
+    // Tercer replay: ambos ya están en `sent`, cero envíos extra.
+    const replay = await POST(await hookRequest(body, { id: 'msg_partial_3' }));
+    expect(replay.status).toBe(200);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(3);
+
+    // Una solicitud nueva con tokens distintos sí se envía (no queda deduplicada).
+    const freshBody = payload({
+      type: 'email_change',
+      email: 'old@example.com',
+      newEmail: 'new@example.com',
+      token: '999999',
+      tokenHash: 'hashFreshNew',
+      tokenNew: '888888',
+      tokenHashNew: 'hashFreshOld',
+    });
+    mocks.sendEmail
+      .mockResolvedValueOnce({ messageId: 'm-fresh-1' })
+      .mockResolvedValueOnce({ messageId: 'm-fresh-2' });
+    const fresh = await POST(await hookRequest(freshBody, { id: 'msg_fresh_1' }));
+    expect(fresh.status).toBe(200);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(5);
+
+    errorSpy.mockRestore();
+  });
+
+  it('bloquea con 503 una entrega concurrente mientras la primera sigue en vuelo (A-13)', async () => {
+    const redis = createMemoryRedis();
+    mocks.getRedis.mockReturnValue(redis);
+    const body = payload({ type: 'recovery' });
+
+    let markEntered!: () => void;
+    const enteredSend = new Promise<void>((resolve) => {
+      markEntered = resolve;
+    });
+    let releaseFirst!: () => void;
+    mocks.sendEmail.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          markEntered();
+          releaseFirst = () => resolve({ messageId: 'm-1' });
+        })
+    );
+
+    const firstPromise = POST(await hookRequest(body, { id: 'msg_race_1' }));
+    await enteredSend;
+
+    const concurrent = await POST(await hookRequest(body, { id: 'msg_race_1' }));
+    expect(concurrent.status).toBe(503);
+    expect(concurrent.headers.get('retry-after')).toBe('5');
+    expect(await concurrent.json()).toEqual({
+      error: { http_code: 503, message: 'email_delivery_in_progress' },
+    });
+
+    releaseFirst();
+    const first = await firstPromise;
+    expect(first.status).toBe(200);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(1);
   });
 
   it('rechaza una firma con timestamp caducado', async () => {
@@ -182,7 +318,7 @@ describe('POST /api/auth/send-email — firma', () => {
     const response = await POST(await hookRequest(payload({}), { timestamp: stale }));
 
     expect(response.status).toBe(401);
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 
   it('rechaza un timestamp del futuro lejano', async () => {
@@ -213,7 +349,7 @@ describe('POST /api/auth/send-email — firma', () => {
     const response = await POST(await hookRequest(body, { id, timestamp, signature }));
 
     expect(response.status).toBe(401);
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 
   it('acepta cuando una de varias firmas de la cabecera coincide', async () => {
@@ -230,7 +366,7 @@ describe('POST /api/auth/send-email — firma', () => {
     const response = await POST(request);
 
     expect(response.status).toBe(200);
-    expect(mocks.send).toHaveBeenCalledTimes(1);
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(1);
   });
 
   it('devuelve 503 si falta el secreto', async () => {
@@ -242,7 +378,7 @@ describe('POST /api/auth/send-email — firma', () => {
     expect(await response.json()).toEqual({
       error: { http_code: 503, message: 'email_hook_not_configured' },
     });
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 });
 
@@ -281,14 +417,14 @@ describe('POST /api/auth/send-email — payload', () => {
     expect(await response.json()).toEqual({
       error: { http_code: 400, message: 'missing_recipient' },
     });
-    expect(mocks.send).not.toHaveBeenCalled();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
   });
 });
 
 describe('POST /api/auth/send-email — envío', () => {
   it('devuelve 503 con formato del hook cuando el binding falla', async () => {
     const bindingError = Object.assign(new Error('smtp down'), { code: 'E_INTERNAL_SERVER_ERROR' });
-    mocks.send.mockRejectedValue(bindingError);
+    mocks.sendEmail.mockRejectedValue(bindingError);
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     const response = await POST(await hookRequest(payload({ type: 'recovery' })));
@@ -324,9 +460,9 @@ describe('POST /api/auth/send-email — envío', () => {
     );
 
     expect(response.status).toBe(200);
-    const [messages] = mocks.send.mock.calls[0] as [
-      { to: string; subject: string; html: string; text: string }[],
-    ];
+    const messages = mocks.sendEmail.mock.calls.map(
+      (call) => call[0] as { to: string; subject: string; html: string; text: string }
+    );
     expect(messages).toHaveLength(2);
     const toNew = messages.find((m) => m.to === 'new@example.com');
     const toCurrent = messages.find((m) => m.to === 'old@example.com');
@@ -351,10 +487,10 @@ describe('POST /api/auth/send-email — envío', () => {
     );
 
     expect(response.status).toBe(200);
-    const [messages] = mocks.send.mock.calls[0];
-    expect(messages).toHaveLength(1);
-    expect(messages[0].to).toBe('new@example.com');
-    expect(messages[0].html).toContain('token=hashForNewEmail');
+    expect(mocks.sendEmail).toHaveBeenCalledTimes(1);
+    const [message] = mocks.sendEmail.mock.calls[0];
+    expect(message.to).toBe('new@example.com');
+    expect(message.html).toContain('token=hashForNewEmail');
   });
 });
 

@@ -4,20 +4,33 @@
  * Borrado de la cuenta desde /settings.
  *
  * Orquesta, en este orden: sesión → validación → rate limit → revalidación de
- * identidad → limpieza previa → borrado en `auth.users`. La clave de respuestas
- * no interviene; el cliente service role se usa aquí porque `auth.admin` no
- * existe en el cliente SSR y porque el borrado debe saltar RLS.
+ * identidad → borrado en `auth.users`. El cliente service role se usa aquí
+ * porque `auth.admin` no existe en el cliente SSR y porque el borrado debe
+ * saltar RLS.
  *
- * El borrado de `auth.users` va al final: si algo falla antes, la cuenta sigue
- * intacta y el usuario puede reintentar. Lo único que se toca antes es
- * `quiz_reports.resolved_by`, cuya FK no tiene ON DELETE y bloquearía el
- * borrado del perfil.
+ * Compatibilidad dual con la migración 028 (`028_borrado_cuenta_atomico.sql`):
+ * - Con 028 aplicada (`has_atomic_account_deletion()` = true): un trigger
+ *   `BEFORE DELETE ON public.profiles` elimina borradores privados, limpia
+ *   notificaciones de terceros y anonimiza referencias de moderación DENTRO de
+ *   la misma transacción PostgreSQL que elimina `auth.users`. Los borradores y
+ *   referencias conservan su propiedad hasta esa transacción y un fallo hace
+ *   rollback completo.
+ * - Sin 028 aplicada (instalaciones pendientes de migración, con o sin 019):
+ *   conserva el flujo compatible con lectura paginada, anonimización con
+ *   restauración en caso de fallo y borrado troceado de borradores.
  */
 
 import { createClient } from '@/lib/supabase/server';
 import { createServiceClient } from '@/lib/supabase/service';
 import { authLimiter } from '@/lib/utils/rate-limit';
-import { DeleteAccountSchema, type DeleteAccountResult } from '@/lib/auth/account-deletion';
+import {
+  DeleteAccountSchema,
+  chunkIds,
+  isMissingSchemaError,
+  matchesOAuthConfirmation,
+  requiresPasswordReauth,
+  type DeleteAccountResult,
+} from '@/lib/auth/account-deletion';
 
 function logCleanupError(step: string, error: unknown): void {
   console.error(`[action:delete-account:${step}]`, error);
@@ -42,14 +55,29 @@ interface AnonymizePlan {
   ) => PromiseLike<{ error: { code?: string } | null }>;
 }
 
-/** Tabla o columna que aún no está desplegada: no hay nada que anonimizar. */
-function isMissingSchema(error: { code?: string }): boolean {
-  return (
-    error.code === 'PGRST205' ||
-    error.code === 'PGRST204' ||
-    error.code === '42P01' ||
-    error.code === '42703'
-  );
+/**
+ * Detecta si la migración 028 (trigger `BEFORE DELETE` atómico en PostgreSQL)
+ * está aplicada. Si el RPC no existe todavía (`PGRST202`/`42883`), degrada al
+ * camino compatible; si ocurre otro error de DB, falla cerrado.
+ */
+async function checkAtomicDeletionSupport(
+  service: NonNullable<ReturnType<typeof createServiceClient>>
+): Promise<{ ok: true; atomic: boolean } | { ok: false }> {
+  const rpcFn = (
+    service as unknown as {
+      rpc?: (fn: string) => PromiseLike<{ data: unknown; error: { code?: string } | null }>;
+    }
+  ).rpc;
+  if (typeof rpcFn !== 'function') return { ok: true, atomic: false };
+
+  const { data, error } = await rpcFn.call(service, 'has_atomic_account_deletion');
+  if (error) {
+    if (isMissingSchemaError(error)) return { ok: true, atomic: false };
+    logCleanupError('atomic-check', error);
+    return { ok: false };
+  }
+
+  return { ok: true, atomic: data === true };
 }
 
 /**
@@ -65,7 +93,7 @@ async function collectIds(
   for (let from = 0; ; from += PAGE_SIZE) {
     const { data, error } = await fetchPage(from, from + PAGE_SIZE - 1);
     if (error) {
-      if (isMissingSchema(error)) return { ok: true, ids: [] };
+      if (isMissingSchemaError(error)) return { ok: true, ids: [] };
       logCleanupError(`${scope}-read`, error);
       return { ok: false };
     }
@@ -80,10 +108,9 @@ async function collectIds(
  * autoría si el borrado no llega a ocurrir.
  */
 async function applyValue(plan: AnonymizePlan, value: string | null): Promise<boolean> {
-  for (let index = 0; index < plan.ids.length; index += UPDATE_CHUNK) {
-    const chunk = plan.ids.slice(index, index + UPDATE_CHUNK);
+  for (const chunk of chunkIds(plan.ids, UPDATE_CHUNK)) {
     const { error } = await plan.apply(chunk, value);
-    if (error && !isMissingSchema(error)) {
+    if (error && !isMissingSchemaError(error)) {
       logCleanupError(`${plan.scope}-${value === null ? 'anonymize' : 'restore'}`, error);
       return false;
     }
@@ -99,6 +126,15 @@ async function anonymizeAll(plans: AnonymizePlan[]): Promise<boolean> {
 
 async function restoreAll(plans: AnonymizePlan[], userId: string): Promise<void> {
   for (const plan of plans) await applyValue(plan, userId);
+}
+
+async function safeSignOut(supabase: Awaited<ReturnType<typeof createClient>>): Promise<void> {
+  try {
+    const { error: signOutError } = await supabase.auth.signOut();
+    if (signOutError) logCleanupError('sign-out', signOutError);
+  } catch (error) {
+    logCleanupError('sign-out', error);
+  }
 }
 
 export async function deleteAccountAction(input: unknown): Promise<DeleteAccountResult> {
@@ -119,10 +155,7 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
   const service = createServiceClient();
   if (!service) return { ok: false, code: 'unavailable' };
 
-  const hasEmailIdentity =
-    user.identities?.some((identity) => identity.provider === 'email') ?? false;
-
-  if (hasEmailIdentity) {
+  if (requiresPasswordReauth(user)) {
     if (!user.email || !parsed.data.password) return { ok: false, code: 'invalid_input' };
     const { error } = await supabase.auth.signInWithPassword({
       email: user.email,
@@ -135,25 +168,41 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
       .select('username')
       .eq('id', user.id)
       .maybeSingle();
-    const expected = (profile?.username ?? user.email ?? '').trim().toLowerCase();
-    const typed = (parsed.data.confirmation ?? '').trim().toLowerCase();
-    if (!expected || typed !== expected) return { ok: false, code: 'confirmation_mismatch' };
+    const expected = profile?.username ?? user.email;
+    if (!matchesOAuthConfirmation(parsed.data.confirmation, expected)) {
+      return { ok: false, code: 'confirmation_mismatch' };
+    }
   }
 
-  // Los quizzes no publicados son borradores privados: se van con la cuenta.
-  // Los publicados se conservan y la FK los deja con creator_id NULL.
-  const { data: drafts, error: draftsError } = await service
-    .from('quizzes')
-    .select('id')
-    .eq('creator_id', user.id)
-    .neq('status', 'published');
-  if (draftsError) {
-    logCleanupError('drafts-read', draftsError);
-    return { ok: false, code: 'unexpected' };
+  const atomicCheck = await checkAtomicDeletionSupport(service);
+  if (!atomicCheck.ok) return { ok: false, code: 'unexpected' };
+
+  if (atomicCheck.atomic) {
+    // Migración 028 activa: borradores, notificaciones y referencias de
+    // moderación conservan su propiedad hasta esta misma transacción y
+    // PostgreSQL hace rollback completo si cualquier paso falla.
+    const { error: deleteError } = await service.auth.admin.deleteUser(user.id);
+    if (deleteError) {
+      logCleanupError('auth-users', deleteError);
+      return { ok: false, code: 'unexpected' };
+    }
+    await safeSignOut(supabase);
+    return { ok: true };
   }
 
-  // Referencias de moderación sin ON DELETE: sin anonimizarlas, la cascada del
-  // perfil falla por la FK. Las filas se conservan y pierden la autoría.
+  // Camino compatible cuando la migración 028 aún no está aplicada (funciona
+  // tanto con 019 aplicada como sin sus cambios de FK).
+  const drafts = await collectIds('drafts', (from, to) =>
+    service
+      .from('quizzes')
+      .select('id')
+      .eq('creator_id', user.id)
+      .neq('status', 'published')
+      .order('id', { ascending: true })
+      .range(from, to)
+  );
+  if (!drafts.ok) return { ok: false, code: 'unexpected' };
+
   const quizReports = await collectIds('quiz_reports', (from, to) =>
     service
       .from('quiz_reports')
@@ -206,8 +255,6 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
   ];
 
   if (!(await anonymizeAll(plans))) {
-    // Compensación: devolver la autoría a todas las filas, incluidos los lotes
-    // que sí se alcanzaron a anonimizar antes del fallo.
     await restoreAll(plans, user.id);
     return { ok: false, code: 'unexpected' };
   }
@@ -215,32 +262,25 @@ export async function deleteAccountAction(input: unknown): Promise<DeleteAccount
   const { error: deleteError } = await service.auth.admin.deleteUser(user.id);
   if (deleteError) {
     logCleanupError('auth-users', deleteError);
-    // La cuenta sigue viva: se devuelve la autoría a las filas tocadas.
     await restoreAll(plans, user.id);
     return { ok: false, code: 'unexpected' };
   }
 
-  // A partir de aquí la cuenta ya no existe: un fallo de limpieza se registra,
-  // pero no se le dice al usuario que el borrado falló.
-  const draftIds = (drafts ?? []).map((row) => row.id);
-  if (draftIds.length > 0) {
-    const { error } = await service.from('quizzes').delete().in('id', draftIds);
-    if (error) logCleanupError('drafts-delete', error);
+  // Sin 028 la cuenta ya no existe en auth.users: se trocea el borrado de
+  // borradores y se registran fallos sin revertir la respuesta de éxito.
+  for (const chunk of chunkIds(drafts.ids, UPDATE_CHUNK)) {
+    const { error } = await service.from('quizzes').delete().in('id', chunk);
+    if (error && !isMissingSchemaError(error)) logCleanupError('drafts-delete', error);
   }
 
-  // Notificaciones de terceros que llevaban el nombre de la cuenta en el body.
   const { error: notificationsError } = await service
     .from('notifications')
     .delete()
     .or(`data->>user_id.eq.${user.id},data->>follower_id.eq.${user.id}`);
-  if (notificationsError) logCleanupError('notifications', notificationsError);
-
-  try {
-    const { error: signOutError } = await supabase.auth.signOut();
-    if (signOutError) logCleanupError('sign-out', signOutError);
-  } catch (error) {
-    logCleanupError('sign-out', error);
+  if (notificationsError && !isMissingSchemaError(notificationsError)) {
+    logCleanupError('notifications', notificationsError);
   }
 
+  await safeSignOut(supabase);
   return { ok: true };
 }
