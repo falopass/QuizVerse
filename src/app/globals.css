@@ -2844,3 +2844,460 @@ body:has(.arcade-result) .cookie-consent-banner {
   }
 }
 /* === fin L8 === */
+
+/* === L9 portada e inicios === */
+/* Cartel arcade de bolsillo: el hero empuja a jugar y el mazo de cuatro cartas
+   abre las otras formas de empezar. Todo el movimiento es transform y se apaga
+   con prefers-reduced-motion; el contenido se ve completo en t = 0. */
+@keyframes qv-l9-blink {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.45);
+  }
+}
+@keyframes qv-l9-star-in {
+  from {
+    transform: rotate(-110deg) scale(0.55);
+  }
+  to {
+    transform: rotate(0deg) scale(1);
+  }
+}
+@keyframes qv-l9-deal {
+  from {
+    transform: translate3d(-40px, 26px, 0) rotate(-9deg);
+  }
+  to {
+    transform: rotate(var(--qv-l9-tilt, 0deg));
+  }
+}
+
+/* Hero más compacto: el mazo asoma en el primer pliegue a 1440 x 900. */
+.arcade-hero-copy {
+  min-height: 440px;
+}
+.arcade-hero-art {
+  min-height: 440px;
+}
+.arcade-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.qv-l9-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--accent-tertiary);
+  box-shadow: 0 0 0 2px #17151d;
+  animation: qv-l9-blink 0.7s 0.5s ease-in-out 3;
+}
+.arcade-hero-copy::after {
+  transform-origin: 50% 50%;
+  animation: qv-l9-star-in 0.9s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.arcade-hero-copy h1 {
+  text-shadow: 4px 4px 0 var(--accent-tertiary);
+}
+/* Las entradas del hero terminan sin fijar transform (fill backwards): así el
+   hover y el pulsado de abajo vuelven a mandar cuando acaba la animación. */
+.arcade-hero-copy > *,
+.arcade-hero-link {
+  animation-fill-mode: backwards;
+}
+/* El CTA es un botón de máquina: sombra dura que se hunde al pulsar. */
+.arcade-hero-copy .arcade-button {
+  border: 2px solid #17151d;
+  box-shadow: 5px 5px 0 #17151d;
+  font-size: 14px;
+  transition:
+    transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.16s,
+    background 0.15s;
+}
+.arcade-hero-copy .arcade-button:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 #17151d;
+}
+.arcade-hero-link {
+  border-radius: var(--radius-md);
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s;
+}
+.arcade-hero-link:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .arcade-hero-copy:hover::after {
+    transform: rotate(35deg) scale(1.08);
+  }
+  .arcade-hero-copy .arcade-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 #17151d;
+  }
+  .arcade-hero-link:hover {
+    transform: translate(-6px, -6px) rotate(-0.8deg);
+    box-shadow: 10px 10px 0 var(--accent-tertiary);
+  }
+}
+
+/* Mazo de accesos. */
+.qv-l9-deck {
+  margin-bottom: 30px;
+}
+.qv-l9-deck-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.qv-l9-deck-head h2 {
+  font-size: clamp(28px, 3vw, 40px);
+}
+.qv-l9-deck-controls {
+  display: flex;
+  flex: none;
+  gap: 10px;
+}
+.qv-l9-deck-controls button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--accent-primary);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--accent-primary);
+  font-size: 20px;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 #07070e;
+  cursor: pointer;
+  transition:
+    transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.16s,
+    background 0.15s,
+    color 0.15s;
+}
+.qv-l9-deck-controls button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 #07070e;
+}
+.qv-l9-deck-controls button:focus-visible {
+  outline: 3px solid var(--accent-hover);
+  outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .qv-l9-deck-controls button:hover {
+    background: var(--accent-primary);
+    color: #101019;
+  }
+}
+.qv-l9-deck-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 26px 12px 14px;
+  list-style: none;
+}
+.qv-l9-deck-slot {
+  position: relative;
+  min-width: 0;
+}
+/* Las cartas se solapan como un mazo abierto en abanico; el texto de las de
+   atrás se corre para que el solape no lo tape. */
+.qv-l9-deck-slot + .qv-l9-deck-slot {
+  margin-left: -18px;
+}
+.qv-l9-deck-slot + .qv-l9-deck-slot .qv-l9-card {
+  padding-left: 34px;
+}
+.qv-l9-deck-slot:nth-child(1) {
+  --qv-l9-tilt: -3deg;
+}
+.qv-l9-deck-slot:nth-child(2) {
+  --qv-l9-tilt: 1.5deg;
+}
+.qv-l9-deck-slot:nth-child(3) {
+  --qv-l9-tilt: -1.5deg;
+}
+.qv-l9-deck-slot:nth-child(4) {
+  --qv-l9-tilt: 3deg;
+}
+.qv-l9-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 214px;
+  overflow: hidden;
+  border: 3px solid #101019;
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: var(--qv-l9-bg);
+  color: var(--qv-l9-ink);
+  box-shadow: 6px 6px 0 #07070e;
+  transform: rotate(var(--qv-l9-tilt, 0deg));
+  transition:
+    transform 0.34s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s;
+  animation: qv-l9-deal 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.qv-l9-deck-slot:nth-child(2) .qv-l9-card {
+  animation-delay: 0.06s;
+}
+.qv-l9-deck-slot:nth-child(3) .qv-l9-card {
+  animation-delay: 0.12s;
+}
+.qv-l9-deck-slot:nth-child(4) .qv-l9-card {
+  animation-delay: 0.18s;
+}
+.qv-l9-card[data-active='true'],
+.qv-l9-card:focus-visible {
+  z-index: 2;
+  transform: translate3d(0, -12px, 0) rotate(0deg);
+  box-shadow: 10px 12px 0 #07070e;
+}
+.qv-l9-card:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .qv-l9-card:hover {
+    z-index: 3;
+    transform: translate3d(0, -16px, 0) rotate(0deg) scale(1.02);
+    box-shadow: 12px 14px 0 #07070e;
+  }
+}
+.qv-l9-card-daily {
+  --qv-l9-bg: var(--accent-tertiary);
+  --qv-l9-ink: #101019;
+}
+.qv-l9-card-random {
+  --qv-l9-bg: var(--accent-hover);
+  --qv-l9-ink: #101019;
+}
+.qv-l9-card-personality {
+  --qv-l9-bg: var(--warning);
+  --qv-l9-ink: #101019;
+}
+.qv-l9-card-trivia {
+  --qv-l9-bg: #6740e3;
+  --qv-l9-ink: #f6f3ff;
+}
+.qv-l9-card-kicker {
+  position: relative;
+  z-index: 1;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.qv-l9-card-kicker::first-letter {
+  text-transform: uppercase;
+}
+.qv-l9-card-title {
+  position: relative;
+  z-index: 1;
+  margin: auto 0 14px;
+  max-width: 11ch;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.5vw, 38px);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.qv-l9-card-action {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: #101019;
+  color: #f6f3ff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.qv-l9-card-trivia .qv-l9-card-action {
+  background: var(--accent-primary);
+  color: #101019;
+}
+.qv-l9-card-glyph {
+  position: absolute;
+  z-index: 0;
+  right: -14px;
+  bottom: -16px;
+  width: 128px;
+  height: 128px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.18;
+  transform: rotate(-12deg);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.qv-l9-card-random .qv-l9-card-glyph circle,
+.qv-l9-card-personality .qv-l9-card-glyph circle[r='5'],
+.qv-l9-card-trivia .qv-l9-card-glyph circle {
+  fill: currentColor;
+  stroke: none;
+}
+.qv-l9-card[data-active='true'] .qv-l9-card-glyph,
+.qv-l9-card:focus-visible .qv-l9-card-glyph {
+  transform: rotate(8deg) scale(1.08);
+}
+@media (hover: hover) and (pointer: fine) {
+  .qv-l9-card:hover .qv-l9-card-glyph {
+    transform: rotate(20deg) scale(1.12);
+  }
+}
+
+/* Categorías justo después del mazo: chips con conteo en pastilla. */
+.qv-l9-cats .arcade-filters a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+.qv-l9-cat-count {
+  border-radius: 999px;
+  padding: 2px 8px;
+  background: var(--bg-tertiary);
+  color: var(--accent-primary);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.qv-l9-cats .arcade-filters a:hover .qv-l9-cat-count {
+  background: #101019;
+}
+@media (hover: hover) and (pointer: fine) {
+  .qv-l9-cats .arcade-filters a:hover {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+}
+
+/* Entre tableta y escritorio angosto: dos filas de dos cartas, sin solape. */
+@media (max-width: 1099px) and (min-width: 700px) {
+  .qv-l9-deck-track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .qv-l9-deck-slot + .qv-l9-deck-slot {
+    margin-left: 0;
+  }
+  .qv-l9-deck-slot + .qv-l9-deck-slot .qv-l9-card {
+    padding-left: 20px;
+  }
+}
+
+/* Móvil: el mazo es una pista con scroll-snap; los botones y el dedo pasan las
+   cartas y la siguiente asoma por el borde. */
+@media (max-width: 699px) {
+  .arcade-hero-copy {
+    min-height: 0;
+    padding: 24px 22px 26px;
+  }
+  .arcade-hero-copy h1 {
+    margin: 16px 0;
+    text-shadow: 3px 3px 0 var(--accent-tertiary);
+  }
+  .arcade-hero-copy p {
+    margin-bottom: 18px;
+  }
+  .arcade-hero-art,
+  .arcade-hero-empty {
+    min-height: 200px;
+    height: 200px;
+  }
+  .qv-l9-deck {
+    margin-bottom: 22px;
+  }
+  .qv-l9-deck-head h2 {
+    font-size: 28px;
+  }
+  .qv-l9-deck-controls button {
+    width: 44px;
+    height: 44px;
+  }
+  .qv-l9-deck-track {
+    display: flex;
+    gap: 12px;
+    margin-inline: -14px;
+    padding: 22px 14px 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 14px;
+    scrollbar-width: none;
+  }
+  .qv-l9-deck-track::-webkit-scrollbar {
+    display: none;
+  }
+  .qv-l9-deck-slot {
+    flex: 0 0 74%;
+    scroll-snap-align: start;
+  }
+  .qv-l9-deck-slot + .qv-l9-deck-slot {
+    margin-left: 0;
+  }
+  .qv-l9-card,
+  .qv-l9-deck-slot + .qv-l9-deck-slot .qv-l9-card {
+    height: 184px;
+    padding: 16px 18px;
+  }
+  .qv-l9-card-title {
+    font-size: 30px;
+  }
+  .qv-l9-card-glyph {
+    width: 104px;
+    height: 104px;
+  }
+  .qv-l9-cats .arcade-filters {
+    flex-wrap: nowrap;
+    margin-inline: -14px;
+    padding: 4px 14px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .qv-l9-cats .arcade-filters a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qv-l9-live-dot,
+  .arcade-hero-copy::after,
+  .qv-l9-card {
+    animation: none !important;
+  }
+  .arcade-hero-copy::after,
+  .arcade-hero-copy .arcade-button,
+  .arcade-hero-link,
+  .qv-l9-deck-controls button,
+  .qv-l9-card,
+  .qv-l9-card-glyph,
+  .qv-l9-cats .arcade-filters a {
+    transition: none !important;
+  }
+}
+/* === fin L9 === */

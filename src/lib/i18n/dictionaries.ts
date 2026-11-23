@@ -31,11 +31,19 @@ export interface Dictionary {
     menu: string;
     randomQuiz: string;
     createAccount: string;
+    personality: string;
+    trivia: string;
   };
   home: {
     sections: {
       categories: string;
       discovery: string;
+    };
+    deck: {
+      previous: string;
+      next: string;
+      quizzesUnit: string;
+      challengeNumber: string;
     };
   };
   explore: {
@@ -206,7 +214,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       minutesShort: 'min',
       questionsShort: 'questions',
       switchLocale: 'Language',
-      randomQuiz: 'Surprise me',
+      randomQuiz: 'Random quiz',
       dailyQuiz: 'Daily quiz',
       home: 'Home',
       close: 'Close',
@@ -216,11 +224,19 @@ const dictionaries: Record<Locale, Dictionary> = {
       menu: 'Menu',
       randomQuiz: 'Random quiz',
       createAccount: 'Create account',
+      personality: 'Personality',
+      trivia: 'Trivia',
     },
     home: {
       sections: {
         categories: 'Category spectrum',
         discovery: 'Fresh discovery',
+      },
+      deck: {
+        previous: 'Previous shortcut',
+        next: 'Next shortcut',
+        quizzesUnit: 'quizzes',
+        challengeNumber: 'Challenge',
       },
     },
     explore: {
@@ -410,7 +426,7 @@ const dictionaries: Record<Locale, Dictionary> = {
       minutesShort: 'min',
       questionsShort: 'preguntas',
       switchLocale: 'Idioma',
-      randomQuiz: 'Sorpréndeme',
+      randomQuiz: 'Quiz al azar',
       dailyQuiz: 'Quiz diario',
       home: 'Inicio',
       close: 'Cerrar',
@@ -420,11 +436,19 @@ const dictionaries: Record<Locale, Dictionary> = {
       menu: 'Menú',
       randomQuiz: 'Quiz al azar',
       createAccount: 'Crear cuenta',
+      personality: 'Personalidad',
+      trivia: 'Trivia',
     },
     home: {
       sections: {
         categories: 'Mapa de categorías',
         discovery: 'Descubrimiento fresco',
+      },
+      deck: {
+        previous: 'Acceso anterior',
+        next: 'Acceso siguiente',
+        quizzesUnit: 'quizzes',
+        challengeNumber: 'Reto',
       },
     },
     explore: {

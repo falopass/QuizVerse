@@ -26,7 +26,7 @@ describe('GET /[locale]/random', () => {
     mockGetSlug.mockReset();
   });
 
-  it('redirige 307 al quiz publicado del idioma', async () => {
+  it('redirige 307 directo a jugar el quiz del idioma en modo Clásico', async () => {
     mockGetSlug.mockResolvedValue('es-quiz-aleatorio');
 
     const res = await callRandom('es');
@@ -34,8 +34,19 @@ describe('GET /[locale]/random', () => {
     expect(res.status).toBe(307);
     const location = res.headers.get('location');
     expect(location).not.toBeNull();
-    expect(new URL(location!).pathname).toBe('/es/quiz/es-quiz-aleatorio');
+    const target = new URL(location!);
+    expect(target.pathname).toBe('/es/quiz/es-quiz-aleatorio/play');
+    expect(target.searchParams.get('mode')).toBe('classic');
     expect(mockGetSlug).toHaveBeenCalledWith('es');
+  });
+
+  it('en inglés conserva el prefijo del idioma', async () => {
+    mockGetSlug.mockResolvedValue('random-trivia');
+
+    const res = await callRandom('en');
+
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location')!).pathname).toBe('/en/quiz/random-trivia/play');
   });
 
   it('con catálogo vacío redirige 307 al explorador del idioma', async () => {

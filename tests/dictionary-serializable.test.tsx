@@ -75,6 +75,14 @@ describe('diccionario serializable (regresión del 500 de #348)', () => {
       expect(nonSerializablePaths(navLabels, 'navLabels')).toEqual([]);
       expect(JSON.parse(JSON.stringify(navLabels))).toEqual(navLabels);
     });
+
+    it(`vocabulario unificado en '${locale}': el azar se llama igual en barra y menú`, async () => {
+      const dictionary = await getDictionary(locale);
+      const navLabels = extractNavLabels(dictionary, locale);
+      expect(navLabels.randomQuiz).toBe(navLabels.mobileRandomQuiz);
+      expect(navLabels.personality).toBe(dictionary.nav.personality);
+      expect(navLabels.trivia).toBe(dictionary.nav.trivia);
+    });
   }
 
   it('SiteShell renderiza con navLabels serializados y Footer en slot de servidor', async () => {
@@ -98,6 +106,7 @@ describe('diccionario serializable (regresión del 500 de #348)', () => {
     const clientFiles = [
       'components/layout/site-shell.tsx',
       'components/layout/floating-nav.tsx',
+      'components/home/quick-start-deck.tsx',
       'components/layout/notification-bell.tsx',
       'components/layout/user-menu.tsx',
       'components/notifications/notification-list.tsx',
