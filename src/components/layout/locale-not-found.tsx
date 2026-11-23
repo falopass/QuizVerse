@@ -12,7 +12,7 @@ export function LocaleNotFoundContent() {
   const locale = pathname === '/es' || pathname.startsWith('/es/') ? 'es' : 'en';
 
   return (
-    <div className="min-h-[70vh] px-4 pt-28 pb-16">
+    <div className="min-h-[70vh] px-4 pt-10 pb-16">
       <div className="mx-auto max-w-4xl">
         <NotFoundContent locale={locale} />
       </div>
