@@ -76,11 +76,17 @@ export async function generateMetadata({
       ? `Mi resultado en ${quiz.title}`
       : `My result in ${quiz.title}`;
 
+  const fallbackDescription =
+    quiz.description?.trim() ||
+    (es
+      ? `Juega ${quiz.title} en QuizVerse para ver tu resultado y compartirlo.`
+      : `Play ${quiz.title} on QuizVerse to see your result and share it.`);
+
   const description = outcome
     ? es
       ? `Saqué ${outcome} en ${quiz.title}. ¿Puedes superarlo?`
       : `I got ${outcome} in ${quiz.title}. Can you beat it?`
-    : quiz.description;
+    : fallbackDescription;
 
   // Facebook y WhatsApp siguen og:url como canonical: sin el token caerían en
   // la página sin sesión y leerían la tarjeta genérica. La página es noindex,

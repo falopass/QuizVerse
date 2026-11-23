@@ -128,6 +128,53 @@ describe('LocalizedLeaderboardPage — con jugadores', () => {
     expect(screen.queryByText('The board is empty.')).not.toBeInTheDocument();
   });
 
+  it('distingue cuentas sin partidas puntuadas (0 puntos y 0 partidas) y no las numera como líderes', async () => {
+    mocks.getLeaderboard.mockResolvedValue({
+      entries: [
+        {
+          rank: 1,
+          user: player({ id: 'u1', username: 'active1', display_name: 'Active One' }),
+          points: 120,
+          quizzesPlayed: 9,
+        },
+        {
+          rank: 2,
+          user: player({
+            id: 'u2',
+            username: 'zero1',
+            display_name: 'Zero One',
+            points: 0,
+            quizzes_played: 0,
+          }),
+          points: 0,
+          quizzesPlayed: 0,
+        },
+        {
+          rank: 3,
+          user: player({
+            id: 'u3',
+            username: 'zero2',
+            display_name: 'Zero Two',
+            points: 0,
+            quizzes_played: 0,
+          }),
+          points: 0,
+          quizzesPlayed: 0,
+        },
+      ],
+      hasMore: false,
+    });
+
+    await renderPage('es');
+
+    expect(screen.getByText('#1')).toBeInTheDocument();
+    expect(screen.queryByText('#2')).not.toBeInTheDocument();
+    expect(screen.getByText('Active One')).toBeInTheDocument();
+    expect(screen.getByText('Aún sin partidas puntuadas')).toBeInTheDocument();
+    expect(screen.getByText('Zero One')).toBeInTheDocument();
+    expect(screen.getByText('Zero Two')).toBeInTheDocument();
+  });
+
   it('sin sesión y fuera del top ofrece iniciar sesión', async () => {
     mocks.getLeaderboard.mockResolvedValue({
       entries: [{ rank: 1, user: player(), points: 120, quizzesPlayed: 9 }],

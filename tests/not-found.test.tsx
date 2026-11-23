@@ -157,18 +157,36 @@ describe('LocaleNotFound metadata (el <title> del shell de error)', () => {
 });
 
 describe('EmbedNotFound (src/app/embed/[locale]/not-found.tsx)', () => {
-  it('muestra el 404 del embed en español bajo /embed/es', () => {
+  it('muestra el 404 del embed en español bajo /embed/es con <title> y noindex', () => {
     mocks.pathname = '/embed/es/no-existe';
-    render(<EmbedNotFound />);
+    const { container } = render(<EmbedNotFound />);
 
     expect(screen.getByRole('heading', { name: 'Este quiz no existe.' })).toBeInTheDocument();
     expect(screen.getByRole('link')).toHaveAttribute('target', '_blank');
+    expect((container.querySelector('title') ?? document.querySelector('title'))?.textContent).toBe(
+      'Quiz no encontrado · QuizVerse'
+    );
+    expect(
+      (
+        container.querySelector('meta[name="robots"]') ??
+        document.querySelector('meta[name="robots"]')
+      )?.getAttribute('content')
+    ).toBe('noindex');
   });
 
-  it('muestra el 404 del embed en inglés bajo /embed/en', () => {
+  it('muestra el 404 del embed en inglés bajo /embed/en con <title> y noindex', () => {
     mocks.pathname = '/embed/en/no-existe';
-    render(<EmbedNotFound />);
+    const { container } = render(<EmbedNotFound />);
 
     expect(screen.getByRole('heading', { name: 'This quiz does not exist.' })).toBeInTheDocument();
+    expect((container.querySelector('title') ?? document.querySelector('title'))?.textContent).toBe(
+      'Quiz not found · QuizVerse'
+    );
+    expect(
+      (
+        container.querySelector('meta[name="robots"]') ??
+        document.querySelector('meta[name="robots"]')
+      )?.getAttribute('content')
+    ).toBe('noindex');
   });
 });

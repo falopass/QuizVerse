@@ -277,6 +277,24 @@ describe('generateMetadata — resultado compartido', () => {
     expect(String(metadata.alternates?.canonical)).not.toContain('script');
     expect(mocks.getQuizSessionByShareToken).not.toHaveBeenCalled();
   });
+
+  it('usa un fallback descriptivo específico del quiz cuando falta sesión y quiz.description es nulo', async () => {
+    mocks.getQuizBySlug.mockResolvedValue(
+      makeQuiz({ title: 'Trivia de Fórmula 1', description: null })
+    );
+
+    const esMeta = await generateMetadata({
+      params: Promise.resolve({ locale: 'es', slug: 'space-trivia' }),
+      searchParams: searchParams({}),
+    });
+    expect(esMeta.description).toContain('Trivia de Fórmula 1');
+
+    const enMeta = await generateMetadata({
+      params: params(),
+      searchParams: searchParams({}),
+    });
+    expect(enMeta.description).toContain('Trivia de Fórmula 1');
+  });
 });
 
 describe('LocalizedQuizResultPage — sin sesión válida', () => {

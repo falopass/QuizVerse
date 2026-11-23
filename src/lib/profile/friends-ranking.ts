@@ -32,8 +32,14 @@ export function rankFriends(
 ): FriendsRankingEntry[] {
   return (
     [...rows]
-      // Desempate por id: el orden es estable entre renders.
-      .sort((a, b) => b.points - a.points || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+      // Desempate por quizzes_played descendente e id ascendente: mismo orden
+      // que getLeaderboard y getGlobalRank, estable entre renders y páginas.
+      .sort(
+        (a, b) =>
+          b.points - a.points ||
+          b.quizzes_played - a.quizzes_played ||
+          (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+      )
       .map((row, index) => ({
         rank: index + 1,
         id: row.id,

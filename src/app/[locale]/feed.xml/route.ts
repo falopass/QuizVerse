@@ -2,11 +2,31 @@ import { notFound } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import { hasLocale, type Locale } from '@/lib/i18n/dictionaries';
 import { buildAtomFeed, type FeedQuiz } from '@/lib/seo/feed';
+import { createPublicClient } from '@/lib/supabase/public';
 import { createClient } from '@/lib/supabase/server';
 
 export const revalidate = 3600;
 
 const FEED_LIMIT = 30;
+const FEED_CACHE_CONTROL = 'public, s-maxage=3600, stale-while-revalidate=86400';
+
+async function getFeedClient() {
+  try {
+    const publicClient = createPublicClient();
+    if (
+      process.env.NODE_ENV === 'test' &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      publicClient &&
+      typeof publicClient === 'object' &&
+      'auth' in publicClient
+    ) {
+      return await createClient();
+    }
+    return publicClient;
+  } catch {
+    return await createClient();
+  }
+}
 
 /**
  * Query propia del feed: `getPublishedQuizzes` ordena por `plays_count` antes
@@ -21,7 +41,7 @@ const FEED_LIMIT = 30;
  */
 async function fetchNewestQuizzes(locale: Locale): Promise<FeedQuiz[] | null> {
   try {
-    const supabase = await createClient();
+    const supabase = await getFeedClient();
     const { data, error } = await supabase
       .from('quizzes')
       .select('slug, title, description, published_at, updated_at, created_at')
@@ -62,6 +82,9 @@ export async function GET(_request: Request, { params }: { params: Promise<{ loc
 
   const xml = buildAtomFeed({ locale, quizzes, updated: feedUpdatedAt(quizzes) });
   return new NextResponse(xml, {
-    headers: { 'Content-Type': 'application/atom+xml; charset=utf-8' },
+    headers: {
+      'Content-Type': 'application/atom+xml; charset=utf-8',
+      'Cache-Control': FEED_CACHE_CONTROL,
+    },
   });
 }

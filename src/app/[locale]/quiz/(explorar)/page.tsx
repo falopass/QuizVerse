@@ -7,6 +7,7 @@ import { getExplorePayload, getLaunchExplorePayload } from '@/lib/data/public';
 import { getDictionary, hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { localizeHref } from '@/lib/i18n/navigation';
+import { explorerVisibleQuizzes } from '@/lib/quiz/editorial-order';
 import { toExploreCard } from '@/lib/quiz/explore-card';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { absoluteUrl } from '@/lib/seo/site';
@@ -19,6 +20,13 @@ const EXPLORER_TITLE: Record<Locale, string> = {
 
 /** How many quizzes the ItemList advertises. Keeps the JSON-LD payload small. */
 const ITEM_LIST_LIMIT = 24;
+
+/**
+ * Tarjetas iniciales enviadas en el HTML/RSC de la primera carga (hero, pulso,
+ * 4 carriles y 18 tarjetas de grilla = 24 quizzes). El resto se pagina y busca
+ * bajo demanda contra `GET /api/quizzes`.
+ */
+const INITIAL_EXPLORE_LIMIT = 24;
 
 export async function generateMetadata({
   params,
@@ -57,10 +65,16 @@ export default async function LocalizedQuizExplorerPage({
   const payload = await getExplorePayload(locale).catch(() => getLaunchExplorePayload(locale));
 
   // El catálogo es un componente cliente, así que cada objeto cruza al payload
-  // RSC. `toExploreCard` deja solo lo que pintan la tarjeta y los filtros:
-  // preguntas, resultados, perfil visual, fechas y la clave de respuestas no
-  // viajan (eran ~600 KB de HTML para 416 quizzes).
-  const quizzes = payload.quizzes.map(toExploreCard);
+  // RSC. Enviamos solo las primeras 24 tarjetas de la selección editorial en
+  // la primera carga; el resto y las búsquedas sobre el catálogo completo se
+  // piden a `GET /api/quizzes`.
+  const totalQuizzes = payload.quizzes.length;
+  const initialSelection =
+    totalQuizzes > INITIAL_EXPLORE_LIMIT
+      ? explorerVisibleQuizzes(payload.quizzes).slice(0, INITIAL_EXPLORE_LIMIT)
+      : payload.quizzes;
+  const quizzes = initialSelection.map(toExploreCard);
+  const isFallback = 'isFallback' in payload && Boolean(payload.isFallback);
 
   return (
     <>
@@ -79,6 +93,8 @@ export default async function LocalizedQuizExplorerPage({
         locale={locale}
         quizzes={quizzes}
         categories={payload.categories}
+        totalQuizzes={totalQuizzes}
+        isFallback={isFallback}
         copy={{
           title: dictionary.explore.title,
           subtitle: dictionary.explore.subtitle,
@@ -90,6 +106,21 @@ export default async function LocalizedQuizExplorerPage({
           categoryLanes: locale === 'es' ? 'Carriles de categoría' : 'Category lanes',
           moreWaysIn: locale === 'es' ? 'Más caminos de entrada' : 'More ways in',
           quizzesAfterFilters: locale === 'es' ? 'quizzes tras filtros' : 'quizzes after filters',
+          clearFilters: locale === 'es' ? 'Limpiar filtros' : 'Clear filters',
+          loadingMore: locale === 'es' ? 'Cargando quizzes…' : 'Loading quizzes…',
+          loadError:
+            locale === 'es'
+              ? 'No pudimos cargar el catálogo remoto. Inténtalo de nuevo.'
+              : 'We could not load the remote catalog. Please try again.',
+          retry: dictionary.error?.retry ?? (locale === 'es' ? 'Reintentar' : 'Try again'),
+          fallbackNoticeTitle:
+            locale === 'es'
+              ? 'Catálogo en modo de respaldo (solo lectura)'
+              : 'Catalog in read-only fallback mode',
+          fallbackNoticeBody:
+            locale === 'es'
+              ? 'Mostramos la selección base mientras se recupera la conexión. Las partidas que requieren guardar puntaje o ranking volverán a estar disponibles en breve.'
+              : 'Showing the base selection while the connection recovers. Games that require saving scores or rankings will be available again shortly.',
         }}
       />
       <p className="mx-auto max-w-5xl px-4 pb-10 sm:px-6 lg:px-8">

@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getWhatsNew, partitionByRecency, type WhatsNewQuiz } from '@/lib/data/whats-new';
+import {
+  getWhatsNew,
+  isWhatsNewFallback,
+  partitionByRecency,
+  type WhatsNewQuiz,
+} from '@/lib/data/whats-new';
 import { hasLocale } from '@/lib/i18n/dictionaries';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import { getCategoryLabelBySlug, getLocalizedTypeLabel } from '@/lib/i18n/catalog';
@@ -32,6 +37,9 @@ const COPY = {
       'The 30 newest quizzes on QuizVerse, freshest first. Whatever dropped in the last week is up top; the ones before it follow.',
     fresh: 'Last 7 days',
     older: 'Earlier',
+    fallbackTitle: 'Base catalog selection',
+    fallbackNotice:
+      'Live recent releases are temporarily unavailable. Showing the base catalog selection without recency labels.',
     empty: 'Nothing published yet — check back soon.',
     home: 'Home',
   },
@@ -44,6 +52,9 @@ const COPY = {
       'Los 30 quizzes más recientes de QuizVerse, del más nuevo al más antiguo. Arriba lo publicado en la última semana; abajo, lo anterior.',
     fresh: 'Últimos 7 días',
     older: 'Anteriores',
+    fallbackTitle: 'Selección base del catálogo',
+    fallbackNotice:
+      'Las publicaciones recientes en vivo no están disponibles en este momento. Mostramos la selección base del catálogo sin presentarla como reciente.',
     empty: 'Todavía no hay nada publicado — vuelve pronto.',
     home: 'Inicio',
   },
@@ -71,6 +82,7 @@ export default async function NovedadesPage({ params }: NovedadesPageProps) {
   const copy = COPY[locale];
 
   const quizzes = await getWhatsNew(30, locale);
+  const isFallback = isWhatsNewFallback(quizzes);
   const { fresh, older } = partitionByRecency(quizzes, new Date());
   const trail = [
     { name: copy.home, href: `/${locale}` },
@@ -112,9 +124,21 @@ export default async function NovedadesPage({ params }: NovedadesPageProps) {
             {locale === 'es' ? 'Explorar quizzes' : 'Explore quizzes'}
           </Link>
         </section>
+      ) : isFallback ? (
+        <>
+          <aside
+            role="note"
+            className="border-border-subtle bg-bg-secondary text-text-secondary mt-8 rounded border p-4 text-sm"
+          >
+            {copy.fallbackNotice}
+          </aside>
+          <RecencyGroup title={copy.fallbackTitle} items={quizzes} locale={locale} />
+        </>
       ) : (
         <>
-          <RecencyGroup title={copy.fresh} items={fresh} locale={locale} />
+          {fresh.length > 0 ? (
+            <RecencyGroup title={copy.fresh} items={fresh} locale={locale} />
+          ) : null}
           {older.length > 0 ? (
             <RecencyGroup title={copy.older} items={older} locale={locale} />
           ) : null}

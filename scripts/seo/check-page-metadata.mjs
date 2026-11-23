@@ -29,22 +29,28 @@ const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PRIVATE_PREFIXES = [
   'src/app/[locale]/login/',
   'src/app/[locale]/my-quizzes/',
+  'src/app/[locale]/me/',
+  'src/app/[locale]/achievements/',
+  'src/app/[locale]/admin/',
   'src/app/[locale]/register/',
   'src/app/[locale]/create/',
   'src/app/[locale]/quiz/[slug]/play/',
   'src/app/[locale]/quiz/[slug]/result/',
+  'src/app/[locale]/quiz/[slug]/ranking/',
   'src/app/[locale]/profile/',
   'src/app/[locale]/settings/',
   'src/app/[locale]/notifications/',
   'src/app/[locale]/forgot-password/',
   'src/app/[locale]/reset-password/',
+  'src/app/embed/',
 ];
 
 const NOINDEX_HELPERS = ['generateProfileMetadata'];
 
 // Una mención suelta de `noindex` (un comentario) o `noindex: false` no
 // protege la página: hace falta la asignación afirmativa.
-const NOINDEX_DECLARATION = /\bnoindex\s*:\s*true|\bindex\s*:\s*false/;
+const NOINDEX_DECLARATION =
+  /\bnoindex\s*:\s*true|\bindex\s*:\s*false|<meta\s+[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/;
 
 function parseArgs(argv) {
   const args = { root: REPO_ROOT, json: false };
@@ -76,8 +82,8 @@ function toPosix(path) {
 
 export function findProblems(root) {
   const appDir = join(root, 'src', 'app');
-  const pages = walk(appDir)
-    .map((f) => toPosix(relative(root, f)))
+  const allFiles = walk(appDir).map((f) => toPosix(relative(root, f)));
+  const pages = allFiles
     .filter((rel) => {
       if (!rel.endsWith('/page.tsx')) return false;
       if (rel.startsWith('src/app/api/')) return false;
@@ -85,10 +91,18 @@ export function findProblems(root) {
     })
     .sort();
 
+  const notFoundFiles = allFiles
+    .filter(
+      (rel) =>
+        rel.endsWith('/not-found.tsx') &&
+        (rel.startsWith('src/app/[locale]/') || rel.startsWith('src/app/embed/'))
+    )
+    .sort();
+
   const problems = [];
   for (const rel of pages) {
     const src = readFileSync(join(root, rel), 'utf8');
-    if (rel.startsWith('src/app/[locale]/')) {
+    if (rel.startsWith('src/app/[locale]/') || rel.startsWith('src/app/embed/')) {
       if (!src.includes('generateMetadata') && !src.includes('export const metadata')) {
         problems.push({
           file: rel,
@@ -105,6 +119,21 @@ export function findProblems(root) {
       }
     }
   }
+
+  for (const rel of notFoundFiles) {
+    const src = readFileSync(join(root, rel), 'utf8');
+    if (
+      !src.includes('generateMetadata') &&
+      !src.includes('export const metadata') &&
+      !src.includes('<title>')
+    ) {
+      problems.push({
+        file: rel,
+        reason: 'not-found sin metadata propia ni <title>',
+      });
+    }
+  }
+
   return { pages: pages.length, problems };
 }
 

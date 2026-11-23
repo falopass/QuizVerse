@@ -15,6 +15,10 @@ export const PaginationSchema = z.object({
   limit: z.coerce.number().int().min(1).max(50).default(20),
 });
 
+export const QuizTypeFilterSchema = z.enum(['trivia', 'personality']);
+
+export const QuizMoodFilterSchema = z.enum(['all', 'fast', 'personality', 'trivia', 'popular']);
+
 export const QuizQuerySchema = PaginationSchema.extend({
   locale: LocaleSchema.optional(),
   /** Slug de categoría (`movies-tv`) o hub de tipo (`trivia`, `personality`). */
@@ -23,6 +27,10 @@ export const QuizQuerySchema = PaginationSchema.extend({
     .trim()
     .regex(/^[a-z0-9-]{1,60}$/)
     .optional(),
+  /** Tipo de quiz cuando se combina con categoría (`category=movies-tv&type=trivia`). */
+  type: QuizTypeFilterSchema.optional(),
+  /** Ánimo/orden del explorador (`fast`, `popular`, `trivia`, `personality`, `all`). */
+  mood: QuizMoodFilterSchema.optional(),
   /** Búsqueda por título. 2 caracteres mínimo para no golpear la base por nada. */
   q: z.string().trim().min(2).max(60).optional(),
 });

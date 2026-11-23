@@ -11,7 +11,7 @@ import {
   translatedHubExists,
   translatedHubPageExists,
 } from '@/lib/data/public';
-import { parsePageParam } from '@/lib/data/quiz-pagination';
+import { CATEGORY_PAGE_SIZE, parsePageParam } from '@/lib/data/quiz-pagination';
 import { getDictionary, hasLocale, type Locale } from '@/lib/i18n/dictionaries';
 import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
 import { categoryDescription, visibleGamesLabel } from '@/lib/i18n/counts';
@@ -105,6 +105,9 @@ export default async function LocalizedCategoryPage({ params, searchParams }: Ca
   );
   const path = categoryPath(locale, slug);
   const pagePath = page > 1 ? `${path}?page=${page}` : path;
+  const rangeStart = (page - 1) * CATEGORY_PAGE_SIZE + 1;
+  const rangeEnd = rangeStart + quizzes.length - 1;
+  const hasMultiplePages = payload.totalQuizzes > quizzes.length || page > 1;
   const hubGuide = getHubGuide(slug, locale);
   const related = getRelatedCategories(
     slug,
@@ -149,7 +152,19 @@ export default async function LocalizedCategoryPage({ params, searchParams }: Ca
         </span>
         <h1>{category.name}</h1>
         <p>{category.description}</p>
-        <strong>{visibleGamesLabel(quizzes.length, locale)}</strong>
+        <p className="border-border-subtle bg-bg-secondary text-text-secondary mt-3 inline-flex w-fit flex-wrap items-center gap-2 rounded border px-3 py-1.5 text-xs font-semibold">
+          <span>{visibleGamesLabel(quizzes.length, locale)}</span>
+          {hasMultiplePages ? (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>
+                {locale === 'es'
+                  ? `${rangeStart}–${rangeEnd} de ${payload.totalQuizzes} en total`
+                  : `${rangeStart}–${rangeEnd} of ${payload.totalQuizzes} total`}
+              </span>
+            </>
+          ) : null}
+        </p>
       </section>
       <nav className="arcade-filters" aria-label={dictionary.arcade.categoryNavigation}>
         <Link prefetch={false} href={localizeHref(locale, '/quiz')}>

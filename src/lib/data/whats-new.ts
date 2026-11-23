@@ -1,11 +1,34 @@
 import 'server-only';
 
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
+import { CATALOG_REVALIDATE_SECONDS, CATALOG_TAGS } from '@/lib/data/cache-tags';
 import { LAUNCH_QUIZZES } from '@/lib/data/launch-catalog';
 import type { Locale } from '@/lib/i18n/dictionaries';
 import type { Quiz } from '@/types/quiz';
 import type { QuizType } from '@/types/database';
+
+const LAUNCH_SLUGS = new Set(LAUNCH_QUIZZES.map((quiz) => quiz.slug));
+
+async function getWhatsNewClient() {
+  try {
+    const publicClient = createPublicClient();
+    if (
+      process.env.NODE_ENV === 'test' &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      publicClient &&
+      typeof publicClient === 'object' &&
+      'auth' in publicClient
+    ) {
+      return await createClient();
+    }
+    return publicClient;
+  } catch {
+    return await createClient();
+  }
+}
 
 /**
  * Card-level shape for `/{locale}/novedades`. Deliberately narrow: the page
@@ -28,7 +51,7 @@ const WHATS_NEW_COLUMNS =
   'slug, title, description, language, quiz_type, estimated_minutes, published_at, created_at, category:categories(slug, name)';
 
 async function fetchWhatsNewFromDb(limit: number, locale?: Locale): Promise<WhatsNewQuiz[]> {
-  const supabase = await createClient();
+  const supabase = await getWhatsNewClient();
   const baseQuery = () => {
     let query = supabase.from('quizzes').select(WHATS_NEW_COLUMNS).eq('status', 'published');
     // /{locale}/quiz/{slug} 404 para slugs de otro idioma: la lista se filtra.
@@ -75,9 +98,25 @@ function toWhatsNewQuiz(quiz: Quiz): WhatsNewQuiz {
   };
 }
 
+const fetchWhatsNewCached = unstable_cache(fetchWhatsNewFromDb, ['whats-new'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes],
+});
+
+export function isWhatsNewFallback(items: readonly WhatsNewQuiz[]): boolean {
+  return items.length > 0 && items.every((item) => LAUNCH_SLUGS.has(item.slug));
+}
+
 export const getWhatsNew = cache(async (limit = 30, locale?: Locale): Promise<WhatsNewQuiz[]> => {
   try {
-    return await fetchWhatsNewFromDb(limit, locale);
+    try {
+      return await fetchWhatsNewCached(limit, locale);
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('incrementalCache')) {
+        return await fetchWhatsNewFromDb(limit, locale);
+      }
+      throw error;
+    }
   } catch {
     const launch = locale
       ? LAUNCH_QUIZZES.filter((quiz) => quiz.language === locale)

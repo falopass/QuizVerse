@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   from: vi.fn(),
+  rpc: vi.fn(),
   getLeaderboard: vi.fn(),
 }));
 
@@ -10,6 +11,7 @@ vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(async () => ({
     auth: { getUser: mocks.getUser },
     from: mocks.from,
+    rpc: mocks.rpc,
   })),
 }));
 
@@ -39,6 +41,11 @@ function request(scope: string): Request {
 beforeEach(() => {
   mocks.getUser.mockReset();
   mocks.from.mockReset();
+  mocks.rpc.mockReset();
+  mocks.rpc.mockResolvedValue({
+    data: null,
+    error: { code: 'PGRST202', message: 'Could not find the function in the schema cache' },
+  });
   mocks.getLeaderboard.mockReset();
 });
 
@@ -160,5 +167,47 @@ describe('GET /api/leaderboard — caché', () => {
     expect(response.status).toBe(401);
     expect(response.headers.get('Cache-Control')).toBe('no-store');
     expect(mocks.from).not.toHaveBeenCalled();
+  });
+
+  it('scope=friends usa el RPC get_friends_leaderboard en una sola consulta cuando la migración 031 está aplicada', async () => {
+    mocks.getUser.mockResolvedValue({ data: { user: { id: 'u-1' } }, error: null });
+    mocks.rpc.mockResolvedValue({
+      data: [
+        {
+          id: 'u-2',
+          username: 'beto',
+          display_name: 'Beto',
+          avatar_url: null,
+          points: 250,
+          quizzes_played: 12,
+        },
+        {
+          id: 'u-1',
+          username: 'ana',
+          display_name: 'Ana',
+          avatar_url: null,
+          points: 100,
+          quizzes_played: 5,
+        },
+      ],
+      error: null,
+    });
+
+    const response = await GET(request('friends'));
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Cache-Control')).toBe('private, no-store');
+    expect(mocks.rpc).toHaveBeenCalledWith('get_friends_leaderboard', {
+      p_limit: 21,
+      p_offset: 0,
+    });
+    expect(mocks.from).not.toHaveBeenCalled();
+    const body = await response.json();
+    expect(
+      body.entries.map((e: { username: string; rank: number }) => [e.rank, e.username])
+    ).toEqual([
+      [1, 'beto'],
+      [2, 'ana'],
+    ]);
   });
 });

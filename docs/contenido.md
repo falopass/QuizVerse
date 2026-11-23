@@ -65,6 +65,27 @@ El emisor valida antes de escribir y **se niega a emitir** cuando:
 Un lote que falla validación nunca llega a la base. El `INSERT` resultante es
 `ON CONFLICT (slug) DO NOTHING`: re-ejecutarlo es seguro.
 
+## Importador legado (`scripts/import-trending-seed-to-supabase.mjs`)
+
+El pipeline editorial idempotente (`scripts/seed/emit-editorial-seed.mjs`) es
+siempre la **primera opción de publicación**. El importador directo
+`scripts/import-trending-seed-to-supabase.mjs` se conserva solo para semillas
+históricas con este contrato de seguridad:
+
+- **Dry-run de solo lectura (`SEED_DRY_RUN=1`):** valida el archivo y consulta
+  categorías y slugs existentes sin insertar ni actualizar categorías, quizzes
+  ni archivos de reporte.
+- **Altas insert-only:** comprueba los slugs ya publicados e inserta únicamente
+  los nuevos con `ignoreDuplicates: true` (`ON CONFLICT (slug) DO NOTHING`), de
+  modo que una segunda ejecución jamás pisa `plays_count`, `likes_count`,
+  `shares_count`, fechas ni referencias (`id`) de quizzes existentes.
+- **Tipos permitidos:** solo `trivia` y `personality`; cualquier entrada con
+  `quiz_type: "poll"` u otro tipo no soportado se rechaza y queda registrada en
+  `skippedItems`.
+- **Recuento completo por categoría:** `syncCategoryCounts` pagina con orden
+  estable (`id ASC`) para contabilizar el catálogo completo sin truncarse en el
+  límite de 1.000 filas por consulta de PostgREST.
+
 ## Auditoría
 
 `npm run seed:audit` corre `scripts/seed/audit-content.mjs` sobre el **export de

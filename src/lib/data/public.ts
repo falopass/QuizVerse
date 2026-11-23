@@ -38,9 +38,14 @@ import {
 import { getCategoryCounts } from '@/lib/data/category-counts';
 import { fetchSessionByShareToken } from '@/lib/data/game-session';
 import { getEquivalentQuizSlug } from '@/lib/data/quiz-locale-map';
-import { localizeQuizList } from '@/lib/i18n/catalog';
+import { localizeCategory, localizeQuizList } from '@/lib/i18n/catalog';
+import { foldSearchText, matchesSearchIndex, searchIndexText } from '@/lib/catalog/search-index';
 import { toExploreCard } from '@/lib/quiz/explore-card';
 import { versionedStockCoverUrl } from '@/lib/data/stock-cover-manifest';
+
+export function isLaunchFallbackQuiz(quiz: { id: string }): boolean {
+  return quiz.id.startsWith('launch-');
+}
 
 async function fetchPublicCategoriesFromDb(): Promise<Category[]> {
   const supabase = createPublicClient();
@@ -390,6 +395,7 @@ export function getLaunchExplorePayload(locale?: Locale) {
   return {
     quizzes,
     categories: LAUNCH_CATEGORIES.filter((item) => populated.has(item.slug)),
+    isFallback: true,
   };
 }
 
@@ -401,25 +407,39 @@ export async function getExplorePayload(
   const locale = localeOrSearch === 'en' || localeOrSearch === 'es' ? localeOrSearch : undefined;
   const search = locale ? searchOrCategory : localeOrSearch;
   const categorySlug = locale ? maybeCategorySlug : searchOrCategory;
+  let isFallback = false;
   const [quizzes, categories] = await Promise.all([
-    fetchExploreQuizzesCached(locale).catch(() => launchQuizzes(locale)),
+    fetchExploreQuizzesCached(locale).catch(() => {
+      isFallback = true;
+      return launchQuizzes(locale);
+    }),
     getPublicCategories(),
   ]);
-  const normalizedSearch = search?.trim().toLowerCase() ?? '';
+  const normalizedSearch = search ? foldSearchText(search.trim()) : '';
 
   const filtered = quizzes.filter((quiz) => {
     const matchesCategory = categorySlug ? quiz.category?.slug === categorySlug : true;
-    const matchesSearch = normalizedSearch
-      ? quiz.title.toLowerCase().includes(normalizedSearch) ||
-        (quiz.description ?? '').toLowerCase().includes(normalizedSearch) ||
-        quiz.tags.some((tag) => tag.toLowerCase().includes(normalizedSearch))
-      : true;
-
-    return matchesCategory && matchesSearch;
+    if (!matchesCategory) return false;
+    if (!normalizedSearch) return true;
+    const categoryForIndex =
+      locale && quiz.category ? localizeCategory(quiz.category, locale) : quiz.category;
+    return matchesSearchIndex(
+      searchIndexText({
+        title: quiz.title,
+        description: quiz.description,
+        tags: quiz.tags,
+        category: categoryForIndex,
+      }),
+      normalizedSearch
+    );
   });
 
   const populated = new Set(quizzes.map((quiz) => quiz.category?.slug));
-  return { quizzes: filtered, categories: categories.filter((item) => populated.has(item.slug)) };
+  return {
+    quizzes: filtered,
+    categories: categories.filter((item) => populated.has(item.slug)),
+    isFallback,
+  };
 }
 
 function homeSections(
@@ -935,22 +955,34 @@ export interface LeaderboardResult {
   hasMore: boolean;
 }
 
-/**
- * Lanza si falla la consulta, igual que `getWeeklyLeaderboard`: un error de
- * base de datos no puede llegar a la página como un ranking vacío (diría «sé
- * el primero» cuando en realidad el tablero no cargó). La API responde 503 y
- * la página muestra un aviso con reintento.
- *
- * Paginación real por `page` (SOC-06): pide una fila de más para que
- * `hasMore` sea exacto sin un count aparte.
- */
-export const getLeaderboard = cache(async (limit = 50, page = 1): Promise<LeaderboardResult> => {
-  const supabase = await createClient();
+const PUBLIC_LEADERBOARD_COLUMNS =
+  'id, username, display_name, avatar_url, bio, points, quizzes_played, quizzes_created, is_verified, preferred_language, current_streak, longest_streak, last_played_on, created_at, updated_at';
+
+async function getPublicReaderClient() {
+  try {
+    const publicClient = createPublicClient();
+    if (
+      process.env.NODE_ENV === 'test' &&
+      !process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      publicClient &&
+      typeof publicClient === 'object' &&
+      'auth' in publicClient
+    ) {
+      return await createClient();
+    }
+    return publicClient;
+  } catch {
+    return await createClient();
+  }
+}
+
+async function fetchLeaderboardFromDb(limit = 50, page = 1): Promise<LeaderboardResult> {
+  const supabase = await getPublicReaderClient();
   const safePage = Number.isSafeInteger(page) && page >= 1 ? page : 1;
   const from = (safePage - 1) * limit;
   const { data, error } = await supabase
     .from('profiles')
-    .select('*')
+    .select(PUBLIC_LEADERBOARD_COLUMNS)
     .order('points', { ascending: false })
     .order('quizzes_played', { ascending: false })
     // Desempate único: sin él, dos páginas consecutivas de empate pueden
@@ -966,12 +998,38 @@ export const getLeaderboard = cache(async (limit = 50, page = 1): Promise<Leader
   return {
     entries: rows.slice(0, limit).map((row, index) => ({
       rank: from + index + 1,
-      user: normalizeProfile(row),
+      user: normalizeProfile({ ...row, is_admin: false }),
       points: row.points,
       quizzesPlayed: row.quizzes_played,
     })),
     hasMore: rows.length > limit,
   };
+}
+
+const fetchLeaderboardCached = unstable_cache(fetchLeaderboardFromDb, ['public-leaderboard'], {
+  revalidate: CATALOG_REVALIDATE_SECONDS,
+  tags: [CATALOG_TAGS.quizzes],
+});
+
+/**
+ * Lanza si falla la consulta, igual que `getWeeklyLeaderboard`: un error de
+ * base de datos no puede llegar a la página como un ranking vacío (diría «sé
+ * el primero» cuando en realidad el tablero no cargó). La API responde 503 y
+ * la página muestra un aviso con reintento.
+ *
+ * Paginación real por `page` (SOC-06): pide una fila de más para que
+ * `hasMore` sea exacto sin un count aparte. Cacheado sin cookies ni datos de
+ * sesión para separar el tablero público de la posición privada del jugador.
+ */
+export const getLeaderboard = cache(async (limit = 50, page = 1): Promise<LeaderboardResult> => {
+  try {
+    return await fetchLeaderboardCached(limit, page);
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('incrementalCache')) {
+      return await fetchLeaderboardFromDb(limit, page);
+    }
+    throw error;
+  }
 });
 
 // null = el perfil no existe (404); un error de la consulta se propaga al

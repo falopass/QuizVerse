@@ -141,15 +141,32 @@ export default async function LocalizedLeaderboardPage({
     }
   }
 
-  const currentEntry = entries?.find((entry) => entry.isMe) ?? null;
+  const scoredEntries =
+    entries === null
+      ? null
+      : entries
+          .filter((entry) => entry.points > 0 || entry.quizzesPlayed > 0)
+          .map((entry, idx) => ({ ...entry, rank: idx + 1 }));
+  const unscoredEntries =
+    entries === null
+      ? []
+      : entries.filter((entry) => entry.points === 0 && entry.quizzesPlayed === 0);
+
+  const currentEntry = scoredEntries?.find((entry) => entry.isMe) ?? null;
 
   // Puesto propio fuera del top mostrado (SOC-03/SOC-14): solo con sesión y
-  // cuando el jugador no aparece en la lista. Global: cuenta de perfiles por
-  // delante (mismo orden points/quizzes_played). Semanal: RPC
+  // cuando el jugador no aparece en la lista puntuada. Global: cuenta de
+  // perfiles por delante (mismo orden points/quizzes_played/id). Semanal: RPC
   // get_weekly_rank; si la migración aún no está aplicada o falla, null y se
   // muestra el aviso genérico de «fuera del tablero», nunca un CTA de login.
   let myRank: number | null = null;
-  if (!isFriends && currentUser && entries !== null && entries.length > 0 && !currentEntry) {
+  if (
+    !isFriends &&
+    currentUser &&
+    scoredEntries !== null &&
+    scoredEntries.length > 0 &&
+    !currentEntry
+  ) {
     myRank = isWeekly
       ? await getWeeklyRank(currentUser.id).catch(() => null)
       : await getGlobalRank(supabase, currentUser.id).catch(() => null);
@@ -195,7 +212,7 @@ export default async function LocalizedLeaderboardPage({
             <p className="text-text-secondary mt-4 max-w-2xl text-base leading-7">{copy.body}</p>
           </div>
           <div className="grid items-start gap-4 sm:grid-cols-2">
-            <MetricCard label={copy.visiblePlayers} value={String(entries?.length ?? 0)} />
+            <MetricCard label={copy.visiblePlayers} value={String(scoredEntries?.length ?? 0)} />
             <MetricCard
               label={copy.yourSpot}
               value={currentEntry ? `#${currentEntry.rank}` : myRank ? `#${myRank}` : '—'}
@@ -221,15 +238,44 @@ export default async function LocalizedLeaderboardPage({
         ))}
       </nav>
 
-      {entries !== null && entries.length > 0 && (
+      {scoredEntries !== null && scoredEntries.length > 0 && (
         <section className="mt-6 space-y-3">
-          {entries.map((entry, index) => (
+          {scoredEntries.map((entry, index) => (
             <LeaderboardRow key={entry.id} entry={entry} index={index} locale={locale} />
           ))}
         </section>
       )}
 
-      {!isFriends && !isWeekly && entries !== null && entries.length === 0 && (
+      {unscoredEntries.length > 0 && (
+        <section
+          aria-label={
+            locale === 'es' ? 'Cuentas aún sin partidas puntuadas' : 'Accounts with no scored games'
+          }
+          className="surface-card mt-6 p-6"
+        >
+          <p className="eyebrow">
+            {locale === 'es' ? 'Aún sin partidas puntuadas' : 'No scored games yet'}
+          </p>
+          <p className="text-text-secondary mt-2 text-sm leading-6">
+            {locale === 'es'
+              ? `${unscoredEntries.length} ${unscoredEntries.length === 1 ? 'cuenta registrada aún no suma' : 'cuentas registradas aún no suman'} partidas puntuadas en este tablero.`
+              : `${unscoredEntries.length} ${unscoredEntries.length === 1 ? 'registered account has' : 'registered accounts have'} no scored games on this board yet.`}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {unscoredEntries.map((entry) => (
+              <Link
+                key={entry.id}
+                href={localizeHref(locale, `/profile/${entry.username}`)}
+                className="border-border-subtle bg-bg-primary text-text-secondary hover:text-text-primary inline-flex min-h-9 items-center rounded-full border px-3 py-1 text-xs font-semibold transition-colors"
+              >
+                {entry.name}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {!isFriends && !isWeekly && scoredEntries !== null && scoredEntries.length === 0 && (
         <section className="surface-card mt-6 p-6">
           <p className="eyebrow">{copy.tabGlobal}</p>
           <h2 className="text-text-primary mt-2 text-2xl font-semibold">{copy.emptyTitle}</h2>
@@ -352,7 +398,7 @@ export default async function LocalizedLeaderboardPage({
         </section>
       )}
 
-      {!isFriends && entries !== null && entries.length > 0 && !currentEntry && (
+      {!isFriends && scoredEntries !== null && scoredEntries.length > 0 && !currentEntry && (
         <section className="surface-card mt-10 p-6">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             {currentUser ? (
@@ -415,6 +461,7 @@ async function getGlobalRank(
     .maybeSingle();
 
   if (error || !me) return null;
+  if (me.points === 0 && me.quizzes_played === 0) return null;
 
   const { count, error: countError } = await supabase
     .from('profiles')
@@ -428,15 +475,7 @@ async function getGlobalRank(
   return count + 1;
 }
 
-function LeaderboardRow({
-  entry,
-  index,
-  locale,
-}: {
-  entry: BoardEntry;
-  index: number;
-  locale: Locale;
-}) {
+function LeaderboardRow({ entry, locale }: { entry: BoardEntry; index: number; locale: Locale }) {
   const copy = getCopy(locale, 'leaderboard');
 
   return (
@@ -444,17 +483,17 @@ function LeaderboardRow({
       href={localizeHref(locale, `/profile/${entry.username}`)}
       className="surface-card flex items-center gap-4 p-5 transition-transform hover:-translate-y-1"
     >
-      <div className="bg-bg-primary text-text-primary ring-border-subtle flex h-14 w-14 items-center justify-center rounded-[1.4rem] text-lg font-semibold ring-1">
-        {index < 3 ? ['1', '2', '3'][index] : `#${entry.rank}`}
+      <div className="bg-bg-primary text-text-primary ring-border-subtle flex h-14 w-14 items-center justify-center rounded-[1.4rem] font-sans text-lg font-bold tabular-nums ring-1">
+        {`#${entry.rank}`}
       </div>
       <div className="min-w-0 flex-1">
-        <h2 className="text-text-primary truncate text-lg font-semibold">{entry.name}</h2>
-        <p className="text-text-secondary mt-1 text-sm">
+        <p className="text-text-primary truncate font-sans text-lg font-bold">{entry.name}</p>
+        <p className="text-text-secondary mt-1 text-sm tabular-nums">
           {formatCompactNumber(entry.quizzesPlayed, locale)} {copy.quizzesPlayed}
         </p>
       </div>
       <div className="text-right">
-        <p className="text-accent-primary text-2xl font-semibold">
+        <p className="text-accent-primary font-sans text-2xl font-bold tabular-nums">
           {formatCompactNumber(entry.points, locale)}
         </p>
         <p className="text-text-muted text-xs font-semibold">{copy.points}</p>

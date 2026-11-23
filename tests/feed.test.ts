@@ -217,6 +217,9 @@ describe('GET /[locale]/feed.xml', () => {
 
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toContain('application/atom+xml');
+    expect(res.headers.get('cache-control')).toBe(
+      'public, s-maxage=3600, stale-while-revalidate=86400'
+    );
     expect(recorded.eqs).toEqual([
       ['status', 'published'],
       ['language', 'es'],
