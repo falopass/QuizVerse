@@ -8,6 +8,8 @@ export default defineConfig({
   use: {
     baseURL,
     browserName: 'firefox',
+    // next start recibe HTTP en loopback, como detrás de la terminación TLS de Cloudflare.
+    extraHTTPHeaders: { 'cf-visitor': '{"scheme":"https"}' },
   },
   webServer: {
     command: 'npm start -- --hostname 127.0.0.1 --port 4510',
