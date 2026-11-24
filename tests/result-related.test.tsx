@@ -165,6 +165,35 @@ describe('ResultScreen · quizzes relacionados', () => {
   });
 });
 
+describe('ResultScreen · revisión', () => {
+  it('sin respuestas ni revisión del servidor no pinta «Tus respuestas» vacío', () => {
+    render(<ResultScreen locale="es" quiz={makeQuiz()} result={null} answers={[]} review={[]} />);
+    expect(screen.queryByRole('heading', { name: 'Tus respuestas' })).not.toBeInTheDocument();
+  });
+
+  it('con respuestas locales pero revisión vacía del servidor tampoco la pinta ni invita a revisarla', () => {
+    const quiz = makeQuiz();
+    const question = quiz.questions[0];
+    render(
+      <ResultScreen
+        locale="es"
+        quiz={quiz}
+        result={null}
+        answers={[
+          {
+            question_id: question.id,
+            selected_option_id: question.options[0].id,
+            is_correct: true,
+          } as never,
+        ]}
+        review={[]}
+      />
+    );
+    expect(screen.queryByRole('heading', { name: 'Tus respuestas' })).not.toBeInTheDocument();
+    expect(screen.queryByText(/Revisa tus respuestas/)).not.toBeInTheDocument();
+  });
+});
+
 describe('getRelatedQuizzes', () => {
   beforeEach(() => {
     dbMocks.filters = [];
