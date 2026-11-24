@@ -218,6 +218,7 @@ export function ResultScreen({
       ? {
           eyebrow: 'Resultado',
           fallbackBody: 'Partida terminada. Revisa tus respuestas y vuelve a jugar cuando quieras.',
+          fallbackBodyNoReview: 'Partida terminada. Vuelve a jugar cuando quieras.',
           questions: 'Preguntas',
           bestStreak: 'Mejor racha',
           bonus: 'Puntos',
@@ -269,6 +270,7 @@ export function ResultScreen({
       : {
           eyebrow: 'Result',
           fallbackBody: 'Game complete. Review your answers and jump back in whenever you like.',
+          fallbackBodyNoReview: 'Game complete. Jump back in whenever you like.',
           questions: 'Questions',
           bestStreak: 'Best streak',
           bonus: 'Points',
@@ -566,7 +568,10 @@ export function ResultScreen({
               </Link>
             </div>
 
-            <p className="arcade-result-body">{result?.description || copy.fallbackBody}</p>
+            <p className="arcade-result-body">
+              {result?.description ||
+                ((review ?? answers).length > 0 ? copy.fallbackBody : copy.fallbackBodyNoReview)}
+            </p>
 
             {showCompatibility && compatibility && compatVerdict ? (
               <CompatibilityCard
