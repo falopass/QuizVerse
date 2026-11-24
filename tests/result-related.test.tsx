@@ -165,6 +165,13 @@ describe('ResultScreen · quizzes relacionados', () => {
   });
 });
 
+describe('ResultScreen · revisión', () => {
+  it('sin respuestas ni revisión del servidor no pinta «Tus respuestas» vacío', () => {
+    render(<ResultScreen locale="es" quiz={makeQuiz()} result={null} answers={[]} review={[]} />);
+    expect(screen.queryByRole('heading', { name: 'Tus respuestas' })).not.toBeInTheDocument();
+  });
+});
+
 describe('getRelatedQuizzes', () => {
   beforeEach(() => {
     dbMocks.filters = [];

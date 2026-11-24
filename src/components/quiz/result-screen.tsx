@@ -675,82 +675,89 @@ export function ResultScreen({
               </p>
             </div>
 
-            <div className="arcade-result-review">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <h3 className="font-display text-text-primary mt-2 text-xl font-bold md:text-2xl">
-                    {copy.answerTrail}
-                  </h3>
+            {/* Sin intento recuperable el servidor devuelve la revisión vacía: no
+                se pinta un panel «Tus respuestas» sin respuestas. */}
+            {(review ?? answers).length > 0 ? (
+              <div className="arcade-result-review">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <h3 className="font-display text-text-primary mt-2 text-xl font-bold md:text-2xl">
+                      {copy.answerTrail}
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              <AnimatePresence initial={false}>
-                {
-                  <motion.div
-                    {...entrance(reduceMotion, {
-                      initial: { opacity: 0, y: 16 },
-                      animate: { opacity: 1, y: 0 },
-                      exit: { opacity: 0, y: 16 },
-                    })}
-                    className="mt-5 space-y-3"
-                  >
-                    {(
-                      review ??
-                      answers.map((answer) => {
-                        const question = quiz.questions.find(
-                          (item) => item.id === answer.question_id
-                        );
-                        return {
-                          questionId: answer.question_id,
-                          question: question?.question ?? '',
-                          selectedOptionText:
-                            question?.options.find(
-                              (option) => option.id === answer.selected_option_id
-                            )?.text ?? null,
-                          correctOptionText: null,
-                          isCorrect: answer.is_correct,
-                          explanation: question?.explanation ?? null,
-                        } satisfies QuizReviewItem;
-                      })
-                    ).map((item, index) => {
-                      const isTrivia = quiz.quiz_type === 'trivia';
+                <AnimatePresence initial={false}>
+                  {
+                    <motion.div
+                      {...entrance(reduceMotion, {
+                        initial: { opacity: 0, y: 16 },
+                        animate: { opacity: 1, y: 0 },
+                        exit: { opacity: 0, y: 16 },
+                      })}
+                      className="mt-5 space-y-3"
+                    >
+                      {(
+                        review ??
+                        answers.map((answer) => {
+                          const question = quiz.questions.find(
+                            (item) => item.id === answer.question_id
+                          );
+                          return {
+                            questionId: answer.question_id,
+                            question: question?.question ?? '',
+                            selectedOptionText:
+                              question?.options.find(
+                                (option) => option.id === answer.selected_option_id
+                              )?.text ?? null,
+                            correctOptionText: null,
+                            isCorrect: answer.is_correct,
+                            explanation: question?.explanation ?? null,
+                          } satisfies QuizReviewItem;
+                        })
+                      ).map((item, index) => {
+                        const isTrivia = quiz.quiz_type === 'trivia';
 
-                      return (
-                        <div
-                          key={item.questionId}
-                          className={cn(
-                            'arcade-review-item',
-                            isTrivia &&
-                              (item.isCorrect ? 'arcade-review-correct' : 'arcade-review-incorrect')
-                          )}
-                        >
-                          <span className="arcade-play-label">
-                            {copy.question} {index + 1}
-                          </span>
-                          <p className="text-text-primary mt-2 text-sm leading-relaxed font-medium">
-                            {item.question}
-                          </p>
-                          <p className="text-text-secondary mt-3 text-sm">
-                            {copy.yourAnswer}: {item.selectedOptionText || copy.skipped}
-                          </p>
-                          {isTrivia && !item.isCorrect && item.correctOptionText && (
-                            <p className="text-success mt-2 text-sm font-medium">
-                              {uiLocale === 'es' ? 'Correcta' : 'Correct'}: {item.correctOptionText}
+                        return (
+                          <div
+                            key={item.questionId}
+                            className={cn(
+                              'arcade-review-item',
+                              isTrivia &&
+                                (item.isCorrect
+                                  ? 'arcade-review-correct'
+                                  : 'arcade-review-incorrect')
+                            )}
+                          >
+                            <span className="arcade-play-label">
+                              {copy.question} {index + 1}
+                            </span>
+                            <p className="text-text-primary mt-2 text-sm leading-relaxed font-medium">
+                              {item.question}
                             </p>
-                          )}
-                          {item.explanation && (
-                            <div className="arcade-explanation">
-                              <strong>{copy.explanation}</strong>
-                              <p>{item.explanation}</p>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </motion.div>
-                }
-              </AnimatePresence>
-            </div>
+                            <p className="text-text-secondary mt-3 text-sm">
+                              {copy.yourAnswer}: {item.selectedOptionText || copy.skipped}
+                            </p>
+                            {isTrivia && !item.isCorrect && item.correctOptionText && (
+                              <p className="text-success mt-2 text-sm font-medium">
+                                {uiLocale === 'es' ? 'Correcta' : 'Correct'}:{' '}
+                                {item.correctOptionText}
+                              </p>
+                            )}
+                            {item.explanation && (
+                              <div className="arcade-explanation">
+                                <strong>{copy.explanation}</strong>
+                                <p>{item.explanation}</p>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </motion.div>
+                  }
+                </AnimatePresence>
+              </div>
+            ) : null}
           </section>
         </div>
       </div>
